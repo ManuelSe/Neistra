@@ -1,0 +1,17 @@
+{
+  "stats": {
+    "startTime": "2026-11-04T21:02:49.237Z",
+    "duration": 581395.873,
+    "expected": 63,
+    "skipped": 374,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "qualification": "failed, then gracefully interrupted to investigate; not a passing gate",
+  "failure": "movement test injected selection before reload completed, so project initialization correctly cleared it",
+  "passed": 63,
+  "failed": 1,
+  "interrupted": 1,
+  "skipped": 2,
+  "did_not_run": 371
+}

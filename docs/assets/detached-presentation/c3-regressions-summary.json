@@ -1,0 +1,668 @@
+{
+  "records": [
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 6947
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "removes a native inferred protein bond durably and restores it on Undo",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7061
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10088
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7073
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5294
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9318
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5615
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "removes a native inferred protein bond durably and restores it on Undo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 6883
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9756
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 6918
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5044
+    },
+    {
+      "file": "direct-molecular-modeling.spec.ts",
+      "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8597
+    },
+    {
+      "file": "interactions-lifecycle.spec.ts",
+      "title": "keeps centroid overlays current through scenes, deletion and project changes",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 13277
+    },
+    {
+      "file": "interactions-lifecycle.spec.ts",
+      "title": "keeps centroid overlays current through scenes, deletion and project changes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 126
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 11163
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 12669
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 16528
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8922
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 130
+    },
+    {
+      "file": "minimization-live.spec.ts",
+      "title": "renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 125
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10771
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4961
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10893
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "retires a quiet run after status transport failure without a late canonical edit",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9376
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "hands Style selection focus to explicit minimization setup",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 3949
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "hands Interactions focus to explicit minimization setup",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4018
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "keeps external focus when a quiet shortcut retires Style selection",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10215
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "keeps external focus when a quiet shortcut retires Interactions",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10144
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7476
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4811
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7921
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "retires a quiet run after status transport failure without a late canonical edit",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7275
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "hands Style selection focus to explicit minimization setup",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 3840
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "hands Interactions focus to explicit minimization setup",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 3900
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "keeps external focus when a quiet shortcut retires Style selection",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8499
+    },
+    {
+      "file": "modeling-toolbar.spec.ts",
+      "title": "keeps external focus when a quiet shortcut retires Interactions",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7923
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 85564
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9558
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 31991
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 22123
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 3
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 119
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 2
+    },
+    {
+      "file": "rebranding-zoom.spec.ts",
+      "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 1
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 12807
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 24215
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 12403
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7128
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 7453
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 19242
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10670
+    },
+    {
+      "file": "surface-objects.spec.ts",
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5848
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "applies complete representations, navigation, isolation, and named scenes",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 19308
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9252
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "explains unavailable ligand focus for protein-only content",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4062
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+      "project": "chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 70
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "shows a usable WebGL failure instead of a blank viewer",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 1958
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "applies complete representations, navigation, isolation, and named scenes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 121
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 113
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "explains unavailable ligand focus for protein-only content",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 107
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 3277
+    },
+    {
+      "file": "viewer-controls.spec.ts",
+      "title": "shows a usable WebGL failure instead of a blank viewer",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 130
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8624
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 16696
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9637
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8319
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 12773
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "chromium",
+      "status": "skipped",
+      "retry": 0,
+      "duration_ms": 71
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4968
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4794
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4425
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "releases native navigation keys held before movement starts",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5343
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8175
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 16018
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9387
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8092
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 13329
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 19250
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4839
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4548
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 4590
+    },
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "title": "releases native navigation keys held before movement starts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5212
+    }
+  ],
+  "stats": {
+    "startTime": "2026-11-04T20:29:30.117Z",
+    "duration": 730320.794,
+    "expected": 69,
+    "skipped": 13,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

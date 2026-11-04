@@ -1,4 +1,6 @@
 import { surfaceObject } from "./molecular-fixtures";
+import { PresentationContext } from "../presentation/context";
+import type { PresentationController } from "../presentation/controller";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -413,6 +415,8 @@ describe("lazy structure loading", () => {
   it("surfaces a failed projection and retries successfully", async () => {
     const user = userEvent.setup();
     const fake = new FakeViewer();
+    const update = vi.fn();
+    const presentation = { bind: () => () => undefined, update } as unknown as PresentationController;
     let fails = true;
     vi.spyOn(globalThis, "fetch").mockImplementation(() =>
       Promise.resolve(
@@ -433,26 +437,28 @@ describe("lazy structure loading", () => {
       defaultOptions: { queries: { retry: false } },
     });
     render(
-      <StructureViewer
+      <PresentationContext value={presentation}><StructureViewer
         project={project()}
         theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
         createViewer={() => fake}
-      />,
+      /></PresentationContext>,
       { wrapper: wrapper(queryClient) },
     );
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "One or more structures could not be loaded.",
     );
+    await waitFor(() => expect(update).toHaveBeenLastCalledWith(fake, "The molecular scene is unavailable", false));
     fails = false;
     await user.click(screen.getByRole("button", { name: "Retry" }));
     await waitFor(() =>
       expect(fake.syncs.at(-1)?.map((item) => item.entryId)).toEqual(["protein"]),
     );
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    await waitFor(() => expect(update).toHaveBeenLastCalledWith(fake, null, false));
   });
 
   it("reflects application selection and emits only explicit viewer picks", async () => {

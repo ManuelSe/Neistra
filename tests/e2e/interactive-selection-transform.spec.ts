@@ -456,14 +456,6 @@ test("explains empty, locked and wholly hidden movement targets without changing
   const mobile = info.project.name === "mobile-chromium";
   let project = await simpleMovement(page, request, mobile);
   const original = await structure(request, project.id, project.entries[0].id);
-  const selectTarget = async () => {
-    await page.evaluate(async ({ id, entry }) => {
-      const path = "/src/store/selection.ts";
-      const { useSelectionStore } = await import(/* @vite-ignore */ path);
-      useSelectionStore.getState().setProject(id);
-      useSelectionStore.getState().replace({ schema_version: 1, atoms: [{ structure_id: entry, atom_id: 1 }], granularity: "atom", source: "inspector" });
-    }, { id: project.id, entry: project.entries[0].id });
-  };
   await page.evaluate(async () => { const path = "/src/store/selection.ts"; (await import(/* @vite-ignore */ path)).useSelectionStore.getState().clear(); });
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Select atoms before starting" })).toBeVisible();
@@ -477,8 +469,11 @@ test("explains empty, locked and wholly hidden movement targets without changing
       expect(unlocked.status()).toBe(200); project = await unlocked.json();
     }
     await page.reload();
+    await expect(page.locator(".viewer-status")).toContainText(
+      condition === "lock" ? "1 visible / 1 loaded" : "0 visible",
+    );
     if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
-    await selectTarget();
+    await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
     await page.getByRole("tab", { name: "transform", exact: true }).click();
     await page.getByRole("button", { name: "Move selection", exact: true }).click();
     await expect(page.getByRole("alert").filter({ hasText: condition === "lock" ? "Unlock Ethanol before moving the selection" : "Show selected atoms in the viewer" })).toBeVisible();

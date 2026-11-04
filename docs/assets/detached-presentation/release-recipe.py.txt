@@ -1,0 +1,67 @@
+"""Generate the explicit candidate/exact-master gate, including actual prior readers."""
+import json
+from pathlib import Path
+import sys
+
+label = sys.argv[1]
+root = Path.cwd()
+old = Path('/tmp/neistra97-reader-0270')
+run = Path('/tmp') / f'neistra97-{label}'
+assert not run.exists(), 'Use a fresh isolated run directory.'
+run.mkdir()
+uv = str(root/'.venv/bin/uv')
+python = str(root/'.venv/bin/python')
+paths = ':'.join(str(root/p) for p in ['apps/api/src','packages/neistra_core/src','packages/neistra_demo_plugin/src'])
+oldpaths = ':'.join(str(old/p) for p in ['apps/api/src','packages/neistra_core/src','packages/neistra_demo_plugin/src'])
+out = root/'docs/assets/detached-presentation'
+steps = []
+def add(label, command, environment=None, cwd=None):
+    step = {'label':label,'command':command}
+    if environment:step['environment'] = environment
+    if cwd:step['cwd'] = str(cwd)
+    steps.append(step)
+
+add('uv',[uv,'sync','--frozen'])
+add('pnpm',['corepack','pnpm','install','--frozen-lockfile'])
+db = {'NEISTRA_DATA_DIR':str(run/'database'),'PYTHONPATH':paths}
+add('migration',[uv,'run','alembic','upgrade','head'],db)
+add('downgrade',[uv,'run','alembic','downgrade','base'],db)
+add('remigration',[uv,'run','alembic','upgrade','head'],db)
+add('ruff',[uv,'run','ruff','check','.'])
+add('mypy',[uv,'run','mypy','apps/api','packages/neistra_core','packages/neistra_demo_plugin'])
+add('python',[uv,'run','pytest'],{'MOLWEAVE_DATA_DIR':str(run/'database')})
+for name, command in [('lint','lint'),('types','typecheck'),('web','test')]:
+    add(name,['corepack','pnpm','--dir','apps/web',command])
+add('supervisor',['corepack','pnpm','test:dev'])
+add('build',['corepack','pnpm','--dir','apps/web','build'])
+add('browser',['corepack','pnpm','exec','playwright','test','--reporter=list,json','--max-failures=1'],{'NEISTRA_E2E_DATA_DIR':str(run/'e2e')})
+add('versions',[python,str(out/'versions.py.txt')],db)
+add('production',[python,str(out/'production-audit.py.txt')])
+add('legacy-cli',[uv,'run','pytest','tests/unit/test_namespace_compatibility.py'],{'MOLWEAVE_DATA_DIR':str(run/'database')})
+helper = str(root/'tests/support/rebranding_reader_qualification.py')
+for direction, producer, reader in [('forward',root,old),('reverse',old,root)]:
+    data = run/direction
+    for mode, implementation in [('produce',producer),('read',reader)]:
+        current = implementation == root
+        environment = {'MOLWEAVE_DATA_DIR':str(data), 'MOLWEAVE_DATABASE_URL':f'sqlite:///{data}/molweave.db',
+                       'PYTHONPATH':(paths if current else oldpaths)+':'+str(implementation)}
+        if mode=='produce':
+            add(f'{direction}-migration',[python,'-m','alembic','upgrade','head'],environment,implementation)
+        report = out/f'{label}-{direction}-{mode}.json'
+        command = [python,helper,mode,'--data-dir',str(data),'--implementation-root',str(implementation),
+                   '--expected-version','0.28.0' if current else '0.27.0','--evidence',str(report)]
+        command.append('--expect-new-names')
+        add(f'{direction}-{mode}',command,environment,implementation)
+add('diff',['git','diff','--check'])
+recipe = {'label':label,'require_clean':True,'environment':{
+    'NEISTRA_AMBERTOOLS_PREFIX':'/datadisk/dev/.neistra-tools/ambertools-24.8',
+    'PLAYWRIGHT_BROWSERS_PATH':str(root/'.playwright'),
+    'OPENBLAS_NUM_THREADS':'1', 'OMP_NUM_THREADS':'1', 'NEISTRA_PERFORMANCE':'0',
+    'NEISTRA_E2E_API_PORT':'8310','NEISTRA_E2E_WORKER_PORT':'8311','NEISTRA_E2E_WEB_PORT':'5473',
+    'PLAYWRIGHT_JSON_OUTPUT_FILE':str(out/f'{label}-browser.json'),
+    'NEISTRA_MINIMIZATION_EVIDENCE_DIR':str(run/'native'),
+},'steps':steps}
+path = out/f'{label}-recipe.json'
+assert not path.exists()
+path.write_text(json.dumps(recipe,indent=2)+'\n')
+print(path, len(steps),'steps')

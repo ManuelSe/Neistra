@@ -1,0 +1,8 @@
+{
+  "entry": "apps/web/dist/assets/entry-fQkYOlT4.js",
+  "bytes": 4593,
+  "entry_sha256": "f100a2fcde9979410f30778f2b5b4c3a0ff05a5e5e55b56964bbc5bb62bea77c",
+  "no_workspace_api_renderer_in_entry": true,
+  "test_harness_absent": true,
+  "license_sha256": "eabd1831ed605a29cf9d7e60221c019c1bc026add81e3c0686ce5f24b3d4d500"
+}

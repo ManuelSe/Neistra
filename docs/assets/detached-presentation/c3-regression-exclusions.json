@@ -1,0 +1,19 @@
+{
+  "count": 13,
+  "all_in_verified_v0270_baseline": true,
+  "cases": [
+    "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a qualifies native touch navigation, secondary tools and accessible theme layouts",
+    "[mobile-chromium] \u203a tests/e2e/interactions-lifecycle.spec.ts \u203a keeps centroid overlays current through scenes, deletion and project changes",
+    "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+    "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+    "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+    "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+    "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps shell and inspector controls bounded around both responsive breakpoints",
+    "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps the molecular editor keyboard controls reachable at actual browser zoom",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent"
+  ]
+}

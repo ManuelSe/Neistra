@@ -45,7 +45,18 @@ export interface ViewerSelectionEvent {
 
 export type MovementInteraction = "inactive" | "transform" | "camera";
 
+export interface PresentationPointer { x: number; y: number }
+
+export interface PresentationCapture {
+  stream: MediaStream;
+  /** Request a native draw so an unchanged scene supplies its first frame. */
+  refresh(): void;
+  subscribeAvailability?(listener: (available: boolean) => void): () => void;
+  subscribePointer?(listener: (point: PresentationPointer | null) => void): () => void;
+}
+
 export interface MolecularViewer {
+  capturePresentation?(): PresentationCapture;
   mount(target: HTMLElement): Promise<void>;
   setBackgroundColor(cssColor: string): void;
   syncStructures(structures: ViewerStructure[]): Promise<void>;

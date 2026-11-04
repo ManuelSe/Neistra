@@ -1,0 +1,79 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Presentation lifecycle 1793827395335 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Presentation lifecycle 1793827395335
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Import 1 structures from 1 files" [ref=e43] [cursor=pointer]':
+        - img [ref=e44] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e47]:
+        - img [ref=e48]
+      - button "Save checkpoint" [ref=e51] [cursor=pointer]:
+        - img [ref=e52] [cursor=pointer]
+      - button "Use dark theme" [ref=e57] [cursor=pointer]:
+        - img [ref=e58] [cursor=pointer]
+  - status:
+    - generic: 1 structure imported.
+    - button "Dismiss message" [ref=e60] [cursor=pointer]: Close
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - region "3D molecular viewer" [ref=e65]
+        - generic:
+          - status:
+            - generic: 1 visible / 1 loaded / 0 selected
+          - toolbar "Viewer quick actions" [ref=e73]:
+            - button "Detach viewer" [ref=e74] [cursor=pointer]:
+              - img [ref=e75] [cursor=pointer]
+            - generic [ref=e78]: Pick
+            - group "Viewer picking mode" [ref=e79]:
+              - button "Pick atoms" [pressed] [ref=e80] [cursor=pointer]: Atom
+              - button "Pick residues" [ref=e81] [cursor=pointer]: Residue
+              - button "Pick chains" [ref=e82] [cursor=pointer]: Chain
+              - button "Pick structures" [ref=e83] [cursor=pointer]: Structure
+            - group "Viewer focus actions" [ref=e84]:
+              - button "Fit all visible" [ref=e85] [cursor=pointer]:
+                - img [ref=e86] [cursor=pointer]
+              - button "Focus selection" [disabled] [ref=e87]:
+                - img [ref=e88]
+              - button "Focus visible ligands" [ref=e94] [cursor=pointer]:
+                - img [ref=e95] [cursor=pointer]
+              - button "Style selection" [disabled] [ref=e98]:
+                - img [ref=e99]
+              - button "Interactions" [ref=e105] [cursor=pointer]:
+                - img [ref=e106] [cursor=pointer]
+          - group "Molecular tools" [ref=e111]:
+            - region "Transformation tools" [ref=e112]:
+              - button "Transform selection" [disabled] [ref=e113]:
+                - img [ref=e114]
+            - button "Edit molecule" [ref=e120] [cursor=pointer]:
+              - img [ref=e121] [cursor=pointer]
+            - button "Minimize selection" [disabled] [ref=e125]:
+              - img [ref=e126]
+        - button "Open viewer controls" [ref=e129] [cursor=pointer]:
+          - img [ref=e130] [cursor=pointer]
+      - region "Protein sequence viewer" [ref=e134]:
+        - generic [ref=e135]:
+          - button "Collapse sequences" [expanded] [ref=e136] [cursor=pointer]:
+            - img [ref=e137] [cursor=pointer]
+          - generic [ref=e139]: Sequence
+          - generic [ref=e140]: No displayed protein chains
+          - button "Hide sequences" [ref=e141] [cursor=pointer]:
+            - img [ref=e142] [cursor=pointer]
+```

@@ -1,5 +1,41 @@
 # V0.1 Requirement Evidence
 
+## Issue #97 — Complete clean candidate for0.28.0
+
+Clean `663c5fa1f283c72d0bc57fff0f64a4ee4015f46b` passes all 24release steps:
+**1,333 Python (zero skips),392 frontend,14 supervisor,364 browser passes /74 registered
+exclusions**, zero failures/flakes/automatic retries.62 existing exclusion identities
+are exactly unchanged;12 new mobile exclusions implement approved desktop-only
+presentation qualification. All 713 source hashes and lossless logs verify.
+[Summary](assets/detached-presentation/c4-candidate5-summary.json) and
+[full evidence](assets/detached-presentation/README.md) retain commands, actual
+reader roots, both directions persistence/archive checks, migration round trip,
+production/license/schema/dependency audits and earlier diagnostics separately.
+No new migration or scientific/public API change. Local full-diff self-review has
+no unresolved consequential finding; no independent approval or strict reference
+performance certification is claimed. PR integration and exact merged-master gate
+still block publication.
+
+## Issue #97 — C3 implementation and focused qualification
+
+The [approved contract](plans/issue-97-detached-presentation-viewer.md) and D-151
+are implemented through C3.392frontend tests,12native presentation cases,1headed
+ordinary-window/fullscreen case and69existing desktop/mobile workflow regressions
+pass, with13exactly retained baseline layout exclusions. Lint/types/build and
+production entry/license checks pass. No application version, API, schema,
+migration, dependency or scientific-model change has occurred at this checkpoint.
+
+[Evidence](assets/detached-presentation/README.md) includes actual media/raster,
+all measurement types, surfaces/interactions, source lifecycle/two-owner isolation,
+authored topology/Undo/Redo, all approved preview families, real minimization and
+Cancel, real100%/200%zoom, keyboard/axe, headed movement/maximization/fullscreen,
+58,870-atom resource bounds and lossless diagnostics. The
+[requirement map](assets/detached-presentation/requirements.md) distinguishes
+implemented outcomes from approved scope dispositions. Review is local
+implementer self-review; independent review and strict reference timing are not
+claimed. Final-version actual readers, complete candidate/exact-master gates,
+PR/review/merge and publication remain before release.
+
 ## Issue #99 — Released v0.27.0 / exact-master qualification
 
 [PR #131](https://github.com/ManuelSe/Neistra/pull/131) is normally merged at
@@ -1603,3 +1639,12 @@ pass. [Publication](assets/selection-mode-hover/c3-publication.json) verifies ex
 annotated tag, stable release/full notes, downloaded ZIP SHA256/CRC/internal hashes
 and [close-out reply](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833); final docs/cleanup audit follows there. No migration
 or public API/schema/chemistry/dependency upgrade; pinned readback patch explicit.
+
+## Issue #97 final-version qualification preparation
+
+Five application versions agree at0.28.0. Release preparation retains every older
+archive-producer assertion and adds0.27.0. The explicit recipe generator and runner
+under `assets/detached-presentation/` use disposable databases/ports, locked native
+chemistry, portable correctness and actual tagged0.27.0 implementation roots.
+Candidate and exact-master success are required before publication; preparation
+alone is not qualification evidence.

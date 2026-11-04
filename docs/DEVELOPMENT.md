@@ -139,6 +139,36 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Detached presentation qualification (issue #97)
+
+The lightweight presentation entry uses local canvas capture and a same-origin
+owner bridge; it does not start another renderer, project query client or job
+session. Keep source visibility/resolution limits explicit and preserve D-151.
+No database, API, scientific-model or dependency change is required. The
+[approved contract](plans/issue-97-detached-presentation-viewer.md) and
+[evidence index](assets/detached-presentation/README.md) record checkpoint status.
+
+Focused native workflow and ordinary headed desktop commands:
+
+```bash
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/detached-presentation.spec.ts \
+  tests/e2e/detached-presentation-workflows.spec.ts \
+  tests/e2e/detached-presentation-resources.spec.ts \
+  tests/e2e/detached-presentation-zoom.spec.ts --project=chromium
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/detached-presentation-workflows.spec.ts --project=chromium \
+  --headed --grep 'maps the leader pointer'
+```
+
+Use dedicated data/ports as above, the locked native toolchain for minimization,
+and an available desktop display for the headed invocation. The user explicitly
+removes separate physical-monitor testing; ordinary movement/maximization/
+fullscreen and unequal viewports satisfy that amended requirement. Tests retain
+real WebGL/media frames, scientific invariants, initial failures and exact actual
+browser zoom; mocks alone cannot qualify capture. Full release gates and actual
+preceding-reader compatibility remain independent requirements.
+
 ## Technical rebranding qualification (0.27.0)
 
 The [issue99 contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
@@ -896,3 +926,15 @@ client/API versions for rollback with retained managed data; head 0014 remains.
 The documentation publication audit corrects a report's previous-release baseline
 reference with recorded executed-source provenance; application/test bytes and
 the qualified runtime tag remain unchanged.
+
+### Issue #97 release and rollback qualification
+
+Version 0.28.0 adds transient local presentation only. Head0014 and all durable
+schemas remain unchanged. Stop services and back up the entire managed store
+before deployment; use the documented upgrade command. No new migration is added.
+The actual tagged 0.27.0 reader and final 0.28.0 producer must pass in both
+directions, using separate processes and explicit implementation roots, including
+both filename styles. Rollback uses matching preceding client/server and explicit
+legacy data/database settings when necessary. Capture sessions end rather than
+migrate. Reproducible recipes and lossless gate logs live in
+[the presentation evidence directory](assets/detached-presentation/README.md).

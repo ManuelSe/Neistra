@@ -6310,3 +6310,151 @@ without retargeting the fixed runtime tag; all qualified runtime/test/tool sourc
 identities must remain unchanged. Final issue-response and branch-cleanup receipts
 are maintained in the verified issue reply. Deferred public packaging/alias-removal
 policy and rejected history/store/serialized-identifier rewrites remain as approved.
+
+## D-151 — Local read-only presentation mirrors the molecular canvas
+
+Date: 2026-11-04. Status: approved planning; implementation awaits `/goal`.
+
+The [issue #97 contract](plans/issue-97-detached-presentation-viewer.md) adds one
+local presentation window displaying captured main molecular canvas output. Keep
+the capture boundary typed behind MolecularViewer and its lazy renderer adapter.
+The child mounts neither the workspace nor a second molecular renderer, project
+queries, editing handlers or job subscriptions. It has no independent camera,
+selection or project authority. Backend normalized artifacts and existing
+application owners remain authoritative; rendered output is transient presentation,
+never a molecular store, project snapshot or scientific calculation result.
+
+An application-level controller above responsive viewer remounts owns the child,
+capture source and cleanup. Use a narrow same-origin bridge with exact window,
+origin, session and source-generation checks. Share the media object through the
+same-origin relationship, not serialized scene messages. Child replies are limited
+to readiness/lifecycle acknowledgement, never workspace commands. Retire sources
+and obscure stale output on project changes, source replacement and disconnection.
+Distinguish source health from an unchanged stationary image. Parent reload ends
+the session; child reload can reconnect to its still-current owner.
+
+Mirror existing molecular annotations, highlights, surfaces, appearance and live
+previews, preserving their existing scientific pause/visibility rules. Keep the
+accepted canvas-rendered orientation axes. A latest-value normalized pointer maps
+through the displayed source-image rectangle and never changes selection. Retain
+necessary temporary preview/loading/error/disconnected feedback while steady-state
+presentation remains free of application controls. Fullscreen requires a child
+user gesture and retains browser exit behavior.
+
+Explicitly accepted limits: output detail follows main canvas resolution with
+aspect-preserving letterboxing; main workspace must remain rendering. Hidden,
+minimized, suspended or unavailable sources show paused/disconnected feedback
+instead of promising background operation. Desktop Chromium qualification does
+not imply every browser-family certification. Remote sharing, recording, automatic
+monitor placement, independent high-resolution rendering and image export are
+outside this slice; #128 independently owns image export.
+
+Rationale: mirroring the existing canvas carries the entire visible molecular
+workflow without duplicate geometry, surface calculations, chemistry, artifact
+fetches or complex transient scene synchronization. An independent renderer,
+BroadcastChannel scene replication and 3D pointer reconstruction are unnecessary
+for the approved outcome. Native WebGL capture, annotation/preview fidelity,
+resizing, input isolation and source lifecycle are a mandatory first gate. Failure
+requires a revised approved plan, not a silent second-renderer fallback or reduced
+essential coverage. Measure capture/compositing overhead; do not promise constant
+frame rate or hardware-independent performance.
+
+Preserve D-148 correctness/timing policy, D-149 interface/axes ownership and D-150
+technical compatibility. No new HTTP/job/plugin, durable state, scientific
+algorithm, dependency or migration is planned. Project/viewer/archive remain2,
+normalized/selection/component remain1 and Alembic remains0014. Proposed stable
+minor0.28.0 reflects a new compatible user capability on established stable0.27.0,
+subject to final version/tag recheck and complete candidate/exact-master gates.
+This planning checkpoint changes no application version or runtime behavior.
+
+### D-151 implementation note — issue #97 M1/C1
+
+Explicit `/goal` authorizes implementation after planning3631543. The first native
+gate qualifies capture on pinned desktop Chromium: actual annotation raster and
+coordinate-preview/cancel output match source canvas content, fullscreen and
+one-window reuse work, and child input cannot alter main camera/project/originals.
+The capture refresh requests one native draw to initialize an otherwise stationary
+scene. A separate bootstrap import avoids loading workspace/API/renderer code in
+the child. No molecular/saved-state authority changes.
+
+The test source must be the actual canvas, not an element screenshot that includes
+application controls composited above it. Preserve initial diagnostic failures;
+correct only that observation and mounted-viewer readiness, without relaxing raster
+acceptance. C2 source/connection lifecycle and C3 comprehensive visual/pointer/
+accessibility/resource gates remain pending. No schema/migration/version/dependency
+or scientific change is made by C1.
+
+### D-151 verification correction — explicit user guidance, 2026-11-04
+
+The user approves replacing the physical second-monitor check with headed desktop
+window/fullscreen tests and automated unequal-viewport coverage, and further
+clarifies that moving a window to another monitor needs no special test separate
+from ordinary window movement. The issue #97 contract records this amendment.
+Verify ordinary desktop movement/resizing/fullscreen and retain honest environment
+evidence. Do not require or claim a physical second-monitor test. Product behavior,
+source-resolution/visibility limits and scientific boundaries remain unchanged.
+
+### D-151 source-lifecycle qualification — issue #97 M2/C2
+
+The App controller retires sources before project ownership changes and survives
+responsive renderer replacement. Only exact owned-window/session acknowledgements
+extend the connection lease. Heartbeats publish bounded control state without
+forcing stationary redraws. Hidden/muted/ended/context-lost sources obscure output;
+closing the child releases tracks/listeners/timers. Parent teardown sends terminal
+disconnection rather than silently leaving a stale scene. Child reload may reuse
+the current source; parent reload requires a new explicit session.
+
+Review adds a receiver-local source epoch in addition to the session generation:
+late frame/play callbacks from a replaced stream cannot expose output or clear the
+replacement callback's ownership. Tests cover those delayed callbacks, persistent
+playback denial, lost ownership and first-frame waiting. Popup failures have their
+own application message and cannot mark molecular rendering as failed. Actual
+native context loss and project/remount/reload workflows pass. No molecular/API/
+schema/migration/scientific/dependency/version change. C3 and release gates remain.
+
+### D-151 visual and accessibility implementation — issue #97 M3/C3
+
+Pointer observations remain passive and bounded to one latest packet per33ms,
+with immediate retirement/leave clearing and two-second child inactivity expiry.
+Map through the contained source image, never the complete letterboxed window or
+canonical selection. The child fullscreen affordance fades while idle, remains
+visible while focused, retains F/native exit, and reports denied requests without
+interrupting media. A visually hidden heading supports the scene-only accessible
+shell without adding visible application chrome.
+
+Initial video stays hidden until a current source frame has actually painted.
+Explicit initialization/projection failures propagate to the child, including
+when no viewer could bind, rather than leaving an apparently valid empty/stale
+scene. Existing source warnings, annotation-overlap limitations and scientific
+preview pauses remain owned by the main application. No chemistry, API, schema,
+migration or dependency change is introduced.
+
+Twelve native feature cases, real100%/200%zoom, eighteen presentation unit cases
+within392frontend tests and a headed ordinary-window/fullscreen case pass. The
+58,870-atom resource case retains one main renderer/one active capture per owner,
+no repeat structure reads and stopped tracks across three cycles. Existing
+desktop/mobile regression qualification and complete release gates remain pending
+at this implementation note; exact checkpoint receipts govern final claims.
+
+### D-151 C3 checkpoint qualification — 2026-11-04
+
+All392frontend,12native feature,1headed ordinary-window/fullscreen and69existing
+desktop/mobile workflow cases pass. The13layout exclusions are an exact subset of
+the verified0.27.0 baseline, with no new scientific exclusion. Lint/types/build,
+shipped license and lightweight production-entry/test-harness audits pass. The
+headed browser observes movement to80,70 and reports maximization; actual browser
+zoom1/2 preserves44px controls and accessibility. The user-approved ordinary-desktop
+amendment is satisfied without claiming physical multi-monitor testing.
+
+Source/projection initialization failures now have explicit child status, and
+video remains hidden until a current frame paints. This removes initial zero-size
+media observation and avoids presenting failed loading as an empty valid scene.
+Tests await acknowledged display changes, retain correct authored ethane2C/6H
+counts, and use the actual toolbar launcher. No chemistry or API behavior was
+changed to satisfy tests. Full release/actual-reader qualification remains C4/C5.
+
+D-151 final review note (issue97): source generations and binding leases have
+separate lifetimes. Capture failure may advance output invalidation without
+preventing the current renderer owner from releasing its binding. The regression
+asserts release after an unsupported capture and preserves stale-binding rejection.
+No molecular owner or persisted contract changes.

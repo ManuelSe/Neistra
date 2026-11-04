@@ -1,4 +1,5 @@
 import { seedCoordinateProjections } from "./coordinates/cache";
+import { usePresentation } from "./presentation/context";
 import type { ResidueSelectionRequest, ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
@@ -12,7 +13,7 @@ import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Panel,
   PanelGroup,
@@ -192,6 +193,8 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+  const presentation = usePresentation();
+  useLayoutEffect(() => { presentation?.retire(); }, [presentation, activeProjectId]);
   useEffect(() => setNewMoleculeOpen(false), [project?.id]);
 
   useEffect(() => {

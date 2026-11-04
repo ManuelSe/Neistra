@@ -6,6 +6,25 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Detached presentation (issue #97)
+
+The icon launcher has an accessible name and ordinary keyboard access. The
+presentation entry exposes a named main region and visually hidden level-one
+heading. Its sole action is a 44px fullscreen control with an F shortcut; transient
+controls remain visible while focused, and native exit behavior is retained.
+Loading, source loss and playback errors have explicit status, and uncommitted
+output has a temporary Preview indication. The passive leader-pointer ring is
+supplementary and never becomes selection or keyboard focus.
+
+Both-theme keyboard/axe checks and actual browser zoom at 100%/200% cover the new
+shell and reachable launcher. Headed desktop window/fullscreen evidence and
+unequal viewports implement the user's amended verification requirement; no
+separate physical second-monitor test or wider browser certification is claimed.
+See [presentation guidance](PRESENTATION.md) and its
+[checkpoint evidence](assets/detached-presentation/README.md) for qualification
+status. A video of molecular rendering is a visual presentation, not a complete
+nonvisual scientific interface or a whole-product accessibility certification.
+
 ## Selection gestures (issue #90)
 
 Issue #91 mouse hover is a supplementary transient entity preview. It retains the

@@ -1,0 +1,21 @@
+"""Package verified issue97 qualification receipts without claiming an installer."""
+import hashlib,json,subprocess,zipfile
+from pathlib import Path
+root=Path.cwd();out=root/'docs/assets/detached-presentation'
+gate=json.loads((out/'c5-merged1-gate.json').read_text());assert gate['complete'] and gate['branch']=='master' and gate['source_unchanged']
+commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert commit==gate['commit']
+for name,digest in gate['source_after'].items():assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,name
+paths=sorted(p for p in out.rglob('*') if p.is_file())
+paths += [root/'docs/plans/issue-97-detached-presentation-viewer.md',root/'docs/PRESENTATION.md',root/'tests/support/rebranding_reader_qualification.py']
+paths=sorted(set(paths))
+entries=[{'path':str(p.relative_to(root)),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in paths]
+manifest={'version':'0.28.0','qualified_commit':commit,'profile':gate['qualification_profile'],'kind':'qualification evidence; not an application installer','files':entries}
+target=Path('/tmp/neistra-v0.28.0-qualification.zip');assert not target.exists()
+with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as z:
+ for p in paths:z.write(p,str(p.relative_to(root)))
+ z.writestr('manifest.json',json.dumps(manifest,indent=2)+'\n')
+with zipfile.ZipFile(target) as z:
+ assert z.testzip() is None
+ for e in entries:assert hashlib.sha256(z.read(e['path'])).hexdigest()==e['sha256']
+receipt={'asset':str(target),'bytes':target.stat().st_size,'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),'manifest_files':len(entries),'qualified_commit':commit,'crc_and_internal_hashes_valid':True}
+Path('/tmp/neistra97-asset-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))

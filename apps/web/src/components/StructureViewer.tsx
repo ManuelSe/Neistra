@@ -1,4 +1,5 @@
 import { SequenceViewer } from "./SequenceViewer";
+import { usePresentation } from "../presentation/context";
 import { displayedProteinRows } from "../viewer/sequenceDisplay";
 import { useWorkspaceStore } from "../store/workspace";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
@@ -129,6 +130,7 @@ export function StructureViewer({
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
+  const presentation = usePresentation();
   const sequenceDisplay = useWorkspaceStore(state => state.sequenceDisplay);
   const sequenceWorkspace = useRef<HTMLDivElement>(null);
   const returnSequenceFocus = useRef(false);
@@ -168,6 +170,7 @@ export function StructureViewer({
   const [viewerReady, setViewerReady] = useState(false);
   const [sceneLoading, setSceneLoading] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
+  const [presentationError, setPresentationError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
@@ -242,6 +245,7 @@ export function StructureViewer({
     viewerRef.current = viewer;
     viewer.setBackgroundColor(VIEWER_BACKGROUND_COLORS[themeRef.current]);
     let active = true;
+    let releasePresentation: (() => void) | undefined;
     void viewer
       .mount(target)
       .then(() => {
@@ -253,10 +257,12 @@ export function StructureViewer({
             ?? (retained.projectId === project.id ? retained.camera : null);
           if (remembered) viewer.setCamera(remembered);
           setViewerReady(true);
+          releasePresentation = presentation?.bind(viewer);
         }
       })
       .catch((error: unknown) => {
         if (active) {
+          presentation?.unavailable("The molecular viewer could not start. Reload the workspace to retry.");
           setViewerError(
             error instanceof Error ? error.message : "The molecular viewer could not start.",
           );
@@ -287,6 +293,7 @@ export function StructureViewer({
     });
     return () => {
       active = false;
+      releasePresentation?.();
       if (initialSceneReady.current) {
         currentMovement.current?.rememberCamera(viewer.getCamera());
         useViewerCameraStore.getState().remember(project.id, viewer.getCamera());
@@ -302,7 +309,7 @@ export function StructureViewer({
       viewer.dispose();
       viewerRef.current = undefined;
     };
-  }, [createViewer, project.id]);
+  }, [createViewer, project.id, presentation]);
 
   useEffect(() => {
     viewerRef.current?.setBackgroundColor(VIEWER_BACKGROUND_COLORS[theme]);
@@ -553,6 +560,11 @@ export function StructureViewer({
   const loading =
     (!viewerReady && !viewerError) || structuresPending || sceneLoading;
   const failedQueries = [...structureQueries, ...hiddenSeedQueries].filter((query) => query.isError);
+  useEffect(() => {
+    if (viewerRef.current) presentation?.update(viewerRef.current,
+      viewerError || failedQueries.length ? "The molecular scene is unavailable" : loading ? "Loading molecular scene" : null,
+      Boolean(movementActive || coordinatePreview || modelPreview || minimizationPreview.patches.length));
+  }, [presentation, viewerError, failedQueries.length, loading, movementActive, coordinatePreview, modelPreview, minimizationPreview.patches.length]);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);
   const ligandAtoms = useMemo(
@@ -658,6 +670,10 @@ export function StructureViewer({
         zoom={factor => viewerRef.current?.zoom(factor)} /> : null}
       {(movementActive || coordinatePreview) && project.measurements.length ? <div className="measurement-preview-notice" role="status">Measurements paused during coordinate preview.</div> : null}
       <Tooltip.Provider delayDuration={350}>
+        {presentationError ? <div className="viewer-error" role="alert">
+          <span>{presentationError}</span>
+          <button type="button" onClick={() => setPresentationError(null)} aria-label="Dismiss presentation message">×</button>
+        </div> : null}
         <div className="viewer-header">
           <div className="viewer-status" role="status">
             <span>
@@ -692,6 +708,10 @@ export function StructureViewer({
             </div>
           ) : null}
           <ViewerToolbar
+            onPresentation={presentation ? () => {
+              const error = presentation.open();
+              setPresentationError(error);
+            } : undefined}
             onShowSequences={sequenceDisplay === "hidden" ? () => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("expanded"); } : undefined}
             interactionsOpen={interactionProjectId === project.id}
             onInteractions={() => { useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}

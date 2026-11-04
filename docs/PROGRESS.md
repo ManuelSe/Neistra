@@ -2,6 +2,38 @@
 
 ## Current milestone
 
+Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) implements the approved
+[detached presentation contract](plans/issue-97-detached-presentation-viewer.md)
+and D-151 on `feat/issue-97-detached-presentation-viewer`. **C4 candidate qualification
+is complete; PR integration and release remain.**
+
+Completed: one local read-only canvas presentation, one-window reuse, native
+fullscreen, bounded leader pointer, preview/failure feedback, source retirement,
+reload/disconnection cleanup and native visual/edit/minimization workflows.
+No second molecular renderer, child project queries or durable presentation state.
+All five application versions are 0.28.0. Public API contracts, persisted schemas,
+dependencies and scientific behavior remain unchanged; no new migration. Source resolution/visibility and pinned desktop Chromium are explicit limits.
+Ordinary headed window movement/fullscreen and unequal-viewports satisfy the
+explicit user amendment; no separate physical-monitor test is required.
+
+Clean 663c5fa passes all 24release steps: **1,333 Python (zero skips),392 frontend,
+14 supervisor,364 browser passes /74 registered exclusions**, zero final failures,
+flakes or automatic retries.62 existing exclusion identities are unchanged;12 new
+mobile exclusions reflect approved desktop-only presentation qualification.
+All 713 source identities and lossless logs verify. Actual tagged 0.27.0↔final 0.28.0
+readers, both suffixes, migration round trip and production/version/schema/dependency/
+license checks pass. [Summary](assets/detached-presentation/c4-candidate5-summary.json).
+Earlier failed diagnostic runs and readiness corrections are retained separately.
+Full-diff local self-review has no unresolved consequential finding; independent
+approval and strict reference-host timing are not claimed.
+
+No known implementation blocker. Next action: PR/review and normal merge, then
+complete exact-master qualification before annotated v0.28.0/release, issue response,
+documentation receipts and branch cleanup. The feature plan remains the detailed
+source of truth.
+
+### Previous completed milestone — issue #99
+
 Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) is delivered in
 [stable v0.27.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0) through
 [PR #131](https://github.com/ManuelSe/Neistra/pull/131). The

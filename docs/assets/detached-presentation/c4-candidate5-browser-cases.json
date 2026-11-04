@@ -1,0 +1,3944 @@
+[
+  {
+    "identity": "[chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H ammonia visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "chromium",
+    "title": "one-click +H ammonia visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H ammonia hidden retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "chromium",
+    "title": "one-click +H ammonia hidden retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H water visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "chromium",
+    "title": "one-click +H water visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H sulfide visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "chromium",
+    "title": "one-click +H sulfide visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H ammonia visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "one-click +H ammonia visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H ammonia hidden retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "one-click +H ammonia hidden retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H water visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "one-click +H water visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/automatic-hydrogen-editing.spec.ts \u203a one-click +H sulfide visible retains exact history and source",
+    "file": "automatic-hydrogen-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "one-click +H sulfide visible retains exact history and source",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a immediately reconciles bond closure, restores exact Undo/Redo, without a policy selector",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "chromium",
+    "title": "immediately reconciles bond closure, restores exact Undo/Redo, without a policy selector",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a optional native preview shows H movements/removals without publication and cancels cleanly",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "chromium",
+    "title": "optional native preview shows H movements/removals without publication and cancels cleanly",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a keeps compact bond controls and H changes accessible in both themes and narrow layouts",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "chromium",
+    "title": "keeps compact bond controls and H changes accessible in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a immediately reconciles bond closure, restores exact Undo/Redo, without a policy selector",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "immediately reconciles bond closure, restores exact Undo/Redo, without a policy selector",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a optional native preview shows H movements/removals without publication and cancels cleanly",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "optional native preview shows H movements/removals without publication and cancels cleanly",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/bond-hydrogen-reconciliation.spec.ts \u203a keeps compact bond controls and H changes accessible in both themes and narrow layouts",
+    "file": "bond-hydrogen-reconciliation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps compact bond controls and H changes accessible in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/coordinate-editing.spec.ts \u203a edits coordinates, reverses gestures, and validates protein superposition",
+    "file": "coordinate-editing.spec.ts",
+    "project": "chromium",
+    "title": "edits coordinates, reverses gestures, and validates protein superposition",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/coordinate-editing.spec.ts \u203a edits coordinates, reverses gestures, and validates protein superposition",
+    "file": "coordinate-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "edits coordinates, reverses gestures, and validates protein superposition",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+    "file": "demonstration-job.spec.ts",
+    "project": "chromium",
+    "title": "completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a runs a demonstration job in the mobile workspace without overlap",
+    "file": "demonstration-job.spec.ts",
+    "project": "chromium",
+    "title": "runs a demonstration job in the mobile workspace without overlap",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+    "file": "demonstration-job.spec.ts",
+    "project": "mobile-chromium",
+    "title": "completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a runs a demonstration job in the mobile workspace without overlap",
+    "file": "demonstration-job.spec.ts",
+    "project": "mobile-chromium",
+    "title": "runs a demonstration job in the mobile workspace without overlap",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-resources.spec.ts \u203a keeps large-scene capture bounded across repeated opening, navigation and closure",
+    "file": "detached-presentation-resources.spec.ts",
+    "project": "chromium",
+    "title": "keeps large-scene capture bounded across repeated opening, navigation and closure",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-resources.spec.ts \u203a keeps large-scene capture bounded across repeated opening, navigation and closure",
+    "file": "detached-presentation-resources.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps large-scene capture bounded across repeated opening, navigation and closure",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "chromium",
+    "title": "maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "chromium",
+    "title": "mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "chromium",
+    "title": "mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors real native minimization frames and restores committed output on cancel",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "chromium",
+    "title": "mirrors real native minimization frames and restores committed output on cancel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "mobile-chromium",
+    "title": "maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "mobile-chromium",
+    "title": "mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "mobile-chromium",
+    "title": "mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors real native minimization frames and restores committed output on cancel",
+    "file": "detached-presentation-workflows.spec.ts",
+    "project": "mobile-chromium",
+    "title": "mirrors real native minimization frames and restores committed output on cancel",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation-zoom.spec.ts \u203a keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+    "file": "detached-presentation-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation-zoom.spec.ts \u203a keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+    "file": "detached-presentation-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a mirrors native molecular frames, stays read-only and reuses its window",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "mirrors native molecular frames, stays read-only and reuses its window",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports viewer initialization failure in the presentation shell",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "reports viewer initialization failure in the presentation shell",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a keeps two owning workspaces and their presentation sessions isolated",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "keeps two owning workspaces and their presentation sessions isolated",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a retires stale output across reload, responsive remounts, projects and owner reload",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "retires stale output across reload, responsive remounts, projects and owner reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports blocked popups and real WebGL source loss without mutating the project",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "reports blocked popups and real WebGL source loss without mutating the project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a captures native molecular annotation raster and coordinate previews",
+    "file": "detached-presentation.spec.ts",
+    "project": "chromium",
+    "title": "captures native molecular annotation raster and coordinate previews",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a mirrors native molecular frames, stays read-only and reuses its window",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "mirrors native molecular frames, stays read-only and reuses its window",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports viewer initialization failure in the presentation shell",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reports viewer initialization failure in the presentation shell",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a keeps two owning workspaces and their presentation sessions isolated",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps two owning workspaces and their presentation sessions isolated",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a retires stale output across reload, responsive remounts, projects and owner reload",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retires stale output across reload, responsive remounts, projects and owner reload",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports blocked popups and real WebGL source loss without mutating the project",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reports blocked popups and real WebGL source loss without mutating the project",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a captures native molecular annotation raster and coordinate previews",
+    "file": "detached-presentation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "captures native molecular annotation raster and coordinate previews",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-modeling-accessibility.spec.ts \u203a reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+    "file": "direct-modeling-accessibility.spec.ts",
+    "project": "chromium",
+    "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-modeling-accessibility.spec.ts \u203a reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+    "file": "direct-modeling-accessibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a removes a native inferred protein bond durably and restores it on Undo",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "removes a native inferred protein bond durably and restores it on Undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a does not restore a late proposal or steal selection after a closed creation dialog",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a keeps identities above earlier allocations after undoing and redoing molecule creation",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "chromium",
+    "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a removes a native inferred protein bond durably and restores it on Undo",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "removes a native inferred protein bond durably and restores it on Undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a does not restore a late proposal or steal selection after a closed creation dialog",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/direct-molecular-modeling.spec.ts \u203a keeps identities above earlier allocations after undoing and redoing molecule creation",
+    "file": "direct-molecular-modeling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/export-archive.spec.ts \u203a exports all, selected, and visible structures with deterministic filters and records",
+    "file": "export-archive.spec.ts",
+    "project": "chromium",
+    "title": "exports all, selected, and visible structures with deterministic filters and records",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/export-archive.spec.ts \u203a round-trips a deterministic archive and rejects an unsafe archive without switching",
+    "file": "export-archive.spec.ts",
+    "project": "chromium",
+    "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/export-archive.spec.ts \u203a cancels intercepted export and archive import work without a stale result",
+    "file": "export-archive.spec.ts",
+    "project": "chromium",
+    "title": "cancels intercepted export and archive import work without a stale result",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/export-archive.spec.ts \u203a keeps complete export and archive controls usable on a mobile viewport",
+    "file": "export-archive.spec.ts",
+    "project": "chromium",
+    "title": "keeps complete export and archive controls usable on a mobile viewport",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a exports all, selected, and visible structures with deterministic filters and records",
+    "file": "export-archive.spec.ts",
+    "project": "mobile-chromium",
+    "title": "exports all, selected, and visible structures with deterministic filters and records",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a round-trips a deterministic archive and rejects an unsafe archive without switching",
+    "file": "export-archive.spec.ts",
+    "project": "mobile-chromium",
+    "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a cancels intercepted export and archive import work without a stale result",
+    "file": "export-archive.spec.ts",
+    "project": "mobile-chromium",
+    "title": "cancels intercepted export and archive import work without a stale result",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a keeps complete export and archive controls usable on a mobile viewport",
+    "file": "export-archive.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps complete export and archive controls usable on a mobile viewport",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps a live molecular viewer and prepared surface unchanged during membership edits",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "keeps a live molecular viewer and prepared surface unchanged during membership edits",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps late membership success feedback and focus in its captured project",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "keeps late membership success feedback and focus in its captured project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps late membership conflict feedback and focus in its captured project",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "keeps late membership conflict feedback and focus in its captured project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/group-membership.spec.ts \u203a restores group action focus across repeated accepted row remounts",
+    "file": "group-membership.spec.ts",
+    "project": "chromium",
+    "title": "restores group action focus across repeated accepted row remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps a live molecular viewer and prepared surface unchanged during membership edits",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps a live molecular viewer and prepared surface unchanged during membership edits",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps late membership success feedback and focus in its captured project",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps late membership success feedback and focus in its captured project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a keeps late membership conflict feedback and focus in its captured project",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps late membership conflict feedback and focus in its captured project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a restores group action focus across repeated accepted row remounts",
+    "file": "group-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "restores group action focus across repeated accepted row remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a retains additive completion preview and exact history through the legacy API",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "chromium",
+    "title": "retains additive completion preview and exact history through the legacy API",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a refuses unknown-charge +H without mutation and retains direct drafting",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "chromium",
+    "title": "refuses unknown-charge +H without mutation and retains direct drafting",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a does not refill an explicitly deleted H and cascades hidden terminal H with a heavy parent",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "chromium",
+    "title": "does not refill an explicitly deleted H and cascades hidden terminal H with a heavy parent",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a retains additive completion preview and exact history through the legacy API",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains additive completion preview and exact history through the legacy API",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a refuses unknown-charge +H without mutation and retains direct drafting",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "mobile-chromium",
+    "title": "refuses unknown-charge +H without mutation and retains direct drafting",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/hydrogen-completion.spec.ts \u203a does not refill an explicitly deleted H and cascades hidden terminal H with a heavy parent",
+    "file": "hydrogen-completion.spec.ts",
+    "project": "mobile-chromium",
+    "title": "does not refill an explicitly deleted H and cascades hidden terminal H with a heavy parent",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/hydrogen-membership.spec.ts \u203a keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+    "file": "hydrogen-membership.spec.ts",
+    "project": "chromium",
+    "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/hydrogen-membership.spec.ts \u203a keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+    "file": "hydrogen-membership.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/import-display-export.spec.ts \u203a imports protein and ligand, renders both after reload, and exports with loss consent",
+    "file": "import-display-export.spec.ts",
+    "project": "chromium",
+    "title": "imports protein and ligand, renders both after reload, and exports with loss consent",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/import-display-export.spec.ts \u203a reports malformed input and can cancel an import before commit",
+    "file": "import-display-export.spec.ts",
+    "project": "chromium",
+    "title": "reports malformed input and can cancel an import before commit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/import-display-export.spec.ts \u203a imports protein and ligand, renders both after reload, and exports with loss consent",
+    "file": "import-display-export.spec.ts",
+    "project": "mobile-chromium",
+    "title": "imports protein and ligand, renders both after reload, and exports with loss consent",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/import-display-export.spec.ts \u203a reports malformed input and can cancel an import before commit",
+    "file": "import-display-export.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reports malformed input and can cancel an import before commit",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interaction-corrections.spec.ts \u203a renders genuine six-type records alone, pairwise and together with independent scopes",
+    "file": "interaction-corrections.spec.ts",
+    "project": "chromium",
+    "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interaction-corrections.spec.ts \u203a explains unsupported raw ligand chemistry without claiming complete zero coverage",
+    "file": "interaction-corrections.spec.ts",
+    "project": "chromium",
+    "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interaction-corrections.spec.ts \u203a renders genuine six-type records alone, pairwise and together with independent scopes",
+    "file": "interaction-corrections.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interaction-corrections.spec.ts \u203a explains unsupported raw ligand chemistry without claiming complete zero coverage",
+    "file": "interaction-corrections.spec.ts",
+    "project": "mobile-chromium",
+    "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactions-lifecycle.spec.ts \u203a keeps centroid overlays current through scenes, deletion and project changes",
+    "file": "interactions-lifecycle.spec.ts",
+    "project": "chromium",
+    "title": "keeps centroid overlays current through scenes, deletion and project changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactions-lifecycle.spec.ts \u203a keeps centroid overlays current through scenes, deletion and project changes",
+    "file": "interactions-lifecycle.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps centroid overlays current through scenes, deletion and project changes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactions.spec.ts \u203a compact interaction control analyzes once and filters cached scopes",
+    "file": "interactions.spec.ts",
+    "project": "chromium",
+    "title": "compact interaction control analyzes once and filters cached scopes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactions.spec.ts \u203a qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+    "file": "interactions.spec.ts",
+    "project": "chromium",
+    "title": "qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactions.spec.ts \u203a shows busy failures, retries, and keeps the compact panel accessible in both themes",
+    "file": "interactions.spec.ts",
+    "project": "chromium",
+    "title": "shows busy failures, retries, and keeps the compact panel accessible in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactions.spec.ts \u203a measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+    "file": "interactions.spec.ts",
+    "project": "chromium",
+    "title": "measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactions.spec.ts \u203a compact interaction control analyzes once and filters cached scopes",
+    "file": "interactions.spec.ts",
+    "project": "mobile-chromium",
+    "title": "compact interaction control analyzes once and filters cached scopes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactions.spec.ts \u203a qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+    "file": "interactions.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactions.spec.ts \u203a shows busy failures, retries, and keeps the compact panel accessible in both themes",
+    "file": "interactions.spec.ts",
+    "project": "mobile-chromium",
+    "title": "shows busy failures, retries, and keeps the compact panel accessible in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactions.spec.ts \u203a measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+    "file": "interactions.spec.ts",
+    "project": "mobile-chromium",
+    "title": "measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a reconciles an interrupted response after server commit without replaying Apply",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "reconciles an interrupted response after server commit without replaying Apply",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a discards previews with feedback on task, selection and project changes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "discards previews with feedback on task, selection and project changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a rejects stale Apply without replay or partial movement",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "rejects stale Apply without replay or partial movement",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a explains empty, locked and wholly hidden movement targets without changing them",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "explains empty, locked and wholly hidden movement targets without changing them",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a retains the native preview and held camera across responsive viewer remounts",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "retains the native preview and held camera across responsive viewer remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a reconciles an interrupted response after server commit without replaying Apply",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reconciles an interrupted response after server commit without replaying Apply",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a discards previews with feedback on task, selection and project changes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "discards previews with feedback on task, selection and project changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a rejects stale Apply without replay or partial movement",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "rejects stale Apply without replay or partial movement",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a explains empty, locked and wholly hidden movement targets without changing them",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "explains empty, locked and wholly hidden movement targets without changing them",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a retains the native preview and held camera across responsive viewer remounts",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains the native preview and held camera across responsive viewer remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native original protein/ligand preview work and measures exact cancellation",
+    "file": "interactive-transform-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds native original protein/ligand preview work and measures exact cancellation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native authored draft protein/ligand preview work and measures exact cancellation",
+    "file": "interactive-transform-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native original protein/ligand preview work and measures exact cancellation",
+    "file": "interactive-transform-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds native original protein/ligand preview work and measures exact cancellation",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native authored draft protein/ligand preview work and measures exact cancellation",
+    "file": "interactive-transform-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+    "file": "ligand-editing.spec.ts",
+    "project": "chromium",
+    "title": "edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a keeps ligand editing functional in the mobile inspector",
+    "file": "ligand-editing.spec.ts",
+    "project": "chromium",
+    "title": "keeps ligand editing functional in the mobile inspector",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+    "file": "ligand-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a keeps ligand editing functional in the mobile inspector",
+    "file": "ligand-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps ligand editing functional in the mobile inspector",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/measurements.spec.ts \u203a creates and manages reference measurements with synchronized inspection",
+    "file": "measurements.spec.ts",
+    "project": "chromium",
+    "title": "creates and manages reference measurements with synchronized inspection",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/measurements.spec.ts \u203a creates and manages reference measurements with synchronized inspection",
+    "file": "measurements.spec.ts",
+    "project": "mobile-chromium",
+    "title": "creates and manages reference measurements with synchronized inspection",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-accessibility.spec.ts \u203a keeps native minimization controls reachable by keyboard and touch at 320px in both themes",
+    "file": "minimization-accessibility.spec.ts",
+    "project": "chromium",
+    "title": "keeps native minimization controls reachable by keyboard and touch at 320px in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-accessibility.spec.ts \u203a preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+    "file": "minimization-accessibility.spec.ts",
+    "project": "chromium",
+    "title": "preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-accessibility.spec.ts \u203a keeps native minimization controls reachable by keyboard and touch at 320px in both themes",
+    "file": "minimization-accessibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps native minimization controls reachable by keyboard and touch at 320px in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-accessibility.spec.ts \u203a preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+    "file": "minimization-accessibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+    "file": "minimization-live.spec.ts",
+    "project": "chromium",
+    "title": "acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+    "file": "minimization-live.spec.ts",
+    "project": "chromium",
+    "title": "renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+    "file": "minimization-live.spec.ts",
+    "project": "chromium",
+    "title": "renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+    "file": "minimization-live.spec.ts",
+    "project": "mobile-chromium",
+    "title": "acknowledges an eligible unconverged native result and retains exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+    "file": "minimization-live.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+    "file": "minimization-live.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real prepared1STP pocket minimization and native preview work",
+    "file": "minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds real prepared1STP pocket minimization and native preview work",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real 18k-atom assembly minimization and native preview work",
+    "file": "minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds real 18k-atom assembly minimization and native preview work",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real prepared1STP pocket minimization and native preview work",
+    "file": "minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds real prepared1STP pocket minimization and native preview work",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real 18k-atom assembly minimization and native preview work",
+    "file": "minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds real 18k-atom assembly minimization and native preview work",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a retires a quiet run after status transport failure without a late canonical edit",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "retires a quiet run after status transport failure without a late canonical edit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a hands Style selection focus to explicit minimization setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "hands Style selection focus to explicit minimization setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a hands Interactions focus to explicit minimization setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "hands Interactions focus to explicit minimization setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a keeps external focus when a quiet shortcut retires Style selection",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "keeps external focus when a quiet shortcut retires Style selection",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a keeps external focus when a quiet shortcut retires Interactions",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "keeps external focus when a quiet shortcut retires Interactions",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "unifies exactly three launchers with equal desktop/touch geometry and keyboard setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains the expanded transform strip without a nested frame or a canonical edit on Cancel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reveals a quiet shortcut during publication without resubmission or focus theft beforehand",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a retires a quiet run after status transport failure without a late canonical edit",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retires a quiet run after status transport failure without a late canonical edit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a hands Style selection focus to explicit minimization setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "hands Style selection focus to explicit minimization setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a hands Interactions focus to explicit minimization setup",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "hands Interactions focus to explicit minimization setup",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a keeps external focus when a quiet shortcut retires Style selection",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps external focus when a quiet shortcut retires Style selection",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/modeling-toolbar.spec.ts \u203a keeps external focus when a quiet shortcut retires Interactions",
+    "file": "modeling-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps external focus when a quiet shortcut retires Interactions",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a performs one selection-driven atom/H edit with exact undo and unchanged original",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a maps a native bond hit to canonical endpoints and changes its order from the panel",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a previews and substitutes a selected H with illustrated COOH",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "previews and substitutes a selected H with illustrated COOH",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a mutates a natively picked residue successively and preserves exact backbone and undo",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps late edit responses owned by their original project",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "keeps late edit responses owned by their original project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a retains a newer native selection and recovers an affected-artifact refetch failure",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps a newer pending edit owned after leaving and returning to the same project",
+    "file": "molecular-editing.spec.ts",
+    "project": "chromium",
+    "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a performs one selection-driven atom/H edit with exact undo and unchanged original",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a maps a native bond hit to canonical endpoints and changes its order from the panel",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a previews and substitutes a selected H with illustrated COOH",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "previews and substitutes a selected H with illustrated COOH",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a mutates a natively picked residue successively and preserves exact backbone and undo",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps late edit responses owned by their original project",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps late edit responses owned by their original project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a retains a newer native selection and recovers an affected-artifact refetch failure",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/molecular-editing.spec.ts \u203a keeps a newer pending edit owned after leaving and returning to the same project",
+    "file": "molecular-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/performance-policy.spec.ts \u203a timing profile 0 preserves workflows and enforces only requested targets",
+    "file": "performance-policy.spec.ts",
+    "project": "chromium",
+    "title": "timing profile 0 preserves workflows and enforces only requested targets",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/performance-policy.spec.ts \u203a timing profile 1 preserves workflows and enforces only requested targets",
+    "file": "performance-policy.spec.ts",
+    "project": "chromium",
+    "title": "timing profile 1 preserves workflows and enforces only requested targets",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/performance-policy.spec.ts \u203a timing profile 0 preserves workflows and enforces only requested targets",
+    "file": "performance-policy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "timing profile 0 preserves workflows and enforces only requested targets",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/performance-policy.spec.ts \u203a timing profile 1 preserves workflows and enforces only requested targets",
+    "file": "performance-policy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "timing profile 1 preserves workflows and enforces only requested targets",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a saves pockets through the compact panel and restores hidden seed inputs",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "saves pockets through the compact panel and restores hidden seed inputs",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/pocket-surfaces.spec.ts \u203a saves pockets through the compact panel and restores hidden seed inputs",
+    "file": "pocket-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "saves pockets through the compact panel and restores hidden seed inputs",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a persists polar-only mode across viewer workflows without transient or molecular drift",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "persists polar-only mode across viewer workflows without transient or molecular drift",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a a hydrogen-free structure remains hydrogen-free in polar-only mode",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "a hydrogen-free structure remains hydrogen-free in polar-only mode",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "chromium",
+    "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a persists polar-only mode across viewer workflows without transient or molecular drift",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "persists polar-only mode across viewer workflows without transient or molecular drift",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a a hydrogen-free structure remains hydrogen-free in polar-only mode",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "a hydrogen-free structure remains hydrogen-free in polar-only mode",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+    "file": "polar-hydrogen-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a creates, recovers, reverses, saves, and reopens a project",
+    "file": "project-lifecycle.spec.ts",
+    "project": "chromium",
+    "title": "creates, recovers, reverses, saves, and reopens a project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a reports an unavailable API and recovers after retry",
+    "file": "project-lifecycle.spec.ts",
+    "project": "chromium",
+    "title": "reports an unavailable API and recovers after retry",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a entry commands are durable and reversible through the workspace",
+    "file": "project-lifecycle.spec.ts",
+    "project": "chromium",
+    "title": "entry commands are durable and reversible through the workspace",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a creates, recovers, reverses, saves, and reopens a project",
+    "file": "project-lifecycle.spec.ts",
+    "project": "mobile-chromium",
+    "title": "creates, recovers, reverses, saves, and reopens a project",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a reports an unavailable API and recovers after retry",
+    "file": "project-lifecycle.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reports an unavailable API and recovers after retry",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a entry commands are durable and reversible through the workspace",
+    "file": "project-lifecycle.spec.ts",
+    "project": "mobile-chromium",
+    "title": "entry commands are durable and reversible through the workspace",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a keeps compact entries independent from component expansion, selection and metadata",
+    "file": "project-navigation.spec.ts",
+    "project": "chromium",
+    "title": "keeps compact entries independent from component expansion, selection and metadata",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+    "file": "project-navigation.spec.ts",
+    "project": "chromium",
+    "title": "keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+    "file": "project-navigation.spec.ts",
+    "project": "chromium",
+    "title": "virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a retains two component rows at the minimum expanded desktop pane height",
+    "file": "project-navigation.spec.ts",
+    "project": "chromium",
+    "title": "retains two component rows at the minimum expanded desktop pane height",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a keeps compact entries independent from component expansion, selection and metadata",
+    "file": "project-navigation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps compact entries independent from component expansion, selection and metadata",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+    "file": "project-navigation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+    "file": "project-navigation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a retains two component rows at the minimum expanded desktop pane height",
+    "file": "project-navigation.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains two component rows at the minimum expanded desktop pane height",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a edits protein hierarchy and chemistry with exact history and validation",
+    "file": "protein-editing.spec.ts",
+    "project": "chromium",
+    "title": "edits protein hierarchy and chemistry with exact history and validation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a keeps protein editing usable in the mobile inspector",
+    "file": "protein-editing.spec.ts",
+    "project": "chromium",
+    "title": "keeps protein editing usable in the mobile inspector",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a edits protein hierarchy and chemistry with exact history and validation",
+    "file": "protein-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "edits protein hierarchy and chemistry with exact history and validation",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a keeps protein editing usable in the mobile inspector",
+    "file": "protein-editing.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps protein editing usable in the mobile inspector",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a selects complete residues across Components, Sequence and native picks (light)",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "chromium",
+    "title": "selects complete residues across Components, Sequence and native picks (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a selects complete residues across Components, Sequence and native picks (dark)",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "chromium",
+    "title": "selects complete residues across Components, Sequence and native picks (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a virtualizes 10000 observed residues and selects complete off-screen ranges",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "chromium",
+    "title": "virtualizes 10000 observed residues and selects complete off-screen ranges",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a selects complete residues across Components, Sequence and native picks (light)",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "selects complete residues across Components, Sequence and native picks (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a selects complete residues across Components, Sequence and native picks (dark)",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "selects complete residues across Components, Sequence and native picks (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/protein-residue-hierarchy.spec.ts \u203a virtualizes 10000 observed residues and selects complete off-screen ranges",
+    "file": "protein-residue-hierarchy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "virtualizes 10000 observed residues and selects complete off-screen ranges",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a supplied small molecule",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds cold quick publication for a supplied small molecule",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a 1STP pocket",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds cold quick publication for a 1STP pocket",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for an 18k scene",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "bounds cold quick publication for an 18k scene",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a renders genuine quick steps and clears native preview within500ms on Cancel",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "chromium",
+    "title": "renders genuine quick steps and clears native preview within500ms on Cancel",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a supplied small molecule",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds cold quick publication for a supplied small molecule",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a 1STP pocket",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds cold quick publication for a 1STP pocket",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for an 18k scene",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds cold quick publication for an 18k scene",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a renders genuine quick steps and clears native preview within500ms on Cancel",
+    "file": "quick-minimization-performance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders genuine quick steps and clears native preview within500ms on Cancel",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies New_molecule.sdf through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "chromium",
+    "title": "quickly applies New_molecule.sdf through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies New_molecule.pdb through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "chromium",
+    "title": "quickly applies New_molecule.pdb through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies paracetamol.pdb through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "chromium",
+    "title": "quickly applies paracetamol.pdb through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a keeps quick settings and Advanced accessible at 320px in both themes",
+    "file": "quick-minimization.spec.ts",
+    "project": "chromium",
+    "title": "keeps quick settings and Advanced accessible at 320px in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+    "file": "quick-minimization.spec.ts",
+    "project": "chromium",
+    "title": "preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies New_molecule.sdf through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "quickly applies New_molecule.sdf through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies New_molecule.pdb through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "quickly applies New_molecule.pdb through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a quickly applies paracetamol.pdb through native selection and exact Undo/Redo",
+    "file": "quick-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "quickly applies paracetamol.pdb through native selection and exact Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a keeps quick settings and Advanced accessible at 320px in both themes",
+    "file": "quick-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps quick settings and Advanced accessible at 320px in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+    "file": "quick-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews all Neistra workflow surfaces in both themes",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "reviews all Neistra workflow surfaces in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews warning, failure, recovery and job states in light",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "reviews warning, failure, recovery and job states in light",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews warning, failure, recovery and job states in dark",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "reviews warning, failure, recovery and job states in dark",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a keeps ambiguous classification warnings and legacy user copy visible",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "keeps ambiguous classification warnings and legacy user copy visible",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews all Neistra workflow surfaces in both themes",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reviews all Neistra workflow surfaces in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews warning, failure, recovery and job states in light",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reviews warning, failure, recovery and job states in light",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a reviews warning, failure, recovery and job states in dark",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reviews warning, failure, recovery and job states in dark",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-surfaces.spec.ts \u203a keeps ambiguous classification warnings and legacy user copy visible",
+    "file": "rebranding-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps ambiguous classification warnings and legacy user copy visible",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps shell and inspector controls bounded around both responsive breakpoints",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps the molecular editor keyboard controls reachable at actual browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps shell and inspector controls bounded around both responsive breakpoints",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps the molecular editor keyboard controls reachable at actual browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+    "file": "rebranding-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding.spec.ts \u203a restores the legacy dark theme before the application module loads",
+    "file": "rebranding.spec.ts",
+    "project": "chromium",
+    "title": "restores the legacy dark theme before the application module loads",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with invalid-json preferences",
+    "file": "rebranding.spec.ts",
+    "project": "chromium",
+    "title": "keeps the workspace usable with invalid-json preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with invalid-values preferences",
+    "file": "rebranding.spec.ts",
+    "project": "chromium",
+    "title": "keeps the workspace usable with invalid-values preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with unavailable preferences",
+    "file": "rebranding.spec.ts",
+    "project": "chromium",
+    "title": "keeps the workspace usable with unavailable preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/rebranding.spec.ts \u203a uses the Neistra identity through project creation and import",
+    "file": "rebranding.spec.ts",
+    "project": "chromium",
+    "title": "uses the Neistra identity through project creation and import",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding.spec.ts \u203a restores the legacy dark theme before the application module loads",
+    "file": "rebranding.spec.ts",
+    "project": "mobile-chromium",
+    "title": "restores the legacy dark theme before the application module loads",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with invalid-json preferences",
+    "file": "rebranding.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the workspace usable with invalid-json preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with invalid-values preferences",
+    "file": "rebranding.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the workspace usable with invalid-values preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding.spec.ts \u203a keeps the workspace usable with unavailable preferences",
+    "file": "rebranding.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the workspace usable with unavailable preferences",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/rebranding.spec.ts \u203a uses the Neistra identity through project creation and import",
+    "file": "rebranding.spec.ts",
+    "project": "mobile-chromium",
+    "title": "uses the Neistra identity through project creation and import",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a passes automated accessibility checks in both themes",
+    "file": "release-hardening.spec.ts",
+    "project": "chromium",
+    "title": "passes automated accessibility checks in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a supports keyboard focus and bounded responsive controls",
+    "file": "release-hardening.spec.ts",
+    "project": "chromium",
+    "title": "supports keyboard focus and bounded responsive controls",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a keeps representative-project interactions responsive and projection-scoped",
+    "file": "release-hardening.spec.ts",
+    "project": "chromium",
+    "title": "keeps representative-project interactions responsive and projection-scoped",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a passes automated accessibility checks in both themes",
+    "file": "release-hardening.spec.ts",
+    "project": "mobile-chromium",
+    "title": "passes automated accessibility checks in both themes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a supports keyboard focus and bounded responsive controls",
+    "file": "release-hardening.spec.ts",
+    "project": "mobile-chromium",
+    "title": "supports keyboard focus and bounded responsive controls",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a keeps representative-project interactions responsive and projection-scoped",
+    "file": "release-hardening.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps representative-project interactions responsive and projection-scoped",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/release-journey.spec.ts \u203a completes the MolWeave v0.1 definition-of-done journey",
+    "file": "release-journey.spec.ts",
+    "project": "chromium",
+    "title": "completes the MolWeave v0.1 definition-of-done journey",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/release-journey.spec.ts \u203a completes the MolWeave v0.1 definition-of-done journey",
+    "file": "release-journey.spec.ts",
+    "project": "mobile-chromium",
+    "title": "completes the MolWeave v0.1 definition-of-done journey",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a remembers coloring mode across panels and projects until reload",
+    "file": "selection-appearance.spec.ts",
+    "project": "chromium",
+    "title": "remembers coloring mode across panels and projects until reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a expands from styling across hidden entries without durable changes",
+    "file": "selection-appearance.spec.ts",
+    "project": "chromium",
+    "title": "expands from styling across hidden entries without durable changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a integrated selection appearance is durable and accessible in light",
+    "file": "selection-appearance.spec.ts",
+    "project": "chromium",
+    "title": "integrated selection appearance is durable and accessible in light",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a integrated selection appearance is durable and accessible in dark",
+    "file": "selection-appearance.spec.ts",
+    "project": "chromium",
+    "title": "integrated selection appearance is durable and accessible in dark",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a remembers coloring mode across panels and projects until reload",
+    "file": "selection-appearance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "remembers coloring mode across panels and projects until reload",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a expands from styling across hidden entries without durable changes",
+    "file": "selection-appearance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expands from styling across hidden entries without durable changes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a integrated selection appearance is durable and accessible in light",
+    "file": "selection-appearance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "integrated selection appearance is durable and accessible in light",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a integrated selection appearance is durable and accessible in dark",
+    "file": "selection-appearance.spec.ts",
+    "project": "mobile-chromium",
+    "title": "integrated selection appearance is durable and accessible in dark",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands native protein and individual ligand double-clicks without camera movement (light)",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "expands native protein and individual ligand double-clicks without camera movement (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands native protein and individual ligand double-clicks without camera movement (dark)",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "expands native protein and individual ligand double-clicks without camera movement (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands a standalone SDF ligand through its individual component",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "expands a standalone SDF ligand through its individual component",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a persists native gesture references as an ordinary named selection and reloads without an anchor",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "persists native gesture references as an ordinary named selection and reloads without an anchor",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a shares fixed residue starts between native picks and Sequence with partial coverage",
+    "file": "selection-gestures.spec.ts",
+    "project": "chromium",
+    "title": "shares fixed residue starts between native picks and Sequence with partial coverage",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands native protein and individual ligand double-clicks without camera movement (light)",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expands native protein and individual ligand double-clicks without camera movement (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands native protein and individual ligand double-clicks without camera movement (dark)",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expands native protein and individual ligand double-clicks without camera movement (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a expands a standalone SDF ligand through its individual component",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expands a standalone SDF ligand through its individual component",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a persists native gesture references as an ordinary named selection and reloads without an anchor",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "persists native gesture references as an ordinary named selection and reloads without an anchor",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-gestures.spec.ts \u203a shares fixed residue starts between native picks and Sequence with partial coverage",
+    "file": "selection-gestures.spec.ts",
+    "project": "mobile-chromium",
+    "title": "shares fixed residue starts between native picks and Sequence with partial coverage",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes isolated captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "minimizes isolated captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes isolated-whole captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "minimizes isolated-whole captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes same-entry captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "minimizes same-entry captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes separate captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "minimizes separate captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes pocket-ligand captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "minimizes pocket-ligand captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a inspects non-convergence and discards a native preview without a canonical edit",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "inspects non-convergence and discards a native preview without a canonical edit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a cancels native parameter generation without editing coordinates and can inspect the retained job",
+    "file": "selection-minimization.spec.ts",
+    "project": "chromium",
+    "title": "cancels native parameter generation without editing coordinates and can inspect the retained job",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes isolated captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "minimizes isolated captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes isolated-whole captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "minimizes isolated-whole captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes same-entry captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "minimizes same-entry captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes separate captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "minimizes separate captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a minimizes pocket-ligand captured selections with disposable preview and atomic Undo/Redo",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "minimizes pocket-ligand captured selections with disposable preview and atomic Undo/Redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a inspects non-convergence and discards a native preview without a canonical edit",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "inspects non-convergence and discards a native preview without a canonical edit",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-minimization.spec.ts \u203a cancels native parameter generation without editing coordinates and can inspect the retained job",
+    "file": "selection-minimization.spec.ts",
+    "project": "mobile-chromium",
+    "title": "cancels native parameter generation without editing coordinates and can inspect the retained job",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a styles a 1STP complex without changing scientific or transient state",
+    "file": "selection-styling.spec.ts",
+    "project": "chromium",
+    "title": "styles a 1STP complex without changing scientific or transient state",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps ion, water, and covalent-boundary targets exact",
+    "file": "selection-styling.spec.ts",
+    "project": "chromium",
+    "title": "keeps ion, water, and covalent-boundary targets exact",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+    "file": "selection-styling.spec.ts",
+    "project": "chromium",
+    "title": "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a styles a 1STP complex without changing scientific or transient state",
+    "file": "selection-styling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "styles a 1STP complex without changing scientific or transient state",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps ion, water, and covalent-boundary targets exact",
+    "file": "selection-styling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps ion, water, and covalent-boundary targets exact",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+    "file": "selection-styling.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies worker geometry, real element colors, picking and cancellation",
+    "file": "selection-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies worker geometry, real element colors, picking and cancellation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a adds and removes saved surfaces from the compact palette with reload and undo",
+    "file": "selection-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "adds and removes saved surfaces from the compact palette with reload and undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production surface lifecycle for formats/ethanol.mol",
+    "file": "selection-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies production surface lifecycle for formats/ethanol.mol",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+    "file": "selection-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production 1STP surface response and partial-fragment boundaries",
+    "file": "selection-surfaces.spec.ts",
+    "project": "chromium",
+    "title": "qualifies production 1STP surface response and partial-fragment boundaries",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies worker geometry, real element colors, picking and cancellation",
+    "file": "selection-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies worker geometry, real element colors, picking and cancellation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a adds and removes saved surfaces from the compact palette with reload and undo",
+    "file": "selection-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "adds and removes saved surfaces from the compact palette with reload and undo",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production surface lifecycle for formats/ethanol.mol",
+    "file": "selection-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies production surface lifecycle for formats/ethanol.mol",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+    "file": "selection-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a qualifies production 1STP surface response and partial-fragment boundaries",
+    "file": "selection-surfaces.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies production 1STP surface response and partial-fragment boundaries",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a hiding the middle atom removes every incident native bond and its label",
+    "file": "selection-visibility.spec.ts",
+    "project": "chromium",
+    "title": "hiding the middle atom removes every incident native bond and its label",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+    "file": "selection-visibility.spec.ts",
+    "project": "chromium",
+    "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a compact Hide/Show preserves selection, styles and cached projections",
+    "file": "selection-visibility.spec.ts",
+    "project": "chromium",
+    "title": "compact Hide/Show preserves selection, styles and cached projections",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a hiding the middle atom removes every incident native bond and its label",
+    "file": "selection-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "hiding the middle atom removes every incident native bond and its label",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+    "file": "selection-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/selection-visibility.spec.ts \u203a compact Hide/Show preserves selection, styles and cached projections",
+    "file": "selection-visibility.spec.ts",
+    "project": "mobile-chromium",
+    "title": "compact Hide/Show preserves selection, styles and cached projections",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a stacks visible chains and independently collapses, hides and restores sequences (light)",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "stacks visible chains and independently collapses, hides and restores sequences (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a stacks visible chains and independently collapses, hides and restores sequences (dark)",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "stacks visible chains and independently collapses, hides and restores sequences (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a follows application visibility and isolation while retaining whole-chain context",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "follows application visibility and isolation while retaining whole-chain context",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a navigates long rows without selecting or following unrelated selection and preserves scrolling across remount",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "navigates long rows without selecting or following unrelated selection and preserves scrolling across remount",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a bounds virtual DOM and complete selection for a displayed 10000-residue protein",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "bounds virtual DOM and complete selection for a displayed 10000-residue protein",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a scrolls a bounded stack of many displayed protein chains",
+    "file": "sequence-viewer.spec.ts",
+    "project": "chromium",
+    "title": "scrolls a bounded stack of many displayed protein chains",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a stacks visible chains and independently collapses, hides and restores sequences (light)",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "stacks visible chains and independently collapses, hides and restores sequences (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a stacks visible chains and independently collapses, hides and restores sequences (dark)",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "stacks visible chains and independently collapses, hides and restores sequences (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a follows application visibility and isolation while retaining whole-chain context",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "follows application visibility and isolation while retaining whole-chain context",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a navigates long rows without selecting or following unrelated selection and preserves scrolling across remount",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "navigates long rows without selecting or following unrelated selection and preserves scrolling across remount",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a bounds virtual DOM and complete selection for a displayed 10000-residue protein",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "bounds virtual DOM and complete selection for a displayed 10000-residue protein",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/sequence-viewer.spec.ts \u203a scrolls a bounded stack of many displayed protein chains",
+    "file": "sequence-viewer.spec.ts",
+    "project": "mobile-chromium",
+    "title": "scrolls a bounded stack of many displayed protein chains",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+    "file": "structure-hierarchy.spec.ts",
+    "project": "chromium",
+    "title": "synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+    "file": "structure-hierarchy.spec.ts",
+    "project": "chromium",
+    "title": "keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+    "file": "structure-hierarchy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+    "file": "structure-hierarchy.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 6vxx selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "chromium",
+    "title": "renders the complete 6vxx selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 1aon selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "chromium",
+    "title": "renders the complete 1aon selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete synthetic-100k selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "chromium",
+    "title": "renders the complete synthetic-100k selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 6vxx selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders the complete 6vxx selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 1aon selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders the complete 1aon selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete synthetic-100k selection within bounded capacity",
+    "file": "surface-capacity.spec.ts",
+    "project": "mobile-chromium",
+    "title": "renders the complete synthetic-100k selection within bounded capacity",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+    "file": "surface-objects.spec.ts",
+    "project": "chromium",
+    "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a manages production object appearance and explicit sources independently through reload and undo",
+    "file": "surface-objects.spec.ts",
+    "project": "chromium",
+    "title": "manages production object appearance and explicit sources independently through reload and undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+    "file": "surface-objects.spec.ts",
+    "project": "chromium",
+    "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+    "file": "surface-objects.spec.ts",
+    "project": "chromium",
+    "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+    "file": "surface-objects.spec.ts",
+    "project": "mobile-chromium",
+    "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a manages production object appearance and explicit sources independently through reload and undo",
+    "file": "surface-objects.spec.ts",
+    "project": "mobile-chromium",
+    "title": "manages production object appearance and explicit sources independently through reload and undo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+    "file": "surface-objects.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+    "file": "surface-objects.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/synchronized-selection.spec.ts \u203a keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+    "file": "synchronized-selection.spec.ts",
+    "project": "chromium",
+    "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/synchronized-selection.spec.ts \u203a keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+    "file": "synchronized-selection.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a keeps primary selection and empty clearing independent from the camera",
+    "file": "viewer-click-selection.spec.ts",
+    "project": "chromium",
+    "title": "keeps primary selection and empty clearing independent from the camera",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a uses the compact trigger path for selection and empty clearing",
+    "file": "viewer-click-selection.spec.ts",
+    "project": "chromium",
+    "title": "uses the compact trigger path for selection and empty clearing",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a keeps primary selection and empty clearing independent from the camera",
+    "file": "viewer-click-selection.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps primary selection and empty clearing independent from the camera",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a uses the compact trigger path for selection and empty clearing",
+    "file": "viewer-click-selection.spec.ts",
+    "project": "mobile-chromium",
+    "title": "uses the compact trigger path for selection and empty clearing",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "applies complete representations, navigation, isolation, and named scenes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "explains unavailable ligand focus for protein-only content",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "shows a usable WebGL failure instead of a blank viewer",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "applies complete representations, navigation, isolation, and named scenes",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "explains unavailable ligand focus for protein-only content",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "shows a usable WebGL failure instead of a blank viewer",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (light)",
+    "file": "viewer-hover.spec.ts",
+    "project": "chromium",
+    "title": "native hover matches all modes and preserves selection (light)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (dark)",
+    "file": "viewer-hover.spec.ts",
+    "project": "chromium",
+    "title": "native hover matches all modes and preserves selection (dark)",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+    "file": "viewer-hover.spec.ts",
+    "project": "chromium",
+    "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (light)",
+    "file": "viewer-hover.spec.ts",
+    "project": "mobile-chromium",
+    "title": "native hover matches all modes and preserves selection (light)",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (dark)",
+    "file": "viewer-hover.spec.ts",
+    "project": "mobile-chromium",
+    "title": "native hover matches all modes and preserves selection (dark)",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+    "file": "viewer-hover.spec.ts",
+    "project": "mobile-chromium",
+    "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a keeps native UI absent through loading, themes, camera actions and reload",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "chromium",
+    "title": "keeps native UI absent through loading, themes, camera actions and reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "chromium",
+    "title": "retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a keeps native UI absent through loading, themes, camera actions and reload",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps native UI absent through loading, themes, camera actions and reload",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a expires after ten real seconds without molecular, camera, network or renderer changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a successive identical confirmations receive fresh deadlines across theme changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "successive identical confirmations receive fresh deadlines across theme changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a viewer remounts retain the deadline and project changes invalidate old notices",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a expires after ten real seconds without molecular, camera, network or renderer changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a successive identical confirmations receive fresh deadlines across theme changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "successive identical confirmations receive fresh deadlines across theme changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a viewer remounts retain the deadline and project changes invalidate old notices",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-theme.spec.ts \u203a keeps the persisted theme through the real viewer lifecycle",
+    "file": "viewer-theme.spec.ts",
+    "project": "chromium",
+    "title": "keeps the persisted theme through the real viewer lifecycle",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-theme.spec.ts \u203a keeps the persisted theme through the real viewer lifecycle",
+    "file": "viewer-theme.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps the persisted theme through the real viewer lifecycle",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ends held mouse gestures at accepted coordinates and camera before ownership changes",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a clears temporary navigation on interruption and remount while preserving preview and camera",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a qualifies native touch navigation, secondary tools and accessible theme layouts",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+    "status": "skipped",
+    "expected_status": "skipped",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a keeps viewer errors readable and primary transform actions reachable",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "keeps viewer errors readable and primary transform actions reachable",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a releases native navigation keys held before movement starts",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "chromium",
+    "title": "releases native navigation keys held before movement starts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ends held mouse gestures at accepted coordinates and camera before ownership changes",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a clears temporary navigation on interruption and remount while preserving preview and camera",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a qualifies native touch navigation, secondary tools and accessible theme layouts",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a keeps viewer errors readable and primary transform actions reachable",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps viewer errors readable and primary transform actions reachable",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a releases native navigation keys held before movement starts",
+    "file": "viewer-transform-toolbar.spec.ts",
+    "project": "mobile-chromium",
+    "title": "releases native navigation keys held before movement starts",
+    "status": "passed",
+    "expected_status": "passed",
+    "retries": 0
+  }
+]
