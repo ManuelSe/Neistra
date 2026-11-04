@@ -431,7 +431,7 @@ def test_archive_rejects_surface_identifiers_that_cannot_be_addressed_as_uuid_se
 
 
 def test_legacy_archive_surface_identity_uses_canonical_owner_uuid():
-    from molweave_api.archive_service import _upgrade_legacy_manifest
+    from neistra_api.archive_service import _upgrade_legacy_manifest
 
     from tests.integration.test_migrations import legacy_viewer_settings
 

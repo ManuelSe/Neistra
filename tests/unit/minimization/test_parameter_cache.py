@@ -4,8 +4,8 @@ import threading
 import time
 
 import pytest
-from molweave_core.jobs import JobCancelled
-from molweave_core.minimization.parameter_cache import ParameterCache, fingerprint
+from neistra_core.jobs import JobCancelled
+from neistra_core.minimization.parameter_cache import ParameterCache, fingerprint
 
 from tests.support.minimization import LocalContext
 

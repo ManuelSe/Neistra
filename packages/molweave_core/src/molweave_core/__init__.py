@@ -1,15 +1,21 @@
-"""Core domain and persistence services for MolWeave."""
+"""Compatibility package; implementation lives in neistra_core."""
 
-from molweave_core.artifacts import ArtifactRecord, LocalArtifactStore
-from molweave_core.components import ComponentHierarchyV1, ComponentV1, derive_component_hierarchy
-from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
+import importlib
+import sys
+from pathlib import Path
+from typing import Any
 
-__all__ = [
-    "ArtifactRecord",
-    "ComponentHierarchyV1",
-    "ComponentV1",
-    "LocalArtifactStore",
-    "MolecularWarning",
-    "NormalizedStructureV1",
-    "derive_component_hierarchy",
-]
+_root = Path(__file__).resolve().parents[4]
+for _source in ("apps/api/src", "packages/neistra_core/src", "packages/neistra_demo_plugin/src"):
+    _path = str(_root / _source)
+    if _path not in sys.path:
+        sys.path.append(_path)
+
+__path__ = [str(_root / "packages/neistra_core/src/molweave_core")]
+
+_implementation = importlib.import_module("neistra_core")
+__all__ = getattr(_implementation, "__all__", [])
+
+
+def __getattr__(name: str) -> Any:
+    return getattr(_implementation, name)

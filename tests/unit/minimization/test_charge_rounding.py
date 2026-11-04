@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.parameterization import normalize_charge_rounding
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.parameterization import normalize_charge_rounding
 
 
 def test_small_native_rounding_residual_is_explicit_and_raw_evidence_retained(

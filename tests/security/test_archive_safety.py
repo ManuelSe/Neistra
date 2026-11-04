@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
-from molweave_api.archive_service import (
+from neistra_api.archive_service import (
     ArchiveLimits,
     ArchiveValidationError,
     read_project_archive,

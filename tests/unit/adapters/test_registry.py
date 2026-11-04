@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from molweave_core.adapters import AdapterError
-from molweave_core.adapters.defaults import create_default_registry
+from neistra_core.adapters import AdapterError
+from neistra_core.adapters.defaults import create_default_registry
 
 FIXTURES = Path(__file__).parents[2] / "fixtures" / "formats"
 

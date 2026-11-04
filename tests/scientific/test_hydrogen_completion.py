@@ -1,4 +1,4 @@
-from molweave_core.editing.hydrogen import HydrogenBuilder
+from neistra_core.editing.hydrogen import HydrogenBuilder
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_hydrogen_completion import materialize

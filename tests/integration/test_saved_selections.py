@@ -3,9 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, cast
 
-from molweave_api.database import Base
-from molweave_api.main import create_app
-from molweave_api.settings import Settings
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
 
 from tests.support.api_client import ApiClient
 

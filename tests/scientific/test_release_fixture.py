@@ -4,9 +4,9 @@ import hashlib
 from collections import Counter
 from pathlib import Path
 
-from molweave_core.adapters.base import ImportOptions
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.components import component_atom_ids, derive_component_hierarchy
+from neistra_core.adapters.base import ImportOptions
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.components import component_atom_ids, derive_component_hierarchy
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "complex" / "1stp.pdb"
 HYDROGEN_FIXTURES = Path(__file__).parents[1] / "fixtures" / "hydrogens"

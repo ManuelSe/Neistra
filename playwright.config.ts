@@ -58,13 +58,13 @@ export default defineConfig({
   },
   webServer: [
     {
-      command: `PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port ${apiPort}`,
+      command: `PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port ${apiPort}`,
       url: `${apiUrl}/api/v1/health`,
       reuseExistingServer: true,
       timeout: 30_000,
     },
     {
-      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m molweave_api.worker`,
+      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m neistra_api.worker`,
       url: `${workerUrl}/health`,
       reuseExistingServer: true,
       timeout: 30_000,

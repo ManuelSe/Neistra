@@ -8,7 +8,7 @@ from typing import Any, cast
 
 import httpx
 import pytest
-from molweave_api.archive_service import APPLICATION_VERSION
+from neistra_api.archive_service import APPLICATION_VERSION
 
 from tests.support.api_client import ApiClient
 

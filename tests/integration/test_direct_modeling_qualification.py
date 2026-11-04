@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.models import Artifact, CommandRecord, StructureEntry
+from neistra_api.models import Artifact, CommandRecord, StructureEntry
 from sqlalchemy import func, select
 
 from tests.integration import test_selection_edits as legacy

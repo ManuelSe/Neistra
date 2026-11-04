@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.editing.fragments import FRAGMENT_CAP_SMILES, fragment_template
-from molweave_core.editing.model import (
+from neistra_core.editing.fragments import FRAGMENT_CAP_SMILES, fragment_template
+from neistra_core.editing.model import (
     DirectMolecularEditor,
     ModelAtomAdd,
     ModelDelete,
     ModelFragmentAdd,
     modeling_metadata,
 )
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 from rdkit import Chem
 
 from tests.support.modeling_fixture import paracetamol

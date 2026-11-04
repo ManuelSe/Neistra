@@ -58,14 +58,14 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
   MOLWEAVE_DATA_DIR=.molweave \
-  .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8000
+  .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m molweave_api.worker
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
+  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -92,7 +92,7 @@ The complete release gate is:
 corepack pnpm install --frozen-lockfile
 MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
-.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run mypy apps/api packages/neistra_core
 .venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
@@ -219,7 +219,7 @@ change the single-command supervisor ports from their defaults of 8000 and
 5173; the Vite proxy follows the selected API port unless `VITE_API_TARGET` is
 set explicitly. Import/archive byte limits, atom warning/hard limits, worker
 polling, plugin allowlist/targets, and optional worker health port are defined
-in `apps/api/src/molweave_api/settings.py`. API and worker must use the same data
+in `apps/api/src/neistra_api/settings.py`. API and worker must use the same data
 directory and plugin configuration.
 
 ## Troubleshooting

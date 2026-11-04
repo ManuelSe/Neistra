@@ -261,7 +261,7 @@ wheels = [
 ]
 
 [[package]]
-name = "molweave-dev"
+name = "neistra-dev"
 version = "0.26.2"
 source = { virtual = "." }
 dependencies = [

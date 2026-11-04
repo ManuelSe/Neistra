@@ -40,8 +40,8 @@ export function buildConfiguration({
   const webPort = parsePort(environment.MOLWEAVE_WEB_PORT, "MOLWEAVE_WEB_PORT", 5173);
   const pythonPath = [
     pathApi.join(root, "apps", "api", "src"),
-    pathApi.join(root, "packages", "molweave_core", "src"),
-    pathApi.join(root, "packages", "molweave_demo_plugin", "src"),
+    pathApi.join(root, "packages", "neistra_core", "src"),
+    pathApi.join(root, "packages", "neistra_demo_plugin", "src"),
     environment.PYTHONPATH,
   ]
     .filter(Boolean)
@@ -93,7 +93,7 @@ export function buildCommands(configuration) {
         args: [
           "-m",
           "uvicorn",
-          "molweave_api.main:app",
+          "neistra_api.main:app",
           "--host",
           "127.0.0.1",
           "--port",
@@ -104,7 +104,7 @@ export function buildCommands(configuration) {
       {
         label: "worker",
         command: python,
-        args: ["-m", "molweave_api.worker"],
+        args: ["-m", "neistra_api.worker"],
         environment: sharedEnvironment,
       },
       {

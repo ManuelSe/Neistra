@@ -5,8 +5,8 @@ import zipfile
 from pathlib import Path
 
 import pytest
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.export_policy import (
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.export_policy import (
     ExportFilters,
     ExportInput,
     ExportPolicyError,
@@ -15,7 +15,7 @@ from molweave_core.export_policy import (
     prepare_export,
     safe_export_stem,
 )
-from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1
+from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1
 
 FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
 

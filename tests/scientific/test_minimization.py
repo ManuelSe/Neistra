@@ -9,11 +9,11 @@ from pathlib import Path
 import numpy as np
 import openmm
 import pytest
-from molweave_core.minimization.optimize import optimize_isolated
-from molweave_core.minimization.parameterization import parameterize_isolated
-from molweave_core.minimization.plugin import plugin
-from molweave_core.minimization.preflight import isolated_preflight
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.minimization.optimize import optimize_isolated
+from neistra_core.minimization.parameterization import parameterize_isolated
+from neistra_core.minimization.plugin import plugin
+from neistra_core.minimization.preflight import isolated_preflight
+from neistra_core.minimization.toolchain import AmberTools
 from openmm import unit
 
 from tests.support.minimization import LocalContext, capture, molecule
@@ -149,7 +149,7 @@ def test_sparse_ids_and_nonfirst_active_conformer_keep_immutable_input_exact(
     tmp_path: Path,
     tools: AmberTools,
 ) -> None:
-    from molweave_core.molecular import Conformer
+    from neistra_core.molecular import Conformer
 
     structure = molecule()
     annotations = [
@@ -189,8 +189,8 @@ def test_modified_native_parameter_data_cannot_reuse_qualified_profile(
     tmp_path: Path,
     tools: AmberTools,
 ) -> None:
-    from molweave_core.minimization.contracts import CalculationError
-    from molweave_core.minimization.toolchain import DATA_FILES, NATIVE_FILES
+    from neistra_core.minimization.contracts import CalculationError
+    from neistra_core.minimization.toolchain import DATA_FILES, NATIVE_FILES
 
     for name in [*NATIVE_FILES, *DATA_FILES]:
         target = tmp_path / name

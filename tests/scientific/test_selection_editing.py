@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.editing.ligand import StructureValidator
-from molweave_core.editing.selection import (
+from neistra_core.editing.ligand import StructureValidator
+from neistra_core.editing.selection import (
     AtomDelete,
     ChargeChange,
     ElementChange,
@@ -35,7 +35,7 @@ def test_h_substitution_generates_methyl_and_keeps_other_atoms_exact() -> None:
     )
     result = apply(prepared, ElementChange(operation="atom.element", element="C"), [h])
     after = result.edit.structure
-    from molweave_core.hydrogen_protection import protection_facts
+    from neistra_core.hydrogen_protection import protection_facts
 
     facts = protection_facts(after)
     assert all(facts[a.id].matches(a) and facts[a.id].ordinary for a in after.atoms)
@@ -98,7 +98,7 @@ def test_supplied_chirality_survives_hydrogen_reconciliation() -> None:
 
 
 def test_covaly_attached_component_and_mixed_selection_reject() -> None:
-    from molweave_core.molecular import Bond
+    from neistra_core.molecular import Bond
 
     original = prepared_complex()
     ligand_id = next(a.id for a in original.atoms if a.formal_charge == 0)
@@ -124,7 +124,7 @@ def test_covaly_attached_component_and_mixed_selection_reject() -> None:
 def test_degenerate_input_geometry_is_not_silently_reembedded() -> None:
     from pathlib import Path
 
-    from molweave_core.adapters.ligand import MolAdapter
+    from neistra_core.adapters.ligand import MolAdapter
 
     path = Path(__file__).parents[1] / "fixtures" / "formats" / "ethanol.mol"
     original = MolAdapter().parse(path.read_bytes(), path.name).structures[0]
@@ -181,9 +181,9 @@ def test_unspecified_and_conflicting_stereo_refuse_before_changes() -> None:
 
 
 def test_enantiotopic_h_substitution_records_opposite_stereo_in_saved_order() -> None:
-    from molweave_core.adapters.rdkit_common import normalized_to_mol
-    from molweave_core.editing.selection import FragmentReplace
-    from molweave_core.molecular import NormalizedStructureV1
+    from neistra_core.adapters.rdkit_common import normalized_to_mol
+    from neistra_core.editing.selection import FragmentReplace
+    from neistra_core.molecular import NormalizedStructureV1
     from rdkit import Chem
 
     source = apply(
@@ -235,8 +235,8 @@ def test_nonfinite_surrounding_context_refuses_clash_validation() -> None:
 
 
 def test_large_context_is_never_projected_into_ligand_chemistry(monkeypatch) -> None:
-    from molweave_core.editing import selection as module
-    from molweave_core.molecular import Conformer
+    from neistra_core.editing import selection as module
+    from neistra_core.molecular import Conformer
 
     source = prepared_complex()
     first_new = max(a.id for a in source.atoms) + 1

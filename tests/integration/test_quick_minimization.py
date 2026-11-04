@@ -149,7 +149,7 @@ def apply_quick(client, project, job, proposal):
 
 
 def test_sparse_ids_active_conformer_and_exact_mask_are_coordinate_only(client: ApiClient):
-    from molweave_core.molecular import Conformer
+    from neistra_core.molecular import Conformer
 
     source = molecule()
     coordinates = [(x + 1, y + 2, z + 3) for x, y, z in source.active_coordinates]
@@ -346,7 +346,7 @@ def test_native_quick_cancellation_cannot_publish_a_late_result(client: ApiClien
     import time
     from pathlib import Path
 
-    from molweave_core.adapters.defaults import create_default_registry
+    from neistra_core.adapters.defaults import create_default_registry
 
     path = Path(__file__).parents[1] / "fixtures/minimization/long-alkane.mol"
     source = (

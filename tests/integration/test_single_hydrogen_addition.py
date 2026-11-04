@@ -61,8 +61,8 @@ def test_single_hydrogen_atomic_history_originals_and_archives(
 def test_single_hydrogen_stereo_refusal_preserves_every_persisted_boundary(
     client: ApiClient, smiles: str, remove: set[int]
 ) -> None:
-    from molweave_api.models import Artifact, CommandRecord
-    from molweave_core.molecular import Conformer
+    from neistra_api.models import Artifact, CommandRecord
+    from neistra_core.molecular import Conformer
     from sqlalchemy import func, select
 
     from tests.integration.test_viewer_state import apply_style, selection

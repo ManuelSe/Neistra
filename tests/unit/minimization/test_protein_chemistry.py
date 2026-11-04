@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.protein_chemistry import validate_protein_chemistry
-from molweave_core.minimization.templates import match_protein_chain
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.protein_chemistry import validate_protein_chemistry
+from neistra_core.minimization.templates import match_protein_chain
 
 from tests.support.minimization import protein_state_chain, protein_state_templates
 

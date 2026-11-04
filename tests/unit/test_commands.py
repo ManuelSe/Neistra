@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import cast
 
-from molweave_api.schemas import ViewerSettings
-from molweave_api.viewer_state import update_selection_representations
+from neistra_api.schemas import ViewerSettings
+from neistra_api.viewer_state import update_selection_representations
 
 from tests.support.api_client import ApiClient
 

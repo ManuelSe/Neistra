@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import numpy as np
-from molweave_api.job_service import JobService
-from molweave_core.minimization.contracts import MinimizationParameters
-from molweave_core.minimization.live import SNAPSHOT_NAME, SnapshotPublisher
+from neistra_api.job_service import JobService
+from neistra_core.minimization.contracts import MinimizationParameters
+from neistra_core.minimization.live import SNAPSHOT_NAME, SnapshotPublisher
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker

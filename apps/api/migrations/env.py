@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from logging.config import fileConfig
 
-import molweave_api.models  # noqa: F401
+import neistra_api.models  # noqa: F401
 from alembic import context
-from molweave_api.database import Base
-from molweave_api.settings import Settings
+from neistra_api.database import Base
+from neistra_api.settings import Settings
 from sqlalchemy import engine_from_config, pool
 
 config = context.config

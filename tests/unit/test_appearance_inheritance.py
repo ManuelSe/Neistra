@@ -1,9 +1,9 @@
 from pathlib import Path
 
 import pytest
-from molweave_api.viewer_state import default_viewer_settings, inherit_added_appearance
-from molweave_core.adapters.macromolecular import PdbAdapter
-from molweave_core.editing.model import DirectMolecularEditor, ModelAtomAdd
+from neistra_api.viewer_state import default_viewer_settings, inherit_added_appearance
+from neistra_core.adapters.macromolecular import PdbAdapter
+from neistra_core.editing.model import DirectMolecularEditor, ModelAtomAdd
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_automatic_hydrogens import automatic

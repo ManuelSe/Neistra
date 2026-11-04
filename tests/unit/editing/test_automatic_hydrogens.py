@@ -1,7 +1,7 @@
 from collections import Counter
 
 import pytest
-from molweave_core.editing.model import (
+from neistra_core.editing.model import (
     DirectMolecularEditor,
     ModelAtomAdd,
     ModelBondDelete,
@@ -11,7 +11,7 @@ from molweave_core.editing.model import (
     ModelElement,
     ModelFragmentAdd,
 )
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.support.hydrogen_fixture import model
 

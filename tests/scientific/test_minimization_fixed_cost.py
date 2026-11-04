@@ -10,10 +10,10 @@ from pathlib import Path
 import numpy as np
 import openmm
 import pytest
-from molweave_core.minimization.assembly import Assembly, environment_preflight
-from molweave_core.minimization.context_model import parameterize_environment
-from molweave_core.minimization.templates import read_templates
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.minimization.assembly import Assembly, environment_preflight
+from neistra_core.minimization.context_model import parameterize_environment
+from neistra_core.minimization.templates import read_templates
+from neistra_core.minimization.toolchain import AmberTools
 from openmm import unit
 
 from tests.integration.test_minimization_performance import prepared_pocket, retain

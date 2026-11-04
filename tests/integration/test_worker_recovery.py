@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from molweave_api.job_service import JobService
-from molweave_api.job_worker import JobWorker
+from neistra_api.job_service import JobService
+from neistra_api.job_worker import JobWorker
 
 from tests.integration.test_job_lifecycle import _project_with_structure, _submit
 from tests.support.api_client import ApiClient

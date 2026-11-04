@@ -1,0 +1,546 @@
+{
+  "records": [
+    {
+      "old": "apps/api/src/molweave_api/__init__.py",
+      "new": "apps/api/src/neistra_api/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "cbcf0c3e5b1a8d3803874556d7e9ac220608b5a93534b3cd4f568618983c53e3"
+    },
+    {
+      "old": "apps/api/src/molweave_api/archive_service.py",
+      "new": "apps/api/src/neistra_api/archive_service.py",
+      "expected_namespace_only": true,
+      "sha256": "c9d8fdf35c05e6ae2f2202249c1a349bfb9b92335818e78e0acbc3314666839a"
+    },
+    {
+      "old": "apps/api/src/molweave_api/coordinate_service.py",
+      "new": "apps/api/src/neistra_api/coordinate_service.py",
+      "expected_namespace_only": true,
+      "sha256": "b77d95876416f7c77b07afdb07beef5039ef22683e51f1e063dabd01a65f1822"
+    },
+    {
+      "old": "apps/api/src/molweave_api/database.py",
+      "new": "apps/api/src/neistra_api/database.py",
+      "expected_namespace_only": true,
+      "sha256": "6c97ed985d57324a58d975844e27268169e614a118707276f0b880529bf0af42"
+    },
+    {
+      "old": "apps/api/src/molweave_api/import_export.py",
+      "new": "apps/api/src/neistra_api/import_export.py",
+      "expected_namespace_only": true,
+      "sha256": "c414d8fce2f3233d2f9925f8389da899382ccb4356e89d4c97dd3de03ecf828f"
+    },
+    {
+      "old": "apps/api/src/molweave_api/interaction_service.py",
+      "new": "apps/api/src/neistra_api/interaction_service.py",
+      "expected_namespace_only": true,
+      "sha256": "2dd674e7eb6db8161a84367395c68bdcde5253b26396781e022c3e4d6ee28feb"
+    },
+    {
+      "old": "apps/api/src/molweave_api/job_service.py",
+      "new": "apps/api/src/neistra_api/job_service.py",
+      "expected_namespace_only": true,
+      "sha256": "5cfccd6d3dc4a9e0779864dcee55b422ac3f2bfb20d8dc5ee62103b368a5fcba"
+    },
+    {
+      "old": "apps/api/src/molweave_api/job_worker.py",
+      "new": "apps/api/src/neistra_api/job_worker.py",
+      "expected_namespace_only": true,
+      "sha256": "0de7f52f5f44890935281de6402ab7b3fa878721e576573da612db939137cdc3"
+    },
+    {
+      "old": "apps/api/src/molweave_api/ligand_edit_service.py",
+      "new": "apps/api/src/neistra_api/ligand_edit_service.py",
+      "expected_namespace_only": true,
+      "sha256": "9c82dd84dc7f8b7309360112d1ac20fcb7fcc92c9b3f8ebe7f26ac83eebd598d"
+    },
+    {
+      "old": "apps/api/src/molweave_api/main.py",
+      "new": "apps/api/src/neistra_api/main.py",
+      "expected_namespace_only": true,
+      "sha256": "9ad74e8211c8b8e851138a66db94755c64f109b7526a0fe050ebcddbaa4be84a"
+    },
+    {
+      "old": "apps/api/src/molweave_api/minimization_schemas.py",
+      "new": "apps/api/src/neistra_api/minimization_schemas.py",
+      "expected_namespace_only": true,
+      "sha256": "83646eb93175f610c2cc493cb07c75cc8d5b0bc84b1ed31c54d8e7fba93a55a0"
+    },
+    {
+      "old": "apps/api/src/molweave_api/minimization_service.py",
+      "new": "apps/api/src/neistra_api/minimization_service.py",
+      "expected_namespace_only": true,
+      "sha256": "384efd9175f7ced448415bd41fd2c17dfc2337a0a87098e862e03af890a2d9d1"
+    },
+    {
+      "old": "apps/api/src/molweave_api/model_edit_service.py",
+      "new": "apps/api/src/neistra_api/model_edit_service.py",
+      "expected_namespace_only": true,
+      "sha256": "a3f190c2bab7a5c19dd266d42b7ae08f5c785a0161007f16d3176e402d9de25c"
+    },
+    {
+      "old": "apps/api/src/molweave_api/models.py",
+      "new": "apps/api/src/neistra_api/models.py",
+      "expected_namespace_only": true,
+      "sha256": "d7e64f65d8496d5e7ef4391a28610f9c11f3de369f79983caa65595ed313d711"
+    },
+    {
+      "old": "apps/api/src/molweave_api/project_service.py",
+      "new": "apps/api/src/neistra_api/project_service.py",
+      "expected_namespace_only": true,
+      "sha256": "2357e6fd94a90769154b28c93b8c1c0b3a89fdc0a03f5f733bcc587497850030"
+    },
+    {
+      "old": "apps/api/src/molweave_api/protein_edit_service.py",
+      "new": "apps/api/src/neistra_api/protein_edit_service.py",
+      "expected_namespace_only": true,
+      "sha256": "c4d11fd53c82bbe27fb2b5011b34530cf0a1bd42e751c0952ca555ebed764d5b"
+    },
+    {
+      "old": "apps/api/src/molweave_api/quick_minimization.py",
+      "new": "apps/api/src/neistra_api/quick_minimization.py",
+      "expected_namespace_only": true,
+      "sha256": "e6b054e3f43b7dbe87f149c2c862da80cdb3a897ca6e46e8a9af368a165e0dcb"
+    },
+    {
+      "old": "apps/api/src/molweave_api/schemas.py",
+      "new": "apps/api/src/neistra_api/schemas.py",
+      "expected_namespace_only": true,
+      "sha256": "9ced1a54fb4e8c9a99639588620cdd50f68683b719272a24f96ac7a66336d4c1"
+    },
+    {
+      "old": "apps/api/src/molweave_api/selection_edit_service.py",
+      "new": "apps/api/src/neistra_api/selection_edit_service.py",
+      "expected_namespace_only": true,
+      "sha256": "6367daf855c38ca46bcc16ac342866eba9b71059393561a8d8a4be4ab58bee9e"
+    },
+    {
+      "old": "apps/api/src/molweave_api/selection_style_service.py",
+      "new": "apps/api/src/neistra_api/selection_style_service.py",
+      "expected_namespace_only": true,
+      "sha256": "c3240186c5750efcecad826ece49bfb4f2c114be541926fbe01c2367b18d21cf"
+    },
+    {
+      "old": "apps/api/src/molweave_api/settings.py",
+      "new": "apps/api/src/neistra_api/settings.py",
+      "expected_namespace_only": true,
+      "sha256": "cadd5b4249841387c34455cc34138ad4d944a802c534db32064db0a4f683e596"
+    },
+    {
+      "old": "apps/api/src/molweave_api/source_identity.py",
+      "new": "apps/api/src/neistra_api/source_identity.py",
+      "expected_namespace_only": true,
+      "sha256": "09a8808c010aaedb29c72d2c7dc87c294982e95b1661f31ded6cd2689c82a21a"
+    },
+    {
+      "old": "apps/api/src/molweave_api/surface_service.py",
+      "new": "apps/api/src/neistra_api/surface_service.py",
+      "expected_namespace_only": true,
+      "sha256": "fa94936b00fe596b87e98a8d2a5998a8f2198f4a1aac247d8249c97c14a46651"
+    },
+    {
+      "old": "apps/api/src/molweave_api/surface_upgrade.py",
+      "new": "apps/api/src/neistra_api/surface_upgrade.py",
+      "expected_namespace_only": true,
+      "sha256": "6a5ad7da7e800b0883e9e40e9e5777653b1743d2dfe292d46e789161bcdce382"
+    },
+    {
+      "old": "apps/api/src/molweave_api/viewer_state.py",
+      "new": "apps/api/src/neistra_api/viewer_state.py",
+      "expected_namespace_only": true,
+      "sha256": "aafa2bcebbfc1a4c8088fee369db9a1c4c5d988ffa20e5a087a56dbb725e0318"
+    },
+    {
+      "old": "apps/api/src/molweave_api/worker.py",
+      "new": "apps/api/src/neistra_api/worker.py",
+      "expected_namespace_only": true,
+      "sha256": "f690dd7f39d759a6b94f2e93c39ac68e838ff50bdb5cc814b07f6f3015b32eb5"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/__init__.py",
+      "new": "packages/neistra_core/src/neistra_core/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "28aaffa75f0bcc5bc015e63984c260c3cc68607a8e4cdcdf358b57075a28c7c9"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/__init__.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "e13167df743f134c2cbcfd21c65ed07046a3064d22bd6cdc3e659d3d4fbd1e71"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/base.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/base.py",
+      "expected_namespace_only": true,
+      "sha256": "74b833d0bc4d930bafbaf666d6b7f72e97446a6fe4331e2d855cd30722b9c76e"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/defaults.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/defaults.py",
+      "expected_namespace_only": true,
+      "sha256": "6a58ca74343e113957240df3d2804e24ded1db20fa4a899ec533a16f5686463b"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/ligand.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/ligand.py",
+      "expected_namespace_only": true,
+      "sha256": "c18bc71c941590efdde94204ceb4c42eb701dc5cf1708080de06f7e8265ea699"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/macromolecular.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/macromolecular.py",
+      "expected_namespace_only": true,
+      "sha256": "7bc28b8a81527a118914159b0078e0bc7b3339863f5dc588270bc1e7643cb508"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/rdkit_common.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/rdkit_common.py",
+      "expected_namespace_only": true,
+      "sha256": "121e59fbb7674b7aa97d2df3576ad5197c1dd7979aab93b0b7bb2cc1dccdfbee"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/adapters/registry.py",
+      "new": "packages/neistra_core/src/neistra_core/adapters/registry.py",
+      "expected_namespace_only": true,
+      "sha256": "72848c8af3df6799709bd5fa047104aa3dd8afc59a4e404a62ebfece2430b587"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/artifacts.py",
+      "new": "packages/neistra_core/src/neistra_core/artifacts.py",
+      "expected_namespace_only": true,
+      "sha256": "5787a87004daa9ecac2227fcd0b10f66fd39ed7eb0df77c1c7044f5cccbc8d74"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/components.py",
+      "new": "packages/neistra_core/src/neistra_core/components.py",
+      "expected_namespace_only": true,
+      "sha256": "7d2d8d2531fd2ffb6bad711178e1105167e8ad1f193ec8de7167e673dadda495"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/contacts.py",
+      "new": "packages/neistra_core/src/neistra_core/contacts.py",
+      "expected_namespace_only": true,
+      "sha256": "e7d2700880ff1a9507a2d0678e478510989e593d321b3ec33ec49460201b8916"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/__init__.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "d7b654c8f91915710398f72c15d4878b14f90a1d5cb0ab2f0bfc655b561b4f70"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/fragments.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/fragments.py",
+      "expected_namespace_only": true,
+      "sha256": "c25967b3bcaef0d8230bb2bf8a4346a3bca889200631e09c3df571b512e89c15"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/geometry.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/geometry.py",
+      "expected_namespace_only": true,
+      "sha256": "9be6326175350bd468bdd9255d3906791af19827e86eca7787f171c66598d3ad"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/hydrogen.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/hydrogen.py",
+      "expected_namespace_only": true,
+      "sha256": "6444741da43f4b1633d7ae8fc8ff3eed6db9e0c4f49f335874c9f1757b17dcc4"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/ligand.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/ligand.py",
+      "expected_namespace_only": true,
+      "sha256": "5c89af4601993fa9290620ca1b3f34e1be9812e11b062463067f81d799a5331d"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/model.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/model.py",
+      "expected_namespace_only": true,
+      "sha256": "bc41b440faa7b800d2e2221234fdc89010fea43f70f3b994e14ba9aed94053a4"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/placement.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/placement.py",
+      "expected_namespace_only": true,
+      "sha256": "bc927ad24d3c286528c9f8638d80e6b74180bba0e23b513985f29c9d94f4d8a8"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/protein.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/protein.py",
+      "expected_namespace_only": true,
+      "sha256": "0e65438ff5b4c7c8078712602185c255943a0b462e9e9f57eb05f1fc811e59bf"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/reconciliation.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/reconciliation.py",
+      "expected_namespace_only": true,
+      "sha256": "9fbb6aca2477af0421be0b0bdab148400ce29e4001ee528a3586de5d8071e17a"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/selection.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/selection.py",
+      "expected_namespace_only": true,
+      "sha256": "6d1de1dfa4dbc14a3fa00140ab232878052cbdeb6163e32403a277e7cfe54330"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/editing/single_hydrogen.py",
+      "new": "packages/neistra_core/src/neistra_core/editing/single_hydrogen.py",
+      "expected_namespace_only": true,
+      "sha256": "537055c53c4d958a20a214ec2cd8dfb2ab241653e3534a8822896a0df9e9fb8a"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/export_policy.py",
+      "new": "packages/neistra_core/src/neistra_core/export_policy.py",
+      "expected_namespace_only": true,
+      "sha256": "ebff07b159dd037f22bb4c475bee3946b32ffeee6898789decd9ca14f4f8e73b"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/hydrogen_protection.py",
+      "new": "packages/neistra_core/src/neistra_core/hydrogen_protection.py",
+      "expected_namespace_only": true,
+      "sha256": "8b38bfa8a2e0c604e4874dd3358e95204da3f6a6e0c9b826c696ef84115d49d1"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/interaction_chemistry.py",
+      "new": "packages/neistra_core/src/neistra_core/interaction_chemistry.py",
+      "expected_namespace_only": true,
+      "sha256": "5a1abfd5f1ac9bdb0811d2ae5d6dced8381c60cb8cf6048586f85e774918df65"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/interaction_groups.py",
+      "new": "packages/neistra_core/src/neistra_core/interaction_groups.py",
+      "expected_namespace_only": true,
+      "sha256": "f7792aa42cae592898b09f304281abcbc8c951fb682bce2c14356b89e329caa9"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/interactions.py",
+      "new": "packages/neistra_core/src/neistra_core/interactions.py",
+      "expected_namespace_only": true,
+      "sha256": "ba0ae955fb437546f482eb3989abb50e0a6ad75b0c89f186e8e60267abb75e30"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/jobs/__init__.py",
+      "new": "packages/neistra_core/src/neistra_core/jobs/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "e2cda8b55d85e44b715c8e62f9e787d23a841e8e509a65dfb4de492f227b8fca"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/jobs/contracts.py",
+      "new": "packages/neistra_core/src/neistra_core/jobs/contracts.py",
+      "expected_namespace_only": true,
+      "sha256": "450f07bb6dfbbe80315fedb5bf6c3b7225f1f5886111290eec81161ac183f28d"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/jobs/registry.py",
+      "new": "packages/neistra_core/src/neistra_core/jobs/registry.py",
+      "expected_namespace_only": false,
+      "sha256": "709478bfe578e248f4bc4e423bad46c6858f029dca1a9880b637571048356f64"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/measurements.py",
+      "new": "packages/neistra_core/src/neistra_core/measurements.py",
+      "expected_namespace_only": true,
+      "sha256": "a361e0e4a446721f5899560b312250b76d8d50f1fd9c9a68a2e9704477e38d35"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/__init__.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "1babee52a8340069485523551b0588a9d8f10fb736435def045a450f7b6bc127"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/amber-local-v1.json",
+      "new": "packages/neistra_core/src/neistra_core/minimization/amber-local-v1.json",
+      "expected_namespace_only": true,
+      "sha256": "20b805313e10255653b3000bbad36fe63c278bc286cab14263e08c1eb2930505"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/assembly.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/assembly.py",
+      "expected_namespace_only": true,
+      "sha256": "8bdcef889886b933defe29ab0b434bc54cda09fa14528f2850aeea03de4a60c1"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/capture.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/capture.py",
+      "expected_namespace_only": true,
+      "sha256": "319a7b237a806b4906facf8ee297e35f1eebb4836a99a7eb04fa8df51ef7f533"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/context_model.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/context_model.py",
+      "expected_namespace_only": true,
+      "sha256": "721f252409f6701979928c53b503fbdde65f8d8ffb7aac0c09e04bd6a7df17db"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/contracts.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/contracts.py",
+      "expected_namespace_only": true,
+      "sha256": "a2649fbba1a2be15201f7d04c01f018374640074ddc3d7919fd695d17c67a51d"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/discovery.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/discovery.py",
+      "expected_namespace_only": true,
+      "sha256": "f0ba3a8a08afd21e9a48cabc7339afa043ac8f6c0258326faa95282357fd27de"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/geometry.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/geometry.py",
+      "expected_namespace_only": true,
+      "sha256": "b499a71713a677ba92894a3df162a1b74ad4210c8234b399defa2de05ece82a7"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/live.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/live.py",
+      "expected_namespace_only": true,
+      "sha256": "b6574344e56af7ae690e4ca11bc9ecc0f04ffb5f531e4a752927589766795985"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/optimize.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/optimize.py",
+      "expected_namespace_only": true,
+      "sha256": "ff299746d078d3a1a22458e0fec049b4d73493df20903c9a24977f24d2f6fa38"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/parameter_cache.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/parameter_cache.py",
+      "expected_namespace_only": true,
+      "sha256": "135d1418085d447f323361748e75440d17ae6f50287a2115f2b716339e330a3e"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/parameterization.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/parameterization.py",
+      "expected_namespace_only": true,
+      "sha256": "15ccae687a131fa50e95e1cdd23b1fed23f52d404a46972fbc00dde188543ccc"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/plugin.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/plugin.py",
+      "expected_namespace_only": true,
+      "sha256": "04487a0eab241980d6ddbcfb2b6a21195721d37351583516d7a967b5d734cd13"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/preflight.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/preflight.py",
+      "expected_namespace_only": true,
+      "sha256": "4af2ef9c4af94b76f6ce3cb07f45687933ee640df2c5e48443226929c7808eb9"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/protein_chemistry.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/protein_chemistry.py",
+      "expected_namespace_only": true,
+      "sha256": "b08a808fc666fe7b28cbd55c183d47a3896a0c9750c709f51eff7fa780d0102c"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_chemistry.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_chemistry.py",
+      "expected_namespace_only": true,
+      "sha256": "f2d30c36f61016d834e76cb306d35d9544047cce07a3364baad38aa06e516c5f"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_context.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_context.py",
+      "expected_namespace_only": true,
+      "sha256": "52aab9ed3b924c79948aab07e9f2c93d5303b3b119cea3c03c2cf9be667cd680"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_contracts.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_contracts.py",
+      "expected_namespace_only": true,
+      "sha256": "620730d52fb8ecfdab97db521bbb4b16b46f87d3ce735614dfde0ab9974e8d68"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_field.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_field.py",
+      "expected_namespace_only": true,
+      "sha256": "7e0b2dc58bef9653b814ae8d545e778bf0c1986a5dd9643bdc248902653e2c2b"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_model.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_model.py",
+      "expected_namespace_only": true,
+      "sha256": "9fc8cd6bfe0c95c0188f4a30ba14632373aeb2369d33e4a8c78eaf17d68a20cd"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_optimize.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_optimize.py",
+      "expected_namespace_only": true,
+      "sha256": "5609795a2523e9bf004b9bdebaa5ceba8a009af4b9f32d187b2d79719b0dce7a"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_plugin.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_plugin.py",
+      "expected_namespace_only": true,
+      "sha256": "ebe21a2992fcd42e835c890f713b2a8c9bf2e6eaffea1b029d2c98f4fa36a76a"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/quick_protein.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/quick_protein.py",
+      "expected_namespace_only": true,
+      "sha256": "8f0c2790bcb63b8d8212141588abb6b616ab956cd09b75e68766b623fbe2d8c7"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/stereo.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/stereo.py",
+      "expected_namespace_only": true,
+      "sha256": "a32d2caba90d8fc9976490e612daae7e99f77f9c3ab128f942df1fcf24e24fc5"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/templates.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/templates.py",
+      "expected_namespace_only": true,
+      "sha256": "41f3ab17ec2d3613c7d501246ba45d33b941d5f50b82bab4022a04689eee81ec"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/minimization/toolchain.py",
+      "new": "packages/neistra_core/src/neistra_core/minimization/toolchain.py",
+      "expected_namespace_only": true,
+      "sha256": "e105df85e5183bc56088adfe8f05753516a1ae65dcc7a18c579d4452ce2a9b91"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/molecular.py",
+      "new": "packages/neistra_core/src/neistra_core/molecular.py",
+      "expected_namespace_only": true,
+      "sha256": "40769fd09ed899d63818a601a7b919ce4dd985964199c56923ba80d3e200ec89"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/selection.py",
+      "new": "packages/neistra_core/src/neistra_core/selection.py",
+      "expected_namespace_only": true,
+      "sha256": "5ca1b7418904815dff3677bc013c2dc87eefb8e13d974ad2fe1d4eeca096a503"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/superposition.py",
+      "new": "packages/neistra_core/src/neistra_core/superposition.py",
+      "expected_namespace_only": true,
+      "sha256": "61adad28c916c064d8d9980eaf9c5ecda1447664891d1eee9c231fe1324648f0"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/transforms.py",
+      "new": "packages/neistra_core/src/neistra_core/transforms.py",
+      "expected_namespace_only": true,
+      "sha256": "c404e58bf1e931f8e4d06a2826d5945bed3d7eec95cc4a0f2af9067bee01a53f"
+    },
+    {
+      "old": "packages/molweave_core/src/molweave_core/viewer_projection.py",
+      "new": "packages/neistra_core/src/neistra_core/viewer_projection.py",
+      "expected_namespace_only": true,
+      "sha256": "b09784686587088e107c92086ce6c38b424ce597122091bb14ebc840006427c3"
+    },
+    {
+      "old": "packages/molweave_demo_plugin/src/molweave_demo_plugin/__init__.py",
+      "new": "packages/neistra_demo_plugin/src/neistra_demo_plugin/__init__.py",
+      "expected_namespace_only": true,
+      "sha256": "491a80e21e9f7da99bd8ee8e35e4625184eb881274bb9badac7d73a12ca68504"
+    },
+    {
+      "old": "packages/molweave_demo_plugin/src/molweave_demo_plugin/plugin.py",
+      "new": "packages/neistra_demo_plugin/src/neistra_demo_plugin/plugin.py",
+      "expected_namespace_only": true,
+      "sha256": "b5cb386dc784a2c451aaf9a409c044de36a2d7ab11176362f864827d8f4b715f"
+    }
+  ],
+  "intentional_behavior_change": "registry.load deduplicates the same singleton reached by canonical/legacy target aliases",
+  "migration_history_unchanged": true
+}

@@ -11,10 +11,10 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.database import Base
-from molweave_api.main import create_app
-from molweave_api.settings import Settings
-from molweave_core.adapters.rdkit_common import normalized_to_mol
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
+from neistra_core.adapters.rdkit_common import normalized_to_mol
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _project_with_structure, _worker
@@ -31,8 +31,8 @@ def minclient(tmp_path: Path) -> Iterator[ApiClient]:
         enable_test_routes=True,
         job_plugin_allowlist=("molweave.demo", "molweave.minimization", "test.native_tree"),
         job_plugin_targets=(
-            "molweave_demo_plugin.plugin:plugin",
-            "molweave_core.minimization.plugin:plugin",
+            "neistra_demo_plugin.plugin:plugin",
+            "neistra_core.minimization.plugin:plugin",
             "tests.support.native_job_plugin:plugin",
         ),
     )
@@ -237,7 +237,7 @@ def test_worker_loss_terminates_native_tree_and_recovers_honestly(
 def test_worker_includes_hidden_locked_protein_context_without_mutation(minclient: ApiClient):
     if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for scientific worker qualification")
-    from molweave_core.molecular import NormalizedStructureV1
+    from neistra_core.molecular import NormalizedStructureV1
     from rdkit import Chem
 
     from tests.support.minimization import translated

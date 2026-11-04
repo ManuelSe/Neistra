@@ -6199,3 +6199,21 @@ from established stable0.26.2, rather than a first-release reset or a major brea
 Actual preceding-reader, scientific/spawn, candidate and exact-master qualification
 remain mandatory under the feature contract. No implementation or release is
 claimed by this approved architectural decision.
+
+
+### D-150 implementation note — issue #99 M1/C1
+
+Canonical implementation directories retain one source of molecular, ORM and
+plugin objects. Explicit leaf forwarding files replace their legacy module entry
+in `sys.modules`; package wrappers delegate exports and retain their own forwarding
+search path. Legacy outer core/demo source roots only bridge to the canonical
+compatibility directories. This avoids both duplicated class identities and a
+process-wide import hook; no symlinks or eager whole-tree aliasing are needed.
+Type-check-only reexports preserve legacy migration imports without executing
+another implementation. The existing worker `-m` entry delegates explicitly.
+
+Registry loading treats canonical/legacy targets resolving to the same singleton
+as one registration; conflicting independent plugins still fail existing checks.
+Historical migrations and actual preceding-reader support keep their old imports
+so one harness can execute older tags. Scientific resource files move unchanged;
+no persisted identifier, dependency version, schema or chemistry changes in C1.

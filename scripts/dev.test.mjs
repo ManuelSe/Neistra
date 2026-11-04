@@ -55,7 +55,7 @@ test("preserves environment overrides and constructs platform-specific paths", (
   assert.equal(configuration.apiPort, 18000);
   assert.equal(configuration.webPort, 15173);
   assert.equal(configuration.sharedEnvironment.MOLWEAVE_DATA_DIR, "custom-data");
-  assert.match(configuration.sharedEnvironment.PYTHONPATH, /molweave_demo_plugin\\src;C:\\plugins$/);
+  assert.match(configuration.sharedEnvironment.PYTHONPATH, /neistra_demo_plugin\\src;C:\\plugins$/);
   assert.equal(configuration.webEnvironment.VITE_API_TARGET, "http://api.example.test");
 });
 

@@ -6,15 +6,15 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_core.jobs import InputArtifact, JobCancelled, ResultArtifact
-from molweave_core.molecular import (
+from neistra_core.jobs import InputArtifact, JobCancelled, ResultArtifact
+from neistra_core.molecular import (
     Atom,
     Bond,
     Conformer,
     NormalizedStructureV1,
     SourceFacts,
 )
-from molweave_demo_plugin.plugin import (
+from neistra_demo_plugin.plugin import (
     DEMO_JOB_TYPE,
     NORMALIZED_MEDIA_TYPE,
     DemoJobParameters,

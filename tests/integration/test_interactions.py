@@ -98,7 +98,7 @@ def test_disconnected_analysis_terminates_child_and_releases_admission(
 def test_deadline_terminates_child_without_publishing_partial_results(
     client: ApiClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    import molweave_api.interaction_service as module
+    import neistra_api.interaction_service as module
 
     project = imported(client)
     baseline = {process.pid for process in multiprocessing.active_children()}

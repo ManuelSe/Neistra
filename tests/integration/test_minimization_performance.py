@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.molecular import NormalizedStructureV1
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker

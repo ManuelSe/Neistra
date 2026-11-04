@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.adapters.rdkit_common import normalized_to_mol
-from molweave_core.editing.selection import (
+from neistra_core.adapters.rdkit_common import normalized_to_mol
+from neistra_core.editing.selection import (
     BondCreate,
     BondDelete,
     BondOrder,

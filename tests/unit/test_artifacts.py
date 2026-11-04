@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from molweave_core.artifacts import LocalArtifactStore, UnsafeArtifactPathError
+from neistra_core.artifacts import LocalArtifactStore, UnsafeArtifactPathError
 
 
 def test_artifact_store_is_content_addressed_and_immutable(tmp_path: Path) -> None:

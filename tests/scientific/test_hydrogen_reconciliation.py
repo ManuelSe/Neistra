@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from molweave_core.editing.model import ModelBondSet
-from molweave_core.molecular import Conformer
+from neistra_core.editing.model import ModelBondSet
+from neistra_core.molecular import Conformer
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_hydrogen_reconciliation import apply

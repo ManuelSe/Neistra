@@ -211,14 +211,14 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
   MOLWEAVE_DATA_DIR=.molweave \
-  .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8000
+  .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m molweave_api.worker
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
+  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -295,7 +295,7 @@ Run these from the repository root:
 corepack pnpm install --frozen-lockfile
 MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
-.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run mypy apps/api packages/neistra_core
 .venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck

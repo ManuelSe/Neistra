@@ -4,14 +4,14 @@ import json
 
 import numpy as np
 import pytest
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.live import (
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.live import (
     SNAPSHOT_LIMIT,
     SNAPSHOT_NAME,
     SnapshotPublisher,
     read_snapshot,
 )
-from molweave_core.minimization.plugin import calculation_archive
+from neistra_core.minimization.plugin import calculation_archive
 
 from tests.support.minimization import LocalContext, capture, molecule
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.minimization.contracts import (
+from neistra_core.minimization.contracts import (
     MinimizationParameters,
     MinimizationReport,
     eligible_nonconvergence,
@@ -68,7 +68,7 @@ def test_strict_policy_and_old_serialization_remain_exact():
 
 def test_overlap_guard_detects_new_pairs_without_rejecting_existing_or_bonded_pairs():
     import numpy as np
-    from molweave_core.minimization.optimize import introduces_severe_overlap
+    from neistra_core.minimization.optimize import introduces_severe_overlap
 
     original = np.asarray([[0.0, 0.0, 0.0], [3.0, 0.0, 0.0], [0.0, 0.3, 0.0]])
     final = original.copy()

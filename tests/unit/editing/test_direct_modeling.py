@@ -1,5 +1,5 @@
 import pytest
-from molweave_core.editing.model import (
+from neistra_core.editing.model import (
     DirectMolecularEditor,
     InvalidModelEdit,
     ModelBondDelete,
@@ -9,7 +9,7 @@ from molweave_core.editing.model import (
     ModelElement,
     modeling_metadata,
 )
-from molweave_core.molecular import Bond
+from neistra_core.molecular import Bond
 
 from tests.support.editing_fixture import prepared_complex
 from tests.support.modeling_fixture import paracetamol

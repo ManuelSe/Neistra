@@ -4,11 +4,11 @@ import os
 
 import numpy as np
 import pytest
-from molweave_core.minimization import optimize
-from molweave_core.minimization.live import SnapshotPublisher, read_snapshot
-from molweave_core.minimization.parameterization import parameterize_isolated
-from molweave_core.minimization.preflight import isolated_preflight
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.minimization import optimize
+from neistra_core.minimization.live import SnapshotPublisher, read_snapshot
+from neistra_core.minimization.parameterization import parameterize_isolated
+from neistra_core.minimization.preflight import isolated_preflight
+from neistra_core.minimization.toolchain import AmberTools
 
 from tests.support.minimization import LocalContext, capture, molecule
 
@@ -63,7 +63,7 @@ def test_live_coordinates_come_from_accepted_iterates_not_last_trial(tmp_path, m
 def test_improving_native_partial_is_eligible_only_for_ordinary_iteration_limit(
     tmp_path, monkeypatch, termination
 ):
-    from molweave_core.minimization.contracts import eligible_nonconvergence
+    from neistra_core.minimization.contracts import eligible_nonconvergence
 
     parameters, inputs = capture(molecule(), max_iterations=1)
     parameters = parameters.model_copy(

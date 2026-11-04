@@ -1,0 +1,68 @@
+{
+  "checkpoint": "M1/C1",
+  "base": "005b0f19b18d4dfda51396b32289fcf8b6674b26",
+  "logs": [
+    {
+      "path": "docs/assets/technical-rebranding/c1-python.log.gz",
+      "uncompressed_sha256": "56e3f303c74e86b5cd1eb979de7d0a64b34efd4b03793c44097b1c4868534991"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-browser.log.gz",
+      "uncompressed_sha256": "79aa75c706f438fdec65384df0f976f8899f21a2dcf31dabbff6ad5c0e9ede7c"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-build.log.gz",
+      "uncompressed_sha256": "6656ea7ac974e0a9ce5b4bf469a6f999a9ef4d59a16aea46f3224e5131496793"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-lint.log.gz",
+      "uncompressed_sha256": "f306cc50e9a0028f020e9b371b380224807de44bae9b109f545b7960fc4048ca"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-web.log.gz",
+      "uncompressed_sha256": "2548927fcde15f969919fae8c901e1229aa0df8afc28e54e41f610a0a2f9df04"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-cli.log.gz",
+      "uncompressed_sha256": "282f9417b9ad9b924554147b8aec3b53bb3d3aa7f117e8ca92379fc154fbfa71"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-frozen.log.gz",
+      "uncompressed_sha256": "bd53231e118ea07eff10cc8b47a88937f98248b8ac8929f0e44977c9ced4ab2d"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-ruff.log.gz",
+      "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-types.log.gz",
+      "uncompressed_sha256": "35272d4b274065e24ed6e00050e1731118a46dc3b45a0f85f7a23799404558f6"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-mypy.log.gz",
+      "uncompressed_sha256": "7c04d2220edb6c4c9abe500fb22d101adfd8dcd85cc852a616a0ee2bed0f8c5d"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c1-supervisor.log.gz",
+      "uncompressed_sha256": "4baef9c620895b60e595733a0e52beb8b3430ef50afb59e333a82f73a9df218f"
+    }
+  ],
+  "commands": [
+    ".venv/bin/uv sync --frozen",
+    ".venv/bin/uv run ruff check .",
+    ".venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin",
+    ".venv/bin/uv run pytest tests/unit/test_namespace_compatibility.py tests/unit/jobs tests/integration/test_job_lifecycle.py tests/integration/test_migrations.py",
+    ".venv/bin/uv run pytest tests/unit/test_namespace_compatibility.py",
+    "corepack pnpm test:dev",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/release-journey.spec.ts"
+  ],
+  "browser_environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8"
+  },
+  "review": "implementer self-review; 90 moved implementation/resources preserve namespace-normalized bytes except documented registry singleton deduplication; no migration-history diff",
+  "limitations": "complete final-version and actual-reader qualification still pending"
+}

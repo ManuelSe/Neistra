@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.molecular import NormalizedStructureV1
 
 FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
 

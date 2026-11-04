@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from molweave_core.molecular import (
+from neistra_core.molecular import (
     Atom,
     Chain,
     Conformer,
@@ -11,7 +11,7 @@ from molweave_core.molecular import (
     SourceFacts,
     StructureType,
 )
-from molweave_core.superposition import (
+from neistra_core.superposition import (
     InvalidSuperpositionError,
     kabsch_fit,
     superpose_backbone,

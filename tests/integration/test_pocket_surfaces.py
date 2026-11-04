@@ -7,7 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import pytest
-from molweave_api.schemas import SelectionPocketSurface
+from neistra_api.schemas import SelectionPocketSurface
 from pydantic import ValidationError
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive, upload
@@ -438,9 +438,9 @@ def test_archive_remaps_all_exported_paths_and_validates_atomically(client: ApiC
 
 
 def test_checkpoint_and_cross_entry_undo_survive_restart(tmp_path: Path):
-    from molweave_api.database import Base
-    from molweave_api.main import create_app
-    from molweave_api.settings import Settings
+    from neistra_api.database import Base
+    from neistra_api.main import create_app
+    from neistra_api.settings import Settings
 
     config = Settings(
         data_dir=tmp_path,

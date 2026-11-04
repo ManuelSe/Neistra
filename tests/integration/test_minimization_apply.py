@@ -4,8 +4,8 @@ import os
 from typing import Any
 
 import pytest
-from molweave_api.import_export import ImportExportService, PreparedFile
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_api.import_export import ImportExportService, PreparedFile
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker
@@ -21,7 +21,7 @@ def seeded_project(client: ApiClient, *structures: NormalizedStructureV1) -> dic
     Real raw-upload/preparation/worker paths remain in test_minimization_jobs.
     """
     project = client.post("/api/v1/projects", json={"name": "Apply specimen"}).json()
-    from molweave_core.adapters.defaults import create_default_registry
+    from neistra_core.adapters.defaults import create_default_registry
 
     registry = create_default_registry()
     prepared = []
@@ -192,7 +192,7 @@ def test_sparse_ids_active_conformer_and_metadata_survive_apply(minclient: ApiCl
     source = molecule()
     original_rows = source.active_coordinates
     active = [(p[0] + 1, p[1] + 2, p[2] + 3) for p in original_rows]
-    from molweave_core.hydrogen_protection import protection_annotation, protection_facts
+    from neistra_core.hydrogen_protection import protection_annotation, protection_facts
 
     facts = [
         f.model_copy(update={"atom_id": f.atom_id * 3}) for f in protection_facts(source).values()
@@ -424,7 +424,7 @@ def test_concurrent_apply_requests_publish_exactly_one_command(minclient: ApiCli
 
 
 def test_corrupted_proposal_storage_is_never_applied(minclient: ApiClient):
-    from molweave_api.models import Artifact, Job
+    from neistra_api.models import Artifact, Job
 
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]
@@ -451,9 +451,9 @@ def test_semantically_invalid_or_unchanged_proposals_create_no_history(
     import hashlib
     import json
 
-    from molweave_api.import_export import ArtifactService
-    from molweave_api.models import Job
-    from molweave_core.artifacts import LocalArtifactStore
+    from neistra_api.import_export import ArtifactService
+    from neistra_api.models import Job
+    from neistra_core.artifacts import LocalArtifactStore
 
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]

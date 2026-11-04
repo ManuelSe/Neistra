@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
-from molweave_core.editing import hydrogen
-from molweave_core.editing.hydrogen import HydrogenBuilder
-from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
+from neistra_core.editing import hydrogen
+from neistra_core.editing.hydrogen import HydrogenBuilder
+from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_hydrogen_completion import materialize
@@ -524,7 +524,7 @@ def test_stereo_analysis_budget_includes_each_conformer_visit(
 
 
 def test_covalently_attached_ligand_counts_cross_boundary_bonds_despite_unknown_protein() -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     before = model("CNC", remove_h_on={1})
     before = before.model_copy(
@@ -556,7 +556,7 @@ def test_covalently_attached_ligand_counts_cross_boundary_bonds_despite_unknown_
 
 
 def test_selected_terminal_h_maps_to_its_incomplete_heavy_parent() -> None:
-    from molweave_core.editing.model import DirectMolecularEditor, ModelDelete
+    from neistra_core.editing.model import DirectMolecularEditor, ModelDelete
 
     before = model("CC")
     children = [

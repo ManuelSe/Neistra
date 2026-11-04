@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import openmm
 import pytest
-from molweave_core.minimization.parameterization import finite_parameters
+from neistra_core.minimization.parameterization import finite_parameters
 
 
 def model():

@@ -2,9 +2,9 @@ from itertools import combinations
 
 import numpy as np
 import pytest
-from molweave_core.editing import reconciliation
-from molweave_core.editing.model import ModelAtomAdd, ModelBondSet
-from molweave_core.molecular import Conformer
+from neistra_core.editing import reconciliation
+from neistra_core.editing.model import ModelAtomAdd, ModelBondSet
+from neistra_core.molecular import Conformer
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_automatic_hydrogens import automatic, hcounts
