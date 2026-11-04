@@ -1,0 +1,19 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { PresentationProvider } from "./presentation/Provider";
+import "molstar/build/viewer/molstar.css";
+import "./styles.css";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 10_000, refetchOnWindowFocus: false } },
+});
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <PresentationProvider><App /></PresentationProvider>
+    </QueryClientProvider>
+  </StrictMode>,
+);

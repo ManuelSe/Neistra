@@ -6366,3 +6366,20 @@ normalized/selection/component remain1 and Alembic remains0014. Proposed stable
 minor0.28.0 reflects a new compatible user capability on established stable0.27.0,
 subject to final version/tag recheck and complete candidate/exact-master gates.
 This planning checkpoint changes no application version or runtime behavior.
+
+### D-151 implementation note — issue #97 M1/C1
+
+Explicit `/goal` authorizes implementation after planning3631543. The first native
+gate qualifies capture on pinned desktop Chromium: actual annotation raster and
+coordinate-preview/cancel output match source canvas content, fullscreen and
+one-window reuse work, and child input cannot alter main camera/project/originals.
+The capture refresh requests one native draw to initialize an otherwise stationary
+scene. A separate bootstrap import avoids loading workspace/API/renderer code in
+the child. No molecular/saved-state authority changes.
+
+The test source must be the actual canvas, not an element screenshot that includes
+application controls composited above it. Preserve initial diagnostic failures;
+correct only that observation and mounted-viewer readiness, without relaxing raster
+acceptance. C2 source/connection lifecycle and C3 comprehensive visual/pointer/
+accessibility/resource gates remain pending. No schema/migration/version/dependency
+or scientific change is made by C1.

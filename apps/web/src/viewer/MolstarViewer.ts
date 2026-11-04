@@ -21,6 +21,10 @@ import type {
 import { THEME_TOKENS } from "../theme";
 
 class LazyMolstarViewer implements MolecularViewer {
+  capturePresentation() {
+    if (!this.engine?.capturePresentation) throw new Error("The molecular viewer is not ready.");
+    return this.engine.capturePresentation();
+  }
   private engine: MolecularViewer | undefined;
   private disposed = false;
   private backgroundColor: string = THEME_TOKENS.light["viewer-background"];

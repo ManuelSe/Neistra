@@ -1,0 +1,42 @@
+{
+  "checkpoint": "C1",
+  "base": "36315430faba0325a624784cd201802558db9895",
+  "source_sha256": {
+    "apps/web/src/components/StructureViewer.tsx": "962c6ca2ae7e6086b1f464f41b37edd42aed8844513f178fa4688996b8242589",
+    "apps/web/src/components/ViewerToolbar.tsx": "3b50c4eceec70078b521b4e0874cd8bd84f42afb9bd5050b85ecf75252644881",
+    "apps/web/src/main.tsx": "7fddf3527bf04d09df1b7bac0dd3b00821b4158e734da7ed13b657c59cb108fe",
+    "apps/web/src/presentation/Provider.tsx": "b57390f741ea783491d1eb84e2f416bb22e7ac3f17b3e4d7e5a57728b4c49948",
+    "apps/web/src/presentation/context.ts": "d236ea50afe837f306be8f21d37f68a859d745a8f65ec688cca86c82d8dc6056",
+    "apps/web/src/presentation/controller.ts": "41b5973d64d9da63c8b92a72f198d5732447a5a8c3cdfb89e514d2993f69d2b1",
+    "apps/web/src/presentation/entry.ts": "a34865b1ddfc9670e17cd7a44649734ccf41f451e0bd53f653f682d77c836418",
+    "apps/web/src/presentation/presentation.css": "405496a7d08b8112ab027b8d6e2fc990fc1cfe94db9b66680c03d2cb8c56ebde",
+    "apps/web/src/presentation/protocol.ts": "14ac21c9fed9f9e7342e6b00a3bc9a9e55dfea5014a2ebc780e9599d8a727c13",
+    "apps/web/src/test/presentation.test.ts": "94cf1e4a3f58e18de962021a97860b4b3e06ca83df4167be0951bf6bdfbb03e9",
+    "apps/web/src/viewer/MolecularViewer.ts": "a8042f43f4a1bb2f9ad6a253af10b981592225150562527552cf18596f0ef09b",
+    "apps/web/src/viewer/MolstarEngine.ts": "58372ef8457fe5e3c5037077b0d64300326b59dc151f5a1a45397569e68ec21e",
+    "apps/web/src/viewer/MolstarViewer.ts": "b476f51b4e42b228aa4bda1fe3f887fe363a850caf59874bdfb262d83f81b6b8",
+    "apps/web/src/workspace.tsx": "5dbe562618f3ade6257fc4c9011443e407b7386935f8a25a246e90a17474e190",
+    "tests/e2e/detached-presentation.spec.ts": "a666b9e8cd981ce1d788d6fa1d05da2ebfe988699ee896a4e4b4c60993deb18f"
+  },
+  "evidence_sha256": {
+    "docs/assets/detached-presentation/c1-build.log.gz": "1b9f980bc51fd247fe58346bda09a52c75ae9210adadb95052756446874f8059",
+    "docs/assets/detached-presentation/c1-diagnostic-composited-source-trace.zip": "e9569c590196aa3c7f4781ee1a67c703b7246f446320b8e12b9d2201b0512ab4",
+    "docs/assets/detached-presentation/c1-diagnostic-composited-source.log.gz": "2a92962d7714f8a7adb030768968047b89a23dcdfc5d6b9bcd8fd12628d0ea68",
+    "docs/assets/detached-presentation/c1-diagnostic-readiness-trace.zip": "ff42ccc28ab6f2ef93d6b8c33e5ad8cf2eb7d38a54ef48fc284e143564406a1a",
+    "docs/assets/detached-presentation/c1-diagnostic-readiness.png": "0f368cb298029cff128f3ee45c8e54e181787522eb5fec09052061eb46152e11",
+    "docs/assets/detached-presentation/c1-lint-corrected.log.gz": "b4311bdbfb3ab8d933bf790c31f4aa7b9e423305985eeb336e47cead2ecf7da6",
+    "docs/assets/detached-presentation/c1-lint.log.gz": "b8a0d1d7ba5ec72b113e2dc473a4e12d28303854bebbbc5603fb2ace9de9218a",
+    "docs/assets/detached-presentation/c1-native-annotations.log.gz": "16707fd4d7865ce9cdd822fdd5e8a84ba60257b50cf7b3d5cb05a3e270ee2c7b",
+    "docs/assets/detached-presentation/c1-native-annotations.png": "198375151cb69c9cc774c33306fee565a4a69035a1b113641c652f81e2a1d961",
+    "docs/assets/detached-presentation/c1-native-final.log.gz": "baf92a3fda843329a11a763b9a7be3c464ba02e85b2d78561b48813aa004f842",
+    "docs/assets/detached-presentation/c1-native-presentation.png": "b3dc8f73cae722f9bb1457f3bd4efd56fa2e8fb2a4ea56f0ab922ce4bf97c50c",
+    "docs/assets/detached-presentation/c1-native.log.gz": "54673111687af0bcd3f24a2547689873ee6ec3864060b121fad3fbf9e21d1a5e",
+    "docs/assets/detached-presentation/c1-types.log.gz": "21573f7a0f54bfe016618d05cf3d34df3eb699a12c546028f8c4c99c42090c5d",
+    "docs/assets/detached-presentation/c1-unit-final.log.gz": "fdd488f806e6f4b6280917838db1bcfae6216fcdc2742dd50d69e910dbf4047e",
+    "docs/assets/detached-presentation/c1-unit.log.gz": "664d82ffe12b75b8e70e8576478fe820557b7fdc2fb104d807728a4bb3cd755b"
+  },
+  "frontend_passed": 376,
+  "native_passed": 4,
+  "review": "local implementer self-review; not independent",
+  "remaining": "C2/C3 and complete candidate/master/readers/publication"
+}

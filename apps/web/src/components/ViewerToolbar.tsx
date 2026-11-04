@@ -1,5 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Focus, Frame, Palette, Pill, Network, Rows3 } from "lucide-react";
+import { Focus, Frame, Palette, Pill, Network, Rows3, MonitorUp } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
 
@@ -19,6 +19,7 @@ const PICKING_MODES: {
 ];
 
 interface ViewerToolbarProps {
+  onPresentation?: () => void;
   onShowSequences?: () => void;
   interactionsOpen?: boolean;
   onInteractions?: () => void;
@@ -84,6 +85,7 @@ function ViewerActionButton({
 }
 
 export function ViewerToolbar({
+  onPresentation,
   onShowSequences,
   interactionsOpen = false,
   onInteractions,
@@ -102,6 +104,8 @@ export function ViewerToolbar({
 }: ViewerToolbarProps) {
   return (
     <div className="viewer-toolbar" role="toolbar" aria-label="Viewer quick actions">
+      {onPresentation ? <ViewerActionButton label="Detach viewer" tooltip="Open a read-only presentation window"
+        unavailableReason={null} onClick={onPresentation}><MonitorUp size={17} /></ViewerActionButton> : null}
       <span className="viewer-toolbar-label" aria-hidden="true">
         Pick
       </span>

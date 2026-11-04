@@ -5,29 +5,29 @@
 Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) planning is approved in
 [the detailed feature contract](plans/issue-97-detached-presentation-viewer.md) and
 D-151 on `feat/issue-97-detached-presentation-viewer`, based on clean, fast-forwarded
-master `e6d8f63670e3a3819f1a6dbceba7411438861d72`. **Implementation has not started;
-wait for `/goal`.**
+master `e6d8f63670e3a3819f1a6dbceba7411438861d72`. Explicit `/goal` authorized
+implementation after planning commit3631543. **M1/C1 native capture is qualified.**
 
 Completed: read-only issue/architecture/schema/API/state/test/release inspection;
 approved requirement dispositions and independently verifiable M0-C0 through
 M5-C5 delivery checkpoints; persistent planning and source ownership decision.
 The design mirrors the main molecular canvas into one local read-only window,
 including existing annotations/previews, with bounded pointer/lifecycle handling.
-Source resolution and visibility are explicit limits. Native capture feasibility
-is the first implementation gate; no working presentation feature is claimed.
+Source resolution and visibility are explicit limits. C1 now provides typed canvas
+capture, a dedicated lightweight child entry, one-window reuse, read-only input,
+fullscreen and actual annotation/coordinate-preview raster agreement.
 
-Verification performed: planning-only clean-tree/base/fast-forward checks,
-document/relative-link and diff review; commit/push identities are reported in the
-C0 handoff after remote readback. No runtime tests or release gate are claimed for
-this documentation checkpoint. Existing stable release history through0.27.0
+Verification performed:376frontend and4native desktop cases pass, with lint,
+types/build and local checkpoint diff review. [Evidence](assets/detached-presentation/README.md)
+retains exact commands and initial diagnostic failures separately; no independent
+review or complete release gate is claimed. Existing stable history through0.27.0
 supports proposed additive minor0.28.0; all five current versions remain0.27.0.
 No schema, migration, dependency, API or scientific behavior changes.
 
-Known limitations: feature unimplemented; native capture fidelity, browser behavior
-and compositing overhead remain unqualified. Blockers: none for planning; explicit
-`/goal` is required before starting M1/C1. Next action: wait for that command, then
-qualify a working native presentation slice under the approved contract. The
-feature plan holds the detailed acceptance/evidence and delivery log.
+Known limitations: C2 lifecycle/source-health hardening, C3 pointer/full visual/
+accessibility/resource qualification, physical second-monitor check, actual readers
+and complete candidate/master gates remain. Blockers: none for C1. Next action:
+M2/C2 lifecycle safeguards. The feature plan holds detailed acceptance/delivery.
 
 ### Previous completed milestone — issue #99
 

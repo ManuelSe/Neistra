@@ -2,7 +2,7 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved; implementation not started**.
+- Status: **Approved; implementation in progress — M1/C1 qualified**.
 - Issue: [#97 — Add a detached, read-only presentation viewer with live synchronization](https://github.com/ManuelSe/Neistra/issues/97).
 - Issue inspected: open, enhancement label, no comments, assignee or milestone;
   issue updated 2026-10-19. Recheck material changes before implementation.
@@ -12,6 +12,8 @@
   source-resolution/background limits and exceptional transient status feedback.
 - Approval authorizes this planning checkpoint. Runtime implementation must wait
   for `/goal`; persisting this document does not start implementation.
+- Implementation authorized by explicit `/goal` on 2026-11-04 after C0 was
+  committed/pushed as36315430faba0325a624784cd201802558db9895.
 - Base branch: `master`, fast-forwarded from `origin/master` before branching.
 - Inspected and actual branch base:
   `e6d8f63670e3a3819f1a6dbceba7411438861d72`.
@@ -496,13 +498,13 @@ branches or user work.
 |---|---|
 | Planning review, 2026-11-04 | Read-only investigation and complete proposal reviewed; explicit user approval recorded above. Clean master fast-forwarded from origin/master, unchanged base e6d8f63670e3a3819f1a6dbceba7411438861d72. |
 | M0 / C0 | Approved contract persisted as first feature-branch change, with planning-only D-151 and PROGRESS records. Commit/push identities and document validation are reported in the handoff after remote verification. No runtime work or application-version change. |
-| M1 / C1 | Pending `/goal`; native capture feasibility unqualified. |
+| M1 / C1 | Qualified: typed native canvas capture, separate lightweight entry, one-window reuse/read-only/fullscreen and annotation/coordinate-preview raster.376frontend and4native desktop cases pass; lint/types/build/diff pass. [Evidence](../assets/detached-presentation/README.md) retains diagnostics and local self-review. No schema/API/dependency/scientific/version change. |
 | M2 / C2 | Pending. |
 | M3 / C3 | Pending. |
 | M4 / C4 | Pending;0.28.0 metadata, actual readers, full candidate gate and PR review not performed. |
 | M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
 
-Current limitations: feature unimplemented; capture compatibility and overhead
-unmeasured. No planning blocker. Next action: wait for explicit `/goal`, then begin
-M1/C1 under this contract. Do not treat plan persistence as implementation approval
-to proceed before that command.
+Current limitations: C1 capture works on pinned desktop Chromium; C2 lifecycle
+hardening, C3 pointer/full visual/accessibility/resource qualification and final
+release gates/readers remain. No implementation blocker at this checkpoint.
+Next action: M2/C2 under the approved contract; no release is claimed.

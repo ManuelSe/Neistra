@@ -84,6 +84,11 @@ interface LoadedStructure {
 }
 
 export class MolstarEngine implements MolecularViewer {
+  capturePresentation() {
+    const canvas = this.mountTarget?.querySelector("canvas");
+    if (!canvas?.captureStream || this.disposed) throw new Error("Presentation capture is unavailable.");
+    return { stream: canvas.captureStream(30), refresh: () => this.plugin?.canvas3d?.requestDraw() };
+  }
   private disposePlugin: (() => void) | undefined;
   private disposed = false;
   private plugin: PluginUIContext | undefined;
