@@ -113,9 +113,11 @@ describe("local presentation", () => {
   it("reports unsupported capture once and recovers with a new source", () => {
     const state = setup();
     const unavailable = { capturePresentation: vi.fn(() => { throw new Error("Unsupported"); }) } as unknown as MolecularViewer;
-    state.controller.bind(unavailable);
+    const release = state.controller.bind(unavailable);
     state.ready(); state.ready();
     expect(state.receive).toHaveBeenLastCalledWith(expect.objectContaining({ status: "Presentation capture is unavailable in this browser" }), null);
+    release();
+    expect(state.receive).toHaveBeenLastCalledWith(expect.objectContaining({ status: "Waiting for the molecular viewer" }), null);
     state.controller.bind(state.viewer); state.controller.update(state.viewer, null, false);
     expect(state.receive).toHaveBeenLastCalledWith(expect.objectContaining({ status: null }), state.stream);
     state.controller.dispose();

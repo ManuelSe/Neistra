@@ -6,6 +6,7 @@ export class PresentationController {
   private child: Window | null = null;
   private session = "";
   private generation = 0;
+  private binding = 0;
   private viewer: MolecularViewer | null = null;
   private capture: PresentationCapture | null = null;
   private status: string | null = "Waiting for the molecular viewer";
@@ -45,6 +46,7 @@ export class PresentationController {
 
   /** Invalidate before a project switch can expose a retired scene. */
   retire() {
+    this.binding++;
     this.clearCapture();
     this.viewer = null;
     this.generation++;
@@ -56,12 +58,13 @@ export class PresentationController {
   bind(viewer: MolecularViewer): () => void {
     this.clearCapture();
     this.viewer = viewer;
-    const generation = ++this.generation;
+    const binding = ++this.binding;
+    this.generation++;
     this.status = "Loading molecular scene";
     this.captureFailed = false;
     this.publish();
     return () => {
-      if (this.viewer !== viewer || this.generation !== generation) return;
+      if (this.viewer !== viewer || this.binding !== binding) return;
       this.retire();
     };
   }

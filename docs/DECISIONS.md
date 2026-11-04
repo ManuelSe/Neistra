@@ -6452,3 +6452,9 @@ media observation and avoids presenting failed loading as an empty valid scene.
 Tests await acknowledged display changes, retain correct authored ethane2C/6H
 counts, and use the actual toolbar launcher. No chemistry or API behavior was
 changed to satisfy tests. Full release/actual-reader qualification remains C4/C5.
+
+D-151 final review note (issue97): source generations and binding leases have
+separate lifetimes. Capture failure may advance output invalidation without
+preventing the current renderer owner from releasing its binding. The regression
+asserts release after an unsupported capture and preserves stale-binding rejection.
+No molecular owner or persisted contract changes.
