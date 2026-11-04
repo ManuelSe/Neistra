@@ -186,7 +186,7 @@ python3.12 -m venv .venv
 .venv/bin/uv sync --frozen
 corepack prepare pnpm@10.15.1 --activate
 corepack pnpm install --frozen-lockfile
-NEISTRA_DATA_DIR=.neistra .venv/bin/alembic upgrade head
+.venv/bin/alembic upgrade head
 ```
 
 ## Start Locally
@@ -207,18 +207,17 @@ For troubleshooting, the equivalent processes can still be run in separate
 terminals after applying migrations manually:
 
 ```bash
-NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  NEISTRA_DATA_DIR=.neistra \
   .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  NEISTRA_DATA_DIR=.neistra .venv/bin/python -m neistra_api.worker
+  .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -293,9 +292,9 @@ Run these from the repository root:
 ```bash
 .venv/bin/uv sync --frozen
 corepack pnpm install --frozen-lockfile
-NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
-.venv/bin/uv run mypy apps/api packages/neistra_core
+.venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin
 .venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck

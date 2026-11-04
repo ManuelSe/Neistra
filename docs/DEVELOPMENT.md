@@ -27,7 +27,7 @@ python3.12 -m venv .venv
 corepack prepare pnpm@10.15.1 --activate
 corepack pnpm install --frozen-lockfile
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright install chromium
-NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 ```
 
 `uv sync --frozen` installs the locked PDBFixer Git commit and scientific
@@ -54,18 +54,17 @@ For process-level troubleshooting, run the migration and three long-running
 commands manually in separate terminals:
 
 ```bash
-NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  NEISTRA_DATA_DIR=.neistra \
   .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  NEISTRA_DATA_DIR=.neistra .venv/bin/python -m neistra_api.worker
+  .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -90,9 +89,9 @@ The complete release gate is:
 ```bash
 .venv/bin/uv sync --frozen
 corepack pnpm install --frozen-lockfile
-NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
-.venv/bin/uv run mypy apps/api packages/neistra_core
+.venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin
 .venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
@@ -139,6 +138,25 @@ root before constructing any service command.
 Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
+
+## Technical rebranding qualification (0.27.0)
+
+The [issue99 contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+cover namespace aliases, canonical configuration, in-place store discovery and
+archive naming. Defaults are resolved by shared Python settings; setup commands
+must not force a fresh root over a legacy store. Use explicit isolated settings
+for qualification and explicit legacy data/database settings for old binaries.
+New-name and legacy-named exports share identical bytes; old HTTP readers require
+the legacy filename. Schemas/head/dependencies and scientific algorithms remain.
+
+The reproducible24-step candidate/master recipe and runner are retained under
+[technical rebranding evidence](assets/technical-rebranding/). It includes the
+complete gate above, fresh upgrade/downgrade/re-upgrade, schema/version/dependency/
+name audits, legacy CLI and actual taggedv0.26.2/current producer/readers in both
+directions. The additional reader wrapper executes each checkout's actual API/core
+and existing rich history/selection/surface/job helpers and verifies HTTP suffix
+behavior. Preflight passes on uncommitted preparation; clean candidate/exact-master
+results are independently required. D-148 portable policy remains binding.
 
 ## Application-owned viewer compatibility (0.26.2)
 
@@ -247,7 +265,7 @@ directory and plugin configuration.
 ### Migration or database errors
 
 Stop API and worker, confirm both use the same `NEISTRA_DATA_DIR`, then rerun
-`NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head`. For a
+`.venv/bin/uv run alembic upgrade head`. For a
 disposable development reset only, remove `.neistra/` and migrate again. Do
 not remove a state directory containing projects that must be retained.
 

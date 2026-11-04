@@ -1,5 +1,38 @@
 # Neistra residual-name audit
 
+## Current technical rebranding — issue #99
+
+The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+supersede technical-name retention from the initial presentation-only rebrand.
+Canonical implementations and current commands use Neistra. Legacy package files
+are forwarding aliases/source-root bridges, not scientific implementations.
+
+The [machine-readable inventory](assets/technical-rebranding/name-audit.json)
+records every matching tracked/pending path or UTF-8 file, hashes, counts and active
+source/document line numbers. Its [reproducible audit](assets/technical-rebranding/name-audit.py.txt)
+fails on unapproved tokens in canonical implementation. No unexpected implementation
+branding remains. Binary uploads, scientific fixture archives and compressed prior
+qualification evidence retain their original names/bytes; their contents are not
+rewritten to satisfy a branding search.
+
+Intentional exceptions:
+
+- Legacy import wrappers/source roots and tests/readers that exercise them.
+- Same-suffix legacy environment aliases and tests proving fallback/precedence.
+- Existing store paths/database names, legacy archive suffix and compatibility UI.
+- Serialized MIME/job/plugin/model IDs, plugin discovery group and preference key.
+- User names, source diagnostics, original uploads and scientific test data.
+- Prior approved plans/decisions/releases, provenance URLs and qualification logs.
+
+Current DEVELOPMENT sections describing older tagged-reader procedures retain
+executable historical source roots/settings; those aliases still work. Older
+release receipts remain historical evidence and do not claim current qualification.
+The following original inventory is retained as history, not current line numbers
+or a claim that backend files remain unchanged.
+
+## Historical initial presentation audit
+
+
 M4 source audit after the visible/frontend package rename. Matching is case-
 insensitive; each row disposes of **all** old-name matches on the listed lines.
 This inventory is evidence, not a request to replace technical names.

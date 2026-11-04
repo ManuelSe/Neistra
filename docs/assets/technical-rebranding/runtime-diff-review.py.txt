@@ -1,0 +1,36 @@
+"""Compare moved scientific implementations after explicit non-scientific normalization."""
+import ast
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+pairs = [('apps/api/src/molweave_api','apps/api/src/neistra_api'),
+         ('packages/molweave_core/src/molweave_core','packages/neistra_core/src/neistra_core'),
+         ('packages/molweave_demo_plugin/src/molweave_demo_plugin','packages/neistra_demo_plugin/src/neistra_demo_plugin')]
+reviewed = {
+    'apps/api/src/neistra_api/settings.py',
+    'apps/api/src/neistra_api/main.py',
+    'apps/api/src/neistra_api/archive_service.py',
+    'apps/api/src/neistra_api/schemas.py',
+    'packages/neistra_core/src/neistra_core/jobs/registry.py',
+    'packages/neistra_core/src/neistra_core/minimization/plugin.py',
+    'packages/neistra_core/src/neistra_core/minimization/quick_plugin.py',
+    'packages/neistra_core/src/neistra_core/minimization/toolchain.py',
+}
+def normalize(text):
+    for old,new in [('molweave_api','neistra_api'),('molweave_core','neistra_core'),('molweave_demo_plugin','neistra_demo_plugin')]:
+        text = text.replace(old,new)
+    return text.replace('MolWeave','Neistra').replace('0.26.2','0.27.0').replace('block_name or "molweave"','block_name or "neistra"')
+records,unexpected = [],[]
+for oldroot,newroot in pairs:
+    for old in subprocess.check_output(['git','ls-tree','-r','--name-only','7575434',oldroot],text=True).splitlines():
+        new = Path(newroot)/Path(old).relative_to(oldroot)
+        before = subprocess.check_output(['git','show',f'7575434:{old}'])
+        current = new.read_bytes()
+        equal = ast.dump(ast.parse(normalize(before.decode()))) == ast.dump(ast.parse(current.decode())) if new.suffix=='.py' else before==current
+        records.append({'old':old,'new':str(new),'normalized_ast_or_resource_equal':equal,'sha256':hashlib.sha256(current).hexdigest(),'manually_reviewed_change':str(new) in reviewed})
+        if not equal and str(new) not in reviewed:unexpected.append(str(new))
+Path('docs/assets/technical-rebranding/c4-runtime-diff-review.json').write_text(json.dumps({'records':records,'unexpected':unexpected},indent=2)+'\n')
+print(len(records),'moved implementations/resources;',len(unexpected),'unreviewed logic changes')
+assert not unexpected, unexpected

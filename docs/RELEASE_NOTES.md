@@ -1,5 +1,54 @@
 # Neistra Release Notes
 
+## 0.27.0 — Compatible technical rebranding
+
+**Status:** release candidate; not published. Issue [#99](https://github.com/ManuelSe/Neistra/issues/99)
+follows the [approved contract](plans/issue-99-compatible-technical-rebranding.md).
+Complete candidate and exact-master qualification/publication remain required.
+
+**Changed.** Current API metadata, Python development metadata, package namespaces,
+private adapter/viewer markers and current setup documentation use Neistra.
+Canonical implementation lives in `neistra_api`, `neistra_core` and
+`neistra_demo_plugin`; no scientific implementation is duplicated.
+
+**Added compatibility.** Old Python imports, source-root and worker commands remain
+aliases with shared classes/ORM/plugin objects. Every canonical `NEISTRA_*` setting
+accepts its `MOLWEAVE_*` alias; canonical presence wins and invalid values do not
+fall back. API/worker/migrations share safe existing-store discovery. Existing
+stores remain in place; fresh installations use `.neistra/neistra.db`. Conflicting
+or invalid roots/databases require explicit selection without empty replacements.
+
+**Archive naming.** UI exports `.neistra.zip`; import accepts either suffix. The
+secondary Compatibility option exports `.molweave.zip` for older releases. Existing
+HTTP clients omitting `filename_style` retain their old filename. Both naming styles
+produce identical archive contents and use the same manifest/MIME contracts.
+
+**Upgrade and rollback.** Stop services and back up the entire managed store.
+Run documented migration/startup without forcing a new default data directory;
+existing legacy roots are reused. No new migration: head0014, project/viewer/archive2,
+normalized/selection/component1. For older binaries, explicitly configure their
+legacy data-directory/database settings when using new-name stores, and use the
+legacy archive filename. Never merge or relocate roots automatically.
+
+**Retained identifiers.** Serialized job/plugin/model/MIME identifiers, plugin
+entry-point group and browser preference key remain compatible. Originals, user
+names, historical releases/plans/evidence and scientific fixture provenance remain
+verbatim. Public distribution packaging and alias-removal policy are deferred;
+no speculative follow-up issue is needed. Physical store migration and blanket
+history/schema renaming are rejected because they add risk without user value.
+
+**Verification.** Checkpoints cover namespace identity/spawn, canonical/legacy
+settings and native jobs, store reopen, byte-identical dual archive naming, safety,
+scientific editing/format regression, both themes/layouts, keyboard/axe/touch
+controls and native workspace workflows. Full final-version and actual-reader
+results will be added after qualification. Portable correctness follows D-148;
+strict reference-host timing is separate.
+
+**Known limitations.** Compatibility aliases remain intentionally. No new chemistry,
+preparation, renderer functionality, scientific-model/dependency upgrade or public
+packaging support is claimed. Existing scientific/browser/capacity limits apply.
+
+
 ## 0.26.2 — 2026-11-03 — Application-owned viewer interface
 
 **Status:** stable [v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2), normally merged in

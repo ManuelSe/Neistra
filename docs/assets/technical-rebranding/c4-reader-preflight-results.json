@@ -1,0 +1,133 @@
+{
+  "qualification": "preflight on uncommitted release preparation; not the clean candidate gate",
+  "steps": [
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra",
+      "exit_code": 0
+    },
+    {
+      "label": "forward-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra99-c4-reader-preflight/forward",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.27.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/technical-rebranding/c4-reader-preflight-forward-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra",
+      "exit_code": 0
+    },
+    {
+      "label": "forward-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra99-c4-reader-preflight/forward",
+        "--implementation-root",
+        "/tmp/neistra99-reader-0262",
+        "--expected-version",
+        "0.26.2",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/technical-rebranding/c4-reader-preflight-forward-read.json"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/forward/molweave.db",
+        "PYTHONPATH": "/tmp/neistra99-reader-0262/apps/api/src:/tmp/neistra99-reader-0262/packages/molweave_core/src:/tmp/neistra99-reader-0262/packages/molweave_demo_plugin/src:/tmp/neistra99-reader-0262"
+      },
+      "cwd": "/tmp/neistra99-reader-0262",
+      "exit_code": 0
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra99-reader-0262/apps/api/src:/tmp/neistra99-reader-0262/packages/molweave_core/src:/tmp/neistra99-reader-0262/packages/molweave_demo_plugin/src:/tmp/neistra99-reader-0262"
+      },
+      "cwd": "/tmp/neistra99-reader-0262",
+      "exit_code": 0
+    },
+    {
+      "label": "reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra99-c4-reader-preflight/reverse",
+        "--implementation-root",
+        "/tmp/neistra99-reader-0262",
+        "--expected-version",
+        "0.26.2",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/technical-rebranding/c4-reader-preflight-reverse-produce.json"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra99-reader-0262/apps/api/src:/tmp/neistra99-reader-0262/packages/molweave_core/src:/tmp/neistra99-reader-0262/packages/molweave_demo_plugin/src:/tmp/neistra99-reader-0262"
+      },
+      "cwd": "/tmp/neistra99-reader-0262",
+      "exit_code": 0
+    },
+    {
+      "label": "reverse-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra99-c4-reader-preflight/reverse",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.27.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/technical-rebranding/c4-reader-preflight-reverse-read.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra99-c4-reader-preflight/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra99-c4-reader-preflight/reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra",
+      "exit_code": 0
+    }
+  ]
+}

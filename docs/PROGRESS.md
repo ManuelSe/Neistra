@@ -2,21 +2,22 @@
 
 ## Current milestone
 
-Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M1–M3 verified** under
-its [approved contract](plans/issue-99-compatible-technical-rebranding.md)/D-150.
-Canonical packages/configuration retain legacy imports/settings and existing stores.
-Neistra API metadata and private markers are current; UI requests `.neistra.zip`,
-old HTTP requests keep legacy naming, and both import suffixes share exact contents.
-Secondary legacy export retains keyboard/44px touch targets and both-theme axe.
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M4/C4 release preparation**
+under its [approved contract](plans/issue-99-compatible-technical-rebranding.md).
+M1–M3 are verified and committed through6049d42. Canonical Python/configuration,
+legacy aliases/store continuity and accessible dual archive naming are implemented.
+All five version sources now0.27.0; no dependency/schema/migration/chemistry change.
 
-M3 verification:66 archive/security,146 editing/format/metadata,21 final alias/job,
-374 frontend,23 native/5existing exclusions; Ruff/mypy195/lint/types/build/diff pass.
-[Evidence](assets/technical-rebranding/c3-evidence.json) retains commands/logs,
-screenshots and self-review. A reproduced package-export shadowing case is corrected
-and covered in both orders/legacy roots. No schema/migration/scientific-algorithm
-or dependency-version change. Known limits:complete final-version candidate,
-actual tagged readers and exact-master/release work remain. Blockers:none.
-Next:M4/C4 audit/version/full qualification, then M5 delivery toward stable0.27.0.
+Actual tagged0.26.2↔final0.27.0 preflight passes with verified API/core roots,
+exact originals/coordinates/history/scenes/selections/surfaces/jobs and archive
+remapping; old HTTP accepts legacy suffix and rejects new suffix as documented.
+[Full-diff self-review](assets/technical-rebranding/c4-full-diff-review.md) has no
+unresolved consequential finding.90-file runtime comparison and702 local links
+pass; residual audit finds no unexpected canonical implementation branding.
+[Evidence](assets/technical-rebranding/) retains checkpoint logs, screenshots and
+preflight; it does not substitute for clean candidate/exact-master qualification.
+Blockers:none. Next:commit release preparation, run24-step complete candidate gate,
+then PR/review/merge/exact-master/tag/release/issue response and cleanup.
 No issue99 PR/tag/release yet; released baseline remains0.26.2.
 
 ### Previous completed milestone — issue #96
