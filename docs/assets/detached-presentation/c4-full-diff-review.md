@@ -55,3 +55,14 @@ sentinel that could falsely satisfy a changed-frame assertion. Keep every raster
 color/hash, chemistry/state assertion, timeout and exclusion unchanged. All12native
 presentation cases then pass, zero retry/failure (c4-frame-focus logs/report).
 Production remains unchanged. Require a fresh complete clean candidate4 gate.
+
+Candidate4 diagnostic:251browser passes precede one mobile movement setup failure;
+29registered exclusions encountered and157not run. The global error is the
+intentional stop-on-first-failure notice. Retained trace proves the reload project
+GET started at2590046.177ms and took391.706ms, while Apply query began at2590208.743ms.
+The query therefore ran with project data pending. Acknowledgement alone was not
+a sufficient setup precondition. Explicitly await the current visible/loaded viewer
+status before selecting, then retain all existing error/coordinate/revision checks.
+Both desktop/mobile variants pass three deliberate repetitions each (6total, zero
+failure or automatic retry). No application, timeout, exclusion or scientific
+assertion changes. A complete clean candidate5 remains mandatory.

@@ -1,0 +1,170 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Movement lifecycle 1793831292215 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Movement lifecycle 1793831292215
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Lock Ethanol" [ref=e42] [cursor=pointer]':
+        - img [ref=e43] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e46]:
+        - img [ref=e47]
+      - button "Save checkpoint" [ref=e50] [cursor=pointer]:
+        - img [ref=e51] [cursor=pointer]
+      - button "Use dark theme" [ref=e55] [cursor=pointer]:
+        - img [ref=e56] [cursor=pointer]
+  - generic [ref=e58]:
+    - main [ref=e59]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - region "3D molecular viewer" [ref=e62]
+          - generic:
+            - status:
+              - generic: 1 visible / 1 loaded / 0 selected
+            - toolbar "Viewer quick actions" [ref=e70]:
+              - button "Detach viewer" [ref=e71] [cursor=pointer]:
+                - img [ref=e72] [cursor=pointer]
+              - generic [ref=e75]: Pick
+              - generic [ref=e76]:
+                - generic [ref=e77]: Viewer picking mode
+                - combobox "Viewer picking mode" [ref=e78]:
+                  - option "Atom" [selected]
+                  - option "Residue"
+                  - option "Chain"
+                  - option "Structure"
+              - group "Viewer focus actions" [ref=e79]:
+                - button "Fit all visible" [ref=e80] [cursor=pointer]:
+                  - img [ref=e81] [cursor=pointer]
+                - button "Focus selection" [disabled] [ref=e82]:
+                  - img [ref=e83]
+                - button "Focus visible ligands" [ref=e89] [cursor=pointer]:
+                  - img [ref=e90] [cursor=pointer]
+                - button "Style selection" [disabled] [ref=e93]:
+                  - img [ref=e94]
+                - button "Interactions" [ref=e100] [cursor=pointer]:
+                  - img [ref=e101] [cursor=pointer]
+            - group "Molecular tools" [ref=e106]:
+              - region "Transformation tools" [ref=e107]:
+                - button "Transform selection" [disabled] [ref=e108]:
+                  - img [ref=e109]
+              - button "Edit molecule" [ref=e115] [cursor=pointer]:
+                - img [ref=e116] [cursor=pointer]
+              - button "Minimize selection" [disabled] [ref=e120]:
+                - img [ref=e121]
+          - button "Open viewer controls" [ref=e124] [cursor=pointer]:
+            - img [ref=e125] [cursor=pointer]
+        - region "Protein sequence viewer" [ref=e129]:
+          - generic [ref=e130]:
+            - button "Collapse sequences" [expanded] [ref=e131] [cursor=pointer]:
+              - img [ref=e132] [cursor=pointer]
+            - generic [ref=e134]: Sequence
+            - generic [ref=e135]: No displayed protein chains
+            - button "Hide sequences" [ref=e136] [cursor=pointer]:
+              - img [ref=e137] [cursor=pointer]
+    - button "Close panel" [ref=e140]
+    - dialog "Inspector panel" [ref=e141]:
+      - region "Project inspector" [ref=e142]:
+        - generic [ref=e144]:
+          - generic [ref=e145]: Inspector
+          - heading "Selection" [level=2] [ref=e146]
+        - tablist "Inspector views" [ref=e147]:
+          - tab "selection" [selected] [ref=e148] [cursor=pointer]
+          - tab "inspect" [ref=e149] [cursor=pointer]
+          - tab "measurements" [ref=e150] [cursor=pointer]
+          - tab "transform" [ref=e151] [cursor=pointer]
+          - tab "ligand" [ref=e152] [cursor=pointer]
+          - tab "protein" [ref=e153] [cursor=pointer]
+          - tab "details" [ref=e154] [cursor=pointer]
+        - tabpanel "selection" [ref=e155]:
+          - generic [ref=e156]:
+            - generic "Current selection summary" [ref=e157]:
+              - generic [ref=e158]:
+                - term [ref=e159]: Atoms
+                - definition [ref=e160]: "0"
+              - generic [ref=e161]:
+                - term [ref=e162]: Residues
+                - definition [ref=e163]: "0"
+              - generic [ref=e164]:
+                - term [ref=e165]: Chains
+                - definition [ref=e166]: "0"
+              - generic [ref=e167]:
+                - term [ref=e168]: Structures
+                - definition [ref=e169]: "0"
+            - generic [ref=e170]:
+              - generic [ref=e171]: atom
+              - generic [ref=e172]: from inspector
+            - generic [ref=e173]:
+              - button "Clear" [disabled] [ref=e174]:
+                - img [ref=e175]
+                - text: Clear
+              - button "Invert" [ref=e178] [cursor=pointer]
+            - group "Operation mode" [ref=e179]:
+              - generic [ref=e180]: Operation mode
+              - generic [ref=e181]:
+                - button "replace" [pressed] [ref=e182] [cursor=pointer]
+                - button "add" [ref=e183] [cursor=pointer]
+                - button "subtract" [ref=e184] [cursor=pointer]
+            - group "Viewer pick" [ref=e185]:
+              - generic [ref=e186]: Viewer pick
+              - generic [ref=e187]:
+                - button "atom" [pressed] [ref=e188] [cursor=pointer]
+                - button "residue" [ref=e189] [cursor=pointer]
+                - button "chain" [ref=e190] [cursor=pointer]
+                - button "structure" [ref=e191] [cursor=pointer]
+            - group "Expand current" [ref=e192]:
+              - generic [ref=e193]: Expand current
+              - generic [ref=e194]:
+                - button "residue" [disabled] [ref=e195]
+                - button "chain" [disabled] [ref=e196]
+                - button "structure" [disabled] [ref=e197]
+            - generic [ref=e198]:
+              - generic [ref=e199]:
+                - text: Select by
+                - combobox "Select by" [ref=e200]:
+                  - option "Atom name"
+                  - option "Atom index"
+                  - option "Structure:atom reference" [selected]
+                  - option "Element"
+                  - option "Residue name"
+                  - option "Residue number"
+                  - option "Chain"
+                  - option "Structure ID"
+              - generic [ref=e201]:
+                - text: Value
+                - textbox "Value" [ref=e202]: 01a1a8ad-4d6d-7313-954f-fea829025df4:1
+              - button "Apply query" [ref=e203] [cursor=pointer]
+            - generic [ref=e204]:
+              - generic [ref=e205]:
+                - generic [ref=e206]:
+                  - text: Within (angstrom)
+                  - spinbutton "Within (angstrom)" [ref=e207]: "4"
+                - generic [ref=e208]:
+                  - text: Result
+                  - combobox "Result" [ref=e209]:
+                    - option "Atoms" [selected]
+                    - option "Residues"
+              - button "Run distance selection" [disabled] [ref=e210]
+            - generic [ref=e211]:
+              - generic [ref=e212]:
+                - text: Saved selections
+                - generic [ref=e213]:
+                  - textbox "Saved selections Save current selection" [ref=e214]
+                  - button "Save current selection" [disabled] [ref=e215]:
+                    - img [ref=e216]
+              - paragraph [ref=e221]: No saved selections
+```

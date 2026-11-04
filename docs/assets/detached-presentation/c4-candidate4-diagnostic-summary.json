@@ -1,0 +1,22 @@
+{
+  "qualification": "failed; stop-on-first-failure, not passing",
+  "browser_passed": 251,
+  "failed": 1,
+  "registered_skips_encountered": 29,
+  "did_not_run": 157,
+  "stats": {
+    "startTime": "2026-11-04T21:45:05.757Z",
+    "duration": 2605559.852,
+    "expected": 251,
+    "skipped": 186,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "global_notice": "Testing stopped early after one maximum allowed failure; not a separate infrastructure failure",
+  "cause": "Mobile test submitted selection before current project GET completed after reload. Acknowledged empty selection correctly remained0 because project entries were not loaded. Explicitly await viewer status before selecting.",
+  "trace_monotonic_ms": {
+    "project_get_start": 2590046.177,
+    "project_get_duration": 391.706,
+    "apply_query_click_start": 2590208.743
+  }
+}

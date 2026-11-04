@@ -174,3 +174,13 @@ cases with zero failures/retries, including the responsive case. No application,
 scientific, timeout or exclusion change. Candidate4 repeats all24steps; its browser
 command adds `--max-failures=1` to stop diagnostic failures immediately. A passing
 run still executes every applicable case, with whole-log failure monitoring.
+
+Candidate4 is failed qualification:251browser passes/one mobile movement setup
+failure/29encountered registered exclusions/157not run. The raw report's global
+error records intentional fail-fast termination. Diagnostic screenshot/trace and
+monotonic request/click timings prove Apply query preceded completed project data
+after reload. UI acknowledgement alone did not establish readiness. The test now
+explicitly awaits visible/loaded viewer status before selecting; all original error,
+coordinate/revision assertions remain. `c4-project-ready*` records6passes: each
+existing desktop/mobile variant repeated three times deliberately after the fix,
+with zero automatic retries. Candidate5 reruns the complete gate from a clean commit.

@@ -469,6 +469,9 @@ test("explains empty, locked and wholly hidden movement targets without changing
       expect(unlocked.status()).toBe(200); project = await unlocked.json();
     }
     await page.reload();
+    await expect(page.locator(".viewer-status")).toContainText(
+      condition === "lock" ? "1 visible / 1 loaded" : "0 visible",
+    );
     if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
     await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
     await page.getByRole("tab", { name: "transform", exact: true }).click();
