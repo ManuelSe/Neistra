@@ -87,7 +87,19 @@ export class MolstarEngine implements MolecularViewer {
   capturePresentation() {
     const canvas = this.mountTarget?.querySelector("canvas");
     if (!canvas?.captureStream || this.disposed) throw new Error("Presentation capture is unavailable.");
-    return { stream: canvas.captureStream(30), refresh: () => this.plugin?.canvas3d?.requestDraw() };
+    return {
+      stream: canvas.captureStream(30), refresh: () => this.plugin?.canvas3d?.requestDraw(),
+      subscribeAvailability: (listener: (available: boolean) => void) => {
+        const lost = () => listener(false);
+        const restored = () => listener(true);
+        canvas.addEventListener("webglcontextlost", lost);
+        canvas.addEventListener("webglcontextrestored", restored);
+        return () => {
+          canvas.removeEventListener("webglcontextlost", lost);
+          canvas.removeEventListener("webglcontextrestored", restored);
+        };
+      },
+    };
   }
   private disposePlugin: (() => void) | undefined;
   private disposed = false;

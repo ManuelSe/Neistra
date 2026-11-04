@@ -1,6 +1,6 @@
 # Detached molecular presentation
 
-Status: issue #97 C1 native capture slice qualified; lifecycle, pointer and final
+Status: issue #97 C1/C2 native capture and lifecycle qualified; pointer and final
 release qualification remain pending under the
 [approved contract](plans/issue-97-detached-presentation-viewer.md).
 
@@ -18,11 +18,15 @@ it is not an independent molecular model or scientific result.
 
 Output detail follows the main canvas. Different window shapes preserve the
 complete source image with letterboxing; enlarging the window does not add detail.
-Keep the main workspace visible and rendering. The final feature will explicitly
-report paused/disconnected sources; that lifecycle qualification is still pending
-at C1. No remote sharing, recording, automatic monitor placement or independent
+Keep the main workspace visible and rendering. Hidden, unavailable or disconnected
+sources obscure stale output with an explicit status. A stationary scene is valid;
+it need not emit new frames. Child reload reconnects to its current owner. Reloading
+or closing the main workspace ends the session; reopen from the workspace. Closing
+the presentation releases its capture resources without changing the project.
+No remote sharing, recording, automatic monitor placement or independent
 high-resolution rendering is included. Image export remains separate issue #128.
 
-C1 is qualified on pinned desktop Chromium with real WebGL. It does not establish
+C1/C2 are qualified on pinned desktop Chromium with real WebGL, including actual
+context loss, project changes and responsive renderer remounts. This does not establish
 browser-family certification or reference-host throughput. No schema, migration,
 API, chemistry, original-file or archive behavior changes.

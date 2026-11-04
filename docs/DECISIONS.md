@@ -6383,3 +6383,31 @@ correct only that observation and mounted-viewer readiness, without relaxing ras
 acceptance. C2 source/connection lifecycle and C3 comprehensive visual/pointer/
 accessibility/resource gates remain pending. No schema/migration/version/dependency
 or scientific change is made by C1.
+
+### D-151 verification correction — explicit user guidance, 2026-11-04
+
+The user approves replacing the physical second-monitor check with headed desktop
+window/fullscreen tests and automated unequal-viewport coverage, and further
+clarifies that moving a window to another monitor needs no special test separate
+from ordinary window movement. The issue #97 contract records this amendment.
+Verify ordinary desktop movement/resizing/fullscreen and retain honest environment
+evidence. Do not require or claim a physical second-monitor test. Product behavior,
+source-resolution/visibility limits and scientific boundaries remain unchanged.
+
+### D-151 source-lifecycle qualification — issue #97 M2/C2
+
+The App controller retires sources before project ownership changes and survives
+responsive renderer replacement. Only exact owned-window/session acknowledgements
+extend the connection lease. Heartbeats publish bounded control state without
+forcing stationary redraws. Hidden/muted/ended/context-lost sources obscure output;
+closing the child releases tracks/listeners/timers. Parent teardown sends terminal
+disconnection rather than silently leaving a stale scene. Child reload may reuse
+the current source; parent reload requires a new explicit session.
+
+Review adds a receiver-local source epoch in addition to the session generation:
+late frame/play callbacks from a replaced stream cannot expose output or clear the
+replacement callback's ownership. Tests cover those delayed callbacks, persistent
+playback denial, lost ownership and first-frame waiting. Popup failures have their
+own application message and cannot mark molecular rendering as failed. Actual
+native context loss and project/remount/reload workflows pass. No molecular/API/
+schema/migration/scientific/dependency/version change. C3 and release gates remain.

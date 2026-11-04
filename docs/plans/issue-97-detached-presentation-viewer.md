@@ -2,7 +2,7 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved; implementation in progress — M1/C1 qualified**.
+- Status: **Approved; implementation in progress — M2/C2 qualified**.
 - Issue: [#97 — Add a detached, read-only presentation viewer with live synchronization](https://github.com/ManuelSe/Neistra/issues/97).
 - Issue inspected: open, enhancement label, no comments, assignee or milestone;
   issue updated 2026-10-19. Recheck material changes before implementation.
@@ -14,6 +14,12 @@
   for `/goal`; persisting this document does not start implementation.
 - Implementation authorized by explicit `/goal` on 2026-11-04 after C0 was
   committed/pushed as36315430faba0325a624784cd201802558db9895.
+- Verification amendment, 2026-11-04: the user approved headed desktop
+  window/fullscreen tests plus automated unequal-viewport coverage in place of a
+  physical second-monitor check, then clarified that moving a window to a second
+  monitor needs no separate test from ordinary window movement. Verify ordinary
+  desktop movement/resizing/fullscreen; do not require or claim a physical
+  second-monitor test. This supersedes the original physical-equipment requirement.
 - Base branch: `master`, fast-forwarded from `origin/master` before branching.
 - Inspected and actual branch base:
   `e6d8f63670e3a3819f1a6dbceba7411438861d72`.
@@ -108,7 +114,7 @@ Approved product assumptions:
 | P03 | No persistent toolbars, panels or editing controls | Essential | Neither workspace UI nor native video controls mount in the child. |
 | P04 | Absolutely no information overlays under any condition | Rejected as proposed | Connection failure and uncommitted-preview status must remain truthful. No follow-up needed. |
 | P05 | Repeat activation focuses existing window | Essential | One window per owning workspace; reopen after closure. |
-| P06 | Manual second-monitor placement and maximization | Essential | Ordinary OS/browser window behavior, verified manually. |
+| P06 | Manual second-monitor placement and maximization | Essential | Ordinary OS/browser window movement/maximization. Per explicit user correction, no separate physical second-monitor test is required. |
 | P07 | Native fullscreen and unobtrusive access | Supporting | Keyboard access and a transient keyboard-reachable control; handle denial. |
 | P08 | Main viewer is sole presentation authority | Essential | No independent camera, selection or molecular input handlers in child. |
 | P09 | Camera position/orientation/target/zoom/projection | Essential | Mirror actual rendered output rather than reconstruct camera state. |
@@ -366,8 +372,10 @@ Additional required evidence:
   no duplicated surface computation and bounded live capture/control resources.
 - Inspect actual production output for test-harness exclusion and required license
   notices. Preserve pinned dependencies and native picking patch.
-- Manual desktop evidence: physical second-monitor movement, maximize, fullscreen
-  entry/exit and denial, source visibility/minimization behavior, browser/OS/version.
+- Headed desktop evidence: ordinary window movement, resizing/maximization,
+  fullscreen entry/exit and denial, source visibility/minimization behavior and
+  browser/OS/version. Automated unequal-viewport coverage completes the amended
+  release requirement; no separate physical second-monitor test is required.
 
 Keep logs, commands, source identities, screenshots, native frame observations,
 timings, failures/resolutions and review provenance under
@@ -497,14 +505,15 @@ branches or user work.
 | Checkpoint | Status and evidence |
 |---|---|
 | Planning review, 2026-11-04 | Read-only investigation and complete proposal reviewed; explicit user approval recorded above. Clean master fast-forwarded from origin/master, unchanged base e6d8f63670e3a3819f1a6dbceba7411438861d72. |
+| Verification amendment, 2026-11-04 | Explicit user approval replaces physical second-monitor checking with headed desktop window/fullscreen and automated unequal-viewport coverage; subsequent correction confirms ordinary window movement needs no separate second-monitor test. |
 | M0 / C0 | Approved contract persisted as first feature-branch change, with planning-only D-151 and PROGRESS records. Commit/push identities and document validation are reported in the handoff after remote verification. No runtime work or application-version change. |
 | M1 / C1 | Qualified: typed native canvas capture, separate lightweight entry, one-window reuse/read-only/fullscreen and annotation/coordinate-preview raster.376frontend and4native desktop cases pass; lint/types/build/diff pass. [Evidence](../assets/detached-presentation/README.md) retains diagnostics and local self-review. No schema/API/dependency/scientific/version change. |
-| M2 / C2 | Pending. |
+| M2 / C2 | Qualified: application-owned source retirement, exact session/source checks, child reload, parent disconnection, hidden/muted/context-lost feedback, bounded first-frame waiting, cleanup and stationary-scene heartbeat separation.384frontend (including10presentation unit cases),9native lifecycle/regression cases and4final presentation cases after frame-epoch review pass; lint/types/build pass. [Evidence](../assets/detached-presentation/README.md). Explicit user correction removes separate physical-monitor testing. |
 | M3 / C3 | Pending. |
 | M4 / C4 | Pending;0.28.0 metadata, actual readers, full candidate gate and PR review not performed. |
 | M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
 
-Current limitations: C1 capture works on pinned desktop Chromium; C2 lifecycle
-hardening, C3 pointer/full visual/accessibility/resource qualification and final
+Current limitations: C1/C2 capture and lifecycle work on pinned desktop Chromium;
+C3 pointer/full visual/accessibility/resource qualification and final
 release gates/readers remain. No implementation blocker at this checkpoint.
-Next action: M2/C2 under the approved contract; no release is claimed.
+Next action: M3/C3 under the approved contract; no release is claimed.

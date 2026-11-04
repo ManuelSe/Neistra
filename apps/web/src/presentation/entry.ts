@@ -38,26 +38,41 @@ export function mountPresentation(session: string) {
   let generation = -1;
   let state: PresentationState | null = null;
   let frame: number | null = null;
+  let lastSeen = Date.now();
+  let ended = false;
+  let playbackFailed = false;
+  let sourceEpoch = 0;
+  let waitingSince: number | null = null;
   const cancelFrame = () => { if (frame !== null) video.cancelVideoFrameCallback(frame); frame = null; };
   const receive = (next: PresentationState, stream: MediaStream | null) => {
     if (next.session !== session || next.generation < generation) return;
     const changed = generation !== next.generation || video.srcObject !== stream;
     generation = next.generation;
     state = next;
-    status.textContent = next.status ?? "";
-    preview.hidden = !next.preview;
+    lastSeen = Date.now();
+    ended = Boolean(next.ended);
+    if (changed) { playbackFailed = false; sourceEpoch++; waitingSince = null; }
+    status.textContent = next.status ?? (playbackFailed ? "Playback is unavailable. Reopen presentation from the workspace."
+      : waitingSince !== null && Date.now() - waitingSince > 10000 ? "Waiting for a molecular frame. Reopen if the workspace remains unavailable." : "");
+    preview.hidden = !next.preview || Boolean(next.status);
     if (changed) { cancelFrame(); video.hidden = true; video.srcObject = stream; }
-    if (next.status) { video.hidden = true; cancelFrame(); }
+    if (next.status || playbackFailed) { video.hidden = true; cancelFrame(); waitingSince = null; }
     else if (stream && video.hidden && frame === null) {
-      const current = generation;
+      const current = sourceEpoch;
+      waitingSince = Date.now();
       frame = video.requestVideoFrameCallback(() => {
+        if (sourceEpoch !== current) return;
         frame = null;
-        if (generation === current && !state?.status) video.hidden = false;
+        if (!state?.status && !playbackFailed) {
+          waitingSince = null; video.hidden = false; status.textContent = "";
+        }
       });
     }
+    const current = sourceEpoch;
     if (stream && changed) void video.play().catch(() => {
-      if (generation === next.generation) {
+      if (sourceEpoch === current) {
         video.hidden = true;
+        playbackFailed = true;
         status.textContent = "Playback is unavailable. Reopen presentation from the workspace.";
       }
     });
@@ -72,8 +87,20 @@ export function mountPresentation(session: string) {
   };
   window.addEventListener("keydown", keydown);
   const opener = window.opener as Window | null;
-  opener?.postMessage({ type: presentationReady, session }, window.location.origin);
+  const announce = () => {
+    if (ended) return;
+    opener?.postMessage({ type: presentationReady, session }, window.location.origin);
+    if (!opener || opener.closed || Date.now() - lastSeen > 10000) {
+      video.hidden = true;
+      preview.hidden = true;
+      cancelFrame();
+      status.textContent = "Workspace disconnected. Reopen presentation from the workspace.";
+    }
+  };
+  announce();
+  const heartbeat = window.setInterval(announce, 1000);
   return () => {
+    window.clearInterval(heartbeat);
     cancelFrame();
     video.srcObject = null;
     delete window.neistraPresentation;

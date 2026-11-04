@@ -170,6 +170,7 @@ export function StructureViewer({
   const [viewerReady, setViewerReady] = useState(false);
   const [sceneLoading, setSceneLoading] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
+  const [presentationError, setPresentationError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
@@ -668,6 +669,10 @@ export function StructureViewer({
         zoom={factor => viewerRef.current?.zoom(factor)} /> : null}
       {(movementActive || coordinatePreview) && project.measurements.length ? <div className="measurement-preview-notice" role="status">Measurements paused during coordinate preview.</div> : null}
       <Tooltip.Provider delayDuration={350}>
+        {presentationError ? <div className="viewer-error" role="alert">
+          <span>{presentationError}</span>
+          <button type="button" onClick={() => setPresentationError(null)} aria-label="Dismiss presentation message">×</button>
+        </div> : null}
         <div className="viewer-header">
           <div className="viewer-status" role="status">
             <span>
@@ -704,7 +709,7 @@ export function StructureViewer({
           <ViewerToolbar
             onPresentation={presentation ? () => {
               const error = presentation.open();
-              if (error) setViewerError(error);
+              setPresentationError(error);
             } : undefined}
             onShowSequences={sequenceDisplay === "hidden" ? () => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("expanded"); } : undefined}
             interactionsOpen={interactionProjectId === project.id}

@@ -50,6 +50,19 @@ async function sourceRaster(page: Page) {
   return Buffer.from(encoded, "base64");
 }
 
+async function openPresentation(page: Page) {
+  const opened = page.waitForEvent("popup");
+  await page.getByRole("button", { name: "Detach viewer", exact: true }).click();
+  const child = await opened;
+  await expect(child.locator("video")).toBeVisible();
+  return child;
+}
+
+async function openProject(page: Page, name: string) {
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${name}`) }).click();
+}
+
 test("mirrors native molecular frames, stays read-only and reuses its window", async ({ page, request, context }, info) => {
   test.skip(info.project.name !== "chromium", "Detached windows are qualified on desktop Chromium");
   test.setTimeout(150000);
@@ -92,6 +105,74 @@ test("mirrors native molecular frames, stays read-only and reuses its window", a
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
   expect(await (await request.get(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/original`)).body()).toEqual(original);
   await expect(page.locator(".molstar-host canvas").first()).toBeVisible();
+});
+
+test("retires stale output across reload, responsive remounts, projects and owner reload", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "chromium", "Detached windows are qualified on desktop Chromium");
+  test.setTimeout(150000);
+  const empty = await (await request.post("/api/v1/projects", { data: { name: `Empty presentation ${Date.now()}` } })).json() as { name: string };
+  const project = await prepare(page, request, ["tests/fixtures/hydrogens/butane-reconciliation.mol"], "Presentation lifecycle");
+  await expect(page.getByLabel("Loading molecular structures")).toHaveCount(0);
+  const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const child = await openPresentation(page);
+  await child.reload();
+  await expect(child.locator("video")).toBeVisible();
+  await expect.poll(async () => (await frame(child)).colored).toBeGreaterThan(100);
+  await page.setViewportSize({ width: 650, height: 900 });
+  await expect(child.locator("video")).toBeVisible();
+  await expect.poll(async () => (await frame(child)).colored).toBeGreaterThan(100);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await openProject(page, empty.name);
+  await expect(child.locator("video")).toBeHidden();
+  await expect(child.getByRole("status")).toContainText("Waiting for the molecular viewer");
+  await openProject(page, project.name);
+  await expect(child.locator("video")).toBeVisible();
+  await page.evaluate(() => {
+    Object.defineProperty(document, "hidden", { configurable: true, value: true });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await expect(child.locator("video")).toBeHidden();
+  await expect(child.getByRole("status")).toContainText("workspace is hidden");
+  await page.evaluate(() => {
+    Reflect.deleteProperty(document, "hidden"); document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await expect(child.locator("video")).toBeVisible();
+  await page.reload();
+  await expect(child.locator("video")).toBeHidden();
+  await expect(child.getByRole("status")).toContainText("Workspace disconnected");
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
+  const replacement = await openPresentation(page);
+  await replacement.close(); await child.close();
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
+});
+
+test("reports blocked popups and real WebGL source loss without mutating the project", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "chromium", "Detached windows are qualified on desktop Chromium");
+  test.setTimeout(120000);
+  const project = await prepare(page, request, ["tests/fixtures/hydrogens/butane-reconciliation.mol"], "Presentation failures");
+  await expect(page.getByLabel("Loading molecular structures")).toHaveCount(0);
+  const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  await page.evaluate(() => {
+    Object.assign(window, { presentationNativeOpen: window.open }); window.open = () => null;
+  });
+  await page.getByRole("button", { name: "Detach viewer" }).click();
+  await expect(page.getByRole("alert")).toContainText("Allow pop-ups");
+  await page.getByRole("button", { name: "Dismiss presentation message" }).click();
+  await page.evaluate(() => {
+    window.open = (window as unknown as { presentationNativeOpen: typeof window.open }).presentationNativeOpen;
+  });
+  const child = await openPresentation(page);
+  await page.evaluate(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>(".molstar-host canvas")!;
+    const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+    const extension = gl?.getExtension("WEBGL_lose_context");
+    if (!extension) throw new Error("Native loss extension required for source-lifecycle qualification");
+    extension.loseContext();
+  });
+  await expect(child.locator("video")).toBeHidden();
+  await expect(child.getByRole("status")).toContainText("source is unavailable");
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
+  await child.close();
 });
 
 test("captures native molecular annotation raster and coordinate previews", async ({ page, request }, info) => {

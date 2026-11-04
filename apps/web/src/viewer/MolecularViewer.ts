@@ -49,6 +49,7 @@ export interface PresentationCapture {
   stream: MediaStream;
   /** Request a native draw so an unchanged scene supplies its first frame. */
   refresh(): void;
+  subscribeAvailability?(listener: (available: boolean) => void): () => void;
 }
 
 export interface MolecularViewer {

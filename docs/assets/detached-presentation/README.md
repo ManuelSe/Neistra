@@ -40,3 +40,36 @@ entry avoids workspace/API/renderer imports, and molecular authority remains
 unchanged. Source-health/connection/closure hardening is explicitly C2; pointer,
 full visual/accessibility/resource coverage is C3. Complete final-version readers,
 candidate/exact-master gates, physical second-monitor check and release remain.
+
+## C2 — Source lifecycle and current-frame ownership
+
+The user explicitly removes separate physical second-monitor checking: qualify
+ordinary headed desktop movement/fullscreen and unequal viewports in C3. This
+supersedes the equipment requirement in the historical C1 remaining-work note.
+
+Final source passes384frontend tests (10presentation cases), frontend lint/types/
+build and4presentation native cases. A preceding9-case native invocation also
+passes existing project-lifecycle and native-UI regressions; final review then
+strengthens only the presentation frame-epoch guard, revalidated by the4native
+presentation cases and complete384frontend suite. Exact final logs are
+`c2-final-{web,lint,types,build,native}.log.gz`;9-case preservation evidence is
+`c2-native-final.log.gz`. No retries or final failures. Intermediate successful
+runs and the corrected unbound-method lint diagnostic are retained separately.
+
+Final native command: the C1 isolated8210/8211/5373 ports and `.playwright` browser
+path, with `NEISTRA_E2E_DATA_DIR=/tmp/neistra97-c2d-e2e`, running
+`corepack pnpm exec playwright test tests/e2e/detached-presentation.spec.ts --project=chromium --reporter=list`.
+The9-case invocation additionally includes `tests/e2e/viewer-native-ui.spec.ts`
+and `tests/e2e/project-lifecycle.spec.ts`, using `/tmp/neistra97-c2b-e2e`.
+
+Observed: child reload, responsive source remount, empty/returned project, owner
+reload/terminal disconnection, blocked popup recovery, real WEBGL_lose_context
+source loss, main project invariance, native pixels and annotation/preview raster.
+Unit evidence additionally covers exact sender/origin/session checks, stationary
+heartbeat redraw bounds, closure cleanup, muted/hidden/unacknowledged sources,
+retired updates/bindings, unsupported capture and stale frame/playback handling.
+
+Local self-review found and corrected same-generation replacement-frame ownership
+and kept popup errors independent of scientific renderer status. No backend,
+migration, persisted contract, dependency or scientific code change. C3 pointer,
+comprehensive live workflows/accessibility/resources and final gates remain.

@@ -4,10 +4,11 @@ export interface PresentationState {
   generation: number;
   status: string | null;
   preview: boolean;
+  ended?: boolean;
 }
 
 export interface PresentationReceiver {
-  receive(state: PresentationState, stream: MediaStream | null): void;
+  receive(this: void, state: PresentationState, stream: MediaStream | null): void;
 }
 
 export const presentationReady = "neistra:presentation:ready";
