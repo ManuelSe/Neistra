@@ -1,20 +1,28 @@
 import { expect, type Page } from "@playwright/test";
 
-export async function frame(page: Page) {
-  return page.locator("video").evaluate((video: HTMLVideoElement) => {
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-    const context = canvas.getContext("2d")!;
-    context.drawImage(video, 0, 0);
-    const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-    let hash = 2166136261;
-    let colored = 0;
-    for (let i = 0; i < data.length; i += 4) {
-      hash = Math.imul(hash ^ data[i], 16777619);
-      if (Math.max(data[i], data[i + 1], data[i + 2]) - Math.min(data[i], data[i + 1], data[i + 2]) > 35) colored++;
-    }
-    return { width: canvas.width, height: canvas.height, hash: hash >>> 0, colored };
-  });
+interface PresentationFrame { width: number; height: number; hash: number; colored: number }
+
+export async function frame(page: Page): Promise<PresentationFrame> {
+  const sample: { value: PresentationFrame | null } = { value: null };
+  await expect.poll(async () => {
+    sample.value = await page.locator("video").evaluate((video: HTMLVideoElement) => {
+      if (video.hidden || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return null;
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+      const context = canvas.getContext("2d")!;
+      context.drawImage(video, 0, 0);
+      const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      let hash = 2166136261;
+      let colored = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        hash = Math.imul(hash ^ data[i], 16777619);
+        if (Math.max(data[i], data[i + 1], data[i + 2]) - Math.min(data[i], data[i + 1], data[i + 2]) > 35) colored++;
+      }
+      return { width: canvas.width, height: canvas.height, hash: hash >>> 0, colored };
+    });
+    return sample.value !== null;
+  }).toBe(true);
+  return sample.value!;
 }
 
 export async function matchesSource(child: Page, source: Buffer) {

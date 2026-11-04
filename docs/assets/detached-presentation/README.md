@@ -162,3 +162,15 @@ snapshot. `c4-movement-focus*` verifies both desktop/mobile variants after repla
 premature store injection with acknowledged workspace selection. Existing error,
 revision and coordinate checks remain; no production/scientific behavior, timeout
 or exclusion is changed. Candidate3 must run all24steps from a clean commit.
+
+Candidate3 is also a failed/interrupted diagnostic, not a passing gate. Its final
+summary records93browser passes, one lifecycle pixel-sampler failure, one deliberate
+interruption, three existing exclusions and340not run. The lifecycle trace/snapshot
+are preserved; other candidate3 artifacts were not copied before output reset.
+The sampler read videoWidth0 during a legitimate responsive source replacement;
+it now atomically waits for a visible current frame before reading pixels, retaining
+all frame/color/hash/raster assertions. `c4-frame-focus*` records12passing native
+cases with zero failures/retries, including the responsive case. No application,
+scientific, timeout or exclusion change. Candidate4 repeats all24steps; its browser
+command adds `--max-failures=1` to stop diagnostic failures immediately. A passing
+run still executes every applicable case, with whole-log failure monitoring.

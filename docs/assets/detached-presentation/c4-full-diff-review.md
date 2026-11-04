@@ -41,3 +41,17 @@ all error, revision and coordinate invariants retained. No timeout, exclusion,
 scientific assertion or production behavior changes. A new clean full candidate
 is mandatory before PR creation; this is an explicit diagnostic correction, not
 automatic test retry.
+
+Candidate3 diagnostic: a responsive-remount pixel read can race the browser's media
+source replacement and observe videoWidth0. The helper previously threw inside
+expect.poll rather than reporting readiness; preserve that trace/snapshot. Stop
+the failed run with93passes/one failure/one intentional interruption/three existing
+skips/340not run. Earlier progress-tail monitoring missed this failure; replace it
+with whole-log failure scanning and stop-on-first-failure full-run execution.
+
+Correct only the test pixel sampler: atomically wait for visible, current media
+with nonzero dimensions before reading actual pixels. It never returns a zero/hash
+sentinel that could falsely satisfy a changed-frame assertion. Keep every raster,
+color/hash, chemistry/state assertion, timeout and exclusion unchanged. All12native
+presentation cases then pass, zero retry/failure (c4-frame-focus logs/report).
+Production remains unchanged. Require a fresh complete clean candidate4 gate.

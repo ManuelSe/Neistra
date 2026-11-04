@@ -37,7 +37,7 @@ Known limitations: final version, actual readers and complete candidate/master
 gates remain. The user explicitly
 replaces separate physical-monitor checks with ordinary headed desktop movement/
 fullscreen and unequal-viewport coverage. No known feature-code blocker. Next action:
-C4 rerun a clean full candidate after correcting an existing reload/selection test race. Candidate2 passed1,333Python/392frontend/14supervisor, then failed one browser setup case; its diagnostic report/trace are retained. Both corrected desktop/mobile cases pass with unchanged error/state assertions; no production change or PR yet.
+C4 rerun a clean full candidate after correcting an existing reload/selection test race. Candidate2 passed1,333Python/392frontend/14supervisor, then failed one browser setup case; its diagnostic report/trace are retained. Both corrected desktop/mobile cases pass with unchanged error/state assertions. Candidate3 found a pixel-helper readiness race during responsive remount;93browser passes preceded its stop. The helper now waits atomically for current media before sampling;12focused native cases pass with no production/assertion/timeout/exclusion change. Candidate4 full qualification remains; no PR yet.
 The feature plan holds detailed acceptance/delivery.
 
 ### Previous completed milestone — issue #99

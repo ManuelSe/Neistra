@@ -1,0 +1,19 @@
+{
+  "qualification": "failed and intentionally stopped; not a passing gate",
+  "stats": {
+    "startTime": "2026-11-04T21:20:12.936Z",
+    "duration": 930599.9909999999,
+    "expected": 93,
+    "skipped": 344,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "case_outcomes": {
+    "passed": 93,
+    "did_not_run": 340,
+    "skipped": 3,
+    "failed": 1,
+    "interrupted": 1
+  },
+  "failure": "lifecycle pixel helper read videoWidth0 during a responsive source replacement; now wait for a visible current frame atomically before pixel read"
+}

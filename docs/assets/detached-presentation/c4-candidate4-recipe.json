@@ -1,0 +1,334 @@
+{
+  "label": "c4-candidate4",
+  "require_clean": true,
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_API_PORT": "8310",
+    "NEISTRA_E2E_WORKER_PORT": "8311",
+    "NEISTRA_E2E_WEB_PORT": "5473",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra/docs/assets/detached-presentation/c4-candidate4-browser.json",
+    "NEISTRA_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra97-c4-candidate4/native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ]
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra97-c4-candidate4/database",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src"
+      }
+    },
+    {
+      "label": "downgrade",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "downgrade",
+        "base"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra97-c4-candidate4/database",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src"
+      }
+    },
+    {
+      "label": "remigration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra97-c4-candidate4/database",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src"
+      }
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ]
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/neistra_core",
+        "packages/neistra_demo_plugin"
+      ]
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/database"
+      }
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra97-c4-candidate4/e2e"
+      }
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/versions.py.txt"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra97-c4-candidate4/database",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src"
+      }
+    },
+    {
+      "label": "production",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/production-audit.py.txt"
+      ]
+    },
+    {
+      "label": "legacy-cli",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/unit/test_namespace_compatibility.py"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/database"
+      }
+    },
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra"
+    },
+    {
+      "label": "forward-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra97-c4-candidate4/forward",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.28.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/c4-candidate4-forward-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra"
+    },
+    {
+      "label": "forward-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra97-c4-candidate4/forward",
+        "--implementation-root",
+        "/tmp/neistra97-reader-0270",
+        "--expected-version",
+        "0.27.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/c4-candidate4-forward-read.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/forward/molweave.db",
+        "PYTHONPATH": "/tmp/neistra97-reader-0270/apps/api/src:/tmp/neistra97-reader-0270/packages/neistra_core/src:/tmp/neistra97-reader-0270/packages/neistra_demo_plugin/src:/tmp/neistra97-reader-0270"
+      },
+      "cwd": "/tmp/neistra97-reader-0270"
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra97-reader-0270/apps/api/src:/tmp/neistra97-reader-0270/packages/neistra_core/src:/tmp/neistra97-reader-0270/packages/neistra_demo_plugin/src:/tmp/neistra97-reader-0270"
+      },
+      "cwd": "/tmp/neistra97-reader-0270"
+    },
+    {
+      "label": "reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra97-c4-candidate4/reverse",
+        "--implementation-root",
+        "/tmp/neistra97-reader-0270",
+        "--expected-version",
+        "0.27.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/c4-candidate4-reverse-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra97-reader-0270/apps/api/src:/tmp/neistra97-reader-0270/packages/neistra_core/src:/tmp/neistra97-reader-0270/packages/neistra_demo_plugin/src:/tmp/neistra97-reader-0270"
+      },
+      "cwd": "/tmp/neistra97-reader-0270"
+    },
+    {
+      "label": "reverse-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra97-c4-candidate4/reverse",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.28.0",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/detached-presentation/c4-candidate4-reverse-read.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra97-c4-candidate4/reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra97-c4-candidate4/reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "cwd": "/datadisk/dev/neistra"
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}
