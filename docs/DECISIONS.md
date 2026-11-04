@@ -6287,3 +6287,26 @@ assertions.24 focused desktop/mobile native cases then pass with no exclusions.
 The name audit now also rejects retired private markers in live source and tests,
 while preserving historical/fixture data. No product runtime or scientific policy
 changes; a fresh complete candidate3 gate remains required.
+
+
+### D-150 verified delivery note — issue #99 M5/C5
+
+Stable minor v0.27.0 delivers the approved additive namespaces, configuration and
+archive naming through normal PR #131 merge at
+`e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782`. Complete clean-candidate and exact-master
+24-step gates pass with matching 697 source identities, 1,332 Python (zero skips),
+374 frontend, 14 supervisor and 352 browser passes / the exact same 62 exclusions.
+Actual tagged v0.26.2/current readers pass both ways; legacy CLI/source roots/
+settings/target complete a real spawned job. Schemas, migration history, dependency
+versions and scientific models remain unchanged. Annotated tag c1f2887 targets the
+qualified runtime; stable/latest release and anonymous downloaded qualification
+asset verify by SHA-256, CRC and all 192 manifest files. See the feature plan and
+`docs/assets/technical-rebranding/c5-publication.json` for precise receipts.
+
+Review remains local implementer self-review: Codex was requested but returned
+no external review. No independent approval or strict reference-host timing is
+claimed. Publication documentation may advance master through a normal merge
+without retargeting the fixed runtime tag; all qualified runtime/test/tool source
+identities must remain unchanged. Final issue-response and branch-cleanup receipts
+are maintained in the verified issue reply. Deferred public packaging/alias-removal
+policy and rejected history/store/serialized-identifier rewrites remain as approved.

@@ -1,0 +1,29 @@
+import gzip,hashlib,json,re,subprocess,urllib.parse
+from pathlib import Path
+out=Path('docs/assets/technical-rebranding')
+g=json.loads((out/'c5-merged1-gate.json').read_text())
+assert g['complete'] and len(g['steps'])==24 and g['source_unchanged']
+assert g['source_before']==g['source_after']
+for name,digest in g['source_before'].items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name
+for step in g['steps']:
+    assert step['exit_code']==0
+    assert hashlib.sha256(gzip.decompress(Path(step['log']).read_bytes())).hexdigest()==step['log_sha256']
+paths=subprocess.check_output(['git','diff','--name-only','e702a3d'],text=True).splitlines()+subprocess.check_output(['git','ls-files','--others','--exclude-standard'],text=True).splitlines()
+assert all(p.startswith('docs/') for p in paths), paths
+checked=0
+current=[p for p in subprocess.check_output(['git','diff','--name-only','7575434'],text=True).splitlines() if p.endswith('.md') and not p.startswith('docs/assets/')]
+for name in current:
+    p=Path(name)
+    for link in re.findall(r'\[[^\]]*\]\(([^)]+)\)',p.read_text()):
+        link=link.split(' "')[0].strip('<>')
+        if link.startswith(('#','/')) or re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:',link):continue
+        target=urllib.parse.unquote(link.split('#')[0])
+        if target:assert (p.parent/target).exists(),(name,target)
+        checked+=1
+p=json.loads((out/'c5-publication.json').read_text())
+assert p['tag']['target']==g['commit']==p['runtime']
+assert p['asset']['download_sha256_matches'] and p['asset']['internal_hashes_verified']
+assert json.loads((out/'c5-merged1-exclusions.json').read_text())['exact_exclusion_set_unchanged']
+r={'scope':'publication documentation/evidence only; implementer self-review','runtime_source_files_unchanged':len(g['source_before']),'all_24_merged_gate_steps_passed':True,'all_lossless_log_hashes_verified':True,'local_document_links_checked':checked,'publication_receipt_verified':True,'runtime_tag_unchanged':g['commit'],'findings':[],'validation_commands':['.venv/bin/python docs/assets/technical-rebranding/final-publication-review.py.txt','.venv/bin/python docs/assets/technical-rebranding/name-audit.py.txt','git diff --check'],'limits':'No independent review or strict reference-host timing claimed. Runtime/source validation remains the complete candidate/exact-master gates; documentation audit does not substitute for them.'}
+(out/'c5-final-docs-review.json').write_text(json.dumps(r,indent=2)+'\n')
+print(json.dumps(r,indent=2))

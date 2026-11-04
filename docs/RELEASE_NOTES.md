@@ -2,9 +2,13 @@
 
 ## 0.27.0 — Compatible technical rebranding
 
-**Status:** complete clean candidate; not published. Issue [#99](https://github.com/ManuelSe/Neistra/issues/99)
-follows the [approved contract](plans/issue-99-compatible-technical-rebranding.md).
-Clean candidate qualification passes; PR/merge and exact-master qualification/publication remain required.
+**Status:** stable [v0.27.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0),
+normally merged through [PR #131](https://github.com/ManuelSe/Neistra/pull/131).
+Exact qualified runtime: `e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782`.
+[Publication evidence](assets/technical-rebranding/c5-publication.json) and the
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198)
+retain release and cleanup receipts. Issue #99 follows the
+[approved contract](plans/issue-99-compatible-technical-rebranding.md).
 
 **Changed.** Current API metadata, Python development metadata, package namespaces,
 private adapter/viewer markers and current setup documentation use Neistra.
@@ -40,11 +44,13 @@ history/schema renaming are rejected because they add risk without user value.
 **Verification.** Checkpoints cover namespace identity/spawn, canonical/legacy
 settings and native jobs, store reopen, byte-identical dual archive naming, safety,
 scientific editing/format regression, both themes/layouts, keyboard/axe/touch
-controls and native workspace workflows. Clean final-version candidate passes all24 steps:1,332 Python (zero skips),374
-frontend,14 supervisor,352 browser/62 exactly unchanged exclusions and actual
-v0.26.2↔0.27.0 readers. All697 source/log identities verify; no failures/flakes/
-automatic retries. [Summary](assets/technical-rebranding/c4-candidate3-summary.json).
-Exact-master qualification remains required. Portable correctness follows D-148;
+controls and native workspace workflows. Both the clean candidate and exact merged master pass all 24 steps: 1,332 Python
+(zero skips), 374 frontend, 14 supervisor, 352 browser passes / 62 exactly unchanged
+exclusions and actual v0.26.2 ↔ v0.27.0 readers. All 697 source identities and
+lossless log hashes verify; zero final failures, flakes or automatic retries.
+[Summary](assets/technical-rebranding/c5-merged1-summary.json). The published
+qualification ZIP download verifies by SHA-256, CRC and all 192 manifest files.
+Portable correctness follows D-148;
 strict reference-host timing is separate.
 
 **Known limitations.** Compatibility aliases remain intentionally. No new chemistry,

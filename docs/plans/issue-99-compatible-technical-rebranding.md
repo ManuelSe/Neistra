@@ -2,8 +2,9 @@
 
 ## 1. Status, approval and metadata
 
-**Status:** M1–M4 verified; complete clean final0.27.0 candidate ready for PR.
-The user activated `/goal` on 2026-11-04; delivery remains incomplete.
+**Status:** M1–M5 implementation, qualification and stable v0.27.0 publication verified.
+The user activated `/goal` on 2026-11-04. Final documentation-integration and
+branch-cleanup receipts are maintained in the verified issue reply below.
 
 On 2026-11-04 the user explicitly selected **Include Python package moves with
 compatibility aliases** during proposal review. After the complete proposal, the
@@ -454,7 +455,9 @@ local/remote cleanup. Never claim an absent independent review or remote artifac
 | M4/C4 candidate1 correction | Clean b3e4046 gate stops at Python:1330pass/1 missing-log failure, zero skips. Fail-first migration regression demonstrates logger disabling; bootstrap now preserves application diagnostics.184 focused checks/Ruff/mypy195 and explicit legacy-target spawned job workflow pass. [Correction evidence](../assets/technical-rebranding/c4-logging-correction.json). Candidate1 logs retained; fresh candidate2 required. |
 | M4/C4 candidate2 correction | Pre-browser1332Python/374frontend/14supervisor/static/build/fresh migration round trip pass. Native run deliberately stopped at stale private-tag observation:60pass/1fail/1interrupted/3existing exclusions/349not-run. Corrected two harnesses/two assertions without relaxing exact checks;24 focused native cases and374frontend/static/build pass. [Marker correction](../assets/technical-rebranding/c4-marker-correction.json). Candidate3 must complete the full gate. |
 | M4/C4 complete | Clean12f1aeb passes all24 steps:1332Python (zero skips),374frontend,14supervisor,352browser/62 exactly unchanged exclusions; zero failures/flakes/automatic retries.697 unchanged source identities and all lossless log hashes verify. Actual tagged0.26.2↔final0.27.0 readers, legacy CLI, fresh migration round trip and version/schema/dependency/name/production audits pass. [Summary](../assets/technical-rebranding/c4-candidate3-summary.json). Full-diff local self-review has no unresolved consequential finding; origin/master still7575434 and0.27 tag/release unused. |
-| M5 | PR/review/normal merge, exact-master24-step gate and publication pending. |
+| M5/C5 merge and qualification | [PR #131](https://github.com/ManuelSe/Neistra/pull/131) normally merged at `e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782`; checkpoint history retained. Authenticated owner policy checks show no required review/status checks or unresolved conversations; no bypass. Codex requested, no external review returned; local self-review only. Exact clean merged-master gate passes all 24 steps with identical 697 sources, 1,332 Python (zero skips), 374 frontend, 14 supervisor and 352 browser passes / exact same 62 exclusions. Zero final failures/flakes/automatic retries; all log hashes and actual tagged readers both ways verify. [Summary](../assets/technical-rebranding/c5-merged1-summary.json). |
+| M5/C5 publication | Annotated `v0.27.0` object `c1f2887c6719155cac4fc5581f4bbd2f9b2c8f14` targets exact qualified runtime above; stable/latest [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0) remotely verified. Anonymous downloaded evidence ZIP matches local/API SHA-256, CRC and all 192 manifest files. [Publication receipt](../assets/technical-rebranding/c5-publication.json). [Issue close-out](https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198) read back, issue closed. No essential approved scope deferred, no new follow-up. |
+| M5/C5 final audit | Publication documents/evidence integrate through a normal documentation-only PR on the planned branch; qualified runtime/tag remain fixed. The verified issue close-out maintains final integration and local/remote branch-cleanup receipts after they occur. |
 
 Maintain this detailed source of truth as checkpoints pass. PROGRESS remains the
 concise project summary. Record exact C0 commit/remote evidence in the handoff;

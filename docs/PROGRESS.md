@@ -2,25 +2,36 @@
 
 ## Current milestone
 
-Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M4 complete; M5 delivery next**.
-The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
-are implemented. Canonical packages/settings retain legacy imports, commands,
-configuration and stores. UI uses `.neistra.zip`; old HTTP defaults and secondary
-legacy naming preserve compatibility. Schemas, migrations and science remain.
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) is delivered in
+[stable v0.27.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0) through
+[PR #131](https://github.com/ManuelSe/Neistra/pull/131). The
+[approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+are implemented: canonical Python packages/settings retain legacy imports,
+commands, configuration and stores; UI uses `.neistra.zip` with compatible legacy
+naming and unchanged contents. No schema, dependency or scientific-model change.
 
-Clean final **12f1aeb** passes all **24 release steps**: **1,332 Python (zero skips),
-374 frontend,14 supervisor,352 browser passes /62 exactly unchanged exclusions**.
-Zero failures/flakes/automatic retries;697 source identities and all lossless logs
-verify. Actual tagged0.26.2↔final0.27.0 readers, real legacy CLI jobs, originals/
-history/scenes/selections/surfaces/jobs, fresh migration round trip, frozen/static/
-build/version/dependency/name/production audits pass. [Summary](assets/technical-rebranding/c4-candidate3-summary.json).
+Both clean candidate and exact merged runtime
+`e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782` pass all **24 release steps**:
+**1,332 Python (zero skips), 374 frontend, 14 supervisor/policy, 352 browser passes /
+62 exactly unchanged exclusions**. Zero final failures, flakes or automatic retries;
+all 697 source identities and lossless log hashes verify. Actual tagged v0.26.2 ↔
+v0.27.0 readers, real legacy CLI/jobs, migration round trip, frozen/static/build/
+version/dependency/name/production audits pass. [Exact-master summary](assets/technical-rebranding/c5-merged1-summary.json).
 Earlier failed/interrupted attempts remain diagnostic. Review is local self-review;
-strict reference timing and independent approval are not claimed.
+Codex was requested but returned no external review. Strict timing and independent
+approval are not claimed.
 
-Blockers:none. Next:PR/review/normal merge, exact-master24-step qualification,
-annotated v0.27.0/stable release, issue close-out and branch cleanup. No issue99
-PR/tag/release yet; released baseline remains0.26.2. All five candidate versions
-are0.27.0. No new migration (head0014), schema or dependency/scientific-model change.
+The annotated tag, stable/latest release and anonymous qualification ZIP download
+verify: SHA-256, CRC and all 192 manifest files.
+[Publication receipt](assets/technical-rebranding/c5-publication.json) and
+[verified issue close-out](https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198)
+record delivery; the issue reply maintains final documentation/branch-cleanup receipts.
+All five versions are 0.27.0; head 0014 and persisted schemas remain unchanged.
+Existing scientific/browser/capacity limits apply. Alias removal and distribution
+packaging need separate approved work; no speculative follow-up was created.
+Blockers: none. Next action: consult the verified issue reply for final
+documentation-integration and branch-cleanup receipts; subsequent product work
+uses a separate approved issue/plan.
 
 ### Previous completed milestone — issue #96
 

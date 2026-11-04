@@ -1,0 +1,18 @@
+{
+  "pr": 131,
+  "head": "d85c9e7b965bef4457fca0303d927b68e6216006",
+  "merge_commit": "e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782",
+  "merged_at": "2026-11-04T11:04:30Z",
+  "merge_method": "normal merge preserving checkpoint history",
+  "master_protected": false,
+  "rulesets": [],
+  "required_status_checks": [],
+  "actions_runs": 0,
+  "review_threads": [],
+  "codex_request": "https://github.com/ManuelSe/Neistra/pull/131#issuecomment-6628947562",
+  "external_reviews_returned": 0,
+  "review_provenance": "Implementer local full-diff self-review, not independent approval. No required reviews or unresolved conversations. Authenticated owner branch-protection detail returned404 Branch not protected; no bypass used.",
+  "gate_source_count": 697,
+  "qualified_runtime": "e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782",
+  "tag_fixed_on_qualified_runtime": true
+}

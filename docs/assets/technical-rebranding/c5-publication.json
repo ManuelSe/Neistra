@@ -1,0 +1,52 @@
+{
+  "version": "0.27.0",
+  "runtime": "e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782",
+  "pr": 131,
+  "pr_url": "https://github.com/ManuelSe/Neistra/pull/131",
+  "tag": {
+    "name": "v0.27.0",
+    "object": "c1f2887c6719155cac4fc5581f4bbd2f9b2c8f14",
+    "type": "tag",
+    "target": "e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 433865866,
+    "tag_name": "v0.27.0",
+    "target_commitish": "e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782",
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-04T12:05:30Z"
+  },
+  "latest_verified": true,
+  "notes_sha256": "e13d05aa5bcf5ae84fc0958daabd8428114c7f6fbd2ed1348a42d486f9097eb0",
+  "asset": {
+    "name": "neistra-v0.27.0-qualification.zip",
+    "bytes": 4096222,
+    "sha256": "756834da7421426e0c7603e6bff9ae228e1bc49638bc678d6f8123b72bea1336",
+    "manifest_files": 192,
+    "zip_entries": 193,
+    "crc_verified": true,
+    "internal_hashes_verified": true,
+    "id": 709358137,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.27.0/neistra-v0.27.0-qualification.zip",
+    "api_digest": "sha256:756834da7421426e0c7603e6bff9ae228e1bc49638bc678d6f8123b72bea1336",
+    "downloaded_anonymously": true,
+    "download_sha256_matches": true
+  },
+  "candidate_gate": "c4-candidate3",
+  "merged_gate": "c5-merged1",
+  "source_identities": 697,
+  "review_provenance": "Full-diff local self-review; Codex requested, no external review returned; independent approval not claimed.",
+  "migration": "None; head0014 and persisted schema versions retained. Actual tagged0.26.2/current0.27.0 readers pass both directions.",
+  "verified_at": "2026-11-04T12:07:42.615485+00:00",
+  "issue": {
+    "number": 99,
+    "state": "closed",
+    "closeout_comment_id": 6630146198,
+    "closeout_url": "https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198",
+    "body_verified": true,
+    "cleanup_receipt_location": "https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198"
+  }
+}
