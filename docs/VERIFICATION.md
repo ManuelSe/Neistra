@@ -1,5 +1,35 @@
 # V0.1 Requirement Evidence
 
+## Issue #99 — Released v0.27.0 / exact-master qualification
+
+[PR #131](https://github.com/ManuelSe/Neistra/pull/131) is normally merged at
+`e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782`. The
+[exact-master 24-step gate](assets/technical-rebranding/c5-merged1-gate.json) and
+[clean candidate](assets/technical-rebranding/c4-candidate3-gate.json) both pass:
+**1,332 Python (zero skips), 374 frontend, 14 supervisor/policy, 352 browser passes /
+62 exactly unchanged exclusions**, zero final failures, flakes or automatic retries.
+All 697 source identities match and every lossless log hash verifies.
+[Summary](assets/technical-rebranding/c5-merged1-summary.json) retains both actual
+v0.26.2 ↔ v0.27.0 reader directions, exact originals/coordinates/history/scenes/
+selections/surfaces/jobs and archive remapping. Old HTTP accepts current content
+with legacy naming and rejects the new suffix; current HTTP accepts both.
+The real legacy worker CLI, source roots, settings and target complete a spawned
+job with two artifact downloads. Frozen installs, fresh migration upgrade/downgrade/
+upgrade, static/types/build, versions/dependencies/names, shipped license and
+production harness exclusion pass. No scientific or persisted-schema change.
+
+[Publication receipt](assets/technical-rebranding/c5-publication.json) verifies
+annotated tag `c1f2887` targeting that exact runtime, stable/latest
+[release](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0), release notes and
+anonymous downloaded qualification ZIP: SHA-256
+`756834da7421426e0c7603e6bff9ae228e1bc49638bc678d6f8123b72bea1336`,
+CRC and all 192 manifest files. The [issue close-out](https://github.com/ManuelSe/Neistra/issues/99#issuecomment-6630146198)
+maintains final documentation/cleanup receipts. [Delivery review](assets/technical-rebranding/c5-delivery-review.json)
+records satisfied merge requirements and local self-review provenance. Codex was
+requested but returned no external review; independent approval is not claimed.
+Portable correctness is qualified under D-148; strict reference timing is not.
+Earlier candidate sections and diagnostic attempts below remain historical records.
+
 ## Issue #99 — Complete clean 0.27.0 candidate
 
 The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
@@ -19,7 +49,8 @@ version/schema/dependency/name and production-license/harness checks pass.
 keyboard/axe/44px archive controls and earlier diagnostic failures separately.
 The [full-diff review](assets/technical-rebranding/c4-full-diff-review.md) is local
 self-review. Portable correctness is qualified; strict reference timing is not.
-PR/review/merge/exact-master gate and publication remain pending. No new schema,
+At this candidate checkpoint, merge/exact-master/publication were pending; the
+verified delivery above supersedes that status. No new schema,
 dependency or scientific-model change; current/legacy names share archive contents.
 
 
