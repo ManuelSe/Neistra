@@ -30,14 +30,14 @@ layout exclusions, lint,
 types/build and local checkpoint diff review. [Evidence](assets/detached-presentation/README.md)
 retains exact commands and initial diagnostic failures separately; no independent
 review or complete release gate is claimed. Existing stable history through0.27.0
-supports proposed additive minor0.28.0; all five current versions remain0.27.0.
+supports proposed additive minor0.28.0; all five application versions are now prepared as0.28.0.
 No schema, migration, dependency, API or scientific behavior changes.
 
 Known limitations: final version, actual readers and complete candidate/master
 gates remain. The user explicitly
 replaces separate physical-monitor checks with ordinary headed desktop movement/
 fullscreen and unequal-viewport coverage. No known feature-code blocker. Next action:
-C4 coordinated version/release preparation and complete qualification before a PR.
+C4 complete clean-candidate qualification and actual0.27.0 readers before a PR.
 The feature plan holds detailed acceptance/delivery.
 
 ### Previous completed milestone — issue #99

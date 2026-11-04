@@ -1,0 +1,20 @@
+"""Audit the built passive entry, test exclusion and shipped license bytes."""
+import hashlib
+import json
+from pathlib import Path
+root = Path.cwd()
+dist = root / 'apps/web/dist'
+entries = list((dist/'assets').glob('entry-*.js'))
+assert len(entries) == 1, entries
+entry = entries[0]
+text = entry.read_text()
+for forbidden in ['MolstarEngine', '/api/v1/', 'interactionEngines', 'QueryClient', 'createProject', 'WebGLRenderingContext']:
+    assert forbidden not in text, forbidden
+for path in (dist/'assets').glob('*.js'):
+    assert 'interactionEngines' not in path.read_text(), path
+license = (dist/'licenses/molstar.txt').read_bytes()
+assert license == (root/'apps/web/public/licenses/molstar.txt').read_bytes()
+print(json.dumps({'entry':str(entry.relative_to(root)), 'bytes':entry.stat().st_size,
+    'entry_sha256':hashlib.sha256(entry.read_bytes()).hexdigest(),
+    'no_workspace_api_renderer_in_entry':True,'test_harness_absent':True,
+    'license_sha256':hashlib.sha256(license).hexdigest()},indent=2))

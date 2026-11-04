@@ -300,7 +300,7 @@ the complete release gate and evidence policy.
   version consistency; remote policy/tag availability recheck.
 - Documentation/migration: final usage, known limits, upgrade/rollback, actual
   review provenance and evidence. No new migration; head remains 0014.
-- Commit: `chore(release): prepare 0.28.0`, plus meaningful test/docs commits when
+- Commit: `chore(release): prepare v0.28.0` (explicit delivery instruction), plus meaningful test/docs commits when
   appropriate rather than combining unrelated corrections into an empty milestone.
 - Rollback/compatibility: use the preceding qualified client/server together;
   no new data conversion is planned. Back up the managed store before deployment.
@@ -510,7 +510,7 @@ branches or user work.
 | M1 / C1 | Qualified: typed native canvas capture, separate lightweight entry, one-window reuse/read-only/fullscreen and annotation/coordinate-preview raster.376frontend and4native desktop cases pass; lint/types/build/diff pass. [Evidence](../assets/detached-presentation/README.md) retains diagnostics and local self-review. No schema/API/dependency/scientific/version change. |
 | M2 / C2 | Qualified: application-owned source retirement, exact session/source checks, child reload, parent disconnection, hidden/muted/context-lost feedback, bounded first-frame waiting, cleanup and stationary-scene heartbeat separation.384frontend (including10presentation unit cases),9native lifecycle/regression cases and4final presentation cases after frame-epoch review pass; lint/types/build pass. [Evidence](../assets/detached-presentation/README.md). Explicit user correction removes separate physical-monitor testing. |
 | M3 / C3 | Qualified: bounded passive pointer, focused transient fullscreen access, preview/error fidelity and all approved native visual/edit/minimization workflows.392frontend,12new native cases,1headed desktop case and69existing desktop/mobile regressions pass, with13exactly retained baseline layout exclusions. Lint/types/build, production-entry/license audit and local self-review pass. [Requirement/evidence index](../assets/detached-presentation/requirements.md) and C3 receipts retain diagnostics separately. No API/schema/migration/dependency/scientific/version change. |
-| M4 / C4 | Pending;0.28.0 metadata, actual readers, full candidate gate and PR review not performed. |
+| M4 / C4 | In progress: five authoritative versions updated to0.28.0, preceding producer assertion retained, release notes and reproducible clean-candidate/exact-master recipes prepared. Remote master remains e6d8f63, normal merge allowed, unprotected/no rulesets,0.28.0 tag/release available at preparation. Full gate/readers and PR review remain required. |
 | M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
 
 Current limitations: final version, actual preceding readers, complete candidate/

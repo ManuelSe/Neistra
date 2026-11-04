@@ -133,3 +133,21 @@ but its trace was not copied before the output directory reset. Available other
 failure traces are preserved. No assertions/tolerances, production scientific
 behavior, fixtures or existing deadlines were relaxed. Final-version compatibility
 readers, complete candidate/exact-master gates and delivery remain C4/C5.
+
+## C4 preparation and local review
+
+All five application version sources advance to0.28.0 with no dependency changes.
+41archive integration cases pass, retaining older producer assertions and adding
+0.27.0. `c4-reader-preflight-gate.json` and its forward/reverse produce/read reports
+qualify actual0.27.0 module roots in separate processes with both filename styles.
+This nonclean preflight does not substitute for the clean final candidate gate.
+`c4-full-diff-review.md` records implementer review and the binding-lease cleanup
+finding; focused review logs and the final gate qualify its correction.
+
+`release-recipe.py.txt` generates fresh disposable run directories and explicit
+24-step recipes; `release-qualification.py.txt` requires a clean committed starting
+state and records lossless logs, command/environment/commit identities and source
+hashes before/after. Candidate and exact merged-master runs include migration
+upgrade/downgrade/re-upgrade, full Python/frontend/supervisor/native browser gates,
+production/license/schema/dependency audits and actual tagged0.27.0 readers both
+ways. Portable correctness is explicit; no strict reference timing claim.

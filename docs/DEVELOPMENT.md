@@ -926,3 +926,15 @@ client/API versions for rollback with retained managed data; head 0014 remains.
 The documentation publication audit corrects a report's previous-release baseline
 reference with recorded executed-source provenance; application/test bytes and
 the qualified runtime tag remain unchanged.
+
+### Issue #97 release and rollback qualification
+
+Version 0.28.0 adds transient local presentation only. Head0014 and all durable
+schemas remain unchanged. Stop services and back up the entire managed store
+before deployment; use the documented upgrade command. No new migration is added.
+The actual tagged 0.27.0 reader and final 0.28.0 producer must pass in both
+directions, using separate processes and explicit implementation roots, including
+both filename styles. Rollback uses matching preceding client/server and explicit
+legacy data/database settings when necessary. Capture sessions end rather than
+migrate. Reproducible recipes and lossless gate logs live in
+[the presentation evidence directory](assets/detached-presentation/README.md).

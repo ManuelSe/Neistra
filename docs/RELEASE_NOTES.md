@@ -1,5 +1,52 @@
 # Neistra Release Notes
 
+## 0.28.0 — Detached molecular presentation
+
+**Status:** release candidate for [issue #97](https://github.com/ManuelSe/Neistra/issues/97),
+under the [approved contract](plans/issue-97-detached-presentation-viewer.md).
+Publication is blocked until full candidate and exact merged-master qualification.
+
+**Added.** The Detach viewer icon opens one local read-only presentation window.
+It mirrors the main molecular canvas, including camera navigation, appearance,
+selection, surfaces, labels, measurements, interactions and molecular previews.
+Repeat activation focuses the window. A subtle leader pointer follows the displayed
+image; F and a transient keyboard-reachable control toggle fullscreen.
+
+**Behavior and scope decisions.** The child consumes native canvas frames without
+another molecular renderer, project queries or editing commands. Main workspace
+state remains authoritative. Project/source changes retire old output; hidden,
+lost, failed and disconnected sources show explicit feedback. Uncommitted output
+has a compact Preview indicator. The image keeps its source aspect ratio.
+This implements the approved local outcome through frame capture rather than
+independent scene reconstruction, molecular snapshots, BroadcastChannel transport
+or 3D pointer reconstruction. Exceptional feedback supersedes an absolute overlay
+ban. Automatic monitor placement is omitted; ordinary window movement is sufficient.
+
+**Compatibility and rollback.** Additive stable minor from 0.27.0; all five version
+sources advance together. No new migration, API, dependency or scientific algorithm.
+Alembic head remains 0014; project/viewer/archive schemas remain 2 and
+normalized/selection/component schemas remain 1. Original uploads, history, scenes,
+jobs and both archive filename styles retain existing contracts. Presentation state
+is transient. Back up the complete managed store before deployment; rollback uses
+the preceding qualified client/server with explicit legacy configuration as needed.
+
+**Verification.** Focused qualification passes 392 frontend tests, 12 native
+presentation cases, one headed desktop case and 69 existing workflow regressions
+with 13 retained layout exclusions. Tests observe actual molecular frames, previews,
+input isolation, two owners, lifecycle failures, pointer mapping, both themes,
+actual 100%/200% browser zoom and large-scene capture cleanup. Complete final-version
+candidate/master gates and actual tagged 0.27.0 readers in both directions remain
+required; final receipts will be recorded in [verification](VERIFICATION.md).
+
+**Known limitations and follow-up.** Desktop Chromium is qualified. Source size
+limits image detail, and the main workspace must remain visible and rendering.
+Capture requests at most 30 frames/s; constant throughput, invisible background
+rendering, hardware-GPU capacity and strict reference-host timing are not certified.
+Independent high-resolution output and broader browser certification are deferred
+until demonstrated need; remote sharing/recording require separate product scope.
+No speculative follow-up issues are created. Image export remains [#128](https://github.com/ManuelSe/Neistra/issues/128).
+See [presentation guidance](PRESENTATION.md) and [requirement dispositions](assets/detached-presentation/requirements.md).
+
 ## 0.27.0 — Compatible technical rebranding
 
 **Status:** stable [v0.27.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0),

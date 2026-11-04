@@ -1623,3 +1623,12 @@ pass. [Publication](assets/selection-mode-hover/c3-publication.json) verifies ex
 annotated tag, stable release/full notes, downloaded ZIP SHA256/CRC/internal hashes
 and [close-out reply](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833); final docs/cleanup audit follows there. No migration
 or public API/schema/chemistry/dependency upgrade; pinned readback patch explicit.
+
+## Issue #97 final-version qualification preparation
+
+Five application versions agree at0.28.0. Release preparation retains every older
+archive-producer assertion and adds0.27.0. The explicit recipe generator and runner
+under `assets/detached-presentation/` use disposable databases/ports, locked native
+chemistry, portable correctness and actual tagged0.27.0 implementation roots.
+Candidate and exact-master success are required before publication; preparation
+alone is not qualification evidence.

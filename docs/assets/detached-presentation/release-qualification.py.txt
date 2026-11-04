@@ -1,0 +1,74 @@
+"""Execute an explicit qualification recipe with lossless logs and source identities."""
+import argparse
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import re
+import subprocess
+import time
+
+parser = argparse.ArgumentParser()
+parser.add_argument('recipe', type=Path)
+args = parser.parse_args()
+root = Path.cwd()
+recipe = json.loads(args.recipe.read_text())
+out = root / 'docs/assets/detached-presentation'
+label = recipe['label']
+manifest = out / f'{label}-gate.json'
+assert not manifest.exists(), 'Keep previous attempts; use a new label.'
+files = sorted(set(subprocess.check_output(
+    ['git', 'ls-files', '--cached', '--others', '--exclude-standard'], text=True,
+).splitlines()))
+files = [p for p in files if p.startswith(('apps/', 'packages/', 'tests/', 'tools/', 'scripts/', 'patches/'))
+         or p in {'pyproject.toml', 'uv.lock', 'package.json', 'pnpm-lock.yaml', 'playwright.config.ts', 'alembic.ini', '.gitattributes'}]
+
+def identities():
+    return {p: hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files if (root/p).is_file()}
+
+state = {
+    'label': label, 'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+    'branch': subprocess.check_output(['git', 'branch', '--show-current'], text=True).strip(),
+    'initial_status': subprocess.check_output(['git', 'status', '--porcelain=v1'], text=True),
+    'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+    'platform': platform.platform(), 'recipe_sha256': hashlib.sha256(args.recipe.read_bytes()).hexdigest(),
+    'runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    'source_before': identities(), 'steps': [], 'complete': False,
+    'qualification_profile': 'portable correctness; no strict reference-host timing claim',
+}
+if recipe.get('require_clean', True):
+    assert not state['initial_status'], 'Clean committed candidate required.'
+manifest.write_text(json.dumps(state, indent=2)+'\n')
+for step in recipe['steps']:
+    print('START', step['label'], flush=True)
+    started = time.monotonic()
+    environment = {**os.environ, **recipe.get('environment', {}), **step.get('environment', {})}
+    proc = subprocess.Popen(step['command'], cwd=step.get('cwd', str(root)), env=environment,
+                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    chunks = []
+    for line in proc.stdout:
+        chunks.append(line)
+        text = re.sub(r'\x1b\[[0-9;]*[A-Za-z]', '', line.decode(errors='replace')).strip()
+        if re.match(r'^\[\d+/\d+\]', text) or text.startswith(('✓', '✘', 'Running ')):
+            print(text, flush=True)
+    code = proc.wait()
+    content = b''.join(chunks)
+    log = out/f'{label}-{step["label"]}.log.gz'
+    log.write_bytes(gzip.compress(content, mtime=0))
+    state['steps'].append({**step, 'exit_code': code, 'seconds': round(time.monotonic()-started, 3),
+                           'log': str(log.relative_to(root)), 'log_sha256': hashlib.sha256(content).hexdigest()})
+    state['source_after'] = identities()
+    state['source_unchanged'] = state['source_before'] == state['source_after']
+    manifest.write_text(json.dumps(state, indent=2)+'\n')
+    print('PASS' if code == 0 else 'FAIL', step['label'], flush=True)
+    print(content.decode(errors='replace')[-1200:], flush=True)
+    if code:
+        raise SystemExit(code)
+    assert state['source_unchanged'], 'Source changed during qualification.'
+state['complete'] = True
+state['finished_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+state['final_status'] = subprocess.check_output(['git', 'status', '--porcelain=v1'], text=True)
+manifest.write_text(json.dumps(state, indent=2)+'\n')
+print('COMPLETE', manifest, flush=True)
