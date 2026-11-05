@@ -6458,3 +6458,12 @@ separate lifetimes. Capture failure may advance output invalidation without
 preventing the current renderer owner from releasing its binding. The regression
 asserts release after an unsupported capture and preserves stale-binding rejection.
 No molecular owner or persisted contract changes.
+
+D-151 delivery note (issue97, v0.28.0): native capture, actual current-frame workflow
+coverage and complete candidate/exact-master qualification confirm the approved
+local ownership boundary. No scientific algorithm, public API contract, dependency,
+durable schema or migration changes. Both actual preceding readers retain rich
+projects/archives. The stable additive minor release preserves source-resolution,
+visible-source and pinned-browser limits; strict reference timing and independent
+approval remain separate claims. Publication/evidence references live in the issue
+feature plan and verification log; historical decisions remain unchanged.

@@ -1,0 +1,55 @@
+{
+  "version": "0.28.0",
+  "runtime": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+  "pr": 133,
+  "pr_url": "https://github.com/ManuelSe/Neistra/pull/133",
+  "tag": {
+    "name": "v0.28.0",
+    "object": "a85f88c916f9ed418c875c3974feed4a96dc0b6b",
+    "type": "tag",
+    "target": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 434638907,
+    "tag_name": "v0.28.0",
+    "target_commitish": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-05T00:55:46Z"
+  },
+  "latest_verified": true,
+  "notes_sha256": "07924d8cec5fa9ec6871a41f81ad3bfd1360683192f178ef07a24caa4a2b69bc",
+  "asset": {
+    "asset": "/tmp/neistra-v0.28.0-qualification.zip",
+    "bytes": 63362303,
+    "sha256": "52c753f6931cf06d15117ce26028466a45a66786813c71b1db77599588309721",
+    "manifest_files": 305,
+    "qualified_commit": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+    "crc_and_internal_hashes_valid": true,
+    "downloaded_anonymously": true,
+    "download_sha256_matches": true,
+    "crc_verified": true,
+    "internal_hashes_verified": true,
+    "zip_entries": 306,
+    "id": 711525690,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.28.0/neistra-v0.28.0-qualification.zip",
+    "api_digest": "sha256:52c753f6931cf06d15117ce26028466a45a66786813c71b1db77599588309721"
+  },
+  "candidate_gate": "c4-candidate5",
+  "merged_gate": "c5-merged1",
+  "source_identities": 713,
+  "review_provenance": "Full-diff local implementer self-review; Codex requested and no external result returned; independent approval not claimed. No required reviews/checks or unresolved threads; normal merge without bypass.",
+  "migration": "None; head0014 and all persisted schemas retained. Actual tagged0.27.0/current0.28.0 readers pass both directions and accept both suffixes.",
+  "verified_at": "2026-11-05T00:59:22.763254+00:00",
+  "issue": {
+    "number": 97,
+    "state": "closed",
+    "closeout_comment_id": 6646591747,
+    "closeout_url": "https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747",
+    "body_verified": true,
+    "cleanup_receipt_location": "https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747"
+  },
+  "github_connector_write_fallback": "GitHub connector returned HTTP403 Resource not accessible by integration for PR creation; existing authenticated owner CLI completed the authorized workflow, respecting repository protections."
+}

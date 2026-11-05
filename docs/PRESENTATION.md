@@ -1,8 +1,8 @@
 # Detached molecular presentation
 
-Status: issue #97 clean-candidate release qualification complete; integration,
-exact-master verification and publication are tracked under the
-[approved contract](plans/issue-97-detached-presentation-viewer.md).
+Status: released as stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) under the
+[approved contract](plans/issue-97-detached-presentation-viewer.md), with complete
+candidate/exact-master qualification and verified publication.
 
 Open **Detach viewer** in the viewer quick actions to show the molecular canvas
 in a separate read-only window. Activate it again to focus the existing window.

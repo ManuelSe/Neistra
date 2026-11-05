@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+## Issue #97 — Released v0.28.0 / exact-master qualification
+
+[PR #133](https://github.com/ManuelSe/Neistra/pull/133) normally merged at
+`f02ca386e97a200bbc39299c1f464cd4783a7b39`. The clean candidate and exact merged master pass
+all **24 release steps**: **1,333 Python (zero skips), 392 frontend, 14 supervisor,
+364 browser passes /74 registered exclusions**, zero final failures/flakes/automatic
+retries. The 62 preceding exclusion identities are unchanged; 12 new mobile
+exclusions are approved desktop-only presentation cases. All 713 source hashes
+match and every lossless log verifies. [Exact-master summary](assets/detached-presentation/c5-merged1-summary.json).
+Actual tagged 0.27.0 ↔ 0.28.0 readers, both suffixes, migration upgrade/downgrade/
+re-upgrade, frozen/static/build, version/schema/dependency/production/license and
+legacy CLI checks pass. No new migration or scientific/public API contract change.
+
+Annotated `v0.28.0` targets that exact runtime. Stable/latest
+[release](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) and anonymous qualification ZIP download verify by local/API/
+download SHA-256, CRC and all 305 manifest files. [Publication receipt](assets/detached-presentation/c5-publication.json)
+and [issue reply](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747) retain delivery and final cleanup receipts.
+Local full-diff self-review resolved consequential findings. Codex was requested,
+no external result returned, and independent approval/strict reference-host timing
+are not claimed. Earlier diagnostic runs remain distinct from passing gates.
+
 ## Issue #97 — Complete clean candidate for0.28.0
 
 Clean `663c5fa1f283c72d0bc57fff0f64a4ee4015f46b` passes all 24release steps:

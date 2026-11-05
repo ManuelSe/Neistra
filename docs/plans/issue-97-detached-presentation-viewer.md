@@ -2,7 +2,7 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved; C4 candidate qualified — PR integration and release pending**.
+- Status: **Delivered as stable v0.28.0; publication verified; final documentation/cleanup receipts maintained in the issue close-out**.
 - Issue: [#97 — Add a detached, read-only presentation viewer with live synchronization](https://github.com/ManuelSe/Neistra/issues/97).
 - Issue inspected: open, enhancement label, no comments, assignee or milestone;
   issue updated 2026-10-19. Recheck material changes before implementation.
@@ -512,11 +512,14 @@ branches or user work.
 | M3 / C3 | Qualified: bounded passive pointer, focused transient fullscreen access, preview/error fidelity and all approved native visual/edit/minimization workflows.392frontend,12new native cases,1headed desktop case and69existing desktop/mobile regressions pass, with13exactly retained baseline layout exclusions. Lint/types/build, production-entry/license audit and local self-review pass. [Requirement/evidence index](../assets/detached-presentation/requirements.md) and C3 receipts retain diagnostics separately. No API/schema/migration/dependency/scientific/version change. |
 | M4 / C4 diagnostics | Version0.28.0 prepared in all five sources. Actual0.27.0 preflight passes both ways. Failed candidates2/3/4 and their traces remain diagnostic: reload/selection setup and current-frame sampling required explicit readiness. Corrections retain every original science/state/raster assertion, timeout and exclusion. Details and focused passes are in [local review](../assets/detached-presentation/c4-full-diff-review.md). |
 | M4 / C4 qualified | Clean663c5fa passes all24steps:1,333Python (zero skips),392frontend,14supervisor,364browser/74exclusions, zero final failures/flakes/automatic retries.62baseline exclusions are exactly unchanged;12new mobile exclusions implement approved desktop-only presentation qualification.713unchanged sources and all lossless log hashes verify. Actual tagged0.27.0↔final0.28.0 readers, both suffixes, fresh migration round trip, versions/dependencies/schemas/production/license and legacy CLI pass. [Summary](../assets/detached-presentation/c4-candidate5-summary.json). Full-diff implementer self-review has no unresolved consequential finding. Rechecked base e6d8f63, normal merge/unprotected/no rulesets, no automatic branch deletion, no0.28tag/release collision. |
-| M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
+| M5 / C5 merge and exact-master qualification | [PR #133](https://github.com/ManuelSe/Neistra/pull/133) normally merged at `f02ca386e97a200bbc39299c1f464cd4783a7b39`, preserving checkpoints. Current policy has no required reviews/checks/rulesets or unresolved threads; no bypass. Codex requested, no external result returned; local self-review only. Exact clean merged master passes all 24 steps: 1,333 Python (zero skips), 392 frontend, 14 supervisor, 364 browser passes /74 exclusions, zero final failures/flakes/automatic retries. All 713 sources match the clean candidate and all lossless logs/actual tagged readers both ways verify. [Summary](../assets/detached-presentation/c5-merged1-summary.json). |
+| M5 / C5 publication | Annotated `v0.28.0` object `a85f88c916f9ed418c875c3974feed4a96dc0b6b` targets the exact qualified runtime. Stable/latest [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) is remotely verified. Anonymous qualification ZIP download matches local/API SHA-256, CRC and all 305 manifest files. [Publication receipt](../assets/detached-presentation/c5-publication.json). [Issue close-out](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747) body read back; issue closed. No essential approved scope deferred and no new follow-up issues; image export remains #128. |
+| M5 / C5 final audit | Publication documents/evidence integrate through a normal documentation-only PR on the planned branch, retaining qualified runtime/test bytes and the fixed published tag. The verified issue close-out maintains final documentation-integration and local/remote branch-cleanup receipts after they occur. |
 
-Current limitations: PR review/integration, complete exact merged-master gate,
-publication, issue reply and cleanup remain. Desktop Chromium is qualified;
-broader browser/hardware throughput certification is not claimed. No essential
-approved scope is deferred. Next action: open the planned PR, request available
-Codex review and satisfy all current policies before normal merge. No release or
-independent approval is claimed yet.
+Current limits: source resolution/visibility, pinned desktop Chromium and existing
+scientific/browser capacity remain explicit. Strict reference-host timing and
+independent approval are not claimed. All approved essential/supporting outcomes
+are implemented and qualified. Publication is verified; the [issue close-out](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747)
+is the receipt for final documentation integration and branch cleanup, performed
+only after merge/tag/release/issue verification. Preserve the runtime tag while
+integrating these later documentation receipts.

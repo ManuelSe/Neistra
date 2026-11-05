@@ -1,0 +1,21 @@
+{
+  "runtime": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+  "type": "documentation-only publication receipt review, by implementer",
+  "changed_tracked_files": [
+    "docs/DECISIONS.md",
+    "docs/DEVELOPMENT.md",
+    "docs/PRESENTATION.md",
+    "docs/PROGRESS.md",
+    "docs/RELEASE_NOTES.md",
+    "docs/VERIFICATION.md",
+    "docs/assets/detached-presentation/README.md",
+    "docs/plans/issue-97-detached-presentation-viewer.md"
+  ],
+  "all_runtime_test_sources_identical": true,
+  "source_count": 713,
+  "published_tag_target_unchanged": true,
+  "relative_links_pass": true,
+  "no_unresolved_consequential_finding": true,
+  "publication": "c5-publication.json",
+  "final_cleanup_receipt": "https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747"
+}

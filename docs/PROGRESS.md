@@ -2,35 +2,37 @@
 
 ## Current milestone
 
-Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) implements the approved
-[detached presentation contract](plans/issue-97-detached-presentation-viewer.md)
-and D-151 on `feat/issue-97-detached-presentation-viewer`. **C4 candidate qualification
-is complete; PR integration and release remain.**
+Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) is implemented and released
+as stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) through [PR #133](https://github.com/ManuelSe/Neistra/pull/133).
+The [approved feature plan](plans/issue-97-detached-presentation-viewer.md) and D-151
+are delivered: one local read-only canvas presentation, window reuse/fullscreen,
+bounded leader pointer, preview/failure feedback, source retirement and resource
+cleanup. Main molecular state remains authoritative; the child consumes frames.
 
-Completed: one local read-only canvas presentation, one-window reuse, native
-fullscreen, bounded leader pointer, preview/failure feedback, source retirement,
-reload/disconnection cleanup and native visual/edit/minimization workflows.
-No second molecular renderer, child project queries or durable presentation state.
-All five application versions are 0.28.0. Public API contracts, persisted schemas,
-dependencies and scientific behavior remain unchanged; no new migration. Source resolution/visibility and pinned desktop Chromium are explicit limits.
-Ordinary headed window movement/fullscreen and unequal-viewports satisfy the
-explicit user amendment; no separate physical-monitor test is required.
+Both the clean candidate and exact merged runtime `f02ca386e97a200bbc39299c1f464cd4783a7b39`
+pass all **24 release steps**: **1,333 Python (zero skips), 392 frontend,
+14 supervisor, 364 browser passes /74 registered exclusions**, zero final failures,
+flakes or automatic retries. The 62 previous exclusion identities are unchanged;
+12 new mobile exclusions reflect approved desktop-only presentation qualification.
+All 713 source identities match and lossless logs verify. Actual tagged
+0.27.0 ↔ 0.28.0 readers, both archive suffixes, migration round trip and frozen/
+static/build/version/schema/dependency/production/license checks pass.
+[Exact-master summary](assets/detached-presentation/c5-merged1-summary.json).
+Earlier diagnostics remain separate. Review is local self-review; Codex was
+requested but returned no external result. Strict timing and independent approval
+are not claimed.
 
-Clean 663c5fa passes all 24release steps: **1,333 Python (zero skips),392 frontend,
-14 supervisor,364 browser passes /74 registered exclusions**, zero final failures,
-flakes or automatic retries.62 existing exclusion identities are unchanged;12 new
-mobile exclusions reflect approved desktop-only presentation qualification.
-All 713 source identities and lossless logs verify. Actual tagged 0.27.0↔final 0.28.0
-readers, both suffixes, migration round trip and production/version/schema/dependency/
-license checks pass. [Summary](assets/detached-presentation/c4-candidate5-summary.json).
-Earlier failed diagnostic runs and readiness corrections are retained separately.
-Full-diff local self-review has no unresolved consequential finding; independent
-approval and strict reference-host timing are not claimed.
-
-No known implementation blocker. Next action: PR/review and normal merge, then
-complete exact-master qualification before annotated v0.28.0/release, issue response,
-documentation receipts and branch cleanup. The feature plan remains the detailed
-source of truth.
+The annotated tag, stable/latest release and anonymous qualification ZIP download
+verify by SHA-256, CRC and all 305 manifest files.
+[Publication receipt](assets/detached-presentation/c5-publication.json) and
+[verified issue close-out](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747) record delivery. The issue reply maintains
+final documentation-integration and local/remote branch-cleanup receipts.
+All five versions are 0.28.0. No new migration: head 0014 and durable schemas remain.
+Originals, scientific algorithms, dependencies and public API contracts are retained.
+Source resolution/visibility, pinned desktop Chromium and existing scientific/
+capacity limits apply. High-resolution output, broader browser certification and
+remote features remain separate scope; image export remains #128. No essential
+approved outcome is deferred and no speculative follow-up issue was created.
 
 ### Previous completed milestone — issue #99
 

@@ -209,3 +209,37 @@ can start clean. `package-qualification.py.txt` packages completed merged-master
 receipts with a SHA-256 manifest and CRC checks; neither master qualification nor
 publication has occurred at this checkpoint. Review provenance remains local
 implementer self-review. Independent approval and strict timing are not claimed.
+
+## C5 verified integration and publication
+
+[PR #133](https://github.com/ManuelSe/Neistra/pull/133) normally merges at
+`f02ca386e97a200bbc39299c1f464cd4783a7b39` with checkpoint history retained. Owner-authenticated
+policy/threads/check reads show no required review/status checks or unresolved
+conversations, no rulesets, unprotected master, normal merges enabled and automatic
+branch deletion disabled. No bypass. Codex review was requested; no external
+review returned. Local full-diff self-review is the actual review provenance.
+The connector could not create a PR (HTTP403 integration scope); the existing
+owner CLI completed the authorized repository workflow, retaining all protections.
+
+The complete clean exact-master run passes all 24steps, with 1,333 Python (zero skips),
+392 frontend,14 supervisor,364 browser /74 registered exclusions. Existing 62 exclusion
+identities and 12 approved desktop-only mobile exclusions match the candidate. Both
+713-source maps and every lossless log hash verify; actual 0.27.0 readers pass both
+ways with both suffixes. [Summary](c5-merged1-summary.json), full gate/logs/browser
+report and final native profiles/screenshots retain observed evidence. Portable
+correctness is qualified; strict reference-host timing/hardware-GPU certification
+and independent review are not claimed.
+
+Annotated `v0.28.0` object `a85f88c916f9ed418c875c3974feed4a96dc0b6b` targets exact
+qualified runtime. Stable/latest [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) and release notes are read back.
+The 63,362,303-byte evidence ZIP matches local/API/anonymous-download SHA-256
+`52c753f6931cf06d15117ce26028466a45a66786813c71b1db77599588309721`, CRC and all 305
+manifest files (306 ZIP entries). The fixed ZIP predates these publication receipts;
+its manifest identifies the qualified runtime and does not pretend to include its
+own future publication/cleanup. [Publication receipt](c5-publication.json).
+
+[Issue close-out](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747) body is verified and the issue is closed. Publication
+receipts integrate in a normal documentation-only PR on the planned branch, with
+qualified runtime/test identity retained. The verified issue reply maintains final
+documentation integration and local/remote feature-branch cleanup receipts after
+those actions. No published tag or immutable asset is retargeted/replaced.
