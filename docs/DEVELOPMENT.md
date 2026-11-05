@@ -938,3 +938,10 @@ both filename styles. Rollback uses matching preceding client/server and explici
 legacy data/database settings when necessary. Capture sessions end rather than
 migrate. Reproducible recipes and lossless gate logs live in
 [the presentation evidence directory](assets/detached-presentation/README.md).
+
+Issue #97 is released as [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) from exact qualified runtime
+`f02ca386e97a200bbc39299c1f464cd4783a7b39`. Both complete gates and actual tagged 0.27.0 readers
+pass; [exact-master receipts](assets/detached-presentation/c5-merged1-summary.json)
+record source/log identity. Publication documentation retains the same runtime/test
+bytes and cannot retarget the published tag. The issue close-out holds final
+integration/branch-cleanup receipts.

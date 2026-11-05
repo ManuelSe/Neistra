@@ -1,0 +1,13 @@
+{
+  "asset": "/tmp/neistra-v0.28.0-qualification.zip",
+  "bytes": 63362303,
+  "sha256": "52c753f6931cf06d15117ce26028466a45a66786813c71b1db77599588309721",
+  "manifest_files": 305,
+  "qualified_commit": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+  "crc_and_internal_hashes_valid": true,
+  "downloaded_anonymously": true,
+  "download_sha256_matches": true,
+  "crc_verified": true,
+  "internal_hashes_verified": true,
+  "zip_entries": 306
+}

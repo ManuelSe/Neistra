@@ -2,10 +2,11 @@
 
 ## 0.28.0 — Detached molecular presentation
 
-**Status:** release candidate for [issue #97](https://github.com/ManuelSe/Neistra/issues/97),
-under the [approved contract](plans/issue-97-detached-presentation-viewer.md).
-The complete clean-candidate gate passes; integration and exact merged-master
-qualification still block publication.
+**Status:** stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0), normally merged in
+[PR #133](https://github.com/ManuelSe/Neistra/pull/133). Exact qualified runtime:
+`f02ca386e97a200bbc39299c1f464cd4783a7b39`. [Publication receipt](assets/detached-presentation/c5-publication.json)
+and [issue close-out](https://github.com/ManuelSe/Neistra/issues/97#issuecomment-6646591747) retain delivery evidence under the
+[approved contract](plans/issue-97-detached-presentation-viewer.md).
 
 **Added.** The Detach viewer icon opens one local read-only presentation window.
 It mirrors the main molecular canvas, including camera navigation, appearance,
@@ -35,13 +36,16 @@ the preceding qualified client/server with explicit legacy configuration as need
 presentation cases, one headed desktop case and 69 existing workflow regressions
 with 13 retained layout exclusions. Tests observe actual molecular frames, previews,
 input isolation, two owners, lifecycle failures, pointer mapping, both themes,
-actual 100%/200% browser zoom and large-scene capture cleanup. Complete final-version
-candidate gate passes all 24 steps:1,333 Python (zero skips),392 frontend,14 supervisor,
+actual 100%/200% browser zoom and large-scene capture cleanup. Both complete clean-candidate and exact merged-master
+gates pass all 24 steps each:1,333 Python (zero skips),392 frontend,14 supervisor,
 364 browser passes /74 exclusions (62 exactly retained plus12 approved desktop-only
 mobile exclusions), with713 unchanged source identities and all lossless logs
 verified. Actual tagged 0.27.0 readers pass both directions and accept both suffixes.
-Zero final failures/flakes/automatic retries. Exact merged-master qualification
-still precedes publication; [verification](VERIFICATION.md) retains receipts.
+Zero final failures/flakes/automatic retries. The published qualification ZIP's
+anonymous download verifies by SHA-256, CRC and all 305 manifest files.
+[Verification](VERIFICATION.md) retains receipts. Review is local implementer
+self-review; Codex was requested but returned no external result, so independent
+approval is not claimed.
 
 **Known limitations and follow-up.** Desktop Chromium is qualified. Source size
 limits image detail, and the main workspace must remain visible and rendering.
