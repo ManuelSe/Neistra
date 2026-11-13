@@ -2,11 +2,12 @@
 
 ## 0.29.0 — Authoritative connectivity and reliable minimization
 
-**Status:** release candidate for [issue #137](https://github.com/ManuelSe/Neistra/issues/137).
-Publication, exact-master qualification and final review are pending. The
-[approved feature plan](plans/issue-137-authoritative-minimization.md) and
-[checkpoint evidence](assets/authoritative-minimization/README.md) retain scope,
-scientific assumptions and measured limits.
+**Status:** stable [v0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0),
+normally merged in [PR #138](https://github.com/ManuelSe/Neistra/pull/138). Qualified
+runtime: `382f2bda26796e13454ec1394cbe89c393d5b871`.
+[Publication receipt](assets/authoritative-minimization/c8-publication.json) and
+[verified issue close-out](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663) retain delivery evidence. The approved feature
+plan and checkpoint index retain scope, scientific assumptions and measured limits.
 
 **Connectivity and editing.** The current normalized molecule is authoritative.
 The viewer displays its exact bond set, including empty graphs, and quick
@@ -66,18 +67,22 @@ with disclosed hydrogens/caps/approximate interactions, not validated poses or
 whole-system preparation. Chromium qualification and portable correctness do not
 imply broader browser, chemistry or strict reference-host timing certification.
 
-**Verification and upgrade guidance.** C1–C6 focused results are retained in the
-evidence index. The clean candidate passes all 30 release steps: 1,481 Python
-(zero skips), 503 frontend, 14 supervisor and 413 browser cases / 75 unchanged
-existing exclusions, zero failures/flakes/retries/new exclusions. Actual tagged
-0.28.1 readers pass in both directions and both archive suffixes; all 759 current
-and 720 preceding-source identities and lossless log hashes verify. Final
-same-candidate specialist assessments, exact merged-master qualification and remote
-publication remain required before stable release. Back up the
-complete managed store and upgrade client/server together. No data conversion is
-needed from 0.28.1. Rolling back retains data but restores the old application's
-known rendering/inference and proposal behavior; compatibility is not behavioral
-equivalence. Never execute new queued jobs under an older implementation.
+**Verification and upgrade guidance.** Both complete 30-step clean-candidate and
+exact-master gates pass: 1,481 Python (zero skips), 503 frontend, 14 supervisor and
+413 browser cases / 75 unchanged existing exclusions, zero failures/flakes/retries/
+new exclusions. Actual tagged 0.28.1 readers pass both directions and archive
+suffixes; all 759 current and 720 preceding-source identities and lossless hashes
+verify. Migration round trip and all release audits pass. All seven specialist
+agents PASS the same final feature head `cfad2525`; primary local full-diff review
+passes. Codex was requested without an external result as of pre-merge verification;
+no human approval or remote CI success is claimed. Annotated tag, stable/latest
+release, notes and anonymous ZIP download verify by SHA-256, CRC and all 1,715
+manifest files. Subsequent documentation receipts leave the runtime tag fixed.
+
+Back up the complete managed store and upgrade client/server together. No data
+conversion is needed from 0.28.1. Rolling back retains data but restores the older
+application's known rendering/inference and proposal behavior; compatibility is
+not behavioral equivalence. Never execute new queued jobs under an older worker.
 
 ## 0.28.1 — Viewer warning details
 

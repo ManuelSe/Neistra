@@ -1,5 +1,31 @@
 # V0.1 Requirement Evidence
 
+## Issue #137 — Released v0.29.0 / exact-master qualification
+
+[PR #138](https://github.com/ManuelSe/Neistra/pull/138) normally merged at
+`382f2bda26796e13454ec1394cbe89c393d5b871`. Both clean-candidate and exact-master
+**30-step gates pass**: **1,481 Python (zero skips), 503 frontend, 14 supervisor,
+413 browser passes / 75 unchanged existing exclusions**, zero failures/flakes/
+retries/new exclusions. All 759 current and 720 actual preceding-release source
+identities and lossless logs verify. [Exact-master summary](assets/authoritative-minimization/c8-merged4-summary.json).
+Actual 0.28.1↔0.29.0 readers, both suffixes/directions, historical unapplied-proposal
+refusal without writes, migration round trip, locked/static/build and release audits
+pass. No dependency, migration or durable-schema change.
+
+All seven specialist agents explicitly PASS final feature head `cfad2525`; its
+entire tree equals the merged runtime. Primary local complete-diff review passes.
+Codex was requested without an external result as of pre-merge verification;
+independent human approval, remote CI success and strict timing are not claimed.
+Annotated tag, stable/latest release, notes and anonymous ZIP download verify by
+SHA-256, CRC and all 1,715 manifest files. [Publication receipt](assets/authoritative-minimization/c8-publication.json)
+and [verified issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663) retain delivery facts; the issue reply is the
+terminal documentation/cleanup receipt location. Later documentation integration
+leaves all 759 qualified inputs and the runtime tag unchanged. Local-model,
+captured-scene memory and Chromium-emulation limitations remain explicit.
+
+The following checkpoint paragraphs retain their as-run historical status; the
+complete delivery evidence above supersedes their pending-gate statements.
+
 ## Issue #137 focused checkpoint qualification
 
 The [approved feature contract](plans/issue-137-authoritative-minimization.md) and

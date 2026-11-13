@@ -2,18 +2,18 @@
 
 ## 1. Contract, authority, and scope decisions
 
-**Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
-the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C6 are implemented and focused-qualified; C7 qualification/review is complete;
-C8 remote integration and publication remain pending.
+**Status:** approved 2026-11-13 and implemented under the subsequent `/goal`.
+C0–C7 are complete; C8 implementation/publication is verified as stable v0.29.0.
+The [issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663) is the terminal receipt location for documentation
+integration and branch cleanup.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
 - **Base:** `master`, fast-forward checked against `origin/master` at
   `5f6a2b869d9f8a32a1f921eccb6863c3148188e6`.
 - **Branch:** `fix/issue-137-authoritative-minimization`.
-- **Proposed release:** stable **0.29.0**, annotated tag **`v0.29.0`**.
-- **Implementation begins only after a separate `/goal` instruction.**
+- **Release:** stable **[0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0)**, annotated **`v0.29.0`**.
+- **Implementation/delivery authorization:** the subsequent explicit `/goal`.
 
 The approved outcome is a coherent viewer-icon/Ctrl+M workflow that respects
 current connectivity, recovers ambiguous publication outcomes, explains
@@ -476,13 +476,15 @@ to avoid a self-referential commit claim.
 | C4 | Complete local checkpoint `80adf97`; focused evidence below. |
 | C5 | Complete local checkpoint `0742184`; measured evidence below. |
 | C6 | Complete local checkpoint `013ab2a`; focused evidence below. |
-| C7 | In progress: release preparation and actual-reader qualification; no final candidate qualification claimed. |
-| C8 | Pending; no release publication claimed. |
+| C7 | Complete: both final candidate qualification and all seven final-head specialist assessments PASS; final feature head `cfad2525`. |
+| C8 | Stable v0.29.0 verified on runtime `382f2bda`; terminal documentation/cleanup receipt: [issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663). |
 
-Known limitations: current application defects remain until implementation;
-existing sparse projects will intentionally remain unchanged; portable data
-compatibility does not restore fixes in old binaries. Blockers: none identified
-for planning persistence. The subsequent `/goal` resumes runtime work as recorded below.
+Known limitations: existing sparse projects intentionally remain unchanged;
+local cleanup and approximate interactions do not establish pose validity or full
+preparation. Portable data compatibility does not restore fixes in old binaries.
+Captured-scene indexing costs memory; no strict timing/browser-breadth claim.
+Blockers: none. Checkpoint paragraphs below preserve their as-run status; the
+latest C8 record and linked terminal receipt govern completed delivery.
 
 ### C1 — 2026-11-13: current graph authority
 
@@ -911,3 +913,34 @@ PR retains that exact final head and verdicts. C7's runtime inputs remain identi
 to the complete clean gate. No expensive test is repeated for documentation-only
 recording. Next: normal remote review/merge and C8 exact-master qualification,
 annotated tag/release, verified issue response and branch cleanup.
+
+### C8 — Verified publication and documentation receipts
+
+[PR #138](https://github.com/ManuelSe/Neistra/pull/138) normally merges at
+`382f2bda26796e13454ec1394cbe89c393d5b871`; remote master and the entire reviewed
+feature tree verify. The clean exact-master gate passes all **30 steps** with
+**1,481 Python (zero skips), 503 frontend, 14 supervisor and 413 browser passes /
+75 unchanged existing exclusions**, zero failures/flakes/retries/new exclusions.
+All 759 current and 720 actual preceding-tag identities and lossless logs verify.
+Command duration is 4,494.906 seconds; elapsed wall time is 4,496 seconds.
+[Exact-master evidence](../assets/authoritative-minimization/c8-merged4-summary.json)
+retains actual readers, both suffixes/directions, old-proposal refusal without
+writes, migration round trip and all release audits. C7/C8 runtime inputs match.
+
+Annotated `v0.29.0` object `48a190f6c77b642173395439309e4f70505c0e6c` targets that
+exact runtime. Stable/latest release, published notes, API digest and anonymous
+qualification download verify: **189,985,346 bytes**, CRC and all **1,715** manifest
+files; SHA-256 `c99dd0612c24fa8a34eb52091dc5d00e2b568c386d255f8f0f5a201664151323`.
+[Publication receipt](../assets/authoritative-minimization/c8-publication.json)
+records actual remote IDs, hashes and the verified initial issue reply. Connector
+PR creation returns HTTP403; authenticated owner CLI completes authorized writes
+without bypass flags or repository protections. No external Codex result or human
+approval is claimed.
+
+This documentation-only checkpoint reuses the same planned feature branch after
+fast-forwarding it from merged master. It records the exact-master evidence,
+release and current documentation through normal PR integration. All 759 runtime
+inputs remain identical; the release tag is never moved. Final integration and
+branch cleanup are recorded in the [same verified issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663), avoiding
+a self-referential commit claim. Existing limitations, unchanged schemas/dependencies,
+old-project policy and #86/#101 scope remain; no additional follow-up issue.
