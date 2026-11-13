@@ -67,9 +67,13 @@ whole-system preparation. Chromium qualification and portable correctness do not
 imply broader browser, chemistry or strict reference-host timing certification.
 
 **Verification and upgrade guidance.** C1–C6 focused results are retained in the
-evidence index. Complete clean-candidate and exact-merged-master release gates,
-actual tagged 0.28.1 readers in both directions, all-seven final specialist
-assessments and remote publication are required before stable release. Back up the
+evidence index. The clean candidate passes all 30 release steps: 1,481 Python
+(zero skips), 503 frontend, 14 supervisor and 413 browser cases / 75 unchanged
+existing exclusions, zero failures/flakes/retries/new exclusions. Actual tagged
+0.28.1 readers pass in both directions and both archive suffixes; all 759 current
+and 720 preceding-source identities and lossless log hashes verify. Final
+same-candidate specialist assessments, exact merged-master qualification and remote
+publication remain required before stable release. Back up the
 complete managed store and upgrade client/server together. No data conversion is
 needed from 0.28.1. Rolling back retains data but restores the old application's
 known rendering/inference and proposal behavior; compatibility is not behavioral

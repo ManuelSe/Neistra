@@ -49,8 +49,22 @@ keyboard and 320×180 layouts; new message identity resets reading while resize/
 unrelated rendering preserves it. Independent UI's replacement-scroll finding is
 corrected and reproved. [Evidence](assets/authoritative-minimization/c7-notice-summary.json)
 retains 759 source identities and scope/diagnostic distinctions. Candidate2 is
-intentionally interrupted, not passing qualification; fresh candidate3/exact-master
-complete gates and final seven-role verdicts remain required.
+intentionally interrupted, not passing qualification. Candidate3 subsequently
+finds passive short-notice pointer interception; the bounded correction restores
+pass-through while preserving interactive overflow. Earlier attempts remain
+separate from final qualification.
+
+The complete clean [candidate4 summary](assets/authoritative-minimization/c7-candidate4-summary.json)
+qualifies `5b14fff1f333f49c0c90e25256de2bd778eb8b28`: **30 passing steps, 1,481
+Python (zero skips), 503 frontend, 14 supervisor and 413 browser passes / 75 exact
+existing exclusions**, zero failures/flakes/retries/new exclusions. All 759 current
+and 720 actual tagged preceding-source identities and lossless logs verify.
+Actual 0.28.1↔0.29.0 readers preserve both archive suffixes, connectivity, results,
+originals and artifacts; old unapplied proposals refuse without writes. Migration
+round trip, locked installs, static/build/version/schema/dependency/production/
+license and legacy CLI checks pass. Portable correctness makes no strict timing
+claim. Final same-candidate specialist verdicts and exact merged-master release
+qualification remain required before publication.
 
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 

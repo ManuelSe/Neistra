@@ -391,3 +391,28 @@ Close dismisses normally.92 independent tests pass; no consequential correction
 finding remains.759 source identities are retained. Candidate4/master4 repeat
 all30 release steps and actual readers; all75 existing global exclusion identities
 must remain exact. Earlier failed/interrupted/unused cohorts remain separate.
+
+## C7 — Complete candidate gate
+
+[Verified summary](c7-candidate4-summary.json) qualifies clean candidate
+`5b14fff1f333f49c0c90e25256de2bd778eb8b28` through all **30 steps**: **1,481 Python
+(zero skips), 503 frontend, 14 supervisor, 413 browser passes / 75 unchanged
+existing exclusions**, zero failures/flakes/retries/new exclusions. All 759 current
+and 720 actual preceding-tag source identities and lossless command logs verify.
+The [recipe](c7-candidate4-recipe.json) and [gate receipt](c7-candidate4-gate.json)
+retain exact commands, environments, tool/source identities, durations and hashes.
+Command duration is 4,562.346 seconds; elapsed wall time is 4,564 seconds.
+
+[Actual-reader audit](c7-candidate4-reader-audit.json) covers separate tagged
+0.28.1/current processes, both directions and both archive suffixes, with the rich
+project and current-connectivity families. It qualifies exact data/artifact
+retention and old unapplied-proposal refusal without writes. It does not qualify
+new authoring under old code or portable archive Undo. Disposable migration round
+trip, locked installs, static/build/version/schema/dependency/license/production
+audits and legacy CLI pass. [Exclusions](c7-candidate4-exclusions.json) match all
+75 existing identities, with no new allowance. Portable correctness does not claim
+strict reference-host timing. Earlier failures/interruption remain distinct.
+
+Primary complete-diff local review and the final seven same-candidate specialist
+assessments precede readiness to push. Exact merged-master qualification and
+remote release/issue/cleanup verification remain required before completion.

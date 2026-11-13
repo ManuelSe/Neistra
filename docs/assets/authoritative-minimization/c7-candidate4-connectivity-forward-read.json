@@ -1,0 +1,41 @@
+{
+  "baseline": {
+    "reader": "0.28.1",
+    "cases": 4,
+    "canonical_all_conformers_exact": true,
+    "generic_multi_entry_undo_redo_exact": true,
+    "jobs_inputs_reports_models_and_provenance_exact": true,
+    "originals_and_allocation_floors_exact": true,
+    "save_archive_import_reexport_exact": true
+  },
+  "historical_apply_refused": null,
+  "mode": "read",
+  "application_version": "0.28.1",
+  "implementation_root": "/tmp/neistra137-reader-0281",
+  "module_paths": {
+    "molweave_api.main": "/tmp/neistra137-reader-0281/apps/api/src/neistra_api/main.py",
+    "molweave_api.archive_service": "/tmp/neistra137-reader-0281/apps/api/src/neistra_api/archive_service.py",
+    "molweave_core.molecular": "/tmp/neistra137-reader-0281/packages/neistra_core/src/neistra_core/molecular.py",
+    "molweave_core.adapters.macromolecular": "/tmp/neistra137-reader-0281/packages/neistra_core/src/neistra_core/adapters/macromolecular.py",
+    "molweave_core.minimization.quick_plugin": "/tmp/neistra137-reader-0281/packages/neistra_core/src/neistra_core/minimization/quick_plugin.py",
+    "molweave_demo_plugin": "/tmp/neistra137-reader-0281/packages/neistra_demo_plugin/src/molweave_demo_plugin/__init__.py",
+    "tests.support.api_client": "/tmp/neistra137-reader-0281/tests/support/api_client.py",
+    "tests.support.quick_minimization_reader_qualification": "/tmp/neistra137-reader-0281/tests/support/quick_minimization_reader_qualification.py",
+    "tests.support.modeling_reader_qualification": "/tmp/neistra137-reader-0281/tests/support/modeling_reader_qualification.py",
+    "tests.integration.test_model_edits": "/tmp/neistra137-reader-0281/tests/integration/test_model_edits.py",
+    "tests.integration.test_quick_minimization": "/tmp/neistra137-reader-0281/tests/integration/test_quick_minimization.py",
+    "tests.support.minimization": "/tmp/neistra137-reader-0281/tests/support/minimization.py"
+  },
+  "four_case_quick_retention": true,
+  "result_values_exact": true,
+  "connectivity_retention": true,
+  "unapplied_job_retention": true,
+  "assertion_scope": "actual reader retention verified",
+  "both_archive_suffixes": true,
+  "limitations": [
+    "Data retention under an older reader does not qualify its future authoring",
+    "Old reader never executes or applies a new implementation job",
+    "Archives retain historical results, not portable Undo or fresh Apply eligibility",
+    "Existing sparse projects remain unchanged; no automatic connectivity repair"
+  ]
+}

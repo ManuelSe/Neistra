@@ -740,6 +740,11 @@ retains the exact 262,144-neighbor count while reducing tracked query allocation
 from 2,491,568 to 165,040 bytes. This allocation witness is separate from CPU and
 application latency measurements.
 
+Retained source indexes scale with the captured scene, including atoms outside
+the eventual local model. The 20,000-atom model limit bounds modeled local atoms,
+not the captured scene or its indexes. Existing job RSS and deadline limits remain
+in force; these measurements do not establish a lower whole-job memory bound.
+
 Nineteen independent discovery/lifetime/order cases cover exact 6/7/8 angstrom
 and adjacent-float boundaries, reordered/sparse IDs, moving centers, closure and
 protein barriers, induced missing bridges, empty entries, rebuild replacement and

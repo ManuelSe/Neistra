@@ -5,7 +5,7 @@
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
 [feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
 `fix/issue-137-authoritative-minimization`. C0–C6 are committed through `013ab2a`;
-C7 preparation/corrections are committed through `7bc1945`. The feature plan is
+C7 preparation/corrections are committed through `5b14fff`. The feature plan is
 the detailed scope/progress/evidence source.
 
 Completed: current canonical connectivity across import/viewer/edit/calculation,
@@ -36,14 +36,24 @@ after 155 native passes. The correction restores passive short text and keeps
 long scrolling interactive: [evidence](assets/authoritative-minimization/c7-pointer-summary.json)
 passes 503 frontend / 15 native cases with one existing mobile exclusion and no
 failures/flakes/retries. Independent UI reconfirms actual hit testing. Final
-all-seven review and complete candidate4/master4 gates/readers remain required.
+all-seven review and exact-master qualification remain required.
+
+The clean [candidate4 gate](assets/authoritative-minimization/c7-candidate4-summary.json)
+passes all **30 steps**: **1,481 Python (zero skips), 503 frontend, 14 supervisor,
+413 browser passes / 75 unchanged existing exclusions**. No failures, flakes,
+automatic retries or new exclusions remain. All 759 current and 720 actual tagged
+0.28.1 source identities and lossless log hashes verify. Disposable migration
+upgrade/downgrade/re-upgrade, version/schema/dependency/license/production audits,
+legacy CLI and both actual-reader families pass in both directions and archive
+suffixes. Historical unapplied proposals remain inspectable but refuse Apply
+without writes. Earlier failed/interrupted gates remain separate.
 
 Five app versions agree at 0.29.0; quick implementation 1.0.3. No dependency,
 schema or migration change. Planned stable release is **minor 0.29.0**. Cleanup is
 local and existing chemistry/capacity/browser limits apply. No overall latency,
 memory-reduction or strict reference-host timing claim. External blockers: none.
-Next: commit the passing pointer correction and fresh recipes, run all 30 steps
-cleanly, finalize all-seven assessments and complete authorized remote delivery.
+Next: finalize the seven same-candidate assessments and local complete-diff review,
+then complete authorized PR/review/merge, exact-master qualification and publication.
 
 ### Previous completed milestone — issue #98
 

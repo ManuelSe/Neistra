@@ -1,0 +1,169 @@
+{
+  "copies": 8,
+  "phase": "cold",
+  "atoms": 18208,
+  "commandAcceptedMs": 0.9000000059604645,
+  "nativeAppliedMs": 3270.4000000059605,
+  "longestTaskMs": 368,
+  "stages": [
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations",
+      "at": 1794596283193,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations",
+      "at": 1794596283336,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283372,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283392,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283528,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283543,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283690,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283707,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283809,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283824,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283925,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596283935,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284036,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284045,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284146,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284156,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284258,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284275,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284391,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284400,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284530,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284543,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284782,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/live",
+      "at": 1794596284803,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/proposal",
+      "at": 1794596285028,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/proposal",
+      "at": 1794596285093,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/apply",
+      "at": 1794596285227,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/apply",
+      "at": 1794596285338,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/proposal",
+      "at": 1794596285710,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d646-0b00-706c-bb84-22e9b259c467/quick-minimizations/01a1d646-23a4-785c-8aad-9d47ecb8f9cc/proposal",
+      "at": 1794596286048,
+      "kind": "response"
+    }
+  ],
+  "backend": {
+    "context_rebuild": 0,
+    "context_rebuilds": 0,
+    "force_field": 0.09335842900327407,
+    "interpretation": 0.26678240299224854,
+    "optimization": 0.3270067710254807
+  },
+  "elapsedBackendSeconds": 0.714874133002013,
+  "jobId": "01a1d646-23a4-785c-8aad-9d47ecb8f9cc"
+}

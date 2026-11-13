@@ -855,3 +855,38 @@ cases reconfirm the correction.759 source identities match the focused candidate
 includes exact structured commands/environments. Commit the coherent passing fix
 and fresh candidate4/master4 recipes, then repeat all30 steps and final same-candidate
 seven-role review. Source/core/API contracts and planned stable minor0.29.0 remain.
+
+### C7 — Complete clean candidate qualification
+
+Candidate `5b14fff1f333f49c0c90e25256de2bd778eb8b28` passes the entire fresh
+30-step recipe, with no reuse of earlier partial attempts. The verified
+[summary](../assets/authoritative-minimization/c7-candidate4-summary.json) records
+**1,481 Python (zero skips), 503 frontend, 14 supervisor and 413 browser passes /
+75 unchanged existing exclusions**. There are zero failures, flakes, automatic
+retries or new exclusions. Every lossless log hash verifies; all 759 current and
+720 actual tagged 0.28.1 source identities remain unchanged. Sequential command
+duration is 4,562.346 seconds; elapsed wall time is 4,564 seconds. The profile is
+portable correctness, with no strict reference-host timing claim.
+
+Frozen installs, disposable migration upgrade/downgrade/re-upgrade, Ruff, mypy
+(201 files), lint/types/build, version/schema/dependency/license/production audits,
+legacy CLI and both actual-reader families pass. Separate old/current processes
+qualify both directions and both archive suffixes, preserving original/artifact
+bytes, current inferred/deleted graphs, exclusions, results and supported history/
+scene/surface state. A real old unapplied proposal remains inspectable but refuses
+Apply without writes. Data retention does not qualify old-code authoring or new
+jobs under an old worker. Archives remain snapshots without portable Undo.
+
+Primary local complete-diff review inspects the full intended C1–C7 change and new
+files, including corrected metadata validation, supplied-state interpretation,
+source/native row permutation mapping, publication ownership/locks/guards, source
+index lifetime and the user-requested notice correction. Resolved findings and
+limitations are retained in the evidence index. Optional larger disclosure touch
+targets are deferred polish without a new issue. Performance guidance now states
+that source indexes scale with captured scene size; the 20,000 limit bounds the
+local model, and existing job RSS/deadline guards remain unchanged.
+
+No runtime source changes follow the passing gate. Final seven-role assessments
+must cover the integrated candidate and documentation before readiness to push.
+Next: record those verdicts, then normal PR/review/merge and the complete C8 gate
+on exact merged master before tagging, release publication, issue reply and cleanup.
