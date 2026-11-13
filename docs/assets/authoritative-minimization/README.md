@@ -295,9 +295,32 @@ Earlier failed harness snapshot diagnostics are separate; no application defect
 was inferred from that harness failure. Full qualification repeats actual readers
 after the final metadata correction.
 
-The five committed gate tools and prepared `c7-candidate1-recipe.json` /
-`c8-merged1-recipe.json` require a clean start,30 sequential steps, unchanged
+The five committed gate tools and current `c7-candidate2-recipe.json` /
+`c8-merged2-recipe.json` require a clean start,30 sequential steps, unchanged
 current source/tool identities and720 actual preceding-tag identities. Browser
 qualification requires the exact75 previous exclusions and zero new skips, flakes
 or retries; Python skips are forbidden. These recipes are preparation, not passing
 evidence. Complete candidate/master gates and final seven-role review are pending.
+
+
+### Candidate1 diagnostic and correction
+
+[Diagnostic receipt](c7-candidate1-diagnostic.json) preserves the failed clean
+`07d18d6` attempt and its [complete Python log](c7-candidate1-python.log.gz).
+It stops at Python with1350 passes/131 failures; no later step or partial passing
+release gate is claimed.130 migration cases fail because the recipe's canonical
+data-directory override defeats tests' legacy-directory monkeypatch. Independent
+[environment red](c7-canonical-global-conflict.log.gz)/[green](c7-legacy-compatible-global.log.gz)
+reproduces the same case without changing assertions. One scientific fixture
+assertion still expects the previous import default's17 bonds.
+
+Retain default inference and assert940 bonds (17explicit/923inferred), exact
+warnings and matching inference endpoint/bond IDs. Independent scientific review
+confirms supplied bonds, atoms and conformers remain exact. [Focused corrections](c7-gate-corrections.log.gz)
+pass155 cases in37.71 seconds with zero skips; [Ruff](c7-gate-corrections-ruff.log.gz),
+gate-script syntax and five targeted tool lint checks pass. No application source
+changes. The new recipe uses the legacy test directory override and clears all
+four inherited datastore aliases before overlaying explicit environments, keeping
+migration/test/reader stores disposable. Failedcandidate1 and unexecutedmerged1
+recipes remain historical; never use them for final qualification. Freshcandidate2
+and merged2 recipes replace them, with all30 steps rerun and no partial reuse.

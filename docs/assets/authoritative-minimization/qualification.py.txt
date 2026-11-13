@@ -121,6 +121,7 @@ def main():
         "platform": platform.platform(),
         "recipe_sha256": digest(args.recipe.read_bytes()),
         "runner_sha256": digest(Path(__file__).read_bytes()),
+        "unset_environment": recipe["unset_environment"],
         "source_before": current_identities(root),
         "preceding_reader": preceding,
         "preceding_source_expected": expected_old,
@@ -133,7 +134,8 @@ def main():
     for step in recipe["steps"]:
         print("START", step["label"], flush=True)
         started = time.monotonic()
-        environment = {**os.environ, **recipe["environment"], **step.get("environment", {})}
+        inherited = {k: v for k, v in os.environ.items() if k not in recipe["unset_environment"]}
+        environment = {**inherited, **recipe["environment"], **step.get("environment", {})}
         if step["label"] == "browser":
             # The browser configuration can reuse a server. Qualification must
             # start its own exact-candidate services rather than reuse one.

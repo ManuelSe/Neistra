@@ -45,8 +45,11 @@ corrects boolean metadata-version coercion (reproduced red, then 53 focused pass
 
 Known limitations: C7–C8 remain; cleanup is local and existing chemistry limits
 apply. Quick implementation is 1.0.3. No dependency/schema/migration change. Planned
-stable release is **minor 0.29.0**. Blockers: none. Next: clean candidate commit,
-complete 30-step gate/readers, all-seven review and authorized remote delivery.
+stable release is **minor 0.29.0**. Candidate1 stops at Python due130 recipe
+isolation failures and one old fixture expectation; corrections pass155 focused
+cases without application changes. Failed evidence is retained separately.
+Blockers: none. Next: commit corrected candidate2/merged2 recipes, rerun all30
+steps cleanly, finalize all-seven review and complete authorized delivery.
 
 ### Previous completed milestone — issue #98
 

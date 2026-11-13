@@ -756,3 +756,25 @@ installs, migration round trip, all real native workflows, actual reader familie
 all source/tool identities and the exact75 existing browser exclusions. No new
 exclusion or scientific/resource-limit relaxation is permitted. Next: clean
 release-preparation commit, complete gate, integrated review and all-seven verdicts.
+
+
+#### C7 full-gate diagnostic and fresh qualification
+
+The first clean candidate `07d18d6` stops at Python:1350 passes/131 failures,
+with no later step executed.130 are recipe isolation errors (canonical DATA_DIR
+beats migration tests' legacy override); an independent same-node environment
+red/green proves this without changing migration assertions. The remaining
+release fixture expects prior17-bond default import instead of approved940.
+Scientific review independently confirms17 explicit plus923 inferred connections,
+unchanged supplied atoms/conformers/bonds and exact provenance/warnings. Retain
+default inference and strengthen the release expectation accordingly.
+
+[Retained diagnostic](../assets/authoritative-minimization/c7-candidate1-diagnostic.json)
+and full failed logs remain separate. Focused migration/release/import correction
+suite passes155 in37.71 seconds, zero skips. No application code changes follow.
+Use legacy DATA_DIR for pytest and clear inherited canonical/legacy DATA_DIR and
+DATABASE_URL before explicit recipe settings to preserve disposable-store isolation.
+The invalidated unusedmerged1 recipe is not executed. Commit corrections and both
+freshcandidate2/merged2 recipes, then rerun all30 steps from a clean candidate;
+no partial passing attempt is reused. Seven preliminary specialist assessments
+report no consequential application finding but all final verdicts remain pending.

@@ -22,6 +22,10 @@ recipe = json.loads(recipe_path.read_text())
 assert state["complete"] and state["source_unchanged"] and state["preceding_source_unchanged"]
 assert not state["initial_status"]
 assert state["label"] == recipe["label"] == args.label
+assert state["unset_environment"] == recipe["unset_environment"]
+assert set(state["unset_environment"]) == {
+    "NEISTRA_DATA_DIR", "NEISTRA_DATABASE_URL", "MOLWEAVE_DATA_DIR", "MOLWEAVE_DATABASE_URL"
+}
 assert len(state["steps"]) == len(recipe["steps"]) == 30
 assert digest(recipe_path.read_bytes()) == state["recipe_sha256"]
 assert digest((out / "qualification.py.txt").read_bytes()) == state["runner_sha256"]

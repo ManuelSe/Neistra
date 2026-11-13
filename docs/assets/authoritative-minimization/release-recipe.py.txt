@@ -59,7 +59,7 @@ add("ruff", [uv, "run", "ruff", "check", "."])
 add(
     "mypy", [uv, "run", "mypy", "apps/api", "packages/neistra_core", "packages/neistra_demo_plugin"]
 )
-add("python", [uv, "run", "pytest"], {"NEISTRA_DATA_DIR": str(run / "database")})
+add("python", [uv, "run", "pytest"], {"MOLWEAVE_DATA_DIR": str(run / "database")})
 for label, command in (("lint", "lint"), ("types", "typecheck"), ("web", "test")):
     add(label, ["corepack", "pnpm", "--dir", "apps/web", command])
 add("supervisor", ["corepack", "pnpm", "test:dev"])
@@ -133,6 +133,9 @@ assert len(steps) == 30
 recipe = {
     "label": args.label,
     "require_clean": True,
+    "unset_environment": [
+        "NEISTRA_DATA_DIR", "NEISTRA_DATABASE_URL", "MOLWEAVE_DATA_DIR", "MOLWEAVE_DATABASE_URL"
+    ],
     "preceding_reader": {"tag": "v0.28.1", "commit": old_commit, "root": str(old)},
     "environment": {
         "PYTHONPATH": module_paths(root),

@@ -6790,3 +6790,21 @@ expectation fails before correction; 53 focused cases then pass. Ordinary numeri
 version1 metadata and measured C5 fixture behavior are unaffected. This enforces
 the existing malformed-metadata contract without a schema migration or broader
 metadata redesign; complete final candidate qualification remains required.
+
+
+### D-153 C7 qualification isolation and fixture defaults — 2026-11-13
+
+The first full gate exposed a recipe error: canonical DATA_DIR overrides legacy
+DATA_DIR monkeypatched inside migration tests, so directory creation and database
+connection target different paths. Preserve test assertions; use the existing
+legacy test override and clear four inherited datastore aliases before applying
+explicit recipe environments. This also keeps direct migration/browser/reader
+commands independent of a developer deployment's database URL. Record failed
+attempts and rerun the complete fresh gate rather than counting partial results.
+
+Retain the scientific release fixture's default ImportOptions and update its
+specific expected graph from17 supplied bonds to940 (17supplied/923inferred),
+with exact unknown orders, warnings and inference identities. Independent review
+confirms original atoms/conformers/explicit bonds unchanged; this aligns with the
+accepted new-import behavior rather than disabling it to retain old assertions.
+No application code, migration policy, dependency or scientific tolerance changes.
