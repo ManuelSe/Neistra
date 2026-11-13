@@ -213,6 +213,10 @@ focused Escape ownership preserves active movement; outside workspace actions
 retain their normal behavior. D-152 and the [issue #98 contract](plans/issue-98-viewer-warning-details.md)
 govern this read-only inspection boundary.
 
+Warning rows are constructed only while open; closed-state work uses entry counts
+without reading every message/severity payload. The named, focusable scroll body
+uses existing region focus styling and supports keyboard navigation to every row.
+
 ## Local presentation boundary
 
 Issue #97 captures the main molecular canvas behind the typed `MolecularViewer`

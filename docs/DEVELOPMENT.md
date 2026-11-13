@@ -139,6 +139,30 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Viewer warning inspection qualification (issue #98)
+
+The warning counter and details surface use existing current visible-entry
+records; they add no API, migration, chemistry or persistent state. The
+[approved contract](plans/issue-98-viewer-warning-details.md) and
+[evidence index](assets/viewer-warning-details/README.md) define qualification.
+
+```bash
+corepack pnpm --dir apps/web exec vitest run \
+  src/test/viewer-warning-details.test.tsx \
+  src/test/structure-loading.test.tsx \
+  src/test/interactive-transform-controls.test.tsx
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/viewer-warning-details.spec.ts \
+  tests/e2e/viewer-warning-details-zoom.spec.ts
+```
+
+Use dedicated stores/ports as above. Native checks retain real import warnings,
+unchanged originals/projections/history, active movement, keyboard/touch layout,
+long-list scrolling and actual extension-driven browser zoom. The deterministic
+500-record fixture qualifies presentation only. Desktop zoom has one explicit
+mobile-emulation exclusion; ordinary native feature cases run in both layouts.
+Complete release gates and actual preceding readers remain separate requirements.
+
 ## Detached presentation qualification (issue #97)
 
 The lightweight presentation entry uses local canvas capture and a same-origin

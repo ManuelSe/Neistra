@@ -1,0 +1,36 @@
+// Bounded closed-state payload-access experiment; no listening HTTP server.
+import { createServer } from 'vite';
+import react from '@vitejs/plugin-react';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+
+const server = await createServer({
+  configFile: false,
+  plugins: [react()],
+  appType: 'custom',
+  server: { middlewareMode: true, watch: null, hmr: false },
+  optimizeDeps: { noDiscovery: true, include: [] },
+});
+try {
+  const { ViewerWarningDetails } =
+    await server.ssrLoadModule('/src/components/ViewerWarningDetails.tsx');
+  for (const warningCount of [0, 1, 500]) {
+    let messageReads = 0, severityReads = 0;
+    const warnings = Array.from({ length: warningCount }, (_, index) => ({
+      get message() { messageReads++; return `Message ${index}`; },
+      get severity() { severityReads++; return 'warning'; },
+      code: 'fixture', operation: 'import', field: null, blocking: false,
+    }));
+    const entries = [{ id: 'source', name: 'Source', warnings }];
+    const output = renderToString(React.createElement(
+      ViewerWarningDetails, { entries, returnFocus: () => null },
+    ));
+    console.log(JSON.stringify({
+      warningCount, messageReads, severityReads,
+      renderedMessage: output.includes('Message '),
+      renderedDialog: output.includes('role="dialog"'),
+    }));
+  }
+} finally {
+  await server.close();
+}

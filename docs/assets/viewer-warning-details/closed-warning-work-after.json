@@ -1,0 +1,39 @@
+{
+  "command": [
+    "corepack",
+    "pnpm",
+    "--dir",
+    "apps/web",
+    "exec",
+    "node",
+    "--input-type=module"
+  ],
+  "script": "closed-warning-work.mjs.txt",
+  "component_sha256": "76d0757a7bf3455bcd992eb5f14fa7ba76614ef691db4c6930129a7d80965429",
+  "rows": [
+    {
+      "warningCount": 0,
+      "messageReads": 0,
+      "severityReads": 0,
+      "renderedMessage": false,
+      "renderedDialog": false
+    },
+    {
+      "warningCount": 1,
+      "messageReads": 0,
+      "severityReads": 0,
+      "renderedMessage": false,
+      "renderedDialog": false
+    },
+    {
+      "warningCount": 500,
+      "messageReads": 0,
+      "severityReads": 0,
+      "renderedMessage": false,
+      "renderedDialog": false
+    }
+  ],
+  "stdout": "{\"warningCount\":0,\"messageReads\":0,\"severityReads\":0,\"renderedMessage\":false,\"renderedDialog\":false}\n{\"warningCount\":1,\"messageReads\":0,\"severityReads\":0,\"renderedMessage\":false,\"renderedDialog\":false}\n{\"warningCount\":500,\"messageReads\":0,\"severityReads\":0,\"renderedMessage\":false,\"renderedDialog\":false}\n",
+  "stderr": "",
+  "qualification": "Payload-access experiment only; no browser speedup or latency qualification claimed."
+}

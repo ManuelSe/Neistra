@@ -64,7 +64,7 @@ export function ViewerWarningDetails({ entries, returnFocus }: {
         </button>
       </Dialog.Trigger> : null}
     </span>
-    <Dialog.Portal><Dialog.Content ref={content}
+    {open ? <Dialog.Portal><Dialog.Content ref={content}
       className="dialog-content viewer-warning-details" data-viewer-warning-details="true"
       aria-modal="false" aria-describedby={undefined}
       onOpenAutoFocus={event => {
@@ -89,7 +89,7 @@ export function ViewerWarningDetails({ entries, returnFocus }: {
           <X size={18} aria-hidden="true" />
         </button></Dialog.Close>
       </div>
-      <div className="viewer-warning-details-body">
+      <div className="viewer-warning-details-body" tabIndex={0} role="region" aria-label="Structure warning list">
         {groups.length ? groups.map(entry => <div key={entry.id} role="group" aria-label={entry.name}
           className="viewer-warning-group" data-warning-entry-id={entry.id}>
           <h3>{entry.name}</h3>
@@ -104,6 +104,6 @@ export function ViewerWarningDetails({ entries, returnFocus }: {
           })}</ul>
         </div>) : <p className="viewer-warning-empty">No warnings for visible structures</p>}
       </div>
-    </Dialog.Content></Dialog.Portal>
+    </Dialog.Content></Dialog.Portal> : null}
   </Dialog.Root>;
 }

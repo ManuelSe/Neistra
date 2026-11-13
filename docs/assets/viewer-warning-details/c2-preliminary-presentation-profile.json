@@ -1,0 +1,180 @@
+[
+  {
+    "project": "chromium",
+    "profile": {
+      "warningRecords": 500,
+      "measurements": [
+        {
+          "theme": "light",
+          "opening": {
+            "elapsedMs": 275.09999999403954,
+            "longestTaskMs": 139,
+            "taskCount": 1
+          },
+          "viewport": {
+            "width": 1280,
+            "height": 720,
+            "coarse": false
+          },
+          "bounds": {
+            "x": 476.625,
+            "y": 99,
+            "width": 400,
+            "height": 420
+          },
+          "closeBounds": {
+            "x": 831.625,
+            "y": 109,
+            "width": 32,
+            "height": 32
+          },
+          "triggerBounds": {
+            "x": 476.625,
+            "y": 63,
+            "width": 98.0625,
+            "height": 28
+          },
+          "rows": 500,
+          "scroll": {
+            "top": 82579,
+            "total": 82946,
+            "height": 367
+          }
+        },
+        {
+          "theme": "dark",
+          "opening": {
+            "elapsedMs": 352.90000000596046,
+            "longestTaskMs": 158,
+            "taskCount": 1
+          },
+          "viewport": {
+            "width": 1280,
+            "height": 720,
+            "coarse": false
+          },
+          "bounds": {
+            "x": 476.625,
+            "y": 99,
+            "width": 400,
+            "height": 420
+          },
+          "closeBounds": {
+            "x": 831.625,
+            "y": 109,
+            "width": 32,
+            "height": 32
+          },
+          "triggerBounds": {
+            "x": 476.625,
+            "y": 63,
+            "width": 98.0625,
+            "height": 28
+          },
+          "rows": 500,
+          "scroll": {
+            "top": 82579,
+            "total": 82946,
+            "height": 367
+          }
+        }
+      ],
+      "updating": {
+        "elapsedMs": 473.2999999821186,
+        "longestTaskMs": 63,
+        "taskCount": 1
+      },
+      "unexpectedRequests": [],
+      "backendAndNativeUnchanged": true
+    }
+  },
+  {
+    "project": "mobile-chromium",
+    "profile": {
+      "warningRecords": 500,
+      "measurements": [
+        {
+          "theme": "light",
+          "opening": {
+            "elapsedMs": 255,
+            "longestTaskMs": 130,
+            "taskCount": 1
+          },
+          "viewport": {
+            "width": 412,
+            "height": 839,
+            "coarse": true
+          },
+          "bounds": {
+            "x": 8,
+            "y": 115,
+            "width": 396,
+            "height": 420
+          },
+          "closeBounds": {
+            "x": 347,
+            "y": 125,
+            "width": 44,
+            "height": 44
+          },
+          "triggerBounds": {
+            "x": 192.21875,
+            "y": 63,
+            "width": 98.0625,
+            "height": 44
+          },
+          "rows": 500,
+          "scroll": {
+            "top": 82591,
+            "total": 82946,
+            "height": 355
+          }
+        },
+        {
+          "theme": "dark",
+          "opening": {
+            "elapsedMs": 263.09999999403954,
+            "longestTaskMs": 143,
+            "taskCount": 1
+          },
+          "viewport": {
+            "width": 412,
+            "height": 839,
+            "coarse": true
+          },
+          "bounds": {
+            "x": 8,
+            "y": 115,
+            "width": 396,
+            "height": 420
+          },
+          "closeBounds": {
+            "x": 347,
+            "y": 125,
+            "width": 44,
+            "height": 44
+          },
+          "triggerBounds": {
+            "x": 192.21875,
+            "y": 63,
+            "width": 98.0625,
+            "height": 44
+          },
+          "rows": 500,
+          "scroll": {
+            "top": 82591,
+            "total": 82946,
+            "height": 355
+          }
+        }
+      ],
+      "updating": {
+        "elapsedMs": 413.60000002384186,
+        "longestTaskMs": 65,
+        "taskCount": 1
+      },
+      "unexpectedRequests": [],
+      "backendAndNativeUnchanged": true
+    }
+  }
+]

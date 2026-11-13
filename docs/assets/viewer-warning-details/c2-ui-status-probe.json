@@ -1,0 +1,34 @@
+{
+  "provenance": "Read-only UI specialist actual application probe on a separate disposable fixture in the running C2 test store; no source edits or listening server started.",
+  "viewport": {
+    "width": 412,
+    "height": 839,
+    "dpr": 2.625
+  },
+  "ordinary_status_text": {
+    "x": 20,
+    "width": 166.21875
+  },
+  "status": {
+    "x": 10,
+    "width": 286.28125
+  },
+  "warning_trigger_500": {
+    "x": 192.21875,
+    "width": 98.0625
+  },
+  "phases": [
+    "small count 4",
+    "500 closed",
+    "500 open",
+    "after axe"
+  ],
+  "all_text_range_rects_inside_status_and_viewer": true,
+  "all_ancestor_scroll_left_zero": true,
+  "no_geometry_overflow": true,
+  "axe_violations": [],
+  "screenshots_before_after_axe_identical": true,
+  "screenshot_sha256": "2dc0c7d4d495a67af42be34008258718903569a52d9b1c92496799a878f105ce",
+  "screenshot": "c2-ui-status-probe.png",
+  "limitations": "Dark follow-up probe stopped with test-service shutdown; no restart. Final C2 dark screenshot separately shows full status text. No cause or production defect inferred from the earlier preliminary screenshot."
+}

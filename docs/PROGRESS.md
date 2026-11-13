@@ -7,7 +7,8 @@ Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) has an explicitly app
 `fix/issue-98-viewer-warning-details`, based on fast-forwarded master
 `00320ea9e9d60fd19f12279669a00d88e540e434`. C0 was committed/pushed as `1c8a571`;
 the subsequent explicit `/goal` on 2026-11-13 authorizes implementation and gated
-delivery. M1/C1 implementation and focused qualification pass; C2 is next.
+delivery. C1/C2 implementation and focused qualification pass; final-version release
+preparation and complete qualification are next.
 
 Approved outcome: inspect exactly the current visible-entry warnings from the
 existing count, grouped by structure, in a compact accessible non-modal surface.
@@ -28,9 +29,16 @@ documentation diff/link/scope validation and commit/push readback are recorded i
 the persistence handoff. Runtime C1 qualifies exact warnings, current updates,
 focus/project/remount retirement and unchanged molecular/project/native state.
 Known limitations: entry-warning scope only; advanced metadata/actions and global
-warning tooling are omitted. C2–C4 and final seven-specialist implementation review
-remain pending. Blockers: none; next action: C2 stress/actual zoom, accessibility and
-wider regression qualification.
+warning tooling are omitted. C3–C4 and final seven-specialist implementation review
+remain pending. C2 additionally passes 54 native cases / 6 exclusions (five unchanged
+existing plus one real desktop zoom exclusion under mobile emulation), with all
+402 frontend and static/build gates passing. Its 13 feature passes qualify real
+zoom, 500 complete records, keyboard/wheel access, pointer ownership, replacement/
+lifecycle and unchanged backend/native state. [C2 summary](assets/viewer-warning-details/c2-summary.json)
+verifies all 718 source/log identities; diagnostics remain separate. Measured
+closed-row work is eliminated without a throughput claim. Blockers: none; next
+action: final 0.28.1 version preparation, actual readers, complete candidate gate
+and final all-seven specialist assessment.
 
 ### Previous completed milestone — issue #97
 

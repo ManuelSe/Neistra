@@ -1,5 +1,21 @@
 # V0.1 Requirement Evidence
 
+## Issue #98 — C2 layouts, accessibility and resource qualification
+
+[C2 evidence](assets/viewer-warning-details/README.md) and the
+[verified summary](assets/viewer-warning-details/c2-summary.json) record 28 focused /
+402 complete frontend passes, lint/types/build/diff and 54 native passes / 6
+registered exclusions, zero final failures/flakes/retries. Five exclusions retain
+the exact existing identities; one new exclusion covers actual desktop browser
+zoom under mobile emulation. All 13 feature cases otherwise pass, including real
+100%/200% zoom, mixed-severity 500-record keyboard/wheel reading, long strings,
+pointer ownership, current replacement, lifecycle and exact scientific/project/
+native invariants. All 718 source identities and lossless log hashes verify.
+Named scroll-region focus and measured closed-row construction were corrected
+without suppressing assertions or expanding scientific scope. No version, API,
+schema, migration or dependency change occurred. Complete final-version candidate/
+exact-master gates, actual 0.28.0 readers and final all-seven review remain pending.
+
 ## Issue #98 — C1 warning inspection qualification
 
 The [approved contract](plans/issue-98-viewer-warning-details.md) is implemented

@@ -1,13 +1,14 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, type APIRequestContext, type Page } from "@playwright/test";
-import type { Project, StructureProjection } from "../../../apps/web/src/api/types";
+import type { MolecularWarning, Project, StructureProjection } from "../../../apps/web/src/api/types";
 import type { MolstarEngine } from "../../../apps/web/src/viewer/MolstarEngine";
 
 declare global {
   interface Window {
     warningEngines: MolstarEngine[];
     refetchWarningProject: (projectId: string) => Promise<void>;
+    warningMeasurement?: { started: number; durations: number[]; observer: PerformanceObserver };
   }
 }
 
@@ -118,4 +119,69 @@ export async function expectWarningRows(page: Page, project: Project) {
 export async function refreshWarningProject(page: Page, request: APIRequestContext, id: string) {
   await page.evaluate(id => window.refetchWarningProject(id), id);
   return readWarningProject(request, id);
+}
+
+/** Presentation-only deterministic data; real imported originals remain untouched. */
+export function warningStressProject(project: Project): Project {
+  const fixture = structuredClone(project);
+  const entries = fixture.entries.filter(entry => entry.warnings.length > 0);
+  expect(entries).toHaveLength(2);
+  const warnings: MolecularWarning[] = Array.from({ length: 500 }, (_, index) => ({
+    code: `presentation_warning_${index}`,
+    message: index < 2 ? "Repeated warning record retained independently." :
+      `Finding ${index}: ${"LongUnbrokenSourceText".repeat(12)}. Complete warning message ${index}.`,
+    severity: (["info", "warning", "error"] as const)[index % 3],
+    operation: "presentation_fixture", field: null, blocking: false,
+  }));
+  for (const [index, entry] of entries.entries()) {
+    entry.name = `Repeated structure ${"X".repeat(120)}`;
+    entry.warnings = warnings.slice(index * 250, (index + 1) * 250);
+  }
+  return fixture;
+}
+
+export async function expectWarningBounds(page: Page) {
+  const dialog = warningDialog(page);
+  const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, coarse: matchMedia("(any-pointer: coarse)").matches }));
+  const bounds = await dialog.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect(bounds!.x).toBeGreaterThanOrEqual(0);
+  expect(bounds!.y).toBeGreaterThanOrEqual(0);
+  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
+  expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
+  expect(await dialog.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const close = dialog.getByRole("button", { name: "Close structure warnings", exact: true });
+  await expect(close).toBeInViewport();
+  const closeBounds = await close.boundingBox();
+  const triggerBounds = await warningTrigger(page).boundingBox();
+  if (viewport.coarse || viewport.width <= 840) {
+    for (const control of [closeBounds, triggerBounds]) {
+      expect(control!.width).toBeGreaterThanOrEqual(44);
+      expect(control!.height).toBeGreaterThanOrEqual(44);
+    }
+  }
+  return { viewport, bounds, closeBounds, triggerBounds };
+}
+
+export async function beginWarningMeasurement(page: Page) {
+  await page.evaluate(() => {
+    if (!PerformanceObserver.supportedEntryTypes.includes("longtask")) throw new Error("Native long-task observation is required for this qualification");
+    const durations: number[] = [];
+    const observer = new PerformanceObserver(list => durations.push(...list.getEntries().map(entry => entry.duration)));
+    observer.observe({ type: "longtask", buffered: false });
+    window.warningMeasurement = { started: performance.now(), durations, observer };
+  });
+}
+
+export async function finishWarningMeasurement(page: Page) {
+  return page.evaluate(async () => {
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    const measurement = window.warningMeasurement;
+    if (!measurement) throw new Error("Warning measurement was not started");
+    const durations = [...measurement.durations, ...measurement.observer.takeRecords().map(entry => entry.duration)];
+    measurement.observer.disconnect();
+    delete window.warningMeasurement;
+    return { elapsedMs: performance.now() - measurement.started, longestTaskMs: Math.max(0, ...durations), taskCount: durations.length };
+  });
 }

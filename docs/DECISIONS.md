@@ -6544,3 +6544,22 @@ failed-loading, empty/focus, project/remount and immutable-state checks pass.
 The feature evidence index retains diagnostics and matching source/log identities.
 No scientific, API, schema, migration, dependency or version change is introduced;
 complete release qualification and final specialist assessments remain required.
+
+### D-152 C2 keyboard and bounded presentation qualification — 2026-11-13
+
+Native long-list accessibility checks require explicit keyboard focus semantics
+on the scroll body. Use a named focusable region with existing inset focus styling;
+Tab/End/Home and Escape from the list preserve the established read-only/movement
+contract. A bounded payload-access experiment independently demonstrated that JSX
+inside a closed portal still read every warning. Construct portal rows only while
+open; do not add a cache, worker, pagination or truncation. Getter-counted closed
+records now incur zero message/severity reads; all current rows remain available
+when opened. This is not a latency or universal capacity claim.
+
+Actual extension-driven browser zoom waits for the real responsive replacement
+viewer before opening details, preserving intentional popup retirement. Complete
+C2 evidence qualifies 54 native passes / 6 exclusions (five existing, one real
+desktop zoom exclusion under mobile emulation), all 402 frontend tests and static/
+build checks. No API, scientific method, schema, migration, dependency or version
+change is introduced. Final-version complete gates/readers and all seven final
+specialist implementation assessments remain required.

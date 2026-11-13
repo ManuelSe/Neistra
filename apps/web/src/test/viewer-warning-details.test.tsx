@@ -139,16 +139,25 @@ describe("viewer warning details", () => {
     const user = userEvent.setup();
     const observe = vi.spyOn(ResizeObserver.prototype, "observe");
     const disconnect = vi.spyOn(ResizeObserver.prototype, "disconnect");
-    const warnings = Array.from({ length: 500 }, (_, index) => warning(`Warning row ${index}`));
+    const messageRead = vi.fn((index: number) => `Warning row ${index}`);
+    const warnings = Array.from({ length: 500 }, (_, index) => ({
+      ...warning("Unused until open"), get message() { return messageRead(index); },
+    }));
     render(<Harness entries={[entry("a", "Long list", warnings)]} />);
     expect(screen.queryByText("Warning row 499")).not.toBeInTheDocument();
+    expect(messageRead).not.toHaveBeenCalled();
     await user.click(screen.getByRole("button", { name: "Inspect 500 warnings for visible structures" }));
     const dialog = screen.getByRole("dialog", { name: "Structure warnings" });
     expect(within(dialog).getAllByRole("listitem")).toHaveLength(500);
+    screen.getByRole("button", { name: "Close structure warnings" }).focus();
+    await user.tab();
+    expect(within(dialog).getByRole("region", { name: "Structure warning list" })).toHaveFocus();
     expect(observe).toHaveBeenCalled();
+    messageRead.mockClear();
     await user.keyboard("{Escape}");
     await waitFor(() => expect(disconnect).toHaveBeenCalled());
     expect(screen.queryByText("Warning row 499")).not.toBeInTheDocument();
+    expect(messageRead).not.toHaveBeenCalled();
     observe.mockRestore(); disconnect.mockRestore();
   });
 

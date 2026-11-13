@@ -63,3 +63,79 @@ No schema, migration, API, scientific method, dependency or application version
 change occurred. C2 stress/actual zoom and wider regression checks, final-version
 actual readers, clean candidate/exact-master release gates and seven-specialist
 implementation review remain pending.
+
+## C2 — Layout, accessibility, input and resource qualification
+
+[C2 summary](c2-summary.json), `c2-final1-recipe.json` and its complete gate retain
+28 focused / 402 complete frontend passes, lint/types/build/diff and **54 native
+passes / 6 registered exclusions**. Final failures, flakes and automatic retries
+are zero. All 718 source identities and lossless log hashes verify against the
+qualified source. Five exclusions are exactly retained existing cases; the one
+new exclusion is actual desktop extension-driven zoom under mobile emulation.
+The 12 ordinary feature cases run across both configured layouts, plus one real
+desktop zoom case: 13 new native passes. [Exclusion identities](c2-exclusions.json)
+and [case records](c2-browser-cases.json) make that scope explicit.
+
+The final browser invocation includes both new warning files and existing
+`viewer-controls`, `viewer-notifications`, `viewer-native-ui` and
+`interactive-selection-transform` files. Its actual command/environment/output
+paths are recorded in the recipe; the isolated store is
+`/tmp/neistra98-c2-final1/e2e` with ports 8410/8411/5573. The locked toolchain and
+portable performance policy are unchanged. Reports are lossless `.json.gz`.
+
+The deterministic 500-record response fixture exercises complete mixed-severity
+messages, repeated names/messages, long unbroken strings, keyboard Tab/End/Home,
+wheel scrolling to the final row, current replacement to 499 records, repeated
+open/close cycles, reachable Close and 44px coarse-pointer targets. Native input
+inside the panel preserves camera/selection/project state; ordinary status text
+passes through to the canvas, and outside canvas navigation still works. Escape
+from content, Close and the warning list preserves movement until canvas Cancel.
+Originals, normalized projections, backend state, native mounts and application
+request counts retain their established invariants. The fixture is presentation
+data, not 500 scientific findings or a declared capacity limit.
+
+[Actual browser zoom](c2-actual-browser-zoom.json) records native extension zoom 1/2,
+DPR 1/2 and viewport 1440/720 in both themes, with accessible bounds and native
+screenshots. Tests wait for the real replacement viewer when crossing responsive
+layout ownership, rather than opening a popup on a retiring viewer. No CSS zoom,
+replayed action or increased deadline substitutes for actual browser behavior.
+
+[Presentation measurements](c2-presentation-profile.json) retain finite open/update
+and longest-task observations. The final 500-record opens span about 347–922ms;
+the longest observed task is 344ms. These portable observations do not certify
+reference-host timing, universal throughput or a speedup. Existing 5s/750ms policy
+targets and production limits remain unchanged.
+
+An independent read-only payload-access experiment found that closed portal
+children were still constructing warning rows: 500 messages and 1,000 severity
+reads for 500 closed records, despite absent DOM. The narrow open guard now avoids
+that work. [Reproducible script](closed-warning-work.mjs.txt) and
+[current results](closed-warning-work-after.json) verify zero message/severity
+reads at 0/1/500 closed records; the unit regression separately proves complete
+rows on opening. This is a payload-access measurement, not browser latency evidence.
+
+Final screenshots include [desktop dark at real 200%](c2-chromium-dark-200-warning-zoom.png),
+[mobile long list](c2-mobile-chromium-dark-500-warning-start.png) and
+[its reachable end](c2-mobile-chromium-dark-500-warning-end.png). Current final mobile
+dark and the separate [actual-app UI probe](c2-ui-status-probe.png) were visually
+inspected. A preliminary screenshot appeared to clip ordinary status text; the
+[bounded geometry/axe probe](c2-ui-status-probe.json) and final frozen screenshot
+show full text and no ancestor overflow/scroll. No speculative layout change was
+made. Original preliminary screenshots remain inside their lossless reports.
+
+Retained C2 diagnostics:
+
+- `c2-attempt1`: 22 existing desktop regressions pass before the zoom test opens
+  during a responsive viewer replacement. It now waits for actual new-owner mount
+  and loaded scene readiness. The original lifecycle contract is unchanged.
+- `c2-attempt2`: native axe finds a scrollable region without explicit focus
+  semantics. The body now has `tabIndex=0`, a named region and existing focus
+  styling. Actual keyboard End/Home and focused-list Escape qualify the correction;
+  no accessibility rule was suppressed.
+- `c2-attempt3`: all 13 feature cases pass with the single real-zoom exclusion.
+  Later measured closed-row correction and list-focused movement coverage are
+  covered by the complete final C2 invocation above.
+
+No version, dependency, scientific method, API, schema or migration changed in C2.
+Final-version actual readers, clean candidate/exact-master gates and final
+all-seven specialist implementation assessments remain required before delivery.
