@@ -22,6 +22,8 @@ interface LowerPanelProps {
   onProjectUpdate: (project: Project) => void;
   onNotice: (kind: "success" | "error", text: string) => void;
   onCollapse?: () => void;
+  assertWritable?: (projectId: string) => void;
+  writeBlocked?: boolean;
 }
 
 export function LowerPanel({
@@ -35,6 +37,8 @@ export function LowerPanel({
   onProjectUpdate,
   onNotice,
   onCollapse,
+  assertWritable,
+  writeBlocked,
 }: LowerPanelProps) {
   const entryIds = useMemo(
     () => [...new Set(selection.atoms.map((atom) => atom.structure_id))],
@@ -103,6 +107,8 @@ export function LowerPanel({
       {tab === "jobs" ? (
         <JobsPanel
           project={project}
+          assertWritable={assertWritable}
+          writeBlocked={writeBlocked}
           onNewJob={onNewJob}
           onInspectMinimization={onInspectMinimization}
           onProjectUpdate={onProjectUpdate}

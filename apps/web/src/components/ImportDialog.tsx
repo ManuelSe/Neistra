@@ -9,6 +9,8 @@ interface ImportDialogProps {
   project: Project | undefined;
   onOpenChange: (open: boolean) => void;
   onImported: (result: ImportResult) => void;
+  assertWritable?: (projectId: string) => void;
+  writeBlocked?: boolean;
 }
 
 type ImportPhase = "idle" | "uploading" | "processing" | "failed";
@@ -38,6 +40,8 @@ export function ImportDialog({
   project,
   onOpenChange,
   onImported,
+  assertWritable,
+  writeBlocked = false,
 }: ImportDialogProps) {
   const [files, setFiles] = useState<File[]>([]);
   const [generate3d, setGenerate3d] = useState(true);
@@ -71,6 +75,11 @@ export function ImportDialog({
 
   const startImport = () => {
     if (!project || files.length === 0 || active) return;
+    try { assertWritable?.(project.id); }
+    catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Project changes are paused.");
+      return;
+    }
     setError(null);
     setWarnings([]);
     setPhase("uploading");
@@ -233,7 +242,7 @@ export function ImportDialog({
               <button
                 type="button"
                 className="primary-button"
-                disabled={!project || files.length === 0}
+                disabled={!project || files.length === 0 || writeBlocked}
                 onClick={startImport}
               >
                 {phase === "failed" ? <LoaderCircle size={15} /> : <FileUp size={15} />}

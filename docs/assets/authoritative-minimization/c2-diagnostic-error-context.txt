@@ -1,0 +1,501 @@
+# Page snapshot
+
+```yaml
+- generic:
+  - generic:
+    - generic:
+      - banner:
+        - button:
+          - generic: Neistra
+        - button:
+          - generic: Pending quick false 1794578396965
+        - generic:
+          - button [disabled]:
+            - img
+          - button:
+            - img
+          - button:
+            - img
+          - button [disabled]:
+            - img
+          - button [disabled]:
+            - img
+          - button [disabled]:
+            - img
+          - button:
+            - img
+      - alert:
+        - generic: Couldn’t confirm whether coordinates were applied. Project changes remain paused. Open minimization to check. Injected recovery read failure
+        - button [ref=e1] [cursor=pointer]: Close
+      - generic:
+        - generic:
+          - generic:
+            - region:
+              - generic:
+                - generic:
+                  - generic: Project
+                  - heading [level=2]: Structures
+                - button [disabled]: New molecule
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic: Search structures
+                        - textbox
+                      - group:
+                        - generic: Filter and sort
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img
+                            - button [pressed]:
+                              - img
+                              - generic:
+                                - generic: New molecule
+                              - generic:
+                                - generic: Modified
+                            - generic:
+                              - button:
+                                - img
+                              - button:
+                                - img
+                              - button:
+                                - img
+                - separator
+                - generic:
+                  - region:
+                    - generic:
+                      - heading [level=3]: Components
+                      - button:
+                        - img
+                    - paragraph: Choose an entry to browse components
+          - separator
+          - generic:
+            - generic:
+              - generic:
+                - main:
+                  - generic:
+                    - generic:
+                      - region
+                      - generic:
+                        - status:
+                          - generic: 1 visible / 1 loaded / 18 selected
+                        - toolbar [ref=e2]:
+                          - button [ref=e3] [cursor=pointer]:
+                            - img [ref=e4] [cursor=pointer]
+                          - generic [ref=e7]: Pick
+                          - group [ref=e8]:
+                            - button [pressed] [ref=e9] [cursor=pointer]: Atom
+                            - button [ref=e10] [cursor=pointer]: Residue
+                            - button [ref=e11] [cursor=pointer]: Chain
+                            - button [ref=e12] [cursor=pointer]: Structure
+                          - group [ref=e13]:
+                            - button [ref=e14] [cursor=pointer]:
+                              - img [ref=e15] [cursor=pointer]
+                            - button [ref=e16] [cursor=pointer]:
+                              - img [ref=e17] [cursor=pointer]
+                            - button [ref=e23] [cursor=pointer]:
+                              - img [ref=e24] [cursor=pointer]
+                            - button [disabled] [ref=e27]:
+                              - img [ref=e28]
+                            - button [ref=e34] [cursor=pointer]:
+                              - img [ref=e35] [cursor=pointer]
+                        - group [ref=e40]:
+                          - region [ref=e41]:
+                            - button [disabled] [ref=e42]:
+                              - img [ref=e43]
+                          - button [ref=e49] [cursor=pointer]:
+                            - img [ref=e50] [cursor=pointer]
+                          - button [ref=e54] [cursor=pointer]:
+                            - img [ref=e55] [cursor=pointer]
+                      - generic:
+                        - button:
+                          - img
+                    - region:
+                      - generic:
+                        - button [expanded]:
+                          - img
+                        - generic: Sequence
+                        - generic: No displayed protein chains
+                        - button:
+                          - img
+              - separator
+              - generic:
+                - region:
+                  - generic:
+                    - tablist:
+                      - tab [selected]:
+                        - img
+                        - text: Properties
+                      - tab:
+                        - img
+                        - text: History
+                      - tab:
+                        - img
+                        - text: Jobs
+                    - button:
+                      - img
+                  - region:
+                    - table:
+                      - rowgroup:
+                        - row:
+                          - cell: Structure
+                          - cell: Index
+                          - cell: Atom
+                          - cell: Element
+                          - cell: Residue
+                          - cell: Chain
+                          - cell: Charge
+                          - cell: X
+                          - cell: "Y"
+                          - cell: Z
+                      - rowgroup:
+                        - row:
+                          - cell: New molecule
+                          - cell: "1"
+                          - cell: C1
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.000"
+                          - cell: "0.000"
+                          - cell: "0.000"
+                        - row:
+                          - cell: New molecule
+                          - cell: "2"
+                          - cell: C2
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.589"
+                          - cell: "0.589"
+                          - cell: "0.589"
+                        - row:
+                          - cell: New molecule
+                          - cell: "3"
+                          - cell: H3
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.589"
+                          - cell: "-0.589"
+                          - cell: "-0.589"
+                        - row:
+                          - cell: New molecule
+                          - cell: "4"
+                          - cell: C4
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.589"
+                          - cell: "0.589"
+                          - cell: "-0.589"
+                        - row:
+                          - cell: New molecule
+                          - cell: "5"
+                          - cell: H5
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.618"
+                          - cell: "-0.618"
+                          - cell: "0.618"
+                        - row:
+                          - cell: New molecule
+                          - cell: "6"
+                          - cell: H6
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "1.619"
+                          - cell: "0.383"
+                          - cell: "0.383"
+                        - row:
+                          - cell: New molecule
+                          - cell: "7"
+                          - cell: H7
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.383"
+                          - cell: "0.383"
+                          - cell: "1.619"
+                        - row:
+                          - cell: New molecule
+                          - cell: "8"
+                          - cell: C8
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.383"
+                          - cell: "1.619"
+                          - cell: "0.383"
+                        - row:
+                          - cell: New molecule
+                          - cell: "9"
+                          - cell: H9
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "0.276"
+                          - cell: "2.152"
+                          - cell: "1.304"
+                        - row:
+                          - cell: New molecule
+                          - cell: "10"
+                          - cell: C10
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.523"
+                          - cell: "1.695"
+                          - cell: "-0.181"
+                        - row:
+                          - cell: New molecule
+                          - cell: "11"
+                          - cell: H11
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "1.190"
+                          - cell: "2.038"
+                          - cell: "-0.181"
+                        - row:
+                          - cell: New molecule
+                          - cell: "12"
+                          - cell: H12
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.764"
+                          - cell: "2.727"
+                          - cell: "-0.330"
+                        - row:
+                          - cell: New molecule
+                          - cell: "13"
+                          - cell: C13
+                          - cell: C
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-1.317"
+                          - cell: "1.218"
+                          - cell: "0.354"
+                        - row:
+                          - cell: New molecule
+                          - cell: "14"
+                          - cell: H14
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.395"
+                          - cell: "1.218"
+                          - cell: "-1.129"
+                        - row:
+                          - cell: New molecule
+                          - cell: "15"
+                          - cell: H15
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-2.336"
+                          - cell: "1.484"
+                          - cell: "0.165"
+                        - row:
+                          - cell: New molecule
+                          - cell: "16"
+                          - cell: H16
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-1.201"
+                          - cell: "0.966"
+                          - cell: "1.388"
+                        - row:
+                          - cell: New molecule
+                          - cell: "17"
+                          - cell: H17
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-0.009"
+                          - cell: "1.278"
+                          - cell: "-1.166"
+                        - row:
+                          - cell: New molecule
+                          - cell: "18"
+                          - cell: H18
+                          - cell: H
+                          - cell: LIG 1
+                          - cell: "-"
+                          - cell: "0"
+                          - cell: "-1.204"
+                          - cell: "0.006"
+                          - cell: "-1.242"
+          - separator
+          - generic:
+            - region:
+              - generic:
+                - generic:
+                  - generic: Inspector
+                  - heading [level=2]: Selection
+                - button:
+                  - img
+              - tablist:
+                - tab [selected]: selection
+                - tab: inspect
+                - tab: measurements
+                - tab: transform
+                - tab: ligand
+                - tab: protein
+                - tab: details
+              - tabpanel:
+                - generic:
+                  - generic:
+                    - generic:
+                      - term: Atoms
+                      - definition: "18"
+                    - generic:
+                      - term: Residues
+                      - definition: "1"
+                    - generic:
+                      - term: Chains
+                      - definition: "1"
+                    - generic:
+                      - term: Structures
+                      - definition: "1"
+                  - generic:
+                    - generic: atom
+                    - generic: from inspector
+                    - img
+                  - generic:
+                    - button:
+                      - img
+                      - text: Clear
+                    - button [disabled]: Invert
+                  - group:
+                    - generic: Operation mode
+                    - generic:
+                      - button [pressed]: replace
+                      - button: add
+                      - button: subtract
+                  - group:
+                    - generic: Viewer pick
+                    - generic:
+                      - button [pressed]: atom
+                      - button: residue
+                      - button: chain
+                      - button: structure
+                  - group:
+                    - generic: Expand current
+                    - generic:
+                      - button [disabled]: residue
+                      - button [disabled]: chain
+                      - button [disabled]: structure
+                  - generic:
+                    - generic:
+                      - text: Select by
+                      - combobox
+                    - generic:
+                      - text: Value
+                      - textbox: 01a1d535-3bbb-7eb6-9380-300f1ede61f3
+                    - button [disabled]: Apply query
+                  - generic:
+                    - generic:
+                      - generic:
+                        - text: Within (angstrom)
+                        - spinbutton: "4"
+                      - generic:
+                        - text: Result
+                        - combobox
+                    - button [disabled]: Run distance selection
+                  - generic:
+                    - generic:
+                      - text: Saved selections
+                      - generic:
+                        - textbox
+                        - button [disabled]:
+                          - img
+                    - generic:
+                      - paragraph: No saved selections
+  - dialog "Projects" [ref=e58]:
+    - generic [ref=e59]:
+      - heading "Projects" [level=2] [ref=e61]
+      - button "Close dialog" [ref=e62] [cursor=pointer]:
+        - img [ref=e63] [cursor=pointer]
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - button "Pending quick false 1794578396965 1 structures - unsaved" [active] [ref=e68] [cursor=pointer]:
+          - generic [ref=e69] [cursor=pointer]: Pending quick false 1794578396965
+          - generic [ref=e70] [cursor=pointer]: 1 structures - unsaved
+        - button "Quick recovery 503 1794578390510 1 structures - unsaved" [ref=e71] [cursor=pointer]:
+          - generic [ref=e72] [cursor=pointer]: Quick recovery 503 1794578390510
+          - generic [ref=e73] [cursor=pointer]: 1 structures - unsaved
+        - button "Quick recovery malformed 1794578384537 1 structures - unsaved" [ref=e74] [cursor=pointer]:
+          - generic [ref=e75] [cursor=pointer]: Quick recovery malformed 1794578384537
+          - generic [ref=e76] [cursor=pointer]: 1 structures - unsaved
+        - button "Quick recovery abort 1794578376315 1 structures - unsaved" [ref=e77] [cursor=pointer]:
+          - generic [ref=e78] [cursor=pointer]: Quick recovery abort 1794578376315
+          - generic [ref=e79] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578369844 1 structures - unsaved" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81] [cursor=pointer]: Movement lifecycle 1794578369844
+          - generic [ref=e82] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578354803 1 structures" [ref=e83] [cursor=pointer]:
+          - generic [ref=e84] [cursor=pointer]: Movement lifecycle 1794578354803
+          - generic [ref=e85] [cursor=pointer]: 1 structures
+        - button "Movement lifecycle 1794578347349 1 structures - unsaved" [ref=e86] [cursor=pointer]:
+          - generic [ref=e87] [cursor=pointer]: Movement lifecycle 1794578347349
+          - generic [ref=e88] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578343197 externally changed 1 structures - unsaved" [ref=e89] [cursor=pointer]:
+          - generic [ref=e90] [cursor=pointer]: Movement lifecycle 1794578343197 externally changed
+          - generic [ref=e91] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578336224 1 structures - unsaved" [ref=e92] [cursor=pointer]:
+          - generic [ref=e93] [cursor=pointer]: Movement lifecycle 1794578336224
+          - generic [ref=e94] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578328116 1 structures - unsaved" [ref=e95] [cursor=pointer]:
+          - generic [ref=e96] [cursor=pointer]: Movement lifecycle 1794578328116
+          - generic [ref=e97] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement destination 1794578328105 0 structures" [ref=e98] [cursor=pointer]:
+          - generic [ref=e99] [cursor=pointer]: Movement destination 1794578328105
+          - generic [ref=e100] [cursor=pointer]: 0 structures
+        - button "Native movement chromium 1794578316650 1 structures - unsaved" [ref=e101] [cursor=pointer]:
+          - generic [ref=e102] [cursor=pointer]: Native movement chromium 1794578316650
+          - generic [ref=e103] [cursor=pointer]: 1 structures - unsaved
+        - button "Interactive movement chromium 1794578304081 2 structures - unsaved" [ref=e104] [cursor=pointer]:
+          - generic [ref=e105] [cursor=pointer]: Interactive movement chromium 1794578304081
+          - generic [ref=e106] [cursor=pointer]: 2 structures - unsaved
+        - button "Movement lifecycle 1794578299803 1 structures - unsaved" [ref=e107] [cursor=pointer]:
+          - generic [ref=e108] [cursor=pointer]: Movement lifecycle 1794578299803
+          - generic [ref=e109] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578295377 1 structures - unsaved" [ref=e110] [cursor=pointer]:
+          - generic [ref=e111] [cursor=pointer]: Movement lifecycle 1794578295377
+          - generic [ref=e112] [cursor=pointer]: 1 structures - unsaved
+        - button "Movement lifecycle 1794578286670 1 structures - unsaved" [ref=e113] [cursor=pointer]:
+          - generic [ref=e114] [cursor=pointer]: Movement lifecycle 1794578286670
+          - generic [ref=e115] [cursor=pointer]: 1 structures - unsaved
+      - generic [ref=e116]:
+        - button "Import project archive" [ref=e117] [cursor=pointer]
+        - button "Create project" [ref=e118] [cursor=pointer]
+```

@@ -6,6 +6,7 @@ import type { Job, MinimizationProposal, Project, Selection, QuickMinimizationPr
 import { useWorkspaceStore } from "../store/workspace";
 import { calculationComponents, minimizationRequest, type CalculationSource } from "./context";
 import { type MinimizationDraft, type MinimizationProfile, useMinimizationStore } from "./store";
+import type { QuickPublicationAttempt, QuickPublicationController } from "./publication";
 
 export function quickRequest(snapshot: Project, draft: MinimizationDraft): QuickMinimizationRequest {
     if (!draft.selection.atoms.length) throw new Error("Select atoms before minimizing.");
@@ -17,7 +18,8 @@ export function quickRequest(snapshot: Project, draft: MinimizationDraft): Quick
 }
 
 export function useMinimization(project: Project | undefined, selection: Selection,
-  commit: (operation: () => Promise<Project>) => Promise<Project>, beforeStart?: () => void, onNotice?: (notice: ApplicationNoticeValue) => void) {
+  commit: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>, beforeStart?: () => void, onNotice?: (notice: ApplicationNoticeValue) => void,
+  publication?: QuickPublicationController) {
   // Commands read the current session at invocation. Presentation subscribes in the
   // viewer, so opening/progress/settings never rerender the whole molecular workspace.
   const state = useMinimizationStore.getState();
@@ -57,6 +59,12 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const begin = async (immediate = false, replacing = false, profile: MinimizationProfile = "amber") => {
     if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+    if (publication && publication.snapshot(project.id).phase !== "idle") {
+      onNotice?.({ kind: "error", text: "Resolve the pending coordinate application before starting another calculation. Open minimization to check." });
+      return;
+    }
+    try { publication?.assertWritable(project.id); }
+    catch (error) { onNotice?.({ kind: "error", text: message(error) }); return; }
     const current = useMinimizationStore.getState();
     const job = query.getQueryData<Job>(["job", current.jobId]);
     if (current.loading || current.applying || (!replacing && (current.autoApply || (job && ["queued", "running"].includes(job.status))))) return;
@@ -71,6 +79,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
         const capabilities = await query.fetchQuery({ queryKey: ["quick-minimization-capabilities"], queryFn: quickMinimizationApi.capabilities, staleTime: 30_000 });
         if (!owner(project.id, generation)) return;
         if (!capabilities.available) throw new Error(capabilities.unavailable_reason ?? "The local minimization model is unavailable.");
+        publication?.assertWritable(project.id);
         const submitted = await quickMinimizationApi.submit(project.id, quickRequest(project, draft));
         void query.invalidateQueries({ queryKey: ["jobs", project.id] });
         if (owner(project.id, generation) && useMinimizationStore.getState().autoApply) {
@@ -102,6 +111,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || !state.draft || useMinimizationStore.getState().loading || !owner(project.id, state.generation)) return;
     const generation = state.generation;
     try {
+      publication?.assertWritable(project.id);
       state.patch(generation, { loading: true, error: null, preview: true, live: true, autoApply: state.profile === "quick" });
       let job: Job;
       if (state.profile === "quick") job = await quickMinimizationApi.submit(project.id, quickRequest(project, state.draft));
@@ -124,7 +134,8 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     try {
       await commit(() => proposal.report.model === "quick-local-v1"
         ? quickMinimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256)
-        : minimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256, proposal.report.outcome === "non_converged"));
+        : minimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256, proposal.report.outcome === "non_converged"),
+        proposal.report.model === "quick-local-v1" ? { projectId: project.id, jobId: proposal.job_id, proposalSha256: proposal.proposal_sha256, expectedRevision: project.revision, origin: "manual" } : undefined);
       void query.invalidateQueries({ queryKey: ["jobs", project.id] });
       if (owner(project.id, generation)) state.dismiss();
     } catch (error) {
@@ -140,22 +151,28 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     const warn = () => {
       if (!owner(project.id, generation) || useMinimizationStore.getState().open) return;
       const warnings = proposal.report.warnings;
-      if ((!proposal.applicable && proposal.report.outcome !== "unchanged") || warnings.length) onNotice?.({ kind: "success", lifetime: "persistent",
+      if (proposal.report.outcome === "unchanged") return;
+      if (!proposal.applicable || warnings.length) onNotice?.({ kind: proposal.applicable ? "success" : "error", lifetime: "persistent",
         text: [proposal.unavailable_reason ?? proposal.report.reason, ...warnings, "Details remain in Jobs → Inspect minimization."].join(" ") });
     };
     if (!proposal.applicable) { warn(); return; }
     state.patch(generation, { applying: true });
     try {
-      await commit(() => {
+      const updated = await commit(() => {
         if (!owner(project.id, generation)) throw new Error("Quick minimization session ended.");
         return quickMinimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256);
-      });
-      if (owner(project.id, generation)) { state.patch(generation, { applying: false, applied: true }); warn(); }
+      }, { projectId: project.id, jobId: proposal.job_id, proposalSha256: proposal.proposal_sha256, expectedRevision: project.revision, origin: "automatic" });
+      if (owner(project.id, generation)) {
+        const receipt = publication?.snapshot(project.id).receipt;
+        const currentApplication = !receipt || receipt.revision === updated.revision;
+        state.patch(generation, { applying: false, applied: currentApplication, recovery: !currentApplication });
+        if (currentApplication) warn();
+      }
       void query.invalidateQueries({ queryKey: ["jobs", project.id] });
     } catch (error) {
       if (owner(project.id, generation)) {
         state.patch(generation, { applying: false, error: message(error) });
-        if (!useMinimizationStore.getState().open) onNotice?.({ kind: "error", text: message(error) });
+        if (!useMinimizationStore.getState().open && (!publication || publication.snapshot(project.id).phase === "idle")) onNotice?.({ kind: "error", text: message(error) });
       }
     }
   };
@@ -171,6 +188,10 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const configure = async (profile: MinimizationProfile = "quick") => {
     const state = useMinimizationStore.getState();
+    if (project && publication && publication.snapshot(project.id).phase !== "idle") {
+      state.revealRecovery(project.id);
+      return;
+    }
     if (!project || state.loading || state.applying) return;
     const generation = state.generation;
     const job = query.getQueryData<Job>(["job", state.jobId]);
@@ -191,7 +212,12 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const show = async () => {
     const current = useMinimizationStore.getState();
-    if (!project || !owner(project.id, current.generation)) return;
+    if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+    if (publication && publication.snapshot(project.id).phase !== "idle") {
+      current.revealRecovery(project.id);
+      return;
+    }
+    if (!owner(project.id, current.generation)) return;
     const job = query.getQueryData<Job>(["job", current.jobId]);
     if (current.loading || current.applying || current.autoApply || (current.live && job && ["queued", "running"].includes(job.status))) {
       current.patch(current.generation, { open: true });
@@ -201,7 +227,16 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     const current = useMinimizationStore.getState();
     if (current.draft) current.patch(current.generation, { draft: { ...current.draft, ...patch } });
   };
+  const recoverPublication = async (retry: boolean) => {
+    if (!project || !publication) return;
+    try {
+      if (retry) await publication.retry(project.id);
+      else await publication.refresh(project.id);
+    } catch { /* The application-owned transaction retains its diagnostic and guard. */ }
+  };
   return {
+    publication,
+    refreshPublication: () => recoverPublication(false), retryPublication: () => recoverPublication(true),
     begin: () => begin(false, false, useMinimizationStore.getState().profile), quick: () => begin(true, false, "quick"), configure, show, mode, run, apply, cancel, finishQuick, failQuick,
     expandHydrogens: (expandHydrogens: boolean) => updateDraft({ expandHydrogens }),
     allowRepair: (allowRepair: boolean) => updateDraft({ allowRepair }),

@@ -19,7 +19,9 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   const [help, setHelp] = useState(false);
   const draft = w.state.draft;
   const report = w.proposal?.report;
-  const working = w.state.loading || w.job?.status === "queued" || w.job?.status === "running";
+  const working = w.state.loading || w.job?.status === "queued" || w.job?.status === "running" || w.publicationPending;
+  const recovery = w.state.recovery || w.publicationPending;
+  const canClose = !w.state.applying || w.publicationPending;
   const position = useCallback(() => {
     const target = panel.current, button = launcher.current;
     if (!target) return;
@@ -46,10 +48,10 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
     window.addEventListener("resize", schedule); position();
     return () => { if (frame !== null) cancelAnimationFrame(frame); resize.disconnect(); mutation.disconnect(); window.removeEventListener("resize", schedule); };
   }, [w.open, position]);
-  const close = () => { if (!w.state.applying) w.dismiss(); };
+  const close = () => { if (canClose) w.dismiss(); };
   const chosenCount = w.chosen.reduce((sum, c) => sum + c.atomIds.length, 0);
   const selectedCount = draft?.selection.atoms.length ?? report?.movable_count ?? 0;
-  const canReveal = w.state.live || w.state.loading || w.state.applying;
+  const canReveal = w.state.live || w.state.loading || w.state.applying || w.publicationPending;
   const launcherHint = !canReveal && unavailable ? unavailable : "Open minimization settings; Ctrl+M runs quick minimization";
   return <Tooltip.Provider><div className="minimization-tools">
     <IconButton ref={launcher} className="viewer-action-button viewer-modeling-action" label="Minimize selection" tooltip={launcherHint} tooltipClassName="viewer-toolbar-tooltip"
@@ -57,8 +59,8 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
       onClick={() => { if (w.open) close(); else if (canReveal || !unavailable) { onOpen(); void w.show(); } }}><Zap size={16} aria-hidden="true" /></IconButton>
     <Dialog.Root open={w.open} onOpenChange={open => { if (!open) close(); }} modal={false}>
       <Dialog.Portal><Dialog.Content ref={panel} className="minimization-panel" tabIndex={-1}
-        aria-describedby="minimization-description" onInteractOutside={event => event.preventDefault()}
-        onEscapeKeyDown={event => { if (w.state.applying || !panel.current?.contains(document.activeElement)) event.preventDefault(); }}
+        onInteractOutside={event => event.preventDefault()}
+        onEscapeKeyDown={event => { if (!canClose || !panel.current?.contains(document.activeElement)) event.preventDefault(); }}
         onOpenAutoFocus={event => { event.preventDefault(); returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; position(); panel.current?.focus(); }}
         onCloseAutoFocus={event => {
           event.preventDefault();
@@ -68,9 +70,9 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           if (target?.isConnected && target !== document.body) target.focus();
           else launcher.current?.focus();
         }}>
-        <div className="minimization-heading"><Dialog.Title>Minimize selection</Dialog.Title><button type="button" aria-label="Close minimization" disabled={w.state.applying} onClick={close}><X size={17} /></button></div>
-        <Dialog.Description id="minimization-description">{w.isQuick ? "Selected atoms and attached hydrogens move by default. Unselected binding-site atoms stay fixed." : "Only captured selected atoms move. Every included unselected atom, including H, stays fixed."}</Dialog.Description>
-        {draft && w.isQuick ? <QuickSetup workflow={w} working={working} /> : draft ? <>
+        <div className="minimization-heading"><Dialog.Title>Minimize selection</Dialog.Title><button type="button" aria-label="Close minimization" disabled={!canClose} onClick={close}><X size={17} /></button></div>
+        <Dialog.Description>{recovery ? "Check the recorded coordinate application. Closing this panel keeps recovery available." : w.isQuick ? "Selected atoms and attached hydrogens move by default. Unselected binding-site atoms stay fixed." : "Only captured selected atoms move. Every included unselected atom, including H, stays fixed."}</Dialog.Description>
+        {recovery ? <PublicationRecovery workflow={w} /> : draft && w.isQuick ? <QuickSetup workflow={w} working={working} /> : draft ? <>
           <p className="minimization-capture">Captured selection: <strong>{selectedCount} atoms</strong>. Later selection changes do not retarget this calculation.</p>
           <button type="button" disabled={working} onClick={() => void w.begin()}>Use current selection</button>
           <fieldset disabled={working}><legend>Calculation context</legend>
@@ -94,7 +96,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           {w.capabilitiesLoading ? <p role="status">Checking local model…</p> : w.capabilities && !w.capabilities.available ? <p role="status">{w.capabilities.unavailable_reason}</p> : null}
           <button type="button" className="primary-button" disabled={working || !w.capabilities?.available || !!w.requestError} onClick={() => void w.run()}>Run minimization</button>
         </> : null}
-        {w.job ? <div className="minimization-job">
+        {!recovery && w.job ? <div className="minimization-job">
           {!w.job.provenance.archive_source_job_id && w.job.parameters?.context_policy === "automatic" ? <p>Automatic context: {Array.isArray(w.job.parameters.captured_inputs) ? w.job.parameters.captured_inputs.map((c: { entry_id: string; atom_ids: number[]; conformer_id: number }) => `${w.job?.inputs?.find(i => i.entry_id === c.entry_id)?.entry_name ?? c.entry_id}: ${c.atom_ids.length} atoms, conformer ${c.conformer_id}`).join("; ") : "captured"}. {w.job.parameters.mode === "isolated" ? "No additional nearby components; isolated model." : "Complete fixed environment included."}</p> : null}
           <p role="status">{report ? report.outcome.replace("_", " ") : w.job.status === "completed" ? "Loading scientific report" : w.job.status} · {w.job.status_message}</p>
           {working && w.previewUnavailable ? <p role="status">{w.previewUnavailable}</p> : null}
@@ -102,7 +104,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           {working ? <><progress aria-label="Minimization progress" max={100} value={w.job.progress} /><button type="button" disabled={w.job.cancellation_requested} onClick={() => void w.cancel()}>{w.job.cancellation_requested ? "Cancellation requested" : "Cancel calculation"}</button><p>Closing this panel discards preview and requests cancellation. The report remains in Jobs.</p></> : null}
           {w.job.error ? <p role="alert">{String(w.job.error.message ?? "The calculation failed.")}</p> : null}
         </div> : null}
-        {report && "method" in report ? <QuickResult report={report} workflow={w} /> : report ? <>
+        {!recovery && report && "method" in report ? <QuickResult report={report} workflow={w} /> : !recovery && report ? <>
           <p role="status">{report.reason}</p>
           {report.outcome === "non_converged" && w.canApply ? <p className="minimization-warning" role="status">Iteration limit reached without convergence. Accepting explicitly acknowledges the residual gradient shown below and that further relaxation may be needed.</p> : null}
           <dl className="minimization-metrics">
@@ -119,13 +121,13 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           <div className="minimization-actions"><button type="button" className="primary-button" disabled={!w.canApply || w.state.applying} onClick={() => void w.apply()}>{w.state.applying ? "Applying…" : report.outcome === "non_converged" && w.canApply ? "Accept unconverged coordinates" : "Apply coordinates"}</button>
             <button type="button" disabled={w.state.applying} onClick={close}>Discard</button></div>
         </> : null}
-        {!draft ? <button type="button" disabled={w.state.loading || w.state.applying} onClick={() => void w.configure()}>Minimization settings</button> : null}
+        {!draft ? <button type="button" disabled={w.state.loading || w.state.applying || w.publicationPending} onClick={() => void w.configure()}>Minimization settings</button> : null}
         <button type="button" disabled={working || w.state.applying} onClick={() => void w.configure("amber")}>Advanced AMBER</button>
         {w.state.loading && !w.job ? <button type="button" onClick={() => void w.cancel()}>Cancel calculation</button> : null}
         {w.state.loading ? <p role="status">{draft ? "Capturing complete context…" : "Submitting calculation…"}</p> : null}
-        {w.error ? <p role="alert">{w.error}</p> : null}
+        {!recovery && w.error ? <p role="alert">{w.error}</p> : null}
         <button type="button" aria-expanded={help} onClick={() => setHelp(!help)}>Model and prerequisites</button>
-        {help && w.isQuick ? <div className="minimization-help"><p>Ctrl+M quickly relaxes selected atoms and attached terminal H inside visible surroundings. Display-hidden atoms still contribute. A usable result is applied once as a single Undo/Redo edit; Cancel or closing the panel ends the owning session.</p><p>Temporary interpretation, protein states, hydrogens and boundary caps do not change saved chemistry. Unsupported drafts may use explicitly approximate repair. Local improvement does not certify a binding pose. Reports remain in Jobs.</p></div> : help ? <div className="minimization-help"><p>Advanced AMBER calculates a prepared environment for the exact selection. Watch temporary relaxation, then explicitly accept or discard the result. Isolation and manual environment controls are retained.</p><p>Complete existing topology, explicit H, supported standard protein states and assigned ligand charges/orders are required. No atoms, bonds or protonation are repaired.</p>
+        {help && w.isQuick ? <div className="minimization-help"><p>Ctrl+M quickly relaxes selected atoms and attached terminal H inside visible surroundings. Display-hidden atoms still contribute. A usable result is applied once as a single Undo/Redo edit. Cancel or closing the panel stops calculation. An application already sent remains available for recovery.</p><p>Temporary interpretation, protein states, hydrogens and boundary caps do not change saved chemistry. Unsupported drafts may use explicitly approximate repair. Local improvement does not certify a binding pose. Reports remain in Jobs.</p></div> : help ? <div className="minimization-help"><p>Advanced AMBER calculates a prepared environment for the exact selection. Watch temporary relaxation, then explicitly accept or discard the result. Isolation and manual environment controls are retained.</p><p>Complete existing topology, explicit H, supported standard protein states and assigned ligand charges/orders are required. No atoms, bonds or protonation are repaired.</p>
           <p>Local convergence does not certify a native conformation or binding pose. Unsupported ions, metals, cofactors, crosslinks and covalent protein–ligand adducts refuse. Only improving, validated iteration-limit results may be accepted with an explicit warning; require convergence in settings for stricter acceptance. Abnormal or cancelled calculations cannot Apply.</p>
           <p>Environment uses a nonperiodic 12 Å cutoff, 10 Å LJ switch and reaction-field dielectric 78.3. Isolated molecules use NoCutoff. Complete chosen chains remain intact.</p>
           <p>Resolve prerequisites with separate preparation actions. Native model installation: <a href="https://github.com/ManuelSe/Neistra/blob/master/tools/README.md" target="_blank" rel="noreferrer">setup guide</a>.</p></div> : null}
@@ -136,6 +138,25 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
 
 
 type Workflow = MinimizationWorkflow & MinimizationPreviewPresentation;
+function PublicationRecovery({ workflow: w }: { workflow: Workflow }) {
+  const recovery = w.publicationState;
+  const busy = recovery.phase === "submitting" || recovery.phase === "reconciling";
+  const recorded = recovery.receipt;
+  return <section aria-label="Coordinate application recovery" aria-busy={busy}>
+    {busy ? <p role="status">{recovery.phase === "submitting" ? "Applying quick coordinates…" : "Checking whether coordinates were applied…"}</p>
+      : recorded ? <p role="status">{recorded.revision === w.projectRevision
+        ? "Quick coordinates applied. Undo restores the previous coordinates."
+        : "This coordinate application was recorded previously. The current project has been refreshed; later Undo or edits remain in effect."}</p>
+      : recovery.phase === "uncertain" ? <p role="status">Couldn’t confirm whether coordinates were applied. Refresh to check the recorded result.</p>
+      : <p role="status">The project has changed. Run a new calculation before applying coordinates.</p>}
+    {recovery.error ? <p role="alert">{recovery.error}</p> : null}
+    {w.publicationPending ? <div className="minimization-actions">
+      <button type="button" disabled={busy} onClick={() => void w.refreshPublication()}>Refresh result</button>
+      <button type="button" disabled={busy || !recovery.attempt} onClick={() => void w.retryPublication()}>Retry application</button>
+    </div> : null}
+    {recovery.phase === "uncertain" && recovery.attempt ? <p>Retry uses this captured result and creates at most one coordinate edit.</p> : null}
+  </section>;
+}
 function QuickSetup({ workflow: w, working }: { workflow: Workflow; working: boolean }) {
   const draft = w.state.draft!;
   const selected = new Set(draft.selection.atoms.map(a => a.structure_id));

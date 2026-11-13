@@ -6666,3 +6666,20 @@ and artifact downloads, with Apply requiring a corrected run.
 qualification and scientific correction/review. These are checkpoint results,
 not the complete release gate or final seven-role implementation assessment.
 App version/schema/head/dependencies and original artifacts are unchanged.
+
+### D-153 C2 implementation ownership — 2026-11-13
+
+The App retains per-project publication sessions and a minimal verified session
+journal; preview/panel dismissal cannot erase dispatched work. Every ambiguous
+response follows fresh project/job reconciliation. A matching durable marker is
+evidence of a recorded command, not proof that later Undo/edits left it applied.
+An unchanged revision without a marker never authorizes automatic replay. Explicit
+retry retains the original job/digest/revision and uses existing server idempotency.
+
+Project commands capture source identity before asynchronous mutation preflight
+and recheck its guard immediately before dispatch. This also governs direct edits,
+movement, import and result import. Read-only availability is separate from write
+availability, preserving Export and Jobs during recovery. Normal confirmed success
+is transient; unresolved recovery diagnostics remain persistent. No server API,
+database or molecular schema changes are needed. Focused checkpoint evidence is
+recorded in the feature plan; final integrated qualification remains pending.

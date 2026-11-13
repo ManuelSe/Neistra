@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C8 remain pending.
+C2 is implemented and focused-qualified; C3–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -467,8 +467,9 @@ to avoid a self-referential commit claim.
 | Checkpoint | State |
 | --- | --- |
 | C0 | Complete: verified local/remote `bae090a337d7cc5371d4cd448eae95ced6b591a1`. |
-| C1 | Implemented and focused-qualified; checkpoint commit follows passing review/evidence below. |
-| C2–C8 | Pending; no final feature/release qualification claimed. |
+| C1 | Complete local checkpoint `b4ee31f`; focused evidence below. |
+| C2 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
+| C3–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -501,3 +502,43 @@ pruning. No essential C1 outcome is deferred. No migration, dependency, app-vers
 quick-report schema or original artifact rewrite occurs. C1 is a coherent local
 checkpoint, not feature completion or readiness to push. Next: C2 publication
 transaction/recovery, followed by C3–C8 under this contract.
+
+### C2 — 2026-11-13: publication ownership and recovery
+
+The App owns per-project quick-publication sessions independently of panel and
+preview generations. Both automatic and manual Apply journal the captured job,
+digest and revision before dispatch. Ambiguous responses reconcile fresh project
+and job evidence; Refresh performs reads only, and explicit Retry retains the
+same request. A matching marker preserves subsequent edits/Undo. An unchanged
+revision without a marker remains uncertain, including after reload.
+
+Revision-changing operations recheck source-project guards at dispatch. Generic
+commands capture their source before asynchronous mutation preflight; direct edits,
+movement, imports and job-result import are guarded too. Export, job inspection,
+selection, camera and project switching remain available. Recovery neither opens
+panels nor steals focus. Invalid/unavailable journal records cannot authorize writes.
+
+Focused unit coverage includes **43 publication cases, 33 hook/panel cases, four
+import/read-control cases and two actual TanStack dispatch-boundary cases**.
+The complete frontend suite passes **464 tests in 70 files**, with lint, types
+and build passing. Architecture review independently reran those 82 focused cases
+and PASSed after correcting read-only availability and captured-source dispatch.
+All seven final integrated assessments remain C7 work.
+
+The [final focused evidence](../assets/authoritative-minimization/c2-summary.json)
+records **61 native browser passes / one existing mobile desktop-zoom exclusion**,
+zero failures/flakes/retries in 450.28 seconds. All 726 runtime/test/tool source
+identities remain fixed. Real committed Apply responses are aborted, malformed
+or replaced with 503; reconciliation creates exactly one command and exact
+Undo/Redo survives reload. Unconfirmed/committed recovery, failed reads, explicit
+retry, project switching, panel dismissal, journal failure and later Undo pass in
+both layouts, alongside existing movement, toolbar, theme/axe, narrow and real
+desktop zoom regressions. The first diagnostic run exposed a test setup
+ordering error: an out-of-band project was created after the browser cached the
+project list. Creating both projects before navigation corrects the precondition;
+all 14 new recovery cases then pass without runtime, assertion or timeout changes.
+The complete broader rerun above passes. Full-diff checkpoint self-review found no
+remaining consequential C2 issue; final seven-role review remains pending.
+No backend, schema, migration,
+dependency, app-version or scientific-method change occurs in C2. Next: record
+the passing checkpoint commit, then begin C3.

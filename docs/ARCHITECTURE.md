@@ -73,6 +73,22 @@ legacy imports. See D-150 and the issue #99 feature contract.
 - The worker owns job claim/recovery and spawns an allowlisted plugin in a
   controlled child. Only the parent validates and publishes returned bytes.
 
+### Quick coordinate publication
+
+The App-owned quick-publication controller retains independent transactions per
+source project. Panel visibility and render-local previews do not own dispatched
+writes. A verified session-storage descriptor precedes Apply; reload performs
+fresh project/job reads, never automatic replay. Valid durable application evidence
+settles once while retaining current state, including later Undo. An unchanged
+project revision without a marker remains uncertain, with explicit refresh/retry.
+
+Revision-changing commands carry their captured source ID through asynchronous
+preflight and recheck the source guard at dispatch. Direct movement/edit/import/
+result-import boundaries enforce that same guard. Read operations and unrelated
+projects remain usable. Only current-project notices affect active presentation;
+late responses publish monotonically into the captured project's authority cache.
+The controller adds no molecular schema, API endpoint, or generic job framework.
+
 ## Component Hierarchy Ownership
 
 Issue #59 separates compact entry management from a named-entry component pane.

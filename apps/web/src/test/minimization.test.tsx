@@ -12,6 +12,8 @@ import { useMinimization } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
 import { useWorkspaceStore } from "../store/workspace";
 import { molecularEntry, molecularProject, proteinStructure } from "./molecular-fixtures";
+import type { QuickPublicationAttempt, QuickPublicationController, QuickPublicationState } from "../minimization/publication";
+import { MinimizationPanel } from "../components/MinimizationPanel";
 
 const selection: Selection = { schema_version: 1, granularity: "atom", source: "inspector", atoms: [{ structure_id: "protein", atom_id: 1 }] };
 const project = () => molecularProject([molecularEntry("protein", "Protein", "protein"), { ...molecularEntry("ligand", "Hidden ligand", "ligand"), visible: false, locked: true }]);
@@ -86,14 +88,15 @@ it("handles Ctrl+M once while respecting typing, composition modifiers, repeated
   expect(run).toHaveBeenCalledTimes(1); view.unmount();
   fireEvent.keyDown(window, { key: "m", ctrlKey: true }); expect(run).toHaveBeenCalledTimes(1);
 });
-function workflow() {
+function workflow(publication?: QuickPublicationController,
+  dispatch?: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>) {
   const p = project(); useWorkspaceStore.setState({ activeProjectId: p.id }); useMinimizationStore.getState().setProject(p.id);
   const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   const wrapper = ({ children }: { children: ReactNode }) => <QueryClientProvider client={client}>{children}</QueryClientProvider>;
-  const commit = vi.fn((operation: () => Promise<Project>) => operation());
+  const commit = vi.fn((operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => dispatch ? dispatch(operation, quick) : operation());
   const notice = vi.fn();
-  const hook = renderHook(() => { const w = useMinimization(p, selection, commit, undefined, notice); return { ...w, ...useMinimizationPreview(p, w) }; }, { wrapper });
-  return { ...hook, client, commit, notice, p };
+  const hook = renderHook(() => { const w = useMinimization(p, selection, commit, undefined, notice, publication); return { ...w, ...useMinimizationPreview(p, w) }; }, { wrapper });
+  return { ...hook, client, commit, notice, p, wrapper };
 }
 it("Ctrl+M submits quick work exactly once and never applies cancelled work", async () => {
   const source = vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
@@ -416,7 +419,7 @@ it("surfaces hidden report refusal without publishing or opening a panel", async
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledOnce());
-  expect(w.notice).toHaveBeenCalledWith({ kind: "success", lifetime: "persistent", text: "Context changed; recalculate. Details remain in Jobs → Inspect minimization." });
+  expect(w.notice).toHaveBeenCalledWith({ kind: "error", lifetime: "persistent", text: "Context changed; recalculate. Details remain in Jobs → Inspect minimization." });
   expect(w.result.current.open).toBe(false); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
 
@@ -442,4 +445,110 @@ it("surfaces a hidden Apply rejection without claiming success or retrying it", 
   expect(w.result.current.state.applied).toBe(false); expect(w.result.current.open).toBe(false);
   await act(async () => { await w.client.invalidateQueries({ queryKey: ["minimization-proposal"] }); });
   expect(apply).toHaveBeenCalledOnce(); w.client.clear();
+});
+
+function publicationController(initial: QuickPublicationState) {
+  let snapshot = initial;
+  const listeners = new Set<() => void>();
+  const controller: QuickPublicationController = {
+    snapshot: () => snapshot,
+    subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
+    start: vi.fn(() => Promise.resolve(project())), refresh: vi.fn(() => Promise.resolve(project())), retry: vi.fn(() => Promise.resolve(project())),
+    attachProject: vi.fn(() => Promise.resolve()), assertWritable: vi.fn(),
+  };
+  return { controller, emit: (next: QuickPublicationState) => { snapshot = next; listeners.forEach(listener => listener()); } };
+}
+const publicationAttempt = (): QuickPublicationAttempt => ({ projectId: project().id, jobId: "job", proposalSha256: "digest", expectedRevision: project().revision, origin: "automatic" });
+
+it("passes captured automatic and manual quick publication descriptors through the shared commit seam", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  vi.spyOn(quickMinimizationApi, "apply").mockResolvedValue({ ...project(), revision: project().revision + 1 });
+  const automatic = workflow();
+  await act(async () => { await automatic.result.current.quick(); });
+  await waitFor(() => expect(automatic.result.current.state.applied).toBe(true));
+  expect(automatic.commit.mock.calls[0][1]).toEqual(publicationAttempt());
+  automatic.unmount(); automatic.client.clear();
+  useMinimizationStore.getState().setProject(project().id);
+  const manual = workflow();
+  act(() => useMinimizationStore.getState().inspect(manual.p.id, "job"));
+  await waitFor(() => expect(manual.result.current.proposal).toBeDefined());
+  await act(async () => { await manual.result.current.apply(); });
+  expect(manual.commit.mock.calls[0][1]).toEqual({ ...publicationAttempt(), origin: "manual" });
+  manual.client.clear();
+});
+
+it("reveals application recovery after the preview session closes and keeps refresh and retry explicit", async () => {
+  const initial: QuickPublicationState = { phase: "uncertain", attempt: publicationAttempt(), receipt: null, error: "Response was lost" };
+  const recovery = publicationController(initial);
+  const w = workflow(recovery.controller);
+  act(() => useMinimizationStore.getState().dismiss());
+  await act(async () => { await w.result.current.show(); });
+  expect(w.result.current.state.recovery).toBe(true);
+  const view = render(<MinimizationPanel workflow={w.result.current} unavailable="Finish the current change" onOpen={() => {}} />, { wrapper: w.wrapper });
+  expect(view.getByRole("region", { name: "Coordinate application recovery" })).toBeVisible();
+  expect(view.getByRole("button", { name: "Retry application" })).toBeEnabled();
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Refresh result" })); });
+  expect(recovery.controller.refresh).toHaveBeenCalledExactlyOnceWith(w.p.id);
+  expect(recovery.controller.retry).not.toHaveBeenCalled();
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Retry application" })); });
+  expect(recovery.controller.retry).toHaveBeenCalledExactlyOnceWith(w.p.id);
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Close minimization" })); });
+  expect(w.result.current.open).toBe(false);
+  expect(recovery.controller.snapshot(w.p.id)).toEqual(initial);
+  await act(async () => { await w.result.current.show(); });
+  expect(w.result.current.open).toBe(true);
+  expect(w.result.current.state.recovery).toBe(true);
+  expect(w.result.current.state.autoApply).toBe(false);
+  w.client.clear();
+});
+
+it("renders invalid recovery as refresh-only and distinguishes a previously recorded application from current coordinates", async () => {
+  const recovery = publicationController({ phase: "uncertain", attempt: null, receipt: null, error: "Invalid recovery information" });
+  const w = workflow(recovery.controller);
+  await act(async () => { await w.result.current.show(); });
+  const panel = () => <MinimizationPanel workflow={w.result.current} unavailable={null} onOpen={() => {}} />;
+  const view = render(panel(), { wrapper: w.wrapper });
+  expect(view.getByRole("button", { name: "Retry application" })).toBeDisabled();
+  act(() => recovery.emit({ phase: "reconciling", attempt: null, receipt: null, error: null }));
+  view.rerender(panel());
+  expect(view.getByRole("button", { name: "Refresh result" })).toBeDisabled();
+  expect(view.getByRole("status")).toHaveTextContent("Checking whether coordinates were applied");
+  act(() => recovery.emit({ phase: "idle", attempt: null, receipt: { jobId: "job", revision: w.p.revision - 1, proposalSha256: "digest" }, error: null }));
+  view.rerender(panel());
+  expect(view.getByRole("status")).toHaveTextContent("recorded previously");
+  expect(view.queryByText("Quick coordinates applied. Undo restores the previous coordinates.")).toBeNull();
+  expect(view.queryByRole("button", { name: "Retry application" })).toBeNull();
+  w.client.clear();
+});
+
+it("does not mark reconciled coordinates currently applied after a later Undo or edit", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  const recovery = publicationController({ phase: "idle", attempt: null, receipt: null, error: null });
+  const w = workflow(recovery.controller, (_operation, descriptor) => {
+    expect(descriptor).toEqual(publicationAttempt());
+    recovery.emit({ phase: "idle", attempt: null, receipt: { jobId: "job", revision: project().revision + 1, proposalSha256: "digest" }, error: null });
+    return Promise.resolve({ ...project(), revision: project().revision + 2 });
+  });
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.commit).toHaveBeenCalledOnce());
+  expect(w.result.current.state.applied).toBe(false);
+  expect(w.result.current.state.recovery).toBe(true);
+  expect(w.result.current.open).toBe(false);
+  expect(w.notice).not.toHaveBeenCalled();
+  w.client.clear();
+});
+
+it("retains the application-owned recovery diagnostic instead of replacing it with a raw transport error", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  const recovery = publicationController({ phase: "idle", attempt: null, receipt: null, error: null });
+  const w = workflow(recovery.controller, () => {
+    recovery.emit({ phase: "uncertain", attempt: publicationAttempt(), receipt: null, error: "Read unavailable" });
+    return Promise.reject(new Error("Read unavailable"));
+  });
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.result.current.state.error).toBe("Read unavailable"));
+  expect(w.result.current.publicationPending).toBe(true);
+  expect(w.result.current.open).toBe(false);
+  expect(w.notice).not.toHaveBeenCalled();
+  w.client.clear();
 });

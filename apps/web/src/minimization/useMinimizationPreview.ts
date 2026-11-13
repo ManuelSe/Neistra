@@ -1,19 +1,28 @@
 import { useMinimizationStore } from "./store";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import { replaceEqualDeep, useQuery, useQueryClient } from "@tanstack/react-query";
 import { jobApi, minimizationApi, quickMinimizationApi } from "../api/client";
 import type { MinimizationLive, MinimizationProposal, QuickMinimizationProposal, Project, MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
 import { coordinatePatches } from "./preview";
 import { quickRequest, type MinimizationWorkflow } from "./useMinimization";
 import { calculationComponents, minimizationRequest } from "./context";
+import type { QuickPublicationState } from "./publication";
+
+const idlePublication: QuickPublicationState = { phase: "idle", attempt: null, receipt: null, error: null };
 
 /** Render-local subscription; frames never rerender App or its selection inspector. */
 export function useMinimizationPreview(project: Project, workflow?: MinimizationWorkflow) {
   const query = useQueryClient();
   const state = useMinimizationStore();
+  const publication = workflow?.publication;
+  const publicationState = useSyncExternalStore(
+    useCallback(listener => publication?.subscribe(listener) ?? (() => {}), [publication]),
+    useCallback(() => publication?.snapshot(project.id) ?? idlePublication, [publication, project.id]),
+  );
+  const publicationPending = publicationState.phase !== "idle";
   const owned = !!workflow && state.projectId === project.id && (state.open || state.live || state.applying);
   const open = owned && state.open;
-  const capabilities = useQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey: [state.profile === "quick" ? "quick-minimization-capabilities" : "minimization-capabilities"], queryFn: state.profile === "quick" ? quickMinimizationApi.capabilities : minimizationApi.capabilities, enabled: open, retry: false, staleTime: 30_000 });
+  const capabilities = useQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey: [state.profile === "quick" ? "quick-minimization-capabilities" : "minimization-capabilities"], queryFn: state.profile === "quick" ? quickMinimizationApi.capabilities : minimizationApi.capabilities, enabled: open && !state.recovery && !publicationPending, retry: false, staleTime: 30_000 });
   const components = useMemo(() => state.draft && state.profile === "amber" ? calculationComponents(state.draft.project, state.draft.sources, state.draft.selection) : [], [state.draft, state.profile]);
   const chosen = components.filter(c => c.mandatory || (state.draft?.mode === "environment" && state.draft.included.has(c.key)));
   let requestError: string | null = null;
@@ -83,10 +92,10 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
     try { return { patches: coordinatePatches(previewSelection, frameEntries, previewSources.data), error: null }; }
     catch (error) { return { patches: [], error: error instanceof Error ? error.message : "Invalid coordinate preview." }; }
   }, [owned, state.preview, previewUnavailable, frameEntries, previewSelection, previewSources.data]);
-  const canApply = !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
+  const canApply = !publicationPending && publicationState.receipt?.jobId !== proposal?.job_id && !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;
-  return { state, open, components, chosen, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending, requestError, error: state.error ?? requestError ?? message(capabilities.error), isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
+  return { state, open, projectRevision: project.revision, publicationState, publicationPending, components, chosen, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending, requestError, error: state.error ?? requestError ?? message(capabilities.error), isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
     previewLoading: state.preview && previewSources.isPending && !!captured.length && !previewUnavailable,
     previewError: previewResult.error ?? message(jobQuery.error) ?? message(reportQuery.error) ?? message(previewSources.error) };
 }

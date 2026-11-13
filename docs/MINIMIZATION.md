@@ -111,10 +111,12 @@ additional shortcut progress, Cancel, or results display is added; failures and
 consequential scientific warnings remain visible in application notices. Explicit
 **Jobs → Inspect minimization** retains report access without rearming publication.
 
-**Cancel**, closing an explicitly opened panel,
-changing tools/projects or leaving that client disarms late publication and clears
-preview. Viewer remounts preserve the session. Reload and **Inspect minimization**
-show retained reports without rearming automatic publication. Saved chemistry and
+Before coordinate application is dispatched, **Cancel**, closing an explicitly
+opened panel, changing tools/projects or leaving that client disarms automatic
+publication and clears preview. Viewer remounts preserve the calculation session.
+An application already sent to the server may still complete; closing its panel
+cannot recall that write. Reload and **Inspect minimization** never automatically
+send another application. Saved chemistry and
 original files stay unchanged; only mapped selected active coordinates are published,
 with provenance/warnings. Undo/Redo restores exact artifacts and inactive conformers.
 An applied job cannot apply again, even after Undo. Original uploads remain available.
@@ -124,6 +126,29 @@ Measurements, surfaces and interactions pause during preview. No animation is in
 for short runs. Exports use saved geometry until application. All quick input/model/
 report/proposal artifacts are retained in Jobs; archived proposals remain historical.
 Changed selected/local context, locks, conformers or final surroundings block publication.
+
+## Recovering a coordinate application
+
+If an Apply response is interrupted or cannot be decoded, the application checks
+fresh project and job state before declaring an outcome. A recorded application
+refreshes current coordinates/history without applying again. Later Undo and edits
+remain authoritative. An unchanged revision alone does not prove that a delayed
+request cannot still complete.
+
+When the outcome remains uncertain, changes to that source project are paused.
+Selection, camera inspection, switching projects, export and Jobs remain available.
+Open the existing Minimize icon for **Refresh result** (reads only) or explicit
+**Retry application** of the same captured result. Server revision/digest checks
+and the application marker prevent a second command. A changed project without an
+application marker requires a new calculation. No result silently retargets.
+
+Closing the panel or switching projects does not discard publication ownership.
+A small session-storage descriptor restores read-only recovery after reload; it
+contains project/job/digest/revision identifiers, not molecular data. A storage
+write failure prevents Apply dispatch. Invalid/unavailable recovery information
+never authorizes an automatic request; a source-project guard remains when the
+outcome cannot be verified. Other projects are independent. Normal success notices
+remain transient; consequential recovery diagnostics remain available until dismissed.
 
 ## Advanced prepared AMBER
 

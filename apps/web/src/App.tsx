@@ -1,8 +1,11 @@
 import { seedCoordinateProjections } from "./coordinates/cache";
+import { captureProjectCommand, dispatchProjectCommand, type ProjectCommand } from "./coordinates/projectCommand";
 import { usePresentation } from "./presentation/context";
 import type { ResidueSelectionRequest, ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
+import { QuickPublicationSession, type QuickPublicationAttempt } from "./minimization/publication";
+import { createPublicationJournal } from "./minimization/publicationJournal";
 import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
 import type { HydrogenPolicy } from "./api/types";
@@ -12,15 +15,16 @@ import { useEditingStore } from "./store/editing";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { MutateOptions } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   Panel,
   PanelGroup,
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, molecularApi, projectApi } from "./api/client";
+import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi } from "./api/client";
 import type {
   Entry,
   AtomReference,
@@ -274,6 +278,51 @@ export default function App() {
     void queryClient.invalidateQueries({ queryKey: ["projects"] });
   };
 
+  const publicationPorts = useRef({
+    acceptProject: (next: Project) => updateProjectCache(next),
+    notice: (id: string, text: string, error: boolean, lifetime: ApplicationNoticeValue["lifetime"] = "persistent") => {
+      if (id === useWorkspaceStore.getState().activeProjectId) {
+        setNotice({ kind: error ? "error" : "success", text, lifetime });
+      }
+    },
+  });
+  publicationPorts.current = {
+    acceptProject: next => {
+      updateProjectCache(next);
+      if (next.id === useWorkspaceStore.getState().activeProjectId) setEditedThisSession(true);
+    },
+    notice: (id, text, error, lifetime = "persistent") => {
+      if (id === useWorkspaceStore.getState().activeProjectId) {
+        setNotice({ kind: error ? "error" : "success", text, lifetime });
+      }
+    },
+  };
+  const [publication] = useState(() => new QuickPublicationSession({
+    sendApply: attempt => quickMinimizationApi.apply(attempt.projectId, attempt.jobId,
+      attempt.expectedRevision, attempt.proposalSha256),
+    readProject: projectApi.get,
+    readJob: jobApi.get,
+    acceptProject: next => publicationPorts.current.acceptProject(next),
+    notice: (id, text, error, lifetime) => publicationPorts.current.notice(id, text, error, lifetime),
+  }, createPublicationJournal()));
+  const publicationState = useSyncExternalStore(publication.subscribe,
+    () => publication.snapshot(activeProjectId ?? ""));
+  const publicationBlocked = publicationState.phase !== "idle";
+  const assertPublicationWritable = (id: string) => {
+    try { publication.assertWritable(id); }
+    catch (error) {
+      if (id === useWorkspaceStore.getState().activeProjectId) {
+        setNotice({ kind: "error", lifetime: "persistent", text: error instanceof Error
+          ? error.message : "Reconcile quick minimization before changing this project." });
+      }
+      throw new ApiError(409, "quick_publication_busy", error instanceof Error
+        ? error.message : "Reconcile quick minimization before changing this project.");
+    }
+  };
+  useLayoutEffect(() => {
+    if (activeProjectId) void publication.attachProject(activeProjectId);
+  }, [activeProjectId, publication]);
+
   const { session: movementSession, workflow: movement } = useMovementSession({
     beforeStart: () => { clearCoordinatePreview(); useMinimizationStore.getState().dismiss(); },
     context: () => ({
@@ -291,7 +340,10 @@ export default function App() {
       return [id, projection] as const;
     }))),
     rendered: () => renderedMovementAtoms.current(),
-    commit: projectApi.transformSelection,
+    commit: (captured, transform) => {
+      assertPublicationWritable(captured.id);
+      return projectApi.transformSelection(captured, transform);
+    },
     refresh: projectApi.get,
     accept: next => {
       updateProjectCache(next);
@@ -321,15 +373,18 @@ export default function App() {
   useEffect(() => { movementSession.guardContext(); }, [movementSession, project, selection]);
   useEffect(() => clearCoordinatePreview(), [clearCoordinatePreview, project?.id, project?.revision, selection]);
 
-  const projectMutation = useMutation({
-    mutationFn: (operation: () => Promise<Project>) => operation(),
-    onMutate: () => {
-      if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
-      clearCoordinatePreview();
-      const minimization = useMinimizationStore.getState();
-      minimization.patch(minimization.generation, { preview: false });
-      if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Move selection was discarded before changing the project.");
-      return { projectId: useWorkspaceStore.getState().activeProjectId };
+  const commandMutation = useMutation({
+    mutationFn: (command: ProjectCommand) => dispatchProjectCommand(command, assertPublicationWritable),
+    onMutate: (command: ProjectCommand) => {
+      assertPublicationWritable(command.projectId);
+      if (command.projectId === useWorkspaceStore.getState().activeProjectId) {
+        if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
+        clearCoordinatePreview();
+        const minimization = useMinimizationStore.getState();
+        minimization.patch(minimization.generation, { preview: false });
+        if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Move selection was discarded before changing the project.");
+      }
+      return { projectId: command.projectId };
     },
     onSuccess: (next) => {
       const previous = queryClient.getQueryData<Project>(["project", next.id]);
@@ -339,14 +394,24 @@ export default function App() {
       setEditedThisSession(true);
       setNotice({ kind: "success", text: ["Change stored locally.", ...warnings].join(" "), lifetime: warnings.length ? "persistent" : "transient" });
     },
-    onError: (error, _operation, context) => {
-      if (error instanceof ApiError && error.code === "revision_conflict" && context?.projectId) {
-        void queryClient.invalidateQueries({ queryKey: ["project", context.projectId] });
+    onError: (error, command) => {
+      if (error instanceof ApiError && error.code === "revision_conflict") {
+        void queryClient.invalidateQueries({ queryKey: ["project", command.projectId] });
       }
-      if (useWorkspaceStore.getState().activeProjectId !== context?.projectId) return;
+      if (useWorkspaceStore.getState().activeProjectId !== command.projectId) return;
       setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
+  type CommandOptions = MutateOptions<Project, Error, ProjectCommand, { projectId: string }>;
+  const projectMutation = {
+    ...commandMutation,
+    mutate: (operation: () => Promise<Project>, options?: CommandOptions) => {
+      if (project) commandMutation.mutate(captureProjectCommand(project.id, operation), options);
+    },
+    mutateAsync: (operation: () => Promise<Project>, options?: CommandOptions) => project
+      ? commandMutation.mutateAsync(captureProjectCommand(project.id, operation), options)
+      : Promise.reject(new ApiError(409, "project_missing", "Open a project before editing.")),
+  };
 
   const createMutation = useMutation({
     mutationFn: () => projectApi.create(newName.trim(), newDescription.trim() || null),
@@ -365,7 +430,8 @@ export default function App() {
 
   const editingPending = useEditingStore(state => state.pending);
   const minimizationApplying = useMinimizationStore(state => state.applying);
-  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying;
+  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying || publicationBlocked;
+  const readBusy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || (minimizationApplying && !publicationBlocked);
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -436,7 +502,19 @@ export default function App() {
     return new Map(loaded.filter((item): item is NonNullable<typeof item> => item !== null));
   };
 
-  const minimization = useMinimization(project, selection, operation => projectMutation.mutateAsync(operation), clearCoordinatePreview, setNotice);
+  const minimization = useMinimization(project, selection,
+    (operation, attempt?: QuickPublicationAttempt) => {
+      if (!attempt) return projectMutation.mutateAsync(operation);
+      if (attempt.projectId === useWorkspaceStore.getState().activeProjectId) {
+        if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) {
+          throw new ApiError(409, "movement_busy", "Finish or reconcile movement before applying minimization.");
+        }
+        clearCoordinatePreview();
+        if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Unapplied movement was discarded before minimization publication.");
+      }
+      return publication.start(attempt);
+    },
+    clearCoordinatePreview, setNotice, publication);
   useEffect(() => {
     if (projectDialogOpen || createMode || newMoleculeOpen || importDialogOpen || archiveImportDialogOpen || exportDialogOpen || entryDialog || jobDialogOpen || groupDialog) useMinimizationStore.getState().dismiss();
   }, [projectDialogOpen, createMode, newMoleculeOpen, importDialogOpen, archiveImportDialogOpen, exportDialogOpen, entryDialog, jobDialogOpen, groupDialog]);
@@ -682,6 +760,7 @@ export default function App() {
       if (!project) return null;
       clearCoordinatePreview();
       try {
+        assertPublicationWritable(project.id);
         const result = await projectApi.superpose(project, payload);
         updateProjectCache(result.project);
         setEditedThisSession(true);
@@ -729,6 +808,7 @@ export default function App() {
         } finally { if (owns()) useEditingStore.getState().setPending(false); }
       }
       try {
+        assertPublicationWritable(project.id);
         const result = await projectApi.ligandEdit(project, entryId, edit);
         updateProjectCache(result.project);
         const currentEntry = result.project.entries.find(
@@ -777,6 +857,7 @@ export default function App() {
     onProteinEdit: async (entryId: string, edit: ProteinEdit) => {
       if (!project) throw new Error("No project is open.");
       try {
+        assertPublicationWritable(project.id);
         const result = await projectApi.proteinEdit(project, entryId, edit);
         updateProjectCache(result.project);
         const currentEntry = result.project.entries.find(
@@ -826,6 +907,7 @@ export default function App() {
 
   const createMolecule = async (input: NewMoleculeInput, ownsResponse: () => boolean) => {
     if (!project) throw new Error("Open a project before creating a molecule.");
+    assertPublicationWritable(project.id);
     const owner = project.id;
     const generation = useEditingStore.getState().generation;
     const captured = useSelectionStore.getState().selection;
@@ -858,6 +940,7 @@ export default function App() {
       const captured = useSelectionStore.getState().selection;
       const targetEntryId = useEditingStore.getState().targetEntryId;
       try {
+        assertPublicationWritable(project.id);
         const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action, hydrogenPolicy);
         if (result.applied !== false) updateProjectCache(result.project);
         if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
@@ -982,6 +1065,7 @@ export default function App() {
           project={project}
           theme={theme}
           busy={busy}
+          readBusy={readBusy}
           compact={compact}
           onProjects={() => {
             setCreateMode(false);
@@ -1107,6 +1191,8 @@ export default function App() {
                     ) : (
                       <LowerPanel
                         project={project}
+                        assertWritable={assertPublicationWritable}
+                        writeBlocked={publicationBlocked}
                         selection={selection}
                         onSelection={replaceSelection}
                         tab={lowerTab}
@@ -1227,6 +1313,8 @@ export default function App() {
                     ) : (
                       <LowerPanel
                         project={project}
+                        assertWritable={assertPublicationWritable}
+                        writeBlocked={publicationBlocked}
                         selection={selection}
                         onSelection={replaceSelection}
                         tab={lowerTab}
@@ -1397,6 +1485,8 @@ export default function App() {
       <ImportDialog
         open={importDialogOpen}
         project={project}
+        assertWritable={assertPublicationWritable}
+        writeBlocked={publicationBlocked}
         onOpenChange={setImportDialogOpen}
         onImported={(result) => {
           updateProjectCache(result.project);

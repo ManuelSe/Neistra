@@ -76,4 +76,39 @@ Diagnostics remain separate:
   later GET (timestamp serialization/job-link differences); it now compares fresh
   server state immediately before/after refusal. The preservation assertion remains.
 
-C2–C8 and complete final-version candidate/master/reader qualification are pending.
+C3–C8 and complete final-version candidate/master/reader qualification are pending.
+
+## C2 — Reliable quick publication
+
+[Summary](c2-summary.json) records the focused checkpoint over local C1 `b4ee31f`.
+App-owned publication, verified session journal and source-project dispatch guards
+cover automatic and manual quick Apply. Recovery reads fresh evidence; it never
+blindly replays. Later Undo and edits retain authority. Export/Jobs stay usable.
+
+- [Frontend log](c2-frontend.log.gz): **464 passes in 70 files**.
+- [Lint](c2-lint.log.gz), [types](c2-types.log.gz) and
+  [build](c2-build.log.gz) pass; existing lazy chunk advisory remains.
+- [Final browser report](c2-browser.json.gz) and [log](c2-browser.log.gz):
+  **61 passes / one existing mobile actual-desktop-zoom exclusion**, zero failures,
+  flakes or retries in 450.28 seconds. This covers new recovery, existing quick,
+  toolbar and movement workflows in desktop/mobile, themes, axe, narrow layouts
+  and actual desktop 100–200% zoom.
+- [Source manifest](c2-source-identity.json.gz): all **726 files** remain unchanged
+  during the final gate. Exact command/environment and artifact hashes are in the
+  summary. Portable correctness uses `NEISTRA_PERFORMANCE=0`; no strict timing
+  certification is claimed.
+- Architecture independently reran 82 focused cases and PASSed after captured-ID
+  dispatch and read-availability corrections. Final all-seven review remains C7.
+
+Backend evidence from C1 is reused: C2 changes no backend code, scientific method,
+schema, dependency, migration or app version. Frontend commands remain `test`,
+`lint`, `typecheck`, `build` through `corepack pnpm --dir apps/web`.
+
+The separate first [diagnostic report](c2-diagnostic-browser.json.gz) stopped on
+an alternate-project test precondition: it created that project after browser
+navigation/cache capture. The [context](c2-diagnostic-error-context.txt),
+[screenshot](c2-diagnostic-test-failed-1.png) and [trace](c2-diagnostic-trace.zip)
+remain diagnostic evidence, not passing qualification. Creating projects before
+navigation changes no runtime code, assertion or timeout. The corrected focused
+[14-case recovery report](c2-recovery-browser.json.gz), followed by the complete
+broader rerun above, both pass.

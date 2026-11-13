@@ -12,6 +12,8 @@ interface JobsPanelProps {
   onInspectMinimization?: (jobId: string) => void;
   onProjectUpdate: (project: Project) => void;
   onNotice: (kind: "success" | "error", text: string) => void;
+  assertWritable?: (projectId: string) => void;
+  writeBlocked?: boolean;
 }
 
 function displayError(error: unknown) {
@@ -28,6 +30,8 @@ export function JobsPanel({
   onInspectMinimization,
   onProjectUpdate,
   onNotice,
+  assertWritable,
+  writeBlocked = false,
 }: JobsPanelProps) {
   const queryClient = useQueryClient();
   const projectId = project?.id;
@@ -90,8 +94,13 @@ export function JobsPanel({
     onError: (error) => onNotice("error", displayError(error)),
   });
   const importResult = useMutation({
-    mutationFn: ({ job, resultId }: { job: Job; resultId: string }) =>
-      jobApi.importResult(job.id, resultId, project!),
+    mutationFn: ({ job, resultId }: { job: Job; resultId: string }) => {
+      if (!project || job.project_id !== project.id) {
+        throw new ApiError(409, "project_changed", "Open the job's project before importing its result.");
+      }
+      assertWritable?.(job.project_id);
+      return jobApi.importResult(job.id, resultId, project);
+    },
     onSuccess: (result) => {
       onProjectUpdate(result.project);
       void queryClient.invalidateQueries({ queryKey: ["jobs", project?.id] });
@@ -201,7 +210,7 @@ export function JobsPanel({
                       <button
                         type="button"
                         className="primary-button compact-button"
-                        disabled={importResult.isPending}
+                        disabled={importResult.isPending || writeBlocked}
                         onClick={() => importResult.mutate({ job: selected, resultId: result.id })}
                       >
                         <FileInput size={14} /> Import

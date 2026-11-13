@@ -20,6 +20,7 @@ interface TopBarProps {
   project: Project | undefined;
   theme: Theme;
   busy: boolean;
+  readBusy?: boolean;
   compact: boolean;
   onProjects: () => void;
   onSave: () => void;
@@ -36,6 +37,7 @@ export function TopBar({
   project,
   theme,
   busy,
+  readBusy = busy,
   compact,
   onProjects,
   onSave,
@@ -80,12 +82,12 @@ export function TopBar({
         </IconButton>
         <IconButton
           label="Export"
-          disabled={!project?.entries.length || busy}
+          disabled={!project?.entries.length || readBusy}
           onClick={onExport}
         >
           <FileOutput size={18} />
         </IconButton>
-        <IconButton label="Jobs" disabled={!project || busy} onClick={onJobs}>
+        <IconButton label="Jobs" disabled={!project || readBusy} onClick={onJobs}>
           <BriefcaseBusiness size={18} />
         </IconButton>
         <span className="toolbar-separator" />
