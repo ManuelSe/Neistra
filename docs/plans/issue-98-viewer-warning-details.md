@@ -2,8 +2,8 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved implementation contract; C1/C2 implemented and qualified.
-  Final-version compatibility, complete release gates and delivery remain pending.**
+- Status: **C1/C2 qualified; 0.28.1 release preparation in progress. Complete
+  final-version compatibility/gates, final specialist review and delivery pending.**
 - Issue: [#98 — Make viewer warning indicator clickable to inspect warnings](https://github.com/ManuelSe/Neistra/issues/98).
 - User approval: explicit acceptance in the planning conversation on 2026-11-13,
   followed by an instruction to persist the plan and wait for `/goal`.
@@ -449,7 +449,7 @@ qualified application without data conversion.
 | M0 / C0 | Complete: `1c8a571593fae83d65309a1192a0fef2b4bfa21d` persisted this approved contract, planning-only D-152 and PROGRESS. Documentation checks and remote branch/plan blob readback passed. | No runtime/version/schema/dependency change. Explicit `/goal` subsequently authorized implementation. |
 | M1 / C1 | Implemented: exact current-warning projection, compact non-modal details, zero/focus/ownership lifecycle and narrow movement Escape guard. 28 focused / 402 complete frontend tests, lint/types/build/diff and 8 native desktop/mobile cases pass; zero final failures/retries/exclusions. [Evidence](../assets/viewer-warning-details/README.md) and [source/log summary](../assets/viewer-warning-details/c1-summary.json) retain diagnostics separately. | No schema/API/migration/dependency/scientific/version change. C2 stress/zoom and wider regression qualification next; complete candidate/exact-master/readers and final specialist gate remain pending. |
 | M2 / C2 | Qualified: 28 focused / 402 complete frontend, lint/types/build/diff and 54 native passes / 6 registered exclusions (five unchanged existing, one real desktop zoom under mobile emulation). 13 feature passes cover both layouts/themes, real zoom, 500 records, keyboard/wheel reachability, pointer ownership, current replacement and resource/invariance behavior. [Evidence](../assets/viewer-warning-details/README.md) preserves diagnostics and verifies all 718 source/log identities. | No version/scientific/API/schema/migration/dependency change. Body keyboard semantics and measured closed-row construction were corrected; final-version readers, clean candidate/exact-master and final all-seven review remain. |
-| M3 / C3 | Pending. | Versions, full candidate gate, actual readers and final seven-specialist review. |
+| M3 / C3 | Release preparation: all five versions advanced to 0.28.1; preceding 0.28.0 archive-producer coverage retained; 42 archive integration cases, frozen uv, version/schema/dependency/migration and production/license audits pass. Issue-scoped 24-step candidate/exact-master recipes prepared. Origin/master remains 00320ea after fetch/merge check; stable latest remains 0.28.0 and planned tag is available. | Clean candidate gate, actual preceding readers, full-diff review and final all-seven assessments still required. No PR/tag/release claimed. |
 | M4 / C4 | Pending. | Authorized PR/integration, exact-master qualification, publication and cleanup. |
 
 Planning consultation dispositions: architecture, scientific theory, scientific

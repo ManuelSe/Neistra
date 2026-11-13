@@ -163,6 +163,14 @@ long-list scrolling and actual extension-driven browser zoom. The deterministic
 mobile-emulation exclusion; ordinary native feature cases run in both layouts.
 Complete release gates and actual preceding readers remain separate requirements.
 
+For the 0.28.1 correction, no database or archive conversion is needed from 0.28.0.
+Both archive suffixes retain identical schema semantics. Back up the complete
+managed store before deployment changes; matching preceding components provide
+rollback without a schema downgrade. Actual tagged 0.28.0/final 0.28.1 readers,
+migration round trip and complete clean candidate/exact-master gates must pass
+before publication. Application version metadata identifies the producer; it does
+not replace the retained structural schema boundary.
+
 ## Detached presentation qualification (issue #97)
 
 The lightweight presentation entry uses local canvas capture and a same-origin

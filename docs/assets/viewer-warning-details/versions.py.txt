@@ -1,0 +1,40 @@
+"""Final application/dependency/schema/migration identity audit."""
+import json
+from pathlib import Path
+import re
+import subprocess
+import tomllib
+
+root = Path.cwd()
+project = tomllib.loads(Path('pyproject.toml').read_text())['project']
+lock = tomllib.loads(Path('uv.lock').read_text())
+root_package = next(p for p in lock['package'] if p['name'] == 'neistra-dev')
+api = re.search(r'version="([^"]+)"', Path('apps/api/src/neistra_api/main.py').read_text())[1]
+archive = re.search(r'APPLICATION_VERSION = "([^"]+)"', Path('apps/api/src/neistra_api/archive_service.py').read_text())[1]
+web = json.loads(Path('apps/web/package.json').read_text())['version']
+assert {project['version'], root_package['version'], api, archive, web} == {'0.28.1'}
+assert project['name'] == 'neistra-dev'
+baseline = tomllib.loads(subprocess.check_output(['git','show','00320ea9e9d60fd19f12279669a00d88e540e434:uv.lock'], text=True))
+assert [p for p in lock['package'] if p['name'] != 'neistra-dev'] == [p for p in baseline['package'] if p['name'] != 'neistra-dev']
+assert not subprocess.check_output(['git','diff','00320ea9e9d60fd19f12279669a00d88e540e434','--','apps/api/migrations/versions'], text=True)
+from neistra_api.archive_service import ARCHIVE_SCHEMA_VERSION, ProjectManifestV2
+from neistra_api.schemas import ProjectRead, ViewerSettingsV2
+from neistra_core.molecular import NormalizedStructureV1
+from neistra_core.selection import SelectionV1
+from neistra_core.components import ComponentHierarchyV1
+assert ARCHIVE_SCHEMA_VERSION == 2
+for cls, version in [(ProjectManifestV2,2),(ProjectRead,2),(ViewerSettingsV2,2),
+                     (NormalizedStructureV1,1),(SelectionV1,1),(ComponentHierarchyV1,1)]:
+    assert cls.model_fields['schema_version'].default == version, cls
+
+assert not subprocess.check_output(['git', 'diff', '00320ea9e9d60fd19f12279669a00d88e540e434', '--', 'pnpm-lock.yaml', 'package.json'], text=True)
+base_web = json.loads(subprocess.check_output(['git', 'show', '00320ea9e9d60fd19f12279669a00d88e540e434:apps/web/package.json'], text=True))
+current_web = json.loads(Path('apps/web/package.json').read_text())
+assert {k:v for k,v in base_web.items() if k != 'version'} == {k:v for k,v in current_web.items() if k != 'version'}
+from alembic.config import Config
+from alembic.script import ScriptDirectory
+assert ScriptDirectory.from_config(Config('alembic.ini')).get_heads() == ['0014']
+
+print(json.dumps({'version':'0.28.1','five_sources_agree':True,'dependencies_unchanged':True,
+                  'historical_migrations_unchanged':True,'archive_project_viewer':2,
+                  'normalized_selection_component':1,'head':'0014'},indent=2))

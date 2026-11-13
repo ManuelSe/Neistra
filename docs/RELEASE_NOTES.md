@@ -1,5 +1,56 @@
 # Neistra Release Notes
 
+## 0.28.1 — Viewer warning details
+
+**Status:** release preparation under the [approved issue #98 contract](plans/issue-98-viewer-warning-details.md).
+Complete clean-candidate/exact-master qualification, final specialist review and
+publication remain pending. No tag or release is claimed at this checkpoint.
+
+**Fixed.** Activate the viewer warning count to inspect current warnings grouped
+by structure, with complete messages and severity. The compact non-modal panel
+supports keyboard and pointer access, scrolling, Escape/Close/outside dismissal,
+live updates and safe focus recovery. Inspecting or dismissing it does not resolve
+warnings or alter molecular data. Focused warning inspection preserves active
+movement until the user returns to normal canvas cancellation.
+
+**Behavior and scope decisions.** The count and rows share existing warnings for
+entries whose visible flag is true, including entries still loading or whose
+rendering failed. Preserve duplicates, source order and identical-name groups.
+Renderer failures, reduced-detail notices, interaction coverage and operation
+notifications remain separate. An open panel becomes an explicit current empty
+state at zero; project/remount changes close it. Warning rows are built only while
+open. Reuse installed dialog primitives without a new warning store or backend.
+Optional codes and advanced actions are omitted; unchanged palettes were unsuitable
+because they prevent outside dismissal.
+
+**Compatibility and rollback.** Compatible patch from stable 0.28.0. All five
+application version sources advance together; no new API/job/plugin contract,
+scientific method, dependency, migration or persisted state. Alembic head remains
+0014; project/viewer/archive schemas stay 2 and normalized/selection/component
+schemas stay 1. Both archive filename conventions and original uploads retain
+their contracts. Popup state is transient and absent from history/scenes/archives.
+Back up the complete managed store before changing deployments; rollback uses the
+preceding qualified application without data conversion.
+
+**Verification.** C1/C2 qualify 28 focused / 402 complete frontend tests,
+lint/types/build/diff and 54 native desktop/mobile cases with 6 registered exclusions:
+five exact existing exclusions plus actual desktop browser zoom under mobile
+emulation. All 13 new feature cases pass. Evidence covers real warning-bearing
+imports, original/projection/project/native invariance, loading failures, focus,
+movement, current updates, 500 complete records, keyboard/wheel reachability,
+mixed severities, long text, 44px coarse-pointer controls, real 100%/200% browser
+zoom and measured closed-state payload work. [Evidence](assets/viewer-warning-details/README.md)
+retains diagnostic failures separately. These are focused checkpoint results;
+the full final-version gates/readers and final all-seven specialist agent review
+remain required. Portable observations do not certify strict reference-host timing.
+
+**Known limitations and follow-up.** This inspects stored visible-entry warnings,
+not a complete validation report or the validity of current preview geometry.
+Search/filter/export, repair actions, persistent acknowledgement, global logs and
+technical metadata are outside this delivery. No speculative follow-up issue is
+created. Chromium desktop/mobile emulation and native desktop zoom are qualified;
+broader browser certification is not claimed.
+
 ## 0.28.0 — Detached molecular presentation
 
 **Status:** stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0), normally merged in

@@ -7,15 +7,15 @@ Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) has an explicitly app
 `fix/issue-98-viewer-warning-details`, based on fast-forwarded master
 `00320ea9e9d60fd19f12279669a00d88e540e434`. C0 was committed/pushed as `1c8a571`;
 the subsequent explicit `/goal` on 2026-11-13 authorizes implementation and gated
-delivery. C1/C2 implementation and focused qualification pass; final-version release
-preparation and complete qualification are next.
+delivery. C1/C2 implementation and focused qualification pass; C3 prepares 0.28.1
+for complete qualification. No PR, tag or release exists for this work yet.
 
 Approved outcome: inspect exactly the current visible-entry warnings from the
 existing count, grouped by structure, in a compact accessible non-modal surface.
 Preserve warning records and molecular/project state, current empty-state/focus
 behavior and movement Escape ownership. No API, scientific method, schema,
-migration or dependency change is planned. Proposed compatible patch: **0.28.1**;
-all five current application versions remain **0.28.0** until release preparation.
+migration or dependency change is planned. Compatible patch **0.28.1** is prepared
+in all five authoritative version sources; stable latest is still **0.28.0**.
 
 Completed work: required repository/issue/delivery inspection, all seven read-only
 specialist planning consultations, explicit user approval and verified planning
@@ -37,8 +37,9 @@ zoom, 500 complete records, keyboard/wheel access, pointer ownership, replacemen
 lifecycle and unchanged backend/native state. [C2 summary](assets/viewer-warning-details/c2-summary.json)
 verifies all 718 source/log identities; diagnostics remain separate. Measured
 closed-row work is eliminated without a throughput claim. Blockers: none; next
-action: final 0.28.1 version preparation, actual readers, complete candidate gate
-and final all-seven specialist assessment.
+action: focused version/archive audits, clean 0.28.1 candidate gate, actual readers
+and final all-seven specialist assessment. Remote base/policies and tag availability
+were rechecked; the branch remains current with origin/master.
 
 ### Previous completed milestone — issue #97
 

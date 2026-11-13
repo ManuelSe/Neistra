@@ -6563,3 +6563,12 @@ desktop zoom exclusion under mobile emulation), all 402 frontend tests and stati
 build checks. No API, scientific method, schema, migration, dependency or version
 change is introduced. Final-version complete gates/readers and all seven final
 specialist implementation assessments remain required.
+
+### D-152 release preparation — 2026-11-13
+
+The fresh remote/base check retains master 00320ea and stable latest 0.28.0 with no
+0.28.1 tag collision. Prepare patch 0.28.1 in all five authoritative sources and
+retain preceding archive-producer coverage. This corrects access to existing
+warning information without a new scientific/API/persistence contract. No schema,
+historical migration or dependency change is introduced. Complete final-version
+gates, actual tagged readers and final specialist assessments precede delivery.

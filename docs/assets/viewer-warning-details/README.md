@@ -139,3 +139,24 @@ Retained C2 diagnostics:
 No version, dependency, scientific method, API, schema or migration changed in C2.
 Final-version actual readers, clean candidate/exact-master gates and final
 all-seven specialist implementation assessments remain required before delivery.
+
+## C3 preparation — Final-version preflight
+
+`c3-preflight-recipe.json` and its complete gate qualify 42 archive integration
+cases, frozen uv, coordinated 0.28.1 version/schema/dependency/migration identity,
+production harness/license checks and diff validation. All five versions agree;
+external packages, pnpm graph, schema versions and migration history remain intact.
+The preceding 0.28.0 producer remains covered by the archive matrix.
+
+Fresh fetch/merge leaves origin/master at 00320ea; stable latest remains 0.28.0
+and the 0.28.1 tag is available. The actual tagged 0.28.0 source was extracted to
+`/tmp/neistra98-reader-0280`, retaining its real API/core roots and 0.28.0 metadata.
+Its separate producer/reader execution is still pending at this preflight stage.
+
+`release-recipe.py.txt` adapts the preceding release's 24-step convention to this
+issue, actual 0.28.0 readers and final 0.28.1. `versions.py.txt`,
+`production-audit.py.txt` and `qualification-summary.py.txt` retain explicit
+version/dependency/schema/production/exclusion checks. Candidate and exact-master
+recipes are prepared before committing, so each can begin from a clean committed
+state. Generated evidence never substitutes for executing the commands. Complete
+candidate/exact-master qualification and final specialist assessments remain pending.
