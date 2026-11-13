@@ -1,0 +1,125 @@
+{
+  "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+  "comparison_base": "00320ea9e9d60fd19f12279669a00d88e540e434",
+  "qualified_runtime": "bf502040c77b2542112cf1134dd4f3d45f563e10",
+  "complete": true,
+  "consequential_findings_unresolved": 0,
+  "assessments": [
+    {
+      "role": "scientific_theory",
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "scope": "Exact stored warning fidelity and interpretation; no numerical method, unit, frame or scientific contract change.",
+      "checks": [
+        "All15 changed source/config/test areas and approved contract/D-152",
+        "718 current hashes and24 zero exits/lossless logs",
+        "713 actual preceding-source hashes and both reader directions/suffixes",
+        "Raw complete browser report377pass/75exclusions;13featurepasses; exact prior74 exclusions",
+        "Unchanged originals/projections/project/history/coordinates/previews and no validation/resolution inference"
+      ],
+      "findings": [],
+      "limits": "Read-only role assessment; exact-master qualification and publication are subsequent delivery gates."
+    },
+    {
+      "role": "scientific_implementation",
+      "scope": "Exact warning records and molecular identity/state regression; no scientific computation or durable contract change.",
+      "checks": [
+        "All15 source/config/test changes plus final documentation/evidence",
+        "718 current and713 actual preceding-source hashes",
+        "All24 zero exits/lossless logs",
+        "Complete browser report377/75,13featurepasses, exact74baseline exclusions",
+        "Actual reader roots/versions/bothsuffixes and coordinate/original/history/job/scene/surface/selection invariants",
+        "Explicit incomplete-attempt preservation and verified13-step reuse; no partial result accepted"
+      ],
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "findings": [],
+      "limits": "Read-only specialist agent assessment; exact merged-master qualification and publication remain subsequent delivery gates."
+    },
+    {
+      "role": "modeling_reference",
+      "scope": "Documented general warning/detail principles, original compact adaptation and neutral repository terminology; no exact aggregate-counter parity claim.",
+      "checks": [
+        "Official current primary documentation researched; identifying ledger remains conversation-only",
+        "All15 source/config/test changes, final docs, manifests and representative zoom/mobile visuals",
+        "718 current and713 preceding-source hashes, all24 exits/logs",
+        "Complete377/75 browser report, all13featurepasses and single approved new exclusion",
+        "Final UI source hashes match viewed artifacts",
+        "Interrupted evidence separate and retained13results exact; both actual readers/suffixes pass"
+      ],
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "findings": [],
+      "limits": "Read-only specialist agent assessment; exact merged-master qualification and publication remain subsequent delivery gates."
+    },
+    {
+      "role": "ui_design",
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "scope": "Compact hierarchy, readable complete records, grouping, severity, keyboard focus, bounded geometry, zoom/themes and coarse controls.",
+      "checks": [
+        "Full component/integration/styles/movement guard and unit/native tests plus final docs",
+        "718 source hashes and24 command/log hashes",
+        "Complete377/75 report with13featurepasses",
+        "Fresh C3 desktop-light, dark actual200% zoom, mobile500-record start/end screenshots viewed",
+        "Unclipped status/text, wrapping, final rows, focus outline, persistentClose and44px coarse/narrow geometry",
+        "Native axe/keyboard/outside-dismiss/focus-return/movement assertions inspected"
+      ],
+      "findings": [],
+      "limits": "Read-only specialist agent review; exact-master qualification and publication remain subsequent gates."
+    },
+    {
+      "role": "software_architecture",
+      "scope": "Current warning authority, transient local/project ownership, lifecycle/focus cleanup, narrow movement input boundary and unchanged persisted contracts.",
+      "checks": [
+        "All15 source/config/test files plus final docs/evidence/verifier diff",
+        "718 current hashes AND full inventory identical to bf502040",
+        "24 exits/lossless logs; original/resume recipe/runner/command identities and retained13results",
+        "452 browser records:377pass/75exclusions; exact74baseline,13featurepasses, no failures/flakes/retries",
+        "1334Python zero skips/402frontend/14supervisor",
+        "Both actual reader roots/versions/suffixes/invariants and713old-source hashes",
+        "4237.625s completed-command versus8393s wall-time reporting accurate"
+      ],
+      "nonblocking_disposition": "Final verifier covers the earlier inventory suggestion; additional per-step enforcement is optional and not a blocker.",
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "findings": [],
+      "limits": "Read-only specialist agent assessment; exact-master qualification and remote publication remain subsequent gates."
+    },
+    {
+      "role": "ux_design",
+      "scope": "Direct inspection flow, current exact records, keyboard/list navigation, outside focus/input, lifecycle and movement Escape ownership.",
+      "checks": [
+        "Approved contract/D-152 and complete workflow source/tests/docs",
+        "Final mobile long-list and desktop200% images match candidate UI source",
+        "718 hashes and24 exits/logs",
+        "Raw377/75 report;13featurepasses; exact74prior exclusions; zero failures/flakes/retries",
+        "Enter/Space, Escape/Close/outside focus; Tab/End/Home; final rows andClose",
+        "Empty/update/rename/hide/delete/undo/cache/project/remount paths",
+        "First focused Escape preserves movement; canvas Escape cancels; status pointer pass-through"
+      ],
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "findings": [],
+      "limits": "Read-only specialist agent assessment; exact-master qualification and remote publication remain subsequent gates."
+    },
+    {
+      "role": "performance",
+      "candidate": "09015f15d8c8395ccfee5c71f78ef8dd398e4267",
+      "verdict": "PASS",
+      "scope": "Bounded presentation work/lifetime, complete500-record access, immutable native/data behavior, portable performance policy and continuation evidence integrity.",
+      "checks": [
+        "Complete intended diff/inventory and intervening docs; no source/test/config change since bf502040",
+        "All24 zero exits/log hashes;718current hashes/full inventory;713actual prior-source hashes",
+        "Original/resume recipe/runner/command identities",
+        "377pass/75exclusions,13featurepasses, exact74prior identities, no failures/flakes/retries",
+        "Both actual reader directions/suffixes and state invariants",
+        "C2 measurements and independently reproduced zero closed-state payload reads remain source-applicable",
+        "Cleanup, zero extra molecular requests/remounts, native input/lifecycle and explicit continuation/duration/local-diagnostic reporting"
+      ],
+      "findings": [],
+      "limits": "Portable correctness; no strict timing, speedup, universal capacity or total GPU-memory claim. Exact-master qualification and publication remain separate."
+    }
+  ],
+  "provenance": "Specialist agent assessments, not independent human approval."
+}

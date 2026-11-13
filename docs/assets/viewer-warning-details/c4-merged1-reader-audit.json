@@ -1,0 +1,27 @@
+{
+  "preceding_tag": "v0.28.0",
+  "preceding_runtime": "f02ca386e97a200bbc39299c1f464cd4783a7b39",
+  "directions": {
+    "forward-produce": {
+      "version": "0.28.1",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_and_both_suffixes_verified": true
+    },
+    "forward-read": {
+      "version": "0.28.0",
+      "implementation_root": "/tmp/neistra98-reader-0280",
+      "module_paths_and_both_suffixes_verified": true
+    },
+    "reverse-produce": {
+      "version": "0.28.0",
+      "implementation_root": "/tmp/neistra98-reader-0280",
+      "module_paths_and_both_suffixes_verified": true
+    },
+    "reverse-read": {
+      "version": "0.28.1",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_and_both_suffixes_verified": true
+    }
+  },
+  "preceding_source_identities": 713
+}
