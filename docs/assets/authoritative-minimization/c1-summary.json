@@ -1,0 +1,64 @@
+{
+  "checkpoint": "C1",
+  "base": "bae090a337d7cc5371d4cd448eae95ced6b591a1",
+  "comparison": "5f6a2b869d9f8a32a1f921eccb6863c3148188e6",
+  "qualification": "uncommitted checkpoint; not a complete release gate",
+  "python": {
+    "passed": 309,
+    "seconds": 50.29,
+    "log": "c1-python.log.gz"
+  },
+  "frontend": {
+    "passed": 408,
+    "files": 67,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "build_advisory": "existing lazy bundle size"
+  },
+  "backend_static": {
+    "ruff": "PASS",
+    "mypy": "PASS",
+    "source_files": 199
+  },
+  "browser": {
+    "startTime": "2026-11-13T13:32:35.802Z",
+    "duration": 318551.054,
+    "expected": 41,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_report": "c1-browser.json.gz",
+  "exclusions": [
+    "existing mobile exclusion for actual desktop extension zoom"
+  ],
+  "source_identity": {
+    "files": 719,
+    "unchanged_during_final_native_gate": true,
+    "manifest": "c1-source-identity.json.gz"
+  },
+  "review": {
+    "scientific_theory": "PASS after missing-connectivity coverage and nonpolymer entity corrections",
+    "final_seven_role_gate": "pending C7"
+  },
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-c1-native2",
+    "NEISTRA_E2E_API_PORT": "18410",
+    "NEISTRA_E2E_WORKER_PORT": "18411",
+    "NEISTRA_E2E_WEB_PORT": "15573",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "artifacts": {
+    "c1-source-identity.json.gz": "28d705b0eed8efd157c1c43f43be234ab17212ca1c6bb40432c040fbeb64673b",
+    "c1-browser.json.gz": "f0393033a55db85511577eb0c1ddc63a5cf1ef7d53dd80ac38eafe0da2017b5a",
+    "c1-diagnostic-test-failed-1.png": "8d63b5aaf743e19183398cb0a05c2e934b057404139581fb8af9af96d841f87a",
+    "c1-python.log.gz": "c358266728794cf7bf031764a06cc0db031f69ae706a092f544653abe43c0d81",
+    "c1-diagnostic-error-context.txt": "c30fdaba546542a4684738d6102aa9f3820ea4fb09fcfdc6b257a6ef9233963f",
+    "c1-diagnostic-trace.zip": "c79970614c55b845304e0a034e8d6375c5567fd8ffcfb316a37e901822d8a5c8"
+  }
+}

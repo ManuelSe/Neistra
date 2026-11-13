@@ -10,22 +10,23 @@ authority, unchanged existing projects and reliable quick-publication ownership.
 The user approved the broader specialist findings while explicitly excluding
 original-topology recovery and any new repair action for existing sparse projects.
 
-Completed work: planning/exploration, requirement dispositions, C0 branch creation,
-approved plan persistence and append-only decisions. C0 document checks and the
-commit/push remote receipt are reported at handoff. Runtime checkpoints C1–C8 are
-pending. No application code, versions, dependencies, schemas or migrations changed.
+Completed: verified C0 `bae090a` and C1 current-connectivity implementation under
+the subsequent `/goal`. Import records supported inferred edges; viewer and quick
+calculation preserve exact current graphs; editors retain valid exclusions; old
+quick proposals remain inspectable but refuse Apply; worker versions are verified.
+Scientific review corrected nonpolymer peptide inference and sparse-model coverage.
 
-Verification: clean master fetched/fast-forward checked; latest release remains
-v0.28.1 and proposed v0.29.0 tag/release is available. Prior review tests are baseline
-evidence only. C0 verifies document links/scope, naming restrictions and whitespace;
-runtime release gates and final specialist reviews have not been performed for
-this future implementation.
+Verification: [C1 evidence](assets/authoritative-minimization/README.md) records
+**309 Python, 408 frontend, 41 native browser passes / one existing mobile zoom
+exclusion**, zero final failures/flakes/retries, Ruff/mypy (199 source files),
+lint/types/build/diff and 719 unchanged source identities. Scientific theory PASSes
+C1 methods/invariants; all-seven final review, full gates and actual readers remain
+C7/C8 work. Earlier diagnostics are separate. App versions remain 0.28.1; quick
+implementation is 1.0.3. No dependency/schema/migration changes.
 
-Known limitations: the reviewed defects remain; existing sparse project graphs
-will intentionally stay unchanged. Planned release impact: **minor 0.29.0** for
-expanded controls, diagnostics and authoritative import behavior, with existing
-durable schemas/head retained. Blockers: none for planning persistence. Next action:
-verify C0 commit/push, then stop ready for `/goal`; do not begin runtime implementation.
+Known limitations: C2 recovery and C3–C8 remain; existing sparse graphs intentionally
+stay unchanged. Planned release remains **minor 0.29.0**. Blockers: none. Next action:
+commit the passing C1 checkpoint, then implement C2 publication transaction/recovery.
 
 ### Previous completed milestone — issue #98
 

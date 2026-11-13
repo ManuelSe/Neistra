@@ -10,6 +10,11 @@ from rdkit.Chem import AllChem
 
 from neistra_core.adapters.rdkit_common import normalized_to_mol
 from neistra_core.hydrogen_protection import authored_protection
+from neistra_core.modeling_metadata import (
+    InvalidModelingMetadata,
+    modeling_metadata,
+    update_bond_exclusions,
+)
 from neistra_core.molecular import (
     Atom,
     Bond,
@@ -81,6 +86,10 @@ class StructureValidator:
     ) -> tuple[MolecularWarning, ...]:
         if structure.structure_type != "ligand":
             raise InvalidLigandEditError("Ligand editing requires a ligand entry")
+        try:
+            modeling_metadata(structure)
+        except InvalidModelingMetadata as error:
+            raise InvalidLigandEditError(str(error)) from error
         mol = normalized_to_mol(structure)
         try:
             Chem.SanitizeMol(mol)
@@ -111,6 +120,10 @@ class StructureValidator:
 
     @staticmethod
     def stereochemistry(structure: NormalizedStructureV1) -> dict[int, str]:
+        try:
+            modeling_metadata(structure)
+        except InvalidModelingMetadata as error:
+            raise InvalidLigandEditError(str(error)) from error
         mol = normalized_to_mol(structure)
         Chem.SanitizeMol(mol)
         Chem.AssignStereochemistry(mol, cleanIt=True, force=True)
@@ -523,7 +536,10 @@ class RdkitLigandEditor:
         inference: InferenceRecord | None = None,
         extra_warnings: tuple[MolecularWarning, ...] = (),
     ) -> EditResult:
-        after = self._from_mol(before, mol, inference)
+        try:
+            after = update_bond_exclusions(before, self._from_mol(before, mol, inference))
+        except InvalidModelingMetadata as error:
+            raise InvalidLigandEditError(str(error)) from error
         warnings = (
             *self.validator.validate(after, operation),
             *self.validator.stereo_warnings(before, after, operation),
@@ -542,6 +558,10 @@ class RdkitLigandEditor:
 
     @staticmethod
     def _sanitized_mol(structure: NormalizedStructureV1) -> Any:
+        try:
+            modeling_metadata(structure)
+        except InvalidModelingMetadata as error:
+            raise InvalidLigandEditError(str(error)) from error
         mol = normalized_to_mol(structure)
         try:
             Chem.SanitizeMol(mol)

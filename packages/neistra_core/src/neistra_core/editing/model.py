@@ -32,9 +32,20 @@ from neistra_core.editing.reconciliation import ReconciliationReport, reconcile_
 from neistra_core.editing.selection import SelectionEditResult
 from neistra_core.editing.single_hydrogen import add_one_hydrogen
 from neistra_core.hydrogen_protection import authored_protection
+from neistra_core.modeling_metadata import (
+    MODELING_METADATA as MODELING_METADATA,
+)
+from neistra_core.modeling_metadata import (
+    InvalidModelingMetadata,
+)
+from neistra_core.modeling_metadata import (
+    ModelingMetadata as ModelingMetadata,
+)
+from neistra_core.modeling_metadata import (
+    modeling_metadata as _modeling_metadata,
+)
 from neistra_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
-MODELING_METADATA = "neistra_modeling"
 HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible", "automatic"]
 
 
@@ -139,28 +150,12 @@ ModelAction = Annotated[
 ]
 
 
-class ModelingMetadata(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
-    schema_version: Literal[1] = 1
-    excluded_bonds: list[tuple[StrictInt, StrictInt]] = Field(default_factory=list)
-
-    @field_validator("excluded_bonds")
-    @classmethod
-    def canonical_pairs(cls, value: list[tuple[int, int]]) -> list[tuple[int, int]]:
-        if any(a < 1 or b < 1 or a == b for a, b in value):
-            raise ValueError("Excluded bonds require distinct positive atom identities.")
-        return sorted({(min(a, b), max(a, b)) for a, b in value})
-
-
 def modeling_metadata(structure: NormalizedStructureV1) -> ModelingMetadata:
+    """Compatibility boundary retaining the direct editor's error type."""
     try:
-        metadata = ModelingMetadata.model_validate(structure.metadata.get(MODELING_METADATA, {}))
-    except ValueError as error:
-        raise InvalidModelEdit("Unsupported or invalid authored modeling metadata.") from error
-    ids = {a.id for a in structure.atoms}
-    if any(a not in ids or b not in ids for a, b in metadata.excluded_bonds):
-        raise InvalidModelEdit("Authored bond exclusions reference missing atoms.")
-    return metadata
+        return _modeling_metadata(structure)
+    except InvalidModelingMetadata as error:
+        raise InvalidModelEdit(str(error)) from error
 
 
 def model_warning(

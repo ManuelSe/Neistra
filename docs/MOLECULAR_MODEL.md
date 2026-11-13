@@ -21,6 +21,16 @@ and generated/inferred coordinates remain distinguishable through inferred field
 operation warnings and inference records. Navigation categories do not determine
 chemical editing eligibility; authoritative bonds can cross component boundaries.
 
+Bond representations and coordinate minimization consume exactly the current
+canonical connectivity, including an empty graph. Neither renderer inference nor
+an original upload can restore a deleted edge. PDB/mmCIF import may add supported
+standard-protein connectivity when the existing import inference option is enabled;
+those inferred edges are stored in the current model with unknown bond orders and
+explicit provenance. Disabling inference preserves supplied connectivity only.
+Existing projects/native archives are not repaired on load and no new connectivity
+repair action is provided. Unsupported or ambiguous imported connectivity remains
+unresolved with diagnostics, rather than being invented during display or cleanup.
+
 ## Hydrogen completion
 
 Completion adds H only. Existing H, heavy-atom coordinates and original source

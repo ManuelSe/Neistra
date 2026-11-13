@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from functools import lru_cache
 from itertools import pairwise
 from typing import Any
 
@@ -11,49 +10,26 @@ import numpy as np
 from rdkit import Chem
 
 from neistra_core.minimization.contracts import CalculationError
-from neistra_core.molecular import Atom, Bond, NormalizedStructureV1
-
-CODES = dict(
-    zip(
-        ("ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL").split(),
-        "ARNDCQEGHILKMFPSTWYV",
-        strict=True,
-    )
-)
-
-
-@lru_cache(maxsize=20)
-def template(name: str) -> Any:
-    mol = Chem.MolFromSequence(CODES[name])
-    if name == "ILE":
-        # RDKit sequence template attaches CD1 to CG2; PDB ILE uses CG1.
-        indices = {a.GetPDBResidueInfo().GetName().strip(): a.GetIdx() for a in mol.GetAtoms()}
-        if mol.GetBondBetweenAtoms(indices["CG2"], indices["CD1"]) is not None:
-            rw = Chem.RWMol(mol)
-            rw.RemoveBond(indices["CG2"], indices["CD1"])
-            rw.AddBond(indices["CG1"], indices["CD1"], Chem.BondType.SINGLE)
-            mol = rw.GetMol()
-    return mol
+from neistra_core.molecular import Atom, MolecularWarning, NormalizedStructureV1
+from neistra_core.protein_connectivity import CODES as CODES
+from neistra_core.protein_connectivity import sequence_neighbors
+from neistra_core.protein_connectivity import template as template
 
 
 def protein_graph(
     source: NormalizedStructureV1,
 ) -> tuple[NormalizedStructureV1, set[int], dict[int, str]]:
-    """Fill unknown template facts only. Never complete missing heavy atoms."""
+    """Interpret existing edges and states only; the current endpoint graph is exact."""
     groups = defaultdict(list)
     for atom in source.atoms:
         groups[atom.residue_id].append(atom)
     bonds = {frozenset((b.atom_1_id, b.atom_2_id)): b for b in source.bonds}
-    next_id = max((b.id for b in source.bonds), default=0) + 1
-    incomplete_facts = any(a.formal_charge is None for a in source.atoms) or any(
-        b.order is None for b in source.bonds
-    )
     atoms = {a.id: a for a in source.atoms}
     protein: set[int] = set()
     assumptions = {}
+    diagnostics: dict[int, set[tuple[int, int]]] = defaultdict(set)
 
     def link(first: int, second: int, order: float) -> None:
-        nonlocal next_id
         key = frozenset((first, second))
         existing = bonds.get(key)
         if existing is not None:
@@ -62,16 +38,6 @@ def protein_graph(
                 bonds[key] = existing.model_copy(
                     update={"order": resolved, "aromatic": resolved == 1.5}
                 )
-        elif incomplete_facts:
-            bonds[key] = Bond(
-                id=next_id,
-                atom_1_id=first,
-                atom_2_id=second,
-                order=order,
-                aromatic=order == 1.5,
-                inferred=True,
-            )
-            next_id += 1
 
     for residue in source.residues:
         if residue.name not in CODES:
@@ -93,6 +59,11 @@ def protein_graph(
                 x.GetPDBResidueInfo().GetName().strip() for x in (b.GetBeginAtom(), b.GetEndAtom())
             )
             if a in names and c in names:
+                edge = frozenset((names[a].id, names[c].id))
+                if edge not in bonds:
+                    diagnostics[residue.id].add(
+                        (min(names[a].id, names[c].id), max(names[a].id, names[c].id))
+                    )
                 link(names[a].id, names[c].id, b.GetBondTypeAsDouble())
         for b in source.bonds:
             if b.atom_1_id in {a.id for a in group} and b.atom_2_id in {a.id for a in group}:
@@ -187,15 +158,10 @@ def protein_graph(
         b = {x.name: x for x in groups[second.id]}
         if not {"C", "CA"} <= a.keys() or "N" not in b:
             continue
-        contiguous = (
-            first.label_number is not None and second.label_number == first.label_number + 1
-        ) or (
-            first.author_number is not None
-            and second.author_number == first.author_number + 1
-            and not first.insertion_code
-            and not second.insertion_code
-        )
-        if a["C"].id in protein and b["N"].id in protein and contiguous:
+        if a["C"].id in protein and b["N"].id in protein and sequence_neighbors(first, second):
+            edge = frozenset((a["C"].id, b["N"].id))
+            if edge not in bonds:
+                diagnostics[second.id].add((min(a["C"].id, b["N"].id), max(a["C"].id, b["N"].id)))
             link(a["C"].id, b["N"].id, 1.0)
     for bond in list(bonds.values()):
         if bond.order is None and all(
@@ -207,6 +173,23 @@ def protein_graph(
             update={
                 "atoms": [atoms[a.id] for a in source.atoms],
                 "bonds": sorted(bonds.values(), key=lambda b: b.id),
+                "warnings": [
+                    *source.warnings,
+                    *[
+                        MolecularWarning(
+                            code="quick_current_connectivity",
+                            message=(
+                                f"Residue {residue_id}: {len(edges)} observed template connections "
+                                "are absent from the current graph and remain absent. "
+                                "The local calculation follows stored connectivity; "
+                                "use explicit bond editing to change it."
+                            ),
+                            operation="coordinates.quick_minimize",
+                            field=f"residues.{residue_id}",
+                        )
+                        for residue_id, edges in sorted(diagnostics.items())
+                    ],
+                ],
             }
         ),
         protein,

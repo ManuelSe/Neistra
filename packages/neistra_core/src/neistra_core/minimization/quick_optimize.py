@@ -418,7 +418,9 @@ def optimize(
         else f"Local relaxation: {termination}",
         method=method,
         coverage="approximate"
-        if method != "MMFF94" or any(m != "MMFF94" for m in assembly.modes)
+        if assembly.connectivity_limited
+        or method != "MMFF94"
+        or any(m != "MMFF94" for m in assembly.modes)
         else "complete",
         initial_energy=initial_energy,
         final_energy=final_energy,

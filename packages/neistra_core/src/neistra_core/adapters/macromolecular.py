@@ -28,6 +28,7 @@ from neistra_core.molecular import (
     Residue,
     SourceFacts,
 )
+from neistra_core.protein_connectivity import infer_standard_connectivity
 
 WATER_NAMES = {"DOD", "HOH", "H2O", "WAT"}
 ION_ELEMENTS = {
@@ -134,6 +135,7 @@ def _normalized_from_gemmi(
     format_name: str,
     categories: list[str] | None = None,
     pdb_text: str | None = None,
+    infer_bonds: bool = True,
 ) -> NormalizedStructureV1:
     if not len(structure) or structure[0].count_atom_sites() == 0:
         raise AdapterError(
@@ -374,7 +376,7 @@ def _normalized_from_gemmi(
 
     warnings.extend(protection_import_warnings(protections))
     title = structure.name.strip() or Path(filename).stem
-    return NormalizedStructureV1(
+    normalized = NormalizedStructureV1(
         title=title,
         structure_type=_structure_type(residues),
         source=SourceFacts(
@@ -403,6 +405,31 @@ def _normalized_from_gemmi(
         },
         warnings=warnings,
     )
+    if not infer_bonds:
+        return normalized
+    # TER records can be lost by entity/subchain normalization. A break in any
+    # model vetoes inference after that observed residue in every conformer.
+    break_after = set()
+    if pdb_text:
+        previous_atom_id: int | None = None
+        for line in pdb_text.splitlines():
+            if line.startswith(("MODEL ", "ENDMDL")):
+                previous_atom_id = None
+            elif line.startswith(("ATOM  ", "HETATM")):
+                try:
+                    signature = (
+                        line[21:22].strip(), line[17:20].strip(), int(line[22:26]),
+                        line[26:27].strip(), line[12:16].strip(), line[16:17].strip(),
+                    )
+                    previous_atom_id = signature_to_atom_id.get(signature)
+                except ValueError:
+                    previous_atom_id = None
+            elif line.startswith("TER") and previous_atom_id is not None:
+                break_residue_id = atoms[previous_atom_id - 1].residue_id
+                if break_residue_id is not None:
+                    break_after.add(break_residue_id)
+                previous_atom_id = None
+    return infer_standard_connectivity(normalized, break_after=frozenset(break_after))
 
 
 class PdbAdapter:
@@ -416,7 +443,7 @@ class PdbAdapter:
     def parse(
         self, data: bytes, filename: str, options: ImportOptions | None = None
     ) -> ParseResult:
-        del options
+        import_options = options or ImportOptions()
         text = _decode(data, filename)
         try:
             structure = gemmi.read_pdb_string(text)
@@ -432,6 +459,7 @@ class PdbAdapter:
             filename=filename,
             format_name="pdb",
             pdb_text=text,
+            infer_bonds=import_options.infer_bonds,
         )
         return ParseResult(structures=(normalized,))
 
@@ -455,7 +483,7 @@ class MmcifAdapter:
     def parse(
         self, data: bytes, filename: str, options: ImportOptions | None = None
     ) -> ParseResult:
-        del options
+        import_options = options or ImportOptions()
         text = _decode(data, filename)
         try:
             document = gemmi.cif.read_string(text)
@@ -482,6 +510,7 @@ class MmcifAdapter:
             filename=filename,
             format_name="mmcif",
             categories=list(block.get_mmcif_category_names()),
+            infer_bonds=import_options.infer_bonds,
         )
         return ParseResult(structures=(normalized,))
 

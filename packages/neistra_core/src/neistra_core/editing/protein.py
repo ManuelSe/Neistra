@@ -11,6 +11,7 @@ from pdbfixer import PDBFixer
 
 from neistra_core.adapters.macromolecular import PdbAdapter
 from neistra_core.hydrogen_protection import ordinary_generated
+from neistra_core.modeling_metadata import InvalidModelingMetadata, update_bond_exclusions
 from neistra_core.molecular import (
     Atom,
     Bond,
@@ -878,7 +879,10 @@ class PdbfixerProteinEditor:
         changed_chain_ids: tuple[int, ...] = (),
         deleted_chain_ids: tuple[int, ...] = (),
     ) -> ProteinEditResult:
-        del before
+        try:
+            after = update_bond_exclusions(before, after)
+        except InvalidModelingMetadata as error:
+            raise InvalidProteinEditError(str(error)) from error
         warnings = (*self.validator.validate(after, operation), *extra_warnings)
         after = after.model_copy(
             update={"warnings": [*after.warnings, *warnings]}

@@ -30,6 +30,32 @@ protein templates and bounded ligand bond-order inference may supply temporary
 unknown facts without changing connectivity. Missing historical isotope/radical
 metadata alone does not block cleanup; known evidence remains protected.
 
+### Current connectivity
+
+The current normalized bond graph is authoritative, including a sparse or empty
+graph. Quick minimization never reconnects a deleted bond, consults an original
+upload to restore connectivity, or repairs missing canonical connectivity. The
+viewer displays that same graph. Temporary assignment of an unknown order on an
+existing edge is distinct from adding an edge; calculation-only hydrogens and
+boundary caps never reconnect absent canonical bonds.
+
+New PDB/mmCIF imports can record supported standard-protein connectivity under the
+existing **Infer missing connectivity** option. This happens before the imported
+model is stored; inferred edges retain unknown order and explicit provenance.
+Existing projects and native archives are not upgraded or repaired on opening.
+Sparse current graphs remain sparse and can be edited with existing bond tools;
+calculation diagnostics explain applicable scientific limitations.
+Native parameters for disconnected literal fragments do not establish complete
+protein coverage. Locally modeled standard-residue connectivity discrepancies
+mark coverage approximate and disclose that temporary H follows the current graph.
+
+Corrected quick jobs use implementation 1.0.3. Earlier quick results remain
+inspectable and downloadable but require a new calculation before Apply. Queued
+jobs whose recorded implementation is unavailable fail explicitly rather than
+executing a different implementation under the old provenance.
+
+### Temporary states and acceptance
+
 Missing protein states use conventional temporary defaults: ASP/GLU negative,
 LYS/ARG positive, neutral CYS/TYR and epsilon-H HIS unless supplied state/H evidence
 specifies otherwise. Assumptions are reported; no pH prediction, missing heavy atom

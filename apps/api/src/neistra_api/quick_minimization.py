@@ -266,6 +266,11 @@ class QuickService(MinimizationService):
             reason = "Archived quick calculations are historical and cannot Apply"
         elif "quick_minimization_application" in job.provenance:
             reason = "This proposal has already been applied; use Undo/Redo or calculate again"
+        elif (
+            job.implementation_version not in {"1.0.3"}
+            or job.result_values.get("graph_policy") != "current-canonical-v1"
+        ):
+            reason = "Earlier or unsupported connectivity model; rerun minimization"
         elif report.outcome in {"improved", "converged"} and not (
             report.bonded_geometry_verified and report.planar_geometry_verified
         ):

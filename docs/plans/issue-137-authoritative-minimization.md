@@ -2,8 +2,9 @@
 
 ## 1. Contract, authority, and scope decisions
 
-**Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is the
-planning-only persistence checkpoint; runtime implementation remains pending.
+**Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
+the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
+C2–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -465,10 +466,38 @@ to avoid a self-referential commit claim.
 
 | Checkpoint | State |
 | --- | --- |
-| C0 | Planning contract approved and persisted; passing document checks and the verified commit/push receipt are supplied at handoff. |
-| C1–C8 | Pending; no runtime implementation or release qualification claimed. |
+| C0 | Complete: verified local/remote `bae090a337d7cc5371d4cd448eae95ced6b591a1`. |
+| C1 | Implemented and focused-qualified; checkpoint commit follows passing review/evidence below. |
+| C2–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
 compatibility does not restore fixes in old binaries. Blockers: none identified
-for planning persistence. Next action after verified C0 delivery: wait for `/goal`.
+for planning persistence. The subsequent `/goal` resumes runtime work as recorded below.
+
+### C1 — 2026-11-13: current graph authority
+
+New PDB/mmCIF imports honor inference options and record supported 20AA/peptide
+edges, with conservative geometry, TER, entity and all-conformer checks. Current
+viewer bonds exactly match canonical graphs, including empty graphs, sorted source
+rows, stretched cross-unit bonds and representation subsets. Quick interpretation
+cannot add canonical edges or helper shortcuts; sparse modeled protein fragments
+receive explicit approximate coverage. All editors maintain existing exclusions.
+Originals/existing project graphs remain unchanged. Historical quick reports retain
+inspection/download but cannot Apply; both worker definitions must match provenance.
+
+[Evidence](../assets/authoritative-minimization/README.md) and
+[summary](../assets/authoritative-minimization/c1-summary.json): **309 Python,
+408 frontend, 41 native browser passes / one existing mobile zoom exclusion**;
+zero final failures/flakes/retries. Ruff and mypy (199 source files), lint/types/
+build/diff pass. All 719 source identities remain fixed during the final native
+gate. Earlier diagnostic runs remain separate. Scientific theory PASSes corrected
+C1 methods/invariants; the final seven-role assessment remains C7 work.
+
+Corrections include known nonpolymer/entity peptide vetoes, honest sparse-fragment
+coverage, helper-path guards, native subset/operator bond authority, harness-mount
+readiness, historical fixture inference disabled, and protein-editor exclusion
+pruning. No essential C1 outcome is deferred. No migration, dependency, app-version,
+quick-report schema or original artifact rewrite occurs. C1 is a coherent local
+checkpoint, not feature completion or readiness to push. Next: C2 publication
+transaction/recovery, followed by C3–C8 under this contract.

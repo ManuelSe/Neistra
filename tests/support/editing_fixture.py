@@ -16,6 +16,7 @@ from molweave_api.archive_service import (
 )
 from molweave_api.schemas import ViewerSettingsV2
 from molweave_api.viewer_state import default_viewer_settings
+from molweave_core.adapters.base import ImportOptions
 from molweave_core.adapters.ligand import MolAdapter
 from molweave_core.adapters.macromolecular import PdbAdapter
 from molweave_core.molecular import Conformer, InferenceRecord, NormalizedStructureV1
@@ -27,7 +28,11 @@ def prepared_complex() -> NormalizedStructureV1:
     root = Path(__file__).parents[1] / "fixtures" / "formats"
     protein = (
         PdbAdapter()
-        .parse((root / "protein_editing.pdb").read_bytes(), "protein_editing.pdb")
+        .parse(
+            (root / "protein_editing.pdb").read_bytes(),
+            "protein_editing.pdb",
+            ImportOptions(infer_bonds=False),
+        )
         .structures[0]
     )
     ligand_path = FIXTURE.parent / "ethanol-3d.mol"

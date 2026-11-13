@@ -65,7 +65,7 @@ import { THEME_TOKENS } from "../theme";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import { Binding } from "molstar/lib/mol-util/binding";
 import type { Canvas3DAttribs, Canvas3DProps } from "molstar/lib/mol-canvas3d/canvas3d";
-import { authoredBondInput, AuthoredModelBonds } from "./authoredBonds";
+import { authoredBondInput, AuthoredModelBonds, CanonicalStructureBonds } from "./authoredBonds";
 import {
   hydrogenDisplayMode,
   molstarRepresentationProfile,
@@ -1027,13 +1027,14 @@ export class MolstarEngine implements MolecularViewer {
         ),
       })
       .commit({ revertOnError: true });
-    const bondInput = authoredBondInput(structure.normalized, structure.projection.format);
-    const displayModel = bondInput ? await plugin.state.data.build().to(coordinateModel)
-      .apply(AuthoredModelBonds, { input: bondInput }).commit({ revertOnError: true }) : coordinateModel;
-    const modelStructure =
-      await plugin.builders.structure.createStructure(displayModel);
+    const bondInput = authoredBondInput(structure.normalized);
+    const displayModel = await plugin.state.data.build().to(coordinateModel)
+      .apply(AuthoredModelBonds, { input: bondInput }).commit({ revertOnError: true });
+    const modelStructure = await plugin.builders.structure.createStructure(displayModel, { name: "model", params: {} });
+    const canonicalStructure = await plugin.state.data.build().to(modelStructure)
+      .apply(CanonicalStructureBonds).commit({ revertOnError: true });
     const structureProperties =
-      await plugin.builders.structure.insertStructureProperties(modelStructure);
+      await plugin.builders.structure.insertStructureProperties(canonicalStructure);
     const molstarStructure = structureProperties.obj?.data;
     if (!molstarStructure) {
       throw new Error(`Mol* could not create a structure for ${structure.label}.`);

@@ -185,7 +185,7 @@ export function ImportDialog({
               onChange={(event) => setInferBonds(event.target.checked)}
             />
             <span>
-              Infer XYZ connectivity
+              Infer missing connectivity
               <small>Inferred bonds retain unknown bond order.</small>
             </span>
           </label>

@@ -6643,3 +6643,26 @@ head 0014; project/viewer/archive 2; normalized/selection/component 1. Actual 0.
 reader qualification, complete candidate/exact-master checks and all seven final
 specialist implementation assessments remain required. No application fix, passing
 future release gate, PR, merge, tag or release is claimed by this planning checkpoint.
+
+### D-153 C1 implementation qualification — 2026-11-13
+
+The subsequent `/goal` authorizes implementation/delivery. C1 records supported
+connectivity during new import only; current display/calculation graphs remain
+literal thereafter. Known nonpolymer/entity boundaries veto inferred peptide links.
+Typed local connectivity-limited state marks sparse protein interpretation
+approximate even when native MMFF parameters exist; temporary H assumptions are
+explicit. Helpers cannot create direct or indirect canonical reconnections.
+
+Native root/subset bond discovery had a spatial cutoff even with infinite pair
+distance. Operator-aware canonical pairs on the current model preserve exact
+cross-unit edges through representations/preview refresh. Existing model metadata
+is shared across all editor paths, including pruning after protein deletion.
+Historical fixture construction explicitly opts out of new import inference to
+preserve committed archive bytes. Worker parent/child version mismatches fail
+before executing another implementation; earlier quick proposals retain inspection
+and artifact downloads, with Apply requiring a corrected run.
+
+[C1 evidence](assets/authoritative-minimization/README.md) records focused
+qualification and scientific correction/review. These are checkpoint results,
+not the complete release gate or final seven-role implementation assessment.
+App version/schema/head/dependencies and original artifacts are unchanged.
