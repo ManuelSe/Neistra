@@ -2,63 +2,40 @@
 
 ## Current milestone
 
-Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) has an approved
-[implementation contract](plans/issue-137-authoritative-minimization.md) on
-`fix/issue-137-authoritative-minimization`, based on verified master
-`5f6a2b869d9f8a32a1f921eccb6863c3148188e6`. D-153 records current connectivity
-authority, unchanged existing projects and reliable quick-publication ownership.
-The user approved the broader specialist findings while explicitly excluding
-original-topology recovery and any new repair action for existing sparse projects.
+Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
+[feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
+`fix/issue-137-authoritative-minimization`. Local C0–C4 checkpoints are committed;
+latest is `80adf97`. The feature plan is the detailed progress/evidence source.
 
-Completed: verified C0 `bae090a` and local C1 `b4ee31f` under
-the subsequent `/goal`. Import records supported inferred edges; viewer and quick
-calculation preserve exact current graphs; editors retain valid exclusions; old
-quick proposals remain inspectable but refuse Apply; worker versions are verified.
-Scientific review corrected nonpolymer peptide inference and sparse-model coverage.
+Completed: current canonical connectivity across import/viewer/edit/calculation,
+old-proposal/worker version guards, source-owned publication recovery, explicit
+capability retry/recapture, staged counts and effective-field diagnostics. C4
+corrects five supplied-state interpretation defects and independently qualifies
+states, caps, mixed moving fields and exact coordinate publication. Original bytes
+and existing sparse project graphs remain unchanged; no new repair action is added.
 
-Verification: [C1 evidence](assets/authoritative-minimization/README.md) records
-**309 Python, 408 frontend, 41 native browser passes / one existing mobile zoom
-exclusion**, zero final failures/flakes/retries, Ruff/mypy (199 source files),
-lint/types/build/diff and 719 unchanged source identities. Scientific theory PASSes
-C1 methods/invariants; all-seven final review, full gates and actual readers remain
-C7/C8 work. Earlier diagnostics are separate. App versions remain 0.28.1; quick
-implementation is 1.0.3. No dependency/schema/migration changes.
+Verification: [checkpoint evidence](assets/authoritative-minimization/README.md)
+records C4's **160 Python passes**, Ruff/mypy (199 files) and 735 fixed source
+identities. Unaffected C3 frontend/static/build evidence includes **500 frontend
+and 51 browser passes / one existing mobile desktop-zoom exclusion**, zero final
+failures/flakes/retries. Architecture, theory and UX checkpoint assessments pass;
+C7's complete seven-role review and C7/C8 release/actual-reader gates remain pending.
+Earlier diagnostics are distinct from passing qualification.
 
-C2 `36df747` retains publication ownership across panel dismissal/project
-switch/reload, reconciles ambiguous responses, permits read-only refresh and exact
-explicit retry, and guards source-project writes at dispatch. Export/Jobs remain
-available. Architecture PASSes after captured-command/read-availability corrections.
-All **464 frontend tests** plus lint/types/build pass. The final focused browser
-gate passes **61 cases / one existing mobile desktop-zoom exclusion**, including
-all 14 new recovery cases; zero failures/flakes/retries and 726 unchanged source
-identities. [C2 evidence](assets/authoritative-minimization/c2-summary.json) keeps
-the earlier fixture-order diagnostic separate. Checkpoint full-diff self-review
-has no unresolved consequential finding; this is not final release qualification.
+Completed C5 qualification: immutable assembly indexes and exact count-only queries
+retain byte-identical scientific documents across small/pocket/18k profiles. Local
+direct-plugin medians improve 591→414 ms and 862→569 ms for pocket/18k; retained
+indexes cost extra memory. No overall application speedup/memory reduction or
+strict host timing is claimed. **179 unique focused Python cases** (combined178,
+then current19), Ruff/mypy and **17 native passes / five existing mobile exclusions**
+pass with 737 final identities. Both scientific reviewers reconfirm the final
+test addition and unchanged production source. [C5 evidence](assets/authoritative-minimization/c5-summary.json).
 
-Completed C3 controls/provenance qualification: **93 backend / 500 frontend
-tests**, Ruff, mypy (199 files), lint/types/build pass; theory independently passes
-32 cases and UX 118. Capability retry, explicit frozen-target recapture, staged
-counts, settings disclosure and actual component-field diagnostics preserve quiet
-execution and strict report1. [Final C3 native evidence](assets/authoritative-minimization/c3-summary.json)
-passes **51 cases / one existing mobile desktop-zoom exclusion**, zero failures,
-flakes/retries, with 732 unchanged source identities. UX checkpoint PASS includes
-focus, themes/axe, recapture and actual zoom. Two test-only fixture/drawer diagnostics
-are separate from passing evidence. C4 preparation
-found a bounded supplied-acid-H interpretation correction to complete next.
-
-Completed C4 qualification: narrow unknown-state corrections address five
-reproduced acid/histidine supplied-state defects while preserving assigned facts
-and literal graphs. **160 Python cases**, global Ruff/mypy (199 files) pass;
-theory independently passes 96 and all 735 source identities remain fixed. New
-state/cap, independent mixed-force and real worker/publication/archive cases are
-bounded; synthetic state coordinates are not claimed as physical poses. C3 is
-committed locally as `9e418d3`; frontend/browser evidence remains unaffected.
-
-Known limitations: C5–C8 remain; existing sparse graphs
-intentionally stay unchanged. Planned release remains **minor 0.29.0**. Blockers:
-none. Next action: commit C4, then measure/index C5 against its corrected baseline.
-Final integrated review/release gates
-remain pending.
+Known limitations: C6–C8 remain; scientific cleanup is local
+and existing chemistry limits apply. App versions remain 0.28.1; quick implementation
+is 1.0.3. No dependency/schema/migration change. Planned stable release is **minor
+0.29.0**. Blockers: none. Next: commit C5, then the bounded C6 API helper
+extraction, final gates/reviews and authorized remote delivery.
 
 ### Previous completed milestone — issue #98
 

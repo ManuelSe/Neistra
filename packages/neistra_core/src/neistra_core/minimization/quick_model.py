@@ -13,9 +13,13 @@ from rdkit import Chem
 from neistra_core.jobs import InputArtifact
 from neistra_core.minimization.assembly import project_atoms
 from neistra_core.minimization.contracts import CalculationError
-from neistra_core.minimization.preflight import connected_atoms
 from neistra_core.minimization.quick_chemistry import interpret
-from neistra_core.minimization.quick_context import candidate_entries, discover, isolate_graph
+from neistra_core.minimization.quick_context import (
+    DiscoveryIndex,
+    candidate_entries,
+    discover,
+    isolate_graph,
+)
 from neistra_core.minimization.quick_contracts import (
     QuickEffectiveField,
     QuickParameters,
@@ -47,6 +51,8 @@ class QuickAssembly:
     energy_reference: Literal["model", "captured_geometry"] = "model"
     connectivity_limited: bool = False
     effective_field: QuickEffectiveField | None = None
+    discovery_index: DiscoveryIndex | None = None
+    temporary_adjacency: tuple[frozenset[int], ...] = ()
 
     @property
     def coordinates(self) -> Any:
@@ -199,7 +205,8 @@ def build_assembly(
             standard = {r.id for r in source.residues if r.name in CODES}
             proteins[entry] = {a.id for a in source.atoms if a.residue_id in standard}
             template_assumptions[entry] = {}
-    discovered = discover(graphs, keys, proteins)
+    discovery_index = DiscoveryIndex.build(graphs, proteins)
+    discovered = discover(graphs, keys, proteins, index=discovery_index)
     if membership:
         for entry, ids in membership.items():
             discovered.setdefault(entry, set()).update(ids)
@@ -232,10 +239,7 @@ def build_assembly(
             ]
             connectivity_limited |= bool(connectivity_diagnostics)
             warnings.extend(f"{entry}: {warning.message}" for warning in connectivity_diagnostics)
-        remaining = set(members)
-        while remaining:
-            component = connected_atoms(project_atoms(source, members), {min(remaining)})
-            remaining.difference_update(component)
+        for component in discovery_index.entries[entry].induced_components(members):
             projected = project_atoms(source, component)
             mol, mode, local_caps, notes = interpret(
                 source, projected, component, proteins[entry], parameters.allow_repair
@@ -300,6 +304,11 @@ def build_assembly(
         proteins,
         modes,
         connectivity_limited=connectivity_limited,
+        discovery_index=discovery_index,
+        temporary_adjacency=tuple(
+            frozenset(neighbor.GetIdx() for neighbor in atom.GetNeighbors())
+            for atom in combined.GetAtoms()
+        ),
     )
     validate_current_graph(assembly)
     return assembly

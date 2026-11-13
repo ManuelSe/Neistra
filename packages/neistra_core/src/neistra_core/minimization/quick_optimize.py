@@ -307,10 +307,16 @@ def optimize(
             # The outer 2-angstrom skin protects the 6-angstrom neighborhood.
             # A segment can move sqrt(3)*0.5 angstrom: reserve a 1-angstrom
             # lookahead and rebuild before the protected core exhausts its skin.
-            needed = discover(assembly.graphs, keys, assembly.protein, positions, radius=7.0)
+            needed = discover(
+                assembly.graphs, keys, assembly.protein, positions, radius=7.0,
+                index=assembly.discovery_index,
+            )
             if any(not ids <= set(assembly.modeled_atoms.get(e, [])) for e, ids in needed.items()):
                 before = time.monotonic()
-                needed = discover(assembly.graphs, keys, assembly.protein, positions)
+                needed = discover(
+                    assembly.graphs, keys, assembly.protein, positions,
+                    index=assembly.discovery_index,
+                )
                 for e, ids in assembly.modeled_atoms.items():
                     needed.setdefault(e, set()).update(ids)
                 saved = {identity: full[i].copy() for i, identity in enumerate(helper_keys_cache)}
@@ -384,7 +390,10 @@ def optimize(
         for i, ref in enumerate(assembly.references)
         if ref is not None and ref in keys
     }
-    final_context = discover(assembly.graphs, keys, assembly.protein, final_positions, radius=6.0)
+    final_context = discover(
+        assembly.graphs, keys, assembly.protein, final_positions, radius=6.0,
+        index=assembly.discovery_index,
+    )
     if any(not ids <= set(assembly.modeled_atoms.get(e, [])) for e, ids in final_context.items()):
         raise CalculationError("context_guard", "Final coordinates escaped the local context guard")
     bonds = {

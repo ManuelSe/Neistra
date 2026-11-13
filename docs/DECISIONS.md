@@ -6731,3 +6731,27 @@ surrogate penalty quantities remain distinct. Real worker/API profiles protect
 sparse IDs, inactive conformers, fixed rows, source/original bytes, history and
 archive compatibility. No numerical force-field redesign or persisted schema is
 needed. C4 is the corrected baseline for subsequent measured indexing work.
+
+### D-153 C5 measured assembly indexes — 2026-11-13
+
+Measure against corrected C4 `80adf97`, rather than an earlier scientific method.
+Exact count-only radius queries use `eps=0` and preserve closed 6/7/8 angstrom
+membership. Each assembly owns immutable captured rows/coordinates, current
+adjacency, residue groups and nonprotein components; component members are stored
+once with atom-to-component references. Source/classification mismatches reject
+reuse. Preserve the existing halo/residue/nonprotein closure order and partition
+induced subsets without traversing omitted bridge atoms. Whole model rebuilding
+replaces discovery and helper-adjacency snapshots. Independent calls, including
+Apply screening, construct fresh indexes; none are serialized or shared across jobs.
+
+Protein incident indexes retain endpoint keys and read updated bond objects after
+temporary order interpretation. Temporary adjacency caches endpoints only. No
+all-pairs distance cache, persistent cache, approximation, dependency or resource-
+limit change is introduced. Full timing-free model/report/proposal/provenance data
+are byte-identical before/after in three equivalent profiles.
+
+Measured direct-plugin CPU work improves for pocket/18k profiles, while small work
+is unchanged within noise. The retained indexes increase whole-job memory; only
+dense-query tracked allocation decreases. Accept this bounded linear memory/CPU
+tradeoff with existing worker limits intact. These local measurements do not
+establish browser latency gains or strict reference-host timing qualification.

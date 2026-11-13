@@ -22,6 +22,16 @@ state expectations failed before correcting unknown-fact interpretation; source
 graphs/known chemistry remain exact. C4 is the corrected performance baseline;
 later indexing/shared-boundary and final complete release gates remain required.
 
+C5 measures corrected C4 against immutable assembly indexes. Three equivalent
+small/pocket/18k timing-free scientific documents are byte-identical; inputs,
+parameters, toolchain and work counts match. **178 combined Python passes plus
+19 final discovery cases** cover 179 unique cases; global/static checks and
+**17 native cases / five existing mobile exclusions** pass with 737 final source
+identities. Scientific implementation/theory reviews reconfirm the sole later ARG
+test addition; production sources remain measured and unchanged. Direct-plugin
+CPU improvements trade additional whole-job memory; no application latency or
+overall memory reduction claim follows. [C5 records](assets/authoritative-minimization/c5-summary.json).
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the

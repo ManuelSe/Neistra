@@ -76,7 +76,7 @@ Diagnostics remain separate:
   later GET (timestamp serialization/job-link differences); it now compares fresh
   server state immediately before/after refusal. The preservation assertion remains.
 
-C5–C8 and complete final-version candidate/master/reader qualification are pending.
+C6–C8 and complete final-version candidate/master/reader qualification are pending.
 
 ## C2 — Reliable quick publication
 
@@ -199,3 +199,62 @@ The checkpoint uses `fix(minimization)` because qualification exposed actual
 scientific defects. This is the corrected C5 performance baseline. No force-field
 redesign, canonical repair, pH prediction, dependency, migration, schema or version
 change occurs. Final all-seven review and release qualification remain pending.
+
+## C5 — Measured assembly indexes
+
+[Summary](c5-summary.json) and [comparison](c5-comparison-summary.json) record
+equivalent corrected-C4 `80adf97` baseline and indexed candidate runs. The
+[permanent script](../../../scripts/benchmark_quick_indexes.py) and
+[sequential recipe](c5-comparison-recipe.json) preserve explicit implementation
+roots, fixtures, source identities, input/parameter hashes, locked toolchain,
+one cold/five warm samples, cProfile and allocation/RSS observations.
+
+Warm direct-plugin medians (ms): **13.793→13.749** small (neutral within noise),
+**590.656→414.043** pocket, **861.735→569.399** 18k captured scene. These exclude
+worker spawn, DB/API, browser and artifact-store publication. No overall application
+speedup or strict reference-host timing is claimed. Tracked whole-job peaks rise
+15.781→16.568 MB and 72.167→78.221 MB (decimal MB) for pocket/18k; index snapshots
+have a linear memory cost. No whole-job memory reduction is claimed.
+
+The separate [dense-query witness](c5-count-allocation-baseline.json) and
+[reproducer](c5-count-allocation.py.txt) retain 262,144 neighbors while reducing
+tracked query allocation 2,491,568→165,040 bytes. This microallocation proof is
+distinct from application timing.
+
+For each profile (`small`, `pocket`, `18k`), retained files are:
+
+- `c5-baseline-final-<profile>.json.gz` and `c5-candidate1-<profile>.json.gz`:
+  complete measurements, 128 core-source identities, fixture/input/parameter/tool
+  hashes, all six sample identities/stages and instrumentation.
+- Matching `.log.gz`: exact command output.
+- Matching `-scientific.json.gz`: complete timing-free model/field/provenance,
+  proposal and report. Baseline and candidate decompressed bytes match exactly;
+  no cooperative-budget stop changes work (101/115 or 53/63 iterations/evaluations).
+
+[Combined Python log](c5-python.log.gz) passes 178 in 19.27 seconds;
+[final discovery log](c5-discovery.log.gz) passes 19 in 0.16 seconds. One ARG
+incident-order test was added afterward, so these cover **179 unique cases**.
+It catches stale unknown-order lookup before charge assignment. Only that test
+file changed; final [scoped Ruff](c5-discovery-ruff.log.gz), independent reviewer
+delta checks and source inventory were updated. [Global Ruff](c5-ruff.log.gz) and
+[mypy](c5-mypy.log.gz) (199 files) pass.
+
+[Native report](c5-browser.json.gz) and [log](c5-browser.log.gz): **17 passes /
+five existing mobile exclusions**, zero failures/flakes/retries/global errors in
+146.36 seconds. Small/pocket/18k cold+repeat publication, genuine preview/Cancel,
+current graphs, quick settings and actual zoom run unchanged. Seven observed
+native measurement files are indexed in the summary; D-148 portable correctness
+does not certify their strict elapsed-time targets. The final
+[737-file inventory](c5-source-identity.json.gz) matches the qualified sources.
+Unchanged C3 frontend/static/build evidence remains applicable.
+
+Scientific implementation independently passes 73 tests, 60 additional oracle
+comparisons and four final-delta cases. Theory passes 87 tests and the final ARG
+case. Both inspect lifetimes, closed radii, closure/induced graphs, order readthrough,
+rebuild replacement, fresh Apply and full scientific byte equality. No consequential
+finding remains; final seven-role review and complete release gates remain C7/C8.
+
+Initial profiling records are separate exploratory inputs. The final uniform
+baseline/candidate cohorts above run sequentially without competing heavy work;
+the earlier 0.26-second query probe overlapped an initial cold-start measurement
+that is not used for the final comparison. No timing/resource limit is relaxed.

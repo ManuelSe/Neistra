@@ -277,7 +277,12 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
     field = all_chem.CreateEmptyForceFieldForMol(mol)
     periodic = Chem.GetPeriodicTable()
     moving = set(assembly.movable)
-    neighbors = {a.GetIdx(): {n.GetIdx() for n in a.GetNeighbors()} for a in mol.GetAtoms()}
+    if not assembly.temporary_adjacency:
+        assembly.temporary_adjacency = tuple(
+            frozenset(neighbor.GetIdx() for neighbor in atom.GetNeighbors())
+            for atom in mol.GetAtoms()
+        )
+    neighbors = assembly.temporary_adjacency
     xyz = assembly.coordinates
     geometric = {a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() in GEOMETRY_ELEMENTS}
     for bond in mol.GetBonds():

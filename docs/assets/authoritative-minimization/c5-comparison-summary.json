@@ -1,0 +1,80 @@
+[
+  {
+    "profile": "small",
+    "atoms": 18,
+    "baseline_warm_median_ms": 13.79286398878321,
+    "candidate_warm_median_ms": 13.74924200354144,
+    "baseline_range_ms": [
+      13.635178009280935,
+      14.023647003341466
+    ],
+    "candidate_range_ms": [
+      13.618517987197265,
+      14.093047007918358
+    ],
+    "ratio": 1.0031726829181227,
+    "baseline_cold_ms": 167.86746398429386,
+    "candidate_cold_ms": 168.38517601718195,
+    "baseline_traced_peak": 754328,
+    "candidate_traced_peak": 767529,
+    "baseline_rss_peak": 145432576,
+    "candidate_rss_peak": 145047552,
+    "scientific_sha256": "1a9cb81cec30694541e89bd8cf90729ead6df7a5ac2e771e7d6986ef6d10c6e3",
+    "scientific_documents_exact": true,
+    "termination": "stalled",
+    "iterations": 101,
+    "evaluations": 115
+  },
+  {
+    "profile": "pocket",
+    "atoms": 2304,
+    "baseline_warm_median_ms": 590.6557749840431,
+    "candidate_warm_median_ms": 414.0434250002727,
+    "baseline_range_ms": [
+      588.5973249969538,
+      594.9789820006117
+    ],
+    "candidate_range_ms": [
+      413.09861300396733,
+      415.8370079821907
+    ],
+    "ratio": 1.4265551372628464,
+    "baseline_cold_ms": 745.748832996469,
+    "candidate_cold_ms": 569.1992029896937,
+    "baseline_traced_peak": 15781093,
+    "candidate_traced_peak": 16568397,
+    "baseline_rss_peak": 179863552,
+    "candidate_rss_peak": 181526528,
+    "scientific_sha256": "b997a32abdbb93973c7199af34ac726976d31721ce2c652be98cdd7d85b08ad2",
+    "scientific_documents_exact": true,
+    "termination": "geometry_settled",
+    "iterations": 53,
+    "evaluations": 63
+  },
+  {
+    "profile": "18k",
+    "atoms": 18208,
+    "baseline_warm_median_ms": 861.7349939886481,
+    "candidate_warm_median_ms": 569.3990190047771,
+    "baseline_range_ms": [
+      858.3752929989714,
+      881.8228529999033
+    ],
+    "candidate_range_ms": [
+      563.9974200166762,
+      572.766543016769
+    ],
+    "ratio": 1.5134114482579015,
+    "baseline_cold_ms": 1016.8831470073201,
+    "candidate_cold_ms": 807.1637460088823,
+    "baseline_traced_peak": 72166892,
+    "candidate_traced_peak": 78221330,
+    "baseline_rss_peak": 302247936,
+    "candidate_rss_peak": 306688000,
+    "scientific_sha256": "92d1dc87cbad6e590a46b75e879da25b5c5586fae1e855cbae58786c2cfbeebd",
+    "scientific_documents_exact": true,
+    "termination": "geometry_settled",
+    "iterations": 53,
+    "evaluations": 63
+  }
+]

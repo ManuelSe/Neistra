@@ -10,7 +10,7 @@ import numpy as np
 from rdkit import Chem
 
 from neistra_core.minimization.contracts import CalculationError
-from neistra_core.molecular import Atom, MolecularWarning, NormalizedStructureV1
+from neistra_core.molecular import Atom, MolecularWarning, NormalizedStructureV1, Residue
 from neistra_core.protein_connectivity import CODES as CODES
 from neistra_core.protein_connectivity import sequence_neighbors
 from neistra_core.protein_connectivity import template as template
@@ -25,16 +25,26 @@ def protein_graph(
         groups[atom.residue_id].append(atom)
     bonds = {frozenset((b.atom_1_id, b.atom_2_id)): b for b in source.bonds}
     atoms = {a.id: a for a in source.atoms}
+    neighbors: dict[int, list[int]] = {atom_id: [] for atom_id in atoms}
+    incident: dict[int, list[frozenset[int]]] = {atom_id: [] for atom_id in atoms}
+    intraresidue: dict[int | None, list[frozenset[int]]] = defaultdict(list)
+    for key, bond in bonds.items():
+        first_id, second_id = bond.atom_1_id, bond.atom_2_id
+        neighbors[first_id].append(second_id)
+        neighbors[second_id].append(first_id)
+        incident[first_id].append(key)
+        incident[second_id].append(key)
+        if atoms[first_id].residue_id == atoms[second_id].residue_id:
+            intraresidue[atoms[first_id].residue_id].append(key)
+    first_residue: dict[tuple[int, str | None], Residue] = {}
+    for residue in source.residues:
+        first_residue.setdefault((residue.chain_id, residue.source_subchain_id), residue)
     protein: set[int] = set()
     assumptions = {}
     diagnostics: dict[int, set[tuple[int, int]]] = defaultdict(set)
 
     def has_h(atom_id: int) -> bool:
-        return any(
-            atoms[other].element == "H"
-            for bond in bonds.values() if atom_id in (bond.atom_1_id, bond.atom_2_id)
-            for other in (bond.atom_1_id, bond.atom_2_id) if other != atom_id
-        )
+        return any(atoms[other].element == "H" for other in neighbors[atom_id])
 
     def link(first: int, second: int, order: float) -> None:
         key = frozenset((first, second))
@@ -112,10 +122,10 @@ def protein_graph(
                         (min(names[a].id, names[c].id), max(names[a].id, names[c].id))
                     )
                 link(names[a].id, names[c].id, state_orders.get(edge, b.GetBondTypeAsDouble()))
-        for b in source.bonds:
-            if b.atom_1_id in {a.id for a in group} and b.atom_2_id in {a.id for a in group}:
-                if atoms[b.atom_1_id].element == "H" or atoms[b.atom_2_id].element == "H":
-                    link(b.atom_1_id, b.atom_2_id, 1.0)
+        for key in intraresidue[residue.id]:
+            b = bonds[key]
+            if atoms[b.atom_1_id].element == "H" or atoms[b.atom_2_id].element == "H":
+                link(b.atom_1_id, b.atom_2_id, 1.0)
         defaults = {"ASP": {"OD2": -1}, "GLU": {"OE2": -1}, "LYS": {"NZ": 1}, "ARG": {"NH1": 1}}
         for name, a in names.items():
             if a.formal_charge is not None:
@@ -124,51 +134,22 @@ def protein_graph(
                 a.id, -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
             )
             # Observed acid H is stronger evidence than a default deprotonated state.
-            if charge == -1 and any(
-                atoms[j].element == "H"
-                for b in bonds.values()
-                if a.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != a.id
-            ):
+            if charge == -1 and has_h(a.id):
                 charge = 0
             if charge == 1:
-                adjacent = [b for b in bonds.values() if a.id in (b.atom_1_id, b.atom_2_id)]
-                supplied_h = any(
-                    atoms[j].element == "H"
-                    for b in adjacent
-                    for j in (b.atom_1_id, b.atom_2_id)
-                    if j != a.id
-                )
-                if supplied_h:
-                    charge = int(sum(b.order or 1 for b in adjacent) >= 4)
+                # Endpoint keys read through the current interpreted bond objects.
+                if has_h(a.id):
+                    charge = int(sum(bonds[key].order or 1 for key in incident[a.id]) >= 4)
             atoms[a.id] = a.model_copy(update={"formal_charge": charge})
         # Charge an observed protonated N terminus; no new terminus at a missing segment.
         n = names.get("N")
         if n and n.formal_charge is None:
-            degree = sum(n.id in (b.atom_1_id, b.atom_2_id) for b in bonds.values())
-            supplied_h = any(
-                atoms[j].element == "H"
-                for b in bonds.values()
-                if n.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != n.id
-            )
-            first = next(
-                (
-                    r
-                    for r in source.residues
-                    if r.chain_id == residue.chain_id
-                    and r.source_subchain_id == residue.source_subchain_id
-                ),
-                None,
-            )
+            degree = len(incident[n.id])
+            supplied_h = has_h(n.id)
+            first = first_residue[(residue.chain_id, residue.source_subchain_id)]
             has_previous = any(
                 atoms[j].name == "C" and atoms[j].residue_id != residue.id
-                for b in bonds.values()
-                if n.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != n.id
+                for j in neighbors[n.id]
             )
             established_start = (
                 first == residue

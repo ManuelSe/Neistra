@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C4 are implemented and focused-qualified; C5–C8 remain pending.
+C2–C5 are implemented and focused-qualified; C6–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -470,8 +470,9 @@ to avoid a self-referential commit claim.
 | C1 | Complete local checkpoint `b4ee31f`; focused evidence below. |
 | C2 | Complete local checkpoint `36df747`; focused evidence below. |
 | C3 | Complete local checkpoint `9e418d3`; focused evidence below. |
-| C4 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
-| C5–C8 | Pending; no final feature/release qualification claimed. |
+| C4 | Complete local checkpoint `80adf97`; focused evidence below. |
+| C5 | Implemented, measured and focused-qualified; checkpoint commit follows evidence below. |
+| C6–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -633,3 +634,56 @@ cover the distinct branches. No essential outcome is deferred and no follow-up i
 needed. App versions, quick implementation1.0.3, dependencies, migrations and
 canonical/project/archive/report contracts remain unchanged. Next: commit C4, then
 measure C5 against this corrected baseline before changing discovery/index code.
+
+### C5 — 2026-11-13: measured immutable assembly indexes
+
+Corrected C4 `80adf97` was copied into an isolated implementation root; all 128 core
+file identities match the committed source. Initial profiling identified repeated
+protein bond scans and discovery as meaningful costs before changing them.
+The final uniform sequential recipe uses the same permanent script, fixtures,
+input/parameter/toolchain hashes, one cold and five warm samples per profile.
+
+Exact count-only queries retain closed 6/7/8 angstrom membership. Immutable
+assembly indexes preserve final interpreted/isolation graphs, closure order,
+induced components and source row ordering. Source/classification mismatches reject
+reuse; whole rebuilding replaces discovery/helper adjacency. Incident endpoint
+keys read current interpreted bond orders. Independent/Apply calls remain fresh.
+No global cache, approximation, dependency, schema or limit change is introduced.
+
+The three timing-free scientific documents are **byte-identical**, including full
+temporary models, fields/provenance, proposals, reports, geometry, objectives,
+reported maximum gradients and termination. Small/pocket/18k work retains identical iterations/
+evaluations (101/115 or 53/63), without cooperative-budget stops.
+
+| Captured atoms | Corrected baseline warm median | Indexed warm median |
+| --- | ---: | ---: |
+| 18 | 13.793 ms | 13.749 ms |
+| 2,304 | 590.656 ms | 414.043 ms |
+| 18,208 | 861.735 ms | 569.399 ms |
+
+These are local direct-plugin CPU measurements, excluding worker startup, DB/API,
+browser and artifact-store publication. Small work is unchanged within noise;
+no overall application speedup is claimed. Index retention raises whole-job tracked
+peak memory (15.781→16.568 MB pocket; 72.167→78.221 MB 18k). A separate bounded
+query witness retains 262,144 neighbors while reducing tracked query allocation
+2,491,568→165,040 bytes. No whole-job memory reduction or strict host certification
+is claimed. [Evidence](../assets/authoritative-minimization/c5-summary.json) and
+[performance notes](../PERFORMANCE.md#issue-137-measured-quick-discovery-indexing)
+retain exact recipes, ranges, cold stages, cProfile, memory and scientific documents.
+
+Final focused qualification: **178 combined Python passes in 19.27 seconds**, then
+**19 discovery cases in 0.16 seconds**, covering 179 unique cases. One additional
+ARG interpreted-order readthrough test landed after the combined run; no runtime
+or benchmark source changed, and both scientific reviewers explicitly reconfirmed
+the delta. Global Ruff/mypy (199 files) and final-file Ruff pass. Native small/
+pocket/18k publication, live preview/Cancel, canonical graphs, quick controls and
+real zoom pass **17 cases / five existing mobile layout exclusions**, zero failures,
+flakes/retries/global errors in 146.36 seconds. Final 737 source identities match.
+Unchanged frontend/static/build evidence from C3 remains applicable.
+
+Scientific implementation independently passes 73 cases plus 60 additional oracle
+comparisons and the final ARG case; theory passes 87 cases and the final ARG case.
+Both verify scientific-document byte equality and the measured source identities.
+No consequential finding remains; final all-seven review is C7 work. Next: commit
+C5, then the approved bounded C6 API helper extraction. No essential outcome or
+performance qualification policy is reduced.
