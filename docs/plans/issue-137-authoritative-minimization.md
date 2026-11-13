@@ -4,7 +4,8 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C6 are implemented and focused-qualified; C7 is in progress; C8 remains pending.
+C2–C6 are implemented and focused-qualified; C7 qualification/review is complete;
+C8 remote integration and publication remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -890,3 +891,23 @@ No runtime source changes follow the passing gate. Final seven-role assessments
 must cover the integrated candidate and documentation before readiness to push.
 Next: record those verdicts, then normal PR/review/merge and the complete C8 gate
 on exact merged master before tagging, release publication, issue reply and cleanup.
+
+### C7 — Final specialist and local review
+
+All seven independent read-only specialist agents assess the complete integrated
+candidate `ae464b600e4b26102c95b049a4fe15ae9d0be185` against the approved base and
+return **PASS**: scientific theory, scientific implementation, software
+architecture, performance, UI, UX and documented workflow reference. Each inspects
+the complete intended scope and final evidence independently; this is specialist
+agent review, not human approval. No consequential finding remains. The
+[assessment receipt](../assets/authoritative-minimization/c7-specialist-review.json)
+records role verdicts, independent checks, corrections, limitations and the optional
+disclosure-target suggestion's disposition. The primary full-diff local review
+also passes and is explicitly identified as self-review.
+
+This record adds documentation/evidence only. All seven must inspect its
+intervening diff and explicitly reconfirm the same final commit before push; the
+PR retains that exact final head and verdicts. C7's runtime inputs remain identical
+to the complete clean gate. No expensive test is repeated for documentation-only
+recording. Next: normal remote review/merge and C8 exact-master qualification,
+annotated tag/release, verified issue response and branch cleanup.

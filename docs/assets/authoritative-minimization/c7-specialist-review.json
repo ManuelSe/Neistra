@@ -1,0 +1,109 @@
+{
+  "reviewed_candidate": "ae464b600e4b26102c95b049a4fe15ae9d0be185",
+  "comparison_base": "5f6a2b869d9f8a32a1f921eccb6863c3148188e6",
+  "qualified_runtime_inputs": "5b14fff1f333f49c0c90e25256de2bd778eb8b28",
+  "source_digest": "f20babeaf20240dab60e2da8ee895923d5427b8939760745897c06bb6df137e0",
+  "scope": "Complete intended C1-C7 feature including new files and every intervening correction; independent read-only specialist agent assessments, not independent human approval",
+  "roles": {
+    "scientific_theory": {
+      "summary": "Current graphs, supplied facts, units, temporary states and mixed objectives are scientifically defensible within the disclosed local-cleanup model.",
+      "independent_checks": [
+        "50 scientific/import cases",
+        "64 checkpoint artifact hashes and three byte-identical C5 scientific documents",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "scientific_implementation": {
+      "summary": "Molecular identity, graph invariants, supplied-state corrections, force-field integration, fixed rows and coordinate-only publication satisfy the approved contract.",
+      "independent_checks": [
+        "141 Python cases and six canonical-bond tests",
+        "Scientific artifact and native source-index mapping inspection",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "software_architecture": {
+      "summary": "State ownership, publication journal/reconciliation, dispatch guards, locks, shared helpers and additive compatibility boundaries remain coherent.",
+      "independent_checks": [
+        "35 backend,77 publication/contract,49 notice/workflow and six canonical-bond cases",
+        "Complete cross-layer state,transaction,worker and archive inspection",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "performance": {
+      "summary": "Measured local CPU gains preserve byte-identical scientific output; extra captured-scene index memory is disclosed and resource limits are unchanged.",
+      "independent_checks": [
+        "19 discovery/lifetime/order and11 notice lifecycle cases",
+        "128 corrected-baseline source identities,matched profiles/toolchains and scientific-document byte equality",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "ui_design": {
+      "summary": "Capability/context presentation and quiet results are clear; long notices remain readable with reachable Close, and short notices preserve underlying clicks.",
+      "independent_checks": [
+        "121 preflight and92 integrated correction cases",
+        "Independent actual-component pointer,scroll,identity,focus probes and final320x180 screenshots",
+        "30 final command logs,759 current/720 preceding source hashes,488 browser records and32 directly relevant native passes"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "ux_design": {
+      "summary": "Captured targeting,recovery,read/write boundaries and quiet-success/actionable-error policies are coherent and recoverable.",
+      "independent_checks": [
+        "53 workflow/notice/presentation cases",
+        "46 relevant native UX passes and independent source/evidence inspection",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    },
+    "modeling_reference": {
+      "summary": "The bounded selected-coordinate workflow and current-state authority are consistent with the documented reference workflow; the explicit quiet-notice override is respected.",
+      "independent_checks": [
+        "Documented workflow research and complete C1-C7 scope assessment",
+        "Historical Apply refusal,artifact retention and final requirement/limitation inspection",
+        "30 final command logs,759 current/720 preceding source hashes,eight reader phases and exact browser exclusions"
+      ],
+      "verdict": "PASS",
+      "consequential_findings": [],
+      "read_only": true
+    }
+  },
+  "corrections": [
+    "Boolean metadata-version coercion rejected consistently",
+    "Supplied-state interpretation defects fixed with independent oracles",
+    "Migration-test recipe isolation and approved import fixture expectations corrected",
+    "New-message scroll inheritance corrected without resetting unrelated renders",
+    "Passive short-notice pointer interception corrected without forced clicks or weakened tests"
+  ],
+  "nonblocking_deferred": [
+    "Larger native disclosure-summary touch targets remain optional polish; no new follow-up issue"
+  ],
+  "limits": [
+    "Local cleanup and disclosed approximate objectives do not establish pose validity or broader chemistry coverage",
+    "Captured-scene source indexes can exceed local modeled-atom bounds and increase memory",
+    "Portable correctness does not certify strict reference-host timing",
+    "Qualified Chromium layouts/emulation do not certify physical devices,all browsers,assistive technologies or user-study outcomes",
+    "Older-reader retention does not qualify corrected old-code authoring or new jobs under an older worker"
+  ],
+  "final_head_policy": "The subsequent commit records these assessments and documentation only. Every role must explicitly inspect that intervening diff and reconfirm the same final commit before push; the PR retains that final head and verdicts.",
+  "remaining_delivery": [
+    "Normal PR/review/merge with repository protections",
+    "Exact merged-master complete gate and actual readers",
+    "Annotated tag,release,publication receipts,issue reply and clean branch cleanup"
+  ]
+}

@@ -63,8 +63,11 @@ Actual 0.28.1↔0.29.0 readers preserve both archive suffixes, connectivity, res
 originals and artifacts; old unapplied proposals refuse without writes. Migration
 round trip, locked installs, static/build/version/schema/dependency/production/
 license and legacy CLI checks pass. Portable correctness makes no strict timing
-claim. Final same-candidate specialist verdicts and exact merged-master release
-qualification remain required before publication.
+claim. All seven specialist agent assessments and primary full-diff local review
+PASS on integrated `ae464b6`; the assessment record's documentation-only commit
+requires explicit same-head reconfirmation before push. [Review receipt](assets/authoritative-minimization/c7-specialist-review.json).
+Normal remote review and exact merged-master qualification remain required before
+publication. Independent human approval is not claimed.
 
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
