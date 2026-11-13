@@ -20,3 +20,14 @@ size warning and portable timing policy remain; no strict timing claim is made.
 
 All screenshots/traces use repository fixtures and isolated test data, not user
 molecular uploads. This folder does not establish C2–C7 completion.
+
+
+C2: [receipt](c2-checkpoint.json) records 540 frontend, 57 backend and 37 unique
+native passes / one unchanged exclusion. Logs distinguish the initial failed
+attempt from unaffected retained results and the final corrected object suite.
+[native evidence](c2-native-evidence.json.gz) includes source identity, allocation,
+rendering and disposal; [coordinate diagnostic](c2-coordinate-diagnostic.json)
+explains the exact-point correction without changing expected object identity.
+Temporary strict entry-test configurations are retained for reproducibility.
+The extra ad hoc legacy native-file audit is disclosed as a C5 consolidation item;
+it is not a passed repository gate. No final feature/release qualification follows.

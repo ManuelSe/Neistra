@@ -754,3 +754,23 @@ No production deadline, resource cap or timing threshold changes; D-148's strict
 reference-host timing remains separate. Both complete candidate/master gates now
 pass portable correctness; [exact-master evidence](assets/authoritative-minimization/c8-merged4-summary.json)
 retains the unchanged limits and qualification scope.
+
+## Combined whole-entry calculation — issue #140 C2
+
+Entry, fragment and pocket surfaces now share the bounded serial worker. Entry
+admission is fewer than 250,000 effective atoms, while fragments and pockets
+remain limited to 100,000. The normalized-parent 250,000-atom reduced-detail rule
+still applies before lazy extraction. All kinds retain the fixed 0.5 Å grid,
+1.4 Å probe, 36 probe positions and existing independent cell, mesh, retained,
+working-buffer and deadline limits. Admission does not guarantee every eligible
+shape will fit the other limits. No adaptive coarsening is used.
+
+Canonical calculation order makes geometry independent of component partitioning.
+The display adapter validates exact identity and accounts for ownership remapping
+alongside mesh-line and pocket-isolation buffers. Cached geometry remains immutable;
+Ready follows installation of the current representation. Cancellation terminates
+entry workers too, and obsolete upload results cannot acknowledge readiness.
+Specific native capacity results are recorded in the issue plan and evidence;
+these policies are neither a total browser/GPU memory bound nor a strict timing
+certification on an uncontrolled host. Historical qualifications above retain
+their original profiles and scope.

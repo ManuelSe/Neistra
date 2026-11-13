@@ -18,8 +18,10 @@ Each object has an independent name, requested visibility and appearance. Hide
 keeps its definition; Remove is undoable. Parent visibility remains an upper bound.
 Removing the last display does not invent a replacement. Status describes actual
 rendering: saving a definition does not guarantee that it fits rendering limits.
-Fragment/pocket calculations offer per-object Cancel and Retry; failures keep the
-saved definition. Native entry calculations do not offer worker cancellation.
+All calculations offer per-object Cancel and Retry; failures keep the saved
+definition. Ready means the current representation has installed successfully,
+not merely that its calculation completed. Isolation, hidden components, zero
+opacity and coordinate previews have separate display status.
 
 Select **Element**, **Chain**, **Residue**, **Secondary structure**, **Structure**,
 or **Uniform**, set opacity from 0 to 1, and choose **Solid** or **Mesh**. Then
@@ -47,16 +49,21 @@ faces. Pockets crop complete current protein geometry by triangle-centroid dista
 to captured seed centers; open edges, disconnected pieces and empty output are
 possible. These displays do not discover cavities, measure area/volume or establish
 binding significance. Mesh is presentation of existing triangles. Fragment/pocket
-profiles stay fixed: 1.4 Å probe, 0.5 Å grid, 36 probe positions; whole-entry
-surfaces retain their existing native geometry path. Charge coloring,
+and whole-entry profiles stay fixed: 1.4 Å probe, 0.5 Å grid, 36 probe positions.
+Whole-entry calculations combine all included units, avoiding independent shells
+inside contacting units. No adaptive grid coarsening is performed. Charge coloring,
 electrostatic potential, arbitrary profiles and mesh export are outside this release.
 See [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
 
-Fragment/pocket work uses one serial worker with lazy input allocation: 100,000
-effective atoms, 64 million cells, 512 MiB mesh allocation, 1 GiB retained output
-including mesh-line/isolation buffers, 2 GiB accounted active buffers and 120 seconds.
-These limits do not cap native entry calculations, total browser memory or GPU
-memory. Native entry reduced-detail behavior remains at 250,000 atoms.
+All surface kinds share one serial worker with lazy input allocation. Fragment
+and pocket sources admit at most 100,000 effective atoms; entry sources admit
+fewer than 250,000. A normalized parent with at least 250,000 atoms still uses
+reduced detail before input extraction. Shared limits are 64 million cells,
+512 MiB mesh allocation, 1 GiB retained output including display ownership,
+mesh-line and isolation buffers, 2 GiB accounted active buffers and 120 seconds.
+These are independent admission/resource ceilings, not universal capacity promises
+or total browser/GPU memory limits. Refusal preserves the definition; entry and
+fragment fallback uses exact-source lines, while pockets have no line fallback.
 
 Undo/Redo, scenes, save/reload, duplication and archives retain complete definitions.
 Transient activation and generated geometry are excluded. Back up database and

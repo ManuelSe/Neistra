@@ -6,9 +6,12 @@ import { MarkerAction } from "molstar/lib/mol-util/marker-action";
 import { SurfaceVisualRegistry } from "../viewer/surface/objects";
 import { surfaceWireframe, surfaceWireframeBytes } from "../viewer/surface/wireframe";
 import type { SurfaceGeometry } from "../viewer/surface/protocol";
-import type { Structure } from "molstar/lib/mol-model/structure";
+import { SURFACE_LIMITS } from "../viewer/surface/protocol";
+import { Structure } from "molstar/lib/mol-model/structure";
+import { parsePDB } from "molstar/lib/mol-io/reader/pdb/parser";
+import { trajectoryFromPDB } from "molstar/lib/mol-model-formats/structure/pdb";
 import { attachSurfaceGeometry, attachSurfaceWireframe, detachSurfaceGeometry,
-  SelectionSurfaceProvider, SelectionSurfaceWireframeProvider } from "../viewer/surface/visual";
+  SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, surfaceDisplayGeometry } from "../viewer/surface/visual";
 
 const geometry: SurfaceGeometry = {
   vertices: Float32Array.of(0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1, 0),
@@ -48,14 +51,33 @@ it("rejects unsafe display allocation, cancellation and exhausted aggregate rese
   await expect(surfaceWireframe(geometry, new AbortController().signal, () => { throw new Error("retained limit"); })).rejects.toThrow("retained limit");
 });
 
-it("releases the previous display binding when switching solid/mesh or disposing a component", () => {
-  const structure = { elementCount: geometry.atomIds.length } as Structure;
-  attachSurfaceGeometry(structure, geometry);
+it("includes owner mappings and isolation buffers in the exact active working boundary", async () => {
+  const count = geometry.indices.length;
+  const nativeRetained = surfaceWireframeBytes(count) + count * 4 + (geometry.atomIds.length + 2) * 4;
+  const baseline = geometry.evidence.meshBytes + nativeRetained + count * 8;
+  const extra = SURFACE_LIMITS.workingBytes - baseline;
+  const reserve = vi.fn();
+  await expect(surfaceWireframe(geometry, new AbortController().signal, reserve, extra)).resolves.toBeDefined();
+  expect(reserve).toHaveBeenCalledWith(nativeRetained);
+  reserve.mockClear();
+  for (const invalid of [extra + 1, -1, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
+    await expect(surfaceWireframe(geometry, new AbortController().signal, reserve, invalid)).rejects.toThrow("2 GiB");
+  }
+  expect(reserve).not.toHaveBeenCalled();
+});
+
+it("releases the previous display binding when switching solid/mesh or disposing a component", async () => {
+  const pdb = "HETATM    1   C1 LIG A   1       0.000   0.000   0.000  1.00 10.00           C  \nHETATM    2   C2 LIG A   1       2.000   0.000   0.000  1.00 10.00           C  \nEND\n";
+  const parsed = await parsePDB(pdb).run();
+  if (parsed.isError) throw new Error(parsed.message);
+  const structure = Structure.ofModel((await trajectoryFromPDB(parsed.result).run()).representative);
+  const display = await surfaceDisplayGeometry(structure, [10, 99], geometry, new AbortController().signal, () => {});
+  attachSurfaceGeometry(structure, display.geometry);
   expect(SelectionSurfaceProvider.isApplicable(structure)).toBe(true);
   attachSurfaceWireframe(structure, Lines.createEmpty());
   expect(SelectionSurfaceProvider.isApplicable(structure)).toBe(false);
   expect(SelectionSurfaceWireframeProvider.isApplicable(structure)).toBe(true);
-  attachSurfaceGeometry(structure, geometry);
+  attachSurfaceGeometry(structure, display.geometry);
   expect(SelectionSurfaceWireframeProvider.isApplicable(structure)).toBe(false);
   detachSurfaceGeometry(structure);
   expect(SelectionSurfaceProvider.isApplicable(structure)).toBe(false);

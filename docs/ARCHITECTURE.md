@@ -443,8 +443,10 @@ is added. Empty appearance collections avoid the additional palette-resolution p
 
 `ViewerSettingsV2.surface_objects` is durable application state. Entry, fragment,
 and pocket objects have stable entry-local identities and independent appearance.
-Entry objects retain native geometry; captured fragment/pocket objects use the
-existing fixed worker profiles. Renderer refs, statuses and active object identity
+All three source kinds use the bounded combined-context worker calculation.
+Input and calculation ownership use canonical atom order; validated, accounted
+bijections map cached ownership into disposable component serial order for native
+colors and picking without modifying cached geometry. Renderer refs, statuses and active object identity
 are transient. `SurfaceRuntime` owns only
 transient per-object request identity, worker cancellation, bounded cached geometry
 and status. Exact identity includes the immutable coordinate/topology snapshot revision,

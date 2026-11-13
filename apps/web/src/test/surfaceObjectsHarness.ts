@@ -10,7 +10,7 @@ import { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure, ViewerSelectionEvent } from "../viewer/MolecularViewer";
 import type { SurfaceIdentity, SurfaceVisualRegistry } from "../viewer/surface/objects";
 import { SurfaceCalculator } from "../viewer/surface/client";
-import { attachSurfaceGeometry, attachSurfaceWireframe, SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, surfaceInput } from "../viewer/surface/visual";
+import { attachSurfaceGeometry, attachSurfaceWireframe, SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, surfaceInput, surfaceDisplayGeometry } from "../viewer/surface/visual";
 import { surfaceWireframe } from "../viewer/surface/wireframe";
 import type { SurfaceGeometry } from "../viewer/surface/protocol";
 
@@ -43,16 +43,16 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
   engine.subscribeSelection(event => molecularEvents.push(event));
   const median = [...source.normalized.atoms.map(a => a.coordinates[0])].sort((a, b) => a - b)[Math.floor(source.atomIds.length / 2)];
   const objects = new Map<string, { component: string; structure: Structure; geometry: SurfaceGeometry;
-    representation?: string; unregister?: () => void; color: number; alpha: number; mode: "solid" | "mesh"; displayBytes: number }>();
+    representation?: string; unregister?: () => void; color: number; alpha: number; mode: "solid" | "mesh"; displayBytes: number; mappingBytes: number }>();
   const setAppearance = async (id: string, appearance: { color?: number; alpha?: number; mode?: "solid" | "mesh" }) => {
     const object = objects.get(id)!;
     Object.assign(object, appearance);
     object.unregister?.();
     if (object.representation) await plugin.state.data.build().delete(object.representation).commit();
     if (object.mode === "mesh") {
-      const lines = await surfaceWireframe(object.geometry, new AbortController().signal, bytes => { object.displayBytes = bytes; });
+      const lines = await surfaceWireframe(object.geometry, new AbortController().signal, bytes => { object.displayBytes = object.mappingBytes + bytes; }, object.mappingBytes);
       attachSurfaceWireframe(object.structure, lines);
-    } else { object.displayBytes = 0; attachSurfaceGeometry(object.structure, object.geometry); }
+    } else { object.displayBytes = object.mappingBytes; attachSurfaceGeometry(object.structure, object.geometry); }
     const repr = await plugin.builders.structure.representation.addRepresentation(object.component, {
       type: object.mode === "mesh" ? SelectionSurfaceWireframeProvider : SelectionSurfaceProvider,
       typeParams: { alpha: object.alpha }, color: UniformColorThemeProvider, colorParams: { value: object.color },
@@ -78,8 +78,9 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
       workers.inputs++;
       return surfaceInput(component.obj!.data, loaded.atomIds);
     }, new AbortController().signal);
-    objects.set(id, { component: component.ref, structure: component.obj.data, geometry,
-      color: side === 0 ? 0xff2020 : 0x2040ff, alpha: 0.8, mode: "solid", displayBytes: 0 });
+    const display = await surfaceDisplayGeometry(component.obj.data, loaded.atomIds, geometry, new AbortController().signal, () => {});
+    objects.set(id, { component: component.ref, structure: component.obj.data, geometry: display.geometry,
+      color: side === 0 ? 0xff2020 : 0x2040ff, alpha: 0.8, mode: "solid", displayBytes: display.displayBytes, mappingBytes: display.displayBytes });
     await setAppearance(id, {});
   });
   await Promise.all(pending);
@@ -93,7 +94,7 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
     objects: [...objects].map(([id, object]) => {
       const cell = object.representation && plugin.state.data.cells.get(object.representation);
       const repr = cell ? cell.obj?.data as { repr: Representation.Any } : undefined;
-      return { id, alpha: object.alpha, mode: object.mode, color: object.color, displayBytes: object.displayBytes,
+      return { id, alpha: object.alpha, mode: object.mode, color: object.color, displayBytes: object.displayBytes, mappingBytes: object.mappingBytes,
         vertices: object.geometry.vertices.length, atoms: [...object.geometry.atomIds],
         drawCounts: repr?.repr.renderObjects.map(ro => ro.values.drawCount.ref.value) ?? [],
         markers: repr?.repr.renderObjects.map(ro => Array.from(ro.values.tMarker.ref.value.array)) ?? [] };

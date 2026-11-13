@@ -14,7 +14,7 @@ import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { surfaceWireframe } from "./surface/wireframe";
 import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
 import { SurfaceVisualRegistry, type SurfaceIdentity } from "./surface/objects";
-import { attachSurfaceGeometry, detachSurfaceGeometry, SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, attachSurfaceWireframe, surfaceInput } from "./surface/visual";
+import { attachSurfaceGeometry, detachSurfaceGeometry, SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, attachSurfaceWireframe, surfaceInput, surfaceDisplayGeometry } from "./surface/visual";
 import { SURFACE_PROFILE, surfaceKey, type SurfaceChannel, type SurfaceGeometry } from "./surface/protocol";
 import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
 import { OrderedSet } from "molstar/lib/mol-data/int";
@@ -178,7 +178,6 @@ export class MolstarEngine implements MolecularViewer {
   private nextSurfaceSourceRevision = 0;
   private surfaceMeshEntries = new Set<string>();
   private surfaceRefs = new Map<string, string>();
-  private inheritedSurfaceRefs = new Map<string, string[]>();
   private movementCueRefs = new Map<string, string>();
   private renderedAtomReferences = new Map<string, AtomReference[]>();
   private surfaceRenderedAtoms = new Map<string, AtomReference[]>();
@@ -418,7 +417,6 @@ export class MolstarEngine implements MolecularViewer {
     for (const binding of this.surfaceBindings.values()) { binding.controller.abort(); binding.unregister?.(); }
     this.surfaceBindings.clear();
     this.surfaceVisuals.clearVisuals();
-    this.inheritedSurfaceRefs.clear();
     this.movementCueRefs.clear();
     this.renderedAtomReferences.clear();
     this.surfaceRenderedAtoms.clear();
@@ -506,6 +504,11 @@ export class MolstarEngine implements MolecularViewer {
       for (const dependent of dependents) {
         await this.detachSurface(dependent.entryId, dependent.surfaceId);
         this.surfaces.remove(dependent.entryId, "pocket", dependent.surfaceId);
+        if (mode === "preview") {
+          const label = this.structures.find(item => item.entryId === dependent.entryId)?.label ?? "Surface";
+          this.surfaces.request(dependent.entryId, "pocket", label, "preview-paused", null, () => {}, undefined, dependent.surfaceId);
+          this.surfaces.markHidden(dependent.entryId, "pocket", dependent.surfaceId, "Paused during coordinate preview");
+        }
       }
       if (mode === "commit") {
         const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
@@ -543,20 +546,14 @@ export class MolstarEngine implements MolecularViewer {
       });
       await this.detachSurface(patch.entry_id);
       for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
-        if (surface.source.kind !== "entry") this.surfaces.remove(patch.entry_id, surface.source.kind, surface.id);
+        this.surfaces.remove(patch.entry_id, surface.source.kind, surface.id);
       }
       const firstPreview = mode === "preview" && !this.coordinatePreviews.has(patch.entry_id);
       const hadPreview = this.coordinatePreviews.has(patch.entry_id);
       if (firstPreview) {
-        const refs = this.inheritedSurfaceRefs.get(patch.entry_id) ?? [];
-        for (const ref of refs) await this.plugin.state.data.build().delete(ref).commit();
-        this.inheritedSurfaceRefs.delete(patch.entry_id);
         for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
-          if (surface.source.kind !== "entry") continue;
-          const key = surfaceKey(patch.entry_id, "entry", surface.id);
-          const binding = this.surfaceBindings.get(key);
-          binding?.controller.abort(); binding?.unregister?.(); this.surfaceBindings.delete(key);
-          this.surfaces.reportNative(patch.entry_id, surface.id, surface.name, "hidden", "Paused during coordinate preview");
+          this.surfaces.request(patch.entry_id, surface.source.kind, surface.name, "preview-paused", null, () => {}, undefined, surface.id);
+          this.surfaces.markHidden(patch.entry_id, surface.source.kind, surface.id, "Paused during coordinate preview");
         }
       }
       if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
@@ -575,7 +572,7 @@ export class MolstarEngine implements MolecularViewer {
       const source = this.structures.find(item => item.entryId === patch.entry_id);
       if (firstPreview && source) await this.addMovementCue(source, loaded);
       if (mode === "commit") {
-        if (hadPreview && source) await this.restorePreviewRepresentations(source, loaded);
+        if (hadPreview && source) await this.restorePreviewRepresentations(source);
         await this.prepareSurfaces(patch.entry_id);
         for (const item of dependents) if (item.entryId !== patch.entry_id) await this.prepareSurface(item.entryId, item.surfaceId);
       }
@@ -597,7 +594,7 @@ export class MolstarEngine implements MolecularViewer {
         await this.detachSurface(entryId);
         await this.updateCoordinates(loaded, loaded.baseCoordinates);
         const source = this.structures.find(item => item.entryId === entryId);
-        if (source) await this.restorePreviewRepresentations(source, loaded);
+        if (source) await this.restorePreviewRepresentations(source);
         await this.prepareSurfaces(entryId);
       }
       for (const item of this.pocketSurfaces()) {
@@ -851,7 +848,6 @@ export class MolstarEngine implements MolecularViewer {
 
   retrySurface(entryId: string, channel: SurfaceChannel = "fragment", surfaceId: string = channel): void {
     this.surfaces.remove(entryId, channel, surfaceId);
-    if (channel === "entry") { void this.syncStructures(this.structures); return; }
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       await this.detachSurface(entryId, surfaceId);
       await this.prepareSurface(entryId, surfaceId);
@@ -895,7 +891,6 @@ export class MolstarEngine implements MolecularViewer {
     this.surfaceBindings.clear();
     this.surfaceRefs.clear();
     this.surfaceMeshEntries.clear();
-    this.inheritedSurfaceRefs.clear();
     this.movementCueRefs.clear();
     this.renderedAtomReferences.clear();
     this.surfaceRenderedAtoms.clear();
@@ -1057,17 +1052,10 @@ export class MolstarEngine implements MolecularViewer {
     await this.prepareSurfaces(structure.entryId);
   }
 
-  private async addRepresentations(structure: ViewerStructure, structureRef: string, molstarStructure: Structure, onlySurfaces = false): Promise<void> {
+  private async addRepresentations(structure: ViewerStructure, structureRef: string, molstarStructure: Structure): Promise<void> {
     const plugin = this.plugin;
     if (!plugin) return;
-    const isolatedIds =
-      this.isolation === null
-        ? null
-        : new Set(
-            this.isolation
-              .filter((reference) => reference.structure_id === structure.entryId)
-              .map((reference) => reference.atom_id),
-          );
+    const isolatedIds = this.isolation === null ? null : new Set(this.isolation.filter(atom => atom.structure_id === structure.entryId).map(atom => atom.atom_id));
     const localHydrogens = structure.settings.selection_nonpolar_hydrogens.length > 0;
     const nonpolarHydrogens = new Set<number>();
     // Classify before filtering: a selected O-H must not lose its polar neighbour.
@@ -1088,117 +1076,45 @@ export class MolstarEngine implements MolecularViewer {
     this.nonpolarHydrogenIds.set(structure.entryId, nonpolarHydrogens);
     const colorLayers = selectionColorLayers(structure.settings.selection_colors, structure.normalized.atoms);
     const layers = representationLayers(structure, isolatedIds, nonpolarHydrogens);
-    for (const surface of structure.settings.surface_objects) if (surface.source.kind === "entry") {
-      this.surfaces.reportNative(structure.entryId, surface.id, `${structure.label} · ${surface.name}`, "hidden", "Hidden by display filters");
-    }
-    if (!onlySurfaces) {
-      const hidden = new Set(structure.settings.selection_hidden_atoms);
-      const visible = [...new Set(layers.filter(layer => layer.opacity > 0).flatMap(layer => layer.atomIds))].filter(id => !hidden.has(id));
-      this.renderedAtomReferences.set(structure.entryId, visible.map(atom_id => ({ structure_id: structure.entryId, atom_id })));
-    }
-    if (this.coordinatePreviews.has(structure.entryId) && !onlySurfaces) {
+    const hidden = new Set(structure.settings.selection_hidden_atoms);
+    const visibleAtoms = [...new Set(layers.filter(layer => layer.opacity > 0).flatMap(layer => layer.atomIds))].filter(id => !hidden.has(id));
+    this.renderedAtomReferences.set(structure.entryId, visibleAtoms.map(atom_id => ({ structure_id: structure.entryId, atom_id })));
+    if (this.coordinatePreviews.has(structure.entryId)) {
       const visible = new Set(this.previewRenderedAtoms.get(structure.entryId)?.map(atom => atom.atom_id) ?? []);
-      const hidden = new Set(structure.settings.selection_hidden_atoms);
       layers.push({ id: "movement-preview", style: "space-filling", colorBy: "element", customColor: "#C94F2D", opacity: 1, exactTarget: true,
         atomIds: [...(this.previewTargetIds.get(structure.entryId) ?? [])].filter(id => visible.has(id) && !hidden.has(id)) });
     }
     for (const layer of layers) {
-      if (onlySurfaces && layer.style !== "surface") continue;
-      if (this.coordinatePreviews.has(structure.entryId) && layer.style === "surface") continue;
-      const loci = this.lociFor(
-        layer.atomIds.map((atomId) => ({
-          structure_id: structure.entryId,
-          atom_id: atomId,
-        })),
-      );
+      // Independent surfaces share one bounded combined-context worker path.
+      if (layer.surface) continue;
+      const loci = this.lociFor(layer.atomIds.map(atom_id => ({ structure_id: structure.entryId, atom_id })));
       if (!loci) continue;
-      const component = await plugin.builders.structure.tryCreateComponent(
-        structureRef,
-        {
-          type: {
-            name: "bundle",
-            params: StructureElement.Bundle.fromLoci(loci),
-          },
-          nullIfEmpty: true,
-          label: `${structure.label} ${layer.style}`,
-        },
-        `${layer.id}-${structure.entryId}`,
-      );
+      const component = await plugin.builders.structure.tryCreateComponent(structureRef, {
+        type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) }, nullIfEmpty: true,
+        label: `${structure.label} ${layer.style}`,
+      }, `${layer.id}-${structure.entryId}`);
       if (!component) continue;
-      if (layer.style === "surface") {
-        const refs = this.inheritedSurfaceRefs.get(structure.entryId) ?? [];
-        refs.push(component.ref);
-        this.inheritedSurfaceRefs.set(structure.entryId, refs);
-      }
       if (layer.id === "movement-preview") this.movementCueRefs.set(structure.entryId, component.ref);
-      const reducedSurface = Boolean(layer.surface && structure.normalized.atoms.length >= 250_000);
-      const profile = molstarRepresentationProfile(reducedSurface ? "line" : layer.style, {
-        opacity: layer.opacity,
-        // The full-structure mask already enforces master and local preferences.
-        hydrogenMode: localHydrogens ? "all" : hydrogenDisplayMode(structure.settings.components),
+      const profile = molstarRepresentationProfile(layer.style, {
+        opacity: layer.opacity, hydrogenMode: localHydrogens ? "all" : hydrogenDisplayMode(structure.settings.components),
         exactTarget: layer.exactTarget || localHydrogens,
       });
-      const surfaceKeyId = layer.surface ? surfaceKey(structure.entryId, "entry", layer.surface.id) : undefined;
-      const binding = layer.surface ? { controller: new AbortController(), unregister: undefined as (() => void) | undefined } : undefined;
-      if (surfaceKeyId && binding && layer.surface) {
-        this.surfaceBindings.set(surfaceKeyId, binding);
-        this.surfaces.reportNative(structure.entryId, layer.surface.id, `${structure.label} · ${layer.surface.name}`, "rendering", "Rendering native entry surface");
-      }
-      const representation = await plugin.builders.structure.representation.addRepresentation(
-        component,
-        {
-          type: profile.type,
-          size: profile.size,
-          sizeParams: profile.sizeParams,
-          typeParams: layer.id === "movement-preview" ? { ...profile.typeParams, ...movementCueParams }
-            : layer.surface && !reducedSurface ? { ...profile.typeParams,
-              visuals: [layer.surface.appearance.mode === "mesh" ? "molecular-surface-wireframe" : "molecular-surface-mesh"] } : profile.typeParams,
-          color: this.colorTheme(layer.colorBy),
-          colorParams:
-            layer.colorBy === "custom"
-              ? {
-                  value: Color(Number.parseInt(layer.customColor.slice(1), 16)),
-                }
-              : undefined,
-        },
-        { tag: `neistra-representation-${layer.id}` },
-      ).catch(async (error: unknown) => {
-        if (!layer.surface) throw error;
-        if (binding && this.surfaceBindings.get(surfaceKeyId!) === binding) {
-          this.surfaces.reportNative(structure.entryId, layer.surface.id, `${structure.label} · ${layer.surface.name}`,
-            "fallback", `${error instanceof Error ? error.message : "Native surface failed."} Definition kept.`);
-          binding.unregister?.(); this.surfaceBindings.delete(surfaceKeyId!);
-        }
-        if (plugin.state.data.cells.has(component.ref)) await plugin.state.data.build().delete(component.ref).commit();
-        return undefined;
-      });
+      const representation = await plugin.builders.structure.representation.addRepresentation(component, {
+        type: profile.type,
+        typeParams: layer.id === "movement-preview" ? { ...profile.typeParams, ...movementCueParams } : profile.typeParams,
+        size: profile.size, sizeParams: profile.sizeParams,
+        color: this.colorTheme(layer.colorBy),
+        colorParams: layer.colorBy === "custom" ? { value: Color.fromHexStyle(layer.customColor) } : undefined,
+      }, { tag: `neistra-representation-${layer.id}` });
       if (!representation) continue;
-      if (binding && (binding.controller.signal.aborted || this.surfaceBindings.get(surfaceKeyId!) !== binding)) {
-        if (plugin.state.data.cells.has(component.ref)) await plugin.state.data.build().delete(component.ref).commit();
-        continue;
-      }
-      // Preserve inherited pick eligibility when the selection surface lowers the canvas threshold.
-      representation.obj?.data.repr.setState({ pickable: layer.surface ? layer.opacity > 0 : layer.opacity >= 0.5 });
-      if (layer.surface && binding && representation.obj) {
-        binding.unregister = this.surfaceVisuals.register(representation.obj.data.repr, { entryId: structure.entryId, surfaceId: layer.surface.id });
-        this.surfaces.reportNative(structure.entryId, layer.surface.id, `${structure.label} · ${layer.surface.name}`,
-          reducedSurface ? "fallback" : "ready", reducedSurface ? "Large entry uses reduced detail · lines shown" : "Native surface ready");
-        this.updateSurfacePickingThreshold();
-      }
+      representation.obj?.data.repr.setState({ pickable: layer.opacity >= 0.5 });
       const visible = new Set(layer.atomIds);
-      const colors = (layer.surface && !layer.surface.appearance.inherit_atom_colors ? [] : colorLayers).flatMap((assignment) => {
-        const colorLoci = this.lociFor(assignment.atomIds.filter((id) => visible.has(id))
-          .map((atom_id) => ({ structure_id: structure.entryId, atom_id })));
-        return colorLoci ? [{
-          bundle: StructureElement.Bundle.fromLoci(colorLoci),
-          color: assignment.color, clear: false,
-        }] : [];
+      const colors = colorLayers.flatMap(assignment => {
+        const colorLoci = this.lociFor(assignment.atomIds.filter(id => visible.has(id)).map(atom_id => ({ structure_id: structure.entryId, atom_id })));
+        return colorLoci ? [{ bundle: StructureElement.Bundle.fromLoci(colorLoci), color: assignment.color, clear: false }] : [];
       });
-      if (colors.length) {
-        await plugin.state.data.build().to(representation)
-          .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle,
-            { layers: colors }).commit();
-      }
+      if (colors.length) await plugin.state.data.build().to(representation)
+        .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle, { layers: colors }).commit();
     }
   }
 
@@ -1221,13 +1137,12 @@ export class MolstarEngine implements MolecularViewer {
     this.commitScene(this.getCamera());
   }
 
-  private async restorePreviewRepresentations(source: ViewerStructure, loaded: LoadedStructure) {
+  private async restorePreviewRepresentations(source: ViewerStructure) {
     const cue = this.movementCueRefs.get(source.entryId);
     this.movementCueRefs.delete(source.entryId);
     this.previewRenderedAtoms.delete(source.entryId);
     this.previewTargetIds.delete(source.entryId);
     if (cue) await this.plugin?.state.data.build().delete(cue).commit();
-    if (!this.inheritedSurfaceRefs.has(source.entryId)) await this.addRepresentations(source, loaded.structureRef, loaded.structure, true);
     this.commitScene(this.getCamera());
   }
 
@@ -1241,7 +1156,7 @@ export class MolstarEngine implements MolecularViewer {
     const source = this.structures.find(item => item.entryId === entryId);
     if (!surfaceId) {
       for (const surface of source?.settings.surface_objects ?? []) {
-        if (surface.source.kind !== "entry") await this.detachSurface(entryId, surface.id);
+        await this.detachSurface(entryId, surface.id);
       }
       return;
     }
@@ -1262,7 +1177,7 @@ export class MolstarEngine implements MolecularViewer {
   private async prepareSurfaces(entryId: string) {
     const source = this.structures.find(item => item.entryId === entryId);
     for (const surface of source?.settings.surface_objects ?? []) {
-      if (surface.source.kind !== "entry") await this.prepareSurface(entryId, surface.id);
+      await this.prepareSurface(entryId, surface.id);
     }
   }
 
@@ -1271,16 +1186,25 @@ export class MolstarEngine implements MolecularViewer {
     const loaded = this.loaded.get(entryId);
     const source = this.structures.find(item => item.entryId === entryId);
     const surface = source?.settings.surface_objects.find(item => item.id === surfaceId);
-    if (!plugin || !loaded || !source || !surface || surface.source.kind === "entry" || this.coordinatePreviews.has(entryId)) return;
+    if (!plugin || !loaded || !source || !surface) return;
     const definition = surface.source, channel = definition.kind;
     const pocket = source.pockets?.[surfaceId];
     const key = surfaceKey(entryId, channel, surfaceId);
     const label = `${source.label} · ${surface.name}`;
+    const hiddenStatus = (message: string, dependency = "hidden") => {
+      this.surfaces.request(entryId, channel, label, dependency, null, () => {}, undefined, surfaceId);
+      this.surfaces.markHidden(entryId, channel, surfaceId, message);
+    };
+    if (this.coordinatePreviews.has(entryId)) {
+      hiddenStatus("Paused during coordinate preview", "preview-paused"); return;
+    }
     if (!surface.visible || surface.appearance.opacity <= 0) {
-      this.surfaces.request(entryId, channel, label, "hidden", null, () => {}, undefined, surfaceId); return;
+      hiddenStatus(!surface.visible ? "Hidden" : "Opacity is zero"); return;
     }
     if (channel === "pocket" && (this.pocketPreviewEntries.has(entryId) ||
-      pocket?.seeds.some(seed => this.pocketPreviewEntries.has(seed.reference.structure_id)))) return;
+      pocket?.seeds.some(seed => this.pocketPreviewEntries.has(seed.reference.structure_id)))) {
+      hiddenStatus("Paused during coordinate preview", "preview-paused"); return;
+    }
     const nonpolar = new Set<number>();
     for (const unit of loaded.structure.units) {
       if (!Unit.isAtomic(unit)) continue;
@@ -1294,6 +1218,7 @@ export class MolstarEngine implements MolecularViewer {
     const isolated = this.isolation === null ? null : new Set(this.isolation.filter(atom => atom.structure_id === entryId).map(atom => atom.atom_id));
     const visible = visibleRepresentationAtomIds(source, isolated, nonpolar);
     const ids = definition.kind === "fragment" ? definition.atom_ids.filter(id => visible.has(id))
+      : definition.kind === "entry" ? [...visible].sort((a, b) => a - b)
       : [...new Set(source.hierarchy.components.filter(component => component.category === "protein")
         .flatMap(component => componentAtomIds(source.normalized, component)))].sort((a, b) => a - b);
     const targetIds = new Set(ids);
@@ -1302,11 +1227,16 @@ export class MolstarEngine implements MolecularViewer {
     if (revision === undefined) { revision = ++this.nextSurfaceSourceRevision; this.surfaceSourceRevisions.set(source.normalized, revision); }
     const dependencyKey = `${channel}:${revision}:${ids.join(",")}:${channel === "pocket" ? `${pocket?.dependencyKey}:${pocket?.radius}` : SURFACE_PROFILE.id}`;
     const unavailable = channel === "pocket" ? pocket?.unavailable ?? (!pocket ? "Loading current pocket inputs…" : undefined) : undefined;
-    if (channel === "pocket" && (!source.settings.components.protein || unavailable)) {
+    if (channel === "pocket" && !source.settings.components.protein) {
+      hiddenStatus("Protein hidden", dependencyKey); return;
+    }
+    if (channel === "pocket" && unavailable) {
       this.surfaces.request(entryId, channel, label, dependencyKey, null, () => {}, unavailable, surfaceId); return;
     }
     if (!loci) {
-      this.surfaces.request(entryId, channel, label, dependencyKey, null, () => {}, channel === "pocket" ? "No protein context is available." : undefined, surfaceId); return;
+      if (channel === "pocket") this.surfaces.request(entryId, channel, label, dependencyKey, null, () => {}, "No protein context is available.", surfaceId);
+      else hiddenStatus(isolated ? "Hidden by isolation or display filters" : "Hidden by display filters", dependencyKey);
+      return;
     }
     const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
       type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) }, nullIfEmpty: true, label,
@@ -1317,49 +1247,71 @@ export class MolstarEngine implements MolecularViewer {
     this.surfaceBindings.set(key, binding);
     const current = () => this.surfaceBindings.get(key) === binding && !binding.controller.signal.aborted && Boolean(this.plugin);
     const notify = (geometry?: SurfaceGeometry) => {
+      const currentDisplay = () => current() && (!geometry || this.surfaces.canDisplay(entryId, channel, surfaceId, geometry));
       this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
-        if (!current()) return;
-        const camera = this.getCamera();
+        if (!currentDisplay()) return;
         try {
-          const displayed = geometry && channel === "pocket" ? isolatePocketSurface(geometry, isolated) : geometry;
-          if (channel === "pocket" && !displayed?.indices.length) { this.commitScene(camera); return; }
+          // Clear retired visuals before cancellation fallback or a rebound mesh.
+          const cleanup = plugin.state.data.build();
+          plugin.state.data.tree.children.get(component.ref)?.forEach(child => cleanup.delete(child));
+          await cleanup.commit();
+          if (!currentDisplay()) return;
+          binding.unregister?.(); binding.unregister = undefined;
+          this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
+          detachSurfaceGeometry(component.obj!.data);
+          const isolatedGeometry = geometry && channel === "pocket" ? isolatePocketSurface(geometry, isolated) : geometry;
+          if (channel === "pocket" && !isolatedGeometry?.indices.length) {
+            this.commitScene(this.getCamera());
+            if (geometry) this.surfaces.markDisplayed(entryId, channel, surfaceId, geometry,
+              geometry.indices.length ? "Hidden by isolation" : undefined);
+            return;
+          }
+          let displayed: SurfaceGeometry | undefined;
+          let mappingBytes = 0;
+          if (isolatedGeometry) {
+            const mapped = await surfaceDisplayGeometry(component.obj!.data, loaded.atomIds, isolatedGeometry,
+              binding.controller.signal, bytes => {
+                if (!currentDisplay()) throw new DOMException("Surface binding changed", "AbortError");
+                this.surfaces.reserveDisplayBytes(entryId, channel, bytes, surfaceId);
+              });
+            displayed = mapped.geometry; mappingBytes = mapped.displayBytes;
+            if (!currentDisplay()) return;
+          }
           if (displayed && surface.appearance.mode === "mesh") {
             const lines = await surfaceWireframe(displayed, binding.controller.signal, bytes => {
-              if (!current()) throw new DOMException("Surface binding changed", "AbortError");
-              this.surfaces.reserveDisplayBytes(entryId, channel, bytes, surfaceId);
-            });
-            if (!current()) return;
+              if (!currentDisplay()) throw new DOMException("Surface binding changed", "AbortError");
+              this.surfaces.reserveDisplayBytes(entryId, channel, mappingBytes + bytes, surfaceId);
+            }, mappingBytes + (channel === "pocket" ? displayed.indices.byteLength : 0));
+            if (!currentDisplay()) return;
             attachSurfaceWireframe(component.obj!.data, lines);
-          } else if (displayed) {
-            this.surfaces.reserveDisplayBytes(entryId, channel, 0, surfaceId);
-            attachSurfaceGeometry(component.obj!.data, displayed);
-          }
+          } else if (displayed) attachSurfaceGeometry(component.obj!.data, displayed);
           const repr = displayed ? await plugin.builders.structure.representation.addRepresentation(component, {
             type: surface.appearance.mode === "mesh" ? SelectionSurfaceWireframeProvider : SelectionSurfaceProvider,
             typeParams: { alpha: surface.appearance.opacity },
             color: plugin.representation.structure.themes.colorThemeRegistry.get(this.colorTheme(surface.appearance.color_by)),
             colorParams: surface.appearance.color_by === "custom" ? { value: Color.fromHexStyle(surface.appearance.custom_color) } : undefined,
-          }) : await this.addSurfaceFallback(component.ref);
-          if (!current()) return;
-          if (displayed) { this.surfaceMeshEntries.add(key); this.updateSurfacePickingThreshold(); }
-          if (repr) {
-            binding.unregister?.();
-            binding.unregister = this.surfaceVisuals.register(repr.obj!.data.repr, { entryId, surfaceId });
-            const colors = surface.appearance.inherit_atom_colors ? selectionColorLayers(source.settings.selection_colors, source.normalized.atoms).flatMap(assignment => {
-              const colorLoci = this.lociFor(assignment.atomIds.filter(id => targetIds.has(id)).map(atom_id => ({ structure_id: entryId, atom_id })));
-              return colorLoci ? [{ bundle: StructureElement.Bundle.fromLoci(colorLoci), color: assignment.color, clear: false }] : [];
-            }) : [];
-            if (colors.length) await plugin.state.data.build().to(repr)
-              .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle, { layers: colors }).commit();
-          }
+          }, { tag: `neistra-representation-surface-${surfaceId}` }) : await this.addSurfaceFallback(component.ref);
+          if (!currentDisplay()) return;
+          if (!repr?.obj) throw new Error("Surface representation could not be installed.");
+          if (displayed) this.surfaceMeshEntries.add(key);
+          binding.unregister = this.surfaceVisuals.register(repr.obj.data.repr, { entryId, surfaceId });
+          this.updateSurfacePickingThreshold();
+          const colors = surface.appearance.inherit_atom_colors ? selectionColorLayers(source.settings.selection_colors, source.normalized.atoms).flatMap(assignment => {
+            const colorLoci = this.lociFor(assignment.atomIds.filter(id => targetIds.has(id)).map(atom_id => ({ structure_id: entryId, atom_id })));
+            return colorLoci ? [{ bundle: StructureElement.Bundle.fromLoci(colorLoci), color: assignment.color, clear: false }] : [];
+          }) : [];
+          if (colors.length) await plugin.state.data.build().to(repr)
+            .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle, { layers: colors }).commit();
+          if (!currentDisplay()) return;
           const hidden = new Set(source.settings.selection_hidden_atoms), displayedIds = new Set<number>();
           if (displayed) for (const group of displayed.groups) displayedIds.add(displayed.atomIds[group]);
-          else if (channel === "fragment") ids.forEach(id => displayedIds.add(id));
+          else if (channel !== "pocket") ids.forEach(id => displayedIds.add(id));
           this.surfaceRenderedAtoms.set(key, [...displayedIds].filter(id => visible.has(id) && !hidden.has(id))
             .map(atom_id => ({ structure_id: entryId, atom_id })));
-          this.applySelection(); this.commitScene(camera);
+          this.applySelection(); this.commitScene(this.getCamera());
+          if (geometry) this.surfaces.markDisplayed(entryId, channel, surfaceId, geometry);
         } catch (error) {
-          if (!current()) return;
+          if (!currentDisplay()) return;
           this.surfaceRenderedAtoms.delete(key);
           binding.unregister?.(); binding.unregister = undefined;
           detachSurfaceGeometry(component.obj!.data);
@@ -1369,8 +1321,11 @@ export class MolstarEngine implements MolecularViewer {
             plugin.state.data.tree.children.get(component.ref)?.forEach(child => cleanup.delete(child));
             await cleanup.commit(); this.surfaceMeshEntries.delete(key);
             this.updateSurfacePickingThreshold();
-            if (channel === "fragment") await this.addSurfaceFallback(component.ref);
-            this.commitScene(camera);
+            if (channel !== "pocket") {
+              const fallback = await this.addSurfaceFallback(component.ref);
+              if (current() && fallback?.obj) binding.unregister = this.surfaceVisuals.register(fallback.obj.data.repr, { entryId, surfaceId });
+            }
+            this.commitScene(this.getCamera());
           } catch {
             this.surfaces.fail(entryId, channel, "Surface and line rendering failed.", false, surfaceId, true);
           }
@@ -1383,7 +1338,7 @@ export class MolstarEngine implements MolecularViewer {
     // Typed inputs remain lazy; changed molecular dependencies cancel this request.
     const calculationStructure = component.obj.data;
     this.surfaces.request(entryId, channel, label, dependencyKey, reduced ? null : () => {
-      const input = surfaceInput(calculationStructure, loaded.atomIds);
+      const input = surfaceInput(calculationStructure, loaded.atomIds, channel);
       if (pocket) input.pocket = createPocketCrop(pocket.seeds, pocket.radius);
       return input;
     }, notify, reduced, surfaceId);

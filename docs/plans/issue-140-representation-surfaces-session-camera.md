@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0 and C1 complete; C2–C7 pending.
+**Status:** approved contract; C0–C2 complete; C3–C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -501,3 +501,50 @@ diff including new files, no-op/scoped-reset compatibility and scientific tests.
 
 Next: C2 combined-context surfaces and bounded worker lifecycle. No C2 application
 work, release qualification, PR or push-readiness claim is included in C1.
+
+
+### C2 — Combined surface calculation complete (2026-11-14)
+
+All source kinds now share the combined worker path. Entry eligibility remains
+<250,000 effective atoms with normalized-parent ≥250,000 fallback before input
+extraction; fragment/pocket limits and all resource budgets remain fixed. Input
+and cached ownership use canonical IDs, with independently validated/accounted
+native display remapping. Obsolete/cancelled uploads cannot become Ready; entry
+objects gain terminating Cancel/Retry. Definitions, originals, project/viewer/
+archive schemas, migration head and application versions remain unchanged.
+
+Verification: **540 frontend tests / 75 files**, lint/types/build; **57 backend
+surface integration cases**. New entry browser tests also pass strict scoped
+TypeScript/ESLint. Across the affected native suites **37 unique cases pass / one
+unchanged mobile palette exclusion**. Evidence reuses 16 unaffected desktop cases
+from the initial run, adds 17 mobile passes and all eight corrected object cases
+(four overlaps). Application sources were frozen throughout these runs. The
+initial run's failed case and subsequent diagnostic attempts are not counted as
+passes. [C2 receipt](../assets/representation-surfaces-session-camera/c2-checkpoint.json)
+retains source/log hashes, fixtures, actual allocation/work/timing and native data.
+
+Independent scientific exclusion plus a separate-shell negative control verifies
+buried-interface removal; the actual wide/thin calculation keeps its 0.5 Å grid
+(809×809×9), and canonical entry/full-fragment geometry agrees across three units.
+The 100,001-atom native entry succeeds on both layouts, preserving exact IDs and
+coordinates, with bounded buffers and complete disposal. Existing complete 6VXX,
+1AON and synthetic-100k capacity profiles pass. These are specific observed
+workloads, not universal throughput or strict reference-host certification.
+
+Corrections: cancelled line fallback no longer requests memory on an aborted
+request; disposal tests await documented deferred teardown. Native picking first
+waits for installed geometry, then validates the exact integer client point used
+by trusted input. The diagnostic proves subpixel coordinate rounding caused the
+old wireframe mismatch. Expected original identity, ignored obsolete hits,
+selection, camera, persisted state and whole-object markers remain checked.
+Scientific theory/implementation checkpoint assessments pass; performance review
+independently confirms the input-coordinate correction. Final seven-role feature
+review remains pending.
+
+Known limitations: C3 surface workflow/incremental updates and C4 camera remain.
+An optional malformed empty-atomic-output defense is unnecessary for valid worker
+output because the kernel already rejects zero triangles. An extra ad hoc strict
+audit of the pre-existing object browser test exposes baseline typing/unsafe-JSON
+patterns outside the configured gate; introduced diagnostic typing was corrected.
+Consolidate that browser-test typing during C5. Blockers requiring user input: none.
+Next: C3 cohesive surface editing; no application changes pushed yet.

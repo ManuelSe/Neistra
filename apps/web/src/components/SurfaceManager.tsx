@@ -94,7 +94,7 @@ export function SurfaceManager(props: Props) {
                   onClick={() => void perform(() => props.actions.remove(entry.id, surface.id), surface.name)}><Trash2 size={16} /></IconButton>
               </div>
               <p className="surface-object-status" role="status">{text}</p>
-              {status && ["queued", "rendering"].includes(status.state) && status.channel !== "entry" ? <button type="button" disabled={disabled}
+              {status && ["queued", "rendering"].includes(status.state) ? <button type="button" disabled={disabled}
                 onClick={() => props.onCancel(entry.id, surface)}>Cancel calculation</button> : null}
               {status && ["cancelled", "fallback"].includes(status.state) ? <button type="button" disabled={disabled}
                 onClick={() => props.onRetry(entry.id, surface)}>Retry surface</button> : null}

@@ -1,0 +1,12 @@
+import tseslint from "/datadisk/dev/neistra/apps/web/node_modules/typescript-eslint/dist/index.js";
+import globals from "/datadisk/dev/neistra/apps/web/node_modules/globals/index.js";
+
+export default tseslint.config({
+  files: ["**/entry-surfaces.spec.ts"],
+  extends: [...tseslint.configs.recommendedTypeChecked],
+  languageOptions: {
+    globals: { ...globals.browser, ...globals.node },
+    parserOptions: { project: ["/tmp/neistra-entry-surfaces-tsconfig.json"] },
+  },
+  rules: { "@typescript-eslint/no-floating-promises": "error", "@typescript-eslint/consistent-type-imports": "error" },
+});

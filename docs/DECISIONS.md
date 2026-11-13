@@ -6940,3 +6940,16 @@ annotated tag/release and the final issue response remain required. No protectio
 review or acceptance gate is waived. C1 introduces no migration or persisted
 viewer-field change; reset scope is an additive request control with all-channel
 default, and complete no-ops retain existing history/Redo.
+
+### D-155 C2 implementation boundary
+
+The combined surface calculation is implemented as an internal worker source-kind
+contract; it adds no persisted viewer field or project/archive version. Cached
+geometry stays in canonical atom order, while a checked bijection owns separate
+native display groups/IDs. Retained and active allocation accounting includes
+that mapping. Installation acknowledgement, not worker completion, owns Ready.
+All kinds use the same terminating worker cancellation lifecycle. C2 evidence is
+recorded in the feature plan; this does not certify the remaining workflow/camera
+work or the final release. Earlier native-entry behavior described in historical
+qualification sections remains historical, with current policy documented in
+SURFACES/PERFORMANCE/SCIENTIFIC_LIMITATIONS.

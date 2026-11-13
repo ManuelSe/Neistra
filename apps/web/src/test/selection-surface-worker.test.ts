@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { SurfaceCalculator } from "../viewer/surface/client";
 import type { SurfaceGeometry, SurfaceInput } from "../viewer/surface/protocol";
 
-const input = { atomIds: Uint32Array.of(1), x: Float64Array.of(0), y: Float64Array.of(0),
+const input = { kind: "fragment", atomIds: Uint32Array.of(1), x: Float64Array.of(0), y: Float64Array.of(0),
   z: Float64Array.of(0), radii: Float32Array.of(1.7) } satisfies SurfaceInput;
 class FakeWorker {
   terminate = vi.fn(); postMessage = vi.fn();

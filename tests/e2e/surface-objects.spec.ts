@@ -104,8 +104,9 @@ test("native same-entry surface objects have independent identity, colors, mesh 
   });
   const changed = await page.evaluate(() => window.surfaceObjectsHarness.inspect());
   expect(changed.objects[0]).toMatchObject({ mode: "mesh", color: 0x20ff20, alpha: 0.6 });
-  expect(changed.objects[0].displayBytes).toBeGreaterThan(0);
-  expect(changed.objects[1]).toMatchObject({ mode: "solid", color: 0x2040ff, alpha: 0.8, displayBytes: 0 });
+  expect(changed.objects[0].displayBytes).toBeGreaterThan(changed.objects[0].mappingBytes);
+  expect(changed.objects[1]).toMatchObject({ mode: "solid", color: 0x2040ff, alpha: 0.8 });
+  expect(changed.objects[1].displayBytes).toBe(changed.objects[1].mappingBytes);
   expect(changed.workers).toEqual(before.workers);
   expect(changed.objects.map(o => o.atoms)).toEqual(before.objects.map(o => o.atoms));
   expect(changed.camera).toEqual(before.camera);
@@ -171,7 +172,7 @@ test("manages production object appearance and explicit sources independently th
   const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
   await expect(manager.locator(".surface-object-status").filter({ hasText: /ready/ })).toHaveCount(5);
   const calculations = () => page.evaluate(() => (window as unknown as { surfaceCalculations: number }).surfaceCalculations);
-  const initialCalculations = await calculations(); expect(initialCalculations).toBe(4);
+  const initialCalculations = await calculations(); expect(initialCalculations).toBe(5);
   expect(await page.evaluate(() => (window as unknown as { surfaceMaximum: number }).surfaceMaximum)).toBe(1);
   expect(await page.evaluate(() => (window as unknown as { surfaceActive: number }).surfaceActive)).toBe(0);
   let reads = 0; page.on("request", r => { if (r.method() === "GET" && /\/structure(?:\?|$)/.test(r.url())) reads++; });
@@ -310,18 +311,22 @@ test("manages production object appearance and explicit sources independently th
       if (!(pixels[i + 1] > pixels[i] + 40 && pixels[i + 1] > pixels[i + 2] + 40) || sampled++ % 20) continue;
       const x = ((i / 4) % element.width + 0.5) / element.width;
       const y = 1 - (Math.floor(i / 4 / element.width) + 0.5) / element.height;
-      const point = new Float32Array([x * element.clientWidth, y * element.clientHeight]) as import("molstar/lib/mol-math/linear-algebra").Vec2;
+      // Native mouse events use integer client coordinates. Validate the same
+      // reachable point rather than a half-pixel center on a thin wireframe.
+      const rect = element.getBoundingClientRect();
+      const clientX = Math.round(rect.left + x * rect.width), clientY = Math.round(rect.top + y * rect.height);
+      const point = new Float32Array([clientX - rect.left, clientY - rect.top]) as unknown as import("molstar/lib/mol-math/linear-algebra").Vec2;
       const hit = canvas.identify(point);
       const identity = engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
-      if (identity?.surfaceId === wantedId) return { x, y, identity, camera: engine.getCamera() };
+      if (identity?.surfaceId === wantedId) return { x, y, clientX, clientY, identity, camera: engine.getCamera() };
     }
     return null;
   }, saved[0].id);
   expect(pick).not.toBeNull();
   const canvasBox = (await page.locator(".molstar-host canvas").first().boundingBox())!;
   const clickSurface = async () => {
-    if (info.project.name === "mobile-chromium") await page.touchscreen.tap(canvasBox.x + pick!.x * canvasBox.width, canvasBox.y + pick!.y * canvasBox.height);
-    else await page.mouse.click(canvasBox.x + pick!.x * canvasBox.width, canvasBox.y + pick!.y * canvasBox.height);
+    if (info.project.name === "mobile-chromium") await page.touchscreen.tap(pick!.clientX, pick!.clientY);
+    else await page.mouse.click(pick!.clientX, pick!.clientY);
   };
   // Keep the old native pixels visible while a subsequent structural rebuild waits.
   await page.evaluate(() => {
@@ -350,9 +355,43 @@ test("manages production object appearance and explicit sources independently th
   // rebuild promise through one long-lived DevTools execution context.
   await page.evaluate(() => (window as unknown as { finishManagedRebuild: () => void }).finishManagedRebuild());
   await expect.poll(() => page.evaluate(() => (window as unknown as { managedRebuildStatus: string }).managedRebuildStatus)).toBe("complete");
+  const rebuildStatusesBeforeInstallation = await page.evaluate(() => (window as unknown as { managedEngine: {
+    surfaces: { statuses(): { surfaceId: string; state: string; message: string }[] };
+  } }).managedEngine.surfaces.statuses());
+  // Structural loading queues the independent worker displays. Completion of
+  // syncStructures does not establish that those displays have been installed.
+  await expect.poll(() => page.evaluate(entryId => (window as unknown as { managedEngine: {
+    surfaces: { statuses(): { entryId: string; state: string }[] };
+  } }).managedEngine.surfaces.statuses().filter(status => status.entryId === entryId && status.state === "ready").length, entry.id)).toBe(5);
+  await page.evaluate(async () => { await (window as unknown as { managedEngine: { syncQueue: Promise<void> } }).managedEngine.syncQueue; });
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  const rebuiltNativeHit = await page.evaluate(point => {
+    const engine = (window as unknown as { managedEngine: {
+      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
+      surfaceVisuals: import("../../apps/web/src/viewer/surface/objects").SurfaceVisualRegistry;
+    } }).managedEngine;
+    const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
+    const rect = element.getBoundingClientRect();
+    const hit = canvas.identify(new Float32Array([point.clientX - rect.left, point.clientY - rect.top]) as unknown as import("molstar/lib/mol-math/linear-algebra").Vec2);
+    return engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
+  }, pick!);
+  expect(rebuiltNativeHit).toEqual(pick!.identity);
+  await page.evaluate(() => {
+    const engine = (window as unknown as { managedEngine: {
+      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
+      surfaceVisuals: import("../../apps/web/src/viewer/surface/objects").SurfaceVisualRegistry;
+    } }).managedEngine;
+    const state = window as unknown as { managedClickEvidence: unknown[] };
+    state.managedClickEvidence = [];
+    engine.plugin.behaviors.interaction.click.subscribe(event => state.managedClickEvidence.push({
+      identity: engine.surfaceVisuals.identityFor(event.current.repr), page: event.page ? Array.from(event.page) : undefined,
+      camera: engine.plugin.canvas3d?.camera.getSnapshot(),
+    }));
+  });
   await clickSurface();
   await expect(manager).toBeVisible();
+  writeFileSync(info.outputPath("managed-rebuild-click.json"), JSON.stringify({ pick, rebuiltNativeHit, canvasBox,
+    clicks: await page.evaluate(() => (window as unknown as { managedClickEvidence: unknown[] }).managedClickEvidence) }, null, 2));
   const pickedName = saved.find(surface => surface.id === pick!.identity.surfaceId)!.name;
   await expect(manager.locator('.surface-object[data-active="true"] .surface-object-label')).toContainText(pickedName);
   expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
@@ -374,7 +413,7 @@ test("manages production object appearance and explicit sources independently th
   expect(nativeMarkerCounts.length).toBeGreaterThan(0);
   expect(nativeMarkerCounts.every(object => object.count > 0 && object.highlighted === object.count)).toBe(true);
   await page.screenshot({ path: info.outputPath("managed-surface-appearance.png") });
-  writeFileSync(info.outputPath("managed-surface-appearance.json"), JSON.stringify({ initialCalculations, readsBeforeReload, nativeDisplay, nativeGreenPixels: nativeGreenPixelCount, nativeMarkerCounts, workerCountBeforeNativeStyle, savedObjectIds: saved.map(surface => surface.id), finalObjectIds: current.entries[0].viewer_settings.surface_objects.map(surface => surface.id) }, null, 2));
+  writeFileSync(info.outputPath("managed-surface-appearance.json"), JSON.stringify({ initialCalculations, readsBeforeReload, nativeDisplay, nativeGreenPixels: nativeGreenPixelCount, nativeMarkerCounts, workerCountBeforeNativeStyle, rebuildStatusesBeforeInstallation, rebuiltNativeHit, savedObjectIds: saved.map(surface => surface.id), finalObjectIds: current.entries[0].viewer_settings.surface_objects.map(surface => surface.id) }, null, 2));
 });
 
 test("keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts", async ({ page, request }, info) => {

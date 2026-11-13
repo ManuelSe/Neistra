@@ -2,30 +2,31 @@
 
 ## Current milestone
 
-Issue #140 — **C1 implemented and qualified; C2 next** under the
+Issue #140 — **C1–C2 implemented and qualified; C3 next** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-The subsequent `/goal` authorizes C1–C7; the PR must use Closes #140, with final
-verification/publication and issue response still mandatory.
+The `/goal` authorizes implementation and complete delivery; the PR must use
+Closes #140. No application changes have been pushed pending the final seven-role gate.
 
-Implemented: corrected uniform stick caps/tubes, complete styling no-ops,
-atomic/polymer reset scope, effective assignment summaries, Backbone trace label
-and explicit complete-residue selection recovery. No migration, stored viewer
-field, application version, surface calculation or camera ownership change yet.
+Completed: uniform stick profiles, no-op styling/history, scoped resets and residue
+recovery (C1); combined bounded entry/fragment/pocket surfaces, canonical ownership
+mapping, entry cancellation and readiness after installation (C2). No durable
+schema, migration or version change yet. Current versions remain 0.29.0, head 0014.
 
-Verification: 27 focused Python cases, full Ruff/mypy (201 sources), 520 frontend
-tests and lint/types/build pass. Scientific and architecture C1 assessments pass.
-A native palette overlap failure was corrected without forcing clicks or
-weakening tests; exact failed-case replay passes. Fresh complete affected native
-qualification passes **11 cases / 5 existing layout exclusions**, no failures or
-retries; semantic legend markup also passes 20 focused UI cases and static checks.
-[C1 evidence](assets/representation-surfaces-session-camera/c1-checkpoint.json)
-retains source hashes, native log, fixture screenshots and the failed trace.
+C2 verification: 540 frontend tests / 75 files, lint/types/build, 57 backend
+surface integration cases; 37 unique native passes / one unchanged mobile
+exclusion across both layouts. Independent interface/fixed-grid oracles, exact
+entry/fragment equivalence, actual 100,001-atom entry and existing capacity profiles
+pass. Scientific checkpoint assessments pass. Native cancellation, deferred
+teardown and wireframe input-coordinate corrections retain all identity/state
+assertions. [C2 evidence](assets/representation-surfaces-session-camera/c2-checkpoint.json)
+separates diagnostics from reused unaffected and corrected passing cases.
 
-Known limitations: combined surfaces, surface workflow and shared camera remain
-C2–C4. Complete release/readers and seven-role final assessments remain pending.
-Blockers: none requiring user input. Next: C2 combined surface calculation and
-bounded worker lifecycle. C1 is a checkpoint, not complete feature/release
-qualification or readiness to push implementation before final seven-role review.
+Known limitations: C3 workflow/incremental surface updates and C4 global camera
+remain; full release/readers and all-seven final assessments pending. Extra strict
+audit found pre-existing native-test typing patterns outside configured frontend
+gates; consolidate during C5. No strict timing/universal capacity claim.
+Blockers: none requiring user input. Next: C3. Detailed C1/C2 history and evidence
+remain in the feature plan; these are checkpoints, not complete release qualification.
 
 ### Approved planning checkpoint — issue #140 C0
 

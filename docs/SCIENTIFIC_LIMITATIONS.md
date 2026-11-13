@@ -483,9 +483,14 @@ opacity and atom-color inheritance change presentation only. No surface charge,
 partial-charge or electrostatic-potential contract is inferred from existing atom
 fields. A focused scientific follow-up is required before offering charge colors.
 
-Worker-output/allocation bounds include additional mesh-line/isolation buffers and
-apply across identified fragment/pocket requests. They do not cap native entry
-calculations, browser memory or GPU memory. A saved object can exceed rendering
+All surface kinds now use a combined calculation across included units, rather
+than separate entry-unit shells. The fixed physical radii, 1.4 Å probe, 0.5 Å grid
+and 36 probe positions remain; grid spacing never silently coarsens. Fragment and
+pocket admission remains at most 100,000 effective atoms; whole entries admit
+fewer than 250,000. The normalized-parent ≥250,000 reduced-detail rule still
+applies before extraction. Worker-output/allocation bounds include display
+ownership and mesh-line/isolation buffers across every kind. They do not cap total
+browser memory or GPU memory. A saved object can exceed rendering
 limits; status retains and explains it. Hiding/removing it releases runtime work.
 
 
