@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue [#140](https://github.com/ManuelSe/Neistra/issues/140) — **approved planning
+persistence, C0 only**. The [feature contract](plans/issue-140-representation-surfaces-session-camera.md)
+and D-154/D-155 define corrected sticks/combined surfaces/no-op history, coherent
+surface editing, and one installation-local camera across entries and projects.
+The user selected immediate Undoable appearance, one pristine-installation fit,
+and a focused release with expanded local styling in one delivery follow-up.
+
+Completed: read-only investigation and seven specialist planning assessments;
+user scope decisions; clean master fetched/fast-forwarded at `a1f2e2fd`; dedicated
+`feat/issue-140-representation-surfaces-session-camera` branch and planning records.
+Verification: clean base, stable latest v0.29.0 and absence of planned branch/tag
+collision; C0 documentation/diff checks and exact remote commit readback are the
+handoff evidence. Prior audit tests are baseline, not future qualification.
+
+Planned checkpoints: C1 atomic styling/history; C2 combined surfaces; C3 surface
+workflow; C4 shared-camera persistence; C5 integrated qualification; C6 candidate;
+C7 delivery. Target **minor 0.30.0**, with planned migration 0015 and existing
+project/viewer/archive 2 retained. Current versions remain 0.29.0 and head 0014.
+No runtime or dependency change, implemented fix, PR or release is claimed.
+
+Known limitations: audited defects remain; new entry capacity and camera recovery
+require implementation qualification. Blockers: none for planning persistence.
+Next action: **/goal**. Stop after the approved plan commit/push; do not begin C1.
+
+### Previous completed milestone — issue #137
+
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) is implemented and
 released as stable [v0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0)
 through [PR #138](https://github.com/ManuelSe/Neistra/pull/138). The

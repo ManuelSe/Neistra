@@ -6855,3 +6855,78 @@ owner. Do not dismiss notices or force clicks in tests to conceal interception.
 Independent actual-component hit testing and the unchanged native hardening case
 verify the correction. Long reading, identity reset, focus, lifetimes, scientific
 payloads and production/qualification limits remain unchanged.
+
+## D-154 — One installation-local camera across the application
+
+Date: 2026-11-13. Status: accepted by the user's explicit planning choices and
+“Implement the plan.” under the [issue #140 contract](plans/issue-140-representation-surfaces-session-camera.md).
+C0 persists planning only; implementation requires the subsequent `/goal`.
+
+Representations remain authoritative per-entry settings. One application camera
+is shared across molecules **and projects**. Entry/project changes, imports,
+visibility changes, styles, surfaces, new molecules and renderer remounts do not
+reset it. Reopening restores the installation's last camera. The sole automatic
+fit is the first drawable content on a pristine installation, after hydration
+proves no saved/adjusted camera exists; user navigation cancels that opportunity.
+Explicit Fit, Focus, Reset, projection and named-scene actions remain effective.
+No per-molecule camera map, view selector or new switching workflow is approved.
+
+Plan a singleton WorkspacePresentationV1 with independent revision and typed
+camera (mode, position, target, up, radius, FOV), GET/PUT workspace presentation
+API and migration 0015, subject to collision check. Navigation writes must not
+touch project revisions, dirty state, checkpoints, history, Redo or entry
+timestamps. Presentation is installation-local and excluded from archives;
+project/viewer/archive 2 and normalized/selection/component 1 remain unchanged.
+Existing browser last-project navigation remains sufficient.
+
+One App-owned controller hydrates once, buffers the latest camera through lazy
+mounts, serializes/coalesces writes and prevents late responses/restores from
+overwriting newer navigation. A bounded local recovery mirror and best-effort
+closure flush address interrupted writes; differing server/base revisions require
+explicit Save current view. Failures remain visible without disabling navigation.
+No power-loss-proof or failed-network persistence guarantee is made.
+
+This supersedes D-022's transient ordinary-camera policy and D-023's implicit
+scene-content fitting only where necessary for the approved shared-camera
+contract. Their separation of molecular authority, portable scenes and navigation
+history remains. Runtime/schema changes, migration and qualification are pending.
+
+## D-155 — Corrected display geometry with bounded surface ownership
+
+Date: 2026-11-13. Status: accepted planning contract for issue #140; implementation
+pending. The user explicitly selected a focused release and immediate Undoable
+surface appearance, with expanded local styling deferred to one follow-up.
+
+Thin/thick sticks retain the pinned native provider but use uniform size 1,
+aspect 1 and existing scale 0.22/0.36 so atom spheres act as matching-radius caps.
+Ball-and-stick/space filling retain physical sizes; native multiple/aromatic
+notation and canonical graph restrictions remain. Complete styling no-ops must
+not consume revision, dirty state, history or Redo.
+
+Whole-entry surfaces move from independent unit shells to combined-context worker
+geometry, sharing the existing molecular definition (physical radii, probe 1.4 Å,
+grid 0.5 Å, 36 probe positions). Retain fragment/pocket meanings and durable identities.
+Input admission is kind-specific: fragment/pocket ≤100,000 effective atoms; entry
+<250,000, with the existing parent ≥250,000 fallback still enforced. Preserve
+64 million cells, 512 MiB mesh, 1 GiB retained, 2 GiB accounted working buffers, 120 seconds
+and one worker. These are eligibility/resource ceilings, not universal throughput
+claims. Never silently coarsen. Refusal preserves definitions with explained
+fallback. Capacity qualification is required; failure cannot silently reduce the
+approved contract. Canonical calculation order requires validated/accounted
+display ownership mapping, not equal-count assumptions.
+
+Surface readiness follows successful current-generation installation and is
+distinct from effective visibility/isolation. Keep existing entry-owned objects,
+commands, source pruning, scene/archive remapping and transient activation. A
+unified chooser, bounded list/details manager and narrow surface-only incremental
+updates improve the workflow without a generic layer/scene framework. Appearance
+commits once per completed gesture; source changes remain explicit captured
+Apply/Revert actions. Shared receptor meshes, new scientific surface families,
+polymer hiding and local appearance schemas are outside this slice. D-154 owns
+the camera across every display transition.
+
+Plan stable minor 0.30.0 because additive persistence/API and workflow functionality
+accompany fixes. Five version sources change only in release preparation. Existing
+stable 0.29.0 history is verified; all future candidate/exact-master gates, actual
+tagged readers and seven-role final assessments remain required. C0 introduces
+no application, version, dependency, migration or durable-schema implementation.
