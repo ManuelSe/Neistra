@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C5 are implemented and focused-qualified; C6–C8 remain pending.
+C2–C6 are implemented and focused-qualified; C7–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -471,8 +471,9 @@ to avoid a self-referential commit claim.
 | C2 | Complete local checkpoint `36df747`; focused evidence below. |
 | C3 | Complete local checkpoint `9e418d3`; focused evidence below. |
 | C4 | Complete local checkpoint `80adf97`; focused evidence below. |
-| C5 | Implemented, measured and focused-qualified; checkpoint commit follows evidence below. |
-| C6–C8 | Pending; no final feature/release qualification claimed. |
+| C5 | Complete local checkpoint `0742184`; measured evidence below. |
+| C6 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
+| C7–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -687,3 +688,32 @@ Both verify scientific-document byte equality and the measured source identities
 No consequential finding remains; final all-seven review is C7 work. Next: commit
 C5, then the approved bounded C6 API helper extraction. No essential outcome or
 performance qualification policy is reduced.
+
+
+### C6 — Shared publication boundaries
+
+Based on C5 `07421849338a9a143c7de609bd2989781c0ddab9`, extract six small
+functions for project/entry lookup, verified artifact reads, normalized-source
+parsing, pre-read publication locking and pure coordinate replacement. Quick
+minimization no longer inherits prepared-service private helpers. The legacy
+namespace aliases the same module. Scientific acceptance, dependencies,
+annotations, warnings, provenance, history and artifact publication stay separate.
+Error mappings, caller transaction ownership and the strict >1e-9 angstrom
+component displacement rule are unchanged. See D-153 and architecture notes.
+
+[Retained evidence](../assets/authoritative-minimization/c6-summary.json): **87
+Python passes, no skips, 140.25 seconds**, global Ruff and mypy (201 files).
+**37 native passes / one existing mobile desktop-zoom exclusion**, zero failures,
+flakes, retries or global errors in 280.16 seconds, exercise quick/prepared
+publication, preview/Cancel, exact Undo/Redo and ambiguous-response recovery in
+both layouts. All **741 source identities** remain exact. Unchanged frontend
+sources reuse C3 lint/types/500 tests/build; complete C7/C8 gates remain mandatory.
+
+Architecture independently inspects all six files and hashes and passes 27 tests,
+including independent concurrent Apply requests with exactly one successful
+publication, one conflict and one history/revision increment. Parent full-diff
+review finds no consequential issue or scope expansion. No migration, schema,
+dependency, app version or scientific policy changes. Next: commit C6, then C7
+actual-reader qualification, five-version release preparation, complete gate and
+all-seven final-candidate assessment. No feature completion/readiness to push is
+claimed yet.

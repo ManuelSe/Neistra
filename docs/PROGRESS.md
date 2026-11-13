@@ -4,8 +4,8 @@
 
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
 [feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
-`fix/issue-137-authoritative-minimization`. Local C0–C4 checkpoints are committed;
-latest is `80adf97`. The feature plan is the detailed progress/evidence source.
+`fix/issue-137-authoritative-minimization`. Local C0–C5 checkpoints are committed;
+latest is `0742184`; C6 is focused-qualified. The feature plan is the detailed progress/evidence source.
 
 Completed: current canonical connectivity across import/viewer/edit/calculation,
 old-proposal/worker version guards, source-owned publication recovery, explicit
@@ -31,11 +31,17 @@ then current19), Ruff/mypy and **17 native passes / five existing mobile exclusi
 pass with 737 final identities. Both scientific reviewers reconfirm the final
 test addition and unchanged production source. [C5 evidence](assets/authoritative-minimization/c5-summary.json).
 
-Known limitations: C6–C8 remain; scientific cleanup is local
+C6 extracts six persistence helpers, removes private service inheritance and
+preserves separate scientific policies. **87 backend passes, zero skips**, global
+Ruff/mypy (201 files) and **37 native passes / one existing mobile exclusion**
+pass with 741 source identities unchanged. Independent architecture review passes
+27 cases and the complete extraction; no consequential finding remains.
+
+Known limitations: C7–C8 remain; scientific cleanup is local
 and existing chemistry limits apply. App versions remain 0.28.1; quick implementation
 is 1.0.3. No dependency/schema/migration change. Planned stable release is **minor
-0.29.0**. Blockers: none. Next: commit C5, then the bounded C6 API helper
-extraction, final gates/reviews and authorized remote delivery.
+0.29.0**. Blockers: none. Next: commit C6, then actual-reader qualification,
+release preparation, complete gates/reviews and authorized remote delivery.
 
 ### Previous completed milestone — issue #98
 

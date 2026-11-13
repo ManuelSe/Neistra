@@ -89,6 +89,22 @@ projects remain usable. Only current-project notices affect active presentation;
 late responses publish monotonically into the captured project's authority cache.
 The controller adds no molecular schema, API endpoint, or generic job framework.
 
+### Shared calculation publication boundaries
+
+Quick and prepared minimization use six functions in
+`neistra_api.minimization_publication` for project/entry lookup, verified artifact
+reads, normalized-source parsing, publication locking and selected-coordinate
+replacement. Quick minimization has its own service rather than inheriting
+private prepared-service helpers. The legacy module path aliases the same module.
+
+Acquire the publication lock before dependency or retry reads; transaction
+completion belongs to the calling service. Coordinate replacement preserves source
+row order, fixed rows, inactive conformers and the existing strictly greater than
+1e-9 angstrom component displacement rule. Callers retain finite-value/selection
+validation, scientific acceptance, annotations, warnings, dependency policies,
+provenance, history commands and artifact publication. This is a small shared
+persistence boundary, not a unified scientific Apply pipeline.
+
 ## Component Hierarchy Ownership
 
 Issue #59 separates compact entry management from a named-entry component pane.

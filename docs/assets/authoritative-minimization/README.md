@@ -258,3 +258,29 @@ Initial profiling records are separate exploratory inputs. The final uniform
 baseline/candidate cohorts above run sequentially without competing heavy work;
 the earlier 0.26-second query probe overlapped an initial cold-start measurement
 that is not used for the final comparison. No timing/resource limit is relaxed.
+
+
+## C6 — Shared publication infrastructure
+
+[Summary](c6-summary.json) records the six-file extraction from C5 `0742184`.
+The [mechanical service diff](c6-service-diff.txt.gz) and [frozen file hashes](c6-source.txt.gz)
+show shared lookup/integrity/parsing/locking/coordinate replacement, independent
+quick-service construction and a legacy identity alias. Acceptance policies,
+annotations, dependencies, warnings, history and transaction completion remain
+owned by each service. No schema, migration, dependency, version or scientific
+policy changes.
+
+[Service log](c6-services.log.gz): **87 passes, zero skips, 140.25 seconds**;
+[helper log](c6-helpers.log.gz): 19 focused passes. [Global Ruff](c6-ruff.log.gz)
+and [mypy](c6-mypy.log.gz) (201 files) pass. Architecture independently passes 27
+cases and verifies every frozen hash, the exact no-op threshold, inactive/fixed
+rows and one-command concurrent Apply behavior.
+
+[Browser report](c6-browser.json.gz) and [log](c6-browser-log.log.gz): **37 passes /
+one existing mobile desktop-zoom exclusion**, zero failures/flakes/retries/global
+errors in 280.16 seconds. Both layouts exercise prepared/quick publication,
+preview/Cancel, Undo/Redo and publication recovery. The [741-file inventory](c6-source-identity.json.gz)
+remains exact. Exact commands and isolated environment are in the summary.
+Unchanged frontend sources reuse C3 lint/typecheck/500 tests/build. These are
+checkpoint results; final all-seven assessment and complete candidate/exact-master
+gates remain required.

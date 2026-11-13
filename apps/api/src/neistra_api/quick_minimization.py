@@ -11,6 +11,7 @@ from math import isfinite
 from typing import Literal
 
 from fastapi import APIRouter, Depends, Response
+from neistra_core.artifacts import LocalArtifactStore
 from neistra_core.jobs import PluginRegistry
 from neistra_core.minimization.contracts import CalculationError, CoordinateProposal
 from neistra_core.minimization.live import capture_digest, read_snapshot
@@ -29,19 +30,26 @@ from neistra_core.selection import SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy.orm import Session
 
-from neistra_api.import_export import NORMALIZED_MEDIA_TYPE
+from neistra_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
 from neistra_api.job_service import (
     InvalidJobOperationError,
     JobConflictError,
     JobNotFoundError,
     JobService,
 )
+from neistra_api.minimization_publication import (
+    get_entry,
+    get_project,
+    lock_coordinate_publication,
+    parse_calculation_source,
+    read_verified_artifact,
+    replace_selected_coordinates,
+)
 from neistra_api.minimization_schemas import (
     MinimizationApply,
     MinimizationLiveRead,
     MinimizationPreviewSource,
 )
-from neistra_api.minimization_service import MinimizationService
 from neistra_api.models import Job, Project, StructureEntry
 from neistra_api.project_service import InvalidProjectOperationError, ProjectService
 from neistra_api.schemas import JobRead, ProjectRead
@@ -100,7 +108,13 @@ class QuickCapabilities(BaseModel):
     )
 
 
-class QuickService(MinimizationService):
+class QuickService:
+    def __init__(self, session: Session, settings: Settings, registry: PluginRegistry) -> None:
+        self.session = session
+        self.settings = settings
+        self.registry = registry
+        self.artifacts = ArtifactService(session, LocalArtifactStore(settings.data_dir))
+
     @staticmethod
     def participants(
         project: Project, selected: set[str], mode: str, explicit: list[str]
@@ -120,7 +134,7 @@ class QuickService(MinimizationService):
         return [available[i] for i in sorted(ids)]
 
     def submit_quick(self, project_id: str, payload: QuickCreate) -> Job:
-        project = self._project(project_id, payload.expected_revision)
+        project = get_project(self.session, project_id, payload.expected_revision)
         selected = {a.structure_id for a in payload.selection.atoms}
         participants = self.participants(project, selected, payload.mode, payload.context_entry_ids)
         sources = {}
@@ -132,8 +146,8 @@ class QuickService(MinimizationService):
                 )
             if not entry.current_artifact_id:
                 raise InvalidJobOperationError("A participating entry has no current structure")
-            artifact, data = self._read(entry.current_artifact_id)
-            source = self._structure(data)
+            artifact, data = read_verified_artifact(self.artifacts, entry.current_artifact_id)
+            source = parse_calculation_source(data)
             sources[entry.id] = source
             captures.append(
                 QuickCapture(
@@ -167,7 +181,7 @@ class QuickService(MinimizationService):
         )
 
     def _job(self, project_id: str, job_id: str) -> Job:
-        self._project(project_id)
+        get_project(self.session, project_id)
         job = JobService(self.session, self.settings, self.registry).get(job_id)
         if job.project_id != project_id or job.job_type != QUICK_JOB:
             raise JobNotFoundError(job_id)
@@ -198,8 +212,8 @@ class QuickService(MinimizationService):
                 return "Selected or fixed local context changed; rerun quick minimization"
             if entry.id in selected and entry.locked:
                 return f"Unlock {entry.name} before applying quick coordinates"
-            _, data = self._read(capture.artifact_id)
-            source = self._structure(data)
+            _, data = read_verified_artifact(self.artifacts, capture.artifact_id)
+            source = parse_calculation_source(data)
             if source.active_conformer_id != capture.conformer_id:
                 return "Active conformer changed; rerun quick minimization"
         # The worker verified final discovery against all immutable captures. Exact
@@ -214,8 +228,8 @@ class QuickService(MinimizationService):
                     continue
                 if not entry.current_artifact_id:
                     return "A participating entry has no current molecular structure"
-                _, data = self._read(entry.current_artifact_id)
-                sources[entry.id] = self._structure(data)
+                _, data = read_verified_artifact(self.artifacts, entry.current_artifact_id)
+                sources[entry.id] = parse_calculation_source(data)
             positions = {
                 (p.entry_id, a): xyz
                 for p in entries
@@ -234,7 +248,7 @@ class QuickService(MinimizationService):
         results = [r for r in job.results if r.role == "proposal"]
         if len(results) != 1:
             raise JobConflictError("No unique quick coordinate proposal")
-        _, data = self._read(results[0].artifact_id)
+        _, data = read_verified_artifact(self.artifacts, results[0].artifact_id)
         digest = hashlib.sha256(data).hexdigest()
         if digest != job.result_values.get("proposal_sha256") or digest != results[
             0
@@ -278,7 +292,9 @@ class QuickService(MinimizationService):
         elif not usable(report):
             reason = f"Quick calculation is {report.outcome}; no usable coordinate improvement"
         else:
-            reason = self._dependencies(self._project(project_id), parameters, report, entries)
+            reason = self._dependencies(
+                get_project(self.session, project_id), parameters, report, entries
+            )
         return QuickProposalRead(
             job_id=job.id,
             proposal_sha256=digest,
@@ -308,7 +324,7 @@ class QuickService(MinimizationService):
             if c.entry_id in moving
         ]
         if (
-            self._project(project_id).revision != job.provenance.get("project_revision")
+            get_project(self.session, project_id).revision != job.provenance.get("project_revision")
             or job.cancellation_requested
         ):
             result.unavailable_reason = (
@@ -324,8 +340,8 @@ class QuickService(MinimizationService):
         return result
 
     def apply(self, project_id: str, job_id: str, payload: MinimizationApply) -> ProjectRead:
-        self._lock_apply(project_id)
-        project = self._project(project_id, payload.expected_revision)
+        lock_coordinate_publication(self.session, project_id)
+        project = get_project(self.session, project_id, payload.expected_revision)
         proposal = self.proposal_quick(project_id, job_id)
         if payload.proposal_sha256 != proposal.proposal_sha256 or not proposal.applicable:
             raise JobConflictError(proposal.unavailable_reason or "Quick proposal digest changed")
@@ -349,9 +365,9 @@ class QuickService(MinimizationService):
                 raise JobConflictError("Quick source input differs from immutable capture")
             if capture.entry_id not in selected:
                 continue
-            entry = self._entry(project, capture.entry_id)
-            _, data = self._read(capture.artifact_id)
-            before = self._structure(data)
+            entry = get_entry(project, capture.entry_id)
+            _, data = read_verified_artifact(self.artifacts, capture.artifact_id)
+            before = parse_calculation_source(data)
             result = results[capture.entry_id]
             if (
                 result.conformer_id != capture.conformer_id
@@ -363,25 +379,11 @@ class QuickService(MinimizationService):
                     "Quick proposal does not preserve movable atom/conformer mapping"
                 )
             updates = dict(zip(result.atom_ids, result.coordinates, strict=True))
-            if not any(
-                max(abs(a.coordinates[j] - updates[a.id][j]) for j in range(3)) > 1e-9
-                for a in before.atoms
-                if a.id in updates
-            ):
+            after = replace_selected_coordinates(before, updates, capture.conformer_id)
+            if after is None:
                 continue
-            coordinates = [updates.get(a.id, a.coordinates) for a in before.atoms]
-            after = before.model_copy(
+            after = after.model_copy(
                 update={
-                    "atoms": [
-                        a.model_copy(update={"coordinates": p}) if a.id in updates else a
-                        for a, p in zip(before.atoms, coordinates, strict=True)
-                    ],
-                    "conformers": [
-                        c.model_copy(update={"coordinates": coordinates})
-                        if c.id == capture.conformer_id
-                        else c
-                        for c in before.conformers
-                    ],
                     "annotations": [
                         *before.annotations,
                         {

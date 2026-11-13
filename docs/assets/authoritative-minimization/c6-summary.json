@@ -1,0 +1,102 @@
+{
+  "checkpoint": "C6",
+  "base": "07421849338a9a143c7de609bd2989781c0ddab9",
+  "qualification": "focused checkpoint; complete release gate pending",
+  "python": {
+    "passed": 87,
+    "skipped": 0,
+    "seconds": 140.25
+  },
+  "independent_architecture": {
+    "verdict": "PASS",
+    "independent_tests": 27,
+    "six_source_hashes_verified": true
+  },
+  "static": {
+    "ruff": "PASS global",
+    "mypy": "PASS201files"
+  },
+  "browser": {
+    "startTime": "2026-11-13T16:08:47.210Z",
+    "duration": 280164.611,
+    "expected": 37,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_retries": 0,
+  "browser_global_errors": 0,
+  "source_identity": {
+    "files": 741,
+    "unchanged_through_gate": true
+  },
+  "compatibility": {
+    "api_schema_dependency_version_scientific_policy_changes": false,
+    "legacy_alias_identity": true
+  },
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "NEISTRA_PERFORMANCE": "0",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-c6-native1",
+    "NEISTRA_E2E_API_PORT": "18450",
+    "NEISTRA_E2E_WORKER_PORT": "18451",
+    "NEISTRA_E2E_WEB_PORT": "15613"
+  },
+  "commands": {
+    "python": ".venv/bin/uv run pytest tests/integration/test_minimization*.py tests/integration/test_quick*.py tests/unit/test_minimization_publication.py tests/unit/test_namespace_compatibility.py -q",
+    "browser": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-recovery.spec.ts tests/e2e/quick-minimization.spec.ts --output=/tmp/neistra137-c6-native1-results --reporter=line,json --max-failures=1",
+    "ruff": ".venv/bin/uv run ruff check .",
+    "mypy": ".venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin"
+  },
+  "artifacts": {
+    "services": {
+      "path": "docs/assets/authoritative-minimization/c6-services.log.gz",
+      "bytes": 191,
+      "sha256": "bd1bfaa4ee51c7f0155572b105ec80c2ec492e53c53bdd3f86a8bf94009f4b6a"
+    },
+    "helpers": {
+      "path": "docs/assets/authoritative-minimization/c6-helpers.log.gz",
+      "bytes": 99,
+      "sha256": "e54306ba5008c1042112208b27cf3171b4877b1008ff529d3ece656a20a6814b"
+    },
+    "ruff": {
+      "path": "docs/assets/authoritative-minimization/c6-ruff.log.gz",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "mypy": {
+      "path": "docs/assets/authoritative-minimization/c6-mypy.log.gz",
+      "bytes": 45,
+      "sha256": "66d1e1376914aebd3df98f2d92a3227b07bafb60b2327103183c309404bb2ce0"
+    },
+    "browser": {
+      "path": "docs/assets/authoritative-minimization/c6-browser.json.gz",
+      "bytes": 65781,
+      "sha256": "1478d2c603c108e6d6eaaf378e06df1f50bdc4251c0bdc1ea0e72476d4393a23"
+    },
+    "browser-log": {
+      "path": "docs/assets/authoritative-minimization/c6-browser-log.log.gz",
+      "bytes": 20988,
+      "sha256": "6b720319e6928b2e2385f3e6d9550070bdeded027ffe241a18aea255d4b954c4"
+    },
+    "source-identity": {
+      "path": "docs/assets/authoritative-minimization/c6-source-identity.json.gz",
+      "bytes": 87741,
+      "sha256": "8c7c8a04f156d2ff2ec17a2a51ce4923f2bae428da8cbf7806519a58234aca0e"
+    },
+    "source": {
+      "path": "docs/assets/authoritative-minimization/c6-source.txt.gz",
+      "bytes": 699,
+      "sha256": "05e4a2f4651cc3943967fb83ba03d113df5e97c3eb171235f1bfbf759eab4b4a"
+    },
+    "service-diff": {
+      "path": "docs/assets/authoritative-minimization/c6-service-diff.txt.gz",
+      "bytes": 21918,
+      "sha256": "7765aa5241b3064a3a56188817210d8a2a4e40e754915dd97ec1347a65cc57b5"
+    }
+  },
+  "evidence_reuse": "Frontend sources unchanged since C3; C3 lint/types/500tests/build remain applicable. C7 and exact-master gates still mandatory."
+}

@@ -6755,3 +6755,16 @@ is unchanged within noise. The retained indexes increase whole-job memory; only
 dense-query tracked allocation decreases. Accept this bounded linear memory/CPU
 tradeoff with existing worker limits intact. These local measurements do not
 establish browser latency gains or strict reference-host timing qualification.
+
+### D-153 C6 shared publication infrastructure — 2026-11-13
+
+Extract six small persistence functions rather than a common scientific Apply
+pipeline. Quick minimization owns an independent constructor/service; both callers
+share lookup, artifact integrity, source parsing, pre-read publication locking and
+pure selected-coordinate replacement. Transaction completion, annotations,
+scientific acceptance, captured dependencies, warnings, provenance, history and
+artifact publication remain service-owned. Preserve error mappings and the exact
+strictly-greater-than-1e-9 angstrom component displacement threshold. A legacy
+module alias preserves namespace identity. No public API, schema, dependency,
+version or scientific-policy change is required. Independent architecture review
+and service/native qualification are recorded in the feature evidence.

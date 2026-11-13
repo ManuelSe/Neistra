@@ -32,6 +32,15 @@ test addition; production sources remain measured and unchanged. Direct-plugin
 CPU improvements trade additional whole-job memory; no application latency or
 overall memory reduction claim follows. [C5 records](assets/authoritative-minimization/c5-summary.json).
 
+C6 shares only persistence helpers and preserves scientific service policies.
+[Evidence](assets/authoritative-minimization/c6-summary.json) records **87 Python
+passes, zero skips**, global Ruff/mypy (201 files), **37 native passes / one
+existing mobile desktop-zoom exclusion**, zero failures/flakes/retries and 741
+unchanged source identities. Architecture independently passes 27 cases and the
+complete six-file diff, including concurrent publication. Frontend sources are
+unchanged from C3; no API/schema/migration/dependency/version changes. Complete
+C7/C8 gates and final all-seven assessment remain pending.
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the
