@@ -4,52 +4,42 @@
 
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
 [feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
-`fix/issue-137-authoritative-minimization`. Local C0–C6 checkpoints are committed;
-latest is `013ab2a`; C7 release preparation is in progress. The feature plan is
-the detailed progress/evidence source.
+`fix/issue-137-authoritative-minimization`. C0–C6 are committed through `013ab2a`;
+C7 preparation/corrections are committed through `7bc1945`. The feature plan is
+the detailed scope/progress/evidence source.
 
 Completed: current canonical connectivity across import/viewer/edit/calculation,
-old-proposal/worker version guards, source-owned publication recovery, explicit
-capability retry/recapture, staged counts and effective-field diagnostics. C4
-corrects five supplied-state interpretation defects and independently qualifies
-states, caps, mixed moving fields and exact coordinate publication. Original bytes
-and existing sparse project graphs remain unchanged; no new repair action is added.
+old-proposal/worker guards, source-owned publication recovery, capability retry,
+recapture, staged counts and actual field diagnostics. C4 corrects five observed
+state defects and independently qualifies mixed forces, caps, fixed/inactive rows,
+publication and archives. C5 reduces measured direct-plugin CPU work with identical
+scientific documents and extra retained-index memory. C6 shares six persistence
+helpers while preserving separate scientific policies. Existing sparse projects
+and original bytes remain unchanged; no new repair action is added.
 
-Verification: [checkpoint evidence](assets/authoritative-minimization/README.md)
-records C4's **160 Python passes**, Ruff/mypy (199 files) and 735 fixed source
-identities. Unaffected C3 frontend/static/build evidence includes **500 frontend
-and 51 browser passes / one existing mobile desktop-zoom exclusion**, zero final
-failures/flakes/retries. Architecture, theory and UX checkpoint assessments pass;
-C7's complete seven-role review and C7/C8 release/actual-reader gates remain pending.
-Earlier diagnostics are distinct from passing qualification.
+[Checkpoint evidence](assets/authoritative-minimization/README.md) retains C1–C6
+focused results, corrected-state oracles, measured profiles, source identities and
+independent assessments. Candidate1's recipe/old-expectation failures are separate;
+155 focused corrections pass. Candidate2 passes 1481 Python/500 frontend/14
+supervisor cases but is intentionally interrupted during native qualification for
+the user's notification correction; it is not a complete gate.
 
-Completed C5 qualification: immutable assembly indexes and exact count-only queries
-retain byte-identical scientific documents across small/pocket/18k profiles. Local
-direct-plugin medians improve 591→414 ms and 862→569 ms for pocket/18k; retained
-indexes cost extra memory. No overall application speedup/memory reduction or
-strict host timing is claimed. **179 unique focused Python cases** (combined178,
-then current19), Ruff/mypy and **17 native passes / five existing mobile exclusions**
-pass with 737 final identities. Both scientific reviewers reconfirm the final
-test addition and unchanged production source. [C5 evidence](assets/authoritative-minimization/c5-summary.json).
+The user-requested correction removes successful Ctrl+M warning popups while
+retaining full reports and entry warning details. Refused scientific reports use
+brief review copy; prerequisite/API/recovery diagnostics remain actionable. Long
+notices scroll with Close reachable. Independent UI review reproduces/corrects
+replacement-scroll inheritance; new messages start at the top without losing focus.
+[Focused evidence](assets/authoritative-minimization/c7-notice-summary.json): 503
+frontend passes, lint/types/build and 14 native passes, zero skips/failures/flakes/
+retries; 759 source identities. UI/UX correction assessments pass; final integrated
+all-seven review and complete candidate3/master3 gates/readers remain required.
 
-C6 extracts six persistence helpers, removes private service inheritance and
-preserves separate scientific policies. **87 backend passes, zero skips**, global
-Ruff/mypy (201 files) and **37 native passes / one existing mobile exclusion**
-pass with 741 source identities unchanged. Independent architecture review passes
-27 cases and the complete extraction; no consequential finding remains.
-
-C7 preflight passes actual old/current readers both ways and both suffixes,
-including refusal of an old unapplied proposal without writes. Full-diff review
-corrects boolean metadata-version coercion (reproduced red, then 53 focused passes);
-43 archive cases and TypeScript/Ruff/mypy pass. Five versions agree at 0.29.0.
-
-Known limitations: C7–C8 remain; cleanup is local and existing chemistry limits
-apply. Quick implementation is 1.0.3. No dependency/schema/migration change. Planned
-stable release is **minor 0.29.0**. Candidate1 stops at Python due130 recipe
-isolation failures and one old fixture expectation; corrections pass155 focused
-cases without application changes. Failed evidence is retained separately.
-Blockers: none. Next: commit corrected candidate2/merged2 recipes, rerun all30
-steps cleanly, finalize all-seven review and complete authorized delivery.
+Five app versions agree at 0.29.0; quick implementation 1.0.3. No dependency,
+schema or migration change. Planned stable release is **minor 0.29.0**. Cleanup is
+local and existing chemistry/capacity/browser limits apply. No overall latency,
+memory-reduction or strict reference-host timing claim. External blockers: none.
+Next: commit the passing notice correction and fresh recipes, run all 30 steps
+cleanly, finalize all-seven assessments and complete authorized remote delivery.
 
 ### Previous completed milestone — issue #98
 

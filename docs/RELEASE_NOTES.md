@@ -28,7 +28,10 @@ read-only Export and Jobs remain available.
 **Controls and diagnostics.** Capability checking/failure/retry, explicit selection
 recapture, staged target/context counts and actual component-level methods make
 existing quick setup clearer. Uncommon settings use More settings; quiet shortcut
-execution preserves focus. Actual field diagnostics disclose approximations and
+execution preserves focus. Successful runs do not dump scientific warnings into
+a popup; full diagnostics remain in Jobs and entry warning details. Refused/failed
+runs use brief review messages. Long application notices scroll within the viewport
+with Close always reachable. Actual field diagnostics disclose approximations and
 omitted interactions in job results and model downloads. Five supplied-state
 interpretation defects are corrected without changing assigned chemistry or
 adding pH prediction or state enumeration. Shared persistence helpers retain

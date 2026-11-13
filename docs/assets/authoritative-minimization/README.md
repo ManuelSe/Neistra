@@ -295,10 +295,10 @@ Earlier failed harness snapshot diagnostics are separate; no application defect
 was inferred from that harness failure. Full qualification repeats actual readers
 after the final metadata correction.
 
-The five committed gate tools and current `c7-candidate2-recipe.json` /
-`c8-merged2-recipe.json` require a clean start,30 sequential steps, unchanged
-current source/tool identities and720 actual preceding-tag identities. Browser
-qualification requires the exact75 previous exclusions and zero new skips, flakes
+The five committed gate tools and current `c7-candidate3-recipe.json` /
+`c8-merged3-recipe.json` require a clean start, 30 sequential steps, unchanged
+current source/tool identities and 720 actual preceding-tag identities. Browser
+qualification requires the exact 75 previous exclusions and zero new skips, flakes
 or retries; Python skips are forbidden. These recipes are preparation, not passing
 evidence. Complete candidate/master gates and final seven-role review are pending.
 
@@ -307,20 +307,58 @@ evidence. Complete candidate/master gates and final seven-role review are pendin
 
 [Diagnostic receipt](c7-candidate1-diagnostic.json) preserves the failed clean
 `07d18d6` attempt and its [complete Python log](c7-candidate1-python.log.gz).
-It stops at Python with1350 passes/131 failures; no later step or partial passing
-release gate is claimed.130 migration cases fail because the recipe's canonical
+It stops at Python with 1350 passes/131 failures; no later step or partial passing
+release gate is claimed. 130 migration cases fail because the recipe's canonical
 data-directory override defeats tests' legacy-directory monkeypatch. Independent
 [environment red](c7-canonical-global-conflict.log.gz)/[green](c7-legacy-compatible-global.log.gz)
 reproduces the same case without changing assertions. One scientific fixture
-assertion still expects the previous import default's17 bonds.
+assertion still expects the previous import default's 17 bonds.
 
-Retain default inference and assert940 bonds (17explicit/923inferred), exact
+Retain default inference and assert 940 bonds (17 explicit/923 inferred), exact
 warnings and matching inference endpoint/bond IDs. Independent scientific review
 confirms supplied bonds, atoms and conformers remain exact. [Focused corrections](c7-gate-corrections.log.gz)
-pass155 cases in37.71 seconds with zero skips; [Ruff](c7-gate-corrections-ruff.log.gz),
+pass155 cases in 37.71 seconds with zero skips; [Ruff](c7-gate-corrections-ruff.log.gz),
 gate-script syntax and five targeted tool lint checks pass. No application source
 changes. The new recipe uses the legacy test directory override and clears all
 four inherited datastore aliases before overlaying explicit environments, keeping
 migration/test/reader stores disposable. Failedcandidate1 and unexecutedmerged1
 recipes remain historical; never use them for final qualification. Freshcandidate2
-and merged2 recipes replace them, with all30 steps rerun and no partial reuse.
+and merged2 recipes replace them, with all 30 steps rerun and no partial reuse.
+
+
+### Candidate2 interruption and user-requested notice correction
+
+[Interruption receipt](c7-candidate2-interruption.json) records why the second
+clean run stops intentionally at browser exit 130.1481 Python, 500 frontend and 14
+supervisor passes precede 78 native passes, 3 actual exclusions, 1 interruption and
+400 unrun cases. JSON skipped 404 includes interrupted/unrun cases; it is not an
+approved exclusion set. No complete candidate qualification is claimed or reused.
+The user's screenshot/data is not a publication input.
+
+[Notice correction summary](c7-notice-summary.json) records 503 complete frontend
+passes in 11.89 seconds, lint/types/build, and **14 native passes / zero exclusions,
+failures, flakes, retries or global errors**. The actual warned Ctrl+M calculation
+creates one edit, preserves focus/closed setup, shows only the ordinary short
+publication confirmation, retains full entry/report/Jobs warnings and exactly
+reverses/redoes coordinates, graph, chemistry and originals. A 500-warning hook
+regression reproduces the prior dump; refused/failed reports now show controlled
+review text without losing stored diagnostics. Existing prerequisite/API and
+uncertain-publication messages remain distinct.
+
+The shared notice's complete long paragraphs/tokens remain readable through wheel,
+trusted touch events and keyboard scrolling. Both themes and 1280×900/320×568/
+320×180 viewports keep Close visible, narrow/touch targets 44px, full content,
+no horizontal page overflow, no autofocus, unchanged focus/expiry behavior and
+no project changes/reload. Independent UI review catches scroll inheritance when
+replacing long messages; the corrected identity effect starts a new message at 0
+while resize/theme/unrelated renders preserve reading. Its actual-component
+[probe](c7-notice-ui-replacement-probe.json.gz) confirms 500→500→500→0 with focus
+preserved; 92 independent UI tests pass. Final generic native6 passes 12 in 110.468
+seconds; real quick native2 passes 2 in 20.31 seconds. Latest source inventory 759
+matches. Short-viewport screenshots are linked from the summary.
+
+Earlier harness diagnostics and experimental gesture-driver attempts remain local,
+separate from passing evidence. Public inputs use a synthetic UUID. Fresh
+candidate3/master3 recipes repeat every release step and actual reader, with the
+exact 75 prior browser exclusions and no new skip allowance. Seven final integrated
+verdicts and remote delivery remain pending.

@@ -1,0 +1,37 @@
+{
+  "attempt": "c7-candidate2",
+  "candidate": "7bc1945d61275a9f87be1e9f4f4434a7e78df937",
+  "status": "INTENTIONALLY INTERRUPTED for explicit user UX correction; not complete qualification",
+  "last_step": "browser",
+  "exit_code": 130,
+  "source_unchanged_during_attempt": true,
+  "source_count": 758,
+  "preceding_source_count": 720,
+  "completed_partial_evidence": {
+    "python": 1481,
+    "python_skips": 0,
+    "frontend": 500,
+    "supervisor": 14,
+    "static_install_migration_build": "PASS"
+  },
+  "browser": {
+    "passed": 78,
+    "actual_skipped_cases": 3,
+    "interrupted": 1,
+    "did_not_run": 400,
+    "json_stats": {
+      "startTime": "2026-11-13T16:43:24.657Z",
+      "duration": 777203.799,
+      "expected": 78,
+      "skipped": 404,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "global_errors": 0
+  },
+  "stats_note": "Playwright JSON skipped404 includes400 unrun cases and1 interrupted case; it is not a newly approved exclusion set. Exact75 exclusions must be verified on completed fresh gate.",
+  "reason": "User reproduced a successful CtrlM warning dump with offscreen Close and rejects its length/cryptic content. Preserve full scientific diagnostics in existing reports/entry details, remove successfulwarningpopup and bound genericnotices.",
+  "next": "Fresh complete candidate3/master3 after focused regression/independent UI/UX correction review; no partial browser command reused.",
+  "privacy": "Original user screenshot/molecular payload excluded; only synthetic fixture warnings and generated test data retained.",
+  "browser_report_sha256": "f6d6eab95d342660f82d0255134af2c947d1dc01a8ba93a3406ba46871c81def"
+}

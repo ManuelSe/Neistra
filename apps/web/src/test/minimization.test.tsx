@@ -334,9 +334,10 @@ it("opens quick setup without submitting or arming publication", async () => {
   expect(submit).not.toHaveBeenCalled(); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
 
-it("applies quietly without stealing focus and reports scientific warnings once", async () => {
+it("applies quietly without stealing focus and retains scientific warnings without a popup", async () => {
   completedQuick();
-  const result = quickProposal(); result.report.warnings = ["Approximate repair omits electrostatics."];
+  const result = quickProposal();
+  result.report.warnings = Array.from({ length: 500 }, (_, i) => `entry-uuid: Residue ${i}: approximate repair omits electrostatics.`);
   vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(result);
   const apply = vi.spyOn(quickMinimizationApi, "apply").mockResolvedValue(project());
   const button = document.createElement("button"); document.body.append(button); button.focus();
@@ -344,10 +345,10 @@ it("applies quietly without stealing focus and reports scientific warnings once"
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.result.current.state.applied).toBe(true));
   expect(w.result.current.open).toBe(false); expect(document.activeElement).toBe(button);
-  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).toHaveBeenCalledOnce();
-  expect(w.notice).toHaveBeenCalledWith({ kind: "success", lifetime: "persistent", text: "Converged Approximate repair omits electrostatics. Details remain in Jobs → Inspect minimization." });
+  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).not.toHaveBeenCalled();
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.report.warnings).toEqual(result.report.warnings);
   await act(async () => { await w.client.invalidateQueries({ queryKey: ["minimization-proposal"] }); });
-  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).toHaveBeenCalledOnce();
+  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).not.toHaveBeenCalled();
   w.client.clear(); button.remove();
 });
 
@@ -379,6 +380,7 @@ it("does not open a closed panel for failed jobs and disarms later publication",
   const apply = vi.spyOn(quickMinimizationApi, "apply"); const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Worker failed" }));
+  expect(w.result.current.state.error).toBe("Worker failed");
   expect(w.result.current.open).toBe(false); expect(w.result.current.state.autoApply).toBe(false);
   expect(apply).not.toHaveBeenCalled(); w.client.clear();
 });
@@ -415,14 +417,17 @@ it("disarms externally cancelled shortcut work without a new notification", asyn
 });
 
 
-it("surfaces hidden report refusal without publishing or opening a panel", async () => {
+it.each(["blocked", "failed"] as const)("summarizes a hidden %s report without dumping diagnostics or opening a panel", async outcome => {
   completedQuick(); const result = quickProposal(); result.applicable = false;
-  result.report.outcome = "blocked"; result.unavailable_reason = "Context changed; recalculate.";
+  result.report.outcome = outcome; result.unavailable_reason = "entry-uuid: Context changed; recalculate. ".repeat(500);
+  result.report.warnings = Array.from({ length: 500 }, (_, i) => `Residue ${i}: chemistry diagnostic.`);
   vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(result);
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledOnce());
-  expect(w.notice).toHaveBeenCalledWith({ kind: "error", lifetime: "persistent", text: "Context changed; recalculate. Details remain in Jobs → Inspect minimization." });
+  expect(w.notice).toHaveBeenCalledWith({ kind: "error", lifetime: "persistent", text: "Quick minimization needs review. See Jobs → Inspect minimization." });
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.unavailable_reason).toBe(result.unavailable_reason);
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.report.warnings).toEqual(result.report.warnings);
   expect(w.result.current.open).toBe(false); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
 
@@ -434,6 +439,7 @@ it("reports a hidden job read failure and disarms automatic publication", async 
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Job status unavailable" }));
+  expect(w.result.current.state.error).toBe("Job status unavailable");
   expect(w.result.current.state.autoApply).toBe(false); expect(w.result.current.open).toBe(false);
   expect(cancel).toHaveBeenCalledExactlyOnceWith(job.id);
   expect(w.commit).not.toHaveBeenCalled(); w.client.clear();

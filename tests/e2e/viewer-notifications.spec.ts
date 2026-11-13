@@ -188,3 +188,110 @@ test("viewer remounts retain the deadline and project changes invalidate old not
   await expect(notice(page)).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test("keeps long diagnostics scrollable and Close reachable in narrow and short viewports", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const { project } = await prepare(page, request);
+  const text = `${Array.from({ length: 60 }, (_, i) =>
+    `Diagnostic ${i + 1}: ${"00000000-0000-4000-8000-000000000001".repeat(8)}\nKeep the complete detail available.`,
+  ).join("\n\n")}\nEnd of diagnostic. Retry when ready.`;
+  let responseReady: Promise<void>;
+  let responseText = text;
+  await page.route(`**/api/v1/projects/${project.id}/save`, async route => {
+    await responseReady;
+    await route.fulfill({ status: 503, json: { detail: { code: "test_unavailable", message: responseText } } });
+  });
+  const baseline = await readProject(request, project.id);
+  const loadedAt = await page.evaluate(() => performance.timeOrigin);
+  for (const theme of ["light", "dark"] as const) {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    responseText = text;
+    let release!: () => void;
+    responseReady = new Promise<void>(resolve => { release = resolve; });
+    const saveButton = page.getByRole("button", { name: "Save checkpoint", exact: true });
+    await saveButton.click();
+    const focusOrigin = page.getByRole("button", { name: theme === "light" ? "Use dark theme" : "Use light theme" });
+    await focusOrigin.focus();
+    release();
+    await expect(notice(page)).toHaveAttribute("role", "alert");
+    await expect(focusOrigin).toBeFocused();
+    const details = notice(page).getByRole("region", { name: "Message details" });
+    const close = notice(page).getByRole("button", { name: "Dismiss message" });
+    expect(await details.textContent()).toBe(text);
+    for (const viewport of [{ width: 1280, height: 900 }, { width: 320, height: 568 }, { width: 320, height: 180 }]) {
+      await page.setViewportSize(viewport);
+      await expect(details).toBeVisible();
+      await expect(close).toBeInViewport();
+      const bounds = await notice(page).boundingBox();
+      expect(bounds).not.toBeNull();
+      expect(bounds!.x).toBeGreaterThanOrEqual(0);
+      expect(bounds!.y).toBeGreaterThanOrEqual(0);
+      expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height);
+      expect(bounds!.height).toBeLessThanOrEqual(240);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      await details.evaluate(element => { element.scrollTop = 0; });
+      await details.hover();
+      await page.mouse.wheel(0, 500);
+      await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+      if (info.project.name === "mobile-chromium") {
+        await details.evaluate(element => { element.scrollTop = 0; });
+        const region = (await details.boundingBox())!;
+        const touch = await page.context().newCDPSession(page);
+        try {
+          const x = region.x + region.width / 2, y = region.y + region.height * 0.8;
+          await touch.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y, id: 1 }] });
+          for (let step = 1; step <= 5; step++) {
+            await touch.send("Input.dispatchTouchEvent", {
+              type: "touchMove", touchPoints: [{ x, y: y - Math.min(100, region.height * 0.6) * step / 5, id: 1 }],
+            });
+            await page.evaluate(() => new Promise<void>(done => requestAnimationFrame(() => done())));
+          }
+          await touch.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+        } finally { await touch.detach(); }
+        await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+      }
+      await details.evaluate(element => { element.scrollTop = 0; });
+      await details.focus();
+      await page.keyboard.press("PageDown");
+      await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+      await page.keyboard.press("Control+End");
+      await expect.poll(() => details.evaluate(element =>
+        element.scrollHeight - element.clientHeight - element.scrollTop,
+      )).toBeLessThanOrEqual(1);
+      await expect(close).toBeInViewport();
+      if (viewport.width === 320) {
+        const target = await close.boundingBox();
+        expect(target!.width).toBeGreaterThanOrEqual(44);
+        expect(target!.height).toBeGreaterThanOrEqual(44);
+      }
+      expect((await new AxeBuilder({ page }).include(".notice").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+      await info.attach(`${theme}-${viewport.width}x${viewport.height}-long-notice`, {
+        body: await page.screenshot(), contentType: "image/png",
+      });
+    }
+    // Reading position survives ResizeObserver measurements and unrelated theme renders.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    await focusOrigin.click();
+    await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    await page.getByRole("button", { name: theme === "light" ? "Use light theme" : "Use dark theme" }).click();
+    await expect.poll(() => details.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    const replacementText = `New diagnostic begins.\n\n${text}`;
+    responseText = replacementText;
+    responseReady = new Promise<void>(resolve => { release = resolve; });
+    await saveButton.click();
+    await focusOrigin.focus();
+    release();
+    await expect.poll(() => details.textContent()).toBe(replacementText);
+    await expect.poll(() => details.evaluate(element => element.scrollTop)).toBe(0);
+    await expect(focusOrigin).toBeFocused();
+    await expect(close).toBeInViewport();
+    if (info.project.name === "mobile-chromium") await close.tap();
+    else await close.click();
+    await expect(notice(page)).toBeHidden();
+    expect(await page.evaluate(() => performance.timeOrigin)).toBe(loadedAt);
+    expect(await readProject(request, project.id)).toEqual(baseline);
+  }
+});

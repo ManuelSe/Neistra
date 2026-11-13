@@ -10,6 +10,8 @@ import type { QuickPublicationAttempt, QuickPublicationController } from "./publ
 import { quickSelectionError } from "./presentation";
 import type { MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
 
+const quickReviewNotice = "Quick minimization needs review. See Jobs → Inspect minimization.";
+
 export function quickRequest(snapshot: Project, draft: MinimizationDraft): QuickMinimizationRequest {
     if (snapshot.id !== draft.project.id || snapshot.revision !== draft.project.revision) throw new Error("Project changed. Use current selection to refresh this setup.");
     const selectionError = quickSelectionError(snapshot, draft.selection);
@@ -168,14 +170,12 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || !current.autoApply || !current.live || current.jobId !== proposal.job_id || current.applying || !owner(project.id, current.generation)) return;
     const generation = current.generation;
     state.patch(generation, { autoApply: false, live: false, preview: false });
-    const warn = () => {
-      if (!owner(project.id, generation) || useMinimizationStore.getState().open) return;
-      const warnings = proposal.report.warnings;
-      if (proposal.report.outcome === "unchanged") return;
-      if (!proposal.applicable || warnings.length) onNotice?.({ kind: proposal.applicable ? "success" : "error", lifetime: "persistent",
-        text: [proposal.unavailable_reason ?? proposal.report.reason, ...warnings, "Details remain in Jobs → Inspect minimization."].join(" ") });
-    };
-    if (!proposal.applicable) { warn(); return; }
+    if (!proposal.applicable) {
+      if (proposal.report.outcome !== "unchanged" && owner(project.id, generation) && !useMinimizationStore.getState().open) {
+        onNotice?.({ kind: "error", lifetime: "persistent", text: quickReviewNotice });
+      }
+      return;
+    }
     state.patch(generation, { applying: true });
     try {
       const updated = await commit(() => {
@@ -186,7 +186,6 @@ export function useMinimization(project: Project | undefined, selection: Selecti
         const receipt = publication?.snapshot(project.id).receipt;
         const currentApplication = !receipt || receipt.revision === updated.revision;
         state.patch(generation, { applying: false, applied: currentApplication, recovery: !currentApplication });
-        if (currentApplication) warn();
       }
       void query.invalidateQueries({ queryKey: ["jobs", project.id] });
     } catch (error) {

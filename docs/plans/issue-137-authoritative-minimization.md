@@ -61,6 +61,7 @@ facts do not replace local validation or authorize bypassing future protections.
 | Recover lost/malformed Apply responses | Essential | Application-owned publication transaction with reconciliation and explicit safe retry. |
 | Explain capability loading/unavailability/failure | Essential | Accessible status and retry beside Run. |
 | Correct success styling for refused results | Supporting | Reuse existing success/error notices with accurate outcomes. |
+| Quiet successful shortcuts and dismissible long notices | Essential, subsequent user correction | Remove successful quick scientific-warning popups; retain full reports/entry warnings. Keep plain failure/refusal/recovery messages and viewport-bounded scrollable notices with reachable Close. |
 | Show captured targets and actual calculation context | Supporting | Compact, staged details using authoritative server data. |
 | Use current selection in quick setup | Supporting | Explicit recapture without starting work. |
 | Component-level field provenance | Supporting | Typed summary in extensible job results and the model artifact. |
@@ -634,7 +635,7 @@ the planned test-only type, because qualification exposed actual interpretation
 defects within the approved correction scope. The optional third UFF/repair
 profile is unnecessary: two required moving profiles plus C3's assignment matrix
 cover the distinct branches. No essential outcome is deferred and no follow-up is
-needed. App versions, quick implementation1.0.3, dependencies, migrations and
+needed. App versions, quick implementation 1.0.3, dependencies, migrations and
 canonical/project/archive/report contracts remain unchanged. Next: commit C4, then
 measure C5 against this corrected baseline before changing discovery/index code.
 
@@ -753,7 +754,7 @@ pass. Normal numeric-version fixtures and measured C5 algorithms are unaffected.
 The release gate repeats everything on the frozen candidate. Prepared30-step
 candidate and exact-master recipes are committed before execution, with locked
 installs, migration round trip, all real native workflows, actual reader families,
-all source/tool identities and the exact75 existing browser exclusions. No new
+all source/tool identities and the exact 75 existing browser exclusions. No new
 exclusion or scientific/resource-limit relaxation is permitted. Next: clean
 release-preparation commit, complete gate, integrated review and all-seven verdicts.
 
@@ -771,10 +772,61 @@ default inference and strengthen the release expectation accordingly.
 
 [Retained diagnostic](../assets/authoritative-minimization/c7-candidate1-diagnostic.json)
 and full failed logs remain separate. Focused migration/release/import correction
-suite passes155 in37.71 seconds, zero skips. No application code changes follow.
+suite passes 155 in 37.71 seconds, zero skips. No application code changes follow.
 Use legacy DATA_DIR for pytest and clear inherited canonical/legacy DATA_DIR and
 DATABASE_URL before explicit recipe settings to preserve disposable-store isolation.
 The invalidated unusedmerged1 recipe is not executed. Commit corrections and both
-freshcandidate2/merged2 recipes, then rerun all30 steps from a clean candidate;
+freshcandidate2/merged2 recipes, then rerun all 30 steps from a clean candidate;
 no partial passing attempt is reused. Seven preliminary specialist assessments
 report no consequential application finding but all final verdicts remain pending.
+
+
+#### Subsequent user correction — shortcut notification UX
+
+During candidate2 browser qualification the user reproduced a Ctrl+M notification
+that concatenates per-residue scientific warnings/UUIDs into a viewport-height
+text wall with an unreachable Close control. The user additionally rejects that
+bulk message as too long/cryptic to be meaningful. This explicit guidance extends
+the approved outcome: remove successful shortcut scientific-warning popups rather
+than summarize their warning count into another popup. Retain the existing short
+publication confirmation, every stored report/model warning, applied entry warning
+details/badge and Jobs inspection. Refused/failed scientific reports use controlled
+plain review text; prerequisite/API failures retain actionable diagnostics in the
+bounded notice. Never conflate publication
+uncertainty with a confirmed failure. Add no new progress/results surface.
+
+Bound the shared notice to the viewport, wrap long tokens and scroll only its
+message body; keep Close outside that scroll area and reachable in narrow/short
+viewports. Preserve live-region, focus and expiration behavior. UI/UX/theory
+reviews support this approach without changing science or acceptance policies.
+Candidate2 is intentionally interrupted (browser exit 130); its1481 Python,
+500 frontend and 14 supervisor passes are partial evidence only, not a complete
+release gate.78 browser passes/3 exclusions/1 interruption/400 unrun cases are
+retained separately. New focused regressions and an entire fresh candidate3 gate
+will qualify the correction before final seven-role review and remote delivery.
+
+
+UX correction review rejects generic pre-job wording that directs users to a fresh
+setup which clears its prior error. Preserve existing prerequisite/API error
+messages and their diagnostics; the viewport-bound notice makes them reachable.
+Only stored refused/failed scientific reports use the short Jobs review message.
+No retained-error/setup lifecycle is added; no follow-up issue is needed.
+
+
+The notice correction is focused-qualified: **503 frontend tests**, lint/types/
+build, and **14 native passes, zero skips/failures/flakes/retries/global errors**.
+A real warned calculation remains quiet and retains full entry/job/report warnings,
+originals, graph, charges and one exact Undo/Redo command. Generic notice native6
+qualifies both themes, touch/wheel/keyboard reading,320×180/320×568/1280×900,
+reachable Close and unchanged lifetime/focus/project state. Independent UI review
+finds inherited scroll on replacement; reset only for a new notice identity,
+retain reading on resize/theme/unrelated renders, and independently reproduce the
+corrected 500→500→500→0 behavior with focus preserved.92 independent UI tests and
+UX correction assessment pass. No consequential correction finding remains.
+
+[Notice evidence](../assets/authoritative-minimization/c7-notice-summary.json)
+records 759 source identities, exact commands/environments, lossless hashes,
+synthetic-only fixtures and explicit earlier diagnostic limitations. Prepared
+candidate3/master3 recipes replace the interrupted/unused candidate2/master2
+cohort; no partial command counts as final evidence. Commit the passing correction,
+then run all 30 steps and final all-seven review before readiness to push.

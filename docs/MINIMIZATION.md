@@ -148,9 +148,19 @@ Only the active owning client automatically applies. Ctrl+M leaves a closed pane
 closed and preserves an already-open panel. Repeated starts cannot create concurrent
 owned calculations. Clicking Minimize during a shortcut run reveals that run without
 recapturing its selection. After completion, clicking it opens fresh setup. No
-additional shortcut progress, Cancel, or results display is added; failures and
-consequential scientific warnings remain visible in application notices. Explicit
-**Jobs → Inspect minimization** retains report access without rearming publication.
+additional shortcut progress, Cancel, or results display is added. Successful
+runs do not open a scientific-warning notification; the ordinary short publication
+confirmation can expire normally. Every scientific warning remains in the stored
+report and, after Apply, entry warning details. **Jobs → Inspect minimization**
+retains full report access without rearming publication. Refused/failed scientific
+reports use a short review notice. Prerequisite/API failures keep their actionable
+diagnostics in the bounded application notice.
+Publication uncertainty retains its separate recovery messages and guards.
+
+Application notices fit within the viewport. Long content wraps and scrolls in
+its own keyboard-accessible area while Close remains visible. Notices never
+steal focus; persistent errors and focus-aware transient expiration retain their
+existing behavior.
 
 Before coordinate application is dispatched, **Cancel**, closing an explicitly
 opened panel, changing tools/projects or leaving that client disarms automatic

@@ -41,6 +41,17 @@ complete six-file diff, including concurrent publication. Frontend sources are
 unchanged from C3; no API/schema/migration/dependency/version changes. Complete
 C7/C8 gates and final all-seven assessment remain pending.
 
+The subsequent user-requested notification correction passes 503 complete frontend
+and 14 focused native cases with zero skips/failures/flakes/retries. Successful
+Ctrl+M retains complete scientific warnings in reports/entry details without a
+popup. Long notices remain fully readable with reachable Close, including touch,
+keyboard and 320×180 layouts; new message identity resets reading while resize/
+unrelated rendering preserves it. Independent UI's replacement-scroll finding is
+corrected and reproved. [Evidence](assets/authoritative-minimization/c7-notice-summary.json)
+retains 759 source identities and scope/diagnostic distinctions. Candidate2 is
+intentionally interrupted, not passing qualification; fresh candidate3/exact-master
+complete gates and final seven-role verdicts remain required.
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the

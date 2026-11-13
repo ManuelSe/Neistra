@@ -6808,3 +6808,37 @@ with exact unknown orders, warnings and inference identities. Independent review
 confirms original atoms/conformers/explicit bonds unchanged; this aligns with the
 accepted new-import behavior rather than disabling it to retain old assertions.
 No application code, migration policy, dependency or scientific tolerance changes.
+
+
+### D-153 subsequent user direction — quiet successful shortcuts — 2026-11-13
+
+The user's actual Ctrl+M screenshot demonstrates an unreadable notification with
+many per-residue warnings/UUIDs and offscreen Close. The user explicitly questions
+retaining that message at all. Remove successful-shortcut scientific-warning
+popups; do not replace them with warning-count popups. The existing brief
+publication confirmation remains. Scientific report/model payloads and applied
+entry warnings/badge/Details remain unchanged and full Jobs inspection remains
+available. Plain refused/failed notices must not claim no change when another
+client may have applied/undone a job. Prerequisite/API errors retain their existing
+actionable diagnostics in the bounded notice; generic pre-job wording would lose
+information when opening fresh setup. Add no retained-error/setup lifecycle.
+Publication uncertainty keeps its distinct recovery path. This supersedes the
+earlier shortcut warning-notice presentation, not warning retention or science.
+
+Bound the existing shared application notice and scroll its text independently of
+the always-reachable Close control, with long-token wrapping, keyboard access and
+unchanged focus/lifetime semantics. Reuse the component rather than a notification
+framework. UI/UX/theory assessment supports this correction. Stop the current gate,
+retain interrupted evidence separately and repeat complete qualification afterward.
+No original user screenshot or molecular payload is published as test evidence.
+
+
+### D-153 notice reading ownership — 2026-11-13
+
+Independent UI correction review reproduces inherited scroll when a new long
+notice replaces a scrolled one. Reset only when notice object identity changes;
+ResizeObserver measurements and unrelated renders preserve reading position.
+Keep focus/lifetimes and complete text unchanged. Unit/native regressions and an
+independent actual-component probe confirm the new message begins at the top
+without stealing focus. This extends the existing notice identity ownership,
+without a persistent notification model, molecular-state change or new framework.

@@ -1,4 +1,4 @@
-import { useEffect, useRef, type Dispatch, type SetStateAction } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 
 export type NoticeLifetime = "transient" | "persistent";
 export interface ApplicationNoticeValue {
@@ -13,8 +13,21 @@ export function ApplicationNotice({ notice, setNotice }: {
   setNotice: Dispatch<SetStateAction<ApplicationNoticeValue | null>>;
 }) {
   const root = useRef<HTMLDivElement>(null);
+  const message = useRef<HTMLDivElement>(null);
+  const [scrollable, setScrollable] = useState(false);
   const expired = useRef<ApplicationNoticeValue | null>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const element = message.current;
+    if (!element) return;
+    element.scrollTop = 0;
+    const measure = () => setScrollable(element.scrollHeight > element.clientHeight);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [notice]);
 
   useEffect(() => {
     expired.current = null;
@@ -51,7 +64,10 @@ export function ApplicationNotice({ notice, setNotice }: {
       }
     }}
   >
-    <span>{notice.text}</span>
+    <div ref={message} className="notice-message" role={scrollable ? "region" : undefined}
+      aria-label={scrollable ? "Message details" : undefined} tabIndex={scrollable ? 0 : undefined}>
+      {notice.text}
+    </div>
     <button type="button" aria-label="Dismiss message" onClick={() => {
       if (root.current?.contains(document.activeElement)) {
         const previous = returnFocus.current;
