@@ -2,6 +2,30 @@
 
 ## Current milestone
 
+Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) has an explicitly approved
+[implementation contract](plans/issue-98-viewer-warning-details.md) on
+`fix/issue-98-viewer-warning-details`, based on fast-forwarded master
+`00320ea9e9d60fd19f12279669a00d88e540e434`. C0 persists the plan and D-152 only;
+**application implementation must wait for `/goal`**.
+
+Approved outcome: inspect exactly the current visible-entry warnings from the
+existing count, grouped by structure, in a compact accessible non-modal surface.
+Preserve warning records and molecular/project state, current empty-state/focus
+behavior and movement Escape ownership. No API, scientific method, schema,
+migration or dependency change is planned. Proposed compatible patch: **0.28.1**;
+all five current application versions remain **0.28.0** during planning.
+
+Completed work: required repository/issue/delivery inspection, all seven read-only
+specialist planning consultations, explicit user approval and planning documents.
+Verification: clean pre-branch status and fast-forward-only master update;
+documentation diff/link/scope validation and commit/push readback are recorded in
+the persistence handoff. No runtime tests or implementation qualification claimed.
+Known limitations: entry-warning scope only; advanced metadata/actions and global
+warning tooling are omitted. Runtime C1–C4 and final seven-specialist implementation
+review remain pending. Blockers: none for planning; next action: wait for `/goal`.
+
+### Previous completed milestone — issue #97
+
 Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) is implemented and released
 as stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) through [PR #133](https://github.com/ManuelSe/Neistra/pull/133).
 The [approved feature plan](plans/issue-97-detached-presentation-viewer.md) and D-151

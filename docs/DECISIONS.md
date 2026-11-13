@@ -6467,3 +6467,56 @@ projects/archives. The stable additive minor release preserves source-resolution
 visible-source and pinned-browser limits; strict reference timing and independent
 approval remain separate claims. Publication/evidence references live in the issue
 feature plan and verification log; historical decisions remain unchanged.
+
+## D-152 — Read-only viewer warning details and focused input ownership
+
+Date: 2026-11-13. Status: accepted by explicit approval of the
+[issue #98 plan](plans/issue-98-viewer-warning-details.md). Planning persistence
+only; application implementation must wait for `/goal`.
+
+Expose the existing viewer warning count through a compact application-owned,
+non-modal details surface. Derive both count and grouped rows from current
+`Entry.warnings` on entries with `visible: true`. Preserve duplicate records,
+entry/warning order, current names and supplied severity. Stable entry identity,
+not name, separates groups. Loading success, selection, isolation and component
+visibility do not redefine this existing count. Renderer errors, reduced-detail
+notices, interaction diagnostics and operation notifications remain separate.
+
+Own only transient popup/focus/position state. Add no warning snapshot/store,
+request, polling, job, project command, scientific operation or persisted state.
+Opening, reading and dismissal never acknowledge, resolve or modify warnings.
+Original uploads and authoritative molecular/project state remain unchanged.
+
+Use the installed dialog primitives with explicit non-modal semantics and no
+backdrop. Only the warning trigger becomes pointer-active within the passive
+status overlay. Preserve full readable messages, severity semantics, scrollability,
+keyboard access, themes, touch targets and viewport/zoom usability. Existing
+palettes cannot be reused unchanged because they prevent outside dismissal.
+
+When the current warning count becomes zero, hide the ordinary trigger but keep
+an already-open surface showing "No warnings for visible structures". Retain a
+valid positioning anchor. Project changes and viewer remounts close the surface.
+Escape/Close restore focus to a live trigger or current viewer fallback; outside
+actions and project changes retain their own focus destination.
+
+Movement handles Escape on window capture before dialog handlers. A narrow guard
+for focus inside this warning dialog must leave Escape for its dismissal without
+cancelling movement. A background non-modal dialog must not suppress ordinary
+canvas cancellation. Explicit `aria-modal="false"` also preserves existing modal
+detection semantics. Qualify first-Escape dismissal and subsequent canvas-Escape
+cancellation; no general dialog/input framework refactor is authorized.
+
+Rationale: existing project summaries contain the exact records, and entry details
+already expose them. This corrects discoverability without new scientific/data
+authority. Optional technical metadata, search/filter/export, repair actions,
+persistent acknowledgements and global message logs are outside the approved
+delivery; no speculative follow-up is required.
+
+The compatible correction is planned as patch 0.28.1 from verified stable 0.28.0,
+subject to release/tag recheck. Stable release history already exists; do not reset
+numbering. No new scientific method, public API/job/plugin contract, dependency,
+schema or migration is planned. Head remains 0014, project/viewer/archive schemas
+remain 2 and normalized/selection/component remain 1. All five application version
+sources advance only during release preparation. The feature plan governs the
+focused checkpoints, complete gates, actual preceding readers and all seven
+specialist implementation assessments. C0 persists planning and stops.
