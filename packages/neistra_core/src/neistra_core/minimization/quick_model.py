@@ -16,7 +16,11 @@ from neistra_core.minimization.contracts import CalculationError
 from neistra_core.minimization.preflight import connected_atoms
 from neistra_core.minimization.quick_chemistry import interpret
 from neistra_core.minimization.quick_context import candidate_entries, discover, isolate_graph
-from neistra_core.minimization.quick_contracts import QuickParameters, canonical_selection
+from neistra_core.minimization.quick_contracts import (
+    QuickEffectiveField,
+    QuickParameters,
+    canonical_selection,
+)
 from neistra_core.minimization.quick_protein import CODES, protein_graph
 from neistra_core.modeling_metadata import modeling_metadata
 from neistra_core.molecular import NormalizedStructureV1
@@ -42,6 +46,7 @@ class QuickAssembly:
     field_center: Any = None
     energy_reference: Literal["model", "captured_geometry"] = "model"
     connectivity_limited: bool = False
+    effective_field: QuickEffectiveField | None = None
 
     @property
     def coordinates(self) -> Any:

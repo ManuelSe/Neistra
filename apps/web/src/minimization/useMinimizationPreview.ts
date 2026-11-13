@@ -7,6 +7,8 @@ import { coordinatePatches } from "./preview";
 import { quickRequest, type MinimizationWorkflow } from "./useMinimization";
 import { calculationComponents, minimizationRequest } from "./context";
 import type { QuickPublicationState } from "./publication";
+import { quickTargets } from "./presentation";
+import { decodeEffectiveField } from "./effectiveField";
 
 const idlePublication: QuickPublicationState = { phase: "idle", attempt: null, receipt: null, error: null };
 
@@ -47,6 +49,10 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
     lastRevision.current = { jobId: job?.id, revision: project?.revision };
   }, [owned, job?.id, job?.status, project?.id, project?.revision, query]);
   const proposal = job?.status === "completed" && reportQuery.data?.job_id === job.id ? reportQuery.data : undefined;
+  const quickReport = proposal && "method" in proposal.report ? proposal.report : undefined;
+  const quickSummary = useMemo(() => quickTargets(state.draft?.selection,
+    quickReport?.parameters ?? job?.parameters, quickReport), [state.draft?.selection, job?.parameters, quickReport]);
+  const effectiveField = useMemo(() => decodeEffectiveField(job?.result_values?.effective_field, quickReport?.modeled_atoms), [job?.result_values, quickReport?.modeled_atoms]);
   useEffect(() => {
     if (quick && proposal?.report.model === "quick-local-v1" && state.autoApply && state.live && owned) {
       void workflow?.finishQuick(proposal as QuickMinimizationProposal);
@@ -95,7 +101,11 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
   const canApply = !publicationPending && publicationState.receipt?.jobId !== proposal?.job_id && !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;
-  return { state, open, projectRevision: project.revision, publicationState, publicationPending, components, chosen, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending, requestError, error: state.error ?? requestError ?? message(capabilities.error), isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
+  return { state, open, projectRevision: project.revision, publicationState, publicationPending, quickSummary, effectiveField, components, chosen,
+    capabilities: capabilities.data, capabilitiesLoading: capabilities.fetchStatus !== "paused" && (capabilities.isPending || capabilities.isFetching),
+    capabilitiesPaused: capabilities.fetchStatus === "paused", capabilitiesError: message(capabilities.error),
+    capabilitiesReady: capabilities.data?.available === true && capabilities.fetchStatus === "idle" && !capabilities.isPending && !capabilities.isError,
+    requestError, error: state.error ?? requestError, isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
     previewLoading: state.preview && previewSources.isPending && !!captured.length && !previewUnavailable,
     previewError: previewResult.error ?? message(jobQuery.error) ?? message(reportQuery.error) ?? message(previewSources.error) };
 }

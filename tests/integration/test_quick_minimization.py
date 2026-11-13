@@ -27,6 +27,60 @@ def calculate(client, project, atom_ids, **options):
     return job, response.json()
 
 
+def test_effective_field_survives_worker_persistence_and_model_download(client: ApiClient):
+    import io
+    import json
+    import zipfile
+
+    from neistra_core.minimization.quick_contracts import QuickEffectiveField, QuickReport
+
+    from tests.integration.test_archive_roundtrip import export_archive
+
+    project = seeded_project(client, molecule())
+    entry = project["entries"][0]
+    before = _structure(client, project["id"], entry["id"])
+    job, proposal = calculate(client, project, [3])
+    completed = client.get(f"/api/v1/jobs/{job['id']}").json()
+    assert completed["status"] == "completed"
+    provenance = QuickEffectiveField.model_validate(completed["result_values"]["effective_field"])
+    assert len(provenance.components) == 1
+    component = provenance.components[0]
+    assert component.component_id == f"{entry['id']}:1"
+    assert component.entry_id == entry["id"]
+    assert component.atom_ids == entry["atom_ids"]
+    assert component.method == "MMFF94" and component.coverage == "complete"
+    assert provenance.omissions == []
+    result = next(item for item in completed["results"] if item["role"] == "model")
+    response = client.get(result["artifact"]["download_url"])
+    assert response.status_code == 200
+    model_data = response.content
+    with zipfile.ZipFile(io.BytesIO(model_data)) as archive:
+        model = json.loads(archive.read("local-model.json"))
+    assert model["effective_field"] == provenance.model_dump(mode="json")
+    assert "effective_field" not in proposal["report"]
+    QuickReport.model_validate(proposal["report"])
+    assert _structure(client, project["id"], entry["id"]) == before
+    exported = export_archive(client, project["id"], "effective-field-archive")
+    archive_data = client.get(exported["artifact"]["download_url"]).content
+    for suffix in (".neistra.zip", ".molweave.zip"):
+        response = client.post(
+            "/api/v1/projects/import-archive",
+            data={"operation_id": f"effective-field-{suffix}"},
+            files={"file": (
+                f"effective-field{suffix}", archive_data, "application/vnd.molweave.project+zip",
+            )},
+        )
+        assert response.status_code == 201, response.text
+        restored = response.json()["project"]
+        jobs = client.get(f"/api/v1/projects/{restored['id']}/jobs").json()
+        assert len(jobs) == 1
+        assert jobs[0]["result_values"]["effective_field"] == completed["result_values"][
+            "effective_field"
+        ]
+        model_result = next(item for item in jobs[0]["results"] if item["role"] == "model")
+        assert client.get(model_result["artifact"]["download_url"]).content == model_data
+
+
 def test_quick_apply_preserves_chemistry_originals_and_exact_undo_redo(client: ApiClient):
     project = seeded_project(client, molecule())
     entry = project["entries"][0]

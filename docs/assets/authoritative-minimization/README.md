@@ -76,7 +76,7 @@ Diagnostics remain separate:
   later GET (timestamp serialization/job-link differences); it now compares fresh
   server state immediately before/after refusal. The preservation assertion remains.
 
-C3–C8 and complete final-version candidate/master/reader qualification are pending.
+C4–C8 and complete final-version candidate/master/reader qualification are pending.
 
 ## C2 — Reliable quick publication
 
@@ -112,3 +112,54 @@ remain diagnostic evidence, not passing qualification. Creating projects before
 navigation changes no runtime code, assertion or timeout. The corrected focused
 [14-case recovery report](c2-recovery-browser.json.gz), followed by the complete
 broader rerun above, both pass.
+
+## C3 — Controls and effective calculation fields
+
+[Summary](c3-summary.json) records focused qualification over C2 `36df747`.
+Capability retry, explicit recapture, staged counts, settings disclosure and typed
+actual-field provenance preserve quiet execution and current connectivity.
+
+- **93 backend passes** in 17.58 seconds: 27 provenance cases, existing quick
+  unit/scientific/API/historical tests and persisted-job/both-suffix archive retention.
+  The scientific implementation specialist executed the exact command recorded in
+  the summary. Complete lossless backend release logs remain C7/C8 work.
+- [Ruff](c3-ruff.log.gz) passes; the specialist's full mypy passes 199 files.
+- [Frontend](c3-frontend.log.gz): **500 tests in 72 files**. Full ESLint plus scoped
+  decoder lint pass; [types](c3-types.log.gz) and [build](c3-build.log.gz) pass.
+- [Final browser report](c3-browser.json.gz) and [log](c3-browser.log.gz):
+  **51 passes / one existing mobile desktop-zoom exclusion**, zero failures, flakes,
+  retries or global errors in 366.30 seconds. This includes 12 new controls, 14
+  recovery and existing quick/toolbar/actual desktop 100–200% zoom cases.
+- [Focused controls](c3-controls-browser.json.gz) independently passes 12/12.
+- [Source identities](c3-source-identity.json.gz): all **732 files** remain fixed
+  throughout final native qualification; exact command/environment and hashes are
+  in the summary. Portable correctness is separate from strict host timing.
+- Scientific theory independently passes 32 cases and the backend design. UX
+  independently passes 118 frontend cases and inspects reports/identities/screenshots,
+  returning checkpoint PASS. The final all-seven assessment remains C7 work.
+
+Expanded method details were visually inspected in [light](c3-mobile-light-methods.png)
+and [dark](c3-mobile-dark-methods.png), alongside 320px setup/recheck screenshots.
+Native bounds/overflow, keyboard focus and scoped axe pass. Helper atoms (including
+cap atoms) and boundary cap groups have explicit different units. Metadata is
+validated against final report membership; missing/invalid historical details do
+not affect scientific eligibility. Strict report1 and all existing durable schemas,
+versions, dependencies and original bytes remain unchanged.
+
+Earlier diagnostics are separate from passing qualification:
+
+- [First report](c3-diagnostic1-browser.json.gz) selected fixture atom3, an existing
+  H, for an attached-H expansion precondition. Carbon1 is the corrected observed
+  heavy atom; H membership is still independently derived/asserted from the graph.
+- [Second report](c3-diagnostic2-browser.json.gz) used a left-side scrim point
+  covered by the left Project browser. Genuine Escape closes it and assertions
+  preserve the open minimization setup. The original right-Inspector pattern did
+  not apply to that drawer.
+- Adjacent `c3-diagnostic1-*` and `c3-diagnostic2-*` context/screenshots/traces retain
+  both failures. Runtime, assertion strength and timeouts were unchanged by these
+  corrections. Final expanded-method theme/axe coverage was strengthened.
+
+Checkpoint full-diff self-review has no consequential unresolved finding.
+Nonblocking singular component copy is scheduled before C7's final candidate gate.
+C4's supplied-state corrections/independent scientific matrix remain next; this
+checkpoint is not readiness to push or release.

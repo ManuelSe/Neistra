@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2 is implemented and focused-qualified; C3–C8 remain pending.
+C2/C3 are implemented and focused-qualified; C4–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -468,8 +468,9 @@ to avoid a self-referential commit claim.
 | --- | --- |
 | C0 | Complete: verified local/remote `bae090a337d7cc5371d4cd448eae95ced6b591a1`. |
 | C1 | Complete local checkpoint `b4ee31f`; focused evidence below. |
-| C2 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
-| C3–C8 | Pending; no final feature/release qualification claimed. |
+| C2 | Complete local checkpoint `36df747`; focused evidence below. |
+| C3 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
+| C4–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -542,3 +543,55 @@ remaining consequential C2 issue; final seven-role review remains pending.
 No backend, schema, migration,
 dependency, app-version or scientific-method change occurs in C2. Next: record
 the passing checkpoint commit, then begin C3.
+
+### C3 — 2026-11-13: controls and effective-field diagnostics
+
+Setup distinguishes checking, unavailable, failed and paused capability checks.
+Explicit recheck preserves the draft; failed/in-flight/paused cached availability
+cannot authorize Run or a shortcut. Recheck retains keyboard focus. Explicit
+recapture updates selection/revision while retaining settings and valid manual
+entry choices; known stale setup requests recapture before submission. Server
+revision checks remain independent. Repair/iterations use More settings.
+
+Requested, server-resolved and actual local counts are distinct. Temporary helper
+atoms include cap atoms; boundary cap groups use a separate count. Approximate
+native coverage is labeled as an approximate model rather than necessarily repair.
+The existing active icon explains inspection/cancellation or publication recovery;
+quiet execution retains its existing focus/ownership rules.
+
+Additive effective-field schema1 records actual installed methods after fallback,
+canonical component membership and six scoped omission keys in generic job values
+and identical model ZIP data. The frontend validates structure/internal membership
+and equality with the final report's modeled membership before display. Missing
+historical and invalid/unsupported metadata have distinct fallbacks. Strict quick
+report/proposal1 and scientific Apply eligibility remain unchanged. Both archive
+suffixes retain opaque provenance and exact model ZIP bytes.
+
+Focused backend qualification: **93 tests pass in 17.58 seconds**, including
+27 provenance cases, existing quick unit/scientific/API/historical cases and the
+new persisted-job/both-suffix archive case. Ruff passes and mypy covers 199 source
+files. Scientific theory independently inspects the changes and passes 32 cases.
+Frontend: **500 tests in 72 files**, lint/types/build pass; 69 focused author
+cases and 118 independently rerun UX cases pass. Earlier query-notification timing
+and test-fixture typing diagnostics are corrected. [Final browser evidence](../assets/authoritative-minimization/c3-summary.json)
+records **51 passes / one existing mobile desktop-zoom exclusion**, zero failures,
+flakes, retries or global errors in 366.30 seconds. All **732 source identities**
+remain fixed. This includes 12 new controls cases, 14 recovery cases and existing
+quick/toolbar/real desktop 100–200% zoom regressions. The focused 12-case controls
+rerun also passes. Primary visual inspection and UX reassessment PASS, with no
+remaining consequential finding. Singular component copy is nonblocking C7 polish;
+the final release gate and seven-role assessment remain pending.
+
+The first new native diagnostic selected fixture atom3 (an existing hydrogen)
+instead of a heavy atom for attached-H expansion. The corrected test uses actual
+carbon1 and independently counts its canonical terminal H. The second diagnostic
+clicked a point underneath the left mobile drawer, following a pattern suitable
+for the right Inspector. Genuine Escape now closes the drawer with assertions
+that minimization remains open. Neither correction changes runtime, reduces an
+assertion, or increases timeouts. Expanded method details also receive both-theme
+screenshots, bounds/overflow and scoped axe checks in the final rerun.
+
+C4 scientific preparation identified a reproducible supplied-acid-H first-oxygen
+interpretation defect. Its bounded correction/independent matrix belongs to C4,
+before performance baseline/qualification and release. No product scope changes
+or schema/dependency/app-version changes are introduced in C3.

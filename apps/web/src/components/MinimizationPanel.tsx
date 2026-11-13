@@ -6,6 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Zap, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
+import { fieldOmissionLabels, quickMethodName } from "../minimization/presentation";
 
 const number = (value: number | null | undefined) => value == null ? "—" : value.toLocaleString(undefined, { maximumFractionDigits: 3 });
 
@@ -19,6 +20,8 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   const [help, setHelp] = useState(false);
   const draft = w.state.draft;
   const report = w.proposal?.report;
+  const expandHydrogens = draft?.expandHydrogens ?? (report && "method" in report
+    ? report.parameters.expand_hydrogens : typeof w.job?.parameters.expand_hydrogens === "boolean" ? w.job.parameters.expand_hydrogens : true);
   const working = w.state.loading || w.job?.status === "queued" || w.job?.status === "running" || w.publicationPending;
   const recovery = w.state.recovery || w.publicationPending;
   const canClose = !w.state.applying || w.publicationPending;
@@ -52,7 +55,10 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   const chosenCount = w.chosen.reduce((sum, c) => sum + c.atomIds.length, 0);
   const selectedCount = draft?.selection.atoms.length ?? report?.movable_count ?? 0;
   const canReveal = w.state.live || w.state.loading || w.state.applying || w.publicationPending;
-  const launcherHint = !canReveal && unavailable ? unavailable : "Open minimization settings; Ctrl+M runs quick minimization";
+  const calculating = w.state.loading || w.job?.status === "queued" || w.job?.status === "running" || (w.state.autoApply && w.state.live);
+  const launcherHint = w.publicationPending ? "Open minimization to check the coordinate application"
+    : calculating ? "Minimization running; open to inspect or cancel"
+    : !canReveal && unavailable ? unavailable : "Open minimization settings; Ctrl+M runs quick minimization";
   return <Tooltip.Provider><div className="minimization-tools">
     <IconButton ref={launcher} className="viewer-action-button viewer-modeling-action" label="Minimize selection" tooltip={launcherHint} tooltipClassName="viewer-toolbar-tooltip"
       aria-disabled={!w.open && !canReveal && !!unavailable} aria-haspopup="dialog" aria-expanded={w.open}
@@ -71,7 +77,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           else launcher.current?.focus();
         }}>
         <div className="minimization-heading"><Dialog.Title>Minimize selection</Dialog.Title><button type="button" aria-label="Close minimization" disabled={!canClose} onClick={close}><X size={17} /></button></div>
-        <Dialog.Description>{recovery ? "Check the recorded coordinate application. Closing this panel keeps recovery available." : w.isQuick ? "Selected atoms and attached hydrogens move by default. Unselected binding-site atoms stay fixed." : "Only captured selected atoms move. Every included unselected atom, including H, stays fixed."}</Dialog.Description>
+        <Dialog.Description>{recovery ? "Check the recorded coordinate application. Closing this panel keeps recovery available." : w.isQuick ? !expandHydrogens ? "Only captured selected atoms move. Unselected atoms stay fixed." : "Selected atoms and attached terminal hydrogens move. Unselected binding-site atoms stay fixed." : "Only captured selected atoms move. Every included unselected atom, including H, stays fixed."}</Dialog.Description>
         {recovery ? <PublicationRecovery workflow={w} /> : draft && w.isQuick ? <QuickSetup workflow={w} working={working} /> : draft ? <>
           <p className="minimization-capture">Captured selection: <strong>{selectedCount} atoms</strong>. Later selection changes do not retarget this calculation.</p>
           <button type="button" disabled={working} onClick={() => void w.begin()}>Use current selection</button>
@@ -93,10 +99,11 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
             <label>Maximum iterations<input aria-label="Minimization iterations" type="number" min={1} max={2000} step={1} value={draft.iterations} onChange={e => w.iterations(Number(e.target.value))} /></label>
           </fieldset>
           <p>Model: AMBER ff14SB / GAFF 1.81, AM1-BCC; explicit complete waters use TIP3P. Preparation is separate.</p>
-          {w.capabilitiesLoading ? <p role="status">Checking local model…</p> : w.capabilities && !w.capabilities.available ? <p role="status">{w.capabilities.unavailable_reason}</p> : null}
-          <button type="button" className="primary-button" disabled={working || !w.capabilities?.available || !!w.requestError} onClick={() => void w.run()}>Run minimization</button>
+          <CapabilityStatus workflow={w} />
+          <button type="button" className="primary-button" disabled={working || !w.capabilitiesReady || !!w.requestError} onClick={() => void w.run()}>Run minimization</button>
         </> : null}
         {!recovery && w.job ? <div className="minimization-job">
+          {w.isQuick ? <QuickTargets workflow={w} /> : null}
           {!w.job.provenance.archive_source_job_id && w.job.parameters?.context_policy === "automatic" ? <p>Automatic context: {Array.isArray(w.job.parameters.captured_inputs) ? w.job.parameters.captured_inputs.map((c: { entry_id: string; atom_ids: number[]; conformer_id: number }) => `${w.job?.inputs?.find(i => i.entry_id === c.entry_id)?.entry_name ?? c.entry_id}: ${c.atom_ids.length} atoms, conformer ${c.conformer_id}`).join("; ") : "captured"}. {w.job.parameters.mode === "isolated" ? "No additional nearby components; isolated model." : "Complete fixed environment included."}</p> : null}
           <p role="status">{report ? report.outcome.replace("_", " ") : w.job.status === "completed" ? "Loading scientific report" : w.job.status} · {w.job.status_message}</p>
           {working && w.previewUnavailable ? <p role="status">{w.previewUnavailable}</p> : null}
@@ -138,6 +145,34 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
 
 
 type Workflow = MinimizationWorkflow & MinimizationPreviewPresentation;
+function CapabilityStatus({ workflow: w }: { workflow: Workflow }) {
+  const [rechecked, setRechecked] = useState(false);
+  const paused = w.capabilitiesPaused;
+  const checking = w.capabilitiesLoading;
+  const error = w.capabilitiesError;
+  return <>
+    {paused ? <p role="status">Availability check is paused. Reconnect to complete the check.</p>
+      : checking ? <p role="status">Checking minimization availability…</p>
+      : error ? <p role="alert">Couldn’t check minimization availability. {error}</p>
+      : !w.capabilities?.available ? <p role="status">{w.capabilities?.unavailable_reason ?? "Minimization is unavailable."}</p> : null}
+    {rechecked || (!checking && !paused && !w.capabilitiesReady) ? <button type="button" aria-disabled={checking || paused}
+      onClick={() => { if (checking || paused) return; setRechecked(true); void w.recheckCapabilities(); }}>
+      {error && !rechecked ? "Retry check" : "Check again"}
+    </button> : null}
+  </>;
+}
+
+function QuickTargets({ workflow: w }: { workflow: Workflow }) {
+  const summary = w.quickSummary;
+  return <section aria-label="Captured minimization targets">
+    {summary.requested !== null ? <p>Requested selection: <strong>{summary.requested} {summary.requested === 1 ? "atom" : "atoms"}</strong>.</p> : null}
+    {summary.movable !== null ? <p>Resolved movers: <strong>{summary.movable}</strong> · {summary.expandedHydrogens} attached H added to the selection.</p> : null}
+    {summary.fixed !== null ? <p>Actual context: <strong>{summary.movable} movable / {summary.fixed} fixed</strong> · {summary.modeledEntries.length} modeled entries.</p>
+      : <p>{w.proposal ? "No local context summary is available for this result." : "Local context is determined during calculation."}</p>}
+    {summary.issue ? <p role="status">{summary.issue}</p> : null}
+  </section>;
+}
+
 function PublicationRecovery({ workflow: w }: { workflow: Workflow }) {
   const recovery = w.publicationState;
   const busy = recovery.phase === "submitting" || recovery.phase === "reconciling";
@@ -161,7 +196,9 @@ function QuickSetup({ workflow: w, working }: { workflow: Workflow; working: boo
   const draft = w.state.draft!;
   const selected = new Set(draft.selection.atoms.map(a => a.structure_id));
   return <>
-    <p>Captured selection: <strong>{draft.selection.atoms.length} atoms</strong>. Usable coordinates apply as one undoable edit.</p>
+    <p>Requested selection: <strong>{draft.selection.atoms.length} {draft.selection.atoms.length === 1 ? "atom" : "atoms"}</strong>. Selection changes do not retarget this calculation.</p>
+    <button type="button" disabled={working || !!w.currentSelectionError} onClick={w.recapture}>Use current selection</button>
+    {w.currentSelectionError ? <p role="status">{w.currentSelectionError}</p> : null}
     <fieldset disabled={working}><legend>Quick minimization settings</legend>
       <label>Mode<select aria-label="Minimization mode" value={draft.mode} onChange={e => void w.mode(e.target.value as typeof draft.mode)}>
         <option value="automatic">Visible surroundings</option><option value="isolated">Selected molecules only</option><option value="environment">Choose surroundings</option>
@@ -171,17 +208,21 @@ function QuickSetup({ workflow: w, working }: { workflow: Workflow; working: boo
         <input type="checkbox" checked={selected.has(entry.id) || draft.included.has(entry.id)} disabled={selected.has(entry.id)} onChange={e => w.include(entry.id, e.target.checked)} />{entry.name}{!entry.visible ? " · hidden" : ""}
       </label>)}</div> : null}
       <label className="minimization-check"><input type="checkbox" checked={draft.expandHydrogens} onChange={e => w.expandHydrogens(e.target.checked)} />Move attached terminal hydrogens</label>
-      <label className="minimization-check"><input type="checkbox" checked={draft.allowRepair} onChange={e => w.allowRepair(e.target.checked)} />Allow warned approximate repair</label>
-      <label>Maximum iterations<input aria-label="Minimization iterations" type="number" min={1} max={2000} step={1} value={draft.iterations} onChange={e => w.iterations(Number(e.target.value))} /></label>
+      <details><summary>More settings</summary>
+        <label className="minimization-check"><input type="checkbox" checked={draft.allowRepair} onChange={e => w.allowRepair(e.target.checked)} />Allow warned approximate repair</label>
+        <label>Maximum iterations<input aria-label="Minimization iterations" type="number" min={1} max={2000} step={1} value={draft.iterations} onChange={e => w.iterations(Number(e.target.value))} /></label>
+      </details>
     </fieldset>
-    <button type="button" className="primary-button" disabled={working || !!w.requestError || !w.capabilities?.available} onClick={() => void w.run()}>Run quick minimization</button>
+    <p>{draft.expandHydrogens ? "Attached terminal H are resolved when the selection is captured." : "Exact selection: attached H are not added to the movable set."} Usable coordinates apply as one undoable edit.</p>
+    <CapabilityStatus workflow={w} />
+    <button type="button" className="primary-button" disabled={working || !!w.requestError || !w.capabilitiesReady} onClick={() => void w.run()}>Run quick minimization</button>
   </>;
 }
 function QuickResult({ report, workflow: w }: { report: QuickMinimizationReport; workflow: Workflow }) {
-  const method = report.method === "geometry_repair" ? "Geometry constraints" : report.method ?? "No calculation model";
+  const method = quickMethodName(report.method);
   return <>
     <p role="status">{w.state.applied ? "Quick coordinates applied. Undo restores the previous coordinates." : report.reason}</p>
-    <p>{report.coverage === "approximate" ? `Approximate repair · ${method}` : method} · {report.movable_count} movable / {report.fixed_count} fixed</p>
+    <p>{report.coverage === "approximate" ? `Approximate model · ${method}` : method}</p>
     {report.warnings.map((text, i) => <p key={i} className="minimization-warning">{text}</p>)}
     <details><summary>Calculation details</summary>
       <dl className="minimization-metrics">
@@ -192,11 +233,39 @@ function QuickResult({ report, workflow: w }: { report: QuickMinimizationReport;
         <dt>Force threshold</dt><dd>{number(report.gradient_tolerance)} {report.units.gradient}</dd>
         <dt>Iterations / evaluations</dt><dd>{report.iterations} / {report.evaluations}</dd>
         <dt>Max / RMS movement</dt><dd>{number(report.maximum_displacement)} / {number(report.rms_displacement)} Å</dd>
-        <dt>Temporary helpers / caps</dt><dd>{report.helper_count} / {report.cap_count}</dd>
+        <dt>Temporary helper atoms (including cap atoms)</dt><dd>{report.helper_count}</dd>
+        <dt>Boundary cap groups</dt><dd>{report.cap_count}</dd>
       </dl>
+      {w.quickSummary.modeledEntries.length ? <><p>Modeled entries</p><dl className="minimization-metrics minimization-context">
+        {w.quickSummary.modeledEntries.map(entry => <div key={entry.entryId}>
+          <dt>{w.job?.inputs.find(input => input.entry_id === entry.entryId)?.entry_name ?? entry.entryId}</dt><dd>{entry.count} canonical atoms</dd>
+        </div>)}
+      </dl></> : null}
+      <EffectiveField workflow={w} />
       {report.assumptions.map((text, i) => <p key={i}>{text}</p>)}
     </details>
     {!w.state.applied && w.proposal?.unavailable_reason ? <p role="status">{w.proposal.unavailable_reason}</p> : null}
     {!w.state.applied && w.canApply && !w.state.autoApply ? <button type="button" disabled={w.state.applying} onClick={() => void w.apply()}>Apply quick coordinates</button> : null}
   </>;
+}
+
+function EffectiveField({ workflow: w }: { workflow: Workflow }) {
+  const [open, setOpen] = useState(false);
+  const [limit, setLimit] = useState(25);
+  if (w.effectiveField.kind === "missing") return <p>Detailed method information was not recorded for this result. The stored method and assumptions remain available.</p>;
+  if (w.effectiveField.kind === "invalid") return <p role="status">Detailed method information is invalid or unsupported. The stored report remains available.</p>;
+  const field = w.effectiveField.value;
+  return <details onToggle={event => setOpen(event.currentTarget.open)}>
+    <summary>Effective model methods ({field.components.length} components)</summary>
+    {open ? <>
+      <p>Coverage describes the disclosed local objective, not physical completeness.</p>
+      <div className="minimization-context">{field.components.slice(0, limit).map(component => <div key={component.component_id}>
+        <strong>{w.job?.inputs.find(input => input.entry_id === component.entry_id)?.entry_name ?? component.entry_id} · {quickMethodName(component.method)}</strong>
+        <p>{component.atom_ids.length} canonical atoms · {component.coverage === "complete" ? "Covered by the selected local model" : "Approximate local model"}</p>
+        {component.omissions.map(omission => <p key={omission}>{fieldOmissionLabels[omission]}.</p>)}
+        <details><summary>Canonical atom IDs</summary><p>{component.atom_ids.join(", ")}</p></details>
+      </div>)}</div>
+      {field.components.length > limit ? <button type="button" onClick={() => setLimit(value => value + 25)}>Show more components ({field.components.length - limit} remaining)</button> : null}
+    </> : null}
+  </details>;
 }

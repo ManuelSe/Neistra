@@ -6683,3 +6683,28 @@ availability, preserving Export and Jobs during recovery. Normal confirmed succe
 is transient; unresolved recovery diagnostics remain persistent. No server API,
 database or molecular schema changes are needed. Focused checkpoint evidence is
 recorded in the feature plan; final integrated qualification remains pending.
+
+### D-153 C3 effective-field diagnostic contract — 2026-11-13
+
+Keep strict quick reports/proposals at schema1. The independently versioned
+`effective_field` object is additive inside generic job result values and the
+temporary model ZIP. Components carry canonical membership and actual installed
+base treatment after fallback/rebuild, not initial parameter availability. Native
+components can also participate in approximate steric context. Coverage describes
+the disclosed local objective, never physical completeness or a validated pose.
+
+Scientific design review independently reproduced moving MMFF/UFF, fixed UFF,
+mixed native/repair and supported-fixed/no-native-field cases. Use scoped omission
+keys: `uff_electrostatics`, `unsupported_site_electrostatics`, `coordination`,
+`unsupported_physical_terms`, `fixed_only_native_terms`, `current_connectivity`.
+Missing unsupported-site electrostatics do not deny native-native MMFF terms.
+Sparse attribution intersects modeled residue diagnostics with each component's
+canonical references; a global flag cannot label every component. A fixed-only
+constant has zero moving derivative and does not alone reduce moving-force coverage.
+
+The frontend validates version, exact keys, capacity, deterministic component IDs,
+disjoint canonical membership, methods, coverage and the omission union. Missing
+historical metadata and invalid/unsupported metadata have distinct fallbacks;
+neither changes scientific Apply eligibility. No numerical method, public input,
+database migration or molecular/project/archive schema change follows from these
+diagnostics. Implementation qualification remains a separate checkpoint gate.

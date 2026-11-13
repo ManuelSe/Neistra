@@ -10,8 +10,23 @@ there is no implicit whole-scene minimization. Selection changes cannot retarget
 Selected atoms and their directly attached existing terminal hydrogens move by
 default. Unselected binding-site atoms stay fixed. To move a side chain or nearby
 residues too, select them explicitly. The quick setup panel lets you
-turn off attached-H expansion for an exact atom mask, choose surroundings, disable
-approximate repair or change the default500 iterations (range1–2000).
+turn off attached-H expansion for an exact atom mask and choose surroundings.
+**More settings** contains approximate repair and the default500 iteration limit
+(range1–2000). Setup shows capability checking, unavailable reasons or a failed
+check beside Run. **Check again / Retry check** preserves the draft and never
+starts a calculation; a failed refresh cannot reuse old availability to enable Run.
+
+**Use current selection** explicitly replaces the captured selection and project
+revision without submitting. It preserves settings and still-valid manual entry
+choices, and clears previous calculation summaries. Selection changes alone never
+retarget the draft. A changed project asks for explicit recapture before Run;
+server revision checks independently protect later races. Recapture is unavailable
+during calculation/publication.
+The requested count precedes attached-H expansion; server capture then supplies
+resolved movers. Final details use actual modeled entries, fixed/movable atoms,
+and temporary helpers. Captured source-entry totals are not local fixed-context
+counts. The helper-atom total includes cap atoms; boundary caps are counted
+separately as groups.
 
 Automatic surroundings use visible entries, including their display-hidden atoms.
 Selected entries always participate even if hidden. **Selected molecules only**
@@ -53,6 +68,25 @@ Corrected quick jobs use implementation 1.0.3. Earlier quick results remain
 inspectable and downloadable but require a new calculation before Apply. Queued
 jobs whose recorded implementation is unavailable fail explicitly rather than
 executing a different implementation under the old provenance.
+
+### Effective calculation fields
+
+**Calculation details** distinguishes each final component's actual native or
+geometric treatment. A fallback can change the field initially available for a
+component; the displayed record comes from the installed final calculation model.
+Native components can also participate in approximate steric context. Coverage
+describes the disclosed local objective, not physical completeness or pose quality.
+An approximate native model is labeled **Approximate model**, without implying
+that stored connectivity was repaired.
+
+Component identities and canonical atom membership, methods, coverage and scoped
+omissions are recorded in additive job `result_values.effective_field` and the
+downloadable model ZIP. UFF electrostatics and missing electrostatics involving
+unsupported sites are distinguished: mixed models can retain native-native MMFF
+electrostatics. Fixed-only native constants do not affect moving forces. A fixed
+component with no installed native field is identified as fixed geometry.
+Historical jobs without this metadata retain report inspection; unavailable or
+invalid component details do not invent a field assignment or change Apply rules.
 
 ### Temporary states and acceptance
 

@@ -1,5 +1,19 @@
 # V0.1 Requirement Evidence
 
+## Issue #137 focused checkpoint qualification
+
+The [approved feature contract](plans/issue-137-authoritative-minimization.md) and
+[evidence index](assets/authoritative-minimization/README.md) govern current work.
+C1 current connectivity and C2 source-owned publication are local passing
+checkpoints. C3 passes **93 backend, 500 frontend and 51 browser cases / one existing
+mobile desktop-zoom exclusion**, with zero final failures/flakes/retries, unchanged
+732 source identities and passing static/build checks. Actual field provenance
+survives worker persistence, model downloads and both archive suffixes, without
+changing strict quick reports. UX/scientific checkpoint reviews pass; all-seven
+final candidate review, expanded C4 science, measured C5 performance, C6 boundaries
+and complete C7/C8 gates/actual readers remain required. Earlier diagnostic native
+runs are retained separately and do not count as passing evidence.
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the

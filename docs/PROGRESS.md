@@ -24,7 +24,7 @@ C1 methods/invariants; all-seven final review, full gates and actual readers rem
 C7/C8 work. Earlier diagnostics are separate. App versions remain 0.28.1; quick
 implementation is 1.0.3. No dependency/schema/migration changes.
 
-C2 implementation retains publication ownership across panel dismissal/project
+C2 `36df747` retains publication ownership across panel dismissal/project
 switch/reload, reconciles ambiguous responses, permits read-only refresh and exact
 explicit retry, and guards source-project writes at dispatch. Export/Jobs remain
 available. Architecture PASSes after captured-command/read-availability corrections.
@@ -35,10 +35,22 @@ identities. [C2 evidence](assets/authoritative-minimization/c2-summary.json) kee
 the earlier fixture-order diagnostic separate. Checkpoint full-diff self-review
 has no unresolved consequential finding; this is not final release qualification.
 
-Known limitations: C3–C8 remain; existing sparse graphs
+Completed C3 controls/provenance qualification: **93 backend / 500 frontend
+tests**, Ruff, mypy (199 files), lint/types/build pass; theory independently passes
+32 cases and UX 118. Capability retry, explicit frozen-target recapture, staged
+counts, settings disclosure and actual component-field diagnostics preserve quiet
+execution and strict report1. [Final C3 native evidence](assets/authoritative-minimization/c3-summary.json)
+passes **51 cases / one existing mobile desktop-zoom exclusion**, zero failures,
+flakes/retries, with 732 unchanged source identities. UX checkpoint PASS includes
+focus, themes/axe, recapture and actual zoom. Two test-only fixture/drawer diagnostics
+are separate from passing evidence. C4 preparation
+found a bounded supplied-acid-H interpretation correction to complete next.
+
+Known limitations: C4–C8 remain; existing sparse graphs
 intentionally stay unchanged. Planned release remains **minor 0.29.0**. Blockers:
-none. Next action: commit the passing C2 checkpoint, then C3 controls
-and effective-field provenance. Final integrated review/release gates remain pending.
+none. Next action: commit C3, then correct/qualify supplied states and mixed fields
+in C4. Final integrated review/release gates
+remain pending.
 
 ### Previous completed milestone — issue #98
 

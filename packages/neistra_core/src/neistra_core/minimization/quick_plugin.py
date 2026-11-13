@@ -78,6 +78,7 @@ def execute(
     started = time.monotonic()
     proposals: list[CoordinateProposal] = []
     model_data = None
+    effective_field = None
     try:
         context.progress(1, "Interpreting the captured local molecular graph")
         sources = read_sources(parameters, inputs)
@@ -87,6 +88,10 @@ def execute(
         publisher = SnapshotPublisher(parameters, context)
         report, proposals = optimize(assembly, parameters, context, publisher.publish)
         validate_current_graph(assembly)
+        effective_field = (
+            assembly.effective_field.model_dump(mode="json")
+            if assembly.effective_field is not None else None
+        )
         model_data = json_bytes(
             {
                 "schema_version": 1,
@@ -94,6 +99,7 @@ def execute(
                 "graph_policy": GRAPH_POLICY,
                 "implementation_version": IMPLEMENTATION_VERSION,
                 "connectivity_limited": assembly.connectivity_limited,
+                "effective_field": effective_field,
                 "references": assembly.references,
                 "coordinates": assembly.coordinates.tolist(),
                 "candidate_coordinates": assembly.result_coordinates.tolist(),
@@ -127,6 +133,8 @@ def execute(
             report.warnings.append(publisher.warning)
     except (CalculationError, ValueError, RuntimeError) as error:
         context.stderr(traceback.format_exc())
+        effective_field = None
+        model_data = None
         report = QuickReport(
             parameters=parameters,
             outcome="blocked",
@@ -176,6 +184,7 @@ def execute(
             "outcome": report.outcome,
             "proposal_sha256": digest,
             "graph_policy": GRAPH_POLICY,
+            **({"effective_field": effective_field} if effective_field is not None else {}),
         },
         message=f"Quick relaxation {report.outcome}: {report.reason}"[:500],
     )
