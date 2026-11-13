@@ -1724,3 +1724,29 @@ are retained in [the evidence index](assets/viewer-warning-details/README.md).
 Final specialist documentation-diff reconfirmation and exact merged-master repetition
 remain required before delivery. Runtime specialist review is agent assessment;
 independent human approval and strict reference-host timing are not claimed.
+
+## Issue #98 exact released master
+
+Both the originally clean frozen candidate and exact merged runtime `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`
+complete all **24 release steps**: **1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or
+automatic retries. All 718 current source identities and lossless logs verify;
+all 713 actual preceding-source identities verify.
+The 74 previous browser exclusion identities remain exact; one approved
+addition is actual desktop zoom under mobile emulation. Actual tagged 0.28.0 ↔
+final 0.28.1 readers pass in separate processes in both directions and accept both
+archive suffixes. Frozen/static/build/version/schema/dependency/production/license,
+legacy CLI and disposable migration round-trip checks pass.
+
+[Exact-master summary](assets/viewer-warning-details/c4-merged1-summary.json)
+verifies the clean start at `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`, unchanged full 718-file source inventory,
+all 24 command vectors and lossless logs, exact registered exclusions and real old
+reader roots/versions/suffixes. Source identities equal the qualified candidate.
+All 13 feature cases pass. Final role assessments cover the exact reviewed tree,
+which is identical to the released merge. The candidate continuation is explicit
+and separate from this exact-master invocation; no partial browser result counts.
+
+[Publication receipt](assets/viewer-warning-details/c4-publication.json) verifies
+annotated tag target, stable/latest public release and notes, anonymous asset
+SHA-256/CRC and all 1,309 internal hashes. The verified
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) is the receipt location for later documentation
+integration and branch cleanup. The released runtime tag remains fixed.

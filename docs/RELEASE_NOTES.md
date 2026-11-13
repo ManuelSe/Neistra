@@ -2,9 +2,10 @@
 
 ## 0.28.1 — Viewer warning details
 
-**Status:** clean 0.28.1 candidate qualified under the [approved issue #98 contract](plans/issue-98-viewer-warning-details.md).
-Final documentation/evidence specialist reconfirmation, exact-master qualification
-and publication remain pending. No tag or release is claimed at this checkpoint.
+**Status:** stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1), normally merged in
+[PR #135](https://github.com/ManuelSe/Neistra/pull/135). Exact qualified runtime: `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`.
+[Publication receipt](assets/viewer-warning-details/c4-publication.json) and
+[verified issue close-out](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain delivery evidence.
 
 **Fixed.** Activate the viewer warning count to inspect current warnings grouped
 by structure, with complete messages and severity. The compact non-modal panel
@@ -32,38 +33,45 @@ their contracts. Popup state is transient and absent from history/scenes/archive
 Back up the complete managed store before changing deployments; rollback uses the
 preceding qualified application without data conversion.
 
-**Verification.** C1/C2 qualify 28 focused / 402 complete frontend tests,
-lint/types/build/diff and 54 native desktop/mobile cases with 6 registered exclusions:
-five exact existing exclusions plus actual desktop browser zoom under mobile
-emulation. All 13 new feature cases pass. Evidence covers real warning-bearing
-imports, original/projection/project/native invariance, loading failures, focus,
-movement, current updates, 500 complete records, keyboard/wheel reachability,
-mixed severities, long text, 44px coarse-pointer controls, real 100%/200% browser
-zoom and measured closed-state payload work. [Evidence](assets/viewer-warning-details/README.md)
-retains diagnostic failures separately.
+**Verification.** Both the originally clean frozen candidate and exact merged runtime `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`
+complete all **24 release steps**: **1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or
+automatic retries. All 718 current source identities and lossless logs verify;
+all 713 actual preceding-source identities verify.
+The 74 previous browser exclusion identities remain exact; one approved
+addition is actual desktop zoom under mobile emulation. Actual tagged 0.28.0 ↔
+final 0.28.1 readers pass in separate processes in both directions and accept both
+archive suffixes. Frozen/static/build/version/schema/dependency/production/license,
+legacy CLI and disposable migration round-trip checks pass.
 
-The clean committed candidate `bf502040c77b2542112cf1134dd4f3d45f563e10` passes all **24 release steps**:
-**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or automatic retries. All
-718 source identities remain unchanged and all lossless log hashes verify.
-The 74 preceding browser exclusion identities are exact; one new exclusion
-is actual desktop extension-driven zoom under mobile emulation. Frozen installs,
-Ruff/mypy, lint/types/build, disposable upgrade/downgrade/re-upgrade, version/schema/
-dependency/production/license audits and legacy CLI pass. Actual tagged v0.28.0 and
-final 0.28.1 producer/readers run in separate processes in both directions and
-accept both archive filename conventions. No Python or native scientific case is
-newly excluded. [Candidate summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+C1/C2 additionally retain 28 focused tests and 54 native passes / 6 registered
+exclusions, including all 13 new feature cases. Coverage includes real imports,
+exact current records, hidden/loading/failed entries, original/project/native
+invariants, focus/input/lifecycle and movement ownership, complete 500-record lists,
+keyboard/wheel reachability, 44px coarse controls and actual 100%/200% desktop zoom.
+Closed-state message/severity reads are measured at zero for 0/1/500 records.
 
-The complete browser command was restarted after the original process ended
-without a final report. No partial browser result counts. The 13 earlier completed
-checks were verified and reused on the identical frozen source; the restarted
-whole browser suite and remaining reader/audit commands then completed. The
-[interruption receipt](assets/viewer-warning-details/c3-candidate1-interruption.json)
-and explicit continuation recipe retain that boundary. The gate completed with this documented continuation.
-Primary full-diff review and seven runtime specialist agent assessments find no
-unresolved consequential defect. Final documentation/evidence reconfirmations precede
-push; exact-master qualification precedes publication. These are agent assessments,
-not independent human approval. Portable observations do not certify strict
-reference-host timing.
+The candidate interruption and verified 13-step reuse are explicit; the entire
+unfinished browser command was rerun fresh, and no partial result counts. The
+exact-master gate runs separately. Completed-command and wall durations are
+recorded separately. Raw partial diagnostics remain local; the release bundle
+contains their receipt/inventory and the actual final qualification evidence.
+
+All seven specialist agent assessments are PASS for final candidate
+`09015f15d8c8395ccfee5c71f78ef8dd398e4267`; its entire tree is identical to the released merge.
+Primary full-diff local review and the PR record corrections, verification and
+limits. Codex review was requested; no external result returned as of the verified
+pre-merge check. These are agent assessments, not independent human approval.
+
+The annotated tag, stable/latest release, notes and anonymous qualification ZIP
+download verify: SHA-256, CRC and all 1,309 internal manifest files.
+[Publication receipt](assets/viewer-warning-details/c4-publication.json) and
+[verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain delivery evidence. The issue reply is the
+receipt location for final documentation integration and local/remote branch cleanup.
+Later documentation receipts preserve the qualified runtime tag.
+
+Portable correctness is qualified; strict reference-host timing, universal capacity
+and broader browser certification are not claimed. Earlier diagnostics remain
+separate from the passing final evidence.
 
 **Known limitations and follow-up.** This inspects stored visible-entry warnings,
 not a complete validation report or the validity of current preview geometry.

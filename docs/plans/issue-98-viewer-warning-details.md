@@ -2,18 +2,16 @@
 
 ## 1. Status and issue metadata
 
-- Status: **C1–C3 qualified at 0.28.1; final documentation/evidence specialist
-  reconfirmation and C4 delivery pending.**
+- Status: **Delivered as stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1); publication and issue reply verified.**
 - Issue: [#98 — Make viewer warning indicator clickable to inspect warnings](https://github.com/ManuelSe/Neistra/issues/98).
 - User approval: explicit acceptance in the planning conversation on 2026-11-13,
   followed by an instruction to persist the plan and wait for `/goal`.
 - Base branch: `master`, fast-forwarded from `origin/master` before branch creation.
 - Actual base commit: `00320ea9e9d60fd19f12279669a00d88e540e434`.
 - Feature branch: `fix/issue-98-viewer-warning-details`.
-- Planned PR title: `fix(viewer): make structure warnings inspectable`.
+- Implementation PR: [#135 — fix(viewer): make structure warnings inspectable](https://github.com/ManuelSe/Neistra/pull/135).
 - Merge strategy: normal merge commit preserving passing checkpoints.
-- Proposed release: stable patch **0.28.1**, annotated tag **`v0.28.1`**, subject
-  to release/tag recheck before version preparation.
+- Released version: stable patch **v0.28.1**, annotated tag on `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`.
 - Related decision: [D-152](../DECISIONS.md#d-152--read-only-viewer-warning-details-and-focused-input-ownership).
 
 This document is the detailed implementation contract. It does not replace
@@ -449,8 +447,8 @@ qualified application without data conversion.
 | M0 / C0 | Complete: `1c8a571593fae83d65309a1192a0fef2b4bfa21d` persisted this approved contract, planning-only D-152 and PROGRESS. Documentation checks and remote branch/plan blob readback passed. | No runtime/version/schema/dependency change. Explicit `/goal` subsequently authorized implementation. |
 | M1 / C1 | Implemented: exact current-warning projection, compact non-modal details, zero/focus/ownership lifecycle and narrow movement Escape guard. 28 focused / 402 complete frontend tests, lint/types/build/diff and 8 native desktop/mobile cases pass; zero final failures/retries/exclusions. [Evidence](../assets/viewer-warning-details/README.md) and [source/log summary](../assets/viewer-warning-details/c1-summary.json) retain diagnostics separately. | No schema/API/migration/dependency/scientific/version change. C2 stress/zoom and wider regression qualification next; complete candidate/exact-master/readers and final specialist gate remain pending. |
 | M2 / C2 | Qualified: 28 focused / 402 complete frontend, lint/types/build/diff and 54 native passes / 6 registered exclusions (five unchanged existing, one real desktop zoom under mobile emulation). 13 feature passes cover both layouts/themes, real zoom, 500 records, keyboard/wheel reachability, pointer ownership, current replacement and resource/invariance behavior. [Evidence](../assets/viewer-warning-details/README.md) preserves diagnostics and verifies all 718 source/log identities. | No version/scientific/API/schema/migration/dependency change. Body keyboard semantics and measured closed-row construction were corrected; final-version readers, clean candidate/exact-master and final all-seven review remain. |
-| M3 / C3 | Qualified clean runtime `bf502040c77b2542112cf1134dd4f3d45f563e10`: all 24 steps pass; 1334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions; zero final failures/flakes/retries. All 718 source and lossless log identities verify. Actual tagged 0.28.0 ↔ final 0.28.1 readers, both suffixes, migration round trip and frozen/static/build/version/schema/dependency/production/license/legacy-CLI checks pass. [Summary](../assets/viewer-warning-details/c3-candidate1-summary.json). Full-diff review and seven runtime role assessments find no unresolved consequential issue. | Final evidence/docs-only candidate requires explicit all-seven reconfirmation before push. No PR/tag/release claimed; C4 exact-master/publication remains. |
-| M4 / C4 | Pending. | Authorized PR/integration, exact-master qualification, publication and cleanup. |
+| M3 / C3 | Qualified clean runtime `bf502040c77b2542112cf1134dd4f3d45f563e10`: all 24 steps pass; 1334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions; zero final failures/flakes/retries. All 718 source and lossless log identities verify. Actual tagged 0.28.0 ↔ final 0.28.1 readers, both suffixes, migration round trip and frozen/static/build/version/schema/dependency/production/license/legacy-CLI checks pass. [Summary](../assets/viewer-warning-details/c3-candidate1-summary.json). Full-diff review and seven runtime role assessments find no unresolved consequential issue. | All seven final assessments PASS on `09015f15d8c8395ccfee5c71f78ef8dd398e4267`; the reviewed tree equals the released merge. C4 records subsequent publication. |
+| M4 / C4 | Verified normal merge [PR #135](https://github.com/ManuelSe/Neistra/pull/135) at `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`; exact-master 24-step gate/readers pass with matching source identities; annotated v0.28.1, stable/latest release, notes and anonymous qualification asset verify. [Publication receipt](../assets/viewer-warning-details/c4-publication.json). [Issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) is verified and issue state is closed/completed. | Final documentation-integration and branch-cleanup receipts are maintained in the verified issue reply; the runtime tag remains fixed. |
 
 Planning consultation dispositions: architecture, scientific theory, scientific
 implementation, performance, UI, UX and reference specialists found no unresolved
@@ -494,3 +492,45 @@ not application performance measurements. The interrupted manifest and partial
 inventory are retained; raw partial native files remain local under `/tmp` and
 are not claimed as published bundle contents. Only the final complete browser
 report contributes the 377 passes and 75 registered exclusions.
+
+### C4 verified runtime and publication — 2026-11-13
+
+Both the originally clean frozen candidate and exact merged runtime `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`
+complete all **24 release steps**: **1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or
+automatic retries. All 718 current source identities and lossless logs verify;
+all 713 actual preceding-source identities verify.
+The 74 previous browser exclusion identities remain exact; one approved
+addition is actual desktop zoom under mobile emulation. Actual tagged 0.28.0 ↔
+final 0.28.1 readers pass in separate processes in both directions and accept both
+archive suffixes. Frozen/static/build/version/schema/dependency/production/license,
+legacy CLI and disposable migration round-trip checks pass.
+
+All seven specialist agent assessments are PASS for final candidate
+`09015f15d8c8395ccfee5c71f78ef8dd398e4267`; its entire tree is identical to the released merge.
+Primary full-diff local review and the PR record corrections, verification and
+limits. Codex review was requested; no external result returned as of the verified
+pre-merge check. These are agent assessments, not independent human approval.
+
+The complete gate ran from clean merged master using
+`.venv/bin/python docs/assets/viewer-warning-details/qualification.py.txt
+docs/assets/viewer-warning-details/c4-merged1-recipe.json`; the final summary
+verifier checked every recorded command/source/log identity and exact exclusions.
+No tracked source or HEAD changed during qualification. No migration was introduced;
+head 0014 and all accepted durable contracts remain. The actual preceding-reader
+checkout retains all 713 source identities from its verified release.
+
+Remote annotated tag object `247efa4987278676e49d70c7e65d1ba71e98ecca` targets exactly `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`.
+Stable/latest [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1), notes, API asset digest, anonymous downloaded
+SHA-256, ZIP CRC and all 1,309 internal manifest files verify.
+Asset SHA-256: `ea54e10e9b8605e89b03efbcb0215c6c9d4882ded51acf1c1118276e7fff4940`. The verified [issue close-out](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559)
+records scope, compatibility, qualification and remaining product boundaries.
+No speculative follow-up was created. Connector PR creation returned HTTP403;
+the existing authenticated owner CLI completed authorized writes without bypassing
+protection or approval requirements.
+
+The [final specialist record](../assets/viewer-warning-details/c3-final-assessments.json)
+is agent review, not independent human approval. Final documentation integration
+and branch cleanup use the issue reply as their externally verifiable receipt
+location, avoiding a self-referential commit loop. Later documentation commits do
+not retarget the released runtime tag. Earlier checkpoint pending statements are
+historical; this completion record supplies the final runtime/publication evidence.

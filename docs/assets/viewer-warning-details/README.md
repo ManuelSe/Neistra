@@ -214,3 +214,58 @@ not application performance measurements. The interrupted manifest and 14,348-fi
 partial inventory remain separate. Raw partial native files are locally retained
 under `/tmp/neistra98-c3-candidate1-interrupted-native`; the planned qualification
 bundle will include the receipt/inventory; raw files remain locally retained.
+
+## C4 — Exact merged-master qualification and verified publication
+
+Both the originally clean frozen candidate and exact merged runtime `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`
+complete all **24 release steps**: **1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or
+automatic retries. All 718 current source identities and lossless logs verify;
+all 713 actual preceding-source identities verify.
+The 74 previous browser exclusion identities remain exact; one approved
+addition is actual desktop zoom under mobile emulation. Actual tagged 0.28.0 ↔
+final 0.28.1 readers pass in separate processes in both directions and accept both
+archive suffixes. Frozen/static/build/version/schema/dependency/production/license,
+legacy CLI and disposable migration round-trip checks pass.
+
+[Exact-master summary](c4-merged1-summary.json), `c4-merged1-recipe.json`, the
+complete gate, lossless logs, case/exclusion records and compressed browser report
+retain this separate run from clean merged master `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`. The exact command
+is `.venv/bin/python docs/assets/viewer-warning-details/qualification.py.txt
+docs/assets/viewer-warning-details/c4-merged1-recipe.json`, followed by
+`.venv/bin/python docs/assets/viewer-warning-details/qualification-summary.py.txt c4-merged1`.
+The detached process survives goal handoffs; no tracked source or HEAD changes
+during the gate. All 718 source identities equal the qualified candidate; actual
+old reader/source verification remains 713 identities. Final native screenshots,
+metrics, axe, actual zoom and scientific/resource regressions remain attached.
+
+All seven specialist agent assessments are PASS for final candidate
+`09015f15d8c8395ccfee5c71f78ef8dd398e4267`; its entire tree is identical to the released merge.
+Primary full-diff local review and the PR record corrections, verification and
+limits. Codex review was requested; no external result returned as of the verified
+pre-merge check. These are agent assessments, not independent human approval.
+
+[All seven final candidate assessments](c3-final-assessments.json) cover the same
+candidate `09015f15d8c8395ccfee5c71f78ef8dd398e4267`. Its entire tree equals the released normal
+merge. The PR records role verdicts and local review provenance without claiming
+independent human approval or remote CI success.
+
+The annotated tag, stable/latest release, notes and anonymous qualification ZIP
+download verify: SHA-256, CRC and all 1,309 internal manifest files.
+[Publication receipt](c4-publication.json) and
+[verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain delivery evidence. The issue reply is the
+receipt location for final documentation integration and local/remote branch cleanup.
+Later documentation receipts preserve the qualified runtime tag.
+
+Asset SHA-256: `ea54e10e9b8605e89b03efbcb0215c6c9d4882ded51acf1c1118276e7fff4940`. Release/tag object and target, stable/latest
+flags, exact notes and API digest are read back remotely. An anonymous download
+matches local bytes and passes ZIP CRC plus every included manifest hash. The
+qualification bundle includes the interrupted receipt/inventory, while raw
+partial native files remain locally retained as described in C3.
+
+No new migration, persisted contract, scientific method, API or dependency change.
+Version 0.28.1 is a compatible correction to existing warning access. Optional
+technical metadata/actions and global warning tooling remain outside this scope;
+no essential approved outcome is deferred and no speculative follow-up was created.
+Portable correctness is qualified; no strict reference-host or universal capacity
+claim is made. Final documentation and cleanup receipts are maintained in the
+verified issue reply, preserving the qualified runtime tag.

@@ -2,37 +2,39 @@
 
 ## Current milestone
 
-Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) implements the approved
-[warning-details contract](plans/issue-98-viewer-warning-details.md) on
-`fix/issue-98-viewer-warning-details`. C1/C2 provide exact, current visible-entry
-warnings in a compact accessible non-modal panel, preserving molecular state,
-focus, lifecycle and movement ownership. All five versions agree at patch
-**0.28.1**; stable latest remains **0.28.0** until publication. No scientific/API/
-dependency/schema/migration change; head 0014 and persisted contracts remain.
+Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) is implemented and released
+as stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1) through
+[PR #135](https://github.com/ManuelSe/Neistra/pull/135). The
+[approved contract](plans/issue-98-viewer-warning-details.md) and D-152 deliver exact
+current visible-entry warning details, compact non-modal inspection, accessible
+long lists, safe focus/lifecycle and movement Escape ownership.
 
-C3 runtime `bf502040c77b2542112cf1134dd4f3d45f563e10` completes all 24 release steps:
-**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes /
-75 exclusions**, zero final failures/flakes/retries. All 718 source identities and
-logs verify; 74 preceding exclusion identities are exact, plus one approved real
-zoom exclusion under mobile emulation. Actual tagged 0.28.0 ↔ 0.28.1 readers and
-both archive suffixes pass; all 713 preceding source identities verify.
-[Summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+Both complete 24-step candidate and exact-master gates pass: **1,334 Python
+(zero skips), 402 frontend, 14 supervisor, 377 browser passes /75 registered
+exclusions**, zero final failures/flakes/retries. All 718 current and 713 actual
+preceding-source identities and lossless logs verify. Previous 74 exclusions remain
+exact; one approved addition is real desktop zoom under mobile emulation. Actual
+0.28.0↔0.28.1 readers pass both directions and both archive suffixes.
+[Exact-master summary](assets/viewer-warning-details/c4-merged1-summary.json).
+The candidate continuation is explicit; its whole browser command was restarted
+fresh and no partial result counts. Exact-master qualification is separate.
 
-The gate has a documented interruption/continuation: 13 verified completed checks
-were reused on identical frozen source, and the entire unfinished browser command
-was restarted in a fresh store. Partial results are excluded. Architecture and
-performance specialists accept the method; [evidence](assets/viewer-warning-details/README.md)
-retains commands, diagnostics, source/log identities and the duration boundary.
-C1/C2 additionally qualify 28 focused tests and 54 native passes / 6 exclusions,
-including all 13 feature cases, real zoom and complete 500-record lists.
+All seven specialist agent assessments PASS the same final application candidate;
+its entire tree equals qualified runtime `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`.
+Primary full-diff local review and the PR record corrections and limits. Codex was
+requested but returned no external result as of pre-merge verification; independent
+human approval and strict reference-host timing are not claimed.
 
-Primary full-diff review and seven runtime role assessments find no consequential
-issue; final same-candidate documentation/evidence reconfirmations precede push.
-These are specialist agent assessments, not independent human approval.
-Known limits: stored entry warnings; no preview validation inference or advanced
-warning tooling. Portable correctness is qualified; strict timing/broader browser
-certification is not claimed. Blockers: none. Next: final seven-role reconfirmation,
-normal PR/review/merge, exact-master gate/readers, publication, issue reply and cleanup.
+Annotated tag, stable/latest release, notes and anonymous ZIP download verify by
+SHA-256, CRC and all 1,309 internal hashes. [Publication receipt](assets/viewer-warning-details/c4-publication.json)
+and [verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559)
+retain delivery evidence; the reply is the receipt location for final documentation
+integration and local/remote branch cleanup. The qualified runtime tag stays fixed.
+All five versions are 0.28.1; no scientific/API/dependency/schema/migration change.
+Head 0014 and durable contracts remain. Stored warnings, qualified Chromium layouts
+and existing scientific/capacity limits apply; preview validation and advanced/global
+warning tooling remain separate. No essential outcome is deferred; no follow-up
+was created. Blockers: none. Subsequent work uses a separate approved issue/plan.
 
 ### Previous completed milestone — issue #97
 

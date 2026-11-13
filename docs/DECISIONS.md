@@ -6572,3 +6572,21 @@ retain preceding archive-producer coverage. This corrects access to existing
 warning information without a new scientific/API/persistence contract. No schema,
 historical migration or dependency change is introduced. Complete final-version
 gates, actual tagged readers and final specialist assessments precede delivery.
+
+### D-152 verified delivery — 2026-11-13
+
+Issue #98 is delivered through [PR #135](https://github.com/ManuelSe/Neistra/pull/135) as stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1)
+from exact qualified master `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`. Both complete 24-step candidate and
+exact-master gates, actual tagged 0.28.0 readers in both directions, both archive
+suffixes and all seven final specialist agent assessments pass. Current 718 and
+preceding 713 source identities verify. The candidate interruption uses verified
+completed checks on unchanged originally clean source and a complete restarted
+browser invocation; partial browser results are excluded.
+
+The accepted local current-warning projection, explicit non-modal/focus/input
+ownership, complete message/severity fidelity and patch rationale remain unchanged.
+No scientific, API, dependency, persisted-schema or migration change was introduced.
+[Publication evidence](assets/viewer-warning-details/c4-publication.json) and the
+[verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain runtime/publication and later integration/
+cleanup receipts. These are specialist agent assessments, not independent human
+approval. Later documentation receipts preserve the released runtime tag.

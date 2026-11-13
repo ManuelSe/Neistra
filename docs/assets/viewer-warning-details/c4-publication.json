@@ -1,0 +1,55 @@
+{
+  "version": "0.28.1",
+  "runtime": "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2",
+  "pr": 135,
+  "pr_url": "https://github.com/ManuelSe/Neistra/pull/135",
+  "tag": {
+    "name": "v0.28.1",
+    "object": "247efa4987278676e49d70c7e65d1ba71e98ecca",
+    "type": "tag",
+    "target": "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 444160789,
+    "tag_name": "v0.28.1",
+    "target_commitish": "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2",
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-13T11:43:02Z"
+  },
+  "latest_verified": true,
+  "notes_sha256": "61f2f41a80cc128afff7192adb0dfbade0c1622dfb7b970a84d82b40b172ffbd",
+  "asset": {
+    "asset": "/tmp/neistra-v0.28.1-qualification.zip",
+    "bytes": 159268942,
+    "sha256": "ea54e10e9b8605e89b03efbcb0215c6c9d4882ded51acf1c1118276e7fff4940",
+    "manifest_files": 1309,
+    "qualified_commit": "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2",
+    "crc_and_internal_hashes_valid": true,
+    "downloaded_anonymously": true,
+    "download_sha256_matches": true,
+    "crc_verified": true,
+    "internal_hashes_verified": true,
+    "zip_entries": 1310,
+    "id": 743440589,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.28.1/neistra-v0.28.1-qualification.zip",
+    "api_digest": "sha256:ea54e10e9b8605e89b03efbcb0215c6c9d4882ded51acf1c1118276e7fff4940"
+  },
+  "candidate_gate": "c3-candidate1",
+  "merged_gate": "c4-merged1",
+  "source_identities": 718,
+  "review_provenance": "Primary local complete-diff self-review plus all seven specialist agent PASS assessments on09015f1, whose entire tree matches merged runtime. Codex requested; no external result returned as of pre-merge check. No independent human approval or remote CI success claimed. No required approvals/checks or unresolved threads; normal merge without bypass.",
+  "migration": "None; head0014 and durable schemas unchanged. Actual tagged0.28.0/current0.28.1 readers pass both directions, both suffixes and documented scientific/project invariants.",
+  "github_connector_write_fallback": "GitHub connector PR creation returned HTTP403 Resource not accessible by integration; authenticated owner CLI completed authorized writes, respecting repository protections.",
+  "verified_at": "2026-11-13T11:43:36.472501+00:00",
+  "issue": {
+    "number": 98,
+    "state": "closed",
+    "closeout_comment_id": 6851862559,
+    "closeout_url": "https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559",
+    "body_verified": true,
+    "cleanup_receipt_location": "https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559"
+  }
+}
