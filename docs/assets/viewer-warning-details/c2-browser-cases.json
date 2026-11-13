@@ -1,0 +1,482 @@
+[
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a reconciles an interrupted response after server commit without replaying Apply",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "reconciles an interrupted response after server commit without replaying Apply",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a discards previews with feedback on task, selection and project changes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "discards previews with feedback on task, selection and project changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a rejects stale Apply without replay or partial movement",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "rejects stale Apply without replay or partial movement",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a explains empty, locked and wholly hidden movement targets without changing them",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "explains empty, locked and wholly hidden movement targets without changing them",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a retains the native preview and held camera across responsive viewer remounts",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "chromium",
+    "title": "retains the native preview and held camera across responsive viewer remounts",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a reconciles an interrupted response after server commit without replaying Apply",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "reconciles an interrupted response after server commit without replaying Apply",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a discards previews with feedback on task, selection and project changes",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "discards previews with feedback on task, selection and project changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a rejects stale Apply without replay or partial movement",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "rejects stale Apply without replay or partial movement",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a explains empty, locked and wholly hidden movement targets without changing them",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "explains empty, locked and wholly hidden movement targets without changing them",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/interactive-selection-transform.spec.ts \u203a retains the native preview and held camera across responsive viewer remounts",
+    "file": "interactive-selection-transform.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains the native preview and held camera across responsive viewer remounts",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "applies complete representations, navigation, isolation, and named scenes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "explains unavailable ligand focus for protein-only content",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "file": "viewer-controls.spec.ts",
+    "project": "chromium",
+    "title": "shows a usable WebGL failure instead of a blank viewer",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "applies complete representations, navigation, isolation, and named scenes",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "explains unavailable ligand focus for protein-only content",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "file": "viewer-controls.spec.ts",
+    "project": "mobile-chromium",
+    "title": "shows a usable WebGL failure instead of a blank viewer",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a keeps native UI absent through loading, themes, camera actions and reload",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "chromium",
+    "title": "keeps native UI absent through loading, themes, camera actions and reload",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "chromium",
+    "title": "retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a keeps native UI absent through loading, themes, camera actions and reload",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps native UI absent through loading, themes, camera actions and reload",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "file": "viewer-native-ui.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retains molecular annotations through native tasks, rebuilds, remounts and projects",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a expires after ten real seconds without molecular, camera, network or renderer changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a successive identical confirmations receive fresh deadlines across theme changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "successive identical confirmations receive fresh deadlines across theme changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a viewer remounts retain the deadline and project changes invalidate old notices",
+    "file": "viewer-notifications.spec.ts",
+    "project": "chromium",
+    "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a expires after ten real seconds without molecular, camera, network or renderer changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a successive identical confirmations receive fresh deadlines across theme changes",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "successive identical confirmations receive fresh deadlines across theme changes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a viewer remounts retain the deadline and project changes invalidate old notices",
+    "file": "viewer-notifications.spec.ts",
+    "project": "mobile-chromium",
+    "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details-zoom.spec.ts \u203a keeps warning details reachable at actual 100% and 200% browser zoom",
+    "file": "viewer-warning-details-zoom.spec.ts",
+    "project": "chromium",
+    "title": "keeps warning details reachable at actual 100% and 200% browser zoom",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details-zoom.spec.ts \u203a keeps warning details reachable at actual 100% and 200% browser zoom",
+    "file": "viewer-warning-details-zoom.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps warning details reachable at actual 100% and 200% browser zoom",
+    "status": "skipped",
+    "expected_status": "skipped"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a inspects exact real entry warnings without changing molecular, project or native state",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "inspects exact real entry warnings without changing molecular, project or native state",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a keeps 500 complete warning records scrollable and read-only in both themes",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "keeps 500 complete warning records scrollable and read-only in both themes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a passes ordinary status input to the canvas and preserves normal canvas navigation after dismissal",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "passes ordinary status input to the canvas and preserves normal canvas navigation after dismissal",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a updates current groups through rename, visibility, deletion and undo, and retains an open empty state",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "updates current groups through rename, visibility, deletion and undo, and retains an open empty state",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a retires warning details on responsive remount and project switch",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "retires warning details on responsive remount and project switch",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a focused warning details own Escape without cancelling an active movement preview",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "chromium",
+    "title": "focused warning details own Escape without cancelling an active movement preview",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a inspects exact real entry warnings without changing molecular, project or native state",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "inspects exact real entry warnings without changing molecular, project or native state",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a keeps 500 complete warning records scrollable and read-only in both themes",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "keeps 500 complete warning records scrollable and read-only in both themes",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a passes ordinary status input to the canvas and preserves normal canvas navigation after dismissal",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "passes ordinary status input to the canvas and preserves normal canvas navigation after dismissal",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a updates current groups through rename, visibility, deletion and undo, and retains an open empty state",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "updates current groups through rename, visibility, deletion and undo, and retains an open empty state",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a retires warning details on responsive remount and project switch",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "retires warning details on responsive remount and project switch",
+    "status": "passed",
+    "expected_status": "passed"
+  },
+  {
+    "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a focused warning details own Escape without cancelling an active movement preview",
+    "file": "viewer-warning-details.spec.ts",
+    "project": "mobile-chromium",
+    "title": "focused warning details own Escape without cancelling an active movement preview",
+    "status": "passed",
+    "expected_status": "passed"
+  }
+]

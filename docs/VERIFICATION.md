@@ -1,5 +1,35 @@
 # V0.1 Requirement Evidence
 
+## Issue #98 — C2 layouts, accessibility and resource qualification
+
+[C2 evidence](assets/viewer-warning-details/README.md) and the
+[verified summary](assets/viewer-warning-details/c2-summary.json) record 28 focused /
+402 complete frontend passes, lint/types/build/diff and 54 native passes / 6
+registered exclusions, zero final failures/flakes/retries. Five exclusions retain
+the exact existing identities; one new exclusion covers actual desktop browser
+zoom under mobile emulation. All 13 feature cases otherwise pass, including real
+100%/200% zoom, mixed-severity 500-record keyboard/wheel reading, long strings,
+pointer ownership, current replacement, lifecycle and exact scientific/project/
+native invariants. All 718 source identities and lossless log hashes verify.
+Named scroll-region focus and measured closed-row construction were corrected
+without suppressing assertions or expanding scientific scope. No version, API,
+schema, migration or dependency change occurred. Complete final-version candidate/
+exact-master gates, actual 0.28.0 readers and final all-seven review remain pending.
+
+## Issue #98 — C1 warning inspection qualification
+
+The [approved contract](plans/issue-98-viewer-warning-details.md) is implemented
+through C1. [Evidence](assets/viewer-warning-details/README.md) and the
+[verified summary](assets/viewer-warning-details/c1-summary.json) record 28 focused
+and 402 complete frontend tests, lint/type-check/build/diff and 8 native
+desktop/mobile passes, with zero final failures, flakes, retries or exclusions.
+Exact current warning records and scientific/project/native invariants, loading
+failures, current updates, focus, remount/project boundaries and active movement
+Escape are qualified. Earlier diagnostic failures remain separate. No application
+version, dependency, scientific/API/schema or migration change occurred. C2
+stress/actual zoom, complete candidate/exact-master/readers and final all-seven
+specialist implementation review remain pending; this is not release qualification.
+
 ## Issue #97 — Released v0.28.0 / exact-master qualification
 
 [PR #133](https://github.com/ManuelSe/Neistra/pull/133) normally merged at
@@ -1669,3 +1699,28 @@ under `assets/detached-presentation/` use disposable databases/ports, locked nat
 chemistry, portable correctness and actual tagged0.27.0 implementation roots.
 Candidate and exact-master success are required before publication; preparation
 alone is not qualification evidence.
+
+## Issue #98 clean final-version candidate
+
+The clean committed candidate `bf502040c77b2542112cf1134dd4f3d45f563e10` passes all **24 release steps**:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or automatic retries. All
+718 source identities remain unchanged and all lossless log hashes verify.
+The 74 preceding browser exclusion identities are exact; one new exclusion
+is actual desktop extension-driven zoom under mobile emulation. Frozen installs,
+Ruff/mypy, lint/types/build, disposable upgrade/downgrade/re-upgrade, version/schema/
+dependency/production/license audits and legacy CLI pass. Actual tagged v0.28.0 and
+final 0.28.1 producer/readers run in separate processes in both directions and
+accept both archive filename conventions. No Python or native scientific case is
+newly excluded. [Candidate summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+
+The complete browser command was restarted after the original process ended
+without a final report. No partial browser result counts. The 13 earlier completed
+checks were verified and reused on the identical frozen source; the restarted
+whole browser suite and remaining reader/audit commands then completed. The
+[interruption receipt](assets/viewer-warning-details/c3-candidate1-interruption.json)
+and explicit continuation recipe retain that boundary. The gate completed with this documented continuation.
+Exact commands/environment, all lossless logs and complete browser identities
+are retained in [the evidence index](assets/viewer-warning-details/README.md).
+Final specialist documentation-diff reconfirmation and exact merged-master repetition
+remain required before delivery. Runtime specialist review is agent assessment;
+independent human approval and strict reference-host timing are not claimed.

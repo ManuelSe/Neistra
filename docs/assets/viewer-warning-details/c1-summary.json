@@ -1,0 +1,26 @@
+{
+  "checkpoint": "C1",
+  "application_version": "0.28.0",
+  "base_commit": "1c8a571593fae83d65309a1192a0fef2b4bfa21d",
+  "clean_committed_start": false,
+  "focused_frontend": 28,
+  "frontend": 402,
+  "native_browser_passes": 8,
+  "native_browser_exclusions": 0,
+  "failures_flakes_retries_final": 0,
+  "frontend_gate": "c1-final-web",
+  "native_gate": "c1-attempt7",
+  "source_identities": 717,
+  "source_identities_match_both_gates_and_current": true,
+  "all_lossless_log_hashes_valid": true,
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "earlier_diagnostics": [
+    "c1-attempt1",
+    "c1-attempt2",
+    "c1-attempt3",
+    "c1-attempt4",
+    "c1-attempt5",
+    "c1-attempt6"
+  ],
+  "limitations": "Focused checkpoint evidence; full candidate/exact-master and actual-reader release qualification remain pending."
+}

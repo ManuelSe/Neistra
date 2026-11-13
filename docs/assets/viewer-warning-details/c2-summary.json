@@ -1,0 +1,20 @@
+{
+  "checkpoint": "C2",
+  "application_version": "0.28.0",
+  "base_commit": "9c0558b2a69267fdd7a2b02fa54299f5efa78772",
+  "clean_committed_start": false,
+  "frontend": 402,
+  "focused_frontend": 28,
+  "native_passed": 54,
+  "registered_exclusions": 6,
+  "existing_exclusion_subset_unchanged": true,
+  "new_exclusion": "Actual desktop browser zoom under mobile emulation; native mobile feature cases pass.",
+  "new_feature_native_passes": 13,
+  "failures_flakes_retries_final": 0,
+  "all_lossless_log_hashes_valid": true,
+  "source_identities": 718,
+  "source_identities_match_current": true,
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "gate": "c2-final1",
+  "remaining": "Final-version actual readers, complete clean candidate/exact-master gates and final all-seven specialist review."
+}

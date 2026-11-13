@@ -1,0 +1,94 @@
+{
+  "label": "c1-attempt1",
+  "require_clean": false,
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_API_PORT": "8410",
+    "NEISTRA_E2E_WORKER_PORT": "8411",
+    "NEISTRA_E2E_WEB_PORT": "5573",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra98-c1-attempt1/e2e",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra/docs/assets/viewer-warning-details/c1-attempt1-browser.json"
+  },
+  "steps": [
+    {
+      "label": "focused-web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "exec",
+        "vitest",
+        "run",
+        "src/test/viewer-warning-details.test.tsx",
+        "src/test/structure-loading.test.tsx",
+        "src/test/interactive-transform-controls.test.tsx"
+      ]
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/viewer-warning-details.spec.ts",
+        "--reporter=list,json",
+        "--max-failures=1"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

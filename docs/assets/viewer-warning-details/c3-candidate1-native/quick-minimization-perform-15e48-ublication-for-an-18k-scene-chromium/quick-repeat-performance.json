@@ -1,0 +1,169 @@
+{
+  "copies": 8,
+  "phase": "repeat",
+  "atoms": 18208,
+  "commandAcceptedMs": 0.5,
+  "nativeAppliedMs": 3231.5,
+  "longestTaskMs": 337,
+  "stages": [
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations",
+      "at": 1794562275439,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations",
+      "at": 1794562275764,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276050,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276061,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276162,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276172,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276283,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276292,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276393,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276403,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276504,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276514,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276616,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276625,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276727,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276738,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276839,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276849,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562276997,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277009,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277211,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277247,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277450,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277465,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277566,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/proposal",
+      "at": 1794562277630,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/live",
+      "at": 1794562277630,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/proposal",
+      "at": 1794562277690,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/apply",
+      "at": 1794562277941,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d43f-0a48-7382-9028-e5252d8b5899/quick-minimizations/01a1d43f-394a-7729-ac5e-ff5af7c82fd1/apply",
+      "at": 1794562278278,
+      "kind": "response"
+    }
+  ],
+  "backend": {
+    "context_rebuild": 0,
+    "context_rebuilds": 0,
+    "force_field": 0.08658755701617338,
+    "interpretation": 0.3748643870058004,
+    "optimization": 0.45049604898667894
+  },
+  "elapsedBackendSeconds": 0.9351172400056385,
+  "jobId": "01a1d43f-394a-7729-ac5e-ff5af7c82fd1"
+}

@@ -1,0 +1,51 @@
+{
+  "candidate": "bf502040c77b2542112cf1134dd4f3d45f563e10",
+  "comparison_base": "00320ea9e9d60fd19f12279669a00d88e540e434",
+  "scope": "Read-only specialist assessment of interruption/continuation evidence method; not final application readiness.",
+  "assessments": [
+    {
+      "role": "performance",
+      "verdict": "PASS",
+      "checks": [
+        "Original clean start and incomplete interrupted state",
+        "13 completed zero exits and lossless log hashes",
+        "718 current source hashes and HEAD",
+        "Exact retained13results and11suffix command vectors",
+        "Only fresh disposable browser/native-evidence paths differ",
+        "Recipe/runner hashes match resumption metadata",
+        "14348partial diagnostic files kept separate; no aggregate partial-browser claim"
+      ],
+      "consequential_findings": []
+    },
+    {
+      "role": "software_architecture",
+      "verdict": "PASS",
+      "checks": [
+        "Complete current718source-file inventory and hashes",
+        "Actual preceding checkout713source hashes match prior exact-release gate",
+        "All13completed exits/logs and exact retained results",
+        "All11remaining command vectors/labels and bounded environment changes",
+        "Runtime local state/input/lifecycle/compatibility boundaries"
+      ],
+      "consequential_findings": [],
+      "nonblocking_suggestion": "Add automated newly-added-runtime-file rejection to source verification; independent inventory inspection found none. The post-run summary verifier will perform this check."
+    }
+  ],
+  "reporting_conditions": [
+    "Explicitly report interruption and continuation; do not imply an uninterrupted run",
+    "Clean start describes original committed candidate and unchanged runtime; resumed artifacts are generated evidence",
+    "Count browser results only from the new completed report",
+    "Distinguish summed completed-command durations from total elapsed wall time",
+    "Raw partial native diagnostics are locally retained; do not imply they are in a published bundle",
+    "Verify final full inventory, report/exclusions, actual readers and continuation identities before final reconfirmation"
+  ],
+  "detached_handoff_probe": {
+    "pid": 865883,
+    "start_ticks": 137885303,
+    "live_after_automatic_goal_handoff": true,
+    "observed_progress_after_handoff": "native registeredcase64; complete browser result pending"
+  },
+  "remaining": "Full browser/suffix/readers, final evidence summary, same-final-candidate all-seven review and exact-master qualification remain required.",
+  "provenance": "Specialist agent review, not independent human approval.",
+  "suggestion_disposition": "The final summary verifier now rejects a changed complete runtime inventory and validates every original/resume command and runner identity; all checks pass. Additional per-step inventory enforcement remains optional; no newly added runtime file exists and no follow-up issue is warranted for this delivery."
+}

@@ -461,6 +461,40 @@ describe("lazy structure loading", () => {
     await waitFor(() => expect(update).toHaveBeenLastCalledWith(fake, null, false));
   });
 
+  it.each(["pending", "failed"] as const)("keeps exact entry warnings inspectable while a projection is %s", async mode => {
+    const user = userEvent.setup();
+    const fake = new FakeViewer();
+    const current: Project = project();
+    const warning = { code: "source_uncertain", message: "Source chemistry is uncertain.",
+      severity: "warning" as const, operation: "import", field: null, blocking: false };
+    current.entries[0].warnings = [warning, { ...warning }];
+    current.entries[1].warnings = [{ ...warning, message: "Hidden entry warning." }];
+    current.entries[0].atom_count = 250_000;
+    const before = structuredClone(current);
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => mode === "pending"
+      ? new Promise<Response>(() => {})
+      : Promise.resolve(new Response(JSON.stringify({ detail: { code: "structure_unavailable", message: "Snapshot missing" } }),
+        { status: 409, headers: { "Content-Type": "application/json" } })));
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    render(<StructureViewer project={current} theme="light" selection={emptySelection}
+      pickingGranularity="atom" onViewerSelection={() => undefined} createViewer={() => fake} />,
+    { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fetchSpy).toHaveBeenCalledTimes(1));
+    if (mode === "failed") expect(await screen.findByRole("alert")).toHaveTextContent("could not be loaded");
+    const syncs = fake.syncs.length;
+    const trigger = screen.getByRole("button", { name: "Inspect 2 warnings for visible structures" });
+    await user.click(trigger);
+    expect(screen.getByRole("dialog", { name: "Structure warnings" })).toHaveAttribute("aria-modal", "false");
+    expect(screen.getAllByText(warning.message)).toHaveLength(2);
+    expect(screen.queryByText("Hidden entry warning.")).not.toBeInTheDocument();
+    await user.keyboard("{Escape}");
+    expect(trigger).toHaveFocus();
+    expect(current).toEqual(before);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fake.mounts).toBe(1);
+    expect(fake.syncs).toHaveLength(syncs);
+  });
+
   it("reflects application selection and emits only explicit viewer picks", async () => {
     const fake = new FakeViewer();
     const onViewerSelection = vi.fn();

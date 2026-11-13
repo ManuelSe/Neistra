@@ -1,0 +1,13 @@
+{
+  "existing": [
+    "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+    "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent"
+  ],
+  "new_approved_desktop_zoom": [
+    "[mobile-chromium] \u203a tests/e2e/viewer-warning-details-zoom.spec.ts \u203a keeps warning details reachable at actual 100% and 200% browser zoom"
+  ],
+  "existing_unchanged": true
+}

@@ -1,0 +1,42 @@
+{
+  "label": "c2-attempt2",
+  "require_clean": false,
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_API_PORT": "8410",
+    "NEISTRA_E2E_WORKER_PORT": "8411",
+    "NEISTRA_E2E_WEB_PORT": "5573",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra98-c2-attempt2/e2e",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra/docs/assets/viewer-warning-details/c2-attempt2-browser.json"
+  },
+  "steps": [
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/viewer-warning-details.spec.ts",
+        "tests/e2e/viewer-warning-details-zoom.spec.ts",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        "/datadisk/dev/neistra/docs/assets/viewer-warning-details/c2-attempt2-native"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

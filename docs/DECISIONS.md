@@ -6467,3 +6467,108 @@ projects/archives. The stable additive minor release preserves source-resolution
 visible-source and pinned-browser limits; strict reference timing and independent
 approval remain separate claims. Publication/evidence references live in the issue
 feature plan and verification log; historical decisions remain unchanged.
+
+## D-152 — Read-only viewer warning details and focused input ownership
+
+Date: 2026-11-13. Status: accepted by explicit approval of the
+[issue #98 plan](plans/issue-98-viewer-warning-details.md). Planning persistence
+only; application implementation must wait for `/goal`.
+
+Expose the existing viewer warning count through a compact application-owned,
+non-modal details surface. Derive both count and grouped rows from current
+`Entry.warnings` on entries with `visible: true`. Preserve duplicate records,
+entry/warning order, current names and supplied severity. Stable entry identity,
+not name, separates groups. Loading success, selection, isolation and component
+visibility do not redefine this existing count. Renderer errors, reduced-detail
+notices, interaction diagnostics and operation notifications remain separate.
+
+Own only transient popup/focus/position state. Add no warning snapshot/store,
+request, polling, job, project command, scientific operation or persisted state.
+Opening, reading and dismissal never acknowledge, resolve or modify warnings.
+Original uploads and authoritative molecular/project state remain unchanged.
+
+Use the installed dialog primitives with explicit non-modal semantics and no
+backdrop. Only the warning trigger becomes pointer-active within the passive
+status overlay. Preserve full readable messages, severity semantics, scrollability,
+keyboard access, themes, touch targets and viewport/zoom usability. Existing
+palettes cannot be reused unchanged because they prevent outside dismissal.
+
+When the current warning count becomes zero, hide the ordinary trigger but keep
+an already-open surface showing "No warnings for visible structures". Retain a
+valid positioning anchor. Project changes and viewer remounts close the surface.
+Escape/Close restore focus to a live trigger or current viewer fallback; outside
+actions and project changes retain their own focus destination.
+
+Movement handles Escape on window capture before dialog handlers. A narrow guard
+for focus inside this warning dialog must leave Escape for its dismissal without
+cancelling movement. A background non-modal dialog must not suppress ordinary
+canvas cancellation. Explicit `aria-modal="false"` also preserves existing modal
+detection semantics. Qualify first-Escape dismissal and subsequent canvas-Escape
+cancellation; no general dialog/input framework refactor is authorized.
+
+Rationale: existing project summaries contain the exact records, and entry details
+already expose them. This corrects discoverability without new scientific/data
+authority. Optional technical metadata, search/filter/export, repair actions,
+persistent acknowledgements and global message logs are outside the approved
+delivery; no speculative follow-up is required.
+
+The compatible correction is planned as patch 0.28.1 from verified stable 0.28.0,
+subject to release/tag recheck. Stable release history already exists; do not reset
+numbering. No new scientific method, public API/job/plugin contract, dependency,
+schema or migration is planned. Head remains 0014, project/viewer/archive schemas
+remain 2 and normalized/selection/component remain 1. All five application version
+sources advance only during release preparation. The feature plan governs the
+focused checkpoints, complete gates, actual preceding readers and all seven
+specialist implementation assessments. C0 persists planning and stops.
+
+### D-152 implementation authorization — 2026-11-13
+
+The user explicitly invoked `/goal` after approving and verifying the planning
+commit `1c8a571`. This authorizes the approved implementation and gated delivery
+workflow. The initial planning-only status above is historical; the ownership,
+scope, compatibility and qualification decisions remain binding.
+
+### D-152 C1 implementation and focused qualification — 2026-11-13
+
+The count and groups now share current visible-entry warning props; the dialog
+owns only local lifecycle/focus/position state. A retained status anchor supports
+the current empty state. Named warning groups use local group semantics rather
+than page landmarks, preserving identically named entries without accessibility
+conflicts. The Close control retains existing icon-button styling and its
+accessible name without a redundant tooltip layer that would consume Escape.
+
+The focused movement capture guard defers only when focus is inside warning
+details. Native first-Escape dismissal from content and Close preserves active
+movement; subsequent canvas Escape retains cancellation. Exact-record, pending/
+failed-loading, empty/focus, project/remount and immutable-state checks pass.
+The feature evidence index retains diagnostics and matching source/log identities.
+No scientific, API, schema, migration, dependency or version change is introduced;
+complete release qualification and final specialist assessments remain required.
+
+### D-152 C2 keyboard and bounded presentation qualification — 2026-11-13
+
+Native long-list accessibility checks require explicit keyboard focus semantics
+on the scroll body. Use a named focusable region with existing inset focus styling;
+Tab/End/Home and Escape from the list preserve the established read-only/movement
+contract. A bounded payload-access experiment independently demonstrated that JSX
+inside a closed portal still read every warning. Construct portal rows only while
+open; do not add a cache, worker, pagination or truncation. Getter-counted closed
+records now incur zero message/severity reads; all current rows remain available
+when opened. This is not a latency or universal capacity claim.
+
+Actual extension-driven browser zoom waits for the real responsive replacement
+viewer before opening details, preserving intentional popup retirement. Complete
+C2 evidence qualifies 54 native passes / 6 exclusions (five existing, one real
+desktop zoom exclusion under mobile emulation), all 402 frontend tests and static/
+build checks. No API, scientific method, schema, migration, dependency or version
+change is introduced. Final-version complete gates/readers and all seven final
+specialist implementation assessments remain required.
+
+### D-152 release preparation — 2026-11-13
+
+The fresh remote/base check retains master 00320ea and stable latest 0.28.0 with no
+0.28.1 tag collision. Prepare patch 0.28.1 in all five authoritative sources and
+retain preceding archive-producer coverage. This corrects access to existing
+warning information without a new scientific/API/persistence contract. No schema,
+historical migration or dependency change is introduced. Complete final-version
+gates, actual tagged readers and final specialist assessments precede delivery.

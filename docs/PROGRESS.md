@@ -2,6 +2,40 @@
 
 ## Current milestone
 
+Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) implements the approved
+[warning-details contract](plans/issue-98-viewer-warning-details.md) on
+`fix/issue-98-viewer-warning-details`. C1/C2 provide exact, current visible-entry
+warnings in a compact accessible non-modal panel, preserving molecular state,
+focus, lifecycle and movement ownership. All five versions agree at patch
+**0.28.1**; stable latest remains **0.28.0** until publication. No scientific/API/
+dependency/schema/migration change; head 0014 and persisted contracts remain.
+
+C3 runtime `bf502040c77b2542112cf1134dd4f3d45f563e10` completes all 24 release steps:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes /
+75 exclusions**, zero final failures/flakes/retries. All 718 source identities and
+logs verify; 74 preceding exclusion identities are exact, plus one approved real
+zoom exclusion under mobile emulation. Actual tagged 0.28.0 ↔ 0.28.1 readers and
+both archive suffixes pass; all 713 preceding source identities verify.
+[Summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+
+The gate has a documented interruption/continuation: 13 verified completed checks
+were reused on identical frozen source, and the entire unfinished browser command
+was restarted in a fresh store. Partial results are excluded. Architecture and
+performance specialists accept the method; [evidence](assets/viewer-warning-details/README.md)
+retains commands, diagnostics, source/log identities and the duration boundary.
+C1/C2 additionally qualify 28 focused tests and 54 native passes / 6 exclusions,
+including all 13 feature cases, real zoom and complete 500-record lists.
+
+Primary full-diff review and seven runtime role assessments find no consequential
+issue; final same-candidate documentation/evidence reconfirmations precede push.
+These are specialist agent assessments, not independent human approval.
+Known limits: stored entry warnings; no preview validation inference or advanced
+warning tooling. Portable correctness is qualified; strict timing/broader browser
+certification is not claimed. Blockers: none. Next: final seven-role reconfirmation,
+normal PR/review/merge, exact-master gate/readers, publication, issue reply and cleanup.
+
+### Previous completed milestone — issue #97
+
 Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) is implemented and released
 as stable [v0.28.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.0) through [PR #133](https://github.com/ManuelSe/Neistra/pull/133).
 The [approved feature plan](plans/issue-97-detached-presentation-viewer.md) and D-151

@@ -1,0 +1,51 @@
+{
+  "label": "c3-preflight",
+  "require_clean": false,
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PYTHONPATH": "apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "archives",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/integration/test_archive_roundtrip.py"
+      ]
+    },
+    {
+      "label": "versions",
+      "command": [
+        ".venv/bin/python",
+        "docs/assets/viewer-warning-details/versions.py.txt"
+      ]
+    },
+    {
+      "label": "production",
+      "command": [
+        ".venv/bin/python",
+        "docs/assets/viewer-warning-details/production-audit.py.txt"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

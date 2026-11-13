@@ -1,0 +1,56 @@
+{
+  "initialCalculations": 4,
+  "readsBeforeReload": 0,
+  "nativeDisplay": [
+    {
+      "type": "lines",
+      "drawCount": 38184
+    },
+    {
+      "type": "lines",
+      "drawCount": 16992
+    },
+    {
+      "type": "lines",
+      "drawCount": 5832
+    },
+    {
+      "type": "lines",
+      "drawCount": 10440
+    }
+  ],
+  "nativeGreenPixels": 8324,
+  "nativeMarkerCounts": [
+    {
+      "count": 15,
+      "highlighted": 15
+    },
+    {
+      "count": 5,
+      "highlighted": 5
+    },
+    {
+      "count": 1,
+      "highlighted": 1
+    },
+    {
+      "count": 1,
+      "highlighted": 1
+    }
+  ],
+  "workerCountBeforeNativeStyle": 4,
+  "savedObjectIds": [
+    "01a1d44b-4bd8-73ce-bee2-a640e208b3a3",
+    "01a1d44b-4bd9-7c78-90e4-a37db00b9812",
+    "01a1d44b-4bda-7158-ab86-b10717bf0677",
+    "01a1d44b-4bdb-7dee-94e1-25e13121a2a1",
+    "01a1d44b-4bdc-772e-be19-c42a25e03589"
+  ],
+  "finalObjectIds": [
+    "01a1d44b-4bd8-73ce-bee2-a640e208b3a3",
+    "01a1d44b-4bd9-7c78-90e4-a37db00b9812",
+    "01a1d44b-4bda-7158-ab86-b10717bf0677",
+    "01a1d44b-4bdb-7dee-94e1-25e13121a2a1",
+    "01a1d44b-4bdc-772e-be19-c42a25e03589"
+  ]
+}
