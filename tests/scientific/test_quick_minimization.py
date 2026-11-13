@@ -756,3 +756,127 @@ def test_planar_guard_rejects_lower_energy_folded_aromatic_but_allows_saturated_
         assert any("plane deviation" in v for v in report.geometry_violations)
     else:
         assert report.planar_geometry_verified and usable(report)
+
+
+@pytest.mark.parametrize("unknown", ["charge", "order"])
+@pytest.mark.parametrize("cut_kind", ["peptide", "intraresidue"])
+def test_current_deleted_protein_edges_stay_absent_with_unrelated_unknown_facts(unknown, cut_kind):
+    native = Chem.MolFromSequence("AA")
+    assert all_chem.EmbedMolecule(native, randomSeed=82) == 0
+    source = mol_to_normalized(native, filename="current.pdb", format_name="pdb")
+    atoms = {a.id: a for a in source.atoms}
+    cut = next(b for b in source.bonds if (
+        atoms[b.atom_1_id].residue_id != atoms[b.atom_2_id].residue_id
+    ) == (cut_kind == "peptide"))
+    source = source.model_copy(update={"bonds": [b for b in source.bonds if b.id != cut.id]})
+    if unknown == "charge":
+        source = source.model_copy(update={"atoms": [
+            a.model_copy(update={"formal_charge": None}) if a.name == "OXT" else a
+            for a in source.atoms
+        ]})
+    else:
+        last = source.bonds[-1].id
+        source = source.model_copy(update={"bonds": [
+            b.model_copy(update={"order": None}) if b.id == last else b for b in source.bonds
+        ]})
+    original = source.to_bytes()
+    graph, _, _ = protein_graph(source)
+    expected = {frozenset((b.atom_1_id, b.atom_2_id)) for b in source.bonds}
+    assert {frozenset((b.atom_1_id, b.atom_2_id)) for b in graph.bonds} == expected
+    assert any(w.code == "quick_current_connectivity" for w in graph.warnings)
+    parameters, _ = quick_capture(source)
+    model = build_assembly({"entry": source}, parameters)
+    canonical_edges = {
+        frozenset((a[1], b[1]))
+        for edge in model.molecule.GetBonds()
+        if (a := model.references[edge.GetBeginAtomIdx()]) is not None
+        and (b := model.references[edge.GetEndAtomIdx()]) is not None
+    }
+    assert canonical_edges == expected
+    assert any("remain absent" in message for message in model.warnings)
+    assert source.to_bytes() == original
+
+
+def test_current_graph_guard_rejects_direct_and_helper_reconnection():
+    from neistra_core.minimization.contracts import CalculationError
+    from neistra_core.minimization.quick_model import validate_current_graph
+
+    source = molecule("CC", explicit_h=False).model_copy(update={"bonds": []})
+    parameters, _ = quick_capture(source)
+    for indirect in [False, True]:
+        assembly = build_assembly({"entry": source}, parameters)
+        validate_current_graph(assembly)
+        first, second = [i for i, ref in enumerate(assembly.references) if ref is not None]
+        edited = Chem.RWMol(assembly.molecule)
+        start = (
+            next(i for i, ref in enumerate(assembly.references) if ref is None)
+            if indirect else first
+        )
+        edited.AddBond(start, second, Chem.BondType.SINGLE)
+        assembly.molecule = edited.GetMol()
+        with pytest.raises(CalculationError, match=r"connectivity differs|helpers reconnect"):
+            validate_current_graph(assembly)
+
+
+def test_current_graph_policy_is_recorded_without_changing_report_schema(tmp_path: Path):
+    from neistra_core.minimization.quick_plugin import GRAPH_POLICY, definition
+
+    parameters, inputs = quick_capture(molecule())
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    assert definition().implementation_version == "1.0.3"
+    assert result.values["graph_policy"] == GRAPH_POLICY == "current-canonical-v1"
+    report = json.loads(next(a.data for a in result.artifacts if a.role == "report"))
+    assert report["schema_version"] == 1
+    QuickReport.model_validate(report)
+    model = next(a for a in result.artifacts if a.role == "model")
+    with zipfile.ZipFile(io.BytesIO(model.data)) as archive:
+        document = json.loads(archive.read("local-model.json"))
+    assert document["graph_policy"] == GRAPH_POLICY
+    assert document["implementation_version"] == "1.0.3"
+
+
+def test_helper_guard_rejects_shortcut_inside_an_existing_canonical_component():
+    from neistra_core.minimization.contracts import CalculationError
+    from neistra_core.minimization.quick_model import validate_current_graph
+
+    source = molecule("CCO", explicit_h=False)
+    parameters, _ = quick_capture(source)
+    assembly = build_assembly({"entry": source}, parameters)
+    helper = next(i for i, ref in enumerate(assembly.references) if ref is None)
+    other = assembly.references.index(("entry", 3))
+    edited = Chem.RWMol(assembly.molecule)
+    edited.AddBond(helper, other, Chem.BondType.SINGLE)
+    assembly.molecule = edited.GetMol()
+    with pytest.raises(CalculationError, match="helpers reconnect"):
+        validate_current_graph(assembly)
+
+
+def test_sparse_legacy_protein_coverage_is_limited_without_reconstructing_edges(tmp_path: Path):
+    from neistra_core.adapters import ImportOptions
+    from neistra_core.minimization.quick_model import validate_current_graph
+
+    path = Path(__file__).parents[1] / "fixtures/minimization/peptide-heavy.pdb"
+    source = create_default_registry().for_filename(path.name).parse(
+        path.read_bytes(), path.name, ImportOptions(infer_bonds=False)
+    ).structures[0]
+    assert len(source.atoms) == 16 and source.bonds == []
+    captured = source.to_bytes()
+    parameters, _ = quick_capture(source, [1], max_iterations=50)
+    model = build_assembly({"entry": source}, parameters)
+    assert model.connectivity_limited
+    validate_current_graph(model)
+    assert not any(
+        model.references[b.GetBeginAtomIdx()] is not None
+        and model.references[b.GetEndAtomIdx()] is not None
+        for b in model.molecule.GetBonds()
+    )
+    before = model.coordinates.copy()
+    report, _ = optimize(model, parameters, LocalContext(tmp_path))
+    assert report.method == "MMFF94" and report.coverage == "approximate"
+    assert report.outcome in {"improved", "converged", "unchanged"}, report
+    assert report.helper_count > 0
+    fixed = sorted(set(range(len(before))) - set(model.movable))
+    assert np.array_equal(before[fixed], model.result_coordinates[fixed])
+    assert any("remain absent" in message for message in report.warnings)
+    assert any("literal current graph" in note for note in report.assumptions)
+    assert source.to_bytes() == captured

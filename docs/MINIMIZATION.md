@@ -10,8 +10,23 @@ there is no implicit whole-scene minimization. Selection changes cannot retarget
 Selected atoms and their directly attached existing terminal hydrogens move by
 default. Unselected binding-site atoms stay fixed. To move a side chain or nearby
 residues too, select them explicitly. The quick setup panel lets you
-turn off attached-H expansion for an exact atom mask, choose surroundings, disable
-approximate repair or change the default500 iterations (range1–2000).
+turn off attached-H expansion for an exact atom mask and choose surroundings.
+**More settings** contains approximate repair and the default500 iteration limit
+(range1–2000). Setup shows capability checking, unavailable reasons or a failed
+check beside Run. **Check again / Retry check** preserves the draft and never
+starts a calculation; a failed refresh cannot reuse old availability to enable Run.
+
+**Use current selection** explicitly replaces the captured selection and project
+revision without submitting. It preserves settings and still-valid manual entry
+choices, and clears previous calculation summaries. Selection changes alone never
+retarget the draft. A changed project asks for explicit recapture before Run;
+server revision checks independently protect later races. Recapture is unavailable
+during calculation/publication.
+The requested count precedes attached-H expansion; server capture then supplies
+resolved movers. Final details use actual modeled entries, fixed/movable atoms,
+and temporary helpers. Captured source-entry totals are not local fixed-context
+counts. The helper-atom total includes cap atoms; boundary caps are counted
+separately as groups.
 
 Automatic surroundings use visible entries, including their display-hidden atoms.
 Selected entries always participate even if hidden. **Selected molecules only**
@@ -30,11 +45,63 @@ protein templates and bounded ligand bond-order inference may supply temporary
 unknown facts without changing connectivity. Missing historical isotope/radical
 metadata alone does not block cleanup; known evidence remains protected.
 
+### Current connectivity
+
+The current normalized bond graph is authoritative, including a sparse or empty
+graph. Quick minimization never reconnects a deleted bond, consults an original
+upload to restore connectivity, or repairs missing canonical connectivity. The
+viewer displays that same graph. Temporary assignment of an unknown order on an
+existing edge is distinct from adding an edge; calculation-only hydrogens and
+boundary caps never reconnect absent canonical bonds.
+
+New PDB/mmCIF imports can record supported standard-protein connectivity under the
+existing **Infer missing connectivity** option. This happens before the imported
+model is stored; inferred edges retain unknown order and explicit provenance.
+Existing projects and native archives are not upgraded or repaired on opening.
+Sparse current graphs remain sparse and can be edited with existing bond tools;
+calculation diagnostics explain applicable scientific limitations.
+Native parameters for disconnected literal fragments do not establish complete
+protein coverage. Locally modeled standard-residue connectivity discrepancies
+mark coverage approximate and disclose that temporary H follows the current graph.
+
+Corrected quick jobs use implementation 1.0.3. Earlier quick results remain
+inspectable and downloadable but require a new calculation before Apply. Queued
+jobs whose recorded implementation is unavailable fail explicitly rather than
+executing a different implementation under the old provenance.
+
+### Effective calculation fields
+
+**Calculation details** distinguishes each final component's actual native or
+geometric treatment. A fallback can change the field initially available for a
+component; the displayed record comes from the installed final calculation model.
+Native components can also participate in approximate steric context. Coverage
+describes the disclosed local objective, not physical completeness or pose quality.
+An approximate native model is labeled **Approximate model**, without implying
+that stored connectivity was repaired.
+
+Component identities and canonical atom membership, methods, coverage and scoped
+omissions are recorded in additive job `result_values.effective_field` and the
+downloadable model ZIP. UFF electrostatics and missing electrostatics involving
+unsupported sites are distinguished: mixed models can retain native-native MMFF
+electrostatics. Fixed-only native constants do not affect moving forces. A fixed
+component with no installed native field is identified as fixed geometry.
+Historical jobs without this metadata retain report inspection; unavailable or
+invalid component details do not invent a field assignment or change Apply rules.
+
+### Temporary states and acceptance
+
 Missing protein states use conventional temporary defaults: ASP/GLU negative,
 LYS/ARG positive, neutral CYS/TYR and epsilon-H HIS unless supplied state/H evidence
 specifies otherwise. Assumptions are reported; no pH prediction, missing heavy atom
 or loop completion is performed. Temporary hydrogens and boundary helpers have no
 canonical atom IDs and are never added to the saved structure.
+
+Supplied H, known bond orders and assigned charges take precedence over these
+defaults. For ASP/GLU, the two equivalent oxygens are interpreted jointly: an
+observed acid H can occupy either oxygen, and a coherent supplied negative charge
+is not duplicated on its partner. A supplied positive histidine ring charge is
+not duplicated on the other N. Only unknown temporary facts are resolved; assigned
+contradictions remain unchanged and retain warned repair/refusal behavior.
 
 When a draft cannot be parameterized, **Approximate repair** uses explicit native
 bond/angle/planarity and overlap constraints. Unsupported fixed sites remain steric
@@ -81,14 +148,26 @@ Only the active owning client automatically applies. Ctrl+M leaves a closed pane
 closed and preserves an already-open panel. Repeated starts cannot create concurrent
 owned calculations. Clicking Minimize during a shortcut run reveals that run without
 recapturing its selection. After completion, clicking it opens fresh setup. No
-additional shortcut progress, Cancel, or results display is added; failures and
-consequential scientific warnings remain visible in application notices. Explicit
-**Jobs → Inspect minimization** retains report access without rearming publication.
+additional shortcut progress, Cancel, or results display is added. Successful
+runs do not open a scientific-warning notification; the ordinary short publication
+confirmation can expire normally. Every scientific warning remains in the stored
+report and, after Apply, entry warning details. **Jobs → Inspect minimization**
+retains full report access without rearming publication. Refused/failed scientific
+reports use a short review notice. Prerequisite/API failures keep their actionable
+diagnostics in the bounded application notice.
+Publication uncertainty retains its separate recovery messages and guards.
 
-**Cancel**, closing an explicitly opened panel,
-changing tools/projects or leaving that client disarms late publication and clears
-preview. Viewer remounts preserve the session. Reload and **Inspect minimization**
-show retained reports without rearming automatic publication. Saved chemistry and
+Application notices fit within the viewport. Long content wraps and scrolls in
+its own keyboard-accessible area while Close remains visible. Notices never
+steal focus; persistent errors and focus-aware transient expiration retain their
+existing behavior.
+
+Before coordinate application is dispatched, **Cancel**, closing an explicitly
+opened panel, changing tools/projects or leaving that client disarms automatic
+publication and clears preview. Viewer remounts preserve the calculation session.
+An application already sent to the server may still complete; closing its panel
+cannot recall that write. Reload and **Inspect minimization** never automatically
+send another application. Saved chemistry and
 original files stay unchanged; only mapped selected active coordinates are published,
 with provenance/warnings. Undo/Redo restores exact artifacts and inactive conformers.
 An applied job cannot apply again, even after Undo. Original uploads remain available.
@@ -98,6 +177,29 @@ Measurements, surfaces and interactions pause during preview. No animation is in
 for short runs. Exports use saved geometry until application. All quick input/model/
 report/proposal artifacts are retained in Jobs; archived proposals remain historical.
 Changed selected/local context, locks, conformers or final surroundings block publication.
+
+## Recovering a coordinate application
+
+If an Apply response is interrupted or cannot be decoded, the application checks
+fresh project and job state before declaring an outcome. A recorded application
+refreshes current coordinates/history without applying again. Later Undo and edits
+remain authoritative. An unchanged revision alone does not prove that a delayed
+request cannot still complete.
+
+When the outcome remains uncertain, changes to that source project are paused.
+Selection, camera inspection, switching projects, export and Jobs remain available.
+Open the existing Minimize icon for **Refresh result** (reads only) or explicit
+**Retry application** of the same captured result. Server revision/digest checks
+and the application marker prevent a second command. A changed project without an
+application marker requires a new calculation. No result silently retargets.
+
+Closing the panel or switching projects does not discard publication ownership.
+A small session-storage descriptor restores read-only recovery after reload; it
+contains project/job/digest/revision identifiers, not molecular data. A storage
+write failure prevents Apply dispatch. Invalid/unavailable recovery information
+never authorizes an automatic request; a source-project guard remains when the
+outcome cannot be verified. Other projects are independent. Normal success notices
+remain transient; consequential recovery diagnostics remain available until dismissed.
 
 ## Advanced prepared AMBER
 

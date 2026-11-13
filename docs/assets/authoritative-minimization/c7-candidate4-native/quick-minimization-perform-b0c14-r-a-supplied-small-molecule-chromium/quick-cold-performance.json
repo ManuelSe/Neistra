@@ -1,0 +1,114 @@
+{
+  "copies": 0,
+  "phase": "cold",
+  "atoms": 18,
+  "commandAcceptedMs": 0.3999999761581421,
+  "nativeAppliedMs": 922.5999999940395,
+  "longestTaskMs": 59,
+  "stages": [
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations",
+      "at": 1794596265673,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations",
+      "at": 1794596265716,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265734,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265740,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265841,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265848,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265975,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596265982,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266084,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266090,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266191,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266196,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266298,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/live",
+      "at": 1794596266304,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/proposal",
+      "at": 1794596266402,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/proposal",
+      "at": 1794596266414,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/apply",
+      "at": 1794596266438,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/apply",
+      "at": 1794596266468,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d645-d1b8-7a4b-8520-676b70448bb0/quick-minimizations/01a1d645-decd-73d6-a5c1-2a78219043d0/proposal",
+      "at": 1794596266525,
+      "kind": "request"
+    }
+  ],
+  "backend": {
+    "context_rebuild": 0,
+    "context_rebuilds": 0,
+    "force_field": 0.003480643004877493,
+    "interpretation": 0.0040517910092603415,
+    "optimization": 0.011635089991614223
+  },
+  "elapsedBackendSeconds": 0.022387169010471553,
+  "jobId": "01a1d645-decd-73d6-a5c1-2a78219043d0"
+}

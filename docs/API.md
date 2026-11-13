@@ -146,6 +146,61 @@ The worker validates result roles/media types, safe filenames, artifact
 count/bytes, and importable normalized structures before publication. See
 `docs/PLUGIN_GUIDE.md` for the public plugin contract.
 
+### Quick minimization result provenance
+
+The existing quick endpoints are `GET /api/v1/quick-minimization-capabilities`,
+`POST /api/v1/projects/{project_id}/quick-minimizations`, and that project's
+`quick-minimizations/{job_id}/proposal`, `/live` and `/apply` routes. Proposal/live
+are reads; Apply posts the current `expected_revision` and `proposal_sha256`.
+Submission resolves the requested mask and optional attached hydrogens against
+current captured sources. It does not mutate the project. Apply publishes only
+eligible mapped coordinates as one reversible command. Current connectivity is
+authoritative; original files cannot authorize missing current bonds.
+
+New jobs that construct a field add `result_values.effective_field`; the identical
+object appears in the model ZIP's `local-model.json`. This is separate from the
+unchanged strict quick report/proposal schema1:
+
+```json
+{
+  "schema_version": 1,
+  "model": "quick-local-v1",
+  "components": [{
+    "component_id": "entry-id:3",
+    "entry_id": "entry-id",
+    "atom_ids": [3, 7, 19],
+    "method": "MMFF94",
+    "coverage": "complete",
+    "omissions": []
+  }],
+  "omissions": []
+}
+```
+
+Membership contains sorted unique positive canonical IDs, disjoint per entry;
+helpers/caps have no canonical membership. Component ID is `entry_id:min_atom_id`.
+Methods are `MMFF94`, `UFF`, `geometry_repair` or `fixed_geometry` (no native field
+installed for that fixed component). They identify actual final base treatment,
+including fallback, rather than initial parameter availability. Native components
+can additionally participate in approximate steric context.
+
+Coverage is `complete` or `approximate` within the disclosed local objective.
+Only MMFF94 may be complete; physical completeness is never claimed. Omissions
+are unique keys from `uff_electrostatics`, `unsupported_site_electrostatics`,
+`coordination`, `unsupported_physical_terms`, `fixed_only_native_terms` and
+`current_connectivity`. Unsupported-site omissions do not deny native-native MMFF
+electrostatics. Sparse-connectivity attribution comes from affected modeled
+residue diagnostics, not disconnected membership alone. Fixed-only omitted
+constants preserve moving forces and do not alone make their coverage approximate.
+Overall omissions are the component union. Rebuilding replaces this provenance.
+
+Jobs blocked before field construction and historical jobs may omit the object.
+Consumers must validate version, structure and membership before displaying it;
+unknown/malformed metadata is distinct from missing historical metadata. No
+database, normalized, project or archive schema changes are required. Historical
+results remain readable; Apply independently enforces corrected implementation
+1.0.3/current-graph provenance and all existing scientific/source guards.
+
 Import is `multipart/form-data` with one or more `files`, required
 `expected_revision`, optional booleans `generate_3d` and `infer_bonds`, and an
 optional `operation_id`. The complete batch is parsed and checked before one

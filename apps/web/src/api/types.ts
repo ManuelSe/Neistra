@@ -931,3 +931,21 @@ export interface QuickMinimizationReport extends Omit<MinimizationReport, "model
 }
 export interface QuickMinimizationProposal extends Omit<MinimizationProposal, "report"> { report: QuickMinimizationReport }
 export interface QuickMinimizationCapabilities extends Omit<MinimizationCapabilities, "model"> { model: "quick-local-v1" }
+
+export type QuickFieldOmission = "uff_electrostatics" | "unsupported_site_electrostatics"
+  | "coordination" | "unsupported_physical_terms" | "fixed_only_native_terms" | "current_connectivity";
+export interface QuickEffectiveComponent {
+  component_id: string;
+  entry_id: string;
+  atom_ids: number[];
+  method: "MMFF94" | "UFF" | "geometry_repair" | "fixed_geometry";
+  coverage: "complete" | "approximate";
+  omissions: QuickFieldOmission[];
+}
+/** Coverage of the disclosed local objective, not physical completeness. */
+export interface QuickEffectiveField {
+  schema_version: 1;
+  model: "quick-local-v1";
+  components: QuickEffectiveComponent[];
+  omissions: QuickFieldOmission[];
+}

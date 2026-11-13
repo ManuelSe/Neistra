@@ -1,0 +1,20 @@
+[
+  {
+    "cache": "initial",
+    "atoms": 2272,
+    "movable": 30,
+    "firstVisibleMs": 3301,
+    "deliveryMs": 157.169677734375,
+    "restoreMs": 72.2000000178814,
+    "frames": 6
+  },
+  {
+    "cache": "repeat",
+    "atoms": 2272,
+    "movable": 30,
+    "firstVisibleMs": 2231,
+    "deliveryMs": 124.80419921875,
+    "restoreMs": 47.39999997615814,
+    "frames": 3
+  }
+]

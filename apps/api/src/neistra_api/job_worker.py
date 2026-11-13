@@ -163,11 +163,16 @@ def process_tree_rss(pid: int) -> int:
         members = expanded
 
 
+class ImplementationVersionUnavailable(RuntimeError):
+    """The recorded calculation cannot run under a different implementation."""
+
+
 def _execute_child(
     connection: Connection,
     allowlist: tuple[str, ...],
     targets: tuple[str, ...],
     job_type: str,
+    implementation_version: str,
     parameters: dict[str, Any],
     child_inputs: tuple[ChildInput, ...],
     work_directory: str,
@@ -197,6 +202,10 @@ def _execute_child(
             discover_installed=True,
         )
         registered = registry.get(job_type)
+        if registered.definition.implementation_version != implementation_version:
+            raise ImplementationVersionUnavailable(
+                "The recorded implementation is unavailable; resubmit the calculation."
+            )
         validated = registered.definition.validate_parameters(parameters)
         inputs = tuple(
             InputArtifact(
@@ -229,7 +238,9 @@ def _execute_child(
             (
                 "error",
                 {
-                    "code": "memory_allocation_failed"
+                    "code": "implementation_version_unavailable"
+                    if isinstance(error, ImplementationVersionUnavailable)
+                    else "memory_allocation_failed"
                     if isinstance(error, MemoryError)
                     else "plugin_execution_failed",
                     "message": f"{type(error).__name__}: {error}",
@@ -271,6 +282,16 @@ class JobWorker:
             job = service.claim_next(self.worker_id)
             if job is None:
                 return False
+            if (
+                self.registry.get(job.job_type).definition.implementation_version
+                != job.implementation_version
+            ):
+                service.fail(
+                    job.id,
+                    "implementation_version_unavailable",
+                    "The recorded implementation is unavailable; resubmit the calculation.",
+                )
+                return True
             try:
                 child_inputs = self._load_inputs(session, service, job)
             except Exception as error:
@@ -331,6 +352,7 @@ class JobWorker:
                 self.settings.job_plugin_allowlist,
                 self.settings.job_plugin_targets,
                 job.job_type,
+                job.implementation_version,
                 job.parameters,
                 child_inputs,
                 str(work_directory),

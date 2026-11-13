@@ -1,0 +1,9 @@
+{
+  "kind": "Transient Playwright worker trace/resource cache, not publication evidence",
+  "files": 23057,
+  "bytes": 1114564678,
+  "inventory_sha256": "c30c967be979fa23058be39d4a6e0bd021c1e36badccfda3c5fdc07988e00685",
+  "retained_local_path": "/tmp/neistra137-c7-candidate3-transient-cache",
+  "reason": "Duplicate raw resources left by failed worker; retain self-contained failed-test trace.zip, screenshot, error context and lossless browser logs in repository. Do not publish temporary browser caches.",
+  "publication_inputs": "Final native attachments and failed-test trace only; raw cache remains local."
+}

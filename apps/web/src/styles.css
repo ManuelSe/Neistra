@@ -1326,14 +1326,19 @@ select {
 }
 
 .notice {
+  --notice-top: 60px;
   position: fixed;
   z-index: 45;
-  top: 60px;
+  top: var(--notice-top);
   left: 50%;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: start;
   gap: var(--space-4);
+  width: max-content;
   max-width: min(560px, calc(100vw - 24px));
+  max-height: min(240px, calc(100dvh - var(--notice-top) - 12px));
   min-height: 38px;
   padding: 7px 9px 7px 13px;
   background: var(--surface);
@@ -1344,6 +1349,21 @@ select {
   transform: translateX(-50%);
   font-size: var(--text-sm);
   pointer-events: none;
+}
+
+.notice-message {
+  align-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  overscroll-behavior: contain;
+  pointer-events: none;
+}
+
+.notice-message.is-scrollable {
+  pointer-events: auto;
 }
 
 .notice.error {
@@ -1361,6 +1381,17 @@ select {
   border: 0;
   cursor: pointer;
   pointer-events: auto;
+}
+
+@media (any-pointer: coarse), (max-width: 840px) {
+  .notice button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-height: 360px) {
+  .notice { --notice-top: 8px; }
 }
 
 .api-failure {

@@ -4,7 +4,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { jobApi } from "../api/client";
+import { ApiError, jobApi } from "../api/client";
 import type { Job, JobDefinition } from "../api/types";
 import { JobSubmitDialog } from "../components/JobSubmitDialog";
 import { JobsPanel } from "../components/JobsPanel";
@@ -116,6 +116,39 @@ describe("jobs", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+  });
+
+  it("guards the actual result import dispatch while downloads remain available", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(jobApi, "list").mockResolvedValue([job()]);
+    vi.spyOn(jobApi, "events").mockResolvedValue([]);
+    const dispatch = vi.spyOn(jobApi, "importResult");
+    const notice = vi.fn();
+    const guard = vi.fn(() => { throw new ApiError(409, "quick_publication_busy", "Confirm pending minimization first."); });
+    renderWithQuery(<JobsPanel project={molecularProject()} onNewJob={vi.fn()}
+      onProjectUpdate={vi.fn()} onNotice={notice} assertWritable={guard} />);
+    await screen.findAllByText("Statistics completed");
+    await user.click(screen.getByRole("tab", { name: "Results (1)" }));
+    expect(screen.getByRole("link", { name: "Download" })).toHaveAttribute("href");
+    await user.click(screen.getByRole("button", { name: "Import" }));
+    await waitFor(() => expect(notice).toHaveBeenCalledWith("error", "Confirm pending minimization first."));
+    expect(guard).toHaveBeenCalledWith("project-1");
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it("does not import a retained job into another active project's revision", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(jobApi, "list").mockResolvedValue([{ ...job(), project_id: "previous-project" }]);
+    vi.spyOn(jobApi, "events").mockResolvedValue([]);
+    const dispatch = vi.spyOn(jobApi, "importResult");
+    const notice = vi.fn();
+    renderWithQuery(<JobsPanel project={molecularProject()} onNewJob={vi.fn()}
+      onProjectUpdate={vi.fn()} onNotice={notice} />);
+    await screen.findAllByText("Statistics completed");
+    await user.click(screen.getByRole("tab", { name: "Results (1)" }));
+    await user.click(screen.getByRole("button", { name: "Import" }));
+    await waitFor(() => expect(notice).toHaveBeenCalledWith("error", "Open the job's project before importing its result."));
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("submits validated generic parameters and immutable role inputs", async () => {

@@ -1,0 +1,31 @@
+{
+  "attempt": "c7-candidate1",
+  "commit": "07d18d694591376f8dae9fbc7dd47f37be850f90",
+  "status": "FAILED; not passing qualification",
+  "stopped_after": "python; no later step executed",
+  "python": {
+    "passed": 1350,
+    "failed": 131,
+    "seconds": 344.31
+  },
+  "causes": {
+    "migration_cases": 130,
+    "migration_reason": "Gate NEISTRA_DATA_DIR overrode tests monkeypatching legacy DATA_DIR, creating wrong parent directory. Independent same-node red/green reproduced with only environment change.",
+    "scientific_fixture_cases": 1,
+    "fixture_reason": "Old release assertion expected17 explicit bonds with default inference; approved default now940=17explicit+923inferred. Independent science confirmed explicit atoms/bonds/conformers unchanged."
+  },
+  "corrections": {
+    "runtime_changes": false,
+    "test": "Keep default ImportOptions; assert940/counts/exactwarnings/inferenceendpoint+bondidentity.",
+    "recipe": "Use legacy DATA_DIR for pytest; remove four inherited datastore aliases before explicit environment overlay.",
+    "focused": "155 passes37.71s; no skips; Ruff/syntax/diff checks.",
+    "passing_gate_evidence_reused": false
+  },
+  "retired_unused_recipe": "c8-merged1-recipe.json; never executed; lacks corrected isolation",
+  "next_recipes": [
+    "c7-candidate2-recipe.json",
+    "c8-merged2-recipe.json"
+  ],
+  "raw_failed_gate": "c7-candidate1-gate.json",
+  "raw_failed_log": "c7-candidate1-python.log.gz"
+}

@@ -1,0 +1,193 @@
+"""Execute an explicit issue-137 recipe with lossless logs and frozen source audits."""
+
+import argparse
+import gzip
+import hashlib
+import json
+import os
+import platform
+import re
+import socket
+import subprocess
+import time
+from pathlib import Path
+
+PREFIXES = ("apps/", "packages/", "tests/", "tools/", "scripts/", "patches/")
+CONFIGS = {
+    "pyproject.toml",
+    "uv.lock",
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "playwright.config.ts",
+    "alembic.ini",
+    ".gitattributes",
+    ".gitignore",
+}
+TOOL_DIRECTORY = "docs/assets/authoritative-minimization/"
+TOOLS = {
+    TOOL_DIRECTORY + name
+    for name in (
+        "qualification.py.txt",
+        "release-recipe.py.txt",
+        "versions.py.txt",
+        "production-audit.py.txt",
+        "qualification-summary.py.txt",
+    )
+}
+
+
+def selected(path):
+    return path.startswith(PREFIXES) or path in CONFIGS or path in TOOLS
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def current_identities(root):
+    names = subprocess.check_output(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        text=True,
+    ).splitlines()
+    return {
+        p: digest((root / p).read_bytes())
+        for p in sorted(set(names))
+        if selected(p) and (root / p).is_file()
+    }
+
+
+def tagged_identities(tag):
+    names = [
+        p
+        for p in subprocess.check_output(
+            ["git", "ls-tree", "-r", "--name-only", tag],
+            text=True,
+        ).splitlines()
+        if selected(p)
+    ]
+    objects = subprocess.check_output(
+        ["git", "cat-file", "--batch"],
+        input="".join(f"{tag}:{p}\n" for p in names).encode(),
+    )
+    identities = {}
+    offset = 0
+    for name in names:
+        end = objects.index(b"\n", offset)
+        _, kind, size = objects[offset:end].split()
+        assert kind == b"blob", name
+        start = end + 1
+        offset = start + int(size)
+        identities[name] = digest(objects[start:offset])
+        assert objects[offset : offset + 1] == b"\n"
+        offset += 1
+    assert offset == len(objects)
+    return identities
+
+
+def extracted_identities(root, names):
+    return {p: digest((root / p).read_bytes()) for p in names}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("recipe", type=Path)
+    args = parser.parse_args()
+    root = Path.cwd().resolve()
+    recipe = json.loads(args.recipe.read_text())
+    out = root / TOOL_DIRECTORY
+    manifest = out / f"{recipe['label']}-gate.json"
+    assert not manifest.exists(), "Preserve prior attempts; use a new recipe label."
+    initial_status = subprocess.check_output(["git", "status", "--porcelain=v1"], text=True)
+    assert recipe["require_clean"] and not initial_status, "Clean committed candidate required."
+    preceding = recipe["preceding_reader"]
+    assert (
+        preceding["commit"]
+        == subprocess.check_output(
+            ["git", "rev-parse", f"{preceding['tag']}^{{}}"],
+            text=True,
+        ).strip()
+    )
+    expected_old = tagged_identities(preceding["tag"])
+    old_root = Path(preceding["root"])
+    old_before = extracted_identities(old_root, expected_old)
+    assert old_before == expected_old, "Preceding reader does not match the actual tagged source."
+    state = {
+        "label": recipe["label"],
+        "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+        "branch": subprocess.check_output(["git", "branch", "--show-current"], text=True).strip(),
+        "initial_status": initial_status,
+        "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "platform": platform.platform(),
+        "recipe_sha256": digest(args.recipe.read_bytes()),
+        "runner_sha256": digest(Path(__file__).read_bytes()),
+        "unset_environment": recipe["unset_environment"],
+        "source_before": current_identities(root),
+        "preceding_reader": preceding,
+        "preceding_source_expected": expected_old,
+        "preceding_source_before": old_before,
+        "steps": [],
+        "complete": False,
+        "qualification_profile": "portable correctness; no strict reference-host timing claim",
+    }
+    manifest.write_text(json.dumps(state, indent=2) + "\n")
+    for step in recipe["steps"]:
+        print("START", step["label"], flush=True)
+        started = time.monotonic()
+        inherited = {k: v for k, v in os.environ.items() if k not in recipe["unset_environment"]}
+        environment = {**inherited, **recipe["environment"], **step.get("environment", {})}
+        if step["label"] == "browser":
+            # The browser configuration can reuse a server. Qualification must
+            # start its own exact-candidate services rather than reuse one.
+            for key in ("NEISTRA_E2E_API_PORT", "NEISTRA_E2E_WORKER_PORT", "NEISTRA_E2E_WEB_PORT"):
+                with socket.socket() as probe:
+                    probe.settimeout(1)
+                    assert probe.connect_ex(("127.0.0.1", int(environment[key]))) != 0, (
+                        f"Qualification port is already occupied: {key}={environment[key]}"
+                    )
+        proc = subprocess.Popen(
+            step["command"],
+            cwd=step.get("cwd", str(root)),
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        chunks = []
+        for line in proc.stdout:
+            chunks.append(line)
+            clean = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", line.decode(errors="replace")).strip()
+            if re.match(r"^\[\d+/\d+\]", clean) or clean.startswith(("✓", "✘", "Running ")):
+                print(clean, flush=True)
+        code = proc.wait()
+        content = b"".join(chunks)
+        log = out / f"{recipe['label']}-{step['label']}.log.gz"
+        log.write_bytes(gzip.compress(content, mtime=0))
+        state["steps"].append(
+            {
+                **step,
+                "exit_code": code,
+                "seconds": round(time.monotonic() - started, 3),
+                "log": str(log.relative_to(root)),
+                "log_sha256": digest(content),
+            }
+        )
+        state["source_after"] = current_identities(root)
+        state["source_unchanged"] = state["source_before"] == state["source_after"]
+        state["preceding_source_after"] = extracted_identities(old_root, expected_old)
+        state["preceding_source_unchanged"] = state["preceding_source_after"] == expected_old
+        manifest.write_text(json.dumps(state, indent=2) + "\n")
+        print("PASS" if code == 0 else "FAIL", step["label"], flush=True)
+        print(content.decode(errors="replace")[-1200:], flush=True)
+        if code:
+            raise SystemExit(code)
+        assert state["source_unchanged"], "Current source inventory changed during qualification."
+        assert state["preceding_source_unchanged"], "Preceding source changed during qualification."
+    state["complete"] = True
+    state["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    state["final_status"] = subprocess.check_output(["git", "status", "--porcelain=v1"], text=True)
+    manifest.write_text(json.dumps(state, indent=2) + "\n")
+    print("COMPLETE", manifest, flush=True)
+
+
+if __name__ == "__main__":
+    main()

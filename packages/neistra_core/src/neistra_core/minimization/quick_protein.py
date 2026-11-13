@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from functools import lru_cache
 from itertools import pairwise
 from typing import Any
 
@@ -11,49 +10,43 @@ import numpy as np
 from rdkit import Chem
 
 from neistra_core.minimization.contracts import CalculationError
-from neistra_core.molecular import Atom, Bond, NormalizedStructureV1
-
-CODES = dict(
-    zip(
-        ("ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL").split(),
-        "ARNDCQEGHILKMFPSTWYV",
-        strict=True,
-    )
-)
-
-
-@lru_cache(maxsize=20)
-def template(name: str) -> Any:
-    mol = Chem.MolFromSequence(CODES[name])
-    if name == "ILE":
-        # RDKit sequence template attaches CD1 to CG2; PDB ILE uses CG1.
-        indices = {a.GetPDBResidueInfo().GetName().strip(): a.GetIdx() for a in mol.GetAtoms()}
-        if mol.GetBondBetweenAtoms(indices["CG2"], indices["CD1"]) is not None:
-            rw = Chem.RWMol(mol)
-            rw.RemoveBond(indices["CG2"], indices["CD1"])
-            rw.AddBond(indices["CG1"], indices["CD1"], Chem.BondType.SINGLE)
-            mol = rw.GetMol()
-    return mol
+from neistra_core.molecular import Atom, MolecularWarning, NormalizedStructureV1, Residue
+from neistra_core.protein_connectivity import CODES as CODES
+from neistra_core.protein_connectivity import sequence_neighbors
+from neistra_core.protein_connectivity import template as template
 
 
 def protein_graph(
     source: NormalizedStructureV1,
 ) -> tuple[NormalizedStructureV1, set[int], dict[int, str]]:
-    """Fill unknown template facts only. Never complete missing heavy atoms."""
+    """Interpret existing edges and states only; the current endpoint graph is exact."""
     groups = defaultdict(list)
     for atom in source.atoms:
         groups[atom.residue_id].append(atom)
     bonds = {frozenset((b.atom_1_id, b.atom_2_id)): b for b in source.bonds}
-    next_id = max((b.id for b in source.bonds), default=0) + 1
-    incomplete_facts = any(a.formal_charge is None for a in source.atoms) or any(
-        b.order is None for b in source.bonds
-    )
     atoms = {a.id: a for a in source.atoms}
+    neighbors: dict[int, list[int]] = {atom_id: [] for atom_id in atoms}
+    incident: dict[int, list[frozenset[int]]] = {atom_id: [] for atom_id in atoms}
+    intraresidue: dict[int | None, list[frozenset[int]]] = defaultdict(list)
+    for key, bond in bonds.items():
+        first_id, second_id = bond.atom_1_id, bond.atom_2_id
+        neighbors[first_id].append(second_id)
+        neighbors[second_id].append(first_id)
+        incident[first_id].append(key)
+        incident[second_id].append(key)
+        if atoms[first_id].residue_id == atoms[second_id].residue_id:
+            intraresidue[atoms[first_id].residue_id].append(key)
+    first_residue: dict[tuple[int, str | None], Residue] = {}
+    for residue in source.residues:
+        first_residue.setdefault((residue.chain_id, residue.source_subchain_id), residue)
     protein: set[int] = set()
     assumptions = {}
+    diagnostics: dict[int, set[tuple[int, int]]] = defaultdict(set)
+
+    def has_h(atom_id: int) -> bool:
+        return any(atoms[other].element == "H" for other in neighbors[atom_id])
 
     def link(first: int, second: int, order: float) -> None:
-        nonlocal next_id
         key = frozenset((first, second))
         existing = bonds.get(key)
         if existing is not None:
@@ -62,16 +55,6 @@ def protein_graph(
                 bonds[key] = existing.model_copy(
                     update={"order": resolved, "aromatic": resolved == 1.5}
                 )
-        elif incomplete_facts:
-            bonds[key] = Bond(
-                id=next_id,
-                atom_1_id=first,
-                atom_2_id=second,
-                order=order,
-                aromatic=order == 1.5,
-                inferred=True,
-            )
-            next_id += 1
 
     for residue in source.residues:
         if residue.name not in CODES:
@@ -88,67 +71,85 @@ def protein_graph(
         ):
             continue
         protein.update(a.id for a in group)
+        state_orders: dict[frozenset[int], float] = {}
+        state_charges: dict[int, int] = {}
+        acid = {"ASP": ("CG", "OD1", "OD2"), "GLU": ("CD", "OE1", "OE2")}.get(residue.name)
+        if acid:
+            center, first_o, second_o = (names[name] for name in acid)
+            pair = (first_o, second_o)
+            oxygen_edges = [frozenset((center.id, oxygen.id)) for oxygen in pair]
+            # Interpret an existing carboxyl group jointly. Observed H, known
+            # bond orders and a supplied negative charge can select either
+            # equivalent oxygen; atom naming alone cannot override them.
+            if all(edge in bonds for edge in oxygen_edges):
+                hydrogens = [has_h(oxygen.id) for oxygen in pair]
+                orders = [bonds[edge].order for edge in oxygen_edges]
+                single = 1  # disclosed default when neither oxygen has state evidence
+                if sum(hydrogens) == 1:
+                    single = hydrogens.index(True)
+                elif orders.count(1.0) == 1:
+                    single = orders.index(1.0)
+                elif orders.count(2.0) == 1:
+                    single = 1 - orders.index(2.0)
+                elif sum(oxygen.formal_charge == -1 for oxygen in pair) == 1:
+                    single = next(i for i, oxygen in enumerate(pair) if oxygen.formal_charge == -1)
+                has_negative = any(oxygen.formal_charge == -1 for oxygen in pair)
+                for i, oxygen in enumerate(pair):
+                    state_orders[oxygen_edges[i]] = 1.0 if i == single else 2.0
+                    state_charges[oxygen.id] = (
+                        0 if any(hydrogens) or has_negative else -1 if i == single else 0
+                    )
+        delta, epsilon = names.get("ND1"), names.get("NE2")
+        if residue.name == "HIS" and delta and epsilon:
+            ring = (delta, epsilon)
+            state_charges.update((atom.id, 0) for atom in ring)
+            # Both observed ring H require one positive site. A coherent
+            # supplied cation wins; otherwise place +1 on an unknown site only.
+            if all(has_h(atom.id) for atom in ring) and not any(
+                atom.formal_charge == 1 for atom in ring
+            ) and all(atom.formal_charge in {None, 0} for atom in ring):
+                unknown = next((atom for atom in ring if atom.formal_charge is None), None)
+                if unknown:
+                    state_charges[unknown.id] = 1
         for b in t.GetBonds():
             a, c = (
                 x.GetPDBResidueInfo().GetName().strip() for x in (b.GetBeginAtom(), b.GetEndAtom())
             )
             if a in names and c in names:
-                link(names[a].id, names[c].id, b.GetBondTypeAsDouble())
-        for b in source.bonds:
-            if b.atom_1_id in {a.id for a in group} and b.atom_2_id in {a.id for a in group}:
-                if atoms[b.atom_1_id].element == "H" or atoms[b.atom_2_id].element == "H":
-                    link(b.atom_1_id, b.atom_2_id, 1.0)
+                edge = frozenset((names[a].id, names[c].id))
+                if edge not in bonds:
+                    diagnostics[residue.id].add(
+                        (min(names[a].id, names[c].id), max(names[a].id, names[c].id))
+                    )
+                link(names[a].id, names[c].id, state_orders.get(edge, b.GetBondTypeAsDouble()))
+        for key in intraresidue[residue.id]:
+            b = bonds[key]
+            if atoms[b.atom_1_id].element == "H" or atoms[b.atom_2_id].element == "H":
+                link(b.atom_1_id, b.atom_2_id, 1.0)
         defaults = {"ASP": {"OD2": -1}, "GLU": {"OE2": -1}, "LYS": {"NZ": 1}, "ARG": {"NH1": 1}}
         for name, a in names.items():
             if a.formal_charge is not None:
                 continue
-            charge = -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
+            charge = state_charges.get(
+                a.id, -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
+            )
             # Observed acid H is stronger evidence than a default deprotonated state.
-            if charge == -1 and any(
-                atoms[j].element == "H"
-                for b in bonds.values()
-                if a.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != a.id
-            ):
+            if charge == -1 and has_h(a.id):
                 charge = 0
             if charge == 1:
-                adjacent = [b for b in bonds.values() if a.id in (b.atom_1_id, b.atom_2_id)]
-                supplied_h = any(
-                    atoms[j].element == "H"
-                    for b in adjacent
-                    for j in (b.atom_1_id, b.atom_2_id)
-                    if j != a.id
-                )
-                if supplied_h:
-                    charge = int(sum(b.order or 1 for b in adjacent) >= 4)
+                # Endpoint keys read through the current interpreted bond objects.
+                if has_h(a.id):
+                    charge = int(sum(bonds[key].order or 1 for key in incident[a.id]) >= 4)
             atoms[a.id] = a.model_copy(update={"formal_charge": charge})
         # Charge an observed protonated N terminus; no new terminus at a missing segment.
         n = names.get("N")
         if n and n.formal_charge is None:
-            degree = sum(n.id in (b.atom_1_id, b.atom_2_id) for b in bonds.values())
-            supplied_h = any(
-                atoms[j].element == "H"
-                for b in bonds.values()
-                if n.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != n.id
-            )
-            first = next(
-                (
-                    r
-                    for r in source.residues
-                    if r.chain_id == residue.chain_id
-                    and r.source_subchain_id == residue.source_subchain_id
-                ),
-                None,
-            )
+            degree = len(incident[n.id])
+            supplied_h = has_h(n.id)
+            first = first_residue[(residue.chain_id, residue.source_subchain_id)]
             has_previous = any(
                 atoms[j].name == "C" and atoms[j].residue_id != residue.id
-                for b in bonds.values()
-                if n.id in (b.atom_1_id, b.atom_2_id)
-                for j in (b.atom_1_id, b.atom_2_id)
-                if j != n.id
+                for j in neighbors[n.id]
             )
             established_start = (
                 first == residue
@@ -158,23 +159,10 @@ def protein_graph(
             )
             if degree >= 4 or established_start:
                 atoms[n.id] = atoms[n.id].model_copy(update={"formal_charge": 1})
-        delta, epsilon = names.get("ND1"), names.get("NE2")
-        if residue.name == "HIS" and delta and epsilon and delta.formal_charge is None:
-
-            def has_h(atom_id: int) -> bool:
-                return any(
-                    atoms[j].element == "H"
-                    for b in bonds.values()
-                    if atom_id in (b.atom_1_id, b.atom_2_id)
-                    for j in (b.atom_1_id, b.atom_2_id)
-                    if j != atom_id
-                )
-
-            if has_h(delta.id) and has_h(epsilon.id):
-                atoms[delta.id] = atoms[delta.id].model_copy(update={"formal_charge": 1})
         assumptions[residue.id] = (
             f"Residue {residue.id} {residue.name}: observed standard template; "
-            "missing states use ASP/GLU-, LYS/ARG+, neutral CYS/TYR and epsilon-H HIS; "
+            "supplied H/orders/charges take precedence; absent state evidence uses "
+            "ASP/GLU-, LYS/ARG+, neutral CYS/TYR and epsilon-H HIS; "
             "no pH prediction"
         )
     for first, second in pairwise(source.residues):
@@ -187,15 +175,10 @@ def protein_graph(
         b = {x.name: x for x in groups[second.id]}
         if not {"C", "CA"} <= a.keys() or "N" not in b:
             continue
-        contiguous = (
-            first.label_number is not None and second.label_number == first.label_number + 1
-        ) or (
-            first.author_number is not None
-            and second.author_number == first.author_number + 1
-            and not first.insertion_code
-            and not second.insertion_code
-        )
-        if a["C"].id in protein and b["N"].id in protein and contiguous:
+        if a["C"].id in protein and b["N"].id in protein and sequence_neighbors(first, second):
+            edge = frozenset((a["C"].id, b["N"].id))
+            if edge not in bonds:
+                diagnostics[second.id].add((min(a["C"].id, b["N"].id), max(a["C"].id, b["N"].id)))
             link(a["C"].id, b["N"].id, 1.0)
     for bond in list(bonds.values()):
         if bond.order is None and all(
@@ -207,6 +190,23 @@ def protein_graph(
             update={
                 "atoms": [atoms[a.id] for a in source.atoms],
                 "bonds": sorted(bonds.values(), key=lambda b: b.id),
+                "warnings": [
+                    *source.warnings,
+                    *[
+                        MolecularWarning(
+                            code="quick_current_connectivity",
+                            message=(
+                                f"Residue {residue_id}: {len(edges)} observed template connections "
+                                "are absent from the current graph and remain absent. "
+                                "The local calculation follows stored connectivity; "
+                                "use explicit bond editing to change it."
+                            ),
+                            operation="coordinates.quick_minimize",
+                            field=f"residues.{residue_id}",
+                        )
+                        for residue_id, edges in sorted(diagnostics.items())
+                    ],
+                ],
             }
         ),
         protein,

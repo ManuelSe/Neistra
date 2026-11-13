@@ -6,10 +6,16 @@ import type { Job, MinimizationProposal, Project, Selection, QuickMinimizationPr
 import { useWorkspaceStore } from "../store/workspace";
 import { calculationComponents, minimizationRequest, type CalculationSource } from "./context";
 import { type MinimizationDraft, type MinimizationProfile, useMinimizationStore } from "./store";
+import type { QuickPublicationAttempt, QuickPublicationController } from "./publication";
+import { quickSelectionError } from "./presentation";
+import type { MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
+
+const quickReviewNotice = "Quick minimization needs review. See Jobs → Inspect minimization.";
 
 export function quickRequest(snapshot: Project, draft: MinimizationDraft): QuickMinimizationRequest {
-    if (!draft.selection.atoms.length) throw new Error("Select atoms before minimizing.");
-    if (draft.selection.atoms.some(a => snapshot.entries.find(e => e.id === a.structure_id)?.locked)) throw new Error("Unlock selected entries before minimizing.");
+    if (snapshot.id !== draft.project.id || snapshot.revision !== draft.project.revision) throw new Error("Project changed. Use current selection to refresh this setup.");
+    const selectionError = quickSelectionError(snapshot, draft.selection);
+    if (selectionError) throw new Error(selectionError);
     if (!Number.isInteger(draft.iterations) || draft.iterations < 1 || draft.iterations > 2000) throw new Error("Maximum iterations must be between 1 and 2000.");
     return { expected_revision: draft.project.revision, selection: draft.selection, mode: draft.mode,
       context_entry_ids: draft.mode === "environment" ? [...draft.included].sort() : [], expand_hydrogens: draft.expandHydrogens,
@@ -17,7 +23,8 @@ export function quickRequest(snapshot: Project, draft: MinimizationDraft): Quick
 }
 
 export function useMinimization(project: Project | undefined, selection: Selection,
-  commit: (operation: () => Promise<Project>) => Promise<Project>, beforeStart?: () => void, onNotice?: (notice: ApplicationNoticeValue) => void) {
+  commit: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>, beforeStart?: () => void, onNotice?: (notice: ApplicationNoticeValue) => void,
+  publication?: QuickPublicationController) {
   // Commands read the current session at invocation. Presentation subscribes in the
   // viewer, so opening/progress/settings never rerender the whole molecular workspace.
   const state = useMinimizationStore.getState();
@@ -57,6 +64,21 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const begin = async (immediate = false, replacing = false, profile: MinimizationProfile = "amber") => {
     if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+    if (publication && publication.snapshot(project.id).phase !== "idle") {
+      onNotice?.({ kind: "error", text: "Resolve the pending coordinate application before starting another calculation. Open minimization to check." });
+      return;
+    }
+    try { publication?.assertWritable(project.id); }
+    catch (error) { onNotice?.({ kind: "error", text: message(error) }); return; }
+    if (immediate) {
+      const capability = query.getQueryState<QuickMinimizationCapabilities>(["quick-minimization-capabilities"]);
+      if ((capability && capability.fetchStatus !== "idle") || capability?.status === "error") {
+        onNotice?.({ kind: "error", text: capability.fetchStatus === "paused" ? "The availability check is paused. Reconnect before running minimization."
+          : capability.fetchStatus === "fetching" ? "Wait for the minimization availability check before running."
+          : "Retry the availability check before running minimization." });
+        return;
+      }
+    }
     const current = useMinimizationStore.getState();
     const job = query.getQueryData<Job>(["job", current.jobId]);
     if (current.loading || current.applying || (!replacing && (current.autoApply || (job && ["queued", "running"].includes(job.status))))) return;
@@ -71,6 +93,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
         const capabilities = await query.fetchQuery({ queryKey: ["quick-minimization-capabilities"], queryFn: quickMinimizationApi.capabilities, staleTime: 30_000 });
         if (!owner(project.id, generation)) return;
         if (!capabilities.available) throw new Error(capabilities.unavailable_reason ?? "The local minimization model is unavailable.");
+        publication?.assertWritable(project.id);
         const submitted = await quickMinimizationApi.submit(project.id, quickRequest(project, draft));
         void query.invalidateQueries({ queryKey: ["jobs", project.id] });
         if (owner(project.id, generation) && useMinimizationStore.getState().autoApply) {
@@ -102,9 +125,18 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || !state.draft || useMinimizationStore.getState().loading || !owner(project.id, state.generation)) return;
     const generation = state.generation;
     try {
+      publication?.assertWritable(project.id);
+      if (state.profile === "quick") {
+        const capability = query.getQueryState<QuickMinimizationCapabilities>(["quick-minimization-capabilities"]);
+        if (capability?.fetchStatus === "paused") throw new Error("The availability check is paused. Reconnect before running minimization.");
+        if (!capability || capability.fetchStatus !== "idle" || capability.status === "pending") throw new Error("Check minimization availability before running.");
+        if (capability.status === "error") throw new Error("Retry the availability check before running minimization.");
+        if (!capability.data?.available) throw new Error(capability.data?.unavailable_reason ?? "Quick minimization is unavailable.");
+      }
+      const quickPayload = state.profile === "quick" ? quickRequest(project, state.draft) : null;
       state.patch(generation, { loading: true, error: null, preview: true, live: true, autoApply: state.profile === "quick" });
       let job: Job;
-      if (state.profile === "quick") job = await quickMinimizationApi.submit(project.id, quickRequest(project, state.draft));
+      if (quickPayload) job = await quickMinimizationApi.submit(project.id, quickPayload);
       else {
         const payload = minimizationRequest(project, state.draft.selection, state.draft.sources, calculationComponents(state.draft.project, state.draft.sources, state.draft.selection), state.draft.included, state.draft.mode, state.draft.iterations);
         payload.acceptance_policy = state.draft.strict ? "strict" : "interactive";
@@ -124,7 +156,8 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     try {
       await commit(() => proposal.report.model === "quick-local-v1"
         ? quickMinimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256)
-        : minimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256, proposal.report.outcome === "non_converged"));
+        : minimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256, proposal.report.outcome === "non_converged"),
+        proposal.report.model === "quick-local-v1" ? { projectId: project.id, jobId: proposal.job_id, proposalSha256: proposal.proposal_sha256, expectedRevision: project.revision, origin: "manual" } : undefined);
       void query.invalidateQueries({ queryKey: ["jobs", project.id] });
       if (owner(project.id, generation)) state.dismiss();
     } catch (error) {
@@ -137,25 +170,28 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || !current.autoApply || !current.live || current.jobId !== proposal.job_id || current.applying || !owner(project.id, current.generation)) return;
     const generation = current.generation;
     state.patch(generation, { autoApply: false, live: false, preview: false });
-    const warn = () => {
-      if (!owner(project.id, generation) || useMinimizationStore.getState().open) return;
-      const warnings = proposal.report.warnings;
-      if ((!proposal.applicable && proposal.report.outcome !== "unchanged") || warnings.length) onNotice?.({ kind: "success", lifetime: "persistent",
-        text: [proposal.unavailable_reason ?? proposal.report.reason, ...warnings, "Details remain in Jobs → Inspect minimization."].join(" ") });
-    };
-    if (!proposal.applicable) { warn(); return; }
+    if (!proposal.applicable) {
+      if (proposal.report.outcome !== "unchanged" && owner(project.id, generation) && !useMinimizationStore.getState().open) {
+        onNotice?.({ kind: "error", lifetime: "persistent", text: quickReviewNotice });
+      }
+      return;
+    }
     state.patch(generation, { applying: true });
     try {
-      await commit(() => {
+      const updated = await commit(() => {
         if (!owner(project.id, generation)) throw new Error("Quick minimization session ended.");
         return quickMinimizationApi.apply(project.id, proposal.job_id, project.revision, proposal.proposal_sha256);
-      });
-      if (owner(project.id, generation)) { state.patch(generation, { applying: false, applied: true }); warn(); }
+      }, { projectId: project.id, jobId: proposal.job_id, proposalSha256: proposal.proposal_sha256, expectedRevision: project.revision, origin: "automatic" });
+      if (owner(project.id, generation)) {
+        const receipt = publication?.snapshot(project.id).receipt;
+        const currentApplication = !receipt || receipt.revision === updated.revision;
+        state.patch(generation, { applying: false, applied: currentApplication, recovery: !currentApplication });
+      }
       void query.invalidateQueries({ queryKey: ["jobs", project.id] });
     } catch (error) {
       if (owner(project.id, generation)) {
         state.patch(generation, { applying: false, error: message(error) });
-        if (!useMinimizationStore.getState().open) onNotice?.({ kind: "error", text: message(error) });
+        if (!useMinimizationStore.getState().open && (!publication || publication.snapshot(project.id).phase === "idle")) onNotice?.({ kind: "error", text: message(error) });
       }
     }
   };
@@ -171,6 +207,10 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const configure = async (profile: MinimizationProfile = "quick") => {
     const state = useMinimizationStore.getState();
+    if (project && publication && publication.snapshot(project.id).phase !== "idle") {
+      state.revealRecovery(project.id);
+      return;
+    }
     if (!project || state.loading || state.applying) return;
     const generation = state.generation;
     const job = query.getQueryData<Job>(["job", state.jobId]);
@@ -191,7 +231,12 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   const show = async () => {
     const current = useMinimizationStore.getState();
-    if (!project || !owner(project.id, current.generation)) return;
+    if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+    if (publication && publication.snapshot(project.id).phase !== "idle") {
+      current.revealRecovery(project.id);
+      return;
+    }
+    if (!owner(project.id, current.generation)) return;
     const job = query.getQueryData<Job>(["job", current.jobId]);
     if (current.loading || current.applying || current.autoApply || (current.live && job && ["queued", "running"].includes(job.status))) {
       current.patch(current.generation, { open: true });
@@ -201,7 +246,39 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     const current = useMinimizationStore.getState();
     if (current.draft) current.patch(current.generation, { draft: { ...current.draft, ...patch } });
   };
+  const recapture = () => {
+    const current = useMinimizationStore.getState();
+    if (!project || !current.draft || current.profile !== "quick" || current.loading || current.applying || current.autoApply || !owner(project.id, current.generation)) return;
+    try {
+      publication?.assertWritable(project.id);
+      const error = quickSelectionError(project, selection);
+      if (error) throw new Error(error);
+      current.recapture(project, selection);
+    } catch (error) { current.patch(current.generation, { error: message(error) }); }
+  };
+  const recheckCapabilities = async () => {
+    const current = useMinimizationStore.getState();
+    if (!project || !current.draft || current.loading || current.applying || !owner(project.id, current.generation)) return;
+    const quick = current.profile === "quick";
+    const queryKey = [quick ? "quick-minimization-capabilities" : "minimization-capabilities"];
+    const pending = query.getQueryState(queryKey)?.fetchStatus;
+    if (pending && pending !== "idle") return;
+    current.patch(current.generation, { error: null });
+    try { await query.fetchQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey,
+      queryFn: quick ? quickMinimizationApi.capabilities : minimizationApi.capabilities, staleTime: 0, retry: false }); }
+    catch { /* The capability query owns its visible check error. */ }
+  };
+  const recoverPublication = async (retry: boolean) => {
+    if (!project || !publication) return;
+    try {
+      if (retry) await publication.retry(project.id);
+      else await publication.refresh(project.id);
+    } catch { /* The application-owned transaction retains its diagnostic and guard. */ }
+  };
   return {
+    publication,
+    recapture, recheckCapabilities, currentSelectionError: project ? quickSelectionError(project, selection) : "Open a project before selecting atoms.",
+    refreshPublication: () => recoverPublication(false), retryPublication: () => recoverPublication(true),
     begin: () => begin(false, false, useMinimizationStore.getState().profile), quick: () => begin(true, false, "quick"), configure, show, mode, run, apply, cancel, finishQuick, failQuick,
     expandHydrogens: (expandHydrogens: boolean) => updateDraft({ expandHydrogens }),
     allowRepair: (allowRepair: boolean) => updateDraft({ allowRepair }),

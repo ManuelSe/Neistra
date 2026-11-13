@@ -17,6 +17,21 @@ filename extension and export adapters by declared format name. General
 crystallographic CIF without PDBx `_atom_site` is rejected rather than treated
 as a biomolecular mmCIF.
 
+### Recorded connectivity
+
+For new PDB/mmCIF imports, **Infer missing connectivity** (enabled by default)
+records supported observed standard-amino-acid template bonds and conservative
+peptide links in the normalized model. Inferred edges have unknown order and
+explicit provenance. Sequence, chain, TER, alternate-site and all-conformer
+distance checks prevent speculative peptide links. Missing atoms, unknown ligand
+graphs, nucleic-acid connectivity and metal coordination are not completed.
+Disabling inference retains supplied connectivity only. XYZ retains its existing
+separate coordinate-based inference behavior.
+
+The stored current graph controls bond display and coordinate minimization. Existing
+projects and native archives are never repaired on load; original source bytes
+cannot restore edited connectivity. Old sparse graphs therefore remain sparse.
+
 ## Batch And Limits
 
 - 100 MiB per structure file.

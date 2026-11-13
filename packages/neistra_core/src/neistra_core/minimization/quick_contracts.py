@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from math import ulp
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -13,6 +13,77 @@ QUICK_JOB = "coordinates.quick_minimize"
 QUICK_MODEL: Literal["quick-local-v1"] = "quick-local-v1"
 QUICK_FORCE_TOLERANCE = 0.01  # kcal/(mol angstrom), maximum movable component
 QUICK_GEOMETRY_TOLERANCE = 0.01  # angstrom, maximum selected-coordinate step
+
+QuickFieldMethod = Literal["MMFF94", "UFF", "geometry_repair", "fixed_geometry"]
+QuickFieldOmission = Literal[
+    "uff_electrostatics",
+    "unsupported_site_electrostatics",
+    "coordination",
+    "unsupported_physical_terms",
+    "fixed_only_native_terms",
+    "current_connectivity",
+]
+
+
+class QuickFieldComponent(BaseModel):
+    """Actual component treatment within the disclosed local objective.
+
+    A native component may also participate in steric constraints involving
+    unsupported sites. Coverage never asserts a physically complete model.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    component_id: str = Field(min_length=1)
+    entry_id: str = Field(min_length=1)
+    atom_ids: list[Annotated[int, Field(strict=True, ge=1, le=9007199254740991)]] = Field(
+        min_length=1, max_length=20000
+    )
+    method: QuickFieldMethod
+    coverage: Literal["complete", "approximate"]
+    omissions: list[QuickFieldOmission] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def canonical_membership(self) -> QuickFieldComponent:
+        if self.atom_ids != sorted(set(self.atom_ids)) or self.atom_ids[0] < 1:
+            raise ValueError("Component atom IDs must be positive, sorted and unique")
+        if self.component_id != f"{self.entry_id}:{self.atom_ids[0]}":
+            raise ValueError("Component identity must match its first canonical atom")
+        if len(self.omissions) != len(set(self.omissions)):
+            raise ValueError("Component omissions must be unique")
+        if self.coverage == "complete" and (
+            self.method != "MMFF94" or set(self.omissions) - {"fixed_only_native_terms"}
+        ):
+            raise ValueError("Complete local coverage requires native MMFF moving forces")
+        return self
+
+
+class QuickEffectiveField(BaseModel):
+    """Additive, independently versioned diagnostics outside strict quick reports."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    schema_version: Literal[1] = 1
+    model: Literal["quick-local-v1"] = QUICK_MODEL
+    components: list[QuickFieldComponent] = Field(min_length=1, max_length=20000)
+    omissions: list[QuickFieldOmission] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def disjoint_components(self) -> QuickEffectiveField:
+        identifiers = [component.component_id for component in self.components]
+        memberships = [
+            (component.entry_id, atom_id)
+            for component in self.components
+            for atom_id in component.atom_ids
+        ]
+        if len(identifiers) != len(set(identifiers)) or len(memberships) != len(
+            set(memberships)
+        ):
+            raise ValueError("Effective field components must have disjoint identities")
+        if len(memberships) > 20000:
+            raise ValueError("Effective field exceeds the local canonical atom limit")
+        union = {omission for component in self.components for omission in component.omissions}
+        if len(self.omissions) != len(set(self.omissions)) or set(self.omissions) != union:
+            raise ValueError("Effective field omissions must equal the component union")
+        return self
 
 
 class QuickCapture(BaseModel):

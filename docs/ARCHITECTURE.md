@@ -73,6 +73,38 @@ legacy imports. See D-150 and the issue #99 feature contract.
 - The worker owns job claim/recovery and spawns an allowlisted plugin in a
   controlled child. Only the parent validates and publishes returned bytes.
 
+### Quick coordinate publication
+
+The App-owned quick-publication controller retains independent transactions per
+source project. Panel visibility and render-local previews do not own dispatched
+writes. A verified session-storage descriptor precedes Apply; reload performs
+fresh project/job reads, never automatic replay. Valid durable application evidence
+settles once while retaining current state, including later Undo. An unchanged
+project revision without a marker remains uncertain, with explicit refresh/retry.
+
+Revision-changing commands carry their captured source ID through asynchronous
+preflight and recheck the source guard at dispatch. Direct movement/edit/import/
+result-import boundaries enforce that same guard. Read operations and unrelated
+projects remain usable. Only current-project notices affect active presentation;
+late responses publish monotonically into the captured project's authority cache.
+The controller adds no molecular schema, API endpoint, or generic job framework.
+
+### Shared calculation publication boundaries
+
+Quick and prepared minimization use six functions in
+`neistra_api.minimization_publication` for project/entry lookup, verified artifact
+reads, normalized-source parsing, publication locking and selected-coordinate
+replacement. Quick minimization has its own service rather than inheriting
+private prepared-service helpers. The legacy module path aliases the same module.
+
+Acquire the publication lock before dependency or retry reads; transaction
+completion belongs to the calling service. Coordinate replacement preserves source
+row order, fixed rows, inactive conformers and the existing strictly greater than
+1e-9 angstrom component displacement rule. Callers retain finite-value/selection
+validation, scientific acceptance, annotations, warnings, dependency policies,
+provenance, history commands and artifact publication. This is a small shared
+persistence boundary, not a unified scientific Apply pipeline.
+
 ## Component Hierarchy Ownership
 
 Issue #59 separates compact entry management from a named-entry component pane.

@@ -6590,3 +6590,268 @@ No scientific, API, dependency, persisted-schema or migration change was introdu
 [verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain runtime/publication and later integration/
 cleanup receipts. These are specialist agent assessments, not independent human
 approval. Later documentation receipts preserve the released runtime tag.
+
+## D-153 — Current connectivity and reliable quick publication
+
+Date: 2026-11-13. Status: approved by the user's “Implement the plan.” under the
+[issue #137 contract](plans/issue-137-authoritative-minimization.md). C0 authorizes
+planning persistence and an explicit stop ready for `/goal`; implementation is pending.
+
+The user's subsequent corrections supersede any earlier allowance for independent
+display or minimization inference of missing current connectivity. The current
+normalized molecular graph is authoritative. Original uploads remain immutable
+provenance and recovery artifacts; they never authorize restoring a current bond.
+Viewer bond representations, edits and quick minimization must consume the same
+canonical endpoint set, including a sparse or empty graph. Deleting a bond must
+remain effective despite unrelated unknown charges/orders. Temporary parameter
+interpretation of existing edges and disclosed helpers/caps remain supported,
+but cannot reconnect absent canonical edges, directly or indirectly.
+
+New PDB/mmCIF imports honor the existing infer_bonds option and record supported
+standard-protein inference canonically, with unknown orders, inference provenance
+and warnings, before display. Existing explicit chemistry is preserved. The plan
+defines conservative sequence, geometry, conformer and break checks; no missing
+atoms or unsupported coordination/topology are invented. The user explicitly
+selected leaving existing projects unchanged: no read-time migration, automatic
+repair, original-file comparison, or new connectivity-repair action. Current sparse
+graphs remain sparse; factual calculation diagnostics explain limitations. Existing
+manual editing remains available. Reuse the existing authored bond-exclusion
+contract across editing paths, without adding a molecular schema.
+
+Quick Apply is an App-owned publication transaction independent of panel/preview
+generation. On an ambiguous response, reconcile fresh project/job state and the
+durable application marker; absence of a marker at the same revision is not proof
+of nonpublication. Retain project-scoped write guards and a session journal, allow
+read-only refresh and explicit same-result retry, and never blindly replay Apply.
+Late results cannot retarget another project or steal focus. This refines D-129
+without adding a generic transaction framework or server publication endpoint.
+
+The broader approved scope includes prerequisite/outcome feedback, explicit draft
+recapture, staged target/context details, effective-field provenance, scientific
+regressions, measured per-job indexing and small shared API helper extraction.
+Preserve D-143 quiet execution and D-148 portable correctness/opt-in strict timing.
+Use extensible job result values/model artifacts for versioned field provenance;
+retain quick-report schemas. Corrected quick implementation is 1.0.3, with historical
+inspection/download retained and earlier proposal Apply refused. Version mismatches
+at worker dispatch/child execution fail explicitly rather than misstate provenance.
+
+The planned stable release is minor 0.29.0 because expanded controls, diagnostics
+and import behavior accompany the fixes; stable 0.28.1 and earlier releases already
+exist. Update all five application version sources only during release preparation.
+No database migration, dependency upgrade or canonical schema change is approved:
+head 0014; project/viewer/archive 2; normalized/selection/component 1. Actual 0.28.1
+reader qualification, complete candidate/exact-master checks and all seven final
+specialist implementation assessments remain required. No application fix, passing
+future release gate, PR, merge, tag or release is claimed by this planning checkpoint.
+
+### D-153 C1 implementation qualification — 2026-11-13
+
+The subsequent `/goal` authorizes implementation/delivery. C1 records supported
+connectivity during new import only; current display/calculation graphs remain
+literal thereafter. Known nonpolymer/entity boundaries veto inferred peptide links.
+Typed local connectivity-limited state marks sparse protein interpretation
+approximate even when native MMFF parameters exist; temporary H assumptions are
+explicit. Helpers cannot create direct or indirect canonical reconnections.
+
+Native root/subset bond discovery had a spatial cutoff even with infinite pair
+distance. Operator-aware canonical pairs on the current model preserve exact
+cross-unit edges through representations/preview refresh. Existing model metadata
+is shared across all editor paths, including pruning after protein deletion.
+Historical fixture construction explicitly opts out of new import inference to
+preserve committed archive bytes. Worker parent/child version mismatches fail
+before executing another implementation; earlier quick proposals retain inspection
+and artifact downloads, with Apply requiring a corrected run.
+
+[C1 evidence](assets/authoritative-minimization/README.md) records focused
+qualification and scientific correction/review. These are checkpoint results,
+not the complete release gate or final seven-role implementation assessment.
+App version/schema/head/dependencies and original artifacts are unchanged.
+
+### D-153 C2 implementation ownership — 2026-11-13
+
+The App retains per-project publication sessions and a minimal verified session
+journal; preview/panel dismissal cannot erase dispatched work. Every ambiguous
+response follows fresh project/job reconciliation. A matching durable marker is
+evidence of a recorded command, not proof that later Undo/edits left it applied.
+An unchanged revision without a marker never authorizes automatic replay. Explicit
+retry retains the original job/digest/revision and uses existing server idempotency.
+
+Project commands capture source identity before asynchronous mutation preflight
+and recheck its guard immediately before dispatch. This also governs direct edits,
+movement, import and result import. Read-only availability is separate from write
+availability, preserving Export and Jobs during recovery. Normal confirmed success
+is transient; unresolved recovery diagnostics remain persistent. No server API,
+database or molecular schema changes are needed. Focused checkpoint evidence is
+recorded in the feature plan; final integrated qualification remains pending.
+
+### D-153 C3 effective-field diagnostic contract — 2026-11-13
+
+Keep strict quick reports/proposals at schema1. The independently versioned
+`effective_field` object is additive inside generic job result values and the
+temporary model ZIP. Components carry canonical membership and actual installed
+base treatment after fallback/rebuild, not initial parameter availability. Native
+components can also participate in approximate steric context. Coverage describes
+the disclosed local objective, never physical completeness or a validated pose.
+
+Scientific design review independently reproduced moving MMFF/UFF, fixed UFF,
+mixed native/repair and supported-fixed/no-native-field cases. Use scoped omission
+keys: `uff_electrostatics`, `unsupported_site_electrostatics`, `coordination`,
+`unsupported_physical_terms`, `fixed_only_native_terms`, `current_connectivity`.
+Missing unsupported-site electrostatics do not deny native-native MMFF terms.
+Sparse attribution intersects modeled residue diagnostics with each component's
+canonical references; a global flag cannot label every component. A fixed-only
+constant has zero moving derivative and does not alone reduce moving-force coverage.
+
+The frontend validates version, exact keys, capacity, deterministic component IDs,
+disjoint canonical membership, methods, coverage and the omission union. Missing
+historical metadata and invalid/unsupported metadata have distinct fallbacks;
+neither changes scientific Apply eligibility. No numerical method, public input,
+database migration or molecular/project/archive schema change follows from these
+diagnostics. Implementation qualification remains a separate checkpoint gate.
+
+### D-153 C4 observed-state qualification — 2026-11-13
+
+Independent qualification reproduced five ordinary supplied-state failures:
+acid H on the first named ASP/GLU oxygen, and coherent alternate supplied charges
+on histidine or the first ASP/GLU oxygen. Independent state expectations failed
+five cases before correction (19 passed). Resolve unknown carboxyl orders/charges
+jointly from observed H, known orders and assigned charge before named defaults;
+avoid duplicating an existing histidine cation. Explicit orders/charges, atoms,
+coordinates and the exact current endpoint graph remain authoritative. Conflicting
+assigned facts retain existing warned repair/refusal; no enumeration, pH model,
+canonical repair or broader residue support is introduced.
+
+The bounded scientific matrix adds supplied-state, conflict, disulfide, terminus
+and exact cap tests; synthetic state coordinates qualify interpretation, not an
+equilibrium pose. Mixed moving profiles use fresh independent native fields and
+full-pair harmonic/steric sums, with the distance-constraint convention ½kδ².
+Finite differences use 1e-5 angstrom steps, 1e-4 absolute/1e-6 relative gradient
+tolerances away from kinks and 1e-6 objective tolerance. Native kcal/mol and
+surrogate penalty quantities remain distinct. Real worker/API profiles protect
+sparse IDs, inactive conformers, fixed rows, source/original bytes, history and
+archive compatibility. No numerical force-field redesign or persisted schema is
+needed. C4 is the corrected baseline for subsequent measured indexing work.
+
+### D-153 C5 measured assembly indexes — 2026-11-13
+
+Measure against corrected C4 `80adf97`, rather than an earlier scientific method.
+Exact count-only radius queries use `eps=0` and preserve closed 6/7/8 angstrom
+membership. Each assembly owns immutable captured rows/coordinates, current
+adjacency, residue groups and nonprotein components; component members are stored
+once with atom-to-component references. Source/classification mismatches reject
+reuse. Preserve the existing halo/residue/nonprotein closure order and partition
+induced subsets without traversing omitted bridge atoms. Whole model rebuilding
+replaces discovery and helper-adjacency snapshots. Independent calls, including
+Apply screening, construct fresh indexes; none are serialized or shared across jobs.
+
+Protein incident indexes retain endpoint keys and read updated bond objects after
+temporary order interpretation. Temporary adjacency caches endpoints only. No
+all-pairs distance cache, persistent cache, approximation, dependency or resource-
+limit change is introduced. Full timing-free model/report/proposal/provenance data
+are byte-identical before/after in three equivalent profiles.
+
+Measured direct-plugin CPU work improves for pocket/18k profiles, while small work
+is unchanged within noise. The retained indexes increase whole-job memory; only
+dense-query tracked allocation decreases. Accept this bounded linear memory/CPU
+tradeoff with existing worker limits intact. These local measurements do not
+establish browser latency gains or strict reference-host timing qualification.
+
+### D-153 C6 shared publication infrastructure — 2026-11-13
+
+Extract six small persistence functions rather than a common scientific Apply
+pipeline. Quick minimization owns an independent constructor/service; both callers
+share lookup, artifact integrity, source parsing, pre-read publication locking and
+pure selected-coordinate replacement. Transaction completion, annotations,
+scientific acceptance, captured dependencies, warnings, provenance, history and
+artifact publication remain service-owned. Preserve error mappings and the exact
+strictly-greater-than-1e-9 angstrom component displacement threshold. A legacy
+module alias preserves namespace identity. No public API, schema, dependency,
+version or scientific-policy change is required. Independent architecture review
+and service/native qualification are recorded in the feature evidence.
+
+
+### D-153 C7 release and closure instruction — 2026-11-13
+
+Retain stable minor 0.29.0: new import behavior and additive controls/diagnostics
+extend 0.28.1 without incompatible persisted schemas, APIs, archives or dependencies.
+A real release/tag history now exists; qualify actual tagged 0.28.1 readers both
+ways and repeat the complete gate on exact merged master. The user's subsequent
+explicit `/goal` requires `Closes #137` in the PR, superseding the approved plan's
+earlier post-publication closure timing. Normal merge may close the issue; final
+close-out still requires verified exact-master qualification, tag, release and
+issue reply. No protection or acceptance gate is waived.
+
+### D-153 C7 metadata validation correction — 2026-11-13
+
+Full-diff preflight reproduced a Python/viewer mismatch: boolean `true` was coerced
+to schema version1 in authored modeling metadata, while the viewer rejected it.
+Add a before-validation boolean guard and an all-editor-path regression. The new
+expectation fails before correction; 53 focused cases then pass. Ordinary numeric
+version1 metadata and measured C5 fixture behavior are unaffected. This enforces
+the existing malformed-metadata contract without a schema migration or broader
+metadata redesign; complete final candidate qualification remains required.
+
+
+### D-153 C7 qualification isolation and fixture defaults — 2026-11-13
+
+The first full gate exposed a recipe error: canonical DATA_DIR overrides legacy
+DATA_DIR monkeypatched inside migration tests, so directory creation and database
+connection target different paths. Preserve test assertions; use the existing
+legacy test override and clear four inherited datastore aliases before applying
+explicit recipe environments. This also keeps direct migration/browser/reader
+commands independent of a developer deployment's database URL. Record failed
+attempts and rerun the complete fresh gate rather than counting partial results.
+
+Retain the scientific release fixture's default ImportOptions and update its
+specific expected graph from17 supplied bonds to940 (17supplied/923inferred),
+with exact unknown orders, warnings and inference identities. Independent review
+confirms original atoms/conformers/explicit bonds unchanged; this aligns with the
+accepted new-import behavior rather than disabling it to retain old assertions.
+No application code, migration policy, dependency or scientific tolerance changes.
+
+
+### D-153 subsequent user direction — quiet successful shortcuts — 2026-11-13
+
+The user's actual Ctrl+M screenshot demonstrates an unreadable notification with
+many per-residue warnings/UUIDs and offscreen Close. The user explicitly questions
+retaining that message at all. Remove successful-shortcut scientific-warning
+popups; do not replace them with warning-count popups. The existing brief
+publication confirmation remains. Scientific report/model payloads and applied
+entry warnings/badge/Details remain unchanged and full Jobs inspection remains
+available. Plain refused/failed notices must not claim no change when another
+client may have applied/undone a job. Prerequisite/API errors retain their existing
+actionable diagnostics in the bounded notice; generic pre-job wording would lose
+information when opening fresh setup. Add no retained-error/setup lifecycle.
+Publication uncertainty keeps its distinct recovery path. This supersedes the
+earlier shortcut warning-notice presentation, not warning retention or science.
+
+Bound the existing shared application notice and scroll its text independently of
+the always-reachable Close control, with long-token wrapping, keyboard access and
+unchanged focus/lifetime semantics. Reuse the component rather than a notification
+framework. UI/UX/theory assessment supports this correction. Stop the current gate,
+retain interrupted evidence separately and repeat complete qualification afterward.
+No original user screenshot or molecular payload is published as test evidence.
+
+
+### D-153 notice reading ownership — 2026-11-13
+
+Independent UI correction review reproduces inherited scroll when a new long
+notice replaces a scrolled one. Reset only when notice object identity changes;
+ResizeObserver measurements and unrelated renders preserve reading position.
+Keep focus/lifetimes and complete text unchanged. Unit/native regressions and an
+independent actual-component probe confirm the new message begins at the top
+without stealing focus. This extends the existing notice identity ownership,
+without a persistent notification model, molecular-state change or new framework.
+
+
+### D-153 passive short notices and interactive overflow — 2026-11-13
+
+The complete candidate gate finds a concrete regression: pointer events on a
+short persistent import message intercept an underlying viewer control. Preserve
+the original passive short-notice behavior. Only a measured overflowing text
+region captures pointer input for reading/scrolling; Close always remains
+interactive. Reuse the existing overflow boolean rather than add another state
+owner. Do not dismiss notices or force clicks in tests to conceal interception.
+Independent actual-component hit testing and the unchanged native hardening case
+verify the correction. Long reading, identity reset, focus, lifetimes, scientific
+payloads and production/qualification limits remain unchanged.

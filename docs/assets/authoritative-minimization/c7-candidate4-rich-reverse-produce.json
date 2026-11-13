@@ -1,0 +1,14 @@
+{
+  "producer": "0.28.1",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "9daf7714e0b6b4281dd506168df56e04a464af7fc7be69e891eeeed0b9f15557",
+  "application_version": "0.28.1",
+  "implementation_root": "/tmp/neistra137-reader-0281",
+  "api_module": "/tmp/neistra137-reader-0281/apps/api/src/neistra_api/main.py",
+  "core_module": "/tmp/neistra137-reader-0281/packages/neistra_core/src/neistra_core/molecular.py",
+  "legacy_suffix_http": 201,
+  "new_suffix_http": 201,
+  "expect_new_names": true
+}

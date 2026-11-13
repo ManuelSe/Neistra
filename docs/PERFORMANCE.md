@@ -707,3 +707,49 @@ later AC/charging. The run is not described as entirely on battery. All 117 brow
 measurements are retained; strict reference-host throughput is not claimed.
 The failed full invocation and successful exact-case replay remain separate in
 raw records; complete unique coverage is not mislabeled as a clean invocation.
+
+## Issue #137 measured quick-discovery indexing
+
+[C5 evidence](assets/authoritative-minimization/c5-summary.json) compares corrected
+C4 `80adf97` with assembly-owned immutable indexes and exact count-only discovery.
+The [recipe](assets/authoritative-minimization/c5-comparison-recipe.json) runs one
+cold and five warm direct-plugin executions per profile, sequentially with the
+same script, locked libraries, inputs, parameters and single-thread settings.
+
+| Captured atoms | Baseline warm median | Indexed warm median | Local modeled canonical atoms |
+| --- | ---: | ---: | ---: |
+| 18 | 13.793 ms | 13.749 ms | 18 |
+| 2,304 | 590.656 ms | 414.043 ms | 759 |
+| 18,208 | 861.735 ms | 569.399 ms | 759 |
+
+The small result is unchanged within noise. Pocket/18k results measure direct
+plugin CPU work including input decoding, assembly, optimization and serialization;
+they exclude worker spawn, database/API, browser and artifact-store publication.
+They do not establish an overall application speedup. Cold stages, warm ranges,
+cProfile, RSS and tracked allocation remain available in the full profile records.
+
+All three full timing-free scientific documents are byte-identical, including
+temporary coordinates/bonds/references, fields, provenance, proposals, objectives,
+reported maximum gradients and termination. Inputs/parameters/toolchain hashes and iteration/
+evaluation counts match; no cooperative-budget stop affects the comparison.
+
+Retained indexes cost memory: tracked peak is 15.781→16.568 MB for the pocket and
+72.167→78.221 MB for 18k (decimal MB); RSS also increases. No whole-job memory
+reduction is claimed. A separate bounded 64-center/4,096-row dense-query witness
+retains the exact 262,144-neighbor count while reducing tracked query allocation
+from 2,491,568 to 165,040 bytes. This allocation witness is separate from CPU and
+application latency measurements.
+
+Retained source indexes scale with the captured scene, including atoms outside
+the eventual local model. The 20,000-atom model limit bounds modeled local atoms,
+not the captured scene or its indexes. Existing job RSS and deadline limits remain
+in force; these measurements do not establish a lower whole-job memory bound.
+
+Nineteen independent discovery/lifetime/order cases cover exact 6/7/8 angstrom
+and adjacent-float boundaries, reordered/sparse IDs, moving centers, closure and
+protein barriers, induced missing bridges, empty entries, rebuild replacement and
+interpreted-order readthrough. Existing native small/pocket/18k publication, live
+preview/Cancel, graph and actual zoom workflows pass under portable correctness.
+No production deadline, resource cap or timing threshold changes; D-148's strict
+reference-host timing remains separate. Full final candidate/master gates remain
+required before release.

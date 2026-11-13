@@ -4,13 +4,19 @@ from __future__ import annotations
 
 from itertools import combinations, product
 from math import pi
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import AllChem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
+from neistra_core.minimization.quick_contracts import (
+    QuickEffectiveField,
+    QuickFieldComponent,
+    QuickFieldMethod,
+    QuickFieldOmission,
+)
 from neistra_core.minimization.quick_model import QuickAssembly
 
 all_chem: Any = AllChem
@@ -129,13 +135,16 @@ def active_native_parts(
 
 
 def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, str]:
+    # Rebuilding replaces the complete record; a failed build cannot retain an
+    # earlier field's apparently successful provenance.
+    assembly.effective_field = None
     assembly.field_center = (
         assembly.coordinates.copy() if positions is None else np.asarray(positions).copy()
     )
     modes = assembly.modes
     moving = set(assembly.movable)
     moving_modes = {modes[i] for i in moving}
-    native_mode = "UFF" if "UFF" in moving_modes else "MMFF94"
+    native_mode: Literal["UFF", "MMFF94"] = "UFF" if "UFF" in moving_modes else "MMFF94"
     supported = [
         i
         for i, mode in enumerate(modes)
@@ -181,7 +190,86 @@ def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, st
         )
         if note not in assembly.assumptions:
             assembly.assumptions.append(note)
+    assembly.effective_field = effective_field(
+        assembly, supported_set, unsupported, native_mode, bool(moving & supported_set), projected
+    )
     return LocalField(len(modes), parts, offset), method
+
+
+def effective_field(
+    assembly: QuickAssembly,
+    supported: set[int],
+    unsupported: set[int],
+    native_mode: Literal["MMFF94", "UFF"],
+    native_active: bool,
+    projected: bool,
+) -> QuickEffectiveField:
+    """Describe actual installed treatment, not earlier parameter capability.
+
+    Unsupported-site electrostatics concern interactions involving those sites;
+    they do not remove electrostatics between remaining MMFF native sites.
+    Omitted fixed-only constants do not reduce coverage of moving forces.
+    """
+    limited: set[tuple[str, int]] = set()
+    for entry, graph in assembly.graphs.items():
+        fields = {
+            warning.field for warning in graph.warnings
+            if warning.code == "quick_current_connectivity"
+        }
+        limited.update(
+            (entry, atom.id) for atom in graph.atoms
+            if atom.residue_id is not None and f"residues.{atom.residue_id}" in fields
+        )
+    components = []
+    for group in Chem.GetMolFrags(assembly.molecule):
+        references = [assembly.references[i] for i in group if assembly.references[i] is not None]
+        if not references:
+            continue
+        entries = {reference[0] for reference in references}
+        if len(entries) != 1:
+            raise ValueError("A temporary component joins canonical atoms from different entries")
+        entry = next(iter(entries))
+        atom_ids = sorted(reference[1] for reference in references)
+        omissions: set[QuickFieldOmission] = set()
+        component_method: QuickFieldMethod
+        if set(group) <= supported and native_active:
+            component_method = native_mode
+            if native_mode == "UFF":
+                omissions.add("uff_electrostatics")
+            if projected:
+                omissions.add("fixed_only_native_terms")
+        elif set(group) <= unsupported:
+            component_method = "geometry_repair"
+            omissions.update(("unsupported_physical_terms", "coordination"))
+        elif set(group) <= supported:
+            component_method = "fixed_geometry"
+            omissions.add("fixed_only_native_terms")
+        else:
+            raise ValueError("A temporary component has inconsistent field assignments")
+        if unsupported:
+            omissions.add("unsupported_site_electrostatics")
+        if any(reference in limited for reference in references):
+            omissions.add("current_connectivity")
+        components.append(
+            QuickFieldComponent(
+                component_id=f"{entry}:{atom_ids[0]}",
+                entry_id=entry,
+                atom_ids=atom_ids,
+                method=component_method,
+                coverage="complete"
+                if component_method == "MMFF94"
+                and not omissions - {"fixed_only_native_terms"}
+                else "approximate",
+                omissions=sorted(omissions),
+            )
+        )
+    components.sort(key=lambda component: (component.entry_id, component.atom_ids[0]))
+    return QuickEffectiveField(
+        components=components,
+        omissions=sorted({
+            omission for component in components for omission in component.omissions
+        }),
+    )
 
 
 def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any = None) -> Any:
@@ -189,7 +277,12 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
     field = all_chem.CreateEmptyForceFieldForMol(mol)
     periodic = Chem.GetPeriodicTable()
     moving = set(assembly.movable)
-    neighbors = {a.GetIdx(): {n.GetIdx() for n in a.GetNeighbors()} for a in mol.GetAtoms()}
+    if not assembly.temporary_adjacency:
+        assembly.temporary_adjacency = tuple(
+            frozenset(neighbor.GetIdx() for neighbor in atom.GetNeighbors())
+            for atom in mol.GetAtoms()
+        )
+    neighbors = assembly.temporary_adjacency
     xyz = assembly.coordinates
     geometric = {a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() in GEOMETRY_ELEMENTS}
     for bond in mol.GetBonds():

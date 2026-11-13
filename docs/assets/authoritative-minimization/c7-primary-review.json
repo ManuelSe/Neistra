@@ -1,0 +1,74 @@
+{
+  "comparison_base": "5f6a2b869d9f8a32a1f921eccb6863c3148188e6",
+  "application_candidate": "07d18d694591376f8dae9fbc7dd47f37be850f90",
+  "current_qualification_candidate": "5b14fff1f333f49c0c90e25256de2bd778eb8b28",
+  "scope": "Complete intended application, test, documentation and new-file diff across C1-C7; checkpoint reviews reused with integrated cross-layer inspection. Current generated gate assets are evidence, not runtime edits.",
+  "primary_review_kind": "Local complete-diff self-review; not independent human approval",
+  "checked": [
+    "Normalized connectivity authority; import inference only, exact current viewer bonds and helper-anchor graph invariant",
+    "Neutral template/metadata ownership, all editor exclusions, aliases and original-byte preservation",
+    "App per-project journal/cache/transaction ownership, async dispatch guards, fresh reconciliation, explicit retry and later Undo",
+    "Captured targets/capability errors and pause/recapture/context units, actual field provenance and lazy accessible presentation",
+    "Supplied-state fixes, scientific independent oracles, same-final-objective comparison, fixed/inactive conformers",
+    "Per-job index lifetimes, induced graphs, closed radii, interpreted order readthrough, fresh Apply, measured CPU/memory tradeoff",
+    "Worker parent/child implementation provenance and old proposal refusal with retained inspection/download",
+    "Six-helper extraction, pre-read publication locking, transaction ownership, exact no-op threshold and separate scientific policies",
+    "Five versions, unchanged dependency/schema/migration contracts, actual tagged readers and controlled qualification recipes",
+    "No new browser skip directives; final gate requires exact75 preceding identities",
+    "No dead private-helper inheritance or accidental dependency, schema, repair-action, engine or framework expansion",
+    "Source/native atom-row permutations independently reconciled through IndexPairBonds inverse-source mapping, selection reverse mapping and frame coordinate permutation; existing interleaved-chain/sparse-ID/cross-unit/subset six-case suite passes",
+    "Successful shortcut scientific-warning popup removed by explicit user direction; full report/proposal and entry warnings plus Jobs inspection retained, model assumptions/effective-field payload unchanged",
+    "Long notice viewport bounds, keyboard/touch/wheel reading and reachable Close; replacement identity resets scroll while resize/unrelated renders retain it",
+    "Short persistent notice pointer pass-through verified independently and by actual native overlap tests; unchanged hardening case passes without force clicks or notice dismissal",
+    "No transient Playwright wire caches are staged; failed trace/media retained separately from cache inventory and no screenshot/user molecular UUID published"
+  ],
+  "consequential_findings_addressed": [
+    "Boolean schema version accepted by Python but rejected by viewer: independently reproduced red, guard added,53 focused passes",
+    "First gate datastore environment interfered with130 migration tests: independent same-node environment red/green, explicit recipe isolation corrected",
+    "Old release-fixture17-bond expectation: preserve default inference and assert940=17explicit+923inferred with exact warnings/provenance; independent scientific confirmation",
+    "Independent UI review found replacement scroll inheritance: reset only on notice identity with independent actual-component probe and native regression",
+    "Candidate3 unchanged hardening test exposed passive short notice pointer interception: reapply pointer-none to short text and pointer-auto only for measured overflow; unchanged test and new overlapping-control regression pass"
+  ],
+  "nonblocking_suggestions": [
+    {
+      "source": "UI specialist preflight",
+      "suggestion": "Larger native disclosure-summary touch targets",
+      "disposition": "Deferred optional polish; current readable spacing, keyboard access and required states pass; no follow-up issue or scope expansion"
+    },
+    {
+      "source": "Performance specialist preflight",
+      "suggestion": "Clarify captured-scene memory scaling",
+      "disposition": "Documented at final evidence integration: 20k bounds local modeled atoms; retained source indexes scale with captured scene and existing RSS/deadline guards remain"
+    }
+  ],
+  "remaining_gates": "Final all-seven same-candidate assessments, normal remote review/merge, exact-master merged4 gate/readers and verified publication/issue reply/cleanup",
+  "qualification": {
+    "commit": "5b14fff1f333f49c0c90e25256de2bd778eb8b28",
+    "branch": "fix/issue-137-authoritative-minimization",
+    "clean_start": true,
+    "complete_steps": 30,
+    "source_count": 759,
+    "source_inventory_unchanged": true,
+    "source_digest": "f20babeaf20240dab60e2da8ee895923d5427b8939760745897c06bb6df137e0",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 1481,
+    "python_skips": 0,
+    "frontend": 503,
+    "supervisor": 14,
+    "browser_passed": 413,
+    "browser_exclusions": 75,
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.28.1; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 720,
+    "actual_reader_audit": "c7-candidate4-reader-audit.json",
+    "historical_unapplied_proposal_refused_without_write": true,
+    "duration_seconds": 4562.346,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 4564.0
+  },
+  "verdict": "PASS: no unresolved consequential local complete-diff finding; remaining independent/remote/publication gates are explicit"
+}

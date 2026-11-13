@@ -1,0 +1,40 @@
+"""Bounded dense query allocation witness, not a molecular or application benchmark."""
+import gc
+import json
+import time
+import tracemalloc
+from pathlib import Path
+
+import numpy as np
+from scipy.spatial import cKDTree
+
+centers = np.indices((4, 4, 4)).reshape(3, -1).T / 16
+points = np.indices((16, 16, 16)).reshape(3, -1).T / 16
+tree = cKDTree(centers)
+rows = {}
+for label, length in [("lists", False), ("counts", True)]:
+    samples = []
+    for _ in range(5):
+        gc.collect()
+        tracemalloc.start()
+        before = time.perf_counter()
+        result = tree.query_ball_point(points, 6.0, eps=0.0, return_length=length)
+        seconds = time.perf_counter() - before
+        _, peak = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+        counts = result if length else np.array([len(value) for value in result])
+        assert np.array_equal(counts, np.full(len(points), len(centers)))
+        samples.append({"seconds": seconds, "tracked_peak_bytes": peak,
+                        "result_rows": len(result), "neighbor_count": int(counts.sum())})
+        del result
+    rows[label] = samples
+for radius in [6.0, 7.0, 8.0]:
+    values = np.array([np.nextafter(radius, 0), radius, np.nextafter(radius, np.inf)])
+    query = np.column_stack((values, np.zeros(3), np.zeros(3)))
+    actual = cKDTree([[0, 0, 0]]).query_ball_point(query, radius, eps=0.0, return_length=True)
+    assert actual.tolist() == [1, 1, 0]
+output = {"movers": len(centers), "queried_points": len(points), "radius": 6.0,
+          "samples": rows, "closed_axis_boundary_6_7_8": "PASS",
+          "scope": "dense allocation microbenchmark; not a molecular-pose or application-latency claim"}
+Path('/tmp/neistra137-c5-count-allocation-reproduced.json').write_text(json.dumps(output, indent=2)+'\n')
+print(json.dumps(output))

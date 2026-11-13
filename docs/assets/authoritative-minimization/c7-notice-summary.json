@@ -1,0 +1,172 @@
+{
+  "qualification": "Focused user-requested correction; complete candidate3/master3 still pending",
+  "base": "7bc1945d61275a9f87be1e9f4f4434a7e78df937",
+  "scope": [
+    "No successful CtrlM scientific-warning popup or count popup; normal short publication confirmation unchanged",
+    "Refused/failed scientific reports use controlled review copy; prerequisite/API/uncertainty diagnostics unchanged",
+    "Full scientific warnings retained in reports/proposals and applied entry warning details; model assumptions/effective-field provenance unchanged; no science/API/schema/dependency/version changes",
+    "Bound generic notice to viewport; long body scrolls via wheel/touch/keyboard; Close remains visible; no focus/lifetime regression",
+    "New notice resets scroll; same-message resize/theme/unrelated render preserves reading"
+  ],
+  "frontend": {
+    "passed": 503,
+    "files": 72,
+    "seconds": 11.89
+  },
+  "static": "lint/typecheck/build/diff PASS; existing lazy bundle advisory remains",
+  "browser": {
+    "quiet": {
+      "startTime": "2026-11-13T17:09:53.174Z",
+      "duration": 20309.901,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "bounded": {
+      "startTime": "2026-11-13T17:19:00.507Z",
+      "duration": 110468.16,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "unique_passed": 14,
+    "skips_failures_flakes_retries_errors": 0
+  },
+  "independent_correction_review": {
+    "ui": "PASS after reproducing and correcting inherited replacement scroll",
+    "ui_tests": 92,
+    "ux": "No consequential flow finding; controlled refusal copy and actionable prerequisite/API errors retained",
+    "theory": "Scientific disclosure remains in full reports/entry warning details; short publication confirmation is not a pose-validity claim"
+  },
+  "source_identity": {
+    "files": 759,
+    "path": "c7-notice-source-identity.json.gz",
+    "sha256": "aa946ba255c3bb23b9279c6bd1f43aa6365a0ec4d3439f375ef4d0e2870fd4a8"
+  },
+  "diagnostics": "Hook red6fail/32pass and real native red2 reproduce warning dump. Hook firstgreen3 additional failures were a test reading render-local proposal after quiet session ended; corrected retention assertions use authority cache, actualnative Jobs inspect confirms fullstoredwarnings. Earlier notice/canvas/mobile-drawer/experimental gesture diagnostics remain local and do not count as passing. Replacement-scroll UI finding corrected with independent actual-component probe. Raw original user screenshot/project identifier excluded from publication; final notice fixture synthetic only.",
+  "reuse": "Quiet native2 success branch unchanged by later preservation of original failQuick errors or replacement-scroll reset; latest fullfrontend503 and native6 qualify integrated notices. Complete gate repeats all realnative on finalsource.",
+  "commands": {
+    "web": "corepack pnpm --dir apps/web test",
+    "quiet_native": "corepack pnpm exec playwright test tests/e2e/minimization-notices.spec.ts --output=/tmp/neistra137-quiet-notice-green2-results --reporter=line,json --max-failures=1",
+    "bounded_native": "corepack pnpm exec playwright test tests/e2e/viewer-notifications.spec.ts --output=/tmp/neistra137-notice-bounds-native6-results --reporter=line,json --max-failures=1"
+  },
+  "environment": {
+    "common": {
+      "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "NEISTRA_PERFORMANCE": "0"
+    },
+    "quiet": {
+      "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-quiet-notice-green2",
+      "NEISTRA_E2E_API_PORT": "18510",
+      "NEISTRA_E2E_WORKER_PORT": "18511",
+      "NEISTRA_E2E_WEB_PORT": "15673"
+    },
+    "bounded": {
+      "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-notice-bounds-native6",
+      "NEISTRA_E2E_API_PORT": "18530",
+      "NEISTRA_E2E_WORKER_PORT": "18531",
+      "NEISTRA_E2E_WEB_PORT": "15683"
+    }
+  },
+  "artifacts": {
+    "frontend": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-frontend.log.gz",
+      "bytes": 9077,
+      "sha256": "89b2e3e6dc3a32e5f9978786eff68ce727859027eb119c4e29bb6a9b6e70ac5a"
+    },
+    "lint": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-lint.log.gz",
+      "bytes": 88,
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b"
+    },
+    "types": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-types.log.gz",
+      "bytes": 89,
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7"
+    },
+    "build": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-build.log.gz",
+      "bytes": 1244,
+      "sha256": "b211b8682d991030a0bb2efec44d00d07e0be5a8f37eefba8613d138b7bf0f45"
+    },
+    "unit": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-unit.log.gz",
+      "bytes": 286,
+      "sha256": "0bbaa45604c7b01f586714154444f2c147edcf49b0105a2facad34561cbf25ce"
+    },
+    "hook-red": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-hook-red.log.gz",
+      "bytes": 127560,
+      "sha256": "184651fcb0a63ae9def3cd5647b8c5d7b2d25bab787bbe1c3a0c74c36f4a1357"
+    },
+    "hook-green": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-hook-green.log.gz",
+      "bytes": 408,
+      "sha256": "73608d769d50873f6fcc5d0c532cb0b87e20b538cafbaaa158ad84382520b352"
+    },
+    "quiet-browser": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-quiet-browser.json.gz",
+      "bytes": 6412,
+      "sha256": "88eab6f0a6ba260111d4625ea6bb01ef8c9eed74b54f547ca0cc89c5a468a18a"
+    },
+    "quiet-browser-log": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-quiet-browser-log.log.gz",
+      "bytes": 10327,
+      "sha256": "f6c83448c3faf9dec29482960a01cf0a38db1b6f0ab9f6f9f495e0b977a32d95"
+    },
+    "quiet-red-browser": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-quiet-red-browser.json.gz",
+      "bytes": 7462,
+      "sha256": "0cbb49004ccc495418a694951473cb92a208d8cf8857b4f4d40e212f67d7fc9e"
+    },
+    "quiet-red-browser-log": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-quiet-red-browser-log.log.gz",
+      "bytes": 6552,
+      "sha256": "40d9fc2ed93c633cd75e7e400280f78a0f296ed921f8870ff25def4a4afdf71c"
+    },
+    "bounded-browser": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-bounded-browser.json.gz",
+      "bytes": 2494743,
+      "sha256": "2e5fe46bf57cccb82b99219523c42dc4c84380141329a9ba5c30766a28b65181"
+    },
+    "bounded-browser-log": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-bounded-browser-log.log.gz",
+      "bytes": 5824,
+      "sha256": "cc4f9c7de267caccd00f35d333d1a02c3a8a5fcdb573d0fc541139581b06dc4f"
+    },
+    "ui-replacement-probe": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-ui-replacement-probe.json.gz",
+      "bytes": 288,
+      "sha256": "73ad1adfbf7385dac482dd2f77ffb2d1f3020fc9d03cdb74ea996cd33668fbb8"
+    },
+    "ui-correction-tests": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-ui-correction-tests.log.gz",
+      "bytes": 400,
+      "sha256": "423eaa80b42a0c3543149954098f4b128adb3284d2661e2afe8406cb1fea5c20"
+    },
+    "c7-notice-chromium-light-320x180-long-notice.png": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-chromium-light-320x180-long-notice.png",
+      "bytes": 12607,
+      "sha256": "33d247b4d01545a129bfed8abbab116284e392a2591b6912e0a3f5a1836f055d"
+    },
+    "c7-notice-chromium-dark-320x180-long-notice.png": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-chromium-dark-320x180-long-notice.png",
+      "bytes": 12646,
+      "sha256": "5133db58e614d5129e6283529963ddcff109f7d0ea6fa06a35dbf3e669599ab9"
+    },
+    "c7-notice-mobile-chromium-light-320x180-long-notice.png": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-mobile-chromium-light-320x180-long-notice.png",
+      "bytes": 58519,
+      "sha256": "3c4c9bbdaba4dbdebaea779490f8da95a86b20db71e9bde616009e167a908ddf"
+    },
+    "c7-notice-mobile-chromium-dark-320x180-long-notice.png": {
+      "path": "docs/assets/authoritative-minimization/c7-notice-mobile-chromium-dark-320x180-long-notice.png",
+      "bytes": 57947,
+      "sha256": "6d14504d13593473ceaa3f86bdacd3c40d7c6615733fc1981c84f49e48e2fc91"
+    }
+  }
+}

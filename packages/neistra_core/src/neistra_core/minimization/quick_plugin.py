@@ -22,11 +22,14 @@ from neistra_core.jobs import (
 from neistra_core.minimization.contracts import CalculationError, CoordinateProposal
 from neistra_core.minimization.quick_contracts import QUICK_JOB, QuickParameters, QuickReport
 
+IMPLEMENTATION_VERSION = "1.0.3"
+GRAPH_POLICY = "current-canonical-v1"
+
 
 def definition() -> JobDefinition:
     return JobDefinition(
         job_type=QUICK_JOB,
-        implementation_version="1.0.2",
+        implementation_version=IMPLEMENTATION_VERSION,
         label="Quick minimize selection",
         description="Fast local coordinate relaxation; publication is a separate validated edit.",
         parameter_model=QuickParameters,
@@ -65,12 +68,17 @@ def execute(
 ) -> JobResult:
     from neistra_core.minimization.live import SnapshotPublisher
     from neistra_core.minimization.plugin import json_bytes
-    from neistra_core.minimization.quick_model import build_assembly, read_sources
+    from neistra_core.minimization.quick_model import (
+        build_assembly,
+        read_sources,
+        validate_current_graph,
+    )
     from neistra_core.minimization.quick_optimize import optimize
 
     started = time.monotonic()
     proposals: list[CoordinateProposal] = []
     model_data = None
+    effective_field = None
     try:
         context.progress(1, "Interpreting the captured local molecular graph")
         sources = read_sources(parameters, inputs)
@@ -79,10 +87,19 @@ def execute(
         context.progress(20, "Building the quick local force field")
         publisher = SnapshotPublisher(parameters, context)
         report, proposals = optimize(assembly, parameters, context, publisher.publish)
+        validate_current_graph(assembly)
+        effective_field = (
+            assembly.effective_field.model_dump(mode="json")
+            if assembly.effective_field is not None else None
+        )
         model_data = json_bytes(
             {
                 "schema_version": 1,
                 "model": parameters.model,
+                "graph_policy": GRAPH_POLICY,
+                "implementation_version": IMPLEMENTATION_VERSION,
+                "connectivity_limited": assembly.connectivity_limited,
+                "effective_field": effective_field,
                 "references": assembly.references,
                 "coordinates": assembly.coordinates.tolist(),
                 "candidate_coordinates": assembly.result_coordinates.tolist(),
@@ -116,6 +133,8 @@ def execute(
             report.warnings.append(publisher.warning)
     except (CalculationError, ValueError, RuntimeError) as error:
         context.stderr(traceback.format_exc())
+        effective_field = None
+        model_data = None
         report = QuickReport(
             parameters=parameters,
             outcome="blocked",
@@ -161,6 +180,11 @@ def execute(
     context.progress(100, f"Quick relaxation {report.outcome}; saved coordinates unchanged")
     return JobResult(
         artifacts=tuple(results),
-        values={"outcome": report.outcome, "proposal_sha256": digest},
+        values={
+            "outcome": report.outcome,
+            "proposal_sha256": digest,
+            "graph_policy": GRAPH_POLICY,
+            **({"effective_field": effective_field} if effective_field is not None else {}),
+        },
         message=f"Quick relaxation {report.outcome}: {report.reason}"[:500],
     )

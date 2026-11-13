@@ -49,15 +49,17 @@ test("breaks an aromatic bond and keeps the incomplete draft visible and pickabl
   await page.screenshot({ path: info.outputPath("incomplete-aromatic-draft.png") });
 });
 
-test("removes a native inferred protein bond durably and restores it on Undo", async ({ page, request }, info) => {
+test("deletes an imported canonical protein bond durably with exact Undo and Redo", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const project = await prepare(page, request, ["tests/fixtures/formats/protein_editing.pdb"], "Inferred bond draft");
   const entry = project.entries[0];
   const path = `/api/v1/projects/${project.id}/entries/${entry.id}/structure`;
   const before = (await (await request.get(path)).json() as StructureProjection).structure;
   await observe(page);
-  const pair = (await bonds(page, entry.id)).find(pair => !before.bonds.some(b => [b.atom_1_id, b.atom_2_id].sort((a, b) => a - b).join(":") === pair.join(":")))!;
-  expect(pair).toBeDefined();
+  const bond = before.bonds.find(bond => bond.inferred)!;
+  expect(bond).toBeDefined();
+  const pair = [bond.atom_1_id, bond.atom_2_id].sort((a, b) => a - b);
+  expect(await bonds(page, entry.id)).toContainEqual(pair);
   await selectPair(page, entry.id, pair, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
@@ -67,7 +69,7 @@ test("removes a native inferred protein bond durably and restores it on Undo", a
   await expect.poll(async () => await bonds(page, entry.id)).not.toContainEqual(pair);
   const after = (await (await request.get(path)).json() as StructureProjection).structure;
   expect(after.atoms).toEqual(before.atoms);
-  expect(after.bonds).toEqual(before.bonds);
+  expect(after.bonds).toEqual(before.bonds.filter(item => item.id !== bond.id));
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
   await observe(page);
@@ -75,7 +77,10 @@ test("removes a native inferred protein bond durably and restores it on Undo", a
   await page.getByRole("button", { name: /^Undo:/ }).click();
   await expect.poll(async () => await bonds(page, entry.id)).toContainEqual(pair);
   expect((await (await request.get(path)).json() as StructureProjection).structure).toEqual(before);
-  await page.screenshot({ path: info.outputPath("native-inferred-removal-undo.png") });
+  await page.getByRole("button", { name: /^Redo:/ }).click();
+  await expect.poll(async () => await bonds(page, entry.id)).not.toContainEqual(pair);
+  expect((await (await request.get(path)).json() as StructureProjection).structure).toEqual(after);
+  await page.screenshot({ path: info.outputPath("canonical-bond-removal-redo.png") });
 });
 
 test("creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom", async ({ page, request }, info) => {

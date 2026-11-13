@@ -24,6 +24,12 @@ from neistra_core.editing.fragments import (
 )
 from neistra_core.editing.ligand import EditResult
 from neistra_core.hydrogen_protection import authored_protection
+from neistra_core.modeling_metadata import (
+    InvalidModelingMetadata,
+    modeling_metadata,
+    project_modeling_metadata,
+    update_bond_exclusions,
+)
 from neistra_core.molecular import (
     Atom,
     Bond,
@@ -107,6 +113,10 @@ def component_projection(
     structure: NormalizedStructureV1,
     selected: list[int],
 ) -> NormalizedStructureV1:
+    try:
+        modeling_metadata(structure)
+    except InvalidModelingMetadata as error:
+        raise InvalidSelectionEdit(str(error)) from error
     if not selected or len(set(selected)) != len(selected):
         raise InvalidSelectionEdit("Select a non-empty unique set of atoms in one component.")
     atoms = {a.id: a for a in structure.atoms}
@@ -136,6 +146,7 @@ def component_projection(
     projected = structure.model_copy(
         update={
             "structure_type": "ligand",
+            "metadata": project_modeling_metadata(structure, members),
             "atoms": [a for a in structure.atoms if a.id in members],
             "bonds": [b for b in structure.bonds if b.atom_1_id in members],
             "residues": [r for r in structure.residues if r.id in member_residues],
@@ -613,12 +624,17 @@ class SelectionMolecularEditor:
                 "inferences": [*structure.inferences, inference],
             }
         )
+        try:
+            after = update_bond_exclusions(structure, after)
+        except InvalidModelingMetadata as error:
+            raise InvalidSelectionEdit(str(error)) from error
         # Revalidate the complete normalized schema, including merge identity.
         after = NormalizedStructureV1.model_validate(after.model_dump())
         # Tags are relative to neighbor order. Rebuild in the exact final
         # serialized atom/bond order before perceiving fixed 3D orientation.
         projected_after = before.model_copy(
             update={
+                "metadata": project_modeling_metadata(after, rd_atoms),
                 "atoms": [a for a in after.atoms if a.id in rd_atoms],
                 "bonds": [b for b in after.bonds if b.atom_1_id in rd_atoms],
                 "conformers": [

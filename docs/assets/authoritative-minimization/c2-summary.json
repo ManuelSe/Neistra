@@ -1,0 +1,96 @@
+{
+  "checkpoint": "C2",
+  "base": "b4ee31f",
+  "qualification": "uncommitted checkpoint; not the complete release gate",
+  "frontend": {
+    "passed": 464,
+    "files": 70,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "existing_advisory": "lazy bundle size"
+  },
+  "focused_cases": {
+    "publication": 43,
+    "hook_and_panel": 33,
+    "import_read_guards": 4,
+    "tanstack_dispatch": 2,
+    "architecture_independent_rerun": 82
+  },
+  "browser": {
+    "startTime": "2026-11-13T14:09:38.487Z",
+    "duration": 450283.785,
+    "expected": 61,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "new_recovery_cases": 14,
+  "source_identity": {
+    "files": 726,
+    "unchanged_during_final_native_gate": true
+  },
+  "review": {
+    "software_architecture": "PASS after captured-source dispatch/read-only availability corrections",
+    "final_seven_role_gate": "pending C7"
+  },
+  "backend": "C1 evidence reused: no backend changes in C2",
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-c2-native3",
+    "NEISTRA_E2E_API_PORT": "18420",
+    "NEISTRA_E2E_WORKER_PORT": "18421",
+    "NEISTRA_E2E_WEB_PORT": "15583",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "browser_command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "tests/e2e/minimization-recovery.spec.ts",
+    "tests/e2e/quick-minimization.spec.ts",
+    "tests/e2e/modeling-toolbar.spec.ts",
+    "tests/e2e/interactive-selection-transform.spec.ts",
+    "--output=/tmp/neistra137-c2-native3-results",
+    "--reporter=line,json",
+    "--max-failures=1"
+  ],
+  "diagnostic": {
+    "first_run": {
+      "startTime": "2026-11-13T13:57:58.888Z",
+      "duration": 268374.785,
+      "expected": 14,
+      "skipped": 47,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "cause": "Test created alternate project after browser cached project list; move creation before navigation. No runtime/assertion/timeout change.",
+    "corrected_focused_run": {
+      "startTime": "2026-11-13T14:04:57.740Z",
+      "duration": 101439.96500000001,
+      "expected": 14,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "artifacts": {
+    "c2-browser.json.gz": "b636642211d5c52b35206c6cfea0b2676dfc1a5ab55f9ff4cac768449c715f75",
+    "c2-browser.log.gz": "1c25cd6edd5c257a7a4a9ef9caf5dc738bf67290f4d1cb3acc7d9b09c5429abc",
+    "c2-build.log.gz": "207c4e20938b67f00f02407665af2309cac743b1f6d24df3cbb6b619fee31534",
+    "c2-diagnostic-browser.json.gz": "c563867f5d9d42d4ad8dd004d6d0180d1cfe7ac9600a8298eb74b3a61762a0a4",
+    "c2-diagnostic-error-context.txt": "070d9e26526f2d94b0fc9f373253d4164d62a9425484f8e135f5b8cebdd8135f",
+    "c2-diagnostic-test-failed-1.png": "a01a4408e3fb43680210d0e81c25cc8a5c5057fb08c3ad75cf69e3510b32dfad",
+    "c2-diagnostic-trace.zip": "fc3776d922e0362587d269753accfe126b9d66827f8f27b3899d1af304bf7715",
+    "c2-frontend.log.gz": "b1dd21e9109051a74beac23230d660052b885901f27b9f52595713ee715c2b6d",
+    "c2-lint.log.gz": "094a65fe5c92f85a84871805b69a3044e05526b2dbd7b711c4c383bfcc2afbf7",
+    "c2-recovery-browser.json.gz": "64de273113694bbd4b7d81be5cfdf205c9ec8d524b761f99f955bf0661676c63",
+    "c2-source-identity.json.gz": "95d52af55132198f82bd70052cc704fb6f1b50bfe81c711a67420e7b6fc7f49f",
+    "c2-types.log.gz": "9f705189f7ba70a5d39636845d22b885e8081832a812bf5ff51f400ab6c53690"
+  }
+}

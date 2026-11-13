@@ -96,6 +96,9 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
       if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
       await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
       await panel(page).getByRole("checkbox", { name: "Move attached terminal hydrogens" }).uncheck();
+      await panel(page).getByText("More settings", { exact: true }).click();
+      await panel(page).getByRole("spinbutton", { name: "Minimization iterations", exact: true }).fill("37");
+      await panel(page).getByRole("checkbox", { name: "Allow warned approximate repair", exact: true }).uncheck();
       for (const factor of [1, 1.25, 1.5, 2, 1]) {
         expect(await worker.evaluate(async ({ url, factor }) => {
           interface NativeZoom { tabs: { query(query: object): Promise<{ id: number; url?: string }[]>; setZoom(id: number, factor: number): Promise<void>; getZoom(id: number): Promise<number> } }
@@ -105,8 +108,10 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
           await chrome.tabs.setZoom(tab.id, factor); return chrome.tabs.getZoom(tab.id);
         }, { url: baseURL!, factor })).toBe(factor);
         await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(factor);
-        await expect(panel(page)).toContainText("Captured selection: 1 atoms");
+        await expect(panel(page)).toContainText("Requested selection: 1 atom");
         await expect(panel(page).getByRole("checkbox", { name: "Move attached terminal hydrogens" })).not.toBeChecked();
+        await expect(panel(page).locator('input[aria-label="Minimization iterations"]')).toHaveValue("37");
+        await expect(panel(page).getByLabel("Allow warned approximate repair", { exact: true })).not.toBeChecked();
         const bounds = () => page.evaluate(() => {
           const box = document.querySelector(".minimization-panel")?.getBoundingClientRect();
           return box ? { x: box.x, y: box.y, width: box.width, height: box.height, viewportWidth: innerWidth, viewportHeight: innerHeight } : null;

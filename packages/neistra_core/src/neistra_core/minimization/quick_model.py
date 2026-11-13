@@ -13,11 +13,20 @@ from rdkit import Chem
 from neistra_core.jobs import InputArtifact
 from neistra_core.minimization.assembly import project_atoms
 from neistra_core.minimization.contracts import CalculationError
-from neistra_core.minimization.preflight import connected_atoms
 from neistra_core.minimization.quick_chemistry import interpret
-from neistra_core.minimization.quick_context import candidate_entries, discover, isolate_graph
-from neistra_core.minimization.quick_contracts import QuickParameters, canonical_selection
+from neistra_core.minimization.quick_context import (
+    DiscoveryIndex,
+    candidate_entries,
+    discover,
+    isolate_graph,
+)
+from neistra_core.minimization.quick_contracts import (
+    QuickEffectiveField,
+    QuickParameters,
+    canonical_selection,
+)
 from neistra_core.minimization.quick_protein import CODES, protein_graph
+from neistra_core.modeling_metadata import modeling_metadata
 from neistra_core.molecular import NormalizedStructureV1
 from neistra_core.selection import SelectionV1
 
@@ -40,10 +49,58 @@ class QuickAssembly:
     result_coordinates: Any = None
     field_center: Any = None
     energy_reference: Literal["model", "captured_geometry"] = "model"
+    connectivity_limited: bool = False
+    effective_field: QuickEffectiveField | None = None
+    discovery_index: DiscoveryIndex | None = None
+    temporary_adjacency: tuple[frozenset[int], ...] = ()
 
     @property
     def coordinates(self) -> Any:
         return np.asarray(self.molecule.GetConformer().GetPositions(), dtype=np.float64)
+
+
+def validate_current_graph(assembly: QuickAssembly) -> None:
+    """Neither native interpretation nor a helper path may reconnect current atoms."""
+    canonical = {ref for ref in assembly.references if ref is not None}
+    if len(canonical) != sum(ref is not None for ref in assembly.references):
+        raise CalculationError("canonical_graph", "Temporary canonical atom identities repeat")
+    expected = {
+        frozenset(((entry, bond.atom_1_id), (entry, bond.atom_2_id)))
+        for entry, source in assembly.sources.items()
+        for bond in source.bonds
+        if (entry, bond.atom_1_id) in canonical and (entry, bond.atom_2_id) in canonical
+    }
+    actual = {
+        frozenset((first, second))
+        for bond in assembly.molecule.GetBonds()
+        if (first := assembly.references[bond.GetBeginAtomIdx()]) is not None
+        and (second := assembly.references[bond.GetEndAtomIdx()]) is not None
+    }
+    if actual != expected:
+        raise CalculationError(
+            "canonical_graph", "Temporary connectivity differs from the current molecular graph"
+        )
+    # A connected helper group represents a terminal H or a boundary cap. It
+    # may attach to one canonical anchor, never provide an alternate bridge
+    # between two current atoms (even when another canonical path connects them).
+    remaining = {i for i, ref in enumerate(assembly.references) if ref is None}
+    while remaining:
+        pending = [remaining.pop()]
+        anchors = set()
+        while pending:
+            i = pending.pop()
+            for neighbor in assembly.molecule.GetAtomWithIdx(i).GetNeighbors():
+                j = neighbor.GetIdx()
+                ref = assembly.references[j]
+                if ref is not None:
+                    anchors.add(ref)
+                elif j in remaining:
+                    remaining.remove(j)
+                    pending.append(j)
+        if len(anchors) > 1:
+            raise CalculationError(
+                "canonical_graph", "Calculation helpers reconnect current atoms"
+            )
 
 
 def resolve_selection(
@@ -137,6 +194,7 @@ def build_assembly(
     template_assumptions = {}
     candidates = candidate_entries(sources, keys) | {e for e, _ in keys} | set(membership or {})
     for entry, source in sources.items():
+        modeling_metadata(source)
         if entry in candidates:
             graphs[entry], proteins[entry], template_assumptions[entry] = protein_graph(source)
             if parameters.mode == "isolated":
@@ -147,7 +205,8 @@ def build_assembly(
             standard = {r.id for r in source.residues if r.name in CODES}
             proteins[entry] = {a.id for a in source.atoms if a.residue_id in standard}
             template_assumptions[entry] = {}
-    discovered = discover(graphs, keys, proteins)
+    discovery_index = DiscoveryIndex.build(graphs, proteins)
+    discovered = discover(graphs, keys, proteins, index=discovery_index)
     if membership:
         for entry, ids in membership.items():
             discovered.setdefault(entry, set()).update(ids)
@@ -156,6 +215,7 @@ def build_assembly(
             "model_limit", "Local calculation exceeds 20000 atoms before helpers"
         )
     caps = 0
+    connectivity_limited = False
     modes: list[str] = []
     for entry, source in sorted(graphs.items()):
         members = discovered.get(entry, set())
@@ -172,10 +232,14 @@ def build_assembly(
                 for residue_id, text in template_assumptions[entry].items()
                 if residue_id in residues
             )
-        remaining = set(members)
-        while remaining:
-            component = connected_atoms(project_atoms(source, members), {min(remaining)})
-            remaining.difference_update(component)
+            local_fields = {f"residues.{residue_id}" for residue_id in residues}
+            connectivity_diagnostics = [
+                warning for warning in source.warnings
+                if warning.code == "quick_current_connectivity" and warning.field in local_fields
+            ]
+            connectivity_limited |= bool(connectivity_diagnostics)
+            warnings.extend(f"{entry}: {warning.message}" for warning in connectivity_diagnostics)
+        for component in discovery_index.entries[entry].induced_components(members):
             projected = project_atoms(source, component)
             mol, mode, local_caps, notes = interpret(
                 source, projected, component, proteins[entry], parameters.allow_repair
@@ -221,7 +285,13 @@ def build_assembly(
             f"{caps} fixed calculation-only ACE/NME caps at local peptide boundaries; "
             "finite-shell energies are local approximations"
         )
-    return QuickAssembly(
+    if connectivity_limited:
+        assumptions.append(
+            "Calculation-only hydrogens follow valence interpretations of the literal current "
+            "graph. Absent template connections were not reconstructed; protein topology and "
+            "biological protonation are not established."
+        )
+    assembly = QuickAssembly(
         combined,
         references,
         movable,
@@ -233,4 +303,12 @@ def build_assembly(
         graphs,
         proteins,
         modes,
+        connectivity_limited=connectivity_limited,
+        discovery_index=discovery_index,
+        temporary_adjacency=tuple(
+            frozenset(neighbor.GetIdx() for neighbor in atom.GetNeighbors())
+            for atom in combined.GetAtoms()
+        ),
     )
+    validate_current_graph(assembly)
+    return assembly

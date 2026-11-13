@@ -1,0 +1,52 @@
+{
+  "command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "tests/e2e/viewer-notifications.spec.ts",
+    "tests/e2e/release-hardening.spec.ts:165",
+    "--output=/tmp/neistra137-notice-bounds-native7-results",
+    "--reporter=line,json",
+    "--max-failures=1"
+  ],
+  "cwd": "/datadisk/dev/neistra",
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-notice-bounds-native7",
+    "NEISTRA_E2E_API_PORT": "18530",
+    "NEISTRA_E2E_WORKER_PORT": "18531",
+    "NEISTRA_E2E_WEB_PORT": "15683",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/tmp/neistra137-notice-bounds-native7.json",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0"
+  },
+  "environment_mode": "These are the exact explicit env overrides; remaining environment was inherited by the original command.",
+  "stdout_stderr": "/tmp/neistra137-notice-bounds-native7.log",
+  "selection": "No --grep was used. The full notification file and exact release-hardening file:165 selector were passed.",
+  "registered": 16,
+  "passed": 15,
+  "skipped": 1,
+  "failures_flakes_retries_global_errors": 0,
+  "skip": "Existing mobile-chromium performance exclusion in selected release-hardening case.",
+  "evidence": {
+    "native7.json": {
+      "path": "/tmp/neistra137-notice-bounds-native7.json",
+      "bytes": 2506398,
+      "sha256": "56ac2755eaff78a400b1b84714dd7840d3376caf30e2154e25151ec0078b7ec4"
+    },
+    "native7.log": {
+      "path": "/tmp/neistra137-notice-bounds-native7.log",
+      "bytes": 6460,
+      "sha256": "82248c69d2b22cd0d913f39d83d132513e76a56ca2eb4369b47e474775a76cbf"
+    },
+    "source.sha256": {
+      "path": "/tmp/neistra137-notice-bounds-source.sha256",
+      "bytes": 414,
+      "sha256": "0fe7b56575b238b17384a49f49ac859d7fd290ed413c727ad07865efdd769a1e"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "movers": 64,
+  "queried_points": 4096,
+  "radius": 6.0,
+  "samples": {
+    "lists": [
+      {
+        "seconds": 0.007919416995719075,
+        "tracked_peak_bytes": 2492112,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.006451406981796026,
+        "tracked_peak_bytes": 2491584,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.006380413979059085,
+        "tracked_peak_bytes": 2491568,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.006404599000234157,
+        "tracked_peak_bytes": 2491568,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.006321663997368887,
+        "tracked_peak_bytes": 2491568,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      }
+    ],
+    "counts": [
+      {
+        "seconds": 0.00047619198448956013,
+        "tracked_peak_bytes": 165040,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.0004801700124517083,
+        "tracked_peak_bytes": 165040,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.00046989001566544175,
+        "tracked_peak_bytes": 165040,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.00047106199781410396,
+        "tracked_peak_bytes": 165040,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      },
+      {
+        "seconds": 0.0004850990080740303,
+        "tracked_peak_bytes": 165040,
+        "result_rows": 4096,
+        "neighbor_count": 262144
+      }
+    ]
+  },
+  "closed_axis_boundary_6_7_8": "PASS",
+  "scope": "dense allocation microbenchmark; not a molecular-pose or application-latency claim"
+}

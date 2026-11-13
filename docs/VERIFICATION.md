@@ -1,5 +1,74 @@
 # V0.1 Requirement Evidence
 
+## Issue #137 focused checkpoint qualification
+
+The [approved feature contract](plans/issue-137-authoritative-minimization.md) and
+[evidence index](assets/authoritative-minimization/README.md) govern current work.
+C1 current connectivity and C2 source-owned publication are local passing
+checkpoints. C3 passes **93 backend, 500 frontend and 51 browser cases / one existing
+mobile desktop-zoom exclusion**, with zero final failures/flakes/retries, unchanged
+732 source identities and passing static/build checks. Actual field provenance
+survives worker persistence, model downloads and both archive suffixes, without
+changing strict quick reports. UX/scientific checkpoint reviews pass; all-seven
+final candidate review, expanded C4 science, measured C5 performance, C6 boundaries
+and complete C7/C8 gates/actual readers remain required. Earlier diagnostic native
+runs are retained separately and do not count as passing evidence.
+
+C4 adds 24 observed-state/cap cases, four independent mixed-moving force/oracle
+cases and two real worker/publication/archive profiles. The combined focused gate
+passes **160 Python cases**, Ruff and mypy (199 files), with 735 fixed source
+identities. Theory independently passes 96 and the complete change. Five new
+state expectations failed before correcting unknown-fact interpretation; source
+graphs/known chemistry remain exact. C4 is the corrected performance baseline;
+later indexing/shared-boundary and final complete release gates remain required.
+
+C5 measures corrected C4 against immutable assembly indexes. Three equivalent
+small/pocket/18k timing-free scientific documents are byte-identical; inputs,
+parameters, toolchain and work counts match. **178 combined Python passes plus
+19 final discovery cases** cover 179 unique cases; global/static checks and
+**17 native cases / five existing mobile exclusions** pass with 737 final source
+identities. Scientific implementation/theory reviews reconfirm the sole later ARG
+test addition; production sources remain measured and unchanged. Direct-plugin
+CPU improvements trade additional whole-job memory; no application latency or
+overall memory reduction claim follows. [C5 records](assets/authoritative-minimization/c5-summary.json).
+
+C6 shares only persistence helpers and preserves scientific service policies.
+[Evidence](assets/authoritative-minimization/c6-summary.json) records **87 Python
+passes, zero skips**, global Ruff/mypy (201 files), **37 native passes / one
+existing mobile desktop-zoom exclusion**, zero failures/flakes/retries and 741
+unchanged source identities. Architecture independently passes 27 cases and the
+complete six-file diff, including concurrent publication. Frontend sources are
+unchanged from C3; no API/schema/migration/dependency/version changes. Complete
+C7/C8 gates and final all-seven assessment remain pending.
+
+The subsequent user-requested notification correction passes 503 complete frontend
+and 14 focused native cases with zero skips/failures/flakes/retries. Successful
+Ctrl+M retains complete scientific warnings in reports/entry details without a
+popup. Long notices remain fully readable with reachable Close, including touch,
+keyboard and 320×180 layouts; new message identity resets reading while resize/
+unrelated rendering preserves it. Independent UI's replacement-scroll finding is
+corrected and reproved. [Evidence](assets/authoritative-minimization/c7-notice-summary.json)
+retains 759 source identities and scope/diagnostic distinctions. Candidate2 is
+intentionally interrupted, not passing qualification. Candidate3 subsequently
+finds passive short-notice pointer interception; the bounded correction restores
+pass-through while preserving interactive overflow. Earlier attempts remain
+separate from final qualification.
+
+The complete clean [candidate4 summary](assets/authoritative-minimization/c7-candidate4-summary.json)
+qualifies `5b14fff1f333f49c0c90e25256de2bd778eb8b28`: **30 passing steps, 1,481
+Python (zero skips), 503 frontend, 14 supervisor and 413 browser passes / 75 exact
+existing exclusions**, zero failures/flakes/retries/new exclusions. All 759 current
+and 720 actual tagged preceding-source identities and lossless logs verify.
+Actual 0.28.1↔0.29.0 readers preserve both archive suffixes, connectivity, results,
+originals and artifacts; old unapplied proposals refuse without writes. Migration
+round trip, locked installs, static/build/version/schema/dependency/production/
+license and legacy CLI checks pass. Portable correctness makes no strict timing
+claim. All seven specialist agent assessments and primary full-diff local review
+PASS on integrated `ae464b6`; the assessment record's documentation-only commit
+requires explicit same-head reconfirmation before push. [Review receipt](assets/authoritative-minimization/c7-specialist-review.json).
+Normal remote review and exact merged-master qualification remain required before
+publication. Independent human approval is not claimed.
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the

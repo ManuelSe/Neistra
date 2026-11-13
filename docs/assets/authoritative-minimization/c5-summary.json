@@ -1,0 +1,205 @@
+{
+  "checkpoint": "C5",
+  "base": "80adf971cc328d582a220cbc46c4563efedb5d7f",
+  "qualification": "focused measured checkpoint; not complete release gate",
+  "python": {
+    "combined_passed": 178,
+    "combined_seconds": 19.27,
+    "final_discovery_passed": 19,
+    "final_discovery_seconds": 0.16,
+    "unique_qualified_cases": 179,
+    "evidence_reuse": "One additional ARG incident-order test landed after combined run; current19 rerun covers its addition and original18, runtime/benchmark unchanged."
+  },
+  "static": {
+    "ruff": "PASS global plus finalnewtest",
+    "mypy": "PASS199files"
+  },
+  "browser": {
+    "startTime": "2026-11-13T15:48:44.182Z",
+    "duration": 146359.132,
+    "expected": 17,
+    "skipped": 5,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "source_identity": {
+    "files": 737,
+    "unchanged_runtime_through_gate": true,
+    "final_new_test_hash_refreshed_before_end": "ARGorderreadthroughcase only"
+  },
+  "comparisons": [
+    {
+      "profile": "small",
+      "atoms": 18,
+      "baseline_warm_median_ms": 13.79286398878321,
+      "candidate_warm_median_ms": 13.74924200354144,
+      "baseline_range_ms": [
+        13.635178009280935,
+        14.023647003341466
+      ],
+      "candidate_range_ms": [
+        13.618517987197265,
+        14.093047007918358
+      ],
+      "ratio": 1.0031726829181227,
+      "baseline_cold_ms": 167.86746398429386,
+      "candidate_cold_ms": 168.38517601718195,
+      "baseline_traced_peak": 754328,
+      "candidate_traced_peak": 767529,
+      "baseline_rss_peak": 145432576,
+      "candidate_rss_peak": 145047552,
+      "scientific_sha256": "1a9cb81cec30694541e89bd8cf90729ead6df7a5ac2e771e7d6986ef6d10c6e3",
+      "scientific_documents_exact": true,
+      "termination": "stalled",
+      "iterations": 101,
+      "evaluations": 115
+    },
+    {
+      "profile": "pocket",
+      "atoms": 2304,
+      "baseline_warm_median_ms": 590.6557749840431,
+      "candidate_warm_median_ms": 414.0434250002727,
+      "baseline_range_ms": [
+        588.5973249969538,
+        594.9789820006117
+      ],
+      "candidate_range_ms": [
+        413.09861300396733,
+        415.8370079821907
+      ],
+      "ratio": 1.4265551372628464,
+      "baseline_cold_ms": 745.748832996469,
+      "candidate_cold_ms": 569.1992029896937,
+      "baseline_traced_peak": 15781093,
+      "candidate_traced_peak": 16568397,
+      "baseline_rss_peak": 179863552,
+      "candidate_rss_peak": 181526528,
+      "scientific_sha256": "b997a32abdbb93973c7199af34ac726976d31721ce2c652be98cdd7d85b08ad2",
+      "scientific_documents_exact": true,
+      "termination": "geometry_settled",
+      "iterations": 53,
+      "evaluations": 63
+    },
+    {
+      "profile": "18k",
+      "atoms": 18208,
+      "baseline_warm_median_ms": 861.7349939886481,
+      "candidate_warm_median_ms": 569.3990190047771,
+      "baseline_range_ms": [
+        858.3752929989714,
+        881.8228529999033
+      ],
+      "candidate_range_ms": [
+        563.9974200166762,
+        572.766543016769
+      ],
+      "ratio": 1.5134114482579015,
+      "baseline_cold_ms": 1016.8831470073201,
+      "candidate_cold_ms": 807.1637460088823,
+      "baseline_traced_peak": 72166892,
+      "candidate_traced_peak": 78221330,
+      "baseline_rss_peak": 302247936,
+      "candidate_rss_peak": 306688000,
+      "scientific_sha256": "92d1dc87cbad6e590a46b75e879da25b5c5586fae1e855cbae58786c2cfbeebd",
+      "scientific_documents_exact": true,
+      "termination": "geometry_settled",
+      "iterations": 53,
+      "evaluations": 63
+    }
+  ],
+  "comparison_proof": "all3 fulltiming-free scientific documents byte-identical including reports,fields,models,proposals; sameinput/parameter/recipe/toolchain hashes; sameiterations/evaluations; no cooperativebudgetlimit",
+  "scope": "direct plugin CPU; excludes worker spawn, DB/API/browser/artifact-store publication; no universal app speedup/strict host timing claim",
+  "memory": "linearindexsnapshots increase whole-jobtracked/RSS peaks; only count-query allocation decreases",
+  "reviews": {
+    "scientific_implementation": "PASS73cases+60additionaloraclecomparisons; finalARGdelta inspected and4relatedcasesPASS",
+    "scientific_theory": "PASS87cases+scientificbyteequality; finalARGdelta inspected and1casePASS",
+    "final_seven_role_gate": "pendingC7"
+  },
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-c5-native1",
+    "NEISTRA_E2E_API_PORT": "18440",
+    "NEISTRA_E2E_WORKER_PORT": "18441",
+    "NEISTRA_E2E_WEB_PORT": "15603",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "artifacts": {
+    "c5-baseline-final-18k-scientific.json.gz": "d317fe9a36cd04b6f2e965bea4aa270fc393d92984c3f580541f6667d36a43e4",
+    "c5-baseline-final-18k.json.gz": "11ddb98de3648e7d6b6ce4de1888ed306b786a0b05fca039176ee0f02fa79e49",
+    "c5-baseline-final-18k.log.gz": "7993e818e10a21a23eda2692f70a4b10be5ceca434e028a20270e28a0bfbe3db",
+    "c5-baseline-final-pocket-scientific.json.gz": "e3aa339cfba01bb574f78b6f5a4163cedee003cb8418f919c0ef242350f554f8",
+    "c5-baseline-final-pocket.json.gz": "af03d6578d4c2d04229cc126ce46405ec64998fdeee669227eb531101953b0c5",
+    "c5-baseline-final-pocket.log.gz": "ba36682bd651272b62f032ce6e83009550441e8204b8f7b770727d3a62fd3ad7",
+    "c5-baseline-final-small-scientific.json.gz": "ad7c8a7228dc1fe1e8970ba2ef7324526dfe94abdac1b08a082ba7756e3e316b",
+    "c5-baseline-final-small.json.gz": "821970a0b920d762f1fd977b81e1e16ecf530e203a83e0567a87c5e87e431e79",
+    "c5-baseline-final-small.log.gz": "9e53f9a983a5a4963809b51e80c5457e241a0fb7b2ec3aec7948739206b94072",
+    "c5-browser.json.gz": "d336a826749ce21c9a021dec838f26b466f05367888df07242ec351c65070c96",
+    "c5-browser.log.gz": "b69943c78884ed8feac4312a4b7179b5e7fbfd8e16008020ec0925149c57e41a",
+    "c5-candidate1-18k-scientific.json.gz": "d317fe9a36cd04b6f2e965bea4aa270fc393d92984c3f580541f6667d36a43e4",
+    "c5-candidate1-18k.json.gz": "e6e8f2de5470fb6d7a9dd20c218dc7f10e972f3d6baa0cd0296ea7f1996f60a3",
+    "c5-candidate1-18k.log.gz": "aa9bcf54ac19e330441c4588128eb173e4c1596f94efa1b1d024b062a2f8f2ac",
+    "c5-candidate1-pocket-scientific.json.gz": "e3aa339cfba01bb574f78b6f5a4163cedee003cb8418f919c0ef242350f554f8",
+    "c5-candidate1-pocket.json.gz": "60a97e42a722ec2f68da1211988f793eab73d4ee52660f0c15cda4313a99dad0",
+    "c5-candidate1-pocket.log.gz": "a4b3cfbd9cff3cea07e91db53b1bf0a354d296a06b7a868b151dd6336ee36fbc",
+    "c5-candidate1-small-scientific.json.gz": "ad7c8a7228dc1fe1e8970ba2ef7324526dfe94abdac1b08a082ba7756e3e316b",
+    "c5-candidate1-small.json.gz": "19dc1e87be013bf952e3e16f864e23b9130e20d98f0e77612f47207cbd4e2d4a",
+    "c5-candidate1-small.log.gz": "c7a74c616419e476912b30bd86ad9fd109ef5c1a3183a4a2ec7a7c56789de7c2",
+    "c5-comparison-recipe.json": "a9410b16ac0657fb8823d6de0b6806e0581c5d2cb479212b5257be42f9a7ff99",
+    "c5-comparison-summary.json": "25190932d61cbbbfdd95d56c26534c2fa58466d149e8f48547a1091bde6231a9",
+    "c5-count-allocation-baseline.json": "0576279fa37da5981dcf84f74d2cfba28e7e7abd9dfd5e9fbf0b5370839fcf96",
+    "c5-count-allocation.py.txt": "57e097e5fe2b35697687707a85d2b999adbaad5b6c5dd7d11f97e7b15c1e03b2",
+    "c5-discovery-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c5-discovery.log.gz": "95831ca8d12cd6beaf63a279cfc4d71409446bfc7971faa91696f70a1d28a9b1",
+    "c5-mypy.log.gz": "d927aa2a14f7569847b5462c6c7abfc6128e636ef9a490199be0975a75d4ca3f",
+    "c5-native-measurement-01.json": "fa00a97b5c2180b589ad35b6a94a8e33e6d81f16fa1f43e18c6bb2e1cb8249e3",
+    "c5-native-measurement-02.json": "beca6de97b4b3f7850007435e6d02a71a22ddfe971a68bfff5c4e66d94548461",
+    "c5-native-measurement-03.json": "a2a611e1ac38389153091d56e8e87e27a20bda50ec29e91ecfe29b686db781aa",
+    "c5-native-measurement-04.json": "610ef44d7b6e8bc3602474edc9094fe42d9772251551c9ccab590fbef62835b3",
+    "c5-native-measurement-05.json": "e3b64bc5ddd628db1c68ac52ed00e9949026012cde3d74c60855b39817052361",
+    "c5-native-measurement-06.json": "5f0c0bdc463f3ed6e7e604157192f37b421eef13ab364d9293d547d542de4e23",
+    "c5-native-measurement-07.json": "fffab17b6ad5dc4e04fc068e6429ddadd153f91a9c8897c9a130c3f927410a33",
+    "c5-python.log.gz": "73b7827cc2393fdabe93efb7a18af54170f2a10031efc5796c65e3302652f463",
+    "c5-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c5-source-identity.json.gz": "be6af21aad65785a31ef8b5ad7b8ec742d2667c1de7bbc550308f6dccfb80483"
+  },
+  "native_measurements": [
+    {
+      "artifact": "c5-native-measurement-01.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-15e48-ublication-for-an-18k-scene-chromium/quick-cold-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-02.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-15e48-ublication-for-an-18k-scene-chromium/quick-repeat-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-03.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-78749-blication-for-a-1STP-pocket-chromium/quick-cold-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-04.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-78749-blication-for-a-1STP-pocket-chromium/quick-repeat-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-05.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/quick-cold-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-06.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/quick-repeat-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    },
+    {
+      "artifact": "c5-native-measurement-07.json",
+      "source": "/tmp/neistra137-c5-native1-results/quick-minimization-perform-cdeb2-eview-within500ms-on-Cancel-chromium/quick-live-performance.json",
+      "scope": "portable native workflow observations, not strict reference-host or comparative application timing"
+    }
+  ]
+}

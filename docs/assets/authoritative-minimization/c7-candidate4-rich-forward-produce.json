@@ -1,0 +1,14 @@
+{
+  "producer": "0.29.0",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "b77873bb307cb9e5d37dd1cc51b49da71fca1d9ee7ffec2db017a75f1509772f",
+  "application_version": "0.29.0",
+  "implementation_root": "/datadisk/dev/neistra",
+  "api_module": "/datadisk/dev/neistra/apps/api/src/neistra_api/main.py",
+  "core_module": "/datadisk/dev/neistra/packages/neistra_core/src/neistra_core/molecular.py",
+  "legacy_suffix_http": 201,
+  "new_suffix_http": 201,
+  "expect_new_names": true
+}

@@ -1,0 +1,179 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - button "Projects" [ref=e5] [cursor=pointer]:
+        - generic [ref=e7] [cursor=pointer]: Neistra
+      - button "Recapture controls 1794580953494 Unsaved changes" [ref=e8] [cursor=pointer]:
+        - generic [ref=e9] [cursor=pointer]: Recapture controls 1794580953494
+      - generic [ref=e11]:
+        - button "Project browser" [ref=e12] [cursor=pointer]:
+          - img [ref=e13] [cursor=pointer]
+        - button "History" [ref=e18] [cursor=pointer]:
+          - img [ref=e19] [cursor=pointer]
+        - button "Inspector" [ref=e23] [cursor=pointer]:
+          - img [ref=e24] [cursor=pointer]
+        - button "Import structures" [ref=e26] [cursor=pointer]:
+          - img [ref=e27] [cursor=pointer]
+        - button "Export" [ref=e30] [cursor=pointer]:
+          - img [ref=e31] [cursor=pointer]
+        - button "Jobs" [ref=e37] [cursor=pointer]:
+          - img [ref=e38] [cursor=pointer]
+        - 'button "Undo: Hide string" [ref=e42] [cursor=pointer]':
+          - img [ref=e43] [cursor=pointer]
+        - button "Redo" [disabled] [ref=e46]:
+          - img [ref=e47]
+        - button "Save checkpoint" [ref=e50] [cursor=pointer]:
+          - img [ref=e51] [cursor=pointer]
+        - button "Use dark theme" [ref=e55] [cursor=pointer]:
+          - img [ref=e56] [cursor=pointer]
+    - generic [ref=e58]:
+      - main [ref=e59]:
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - region "3D molecular viewer" [ref=e62]
+            - generic:
+              - status:
+                - generic: 1 visible / 1 loaded / 1 selected
+              - toolbar "Viewer quick actions" [ref=e70]:
+                - button "Detach viewer" [ref=e71] [cursor=pointer]:
+                  - img [ref=e72] [cursor=pointer]
+                - generic [ref=e75]: Pick
+                - generic [ref=e76]:
+                  - generic [ref=e77]: Viewer picking mode
+                  - combobox "Viewer picking mode" [ref=e78]:
+                    - option "Atom" [selected]
+                    - option "Residue"
+                    - option "Chain"
+                    - option "Structure"
+                - group "Viewer focus actions" [ref=e79]:
+                  - button "Fit all visible" [ref=e80] [cursor=pointer]:
+                    - img [ref=e81] [cursor=pointer]
+                  - button "Focus selection" [ref=e82] [cursor=pointer]:
+                    - img [ref=e83] [cursor=pointer]
+                  - button "Focus visible ligands" [ref=e89] [cursor=pointer]:
+                    - img [ref=e90] [cursor=pointer]
+                  - button "Style selection" [ref=e93] [cursor=pointer]:
+                    - img [ref=e94] [cursor=pointer]
+                  - button "Interactions" [ref=e100] [cursor=pointer]:
+                    - img [ref=e101] [cursor=pointer]
+              - group "Molecular tools" [ref=e106]:
+                - region "Transformation tools" [ref=e107]:
+                  - button "Transform selection" [disabled] [ref=e108]:
+                    - img [ref=e109]
+                - button "Edit molecule" [ref=e115] [cursor=pointer]:
+                  - img [ref=e116] [cursor=pointer]
+                - button "Minimize selection" [expanded] [ref=e120] [cursor=pointer]:
+                  - img [ref=e121] [cursor=pointer]
+            - button "Open viewer controls" [ref=e124] [cursor=pointer]:
+              - img [ref=e125] [cursor=pointer]
+          - region "Protein sequence viewer" [ref=e129]:
+            - generic [ref=e130]:
+              - button "Collapse sequences" [expanded] [ref=e131] [cursor=pointer]:
+                - img [ref=e132] [cursor=pointer]
+              - generic [ref=e134]: Sequence
+              - generic [ref=e135]: No displayed protein chains
+              - button "Hide sequences" [ref=e136] [cursor=pointer]:
+                - img [ref=e137] [cursor=pointer]
+      - button "Close panel" [ref=e140]
+      - dialog "Project browser panel" [ref=e141]:
+        - region "Project browser" [ref=e142]:
+          - generic [ref=e143]:
+            - generic [ref=e144]:
+              - generic [ref=e145]: Project
+              - heading "Structures" [level=2] [ref=e146]
+            - button "New molecule" [ref=e147]
+          - tablist "Project navigation" [ref=e148]:
+            - tab "Entries" [selected] [ref=e149]
+            - tab "Components" [ref=e150]
+          - tabpanel "Entries" [ref=e151]:
+            - generic [ref=e152]:
+              - generic [ref=e153]:
+                - generic [ref=e154]:
+                  - img [ref=e155]
+                  - generic [ref=e158]: Search structures
+                  - textbox "Search structures" [ref=e159]
+                - group [ref=e160]:
+                  - option "All types" [selected]
+                  - option "Protein"
+                  - option "Ligand"
+                  - option "Complex"
+                  - option "Solvent"
+                  - option "Unknown"
+                  - option "Name" [selected]
+                  - option "Type"
+                  - option "Atom count"
+                  - option "Modified"
+              - generic [ref=e163]:
+                - generic [ref=e165]:
+                  - button "New molecule Modified" [ref=e166] [cursor=pointer]:
+                    - img [ref=e167] [cursor=pointer]
+                    - generic [ref=e170] [cursor=pointer]: New molecule
+                    - generic [ref=e172] [cursor=pointer]: Modified
+                  - generic [ref=e173]:
+                    - button "Hide New molecule" [ref=e174] [cursor=pointer]:
+                      - img [ref=e175] [cursor=pointer]
+                    - button "Lock New molecule" [ref=e178] [cursor=pointer]:
+                      - img [ref=e179] [cursor=pointer]
+                    - button "Actions for New molecule" [ref=e182] [cursor=pointer]:
+                      - img [ref=e183] [cursor=pointer]
+                - generic [ref=e188]:
+                  - button "string 2 warnings; open Details for messages Modified" [pressed] [ref=e189] [cursor=pointer]:
+                    - img [ref=e190] [cursor=pointer]
+                    - generic [ref=e193] [cursor=pointer]: string
+                    - generic [ref=e194] [cursor=pointer]:
+                      - img [ref=e195] [cursor=pointer]
+                      - generic [ref=e197] [cursor=pointer]: 2 warnings; open Details for messages
+                    - generic [ref=e199] [cursor=pointer]: Modified
+                  - generic [ref=e200]:
+                    - button "Show string" [active] [ref=e201] [cursor=pointer]:
+                      - img [ref=e202] [cursor=pointer]
+                    - button "Lock string" [ref=e207] [cursor=pointer]:
+                      - img [ref=e208] [cursor=pointer]
+                    - button "Actions for string" [ref=e211] [cursor=pointer]:
+                      - img [ref=e212] [cursor=pointer]
+  - dialog "Minimize selection" [ref=e216]:
+    - generic [ref=e217]:
+      - heading "Minimize selection" [level=2] [ref=e218]
+      - button "Close minimization" [ref=e219]:
+        - img [ref=e220]
+    - paragraph [ref=e223]: Only captured selected atoms move. Unselected atoms stay fixed.
+    - paragraph [ref=e224]:
+      - text: "Requested selection:"
+      - strong [ref=e225]: 1 atom
+      - text: . Selection changes do not retarget this calculation.
+    - button "Use current selection" [ref=e226]
+    - group "Quick minimization settings" [ref=e227]:
+      - generic [ref=e228]: Quick minimization settings
+      - generic [ref=e229]:
+        - text: Mode
+        - combobox "Minimization mode" [ref=e230]:
+          - option "Visible surroundings"
+          - option "Selected molecules only"
+          - option "Choose surroundings" [selected]
+      - paragraph [ref=e231]: Choose participating entries, including hidden entries. Only nearby context is modeled.
+      - generic [ref=e232]:
+        - generic [ref=e233] [cursor=pointer]:
+          - checkbox "New molecule" [checked] [disabled] [ref=e234]
+          - text: New molecule
+        - generic [ref=e235] [cursor=pointer]:
+          - checkbox "string" [checked] [ref=e236]
+          - text: string
+      - generic [ref=e237] [cursor=pointer]:
+        - checkbox "Move attached terminal hydrogens" [ref=e238]
+        - text: Move attached terminal hydrogens
+      - group [ref=e239]:
+        - generic [ref=e241] [cursor=pointer]:
+          - checkbox "Allow warned approximate repair" [ref=e242]
+          - text: Allow warned approximate repair
+        - generic [ref=e243]:
+          - text: Maximum iterations
+          - spinbutton "Minimization iterations" [ref=e244]: "37"
+    - paragraph [ref=e245]: "Exact selection: attached H are not added to the movable set. Usable coordinates apply as one undoable edit."
+    - button "Run quick minimization" [disabled] [ref=e246]
+    - button "Advanced AMBER" [ref=e247]
+    - alert [ref=e248]: Project changed. Use current selection to refresh this setup.
+    - button "Model and prerequisites" [ref=e249]
+```

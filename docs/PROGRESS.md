@@ -2,6 +2,66 @@
 
 ## Current milestone
 
+Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
+[feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
+`fix/issue-137-authoritative-minimization`. C0–C6 are committed through `013ab2a`;
+C7 preparation/corrections are committed through `5b14fff`. The feature plan is
+the detailed scope/progress/evidence source.
+
+Completed: current canonical connectivity across import/viewer/edit/calculation,
+old-proposal/worker guards, source-owned publication recovery, capability retry,
+recapture, staged counts and actual field diagnostics. C4 corrects five observed
+state defects and independently qualifies mixed forces, caps, fixed/inactive rows,
+publication and archives. C5 reduces measured direct-plugin CPU work with identical
+scientific documents and extra retained-index memory. C6 shares six persistence
+helpers while preserving separate scientific policies. Existing sparse projects
+and original bytes remain unchanged; no new repair action is added.
+
+[Checkpoint evidence](assets/authoritative-minimization/README.md) retains C1–C6
+focused results, corrected-state oracles, measured profiles, source identities and
+independent assessments. Candidate1's recipe/old-expectation failures are separate;
+155 focused corrections pass. Candidate2 passes 1481 Python/500 frontend/14
+supervisor cases but is intentionally interrupted during native qualification for
+the user's notification correction; it is not a complete gate.
+
+The user-requested correction (committed `aa8d629`) removes successful Ctrl+M
+warning popups while retaining full reports and entry warning details. Refused scientific reports use
+brief review copy; prerequisite/API/recovery diagnostics remain actionable. Long
+notices scroll with Close reachable. Independent UI review reproduces/corrects
+replacement-scroll inheritance; new messages start at the top without losing focus.
+[Focused evidence](assets/authoritative-minimization/c7-notice-summary.json): 503
+frontend passes, lint/types/build and 14 native passes, zero skips/failures/flakes/
+retries; 759 source identities. Candidate3 catches short-notice pointer interception
+after 155 native passes. The correction restores passive short text and keeps
+long scrolling interactive: [evidence](assets/authoritative-minimization/c7-pointer-summary.json)
+passes 503 frontend / 15 native cases with one existing mobile exclusion and no
+failures/flakes/retries. Independent UI reconfirms actual hit testing. Final
+all-seven review and exact-master qualification remain required.
+
+The clean [candidate4 gate](assets/authoritative-minimization/c7-candidate4-summary.json)
+passes all **30 steps**: **1,481 Python (zero skips), 503 frontend, 14 supervisor,
+413 browser passes / 75 unchanged existing exclusions**. No failures, flakes,
+automatic retries or new exclusions remain. All 759 current and 720 actual tagged
+0.28.1 source identities and lossless log hashes verify. Disposable migration
+upgrade/downgrade/re-upgrade, version/schema/dependency/license/production audits,
+legacy CLI and both actual-reader families pass in both directions and archive
+suffixes. Historical unapplied proposals remain inspectable but refuse Apply
+without writes. Earlier failed/interrupted gates remain separate.
+
+Five app versions agree at 0.29.0; quick implementation 1.0.3. No dependency,
+schema or migration change. Planned stable release is **minor 0.29.0**. Cleanup is
+local and existing chemistry/capacity/browser limits apply. No overall latency,
+memory-reduction or strict reference-host timing claim. External blockers: none.
+All seven final specialist agent assessments and primary local complete-diff
+review PASS on integrated candidate `ae464b6`, with no consequential finding.
+[Verdicts and limitations](assets/authoritative-minimization/c7-specialist-review.json)
+cover the entire feature; final documentation-only recording receives explicit
+same-head reconfirmation before push. This does not claim human approval or remote
+review completion. Next: authorized PR/review/merge, exact-master qualification,
+annotated tag/release, verified issue response and branch cleanup.
+
+### Previous completed milestone — issue #98
+
 Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) is implemented and released
 as stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1) through
 [PR #135](https://github.com/ManuelSe/Neistra/pull/135). The

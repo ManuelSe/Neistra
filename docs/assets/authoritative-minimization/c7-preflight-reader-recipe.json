@@ -1,0 +1,182 @@
+{
+  "harness_sha256": "e9e28296dcebb620a0ea7358f5a01cbbf323af3ebd0462f7e557fd3cd810aff0",
+  "steps": [
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-forward3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-forward3/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "exit_code": 0,
+      "seconds": 1.203,
+      "log": "/tmp/neistra137-readerdiag3-forward-migration.log",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-forward-migration.log.gz"
+    },
+    {
+      "label": "forward-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.29.0",
+        "--data-dir",
+        "/tmp/neistra137-readerdiag-forward3",
+        "--evidence",
+        "/tmp/neistra137-readerdiag-forward3-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-forward3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-forward3/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "exit_code": 0,
+      "seconds": 8.696,
+      "log": "/tmp/neistra137-readerdiag3-forward-produce.log",
+      "log_sha256": "a13db3a3ac9452467ee9d9de57425e6d36ce192117482fb88f9cfc1ef1e06a35",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-forward-produce.log.gz"
+    },
+    {
+      "label": "forward-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--implementation-root",
+        "/tmp/neistra137-reader-0281",
+        "--expected-version",
+        "0.28.1",
+        "--data-dir",
+        "/tmp/neistra137-readerdiag-forward3",
+        "--evidence",
+        "/tmp/neistra137-readerdiag-forward3-read.json"
+      ],
+      "cwd": "/tmp/neistra137-reader-0281",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-forward3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-forward3/molweave.db",
+        "PYTHONPATH": "/tmp/neistra137-reader-0281/apps/api/src:/tmp/neistra137-reader-0281/packages/neistra_core/src:/tmp/neistra137-reader-0281/packages/neistra_demo_plugin/src:/tmp/neistra137-reader-0281"
+      },
+      "exit_code": 0,
+      "seconds": 4.951,
+      "log": "/tmp/neistra137-readerdiag3-forward-read.log",
+      "log_sha256": "9d07d0af529c561cf6d6e905336551e9e84d7d85c435a88c494f4572a3b7e65a",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-forward-read.log.gz"
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/tmp/neistra137-reader-0281",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-reverse3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-reverse3/molweave.db",
+        "PYTHONPATH": "/tmp/neistra137-reader-0281/apps/api/src:/tmp/neistra137-reader-0281/packages/neistra_core/src:/tmp/neistra137-reader-0281/packages/neistra_demo_plugin/src:/tmp/neistra137-reader-0281"
+      },
+      "exit_code": 0,
+      "seconds": 1.061,
+      "log": "/tmp/neistra137-readerdiag3-reverse-migration.log",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-reverse-migration.log.gz"
+    },
+    {
+      "label": "reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--implementation-root",
+        "/tmp/neistra137-reader-0281",
+        "--expected-version",
+        "0.28.1",
+        "--data-dir",
+        "/tmp/neistra137-readerdiag-reverse3",
+        "--evidence",
+        "/tmp/neistra137-readerdiag-reverse3-produce.json"
+      ],
+      "cwd": "/tmp/neistra137-reader-0281",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-reverse3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-reverse3/molweave.db",
+        "PYTHONPATH": "/tmp/neistra137-reader-0281/apps/api/src:/tmp/neistra137-reader-0281/packages/neistra_core/src:/tmp/neistra137-reader-0281/packages/neistra_demo_plugin/src:/tmp/neistra137-reader-0281"
+      },
+      "exit_code": 0,
+      "seconds": 8.693,
+      "log": "/tmp/neistra137-readerdiag3-reverse-produce.log",
+      "log_sha256": "6b121d2cdfa3c6d963a7324b15d181d54db41b4810fe36cc715bcc3bf419e7bf",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-reverse-produce.log.gz"
+    },
+    {
+      "label": "reverse-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.29.0",
+        "--data-dir",
+        "/tmp/neistra137-readerdiag-reverse3",
+        "--evidence",
+        "/tmp/neistra137-readerdiag-reverse3-read.json",
+        "--expect-current-connectivity"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "environment": {
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_DATA_DIR": "/tmp/neistra137-readerdiag-reverse3",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra137-readerdiag-reverse3/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/neistra_core/src:/datadisk/dev/neistra/packages/neistra_demo_plugin/src:/datadisk/dev/neistra"
+      },
+      "exit_code": 0,
+      "seconds": 4.973,
+      "log": "/tmp/neistra137-readerdiag3-reverse-read.log",
+      "log_sha256": "b6a89002a1d6857ff0b2c29a75dd9a8f55ac649c3debccc543b4c9fdf5eb3b9c",
+      "retained_log": "docs/assets/authoritative-minimization/c7-preflight-reader-reverse-read.log.gz"
+    }
+  ],
+  "complete": true
+}

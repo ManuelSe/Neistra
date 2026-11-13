@@ -1,0 +1,126 @@
+{
+  "checkpoint": "C3",
+  "base": "36df7471e82bd004e0fd1e0d0d4a3a5e79dc5cb2",
+  "qualification": "uncommitted focused checkpoint; not the complete release gate",
+  "backend": {
+    "passed": 93,
+    "seconds": 17.58,
+    "provenance_cases": 27,
+    "command": [
+      ".venv/bin/uv",
+      "run",
+      "pytest",
+      "tests/unit/test_quick_provenance.py",
+      "tests/unit/test_quick_minimization.py",
+      "tests/scientific/test_quick_minimization.py",
+      "tests/integration/test_quick_minimization.py",
+      "tests/integration/test_quick_historical_policy.py",
+      "-q"
+    ],
+    "evidence_source": "scientific implementation specialist executed and reported this focused command; full release logs remain C7/C8 work",
+    "ruff": "PASS global",
+    "mypy": "PASS 199 source files"
+  },
+  "frontend": {
+    "passed": 500,
+    "files": 72,
+    "lint": "PASS full plus scoped decoder lint",
+    "types": "PASS",
+    "build": "PASS",
+    "build_seconds": 8.15,
+    "existing_advisory": "lazy chunk size"
+  },
+  "browser": {
+    "startTime": "2026-11-13T14:47:58.110Z",
+    "duration": 366301.21900000004,
+    "expected": 51,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "controls": {
+    "startTime": "2026-11-13T14:45:39.373Z",
+    "duration": 95548.48,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "source_identity": {
+    "files": 732,
+    "unchanged_during_final_native_gate": true
+  },
+  "review": {
+    "scientific_theory": "PASS independent 32 cases",
+    "ux_design": "PASS independent 118 frontend cases; native reports and fixed identities verified",
+    "primary": "complete checkpoint diff self-review and both-theme setup/method screenshot inspection; no unresolved consequential finding",
+    "nonblocking_polish": "singular component copy scheduled C7 before final gate",
+    "final_seven_role_gate": "pending C7"
+  },
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-c3-native4",
+    "NEISTRA_E2E_API_PORT": "18430",
+    "NEISTRA_E2E_WORKER_PORT": "18431",
+    "NEISTRA_E2E_WEB_PORT": "15593",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "browser_command": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "tests/e2e/minimization-controls.spec.ts",
+    "tests/e2e/minimization-recovery.spec.ts",
+    "tests/e2e/quick-minimization.spec.ts",
+    "tests/e2e/modeling-toolbar.spec.ts",
+    "--output=/tmp/neistra137-c3-native4-results",
+    "--reporter=line,json",
+    "--max-failures=1"
+  ],
+  "diagnostics": {
+    "first": {
+      "startTime": "2026-11-13T14:39:55.863Z",
+      "duration": 28528.798,
+      "expected": 3,
+      "skipped": 8,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "first_cause": "Fixture atom3 was H; select observed carbon1 and derive canonical terminalH count.",
+    "second": {
+      "startTime": "2026-11-13T14:41:31.848Z",
+      "duration": 182394.722,
+      "expected": 8,
+      "skipped": 3,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "second_cause": "Left Project browser covers Inspector-style left scrim click; close with genuine Escape and assert preserved setup.",
+    "runtime_assertion_timeout_changes": "none for these corrections; final test adds both-theme method accessibility/screenshots"
+  },
+  "artifacts": {
+    "c3-browser.json.gz": "ef65dcf2938304fa02ee981d9d89cc61d1ed931ad46ec3b1f38b55e4281c180c",
+    "c3-browser.log.gz": "b367312793185d12e4a260e3cf0d2f69cb0a5697891a52f23aae79fe24b04ff9",
+    "c3-build.log.gz": "dd51fc53dcf9f7198df4bebd75425595cb8b2dc7817991318268c06a56381db9",
+    "c3-controls-browser.json.gz": "6abb8954f925fefa63f4c8850d2022885ece063461365b36e35586d4f79b5982",
+    "c3-diagnostic1-browser.json.gz": "69574aec2b66f55fa5414586b9146a2345474303e15a4057bd3f2abc1a9cb1bb",
+    "c3-diagnostic1-error-context.txt": "6c8524c435c054808e42f2efec95cabb9caa2bb027029986140abeb9a8531ff0",
+    "c3-diagnostic1-test-failed-1.png": "7faab83a7c0bbc2f0511b4c2f294427fa83c4f6c12cd57920411a9940bf92cfb",
+    "c3-diagnostic1-trace.zip": "f79e1bd3cf5fd89440b865ba922ea8824608850fa8a25da2a8d6a7cd7dbac0aa",
+    "c3-diagnostic2-browser.json.gz": "02f4fd5c2a5608567235afbe63e1440a3bb2753047d242aa55a67c0510c8dd9f",
+    "c3-diagnostic2-error-context.txt": "f9ad2d51a8a5a33fdb5b19dea3a02d24d4ab77d7d739a9deaf121052398cef21",
+    "c3-diagnostic2-test-failed-1.png": "d5578f59dc6cdffe89613ef0b4ec69d1171ed6be2e34a847504e97a9af72836c",
+    "c3-diagnostic2-trace.zip": "39cd654ea04f7c55f0c1a2ef9bef2e71bdb653f31b07bc69a31614afeed0e0a7",
+    "c3-frontend.log.gz": "45aa373c6eb797f379105188876bc24b0ec27ece96e99045bc7facd14bc4ca4d",
+    "c3-mobile-dark-methods.png": "f593d12f4eb2f50beb1825c4e33b9d844cfedc81a23fa205d229afe89f438a2c",
+    "c3-mobile-light-methods.png": "40e620bc97153abd80d57a20431749154eb5794c3e0f3cbe2305267968ddaa90",
+    "c3-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c3-source-identity.json.gz": "ab1f7659adc782a24f223760b03f014de013d0133eea4f56c85087e1e5ed0bae",
+    "c3-types.log.gz": "9f705189f7ba70a5d39636845d22b885e8081832a812bf5ff51f400ab6c53690"
+  }
+}

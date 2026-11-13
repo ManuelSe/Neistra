@@ -3,7 +3,10 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ApplicationNotice, type ApplicationNoticeValue } from "../components/ApplicationNotice";
 
-function Harness({ initial = null }: { initial?: ApplicationNoticeValue | null }) {
+function Harness({ initial = null, replacement }: {
+  initial?: ApplicationNoticeValue | null;
+  replacement?: ApplicationNoticeValue;
+}) {
   const [notice, setNotice] = useState(initial);
   const [theme, setTheme] = useState("light");
   return <main data-theme={theme}>
@@ -12,6 +15,7 @@ function Harness({ initial = null }: { initial?: ApplicationNoticeValue | null }
     <button onClick={() => setNotice({ kind: "error", text: "Retry required." })}>Fail</button>
     <button onClick={() => setNotice({ kind: "success", text: "Chemistry warnings.", lifetime: "persistent" })}>Warnings</button>
     <button onClick={() => setNotice(null)}>Change project</button>
+    {replacement ? <button onClick={() => setNotice(replacement)}>Replace message</button> : null}
     <ApplicationNotice notice={notice} setNotice={setNotice} />
   </main>;
 }
@@ -84,6 +88,46 @@ describe("application notification lifetime", () => {
     act(() => screen.getByText("Theme").focus());
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(screen.getByText("Theme")).toHaveFocus();
+  });
+
+  it("keeps complete overflowing text keyboard-readable without moving the close control into it", () => {
+    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockReturnValue(600);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(120);
+    const text = `${"Long diagnostic text.\n".repeat(100)}End of diagnostic.`;
+    render(<Harness initial={{ kind: "success", text }} />);
+    const details = screen.getByRole("region", { name: "Message details" });
+    const close = screen.getByRole("button", { name: "Dismiss message" });
+    expect(details.textContent).toBe(text);
+    expect(details).toHaveAttribute("tabindex", "0");
+    expect(details).not.toContainElement(close);
+    expect(document.activeElement).not.toBe(details);
+    act(() => screen.getByText("Save").focus());
+    act(() => details.focus());
+    advance(10_000);
+    expect(screen.getByRole("status")).toBeInTheDocument();
+    act(() => close.focus());
+    fireEvent.click(close);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.getByText("Save")).toHaveFocus();
+  });
+
+  it("starts a replacement at its beginning without resetting reading on unrelated renders", () => {
+    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockReturnValue(600);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(120);
+    const first = { kind: "error" as const, text: "Earlier detail.\n".repeat(100) };
+    const replacement = { kind: "error" as const, text: `New diagnostic begins.\n${"New detail.\n".repeat(100)}` };
+    render(<Harness initial={first} replacement={replacement} />);
+    const details = screen.getByRole("region", { name: "Message details" });
+    act(() => details.focus());
+    details.scrollTop = 350;
+    fireEvent.click(screen.getByText("Theme"));
+    expect(details.scrollTop).toBe(350);
+    fireEvent.click(screen.getByText("Replace message"));
+    expect(screen.getByRole("region", { name: "Message details" })).toBe(details);
+    expect(details.scrollTop).toBe(0);
+    expect(details.textContent).toBe(replacement.text);
+    expect(details).toHaveFocus();
+    expect(details).not.toContainElement(screen.getByRole("button", { name: "Dismiss message" }));
   });
 
   it("dismisses manually before the deadline and returns keyboard focus", () => {

@@ -43,9 +43,22 @@ def test_streptavidin_biotin_release_fixture_has_expected_scientific_content() -
         "O": 270,
         "S": 1,
     }
-    assert len(structure.bonds) == 17
+    assert len(structure.bonds) == 940
+    assert Counter(bond.inferred for bond in structure.bonds) == {False: 17, True: 923}
     assert all(bond.order is None for bond in structure.bonds)
-    assert {warning.code for warning in structure.warnings} == {"pdb_bond_orders_unknown"}
+    assert {warning.code for warning in structure.warnings} == {
+        "pdb_bond_orders_unknown",
+        "protein_connectivity_inferred",
+        "protein_connectivity_scope",
+    }
+    assert len(structure.inferences) == 1
+    inference = structure.inferences[0]
+    inferred = [bond for bond in structure.bonds if bond.inferred]
+    assert inference.code == "standard_protein_connectivity_v1"
+    assert inference.bond_ids == [bond.id for bond in inferred]
+    assert inference.atom_ids == sorted({
+        atom_id for bond in inferred for atom_id in (bond.atom_1_id, bond.atom_2_id)
+    })
     hierarchy = derive_component_hierarchy(structure)
     assert Counter(component.category for component in hierarchy.components) == {
         "protein": 1,

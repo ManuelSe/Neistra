@@ -27,7 +27,6 @@ from neistra_core.minimization.live import capture_digest, read_snapshot
 from neistra_core.molecular import MolecularWarning, NormalizedStructureV1
 from neistra_core.selection import SelectionV1
 from pydantic import ValidationError
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from neistra_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
@@ -37,6 +36,14 @@ from neistra_api.job_service import (
     JobNotFoundError,
     JobService,
 )
+from neistra_api.minimization_publication import (
+    get_entry,
+    get_project,
+    lock_coordinate_publication,
+    parse_calculation_source,
+    read_verified_artifact,
+    replace_selected_coordinates,
+)
 from neistra_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCreate,
@@ -44,13 +51,10 @@ from neistra_api.minimization_schemas import (
     MinimizationPreviewSource,
     MinimizationProposalRead,
 )
-from neistra_api.models import Artifact, Job, Project, StructureEntry
+from neistra_api.models import Job, Project, StructureEntry
 from neistra_api.project_service import (
-    EntryNotFoundError,
     InvalidProjectOperationError,
-    ProjectNotFoundError,
     ProjectService,
-    RevisionConflictError,
 )
 from neistra_api.schemas import ProjectRead
 from neistra_api.settings import Settings
@@ -64,40 +68,8 @@ class MinimizationService:
         self.registry = registry
         self.artifacts = ArtifactService(session, LocalArtifactStore(settings.data_dir))
 
-    def _project(self, project_id: str, expected_revision: int | None = None) -> Project:
-        project = self.session.get(Project, project_id)
-        if project is None:
-            raise ProjectNotFoundError(project_id)
-        if expected_revision is not None and project.revision != expected_revision:
-            raise RevisionConflictError(project.revision)
-        return project
-
-    @staticmethod
-    def _entry(project: Project, entry_id: str) -> StructureEntry:
-        entry = next((e for e in project.entries if e.id == entry_id), None)
-        if entry is None:
-            raise EntryNotFoundError(entry_id)
-        return entry
-
-    def _read(self, artifact_id: str) -> tuple[Artifact, bytes]:
-        artifact, data = self.artifacts.read(artifact_id)
-        if len(data) != artifact.size or hashlib.sha256(data).hexdigest() != artifact.sha256:
-            raise JobConflictError(
-                "Stored calculation data failed integrity checks; rerun from verified sources"
-            )
-        return artifact, data
-
-    @staticmethod
-    def _structure(data: bytes) -> NormalizedStructureV1:
-        try:
-            return NormalizedStructureV1.from_bytes(data)
-        except ValueError as error:
-            raise JobConflictError(
-                "Canonical source data is invalid; repair or reimport it before minimization"
-            ) from error
-
     def submit(self, project_id: str, payload: MinimizationCreate) -> Job:
-        project = self._project(project_id, payload.expected_revision)
+        project = get_project(self.session, project_id, payload.expected_revision)
         seeds: dict[str, set[int]] = defaultdict(set)
         for ref in payload.selection.atoms:
             seeds[ref.structure_id].add(ref.atom_id)
@@ -120,7 +92,7 @@ class MinimizationService:
             )
         captures: list[CapturedInput] = []
         for entry_id, members in sorted(seeds.items()):
-            entry = self._entry(project, entry_id)
+            entry = get_entry(project, entry_id)
             if entry_id in moving and entry.locked:
                 raise InvalidProjectOperationError(
                     f"Unlock {entry.name} before selecting movable atoms"
@@ -129,8 +101,8 @@ class MinimizationService:
                 raise InvalidJobOperationError(
                     "Every calculation entry needs an immutable current artifact"
                 )
-            artifact, data = self._read(entry.current_artifact_id)
-            structure = self._structure(data)
+            artifact, data = read_verified_artifact(self.artifacts, entry.current_artifact_id)
+            structure = parse_calculation_source(data)
             if not automatic and payload.conformers[entry_id] != structure.active_conformer_id:
                 raise JobConflictError(
                     "Active conformer changed; review the calculation and submit again"
@@ -197,11 +169,11 @@ class MinimizationService:
                 raise CalculationError(
                     "context_unavailable", "Entry has no canonical source", entry_id=entry.id
                 )
-            _, data = self._read(entry.current_artifact_id)
-            return self._structure(data)
+            _, data = read_verified_artifact(self.artifacts, entry.current_artifact_id)
+            return parse_calculation_source(data)
 
         selected = {ref.structure_id for ref in selection.atoms}
-        sources = {entry_id: load(self._entry(project, entry_id)) for entry_id in selected}
+        sources = {entry_id: load(get_entry(project, entry_id)) for entry_id in selected}
         return discover_context(
             sources,
             (
@@ -240,7 +212,7 @@ class MinimizationService:
         return None
 
     def _job(self, project_id: str, job_id: str) -> Job:
-        self._project(project_id)
+        get_project(self.session, project_id)
         job = JobService(self.session, self.settings, self.registry).get(job_id)
         if job.project_id != project_id or job.job_type != JOB_TYPE:
             raise JobNotFoundError(job_id)
@@ -253,7 +225,7 @@ class MinimizationService:
         result = [r for r in job.results if r.role == "proposal"]
         if len(result) != 1:
             raise JobConflictError("Calculation has no unique coordinate proposal")
-        _, data = self._read(result[0].artifact_id)
+        _, data = read_verified_artifact(self.artifacts, result[0].artifact_id)
         digest = hashlib.sha256(data).hexdigest()
         if digest != job.result_values.get("proposal_sha256") or digest != result[
             0
@@ -292,7 +264,7 @@ class MinimizationService:
                 f"Calculation is {report.outcome}; it does not meet the captured acceptance policy"
             )
         if reason is None:
-            current = {e.id: e for e in self._project(project_id).entries}
+            current = {e.id: e for e in get_project(self.session, project_id).entries}
             moving = {ref.structure_id for ref in parameters.selection.atoms}
             for capture in parameters.captured_inputs:
                 entry = current.get(capture.entry_id)
@@ -308,7 +280,9 @@ class MinimizationService:
                         reason = "Verified original identity source changed; rerun minimization"
                         break
                     try:
-                        original, _ = self._read(proof.original_artifact_id)
+                        original, _ = read_verified_artifact(
+                            self.artifacts, proof.original_artifact_id
+                        )
                     except (OSError, JobConflictError, LookupError):
                         reason = "Verified original identity source failed integrity checks"
                         break
@@ -317,7 +291,7 @@ class MinimizationService:
                         break
             if reason is None:
                 reason = self._automatic_context_reason(
-                    self._project(project_id), parameters, entries
+                    get_project(self.session, project_id), parameters, entries
                 )
         return MinimizationProposalRead(
             job_id=job.id,
@@ -350,7 +324,7 @@ class MinimizationService:
             for c in parameters.captured_inputs
             if c.entry_id in moving
         ]
-        project = self._project(project_id)
+        project = get_project(self.session, project_id)
         if project.revision != job.provenance.get("project_revision"):
             result.unavailable_reason = (
                 "Project changed; live preview ended. Inspect the final report."
@@ -368,20 +342,9 @@ class MinimizationService:
                 result.unavailable_reason = str(error)
         return result
 
-    def _lock_apply(self, project_id: str) -> None:
-        # SQLite is the supported persisted runtime. Acquire its writer lock before
-        # any dependency/retry read so separate API processes cannot publish twice.
-        connection = self.session.connection()
-        if connection.dialect.name == "sqlite":
-            connection.exec_driver_sql("BEGIN IMMEDIATE")
-        else:
-            self.session.execute(
-                select(Project.id).where(Project.id == project_id).with_for_update()
-            )
-
     def apply(self, project_id: str, job_id: str, payload: MinimizationApply) -> ProjectRead:
-        self._lock_apply(project_id)
-        project = self._project(project_id, payload.expected_revision)
+        lock_coordinate_publication(self.session, project_id)
+        project = get_project(self.session, project_id, payload.expected_revision)
         proposal = self.proposal(project_id, job_id)
         if payload.proposal_sha256 != proposal.proposal_sha256:
             raise JobConflictError("Proposal changed; inspect the current report before applying")
@@ -418,7 +381,7 @@ class MinimizationService:
         results = {p.entry_id: p for p in proposal.entries}
         prepared: list[tuple[StructureEntry, NormalizedStructureV1, NormalizedStructureV1]] = []
         for capture in params.captured_inputs:
-            entry = self._entry(project, capture.entry_id)
+            entry = get_entry(project, capture.entry_id)
             item = inputs.get(entry.id)
             if item is None or (item.artifact_id, item.artifact_sha256) != (
                 capture.artifact_id,
@@ -427,10 +390,10 @@ class MinimizationService:
                 raise JobConflictError("Immutable job inputs differ from captured dependencies")
             if entry.current_artifact_id != capture.artifact_id:
                 raise JobConflictError("Selected or fixed context changed; rerun minimization")
-            artifact, data = self._read(capture.artifact_id)
+            artifact, data = read_verified_artifact(self.artifacts, capture.artifact_id)
             if artifact.sha256 != capture.sha256:
                 raise JobConflictError("Captured source changed; rerun minimization")
-            before = self._structure(data)
+            before = parse_calculation_source(data)
             if before.active_conformer_id != capture.conformer_id or not set(capture.atom_ids) <= {
                 a.id for a in before.atoms
             }:
@@ -456,26 +419,11 @@ class MinimizationService:
                     "Coordinate proposal does not preserve the captured selection/conformer"
                 )
             updates = dict(zip(result.atom_ids, result.coordinates, strict=True))
-            changed = any(
-                max(abs(a.coordinates[j] - updates[a.id][j]) for j in range(3)) > 1e-9
-                for a in before.atoms
-                if a.id in updates
-            )
-            if not changed:
+            after = replace_selected_coordinates(before, updates, capture.conformer_id)
+            if after is None:
                 continue
-            coordinates = [updates.get(a.id, a.coordinates) for a in before.atoms]
-            after = before.model_copy(
+            after = after.model_copy(
                 update={
-                    "atoms": [
-                        a.model_copy(update={"coordinates": p}) if a.id in updates else a
-                        for a, p in zip(before.atoms, coordinates, strict=True)
-                    ],
-                    "conformers": [
-                        c.model_copy(update={"coordinates": coordinates})
-                        if c.id == capture.conformer_id
-                        else c
-                        for c in before.conformers
-                    ],
                     "annotations": [
                         *deepcopy(before.annotations),
                         {

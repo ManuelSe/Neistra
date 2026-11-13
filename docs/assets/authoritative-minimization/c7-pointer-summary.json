@@ -1,0 +1,110 @@
+{
+  "qualification": "Focused pointer correction; final complete gate/reviews pending",
+  "base": "aa8d62907e68823f1fbb0f98f9b760208a79c6f4",
+  "change": "Short passive notice text allows underlying pointer clicks. Only overflowing body captures pointer input; Close always interactive. Long scrolling/new-message reset/focus/lifetimes unchanged.",
+  "native": {
+    "startTime": "2026-11-13T18:15:02.651Z",
+    "duration": 188409.519,
+    "expected": 15,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "native_retries_failures_flakes_global_errors": 0,
+  "registered_cases": 16,
+  "existing_mobile_performance_exclusion": 1,
+  "new_exclusions": 0,
+  "unchanged_hardening_source_sha_matches": true,
+  "frontend": 503,
+  "unit": 11,
+  "static": "lint/typecheck/build/diff PASS; normal lazy chunk advisory retained",
+  "independent_ui": {
+    "verdict": "PASS correction only; global final pending",
+    "tests": 92,
+    "probe": "Shortcomputednone/underlayclick1; longregionauto/wheelscroll500; unrelatedrender500; replaced0/focusretained/Closehittable/dismissed"
+  },
+  "source_files": 759,
+  "source_manifest": "c7-pointer-source-identity.json.gz",
+  "artifacts": {
+    "browser": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-browser.json.gz",
+      "bytes": 2506398,
+      "sha256": "56ac2755eaff78a400b1b84714dd7840d3376caf30e2154e25151ec0078b7ec4"
+    },
+    "browser-log": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-browser-log.log.gz",
+      "bytes": 6460,
+      "sha256": "82248c69d2b22cd0d913f39d83d132513e76a56ca2eb4369b47e474775a76cbf"
+    },
+    "unit": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-unit.log.gz",
+      "bytes": 287,
+      "sha256": "39d2a1c04f3dde79adb56240eaefa9e4f9bb83d87565b9ee66b65cd1f3aabfba"
+    },
+    "lint": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-lint.log.gz",
+      "bytes": 88,
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b"
+    },
+    "types": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-types.log.gz",
+      "bytes": 89,
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7"
+    },
+    "build": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-build.log.gz",
+      "bytes": 1244,
+      "sha256": "a3c04388524af1a6fa1b5237feefbef08e4b199f8897836f27eaa163e9a349e2"
+    },
+    "frontend": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-frontend.log.gz",
+      "bytes": 9147,
+      "sha256": "869200fa26c0baf4191f3fec66540fa3e3f50d432de077ed5fad95e7bb65efe7"
+    },
+    "ui-probe": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-ui-probe.json.gz",
+      "bytes": 506,
+      "sha256": "81286c44b078629978e4c2b4b441b9adff9425b4942e9dd0980acd298aa25b0b"
+    },
+    "ui-tests": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-ui-tests.log.gz",
+      "bytes": 400,
+      "sha256": "b4ef81a205f317b71dc7611a42edc5ace919d91f171af58bf769b9721efe8f6b"
+    },
+    "recipe": {
+      "path": "docs/assets/authoritative-minimization/c7-pointer-native-recipe.json",
+      "bytes": 1954,
+      "sha256": "1487a0eb08a32258c9dc704f4beec214eb4c3c71dfb94b7805b832adbf842978"
+    }
+  },
+  "commands": {
+    "native": [
+      "corepack",
+      "pnpm",
+      "exec",
+      "playwright",
+      "test",
+      "tests/e2e/viewer-notifications.spec.ts",
+      "tests/e2e/release-hardening.spec.ts:165",
+      "--output=/tmp/neistra137-notice-bounds-native7-results",
+      "--reporter=line,json",
+      "--max-failures=1"
+    ],
+    "frontend": "corepack pnpm --dir apps/web test"
+  },
+  "limitations": "Focused evidence is not the complete candidate gate. Original user image/UUID excluded. Earlier candidate failures/interruption retained separately; no partial browser reuse. Quiet-success scientific disclosure evidence remains unchanged; full next gate reexecutes every case.",
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra137-notice-bounds-native7",
+    "NEISTRA_E2E_API_PORT": "18530",
+    "NEISTRA_E2E_WORKER_PORT": "18531",
+    "NEISTRA_E2E_WEB_PORT": "15683",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/tmp/neistra137-notice-bounds-native7.json",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0"
+  },
+  "environment_mode": "These are the exact explicit env overrides; remaining environment was inherited by the original command.",
+  "native_recipe": "c7-pointer-native-recipe.json"
+}

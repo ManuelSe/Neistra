@@ -1,5 +1,5 @@
 import { useMinimizationPreview } from "../minimization/useMinimizationPreview";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, onlineManager } from "@tanstack/react-query";
 import { act, cleanup, fireEvent, render, renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, expect, it, vi } from "vitest";
@@ -12,6 +12,8 @@ import { useMinimization } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
 import { useWorkspaceStore } from "../store/workspace";
 import { molecularEntry, molecularProject, proteinStructure } from "./molecular-fixtures";
+import type { QuickPublicationAttempt, QuickPublicationController, QuickPublicationState } from "../minimization/publication";
+import { MinimizationPanel } from "../components/MinimizationPanel";
 
 const selection: Selection = { schema_version: 1, granularity: "atom", source: "inspector", atoms: [{ structure_id: "protein", atom_id: 1 }] };
 const project = () => molecularProject([molecularEntry("protein", "Protein", "protein"), { ...molecularEntry("ligand", "Hidden ligand", "ligand"), visible: false, locked: true }]);
@@ -86,14 +88,18 @@ it("handles Ctrl+M once while respecting typing, composition modifiers, repeated
   expect(run).toHaveBeenCalledTimes(1); view.unmount();
   fireEvent.keyDown(window, { key: "m", ctrlKey: true }); expect(run).toHaveBeenCalledTimes(1);
 });
-function workflow() {
+function workflow(publication?: QuickPublicationController,
+  dispatch?: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>) {
   const p = project(); useWorkspaceStore.setState({ activeProjectId: p.id }); useMinimizationStore.getState().setProject(p.id);
   const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   const wrapper = ({ children }: { children: ReactNode }) => <QueryClientProvider client={client}>{children}</QueryClientProvider>;
-  const commit = vi.fn((operation: () => Promise<Project>) => operation());
+  const commit = vi.fn((operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => dispatch ? dispatch(operation, quick) : operation());
   const notice = vi.fn();
-  const hook = renderHook(() => { const w = useMinimization(p, selection, commit, undefined, notice); return { ...w, ...useMinimizationPreview(p, w) }; }, { wrapper });
-  return { ...hook, client, commit, notice, p };
+  const hook = renderHook(({ currentProject, currentSelection }) => {
+    const w = useMinimization(currentProject, currentSelection, commit, undefined, notice, publication);
+    return { ...w, ...useMinimizationPreview(currentProject, w) };
+  }, { wrapper, initialProps: { currentProject: p, currentSelection: selection } });
+  return { ...hook, client, commit, notice, p, wrapper };
 }
 it("Ctrl+M submits quick work exactly once and never applies cancelled work", async () => {
   const source = vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
@@ -328,9 +334,10 @@ it("opens quick setup without submitting or arming publication", async () => {
   expect(submit).not.toHaveBeenCalled(); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
 
-it("applies quietly without stealing focus and reports scientific warnings once", async () => {
+it("applies quietly without stealing focus and retains scientific warnings without a popup", async () => {
   completedQuick();
-  const result = quickProposal(); result.report.warnings = ["Approximate repair omits electrostatics."];
+  const result = quickProposal();
+  result.report.warnings = Array.from({ length: 500 }, (_, i) => `entry-uuid: Residue ${i}: approximate repair omits electrostatics.`);
   vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(result);
   const apply = vi.spyOn(quickMinimizationApi, "apply").mockResolvedValue(project());
   const button = document.createElement("button"); document.body.append(button); button.focus();
@@ -338,10 +345,10 @@ it("applies quietly without stealing focus and reports scientific warnings once"
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.result.current.state.applied).toBe(true));
   expect(w.result.current.open).toBe(false); expect(document.activeElement).toBe(button);
-  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).toHaveBeenCalledOnce();
-  expect(w.notice).toHaveBeenCalledWith({ kind: "success", lifetime: "persistent", text: "Converged Approximate repair omits electrostatics. Details remain in Jobs → Inspect minimization." });
+  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).not.toHaveBeenCalled();
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.report.warnings).toEqual(result.report.warnings);
   await act(async () => { await w.client.invalidateQueries({ queryKey: ["minimization-proposal"] }); });
-  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).toHaveBeenCalledOnce();
+  expect(apply).toHaveBeenCalledOnce(); expect(w.notice).not.toHaveBeenCalled();
   w.client.clear(); button.remove();
 });
 
@@ -373,6 +380,7 @@ it("does not open a closed panel for failed jobs and disarms later publication",
   const apply = vi.spyOn(quickMinimizationApi, "apply"); const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Worker failed" }));
+  expect(w.result.current.state.error).toBe("Worker failed");
   expect(w.result.current.open).toBe(false); expect(w.result.current.state.autoApply).toBe(false);
   expect(apply).not.toHaveBeenCalled(); w.client.clear();
 });
@@ -409,14 +417,17 @@ it("disarms externally cancelled shortcut work without a new notification", asyn
 });
 
 
-it("surfaces hidden report refusal without publishing or opening a panel", async () => {
+it.each(["blocked", "failed"] as const)("summarizes a hidden %s report without dumping diagnostics or opening a panel", async outcome => {
   completedQuick(); const result = quickProposal(); result.applicable = false;
-  result.report.outcome = "blocked"; result.unavailable_reason = "Context changed; recalculate.";
+  result.report.outcome = outcome; result.unavailable_reason = "entry-uuid: Context changed; recalculate. ".repeat(500);
+  result.report.warnings = Array.from({ length: 500 }, (_, i) => `Residue ${i}: chemistry diagnostic.`);
   vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(result);
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledOnce());
-  expect(w.notice).toHaveBeenCalledWith({ kind: "success", lifetime: "persistent", text: "Context changed; recalculate. Details remain in Jobs → Inspect minimization." });
+  expect(w.notice).toHaveBeenCalledWith({ kind: "error", lifetime: "persistent", text: "Quick minimization needs review. See Jobs → Inspect minimization." });
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.unavailable_reason).toBe(result.unavailable_reason);
+  expect(w.client.getQueryData<QuickMinimizationProposal>(["minimization-proposal", w.p.id, result.job_id])?.report.warnings).toEqual(result.report.warnings);
   expect(w.result.current.open).toBe(false); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
 
@@ -428,6 +439,7 @@ it("reports a hidden job read failure and disarms automatic publication", async 
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
   await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Job status unavailable" }));
+  expect(w.result.current.state.error).toBe("Job status unavailable");
   expect(w.result.current.state.autoApply).toBe(false); expect(w.result.current.open).toBe(false);
   expect(cancel).toHaveBeenCalledExactlyOnceWith(job.id);
   expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
@@ -442,4 +454,222 @@ it("surfaces a hidden Apply rejection without claiming success or retrying it", 
   expect(w.result.current.state.applied).toBe(false); expect(w.result.current.open).toBe(false);
   await act(async () => { await w.client.invalidateQueries({ queryKey: ["minimization-proposal"] }); });
   expect(apply).toHaveBeenCalledOnce(); w.client.clear();
+});
+
+function publicationController(initial: QuickPublicationState) {
+  let snapshot = initial;
+  const listeners = new Set<() => void>();
+  const controller: QuickPublicationController = {
+    snapshot: () => snapshot,
+    subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener); }; },
+    start: vi.fn(() => Promise.resolve(project())), refresh: vi.fn(() => Promise.resolve(project())), retry: vi.fn(() => Promise.resolve(project())),
+    attachProject: vi.fn(() => Promise.resolve()), assertWritable: vi.fn(),
+  };
+  return { controller, emit: (next: QuickPublicationState) => { snapshot = next; listeners.forEach(listener => listener()); } };
+}
+const publicationAttempt = (): QuickPublicationAttempt => ({ projectId: project().id, jobId: "job", proposalSha256: "digest", expectedRevision: project().revision, origin: "automatic" });
+
+it("passes captured automatic and manual quick publication descriptors through the shared commit seam", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  vi.spyOn(quickMinimizationApi, "apply").mockResolvedValue({ ...project(), revision: project().revision + 1 });
+  const automatic = workflow();
+  await act(async () => { await automatic.result.current.quick(); });
+  await waitFor(() => expect(automatic.result.current.state.applied).toBe(true));
+  expect(automatic.commit.mock.calls[0][1]).toEqual(publicationAttempt());
+  automatic.unmount(); automatic.client.clear();
+  useMinimizationStore.getState().setProject(project().id);
+  const manual = workflow();
+  act(() => useMinimizationStore.getState().inspect(manual.p.id, "job"));
+  await waitFor(() => expect(manual.result.current.proposal).toBeDefined());
+  await act(async () => { await manual.result.current.apply(); });
+  expect(manual.commit.mock.calls[0][1]).toEqual({ ...publicationAttempt(), origin: "manual" });
+  manual.client.clear();
+});
+
+it("reveals application recovery after the preview session closes and keeps refresh and retry explicit", async () => {
+  const initial: QuickPublicationState = { phase: "uncertain", attempt: publicationAttempt(), receipt: null, error: "Response was lost" };
+  const recovery = publicationController(initial);
+  const w = workflow(recovery.controller);
+  act(() => useMinimizationStore.getState().dismiss());
+  await act(async () => { await w.result.current.show(); });
+  expect(w.result.current.state.recovery).toBe(true);
+  const view = render(<MinimizationPanel workflow={w.result.current} unavailable="Finish the current change" onOpen={() => {}} />, { wrapper: w.wrapper });
+  expect(view.getByRole("region", { name: "Coordinate application recovery" })).toBeVisible();
+  expect(view.getByRole("button", { name: "Retry application" })).toBeEnabled();
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Refresh result" })); });
+  expect(recovery.controller.refresh).toHaveBeenCalledExactlyOnceWith(w.p.id);
+  expect(recovery.controller.retry).not.toHaveBeenCalled();
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Retry application" })); });
+  expect(recovery.controller.retry).toHaveBeenCalledExactlyOnceWith(w.p.id);
+  act(() => { fireEvent.click(view.getByRole("button", { name: "Close minimization" })); });
+  expect(w.result.current.open).toBe(false);
+  expect(recovery.controller.snapshot(w.p.id)).toEqual(initial);
+  await act(async () => { await w.result.current.show(); });
+  expect(w.result.current.open).toBe(true);
+  expect(w.result.current.state.recovery).toBe(true);
+  expect(w.result.current.state.autoApply).toBe(false);
+  w.client.clear();
+});
+
+it("renders invalid recovery as refresh-only and distinguishes a previously recorded application from current coordinates", async () => {
+  const recovery = publicationController({ phase: "uncertain", attempt: null, receipt: null, error: "Invalid recovery information" });
+  const w = workflow(recovery.controller);
+  await act(async () => { await w.result.current.show(); });
+  const panel = () => <MinimizationPanel workflow={w.result.current} unavailable={null} onOpen={() => {}} />;
+  const view = render(panel(), { wrapper: w.wrapper });
+  expect(view.getByRole("button", { name: "Retry application" })).toBeDisabled();
+  act(() => recovery.emit({ phase: "reconciling", attempt: null, receipt: null, error: null }));
+  view.rerender(panel());
+  expect(view.getByRole("button", { name: "Refresh result" })).toBeDisabled();
+  expect(view.getByRole("status")).toHaveTextContent("Checking whether coordinates were applied");
+  act(() => recovery.emit({ phase: "idle", attempt: null, receipt: { jobId: "job", revision: w.p.revision - 1, proposalSha256: "digest" }, error: null }));
+  view.rerender(panel());
+  expect(view.getByRole("status")).toHaveTextContent("recorded previously");
+  expect(view.queryByText("Quick coordinates applied. Undo restores the previous coordinates.")).toBeNull();
+  expect(view.queryByRole("button", { name: "Retry application" })).toBeNull();
+  w.client.clear();
+});
+
+it("does not mark reconciled coordinates currently applied after a later Undo or edit", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  const recovery = publicationController({ phase: "idle", attempt: null, receipt: null, error: null });
+  const w = workflow(recovery.controller, (_operation, descriptor) => {
+    expect(descriptor).toEqual(publicationAttempt());
+    recovery.emit({ phase: "idle", attempt: null, receipt: { jobId: "job", revision: project().revision + 1, proposalSha256: "digest" }, error: null });
+    return Promise.resolve({ ...project(), revision: project().revision + 2 });
+  });
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.commit).toHaveBeenCalledOnce());
+  expect(w.result.current.state.applied).toBe(false);
+  expect(w.result.current.state.recovery).toBe(true);
+  expect(w.result.current.open).toBe(false);
+  expect(w.notice).not.toHaveBeenCalled();
+  w.client.clear();
+});
+
+it("retains the application-owned recovery diagnostic instead of replacing it with a raw transport error", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  const recovery = publicationController({ phase: "idle", attempt: null, receipt: null, error: null });
+  const w = workflow(recovery.controller, () => {
+    recovery.emit({ phase: "uncertain", attempt: publicationAttempt(), receipt: null, error: "Read unavailable" });
+    return Promise.reject(new Error("Read unavailable"));
+  });
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.result.current.state.error).toBe("Read unavailable"));
+  expect(w.result.current.publicationPending).toBe(true);
+  expect(w.result.current.open).toBe(false);
+  expect(w.notice).not.toHaveBeenCalled();
+  w.client.clear();
+});
+
+it("rechecks capabilities without changing the draft or submitting and rejects retained Run after a failed refresh", async () => {
+  const caps = { model: "quick-local-v1" as const, available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} };
+  const check = vi.spyOn(quickMinimizationApi, "capabilities").mockResolvedValue(caps);
+  const submit = vi.spyOn(quickMinimizationApi, "submit");
+  const w = workflow();
+  await act(async () => { await w.result.current.show(); });
+  await waitFor(() => expect(w.result.current.capabilitiesReady).toBe(true));
+  act(() => { w.result.current.expandHydrogens(false); w.result.current.allowRepair(false); w.result.current.iterations(37); });
+  const draft = w.result.current.state.draft;
+  const retainedRun = w.result.current.run;
+  let reject!: (error: Error) => void;
+  check.mockImplementationOnce(() => new Promise((_resolve, fail) => { reject = fail; }));
+  let checking!: Promise<void>;
+  act(() => { checking = w.result.current.recheckCapabilities(); });
+  await waitFor(() => expect(w.result.current.capabilitiesLoading).toBe(true));
+  await act(async () => { await retainedRun(); });
+  expect(submit).not.toHaveBeenCalled();
+  await act(async () => { reject(new Error("Availability transport failed")); await checking; });
+  await waitFor(() => expect(w.result.current.capabilitiesError).toContain("Availability transport failed"));
+  expect(w.result.current.capabilities?.available).toBe(true);
+  expect(w.result.current.capabilitiesReady).toBe(false);
+  expect(w.result.current.capabilitiesError).toContain("Availability transport failed");
+  expect(w.result.current.state.draft).toBe(draft);
+  await act(async () => { await w.result.current.quick(); });
+  expect(submit).not.toHaveBeenCalled();
+  expect(w.result.current.state.draft).toBe(draft);
+  await act(async () => { await retainedRun(); });
+  expect(submit).not.toHaveBeenCalled();
+  check.mockResolvedValueOnce({ ...caps, available: false, unavailable_reason: "Quick plugin disabled" });
+  await act(async () => { await w.result.current.recheckCapabilities(); await retainedRun(); });
+  expect(submit).not.toHaveBeenCalled();
+  expect(w.result.current.error).toBe("Quick plugin disabled");
+  check.mockResolvedValueOnce(caps);
+  await act(async () => { await w.result.current.recheckCapabilities(); });
+  await waitFor(() => expect(w.result.current.capabilitiesReady).toBe(true));
+  expect(w.result.current.state.draft).toBe(draft);
+  expect(submit).not.toHaveBeenCalled();
+  w.client.clear();
+});
+
+it("explicitly recaptures current targets while retaining settings and surviving manual choices without submitting", async () => {
+  vi.spyOn(quickMinimizationApi, "capabilities").mockResolvedValue({ model: "quick-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
+  const submit = vi.spyOn(quickMinimizationApi, "submit");
+  const w = workflow();
+  const first = { ...w.p, entries: [...w.p.entries, molecularEntry("removed", "Removed context", "ligand")] };
+  w.rerender({ currentProject: first, currentSelection: selection });
+  await act(async () => { await w.result.current.show(); await w.result.current.mode("environment"); });
+  act(() => { w.result.current.include("ligand", true); w.result.current.include("removed", true);
+    w.result.current.expandHydrogens(false); w.result.current.allowRepair(false); w.result.current.iterations(37); });
+  const before = w.result.current.state;
+  const latest = { ...w.p, revision: w.p.revision + 1, entries: w.p.entries.map(entry => ({ ...entry, locked: false })) };
+  const selected: Selection = { ...selection, atoms: [{ structure_id: "ligand", atom_id: 1 }] };
+  w.rerender({ currentProject: latest, currentSelection: selected });
+  expect(w.result.current.state.draft?.selection).toEqual(selection);
+  expect(w.result.current.state.draft?.project.revision).toBe(first.revision);
+  expect(w.result.current.requestError).toBe("Project changed. Use current selection to refresh this setup.");
+  await act(async () => { await w.result.current.run(); });
+  expect(submit).not.toHaveBeenCalled();
+  expect(w.result.current.state.draft).toBe(before.draft);
+  expect(w.result.current.state.autoApply).toBe(false);
+  act(() => { w.result.current.recapture(); });
+  const next = w.result.current.state;
+  expect(next.generation).toBe(before.generation + 1);
+  expect(next.draft).toMatchObject({ project: latest, selection: selected, mode: "environment", expandHydrogens: false, allowRepair: false, iterations: 37 });
+  expect([...next.draft!.included]).toEqual(["ligand"]);
+  expect(next.jobId).toBeNull(); expect(next.autoApply).toBe(false);
+  expect(w.result.current.quickSummary).toMatchObject({ requested: 1, movable: null, fixed: null });
+  selected.atoms[0].atom_id = 99;
+  expect(next.draft?.selection.atoms[0].atom_id).toBe(1);
+  expect(submit).not.toHaveBeenCalled();
+  w.client.clear();
+});
+
+it("shows quick capability reasons beside Run and keeps scientific controls under More settings", async () => {
+  vi.spyOn(quickMinimizationApi, "capabilities").mockResolvedValue({ model: "quick-local-v1", available: false, unavailable_reason: "Quick plugin disabled", prerequisites: [], scientific_limits: [], limits: {} });
+  const w = workflow();
+  await act(async () => { await w.result.current.show(); });
+  await waitFor(() => expect(w.result.current.capabilitiesLoading).toBe(false));
+  const panel = () => <MinimizationPanel workflow={w.result.current} unavailable={null} onOpen={() => {}} />;
+  const view = render(panel(), { wrapper: w.wrapper });
+  expect(view.getByRole("status")).toHaveTextContent("Quick plugin disabled");
+  expect(view.getByRole("button", { name: "Run quick minimization" })).toBeDisabled();
+  expect(view.getByRole("button", { name: "Check again" })).toBeEnabled();
+  expect(view.getByText("More settings").closest("details")).not.toHaveAttribute("open");
+  expect(view.getByLabelText("Move attached terminal hydrogens").closest("details")).toBeNull();
+  act(() => { w.result.current.expandHydrogens(false); }); view.rerender(panel());
+  expect(view.getByRole("dialog")).toHaveAccessibleDescription("Only captured selected atoms move. Unselected atoms stay fixed.");
+  w.client.clear();
+});
+
+it("does not authorize stale availability while an offline recheck is paused", async () => {
+  const check = vi.spyOn(quickMinimizationApi, "capabilities").mockResolvedValue({ model: "quick-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
+  const submit = vi.spyOn(quickMinimizationApi, "submit");
+  const w = workflow();
+  await act(async () => { await w.result.current.show(); });
+  await waitFor(() => expect(w.result.current.capabilitiesReady).toBe(true));
+  const retainedRun = w.result.current.run;
+  let checking!: Promise<void>;
+  try {
+    act(() => { onlineManager.setOnline(false); checking = w.result.current.recheckCapabilities(); });
+    await waitFor(() => expect(w.result.current.capabilitiesPaused).toBe(true));
+    expect(w.result.current.capabilitiesLoading).toBe(false);
+    expect(w.result.current.capabilitiesReady).toBe(false);
+    await act(async () => { await retainedRun(); await w.result.current.quick(); });
+    expect(submit).not.toHaveBeenCalled();
+    expect(check).toHaveBeenCalledOnce();
+    await act(async () => { onlineManager.setOnline(true); await checking; });
+    await waitFor(() => expect(w.result.current.capabilitiesReady).toBe(true));
+    expect(submit).not.toHaveBeenCalled();
+  } finally { onlineManager.setOnline(true); w.client.clear(); }
 });
