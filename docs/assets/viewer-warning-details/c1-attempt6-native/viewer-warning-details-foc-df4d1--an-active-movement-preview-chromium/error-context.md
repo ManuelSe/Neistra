@@ -1,0 +1,388 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - button "Projects" [ref=e5] [cursor=pointer]:
+        - generic [ref=e7] [cursor=pointer]: Neistra
+      - button "Warning movement 1794554011586 Unsaved changes" [ref=e8] [cursor=pointer]:
+        - generic [ref=e9] [cursor=pointer]: Warning movement 1794554011586
+      - generic [ref=e11]:
+        - button "Import structures" [ref=e12] [cursor=pointer]:
+          - img [ref=e13] [cursor=pointer]
+        - button "Export" [ref=e16] [cursor=pointer]:
+          - img [ref=e17] [cursor=pointer]
+        - button "Jobs" [ref=e23] [cursor=pointer]:
+          - img [ref=e24] [cursor=pointer]
+        - 'button "Undo: Import 1 structures from 1 files" [ref=e29] [cursor=pointer]':
+          - img [ref=e30] [cursor=pointer]
+        - button "Redo" [disabled] [ref=e33]:
+          - img [ref=e34]
+        - button "Save checkpoint" [ref=e37] [cursor=pointer]:
+          - img [ref=e38] [cursor=pointer]
+        - button "Use dark theme" [ref=e43] [cursor=pointer]:
+          - img [ref=e44] [cursor=pointer]
+    - generic [ref=e47]:
+      - region "Project browser" [ref=e49]:
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]: Project
+            - heading "Structures" [level=2] [ref=e53]
+          - button "New molecule" [ref=e54]
+          - button "Collapse project browser" [ref=e55] [cursor=pointer]:
+            - img [ref=e56] [cursor=pointer]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - img [ref=e63]
+                - generic [ref=e66]: Search structures
+                - textbox "Search structures" [ref=e67]
+              - group [ref=e68]:
+                - option "All types" [selected]
+                - option "Protein"
+                - option "Ligand"
+                - option "Complex"
+                - option "Solvent"
+                - option "Unknown"
+                - option "Name" [selected]
+                - option "Type"
+                - option "Atom count"
+                - option "Modified"
+            - generic [ref=e71]:
+              - generic [ref=e73]:
+                - img [ref=e75]
+                - button "Ethanol Modified" [pressed] [ref=e82] [cursor=pointer]:
+                  - img [ref=e83] [cursor=pointer]
+                  - generic [ref=e86] [cursor=pointer]: Ethanol
+                  - generic [ref=e88] [cursor=pointer]: Modified
+                - generic [ref=e89]:
+                  - button "Hide Ethanol" [ref=e90] [cursor=pointer]:
+                    - img [ref=e91] [cursor=pointer]
+                  - button "Lock Ethanol" [ref=e94] [cursor=pointer]:
+                    - img [ref=e95] [cursor=pointer]
+                  - button "Actions for Ethanol" [ref=e98] [cursor=pointer]:
+                    - img [ref=e99] [cursor=pointer]
+              - generic [ref=e104]:
+                - img [ref=e106]
+                - button "string 2 warnings; open Details for messages Modified" [ref=e113] [cursor=pointer]:
+                  - img [ref=e114] [cursor=pointer]
+                  - generic [ref=e117] [cursor=pointer]: string
+                  - generic [ref=e118] [cursor=pointer]:
+                    - img [ref=e119] [cursor=pointer]
+                    - generic [ref=e121] [cursor=pointer]: 2 warnings; open Details for messages
+                  - generic [ref=e123] [cursor=pointer]: Modified
+                - generic [ref=e124]:
+                  - button "Hide string" [ref=e125] [cursor=pointer]:
+                    - img [ref=e126] [cursor=pointer]
+                  - button "Lock string" [ref=e129] [cursor=pointer]:
+                    - img [ref=e130] [cursor=pointer]
+                  - button "Actions for string" [ref=e133] [cursor=pointer]:
+                    - img [ref=e134] [cursor=pointer]
+              - generic [ref=e139]:
+                - img [ref=e141]
+                - button "string 2 warnings; open Details for messages Modified" [ref=e148] [cursor=pointer]:
+                  - img [ref=e149] [cursor=pointer]
+                  - generic [ref=e152] [cursor=pointer]: string
+                  - generic [ref=e153] [cursor=pointer]:
+                    - img [ref=e154] [cursor=pointer]
+                    - generic [ref=e156] [cursor=pointer]: 2 warnings; open Details for messages
+                  - generic [ref=e158] [cursor=pointer]: Modified
+                - generic [ref=e159]:
+                  - button "Hide string" [ref=e160] [cursor=pointer]:
+                    - img [ref=e161] [cursor=pointer]
+                  - button "Lock string" [ref=e164] [cursor=pointer]:
+                    - img [ref=e165] [cursor=pointer]
+                  - button "Actions for string" [ref=e168] [cursor=pointer]:
+                    - img [ref=e169] [cursor=pointer]
+          - separator "Resize entries and components" [ref=e173]
+          - region "Component browser" [ref=e175]:
+            - generic [ref=e176]:
+              - heading "Components" [level=3] [ref=e177]
+              - button "Collapse components" [ref=e178] [cursor=pointer]:
+                - img [ref=e179] [cursor=pointer]
+            - paragraph [ref=e181]: Choose an entry to browse components
+      - separator "Resize project browser" [ref=e182]
+      - generic [ref=e184]:
+        - main [ref=e186]:
+          - generic [ref=e187]:
+            - generic [ref=e188]:
+              - region "3D molecular viewer" [ref=e189]
+              - group "Move selection canvas" [ref=e197]
+              - generic:
+                - status:
+                  - generic: 3 visible / 3 loaded / 3 selected
+                  - button "Inspect 4 warnings for visible structures" [expanded] [ref=e198] [cursor=pointer]:
+                    - img [ref=e199] [cursor=pointer]
+                    - text: 4 warnings
+                - toolbar "Viewer quick actions" [ref=e201]:
+                  - button "Detach viewer" [ref=e202] [cursor=pointer]:
+                    - img [ref=e203] [cursor=pointer]
+                  - generic [ref=e206]: Pick
+                  - group "Viewer picking mode" [ref=e207]:
+                    - button "Pick atoms" [disabled] [pressed] [ref=e208] [cursor=pointer]: Atom
+                    - button "Pick residues" [disabled] [ref=e209] [cursor=pointer]: Residue
+                    - button "Pick chains" [disabled] [ref=e210] [cursor=pointer]: Chain
+                    - button "Pick structures" [disabled] [ref=e211] [cursor=pointer]: Structure
+                  - group "Viewer focus actions" [ref=e212]:
+                    - button "Fit all visible" [disabled] [ref=e213]:
+                      - img [ref=e214]
+                    - button "Focus selection" [disabled] [ref=e215]:
+                      - img [ref=e216]
+                    - button "Focus visible ligands" [disabled] [ref=e222]:
+                      - img [ref=e223]
+                    - button "Style selection" [disabled] [ref=e226]:
+                      - img [ref=e227]
+                    - button "Interactions" [ref=e233] [cursor=pointer]:
+                      - img [ref=e234] [cursor=pointer]
+                - group "Molecular tools" [ref=e239]:
+                  - region "Move selection controls" [ref=e240]:
+                    - generic [ref=e241]:
+                      - generic [ref=e242]: 3 atoms
+                      - button "Adjust view" [ref=e243] [cursor=pointer]:
+                        - img [ref=e244] [cursor=pointer]
+                      - button "Apply movement" [ref=e247] [cursor=pointer]:
+                        - img [ref=e248] [cursor=pointer]
+                      - button "Cancel movement" [ref=e250] [cursor=pointer]:
+                        - img [ref=e251] [cursor=pointer]
+                      - button "More movement tools" [ref=e254] [cursor=pointer]:
+                        - img [ref=e255] [cursor=pointer]
+                      - button "Movement help and scientific limits" [ref=e259] [cursor=pointer]:
+                        - img [ref=e260] [cursor=pointer]
+                    - status [ref=e262]: Transforming selection
+                    - paragraph [ref=e263]: "Mouse: left drag rotates; right or Ctrl-drag translates. Hold Space on the canvas to adjust the view. Escape cancels. Unconstrained movement may distort bonds or create clashes. Open movement help for scientific limits."
+                  - button "Minimize selection" [disabled] [ref=e265]:
+                    - img [ref=e266]
+            - region "Protein sequence viewer" [ref=e268]:
+              - generic [ref=e269]:
+                - button "Collapse sequences" [expanded] [ref=e270] [cursor=pointer]:
+                  - img [ref=e271] [cursor=pointer]
+                - generic [ref=e273]: Sequence
+                - generic [ref=e274]: 2 chains
+                - button "Hide sequences" [ref=e275] [cursor=pointer]:
+                  - img [ref=e276] [cursor=pointer]
+              - list "Displayed protein chains" [ref=e280]:
+                - generic [ref=e281]:
+                  - listitem [ref=e282]:
+                    - generic [ref=e283]:
+                      - generic "string · entry 1 · chain A" [ref=e284]:
+                        - generic [ref=e285]: string · entry 1
+                        - generic [ref=e286]: Chain A
+                      - list "Residues · chain A in string · entry 1" [ref=e288]:
+                        - listitem [ref=e289]:
+                          - button "GLY 10A · chain A in string · entry 1" [ref=e290] [cursor=pointer]:
+                            - generic [ref=e291] [cursor=pointer]: G
+                            - generic [ref=e292] [cursor=pointer]: 10A
+                  - listitem [ref=e293]:
+                    - generic [ref=e294]:
+                      - generic "string · entry 2 · chain A" [ref=e295]:
+                        - generic [ref=e296]: string · entry 2
+                        - generic [ref=e297]: Chain A
+                      - list "Residues · chain A in string · entry 2" [ref=e299]:
+                        - listitem [ref=e300]:
+                          - button "GLY 10A · chain A in string · entry 2" [ref=e301] [cursor=pointer]:
+                            - generic [ref=e302] [cursor=pointer]: G
+                            - generic [ref=e303] [cursor=pointer]: 10A
+        - separator "Resize lower panel" [ref=e304]
+        - region "Properties and history" [ref=e306]:
+          - generic [ref=e307]:
+            - tablist "Lower panel views" [ref=e308]:
+              - tab "Properties" [selected] [ref=e309] [cursor=pointer]:
+                - img [ref=e310] [cursor=pointer]
+                - text: Properties
+              - tab "History" [ref=e312] [cursor=pointer]:
+                - img [ref=e313] [cursor=pointer]
+                - text: History
+              - tab "Jobs" [ref=e317] [cursor=pointer]:
+                - img [ref=e318] [cursor=pointer]
+                - text: Jobs
+            - button "Collapse lower panel" [ref=e322] [cursor=pointer]:
+              - img [ref=e323] [cursor=pointer]
+          - region "Selected atom properties" [ref=e325]:
+            - table [ref=e326]:
+              - rowgroup [ref=e327]:
+                - row "Structure Index Atom Element Residue Chain Charge X Y Z" [ref=e328]:
+                  - cell "Structure" [ref=e329]
+                  - cell "Index" [ref=e330]
+                  - cell "Atom" [ref=e331]
+                  - cell "Element" [ref=e332]
+                  - cell "Residue" [ref=e333]
+                  - cell "Chain" [ref=e334]
+                  - cell "Charge" [ref=e335]
+                  - cell "X" [ref=e336]
+                  - cell "Y" [ref=e337]
+                  - cell "Z" [ref=e338]
+              - rowgroup [ref=e339]:
+                - row "Ethanol 1 C1 C LIG 1 - 0 -1.200 0.000 0.000" [ref=e340] [cursor=pointer]:
+                  - cell "Ethanol" [ref=e341] [cursor=pointer]
+                  - cell "1" [ref=e342] [cursor=pointer]
+                  - cell "C1" [ref=e343] [cursor=pointer]
+                  - cell "C" [ref=e344] [cursor=pointer]
+                  - cell "LIG 1" [ref=e345] [cursor=pointer]
+                  - cell "-" [ref=e346] [cursor=pointer]
+                  - cell "0" [ref=e347] [cursor=pointer]
+                  - cell "-1.200" [ref=e348] [cursor=pointer]
+                  - cell "0.000" [ref=e349] [cursor=pointer]
+                  - cell "0.000" [ref=e350] [cursor=pointer]
+                - row "Ethanol 2 C2 C LIG 1 - 0 0.000 0.000 0.000" [ref=e351] [cursor=pointer]:
+                  - cell "Ethanol" [ref=e352] [cursor=pointer]
+                  - cell "2" [ref=e353] [cursor=pointer]
+                  - cell "C2" [ref=e354] [cursor=pointer]
+                  - cell "C" [ref=e355] [cursor=pointer]
+                  - cell "LIG 1" [ref=e356] [cursor=pointer]
+                  - cell "-" [ref=e357] [cursor=pointer]
+                  - cell "0" [ref=e358] [cursor=pointer]
+                  - cell "0.000" [ref=e359] [cursor=pointer]
+                  - cell "0.000" [ref=e360] [cursor=pointer]
+                  - cell "0.000" [ref=e361] [cursor=pointer]
+                - row "Ethanol 3 O3 O LIG 1 - 0 1.200 0.000 0.000" [ref=e362] [cursor=pointer]:
+                  - cell "Ethanol" [ref=e363] [cursor=pointer]
+                  - cell "3" [ref=e364] [cursor=pointer]
+                  - cell "O3" [ref=e365] [cursor=pointer]
+                  - cell "O" [ref=e366] [cursor=pointer]
+                  - cell "LIG 1" [ref=e367] [cursor=pointer]
+                  - cell "-" [ref=e368] [cursor=pointer]
+                  - cell "0" [ref=e369] [cursor=pointer]
+                  - cell "1.200" [ref=e370] [cursor=pointer]
+                  - cell "0.000" [ref=e371] [cursor=pointer]
+                  - cell "0.000" [ref=e372] [cursor=pointer]
+      - separator "Resize inspector" [ref=e373]
+      - region "Project inspector" [ref=e375]:
+        - generic [ref=e376]:
+          - generic [ref=e377]:
+            - generic [ref=e378]: Inspector
+            - heading "Transform" [level=2] [ref=e379]
+          - button "Collapse inspector" [ref=e380] [cursor=pointer]:
+            - img [ref=e381] [cursor=pointer]
+        - tablist "Inspector views" [ref=e383]:
+          - tab "selection" [ref=e384] [cursor=pointer]
+          - tab "inspect" [ref=e385] [cursor=pointer]
+          - tab "measurements" [ref=e386] [cursor=pointer]
+          - tab "transform" [selected] [ref=e387] [cursor=pointer]
+          - tab "ligand" [ref=e388] [cursor=pointer]
+          - tab "protein" [ref=e389] [cursor=pointer]
+          - tab "details" [ref=e390] [cursor=pointer]
+        - tabpanel "transform" [ref=e391]:
+          - generic [ref=e392]:
+            - generic [ref=e393]:
+              - heading "Move selection" [level=3] [ref=e394]
+              - paragraph [ref=e395]: Move the complete current selection in the viewer. Hidden selected atoms remain targets. Apply once or cancel the entire preview.
+              - button "Move selection" [disabled] [ref=e396]
+              - status [ref=e397]: Movement controls are on the viewer.
+            - group "Numerical transforms and superposition" [ref=e398]:
+              - generic [ref=e399]: Numerical transforms and superposition
+              - generic [ref=e400]:
+                - generic [ref=e401]:
+                  - img [ref=e402]
+                  - heading "Coordinate transform" [level=3] [ref=e407]
+                - generic [ref=e408]:
+                  - text: Structure
+                  - combobox "Structure" [disabled] [ref=e409]:
+                    - option "Ethanol" [disabled] [selected]
+                    - option "string" [disabled]
+                    - option "string" [disabled]
+                - group "Scope" [ref=e410]:
+                  - generic [ref=e411]: Scope
+                  - generic [ref=e412]:
+                    - button "structure" [disabled] [pressed] [ref=e413]
+                    - button "selection" [disabled] [ref=e414]
+                - group "Translation (angstrom)" [ref=e415]:
+                  - generic [ref=e416]: Translation (angstrom)
+                  - generic [ref=e417]:
+                    - text: X
+                    - spinbutton "X" [disabled] [ref=e418]: "0"
+                  - generic [ref=e419]:
+                    - text: "Y"
+                    - spinbutton "Y" [disabled] [ref=e420]: "0"
+                  - generic [ref=e421]:
+                    - text: Z
+                    - spinbutton "Z" [disabled] [ref=e422]: "0"
+                - group "Rotation (degrees)" [ref=e423]:
+                  - generic [ref=e424]: Rotation (degrees)
+                  - generic [ref=e425]:
+                    - text: X
+                    - spinbutton "X" [disabled] [ref=e426]: "0"
+                  - generic [ref=e427]:
+                    - text: "Y"
+                    - spinbutton "Y" [disabled] [ref=e428]: "0"
+                  - generic [ref=e429]:
+                    - text: Z
+                    - spinbutton "Z" [disabled] [ref=e430]: "0"
+                - generic [ref=e431]:
+                  - text: Rotation pivot
+                  - combobox "Rotation pivot" [disabled] [ref=e432]:
+                    - option "Structure centroid" [disabled] [selected]
+                    - option "Scope centroid" [disabled]
+                    - option "Custom point" [disabled]
+                - button "Apply transform" [disabled] [ref=e433]
+              - generic [ref=e434]:
+                - generic [ref=e435]:
+                  - img [ref=e436]
+                  - heading "Interactive transform" [level=3] [ref=e440]
+                - generic [ref=e441]:
+                  - button "translate" [disabled] [pressed] [ref=e442]
+                  - button "rotate" [disabled] [ref=e443]
+                - generic [ref=e444]:
+                  - button "X" [disabled] [pressed] [ref=e445]
+                  - button "Y" [disabled] [ref=e446]
+                  - button "Z" [disabled] [ref=e447]
+                - generic [ref=e448]:
+                  - generic [ref=e449]:
+                    - text: angstrom
+                    - status "angstrom 0" [ref=e450]: "0.0"
+                  - slider [disabled] [ref=e451]: "0"
+              - generic [ref=e452]:
+                - generic [ref=e453]:
+                  - img [ref=e454]
+                  - heading "Protein superposition" [level=3] [ref=e455]
+                - generic [ref=e456]:
+                  - text: Moving
+                  - combobox "Moving" [disabled] [ref=e457]:
+                    - option "Ethanol" [disabled] [selected]
+                    - option "string" [disabled]
+                    - option "string" [disabled]
+                - generic [ref=e458]:
+                  - text: Reference
+                  - combobox "Reference" [disabled] [ref=e459]:
+                    - option "string" [disabled] [selected]
+                    - option "string" [disabled]
+                - group "Correspondence" [ref=e460]:
+                  - generic [ref=e461]: Correspondence
+                  - generic [ref=e462]:
+                    - button "backbone" [disabled] [pressed] [ref=e463]
+                    - button "selection" [disabled] [ref=e464]
+                - button "Superpose structure" [disabled] [ref=e465]
+  - dialog "Structure warnings" [ref=e466]:
+    - generic [ref=e467]:
+      - heading "Structure warnings" [level=2] [ref=e468]
+      - button "Close structure warnings" [active] [ref=e469] [cursor=pointer]:
+        - img [ref=e470] [cursor=pointer]
+    - generic [ref=e473]:
+      - group "string" [ref=e474]:
+        - heading "string" [level=3] [ref=e475]
+        - list [ref=e476]:
+          - listitem [ref=e477]:
+            - generic [ref=e478]:
+              - img [ref=e479]
+              - generic [ref=e481]: Info
+            - generic [ref=e482]: Alternate-location identifiers and occupancies were retained as distinct atom records.
+          - listitem [ref=e483]:
+            - generic [ref=e484]:
+              - img [ref=e485]
+              - generic [ref=e487]: Info
+            - generic [ref=e488]: 2 coordinate models were retained as conformers.
+      - group "string" [ref=e489]:
+        - heading "string" [level=3] [ref=e490]
+        - list [ref=e491]:
+          - listitem [ref=e492]:
+            - generic [ref=e493]:
+              - img [ref=e494]
+              - generic [ref=e496]: Info
+            - generic [ref=e497]: Alternate-location identifiers and occupancies were retained as distinct atom records.
+          - listitem [ref=e498]:
+            - generic [ref=e499]:
+              - img [ref=e500]
+              - generic [ref=e502]: Info
+            - generic [ref=e503]: 2 coordinate models were retained as conformers.
+```

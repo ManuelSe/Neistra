@@ -61,6 +61,7 @@ import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
 import { InteractionPanel } from "./InteractionPanel";
 import { useInteractions } from "../interactions/useInteractions";
 import { filterInteractions } from "../interactions/filter";
+import { ViewerWarningDetails } from "./ViewerWarningDetails";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
@@ -565,7 +566,6 @@ export function StructureViewer({
       viewerError || failedQueries.length ? "The molecular scene is unavailable" : loading ? "Loading molecular scene" : null,
       Boolean(movementActive || coordinatePreview || modelPreview || minimizationPreview.patches.length));
   }, [presentation, viewerError, failedQueries.length, loading, movementActive, coordinatePreview, modelPreview, minimizationPreview.patches.length]);
-  const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);
   const ligandAtoms = useMemo(
     () => visibleLigandAtoms(viewerStructures, isolation),
@@ -681,11 +681,10 @@ export function StructureViewer({
               {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
               {` / ${selection.atoms.length} selected`}
             </span>
-            {warningCount > 0 ? (
-              <span className="viewer-warning">
-                <AlertTriangle size={13} /> {warningCount} warning{warningCount === 1 ? "" : "s"}
-              </span>
-            ) : null}
+            <ViewerWarningDetails key={project.id} entries={visibleEntries}
+              returnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLElement>(
+                '[data-movement-canvas], .viewer-toolbar button:not(:disabled)',
+              ) ?? null} />
             {largeEntries.length > 0 ? (
               <span className="viewer-warning" title="Surface and dense labels use reduced detail">
                 <AlertTriangle size={13} /> reduced detail

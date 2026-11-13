@@ -200,6 +200,19 @@ interaction markers and hover highlighting are renderer content, not native UI.
 Licensing ships outside the viewer. D-149 and the [issue #96 plan](plans/issue-96-application-owned-viewer.md)
 govern this boundary and its current qualification status.
 
+### Viewer warning inspection
+
+The warning indicator and its compact non-modal details surface consume the same
+current visible-entry warning arrays. Stable entry IDs separate groups; original
+warning order, duplicates and supplied severity remain intact. Loading success,
+selection and component isolation do not redefine membership. Renderer errors,
+reduced-detail notices and transient operation diagnostics retain separate owners.
+The popup owns only local open/focus/position state, closes across project/remount
+boundaries and creates no request, command, job or warning acknowledgement. Its
+focused Escape ownership preserves active movement; outside workspace actions
+retain their normal behavior. D-152 and the [issue #98 contract](plans/issue-98-viewer-warning-details.md)
+govern this read-only inspection boundary.
+
 ## Local presentation boundary
 
 Issue #97 captures the main molecular canvas behind the typed `MolecularViewer`

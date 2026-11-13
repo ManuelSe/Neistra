@@ -2,8 +2,8 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved implementation contract; planning-only checkpoint C0. Runtime
-  implementation must wait for `/goal`.**
+- Status: **Approved implementation contract; M1/C1 implemented and focused
+  qualification passed. C2 and complete release qualification remain pending.**
 - Issue: [#98 — Make viewer warning indicator clickable to inspect warnings](https://github.com/ManuelSe/Neistra/issues/98).
 - User approval: explicit acceptance in the planning conversation on 2026-11-13,
   followed by an instruction to persist the plan and wait for `/goal`.
@@ -19,8 +19,8 @@
 This document is the detailed implementation contract. It does not replace
 `docs/PLAN.md`. Checkpoint outcomes, evidence, deviations, limitations and blockers
 belong in its completion log; `docs/PROGRESS.md` retains the concise project view.
-Approval of planning/persistence does not start runtime work or authorize immediate
-PR creation, merge, issue comments, tagging or publication.
+Planning/persistence approval alone did not start runtime work. The subsequent
+explicit `/goal` authorizes implementation and the complete gated delivery workflow.
 
 ## 2. Core problem and approved outcome
 
@@ -446,8 +446,8 @@ qualified application without data conversion.
 | Checkpoint | Status and evidence | Limitations, blockers and next action |
 | --- | --- | --- |
 | Planning approval | Accepted by the user on 2026-11-13 after read-only inspection and all seven specialist planning consultations. | No runtime implementation or runtime test execution claimed. |
-| M0 / C0 | Approved contract persisted as the first feature-branch change; planning-only D-152 and PROGRESS entries accompany it. Documentation validation, commit/push identities and remote readback are reported in the persistence handoff. | No runtime/version/schema/dependency change. Stop and wait for `/goal`. |
-| M1 / C1 | Pending. | Complete warning-inspection workflow and focused validation after `/goal`. |
+| M0 / C0 | Complete: `1c8a571593fae83d65309a1192a0fef2b4bfa21d` persisted this approved contract, planning-only D-152 and PROGRESS. Documentation checks and remote branch/plan blob readback passed. | No runtime/version/schema/dependency change. Explicit `/goal` subsequently authorized implementation. |
+| M1 / C1 | Implemented: exact current-warning projection, compact non-modal details, zero/focus/ownership lifecycle and narrow movement Escape guard. 28 focused / 402 complete frontend tests, lint/types/build/diff and 8 native desktop/mobile cases pass; zero final failures/retries/exclusions. [Evidence](../assets/viewer-warning-details/README.md) and [source/log summary](../assets/viewer-warning-details/c1-summary.json) retain diagnostics separately. | No schema/API/migration/dependency/scientific/version change. C2 stress/zoom and wider regression qualification next; complete candidate/exact-master/readers and final specialist gate remain pending. |
 | M2 / C2 | Pending. | Native layouts/accessibility/lifecycle/resource qualification. |
 | M3 / C3 | Pending. | Versions, full candidate gate, actual readers and final seven-specialist review. |
 | M4 / C4 | Pending. | Authorized PR/integration, exact-master qualification, publication and cleanup. |

@@ -6520,3 +6520,27 @@ remain 2 and normalized/selection/component remain 1. All five application versi
 sources advance only during release preparation. The feature plan governs the
 focused checkpoints, complete gates, actual preceding readers and all seven
 specialist implementation assessments. C0 persists planning and stops.
+
+### D-152 implementation authorization — 2026-11-13
+
+The user explicitly invoked `/goal` after approving and verifying the planning
+commit `1c8a571`. This authorizes the approved implementation and gated delivery
+workflow. The initial planning-only status above is historical; the ownership,
+scope, compatibility and qualification decisions remain binding.
+
+### D-152 C1 implementation and focused qualification — 2026-11-13
+
+The count and groups now share current visible-entry warning props; the dialog
+owns only local lifecycle/focus/position state. A retained status anchor supports
+the current empty state. Named warning groups use local group semantics rather
+than page landmarks, preserving identically named entries without accessibility
+conflicts. The Close control retains existing icon-button styling and its
+accessible name without a redundant tooltip layer that would consume Escape.
+
+The focused movement capture guard defers only when focus is inside warning
+details. Native first-Escape dismissal from content and Close preserves active
+movement; subsequent canvas Escape retains cancellation. Exact-record, pending/
+failed-loading, empty/focus, project/remount and immutable-state checks pass.
+The feature evidence index retains diagnostics and matching source/log identities.
+No scientific, API, schema, migration, dependency or version change is introduced;
+complete release qualification and final specialist assessments remain required.

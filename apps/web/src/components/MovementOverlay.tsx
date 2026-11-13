@@ -59,7 +59,8 @@ export function MovementOverlay({ movement, view, zoom }: {
     const modalOpen = () => document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])') !== null;
     if (!modalOpen()) surface.current?.focus();
     const onEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || current.current.state.phase !== "active" || modalOpen() || document.activeElement?.closest("[data-movement-panel]")) return;
+      if (event.key !== "Escape" || current.current.state.phase !== "active" || modalOpen()
+        || document.activeElement?.closest("[data-movement-panel], [data-viewer-warning-details]")) return;
       event.preventDefault();
       event.stopPropagation();
       current.current.cancel();

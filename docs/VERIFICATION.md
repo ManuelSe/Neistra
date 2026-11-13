@@ -1,5 +1,19 @@
 # V0.1 Requirement Evidence
 
+## Issue #98 — C1 warning inspection qualification
+
+The [approved contract](plans/issue-98-viewer-warning-details.md) is implemented
+through C1. [Evidence](assets/viewer-warning-details/README.md) and the
+[verified summary](assets/viewer-warning-details/c1-summary.json) record 28 focused
+and 402 complete frontend tests, lint/type-check/build/diff and 8 native
+desktop/mobile passes, with zero final failures, flakes, retries or exclusions.
+Exact current warning records and scientific/project/native invariants, loading
+failures, current updates, focus, remount/project boundaries and active movement
+Escape are qualified. Earlier diagnostic failures remain separate. No application
+version, dependency, scientific/API/schema or migration change occurred. C2
+stress/actual zoom, complete candidate/exact-master/readers and final all-seven
+specialist implementation review remain pending; this is not release qualification.
+
 ## Issue #97 — Released v0.28.0 / exact-master qualification
 
 [PR #133](https://github.com/ManuelSe/Neistra/pull/133) normally merged at

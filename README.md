@@ -29,6 +29,12 @@ window normally and use **F** for fullscreen. Output follows source resolution a
 requires the main workspace to remain rendering. See
 [presentation guidance](docs/PRESENTATION.md) for lifecycle and qualification limits.
 
+Click the viewer's warning count to inspect warnings for visible structures,
+grouped by entry with their messages and severity. The compact panel updates with
+the project and closes with Escape, Close or an outside action. Reading it does
+not resolve warnings or validate the structure; renderer errors and operation
+diagnostics keep their existing separate displays.
+
 Open **Edit molecule** beside Transform for direct atom/charge/deletion and
 same-entry bond changes, including incomplete chemistry and covalently attached
 ligands. All118 elements and unknown charge/order remain available in Advanced.
