@@ -1,0 +1,80 @@
+"""Resume only an interrupted command suffix on the same originally clean candidate.
+
+Completed commands and their lossless logs must verify. The unfinished command
+is rerun in full, using a fresh disposable browser store. No partial browser
+result counts as passing. Source and HEAD must remain identical throughout.
+"""
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import time
+
+root = Path.cwd()
+out = root / 'docs/assets/viewer-warning-details'
+recipe_path = Path(sys.argv[1])
+recipe = json.loads(recipe_path.read_text())
+manifest = out / f"{recipe['label']}-gate.json"
+state = json.loads(manifest.read_text())
+assert not state['complete'] and not state['initial_status']
+assert state['commit'] == subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+assert not subprocess.check_output(['git','diff','--name-only','HEAD'],text=True)
+assert len(state['steps']) == recipe['completed_steps']
+assert state['source_before'] == state['source_after']
+
+def verify_source():
+    assert state['commit'] == subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    actual = {p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in state['source_before']}
+    assert actual == state['source_before'], 'Frozen candidate changed.'
+    return actual
+
+verify_source()
+for step in state['steps']:
+    assert step['exit_code'] == 0
+    assert hashlib.sha256(gzip.decompress((root/step['log']).read_bytes())).hexdigest() == step['log_sha256']
+resume = {'started_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
+          'recipe':str(recipe_path), 'recipe_sha256':hashlib.sha256(recipe_path.read_bytes()).hexdigest(),
+          'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+          'verified_completed_steps':len(state['steps']),
+          'status_before':subprocess.check_output(['git','status','--porcelain=v1'],text=True),
+          'interruption_receipt':'docs/assets/viewer-warning-details/c3-candidate1-interruption.json',
+          'policy':'Same frozen originally clean candidate; entire unfinished browser invocation rerun; verified completed checks reused.'}
+state.setdefault('resumptions',[]).append(resume)
+
+def save():
+    temporary = manifest.with_suffix('.tmp')
+    temporary.write_text(json.dumps(state,indent=2)+'\n')
+    temporary.replace(manifest)
+
+save()
+for step in recipe['steps']:
+    print('START',step['label'],flush=True)
+    started = time.monotonic()
+    environment = {**os.environ,**recipe['environment'],**step.get('environment',{})}
+    proc = subprocess.Popen(step['command'],cwd=step.get('cwd',str(root)),env=environment,
+                            stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    chunks = []
+    for line in proc.stdout:
+        chunks.append(line)
+        print(line.decode(errors='replace'),end='',flush=True)
+    code = proc.wait()
+    content = b''.join(chunks)
+    log = out/f"{recipe['label']}-{step['label']}.log.gz"
+    assert not log.exists(), 'Preserve previous command results.'
+    log.write_bytes(gzip.compress(content,mtime=0))
+    state['steps'].append({**step,'exit_code':code,'seconds':round(time.monotonic()-started,3),
+                           'log':str(log.relative_to(root)),'log_sha256':hashlib.sha256(content).hexdigest()})
+    state['source_after'] = verify_source()
+    state['source_unchanged'] = True
+    save()
+    print('PASS' if code == 0 else 'FAIL',step['label'],flush=True)
+    if code:raise SystemExit(code)
+assert len(state['steps']) == 24
+state['complete'] = True
+state['finished_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
+state['final_status'] = subprocess.check_output(['git','status','--porcelain=v1'],text=True)
+save()
+print('COMPLETE',manifest,flush=True)

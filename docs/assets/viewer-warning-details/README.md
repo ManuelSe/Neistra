@@ -160,3 +160,57 @@ version/dependency/schema/production/exclusion checks. Candidate and exact-maste
 recipes are prepared before committing, so each can begin from a clean committed
 state. Generated evidence never substitutes for executing the commands. Complete
 candidate/exact-master qualification and final specialist assessments remain pending.
+
+## C3 — Clean final-version candidate qualification
+
+The clean committed candidate `bf502040c77b2542112cf1134dd4f3d45f563e10` passes all **24 release steps**:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or automatic retries. All
+718 source identities remain unchanged and all lossless log hashes verify.
+The 74 preceding browser exclusion identities are exact; one new exclusion
+is actual desktop extension-driven zoom under mobile emulation. Frozen installs,
+Ruff/mypy, lint/types/build, disposable upgrade/downgrade/re-upgrade, version/schema/
+dependency/production/license audits and legacy CLI pass. Actual tagged v0.28.0 and
+final 0.28.1 producer/readers run in separate processes in both directions and
+accept both archive filename conventions. No Python or native scientific case is
+newly excluded. [Candidate summary](c3-candidate1-summary.json).
+
+The complete browser command was restarted after the original process ended
+without a final report. No partial browser result counts. The 13 earlier completed
+checks were verified and reused on the identical frozen source; the restarted
+whole browser suite and remaining reader/audit commands then completed. The
+[interruption receipt](c3-candidate1-interruption.json)
+and explicit continuation recipe retain that boundary. The gate completed with this documented continuation.
+
+The original invocation is `.venv/bin/python docs/assets/viewer-warning-details/qualification.py.txt
+docs/assets/viewer-warning-details/c3-candidate1-recipe.json`. The continuation uses
+`.venv/bin/python -u docs/assets/viewer-warning-details/resume-qualification.py.txt
+docs/assets/viewer-warning-details/c3-candidate1-resume1-recipe.json` in a detached
+process with a fresh disposable browser store. The final verifier is
+`.venv/bin/python docs/assets/viewer-warning-details/qualification-summary.py.txt c3-candidate1`.
+The committed recipe retains all 24 command vectors, implementation roots, disposable
+stores/ports and locked native environment. The gate manifest retains clean start,
+commit, source and lossless-log hashes; case/exclusion files and compressed report
+retain every browser result. Portable profile 0 makes no strict reference-host claim.
+
+[Full-diff local review](c3-full-diff-review.md) is primary implementer self-review.
+[Seven runtime role assessments](c3-runtime-assessments.json) are specialist agent
+review, not independent human approval. All found no consequential defect; final
+same-candidate documentation/evidence reconfirmations are still required before push
+and are recorded in the PR. Exact merged-master qualification and remotely verified
+publication remain pending. Existing build chunk/Alembic deprecation warnings are
+retained in logs, not silently removed or counted as failures.
+
+[Architecture and performance method assessments](c3-continuation-method-review.json)
+independently verify the same original clean candidate, retained 13 checks/logs,
+complete 718-file inventory and 11-command suffix. The final summary additionally
+verifies original/resume command vectors and recipe/runner hashes, and the
+[actual-reader audit](c3-candidate1-reader-audit.json) verifies all 713 preceding
+source identities and both filename conventions. The optional automated inventory
+hardening suggestion is addressed by this final verifier; no runtime change follows.
+
+Completed-command duration is 4,237.625s; total wall time is 8,393s and includes the
+interruption and continuation preparation. These are qualification durations,
+not application performance measurements. The interrupted manifest and 14,348-file
+partial inventory remain separate. Raw partial native files are locally retained
+under `/tmp/neistra98-c3-candidate1-interrupted-native`; the planned qualification
+bundle will include the receipt/inventory; raw files remain locally retained.

@@ -1699,3 +1699,28 @@ under `assets/detached-presentation/` use disposable databases/ports, locked nat
 chemistry, portable correctness and actual tagged0.27.0 implementation roots.
 Candidate and exact-master success are required before publication; preparation
 alone is not qualification evidence.
+
+## Issue #98 clean final-version candidate
+
+The clean committed candidate `bf502040c77b2542112cf1134dd4f3d45f563e10` passes all **24 release steps**:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or automatic retries. All
+718 source identities remain unchanged and all lossless log hashes verify.
+The 74 preceding browser exclusion identities are exact; one new exclusion
+is actual desktop extension-driven zoom under mobile emulation. Frozen installs,
+Ruff/mypy, lint/types/build, disposable upgrade/downgrade/re-upgrade, version/schema/
+dependency/production/license audits and legacy CLI pass. Actual tagged v0.28.0 and
+final 0.28.1 producer/readers run in separate processes in both directions and
+accept both archive filename conventions. No Python or native scientific case is
+newly excluded. [Candidate summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+
+The complete browser command was restarted after the original process ended
+without a final report. No partial browser result counts. The 13 earlier completed
+checks were verified and reused on the identical frozen source; the restarted
+whole browser suite and remaining reader/audit commands then completed. The
+[interruption receipt](assets/viewer-warning-details/c3-candidate1-interruption.json)
+and explicit continuation recipe retain that boundary. The gate completed with this documented continuation.
+Exact commands/environment, all lossless logs and complete browser identities
+are retained in [the evidence index](assets/viewer-warning-details/README.md).
+Final specialist documentation-diff reconfirmation and exact merged-master repetition
+remain required before delivery. Runtime specialist review is agent assessment;
+independent human approval and strict reference-host timing are not claimed.

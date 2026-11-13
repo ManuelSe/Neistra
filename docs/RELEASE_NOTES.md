@@ -2,9 +2,9 @@
 
 ## 0.28.1 — Viewer warning details
 
-**Status:** release preparation under the [approved issue #98 contract](plans/issue-98-viewer-warning-details.md).
-Complete clean-candidate/exact-master qualification, final specialist review and
-publication remain pending. No tag or release is claimed at this checkpoint.
+**Status:** clean 0.28.1 candidate qualified under the [approved issue #98 contract](plans/issue-98-viewer-warning-details.md).
+Final documentation/evidence specialist reconfirmation, exact-master qualification
+and publication remain pending. No tag or release is claimed at this checkpoint.
 
 **Fixed.** Activate the viewer warning count to inspect current warnings grouped
 by structure, with complete messages and severity. The compact non-modal panel
@@ -40,9 +40,30 @@ imports, original/projection/project/native invariance, loading failures, focus,
 movement, current updates, 500 complete records, keyboard/wheel reachability,
 mixed severities, long text, 44px coarse-pointer controls, real 100%/200% browser
 zoom and measured closed-state payload work. [Evidence](assets/viewer-warning-details/README.md)
-retains diagnostic failures separately. These are focused checkpoint results;
-the full final-version gates/readers and final all-seven specialist agent review
-remain required. Portable observations do not certify strict reference-host timing.
+retains diagnostic failures separately.
+
+The clean committed candidate `bf502040c77b2542112cf1134dd4f3d45f563e10` passes all **24 release steps**:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions**, with zero final failures, flakes or automatic retries. All
+718 source identities remain unchanged and all lossless log hashes verify.
+The 74 preceding browser exclusion identities are exact; one new exclusion
+is actual desktop extension-driven zoom under mobile emulation. Frozen installs,
+Ruff/mypy, lint/types/build, disposable upgrade/downgrade/re-upgrade, version/schema/
+dependency/production/license audits and legacy CLI pass. Actual tagged v0.28.0 and
+final 0.28.1 producer/readers run in separate processes in both directions and
+accept both archive filename conventions. No Python or native scientific case is
+newly excluded. [Candidate summary](assets/viewer-warning-details/c3-candidate1-summary.json).
+
+The complete browser command was restarted after the original process ended
+without a final report. No partial browser result counts. The 13 earlier completed
+checks were verified and reused on the identical frozen source; the restarted
+whole browser suite and remaining reader/audit commands then completed. The
+[interruption receipt](assets/viewer-warning-details/c3-candidate1-interruption.json)
+and explicit continuation recipe retain that boundary. The gate completed with this documented continuation.
+Primary full-diff review and seven runtime specialist agent assessments find no
+unresolved consequential defect. Final documentation/evidence reconfirmations precede
+push; exact-master qualification precedes publication. These are agent assessments,
+not independent human approval. Portable observations do not certify strict
+reference-host timing.
 
 **Known limitations and follow-up.** This inspects stored visible-entry warnings,
 not a complete validation report or the validity of current preview geometry.

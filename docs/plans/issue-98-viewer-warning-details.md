@@ -2,8 +2,8 @@
 
 ## 1. Status and issue metadata
 
-- Status: **C1/C2 qualified; 0.28.1 release preparation in progress. Complete
-  final-version compatibility/gates, final specialist review and delivery pending.**
+- Status: **C1–C3 qualified at 0.28.1; final documentation/evidence specialist
+  reconfirmation and C4 delivery pending.**
 - Issue: [#98 — Make viewer warning indicator clickable to inspect warnings](https://github.com/ManuelSe/Neistra/issues/98).
 - User approval: explicit acceptance in the planning conversation on 2026-11-13,
   followed by an instruction to persist the plan and wait for `/goal`.
@@ -449,7 +449,7 @@ qualified application without data conversion.
 | M0 / C0 | Complete: `1c8a571593fae83d65309a1192a0fef2b4bfa21d` persisted this approved contract, planning-only D-152 and PROGRESS. Documentation checks and remote branch/plan blob readback passed. | No runtime/version/schema/dependency change. Explicit `/goal` subsequently authorized implementation. |
 | M1 / C1 | Implemented: exact current-warning projection, compact non-modal details, zero/focus/ownership lifecycle and narrow movement Escape guard. 28 focused / 402 complete frontend tests, lint/types/build/diff and 8 native desktop/mobile cases pass; zero final failures/retries/exclusions. [Evidence](../assets/viewer-warning-details/README.md) and [source/log summary](../assets/viewer-warning-details/c1-summary.json) retain diagnostics separately. | No schema/API/migration/dependency/scientific/version change. C2 stress/zoom and wider regression qualification next; complete candidate/exact-master/readers and final specialist gate remain pending. |
 | M2 / C2 | Qualified: 28 focused / 402 complete frontend, lint/types/build/diff and 54 native passes / 6 registered exclusions (five unchanged existing, one real desktop zoom under mobile emulation). 13 feature passes cover both layouts/themes, real zoom, 500 records, keyboard/wheel reachability, pointer ownership, current replacement and resource/invariance behavior. [Evidence](../assets/viewer-warning-details/README.md) preserves diagnostics and verifies all 718 source/log identities. | No version/scientific/API/schema/migration/dependency change. Body keyboard semantics and measured closed-row construction were corrected; final-version readers, clean candidate/exact-master and final all-seven review remain. |
-| M3 / C3 | Release preparation: all five versions advanced to 0.28.1; preceding 0.28.0 archive-producer coverage retained; 42 archive integration cases, frozen uv, version/schema/dependency/migration and production/license audits pass. Issue-scoped 24-step candidate/exact-master recipes prepared. Origin/master remains 00320ea after fetch/merge check; stable latest remains 0.28.0 and planned tag is available. | Clean candidate gate, actual preceding readers, full-diff review and final all-seven assessments still required. No PR/tag/release claimed. |
+| M3 / C3 | Qualified clean runtime `bf502040c77b2542112cf1134dd4f3d45f563e10`: all 24 steps pass; 1334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes / 75 registered exclusions; zero final failures/flakes/retries. All 718 source and lossless log identities verify. Actual tagged 0.28.0 ↔ final 0.28.1 readers, both suffixes, migration round trip and frozen/static/build/version/schema/dependency/production/license/legacy-CLI checks pass. [Summary](../assets/viewer-warning-details/c3-candidate1-summary.json). Full-diff review and seven runtime role assessments find no unresolved consequential issue. | Final evidence/docs-only candidate requires explicit all-seven reconfirmation before push. No PR/tag/release claimed; C4 exact-master/publication remains. |
 | M4 / C4 | Pending. | Authorized PR/integration, exact-master qualification, publication and cleanup. |
 
 Planning consultation dispositions: architecture, scientific theory, scientific
@@ -458,3 +458,39 @@ consequential planning concern in the reconciled scope. The movement capture-pha
 Escape finding, explicit non-modal attribute, current empty state, focus fallback,
 exact warning-source semantics and release-history correction are incorporated.
 These are planning assessments, not final implementation verdicts.
+
+### C3 completion evidence — 2026-11-13
+
+The complete clean-candidate invocation is the committed `c3-candidate1-recipe.json`
+executed through `qualification.py.txt`; `qualification-summary.py.txt c3-candidate1`
+independently verifies all 24 exits, source/log hashes, exact prior exclusions and
+actual case statuses. Forward production uses final 0.28.1 and actual tagged 0.28.0
+reads it; reverse production uses actual 0.28.0 and final 0.28.1 reads it. Both suffixes
+and durable molecular/project/archive invariants pass. Failed checkpoint diagnostics
+remain separate. No accepted requirement, scientific assertion, resource policy,
+accessibility rule or exclusion identity was weakened.
+
+The [local complete-diff review](../assets/viewer-warning-details/c3-full-diff-review.md)
+and [runtime specialist record](../assets/viewer-warning-details/c3-runtime-assessments.json)
+state provenance, reviewed candidate, corrected diagnostics and remaining delivery
+gates. Explicit final-candidate reconfirmations will be reported in the PR; this
+avoids self-referential receipt commits. No source changes follow qualification.
+
+The original browser process ended without a final report. Its entire browser
+command was restarted in a fresh store using `.venv/bin/python -u
+docs/assets/viewer-warning-details/resume-qualification.py.txt
+docs/assets/viewer-warning-details/c3-candidate1-resume1-recipe.json`.
+The original 13 completed checks/logs and all 718 source identities were verified
+and reused on the same originally clean frozen candidate. The whole restarted
+browser command and all remaining commands/readers pass; no partial browser result
+counts. [Method assessments](../assets/viewer-warning-details/c3-continuation-method-review.json)
+independently accept this boundary. The enhanced final summary also verifies the
+complete source inventory, original/continuation command and runner identities,
+and all 713 actual preceding-reader source identities.
+
+Completed-command duration is 4,237.625s; total wall time is 8,393s and includes
+the interruption and continuation preparation. These are qualification durations,
+not application performance measurements. The interrupted manifest and partial
+inventory are retained; raw partial native files remain local under `/tmp` and
+are not claimed as published bundle contents. Only the final complete browser
+report contributes the 377 passes and 75 registered exclusions.

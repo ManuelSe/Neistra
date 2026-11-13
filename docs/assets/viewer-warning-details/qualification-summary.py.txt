@@ -1,5 +1,5 @@
 """Verify completed issue98 qualification and retain exact exclusion identities."""
-import gzip,hashlib,json,re,sys
+import datetime,gzip,hashlib,json,re,subprocess,sys
 from pathlib import Path
 out=Path('docs/assets/viewer-warning-details');label=sys.argv[1]
 d=json.loads((out/f'{label}-gate.json').read_text());assert d['complete'] and d['source_unchanged'] and not d['initial_status']
@@ -10,7 +10,49 @@ for step in d['steps']:
  blob=gzip.decompress(Path(step['log']).read_bytes());assert hashlib.sha256(blob).hexdigest()==step['log_sha256'];logs[step['label']]=blob.decode()
 assert d['source_before']==d['source_after']
 for name,digest in d['source_after'].items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name
-report=out/f'{label}-browser.json';b=json.loads(report.read_text()); records=[]
+original_recipe=out/f'{label}-recipe.json'
+assert hashlib.sha256(original_recipe.read_bytes()).hexdigest()==d['recipe_sha256']
+assert hashlib.sha256((out/'qualification.py.txt').read_bytes()).hexdigest()==d['runner_sha256']
+original=json.loads(original_recipe.read_text());expected_steps=original['steps']
+if d.get('resumptions'):
+ assert len(d['resumptions'])==1
+ resume=d['resumptions'][0];resume_path=Path(resume['recipe'])
+ assert hashlib.sha256(resume_path.read_bytes()).hexdigest()==resume['recipe_sha256']
+ assert hashlib.sha256((out/'resume-qualification.py.txt').read_bytes()).hexdigest()==resume['runner_sha256']
+ interrupted=json.loads((out/f'{label}-interrupted-gate.json').read_text())
+ assert not interrupted['complete'] and interrupted['commit']==d['commit'] and not interrupted['initial_status']
+ assert interrupted['steps']==d['steps'][:resume['verified_completed_steps']]
+ expected_steps=original['steps'][:resume['verified_completed_steps']]+json.loads(resume_path.read_text())['steps']
+assert len(expected_steps)==24
+for expected,actual in zip(expected_steps,d['steps'],strict=True):
+ for key in ['label','command','environment','cwd']:assert expected.get(key)==actual.get(key),(actual['label'],key)
+files=set(subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'],text=True).splitlines())
+files={p for p in files if (p.startswith(('apps/','packages/','tests/','tools/','scripts/','patches/')) or p in {'pyproject.toml','uv.lock','package.json','pnpm-lock.yaml','playwright.config.ts','alembic.ini','.gitattributes'}) and Path(p).is_file()}
+assert files==set(d['source_before']),'Source inventory changed.'
+oldgate=json.loads(Path('docs/assets/detached-presentation/c5-merged1-gate.json').read_text())
+oldcommit=subprocess.check_output(['git','rev-parse','v0.28.0^{}'],text=True).strip();assert oldgate['commit']==oldcommit
+reader_audit={'preceding_tag':'v0.28.0','preceding_runtime':oldcommit,'directions':{}}
+for direction in ['forward','reverse']:
+ for mode in ['produce','read']:
+  step=next(x for x in d['steps'] if x['label']==f'{direction}-{mode}')
+  command=step['command'];implementation=Path(command[command.index('--implementation-root')+1]);version=command[command.index('--expected-version')+1]
+  evidence=json.loads((out/f'{label}-{direction}-{mode}.json').read_text())
+  assert evidence['application_version']==version
+  assert evidence['implementation_root']==str(implementation)
+  assert evidence['api_module']==str(implementation/'apps/api/src/neistra_api/main.py')
+  assert evidence['core_module']==str(implementation/'packages/neistra_core/src/neistra_core/molecular.py')
+  assert evidence['expect_new_names'] and evidence['legacy_suffix_http']==201 and evidence['new_suffix_http']==201
+  if version=='0.28.0':
+   for name,digest in oldgate['source_before'].items():assert hashlib.sha256((implementation/name).read_bytes()).hexdigest()==digest,name
+   reader_audit['preceding_source_identities']=len(oldgate['source_before'])
+  else:assert version=='0.28.1' and implementation==Path.cwd()
+  if mode=='read':
+   for name in ['exact_coordinates_and_originals','retained_batch_undo_redo','save_and_reexport','archive_import','archive_omits_history','original_jobs_unchanged','surface_objects_exact','scenes_exact','archive_surface_seed_remapping','named_selections_exact','gesture_scene_exact','archive_selection_remapping','transient_anchor_absent']:assert evidence[name],name
+  reader_audit['directions'][f'{direction}-{mode}']={'version':version,'implementation_root':str(implementation),'module_paths_and_both_suffixes_verified':True}
+(out/f'{label}-reader-audit.json').write_text(json.dumps(reader_audit,indent=2)+'\n')
+report=out/f'{label}-browser.json';compressed=out/f'{label}-browser.json.gz'
+blob=report.read_bytes() if report.exists() else gzip.decompress(compressed.read_bytes())
+b=json.loads(blob); records=[]
 def walk(suite,parents=()):
  for spec in suite.get('specs',[]):
   for t in spec['tests']:
@@ -32,7 +74,7 @@ assert all(r['status'] in {'passed','skipped'} for r in records)
 assert all(r['status']=='passed' for r in records if r['file']=='viewer-warning-details.spec.ts')
 assert not re.search(r'\d+ skipped',logs['python'])
 summary={'commit':d['commit'],'branch':d['branch'],'clean_start':True,'complete_steps':24,
- 'source_count':len(d['source_before']),'source_digest':hashlib.sha256(json.dumps(d['source_before'],sort_keys=True).encode()).hexdigest(),
+ 'source_count':len(d['source_before']),'source_inventory_unchanged':True,'resumed':bool(d.get('resumptions')),'verified_reused_steps':sum(x['verified_completed_steps'] for x in d.get('resumptions',[])),'source_digest':hashlib.sha256(json.dumps(d['source_before'],sort_keys=True).encode()).hexdigest(),
  'sources_unchanged':True,'all_lossless_log_hashes_valid':True,
  'python':int(re.search(r'(\d+) passed',logs['python'])[1]),'python_skips':0,
  'frontend':int(re.search(r'Tests\s+(\d+) passed',logs['web'])[1]),
@@ -40,9 +82,14 @@ summary={'commit':d['commit'],'branch':d['branch'],'clean_start':True,'complete_
  'browser_passed':b['stats']['expected'],'browser_exclusions':len(skips),'existing_exclusions':len(baseline),'approved_desktop_zoom_exclusions':len(new),
  'existing_exclusion_identities_unchanged':True,'failures_flakes_retries':0,
  'profile':d['qualification_profile'],'preceding_reader':'actual v0.28.0 f02ca386e97a200bbc39299c1f464cd4783a7b39, separate processes both directions; both suffixes accepted',
- 'duration_seconds':round(sum(s['seconds'] for s in d['steps']),3)}
+ 'duration_seconds':round(sum(s['seconds'] for s in d['steps']),3),
+ 'duration_definition':'Sum of completed command durations; interrupted command time is excluded.',
+ 'wall_seconds':(datetime.datetime.fromisoformat(d['finished_utc'])-datetime.datetime.fromisoformat(d['started_utc'])).total_seconds(),
+ 'interruption_receipt':'c3-candidate1-interruption.json' if d.get('resumptions') else None,
+ 'actual_reader_audit':f'{label}-reader-audit.json','preceding_source_identities_verified':reader_audit['preceding_source_identities']}
 (out/f'{label}-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
 (out/f'{label}-exclusions.json').write_text(json.dumps({'baseline':sorted(baseline),'new_approved_desktop_only':sorted(new),'existing_unchanged':True},indent=2)+'\n')
 (out/f'{label}-browser-cases.json').write_text(json.dumps(records,indent=2)+'\n')
-(out/f'{label}-browser.json.gz').write_bytes(gzip.compress(report.read_bytes(),mtime=0));report.unlink()
+if report.exists():
+ compressed.write_bytes(gzip.compress(blob,mtime=0));report.unlink()
 print(json.dumps(summary,indent=2))

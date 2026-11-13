@@ -2,44 +2,37 @@
 
 ## Current milestone
 
-Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) has an explicitly approved
-[implementation contract](plans/issue-98-viewer-warning-details.md) on
-`fix/issue-98-viewer-warning-details`, based on fast-forwarded master
-`00320ea9e9d60fd19f12279669a00d88e540e434`. C0 was committed/pushed as `1c8a571`;
-the subsequent explicit `/goal` on 2026-11-13 authorizes implementation and gated
-delivery. C1/C2 implementation and focused qualification pass; C3 prepares 0.28.1
-for complete qualification. No PR, tag or release exists for this work yet.
+Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) implements the approved
+[warning-details contract](plans/issue-98-viewer-warning-details.md) on
+`fix/issue-98-viewer-warning-details`. C1/C2 provide exact, current visible-entry
+warnings in a compact accessible non-modal panel, preserving molecular state,
+focus, lifecycle and movement ownership. All five versions agree at patch
+**0.28.1**; stable latest remains **0.28.0** until publication. No scientific/API/
+dependency/schema/migration change; head 0014 and persisted contracts remain.
 
-Approved outcome: inspect exactly the current visible-entry warnings from the
-existing count, grouped by structure, in a compact accessible non-modal surface.
-Preserve warning records and molecular/project state, current empty-state/focus
-behavior and movement Escape ownership. No API, scientific method, schema,
-migration or dependency change is planned. Compatible patch **0.28.1** is prepared
-in all five authoritative version sources; stable latest is still **0.28.0**.
+C3 runtime `bf502040c77b2542112cf1134dd4f3d45f563e10` completes all 24 release steps:
+**1,334 Python (zero skips), 402 frontend, 14 supervisor, 377 browser passes /
+75 exclusions**, zero final failures/flakes/retries. All 718 source identities and
+logs verify; 74 preceding exclusion identities are exact, plus one approved real
+zoom exclusion under mobile emulation. Actual tagged 0.28.0 ↔ 0.28.1 readers and
+both archive suffixes pass; all 713 preceding source identities verify.
+[Summary](assets/viewer-warning-details/c3-candidate1-summary.json).
 
-Completed work: required repository/issue/delivery inspection, all seven read-only
-specialist planning consultations, explicit user approval and verified planning
-commit/remote readback. The warning-details interface and focused movement guard
-are implemented. [C1 evidence](assets/viewer-warning-details/README.md) verifies
-28 focused / 402 complete frontend tests, lint/types/build/diff and 8 native
-desktop/mobile passes with zero final failures, retries or exclusions. Earlier
-diagnostics are retained separately; matching source and lossless log hashes verify.
-Verification: clean pre-branch status and fast-forward-only master update;
-documentation diff/link/scope validation and commit/push readback are recorded in
-the persistence handoff. Runtime C1 qualifies exact warnings, current updates,
-focus/project/remount retirement and unchanged molecular/project/native state.
-Known limitations: entry-warning scope only; advanced metadata/actions and global
-warning tooling are omitted. C3–C4 and final seven-specialist implementation review
-remain pending. C2 additionally passes 54 native cases / 6 exclusions (five unchanged
-existing plus one real desktop zoom exclusion under mobile emulation), with all
-402 frontend and static/build gates passing. Its 13 feature passes qualify real
-zoom, 500 complete records, keyboard/wheel access, pointer ownership, replacement/
-lifecycle and unchanged backend/native state. [C2 summary](assets/viewer-warning-details/c2-summary.json)
-verifies all 718 source/log identities; diagnostics remain separate. Measured
-closed-row work is eliminated without a throughput claim. Blockers: none; next
-action: focused version/archive audits, clean 0.28.1 candidate gate, actual readers
-and final all-seven specialist assessment. Remote base/policies and tag availability
-were rechecked; the branch remains current with origin/master.
+The gate has a documented interruption/continuation: 13 verified completed checks
+were reused on identical frozen source, and the entire unfinished browser command
+was restarted in a fresh store. Partial results are excluded. Architecture and
+performance specialists accept the method; [evidence](assets/viewer-warning-details/README.md)
+retains commands, diagnostics, source/log identities and the duration boundary.
+C1/C2 additionally qualify 28 focused tests and 54 native passes / 6 exclusions,
+including all 13 feature cases, real zoom and complete 500-record lists.
+
+Primary full-diff review and seven runtime role assessments find no consequential
+issue; final same-candidate documentation/evidence reconfirmations precede push.
+These are specialist agent assessments, not independent human approval.
+Known limits: stored entry warnings; no preview validation inference or advanced
+warning tooling. Portable correctness is qualified; strict timing/broader browser
+certification is not claimed. Blockers: none. Next: final seven-role reconfirmation,
+normal PR/review/merge, exact-master gate/readers, publication, issue reply and cleanup.
 
 ### Previous completed milestone — issue #97
 
