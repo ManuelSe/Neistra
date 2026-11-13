@@ -143,6 +143,43 @@ test("warning summaries and actionable errors persist with unchanged styling and
   expect(await readProject(request, project.id)).toEqual(baseline);
 });
 
+test("keeps viewer controls clickable beneath a persistent short import notice", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  await page.setViewportSize({ width: 1280, height: 720 });
+  const { project } = await prepare(page, request);
+  await page.getByRole("button", { name: "Import structures", exact: true }).first().click();
+  const dialog = page.getByRole("dialog", { name: "Import structures", exact: true });
+  await dialog.locator('input[type="file"]').setInputFiles(resolve("tests/fixtures/formats/protein_models_altloc.pdb"));
+  await dialog.getByRole("button", { name: "Import", exact: true }).click();
+  await expect(dialog).toBeHidden();
+  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded");
+  await expect(notice(page)).toContainText("imported with");
+  const summary = await notice(page).textContent();
+  const baseline = await readProject(request, project.id);
+  for (const theme of ["light", "dark"] as const) {
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    await page.getByRole("button", { name: "Open viewer controls", exact: true }).click();
+    const close = page.getByRole("button", { name: "Close viewer controls", exact: true });
+    const body = notice(page).locator(".notice-message");
+    await expect(body).not.toHaveAttribute("role");
+    const messageBounds = (await body.boundingBox())!;
+    const closeBounds = (await close.boundingBox())!;
+    const x = closeBounds.x + closeBounds.width / 2, y = closeBounds.y + closeBounds.height / 2;
+    expect(x).toBeGreaterThan(messageBounds.x);
+    expect(x).toBeLessThan(messageBounds.x + messageBounds.width);
+    expect(y).toBeGreaterThan(messageBounds.y);
+    expect(y).toBeLessThan(messageBounds.y + messageBounds.height);
+    await info.attach(`${theme}-short-notice-control-overlap`, {
+      body: JSON.stringify({ messageBounds, closeBounds, x, y }), contentType: "application/json",
+    });
+    await close.click();
+    await expect(page.getByRole("button", { name: "Open viewer controls", exact: true })).toBeVisible();
+    await expect(notice(page)).toBeVisible();
+    expect(await notice(page).textContent()).toBe(summary);
+    expect(await readProject(request, project.id)).toEqual(baseline);
+  }
+});
+
 test("keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it", async ({ page, request }) => {
   test.setTimeout(90_000);
   await prepare(page, request);

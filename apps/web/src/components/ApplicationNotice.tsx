@@ -64,7 +64,7 @@ export function ApplicationNotice({ notice, setNotice }: {
       }
     }}
   >
-    <div ref={message} className="notice-message" role={scrollable ? "region" : undefined}
+    <div ref={message} className={`notice-message${scrollable ? " is-scrollable" : ""}`} role={scrollable ? "region" : undefined}
       aria-label={scrollable ? "Message details" : undefined} tabIndex={scrollable ? 0 : undefined}>
       {notice.text}
     </div>

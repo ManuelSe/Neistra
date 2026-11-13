@@ -1359,6 +1359,10 @@ select {
   overflow-wrap: anywhere;
   white-space: pre-wrap;
   overscroll-behavior: contain;
+  pointer-events: none;
+}
+
+.notice-message.is-scrollable {
   pointer-events: auto;
 }
 

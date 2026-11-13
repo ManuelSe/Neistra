@@ -789,8 +789,8 @@ text wall with an unreachable Close control. The user additionally rejects that
 bulk message as too long/cryptic to be meaningful. This explicit guidance extends
 the approved outcome: remove successful shortcut scientific-warning popups rather
 than summarize their warning count into another popup. Retain the existing short
-publication confirmation, every stored report/model warning, applied entry warning
-details/badge and Jobs inspection. Refused/failed scientific reports use controlled
+publication confirmation, full stored report/proposal warnings, model assumptions/
+effective-field provenance, applied entry warning details/badge and Jobs inspection. Refused/failed scientific reports use controlled
 plain review text; prerequisite/API failures retain actionable diagnostics in the
 bounded notice. Never conflate publication
 uncertainty with a confirmed failure. Add no new progress/results surface.
@@ -830,3 +830,28 @@ synthetic-only fixtures and explicit earlier diagnostic limitations. Prepared
 candidate3/master3 recipes replace the interrupted/unused candidate2/master2
 cohort; no partial command counts as final evidence. Commit the passing correction,
 then run all 30 steps and final all-seven review before readiness to push.
+
+
+#### C7 complete-gate pointer finding
+
+Candidate3's full native run identifies a real UI regression after155 passes:
+short passive import-notice text captures pointer input over Close viewer controls,
+so the unchanged hardening workflow reaches its120s timeout.4 actual exclusions
+and326 unrun cases are not complete coverage; the extra reporter error is merely
+maximum-failure stopping. The [retained diagnostic](../assets/authoritative-minimization/c7-candidate3-diagnostic.json)
+records cause and exact evidence without a passing-gate claim.
+
+Restore pointer pass-through for ordinary short text; enable pointer input only
+for measured overflowing text. Preserve interactive Close and all long reading,
+focus, identity and lifetime behavior. New native overlap tests exercise ordinary
+clicks without hiding the still-visible notice; the original failing hardening
+test is unchanged and passes. No forced clicks, extra exclusions, timeout/resource
+changes, scientific edits or relaxed assertions are accepted.503 complete frontend
+cases,11 notice cases, static/build checks and15 native cases / one existing
+mobile performance exclusion pass. Independent UI actual-component probes and92
+cases reconfirm the correction.759 source identities match the focused candidate.
+
+[Focused pointer evidence](../assets/authoritative-minimization/c7-pointer-summary.json)
+includes exact structured commands/environments. Commit the coherent passing fix
+and fresh candidate4/master4 recipes, then repeat all30 steps and final same-candidate
+seven-role review. Source/core/API contracts and planned stable minor0.29.0 remain.

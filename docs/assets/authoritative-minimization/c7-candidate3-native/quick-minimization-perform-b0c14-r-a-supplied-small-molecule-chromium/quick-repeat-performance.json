@@ -1,0 +1,119 @@
+{
+  "copies": 0,
+  "phase": "repeat",
+  "atoms": 18,
+  "commandAcceptedMs": 0.30000001192092896,
+  "nativeAppliedMs": 1235.5,
+  "longestTaskMs": 137,
+  "stages": [
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations",
+      "at": 1794592914536,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations",
+      "at": 1794592914556,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914566,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914577,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914678,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914686,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914788,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914794,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914896,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592914903,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592915004,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592915011,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592915112,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/live",
+      "at": 1794592915119,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/proposal",
+      "at": 1794592915224,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/proposal",
+      "at": 1794592915236,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/apply",
+      "at": 1794592915373,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/apply",
+      "at": 1794592915401,
+      "kind": "response"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/proposal",
+      "at": 1794592915486,
+      "kind": "request"
+    },
+    {
+      "path": "/api/v1/projects/01a1d612-a5c1-7854-b383-4741f7f64cdb/quick-minimizations/01a1d612-bc6d-7462-9413-977cabe49a5f/proposal",
+      "at": 1794592915726,
+      "kind": "response"
+    }
+  ],
+  "backend": {
+    "context_rebuild": 0,
+    "context_rebuilds": 0,
+    "force_field": 0.0034821710141841322,
+    "interpretation": 0.004409461020259187,
+    "optimization": 0.013424117991235107
+  },
+  "elapsedBackendSeconds": 0.024749759992118925,
+  "jobId": "01a1d612-bc6d-7462-9413-977cabe49a5f"
+}

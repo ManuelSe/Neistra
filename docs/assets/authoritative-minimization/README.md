@@ -295,8 +295,8 @@ Earlier failed harness snapshot diagnostics are separate; no application defect
 was inferred from that harness failure. Full qualification repeats actual readers
 after the final metadata correction.
 
-The five committed gate tools and current `c7-candidate3-recipe.json` /
-`c8-merged3-recipe.json` require a clean start, 30 sequential steps, unchanged
+The five committed gate tools and current `c7-candidate4-recipe.json` /
+`c8-merged4-recipe.json` require a clean start, 30 sequential steps, unchanged
 current source/tool identities and 720 actual preceding-tag identities. Browser
 qualification requires the exact 75 previous exclusions and zero new skips, flakes
 or retries; Python skips are forbidden. These recipes are preparation, not passing
@@ -362,3 +362,32 @@ separate from passing evidence. Public inputs use a synthetic UUID. Fresh
 candidate3/master3 recipes repeat every release step and actual reader, with the
 exact 75 prior browser exclusions and no new skip allowance. Seven final integrated
 verdicts and remote delivery remain pending.
+
+
+### Candidate3 pointer regression and correction
+
+[Diagnostic](c7-candidate3-diagnostic.json) and the complete failed browser log/report
+retain the third attempt. Backend1481/frontend503/supervisor14 pass; native stops
+after155 passes/4 actual exclusions with one120s test timeout and326 unrun cases.
+The global reporter error is the maximum-failure stop. The actual application
+regression is passive short-notice text intercepting an underlying viewer control;
+this is not a timing-budget or infrastructure failure. The complete gate is not
+passing qualification.
+
+Restore short text's pointer pass-through; only the existing measured-overflow
+state enables body interaction. Close remains interactive. [Focused evidence](c7-pointer-summary.json)
+records503 frontend passes,11 notice tests, lint/types/build and15 native passes /
+one existing mobile performance exclusion, zero failures/flakes/retries/global
+errors. The [exact command/environment receipt](c7-pointer-native-recipe.json)
+selects the full notification suite and unchanged release-hardening file:165,
+without a grep, forced click, notice dismissal or timeout/limit changes. New real
+short-notice overlap cases pass in both layouts while the notice stays visible.
+Long text retains touch/wheel/keyboard access, fixed Close, reading/focus ownership
+and original expiry behavior.
+
+Independent UI review reproduces short-message interception then proves actual
+hit testing passes through to the underlying control; long text still scrolls and
+Close dismisses normally.92 independent tests pass; no consequential correction
+finding remains.759 source identities are retained. Candidate4/master4 repeat
+all30 release steps and actual readers; all75 existing global exclusion identities
+must remain exact. Earlier failed/interrupted/unused cohorts remain separate.

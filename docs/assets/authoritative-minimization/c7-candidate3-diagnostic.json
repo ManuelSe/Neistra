@@ -1,0 +1,29 @@
+{
+  "status": "FAILED; not complete qualification",
+  "candidate": "aa8d62907e68823f1fbb0f98f9b760208a79c6f4",
+  "stopped_at": "browser",
+  "python": 1481,
+  "python_skips": 0,
+  "frontend": 503,
+  "supervisor": 14,
+  "browser_status_counts": {
+    "passed": 155,
+    "unrun": 326,
+    "skipped": 4,
+    "timedOut": 1
+  },
+  "browser_stats": {
+    "startTime": "2026-11-13T17:36:25.040Z",
+    "duration": 2004714.852,
+    "expected": 155,
+    "skipped": 330,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "cause": "Actual UI regression: short persistent import notice text pointer-events:auto intercepts normal Close viewer controls click until unchanged120s test timeout. Global error is max-failures stop, not separate infrastructure failure.",
+  "correction": "Restore pointer-events:none on short nonoverflow body; only existing scrollable boolean enables pointer interaction. Keep Close interactive and long text scrollable.",
+  "unchanged_test": "tests/e2e/release-hardening.spec.ts:165",
+  "test_sha_matches_failed_candidate": true,
+  "no_weakened_assertions": "No forced click, premature dismissal, timeout/timing/resource/chemistry change or new skip allowance.",
+  "next": "Fresh complete candidate4/master4; no partial browser evidence counted as a full passing gate."
+}

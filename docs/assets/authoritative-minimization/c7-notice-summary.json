@@ -4,7 +4,7 @@
   "scope": [
     "No successful CtrlM scientific-warning popup or count popup; normal short publication confirmation unchanged",
     "Refused/failed scientific reports use controlled review copy; prerequisite/API/uncertainty diagnostics unchanged",
-    "All scientific warnings retained in job/model/report and applied entry warning details; no science/API/schema/dependency/version changes",
+    "Full scientific warnings retained in reports/proposals and applied entry warning details; model assumptions/effective-field provenance unchanged; no science/API/schema/dependency/version changes",
     "Bound generic notice to viewport; long body scrolls via wheel/touch/keyboard; Close remains visible; no focus/lifetime regression",
     "New notice resets scroll; same-message resize/theme/unrelated render preserves reading"
   ],

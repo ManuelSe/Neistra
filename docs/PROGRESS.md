@@ -24,21 +24,25 @@ independent assessments. Candidate1's recipe/old-expectation failures are separa
 supervisor cases but is intentionally interrupted during native qualification for
 the user's notification correction; it is not a complete gate.
 
-The user-requested correction removes successful Ctrl+M warning popups while
-retaining full reports and entry warning details. Refused scientific reports use
+The user-requested correction (committed `aa8d629`) removes successful Ctrl+M
+warning popups while retaining full reports and entry warning details. Refused scientific reports use
 brief review copy; prerequisite/API/recovery diagnostics remain actionable. Long
 notices scroll with Close reachable. Independent UI review reproduces/corrects
 replacement-scroll inheritance; new messages start at the top without losing focus.
 [Focused evidence](assets/authoritative-minimization/c7-notice-summary.json): 503
 frontend passes, lint/types/build and 14 native passes, zero skips/failures/flakes/
-retries; 759 source identities. UI/UX correction assessments pass; final integrated
-all-seven review and complete candidate3/master3 gates/readers remain required.
+retries; 759 source identities. Candidate3 catches short-notice pointer interception
+after 155 native passes. The correction restores passive short text and keeps
+long scrolling interactive: [evidence](assets/authoritative-minimization/c7-pointer-summary.json)
+passes 503 frontend / 15 native cases with one existing mobile exclusion and no
+failures/flakes/retries. Independent UI reconfirms actual hit testing. Final
+all-seven review and complete candidate4/master4 gates/readers remain required.
 
 Five app versions agree at 0.29.0; quick implementation 1.0.3. No dependency,
 schema or migration change. Planned stable release is **minor 0.29.0**. Cleanup is
 local and existing chemistry/capacity/browser limits apply. No overall latency,
 memory-reduction or strict reference-host timing claim. External blockers: none.
-Next: commit the passing notice correction and fresh recipes, run all 30 steps
+Next: commit the passing pointer correction and fresh recipes, run all 30 steps
 cleanly, finalize all-seven assessments and complete authorized remote delivery.
 
 ### Previous completed milestone — issue #98

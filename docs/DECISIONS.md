@@ -6842,3 +6842,16 @@ Keep focus/lifetimes and complete text unchanged. Unit/native regressions and an
 independent actual-component probe confirm the new message begins at the top
 without stealing focus. This extends the existing notice identity ownership,
 without a persistent notification model, molecular-state change or new framework.
+
+
+### D-153 passive short notices and interactive overflow — 2026-11-13
+
+The complete candidate gate finds a concrete regression: pointer events on a
+short persistent import message intercept an underlying viewer control. Preserve
+the original passive short-notice behavior. Only a measured overflowing text
+region captures pointer input for reading/scrolling; Close always remains
+interactive. Reuse the existing overflow boolean rather than add another state
+owner. Do not dismiss notices or force clicks in tests to conceal interception.
+Independent actual-component hit testing and the unchanged native hardening case
+verify the correction. Long reading, identity reset, focus, lifetimes, scientific
+payloads and production/qualification limits remain unchanged.

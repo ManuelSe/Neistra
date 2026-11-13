@@ -1,0 +1,17 @@
+{
+  "firstFrameMs": 833,
+  "cancelMs": 46.19999998807907,
+  "startedWall": 1794592945716,
+  "frames": [
+    {
+      "sequence": 1,
+      "iteration": 1,
+      "published_at": 1794592946.3761652
+    },
+    {
+      "sequence": 2,
+      "iteration": 144,
+      "published_at": 1794592946.5769944
+    }
+  ]
+}
