@@ -29,6 +29,13 @@ def protein_graph(
     assumptions = {}
     diagnostics: dict[int, set[tuple[int, int]]] = defaultdict(set)
 
+    def has_h(atom_id: int) -> bool:
+        return any(
+            atoms[other].element == "H"
+            for bond in bonds.values() if atom_id in (bond.atom_1_id, bond.atom_2_id)
+            for other in (bond.atom_1_id, bond.atom_2_id) if other != atom_id
+        )
+
     def link(first: int, second: int, order: float) -> None:
         key = frozenset((first, second))
         existing = bonds.get(key)
@@ -54,6 +61,46 @@ def protein_graph(
         ):
             continue
         protein.update(a.id for a in group)
+        state_orders: dict[frozenset[int], float] = {}
+        state_charges: dict[int, int] = {}
+        acid = {"ASP": ("CG", "OD1", "OD2"), "GLU": ("CD", "OE1", "OE2")}.get(residue.name)
+        if acid:
+            center, first_o, second_o = (names[name] for name in acid)
+            pair = (first_o, second_o)
+            oxygen_edges = [frozenset((center.id, oxygen.id)) for oxygen in pair]
+            # Interpret an existing carboxyl group jointly. Observed H, known
+            # bond orders and a supplied negative charge can select either
+            # equivalent oxygen; atom naming alone cannot override them.
+            if all(edge in bonds for edge in oxygen_edges):
+                hydrogens = [has_h(oxygen.id) for oxygen in pair]
+                orders = [bonds[edge].order for edge in oxygen_edges]
+                single = 1  # disclosed default when neither oxygen has state evidence
+                if sum(hydrogens) == 1:
+                    single = hydrogens.index(True)
+                elif orders.count(1.0) == 1:
+                    single = orders.index(1.0)
+                elif orders.count(2.0) == 1:
+                    single = 1 - orders.index(2.0)
+                elif sum(oxygen.formal_charge == -1 for oxygen in pair) == 1:
+                    single = next(i for i, oxygen in enumerate(pair) if oxygen.formal_charge == -1)
+                has_negative = any(oxygen.formal_charge == -1 for oxygen in pair)
+                for i, oxygen in enumerate(pair):
+                    state_orders[oxygen_edges[i]] = 1.0 if i == single else 2.0
+                    state_charges[oxygen.id] = (
+                        0 if any(hydrogens) or has_negative else -1 if i == single else 0
+                    )
+        delta, epsilon = names.get("ND1"), names.get("NE2")
+        if residue.name == "HIS" and delta and epsilon:
+            ring = (delta, epsilon)
+            state_charges.update((atom.id, 0) for atom in ring)
+            # Both observed ring H require one positive site. A coherent
+            # supplied cation wins; otherwise place +1 on an unknown site only.
+            if all(has_h(atom.id) for atom in ring) and not any(
+                atom.formal_charge == 1 for atom in ring
+            ) and all(atom.formal_charge in {None, 0} for atom in ring):
+                unknown = next((atom for atom in ring if atom.formal_charge is None), None)
+                if unknown:
+                    state_charges[unknown.id] = 1
         for b in t.GetBonds():
             a, c = (
                 x.GetPDBResidueInfo().GetName().strip() for x in (b.GetBeginAtom(), b.GetEndAtom())
@@ -64,7 +111,7 @@ def protein_graph(
                     diagnostics[residue.id].add(
                         (min(names[a].id, names[c].id), max(names[a].id, names[c].id))
                     )
-                link(names[a].id, names[c].id, b.GetBondTypeAsDouble())
+                link(names[a].id, names[c].id, state_orders.get(edge, b.GetBondTypeAsDouble()))
         for b in source.bonds:
             if b.atom_1_id in {a.id for a in group} and b.atom_2_id in {a.id for a in group}:
                 if atoms[b.atom_1_id].element == "H" or atoms[b.atom_2_id].element == "H":
@@ -73,7 +120,9 @@ def protein_graph(
         for name, a in names.items():
             if a.formal_charge is not None:
                 continue
-            charge = -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
+            charge = state_charges.get(
+                a.id, -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
+            )
             # Observed acid H is stronger evidence than a default deprotonated state.
             if charge == -1 and any(
                 atoms[j].element == "H"
@@ -129,23 +178,10 @@ def protein_graph(
             )
             if degree >= 4 or established_start:
                 atoms[n.id] = atoms[n.id].model_copy(update={"formal_charge": 1})
-        delta, epsilon = names.get("ND1"), names.get("NE2")
-        if residue.name == "HIS" and delta and epsilon and delta.formal_charge is None:
-
-            def has_h(atom_id: int) -> bool:
-                return any(
-                    atoms[j].element == "H"
-                    for b in bonds.values()
-                    if atom_id in (b.atom_1_id, b.atom_2_id)
-                    for j in (b.atom_1_id, b.atom_2_id)
-                    if j != atom_id
-                )
-
-            if has_h(delta.id) and has_h(epsilon.id):
-                atoms[delta.id] = atoms[delta.id].model_copy(update={"formal_charge": 1})
         assumptions[residue.id] = (
             f"Residue {residue.id} {residue.name}: observed standard template; "
-            "missing states use ASP/GLU-, LYS/ARG+, neutral CYS/TYR and epsilon-H HIS; "
+            "supplied H/orders/charges take precedence; absent state evidence uses "
+            "ASP/GLU-, LYS/ARG+, neutral CYS/TYR and epsilon-H HIS; "
             "no pH prediction"
         )
     for first, second in pairwise(source.residues):

@@ -14,6 +14,14 @@ final candidate review, expanded C4 science, measured C5 performance, C6 boundar
 and complete C7/C8 gates/actual readers remain required. Earlier diagnostic native
 runs are retained separately and do not count as passing evidence.
 
+C4 adds 24 observed-state/cap cases, four independent mixed-moving force/oracle
+cases and two real worker/publication/archive profiles. The combined focused gate
+passes **160 Python cases**, Ruff and mypy (199 files), with 735 fixed source
+identities. Theory independently passes 96 and the complete change. Five new
+state expectations failed before correcting unknown-fact interpretation; source
+graphs/known chemistry remain exact. C4 is the corrected performance baseline;
+later indexing/shared-boundary and final complete release gates remain required.
+
 ## Issue #98 — C2 layouts, accessibility and resource qualification
 
 [C2 evidence](assets/viewer-warning-details/README.md) and the

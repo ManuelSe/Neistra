@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2/C3 are implemented and focused-qualified; C4–C8 remain pending.
+C2–C4 are implemented and focused-qualified; C5–C8 remain pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -469,8 +469,9 @@ to avoid a self-referential commit claim.
 | C0 | Complete: verified local/remote `bae090a337d7cc5371d4cd448eae95ced6b591a1`. |
 | C1 | Complete local checkpoint `b4ee31f`; focused evidence below. |
 | C2 | Complete local checkpoint `36df747`; focused evidence below. |
-| C3 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
-| C4–C8 | Pending; no final feature/release qualification claimed. |
+| C3 | Complete local checkpoint `9e418d3`; focused evidence below. |
+| C4 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
+| C5–C8 | Pending; no final feature/release qualification claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -595,3 +596,40 @@ C4 scientific preparation identified a reproducible supplied-acid-H first-oxygen
 interpretation defect. Its bounded correction/independent matrix belongs to C4,
 before performance baseline/qualification and release. No product scope changes
 or schema/dependency/app-version changes are introduced in C3.
+
+### C4 — 2026-11-13: observed states and independent mixed-model qualification
+
+The new 24-case state matrix reproduced **five failures / 19 passes** before the
+bounded correction: acid H on first-named ASP/GLU O and three coherent alternate
+supplied charge placements. Joint unknown-fact interpretation corrects these
+without changing assigned orders/charges, existing H, coordinates or connectivity.
+Contradictory assigned facts remain preserved and warned/repaired/refused under
+the existing policy. No state enumeration, new residue aliases, pH prediction or
+canonical repair is added.
+
+Four independent mixed-model cases qualify actual moving MMFF/repair and MMFF/UFF
+contributions, nonzero gradients/displacement, full-pair steric exclusions and
+fresh native-field references. Central differences and exact cap coordinates have
+independent expectations, not production-helper-derived expected outputs. Native
+and surrogate units/tolerances are explicit. Two real worker/API cases extend
+this to sparse IDs, active7/inactive conformers, exact fixed rows, literal graphs,
+immutable current/original artifacts, allocation floors, a single command, exact
+Undo/Redo, no repeated Apply and archive round-trip.
+
+The final combined focused gate passes **160 Python cases in 18.35 seconds**,
+global Ruff and strict mypy across 199 files. All **735 source identities** remain
+fixed. Theory independently passes **96 cases in 6.17 seconds** and the complete
+four-file change; additional supplied-charge probes pass. No consequential finding
+remains. C3 frontend/static/build/browser evidence is reused: C4 changes only
+temporary scientific interpretation and Python tests, with no UI/API-shape change.
+No applicable prepared-engine code is changed; its full release regression remains
+mandatory in C7/C8.
+
+Deviation: use a meaningful **`fix(minimization)`** checkpoint commit instead of
+the planned test-only type, because qualification exposed actual interpretation
+defects within the approved correction scope. The optional third UFF/repair
+profile is unnecessary: two required moving profiles plus C3's assignment matrix
+cover the distinct branches. No essential outcome is deferred and no follow-up is
+needed. App versions, quick implementation1.0.3, dependencies, migrations and
+canonical/project/archive/report contracts remain unchanged. Next: commit C4, then
+measure C5 against this corrected baseline before changing discovery/index code.

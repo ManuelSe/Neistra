@@ -6708,3 +6708,26 @@ historical metadata and invalid/unsupported metadata have distinct fallbacks;
 neither changes scientific Apply eligibility. No numerical method, public input,
 database migration or molecular/project/archive schema change follows from these
 diagnostics. Implementation qualification remains a separate checkpoint gate.
+
+### D-153 C4 observed-state qualification — 2026-11-13
+
+Independent qualification reproduced five ordinary supplied-state failures:
+acid H on the first named ASP/GLU oxygen, and coherent alternate supplied charges
+on histidine or the first ASP/GLU oxygen. Independent state expectations failed
+five cases before correction (19 passed). Resolve unknown carboxyl orders/charges
+jointly from observed H, known orders and assigned charge before named defaults;
+avoid duplicating an existing histidine cation. Explicit orders/charges, atoms,
+coordinates and the exact current endpoint graph remain authoritative. Conflicting
+assigned facts retain existing warned repair/refusal; no enumeration, pH model,
+canonical repair or broader residue support is introduced.
+
+The bounded scientific matrix adds supplied-state, conflict, disulfide, terminus
+and exact cap tests; synthetic state coordinates qualify interpretation, not an
+equilibrium pose. Mixed moving profiles use fresh independent native fields and
+full-pair harmonic/steric sums, with the distance-constraint convention ½kδ².
+Finite differences use 1e-5 angstrom steps, 1e-4 absolute/1e-6 relative gradient
+tolerances away from kinks and 1e-6 objective tolerance. Native kcal/mol and
+surrogate penalty quantities remain distinct. Real worker/API profiles protect
+sparse IDs, inactive conformers, fixed rows, source/original bytes, history and
+archive compatibility. No numerical force-field redesign or persisted schema is
+needed. C4 is the corrected baseline for subsequent measured indexing work.

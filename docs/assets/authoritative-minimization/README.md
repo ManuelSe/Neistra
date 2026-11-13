@@ -76,7 +76,7 @@ Diagnostics remain separate:
   later GET (timestamp serialization/job-link differences); it now compares fresh
   server state immediately before/after refusal. The preservation assertion remains.
 
-C4–C8 and complete final-version candidate/master/reader qualification are pending.
+C5–C8 and complete final-version candidate/master/reader qualification are pending.
 
 ## C2 — Reliable quick publication
 
@@ -163,3 +163,39 @@ Checkpoint full-diff self-review has no consequential unresolved finding.
 Nonblocking singular component copy is scheduled before C7's final candidate gate.
 C4's supplied-state corrections/independent scientific matrix remain next; this
 checkpoint is not readiness to push or release.
+
+## C4 — Supplied states and independent mixed models
+
+[Summary](c4-summary.json) records **160 focused Python passes in 18.35 seconds**
+over C3 `9e418d3`. [Full log](c4-python.log.gz), [Ruff](c4-ruff.log.gz),
+[mypy](c4-mypy.log.gz) (199 files) and [735 source identities](c4-source-identity.json.gz)
+verify the corrected checkpoint. Exact command and locked single-thread portable
+environment are in the summary. Frontend/API shapes are unchanged; valid C3
+frontend/static/build/browser evidence is reused rather than repeating unaffected
+checks. Complete release gates/readers remain mandatory.
+
+The [state baseline](c4-state-baseline.log.gz) fails five cases and passes 19
+before correcting acid first-oxygen and coherent alternate-charge interpretation.
+[State-focused](c4-state-focused.log.gz) passes 141 cases afterward. The new state
+matrix covers nine supplied states, three alternative-charge cases, conflicts,
+explicit/deleted disulfides, termini and exact 2/1/1/0 cap groups with 5/2/3/0
+pre-H helper atoms. Synthetic coordinates establish graph/state expectations,
+not equilibrium poses. Only unknown facts change in disposable models.
+
+[Mixed science](c4-mixed.log.gz) passes four strengthened cases;
+[combined science](c4-mixed-combined.log.gz) passes 70. Fresh native fields and
+independent full-pair harmonic/steric sums qualify both moving components and
+cross-interactions. Distance constraints use ½kδ²; native and surrogate units,
+finite-difference steps and tolerances are explicit. The reference's initial
+unsanitized combined-molecule setup was corrected before qualification.
+
+[Two real API cases](c4-api.log.gz) protect current graphs and exact sparse/fixed/
+inactive rows, originals/current artifact bytes, allocation floors, one command,
+Undo/Redo, no repeated Apply and archive retention. Scientific theory independently
+passes 96 cases, inspects the complete four-file change and all source identities,
+and confirms additional supplied-charge probes. No consequential finding remains.
+
+The checkpoint uses `fix(minimization)` because qualification exposed actual
+scientific defects. This is the corrected C5 performance baseline. No force-field
+redesign, canonical repair, pH prediction, dependency, migration, schema or version
+change occurs. Final all-seven review and release qualification remain pending.

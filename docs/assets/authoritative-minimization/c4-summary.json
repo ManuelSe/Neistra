@@ -1,0 +1,75 @@
+{
+  "checkpoint": "C4",
+  "base": "9e418d3813e62dd59b0d61753c883168c60fb76a",
+  "qualification": "uncommitted scientific checkpoint; corrected baseline for C5; not the release gate",
+  "python": {
+    "passed": 160,
+    "seconds": 18.35,
+    "new_states": 24,
+    "new_mixed_scientific": 4,
+    "new_mixed_api": 2,
+    "before_state_correction": {
+      "failed": 5,
+      "passed": 19
+    },
+    "command": [
+      ".venv/bin/uv",
+      "run",
+      "pytest",
+      "tests/scientific/test_quick_states.py",
+      "tests/scientific/test_quick_mixed_models.py",
+      "tests/integration/test_quick_mixed_models.py",
+      "tests/unit/test_quick_minimization.py",
+      "tests/unit/test_quick_provenance.py",
+      "tests/scientific/test_quick_minimization.py",
+      "tests/integration/test_quick_minimization.py",
+      "tests/integration/test_quick_historical_policy.py",
+      "tests/unit/minimization/test_context.py",
+      "tests/unit/adapters/test_protein_connectivity.py",
+      "-q"
+    ]
+  },
+  "static": {
+    "ruff": "PASS global",
+    "mypy": "PASS 199 files"
+  },
+  "source_identity": {
+    "files": 735,
+    "unchanged": true
+  },
+  "scientific_review": {
+    "role": "scientific_theory",
+    "verdict": "PASS",
+    "independent_cases": 96,
+    "seconds": 6.17,
+    "scope": "complete four-file change plus additional charge evidence probes",
+    "final_seven_role_gate": "pending C7"
+  },
+  "oracle": {
+    "distance_penalty": "0.5*k*delta^2; bond coefficient50,steric10",
+    "central_difference_step_angstrom": 1e-05,
+    "gradient_absolute_tolerance": 0.0001,
+    "gradient_relative_tolerance": 1e-06,
+    "objective_absolute_tolerance": 1e-06,
+    "units": "native kcal/mol and kcal/(mol angstrom); repair/mixed surrogate penalty and penalty/angstrom"
+  },
+  "reuse": "C3 frontend lint/types/tests/build/native evidence remains applicable; no frontend/API shape change in C4",
+  "scope": "temporary unknown facts only; supplied H/orders/charges, canonical edges, source bytes and fixed/inactive rows retained; no state enumeration/alias expansion/migration/dependency/schema/version change",
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0"
+  },
+  "artifacts": {
+    "c4-api.log.gz": "de9b7196dc638238512faa509b307d8ee36a6b03b2c0c8d38878f827be0345fa",
+    "c4-mixed-combined.log.gz": "dbe5e6519639c7c3894af6820461cea53841d2d0eb3c457b6bf9e200b88c4d9f",
+    "c4-mixed.log.gz": "93a726b61eac2e2afa8bbb0ccbe2d58c3081b175de34052259868ad1b2da4f3c",
+    "c4-mypy.log.gz": "d927aa2a14f7569847b5462c6c7abfc6128e636ef9a490199be0975a75d4ca3f",
+    "c4-python.log.gz": "3e7628b51987f42147c25865bbdab16cb514bc209f66fe11a89172d3bbfffe5e",
+    "c4-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c4-source-identity.json.gz": "3f88665eb4d6ec54c3869420e235c45e58b4db979b1dded2505d483735c7e656",
+    "c4-state-baseline.log.gz": "3d28378d136303ce5a2abe067ec78e6be1d0d4bb654e155ff337d8476ab66eec",
+    "c4-state-focused.log.gz": "46e323eedb2dd018063136eeefbd3873a377bc3f01287f65861ccbc30d3000c9"
+  }
+}

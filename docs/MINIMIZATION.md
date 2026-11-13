@@ -96,6 +96,13 @@ specifies otherwise. Assumptions are reported; no pH prediction, missing heavy a
 or loop completion is performed. Temporary hydrogens and boundary helpers have no
 canonical atom IDs and are never added to the saved structure.
 
+Supplied H, known bond orders and assigned charges take precedence over these
+defaults. For ASP/GLU, the two equivalent oxygens are interpreted jointly: an
+observed acid H can occupy either oxygen, and a coherent supplied negative charge
+is not duplicated on its partner. A supplied positive histidine ring charge is
+not duplicated on the other N. Only unknown temporary facts are resolved; assigned
+contradictions remain unchanged and retain warned repair/refusal behavior.
+
 When a draft cannot be parameterized, **Approximate repair** uses explicit native
 bond/angle/planarity and overlap constraints. Unsupported fixed sites remain steric
 obstacles while supported native components retain their forces. Reports identify

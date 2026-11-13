@@ -46,10 +46,18 @@ focus, themes/axe, recapture and actual zoom. Two test-only fixture/drawer diagn
 are separate from passing evidence. C4 preparation
 found a bounded supplied-acid-H interpretation correction to complete next.
 
-Known limitations: C4–C8 remain; existing sparse graphs
+Completed C4 qualification: narrow unknown-state corrections address five
+reproduced acid/histidine supplied-state defects while preserving assigned facts
+and literal graphs. **160 Python cases**, global Ruff/mypy (199 files) pass;
+theory independently passes 96 and all 735 source identities remain fixed. New
+state/cap, independent mixed-force and real worker/publication/archive cases are
+bounded; synthetic state coordinates are not claimed as physical poses. C3 is
+committed locally as `9e418d3`; frontend/browser evidence remains unaffected.
+
+Known limitations: C5–C8 remain; existing sparse graphs
 intentionally stay unchanged. Planned release remains **minor 0.29.0**. Blockers:
-none. Next action: commit C3, then correct/qualify supplied states and mixed fields
-in C4. Final integrated review/release gates
+none. Next action: commit C4, then measure/index C5 against its corrected baseline.
+Final integrated review/release gates
 remain pending.
 
 ### Previous completed milestone — issue #98
