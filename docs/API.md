@@ -328,17 +328,23 @@ atomically across every referenced entry:
 
 `action` is `apply` or `reset`. Apply requires one of `line`, `stick`,
 `thick-stick`, `ball-and-stick`, `space-filling`, `backbone`, or `cartoon`;
-reset requires `style` to be absent. An empty selection, stale/unknown atom
+reset requires `style` to be absent. Reset accepts optional `channel` with values
+`atomic`, `polymer`, or `all` (the backward-compatible default). Apply derives
+its channel from the style and rejects an explicit non-`all` reset scope.
+An empty selection, stale/unknown atom
 reference, duplicate or noncanonical reference, or incompatible polymer target
 returns a validation/operation error without changing any entry. Backbone and
 Cartoon require exact complete supported protein, DNA, or RNA residues with
 their required trace atoms in every selected entry; partial or mixed-invalid
 multi-entry requests fail as a whole.
 
-A successful action returns the revised complete project and increments the
-project revision exactly once. Atomic styles replace selected atoms only among
+A successful changed action returns the revised complete project and increments
+the project revision exactly once. Complete no-ops return the unchanged project,
+preserving dirty state, history and Redo. Atomic styles replace selected atoms only among
 the five atomic styles; polymer styles replace them only between Backbone and
-Cartoon. Reset removes the selected atoms from both channels. The existing
+Cartoon. Reset removes selected atoms from its requested channel(s); atomic/all
+resets also show the target's atom detail. Polymer-only resets preserve atomic
+assignments and atomic hiding. The existing
 entry viewer-settings endpoint may preserve but cannot mutate
 `selection_representations`; callers must use this project-level action so
 validation, atomicity, history, and topology reconciliation cannot be bypassed.

@@ -109,7 +109,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                 >
                   {representationStyles.filter(style => style !== "surface").map((style) => (
                     <option key={style} value={style}>
-                      {style}
+                      {style === "backbone" ? "Backbone trace" : style}
                     </option>
                   ))}
                 </select>

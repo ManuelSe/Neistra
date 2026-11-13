@@ -21,7 +21,10 @@ export function SelectionPalette({ open, onOpenChange, children, count, restoreF
     const box = anchor.current?.getBoundingClientRect();
     const left = Math.max(8, Math.min(box?.left ?? 10, window.innerWidth - 352));
     const naturalHeight = panel.scrollHeight + 2 * panel.clientTop;
-    const top = Math.max(8, Math.min((box?.bottom ?? 50) + 8, window.innerHeight - naturalHeight - 12));
+    const controls = anchor.current?.closest(".structure-viewer")?.querySelector(".viewer-controls > .icon-button")?.getBoundingClientRect();
+    // A tall workspace palette can scroll; it must not cover its sibling launcher.
+    const minimumTop = controls ? controls.bottom + 2 : 8;
+    const top = Math.max(minimumTop, Math.min((box?.bottom ?? 50) + 8, window.innerHeight - naturalHeight - 12));
     panel.style.setProperty("--palette-left", `${left}px`);
     panel.style.setProperty("--palette-top", `${top}px`);
   }, []);

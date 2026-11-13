@@ -6930,3 +6930,13 @@ accompany fixes. Five version sources change only in release preparation. Existi
 stable 0.29.0 history is verified; all future candidate/exact-master gates, actual
 tagged readers and seven-role final assessments remain required. C0 introduces
 no application, version, dependency, migration or durable-schema implementation.
+
+### D-155 implementation and delivery authorization
+
+The subsequent issue #140 `/goal` authorizes C1–C7 and explicitly requires
+`Closes #140` in the PR. This supersedes the approved plan's earlier Refs/late-close
+timing only. Normal merge can close the issue; complete exact-master verification,
+annotated tag/release and the final issue response remain required. No protection,
+review or acceptance gate is waived. C1 introduces no migration or persisted
+viewer-field change; reset scope is an additive request control with all-channel
+default, and complete no-ops retain existing history/Redo.

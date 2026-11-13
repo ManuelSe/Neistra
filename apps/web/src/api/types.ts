@@ -240,6 +240,7 @@ export interface ViewerSettings {
 }
 
 export type SelectionRepresentationStyle = Exclude<RepresentationStyle, "surface">;
+export type SelectionRepresentationChannel = "atomic" | "polymer" | "all";
 
 export interface SelectionRepresentation {
   style: SelectionRepresentationStyle;

@@ -45,6 +45,7 @@ import type {
   SelectionColorMode,
   SelectionMode,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
@@ -1038,6 +1039,7 @@ export default function App() {
     onSelectionStyle: async (
       action: "apply" | "reset",
       style?: SelectionRepresentationStyle,
+      channel?: SelectionRepresentationChannel,
     ) => {
       if (!project) return;
       await projectMutation.mutateAsync(() =>
@@ -1046,13 +1048,14 @@ export default function App() {
           selection,
           action,
           style,
+          channel,
         ),
       );
       setNotice({
         kind: "success",
         text:
           action === "reset"
-            ? "Selection representations reset to entry defaults."
+            ? `Selection ${channel === "atomic" ? "atom detail" : channel === "polymer" ? "polymer representation" : "representations"} reset to entry defaults.`
             : "Selection representation applied.",
       });
     },

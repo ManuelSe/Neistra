@@ -259,16 +259,21 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   polymer, or validate secondary structure.
 - Atomic and polymer styles are independent replacement channels. A selected
   atom can retain one style in each channel; applying another style replaces
-  only same-channel membership. Reset removes both selection-specific channels
-  for the target so entry-level styles become visible again. Independent
+  only same-channel membership. Reset removes its requested channel(s)
+  for the target so entry-level styles become visible again. The default resets
+  both channels. Polymer-only reset preserves atomic hiding. Independent
   entry-level surfaces are never subtracted by these replacements.
-- Thin and Thick sticks are fixed display profiles mapped to Mol* ball-and-stick
-  with different radii. “Thick” is a visual distinction, not a bond-order,
+- Thin and Thick sticks use uniform tube/cap radii of 0.22 and 0.36 Å with the
+  native sphere/bond provider. Rounded atom joints also represent isolated atoms;
+  mixed elements do not introduce physical-radius bulges. Native multiple-bond
+  subsidiary cylinders retain their smaller radii and aromatic notation.
+  “Thick” is a visual distinction, not a bond-order,
   confidence, contact, or chemical-type assertion.
-- Selection-specific layers use element coloring and full opacity. This release
-  has no selection-specific colors, opacity, labels, surfaces, presets,
-  same-channel overlays, component overrides/export, ligand designation, or
-  docking semantics. Component and hydrogen visibility plus active isolation
+- Selection-specific layers use element base coloring and full opacity. Existing
+  local uniform/carbon coloring overrides and independent surface objects remain
+  available. New local opacity/thematic controls, presets, same-channel overlays,
+  component overrides/export, ligand designation and docking semantics are not
+  added by this correction. Component and hydrogen visibility plus active isolation
   can hide assigned atoms without deleting their durable assignment.
 
 ## Selection And Spatial Queries

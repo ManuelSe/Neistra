@@ -27,6 +27,7 @@ import type {
   Scene,
   Selection,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
@@ -316,6 +317,7 @@ export const projectApi = {
     selection: Selection,
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
+    channel?: SelectionRepresentationChannel,
   ) =>
     request<Project>(`/api/v1/projects/${project.id}/selection-representations`, {
       method: "POST",
@@ -324,6 +326,7 @@ export const projectApi = {
         selection,
         action,
         ...(style ? { style } : {}),
+        ...(channel ? { channel } : {}),
       }),
     }),
   createMeasurement: (

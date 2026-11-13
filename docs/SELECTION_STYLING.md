@@ -8,6 +8,13 @@ panels, or move the camera. Its count always describes the current selection.
   independent channels. A solid pressed button applies throughout the selection;
   a dashed border and dash mark partial membership. Unavailable polymer styles
   have a **Why unavailable?** disclosure explaining their complete-residue rule.
+- The channel summary distinguishes entry defaults, explicit overrides, mixed
+  assignments and atom-detail hiding. It describes saved display intent, not a
+  guarantee that geometry is currently rendered. **Backbone trace** is the
+  existing polymer trace representation; its stored identifier is unchanged.
+- For a partial supported-residue selection, explicitly preview expansion to
+  complete residues and accept it before applying a polymer style. Expansion
+  uses the central selection and includes hidden atoms; it never edits chemistry.
 - Use **Hide** in Atom detail to hide the selected atoms and incident bonds.
   Polymer Backbone/Cartoon and surfaces stay visible. If every selected atom is
   hidden, the same tile offers **Show**, restoring its previous styles. A dash
@@ -25,6 +32,10 @@ panels, or move the camera. Its count always describes the current selection.
 - Use the representation or color **Reset** independently. Representation reset
   restores both representation channels to entry defaults and shows the target. Color reset restores
   the underlying entry theme, including removal of explicit element overrides.
+- Channel-specific representation resets affect only Atom detail or Polymer.
+  Atomic reset also shows the target's atom detail; Polymer reset preserves
+  atomic styles and hiding. Reapplying an already-visible assigned style or
+  resetting an already-default target preserves revision, dirty state and Redo.
 - **Non-polar H** stores Show/Hide/Use entry setting for explicit selected H.
   Selecting heavy atoms does not include attached hydrogens. Master hydrogen,
   entry/component visibility and isolation still apply; help explains these limits.

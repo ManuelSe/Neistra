@@ -42,7 +42,7 @@ export function polymerStyleUnavailableReason(
     for (const atomId of selected) {
       const residueId = atomsById.get(atomId)?.residue_id;
       if (residueId === null || residueId === undefined || !supportedResidues.has(residueId)) {
-        return "Backbone and Cartoon require complete protein, DNA, or RNA residues";
+        return "Backbone trace and Cartoon require complete protein, DNA, or RNA residues";
       }
       selectedResidues.add(residueId);
     }
@@ -52,7 +52,7 @@ export function polymerStyleUnavailableReason(
       ]),
     );
     if (selected.size !== expected.size || [...selected].some((atomId) => !expected.has(atomId))) {
-      return "Backbone and Cartoon require every atom in each selected residue";
+      return "Backbone trace and Cartoon require every atom in each selected residue";
     }
     for (const residueId of selectedResidues) {
       const category = supportedResidues.get(residueId);
@@ -63,7 +63,7 @@ export function polymerStyleUnavailableReason(
           traceNames.has(atomsById.get(atomId)?.name.trim().toUpperCase() ?? ""),
         )
       ) {
-        return "Backbone and Cartoon require usable trace atoms in every selected residue";
+        return "Backbone trace and Cartoon require usable trace atoms in every selected residue";
       }
     }
   }

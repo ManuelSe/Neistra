@@ -1148,6 +1148,8 @@ export class MolstarEngine implements MolecularViewer {
         component,
         {
           type: profile.type,
+          size: profile.size,
+          sizeParams: profile.sizeParams,
           typeParams: layer.id === "movement-preview" ? { ...profile.typeParams, ...movementCueParams }
             : layer.surface && !reducedSurface ? { ...profile.typeParams,
               visuals: [layer.surface.appearance.mode === "mesh" ? "molecular-surface-wireframe" : "molecular-surface-mesh"] } : profile.typeParams,

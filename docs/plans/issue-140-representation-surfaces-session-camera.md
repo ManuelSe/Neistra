@@ -2,7 +2,8 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0 planning persistence only. C1–C7 remain pending.
+**Status:** approved contract; C0 and C1 complete; C2–C7 pending.
+The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
 implementation. Stop ready for `/goal` after committing and pushing this plan.
@@ -384,8 +385,9 @@ compatibility/upgrade/rollback; deferred scope; verification.
 
 - PR title: `feat(viewer): correct representations and surfaces and preserve the shared camera`.
 - Normal merge commit preserves coherent checkpoint commits.
-- Use **Refs #140**; close only after exact-master qualification and verified
-  publication.
+- The subsequent explicit `/goal` requires **Closes #140** in the PR, superseding
+  the original Refs/late-close instruction. Normal merge may close the issue;
+  exact-master qualification, publication and final issue reply remain mandatory.
 - PR/final reply distinguish implemented, simplified, deferred and rejected work,
   including the user's global-camera correction.
 - Create the single approved styling follow-up before closing #140; link #64/#107
@@ -443,3 +445,59 @@ Known limitations: all audited defects remain until implementation. The planned
 combined-entry capacity and session-camera behavior are unqualified. No PR,
 application fix, future release gate, follow-up issue, merge, tag or release is
 claimed. Blockers: none for the planning handoff. Next action: **/goal** for C1–C7.
+
+### C1 — Implementation authorization and qualification in progress
+
+The subsequent user `/goal` authorizes the full contract and explicitly requires
+Closes #140 in the PR. C0 commit `3d94394a425855540898a828edc10b10347ddf70`
+was verified on the remote planned branch with a clean tree before implementation.
+
+Implemented C1 changes: uniform stick sizing/native forwarding, complete no-op
+suppression, scoped atomic/polymer reset, effective display-intent summaries,
+Backbone trace label and explicit complete-residue recovery. Backend integration
+regressions cover Redo, exact no-op state, hidden-detail restoration, scoped Undo
+and mixed changed/unchanged entries. Initial no-op comparisons exposed existing
+SQLite timezone serialization differences; compare equal fresh read projections
+without weakening unchanged-state assertions. No application timezone policy
+change is introduced.
+
+Qualification is in progress. Initial backend gate: 27 Python cases pass, Ruff
+passes and mypy passes 201 sources. Initial frontend integrated gate: lint/types,
+509 tests and production build pass (existing large renderer chunk warning).
+Native styling/recovery and expanded C–C/C–O geometry evidence are pending.
+These are checkpoint checks, not release qualification or all-seven final review.
+
+The final native geometry correction adds explicit C–C/C–N/C–O cases for both
+styles at absolute radius error ≤1e-6 Å. Scientific checkpoint reassessment
+independently passes 30 focused cases; architecture checkpoint review passes
+the current contract/history boundaries. The subsequent full frontend gate
+passes 520 tests, lint/types and build. Backend final C1 gate passes 27 tests,
+full Ruff and mypy (201 sources). Existing styling native invocation passes three
+applicable cases with three established layout exclusions.
+
+The first expanded appearance/recovery invocation records seven passes, two
+existing exclusions and one failure: additional channel-summary rows repositioned
+the palette over the viewer-controls Close button. The unchanged interaction
+test exposed pointer interception. Retain `/tmp/neistra140-c1-recovery` trace and
+failure screenshot; do not force the click, weaken the assertion or count that
+invocation as passing. A compact legend layout correction and fresh native
+qualification are required before the C1 commit.
+
+#### C1 passing checkpoint
+
+The compact channel legends and minimum clearance below the sibling viewer
+launcher correct the overlap; the unchanged failed case passes in 31.7 seconds.
+The fresh complete affected native invocation passes **11 cases / 5 established
+layout exclusions**, zero failures or retries. Exact commands/environment, source
+hashes, native log, fixture screenshots and the separate failed trace are retained
+in [C1 evidence](../assets/representation-surfaces-session-camera/c1-checkpoint.json).
+Desktop/mobile fixture screenshots were inspected. A semantic span correction
+inside legends additionally passes 20 focused UI cases, scoped lint and types;
+the complete 520-test frontend gate and production build pass. Backend 27 tests,
+full Ruff/mypy and diff checks pass. No schema, migration, dependency or version
+change. Scientific and architecture checkpoint findings are resolved; these do
+not replace all-seven final feature review. The primary reviewed the complete C1
+diff including new files, no-op/scoped-reset compatibility and scientific tests.
+
+Next: C2 combined-context surfaces and bounded worker lifecycle. No C2 application
+work, release qualification, PR or push-readiness claim is included in C1.

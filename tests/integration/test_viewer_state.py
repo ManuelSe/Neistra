@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, cast
 
+import pytest
+
 from tests.integration.test_archive_roundtrip import export_archive, import_archive
 from tests.support.api_client import ApiClient
 
@@ -125,6 +127,141 @@ def test_selection_representation_replacement_reset_and_history(client: ApiClien
         {"style": "line", "atom_ids": [1]},
         {"style": "thick-stick", "atom_ids": [2, 3]},
     ]
+
+
+def test_reapplying_current_style_preserves_redo_and_revision(client: ApiClient) -> None:
+    project = import_ligand(client)
+    target = selection(project["entries"][0]["id"], 1, 2)
+    project = apply_style(client, project, target, "stick").json()
+    project = apply_style(client, project, target, "space-filling").json()
+    path = f"/api/v1/projects/{project['id']}"
+    undone = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert undone["history"]["can_redo"]
+    undone = client.get(path).json()
+    unchanged = apply_style(client, undone, target, "stick")
+    assert unchanged.status_code == 200, unchanged.text
+    assert unchanged.json() == undone
+    redone = client.post(
+        f"{path}/history/redo", json={"expected_revision": undone["revision"]}
+    )
+    assert redone.status_code == 200, redone.text
+    assert redone.json()["entries"][0]["viewer_settings"]["selection_representations"] == [
+        {"style": "space-filling", "atom_ids": [1, 2]}
+    ]
+
+
+@pytest.mark.parametrize("channel", ["atomic", "polymer", "all"])
+def test_default_representation_reset_is_a_complete_noop(client: ApiClient, channel: str) -> None:
+    project = import_ligand(client)
+    project = client.get(f"/api/v1/projects/{project['id']}").json()
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/selection-representations",
+        json={"expected_revision": project["revision"],
+              "selection": selection(project["entries"][0]["id"], 1),
+              "action": "reset", "channel": channel},
+    )
+    assert response.status_code == 200, response.text
+    assert response.json() == project
+
+
+@pytest.mark.parametrize("channel", ["atomic", "polymer", "all"])
+def test_scoped_reset_preserves_other_channel_and_exact_undo(
+    client: ApiClient, channel: str
+) -> None:
+    project = client.post("/api/v1/projects", json={"name": "Scoped resets"}).json()
+    path = f"/api/v1/projects/{project['id']}"
+    imported = client.post(
+        f"{path}/imports", data={"expected_revision": 0},
+        files=[("files", ("protein_editing.pdb", (FIXTURES / "protein_editing.pdb").read_bytes(),
+                           "chemical/x-pdb"))],
+    )
+    assert imported.status_code == 201, imported.text
+    project = imported.json()["project"]
+    entry = project["entries"][0]
+    structure = client.get(f"{path}/entries/{entry['id']}/structure").json()["structure"]
+    residue_id = structure["atoms"][0]["residue_id"]
+    ids = [a["id"] for a in structure["atoms"] if a["residue_id"] == residue_id]
+    target = selection(entry["id"], *ids)
+    for style in ["stick", "cartoon"]:
+        response = apply_style(client, project, target, style)
+        assert response.status_code == 200, response.text
+        project = response.json()
+    hidden = client.post(f"{path}/selection-atom-visibility", json={
+        "expected_revision": project["revision"], "selection": target, "action": "hide",
+    })
+    assert hidden.status_code == 200, hidden.text
+    project = hidden.json()
+    before = project["entries"][0]["viewer_settings"]
+    reset = client.post(f"{path}/selection-representations", json={
+        "expected_revision": project["revision"], "selection": target,
+        "action": "reset", "channel": channel,
+    })
+    assert reset.status_code == 200, reset.text
+    result = reset.json()
+    settings = result["entries"][0]["viewer_settings"]
+    assert settings["selection_representations"] == (
+        [{"style": "cartoon", "atom_ids": ids}] if channel == "atomic" else
+        [{"style": "stick", "atom_ids": ids}] if channel == "polymer" else []
+    )
+    assert settings["selection_hidden_atoms"] == (ids if channel == "polymer" else [])
+    undone = client.post(f"{path}/history/undo", json={"expected_revision": result["revision"]})
+    assert undone.status_code == 200, undone.text
+    assert undone.json()["entries"][0]["viewer_settings"] == before
+
+
+def test_applying_style_that_restores_hidden_detail_is_not_noop(client: ApiClient) -> None:
+    project = import_ligand(client)
+    target = selection(project["entries"][0]["id"], 1)
+    project = apply_style(client, project, target, "stick").json()
+    hidden = client.post(f"/api/v1/projects/{project['id']}/selection-atom-visibility", json={
+        "expected_revision": project["revision"], "selection": target, "action": "hide",
+    })
+    assert hidden.status_code == 200, hidden.text
+    project = hidden.json()
+    shown = apply_style(client, project, target, "stick").json()
+    assert shown["revision"] == project["revision"] + 1
+    assert shown["entries"][0]["viewer_settings"]["selection_hidden_atoms"] == []
+
+
+def test_apply_rejects_reset_only_channel(client: ApiClient) -> None:
+    project = import_ligand(client)
+    response = client.post(f"/api/v1/projects/{project['id']}/selection-representations", json={
+        "expected_revision": project["revision"],
+        "selection": selection(project["entries"][0]["id"], 1),
+        "action": "apply", "style": "stick", "channel": "polymer",
+    })
+    assert response.status_code == 422
+
+
+def test_mixed_entry_style_change_records_only_changed_entry(client: ApiClient) -> None:
+    project = import_ligand(client)
+    first_id = project["entries"][0]["id"]
+    path = f"/api/v1/projects/{project['id']}"
+    duplicated = client.post(f"{path}/entries/{first_id}/duplicate", json={
+        "expected_revision": project["revision"],
+    })
+    assert duplicated.status_code == 200, duplicated.text
+    project = duplicated.json()
+    second_id = next(e["id"] for e in project["entries"] if e["id"] != first_id)
+    project = apply_style(client, project, selection(first_id, 1), "stick").json()
+    before = client.get(path).json()
+    target = selection(first_id, 1)
+    target["atoms"].extend(selection(second_id, 1)["atoms"])
+    response = apply_style(client, before, target, "stick")
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert result["revision"] == before["revision"] + 1
+    assert result["history"]["undo_description"] == "Apply Stick to 1 atom in 1 entry"
+    assert next(e for e in result["entries"] if e["id"] == first_id) == next(
+        e for e in before["entries"] if e["id"] == first_id
+    )
+    undone = client.post(f"{path}/history/undo", json={"expected_revision": result["revision"]})
+    assert undone.status_code == 200, undone.text
+    assert {e["id"]: e["viewer_settings"] for e in undone.json()["entries"]} == {
+        e["id"]: e["viewer_settings"] for e in before["entries"]
+    }
 
 
 def color_selection(

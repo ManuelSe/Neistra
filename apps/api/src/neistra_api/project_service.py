@@ -530,6 +530,7 @@ class ProjectService:
         *,
         action: str,
         style: str | None,
+        channel: str = "all",
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -555,12 +556,17 @@ class ProjectService:
                     selected_by_entry[entry_id],
                     action=action,
                     style=style,
+                    channel=channel,
                 ),
             }
-            if action == "reset" or style in ATOMIC_SELECTION_STYLES:
+            if (action == "reset" and channel in {"all", "atomic"}) or (
+                action == "apply" and style in ATOMIC_SELECTION_STYLES
+            ):
                 after["selection_hidden_atoms"] = sorted(
                     set(before.get("selection_hidden_atoms", [])) - selected_by_entry[entry_id]
                 )
+            if after == before:
+                continue
             forward.append(
                 {
                     "kind": "entry.update",
@@ -576,11 +582,15 @@ class ProjectService:
                     "values": {"viewer_settings": before},
                 },
             )
-        atom_count = len(atom_references)
-        entry_count = len(selected_by_entry)
+        if not forward:
+            return self.get_project(project_id)
+        changed_entry_ids = [item["entry_id"] for item in forward]
+        atom_count = sum(len(selected_by_entry[entry_id]) for entry_id in changed_entry_ids)
+        entry_count = len(changed_entry_ids)
         if action == "reset":
+            scope = "" if channel == "all" else f" {channel}"
             description = (
-                f"Reset selected representations for {atom_count} atom"
+                f"Reset selected{scope} representations for {atom_count} atom"
                 f"{'s' if atom_count != 1 else ''} in {entry_count} entr"
                 f"{'ies' if entry_count != 1 else 'y'}"
             )
@@ -597,7 +607,7 @@ class ProjectService:
             description,
             forward,
             inverse,
-            sorted(selected_by_entry),
+            changed_entry_ids,
             selection_snapshot=deepcopy(atom_references),
         )
 

@@ -77,6 +77,39 @@ const completeResidue: Selection = {
 };
 
 describe("selection style dialog", () => {
+  it("shows channel defaults and sends independently scoped resets", async () => {
+    const onAction = vi.fn().mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<Harness selection={completeResidue} structures={new Map([["protein", proteinProjection()]])} onAction={onAction} />);
+    await user.click(screen.getByRole("button", { name: "Style selection" }));
+    expect(screen.getByLabelText("Atom detail state")).toHaveTextContent("Entry default: None");
+    expect(screen.getByLabelText("Polymer state")).toHaveTextContent("Entry default: Cartoon");
+    expect(screen.getByRole("button", { name: "Backbone trace" })).toBeEnabled();
+    await user.click(screen.getByRole("button", { name: "Reset atom detail" }));
+    expect(onAction).toHaveBeenLastCalledWith("reset", undefined, "atomic");
+    await user.click(screen.getByRole("button", { name: "Reset polymer representation" }));
+    expect(onAction).toHaveBeenLastCalledWith("reset", undefined, "polymer");
+    await user.click(screen.getByRole("button", { name: "Reset representation" }));
+    expect(onAction).toHaveBeenLastCalledWith("reset");
+  });
+
+  it("previews complete-residue scope and changes selection only on explicit acceptance", async () => {
+    const partial = { ...completeResidue, atoms: [completeResidue.atoms[0]], granularity: "atom" as const };
+    const onExpandResidues = vi.fn();
+    const onAction = vi.fn().mockResolvedValue(undefined);
+    render(<Tooltip.Provider><SelectionStyleDialog open selection={partial}
+      entries={[molecularEntry("protein", "Receptor", "protein")]}
+      structures={new Map([["protein", proteinProjection()]])} eligibilityBusy={false}
+      busy={false} onOpenChange={vi.fn()} onAction={onAction} onExpandResidues={onExpandResidues} /></Tooltip.Provider>);
+    expect(screen.getByText("Expand to 2 atoms in 1 residue.")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Cartoon" })).toBeDisabled();
+    expect(onExpandResidues).not.toHaveBeenCalled();
+    await userEvent.setup().click(screen.getByRole("button", { name: "Expand to complete residues" }));
+    expect(onExpandResidues).toHaveBeenCalledExactlyOnceWith(completeResidue);
+    expect(onAction).not.toHaveBeenCalled();
+    expect(partial.atoms).toHaveLength(1);
+  });
+
   it("shows mixed colors and applies or resets only the requested property", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn().mockResolvedValue(undefined);

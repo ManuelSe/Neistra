@@ -223,14 +223,25 @@ describe("representation settings", () => {
     });
     expect(thin.type).toBe("ball-and-stick");
     expect(thick.type).toBe("ball-and-stick");
+    for (const profile of [thin, thick]) {
+      expect(profile.size).toBe("uniform");
+      expect(profile.sizeParams).toEqual({ value: 1 });
+      expect(profile.typeParams.sizeAspectRatio).toBe(1);
+    }
     expect(thin.typeParams.includeParent).toBe(false);
     expect(thick.typeParams.includeParent).toBe(false);
     expect(thick.typeParams.sizeFactor).toBeGreaterThan(
       thin.typeParams.sizeFactor ?? 0,
     );
-    expect(thick.typeParams.sizeAspectRatio).toBeGreaterThan(
-      thin.typeParams.sizeAspectRatio ?? 0,
-    );
+    expect(thin.typeParams.sizeFactor).toBe(0.22);
+    expect(thick.typeParams.sizeFactor).toBe(0.36);
+    for (const style of ["ball-and-stick", "space-filling"] as const) {
+      const physical = molstarRepresentationProfile(style, {
+        opacity: 1, hydrogenMode: "all", exactTarget: true,
+      });
+      expect(physical.size).toBeUndefined();
+      expect(physical.sizeParams).toBeUndefined();
+    }
     expect(
       molstarRepresentationProfile("surface", {
         opacity: 0.3,

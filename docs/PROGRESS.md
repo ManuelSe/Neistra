@@ -2,6 +2,33 @@
 
 ## Current milestone
 
+Issue #140 — **C1 implemented and qualified; C2 next** under the
+[approved contract](plans/issue-140-representation-surfaces-session-camera.md).
+The subsequent `/goal` authorizes C1–C7; the PR must use Closes #140, with final
+verification/publication and issue response still mandatory.
+
+Implemented: corrected uniform stick caps/tubes, complete styling no-ops,
+atomic/polymer reset scope, effective assignment summaries, Backbone trace label
+and explicit complete-residue selection recovery. No migration, stored viewer
+field, application version, surface calculation or camera ownership change yet.
+
+Verification: 27 focused Python cases, full Ruff/mypy (201 sources), 520 frontend
+tests and lint/types/build pass. Scientific and architecture C1 assessments pass.
+A native palette overlap failure was corrected without forcing clicks or
+weakening tests; exact failed-case replay passes. Fresh complete affected native
+qualification passes **11 cases / 5 existing layout exclusions**, no failures or
+retries; semantic legend markup also passes 20 focused UI cases and static checks.
+[C1 evidence](assets/representation-surfaces-session-camera/c1-checkpoint.json)
+retains source hashes, native log, fixture screenshots and the failed trace.
+
+Known limitations: combined surfaces, surface workflow and shared camera remain
+C2–C4. Complete release/readers and seven-role final assessments remain pending.
+Blockers: none requiring user input. Next: C2 combined surface calculation and
+bounded worker lifecycle. C1 is a checkpoint, not complete feature/release
+qualification or readiness to push implementation before final seven-role review.
+
+### Approved planning checkpoint — issue #140 C0
+
 Issue [#140](https://github.com/ManuelSe/Neistra/issues/140) — **approved planning
 persistence, C0 only**. The [feature contract](plans/issue-140-representation-surfaces-session-camera.md)
 and D-154/D-155 define corrected sticks/combined surfaces/no-op history, coherent

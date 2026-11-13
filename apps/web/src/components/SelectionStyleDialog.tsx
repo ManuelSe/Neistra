@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, StructureProjection } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, SelectionRepresentationChannel, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
@@ -10,12 +10,7 @@ import { SelectionColorControls } from "./SelectionColorControls";
 import { SelectionHydrogenControls } from "./SelectionHydrogenControls";
 import { SelectionExpansion } from "./SelectionExpansion";
 import { RepresentationGlyph } from "./RepresentationGlyph";
-
-const LABELS: Record<SelectionRepresentationStyle, string> = {
-  line: "Line", stick: "Thin sticks", "thick-stick": "Thick sticks",
-  "ball-and-stick": "Ball and stick", "space-filling": "Space filling",
-  backbone: "Backbone", cartoon: "Cartoon",
-};
+import { completeResidueStyleSelection, representationLabels as LABELS, selectionRepresentationSummary } from "../viewer/selectionStyleState";
 
 interface SelectionStyleDialogProps {
   open: boolean;
@@ -30,13 +25,14 @@ interface SelectionStyleDialogProps {
   onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
+  onExpandResidues?: (selection: Selection) => void;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurfaces?: SurfaceActions;
   onManageSurfaces?: () => void;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onCreateFragment?: () => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
-  onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle) => Promise<void>;
+  onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle, channel?: SelectionRepresentationChannel) => Promise<void>;
 }
 
 export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
@@ -47,7 +43,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
+  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onExpandResidues, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -56,6 +52,12 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
   const disabled = busy || pending || !selection.atoms.length;
   const polymerReason = eligibilityBusy ? "Checking complete-residue compatibility"
     : eligibilityError ?? polymerStyleUnavailableReason(selection, structures);
+  const residueExpansion = useMemo(() => eligibilityBusy || eligibilityError ? null
+    : completeResidueStyleSelection(selection, structures), [eligibilityBusy, eligibilityError, selection, structures]);
+  const summaries = useMemo(() => ({
+    atomic: selectionRepresentationSummary(selection, entries, "atomic"),
+    polymer: selectionRepresentationSummary(selection, entries, "polymer"),
+  }), [selection, entries]);
   const memberships = useMemo(() => new Map(entries.map((entry) => [entry.id,
     new Map(entry.viewer_settings.selection_representations.map((item) =>
       [item.style, new Set(item.atom_ids)] as const)),
@@ -107,7 +109,13 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
         <RotateCcw size={13} aria-hidden="true" /> Reset
       </button>
     </div>
-    <fieldset className="selection-style-group"><legend>Atom detail</legend>
+    <fieldset className="selection-style-group" aria-label="Atom detail">
+      <legend className="selection-channel-legend"><span className="selection-channel-heading"><span>Atom detail</span><span className="selection-channel-summary" aria-label="Atom detail state">{summaries.atomic}</span>
+        <button type="button" className="selection-reset" aria-label="Reset atom detail" disabled={disabled}
+          onClick={() => void perform(() => onAction("reset", undefined, "atomic"), "Atom detail reset to entry defaults.")}>
+          <RotateCcw size={13} aria-hidden="true" /> Reset
+        </button>
+      </span></legend>
       <div className="selection-style-grid">{atomicRepresentationStyles.map((style) => renderStyle(style, null))}
         <button type="button" className="selection-style-option" data-mixed={mixedHidden || undefined}
           aria-label={allHidden ? "Show atom detail" : `Hide atom detail${mixedHidden ? " (mixed visibility)" : ""}`}
@@ -120,8 +128,18 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
         </button>
       </div>
     </fieldset>
-    <fieldset className="selection-style-group"><legend>Polymer</legend>
+    <fieldset className="selection-style-group" aria-label="Polymer">
+      <legend className="selection-channel-legend"><span className="selection-channel-heading"><span>Polymer</span><span className="selection-channel-summary" aria-label="Polymer state">{summaries.polymer}</span>
+        <button type="button" className="selection-reset" aria-label="Reset polymer representation" disabled={disabled}
+          onClick={() => void perform(() => onAction("reset", undefined, "polymer"), "Polymer representation reset to entry defaults.")}>
+          <RotateCcw size={13} aria-hidden="true" /> Reset
+        </button>
+      </span></legend>
       <div className="selection-style-grid polymer">{polymerRepresentationStyles.map((style) => renderStyle(style, polymerReason))}</div>
+      {residueExpansion && onExpandResidues ? <div className="selection-residue-recovery">
+        <p className="selection-channel-summary">Expand to {residueExpansion.selection.atoms.length} atoms in {residueExpansion.residueCount} {residueExpansion.residueCount === 1 ? "residue" : "residues"}.</p>
+        <button type="button" disabled={disabled} onClick={() => onExpandResidues(residueExpansion.selection)}>Expand to complete residues</button>
+      </div> : null}
       {polymerReason && !eligibilityError ? <details className="selection-help">
         <summary>Why unavailable?</summary><p id="selection-polymer-reason">{polymerReason}</p>
       </details> : null}

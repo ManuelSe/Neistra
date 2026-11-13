@@ -28,6 +28,7 @@ import type {
   Project,
   Scene,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   StructureProjection,
   ViewerSettings,
 } from "../api/types";
@@ -97,6 +98,7 @@ interface StructureViewerProps {
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
+    channel?: SelectionRepresentationChannel,
   ) => Promise<void>;
   createViewer?: MolecularViewerFactory;
 }
@@ -746,6 +748,7 @@ export function StructureViewer({
           status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
+          onExpandResidues={expanded => onViewerSelection(expanded, "replace")}
           onAppearance={onAppearance}
           selectionColorMode={selectionColorMode}
           onSelectionColorModeChange={onSelectionColorModeChange}
@@ -772,9 +775,9 @@ export function StructureViewer({
           eligibilityError={styleLoadedContext === styleContext ? styleEligibilityError : null}
           busy={busy}
           onOpenChange={setStyleDialogOpen}
-          onAction={async (action, style) => {
+          onAction={async (action, style, channel) => {
             if (!onSelectionStyle) return;
-            await onSelectionStyle(action, style);
+            await onSelectionStyle(action, style, channel);
           }}
         />
         {!movementActive ? <ViewerControls
