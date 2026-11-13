@@ -751,5 +751,6 @@ protein barriers, induced missing bridges, empty entries, rebuild replacement an
 interpreted-order readthrough. Existing native small/pocket/18k publication, live
 preview/Cancel, graph and actual zoom workflows pass under portable correctness.
 No production deadline, resource cap or timing threshold changes; D-148's strict
-reference-host timing remains separate. Full final candidate/master gates remain
-required before release.
+reference-host timing remains separate. Both complete candidate/master gates now
+pass portable correctness; [exact-master evidence](assets/authoritative-minimization/c8-merged4-summary.json)
+retains the unchanged limits and qualification scope.

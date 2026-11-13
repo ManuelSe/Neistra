@@ -1,5 +1,31 @@
 # Issue #137 qualification evidence
 
+## Released v0.29.0 — C8 exact-master and publication
+
+[PR #138](https://github.com/ManuelSe/Neistra/pull/138) normally merges at qualified
+runtime `382f2bda26796e13454ec1394cbe89c393d5b871`. The [exact-master summary](c8-merged4-summary.json)
+records all **30 passing steps**, **1,481 Python (zero skips), 503 frontend, 14
+supervisor, 413 browser passes / 75 exact existing exclusions**, zero failures/
+flakes/retries/new exclusions. All 759 current/720 actual preceding-tag source
+identities and lossless logs verify; runtime inputs equal the complete C7 candidate.
+[Recipe](c8-merged4-recipe.json), [gate](c8-merged4-gate.json), [reader audit](c8-merged4-reader-audit.json)
+and [exclusions](c8-merged4-exclusions.json) retain exact commands and evidence.
+Both reader families/directions/suffixes, old-proposal refusal without writes,
+migration round trip and all release audits pass. Portable correctness does not
+certify strict reference-host timing.
+
+[Publication receipt](c8-publication.json) verifies the annotated tag, stable/latest
+release, notes and anonymous ZIP download: API/local/download SHA-256, CRC and all
+1,715 manifest files. All seven agents PASS final feature head `cfad2525`, whose
+entire tree matches the merged runtime; primary local full-diff review passes.
+Codex was requested with no external result at pre-merge verification. No human
+approval or remote CI success is claimed. The [issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663) is the terminal
+receipt location for normal documentation integration and branch cleanup. Later
+documentation changes preserve all qualified runtime inputs and keep the tag fixed.
+
+Historical checkpoint sections below retain their as-run status and separate failed,
+interrupted and passing evidence. No partial failed attempt contributes final passes.
+
 ## C1 — Authoritative current connectivity
 
 [Summary](c1-summary.json) records the focused checkpoint on the approved branch,

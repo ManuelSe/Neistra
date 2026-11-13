@@ -2,63 +2,51 @@
 
 ## Current milestone
 
-Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
-[feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
-`fix/issue-137-authoritative-minimization`. C0–C6 are committed through `013ab2a`;
-C7 preparation/corrections are committed through `5b14fff`. The feature plan is
-the detailed scope/progress/evidence source.
+Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) is implemented and
+released as stable [v0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0)
+through [PR #138](https://github.com/ManuelSe/Neistra/pull/138). The
+[approved contract](plans/issue-137-authoritative-minimization.md) and D-153 remain
+the detailed scope and decision record. Qualified runtime:
+`382f2bda26796e13454ec1394cbe89c393d5b871`.
 
-Completed: current canonical connectivity across import/viewer/edit/calculation,
-old-proposal/worker guards, source-owned publication recovery, capability retry,
-recapture, staged counts and actual field diagnostics. C4 corrects five observed
-state defects and independently qualifies mixed forces, caps, fixed/inactive rows,
-publication and archives. C5 reduces measured direct-plugin CPU work with identical
-scientific documents and extra retained-index memory. C6 shares six persistence
-helpers while preserving separate scientific policies. Existing sparse projects
-and original bytes remain unchanged; no new repair action is added.
+Completed: literal current connectivity across import/viewer/edit/calculation;
+recoverable application-owned quick publication; capability retry, recapture,
+staged counts and actual field provenance; supplied-state corrections and independent
+mixed-force/cap oracles; measured immutable indexes; bounded shared persistence.
+Successful Ctrl+M no longer dumps scientific warnings into a popup. Full reports
+and entry/Jobs inspection remain; other long notices scroll with Close reachable,
+while short notices preserve underlying clicks and focus/lifetime behavior.
+Existing sparse projects and original bytes remain unchanged; no repair action.
 
-[Checkpoint evidence](assets/authoritative-minimization/README.md) retains C1–C6
-focused results, corrected-state oracles, measured profiles, source identities and
-independent assessments. Candidate1's recipe/old-expectation failures are separate;
-155 focused corrections pass. Candidate2 passes 1481 Python/500 frontend/14
-supervisor cases but is intentionally interrupted during native qualification for
-the user's notification correction; it is not a complete gate.
+Both clean-candidate and exact merged-master **30-step gates pass**: **1,481 Python
+(zero skips), 503 frontend, 14 supervisor, 413 browser passes / 75 exact existing
+exclusions**, zero failures/flakes/retries/new exclusions. All 759 current and 720
+actual preceding-tag source identities and lossless log hashes verify. Actual
+0.28.1↔0.29.0 readers pass both directions and both suffixes; migration round trip,
+locked/static/build/version/schema/dependency/license/production/legacy checks pass.
+[Exact-master summary](assets/authoritative-minimization/c8-merged4-summary.json).
+Earlier failed/interrupted attempts remain separate from final qualification.
 
-The user-requested correction (committed `aa8d629`) removes successful Ctrl+M
-warning popups while retaining full reports and entry warning details. Refused scientific reports use
-brief review copy; prerequisite/API/recovery diagnostics remain actionable. Long
-notices scroll with Close reachable. Independent UI review reproduces/corrects
-replacement-scroll inheritance; new messages start at the top without losing focus.
-[Focused evidence](assets/authoritative-minimization/c7-notice-summary.json): 503
-frontend passes, lint/types/build and 14 native passes, zero skips/failures/flakes/
-retries; 759 source identities. Candidate3 catches short-notice pointer interception
-after 155 native passes. The correction restores passive short text and keeps
-long scrolling interactive: [evidence](assets/authoritative-minimization/c7-pointer-summary.json)
-passes 503 frontend / 15 native cases with one existing mobile exclusion and no
-failures/flakes/retries. Independent UI reconfirms actual hit testing. Final
-all-seven review and exact-master qualification remain required.
+All seven specialist agents explicitly PASS final feature head `cfad2525`, whose
+entire tree matches the merged runtime. Primary local full-diff review passes.
+Codex was requested with no external result returned as of pre-merge verification;
+independent human approval and remote CI success are not claimed. Normal merge
+preserves checkpoint history without bypassing protection.
 
-The clean [candidate4 gate](assets/authoritative-minimization/c7-candidate4-summary.json)
-passes all **30 steps**: **1,481 Python (zero skips), 503 frontend, 14 supervisor,
-413 browser passes / 75 unchanged existing exclusions**. No failures, flakes,
-automatic retries or new exclusions remain. All 759 current and 720 actual tagged
-0.28.1 source identities and lossless log hashes verify. Disposable migration
-upgrade/downgrade/re-upgrade, version/schema/dependency/license/production audits,
-legacy CLI and both actual-reader families pass in both directions and archive
-suffixes. Historical unapplied proposals remain inspectable but refuse Apply
-without writes. Earlier failed/interrupted gates remain separate.
+Annotated tag, stable/latest release, notes and anonymous ZIP download verify by
+API/local/download SHA-256, CRC and all 1,715 manifest files.
+[Publication receipt](assets/authoritative-minimization/c8-publication.json) records
+actual remote facts and the verified initial issue reply. The
+[issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663) is the terminal receipt location for normal documentation
+integration and local/remote branch cleanup; the qualified runtime tag stays fixed.
 
-Five app versions agree at 0.29.0; quick implementation 1.0.3. No dependency,
-schema or migration change. Planned stable release is **minor 0.29.0**. Cleanup is
-local and existing chemistry/capacity/browser limits apply. No overall latency,
-memory-reduction or strict reference-host timing claim. External blockers: none.
-All seven final specialist agent assessments and primary local complete-diff
-review PASS on integrated candidate `ae464b6`, with no consequential finding.
-[Verdicts and limitations](assets/authoritative-minimization/c7-specialist-review.json)
-cover the entire feature; final documentation-only recording receives explicit
-same-head reconfirmation before push. This does not claim human approval or remote
-review completion. Next: authorized PR/review/merge, exact-master qualification,
-annotated tag/release, verified issue response and branch cleanup.
+All five versions are 0.29.0; quick implementation 1.0.3. No dependency, database
+migration or durable-schema change: Alembic 0014 and existing contracts remain.
+Old reports/downloads remain readable; old unapplied proposals require rerunning.
+Local cleanup, disclosed approximate interactions and qualified Chromium layouts
+retain existing limits. Captured-scene indexes cost memory; no overall latency,
+memory-reduction or strict timing certification is claimed. Broader work remains
+in #86/#101; no speculative follow-up issue is created. Blockers: none.
 
 ### Previous completed milestone — issue #98
 
@@ -3187,15 +3175,13 @@ Results:
 
 ## Blockers
 
-No implementation or unresolved validation blocker remains for the requested
-merge. The external-reload interruption has an unchanged successful replay and
-is retained in the evidence. Required remote checks/reviews/threads still govern
-normal integration; strict reference-host timing and release publication are
-separate from the user's merge request.
+None for the implemented and published issue #137 scope. Terminal documentation
+integration and branch-cleanup facts are retained in the [issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663).
+Strict reference-host timing and broader chemistry/browser qualification remain
+separate from portable release correctness.
 
 ## Next action
 
-PR #126 is the authoritative integration/cleanup record. Use the verified source
-for normal integration and confirm merged content identity. Further product work
-or release publication requires its own requested scope; reference timing remains
-available explicitly with NEISTRA_PERFORMANCE=1.
+Subsequent product work requires its own approved issue plan. The issue #137 reply
+is the receipt location for final delivery integration and branch cleanup; keep
+the qualified v0.29.0 runtime tag fixed.
