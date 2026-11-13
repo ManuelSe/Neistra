@@ -1,0 +1,474 @@
+# Issue #137 — Authoritative connectivity and reliable minimization
+
+## 1. Contract, authority, and scope decisions
+
+**Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is the
+planning-only persistence checkpoint; runtime implementation remains pending.
+
+- **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
+- **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
+- **Base:** `master`, fast-forward checked against `origin/master` at
+  `5f6a2b869d9f8a32a1f921eccb6863c3148188e6`.
+- **Branch:** `fix/issue-137-authoritative-minimization`.
+- **Proposed release:** stable **0.29.0**, annotated tag **`v0.29.0`**.
+- **Implementation begins only after a separate `/goal` instruction.**
+
+The approved outcome is a coherent viewer-icon/Ctrl+M workflow that respects
+current connectivity, recovers ambiguous publication outcomes, explains
+unavailable capabilities, and includes the review's bounded usability,
+scientific, performance, and maintainability improvements.
+
+Authority follows the user's stated order:
+
+1. Explicit user guidance and subsequent corrections.
+2. Repository agent instructions and accepted decisions.
+3. Existing architecture, product boundaries, schemas and conventions.
+4. The issue's underlying problems, outcomes, constraints and non-goals.
+5. Non-binding implementation suggestions in the issue.
+
+These subsequent user decisions govern the plan:
+
+1. **The current molecular model is authoritative.** Original uploaded files
+   never decide current connectivity.
+2. Address all specialist findings and improvement opportunities, rather than
+   only the three defects.
+3. **Leave existing projects unchanged.** Add no automatic repair, migration,
+   or new connectivity-repair action.
+
+Inspection covered repository instructions, PRODUCT_SPEC, PLAN, PROGRESS,
+DECISIONS, VERIFICATION, relevant molecular/project schemas and APIs,
+import/edit/viewer/minimization paths, jobs, tests, migrations, performance policy,
+version sources, and release evidence. Specialist planning assessments informed
+the design; disagreements about original-file evidence are resolved by the user's
+explicit decision above. See [D-153](../DECISIONS.md#d-153--current-connectivity-and-reliable-quick-publication).
+
+The no-release-history premise is superseded by remote evidence: stable
+[v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1) exists, along
+with earlier releases. At inspection there were no open PRs, Actions workflows,
+or repository rulesets; master was unprotected. Recheck before delivery. These
+facts do not replace local validation or authorize bypassing future protections.
+
+### Requirement disposition
+
+| Significant requirement or suggestion | Classification | Treatment |
+| --- | --- | --- |
+| Respect current connectivity and deleted bonds | Essential | Enforce across rendering, editing, calculation, and publication. |
+| Preserve useful connectivity for new protein imports | Supporting | Record supported inference during import using the existing option. |
+| Repair existing sparse projects automatically | Rejected | Explicit user decision: retain current artifacts and connectivity. No follow-up issue now. |
+| Add a new connectivity-repair action | Deferred | Explicitly excluded from this delivery. Existing manual bond editing remains available; no follow-up issue now. |
+| Compare original files to authorize current bonds | Rejected | Conflicts with current-state authority. No follow-up. |
+| Recover lost/malformed Apply responses | Essential | Application-owned publication transaction with reconciliation and explicit safe retry. |
+| Explain capability loading/unavailability/failure | Essential | Accessible status and retry beside Run. |
+| Correct success styling for refused results | Supporting | Reuse existing success/error notices with accurate outcomes. |
+| Show captured targets and actual calculation context | Supporting | Compact, staged details using authoritative server data. |
+| Use current selection in quick setup | Supporting | Explicit recapture without starting work. |
+| Component-level field provenance | Supporting | Typed summary in extensible job results and the model artifact. |
+| Broader scientific qualification | Supporting | Bounded edited-graph, state, mixed-field, and boundary cases. |
+| Count-only discovery and per-job indexes | Supporting | Implement after scientific corrections; qualify against that corrected baseline. |
+| Shared publication/artifact helpers | Supporting | Small extraction; retain distinct scientific services. |
+| Move uncommon settings behind disclosure | Optional, included | Repair policy and iterations under More settings. |
+| New shortcut progress/busy/results surface | Rejected as proposed | Preserve quiet execution; improve the existing tooltip only. No follow-up. |
+| Original preservation, fixed masks, history, controlled jobs | Already satisfied foundations | Preserve and regression-test. |
+| Replacement engine, persistent cache, generic transaction framework | Rejected | No demonstrated need. No follow-up. |
+| Broader force-field or unsupported-chemistry expansion | Deferred | Existing related issues, including #86 and #101, remain separate. No duplicate issue. |
+
+No product decision remains unresolved in this contract.
+
+## 2. Implementation design
+
+### Current connectivity, import, and editing
+
+Use the normalized model's bond endpoint set as the sole connectivity authority.
+
+**New PDB/mmCIF imports**
+
+Honor the existing `infer_bonds` option, currently discarded by these adapters.
+Keep its default true; relabel the existing import control **Infer missing
+connectivity**.
+
+When enabled:
+
+- Preserve supplied connectivity, assigned orders, charges, atoms, and coordinates.
+- Add missing supported standard-amino-acid edges between observed, uniquely
+  named, element-matching atoms. Reuse the existing corrected templates for the
+  20 standard amino acids.
+- Store additions as canonical bonds with deterministic IDs, `inferred=true`,
+  unknown order, inference records, and concise warnings.
+- Add peptide links only for unambiguous sequence neighbors in the same
+  chain/subchain, without explicit breaks, duplicate names, or alternate-site
+  ambiguity. Require **0.9 <= C–N distance < 1.8 angstrom in every conformer**.
+- Detect PDB TER boundaries before normalization loses them. Preserve explicit
+  supplied connections; do not infer a link across a break.
+- Create no missing atoms and infer no loops, metal coordination, adducts,
+  disulfides, nucleic-acid connectivity, or unknown ligand graphs. Retain their
+  explicit connections and report limitations.
+
+When disabled, retain supplied connectivity only. Existing XYZ inference remains
+unchanged.
+
+Extract templates into a neutral chemistry module so import does not depend on
+minimization. Keep connectivity inference separate from temporary force-field
+interpretation.
+
+**Existing projects**
+
+Opening, rendering, reloading, importing native archives, and minimizing must not
+add canonical bonds. Display stored connectivity exactly, even if sparse or empty.
+
+Provide factual calculation diagnostics when connectivity limits the model. Do
+not assume every disconnected structure is erroneous or silently rewrite stored
+warning records. Existing manual editing remains the way to change these structures.
+
+**Editing**
+
+Extract and reuse the existing typed `neistra_modeling.excluded_bonds` helpers.
+All supported bond-edit paths must consistently record exclusions, clear them
+upon explicit re-addition, and prune deleted endpoints. Preserve compatibility imports.
+
+Malformed metadata or a present bond contradicting an exclusion produces an
+actionable validation error. Rendering must not hide a canonical bond that
+calculations retain.
+
+### Viewer and scientific calculation
+
+Always install the canonical bond graph in the viewer, including an explicitly
+empty graph. Remove the union with renderer-inferred connectivity.
+
+Quick minimization may interpret unknown orders on existing edges and retain its
+disclosed temporary states, hydrogens, and boundary caps. It must never add a bond
+between currently disconnected canonical atoms. Helpers must not indirectly
+recreate a deleted connection.
+
+Validate this invariant before accepting output:
+
+> The temporary model's bonds between canonical atoms equal the corresponding
+> modeled current bond set.
+
+Preserve current coordinates as the optimization starting point, exact fixed/
+inactive rows, geometry/stereo/overlap checks, same-final-model objective
+comparison, cancellation, and coordinate-only publication.
+
+Keep `quick-local-v1`; increment the quick implementation from **1.0.2 to 1.0.3**.
+Historical reports remain inspectable/downloadable, but earlier quick proposals
+cannot Apply; explain that minimization must be rerun.
+
+At worker dispatch, verify the queued implementation version matches the loaded
+definition, including inside the child process. Mismatches fail explicitly
+without executing under misleading provenance.
+
+### Apply recovery and state ownership
+
+Introduce a small App-owned quick-publication transaction, separate from panel
+visibility and preview ownership. Both automatic and manual quick Apply use it.
+
+Capture project ID, job ID, proposal digest, expected revision, and automatic/
+manual origin. Persist this small descriptor in session storage before dispatch;
+store no molecular data. A failed journal write prevents dispatch and preserves
+the proposal.
+
+States are **submitting -> reconciling -> settled**, or **uncertain** when evidence
+is insufficient.
+
+After an ambiguous response failure:
+
+1. Read fresh project state, then fresh job state.
+2. Validate the existing application marker against the captured job/digest.
+3. If its application revision exceeds the project snapshot, fetch the project again.
+4. Publish current project state through the existing monotonic cache-update function.
+
+Interpretation:
+
+- **Matching application marker:** recorded once; refresh current state without
+  reapplying. Later Undo or edits remain authoritative.
+- **No marker, newer project revision:** the old revision-bound request cannot
+  subsequently commit; refresh and require a new calculation.
+- **No marker, unchanged revision:** remain uncertain. Reads alone cannot prove
+  that a delayed request will not commit.
+
+Offer **Refresh result** for reads only and **Retry application** for an explicit
+retry of the same captured job, digest, and expected revision. Server locking,
+revision checks, and recorded application prevent duplicate commands. Never
+automatically replay Apply.
+
+While unresolved, guard that project's revision-changing operations at their
+actual dispatch boundaries, including direct editing, movement, imports, result
+import, and save—not only disabled buttons. Selection, camera inspection, project
+switching, export, and job inspection remain usable.
+
+Closing the panel or switching projects cannot erase a dispatched transaction.
+Valid pending descriptors restore into reconciliation after reload, never
+automatic publication. Invalid descriptors cannot authorize requests; retain a
+bounded source-project diagnostic/guard rather than silently claiming resolution.
+
+Quiet execution must not reopen panels or steal focus. The existing icon reveals
+recovery for the affected project.
+
+### Controls, diagnostics, and maintainability
+
+- Show capability checking, unavailable reasons, and transport errors beside Run.
+  Rechecking preserves settings and selection and never submits work.
+- Add **Use current selection** to quick setup. Replace the captured selection/
+  revision explicitly, retain settings and valid manual choices, and clear old
+  summaries. Disable during calculation/publication.
+- Before submission, label the requested selection and H policy accurately.
+  After capture, show resolved movers; after calculation, show actual modeled
+  entries, movable/fixed atoms, helpers, and caps. Never equate all captured atoms
+  with local fixed context.
+- Keep context and attached-H controls visible. Put repair policy and iterations
+  under **More settings**.
+- Preserve quiet Ctrl+M. During an active run, use the existing tooltip to explain
+  that the icon opens inspection/cancellation.
+- Use success styling only for confirmed application. Refused, stale, or failed
+  outcomes use existing error presentation; unchanged results remain quiet.
+- Add typed, internally versioned effective-field provenance to extensible job
+  results and the model ZIP: component identity, canonical atom membership,
+  actual method, coverage, and omissions. Validate at the frontend boundary.
+  Retain existing quick-report schemas and readable assumptions.
+- Extract genuinely shared project/artifact verification, publication-lock, and
+  coordinate-replacement helpers. Remove the quick service's dependence on
+  another specialized service's private helpers. Keep acceptance rules,
+  dependencies, warnings, and history semantics separate.
+
+### Performance
+
+After the corrected scientific checkpoint:
+
+- Replace neighbor-list allocation with exact count-only radius queries using
+  `return_length=True`; preserve closed-radius behavior at 6/7/8 angstrom.
+- Keep immutable adjacency, residue/component membership, and captured-coordinate
+  indexes per assembly/job. Replace the whole index on model rebuild; never
+  share across jobs or reuse worker indexes for Apply validation.
+- Index protein bonds and current temporary adjacency rather than scanning all
+  bonds per residue. Updates must reflect temporary order interpretation correctly.
+
+No dependency upgrades, persistent cache, approximation, or relaxed scientific
+tolerance is included.
+
+## 3. Milestones and checkpoints
+
+Every checkpoint records actual outcomes, focused evidence, limitations, and the
+next action here and in concise project progress. Fix consequential validation
+failures before proceeding. No empty commits.
+
+| Checkpoint | Outcome, affected areas, and acceptance | Focused validation | Commit and documentation |
+| --- | --- | --- | --- |
+| **C0 — Approved plan** | Fast-forward clean master, create branch, persist this approved contract as the first branch change. No runtime changes. | Clean-tree/base checks, document/link review, `git diff --check`, remote branch/commit readback. | `docs(plan): add approved plan for issue 137`. Append decisions and project progress. **Push and stop ready for `/goal`.** |
+| **C1 — Authoritative connectivity** | Import normalization, neutral templates/metadata helpers, editor exclusions, viewer bonds, quick graph invariant, historical-proposal gating, worker version checks. Imported supported connectivity is recorded; deleted/empty current graphs remain exact. | Adapter/editing tests; focused quick unit/scientific/integration suites; new native canonical-connectivity workflow; frontend lint/types/tests/build. | `fix(modeling): make current connectivity authoritative`. Update molecular/import/minimization guidance, decisions, and evidence. No migration. |
+| **C2 — Reliable publication** | App-owned transaction, journal, cache reconciliation, project guards, recovery controls, automatic/manual Apply integration. Lost responses never cause blind replay or a false outcome. | Focused transaction/cache tests; real-server response-loss tests; direct-write guard tests; frontend validation/build and existing quick/toolbar browser cases. | `fix(minimization): reconcile uncertain coordinate publication`. Document recovery and compatibility. No server publication endpoint or schema change. |
+| **C3 — Complete controls and provenance** | Capability feedback/retry, recapture, staged context summaries, field provenance, settings disclosure, outcome notices, active tooltip. Preserve quiet focus and frozen targeting. | Focused component/API tests; desktop/mobile quick/toolbar tests; 320px, both themes, axe, keyboard, and actual desktop 100–200% zoom. | `feat(minimization): clarify targets context and calculation outcomes`. Update API/minimization guidance and verification. |
+| **C4 — Scientific qualification** | Independent edited-graph, protein-state, mixed-field, and boundary regression coverage. Correct consequential findings. | Expanded scientific suite plus complete quick API tests; existing prepared-engine tests remain intact. | `test(minimization): qualify current graphs and mixed calculation models`. Record assumptions, tolerances, and limits. |
+| **C5 — Measured performance** | Count-only queries and immutable indexes preserve C4 behavior. Compare against the corrected C4 baseline. | Brute-force membership/closure oracle; boundary/allocation tests; three equivalent small/pocket/18k profiles; existing native performance workflows. | `perf(minimization): reuse bounded molecular discovery indexes`. Record measurements without unsupported speedup claims. |
+| **C6 — Shared boundaries** | Extract only the shared helpers described above; quick and prepared behavior remains unchanged. | Both services' integration suites; fixed-row/sparse-ID/inactive-conformer tests; Ruff/mypy and relevant browser regression. | `refactor(minimization): share artifact and coordinate publication helpers`. Update architecture notes. |
+| **C7 — Release candidate** | Five versions agree at 0.29.0; complete candidate gate and actual readers pass; all seven specialists assess the same final candidate. | Complete gate below, compatibility/production/version audits, full-diff review, remote policy/tag checks. | `chore(release): prepare v0.29.0`, plus meaningful evidence/correction commits. |
+| **C8 — Delivery** | Normal PR merge, exact-master qualification, verified annotated tag/release, issue reply, documentation receipts, branch cleanup. Requires subsequent delivery authorization. | Exact merged gate/readers; remote tag/release/asset/issue verification. | Meaningful `docs(release): ...` receipts through normal PR integration. Never retarget an existing release tag. |
+
+C1–C6 are independently revertible through normal commits. No rollback requires a
+schema downgrade. Rollback to an older application restores its older behavior,
+including its known inference defects; data retention compatibility does not
+imply behavioral equivalence.
+
+## 4. Acceptance and verification
+
+### Scientific and workflow cases
+
+Require independent expected results and justified tolerances:
+
+- Raw 1STP retains its explicit ligand edges and gains the supported protein edges
+  during new import; originals and charges remain exact.
+- Import inference on/off, TER, chain/subchain changes, gaps, insertions,
+  alternate/duplicate sites, missing endpoints, threshold boundaries, and
+  conformer disagreement.
+- Deleted peptide/intraresidue bonds with unrelated unknown charges/orders; all
+  edit paths; add/delete/re-add; Undo/Redo/archive.
+- Exact zero-edge and sparse-edge rendering, including close atoms that native
+  rendering would otherwise connect.
+- Canonical-to-canonical graph equality throughout temporary modeling, guard
+  rebuilding, preview, and Apply.
+- Existing sparse projects remain byte-identical on reads/reloads; calculations
+  use their stored graph and disclose limitations.
+- Supplied histidine states, acid H, Lys states, explicit disulfides, and
+  gap/terminus handling.
+- Mixed moving native/repair and MMFF/UFF components, independent finite
+  differences, honest omitted interactions, and fixed-row preservation.
+- Independent boundary/cap/exclusion checks; retain existing force, stereo,
+  overlap, and objective-offset regressions.
+- Real server commit followed by lost response, malformed response, or substituted
+  5xx; failure before commit; failed recovery reads; delayed request/retry race;
+  exactly one command.
+- Undo or later edits before recovery, project switching, panel dismissal,
+  remount, reload, and every guarded dispatch bypass.
+- Capability state/retry, recapture without submission, actual H/context counts,
+  historical provenance fallback, and accurate notifications.
+
+### Focused commands
+
+Extend the existing suites and add dedicated canonical-connectivity and
+publication-recovery tests:
+
+```bash
+.venv/bin/uv run pytest tests/unit/adapters tests/unit/editing
+.venv/bin/uv run pytest \
+  tests/unit/test_quick_minimization.py \
+  tests/scientific/test_quick_minimization.py \
+  tests/integration/test_quick_minimization.py \
+  tests/integration/test_import_export.py \
+  tests/integration/test_model_edits.py
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/canonical-connectivity.spec.ts \
+  tests/e2e/minimization-recovery.spec.ts \
+  tests/e2e/quick-minimization.spec.ts \
+  tests/e2e/modeling-toolbar.spec.ts
+```
+
+### Complete release gate
+
+Run on a clean committed candidate before opening the implementation PR, and on
+the exact merged master before publication:
+
+```bash
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+.venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
+git diff --check
+```
+
+Use dedicated disposable stores/ports, the locked scientific toolchain, and
+single-thread native qualification settings. Also run migration upgrade/downgrade/
+re-upgrade, version/dependency/schema/production/license audits, and actual
+**v0.28.1 <-> final 0.29.0** readers in separate processes.
+
+Extend existing reader harnesses to cover old/new quick jobs, structured result
+provenance, imported bond inference, exclusions, both archive suffixes,
+original/artifact hashes, coordinates/conformers, allocation floors, history,
+scenes, and surfaces. Historical proposals remain readable but cannot regain
+Apply eligibility.
+
+Preserve D-148: portable correctness gates remain mandatory; strict timing is
+separate reference-host qualification. Keep existing timing targets unchanged.
+Record cold/warm stages and allocation/work bounds; do not claim microbenchmark
+ratios as application speedups.
+
+The prior review's 56 Python, 28 frontend, and 25 browser passes are baseline
+evidence only—not qualification of this future implementation.
+
+## 5. Compatibility, release, and persistence
+
+### Interfaces and data
+
+- No database migration; Alembic remains **0014**.
+- Project/viewer/archive schemas remain **2**; normalized/selection/component
+  schemas remain **1**.
+- Existing import request parameters remain unchanged.
+- Existing quick create/proposal/report formats remain unchanged.
+- Add only typed/versioned output provenance inside extensible job results/model
+  artifacts and private frontend transaction interfaces.
+- New imports can contain additional explicitly recorded inferred bonds.
+  Existing project artifacts are never rewritten automatically.
+- Preserve immutable originals; never consult them to restore current connectivity.
+- Keep advanced prepared minimization scientifically unchanged apart from tested
+  shared-helper extraction and project write guards.
+
+### Version decision
+
+Use **minor 0.29.0**, not patch, major, or prerelease.
+
+The three defects alone could support a patch, but the approved broader delivery
+adds context/recapture controls, effective-field diagnostics, and meaningful import
+behavior. These are backward-compatible additions to existing stable functionality.
+There is no incompatible stored-schema change requiring a major increment and no
+planned experimental-only release requiring a prerelease suffix.
+
+Update all five authoritative sources:
+
+1. Root `pyproject.toml`.
+2. The `neistra-dev` package entry in `uv.lock`.
+3. `apps/web/package.json`.
+4. API application version in `main.py`.
+5. `archive_service.APPLICATION_VERSION`.
+
+Keep dependency versions fixed. Recheck tag availability and the latest release
+before reserving 0.29.0; a conflicting intervening release requires an explicit
+version-plan update.
+
+### PR and publication
+
+- **PR title:** `fix(minimization): respect current connectivity and recover publication outcomes`.
+- **Merge:** normal merge commit, preserving checkpoint commits.
+- PR body documents delivered behavior, user-directed exclusions, simplified
+  proposals, compatibility limits, verification, and all seven final specialist
+  verdicts.
+- Reference #137 during delivery; close only after verified merged qualification
+  and publication. Avoid premature automatic closure.
+- Create no speculative follow-up issues. Explain excluded repair functionality
+  and existing related research issues in the final issue reply.
+- Release-note sections: **Connectivity and editing**, **Minimization recovery**,
+  **Controls and diagnostics**, **Performance**, **Compatibility and limitations**,
+  **Verification and upgrade guidance**.
+- Create annotated `v0.29.0` only from the verified merged runtime commit. Verify
+  the tag target, release, qualification asset hashes/download, and final issue
+  reply remotely.
+- Integrate later documentation receipts normally without moving the runtime tag.
+- Delete the feature branch only after merge/publication/readback and clean-tree
+  checks; preserve unrelated branches.
+
+**Block merge or release** for unresolved consequential findings, any missing
+required specialist assessment, failed applicable checks/readers, connectivity
+resurrection, duplicate/ambiguous publication handling, unjustified scientific
+claims, changed performance policy, unapproved schema/dependency expansion,
+version disagreement, or unmet remote review/check/thread requirements.
+
+### Approval and planning-only persistence
+
+After approval, in an execution-enabled turn:
+
+1. Confirm a clean working tree.
+2. Fetch and fast-forward local master from origin/master; never reset or merge
+   divergent local work.
+3. Recheck the base, release target, and branch availability.
+4. Create the planned branch.
+5. Persist the approved plan first; append accepted decisions in
+   `docs/DECISIONS.md` and a concise planning milestone in `docs/PROGRESS.md`.
+   Do not replace the global plan.
+6. Commit as **`docs(plan): add approved plan for issue 137`**.
+7. Push and verify the remote branch/commit if access is available.
+8. Report the exact path, branch, commit, milestones, and minor-release impact.
+9. **Stop with the repository ready for `/goal`; do not start implementation.**
+
+## 6. Progress and completion log
+
+### C0 — 2026-11-13: approved planning persistence
+
+The user's “Implement the plan.” approves the preceding contract with the explicit
+C0 stop. Clean local master was fetched and fast-forward checked against origin at
+`5f6a2b869d9f8a32a1f921eccb6863c3148188e6`; the planned branch was absent remotely
+before creation. Stable latest remains v0.28.1; neither a v0.29.0 release nor tag
+exists at this checkpoint. The feature branch was created from that verified base.
+
+Only this approved plan, append-only D-153, and the concise project progress entry
+are part of C0. Runtime, versions, dependencies, schemas and migrations remain
+unchanged. Documentation validation, commit, push and remote readback complete C0;
+the exact verified commit/branch receipt is reported in the delivery conversation
+to avoid a self-referential commit claim.
+
+| Checkpoint | State |
+| --- | --- |
+| C0 | Planning contract approved and persisted; passing document checks and the verified commit/push receipt are supplied at handoff. |
+| C1–C8 | Pending; no runtime implementation or release qualification claimed. |
+
+Known limitations: current application defects remain until implementation;
+existing sparse projects will intentionally remain unchanged; portable data
+compatibility does not restore fixes in old binaries. Blockers: none identified
+for planning persistence. Next action after verified C0 delivery: wait for `/goal`.

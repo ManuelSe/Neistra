@@ -2,6 +2,33 @@
 
 ## Current milestone
 
+Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) has an approved
+[implementation contract](plans/issue-137-authoritative-minimization.md) on
+`fix/issue-137-authoritative-minimization`, based on verified master
+`5f6a2b869d9f8a32a1f921eccb6863c3148188e6`. D-153 records current connectivity
+authority, unchanged existing projects and reliable quick-publication ownership.
+The user approved the broader specialist findings while explicitly excluding
+original-topology recovery and any new repair action for existing sparse projects.
+
+Completed work: planning/exploration, requirement dispositions, C0 branch creation,
+approved plan persistence and append-only decisions. C0 document checks and the
+commit/push remote receipt are reported at handoff. Runtime checkpoints C1–C8 are
+pending. No application code, versions, dependencies, schemas or migrations changed.
+
+Verification: clean master fetched/fast-forward checked; latest release remains
+v0.28.1 and proposed v0.29.0 tag/release is available. Prior review tests are baseline
+evidence only. C0 verifies document links/scope, naming restrictions and whitespace;
+runtime release gates and final specialist reviews have not been performed for
+this future implementation.
+
+Known limitations: the reviewed defects remain; existing sparse project graphs
+will intentionally stay unchanged. Planned release impact: **minor 0.29.0** for
+expanded controls, diagnostics and authoritative import behavior, with existing
+durable schemas/head retained. Blockers: none for planning persistence. Next action:
+verify C0 commit/push, then stop ready for `/goal`; do not begin runtime implementation.
+
+### Previous completed milestone — issue #98
+
 Issue [#98](https://github.com/ManuelSe/Neistra/issues/98) is implemented and released
 as stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1) through
 [PR #135](https://github.com/ManuelSe/Neistra/pull/135). The

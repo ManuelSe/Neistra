@@ -6590,3 +6590,56 @@ No scientific, API, dependency, persisted-schema or migration change was introdu
 [verified issue reply](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) retain runtime/publication and later integration/
 cleanup receipts. These are specialist agent assessments, not independent human
 approval. Later documentation receipts preserve the released runtime tag.
+
+## D-153 — Current connectivity and reliable quick publication
+
+Date: 2026-11-13. Status: approved by the user's “Implement the plan.” under the
+[issue #137 contract](plans/issue-137-authoritative-minimization.md). C0 authorizes
+planning persistence and an explicit stop ready for `/goal`; implementation is pending.
+
+The user's subsequent corrections supersede any earlier allowance for independent
+display or minimization inference of missing current connectivity. The current
+normalized molecular graph is authoritative. Original uploads remain immutable
+provenance and recovery artifacts; they never authorize restoring a current bond.
+Viewer bond representations, edits and quick minimization must consume the same
+canonical endpoint set, including a sparse or empty graph. Deleting a bond must
+remain effective despite unrelated unknown charges/orders. Temporary parameter
+interpretation of existing edges and disclosed helpers/caps remain supported,
+but cannot reconnect absent canonical edges, directly or indirectly.
+
+New PDB/mmCIF imports honor the existing infer_bonds option and record supported
+standard-protein inference canonically, with unknown orders, inference provenance
+and warnings, before display. Existing explicit chemistry is preserved. The plan
+defines conservative sequence, geometry, conformer and break checks; no missing
+atoms or unsupported coordination/topology are invented. The user explicitly
+selected leaving existing projects unchanged: no read-time migration, automatic
+repair, original-file comparison, or new connectivity-repair action. Current sparse
+graphs remain sparse; factual calculation diagnostics explain limitations. Existing
+manual editing remains available. Reuse the existing authored bond-exclusion
+contract across editing paths, without adding a molecular schema.
+
+Quick Apply is an App-owned publication transaction independent of panel/preview
+generation. On an ambiguous response, reconcile fresh project/job state and the
+durable application marker; absence of a marker at the same revision is not proof
+of nonpublication. Retain project-scoped write guards and a session journal, allow
+read-only refresh and explicit same-result retry, and never blindly replay Apply.
+Late results cannot retarget another project or steal focus. This refines D-129
+without adding a generic transaction framework or server publication endpoint.
+
+The broader approved scope includes prerequisite/outcome feedback, explicit draft
+recapture, staged target/context details, effective-field provenance, scientific
+regressions, measured per-job indexing and small shared API helper extraction.
+Preserve D-143 quiet execution and D-148 portable correctness/opt-in strict timing.
+Use extensible job result values/model artifacts for versioned field provenance;
+retain quick-report schemas. Corrected quick implementation is 1.0.3, with historical
+inspection/download retained and earlier proposal Apply refused. Version mismatches
+at worker dispatch/child execution fail explicitly rather than misstate provenance.
+
+The planned stable release is minor 0.29.0 because expanded controls, diagnostics
+and import behavior accompany the fixes; stable 0.28.1 and earlier releases already
+exist. Update all five application version sources only during release preparation.
+No database migration, dependency upgrade or canonical schema change is approved:
+head 0014; project/viewer/archive 2; normalized/selection/component 1. Actual 0.28.1
+reader qualification, complete candidate/exact-master checks and all seven final
+specialist implementation assessments remain required. No application fix, passing
+future release gate, PR, merge, tag or release is claimed by this planning checkpoint.
