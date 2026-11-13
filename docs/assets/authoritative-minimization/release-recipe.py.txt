@@ -1,0 +1,153 @@
+"""Generate a fresh, explicit issue-137 candidate or exact-master release gate."""
+
+import argparse
+import json
+import re
+import subprocess
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("label")
+args = parser.parse_args()
+assert re.fullmatch(r"[a-z0-9-]+", args.label), "Use a simple unique evidence label."
+root = Path.cwd().resolve()
+old = Path("/tmp/neistra137-reader-0281")
+out = root / "docs/assets/authoritative-minimization"
+run = Path("/tmp") / f"neistra137-{args.label}"
+path = out / f"{args.label}-recipe.json"
+assert not run.exists() and not path.exists(), "Preserve previous attempts; use a fresh label."
+assert old.is_dir(), "Extract the actual preceding tagged source before generating the recipe."
+old_commit = subprocess.check_output(["git", "rev-parse", "v0.28.1^{}"], text=True).strip()
+assert old_commit == "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2"
+run.mkdir()
+python = str(root / ".venv/bin/python")
+uv = str(root / ".venv/bin/uv")
+steps = []
+
+
+def module_paths(implementation):
+    return ":".join(
+        str(implementation / part)
+        for part in (
+            "apps/api/src",
+            "packages/neistra_core/src",
+            "packages/neistra_demo_plugin/src",
+            ".",
+        )
+    )
+
+
+def add(label, command, environment=None, cwd=None):
+    step = {"label": label, "command": command}
+    if environment:
+        step["environment"] = environment
+    if cwd:
+        step["cwd"] = str(cwd)
+    steps.append(step)
+
+
+add("uv", [uv, "sync", "--frozen"])
+add("pnpm", ["corepack", "pnpm", "install", "--frozen-lockfile"])
+database = {"NEISTRA_DATA_DIR": str(run / "database"), "PYTHONPATH": module_paths(root)}
+for label, command in (
+    ("migration", ["upgrade", "head"]),
+    ("downgrade", ["downgrade", "base"]),
+    ("remigration", ["upgrade", "head"]),
+):
+    add(label, [uv, "run", "alembic", *command], database)
+add("ruff", [uv, "run", "ruff", "check", "."])
+add(
+    "mypy", [uv, "run", "mypy", "apps/api", "packages/neistra_core", "packages/neistra_demo_plugin"]
+)
+add("python", [uv, "run", "pytest"], {"NEISTRA_DATA_DIR": str(run / "database")})
+for label, command in (("lint", "lint"), ("types", "typecheck"), ("web", "test")):
+    add(label, ["corepack", "pnpm", "--dir", "apps/web", command])
+add("supervisor", ["corepack", "pnpm", "test:dev"])
+add("build", ["corepack", "pnpm", "--dir", "apps/web", "build"])
+add(
+    "browser",
+    [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        str(out / f"{args.label}-native"),
+    ],
+    {"NEISTRA_E2E_DATA_DIR": str(run / "e2e")},
+)
+add("versions", [python, str(out / "versions.py.txt")], database)
+add("production", [python, str(out / "production-audit.py.txt")])
+add(
+    "legacy-cli",
+    [uv, "run", "pytest", "tests/unit/test_namespace_compatibility.py"],
+    {"MOLWEAVE_DATA_DIR": str(run / "database")},
+)
+for family, helper in (
+    ("rich", "rebranding_reader_qualification.py"),
+    ("connectivity", "current_connectivity_reader_qualification.py"),
+):
+    wrapper = str(root / "tests/support" / helper)
+    for direction, producer, reader in (("forward", root, old), ("reverse", old, root)):
+        data = run / f"{family}-{direction}"
+        for mode, implementation in (("produce", producer), ("read", reader)):
+            current = implementation == root
+            environment = {
+                "NEISTRA_DATA_DIR": str(data),
+                "NEISTRA_DATABASE_URL": f"sqlite:///{data}/molweave.db",
+                "MOLWEAVE_DATA_DIR": str(data),
+                "MOLWEAVE_DATABASE_URL": f"sqlite:///{data}/molweave.db",
+                "PYTHONPATH": module_paths(implementation),
+            }
+            prefix = f"{family}-{direction}"
+            if mode == "produce":
+                add(
+                    f"{prefix}-migration",
+                    [python, "-m", "alembic", "upgrade", "head"],
+                    environment,
+                    implementation,
+                )
+            command = [
+                python,
+                wrapper,
+                mode,
+                "--data-dir",
+                str(data),
+                "--implementation-root",
+                str(implementation),
+                "--expected-version",
+                "0.29.0" if current else "0.28.1",
+                "--evidence",
+                str(out / f"{args.label}-{prefix}-{mode}.json"),
+            ]
+            if family == "rich":
+                command.append("--expect-new-names")
+            elif current:
+                command.append("--expect-current-connectivity")
+            add(f"{prefix}-{mode}", command, environment, implementation)
+add("diff", ["git", "diff", "--check"])
+assert len(steps) == 30
+recipe = {
+    "label": args.label,
+    "require_clean": True,
+    "preceding_reader": {"tag": "v0.28.1", "commit": old_commit, "root": str(old)},
+    "environment": {
+        "PYTHONPATH": module_paths(root),
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "PLAYWRIGHT_BROWSERS_PATH": str(root / ".playwright"),
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_E2E_API_PORT": "18460",
+        "NEISTRA_E2E_WORKER_PORT": "18461",
+        "NEISTRA_E2E_WEB_PORT": "15623",
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": str(out / f"{args.label}-browser.json"),
+        "NEISTRA_MINIMIZATION_EVIDENCE_DIR": str(run / "native"),
+    },
+    "steps": steps,
+}
+path.write_text(json.dumps(recipe, indent=2) + "\n")
+print(path, len(steps), "steps; commit this recipe before qualification")

@@ -84,6 +84,7 @@ def test_removed_atoms_prune_exclusions_without_reusing_atom_identity():
 
 @pytest.mark.parametrize("payload", [
     {"schema_version": 2, "excluded_bonds": []},
+    {"schema_version": True, "excluded_bonds": []},
     {"schema_version": 1, "excluded_bonds": [[1, 100]]},
     {"schema_version": 1, "excluded_bonds": [[1, 1]]},
     {"schema_version": 1, "excluded_bonds": [[True, 3]]},

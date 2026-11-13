@@ -256,7 +256,7 @@ function EffectiveField({ workflow: w }: { workflow: Workflow }) {
   if (w.effectiveField.kind === "invalid") return <p role="status">Detailed method information is invalid or unsupported. The stored report remains available.</p>;
   const field = w.effectiveField.value;
   return <details onToggle={event => setOpen(event.currentTarget.open)}>
-    <summary>Effective model methods ({field.components.length} components)</summary>
+    <summary>Effective model methods ({field.components.length} {field.components.length === 1 ? "component" : "components"})</summary>
     {open ? <>
       <p>Coverage describes the disclosed local objective, not physical completeness.</p>
       <div className="minimization-context">{field.components.slice(0, limit).map(component => <div key={component.component_id}>

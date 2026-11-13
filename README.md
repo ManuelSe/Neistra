@@ -102,6 +102,11 @@ requirements and explicit Apply workflow. See [Selection minimization](docs/MINI
 for scientific limits and compatibility; the separate
 [locked native toolchain](tools/README.md) is needed only for the prepared AMBER profile.
 
+Current normalized connectivity governs rendering and quick calculations, including
+deleted bonds. New protein imports can record supported missing connectivity;
+existing sparse projects remain unchanged. Unconfirmed coordinate publication has
+explicit recovery across reload, with read-only inspection available throughout.
+
 Interactive transforms offer the **Transform selection** icon in the shared
 molecular toolbar below the selection controls.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.

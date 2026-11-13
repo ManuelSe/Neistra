@@ -21,6 +21,13 @@ class ModelingMetadata(BaseModel):
     schema_version: Literal[1] = 1
     excluded_bonds: list[tuple[StrictInt, StrictInt]] = Field(default_factory=list)
 
+    @field_validator("schema_version", mode="before")
+    @classmethod
+    def numeric_schema_version(cls, value: object) -> object:
+        if isinstance(value, bool):
+            raise ValueError("Modeling metadata schema version must be numeric, not boolean.")
+        return value
+
     @field_validator("excluded_bonds")
     @classmethod
     def canonical_pairs(cls, value: list[tuple[int, int]]) -> list[tuple[int, int]]:

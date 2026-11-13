@@ -6768,3 +6768,25 @@ strictly-greater-than-1e-9 angstrom component displacement threshold. A legacy
 module alias preserves namespace identity. No public API, schema, dependency,
 version or scientific-policy change is required. Independent architecture review
 and service/native qualification are recorded in the feature evidence.
+
+
+### D-153 C7 release and closure instruction — 2026-11-13
+
+Retain stable minor 0.29.0: new import behavior and additive controls/diagnostics
+extend 0.28.1 without incompatible persisted schemas, APIs, archives or dependencies.
+A real release/tag history now exists; qualify actual tagged 0.28.1 readers both
+ways and repeat the complete gate on exact merged master. The user's subsequent
+explicit `/goal` requires `Closes #137` in the PR, superseding the approved plan's
+earlier post-publication closure timing. Normal merge may close the issue; final
+close-out still requires verified exact-master qualification, tag, release and
+issue reply. No protection or acceptance gate is waived.
+
+### D-153 C7 metadata validation correction — 2026-11-13
+
+Full-diff preflight reproduced a Python/viewer mismatch: boolean `true` was coerced
+to schema version1 in authored modeling metadata, while the viewer rejected it.
+Add a before-validation boolean guard and an all-editor-path regression. The new
+expectation fails before correction; 53 focused cases then pass. Ordinary numeric
+version1 metadata and measured C5 fixture behavior are unaffected. This enforces
+the existing malformed-metadata contract without a schema migration or broader
+metadata redesign; complete final candidate qualification remains required.

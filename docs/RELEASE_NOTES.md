@@ -1,5 +1,77 @@
 # Neistra Release Notes
 
+## 0.29.0 — Authoritative connectivity and reliable minimization
+
+**Status:** release candidate for [issue #137](https://github.com/ManuelSe/Neistra/issues/137).
+Publication, exact-master qualification and final review are pending. The
+[approved feature plan](plans/issue-137-authoritative-minimization.md) and
+[checkpoint evidence](assets/authoritative-minimization/README.md) retain scope,
+scientific assumptions and measured limits.
+
+**Connectivity and editing.** The current normalized molecule is authoritative.
+The viewer displays its exact bond set, including empty graphs, and quick
+minimization cannot restore deleted connections through temporary atoms. Bond
+editing consistently records exclusions and clears them on explicit re-addition.
+New PDB/mmCIF imports can record supported standard-amino-acid connectivity using
+**Infer missing connectivity**; supplied chemistry and original bytes remain
+unchanged. Conservative peptide inference respects breaks, ambiguity and every
+conformer. Existing projects remain unchanged, including sparse connectivity.
+
+**Minimization recovery.** Automatic and inspected quick Apply share an
+application-owned publication transaction. A verified session journal and fresh
+project/job reads recover lost, malformed or failed responses across dismissal,
+project changes and reload. Unconfirmed work stays explicit; Refresh reads only,
+and Retry preserves the original proposal/revision. Later Undo is respected and
+recovery never silently resubmits. Molecular writes are guarded at dispatch;
+read-only Export and Jobs remain available.
+
+**Controls and diagnostics.** Capability checking/failure/retry, explicit selection
+recapture, staged target/context counts and actual component-level methods make
+existing quick setup clearer. Uncommon settings use More settings; quiet shortcut
+execution preserves focus. Actual field diagnostics disclose approximations and
+omitted interactions in job results and model downloads. Five supplied-state
+interpretation defects are corrected without changing assigned chemistry or
+adding pH prediction or state enumeration. Shared persistence helpers retain
+separate quick and prepared acceptance policies.
+
+**Performance.** Per-job immutable discovery indexes and exact count-only queries
+preserve byte-identical scientific results against the corrected baseline.
+Local direct-plugin warm medians improve 590.656→414.043 ms for 2,304 captured
+atoms and 861.735→569.399 ms for 18,208; the small profile is unchanged within
+noise. Retained indexes increase whole-job memory. These are direct-plugin
+measurements, not end-to-end speedup, overall memory reduction or strict timing
+certification. [Measured evidence](assets/authoritative-minimization/c5-summary.json).
+
+**Compatibility and limitations.** Backward-compatible minor release from 0.28.1:
+additional import behavior, controls and diagnostics warrant a minor increment.
+All five application versions advance to 0.29.0. No dependency/database migration
+or molecular/project/archive schema change: Alembic 0014; project/viewer/archive 2;
+normalized/selection/component 1. Both archive suffixes and legacy module/settings
+aliases remain supported. Effective-field metadata is additive inside extensible
+job values/model artifacts; strict quick report/proposal schemas remain 1. Quick
+implementation advances 1.0.2→1.0.3 with current-graph provenance. Old reports and
+downloads remain readable; old unapplied proposals require rerunning. A queued
+job whose implementation differs from the worker fails explicitly.
+
+Existing projects receive no automatic connectivity repair or new repair action,
+by explicit product decision. Original files are retained as provenance and never
+restore current bonds. Existing manual editing remains available. Broader chemistry,
+replacement engines, persistent caches and a generic transaction framework are
+outside this delivery; existing research issues #86 and #101 remain separate.
+No speculative follow-up issue is created. Quick calculations remain local cleanup,
+with disclosed hydrogens/caps/approximate interactions, not validated poses or
+whole-system preparation. Chromium qualification and portable correctness do not
+imply broader browser, chemistry or strict reference-host timing certification.
+
+**Verification and upgrade guidance.** C1–C6 focused results are retained in the
+evidence index. Complete clean-candidate and exact-merged-master release gates,
+actual tagged 0.28.1 readers in both directions, all-seven final specialist
+assessments and remote publication are required before stable release. Back up the
+complete managed store and upgrade client/server together. No data conversion is
+needed from 0.28.1. Rolling back retains data but restores the old application's
+known rendering/inference and proposal behavior; compatibility is not behavioral
+equivalence. Never execute new queued jobs under an older implementation.
+
 ## 0.28.1 — Viewer warning details
 
 **Status:** stable [v0.28.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.28.1), normally merged in

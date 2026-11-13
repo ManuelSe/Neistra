@@ -4,7 +4,7 @@
 
 **Status:** approved 2026-11-13 by the user's “Implement the plan.” C0 is complete;
 the subsequent `/goal` authorizes C1–C8. C1 is implemented and focused-qualified;
-C2–C6 are implemented and focused-qualified; C7–C8 remain pending.
+C2–C6 are implemented and focused-qualified; C7 is in progress; C8 remains pending.
 
 - **Issue:** [#137](https://github.com/ManuelSe/Neistra/issues/137).
 - **Plan path:** `docs/plans/issue-137-authoritative-minimization.md`.
@@ -411,8 +411,9 @@ version-plan update.
 - PR body documents delivered behavior, user-directed exclusions, simplified
   proposals, compatibility limits, verification, and all seven final specialist
   verdicts.
-- Reference #137 during delivery; close only after verified merged qualification
-  and publication. Avoid premature automatic closure.
+- The subsequent `/goal` explicitly requires **`Closes #137`** in the PR. This
+  supersedes the original closure timing: normal merge may close the issue; the
+  mandatory final reply follows verified exact-master qualification/publication.
 - Create no speculative follow-up issues. Explain excluded repair functionality
   and existing related research issues in the final issue reply.
 - Release-note sections: **Connectivity and editing**, **Minimization recovery**,
@@ -472,8 +473,9 @@ to avoid a self-referential commit claim.
 | C3 | Complete local checkpoint `9e418d3`; focused evidence below. |
 | C4 | Complete local checkpoint `80adf97`; focused evidence below. |
 | C5 | Complete local checkpoint `0742184`; measured evidence below. |
-| C6 | Implemented and focused-qualified; checkpoint commit follows evidence below. |
-| C7–C8 | Pending; no final feature/release qualification claimed. |
+| C6 | Complete local checkpoint `013ab2a`; focused evidence below. |
+| C7 | In progress: release preparation and actual-reader qualification; no final candidate qualification claimed. |
+| C8 | Pending; no release publication claimed. |
 
 Known limitations: current application defects remain until implementation;
 existing sparse projects will intentionally remain unchanged; portable data
@@ -717,3 +719,40 @@ dependency, app version or scientific policy changes. Next: commit C6, then C7
 actual-reader qualification, five-version release preparation, complete gate and
 all-seven final-candidate assessment. No feature completion/readiness to push is
 claimed yet.
+
+
+### C7 preparation and delivery clarification
+
+C6 committed as `013ab2a`. A fresh fetch finds origin/master unchanged at the
+approved base `5f6a2b869d9f8a32a1f921eccb6863c3148188e6`; stable v0.28.1 remains
+latest and the proposed v0.29.0 reference is absent. Actual previous-runtime source
+is a detached worktree at tagged `d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2`.
+All five app versions are being prepared consistently at 0.29.0; dependency versions
+stay fixed. Minor remains appropriate for additive controls/diagnostics and new
+import behavior without incompatible schemas, APIs or archive conversion. Final
+remote checks, gate/readers and all-seven review remain required.
+
+The latest explicit `/goal` requires a PR with `Closes #137`. That instruction
+supersedes the original plan's post-publication closure timing; no acceptance
+criterion is removed. The final issue response still follows verified release.
+C7 also includes the previously recorded nonblocking singular-component copy fix.
+
+C7 preflight is recorded in [evidence](../assets/authoritative-minimization/c7-preflight-summary.json).
+All four actual reader phases and both disposable migrations pass using the final
+439-line harness. Current readers refuse a real unapplied old1.0.2 proposal before
+archive import, without writes; old readers preserve new fields/graphs through
+both suffixes and re-export. Twelve module roots and actual versions are asserted.
+A harness-only stale project/job-link snapshot was corrected before the final
+preflight; failed diagnostics are separate. The existing archive suite passes43
+cases and TypeScript/scoped Ruff pass.
+
+Primary full-diff review additionally reproduced boolean metadata-version
+coercion inconsistent with viewer validation (red:1 failure/16 passes). Reject that
+malformed value before literal coercion;53 focused metadata/import/quick cases
+pass. Normal numeric-version fixtures and measured C5 algorithms are unaffected.
+The release gate repeats everything on the frozen candidate. Prepared30-step
+candidate and exact-master recipes are committed before execution, with locked
+installs, migration round trip, all real native workflows, actual reader families,
+all source/tool identities and the exact75 existing browser exclusions. No new
+exclusion or scientific/resource-limit relaxation is permitted. Next: clean
+release-preparation commit, complete gate, integrated review and all-seven verdicts.

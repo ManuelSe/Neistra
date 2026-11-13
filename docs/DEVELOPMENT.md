@@ -139,6 +139,39 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Authoritative minimization qualification (issue #137)
+
+Use the [approved plan](plans/issue-137-authoritative-minimization.md) and
+[retained evidence](assets/authoritative-minimization/README.md). Current normalized
+connectivity must survive import/edit/viewer/calculation/publication exactly;
+existing sparse projects are never silently repaired. Exercise actual native
+quick and prepared engines, fixed/inactive rows, supplied chemistry, independent
+force oracles, ambiguous publication responses, capability recovery, explicit
+recapture and accessible controls. Preserve the performance policy above.
+
+The committed `release-recipe.py.txt` and `qualification.py.txt` under the evidence
+directory generate/run a fresh explicit candidate or exact-master recipe. Commit
+the recipe and all source/tool changes before starting qualification. The runner
+requires a clean start, records exact commands/environment and before/after
+source identities, retains lossless hashed logs and stops on failure/source drift.
+Use a new label and disposable paths for each attempt; failed attempts never
+count as passing evidence. The complete gate includes frozen installs, disposable
+upgrade/downgrade/upgrade, backend/frontend/static/build/supervisor/browser checks,
+version/dependency/schema/license audits and legacy CLI checks.
+
+Qualify actual tagged v0.28.1 source separately from current source using locked
+dependencies, implementation-specific cwd/PYTHONPATH and asserted module paths and
+versions in both producer and reader. The existing rich rebranding harness covers
+scenes, surfaces, history and archive remapping. The current-connectivity harness
+adds inferred and deleted edges/exclusions, original bytes, exact job/result and
+model-artifact retention, save/Undo/Redo/allocation floors, and both archive
+suffixes. A current reader must refuse Apply of a real completed unapplied 1.0.2
+job without writing while preserving inspection/downloads. Old readers retain
+new data but are not claimed to implement corrected behavior; never run new
+queued jobs under old code. Repeat the complete gate and actual readers on the
+exact merged master commit before tagging. No new migration is required from
+0.28.1; retain the existing 0014 downgrade guards and back up the complete store.
+
 ## Viewer warning inspection qualification (issue #98)
 
 The warning counter and details surface use existing current visible-entry

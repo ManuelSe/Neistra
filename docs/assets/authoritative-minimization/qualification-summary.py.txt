@@ -1,0 +1,261 @@
+"""Verify a completed issue-137 gate, actual readers and exact existing exclusions."""
+
+import argparse
+import datetime
+import gzip
+import json
+import re
+import runpy
+import subprocess
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("label")
+args = parser.parse_args()
+root = Path.cwd().resolve()
+out = root / "docs/assets/authoritative-minimization"
+helpers = runpy.run_path(str(out / "qualification.py.txt"))
+digest = helpers["digest"]
+state = json.loads((out / f"{args.label}-gate.json").read_text())
+recipe_path = out / f"{args.label}-recipe.json"
+recipe = json.loads(recipe_path.read_text())
+assert state["complete"] and state["source_unchanged"] and state["preceding_source_unchanged"]
+assert not state["initial_status"]
+assert state["label"] == recipe["label"] == args.label
+assert len(state["steps"]) == len(recipe["steps"]) == 30
+assert digest(recipe_path.read_bytes()) == state["recipe_sha256"]
+assert digest((out / "qualification.py.txt").read_bytes()) == state["runner_sha256"]
+assert helpers["current_identities"](root) == state["source_before"] == state["source_after"]
+expected_old = helpers["tagged_identities"]("v0.28.1")
+assert state["preceding_source_expected"] == state["preceding_source_before"] == expected_old
+assert state["preceding_source_after"] == expected_old
+old_root = Path(state["preceding_reader"]["root"])
+assert helpers["extracted_identities"](old_root, expected_old) == expected_old
+assert state["preceding_reader"] == recipe["preceding_reader"]
+old_commit = subprocess.check_output(["git", "rev-parse", "v0.28.1^{}"], text=True).strip()
+assert (
+    old_commit == state["preceding_reader"]["commit"] == "d7ea8e91b6ba4ecf0298f4bd92ffea69b44100c2"
+)
+logs = {}
+for expected, actual in zip(recipe["steps"], state["steps"], strict=True):
+    assert actual["exit_code"] == 0
+    for key in ("label", "command", "environment", "cwd"):
+        assert expected.get(key) == actual.get(key), (actual["label"], key)
+    blob = gzip.decompress((root / actual["log"]).read_bytes())
+    assert digest(blob) == actual["log_sha256"], actual["log"]
+    logs[actual["label"]] = blob.decode()
+assert not re.search(r"\d+ skipped", logs["python"])
+assert not re.search(r"\d+ skipped", logs["legacy-cli"])
+
+reader_audit = {
+    "preceding_tag": "v0.28.1",
+    "preceding_runtime": old_commit,
+    "preceding_source_identities": len(expected_old),
+    "directions": {},
+}
+rich_checks = (
+    "exact_coordinates_and_originals",
+    "retained_batch_undo_redo",
+    "save_and_reexport",
+    "archive_import",
+    "archive_omits_history",
+    "original_jobs_unchanged",
+    "surface_objects_exact",
+    "scenes_exact",
+    "archive_surface_seed_remapping",
+    "named_selections_exact",
+    "gesture_scene_exact",
+    "archive_selection_remapping",
+    "transient_anchor_absent",
+)
+connectivity_checks = (
+    "four_case_quick_retention",
+    "result_values_exact",
+    "connectivity_retention",
+    "unapplied_job_retention",
+)
+connectivity_modules = {
+    "molweave_api.main": "apps/api/src/neistra_api/main.py",
+    "molweave_api.archive_service": "apps/api/src/neistra_api/archive_service.py",
+    "molweave_core.molecular": "packages/neistra_core/src/neistra_core/molecular.py",
+    "molweave_core.adapters.macromolecular": (
+        "packages/neistra_core/src/neistra_core/adapters/macromolecular.py"
+    ),
+    "molweave_core.minimization.quick_plugin": (
+        "packages/neistra_core/src/neistra_core/minimization/quick_plugin.py"
+    ),
+    "molweave_demo_plugin": "packages/neistra_demo_plugin/src/molweave_demo_plugin/__init__.py",
+    "tests.support.api_client": "tests/support/api_client.py",
+    "tests.support.quick_minimization_reader_qualification": (
+        "tests/support/quick_minimization_reader_qualification.py"
+    ),
+    "tests.support.modeling_reader_qualification": "tests/support/modeling_reader_qualification.py",
+    "tests.integration.test_model_edits": "tests/integration/test_model_edits.py",
+    "tests.integration.test_quick_minimization": "tests/integration/test_quick_minimization.py",
+    "tests.support.minimization": "tests/support/minimization.py",
+}
+for family in ("rich", "connectivity"):
+    for direction in ("forward", "reverse"):
+        for mode in ("produce", "read"):
+            name = f"{family}-{direction}-{mode}"
+            step = next(s for s in state["steps"] if s["label"] == name)
+            command = step["command"]
+            implementation = Path(command[command.index("--implementation-root") + 1])
+            version = command[command.index("--expected-version") + 1]
+            report_path = out / f"{args.label}-{name}.json"
+            evidence = json.loads(report_path.read_text())
+            assert evidence["application_version"] == version
+            assert evidence["implementation_root"] == str(implementation)
+            assert version == ("0.29.0" if implementation == root else "0.28.1")
+            assert implementation in (root, old_root)
+            if family == "rich":
+                assert evidence["api_module"] == str(
+                    implementation / "apps/api/src/neistra_api/main.py"
+                )
+                assert evidence["core_module"] == str(
+                    implementation / "packages/neistra_core/src/neistra_core/molecular.py"
+                )
+                assert evidence["expect_new_names"]
+                assert evidence["legacy_suffix_http"] == evidence["new_suffix_http"] == 201
+                if mode == "read":
+                    for check in rich_checks:
+                        assert evidence[check] is True, (name, check)
+            else:
+                assert evidence["mode"] == mode
+                assert evidence["assertion_scope"] == (
+                    "producer specimens verified"
+                    if mode == "produce"
+                    else "actual reader retention verified"
+                )
+                assert evidence["module_paths"] == {
+                    module: str(implementation / suffix)
+                    for module, suffix in connectivity_modules.items()
+                }
+                assert evidence["baseline"]["cases"] == 4
+                for check in connectivity_checks:
+                    assert evidence[check] is True, (name, check)
+                assert evidence["both_archive_suffixes"] is (mode == "read")
+                if mode == "read":
+                    for check in (
+                        "canonical_all_conformers_exact",
+                        "generic_multi_entry_undo_redo_exact",
+                        "jobs_inputs_reports_models_and_provenance_exact",
+                        "originals_and_allocation_floors_exact",
+                        "save_archive_import_reexport_exact",
+                    ):
+                        assert evidence["baseline"][check] is True, (name, check)
+                if mode == "read" and direction == "reverse":
+                    assert evidence["historical_apply_refused"] is True
+                else:
+                    assert evidence["historical_apply_refused"] is None
+            reader_audit["directions"][name] = {
+                "version": version,
+                "implementation_root": str(implementation),
+                "module_paths_verified": True,
+                "both_suffixes_reader_verified": mode == "read",
+                "phase": "producer specimens verified"
+                if mode == "produce"
+                else "reader retention verified",
+                "evidence": str(report_path.relative_to(root)),
+                "evidence_sha256": digest(report_path.read_bytes()),
+            }
+(out / f"{args.label}-reader-audit.json").write_text(json.dumps(reader_audit, indent=2) + "\n")
+
+report = out / f"{args.label}-browser.json"
+compressed = out / f"{args.label}-browser.json.gz"
+blob = report.read_bytes() if report.exists() else gzip.decompress(compressed.read_bytes())
+browser = json.loads(blob)
+records = []
+
+
+def walk(suite, parents=()):
+    for spec in suite.get("specs", []):
+        for test in spec["tests"]:
+            result = test["results"][-1]
+            title = " \u203a ".join((*parents, spec["title"]))
+            records.append(
+                {
+                    "identity": (
+                        f"[{test['projectName']}] \u203a tests/e2e/{spec['file']} \u203a {title}"
+                    ),
+                    "file": spec["file"],
+                    "project": test["projectName"],
+                    "title": title,
+                    "status": result["status"],
+                    "expected_status": test["expectedStatus"],
+                    "retries": len(test["results"]) - 1,
+                }
+            )
+    for child in suite.get("suites", []):
+        walk(child, parents + ((suite["title"],) if suite.get("specs") else ()))
+
+
+for suite in browser["suites"]:
+    walk(suite)
+assert not browser.get("errors"), browser.get("errors")
+assert browser["stats"]["unexpected"] == browser["stats"]["flaky"] == 0
+assert all(r["retries"] == 0 and r["status"] in {"passed", "skipped"} for r in records)
+skips = {r["identity"] for r in records if r["status"] == "skipped"}
+baseline_doc = json.loads(
+    (root / "docs/assets/viewer-warning-details/c4-merged1-exclusions.json").read_text()
+)
+baseline = set(baseline_doc["baseline"]) | set(baseline_doc["new_approved_desktop_only"])
+assert len(baseline) == 75
+assert skips == baseline, {
+    "missing_existing": sorted(baseline - skips),
+    "unapproved_new": sorted(skips - baseline),
+}
+assert len(records) == browser["stats"]["expected"] + len(skips)
+summary = {
+    "commit": state["commit"],
+    "branch": state["branch"],
+    "clean_start": True,
+    "complete_steps": 30,
+    "source_count": len(state["source_before"]),
+    "source_inventory_unchanged": True,
+    "source_digest": digest(json.dumps(state["source_before"], sort_keys=True).encode()),
+    "sources_unchanged": True,
+    "all_lossless_log_hashes_valid": True,
+    "python": int(re.search(r"(\d+) passed", logs["python"])[1]),
+    "python_skips": 0,
+    "frontend": int(re.search(r"Tests\s+(\d+) passed", logs["web"])[1]),
+    "supervisor": int(re.search(r"# pass (\d+)", logs["supervisor"])[1]),
+    "browser_passed": browser["stats"]["expected"],
+    "browser_exclusions": len(skips),
+    "existing_exclusion_identities_unchanged": True,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": state["qualification_profile"],
+    "preceding_reader": (
+        "actual v0.28.1; separate producer/reader processes both directions "
+        "and both archive suffixes"
+    ),
+    "preceding_source_identities_verified": len(expected_old),
+    "actual_reader_audit": f"{args.label}-reader-audit.json",
+    "historical_unapplied_proposal_refused_without_write": True,
+    "duration_seconds": round(sum(s["seconds"] for s in state["steps"]), 3),
+    "duration_definition": (
+        "Sum of all complete sequential command durations; no partial command reuse."
+    ),
+    "wall_seconds": (
+        datetime.datetime.fromisoformat(state["finished_utc"])
+        - datetime.datetime.fromisoformat(state["started_utc"])
+    ).total_seconds(),
+}
+(out / f"{args.label}-summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+(out / f"{args.label}-exclusions.json").write_text(
+    json.dumps(
+        {
+            "baseline": sorted(baseline),
+            "new_approved_desktop_only": [],
+            "existing_unchanged": True,
+        },
+        indent=2,
+    )
+    + "\n"
+)
+(out / f"{args.label}-browser-cases.json").write_text(json.dumps(records, indent=2) + "\n")
+if report.exists():
+    compressed.write_bytes(gzip.compress(blob, mtime=0))
+    report.unlink()
+print(json.dumps(summary, indent=2))

@@ -1,0 +1,40 @@
+{
+  "qualification": "preflight only; complete candidate/master gates pending",
+  "metadata_regression": {
+    "red": "1 failed /16 passed; Python accepted boolean version while viewer refused",
+    "green": "53 passed in0.69s; malformed-version guard plus import/currentquick regression"
+  },
+  "archive": "43 passed22.90s",
+  "typescript": "PASS",
+  "ruff": "PASS scoped",
+  "reader": "actual0.28.1 and current0.29.0 allfourphases and two migrations pass; finalharness SHAverified",
+  "reader_recipe": "c7-preflight-reader-recipe.json",
+  "limitations": "Reader preflight precedes boolean-version guard. Normal fixture metadata/algorithms unchanged; fullgate repeats all readers on frozen finalcandidate. Earlier diag1 harness snapshot issue fixed; diag2 before finalinputbytes checks is not final qualification. No stable publication or all-seven approval claimed.",
+  "logs": {
+    "metadata-red": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-metadata-red.log.gz",
+      "sha256": "86d77760a7f8456efba99df00b6c00a3a51cd798296fb36ac0128ce9b5e10940"
+    },
+    "metadata-green": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-metadata-green.log.gz",
+      "sha256": "70ccbed9ddca9d9322394d18795e28d7105ad1dda69c10c8214d789c3c05b365"
+    },
+    "prep-ruff": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-prep-ruff.log.gz",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "copy-types": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-copy-types.log.gz",
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7"
+    },
+    "archive-diagnostic": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-archive-diagnostic.log.gz",
+      "sha256": "71581c6885ca3725d3df70988ac22a95b699910e7bfc755a519187118a8934b1"
+    },
+    "mypy": {
+      "path": "docs/assets/authoritative-minimization/c7-preflight-mypy.log.gz",
+      "sha256": "66d1e1376914aebd3df98f2d92a3227b07bafb60b2327103183c309404bb2ce0"
+    }
+  },
+  "mypy": "PASS201files"
+}

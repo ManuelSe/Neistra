@@ -4,8 +4,9 @@
 
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) follows the approved
 [feature contract](plans/issue-137-authoritative-minimization.md) and D-153 on
-`fix/issue-137-authoritative-minimization`. Local C0–C5 checkpoints are committed;
-latest is `0742184`; C6 is focused-qualified. The feature plan is the detailed progress/evidence source.
+`fix/issue-137-authoritative-minimization`. Local C0–C6 checkpoints are committed;
+latest is `013ab2a`; C7 release preparation is in progress. The feature plan is
+the detailed progress/evidence source.
 
 Completed: current canonical connectivity across import/viewer/edit/calculation,
 old-proposal/worker version guards, source-owned publication recovery, explicit
@@ -37,11 +38,15 @@ Ruff/mypy (201 files) and **37 native passes / one existing mobile exclusion**
 pass with 741 source identities unchanged. Independent architecture review passes
 27 cases and the complete extraction; no consequential finding remains.
 
-Known limitations: C7–C8 remain; scientific cleanup is local
-and existing chemistry limits apply. App versions remain 0.28.1; quick implementation
-is 1.0.3. No dependency/schema/migration change. Planned stable release is **minor
-0.29.0**. Blockers: none. Next: commit C6, then actual-reader qualification,
-release preparation, complete gates/reviews and authorized remote delivery.
+C7 preflight passes actual old/current readers both ways and both suffixes,
+including refusal of an old unapplied proposal without writes. Full-diff review
+corrects boolean metadata-version coercion (reproduced red, then 53 focused passes);
+43 archive cases and TypeScript/Ruff/mypy pass. Five versions agree at 0.29.0.
+
+Known limitations: C7–C8 remain; cleanup is local and existing chemistry limits
+apply. Quick implementation is 1.0.3. No dependency/schema/migration change. Planned
+stable release is **minor 0.29.0**. Blockers: none. Next: clean candidate commit,
+complete 30-step gate/readers, all-seven review and authorized remote delivery.
 
 ### Previous completed milestone — issue #98
 

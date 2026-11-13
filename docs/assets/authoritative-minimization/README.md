@@ -284,3 +284,20 @@ remains exact. Exact commands and isolated environment are in the summary.
 Unchanged frontend sources reuse C3 lint/typecheck/500 tests/build. These are
 checkpoint results; final all-seven assessment and complete candidate/exact-master
 gates remain required.
+
+## C7 — Release preparation
+
+[Preflight summary](c7-preflight-summary.json) retains the reproduced/fixed boolean
+metadata-version mismatch, 53 focused passes,43 archive passes, TypeScript/scoped
+Ruff and actual tagged-reader diagnostics. The [reader recipe](c7-preflight-reader-recipe.json)
+records exact commands, implementation paths, environments and six lossless logs.
+Earlier failed harness snapshot diagnostics are separate; no application defect
+was inferred from that harness failure. Full qualification repeats actual readers
+after the final metadata correction.
+
+The five committed gate tools and prepared `c7-candidate1-recipe.json` /
+`c8-merged1-recipe.json` require a clean start,30 sequential steps, unchanged
+current source/tool identities and720 actual preceding-tag identities. Browser
+qualification requires the exact75 previous exclusions and zero new skips, flakes
+or retries; Python skips are forbidden. These recipes are preparation, not passing
+evidence. Complete candidate/master gates and final seven-role review are pending.
