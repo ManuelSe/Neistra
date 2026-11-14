@@ -139,6 +139,31 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Surface selection and hydrogen visibility compatibility (issue #145)
+
+The [approved contract](plans/issue-145-surface-selection-hydrogen-toggle.md)
+prepares stable 0.31.0 from 0.30.0. Surface activation becomes manager-only and
+hydrogen styling includes existing graph-attached H. Original molecular state,
+camera ownership and authoritative appearance fields remain; no migration,
+dependency or wire-schema change is introduced. Head stays 0015 and portable
+schemas remain unchanged. The client resolves and guards an explicit H operand;
+heavy-only direct API requests retain their existing no-H refusal.
+
+Use matching app components and back up the complete managed store before an
+upgrade. Rollback to the actual qualified 0.30.0 reader needs no schema conversion
+and restores its older interface behavior. The clean final-version candidate
+passes actual tagged 0.30.0 producer/readers in both directions and both archive
+suffixes, including deep retention and corruption controls. Exact merged-master
+qualification remains required before publication.
+
+The feature evidence directory retains the explicit 33-step recipe/runner with
+clean-start/source/log audits, unchanged 75-exclusion policy and actual tagged
+0.30.0 producer/reader processes in both directions and archive suffixes. Run
+complete fresh final-version candidate and exact merged-master gates before
+publication. D-148's portable/strict separation and production resource/deadline
+policies remain. Captured targets, large-scene measured limits and screenshots
+are recorded in the feature plan; no performance speedup is promised.
+
 ## Authoritative minimization qualification (issue #137)
 
 Use the [approved plan](plans/issue-137-authoritative-minimization.md) and

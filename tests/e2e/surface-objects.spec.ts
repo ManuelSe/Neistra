@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
-import type { Locator } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import type { ImportResult, Project, StructureProjection } from "../../apps/web/src/api/types";
 import type { mountSurfaceObjectsHarness } from "../../apps/web/src/test/surfaceObjectsHarness";
 import type * as SurfaceObjectsHarnessModule from "../../apps/web/src/test/surfaceObjectsHarness";
@@ -12,7 +12,7 @@ import type * as SurfaceClientModule from "../../apps/web/src/viewer/surface/cli
 import type { ViewerStructure } from "../../apps/web/src/viewer/MolecularViewer";
 import type { SurfaceVisualRegistry } from "../../apps/web/src/viewer/surface/objects";
 import type { PluginUIContext } from "../../apps/web/node_modules/molstar/lib/mol-plugin-ui/context";
-import type { Vec2 } from "../../apps/web/node_modules/molstar/lib/mol-math/linear-algebra";
+import type { Vec2, Vec3, Vec4 } from "../../apps/web/node_modules/molstar/lib/mol-math/linear-algebra";
 
 type WorkerPostMessage = (this: Worker, message: unknown, ...args: [Transferable[]] | [StructuredSerializeOptions?]) => void;
 
@@ -28,7 +28,19 @@ async function appearanceSaved(manager: Locator) {
   await expect(manager.getByLabel("Surface color scheme")).toHaveAttribute("aria-disabled", "false");
 }
 
-test("native same-entry surface objects have independent identity, colors, mesh and whole-object activation", async ({ page, request }, info) => {
+async function observeManagedEngine(page: Page) {
+  await page.evaluate(async () => {
+    const path = "/src/viewer/MolstarEngine.ts";
+    const { MolstarEngine } = await import(/* @vite-ignore */ path) as typeof MolstarEngineModule;
+    const original = Reflect.get(MolstarEngine.prototype, "syncStructures");
+    MolstarEngine.prototype.syncStructures = function(...args: Parameters<typeof original>) {
+      (window as unknown as { managedEngine: unknown }).managedEngine = this;
+      return original.apply(this, args);
+    };
+  });
+}
+
+test("native same-entry surface objects retain colors and mesh without picking or selection markers", async ({ page, request }, info) => {
   test.setTimeout(120_000);
   const created = await request.post("/api/v1/projects", { data: { name: `Surface objects C1 ${Date.now()}` } });
   expect(created.status()).toBe(201);
@@ -83,43 +95,21 @@ test("native same-entry surface objects have independent identity, colors, mesh 
     return result;
   });
   for (const id of ["first", "second"]) {
-    const targets = candidates.filter(candidate => candidate.id === id);
-    expect(targets.length).toBeGreaterThan(0);
-    for (const target of targets) {
-      const identified = await page.evaluate(target => window.surfaceObjectsHarness.identify(target.x, target.y), target);
-      if (identified?.surfaceId !== id) continue;
-      if (info.project.name === "mobile-chromium") await page.touchscreen.tap(box.x + target.x * box.width, box.y + target.y * box.height);
-      else {
-        await page.mouse.move(box.x + target.x * box.width, box.y + target.y * box.height);
-        await page.waitForTimeout(80);
-        await page.mouse.click(box.x + target.x * box.width, box.y + target.y * box.height);
-      }
-      const hit = await page.waitForFunction(id => window.surfaceObjectsHarness.inspect().events.some(event => event.surfaceId === id), id, { timeout: 300 }).then(() => true, () => false);
-      if (hit) break;
-    }
-    const activated = await page.evaluate(id => window.surfaceObjectsHarness.inspect().events.some(event => event.surfaceId === id), id);
-    if (!activated) console.error("Native surface activation observation", await page.evaluate(() => {
-      const { camera, picks, events, molecularEvents } = window.surfaceObjectsHarness.inspect();
-      return { camera, picks, events, molecularEvents };
-    }));
-    expect(activated).toBe(true);
+    const target = candidates.find(candidate => candidate.id === id);
+    expect(target).toBeDefined();
+    // These fixtures intentionally contain surfaces alone. Shell pixels must
+    // produce empty picks, rather than invent targets from surface membership.
+    expect(await page.evaluate(target => window.surfaceObjectsHarness.identify(target.x, target.y), target!)).toBeNull();
+    if (info.project.name === "mobile-chromium") await page.touchscreen.tap(box.x + target!.x * box.width, box.y + target!.y * box.height);
+    else await page.mouse.click(box.x + target!.x * box.width, box.y + target!.y * box.height);
   }
   const selected = await page.evaluate(() => window.surfaceObjectsHarness.inspect());
-  expect(selected.molecularEvents).toEqual([]);
+  expect(selected.molecularEvents.every(event => event.atoms.length === 0)).toBe(true);
   expect(selected.camera).toEqual(before.camera);
-  const active = selected.objects.find(o => o.id === "second")!;
-  expect(active.markers.some(markers => markers.length >= active.atoms.length &&
-    markers.slice(0, active.atoms.length).every(value => (value & 1) === 1))).toBe(true);
-  // Whole-object activation must survive native hover cleanup as the pointer leaves.
+  expect(selected.objects.every(object => object.pickable === false && object.markerActions === 0 && object.markers.every(markers => markers.every(value => value === 0)))).toBe(true);
   await page.mouse.move(box.x + 2, box.y + 2);
-  await page.waitForTimeout(100);
-  const afterHover = await page.evaluate(() => window.surfaceObjectsHarness.inspect());
-  const highlighted = afterHover.objects.find(o => o.id === "second")!;
-  expect(highlighted.markers.some(markers => markers.length >= highlighted.atoms.length && markers.slice(0, highlighted.atoms.length).every(value => (value & 1) === 1))).toBe(true);
   await page.evaluate(async () => {
-    const harness = window.surfaceObjectsHarness;
-    harness.clearActive();
-    await harness.setAppearance("first", { mode: "mesh", color: 0x20ff20, alpha: 0.6 });
+    await window.surfaceObjectsHarness.setAppearance("first", { mode: "mesh", color: 0x20ff20, alpha: 0.6 });
   });
   const changed = await page.evaluate(() => window.surfaceObjectsHarness.inspect());
   expect(changed.objects[0]).toMatchObject({ mode: "mesh", color: 0x20ff20, alpha: 0.6 });
@@ -183,6 +173,7 @@ test("manages production object appearance and explicit sources independently th
   const saved = structuredClone(project.entries[0].viewer_settings.surface_objects);
   const originalBytes = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/original`)).body();
   await page.goto("/");
+  await observeManagedEngine(page);
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
@@ -195,7 +186,44 @@ test("manages production object appearance and explicit sources independently th
   expect(await page.evaluate(() => (window as unknown as { surfaceMaximum: number }).surfaceMaximum)).toBe(1);
   expect(await page.evaluate(() => (window as unknown as { surfaceActive: number }).surfaceActive)).toBe(0);
   let reads = 0; page.on("request", r => { if (r.method() === "GET" && /\/structure(?:\?|$)/.test(r.url())) reads++; });
-  await manager.getByRole("button", { name: "Fragment A Captured fragment", exact: true }).click();
+  const managerBaseline: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
+  const fragmentRow = manager.getByRole("button", { name: "Fragment A Captured fragment", exact: true });
+  await fragmentRow.click();
+  await expect(fragmentRow).toHaveAttribute("aria-pressed", "true");
+  await fragmentRow.click();
+  await expect(fragmentRow).toHaveAttribute("aria-pressed", "false");
+  await expect(fragmentRow).toBeFocused();
+  await fragmentRow.press("Enter");
+  await expect(fragmentRow).toHaveAttribute("aria-pressed", "true");
+  const emptyCanvas = (await page.locator(".molstar-host canvas").first().boundingBox())!;
+  const clickEmpty = async () => {
+    // The narrow manager covers the molecular canvas. Close it to expose a
+    // reachable canvas target, then inspect activation again after reopening.
+    const reopen = info.project.name === "mobile-chromium" && await manager.isVisible();
+    if (reopen) await manager.getByRole("button", { name: "Close surfaces" }).click();
+    const target = await page.evaluate(({ x, y }) => {
+      const engine = (window as unknown as { managedEngine: { plugin: PluginUIContext } }).managedEngine;
+      const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
+      const rect = element.getBoundingClientRect();
+      const hit = canvas.identify(new Float32Array([x - rect.left, y - rect.top]) as unknown as Vec2);
+      return { tag: document.elementFromPoint(x, y)?.tagName, kind: canvas.getLoci(hit?.id).loci.kind };
+    }, { x: emptyCanvas.x + 40, y: emptyCanvas.y + emptyCanvas.height * 0.6 });
+    expect(target).toEqual({ tag: "CANVAS", kind: "empty-loci" });
+    if (info.project.name === "mobile-chromium") await page.touchscreen.tap(emptyCanvas.x + 40, emptyCanvas.y + emptyCanvas.height * 0.6);
+    else await page.mouse.click(emptyCanvas.x + 40, emptyCanvas.y + emptyCanvas.height * 0.6);
+    if (reopen) {
+      await page.getByRole("button", { name: "Style selection", exact: true }).click();
+      await page.getByRole("button", { name: /^Manage surfaces/ }).click();
+      await expect(manager).toBeVisible();
+    }
+  };
+  await clickEmpty();
+  await expect(manager.locator('.surface-object[data-active="true"]')).toHaveCount(0);
+  await expect(manager).toBeVisible();
+  expect(await calculations()).toBe(initialCalculations);
+  expect(reads).toBe(0);
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project).toEqual(managerBaseline);
+  await fragmentRow.click();
   await manager.getByLabel("Surface color scheme").selectOption("custom");
   await appearanceSaved(manager);
   await manager.getByLabel("Surface opacity", { exact: true }).fill("0.3");
@@ -214,6 +242,9 @@ test("manages production object appearance and explicit sources independently th
   await openSource(manager);
   await manager.getByRole("button", { name: "Select source atoms" }).click();
   await expect(page.locator(".viewer-status")).toContainText("5 selected");
+  await clickEmpty();
+  await expect(manager.locator('.surface-object[data-active="true"]')).toHaveCount(0);
+  await expect(page.locator(".viewer-status")).toContainText("0 selected");
   await manager.getByRole("button", { name: "Whole receptor Whole entry", exact: true }).click();
   await openSource(manager);
   await manager.getByRole("button", { name: "Select source atoms" }).click();
@@ -221,6 +252,11 @@ test("manages production object appearance and explicit sources independently th
   await manager.getByRole("button", { name: "Fragment A Captured fragment", exact: true }).click();
   await openSource(manager);
   await manager.getByRole("button", { name: "Capture fragment from selection" }).click();
+  await expect(manager.getByText("Unapplied changes", { exact: false })).toBeVisible();
+  await manager.getByRole("button", { name: /Fragment A Captured fragment/ }).click();
+  await expect(manager.locator('.surface-object[data-active="true"]')).toHaveCount(0);
+  await manager.getByRole("button", { name: /Fragment A Captured fragment/ }).click();
+  await openSource(manager);
   await expect(manager.getByText("Unapplied changes", { exact: false })).toBeVisible();
   await manager.getByRole("button", { name: "Apply source", exact: true }).click();
   await expect.poll(async () => {
@@ -267,16 +303,7 @@ test("manages production object appearance and explicit sources independently th
   await expect(manager.getByLabel("Surface display")).toHaveValue("mesh");
   await expect(manager.getByLabel("Surface opacity", { exact: true })).toHaveValue("0.3");
   expect(await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/original`)).body()).toEqual(originalBytes);
-  // Inspect native pick identity in this test only, then send a real pointer event.
-  await page.evaluate(async () => {
-    const path = "/src/viewer/MolstarEngine.ts";
-    const { MolstarEngine } = await import(/* @vite-ignore */ path) as typeof MolstarEngineModule;
-    const original = Reflect.get(MolstarEngine.prototype, "setActiveSurface");
-    MolstarEngine.prototype.setActiveSurface = function(...args: Parameters<typeof original>) {
-      (window as unknown as { managedEngine: unknown }).managedEngine = this;
-      return original.apply(this, args);
-    };
-  });
+  await observeManagedEngine(page);
   await manager.getByRole("button", { name: "Whole receptor Whole entry", exact: true }).click();
   // Reload starts asynchronous work for all five objects. Measure display-only
   // changes after that initial work is ready, as in the pre-reload assertion.
@@ -301,12 +328,10 @@ test("manages production object appearance and explicit sources independently th
   }).toBe("#00ff00");
   const readNativeDisplay = () => page.evaluate(async id => {
     const engine = (window as unknown as { managedEngine: {
-      setActiveSurface(value: null): void;
       plugin: PluginUIContext;
       syncQueue: Promise<void>;
     } }).managedEngine;
     await engine.syncQueue;
-    engine.setActiveSurface(null); // Measure theme pixels independently of transient highlight.
     const repr = [...engine.plugin.state.data.cells.values()].find(cell => cell.transform.tags?.includes(`neistra-representation-surface-${id}`));
     const data = repr?.obj?.data as { repr: { renderObjects: { type: string; values: { drawCount: { ref: { value: number } } } }[] } } | undefined;
     return data?.repr.renderObjects.map(object => ({ type: object.type, drawCount: object.values.drawCount.ref.value })) ?? [];
@@ -326,41 +351,42 @@ test("manages production object appearance and explicit sources independently th
   });
   await expect.poll(nativeGreenPixels).toBeGreaterThan(20);
   const nativeGreenPixelCount = await nativeGreenPixels();
+  // An opaque whole-entry solid shell covers molecular geometry. Native picks
+  // must still resolve the molecule, not just pass through mesh holes.
+  await manager.getByLabel("Surface display").selectOption("solid");
+  await appearanceSaved(manager);
   expect(await calculations()).toBe(workerCountBeforeNativeStyle);
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   const selectionBeforeClick = await page.locator(".viewer-status").textContent();
   const persistedBeforeClick: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
-  const pick = await page.evaluate(wantedId => {
+  const pick = await page.evaluate(() => {
     const engine = (window as unknown as { managedEngine: {
       getCamera(): unknown;
       plugin: PluginUIContext;
       surfaceVisuals: SurfaceVisualRegistry;
+      pickingTarget(loci: unknown): { atoms: { structure_id: string; atom_id: number }[] };
     } }).managedEngine;
     const canvas = engine.plugin.canvas3d!;
     const element = canvas.webgl.gl.canvas as HTMLCanvasElement;
-    const gl = canvas.webgl.gl;
-    gl.finish(); const pixels = new Uint8Array(element.width * element.height * 4);
-    gl.readPixels(0, 0, element.width, element.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-    // The independently verified green entry wireframe provides actual visible hit candidates.
-    let sampled = 0;
-    for (let i = 0; i < pixels.length; i += 4) {
-      if (!(pixels[i + 1] > pixels[i] + 40 && pixels[i + 1] > pixels[i + 2] + 40) || sampled++ % 20) continue;
-      const x = ((i / 4) % element.width + 0.5) / element.width;
-      const y = 1 - (Math.floor(i / 4 / element.width) + 0.5) / element.height;
-      // Native mouse events use integer client coordinates. Validate the same
-      // reachable point rather than a half-pixel center on a thin wireframe.
-      const rect = element.getBoundingClientRect();
-      const clientX = Math.round(rect.left + x * rect.width), clientY = Math.round(rect.top + y * rect.height);
-      const point = new Float32Array([clientX - rect.left, clientY - rect.top]) as unknown as Vec2;
-      const hit = canvas.identify(point);
-      const identity = engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
-      if (identity?.surfaceId === wantedId) return { x, y, clientX, clientY, identity, camera: engine.getCamera() };
+    const rect = element.getBoundingClientRect();
+    // Project real native atom centers and validate the resulting integer
+    // pointer position through the pick pass before dispatching one real click.
+    const source = (engine as unknown as { structures: ViewerStructure[] }).structures[0];
+    for (const atom of source.normalized.atoms) {
+      const projected = canvas.camera.project([0, 0, 0, 0] as unknown as Vec4, atom.coordinates as unknown as Vec3);
+      const clientX = Math.round(rect.left + projected[0] / element.width * rect.width);
+      const clientY = Math.round(rect.top + (1 - projected[1] / element.height) * rect.height);
+      const hit = canvas.identify(new Float32Array([clientX - rect.left, clientY - rect.top]) as unknown as Vec2);
+      const current = canvas.getLoci(hit?.id);
+      if (engine.surfaceVisuals.isManaged(current.repr)) throw new Error("A passive surface entered the native pick pass");
+      const atoms = engine.pickingTarget(current.loci).atoms;
+      if (atoms.length) return { clientX, clientY, atoms, camera: engine.getCamera() };
     }
     return null;
-  }, saved[0].id);
+  });
   expect(pick).not.toBeNull();
   const canvasBox = (await page.locator(".molstar-host canvas").first().boundingBox())!;
-  const clickSurface = async () => {
+  const clickMolecule = async () => {
     if (info.project.name === "mobile-chromium") await page.touchscreen.tap(pick!.clientX, pick!.clientY);
     else await page.mouse.click(pick!.clientX, pick!.clientY);
   };
@@ -385,7 +411,7 @@ test("manages production object appearance and explicit sources independently th
       });
     };
   });
-  await clickSurface();
+  await clickMolecule();
   await page.waitForTimeout(250);
   expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
   await expect(manager).toBeHidden();
@@ -411,9 +437,11 @@ test("manages production object appearance and explicit sources independently th
     const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
     const rect = element.getBoundingClientRect();
     const hit = canvas.identify(new Float32Array([point.clientX - rect.left, point.clientY - rect.top]) as unknown as Vec2);
-    return engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
+    const current = canvas.getLoci(hit?.id);
+    return { surface: engine.surfaceVisuals.identityFor(current.repr), kind: current.loci.kind };
   }, pick!);
-  expect(rebuiltNativeHit).toEqual(pick!.identity);
+  expect(rebuiltNativeHit.surface).toBeNull();
+  expect(rebuiltNativeHit.kind).not.toBe("empty-loci");
   await page.evaluate(() => {
     const engine = (window as unknown as { managedEngine: {
       plugin: PluginUIContext;
@@ -426,13 +454,14 @@ test("manages production object appearance and explicit sources independently th
       camera: engine.plugin.canvas3d?.camera.getSnapshot(),
     }));
   });
-  await clickSurface();
-  await expect(manager).toBeVisible();
+  await clickMolecule();
+  await expect(manager).toBeHidden();
   writeFileSync(info.outputPath("managed-rebuild-click.json"), JSON.stringify({ pick, rebuiltNativeHit, canvasBox,
     clicks: await page.evaluate(() => (window as unknown as { managedClickEvidence: unknown[] }).managedClickEvidence) }, null, 2));
-  const pickedName = saved.find(surface => surface.id === pick!.identity.surfaceId)!.name;
-  await expect(manager.locator('.surface-object[data-active="true"] .surface-object-label')).toContainText(pickedName);
-  expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
+  await expect.poll(() => page.evaluate(() => (window as unknown as { managedEngine: {
+    pendingSelection: { structure_id: string; atom_id: number }[];
+  } }).managedEngine.pendingSelection)).toEqual(pick!.atoms);
+  const selectionAfterClick = await page.locator(".viewer-status").textContent();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project).toEqual(persistedBeforeClick);
   expect(await page.evaluate(() => (window as unknown as { managedEngine: { getCamera(): unknown } }).managedEngine.getCamera())).toEqual(pick!.camera);
   const nativeMarkerCounts = await page.evaluate(id => {
@@ -449,11 +478,38 @@ test("manages production object appearance and explicit sources independently th
     });
   }, saved[0].id);
   expect(nativeMarkerCounts.length).toBeGreaterThan(0);
-  expect(nativeMarkerCounts.every(object => object.count > 0 && object.highlighted === object.count)).toBe(true);
+  expect(nativeMarkerCounts.every(object => object.count > 0 && object.highlighted === 0)).toBe(true);
+  const passiveStates = await page.evaluate(() => {
+    const engine = (window as unknown as { managedEngine: { plugin: PluginUIContext; surfaceVisuals: SurfaceVisualRegistry } }).managedEngine;
+    return [...engine.plugin.state.data.cells.values()].flatMap(cell => {
+      const data = cell.obj?.data as { repr?: { state: { pickable: boolean; markerActions: number }; renderObjects: { values: { tMarker?: { ref: { value: { array: Uint8Array } } } } }[] } } | undefined;
+      if (!data?.repr) return [];
+      const managed = engine.surfaceVisuals.isManaged(data.repr as unknown as Parameters<SurfaceVisualRegistry["isManaged"]>[0]);
+      return [{ managed, pickable: data.repr.state.pickable, markerActions: data.repr.state.markerActions,
+        marked: data.repr.renderObjects.some(object => Array.from(object.values.tMarker?.ref.value.array ?? []).some(value => value !== 0)) }];
+    });
+  });
+  expect(passiveStates.filter(item => item.managed)).toHaveLength(5);
+  expect(passiveStates.filter(item => item.managed).every(item => !item.pickable && item.markerActions === 0 && !item.marked)).toBe(true);
+  expect(passiveStates.some(item => !item.managed && item.marked)).toBe(true);
+  await page.evaluate(async id => {
+    const engine = (window as unknown as { managedEngine: {
+      structures: ViewerStructure[];
+      previewSurfaceAppearance(identity: { entryId: string; surfaceId: string }, value: ViewerStructure["settings"]["surface_objects"][number]["appearance"] | null): Promise<void>;
+    } }).managedEngine;
+    const source = engine.structures[0], surface = source.settings.surface_objects.find(item => item.id === id)!;
+    await engine.previewSurfaceAppearance({ entryId: source.entryId, surfaceId: id }, { ...surface.appearance, mode: "mesh", opacity: 0.3 });
+  }, saved[0].id);
+  await clickMolecule();
+  await expect(manager).toBeHidden();
+  await expect.poll(() => page.evaluate(() => (window as unknown as { managedEngine: { pendingSelection: { structure_id: string; atom_id: number }[] } }).managedEngine.pendingSelection)).toEqual(pick!.atoms);
+  await page.evaluate(async id => {
+    const engine = (window as unknown as { managedEngine: { structures: ViewerStructure[]; previewSurfaceAppearance(identity: { entryId: string; surfaceId: string }, value: null): Promise<void> } }).managedEngine;
+    await engine.previewSurfaceAppearance({ entryId: engine.structures[0].entryId, surfaceId: id }, null);
+  }, saved[0].id);
   await page.screenshot({ path: info.outputPath("managed-surface-appearance.png") });
-  await manager.getByRole("button", { name: "Close surfaces" }).click();
-  // Hold a narrow removal while the old pixels remain. Those retired hits must
-  // neither activate an object nor fall through to molecular atom selection.
+  // Hold a narrow removal while old pixels remain. Molecular picking stays
+  // independent from passive surface resources and cannot open the manager.
   await page.evaluate(id => {
     const state = window as unknown as { managedEngine: {
       syncQueue: Promise<void>; structures: ViewerStructure[];
@@ -486,9 +542,9 @@ test("manages production object appearance and explicit sources independently th
         otherGeometryRetained: [...geometry].every(([key, value]) => engine.surfaces.requests.get(key)?.geometry === value) };
     };
   }, saved[0].id);
-  await clickSurface(); await page.waitForTimeout(100);
+  await clickMolecule(); await page.waitForTimeout(100);
   await expect(manager).toBeHidden();
-  expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
+  expect(await page.locator(".viewer-status").textContent()).toBe(selectionAfterClick);
   await page.evaluate(() => (window as unknown as { finishNarrowRemoval: () => void }).finishNarrowRemoval());
   await expect.poll(() => page.evaluate(() => (window as unknown as { narrowRemovalStatus: string }).narrowRemovalStatus)).toBe("complete");
   const narrowRemoval = await page.evaluate(() => (window as unknown as { restoreNarrowRemoval: () => Promise<{

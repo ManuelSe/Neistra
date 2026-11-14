@@ -1,0 +1,39 @@
+{
+  "candidate": "31d6527e3e76f24d283c60a7a963e5d47c32e6d8",
+  "qualification": false,
+  "completed_steps": 15,
+  "completed_before_browser": 14,
+  "browser": {
+    "passes": 146,
+    "failed": 1,
+    "existing_exclusions_executed": 4,
+    "did_not_run": 375,
+    "cause": "Obsolete idempotent manager row activation in rebranding-zoom: Enter on already active newly created row correctly toggles details off, then old selectOption waits.",
+    "correction": "Assert autoactivation and exact keyboard toggle-off/on, hidden details and retained focus before existing appearance checks. No runtime, timing, exclusion or title change."
+  },
+  "source_unchanged": true,
+  "preceding_source_unchanged": true,
+  "files": {
+    "c3-candidate1-pnpm.log.gz": "d3562de214d8b445f6a7754ff0e2a256641b7dd83c0d4b0606fdec3b00208790",
+    "c3-candidate1-supervisor.log.gz": "a31784b74ec060f1d7fa8f80ac1a686e5150eaba88162ae2fb000a1d31812b47",
+    "c3-candidate1-migration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate1-browser.log.gz": "52648e93e5a0c9cedfc90416f98b0b867bd180caf3273412384992d065fa3f69",
+    "c3-candidate1-lint.log.gz": "d97b577e094b6f437fc6acd45e5a7a5f4e86e71a521c9cb993c863791ff7839b",
+    "c3-candidate1-browser.json.gz": "127225b9246f99f2a0af1d7ca9ca6944cab2b74c07db5e6d7de5cc2bee5cb692",
+    "c3-candidate1-python.log.gz": "dc8b05971ad140108a64a344784868db48b978c2fbec5edeff920aca9c1dd5c0",
+    "c3-candidate1-uv.log.gz": "4fb389f3255ea438e3ee7bef40a1c09a8c19733e16a1c4736dbc19fc0827561d",
+    "c3-candidate1-web.log.gz": "162f8d5e2ea0c8c1e970ca36d269e8cfcfe74dc9f1b56a963042d27449422819",
+    "c3-candidate1-browser-inventory.json": "88860f1728c429507e524ba1f8991d7dccd352accd53bd6aa946cd8a2143ae37",
+    "c3-candidate1-build.log.gz": "ba4a40f901472ca2add3c3b0c4df5f48fe17ed05b8b7c0a2bb108b5e9efa05f1",
+    "c3-candidate1-recipe.json": "1cd7775062d963a110550cbcf764ab46672d4b3864cf3583513fa5c9a4dcdcad",
+    "c3-candidate1-remigration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate1-failure.zip": "5cd96e2ba96213f46a1c10d3bb8e1e4dc678af57d3f083b90246d644e8ddeb1b",
+    "c3-candidate1-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c3-candidate1-downgrade.log.gz": "3fe0d8c6c2f164ef935b116e5b2e2051cce88af30d588e9bbe6007cc84339bb0",
+    "c3-candidate1-mypy.log.gz": "c2a9e583883fb3bf063396455a48f8c822d2f2184608d26ef145fdc716c8f6d1",
+    "c3-candidate1-types.log.gz": "39c8182fd388763d23285e460c35af45e9aead476c1f642fc40b85740193ab4b",
+    "c3-candidate1-gate.json": "10d754281a56ebc39b2967e674e8539ce236702725764a16c3ffb269182bf403",
+    "c3-candidate1-browser-inventory.log.gz": "8758d4a0770547d43f801d976568a93c7dac1228fb71dc8a49c80a8539f5f06f"
+  },
+  "native_diagnostics": "Failure trace/images retained in c3-candidate1-failure.zip; full partial native output retained outside repository in /tmp/neistra145-c3-diagnostics/candidate1-native."
+}

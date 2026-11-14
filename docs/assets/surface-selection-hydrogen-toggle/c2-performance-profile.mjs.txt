@@ -1,0 +1,82 @@
+import { createRequire } from 'node:module';
+import { writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import os from 'node:os';
+const require=createRequire('/datadisk/dev/neistra/package.json');
+const {chromium}=require('@playwright/test');
+const sourcePaths=['apps/web/src/components/SelectionHydrogenControls.tsx','apps/web/src/selection/hydrogenTargets.ts','apps/web/src/selection/hydrogenAction.ts'];
+const hashSources=()=>Object.fromEntries(sourcePaths.map(p=>[p,createHash('sha256').update(readFileSync('/datadisk/dev/neistra/'+p)).digest('hex')]));
+const sourcesBefore=hashSources();
+const browser=await chromium.launch({headless:true,args:['--enable-webgl','--ignore-gpu-blocklist','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1280,height:900}});
+const apiRequests=[]; page.on('request',r=>{if(new URL(r.url()).pathname.startsWith('/api/'))apiRequests.push(r.url());});
+const errors=[];page.on('pageerror',e=>{errors.push(String(e));console.error('PAGEERROR',String(e));});page.on('console',m=>{if(m.type()==='error') console.error('BROWSER',m.text());});
+await page.goto('http://127.0.0.1:15540/@fs/tmp/neistra145-c2-perf/profile.html');
+const result=await page.evaluate(async()=>{
+ const deps='/@fs/tmp/neistra145-c2-perf/vite-cache/deps/';
+ const transformed=await (await fetch('/src/components/IconButton.tsx')).text();
+ const suffix=transformed.match(/react-tooltip\.js(\?v=[a-z0-9]+)/)[1];
+ const React=(await import(deps+'react.js'+suffix)).default;
+ const {createRoot}=(await import(deps+'react-dom_client.js'+suffix)).default;
+ const {flushSync}=(await import(deps+'react-dom.js'+suffix)).default;
+ const Tooltip=await import(deps+'@radix-ui_react-tooltip.js'+suffix);
+ const {SelectionHydrogenControls}=await import('/src/components/SelectionHydrogenControls.tsx');
+ const {molecularEntry,proteinProjection}=await import('/src/test/molecular-fixtures.ts');
+ let workerConstructions=0;
+ const NativeWorker=window.Worker;
+ window.Worker=new Proxy(NativeWorker,{construct(target,args,newTarget){workerConstructions++;return Reflect.construct(target,args,newTarget);}});
+ const stats=a=>({n:a.length,min:Math.min(...a),median:[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)],max:Math.max(...a),mean:a.reduce((a,b)=>a+b,0)/a.length});
+ const profiles=[];
+ for(const [size,seeds] of [[128,64],[10000,10],[100000,10],[100000,50000]]){
+  const projection=proteinProjection(),template=projection.structure.atoms[0];
+  const atoms=Array.from({length:size},(_,i)=>({...template,id:i+1,element:i%2?'H':'C',coordinates:[i,0,0]}));
+  const bonds=Array.from({length:size/2},(_,i)=>({id:i+1,atom_1_id:i*2+1,atom_2_id:i*2+2,order:1,aromatic:false,stereo:null,inferred:false}));
+  let atomReads=0,bondReads=0;
+  Object.defineProperty(projection.structure,'atoms',{get(){atomReads++;return atoms;},configurable:true});
+  Object.defineProperty(projection.structure,'bonds',{get(){bondReads++;return bonds;},configurable:true});
+  const entry=molecularEntry('protein','Loaded profile','protein');entry.atom_count=size;entry.atom_ids=atoms.map(a=>a.id);entry.bond_count=bonds.length;
+  const selection={schema_version:1,granularity:'atom',source:'inspector',atoms:Array.from({length:seeds},(_,i)=>({structure_id:'protein',atom_id:i*2+1}))};
+  const structures=new Map([['protein',projection]]);
+  const host=document.createElement('div');document.body.append(host);
+  let root;const actionTargets=[];const onChange=(change,target)=>{if(target.atoms.length!==seeds || target.atoms.some((a,i)=>a.structure_id!=='protein'||a.atom_id!==i*2+2))throw new Error('Incorrect measured fixture target');actionTargets.push({count:target.atoms.length,change});return Promise.resolve();};let props={selection,structures,entries:[entry],busy:false,onChange};
+  const tree=()=>React.createElement(Tooltip.Provider,{delayDuration:0},React.createElement(SelectionHydrogenControls,props));
+  const render=()=>{const t=performance.now();flushSync(()=>root.render(tree()));return performance.now()-t;};
+  const cold=[];
+  for(let i=0;i<10;i++){root=createRoot(host);cold.push(render());flushSync(()=>root.unmount());}
+  const coldReads={atoms:atomReads,bonds:bondReads};
+  root=createRoot(host);render();
+  const beforeWarm={atoms:atomReads,bonds:bondReads};const warm=[];
+  for(let i=0;i<50;i++){
+   props={...props,entries:[{...entry,viewer_settings:{...entry.viewer_settings,components:{...entry.viewer_settings.components,nonpolar_hydrogens:i%2===0}}}]};
+   warm.push(render());
+  }
+  const warmReads={atoms:atomReads-beforeWarm.atoms,bonds:bondReads-beforeWarm.bonds};
+  const beforeBusy={atoms:atomReads,bonds:bondReads};const busy=[];
+  for(let i=0;i<50;i++){props={...props,busy:i%2===0};busy.push(render());}
+  const busyReads={atoms:atomReads-beforeBusy.atoms,bonds:bondReads-beforeBusy.bonds};
+  props={...props,busy:false};render();
+  const beforeFocus={atoms:atomReads,bonds:bondReads};
+  const toggle=host.querySelector('[aria-label="Show non-polar hydrogens"]');if(!toggle)throw new Error('Missing toggle: '+host.outerHTML);toggle.focus();
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const focusReads={atoms:atomReads-beforeFocus.atoms,bonds:bondReads-beforeFocus.bonds};
+  const beforeClick={atoms:atomReads,bonds:bondReads};toggle.click();await Promise.resolve();const clickReads={atoms:atomReads-beforeClick.atoms,bonds:bondReads-beforeClick.bonds};
+  if(actionTargets.length!==1)throw new Error('Expected one control action');
+  if(selection.atoms.some((a,i)=>a.atom_id!==i*2+1))throw new Error('Seed mutation');
+  const beforeSeed={atoms:atomReads,bonds:bondReads};props={...props,selection:{...selection,atoms:[{structure_id:'protein',atom_id:1}]}};const newSeedMs=render();
+  const seedReads={atoms:atomReads-beforeSeed.atoms,bonds:bondReads-beforeSeed.bonds};
+  const beforeProjection={atoms:atomReads,bonds:bondReads};props={...props,structures:new Map([['protein',{...projection}]])};const newProjectionMs=render();
+  const projectionReads={atoms:atomReads-beforeProjection.atoms,bonds:bondReads-beforeProjection.bonds};
+  flushSync(()=>root.unmount());host.remove();
+  profiles.push({atoms:size,bonds:bonds.length,heavySeeds:seeds,expectedTargets:seeds,coldMountMs:stats(cold),warmPreferenceRenderMs:stats(warm),busyRenderMs:stats(busy),newSeedMs,newProjectionMs,coldReads,warmReads,busyReads,focusReads,seedReads,projectionReads,clickReads,actionTargets});
+ }
+ window.Worker=NativeWorker;
+ return {profiles,workerConstructions,remainingProfileRoots:document.querySelectorAll('[aria-label="Hydrogens"]').length,jsHeap:performance.memory?{used:performance.memory.usedJSHeapSize,total:performance.memory.totalJSHeapSize,limit:performance.memory.jsHeapSizeLimit}:null};
+});
+const sources=hashSources();if(JSON.stringify(sourcesBefore)!==JSON.stringify(sources))throw new Error('Source drift');
+for(const p of result.profiles){if(p.coldReads.atoms!==10||p.coldReads.bonds!==10)throw new Error('Unexpected cold work');for(const key of ['warmReads','busyReads','focusReads','clickReads'])if(p[key].atoms||p[key].bonds)throw new Error('Unexpected warm molecular rescan');for(const key of ['seedReads','projectionReads'])if(p[key].atoms!==1||p[key].bonds!==1)throw new Error('Expected invalidation work');}
+if(result.workerConstructions||result.remainingProfileRoots||apiRequests.length||errors.length)throw new Error('Unexpected profile resource/error');
+const report={scope:'Browser loaded-control mount/rerender work; synthetic valid graph fixtures, no3Dengine/API/worker pipeline; no baseline-vs-candidate speedup claim',time:new Date().toISOString(),node:process.version,cpu:os.cpus()[0]?.model,logicalCpus:os.cpus().length,browser:browser.version(),concurrentLoad:'Parent native qualification running concurrently; no host settings changed; timing is local descriptive evidence only',sourcesBefore,sources,...result,apiRequests,pageErrors:errors};
+await writeFile('/tmp/neistra145-c2-perf/profile.json',JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report,null,2));
+await browser.close();

@@ -87,17 +87,47 @@ test("keeps 500 complete warning records scrollable and read-only in both themes
     await dialog.getByRole("button", { name: "Close structure warnings", exact: true }).focus();
     await page.keyboard.press("Tab");
     await expect(body).toBeFocused();
-    await page.keyboard.press("End");
-    await expect(dialog.locator(".viewer-warning-message").last()).toBeInViewport();
-    await page.keyboard.press("Home");
-    await expect(dialog.locator(".viewer-warning-message").first()).toBeInViewport();
+    // A visible boundary row can precede native keyboard-scroll completion.
+    // Observe the real terminal event before the next input; never set scrollTop.
+    const armScrollEnd = (edge: "start" | "end") => body.evaluate((node, edge) => {
+      Reflect.set(node, "warningScrollEnd", null);
+      const settled = (event: Event) => {
+        if (event.target !== node) return;
+        const top = node.scrollTop, max = node.scrollHeight - node.clientHeight;
+        if (Math.abs(top - (edge === "start" ? 0 : max)) > 1) return;
+        Reflect.set(node, "warningScrollEnd", { edge, top, max, time: performance.now() });
+        node.removeEventListener("scrollend", settled);
+      };
+      node.addEventListener("scrollend", settled, { passive: true });
+      Reflect.set(node, "disposeWarningScrollEnd", () => node.removeEventListener("scrollend", settled));
+    }, edge);
+    let end: unknown, home: unknown;
+    try {
+      await armScrollEnd("end");
+      await page.keyboard.press("End");
+      await expect(dialog.locator(".viewer-warning-message").last()).toBeInViewport();
+      await expect.poll(() => body.evaluate(node => Reflect.get(node, "warningScrollEnd")?.edge)).toBe("end");
+      end = await body.evaluate(node => Reflect.get(node, "warningScrollEnd"));
+      await armScrollEnd("start");
+      await page.keyboard.press("Home");
+      await expect(dialog.locator(".viewer-warning-message").first()).toBeInViewport();
+      await expect.poll(() => body.evaluate(node => Reflect.get(node, "warningScrollEnd")?.edge)).toBe("start");
+      home = await body.evaluate(node => Reflect.get(node, "warningScrollEnd"));
+    } finally {
+      await body.evaluate(node => {
+        const dispose = Reflect.get(node, "disposeWarningScrollEnd");
+        if (typeof dispose === "function") dispose();
+        Reflect.deleteProperty(node, "disposeWarningScrollEnd");
+        Reflect.deleteProperty(node, "warningScrollEnd");
+      });
+    }
     await body.hover();
     await page.mouse.wheel(0, 100_000);
     await expect(dialog.locator(".viewer-warning-message").last()).toBeInViewport();
     await expect(dialog.getByRole("button", { name: "Close structure warnings", exact: true })).toBeInViewport();
     expect(await inspectWarningScene(page, displayed)).toEqual(scene);
     await info.attach(`${theme}-500-warning-end`, { body: await page.screenshot(), contentType: "image/png" });
-    measurements.push({ theme, opening, ...bounds, rows: await dialog.locator("li").count(), scroll: await body.evaluate(node => ({ top: node.scrollTop, total: node.scrollHeight, height: node.clientHeight })) });
+    measurements.push({ theme, opening, keyboardScroll: { end, home }, ...bounds, rows: await dialog.locator("li").count(), scroll: await body.evaluate(node => ({ top: node.scrollTop, total: node.scrollHeight, height: node.clientHeight })) });
     await dialog.getByRole("button", { name: "Close structure warnings", exact: true }).click();
     await expect(warningTrigger(page)).toBeFocused();
     await expect(page.locator("[data-viewer-warning-details]")).toHaveCount(0);

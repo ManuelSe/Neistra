@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, SelectionRepresentationChannel, StructureProjection } from "../api/types";
+import type { ChangeHydrogenTarget, ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, SelectionRepresentationChannel, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
@@ -29,6 +29,7 @@ interface SelectionStyleDialogProps {
   onManageSurfaces?: () => void;
   onCreateSurface?: () => void;
   onAppearance?: ChangeSelectionAppearance;
+  onHydrogenAppearance?: ChangeHydrogenTarget;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle, channel?: SelectionRepresentationChannel) => Promise<void>;
 }
 
@@ -40,7 +41,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onExpandResidues, onAppearance, onCreateSurface, onAtomVisibility, onManageSurfaces }: SelectionStyleDialogProps) {
+  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onExpandResidues, onAppearance, onHydrogenAppearance, onCreateSurface, onAtomVisibility, onManageSurfaces }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -70,11 +71,11 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     const count = selection.atoms.filter((atom) => memberships.get(atom.structure_id)?.get(style)?.has(atom.atom_id)).length;
     return count === 0 ? false : count === selection.atoms.length ? true : "mixed" as const;
   };
-  const perform = async (operation: () => Promise<void>, success: string) => {
+  const perform = async (operation: () => Promise<void>, success: string, preserveFocus = false) => {
     if (disabled || locked.current) return;
     locked.current = true;
     // Disabling a focused button otherwise moves browser focus to the document.
-    if (document.activeElement instanceof HTMLElement) {
+    if (!preserveFocus && document.activeElement instanceof HTMLElement) {
       document.activeElement.closest<HTMLElement>(".selection-palette")?.focus();
     }
     setPending(true);
@@ -90,6 +91,9 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     () => onAppearance!(change),
     change.property === "color" ? `Selection color ${change.action === "reset" ? "reset" : "applied"}.`
       : "Selection hydrogen visibility stored.",
+  );
+  const hydrogenAppearance: ChangeHydrogenTarget = (change, target) => perform(
+    () => onHydrogenAppearance!(change, target), "Selection hydrogen visibility stored.", true,
   );
   const renderStyle = (style: SelectionRepresentationStyle, reason: string | null) => <button
     key={style} type="button" className="selection-style-option" aria-label={LABELS[style]} aria-pressed={assigned(style)}
@@ -125,6 +129,9 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
         </button>
       </div>
     </fieldset>
+    {onHydrogenAppearance ? <SelectionHydrogenControls selection={selection} entries={entries}
+      structures={structures} loading={eligibilityBusy} error={eligibilityError} busy={disabled}
+      onChange={hydrogenAppearance} /> : null}
     <fieldset className="selection-style-group" aria-label="Polymer">
       <legend className="selection-channel-legend"><span className="selection-channel-heading"><span>Polymer</span><span className="selection-channel-summary" aria-label="Polymer state">{summaries.polymer}</span>
         <button type="button" className="selection-reset" aria-label="Reset polymer representation" disabled={disabled}
@@ -155,8 +162,6 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     </div> : null}
     {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled}
       mode={selectionColorMode} onModeChange={onSelectionColorModeChange} onChange={appearance} /> : null}
-    {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}
-      structures={structures} loading={eligibilityBusy} busy={disabled || eligibilityBusy} onChange={appearance} /> : null}
     {onExpandDistance ? <details className="selection-disclosure"><summary>Expand by distance</summary>
       <SelectionExpansion expand={onExpandDistance} disabled={disabled} contextKey={context}
         onMessage={(text, failed) => setMessage(text ? { text, failed, context } : null)} />

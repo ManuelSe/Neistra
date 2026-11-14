@@ -256,6 +256,18 @@ export type SelectionAppearanceChange =
   | ({ property: "nonpolar_hydrogens" } & ({ action: "set"; show: boolean } | { action: "reset"; show?: never }));
 export type ChangeSelectionAppearance = (change: SelectionAppearanceChange) => Promise<void>;
 
+export type HydrogenAppearanceChange = Extract<SelectionAppearanceChange, { property: "nonpolar_hydrogens" }>;
+/** Transient UI capture; never serialized as the appearance API payload. */
+export interface CapturedHydrogenTarget {
+  projectId: string;
+  projectEpoch: number;
+  seed: Selection;
+  artifactIds: Readonly<Record<string, string>>;
+  target: Selection;
+}
+export type ChangeHydrogenAppearance = (change: HydrogenAppearanceChange, capture: CapturedHydrogenTarget) => Promise<void>;
+export type ChangeHydrogenTarget = (change: HydrogenAppearanceChange, target: Selection) => Promise<void>;
+
 export type MeasurementKind = "distance" | "angle" | "dihedral";
 
 export interface Measurement {

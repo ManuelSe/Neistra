@@ -41,12 +41,10 @@ interface BindingProbe {
 interface EngineProbe {
   plugin: PluginUIContext; structures: ViewerStructure[]; surfaceSyncSnapshot: SurfaceSyncSnapshot;
   surfaceDefinitions: Map<string, string>; surfaceBindings: Map<string, BindingProbe>;
-  surfaceMeshEntries: Set<string>;
   surfaceRefs: Map<string, string>; surfaceRenderedAtoms: Map<string, AtomReference[]>; renderedAtomReferences: Map<string, AtomReference[]>;
   surfaces: SurfaceRuntime; generation: number; boundGeneration: number;
   syncQueue: Promise<void>; surfaceVisuals: SurfaceVisualRegistry;
   surfaceHitIgnored(representation: Representation.Any): boolean;
-  updateSurfacePickingThreshold(): void;
   scheduleSurfaceUpdate(identity: SurfaceIdentity): Promise<void>;
   loadStructure(source: ViewerStructure): Promise<void>; prepareSurface(entryId: string, surfaceId: string): Promise<void>;
   addStructureLabels(source: ViewerStructure): Promise<void>; applyMeasurements(): Promise<void>; applyInteractions(): Promise<void>; applyModelPreview(): Promise<void>;
@@ -116,7 +114,6 @@ function setup(sources = [source(), source("unrelated")]) {
       mode: "solid", appearance: { ...surface.appearance }, renderedAtoms: [{ structure_id: item.entryId, atom_id: 1 }] };
     state.surfaceDefinitions.set(surfaceIdentityKey(binding), binding.definition);
     state.surfaceBindings.set(key, binding); state.surfaceRefs.set(key, binding.componentRef);
-    state.surfaceMeshEntries.add(key);
     state.surfaceRenderedAtoms.set(key, binding.renderedAtoms!);
     const obj = representation(); cells.set(ref, { obj }); representations.set(ref, obj.data.repr);
     binding.unregister = state.surfaceVisuals.register(obj.data.repr, { entryId: item.entryId, surfaceId: surface.id });
@@ -253,14 +250,14 @@ describe("surface-only viewer updates", () => {
     expect(h.add).not.toHaveBeenCalled();
   });
 
-  it("rejects retired pixels while narrow removal is held without blocking unrelated atomic or surface hits", async () => {
+  it("rejects every managed surface hit while retaining unrelated molecular picking", async () => {
     const h = setup(), removed = h.representations.get("repr-entry-one")!, retained = h.representations.get("repr-entry-two")!;
     let release!: () => void;
     h.state.syncQueue = new Promise<void>(finish => { release = finish; });
     const update = h.engine.syncStructures(changed(h.state.structures, identity, {}, false));
     expect(h.state.surfaceVisuals.isRetired(removed)).toBe(true);
     expect(h.state.surfaceHitIgnored(removed)).toBe(true);
-    expect(h.state.surfaceHitIgnored(retained)).toBe(false);
+    expect(h.state.surfaceHitIgnored(retained)).toBe(true);
     expect(h.state.surfaceHitIgnored({} as Representation.Any)).toBe(false);
     release(); await update;
     expect(h.state.surfaceHitIgnored(removed)).toBe(true);
@@ -274,35 +271,29 @@ describe("surface-only viewer updates", () => {
     const preview = h.engine.previewSurfaceAppearance(identity, { ...appearance, opacity: 0 });
     expect(h.state.surfaceVisuals.identityFor(repr)).toEqual(identity);
     expect(h.state.surfaceHitIgnored(repr)).toBe(true);
-    expect(h.state.surfaceHitIgnored(retained)).toBe(false);
+    expect(h.state.surfaceHitIgnored(retained)).toBe(true);
     release(); await preview;
     expect(h.state.surfaceHitIgnored(repr)).toBe(true);
     await h.engine.previewSurfaceAppearance(identity, null);
-    expect(h.state.surfaceHitIgnored(repr)).toBe(false);
+    expect(h.state.surfaceHitIgnored(repr)).toBe(true);
   });
 
-  it("lowers picking alpha only for current installed meshes rather than registered opaque fallback lines", async () => {
+  it("keeps installed, updated and fallback surfaces passive without changing molecular picking thresholds", async () => {
     const h = setup([source()]), key = surfaceKey(identity.entryId, "entry", identity.surfaceId);
     const binding = h.state.surfaceBindings.get(key)!, repr = h.representations.get("repr-entry-one")!;
-    h.state.surfaceMeshEntries.clear();
-    // Object registration survives line fallback so the manager remains pickable.
-    expect(h.state.surfaceHitIgnored(h.representations.get("repr-entry-two")!)).toBe(false);
-    h.state.updateSurfacePickingThreshold();
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.5 } });
-    h.state.surfaceMeshEntries.add(key);
-    binding.unregister?.(); binding.unregister = undefined;
-    h.state.updateSurfacePickingThreshold();
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.5 } });
-    binding.unregister = h.state.surfaceVisuals.register(repr, identity);
-    h.state.updateSurfacePickingThreshold();
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.45 } });
+    await h.engine.previewSurfaceAppearance(identity, { ...binding.appearance!, opacity: 0.2 });
+    expect(repr.setState).toHaveBeenLastCalledWith({ pickable: false, markerActions: 0 });
+    expect(h.canvasProps).not.toHaveBeenCalled();
     await h.engine.previewSurfaceAppearance(identity, { ...binding.appearance!, opacity: 0 });
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.5 } });
+    expect(repr.setState).toHaveBeenLastCalledWith({ pickable: false, markerActions: 0 });
+    // Retained line fallback uses the same passive state through appearance changes.
+    binding.geometry = undefined; binding.installedGeometry = undefined;
     await h.engine.previewSurfaceAppearance(identity, null);
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.45 } });
-    binding.controller.abort();
-    h.state.updateSurfacePickingThreshold();
-    expect(h.canvasProps).toHaveBeenLastCalledWith({ renderer: { pickingAlphaThreshold: 0.5 } });
+    expect(repr.setState).toHaveBeenLastCalledWith({ visible: true });
+    expect(repr.setState).toHaveBeenCalledWith({ pickable: false, markerActions: 0 });
+    expect(h.state.surfaceHitIgnored(repr)).toBe(true);
+    expect(h.canvasProps).not.toHaveBeenCalled();
     expect(h.fields).not.toHaveBeenCalled();
+    expect(h.engine.getRenderedAtomReferences()).toContainEqual({ structure_id: "entry", atom_id: 1 });
   });
 });

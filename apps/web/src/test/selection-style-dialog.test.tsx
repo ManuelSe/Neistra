@@ -187,45 +187,52 @@ describe("selection style dialog", () => {
   });
 });
 
-it("explains exact hydrogen targets and mixed/master states, with separate inheritance", async () => {
+it("shows mixed effective hydrogen preferences with an icon toggle and separate reset", async () => {
   const user = userEvent.setup();
   const onChange = vi.fn().mockResolvedValue(undefined);
   const entry = molecularEntry("protein", "Receptor", "protein");
   const projection = proteinProjection();
-  const props = { selection: completeResidue, entries: [entry],
-    structures: new Map([["protein", projection]]), busy: false, onChange };
-  const view = render(<SelectionHydrogenControls {...props} />);
-  expect(screen.getByRole("combobox")).toBeDisabled();
-  await user.click(screen.getByText("No selected hydrogens"));
-  expect(screen.getByText(/Select explicit hydrogen atoms, or/)).toBeVisible();
   projection.structure.atoms[0].element = "H";
   projection.structure.atoms[1].element = "H";
   entry.viewer_settings.selection_nonpolar_hydrogens = [{ show: false, atom_ids: [1] }];
   entry.viewer_settings.components.hydrogens = false;
-  view.rerender(<SelectionHydrogenControls {...props} entries={[...props.entries]} />);
-  expect(screen.getByRole("combobox")).toHaveValue("mixed");
+  const props = { selection: completeResidue, entries: [entry],
+    structures: new Map([["protein", projection]]), busy: false, onChange };
+  const view = render(<Tooltip.Provider><SelectionHydrogenControls {...props} /></Tooltip.Provider>);
+  const toggle = screen.getByRole("button", { name: "Show non-polar hydrogens" });
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+  expect(toggle).toHaveAttribute("aria-pressed", "mixed");
   expect(screen.getByText(/Show hydrogens is off/)).toBeVisible();
-  await user.selectOptions(screen.getByRole("combobox"), "show");
-  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "set", show: true });
-  await user.selectOptions(screen.getByRole("combobox"), "inherit");
-  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "reset" });
-
+  expect(onChange).not.toHaveBeenCalled();
+  const target = { schema_version: 1, atoms: completeResidue.atoms, granularity: "atom", source: "inspector" };
+  await user.click(toggle);
+  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "set", show: true }, target);
+  expect(toggle).toHaveFocus();
+  await user.click(screen.getByRole("button", { name: "Use entry hydrogen setting" }));
+  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "reset" }, target);
+  const resetEntry = structuredClone(entry);
+  resetEntry.viewer_settings.selection_nonpolar_hydrogens = [];
+  view.rerender(<Tooltip.Provider><SelectionHydrogenControls {...props} entries={[resetEntry]} /></Tooltip.Provider>);
+  expect(toggle).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByRole("button", { name: "Use entry hydrogen setting" })).toHaveAttribute("aria-disabled", "true");
+  await user.click(toggle);
+  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "set", show: false }, target);
 });
-
 
 it("does not misreport failed or pending structure loads as hydrogen-free selections", () => {
   const onChange = vi.fn().mockResolvedValue(undefined);
   const entry = molecularEntry("protein", "Receptor", "protein");
-  const view = render(<SelectionHydrogenControls selection={completeResidue} entries={[entry]}
-    structures={new Map()} busy loading onChange={onChange} />);
-  expect(screen.getByText(/Checking explicit hydrogen targets/)).toBeVisible();
-  expect(screen.queryByText(/Select explicit hydrogen atoms, or/)).not.toBeInTheDocument();
+  const view = render(<Tooltip.Provider><SelectionHydrogenControls selection={completeResidue} entries={[entry]}
+    structures={new Map()} busy loading onChange={onChange} /></Tooltip.Provider>);
+  expect(screen.getByText(/Checking existing hydrogen targets/)).toBeVisible();
+  expect(screen.queryByText("No existing hydrogens in this target.")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "true");
   view.unmount();
   render(<Tooltip.Provider><SelectionStyleDialog open selection={completeResidue} entries={[entry]}
     structures={new Map()} eligibilityBusy={false} eligibilityError="Could not load selection structures."
-    busy={false} onAppearance={onChange} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
+    busy={false} onHydrogenAppearance={onChange} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
   expect(screen.getByRole("alert")).toHaveTextContent("Could not load selection structures");
-  expect(screen.queryByLabelText("Selected non-polar hydrogens")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "true");
 });
 
 

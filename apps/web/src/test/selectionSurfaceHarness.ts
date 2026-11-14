@@ -10,7 +10,6 @@ import { SelectionSurfaceProvider, surfaceInput, surfaceDisplayGeometry, attachS
 import type { SurfaceObject, SurfaceSource } from "../api/types";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceChannel, SurfaceGeometry } from "../viewer/surface/protocol";
-import { SURFACE_PROFILE } from "../viewer/surface/protocol";
 
 export async function mountSurfaceHarness(container: HTMLElement, source: ViewerStructure) {
   const engine = new MolstarEngine();
@@ -45,12 +44,14 @@ export async function mountSurfaceHarness(container: HTMLElement, source: Viewer
   const geometry = await calculator.compute(input, new AbortController().signal);
   const display = await surfaceDisplayGeometry(component.obj.data, loaded.atomIds, geometry, new AbortController().signal, () => {});
   attachSurfaceGeometry(component.obj.data, display.geometry);
+  // This unregistered geometry-ownership probe uses an opaque diagnostic visual
+  // so its native group IDs can be inspected at the normal molecular threshold.
+  // Production managed surfaces retain their own passive state and appearance.
   const representation = await plugin.builders.structure.representation.addRepresentation(component, {
-    type: SelectionSurfaceProvider, typeParams: { alpha: SURFACE_PROFILE.opacity }, color: ElementSymbolColorThemeProvider,
+    type: SelectionSurfaceProvider, typeParams: { alpha: 1 }, color: ElementSymbolColorThemeProvider,
   });
   await new Promise((resolve) => setTimeout(resolve, 100));
   observer.disconnect();
-  plugin.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: SURFACE_PROFILE.opacity } });
   const events: ViewerSelectionEvent[] = [];
   engine.subscribeSelection((event) => events.push(event));
   engine.fitVisible();
@@ -85,7 +86,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   const internal = engine as unknown as {
     plugin: PluginUIContext; syncQueue: Promise<void>; measurementRefs: string[]; labelRefs: string[]; pendingSelection: ViewerSelectionEvent["atoms"];
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
-    surfaceMeshEntries: Set<string>; surfaceRefs: Map<string, string>;
+    surfaceBindings: Map<string, { representationRef?: string; installedGeometry?: SurfaceGeometry }>; surfaceRefs: Map<string, string>;
     surfaces: { statuses(): SurfaceStatus[];
       requests: Map<string, { geometry?: SurfaceGeometry }> };
   };
@@ -99,7 +100,8 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
     await internal.syncQueue;
   };
   const sync = async (sources: ViewerStructure[]) => { await engine.syncStructures(sources); await wait(); };
-  const inspect = () => ({ statuses: internal.surfaces.statuses(), meshes: [...internal.surfaceMeshEntries],
+  const inspect = () => ({ statuses: internal.surfaces.statuses(),
+    meshes: [...internal.surfaceBindings].filter(([, binding]) => binding.representationRef && binding.installedGeometry).map(([key]) => key),
     components: internal.surfaceRefs.size, measurements: [...internal.measurementRefs],
     workers: { ...workers }, camera: engine.getCamera(),
     threshold: internal.plugin.canvas3d?.props.renderer.pickingAlphaThreshold,

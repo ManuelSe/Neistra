@@ -84,31 +84,34 @@ it("releases the previous display binding when switching solid/mesh or disposing
   expect(SelectionSurfaceWireframeProvider.isApplicable(structure)).toBe(false);
 });
 
-it("selects all primitives of one surface without selecting its same-entry neighbor, and rejects detached representations", () => {
+it("keeps surfaces passive while retaining current and retired identities", () => {
   const registry = new SurfaceVisualRegistry();
-  const a = { mark: vi.fn() } as unknown as Representation.Any;
-  const b = { mark: vi.fn() } as unknown as Representation.Any;
+  const a = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
+  const b = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
   const id = { entryId: "entry", surfaceId: "first" };
   const unbind = registry.register(a, id);
   registry.register(b, { entryId: "entry", surfaceId: "second" });
-  const selected = vi.fn(); const unsubscribe = registry.subscribe(selected);
-  expect(registry.pick(a)).toBe(true);
-  expect(selected).toHaveBeenCalledWith(id);
-  expect(a.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
-  expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.RemoveHighlight);
-  unbind(); expect(registry.pick(a)).toBe(false); expect(registry.isRetired(a)).toBe(true); expect(registry.isManaged(a)).toBe(true);
-  registry.clearVisuals(); expect(registry.pick(b)).toBe(false); expect(registry.isRetired(b)).toBe(true);
+  expect(registry.identityFor(a)).toEqual(id);
+  for (const repr of [a, b]) {
+    expect(repr.mark).toHaveBeenCalledExactlyOnceWith({ kind: "every-loci" }, MarkerAction.Clear);
+    expect(repr.setState).toHaveBeenCalledExactlyOnceWith({ pickable: false, markerActions: 0 });
+  }
+  unbind();
+  expect(registry.identityFor(a)).toBeNull();
+  expect(registry.isRetired(a)).toBe(true);
+  expect(registry.isManaged(a)).toBe(true);
+  registry.clearVisuals();
+  expect(registry.identityFor(b)).toBeNull();
+  expect(registry.isRetired(b)).toBe(true);
   registry.register(b, id);
   expect(registry.isRetired(b)).toBe(false);
-  expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
-  unsubscribe(); registry.pick(b); expect(selected).toHaveBeenCalledTimes(1);
-  registry.select(null);
-  expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.RemoveHighlight);
-  registry.dispose(); expect(registry.pick(b)).toBe(false);
+  expect(registry.identityFor(b)).toEqual(id);
+  registry.dispose();
+  expect(registry.identityFor(b)).toBeNull();
 });
 
 it("keeps a renewed representation binding alive when an older unregister callback arrives", () => {
-  const registry = new SurfaceVisualRegistry(), repr = { mark: vi.fn() } as unknown as Representation.Any;
+  const registry = new SurfaceVisualRegistry(), repr = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
   const old = registry.register(repr, { entryId: "entry", surfaceId: "old" });
   const current = registry.register(repr, { entryId: "entry", surfaceId: "current" });
   old();

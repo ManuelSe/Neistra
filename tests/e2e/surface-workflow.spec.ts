@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
+import { expect, test, type APIRequestContext, type Page, type Locator } from "@playwright/test";
 import type { AtomReference, Project, SurfaceCreateItem } from "../../apps/web/src/api/types";
 import type * as SelectionStoreModule from "../../apps/web/src/store/selection";
 import type * as MolstarEngineModule from "../../apps/web/src/viewer/MolstarEngine";
@@ -49,15 +49,20 @@ async function openManager(page: Page) {
   await page.getByRole("dialog", { name: "Style selection", exact: true }).getByRole("button", { name: /^Manage surfaces/ }).click();
 }
 
+async function activateRow(row: Locator) {
+  if (await row.getAttribute("aria-pressed") !== "true") await row.click();
+  await expect(row).toHaveAttribute("aria-pressed", "true");
+}
+
 async function observeViewer(page: Page) {
   // Observe the actual production viewer, without publishing application globals.
   await page.evaluate(async () => {
     const path = "/src/viewer/MolstarEngine.ts";
     const { MolstarEngine } = await import(/* @vite-ignore */ path) as typeof MolstarEngineModule;
-    const descriptor = Object.getOwnPropertyDescriptor(MolstarEngine.prototype, "setActiveSurface");
-    if (typeof descriptor?.value !== "function") throw new Error("Missing native selection observer seam");
-    const original = descriptor.value as typeof MolstarEngine.prototype.setActiveSurface;
-    MolstarEngine.prototype.setActiveSurface = function(...args: Parameters<typeof original>) {
+    const descriptor = Object.getOwnPropertyDescriptor(MolstarEngine.prototype, "syncStructures");
+    if (typeof descriptor?.value !== "function") throw new Error("Missing native structure observer seam");
+    const original = descriptor.value as typeof MolstarEngine.prototype.syncStructures;
+    MolstarEngine.prototype.syncStructures = function(...args: Parameters<typeof original>) {
       window.surfaceWorkflowEngine = this;
       return original.apply(this, args);
     };
@@ -115,7 +120,7 @@ test("creates exact multi-entry objects and retains captured source drafts throu
   await expect(page.locator(".viewer-status")).toContainText("4 selected");
   const owner = saved.entries.find(entry => entry.id === visible.id)!, object = owner.viewer_settings.surface_objects[0];
   const ownerRow = manager.locator(`.surface-object[data-surface-key='${JSON.stringify([owner.id, object.id])}'] .surface-object-label`);
-  await ownerRow.click();
+  await activateRow(ownerRow);
   await selectAtoms(page, [{ structure_id: owner.id, atom_id: owner.atom_ids[0] }]);
   await manager.locator(".surface-source-details > summary").click();
   await manager.getByRole("button", { name: "Capture fragment from selection", exact: true }).click();
@@ -149,21 +154,21 @@ test("creates exact multi-entry objects and retains captured source drafts throu
   expect(styled.entries.find(entry => entry.id === owner.id)!.viewer_settings.surface_objects[0].source).toEqual(object.source);
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   await page.getByRole("button", { name: /^Undo:/ }).click();
-  await openManager(page); await ownerRow.click();
+  await openManager(page); await activateRow(ownerRow);
   await expect(manager.getByLabel("Surface opacity", { exact: true })).toHaveValue("0.3");
   await expect(manager.getByText("1 captured atom in draft", { exact: true })).toBeVisible();
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   // Changing layout replaces the disposable viewer, while App retains this session.
   await page.setViewportSize({ width: info.project.name === "chromium" ? 393 : 1366, height: 850 });
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
-  await openManager(page); await ownerRow.click();
+  await openManager(page); await activateRow(ownerRow);
   await expect(manager.getByText("1 captured atom in draft", { exact: true })).toBeVisible();
   await expect(manager.getByRole("button", { name: "Apply source", exact: true })).toBeEnabled();
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   await openProject(page, other);
   await expect(page.getByText("Unapplied surface source changes were discarded when switching projects.", { exact: true })).toHaveCount(1);
   await openProject(page, saved);
-  await openManager(page); await ownerRow.click();
+  await openManager(page); await activateRow(ownerRow);
   await expect(manager.getByText(/Unapplied changes/)).toHaveCount(0);
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   const beforeDisplay = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;

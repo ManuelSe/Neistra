@@ -1,0 +1,225 @@
+{
+  "application_version": "0.30.0",
+  "artifacts": {
+    "c1-native-c1-final-summary.json.gz": {
+      "bytes": 1429,
+      "sha256": "38d6fbba96d1df82d364d4a91568a35aa1b12b2ae08367acaca8dd1629f0ea88"
+    },
+    "c1-native-c1-final.json.gz": {
+      "bytes": 19882,
+      "sha256": "91f149fb5eef7f9e2a79bd597bfbda81261c832b099f1f5eba167ed8d79847b5"
+    },
+    "c1-native-c1-final.log.gz": {
+      "bytes": 2043,
+      "sha256": "254aa5b237fa1a28b5e0fb7bef35c88e677569932f5e17caeb70e6e1847697f2"
+    },
+    "c1-native-desktop2.log.gz": {
+      "bytes": 1689,
+      "sha256": "d39f4ce52482df2daa8838a8dfac09868c129d5e01f754f604960891f66b8420"
+    },
+    "c1-native-final40-diagnostic.json.gz": {
+      "bytes": 12864,
+      "sha256": "af896416272125eaa25ba71f81d93dc90f133a2110e8c202f2434041329dbceb"
+    },
+    "c1-native-final40.log.gz": {
+      "bytes": 14867,
+      "sha256": "0938cc0bd5fc21954d24072ed444ae7203e26986b698f1f0bbc92071611ac22e"
+    },
+    "c1-native-focused.log.gz": {
+      "bytes": 1695,
+      "sha256": "0e95f9929b76b980d82444f3b5d4473ce1e1ce0d9074ca09c23fa3307f4960d3"
+    },
+    "c1-native-focused2.log.gz": {
+      "bytes": 2334,
+      "sha256": "c7b615920a717dd474dfc2e096daf5cc61f25b5ed66f24db2f2b54eacd3a1d5b"
+    },
+    "c1-native-observations.zip": {
+      "bytes": 4408190,
+      "sha256": "f5ab8e432153b2b0eb998a330993f098f0e36f1e3fcfc65f61e83f96545e7305"
+    },
+    "c1-native-pocket-events.log.gz": {
+      "bytes": 1773,
+      "sha256": "570bae9d7b7fb8b867c2d3b4fd0572cebae765d3ed7754dcaa2546f80b70c0d3"
+    },
+    "c1-native-pocket-events2.log.gz": {
+      "bytes": 1770,
+      "sha256": "8d90b7cdcb7e676d896354132212f62e5184fd1389a9a286739ba1df3445b397"
+    },
+    "c1-native-pocket-fixed.log.gz": {
+      "bytes": 995,
+      "sha256": "3c7fe88bb0c0fd7c14a89d7063e0077b75a8c76b3b468b829df5f070f1275d45"
+    },
+    "c1-native-pocket-mobile.log.gz": {
+      "bytes": 1770,
+      "sha256": "e2b0a4d1e2e4ad9ccf51f4608d7fd7cc9e6781165b61ac080ed8167f5c6ad482"
+    },
+    "c1-native-production3.log.gz": {
+      "bytes": 1946,
+      "sha256": "fcb595645117683f644b835259d368817b4a533947e19c18429942def7cf1b43"
+    },
+    "c1-native-production4.log.gz": {
+      "bytes": 975,
+      "sha256": "297f5b96189245b51a1c7c7922b61d8257fcdc427d2c4eb7660f72b145d5cef7"
+    },
+    "c1-native-strict-final.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c1-native-surface-desktop.log.gz": {
+      "bytes": 1742,
+      "sha256": "6dfcf75f265a682e840c4c851c64fcdd2a776405fa146f9f56de4d9f5adaec8c"
+    },
+    "c1-native-typecheck-all.log.gz": {
+      "bytes": 267,
+      "sha256": "70b14c7e2b3c79a27811026b5ba4171c02b421cc647f3cfa38ee3c8629e7f24d"
+    },
+    "c1-native-typecheck-final.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c1-native-typecheck.log.gz": {
+      "bytes": 178,
+      "sha256": "2451df41293df45b1f396445af3d1f05996c2b048a534f743a1271e43acdd648"
+    },
+    "c1-native-workflow3.log.gz": {
+      "bytes": 1065,
+      "sha256": "14a5648e320881fe5dea94032a1fa7221876fd664e4ace7e9dee58831c49a54a"
+    },
+    "c1-picking-run1.log.gz": {
+      "bytes": 1701,
+      "sha256": "249d11d6678c3469f34b9fd9dc98170deb844877d92ada0d373bdc579e6fa089"
+    },
+    "c1-picking-run2.log.gz": {
+      "bytes": 1774,
+      "sha256": "870b918d81cd2380dae4eb90709f7baf218fdccd1611c85433475e16787ad277"
+    },
+    "c1-picking-run3.log.gz": {
+      "bytes": 1595,
+      "sha256": "5372be4afbbf2637e442e8f8025f52befc0c34143e54e5f40ec27a191be6e728"
+    },
+    "c1-picking-run4.log.gz": {
+      "bytes": 1755,
+      "sha256": "cc553172cb64d72489dae7b769c37055f7adfe5349a4e6e893ac29942f02c253"
+    },
+    "c1-picking-run5.log.gz": {
+      "bytes": 1053,
+      "sha256": "f45165e8a5ee004253b1b1ca132aaf640c79c11ba4951deff5c3d2e7636701ca"
+    },
+    "c1-picking-run6.json.gz": {
+      "bytes": 27485,
+      "sha256": "e28edbcde5c0aec1ec067eaa8057caf506aa7c017cebbd28401fd62241ac580a"
+    },
+    "c1-picking-run6.log.gz": {
+      "bytes": 1055,
+      "sha256": "a27c2c29800c64624f0f7f7864d9306a4ff986be7b4aadfa2fbb2264f929c260"
+    },
+    "c1-picking-types-final.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c1-web-build.log.gz": {
+      "bytes": 652,
+      "sha256": "6de498b3cbd4c2a04cf94df72db12f40ecd1c6c3ca53ce0c5401e339eb2ed045"
+    },
+    "c1-web-creation-race-after.log.gz": {
+      "bytes": 323,
+      "sha256": "7e29a8fe1f675dd37b91e8c76a0c2bc77bed82b353dbcc87235ac4d4f49dc5a4"
+    },
+    "c1-web-creation-race-before.log.gz": {
+      "bytes": 2986,
+      "sha256": "2d595fd209e8d7d2682c7af2e3f8824f1f7b2bafc07340fe4b8b65a3dd588102"
+    },
+    "c1-web-creation-race-before2.log.gz": {
+      "bytes": 1685,
+      "sha256": "bae61c912ccef93ccc02348dbfb5d84330e460521b78981840d257236e5a356c"
+    },
+    "c1-web-frontend-after-creation-fix.log.gz": {
+      "bytes": 4223,
+      "sha256": "b47584434c84ad7d329cfcec9bd415bff769a0c6d00a2b05a7f4de7f72a9061b"
+    },
+    "c1-web-frontend-gate.log.gz": {
+      "bytes": 3744,
+      "sha256": "326be1c0e2e46665fe694ea98dd62b66b702a3d4a5ff2d8d58e3a03d3c19a5c6"
+    },
+    "c1-web-frontend.log.gz": {
+      "bytes": 3376,
+      "sha256": "8566f3fde7e815084b22190019e9441044362cbed3dfabacd90cdf5d542b9fa7"
+    },
+    "c1-web-lint-corrected.log.gz": {
+      "bytes": 94,
+      "sha256": "81b053b5914d78f8cb82c344271cad3934017b160d3069abd4e8649fe9c0a327"
+    },
+    "c1-web-lint.log.gz": {
+      "bytes": 258,
+      "sha256": "204a0178a5d3db8e1bf6f98f23a425be220e48c5c893ec334238efbcd53f167b"
+    }
+  },
+  "base_commit": "d810f8ee19333e703c66c1026379ecdcd302f3e4",
+  "candidate": "base plus recorded C1 source identities",
+  "checkpoint": "C1",
+  "creation_race": {
+    "after": "c1-web-creation-race-after.log.gz",
+    "before": "c1-web-creation-race-before2.log.gz",
+    "fix": "reconcile local activation only on canonical entries changes; deletion pruning retained",
+    "independent_architecture_assessment": "PASS for bounded correction; final implementation gate remains pending"
+  },
+  "diagnostics": "Earlier attempts retained separately; partial/failed runs do not establish final qualification. Initial raw/pocket picking and idempotent row assertions were updated to approved semantics; actual creation race was corrected and requalified. New matrix fixture locator/primitive/DPR preflight corrections preserve exact independent targets.",
+  "frontend": {
+    "build": "PASS",
+    "lint": "PASS",
+    "log": "c1-web-frontend-after-creation-fix.log.gz",
+    "test_files": 84,
+    "typecheck": "PASS",
+    "unit_tests": 729
+  },
+  "limitations": [
+    "C2 hydrogen functionality and C3/C4 final-version/release work pending",
+    "Full final seven-role implementation review is pending; this checkpoint is not readiness to push",
+    "Portable correctness only; no strict timing or universal capacity claim",
+    "Existing standalone pocket dynamic-import typing gaps not broadened; registered strict gates and runtime checks pass"
+  ],
+  "native": {
+    "observation_count": 64,
+    "observations": "c1-native-observations.zip",
+    "picking_matrix": {
+      "cases": 4,
+      "failed": 0,
+      "passed": 4,
+      "real_clicks": 200,
+      "report": "c1-picking-run6.json.gz",
+      "skipped": 0
+    },
+    "strict_types": "surface-objects/workflow and new picking matrix scoped standalone strict tsc PASS",
+    "surface_sweep": {
+      "cases": 40,
+      "existing_layout_exclusions": 3,
+      "failed": 0,
+      "flaky": 0,
+      "passed": 37,
+      "report": "c1-native-c1-final.json.gz"
+    }
+  },
+  "sources": {
+    "apps/web/src/components/StructureViewer.tsx": "56613b305724b8180eac54eeee3b1cc2a8a2d91a01b6ea0cc0f237c80667e7b1",
+    "apps/web/src/components/SurfaceManager.tsx": "56b7590e4dfda8bac5b202b3fc3b2e69bb552efc7c55ec309414a1f4d40cbc03",
+    "apps/web/src/test/selectionSurfaceHarness.ts": "4d0e4d0f190f31ec43a25300b7653228e577eac667c8c381976ccbc681c76f8e",
+    "apps/web/src/test/structure-loading.test.tsx": "039be4b5afce260624f0ac436b4739a81d5af8821d5c5a22358b738de439d7ba",
+    "apps/web/src/test/surface-manager.test.tsx": "35287e6b6cdd24a61254924662122d155b97fdd482b9dc204d01903eb7af598e",
+    "apps/web/src/test/surface-objects.test.ts": "ae0f5793ef0cac7648db5fab53fe642bd1477f2af99fea86ac16fb28d3ebf3db",
+    "apps/web/src/test/surface-viewer-reconciliation.test.ts": "a3a5bafa7fb684e93a4fabc04ef0cc9a818840b4fdf725a79705457f06d25b8c",
+    "apps/web/src/test/surfaceObjectsHarness.ts": "d33f128a4b2b0a1394ba91b40c5daf2a188ac67308c6a1f0ace0311c01c04461",
+    "apps/web/src/test/viewer-adapter.test.ts": "52e43cdb0bddb6ae267244a7b91a8820ac3d7032f02f1acbcd6607b5861ed9ea",
+    "apps/web/src/test/viewer-hover.test.ts": "836f69e87131c74ee37cf68b4065ea4e6908b33b13694644377a624331fa7c4a",
+    "apps/web/src/test/viewer-interaction.test.ts": "385dd94a74176755dfc7794585e31de9123807823c74ebc8f16acb01cc42b44e",
+    "apps/web/src/viewer/MolecularViewer.ts": "0a25c9499a154fd36423c6be3d883679449c993c66eae70c9b0939d909b983fb",
+    "apps/web/src/viewer/MolstarEngine.ts": "fd6a5b8099972a0a0376ca3bdfd7aec1b7d87cfc61887e47c1e2b3f2d7fa23d9",
+    "apps/web/src/viewer/MolstarViewer.ts": "e745e8e76c2da5c7b6553cff110d1c13b0b66535947e1269027915b84c22ea7b",
+    "apps/web/src/viewer/interaction.ts": "162ce4e5038c6540dc5ee5558a7b3b8f24fddaf96621b28226c06ab59d8caa13",
+    "apps/web/src/viewer/surface/objects.ts": "17df0dbfb6f7728475f828846af6c47bcba93c1bcf680bcae32fb6d74e1abf72",
+    "tests/e2e/pocket-surfaces.spec.ts": "034250dedce66ada247d437f4e34a98caf1b84a6c64e7dc0f9e2cb5523190c7a",
+    "tests/e2e/selection-surfaces.spec.ts": "7c56bfb616dbb015149206f52e6743037168cc0e922a586ca87d3b947a4e1787",
+    "tests/e2e/surface-objects.spec.ts": "3a2f6f6a093f06590d2ac851b2d087c6dd96ead9691356b2e85779eae4e1736b",
+    "tests/e2e/surface-passive-picking.spec.ts": "f43564090c655c9348de2de4000edeb465901193a4664b1d181008489d4f5d9a",
+    "tests/e2e/surface-workflow.spec.ts": "bf76abd77974709015c556620538bfb02a4155c89c465e62c360d622e22b90f7"
+  }
+}

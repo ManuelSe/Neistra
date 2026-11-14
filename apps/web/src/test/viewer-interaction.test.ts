@@ -113,10 +113,9 @@ describe("viewer primary interaction policy", () => {
       "add",
     );
 
-    expect(shouldClearSelectionForEmptyPick("replace", true)).toBe(true);
-    expect(shouldClearSelectionForEmptyPick("replace", false)).toBe(false);
-    expect(shouldClearSelectionForEmptyPick("add", true)).toBe(false);
-    expect(shouldClearSelectionForEmptyPick("subtract", true)).toBe(false);
-    expect(shouldClearSelectionForEmptyPick("toggle", true)).toBe(false);
+    expect(shouldClearSelectionForEmptyPick("replace")).toBe(true);
+    expect(shouldClearSelectionForEmptyPick("add")).toBe(false);
+    expect(shouldClearSelectionForEmptyPick("subtract")).toBe(false);
+    expect(shouldClearSelectionForEmptyPick("toggle")).toBe(false);
   });
 });

@@ -45,14 +45,13 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
     engine.setCamera({ mode: initial.mode, radius,
       position: [focus.position[0], focus.position[1], focus.position[2]],
       target: [focus.target[0], focus.target[1], focus.target[2]], up: [up[0], up[1], up[2]] });
-    const events: SurfaceIdentity[] = [], molecularEvents: ViewerSelectionEvent[] = [];
+    const molecularEvents: ViewerSelectionEvent[] = [];
     const picks: { kind: string; surface: SurfaceIdentity | null; page: number[] | undefined }[] = [];
     let hovered: SurfaceIdentity | null = null;
     const hover = plugin.behaviors.interaction.hover.subscribe(({ current }) => { hovered = internals.surfaceVisuals.identityFor(current.repr); });
     const click = plugin.behaviors.interaction.click.subscribe(({ current, page }) => {
       picks.push({ kind: current.loci.kind, surface: internals.surfaceVisuals.identityFor(current.repr), page });
     });
-    const unsubscribeSurface = engine.subscribeSurfaceSelection(identity => events.push(identity));
     const unsubscribeMolecule = engine.subscribeSelection(event => molecularEvents.push(event));
 
     // Capture membership from the actual loaded coordinate frame and map it back
@@ -97,7 +96,7 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
       await h.sync([h.source]);
     };
     const inspect = () => ({ camera: plugin.canvas3d!.camera.getSnapshot(), picks: [...picks], hovered,
-      workers: { ...h.workers, inputs }, events: [...events], molecularEvents: [...molecularEvents],
+      workers: { ...h.workers, inputs }, molecularEvents: [...molecularEvents],
       objects: h.source.settings.surface_objects.map(surface => {
         const key = surfaceKey(source.entryId, surface.source.kind, surface.id);
         const binding = internals.surfaceBindings.get(key), geometry = binding?.mapped;
@@ -107,12 +106,13 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
           color: Number.parseInt(surface.appearance.custom_color.slice(1), 16),
           displayBytes: internals.surfaces.requests.get(key)?.displayBytes ?? 0, mappingBytes: binding?.mappingBytes ?? 0,
           vertices: geometry?.vertices.length ?? 0, atoms: geometry ? [...geometry.atomIds] : [],
+          pickable: repr?.repr.state.pickable, markerActions: repr?.repr.state.markerActions,
           drawCounts: repr?.repr.renderObjects.map(object => object.values.drawCount.ref.value) ?? [],
           markers: repr?.repr.renderObjects.map(object => Array.from(object.values.tMarker.ref.value.array)) ?? [],
         };
       }) });
     let disposed = false;
-    return { engine, setAppearance, inspect, clearActive: () => engine.setActiveSurface(null),
+    return { engine, setAppearance, inspect,
       identify(x: number, y: number) {
         const rect = plugin.canvas3d!.webgl.gl.canvas as HTMLCanvasElement;
         const hit = plugin.canvas3d!.identify(Vec2.create(x * rect.clientWidth, y * rect.clientHeight));
@@ -120,7 +120,7 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
       },
       dispose() {
         if (disposed) return; disposed = true;
-        hover.unsubscribe(); click.unsubscribe(); unsubscribeSurface(); unsubscribeMolecule();
+        hover.unsubscribe(); click.unsubscribe(); unsubscribeMolecule();
         h.dispose(); originalWorker.prototype.postMessage = originalPost;
       } };
   } catch (error) {

@@ -1,0 +1,21 @@
+{
+  "qualification": "focused correction only; fresh complete gate pending",
+  "browser_passed": 4,
+  "existing_exclusions": 4,
+  "failures_flakes_retries": 0,
+  "sources": {
+    "tests/e2e/release-journey.spec.ts": "b5c4929032c31858cc862ccefaaacd750ec21963b552729840cf622ee4fcb080",
+    "tests/e2e/selection-visibility.spec.ts": "9263b4efe4d99e660bfa38e23de72b4c5135b7e48ce87313b76c7a1ef7d84344",
+    "tests/e2e/viewer-click-selection.spec.ts": "e3732a2174426803a22c923688e09006162d0410e9a14ab9debfbfb093c6e968",
+    "tests/e2e/rebranding-zoom.spec.ts": "668edab9cff34fc7081253a55596da58c3f28296c75115c40bbb34ebd93b5bc5"
+  },
+  "change": "Native test asserts approved creation autoactivation and keyboard toggling before appearance; three obsolete comments corrected. Runtime unchanged.",
+  "artifacts": {
+    "c3-zoom-fix.log.gz": "7a6d9c8c835d30694cbf6482aff5f9f6432e85e105d747e7d63c8973f66d5e87",
+    "c3-zoom-fix.json.gz": "1824fef95960f07ce353867a287f879cc897d0233741c1bcd9610bf0d4a5bbda",
+    "c3-zoom-types.log.gz": "d7b484d0790e6590da9cd8cfd2ea3bbdbd8cd92c9d2bb1ecdb792967395e3386",
+    "c3-zoom-types-comparison.json.gz": "b3a42b0139af5a93b4187ae32da2b9e5d253a4c67d325c53585fb0671955f91a",
+    "c3-candidate1-types.log.gz": "39c8182fd388763d23285e460c35af45e9aead476c1f642fc40b85740193ab4b"
+  },
+  "strictStandalone": "One existing TS2345 in unchanged support/interactions.ts:20, identical for baseline923fc249 and corrected test, zero new diagnostics. Not a registered gate; frontend registered types pass. No blanket suppression introduced."
+}

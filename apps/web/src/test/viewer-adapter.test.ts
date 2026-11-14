@@ -15,9 +15,7 @@ const calls = vi.hoisted(() => ({
   background: vi.fn(),
   sync: vi.fn(),
   selection: vi.fn(),
-  activeSurface: vi.fn(),
   surfacePreview: vi.fn(),
-  surfaceSelection: vi.fn((listener: unknown) => { void listener; return vi.fn(); }),
   granularity: vi.fn(),
   movement: vi.fn(),
   subscribe: vi.fn((listener: unknown) => {
@@ -59,9 +57,7 @@ vi.mock("../viewer/MolstarEngine", () => ({
     setSelection(atoms: unknown[]) {
       calls.selection(atoms);
     }
-    setActiveSurface(surface: unknown) { calls.activeSurface(surface); }
     previewSurfaceAppearance(identity: unknown, appearance: unknown) { calls.surfacePreview(identity, appearance); return Promise.resolve(); }
-    subscribeSurfaceSelection(listener: unknown) { return calls.surfaceSelection(listener); }
 
     setPickingGranularity(granularity: string) {
       calls.granularity(granularity);
@@ -308,42 +304,6 @@ it("buffers typed movement ownership and forwards camera transitions without rem
   expect(calls.mount).toHaveBeenCalledOnce();
   viewer.dispose();
 });
-
-it("buffers surface identity and unsubscribes a listener registered before lazy mount after it has bound", async () => {
-  vi.clearAllMocks();
-  const { createMolstarViewer } = await import("../viewer/MolstarViewer");
-  const viewer = createMolstarViewer();
-  const identity = { entryId: "entry", surfaceId: "first" };
-  const listener = vi.fn();
-  const unsubscribe = viewer.subscribeSurfaceSelection(listener);
-  viewer.setActiveSurface(identity);
-  await viewer.mount(document.createElement("div"));
-  expect(calls.activeSurface).toHaveBeenLastCalledWith(identity);
-  expect(calls.surfaceSelection).toHaveBeenCalledWith(listener);
-  const boundUnsubscribe = calls.surfaceSelection.mock.results[0].value as () => void;
-  unsubscribe();
-  expect(boundUnsubscribe).toHaveBeenCalledOnce();
-  viewer.setActiveSurface(null);
-  expect(calls.activeSurface).toHaveBeenLastCalledWith(null);
-  viewer.dispose();
-  expect(boundUnsubscribe).toHaveBeenCalledOnce();
-});
-
-it("binds a surface listener added during asynchronous mount exactly once", async () => {
-  vi.clearAllMocks();
-  let finish!: () => void;
-  calls.mount.mockReturnValueOnce(new Promise<void>(resolve => { finish = resolve; }));
-  const { createMolstarViewer } = await import("../viewer/MolstarViewer");
-  const viewer = createMolstarViewer();
-  const mounting = viewer.mount(document.createElement("div"));
-  await vi.waitFor(() => expect(calls.mount).toHaveBeenCalledOnce());
-  const unsubscribe = viewer.subscribeSurfaceSelection(vi.fn());
-  finish(); await mounting;
-  expect(calls.surfaceSelection).toHaveBeenCalledOnce();
-  unsubscribe(); viewer.dispose();
-  expect(calls.surfaceSelection.mock.results[0].value).toHaveBeenCalledOnce();
-});
-
 
 it("forwards surface channel identity through the lazy adapter for Cancel and Retry", async () => {
   const { createMolstarViewer } = await import("../viewer/MolstarViewer");

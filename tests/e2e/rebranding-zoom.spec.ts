@@ -304,7 +304,14 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
         await manager.getByRole("button", { name: "Create fragment", exact: true }).focus(); await page.keyboard.press("Enter");
         await expect(manager.getByText("1 surface created.", { exact: true })).toBeVisible();
-        await manager.getByRole("button", { name: /Captured fragment/ }).focus(); await page.keyboard.press("Enter");
+        const fragment = manager.getByRole("button", { name: /Captured fragment/ });
+        await expect(fragment).toHaveAttribute("aria-pressed", "true");
+        await fragment.focus(); await page.keyboard.press("Enter");
+        await expect(fragment).toHaveAttribute("aria-pressed", "false");
+        await expect(manager.getByLabel("Surface color scheme")).toBeHidden();
+        await expect(fragment).toBeFocused();
+        await page.keyboard.press("Enter");
+        await expect(fragment).toHaveAttribute("aria-pressed", "true");
         await manager.getByLabel("Surface color scheme").selectOption("custom");
         await expect(manager.getByLabel("Surface color scheme")).toHaveAttribute("aria-disabled", "false");
         await manager.getByLabel("Surface opacity", { exact: true }).fill("0.3");

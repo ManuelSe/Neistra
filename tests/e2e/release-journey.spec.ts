@@ -143,7 +143,7 @@ async function pickVisibleStructure(page: Page): Promise<void> {
     [0.45, 0.65],
     [0.55, 0.65],
   ]) {
-    // Modified surface hits retain molecular selection; unmodified hits activate the object.
+    // Surface shells are passive; add ordinary molecular hits without clearing prior selection.
     await canvas.click({ modifiers: ["Shift"], position: { x: box!.width * x, y: box!.height * y } });
     await page.waitForTimeout(100);
     if ((await page.locator(".selection-meta").textContent())?.includes("from viewer")) {

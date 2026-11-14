@@ -3,6 +3,8 @@ import AxeBuilder from "@axe-core/playwright";
 import { browserRssKiB } from "./support/process-memory";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
+import type { PluginUIContext } from "../../apps/web/node_modules/molstar/lib/mol-plugin-ui/context";
+import type { Vec2 } from "../../apps/web/node_modules/molstar/lib/mol-math/linear-algebra";
 import type { AtomReference, Project, StructureProjection } from "../../apps/web/src/api/types";
 
 declare global { interface Window { pocketPicks: AtomReference[] } }
@@ -141,15 +143,28 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
       return points.sort((a, b) => a.distance - b.distance).slice(0, 8);
     });
     expect(candidates.length).toBeGreaterThan(0);
-    for (const { x, y } of candidates) {
-      await page.keyboard.down("Shift");
-      await page.mouse.click(box.x + box.width * x, box.y + box.height * y);
-      await page.keyboard.up("Shift");
-      if (await page.waitForFunction(() => window.pocketPicks.length > 0, undefined, { timeout: 500 }).then(() => true, () => false)) break;
-    }
-    const picked = await page.evaluate(() => window.pocketPicks);
-    expect(picked.length).toBeGreaterThan(0);
-    for (const atom of picked) { expect(atom.structure_id).toBe(entry.id); expect(result.proteinIds).toContain(atom.atom_id); }
+    const target = candidates[0];
+    const native = await page.evaluate(({ x, y }) => {
+      const engine = window.productionSurface.engine as unknown as { plugin: PluginUIContext };
+      const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
+      const rect = element.getBoundingClientRect();
+      const hit = canvas.identify(new Float32Array([x * rect.width, y * rect.height]) as unknown as Vec2);
+      const visuals = [...engine.plugin.state.data.cells.values()].flatMap(cell => {
+        if (!cell.transform.tags?.some(tag => tag.startsWith("neistra-representation-surface-"))) return [];
+        const data = cell.obj?.data as { repr?: { state: { pickable: boolean; markerActions: number }; renderObjects: { values: { tMarker: { ref: { value: { array: Uint8Array } } } } }[] } } | undefined;
+        return data?.repr ? [{ ...data.repr.state, marked: data.repr.renderObjects.some(object => Array.from(object.values.tMarker.ref.value.array).some(value => value !== 0)) }] : [];
+      });
+      return { kind: canvas.getLoci(hit?.id).loci.kind, visuals };
+    }, target);
+    expect(native.kind).toBe("empty-loci");
+    expect(native.visuals.length).toBeGreaterThan(0);
+    expect(native.visuals.every(visual => !visual.pickable && visual.markerActions === 0 && !visual.marked)).toBe(true);
+    // The only rendered geometry is a pocket shell: it cannot become an atom
+    // target through the viewport, even with an additive selection modifier.
+    await page.keyboard.down("Shift");
+    await page.mouse.click(box.x + box.width * target.x, box.y + box.height * target.y);
+    await page.keyboard.up("Shift");
+    expect(await page.evaluate(() => window.pocketPicks)).toEqual([]);
     await page.screenshot({ path: info.outputPath("pocket-native.png") });
     await page.evaluate(() => window.productionSurface.dispose());
     writeFileSync(info.outputPath("pocket-native.json"), JSON.stringify({ ...result, baselineRssKiB, peakRssKiB, memoryMeasurement: "Linux summed descendant RSS; includes reference calculation and display lifecycle, shared pages may be counted repeatedly" }, null, 2));
@@ -223,6 +238,19 @@ test("invalidates native pockets for hidden seed and receptor preview, cancel an
 
 test("saves pockets through the compact panel and restores hidden seed inputs", async ({ page, request, isMobile }, info) => {
   test.setTimeout(120_000);
+  await page.addInitScript(() => {
+    const state = window as unknown as { pocketCreationInput: unknown[] };
+    state.pocketCreationInput = [];
+    for (const type of ["click", "keydown", "keyup", "pointerdown", "pointerup"]) document.addEventListener(type, event => {
+      const target = event.target instanceof Element ? event.target.closest("button, input") : null;
+      if (!target) return;
+      state.pocketCreationInput.push({ type, label: target.getAttribute("aria-label") ?? target.textContent,
+        key: event instanceof KeyboardEvent ? event.key : undefined,
+        detail: event instanceof MouseEvent ? event.detail : undefined,
+        pressed: target.getAttribute("aria-pressed"),
+        active: Array.from(document.querySelectorAll('.surface-object[data-active="true"]')).map(node => node.getAttribute("data-surface-key")) });
+    }, true);
+  });
   let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Pocket workflow ${Date.now()}` } })).json();
   for (const name of ["protein_editing.pdb", "ethanol.mol"]) {
     const imported = await request.post(`/api/v1/projects/${project.id}/imports`, { multipart: {
@@ -273,6 +301,14 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   await manager.getByRole("button", { name: "Create pocket", exact: true }).focus();
   await page.keyboard.press("Enter");
   await expect(manager.locator(".surface-object")).toHaveCount(2);
+  // The project cache publishes rows before the creation workflow finishes its
+  // focus/details handoff. Inspect the completed panel, not a transient form.
+  await expect(manager.locator(".surface-create-form")).toHaveCount(0);
+  try { await expect(manager.locator('.surface-object[data-active="true"]')).toHaveCount(1); }
+  finally {
+    writeFileSync(info.outputPath("pocket-creation-input.json"), JSON.stringify(await page.evaluate(() => (window as unknown as { pocketCreationInput: unknown[] }).pocketCreationInput), null, 2));
+  }
+  await expect(manager.getByLabel("Surface color scheme")).toHaveAttribute("aria-disabled", "false");
   expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision + 1);
   for (const theme of ["light", "dark"]) {
     const switcher = page.getByRole("button", { name: `Use ${theme} theme` });

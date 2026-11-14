@@ -1,0 +1,9 @@
+{
+  "candidate": "636040bdfd289e39b1bc0be34591e044faed37fc",
+  "archive": "c3-candidate4-native-observations.zip",
+  "bytes": 58889034,
+  "sha256": "6a5ea628d08626bd271111d695ab2b0e5b9497c3701b6d59574090896bd637a3",
+  "native_files": 596,
+  "all_native_files_retained": true,
+  "crc_and_every_internal_hash_valid": true
+}

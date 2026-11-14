@@ -1,3 +1,5 @@
+import { captureHydrogenTarget } from "../selection/hydrogenAction";
+import { useSelectionStore } from "../store/selection";
 import { createSurfaceManagerSession, type SurfaceCreationRequest, type SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import { replaySurfacePreviews } from "../surfaces/surfacePreviewBinding";
 import { SequenceViewer } from "./SequenceViewer";
@@ -12,7 +14,7 @@ import { useMinimizationStore } from "../minimization/store";
 import { MinimizationPanel } from "./MinimizationPanel";
 import { placementContext } from "../editing/placement";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { InitialFitTicket } from "../workspacePresentation/types";
@@ -97,6 +99,7 @@ interface StructureViewerProps {
   cameraPresentation?: WorkspacePresentationController;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
+  onHydrogenAppearance?: ChangeHydrogenAppearance;
   selectionColorMode: SelectionColorMode;
   onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onSelectionStyle?: (
@@ -133,6 +136,7 @@ export function StructureViewer({
   cameraPresentation,
   onLoadPocketStructures,
   onAppearance,
+  onHydrogenAppearance,
   selectionColorMode,
   onSelectionColorModeChange,
   onEdit,
@@ -183,7 +187,6 @@ export function StructureViewer({
   const [surfaceStatuses, setSurfaceStatuses] = useState<SurfaceStatus[]>([]);
   const [surfaceProjectId, setSurfaceProjectId] = useState<string | null>(null);
   const [activeSurface, setActiveSurface] = useState<SurfaceIdentity | null>(null);
-  const surfaceOpenedByCanvas = useRef(false);
   const managerSession = useMemo(() => surfaceSession ?? createSurfaceManagerSession(project.id), [surfaceSession, project.id]);
   const surfaceContext = useRef({ session: managerSession, projectId: project.id, entries: project.entries });
   surfaceContext.current = { session: managerSession, projectId: project.id, entries: project.entries };
@@ -191,7 +194,6 @@ export function StructureViewer({
   const nextSurfaceCreation = useRef(0);
   const openSurfaces = () => {
     if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
-    surfaceOpenedByCanvas.current = false;
     setSurfaceCreation(undefined);
     useMinimizationStore.getState().dismiss();
     setStyleProjectId(null); setSurfaceProjectId(project.id);
@@ -304,6 +306,7 @@ export function StructureViewer({
     const observer = new ResizeObserver(() => viewer.resize());
     observer.observe(target);
     const unsubscribe = viewer.subscribeSelection((event) => {
+      if (event.mode === "replace" && !event.pick && event.atoms.length === 0) setActiveSurface(null);
       const operand: Selection = {
         schema_version: 1, atoms: event.atoms, granularity: event.granularity, source: "viewer",
       };
@@ -313,12 +316,6 @@ export function StructureViewer({
     const unsubscribeSurfaces = viewer.subscribeSurfaces(statuses => {
       setSurfaceStatuses(statuses);
       currentFinishInitialFit.current(viewer);
-    });
-    const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {
-      if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
-      surfaceOpenedByCanvas.current = true;
-      setSurfaceCreation(undefined);
-      setActiveSurface(identity); setStyleProjectId(null); setSurfaceProjectId(project.id);
     });
     initialSceneReady.current = false;
     const unsubscribeCamera = viewer.subscribeCamera(camera => {
@@ -341,7 +338,6 @@ export function StructureViewer({
       unsubscribe();
       unsubscribeCamera();
       unsubscribeSurfaces();
-      unsubscribeSurfaceSelection();
       observer.disconnect();
       previewQueue.current?.dispose();
       previewQueue.current = null;
@@ -636,11 +632,11 @@ export function StructureViewer({
 
   useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); useEditingStore.getState().setOpen(false); } }, [movementActive]);
   useEffect(() => {
-    if (activeSurface && !project.entries.some(entry => entry.id === activeSurface.entryId && entry.viewer_settings.surface_objects.some(surface => surface.id === activeSurface.surfaceId))) {
-      setActiveSurface(null); viewerRef.current?.setActiveSurface(null);
-    }
-  }, [activeSurface, project.entries]);
-  useEffect(() => { viewerRef.current?.setActiveSurface(activeSurface); }, [activeSurface, syncKey, viewerReady]);
+    // A successful create can return its identity before the query notification
+    // publishes new entries. Reconcile on canonical changes, not local activation.
+    setActiveSurface(previous => previous && !project.entries.some(entry => entry.id === previous.entryId
+      && entry.viewer_settings.surface_objects.some(surface => surface.id === previous.surfaceId)) ? null : previous);
+  }, [project.entries]);
 
   const openStyleDialog = () => {
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
@@ -790,6 +786,13 @@ export function StructureViewer({
           onExpandDistance={onExpandDistance}
           onExpandResidues={expanded => onViewerSelection(expanded, "replace")}
           onAppearance={onAppearance}
+          onHydrogenAppearance={onHydrogenAppearance ? (change, target) => {
+            if (onLoadSelectionStructures && (styleEligibilityBusy || styleLoadedContext !== styleContext || styleEligibilityError)) {
+              return Promise.reject(new Error("Selection structures are not current. Reopen styling to retry."));
+            }
+            const capture = captureHydrogenTarget(project, useSelectionStore.getState().projectEpoch, selection, target);
+            return onHydrogenAppearance(change, capture);
+          } : undefined}
           selectionColorMode={selectionColorMode}
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
@@ -846,7 +849,7 @@ export function StructureViewer({
             if (onApplyScene) await onApplyScene(scene);
             if (viewerRef.current !== viewer || useWorkspaceStore.getState().activeProjectId !== project.id
               || generation !== undefined && cameraPresentation?.getSnapshot().navigationGeneration !== generation) return;
-            setActiveSurface(null); viewer.setActiveSurface(null);
+            setActiveSurface(null);
             setIsolation(null);
             viewer.setCamera(scene.camera);
             onViewerSelection(scene.selection, "replace");
@@ -876,7 +879,7 @@ export function StructureViewer({
           return queryClient.fetchQuery({ queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
             queryFn: () => molecularApi.structure(project.id, entry.id), staleTime: Number.POSITIVE_INFINITY });
         }}
-        autoFocus={!surfaceOpenedByCanvas.current}
+        autoFocus={true}
         onReturnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLButtonElement>('[aria-label="Style selection"]')?.focus()}
         onCancel={(entryId, surface) => viewerRef.current?.cancelSurface(entryId, surface.source.kind, surface.id)}
         onRetry={(entryId, surface) => viewerRef.current?.retrySurface(entryId, surface.source.kind, surface.id)} /> : null}

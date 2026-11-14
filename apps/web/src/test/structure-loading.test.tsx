@@ -1,3 +1,4 @@
+import * as Tooltip from "@radix-ui/react-tooltip";
 import { surfaceObject } from "./molecular-fixtures";
 import { PresentationContext } from "../presentation/context";
 import type { PresentationController } from "../presentation/controller";
@@ -280,8 +281,6 @@ class FakeViewer implements MolecularViewer {
   }
 
   subscribeSurfaces(listener?: (statuses: SurfaceStatus[]) => void): () => void { void listener; return () => {}; }
-  subscribeSurfaceSelection(): () => void { return () => {}; }
-  setActiveSurface(): void {}
   cancelSurface(): void {}
   retrySurface(): void {}
   previewSurfaceAppearance(): Promise<void> { return Promise.resolve(); }
@@ -307,6 +306,65 @@ describe("lazy structure loading", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+  });
+
+  it("retains the exact created surface while the canonical project notification is pending", async () => {
+    const fake = new FakeViewer(), user = userEvent.setup(), current = project();
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(projection("protein")), {
+      status: 200, headers: { "Content-Type": "application/json" },
+    }));
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const props = { project: current, theme: "light" as const,
+      selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] },
+      pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer: () => fake,
+      onSelectionStyle: vi.fn(), onSurfaces: {
+        create: vi.fn().mockResolvedValue([{ entryId: "protein", surfaceId: "created" }]), update: vi.fn(), remove: vi.fn(),
+      } };
+    const view = render(<Tooltip.Provider><StructureViewer {...props} /></Tooltip.Provider>, { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fake.syncs.length).toBeGreaterThan(0));
+    await user.click(screen.getByRole("button", { name: "Style selection" }));
+    await user.click(screen.getByRole("button", { name: "Create surface" }));
+    await user.click(screen.getByRole("button", { name: "Whole entry" }));
+    await user.selectOptions(screen.getByRole("combobox", { name: "Surface entry" }), "protein");
+    await user.click(screen.getByRole("button", { name: "Create entry surface" }));
+    await screen.findByText("1 surface created.");
+    const published = structuredClone(current);
+    published.entries[0].viewer_settings.surface_objects = [surfaceObject("created", { kind: "entry" })];
+    view.rerender(<Tooltip.Provider><StructureViewer {...props} project={published} /></Tooltip.Provider>);
+    expect(screen.getByRole("button", { name: /entry surface Whole entry/ })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByLabelText("Surface opacity")).toBeVisible();
+    const removed = structuredClone(published);
+    removed.entries[0].viewer_settings.surface_objects = [];
+    view.rerender(<Tooltip.Provider><StructureViewer {...props} project={removed} /></Tooltip.Provider>);
+    expect(screen.getByText(/Select a surface to edit its appearance/)).toBeVisible();
+  });
+
+  it.each([false, true])("clears manager activation on empty picks with molecular selection=%s", async selected => {
+    const fake = new FakeViewer(), user = userEvent.setup(), current = project();
+    current.entries[0].viewer_settings.surface_objects = [surfaceObject("first", { kind: "entry" })];
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(projection("protein")), {
+      status: 200, headers: { "Content-Type": "application/json" },
+    }));
+    const onViewerSelection = vi.fn(), update = vi.fn();
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    render(<Tooltip.Provider><StructureViewer project={current} theme="light"
+      selection={selected ? { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] } : emptySelection}
+      pickingGranularity="atom" onViewerSelection={onViewerSelection} createViewer={() => fake}
+      onSelectionStyle={vi.fn()} onSurfaces={{ create: vi.fn(), update, remove: vi.fn() }} /></Tooltip.Provider>,
+    { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fake.syncs.length).toBeGreaterThan(0));
+    await user.click(screen.getByRole("button", { name: "Style selection" }));
+    await user.click(screen.getByRole("button", { name: "Manage surfaces (1)" }));
+    const row = screen.getByRole("button", { name: /entry surface Whole entry/ });
+    await user.click(row);
+    expect(row).toHaveAttribute("aria-pressed", "true");
+    act(() => fake.listener?.({ atoms: [], granularity: "atom", mode: "add" }));
+    expect(row).toHaveAttribute("aria-pressed", "true");
+    act(() => fake.listener?.({ atoms: [], granularity: "atom", mode: "replace" }));
+    expect(row).toHaveAttribute("aria-pressed", "false");
+    expect(screen.getByText(/Select a surface to edit its appearance/)).toBeVisible();
+    expect(onViewerSelection).toHaveBeenLastCalledWith({ ...emptySelection, source: "viewer" }, "replace");
+    expect(update).not.toHaveBeenCalled();
   });
 
   it("requests only visible entries and synchronizes multiple projections", async () => {
@@ -945,22 +1003,23 @@ it("ignores stale styling eligibility and closes the palette across project swit
     selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] },
     pickingGranularity: "atom", onViewerSelection: vi.fn(), createViewer: () => fake,
     onLoadSelectionStructures: load, onSelectionStyle: vi.fn().mockResolvedValue(undefined),
-    onAppearance: vi.fn().mockResolvedValue(undefined) };
-  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+    onAppearance: vi.fn().mockResolvedValue(undefined), onHydrogenAppearance: vi.fn().mockResolvedValue(undefined) };
+  const panel = (value: StructureViewerProps) => <Tooltip.Provider><StructureViewer {...value} /></Tooltip.Provider>;
+  const view = render(panel(props), { wrapper: wrapper(queryClient) });
   await user.click(screen.getByRole("button", { name: "Style selection" }));
-  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeDisabled();
-  view.rerender(<StructureViewer {...props} selection={{ ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 2 }] }} />);
-  await waitFor(() => expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled());
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "true");
+  view.rerender(panel({ ...props, selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 2 }] } }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "false"));
   await act(async () => { staleFailure(new Error("Old structure load failed")); await Promise.resolve(); });
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled();
-  view.rerender(<StructureViewer {...props} project={{ ...props.project, id: "other-project" }} />);
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "false");
+  view.rerender(panel({ ...props, project: { ...props.project, id: "other-project" } }));
   expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
-  view.rerender(<StructureViewer {...props} />);
+  view.rerender(panel(props));
   expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
-  view.rerender(<StructureViewer {...props} onLoadSelectionStructures={undefined} />);
+  view.rerender(panel({ ...props, onLoadSelectionStructures: undefined }));
   await user.click(screen.getByRole("button", { name: "Style selection" }));
-  expect(screen.queryByText("Checking explicit hydrogen targets…")).not.toBeInTheDocument();
+  expect(screen.queryByText("Checking existing hydrogen targets…")).not.toBeInTheDocument();
   view.unmount();
   queryClient.clear();
 });

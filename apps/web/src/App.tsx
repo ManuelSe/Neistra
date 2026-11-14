@@ -1,3 +1,4 @@
+import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
 import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
 import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
 import { seedCoordinateProjections } from "./coordinates/cache";
@@ -50,6 +51,8 @@ import type {
   SelectionRepresentationStyle,
   SelectionRepresentationChannel,
   SelectionAppearanceChange,
+  HydrogenAppearanceChange,
+  CapturedHydrogenTarget,
   StructureProjection,
   SuperpositionRequest,
   SurfaceCreateItem,
@@ -1055,6 +1058,16 @@ export default function App() {
     onAppearance: async (change: SelectionAppearanceChange) => {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAppearance(project, selection, change));
+    },
+    onHydrogenAppearance: async (change: HydrogenAppearanceChange, capture: CapturedHydrogenTarget) => {
+      if (!project) throw new Error("Open a project before changing hydrogen visibility.");
+      const command = hydrogenAppearanceCommand(project, change, capture, () => {
+        const state = useSelectionStore.getState();
+        return { activeProjectId: useWorkspaceStore.getState().activeProjectId,
+          selectionProjectId: state.projectId, projectEpoch: state.projectEpoch, selection: state.selection,
+          project: queryClient.getQueryData<Project>(["project", capture.projectId]) };
+      }, projectApi.updateSelectionAppearance);
+      await commandMutation.mutateAsync(command);
     },
     onExpandDistance: async (
       distance: number, granularity: "atom" | "residue", signal: AbortSignal,

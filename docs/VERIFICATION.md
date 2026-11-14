@@ -1,5 +1,62 @@
 # V0.1 Requirement Evidence
 
+## Issue #145 — complete clean candidate qualification
+
+[Candidate summary](assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json)
+qualifies636040bdfd289e39b1bc0be34591e044faed37fc through all33complete steps:
+1543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
+exclusions;526cases/71files, zero failures/flakes/retries/new exclusions.798current
+and786actual preceding-tag source identities, complete log hashes, exact browser
+inventory/exclusions and both actual reader families/directions/suffixes verify.
+Migration roundtrip/head0015, locks/static/build/version/production/license/legacy
+checks pass. Deep portable state, originals and corruption controls pass.
+
+Earlier partial attempts remain diagnostics. Scoped native oracle/readiness
+corrections preserve all scientific, input, viewport, read-only and resource
+assertions and registered exclusions. Final seven-role reconfirmation and fresh
+exact-master qualification/publication remain pending. Portable success does not
+establish strict-host timing, speedup or universal capacity.
+
+
+## Issue #145 — C2 hydrogen targeting and UI qualification
+
+C2 passes lint/types,760frontend cases/87suites/build,26API regressions, and
+24native cases/8exact existing exclusions with zero final failures/flakes/retries.
+Attached-H payloads, unchanged selection/model/originals/camera, history/reload,
+mixed/default/reset/master states, retired hidden loads and full-graph polar
+classification pass. Actual200% keyboard/pointer/viewport evidence and correctly
+scaled native frames qualify both themes; mobile320screenshots were inspected.
+[C2 receipt](assets/surface-selection-hydrogen-toggle/c2-checkpoint.json) retains
+17source identities, logs/reports and26hashed observations. Prior fixture attempts
+remain diagnostics; no resource/timing/exclusion policy is weakened.
+
+Independent loaded-control profiles confirm one cold graph scan and no warm/
+busy/focus/click rescans. A real58,870+4atom scene produces2initial/0repeat reads
+and4exact H commands. Existing broad renderer updates can take seconds (observed
+1.87–4.70sdesktop/2.58–5.21smobile); this is a limitation, not a speedup or strict
+timing qualification. Final-version candidate/exact-master gates, actual tagged
+readers, final all-seven review and release remain pending. No schema/migration/
+dependency/version change yet.
+
+
+## Issue #145 — C1 surface interaction qualification
+
+Local C1 adds manager row toggling/empty clearing and passive solid/mesh/fallback
+visuals, preserving molecular picks and marker feedback. Native testing reproduced
+newly created pocket activation being pruned against old query props; entries-only
+reconciliation passes independent before/after and both-layout native regression.
+
+Final checkpoint checks pass lint/types,729 frontend cases/84 suites/build,37native
+cases/3existing layout exclusions, plus4native matrix cases/zero exclusions and
+200real clicks across all granularities/modifiers/appearances/fallbacks. No final
+failures/flakes or relaxed deadlines/budgets/exclusions.
+[Receipt](assets/surface-selection-hydrogen-toggle/c1-checkpoint.json) retains21
+source identities, lossless logs/reports, diagnostics and64hashed native observations.
+C2, complete final-version candidate/exact-master gates and all-seven final review
+remain pending. This is checkpoint evidence, not release or strict-host timing
+qualification. Versions, schemas, migration head, dependencies and originals remain.
+
+
 ## Issue #140 — released runtime qualification
 
 Stable [v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0) tags exact master **`851ccf34b639e3974815aede9979c22f334a5767`**.
