@@ -1,5 +1,62 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — corrected clean candidate2 qualification
+
+Committed **ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d** passes all33 complete
+sequential release steps: **1,542 Python /zero skips,723 frontend,14 supervisor,
+441 browser /75 exact existing exclusions**; no failures/flakes/retries/new
+exclusions. All516 cases/69files,791 current and754 actual preceding-tag source
+identities, recipe/runner/lossless-log hashes verify. [Complete summary](assets/representation-surfaces-session-camera/c7-candidate2-summary.json).
+Actual0.29.0↔final0.30.0 rich/connectivity producers and readers pass both directions
+and archive suffixes, including deep state/original checks and corruption controls.
+Migration round trip, locked/static/build/version/production/legacy checks pass.
+
+[Native receipt](assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
+verifies567 observations/ZIP CRC and internal hashes. The strict actual100%/200%
+both-theme manager entrance case and Components keyboard workflows pass. Earlier
+failed attempts below remain diagnostic, not release qualification. Primary
+[complete-diff review](assets/representation-surfaces-session-camera/c7-review.md)
+is self-review; final all-seven same-head assessment precedes push. A fresh complete
+exact-master2 gate remains mandatory before publication. Portable correctness
+provides no strict-host timing, universal capacity or independent human approval.
+
+
+## Issue #140 — Components fixture handoff qualification
+
+Corrected candidate83dcee26 passes the strengthened actual100%/200% opening case
+and395 browser cases, then fails the mobile hierarchy fixture before its expected
+Components heading focus return completes. [Failed attempt](assets/representation-surfaces-session-camera/c7-candidate1-diagnostic.json)
+retains all14 preceding passing steps, exact source/logs and532 observations. No
+partial run is release qualification.
+
+The helper now awaits the existing heading landing and checks keyboard disclosure
+focus/expansion explicitly. Application code, keyboard path, deadlines and exclusions
+remain unchanged. Complete focused qualification passes46 mobile cases/12 registered
+exclusions plus1 desktop hierarchy case, with zero failures/flakes/retries.
+[Correction receipt](assets/representation-surfaces-session-camera/c7-handoff-correction.json)
+verifies logs/reports/source identities and37 observations. Fresh complete clean
+candidate2 and exact-master2 gates plus final same-head review remain mandatory.
+
+
+## Issue #140 — C7 release hold and entrance correction
+
+The first exact-master gate on54277903 fails a real viewport-bounds assertion
+during surface-manager opening after14 successful steps and146 browser passes.
+[Failed-master evidence](assets/representation-surfaces-session-camera/c7-merged1-diagnostic.json)
+retains source/log identities, report and218 observations. It is not release
+qualification. No tag or release exists at this checkpoint.
+
+The right-anchored manager's inherited centering animation is replaced with an
+opacity-only entrance. The independent old-rule native control fails at negative
+top coordinates; the corrected complete real100%/200% both-theme workflow passes
+all12 strict timeline samples and original controls. A fixture awaits the existing
+Inspector close-focus handoff before forcing canvas Space. No assertion/deadline/
+retry/exclusion is relaxed. Lint/types/723 frontend/build pass.
+[Focused correction evidence](assets/representation-surfaces-session-camera/c7-opening-correction.json).
+Complete fresh candidate/exact-master gates and all-seven same-head assessment
+remain required. The following original-candidate results remain as-run evidence.
+
+
 ## Issue #140 — Qualified stable 0.30.0 candidate
 
 Clean candidate `c8468c89472b2c67fbb70eea433bce71c3a13a5c` completes all **33 release

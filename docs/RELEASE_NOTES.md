@@ -2,8 +2,11 @@
 
 ## 0.30.0 — Representation styling, surfaces and the shared view
 
-**Status:** complete final-version candidate qualification passes for issue #140.
-Normal merge, exact-master qualification and publication remain required. The
+**Status:** corrected clean candidate qualification passes. PR #142 contains the
+initial implementation; its first exact-master run identifies an entrance defect,
+now fixed and covered by strict native opening checks. Final same-head review,
+normal corrective merge and fresh complete exact-master qualification precede
+publication. No0.30 tag or release exists. The
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md) and
 [evidence index](assets/representation-surfaces-session-camera/README.md) retain
 scope, checkpoint evidence and limits.
@@ -75,16 +78,19 @@ are approximate visualization; no area/volume, electrostatics, implicit repair o
 new chemistry is claimed. Specific capacity and portable correctness do not
 establish universal throughput, broader browser certification or strict-host timing.
 
-**Verification.** Clean committed candidate `c8468c89` passes all 33 release steps:
-1,542 Python / zero skips, 723 frontend, 14 supervisor and 441 browser passes /
-75 exact existing exclusions; zero failures/flakes/retries/new exclusions. All791
-current and754 actual tagged0.29.0 source identities and lossless logs verify.
-Actual0.29.0 ↔ final0.30.0 readers pass both directions/suffixes, with deep
-scene/settings/original comparisons and copied-corruption controls. All seven
-specialists PASS the qualified code; final documentation reconfirmation precedes
-push. Local full-diff review is implementer self-review. Complete exact-master
-qualification and publication remain required; no independent human approval,
-remote CI success or strict-host timing certification is claimed.
+**Verification.** Clean committed corrected candidate `ca428af2` passes all33
+release steps:1,542 Python /zero skips,723 frontend,14 supervisor and441 browser
+passes /75 exact existing exclusions; zero failures/flakes/retries/new exclusions.
+All791 current and754 actual tagged0.29.0 source identities and lossless logs verify.
+Actual0.29.0↔final0.30.0 rich/connectivity readers pass both directions/suffixes,
+with deep state/original comparisons and copied-corruption controls. All567 curated
+native observations verify. The manager remains bounded at start/midpoint/end in
+all12 actual100%/200%, light/dark samples; the old-rule negative control fails.
+Final all-seven same-head review and a complete fresh exact-master gate remain
+mandatory before publication. Local full-diff review is implementer self-review.
+No independent human approval, remote CI success or strict-host timing certification
+is claimed. Earlier failed attempts remain separate diagnostic evidence.
+
 
 ## 0.29.0 — Authoritative connectivity and reliable minimization
 

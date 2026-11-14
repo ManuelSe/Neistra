@@ -99,3 +99,42 @@ about provenance, corrected diagnostics, optional P3 polish and remaining releas
 conditions. Final same-head documentation reconfirmation precedes push and is
 recorded on the PR. Complete exact-master qualification and publication remain
 mandatory; preparation/earlier partial attempts are not release qualification.
+
+
+C7 initial merge54277903 has a [failed exact-master attempt](c7-merged1-diagnostic.json):
+14 preceding steps and146 browser cases pass, then the native200% manager bounds
+assertion catches its inherited centering entrance transform. All218 curated
+observations and lossless logs are retained. No partial run qualifies the release.
+
+[Entrance correction](c7-opening-correction.json) replaces only manager motion with
+an opacity-only fade. Actual native CSS timeline sampling rejects the old rule at
+start/midpoint and keeps all12 new100%/200% both-theme samples inside strict bounds.
+The complete focused workflow passes; original camera/keyboard/accessibility,
+deadlines and exclusions remain. The separate Inspector focus-handoff fixture
+synchronization is explicit. Logs/reports and75 observations have verified hashes/
+CRC. Fresh candidate1 and merged2 recipes repeat all33 release steps; final-seven
+review and publication remain pending. Version0.30.0 is still unpublished.
+
+
+C7 corrected candidate1 is a [retained failed attempt](c7-candidate1-diagnostic.json):
+14 preceding steps and395 browser cases pass, including the strengthened opening
+case, then the mobile Components fixture races its expected heading-focus landing.
+All532 observations and exact source/log/report identities are preserved. The
+[test-only handoff correction](c7-handoff-correction.json) passes46 complete mobile
+cases/12 registered exclusions plus1 desktop case, with no retries or relaxed
+assertions/deadlines. All37 observations and report/log hashes verify. Application
+code is unchanged from83dcee26. Fresh candidate2 and exact-master2 full33-step gates
+and final seven-role review remain required; no partial command qualifies release.
+
+
+C7 corrected [clean candidate2](c7-candidate2-summary.json), committedca428af2,
+passes all33 complete sequential release steps:1,542 Python/zero skips,723 frontend,
+14 supervisor,441 browser/75 exact existing exclusions; zero failures/flakes/retries/
+new exclusions. All516 cases/69files,791 current and754 actual tagged0.29.0 source
+identities and lossless logs verify. [Reader audit](c7-candidate2-reader-audit.json)
+retains both real versions, families, directions and suffixes. [Native receipt](c7-candidate2-native-receipt.json)
+verifies567 observations (480PNG/87JSON), ZIP CRC and internal hashes. Actual100%/
+200% both-theme strict entrance samples and Components keyboard workflows pass.
+The [updated complete-diff self-review](c7-review.md) covers the complete approved
+scope and corrective diff. Final seven-role same-head assessment, normal corrective
+merge and full fresh exact-master2 gate remain mandatory before publication.

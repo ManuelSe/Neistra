@@ -1,0 +1,36 @@
+{
+  "status": "failed corrected candidate, not release qualification",
+  "commit": "83dcee263a1df2810061913c426ee789f1c709f2",
+  "completed_passing_steps": 14,
+  "browser": {
+    "passed": 395,
+    "executed_existing_exclusions": 64,
+    "failed": 1,
+    "not_run": 56,
+    "failure": "Mobile hierarchy fixture forces disclosure focus before expected deferred Components heading focus handoff completes; Enter leaves category collapsed",
+    "automatic_retries": 0
+  },
+  "sources_unchanged_during_attempt": true,
+  "manager_entrance_correction": "Strengthened actual100%/200% both-theme timeline geometry case passes in this full attempt.",
+  "evidence_based_correction": "Shared browseComponents waits for the explicit action\u2019s Components heading focus; mobile fixture asserts disclosure focus and aria-expanded=true before original child selection. No product code, deadline, retry or skip changes.",
+  "restart_policy": "Fresh complete clean candidate2 and exact-master2 qualification remain mandatory. Focused complete remaining-mobile command first checks the corrected handoff and previously unexecuted workflows.",
+  "observations": {
+    "label": "c7-candidate1",
+    "path": "docs/assets/representation-surfaces-session-camera/c7-candidate1-native-observations.zip",
+    "bytes": 54537399,
+    "sha256": "3d46578a91f3af4c8f66f78838526e7e837b0346f48c6eb92d24e000847220fa",
+    "manifest_files": 532,
+    "types": {
+      ".png": 462,
+      ".json": 69,
+      ".md": 1
+    },
+    "crc_and_internal_hashes_valid": true,
+    "scope": "All normal JSON observations, PNG screenshots and Markdown diagnostic contexts; hidden RPC scratch directories and raw RPC traces excluded."
+  },
+  "browser_report": {
+    "path": "docs/assets/representation-surfaces-session-camera/c7-candidate1-browser.json.gz",
+    "uncompressed_sha256": "1d7c4498af84261da1a7a7b730d26ae1174e4724a6c08c799651ec8ef3e0a762"
+  },
+  "tag_or_release_created": false
+}

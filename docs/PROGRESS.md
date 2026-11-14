@@ -2,38 +2,31 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C5 complete; C6 candidate qualified; C7 delivery next** under the
-[approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-Implemented: correct stick geometry/no-op history/scoped styling; complete bounded
-surface context and truthful installation status; shared creation/manager,
-immediate Undoable appearance and retained source drafts; one independent,
-installation-wide persisted camera across entries, projects and reopening.
+Issue #140 — **corrected candidate fully qualified; C7 delivery continues** under
+ the [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
+[PR #142](https://github.com/ManuelSe/Neistra/pull/142) merges the initial implementation
+at54277903. Its exact-master gate catches a real positioned-manager entrance defect;
+no tag/release is created. One opacity-only entrance fixes it. Native old-rule
+negative control fails; all12 strict actual100%/200% both-theme timeline samples pass.
+Test helpers now await established Inspector/Components focus handoffs without
+changing application input policy, assertions, deadlines, retries or exclusions.
 
-Clean candidate `c8468c89` passes all **33 complete release steps**: **1,542 Python
-(zero skips), 723 frontend, 14 supervisor, 441 browser passes / 75 exact existing
-exclusions**. Zero failures/flakes/retries/new exclusions. All 791 current and754
-actual preceding-tag source identities and lossless logs verify. Actual tagged
-0.29.0 ↔ final0.30.0 readers pass both directions/suffixes with deep display/history,
-canonical/original checks and corruption controls. Frozen/static/build, empty
-migration round trip, version/schema/dependency/production/license and CLI checks
-pass. [Candidate summary](assets/representation-surfaces-session-camera/c6-candidate3-summary.json)
-and the feature plan retain exact evidence and distinct failed diagnostics.
+The corrected clean **ca428af2** candidate passes all **33 release steps**: **1,542
+Python /zero skips,723 frontend,14 supervisor,441 browser passes /75 exact existing
+exclusions**; zero failures/flakes/retries/new exclusions. All516 native cases/69files,
+791 current and754 actual tagged0.29.0 source identities, logs, migrations and actual
+reader families in both directions/suffixes verify. [Summary](assets/representation-surfaces-session-camera/c7-candidate2-summary.json).
+[Native receipt](assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
+verifies567 observations. Earlier failed attempts remain separate diagnostics.
 
-All seven specialists PASS the qualified code; final evidence/documentation
-reconfirmation precedes application push and is recorded on the PR. Primary
-full-diff review is implementer self-review. No independent human approval, remote
-CI result or strict timing certification is claimed. Five versions agree at
-**0.30.0**; migration **0015** adds only the automatic camera preference. Portable
-project/viewer/archive stay2, normalized/selection/component stay1. Downgrade to0014
-removes the preference only; preserve it with an upgraded-store backup.
-
-Known limits: approximate fixed-grid surfaces, specimen-specific capacities and
-best-effort browser recovery. Independent polymer visibility/local appearance is
-explicitly deferred to [#141](https://github.com/ManuelSe/Neistra/issues/141), with
-#64/#107 kept separate. Blockers requiring user input: none. Next: final review,
-fresh base/version/protection checks, PR with Closes #140, normal merge, complete
-exact-master gate, annotated v0.30.0/release, issue reply, normal receipt integration
-and cleanup. No PR, merge, tag or release is claimed at receipt creation.
+Five versions remain0.30.0; migration0015 and portable schemas remain unchanged.
+Known limits: approximate fixed-grid surfaces, specimen-specific capacities,
+best-effort browser recovery and portable rather than strict-host timing evidence.
+Deferred styling is #141, with #64/#107 separate. No user-input blocker. Next:
+final seven-role same-head reconfirmation, corrective normal PR/merge, full clean
+c7-merged2 exact-master gate, then tag/release/download verification, final issue
+reply, normal receipt integration and cleanup. The issue is closed by the requested
+PR keyword; the full delivery goal remains active.
 
 ### Approved planning checkpoint — issue #140 C0
 
