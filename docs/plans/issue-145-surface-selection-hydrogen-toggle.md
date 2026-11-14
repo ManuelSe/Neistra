@@ -2,7 +2,7 @@
 
 ## 1. Status, authority and approved direction
 
-**Status:** C1 and C2 locally verified; C3/C4 pending. The subsequent `/goal` authorizes implementation and delivery.
+**Status:** C1–C3 locally verified; final receipt-head affirmation and C4 pending. The subsequent `/goal` authorizes implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-14, following the proposal
 and explicit product choices below. Approval authorizes C0 only. Stop ready for
 `/goal` after committing and pushing this plan; do not begin application changes.
@@ -599,3 +599,53 @@ CLI and actual0.30.0↔0.31.0 rich/connectivity producer/readers, both archive
 suffixes and deep retention controls. Its manifests/logs remain focused evidence,
 not a substituted complete gate. Next: commit and rerun all33steps on a clean
 final-version candidate; exact-master and all-seven final reconfirmation remain.
+
+
+### 2026-11-14 — C3 complete clean candidate qualification
+
+Candidate **636040bdfd289e39b1bc0be34591e044faed37fc** completes all33sequential
+steps from a clean tree, without partial-run reuse:1543Python/zero skips,760frontend,
+14supervisor,451browser/75exact existing exclusions. All526cases/71files execute;
+zero failures/flakes/retries/new exclusions.798current source identities remain
+unchanged throughout;786actual tagged0.30.0 identities match before/after. All
+recipe/runner/lossless logs, exact exclusion identities and reader reports verify.
+Duration5288.287s sums complete commands (5290s wall).
+
+[Summary](../assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json),
+[gate](../assets/surface-selection-hydrogen-toggle/c3-candidate4-gate.json) and
+[reader audit](../assets/surface-selection-hydrogen-toggle/c3-candidate4-reader-audit.json)
+retain exact evidence. Actual0.30.0↔0.31.0 rich/connectivity producers/readers in
+separate implementation processes pass both suffixes, deep styles/surfaces/scenes/
+coordinates/original/history/jobs retention and corruption controls. Locks,
+migration roundtrip/head0015, static/build/version/production/license/legacy checks
+pass. No schema/API/dependency/migration change. All five versions agree0.31.0.
+
+Earlier attempts remain diagnostic and do not contribute partial qualification.
+All final native outputs are retained with CRC/internal-hash checks. Source-state,
+selection/camera, exact H payloads, manager activation/deselection, passive surface
+picking/markers, keyboard/zoom/themes/accessibility and scientific conventions
+pass. Existing performance and physical approximations remain; portable success
+is not strict-host timing, speedup, universal capacity or leak qualification.
+
+Primary full intended-diff review is recorded separately as self-review. Seven
+specialists must inspect intervening corrections/evidence and reconfirm the same
+final candidate before implementation push. The prepared c4-master1 recipe will
+run afresh on exact merged master before tagging. No PR/merge/release is claimed.
+
+
+### 2026-11-14 — C3 same-candidate specialist reconfirmation
+
+All seven specialists independently reconfirm PASS for qualified636040bd plus
+the documentation/evidence receipt after inspecting the complete intervening diff:
+scientific theory, scientific implementation, architecture, performance, UI, UX
+and documented workflow reference. No consequential finding remains.
+[c3-specialist-review.json](../assets/surface-selection-hydrogen-toggle/c3-specialist-review.json)
+records scopes, corrections and limits; [primary review](../assets/surface-selection-hydrogen-toggle/c3-review.md)
+is self-review, not independent human approval. All596nativefiles retain CRC and
+internal hashes; complete798source/log/reader/inventory verification passes.
+
+A fresh fetch still finds master923fc249, latest stable0.30.0 and no0.31.0 tag
+collision. Normal merge preserves checkpoint history. Commit this coherent C3
+receipt, obtain each specialist's explicit affirmation of that exact committed
+head, then push/open PR. Remote requirements and exact-master33-step qualification
+remain mandatory; no merge/tag/release is asserted by this checkpoint.

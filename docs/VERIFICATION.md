@@ -1,5 +1,23 @@
 # V0.1 Requirement Evidence
 
+## Issue #145 — complete clean candidate qualification
+
+[Candidate summary](assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json)
+qualifies636040bdfd289e39b1bc0be34591e044faed37fc through all33complete steps:
+1543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
+exclusions;526cases/71files, zero failures/flakes/retries/new exclusions.798current
+and786actual preceding-tag source identities, complete log hashes, exact browser
+inventory/exclusions and both actual reader families/directions/suffixes verify.
+Migration roundtrip/head0015, locks/static/build/version/production/license/legacy
+checks pass. Deep portable state, originals and corruption controls pass.
+
+Earlier partial attempts remain diagnostics. Scoped native oracle/readiness
+corrections preserve all scientific, input, viewport, read-only and resource
+assertions and registered exclusions. Final seven-role reconfirmation and fresh
+exact-master qualification/publication remain pending. Portable success does not
+establish strict-host timing, speedup or universal capacity.
+
+
 ## Issue #145 — C2 hydrogen targeting and UI qualification
 
 C2 passes lint/types,760frontend cases/87suites/build,26API regressions, and

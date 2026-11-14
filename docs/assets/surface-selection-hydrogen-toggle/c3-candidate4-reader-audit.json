@@ -1,0 +1,79 @@
+{
+  "preceding_tag": "v0.30.0",
+  "preceding_runtime": "851ccf34b639e3974815aede9979c22f334a5767",
+  "preceding_source_identities": 786,
+  "directions": {
+    "rich-forward-produce": {
+      "version": "0.31.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-rich-forward-produce.json",
+      "evidence_sha256": "2da2df36591a5dd077599548c612c97572a79191f269350c21e2f40281a915ef"
+    },
+    "rich-forward-read": {
+      "version": "0.30.0",
+      "implementation_root": "/tmp/neistra145-reader-0300",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-rich-forward-read.json",
+      "evidence_sha256": "030b77467032d4064a9b953886f29aa11167ea64f5b25f0ed0a0e1e229593d62"
+    },
+    "rich-reverse-produce": {
+      "version": "0.30.0",
+      "implementation_root": "/tmp/neistra145-reader-0300",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-rich-reverse-produce.json",
+      "evidence_sha256": "9c1497726f730596375334628a8959c77211707808a33dca2408c4d263f074a0"
+    },
+    "rich-reverse-read": {
+      "version": "0.31.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-rich-reverse-read.json",
+      "evidence_sha256": "d3d536ddc4665e81386270cf67418ea5b7a207214dbb28d9c21f8b8a39d84b84"
+    },
+    "connectivity-forward-produce": {
+      "version": "0.31.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-connectivity-forward-produce.json",
+      "evidence_sha256": "f6ed40b2a24cface6d5bfca9c6db142c3bd485aeb6868c7ef301ac8761bc7903"
+    },
+    "connectivity-forward-read": {
+      "version": "0.30.0",
+      "implementation_root": "/tmp/neistra145-reader-0300",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-connectivity-forward-read.json",
+      "evidence_sha256": "964cc533dcc2978ed0333ca69c8cd4b8043958b038b0a965c728b2b332cdee26"
+    },
+    "connectivity-reverse-produce": {
+      "version": "0.30.0",
+      "implementation_root": "/tmp/neistra145-reader-0300",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-connectivity-reverse-produce.json",
+      "evidence_sha256": "371beadcc7610fe778e564186788a7033785c444b8d724eb5b9e7d6b71ef4eac"
+    },
+    "connectivity-reverse-read": {
+      "version": "0.31.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/surface-selection-hydrogen-toggle/c3-candidate4-connectivity-reverse-read.json",
+      "evidence_sha256": "609ace635dd7258f7a9e8c596d7a4ae01b42dbe1d0b432882831e52d7c3842be"
+    }
+  }
+}

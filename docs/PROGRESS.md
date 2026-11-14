@@ -2,41 +2,34 @@
 
 ## Current milestone
 
-Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1/C2 locally
-verified; C3 release preparation** under the explicit `/goal`. The
+Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1/C2 implemented;
+C3 locally verified; final receipt-head affirmation/C4 next**. The
 [feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md) owns detail.
-C1 fixes surface toggling/empty clearing/passive picking and marking, including
-canonical creation activation. C2 adds the prominent H icon, graph-attached H
-targeting and guarded captured publication through the unchanged appearance API.
+Manager-only surface activation/deselection and passive rendering/picking are in
+place. The prominent H icon targets existing selected and graph-attached H with
+captured project/selection/artifact guards through the unchanged appearance API.
 
-C2 checks pass lint/types, **760 frontend cases/87 suites**, build, **26 API cases**,
-and **24 native passes/8 exact existing exclusions**, zero final failures/flakes/
-retries. Both themes/320px/actual200% and full-graph classification/history/
-source invariants pass. [C2 receipt](assets/surface-selection-hydrogen-toggle/c2-checkpoint.json)
-retains17source identities, logs/reports and26hashed native observations.
-C1's729frontend/37+4native and200real-click evidence remains in its receipt.
-Independent checkpoint architecture/performance/UI assessments pass; full final
-seven-role review and complete candidate/exact-master gates remain pending.
+Clean candidate **636040bdfd289e39b1bc0be34591e044faed37fc** passes all33steps:
+**1543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
+exclusions**;526cases/71files, zero failures/flakes/retries/new exclusions. All798
+current and786actual tagged0.30.0 source identities and lossless log hashes verify.
+Both rich/connectivity reader directions and archive suffixes pass deep state,
+original and corruption controls. Migration roundtrip, locks/static/build/version/
+production/license/legacy checks pass. [Summary](assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json).
+Earlier partial runs remain diagnostic; bounded test corrections preserve input,
+identity, viewport, read-only, resource and exclusion contracts.
 
-Known limits: large-scene preference changes retain the existing conservative
-renderer path; observed warm actions take1.87–4.70sdesktop/2.58–5.21smobile with
-zero repeat structure reads. No speedup/strict-host claim. All five authoritative versions now prepare 0.31.0;
-no schema/API/migration/dependency change. C1/C2 commits are 0fd897e3/90aee46e.
-Blockers: none. Next: qualify the clean final-version candidate and actual tagged
-readers, then obtain all seven same-candidate specialist assessments.
-First complete-gate attempt stopped at an obsolete native row-activation
-expectation after146browser passes. Corrected test proves creation activation and
-keyboard toggle-off/on; focused4passes/4existing exclusions. Runtime unchanged.
-Seven full-diff specialist assessments pass subject to final evidence/head
-reconfirmation. A second attempt passed190native cases before a coarse polymer-pixel oracle
-missed narrow geometry. Exact independent GLY2 native provenance/ID/event checks
-now pass6both-layout cases, with no runtime change or relaxed expectation.
-Third attempt passes437native cases/75existing exclusions before an unchanged
-mobile warning scroll reversal fails. Passive terminal-event sequencing and real
-initial-camera acknowledgement waits strengthen fixture readiness;13focused
-warning/zoom cases pass with1existing exclusion. Actual tagged-reader/tool
-preflight passes17steps; complete qualification remains required.
-No implementation push, PR or release yet. PR uses `Closes #145`.
+All five authoritative versions prepare stable minor0.31.0; no REST/persisted
+schema, dependency or migration change, head0015. All seven specialists reconfirm PASS for636040bd plus its documentation/evidence
+receipt; explicit committed receipt-head affirmation remains before push.
+Known limit: existing conservative large-scene renderer updates take seconds
+(1.87–4.70sdesktop/2.58–5.21smobile observed), with zero repeat structure reads.
+No speedup or strict-host qualification is claimed.
+
+Blockers:none. Next: final documentation/full-diff and seven-role reconfirmation,
+then push/PR/review/normal merge and fresh exact-master qualification before
+annotated tag/release/verified reply/cleanup. No implementation push, PR or future
+release exists yet; the PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0
 
@@ -3308,13 +3301,14 @@ Results:
 
 ## Blockers
 
-None for the implemented and published issue #137 scope. Terminal documentation
-integration and branch-cleanup facts are retained in the [issue reply](https://github.com/ManuelSe/Neistra/issues/137#issuecomment-6865138663).
-Strict reference-host timing and broader chemistry/browser qualification remain
-separate from portable release correctness.
+None for current issue #145 candidate qualification. Final same-candidate seven-role
+reconfirmation and remote review/merge requirements remain delivery gates; exact
+merged-master qualification is required before tag/release publication. Strict
+reference-host timing remains separate from portable correctness.
 
 ## Next action
 
-Subsequent product work requires its own approved issue plan. The issue #137 reply
-is the receipt location for final delivery integration and branch cleanup; keep
-the qualified v0.29.0 runtime tag fixed.
+Complete issue #145 C3 review/evidence receipt, push and open the planned PR, then
+perform normal reviewed merge and fresh exact-master qualification. Publish and
+verify v0.31.0, issue closeout and documentation receipt before deleting only the
+planned feature branch. Preserve previously released runtime tags.

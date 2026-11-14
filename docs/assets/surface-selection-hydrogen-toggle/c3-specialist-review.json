@@ -1,0 +1,79 @@
+{
+  "kind": "specialist agent review; not independent human or remote approval",
+  "comparison_base": "923fc2497cff0dc8bd23bf94d2631e8c5bf38b33",
+  "reviewed_candidate": "636040bdfd289e39b1bc0be34591e044faed37fc",
+  "receipt_scope": "Current documentation/evidence-only receipt; no application or test source delta after qualification. Inspect final committed receipt head before implementation push.",
+  "review_scope": "Complete intended issue145 change including all new files and intervening corrections since31d6527e; approved plan/D156157 and user amendments.",
+  "roles": {
+    "scientific_theory": {
+      "verdict": "PASS",
+      "scope": "Scientific meaning, graph uncertainty, unchanged polarity/chemistry and independent exact residue oracle.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "scientific_implementation": {
+      "verdict": "PASS",
+      "scope": "Resolver/command identity, explicit H operands, API/polarity invariants and actual molecular reader retention.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "software_architecture": {
+      "verdict": "PASS",
+      "scope": "State ownership, asynchronous target/revision guards, creation publication, schemas and test readiness.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "performance": {
+      "verdict": "PASS",
+      "scope": "Retained browser measurements, zero warm rescans/repeated reads, bounded ownership and unchanged resource policy.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "ui_design": {
+      "verdict": "PASS",
+      "scope": "Original prominent H control, states/focus/themes/zoom, passive surface presentation and native evidence.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "ux_design": {
+      "verdict": "PASS",
+      "scope": "Manager/blank selection semantics, target discoverability, recovery, exact input and read-only workflows.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    },
+    "modeling_reference": {
+      "verdict": "PASS",
+      "scope": "Documented workflow inspiration, explicit user choices, original design and evidence/inference boundaries.",
+      "evidence": "Independent retained-source/log/reader/native archive verification plus applicable prior role checks; unchanged runtime evidence reused.",
+      "consequential_findings": []
+    }
+  },
+  "qualification": {
+    "steps": 33,
+    "python": 1543,
+    "frontend": 760,
+    "supervisor": 14,
+    "browser_passed": 451,
+    "existing_exclusions": 75,
+    "inventory": 526,
+    "failures_flakes_retries_new_exclusions": 0,
+    "current_source_identities": 798,
+    "preceding_source_identities": 786,
+    "native_files": 596
+  },
+  "corrections": [
+    "Canonical creation acknowledgement ordering.",
+    "Captured H target preflight guards.",
+    "Stale selected-H-only scientific guidance.",
+    "Native row-toggle and independent polymer provenance oracles.",
+    "Native terminal scroll observation and actual initial camera acknowledgement before request audits."
+  ],
+  "optional_suggestion_disposition": "An additional preparation-time native camera comparison was not added: actual controller mirror/server acknowledgement is followed by stable native baseline capture before audit. Architecture explicitly accepted this bounded proof.",
+  "remaining_limits": [
+    "Supplied graph uncertainty and fixed full-projection display polarity; isotope targeting remains deferred.",
+    "Large-scene display updates retain existing conservative renderer latency; no speedup/strict-host/peak-memory/leak claim.",
+    "No new physical-device, manual screen-reader or hands-on external application qualification.",
+    "Exact external3Dicon/picking parity is not established; explicit approved Neistra choices remain distinct."
+  ],
+  "delivery_gates": "Exact committed receipt-head affirmation, remote protections/review and fresh exact merged-master qualification remain before push/merge/publication as applicable."
+}

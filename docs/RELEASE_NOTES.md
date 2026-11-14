@@ -2,7 +2,7 @@
 
 ## 0.31.0 — Surface selection and prominent hydrogen visibility
 
-**Prepared candidate; publication and final qualification pending.** Stable minor
+**Qualified candidate; exact-master qualification and publication pending.** Stable minor
 from 0.30.0: graph-attached-H authoring adds user-visible functionality alongside
 surface corrections. The [issue #145 contract](plans/issue-145-surface-selection-hydrogen-toggle.md)
 and D-156/D-157 record approved scope and evidence. No tag/release is claimed yet.
@@ -27,16 +27,20 @@ visibility, complete-projection polarity classification, scenes and reload remai
 project/viewer/archive stay 2 and normalized/selection/component stay 1. The H control
 submits explicit targets through the unchanged appearance API. Preserve original
 uploads and back up the complete managed store before deployment changes. Actual
-v0.30.0↔0.31.0 reader qualification and exact-master publication checks are pending;
+v0.30.0↔0.31.0 reader qualification passes on the clean candidate; exact-master
+publication checks remain pending;
 older interfaces retain their older interaction behavior. No schema downgrade is
 needed from 0.30.0; earlier migration downgrade guards remain binding.
 
-**Verification.** Local C1/C2 checkpoint evidence includes 760 frontend cases,
-26 focused API regressions, both-layout native surface/picking/H workflows,200 real
-picking actions, actual 200%/320px/theme/accessibility checks and independent
-scientific/architecture/UI/performance assessments. These are checkpoint results,
-not complete release qualification. Clean final-version candidate/exact-master
-gates, actual tagged readers and all-seven final implementation review remain.
+**Verification.** Clean candidate636040bd passes all33complete release steps:
+1,543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
+exclusions;526cases/71files, zero failures/flakes/retries/new exclusions. Current
+and actual preceding-tag source/log/inventory audits verify. Actual rich and
+connectivity readers pass both directions/suffixes with deep retention and
+corruption controls. Native checks include200real picking actions, exact H
+payloads,200%/320px/themes/accessibility and state/history/source invariants.
+Earlier partial attempts remain diagnostics. Final same-candidate seven-role
+reconfirmation and complete exact-master qualification remain publication gates.
 
 **Limitations and follow-up.** Hydrogen targeting uses existing normalized graph
 edges; it does not generate H, infer missing bonds, assign protonation or alter
