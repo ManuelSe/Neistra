@@ -187,6 +187,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", {
     timeout: 45_000,
   });
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await expectNonblankCanvas(page);
 
   let state = await currentProject(request, project!.id);
@@ -199,6 +200,8 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByLabel("Controlled structure").selectOption(protein!.id);
   await page.getByLabel("Add representation").selectOption("surface");
   await expect(page.getByRole("dialog", { name: "Surfaces", exact: true })).toBeVisible();
+  await page.getByRole("dialog", { name: "Surfaces", exact: true }).getByRole("button", { name: "Create entry surface", exact: true }).click();
+  await expect(page.locator(".surface-object-row")).toHaveCount(1);
   await page.getByRole("button", { name: "Close surfaces" }).click();
   await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(1);
   await page.getByLabel("Controlled structure").selectOption(ligand!.id);

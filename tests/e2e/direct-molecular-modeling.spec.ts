@@ -2,7 +2,7 @@ import { selectPair, bonds, observe, previewState, newEmptyProject } from "./sup
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 
 test("breaks an aromatic bond and keeps the incomplete draft visible and pickable", async ({ page, request }, info) => {
   test.setTimeout(120000);
@@ -287,6 +287,7 @@ test("keeps identities above earlier allocations after undoing and redoing molec
   expect(second.atoms[1].id).toBeGreaterThan(first.atoms[1].id);
   expect(second.bonds[0].id).toBeGreaterThan(first.bonds[0].id);
   await panel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
+  await frameFixture(page);
   await observe(page);
   const point = await page.evaluate(p => window.editingPicks.point(p), second.atoms[1].coordinates);
   await page.locator(".molstar-host canvas").first().click({ position: point });

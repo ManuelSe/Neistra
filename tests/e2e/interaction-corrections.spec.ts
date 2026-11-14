@@ -2,7 +2,7 @@ import { writeFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import type { InteractionRecord, InteractionKind } from "../../apps/web/src/interactions/types";
 import { INTERACTION_COLORS } from "../../apps/web/src/viewer/interactionGeometry";
-import { native, prepare } from "./support/interactions";
+import { frameFixture, native, prepare } from "./support/interactions";
 
 const kinds: InteractionKind[] = ["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge", "clash"];
 const labels = ["H bonds", "Hydrophobic", "π–π", "Cation–π", "Salt bridges", "Clashes"];
@@ -91,6 +91,7 @@ async function markerPixels(page: Page, kind: InteractionKind) {
 test("renders genuine six-type records alone, pairwise and together with independent scopes", async ({ page, request }, info) => {
   test.setTimeout(240_000);
   const project = await prepare(page, request, ["tests/fixtures/interactions/six_types.mol"], "Six-type native corrections");
+  await frameFixture(page);
   let analyses = 0, structureGets = 0;
   let records: InteractionRecord[] = [];
   page.on("request", outgoing => {

@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C4 complete; C5 in progress; C6–C7 pending.
+**Status:** approved contract; C0–C5 complete; C6–C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -674,3 +674,88 @@ qualification and test consolidation, C6 final-version full gate/readers/all-sev
 assessment, and C7 normal delivery remain. Browser recovery is best effort under
 simultaneous storage/network/process failure. No application push, PR, merge,
 tag or release is claimed. Next: C5.
+
+### C5 — 2026-11-14: integrated qualification and test consolidation
+
+The [integrated receipt](../assets/representation-surfaces-session-camera/c5-checkpoint.json)
+retains **182 unique native passes / 25 existing registered exclusions** across
+explicit development invocations. Every observed failing case is corrected and
+has a later passing result; there are no automatic retries or new case exclusions.
+The final complete viewer invocation passes **23 / 5 existing exclusions**, and
+all 100 selected mobile cases finish **78 passes / 22 existing exclusions**.
+Earlier partial commands remain diagnostics, not complete frozen qualification.
+
+The integration work adapts old test assumptions to the accepted behavior:
+
+- Pixel/picking fixtures explicitly frame their own final drawable specimen.
+  Preparation, inspection, ordinary synchronization and camera feature tests remain
+  camera-neutral. A short protein chain absent from default cartoon geometry is
+  framed only after the fixture's final ball-and-stick definition is installed.
+- Native movement observers inspect installed combined entry representations and
+  explicitly await worker/upload completion. Coordinate-cancellation measurement
+  stays independent of later surface regeneration. Selection observation uses the
+  public drawable subscription instead of a retired initial-fit flag.
+- End-to-end creation follows the shared chooser. Surface readiness is installation
+  state, not an obsolete unit-provider message. Channel assertions preserve exact
+  polymer/surface geometry while verifying that all atomic detail disappears.
+  Tile geometry checks target the actual grid, separately from new scoped resets.
+- Molecular-request observations distinguish the independent presentation endpoint
+  while retaining exact project/history/structure assertions. The notice test title
+  now describes that scope. Hover retirement tests request a genuinely fresh
+  immutable molecular frame; identical synchronization correctly preserves visuals.
+- The legacy surface-object native file now passes strict TypeScript and typed
+  ESLint without suppressions. Runtime-equivalence checking preserves interactions,
+  assertions, payloads, existing exclusions and timing limits.
+
+Full Python qualification found **1,539 passes / two failures / zero skips**:
+new `workspace_presentation` lacked the required historical namespace forwarding
+module. The repository-standard alias fixes both import orders; all **eight**
+namespace compatibility tests pass. Unaffected Python results are retained; this
+is not described as a clean final-version full run. Final frontend qualification
+passes **723 tests / 84 files**, lint, types and build; Ruff/mypy **204** sources,
+production/passive-entry/license audit and strict surface-native checks pass.
+The existing renderer chunk warning remains nonblocking.
+
+[Actual tagged-reader preflight](../assets/representation-surfaces-session-camera/c5-preversion-reader.json)
+verifies all **754** selected v0.29.0 source identities and eight separate actual
+producer/reader commands, both directions and archive suffixes. Fixtures now retain
+representative atomic/polymer styles, colors, explicit hydrogen overrides and
+nondefault appearances for all three surface kinds. Full portable scene records,
+including camera and entry settings, are compared after only documented identity
+remapping. Three copied-corruption controls reject changed scene cameras and
+surface appearances. Imported helper provenance is checked after lazy imports.
+The current reader upgrades old-produced 0014 stores to 0015 before reading; the
+old reader never runs its Alembic on a newer store. Both applications use quick
+implementation 1.0.3/current-canonical policy. This remains **pre-version 0.29.0**
+development evidence and must repeat with the final 0.30.0 producer.
+
+Seven independent early specialist agent assessments PASS the full C1–C4 runtime
+and inspected C5 changes; final C6 same-candidate reconfirmation is still mandatory.
+They independently ran focused scientific, ownership, workflow and UI tests and
+checked retained native/source hashes. The primary integrated suite additionally
+caught and corrected the missing compatibility alias. A narrow architecture
+follow-up confirms that detached presentation streams the owning canvas's pixels,
+so nondefault FOV needs no second camera wire contract. Optional P3 feedback polish
+(shared input validation can expose an unrelated source-context Retry action) is
+nonblocking and deferred without a speculative extra issue.
+
+Five feature-specific release tools now define **33** explicit steps: the complete
+release gate, full browser inventory, audits, legacy CLI, actual preceding readers
+and current upgrades before reverse reads. They preserve all historical migration
+bytes, require only new 0015, clear inherited datastore aliases including
+`DATABASE_URL`, and compare exact prior exclusion identities. Current inventory is
+**516** cases; final execution and counts remain unclaimed. Native production
+budgets, scientific fixtures, dependency locks and portable timing policy remain
+unchanged. Source/log hashes, failed-attempt contexts and successful observations
+are retained; raw browser RPC scratch/trace data is not a portable qualification
+artifact.
+
+Fresh fetch confirms unchanged origin/master `a1f2e2fd`; stable latest remains
+v0.29.0 and v0.30.0 is available. Merge commits are enabled and automatic branch
+deletion is disabled. All five application versions remain 0.29.0 at this
+checkpoint. No further durable-schema or architectural decision is needed.
+Known remaining work: C6 final-version frozen candidate/readers/full gate/final
+seven-role reconfirmation, then C7 protected delivery, exact-master gate,
+publication, one styling follow-up, issue reply and cleanup. Blockers requiring
+user input: none. Next: **C6, stable minor 0.30.0**. No application push, PR,
+merge, tag or release is claimed.

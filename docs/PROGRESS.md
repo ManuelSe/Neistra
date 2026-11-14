@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C4 implemented and qualified; C5 in progress** under the
+Issue #140 — **C1–C5 complete; C6 release preparation next** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
 The `/goal` authorizes complete delivery; the PR must use Closes #140. Application
 changes remain local pending the final seven-role gate.
@@ -26,11 +26,25 @@ all old rows and artifact bytes; camera changes preserve molecular history/Redo.
 records hashes, corrections, diagnostics and reuse. Architecture/performance
 correction assessments pass; final all-seven assessment remains required.
 
-Known limitations: C5 full integrated originals/archives/scientific/native and test
-consolidation work, C6 final-version clean gate/tagged readers/all-seven assessment,
+C5 evidence: **182 unique native passes / 25 unchanged registered exclusions**
+across documented development invocations; final mobile command **78 passes / 22
+existing exclusions** and final viewer command **23 passes / 5 exclusions**.
+All observed failures are corrected and requalified. Full Python: 1,539 passes and
+two missing-compatibility-alias failures; the standard forwarding alias fixes both,
+and all eight namespace tests pass. Unaffected Python results are retained rather
+than presented as a clean final-version run. Final frontend **723 / 84 files**,
+lint/types/build, Ruff/mypy204, production/license audit and strict surface-native
+typing/lint pass. Actual tagged **0.29.0** readers pass both directions and suffixes
+with enriched styles, surface appearances, full scenes and corruption controls.
+[C5 receipt](assets/representation-surfaces-session-camera/c5-checkpoint.json) and
+[reader evidence](assets/representation-surfaces-session-camera/c5-preversion-reader.json)
+retain commands, lossless logs, hashes and diagnostic boundaries. Seven early
+specialist assessments PASS; final same-candidate reconfirmation remains required.
+
+Known limitations: C6 final-version clean gate/tagged readers/all-seven assessment,
 and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup
 remain. No strict timing gain or power-loss-proof recovery claim. Blockers: none
-requiring user input. Next: C5. The feature plan remains the detailed source of
+requiring user input. Next: C6, stable minor **0.30.0**. The feature plan remains the detailed source of
 truth; no application push, PR or release is claimed.
 
 ### Approved planning checkpoint — issue #140 C0

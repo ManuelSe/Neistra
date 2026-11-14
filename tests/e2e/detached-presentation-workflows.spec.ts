@@ -97,7 +97,10 @@ test("mirrors appearance, surfaces, interaction markers, isolation, visibility a
   await change(() => page.getByRole("checkbox", { name: "Show non-polar hydrogens", exact: true }).click());
   await change(() => page.getByRole("checkbox", { name: "Show hydrogens", exact: true }).click());
   await page.getByLabel("Add representation").selectOption("surface");
-  await expect(page.locator(".surface-object-status")).toContainText("Native surface ready", { timeout: 30000 });
+  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
+  await expect(manager.getByRole("button", { name: "Whole entry", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await manager.getByRole("button", { name: "Create entry surface", exact: true }).click();
+  await expect(manager.locator('.surface-object-status[data-state="ready"]')).toHaveCount(1, { timeout: 30000 });
   await page.getByRole("button", { name: "Close surfaces" }).click();
   await expectMirror(page, child);
   await page.locator(`[data-entry-id="${project.entries[0].id}"] .entry-select`).first().click();

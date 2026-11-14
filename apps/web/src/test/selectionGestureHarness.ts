@@ -60,25 +60,29 @@ export function atomPickPixel(engine: MolstarEngine, projected: { x: number; y: 
 }
 
 
-/** UI query counts can precede the committed native scene and its initial camera
- * reset. Observe that scene and a stable camera before projecting test targets.
+/** UI query counts can precede committed native geometry. Observe drawable
+ * content and a stable camera before projecting test targets.
  * No application selection, molecular state, camera or visibility is changed.
  */
 export async function settleSelectionScene(engine: MolstarEngine, expected: AtomReference): Promise<void> {
   const native = engine as unknown as { plugin: PluginUIContext; syncQueue: Promise<void>;
-    generation: number; boundGeneration: number; rebuilding: boolean; hasScene: boolean };
+    generation: number; boundGeneration: number; rebuilding: boolean };
   await native.syncQueue;
   const deadline = performance.now() + 5000;
+  let drawable = false;
+  const unsubscribe = engine.subscribeDrawable(value => { drawable = value; });
   let previous = "", stable = 0;
-  while (performance.now() < deadline) {
-    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-    const ready = native.hasScene && !native.rebuilding && native.boundGeneration === native.generation
-      && engine.getRenderedAtomReferences().some(atom => atom.structure_id === expected.structure_id && atom.atom_id === expected.atom_id)
-      && !native.plugin.canvas3d!.camera.transition.inTransition;
-    const camera = JSON.stringify(engine.getCamera());
-    stable = ready && camera === previous ? stable + 1 : 0;
-    previous = camera;
-    if (stable >= 3) return;
-  }
-  throw new Error("Native selection scene/camera did not become ready within five seconds");
+  try {
+    while (performance.now() < deadline) {
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      const ready = drawable && !native.rebuilding && native.boundGeneration === native.generation
+        && engine.getRenderedAtomReferences().some(atom => atom.structure_id === expected.structure_id && atom.atom_id === expected.atom_id)
+        && !native.plugin.canvas3d!.camera.transition.inTransition;
+      const camera = JSON.stringify(engine.getCamera());
+      stable = ready && camera === previous ? stable + 1 : 0;
+      previous = camera;
+      if (stable >= 3) return;
+    }
+    throw new Error("Native selection scene/camera did not become ready within five seconds");
+  } finally { unsubscribe(); }
 }

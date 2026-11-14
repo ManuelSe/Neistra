@@ -379,6 +379,7 @@ test("uses the compact trigger path for selection and empty clearing", async ({
   await importStructure(page, resolve(FIXTURES, "ethanol.mol"));
   const current = await readProject(request, project.id);
   const ligand = current.entries[0];
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await page
     .getByRole("combobox", { name: "Viewer picking mode" })
     .selectOption("structure");

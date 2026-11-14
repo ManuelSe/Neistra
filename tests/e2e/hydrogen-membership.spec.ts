@@ -30,6 +30,7 @@ test("keeps bonded orphan H in the ligand and enables editing an unrelated nativ
   expect(before.hierarchy.components).toHaveLength(1);
   expect(before.structure.atoms.filter(atom => atom.residue_id === null)).toHaveLength(3);
   await expect.poll(() => page.evaluate(() => window.interactionEngines?.length ?? 0)).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await page.evaluate(async () => {
     const modulePath = "/src/test/molecularEditHarness.ts";
     const { observeEditPicks } = await import(/* @vite-ignore */ modulePath);

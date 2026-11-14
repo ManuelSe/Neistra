@@ -26,7 +26,12 @@ for (const theme of ["light", "dark"] as const) test(`stacks visible chains and 
   const engines = await page.evaluate(() => window.interactionEngines.length);
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   const reads: string[] = [], writes: string[] = [];
-  page.on("request", r => { if (r.url().endsWith("/structure")) reads.push(r.url()); if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url()); });
+  page.on("request", r => {
+    if (r.url().endsWith("/structure")) reads.push(r.url());
+    // Installation view saves are independent of these molecular-state checks.
+    if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
+      && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
+  });
   const first = sequence(page).getByRole("button", { name: /GLY 10A · chain A/ }).first();
   await first.click(); await expect(first).toHaveAttribute("aria-pressed", "true");
   const references = await selected(page);

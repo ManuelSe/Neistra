@@ -1,9 +1,20 @@
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expect, test, type Locator } from "@playwright/test";
-import type { Project, StructureProjection } from "../../apps/web/src/api/types";
+import { expect, test } from "@playwright/test";
+import type { Locator } from "@playwright/test";
+import type { ImportResult, Project, StructureProjection } from "../../apps/web/src/api/types";
 import type { mountSurfaceObjectsHarness } from "../../apps/web/src/test/surfaceObjectsHarness";
+import type * as SurfaceObjectsHarnessModule from "../../apps/web/src/test/surfaceObjectsHarness";
+import type * as SelectionSurfaceHarnessModule from "../../apps/web/src/test/selectionSurfaceHarness";
+import type * as MolstarEngineModule from "../../apps/web/src/viewer/MolstarEngine";
+import type * as SurfaceClientModule from "../../apps/web/src/viewer/surface/client";
+import type { ViewerStructure } from "../../apps/web/src/viewer/MolecularViewer";
+import type { SurfaceVisualRegistry } from "../../apps/web/src/viewer/surface/objects";
+import type { PluginUIContext } from "../../apps/web/node_modules/molstar/lib/mol-plugin-ui/context";
+import type { Vec2 } from "../../apps/web/node_modules/molstar/lib/mol-math/linear-algebra";
+
+type WorkerPostMessage = (this: Worker, message: unknown, ...args: [Transferable[]] | [StructuredSerializeOptions?]) => void;
 
 declare global {
   interface Window { surfaceObjectsHarness: Awaited<ReturnType<typeof mountSurfaceObjectsHarness>> }
@@ -21,19 +32,19 @@ test("native same-entry surface objects have independent identity, colors, mesh 
   test.setTimeout(120_000);
   const created = await request.post("/api/v1/projects", { data: { name: `Surface objects C1 ${Date.now()}` } });
   expect(created.status()).toBe(201);
-  const initial: Project = await created.json();
+  const initial: Project = await created.json() as Project;
   const imported = await request.post(`/api/v1/projects/${initial.id}/imports`, {
     multipart: { expected_revision: "0", files: { name: "1stp.pdb", mimeType: "chemical/x-pdb", buffer: readFileSync(resolve("tests/fixtures/complex/1stp.pdb")) } },
   });
   expect(imported.status()).toBe(201);
-  const project: Project = (await imported.json()).project;
+  const project: Project = (await imported.json() as ImportResult).project;
   const entry = project.entries[0];
-  const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
-  const persisted = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json() as StructureProjection;
+  const persisted = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
   await page.goto("/selection-surface-test.html");
   await page.evaluate(async ({ entry, projection }) => {
     const path = "/src/test/surfaceObjectsHarness.ts";
-    const { mountSurfaceObjectsHarness } = await import(/* @vite-ignore */ path);
+    const { mountSurfaceObjectsHarness } = await import(/* @vite-ignore */ path) as typeof SurfaceObjectsHarnessModule;
     const container = document.createElement("div");
     Object.assign(container.style, { position: "fixed", inset: "0", zIndex: "9999" });
     document.body.appendChild(container);
@@ -126,7 +137,7 @@ test("native same-entry surface objects have independent identity, colors, mesh 
     for (let i = 0; i < pixels.length; i += 4) if (pixels[i + 1] > pixels[i] + 30 && pixels[i + 1] > pixels[i + 2] + 30) green++;
     return green;
   })).toBeGreaterThan(20);
-  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persisted);
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project).toEqual(persisted);
   const evidence = JSON.stringify({ before, selected, changed });
   writeFileSync(info.outputPath("surface-object-primitives.json"), evidence);
   await info.attach("surface-object-primitives.json", { body: evidence, contentType: "application/json" });
@@ -138,8 +149,8 @@ test("native same-entry surface objects have independent identity, colors, mesh 
 test("manages production object appearance and explicit sources independently through reload and undo", async ({ page, request }, info) => {
   test.setTimeout(120_000);
   await page.addInitScript(() => {
-    const original = Worker.prototype.postMessage;
-    const terminate = Worker.prototype.terminate;
+    const original = Reflect.get(Worker.prototype, "postMessage") as WorkerPostMessage;
+    const terminate = Reflect.get(Worker.prototype, "terminate") as (this: Worker) => void;
     const active = new Set<Worker>();
     const stats = window as unknown as { surfaceCalculations: number; surfaceActive: number; surfaceMaximum: number };
     stats.surfaceCalculations = 0; stats.surfaceActive = 0; stats.surfaceMaximum = 0;
@@ -147,19 +158,19 @@ test("manages production object appearance and explicit sources independently th
       active.delete(this); stats.surfaceActive = active.size;
       return terminate.call(this);
     };
-    Worker.prototype.postMessage = function(message: unknown, ...args: [Transferable[]] | [StructuredSerializeOptions] | []) {
+    Worker.prototype.postMessage = function(message: unknown, ...args: [Transferable[]] | [StructuredSerializeOptions?]) {
       if (message && typeof message === "object" && "x" in message && message.x instanceof Float64Array) {
         stats.surfaceCalculations++; active.add(this); stats.surfaceActive = active.size;
         stats.surfaceMaximum = Math.max(stats.surfaceMaximum, active.size);
       }
-      return Reflect.apply(original, this, [message, ...args]);
+      return original.call(this, message, ...args);
     };
   });
-  let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Managed surfaces ${Date.now()}` } })).json();
+  let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Managed surfaces ${Date.now()}` } })).json() as Project;
   const imported = await request.post(`/api/v1/projects/${project.id}/imports`, { multipart: {
     expected_revision: "0", files: { name: "protein_editing.pdb", mimeType: "chemical/x-pdb", buffer: readFileSync("tests/fixtures/formats/protein_editing.pdb") },
   } });
-  expect(imported.status()).toBe(201); project = (await imported.json()).project;
+  expect(imported.status()).toBe(201); project = (await imported.json() as ImportResult).project;
   const entry = project.entries[0];
   const created = await request.post(`/api/v1/projects/${project.id}/surfaces`, { data: { expected_revision: project.revision, surfaces: [
     { entry_id: entry.id, name: "Whole receptor", source: { kind: "entry" } },
@@ -168,7 +179,7 @@ test("manages production object appearance and explicit sources independently th
     { entry_id: entry.id, name: "Pocket A", source: { kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: entry.id, atom_id: 1 }] } },
     { entry_id: entry.id, name: "Pocket B", source: { kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: entry.id, atom_id: 10 }] } },
   ] } });
-  expect(created.status()).toBe(200); project = await created.json();
+  expect(created.status()).toBe(200); project = await created.json() as Project;
   const saved = structuredClone(project.entries[0].viewer_settings.surface_objects);
   const originalBytes = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/original`)).body();
   await page.goto("/");
@@ -195,7 +206,7 @@ test("manages production object appearance and explicit sources independently th
   await appearanceSaved(manager);
   await expect(manager.locator(".surface-object-status").filter({ hasText: /ready/ })).toHaveCount(5);
   expect(await calculations()).toBe(initialCalculations); expect(reads).toBe(0);
-  let current: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  let current: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
   expect(current.revision).toBe(project.revision + 3); // One command per completed control gesture.
   const objects = current.entries[0].viewer_settings.surface_objects;
   expect(objects[1].appearance).toMatchObject({ color_by: "custom", mode: "mesh", opacity: 0.3, inherit_atom_colors: false });
@@ -213,7 +224,7 @@ test("manages production object appearance and explicit sources independently th
   await expect(manager.getByText("Unapplied changes", { exact: false })).toBeVisible();
   await manager.getByRole("button", { name: "Apply source", exact: true }).click();
   await expect.poll(async () => {
-    current = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    current = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
     const source = current.entries[0].viewer_settings.surface_objects[1].source;
     return source.kind === "fragment" ? source.atom_ids.length : 0;
   }).toBe(22);
@@ -228,14 +239,14 @@ test("manages production object appearance and explicit sources independently th
   await manager.getByLabel("Surface pocket radius").fill("5.5");
   await manager.getByRole("button", { name: "Apply source", exact: true }).click();
   await expect.poll(async () => {
-    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
     const source = latest.entries[0].viewer_settings.surface_objects[3].source;
     return source.kind === "pocket" ? source.radius : 0;
   }).toBe(5.5);
   await manager.getByRole("button", { name: "Capture seeds from selection" }).click();
   await manager.getByRole("button", { name: "Apply source", exact: true }).click();
   await expect.poll(async () => {
-    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
     expect(latest.entries[0].viewer_settings.surface_objects[4]).toEqual(saved[4]);
     const source = latest.entries[0].viewer_settings.surface_objects[3].source;
     return source.kind === "pocket" ? source.seed_atom_references.length : 0;
@@ -244,7 +255,7 @@ test("manages production object appearance and explicit sources independently th
   // Undo explicit seed replacement, radius replacement, then fragment replacement.
   for (let i = 0; i < 3; i++) await page.getByRole("button", { name: /^Undo:/ }).click();
   await expect.poll(async () => {
-    const restored: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    const restored: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
     return restored.entries[0].viewer_settings.surface_objects[1].source;
   }).toEqual(saved[1].source);
   const readsBeforeReload = reads;
@@ -259,9 +270,9 @@ test("manages production object appearance and explicit sources independently th
   // Inspect native pick identity in this test only, then send a real pointer event.
   await page.evaluate(async () => {
     const path = "/src/viewer/MolstarEngine.ts";
-    const { MolstarEngine } = await import(/* @vite-ignore */ path);
-    const original = MolstarEngine.prototype.setActiveSurface;
-    MolstarEngine.prototype.setActiveSurface = function(...args) {
+    const { MolstarEngine } = await import(/* @vite-ignore */ path) as typeof MolstarEngineModule;
+    const original = Reflect.get(MolstarEngine.prototype, "setActiveSurface");
+    MolstarEngine.prototype.setActiveSurface = function(...args: Parameters<typeof original>) {
       (window as unknown as { managedEngine: unknown }).managedEngine = this;
       return original.apply(this, args);
     };
@@ -285,13 +296,13 @@ test("manages production object appearance and explicit sources independently th
   });
   await appearanceSaved(manager);
   await expect.poll(async () => {
-    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    const latest: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
     return latest.entries[0].viewer_settings.surface_objects[0].appearance.custom_color;
   }).toBe("#00ff00");
   const readNativeDisplay = () => page.evaluate(async id => {
     const engine = (window as unknown as { managedEngine: {
       setActiveSurface(value: null): void;
-      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
+      plugin: PluginUIContext;
       syncQueue: Promise<void>;
     } }).managedEngine;
     await engine.syncQueue;
@@ -318,12 +329,12 @@ test("manages production object appearance and explicit sources independently th
   expect(await calculations()).toBe(workerCountBeforeNativeStyle);
   await manager.getByRole("button", { name: "Close surfaces" }).click();
   const selectionBeforeClick = await page.locator(".viewer-status").textContent();
-  const persistedBeforeClick: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const persistedBeforeClick: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
   const pick = await page.evaluate(wantedId => {
     const engine = (window as unknown as { managedEngine: {
       getCamera(): unknown;
-      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
-      surfaceVisuals: import("../../apps/web/src/viewer/surface/objects").SurfaceVisualRegistry;
+      plugin: PluginUIContext;
+      surfaceVisuals: SurfaceVisualRegistry;
     } }).managedEngine;
     const canvas = engine.plugin.canvas3d!;
     const element = canvas.webgl.gl.canvas as HTMLCanvasElement;
@@ -340,7 +351,7 @@ test("manages production object appearance and explicit sources independently th
       // reachable point rather than a half-pixel center on a thin wireframe.
       const rect = element.getBoundingClientRect();
       const clientX = Math.round(rect.left + x * rect.width), clientY = Math.round(rect.top + y * rect.height);
-      const point = new Float32Array([clientX - rect.left, clientY - rect.top]) as unknown as import("molstar/lib/mol-math/linear-algebra").Vec2;
+      const point = new Float32Array([clientX - rect.left, clientY - rect.top]) as unknown as Vec2;
       const hit = canvas.identify(point);
       const identity = engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
       if (identity?.surfaceId === wantedId) return { x, y, clientX, clientY, identity, camera: engine.getCamera() };
@@ -356,8 +367,8 @@ test("manages production object appearance and explicit sources independently th
   // Keep the old native pixels visible while a subsequent structural rebuild waits.
   await page.evaluate(() => {
     const engine = (window as unknown as { managedEngine: {
-      syncQueue: Promise<void>; structures: import("../../apps/web/src/viewer/MolecularViewer").ViewerStructure[];
-      syncStructures(value: import("../../apps/web/src/viewer/MolecularViewer").ViewerStructure[]): Promise<void>;
+      syncQueue: Promise<void>; structures: ViewerStructure[];
+      syncStructures(value: ViewerStructure[]): Promise<void>;
     } }).managedEngine;
     let release!: () => void;
     const gate = new Promise<void>(resolve => { release = resolve; });
@@ -394,19 +405,19 @@ test("manages production object appearance and explicit sources independently th
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   const rebuiltNativeHit = await page.evaluate(point => {
     const engine = (window as unknown as { managedEngine: {
-      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
-      surfaceVisuals: import("../../apps/web/src/viewer/surface/objects").SurfaceVisualRegistry;
+      plugin: PluginUIContext;
+      surfaceVisuals: SurfaceVisualRegistry;
     } }).managedEngine;
     const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
     const rect = element.getBoundingClientRect();
-    const hit = canvas.identify(new Float32Array([point.clientX - rect.left, point.clientY - rect.top]) as unknown as import("molstar/lib/mol-math/linear-algebra").Vec2);
+    const hit = canvas.identify(new Float32Array([point.clientX - rect.left, point.clientY - rect.top]) as unknown as Vec2);
     return engine.surfaceVisuals.identityFor(canvas.getLoci(hit?.id).repr);
   }, pick!);
   expect(rebuiltNativeHit).toEqual(pick!.identity);
   await page.evaluate(() => {
     const engine = (window as unknown as { managedEngine: {
-      plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext;
-      surfaceVisuals: import("../../apps/web/src/viewer/surface/objects").SurfaceVisualRegistry;
+      plugin: PluginUIContext;
+      surfaceVisuals: SurfaceVisualRegistry;
     } }).managedEngine;
     const state = window as unknown as { managedClickEvidence: unknown[] };
     state.managedClickEvidence = [];
@@ -422,10 +433,10 @@ test("manages production object appearance and explicit sources independently th
   const pickedName = saved.find(surface => surface.id === pick!.identity.surfaceId)!.name;
   await expect(manager.locator('.surface-object[data-active="true"] .surface-object-label')).toContainText(pickedName);
   expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
-  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persistedBeforeClick);
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project).toEqual(persistedBeforeClick);
   expect(await page.evaluate(() => (window as unknown as { managedEngine: { getCamera(): unknown } }).managedEngine.getCamera())).toEqual(pick!.camera);
   const nativeMarkerCounts = await page.evaluate(id => {
-    const engine = (window as unknown as { managedEngine: { plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext } }).managedEngine;
+    const engine = (window as unknown as { managedEngine: { plugin: PluginUIContext } }).managedEngine;
     const cell = [...engine.plugin.state.data.cells.values()].find(item => item.transform.tags?.includes(`neistra-representation-surface-${id}`));
     const repr = cell?.obj?.data as { repr: { renderObjects: { values: {
       uGroupCount: { ref: { value: number } }; instanceCount: { ref: { value: number } };
@@ -445,9 +456,9 @@ test("manages production object appearance and explicit sources independently th
   // neither activate an object nor fall through to molecular atom selection.
   await page.evaluate(id => {
     const state = window as unknown as { managedEngine: {
-      syncQueue: Promise<void>; structures: import("../../apps/web/src/viewer/MolecularViewer").ViewerStructure[];
-      syncStructures(value: import("../../apps/web/src/viewer/MolecularViewer").ViewerStructure[]): Promise<void>;
-      loadStructure(value: import("../../apps/web/src/viewer/MolecularViewer").ViewerStructure): Promise<void>;
+      syncQueue: Promise<void>; structures: ViewerStructure[];
+      syncStructures(value: ViewerStructure[]): Promise<void>;
+      loadStructure(value: ViewerStructure): Promise<void>;
       surfaces: { requests: Map<string, { geometry?: object }>; statuses(): { state: string }[] };
     }; surfaceCalculations: number; narrowRemovalStatus: string; finishNarrowRemoval: () => void;
       restoreNarrowRemoval: () => Promise<{ loads: number; workersBefore: number; workersAfterRemoval: number; workersAfterRestore: number; otherGeometryRetained: boolean }> };
@@ -486,17 +497,17 @@ test("manages production object appearance and explicit sources independently th
   expect(narrowRemoval.loads).toBe(0); expect(narrowRemoval.otherGeometryRetained).toBe(true);
   expect(narrowRemoval.workersAfterRemoval).toBe(narrowRemoval.workersBefore);
   expect(narrowRemoval.workersAfterRestore).toBe(narrowRemoval.workersBefore + 1);
-  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persistedBeforeClick);
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project).toEqual(persistedBeforeClick);
   writeFileSync(info.outputPath("managed-surface-appearance.json"), JSON.stringify({ initialCalculations, readsBeforeReload, nativeDisplay, nativeGreenPixels: nativeGreenPixelCount, nativeMarkerCounts, workerCountBeforeNativeStyle, rebuildStatusesBeforeInstallation, rebuiltNativeHit, narrowRemoval, savedObjectIds: saved.map(surface => surface.id), finalObjectIds: current.entries[0].viewer_settings.surface_objects.map(surface => surface.id) }, null, 2));
 });
 
 test("keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts", async ({ page, request }, info) => {
   test.setTimeout(120_000);
-  let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Surface access ${Date.now()}` } })).json();
+  let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Surface access ${Date.now()}` } })).json() as Project;
   const uploaded = await request.post(`/api/v1/projects/${project.id}/imports`, { multipart: {
     expected_revision: "0", files: { name: "ethanol.mol", mimeType: "chemical/x-mdl-molfile", buffer: readFileSync("tests/fixtures/formats/ethanol.mol") },
   } });
-  expect(uploaded.status()).toBe(201); project = (await uploaded.json()).project;
+  expect(uploaded.status()).toBe(201); project = (await uploaded.json() as ImportResult).project;
   const name = "Long captured fragment name with meaningful words ".repeat(3).slice(0, 120);
   const created = await request.post(`/api/v1/projects/${project.id}/surfaces`, { data: { expected_revision: project.revision,
     surfaces: Array.from({ length: 16 }, (_, index) => ({ entry_id: project.entries[0].id,
@@ -564,36 +575,36 @@ test("keeps manager controls keyboard reachable, bounded and accessible with lon
 
 test("keeps queued same-entry surface inputs lazy and valid across a renderer rebuild", async ({ page, request }, info) => {
   test.setTimeout(120_000);
-  const initial: Project = await (await request.post("/api/v1/projects", { data: { name: `Queued surfaces ${Date.now()}` } })).json();
+  const initial: Project = await (await request.post("/api/v1/projects", { data: { name: `Queued surfaces ${Date.now()}` } })).json() as Project;
   const uploaded = await request.post(`/api/v1/projects/${initial.id}/imports`, { multipart: {
     expected_revision: "0", files: { name: "1stp.pdb", mimeType: "chemical/x-pdb", buffer: readFileSync("tests/fixtures/complex/1stp.pdb") },
   } });
   expect(uploaded.status()).toBe(201);
-  const project: Project = (await uploaded.json()).project, entry = project.entries[0];
-  const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
+  const project: Project = (await uploaded.json() as ImportResult).project, entry = project.entries[0];
+  const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json() as StructureProjection;
   await page.goto("/selection-surface-test.html");
   const result = await page.evaluate(async ({ entry, projection }) => {
     const harnessPath = "/src/test/selectionSurfaceHarness.ts", clientPath = "/src/viewer/surface/client.ts";
-    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ harnessPath);
-    const { SurfaceCalculator } = await import(/* @vite-ignore */ clientPath);
+    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ harnessPath) as typeof SelectionSurfaceHarnessModule;
+    const { SurfaceCalculator } = await import(/* @vite-ignore */ clientPath) as typeof SurfaceClientModule;
     const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
     const settings = structuredClone(entry.viewer_settings); settings.representations = [];
     const harness = await mountProductionSurfaceHarness(container, { entryId: entry.id, label: entry.name, projection: projection.viewer,
       atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings });
-    const originalCompute = SurfaceCalculator.prototype.compute;
+    const originalCompute = Reflect.get(SurfaceCalculator.prototype, "compute");
     let descriptors = 0, extractions = 0;
-    SurfaceCalculator.prototype.compute = function(input, ...args) {
+    SurfaceCalculator.prototype.compute = function(input: Parameters<typeof originalCompute>[0], ...args: [signal: AbortSignal, progress?: (message: string) => void]) {
       descriptors++;
       if (typeof input !== "function") throw new Error("Production queued a materialized calculation input");
       return originalCompute.call(this, () => { extractions++; return input(); }, ...args);
     };
-    const post = Worker.prototype.postMessage;
+    const post = Reflect.get(Worker.prototype, "postMessage") as WorkerPostMessage;
     let release!: () => void, held = false;
-    Worker.prototype.postMessage = function(message, ...args) {
+    Worker.prototype.postMessage = function(message: unknown, ...args: [Transferable[]] | [StructuredSerializeOptions?]) {
       if (!held && message && typeof message === "object" && "x" in message) {
-        held = true; release = () => Reflect.apply(post, this, [message, ...args]); return;
+        held = true; release = () => post.call(this, message, ...args); return;
       }
-      return Reflect.apply(post, this, [message, ...args]);
+      return post.call(this, message, ...args);
     };
     const seed = projection.structure.atoms[0];
     harness.source.settings.surface_objects = ["fragmentA", "fragmentB", "pocketA", "pocketB"].map(id => ({

@@ -116,6 +116,7 @@ test("expands from styling across hidden entries without durable changes", async
   await upload.getByRole("button", { name: "Import", exact: true }).click();
   await expect(upload).toBeHidden({ timeout: 30_000 });
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 45_000 });
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   const original = project.entries[0];
   const row = page.locator(`.entry-row[data-entry-id="${original.id}"]`);

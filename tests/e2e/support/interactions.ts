@@ -25,6 +25,14 @@ export async function prepare(page: Page, request: APIRequestContext, fixtures: 
   return await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
 }
 
+// Pixel and picking fixtures request their own framing; preparation and inspection
+// leave the shared application camera untouched.
+export async function frameFixture(page: Page) {
+  await expect.poll(() => page.evaluate(() => window.interactionEngines?.at(-1)?.getRenderedAtomReferences().length ?? 0)).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+}
+
 export const native = (page: Page) => page.evaluate(async () => {
   const { inspectInteractions } = await import("/src/test/interactionHarness.ts");
   return inspectInteractions(window.interactionEngines.at(-1)!);

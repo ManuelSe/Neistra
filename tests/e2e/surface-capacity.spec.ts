@@ -76,6 +76,9 @@ for (const fixture of ["6vxx", "1aon", "synthetic-100k"]) {
         await h.sync([h.source]);
         const readyMs = performance.now() - started;
         await new Promise((resolve) => setTimeout(resolve, 100)); observer.disconnect();
+        // Frame after both calculation and long-task measurements have ended.
+        h.engine.fitVisible();
+        await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
         const geometry = h.geometry(entry.id);
         if (!geometry) throw new Error(JSON.stringify(h.inspect().statuses));
         const canvas = container.querySelector("canvas")!;

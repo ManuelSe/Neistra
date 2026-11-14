@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import type { Project } from "../../apps/web/src/api/types";
 import { newEmptyProject, observe, previewState } from "./support/modeling";
-import { cyanPixels } from "./support/interactions";
+import { cyanPixels, frameFixture } from "./support/interactions";
 
 test("reveals a nonpickable placement with reachable controls in both themes and narrow layouts", async ({ page, request }, info) => {
   test.setTimeout(120000);
@@ -14,6 +14,7 @@ test("reveals a nonpickable placement with reachable controls in both themes and
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
   await expect(panel).toBeVisible();
   const current = await (await request.get(`/api/v1/projects/${initial.id}`)).json() as Project;
+  await frameFixture(page);
   await panel.getByText("Add atom", { exact: true }).click();
   await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();

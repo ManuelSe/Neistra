@@ -215,6 +215,8 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       if (!hydrogen) settings.selection_colors = [{ color: "#ff00ff", atom_ids: [1, 2] }, { color: "element", atom_ids: [3] }];
       window.productionSurface = await mountProductionSurfaceHarness(container, { entryId: entry.id, label: entry.name,
         projection: projection.viewer, atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings });
+      window.productionSurface.engine.fitVisible();
+      await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
       return window.productionSurface.inspect();
     }, { entry, projection, hydrogen });
     expect(initialState.meshes).toEqual([`fragment:${entry.id}`]);

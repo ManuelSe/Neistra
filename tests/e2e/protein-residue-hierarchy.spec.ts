@@ -52,6 +52,7 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   await page.reload(); await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
   const themeButton = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
   if (await themeButton.count()) await themeButton.click();
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await observe(page);
   await page.evaluate(async entryId => {
     const path = "/src/test/selectionGestureHarness.ts";
@@ -62,7 +63,12 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   const point = (id: number) => page.evaluate(xyz => window.editingPicks.point(xyz), projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
   const camera = await page.evaluate(() => window.editingPicks.camera());
   const reads: string[] = [], writes: string[] = [];
-  page.on("request", r => { if (r.url().endsWith("/structure")) reads.push(r.url()); if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url()); });
+  page.on("request", r => {
+    if (r.url().endsWith("/structure")) reads.push(r.url());
+    // Installation view saves are independent of these molecular-state checks.
+    if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
+      && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
+  });
   await canvas.click({ position: await point(6) });
   await expect.poll(() => selected(page)).toEqual(refs(entry.id, [6]));
   if (mobile) await page.getByRole("button", { name: "Project browser", exact: true }).click();
