@@ -3,7 +3,7 @@
 ## Current milestone
 
 Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1/C2 locally
-verified; C3 next** under the explicit `/goal`. The
+verified; C3 release preparation** under the explicit `/goal`. The
 [feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md) owns detail.
 C1 fixes surface toggling/empty clearing/passive picking and marking, including
 canonical creation activation. C2 adds the prominent H icon, graph-attached H
@@ -20,9 +20,10 @@ seven-role review and complete candidate/exact-master gates remain pending.
 
 Known limits: large-scene preference changes retain the existing conservative
 renderer path; observed warm actions take1.87–4.70sdesktop/2.58–5.21smobile with
-zero repeat structure reads. No speedup/strict-host claim. Versions remain0.30.0;
-no schema/API/migration/dependency change. Blockers:none for C3. Next:commit C2,
-prepare0.31.0, qualify final committed candidate and actual tagged readers.
+zero repeat structure reads. No speedup/strict-host claim. All five authoritative versions now prepare 0.31.0;
+no schema/API/migration/dependency change. C1/C2 commits are 0fd897e3/90aee46e.
+Blockers: none. Next: qualify the clean final-version candidate and actual tagged
+readers, then obtain all seven same-candidate specialist assessments.
 No implementation push, PR or release yet. PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0

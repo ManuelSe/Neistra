@@ -485,3 +485,24 @@ Known limitations: C3 final-version complete gate/actual v0.30.0 readers and C4
 delivery remain. No schema/API/migration/dependency or version change yet;
 versions remain0.30.0. Blockers:none for C3. Next:commit C2, prepare stable0.31.0
 and qualify the committed final-version candidate. Implementation is not ready to push.
+
+
+### 2026-11-14 — C3 release preparation
+
+C1/C2 are committed as `0fd897e3`/`90aee46e`. A fresh fetch confirms master
+remains `923fc2497cff0dc8bd23bf94d2631e8c5bf38b33`; v0.30.0 is the latest stable
+release and v0.31.0 has no remote collision. All five authoritative version files
+prepare stable minor 0.31.0 for the new graph-attached-H authoring workflow.
+No persisted or REST contract, dependency or migration changes; head remains0015.
+The compatibility regression preserves historical producer cases and adds0.30.0.
+
+The explicit33-step recipe, runner, audit and summary tools are adapted from the
+preceding release without dropping gates, budgets or exclusions. Actual v0.30.0
+source is extracted from tagged runtime851ccf34;786source identities match Git.
+Tool ASTs and five-version/schema/dependency/migration audit pass. User and release
+documentation describes the implemented outcomes and retained measured limits;
+reader/full-gate/final-review publication assertions remain explicitly pending.
+
+Next: commit the recipe and release preparation, run the clean final-version gate,
+inspect complete diff and obtain seven read-only specialist assessments covering
+the same final candidate. No implementation push, PR, merge or release is claimed.

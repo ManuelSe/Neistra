@@ -162,6 +162,11 @@ representation or color swatch immediately, choose **All atoms** or **Carbon onl
 or use **Surface → Create / Manage**. Representation, surface, color and hydrogen
 changes remain independently reversible. Scientific help stays on demand.
 
+The prominent **H** icon below Atom detail switches All/Polar hydrogen
+preferences for existing selected H and H directly bonded to selected heavy
+atoms. A separate reset restores entry settings. It preserves molecular selection
+and creates no atoms; master hydrogen visibility remains an independent gate.
+
 Fragment surfaces enclose the selected atoms alone. Cut boundaries can create artificial
 faces; they are not context-aware patches. The fixed profile uses a 1.4 Å probe,
 0.5 Å grid and independently editable appearance. Visibility and hydrogen
@@ -170,8 +175,11 @@ See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
 Use **Manage surfaces** to activate, rename, hide, remove and restyle entry,
-fragment and pocket objects. Click/tap a surface to activate it independently of
-atom selection; choose **Select source atoms** when you want its molecular source.
+fragment and pocket objects. Activate a manager row to edit its object; activate
+the row again or click empty viewer space to deselect it. Surfaces remain visible
+and outline-free. Viewer picks reach molecular geometry through surfaces using
+the current granularity/modifiers; shell-only pixels act as empty space. Choose
+**Select source atoms** when you want the object's molecular source.
 See the [surface workflow](docs/SURFACES.md).
 
 Back up the complete managed database and artifacts before upgrading. Migration

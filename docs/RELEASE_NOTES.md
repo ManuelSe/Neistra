@@ -1,5 +1,56 @@
 # Neistra Release Notes
 
+## 0.31.0 — Surface selection and prominent hydrogen visibility
+
+**Prepared candidate; publication and final qualification pending.** Stable minor
+from 0.30.0: graph-attached-H authoring adds user-visible functionality alongside
+surface corrections. The [issue #145 contract](plans/issue-145-surface-selection-hydrogen-toggle.md)
+and D-156/D-157 record approved scope and evidence. No tag/release is claimed yet.
+
+**Highlights and fixes.** The surface manager toggles its active row off; ordinary
+empty viewer clicks clear activation even with no molecular selection. Managed
+solid, mesh and fallback visuals are nonpickable and unmarked. Molecular geometry
+remains pickable through surfaces with the current granularity/modifiers; a shell
+pixel with no molecule behind it acts as empty space. Source drafts and appearance
+publication recovery remain intact. Canonical-entry reconciliation also prevents
+newly created pockets losing activation before asynchronous UI publication.
+
+The main representation panel now has a prominent original H icon before Polymer,
+with All/Polar/Mixed state, keyboard/touch access and secondary inheritance reset.
+Targets include existing selected element-H atoms and element-H neighbors directly
+bonded to selected heavy atoms in the current graph. Hidden H remains eligible; global molecular
+selection is unchanged. Captured project/epoch/seed/artifact guards reject stale
+actions before dispatch and after mutation preflight. Existing Undo/Redo, master
+visibility, complete-projection polarity classification, scenes and reload remain.
+
+**Data, upgrade and rollback.** No new migration or dependency. Head remains 0015;
+project/viewer/archive stay 2 and normalized/selection/component stay 1. The H control
+submits explicit targets through the unchanged appearance API. Preserve original
+uploads and back up the complete managed store before deployment changes. Actual
+v0.30.0↔0.31.0 reader qualification and exact-master publication checks are pending;
+older interfaces retain their older interaction behavior. No schema downgrade is
+needed from 0.30.0; earlier migration downgrade guards remain binding.
+
+**Verification.** Local C1/C2 checkpoint evidence includes 760 frontend cases,
+26 focused API regressions, both-layout native surface/picking/H workflows,200 real
+picking actions, actual 200%/320px/theme/accessibility checks and independent
+scientific/architecture/UI/performance assessments. These are checkpoint results,
+not complete release qualification. Clean final-version candidate/exact-master
+gates, actual tagged readers and all-seven final implementation review remain.
+
+**Limitations and follow-up.** Hydrogen targeting uses existing normalized graph
+edges; it does not generate H, infer missing bonds, assign protonation or alter
+isotope identity. D/T element targeting remains #83. Scientific-property coloring
+and broader local appearance remain #64/#141; native picking patch maintenance is
+#107. No new follow-up issues were created. Surface activation proxies, selectable
+shells and outline preferences were rejected for this correction. New surface
+families, generic scene reconciliation and caches remain outside scope.
+
+Large-scene preference changes retain existing conservative renderer updates:
+observed warm actions in a 58,870 + 4 atom scene take 1.87–4.70 s desktop and 2.58–5.21 s mobile,
+with zero repeated structure reads. These are local observations, not speedup or
+strict-host timing claims. Surface approximations and resource limits remain.
+
 ## 0.30.0 — Representation styling, surfaces and the shared view
 
 Released from exact qualified `master` commit `851ccf34b639e3974815aede9979c22f334a5767` through [PR #142](https://github.com/ManuelSe/Neistra/pull/142) and [the entrance correction, PR #143](https://github.com/ManuelSe/Neistra/pull/143). Stable minor release from 0.29.0. The [approved plan](https://github.com/ManuelSe/Neistra/blob/master/docs/plans/issue-140-representation-surfaces-session-camera.md) retains scope decisions and checkpoint evidence.

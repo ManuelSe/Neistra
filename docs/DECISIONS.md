@@ -7140,3 +7140,15 @@ conservative non-surface renderer path. This is a material known limitation, not
 a demonstrated new regression, speedup or strict-host timing result. No broader
 scene reconciliation/cache/worker is justified within this correction. Preserve
 the existing release gates and resource limits; final seven-role review remains.
+
+
+### D-156/D-157 C3 release preparation — 2026-11-14
+
+Repository inspection reconfirms stable minor0.31.0 from0.30.0: existing attached-H
+authoring is new public functionality, while passive surfaces correct interaction.
+All five authoritative versions move together; no migration, REST/persisted schema,
+dependency or scientific-method change is required. Actual preceding tagged source
+qualification is mandatory in both producer/reader directions and archive suffixes;
+version-string compatibility tests alone are insufficient. Fresh complete candidate
+and exact merged-master gates, plus all-seven final specialist review, remain
+required before publication. This preparation does not assert those future results.
