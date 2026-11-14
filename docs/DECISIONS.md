@@ -6977,3 +6977,41 @@ changes. Retired visuals cannot activate an object or fall through into molecula
 selection. Fallback lines remain selectable objects, but only actual translucent
 meshes affect the mesh picking threshold. This is a bounded surface-specific
 path, not a general scene reconciliation framework.
+
+
+### D-154 implementation boundary — 2026-11-14
+
+Migration 0015 adds an installation singleton with an independent atomic revision;
+it does not use project commands or mutate any project/history/artifact table.
+Project/viewer/archive 2 and portable scene camera fields remain unchanged. The
+separate session camera stores FOV in radians, with zoom derived rather than stored.
+Pinned numerical eligibility rejects exact native degeneracy (including the
+lookAt component-wise 1e-6 identity shortcut, raw-up cross under/overflow and
+nonfinite view/projection arithmetic). These are renderer eligibility checks,
+not chemistry rules or a new minimum physical radius. Logical radius remains
+positive even below the native clipping floor.
+
+App owns the controller and recovery mirror; viewers own disposable bindings.
+Hydration, acknowledgements, mirror conflicts and target retirement use independent
+revision/token/generation guards. Unknown or different dirty bases require explicit
+publication; a failed refresh cannot silently rebase them. A typed asynchronous
+restoration-failure channel keeps lazy startup usable without saving the fallback
+over the rejected preference. Failed scene requests cancel only their own pending
+intent, including after binding retirement; newer navigation remains authoritative.
+
+The exact final native pose is sampled on the existing commit cadence and once
+more during flush/retirement when a valid pose is already known. Final sampling
+excludes pristine defaults, pending scene intent and refused display recovery.
+Transform-mode getters and observations retain the locked pose silently. No extra
+animation loop or per-molecule camera map is introduced. One-fit eligibility is
+reserved globally before installation; canonical target references alone are
+insufficient. Actual committed, visible, nonzero-alpha native geometry is required.
+
+With native automatic resets disabled, cached public canvas spheres can remain
+stale after commits. Current bounds therefore use public committed render objects
+and the pinned BoundaryHelper98 aggregation, operating over visual objects rather
+than atoms. Clipping changes preserve logical pose and zoom, while explicit Fit
+uses current effective visible bounds. Explicit native Reset/axis navigation
+resolves immediately at the public boundary so queued fitting cannot overwrite
+later input. Native qualification and full release status remain in the feature
+plan; this decision does not certify pending delivery gates.

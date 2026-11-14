@@ -1,4 +1,5 @@
 import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
+import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
@@ -51,6 +52,7 @@ interface WorkspaceCanvasProps {
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurfaces?: SurfaceActions;
   surfaceSession?: SurfaceManagerSession;
+  cameraPresentation?: WorkspacePresentationController;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
   selectionColorMode: SelectionColorMode;
@@ -89,6 +91,7 @@ export function WorkspaceCanvas({
   onAtomVisibility,
   onSurfaces,
   surfaceSession,
+  cameraPresentation,
   onLoadPocketStructures,
   onAppearance,
   selectionColorMode,
@@ -138,6 +141,7 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          cameraPresentation={cameraPresentation}
           onEdit={onEdit}
           key={project.id}
           project={project}

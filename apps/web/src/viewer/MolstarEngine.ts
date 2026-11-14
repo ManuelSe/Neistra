@@ -31,7 +31,6 @@ import {
 } from "molstar/lib/mol-model/structure/coordinates/coordinates";
 import { Color } from "molstar/lib/mol-util/color";
 import type { UnitIndex } from "molstar/lib/mol-model/structure/structure/element/util";
-import { Vec3 } from "molstar/lib/mol-math/linear-algebra";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import { NeistraViewport } from "./viewport";
 import { mountViewerPlugin } from "./mountPlugin";
@@ -66,6 +65,10 @@ import {
 import { selectionColorLayers } from "./selectionColors";
 import { representationLayers, visibleRepresentationAtomIds } from "./representationProjection";
 import { THEME_TOKENS } from "../theme";
+import type { SessionCamera } from "../workspacePresentation/types";
+import { parseSessionCamera, sameSessionCamera } from "../workspacePresentation/validation";
+import { drawableRenderObject, nativeCameraState, portableCamera, renderedSceneBounds, sessionCamera } from "./sessionCamera";
+import { DefaultCameraFocusOptions } from "molstar/lib/mol-plugin-state/manager/camera";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import { Binding } from "molstar/lib/mol-util/binding";
 import type { Canvas3DAttribs, Canvas3DProps } from "molstar/lib/mol-canvas3d/canvas3d";
@@ -171,7 +174,11 @@ export class MolstarEngine implements MolecularViewer {
   private models = new Map<Model, { entryId: string; atomIds: number[] }>();
   private listeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
-  private retainedCamera: CameraState | null = null;
+  private retainedSessionCamera: SessionCamera | null = null;
+  private nativeRadius = 0.01;
+  private sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
+  private drawableListeners = new Set<(drawable: boolean) => void>();
+  private drawable = false;
   private movementInteraction: MovementInteraction = "inactive";
   private stopInputBoundary: (() => void) | undefined;
   private heldPointers = new Set<number>();
@@ -182,7 +189,6 @@ export class MolstarEngine implements MolecularViewer {
   private movementTrackball: Canvas3DProps["trackball"] | null = null;
   private mountTarget: HTMLElement | null = null;
   private rebuilding = false;
-  private hasScene = false;
   private doubleClicks = new DoubleClickSequence();
   private clickSubscription: { unsubscribe(): void } | undefined;
   private hoverSubscription: { unsubscribe(): void } | undefined;
@@ -191,6 +197,8 @@ export class MolstarEngine implements MolecularViewer {
   private hoverNativeLoci: Loci | null = null;
   private hoverCamera: CameraState | null = null;
   private cameraSubscription: { unsubscribe(): void } | undefined;
+  private sceneFrameSubscription: { unsubscribe(): void } | undefined;
+  private restoreCameraReset: (() => void) | undefined;
   private measurementRefs: string[] = [];
   private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
@@ -228,6 +236,8 @@ export class MolstarEngine implements MolecularViewer {
       canvas3d: {
         ...defaultSpec.canvas3d,
         camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
+        trackball: { ...defaultSpec.canvas3d?.trackball, minDistance: 0, maxDistance: Number.MAX_VALUE,
+          autoAdjustMinMaxDistance: { name: "off", params: {} } },
         renderer: {
           ...defaultSpec.canvas3d?.renderer,
           backgroundColor: Color.fromHexStyle(this.backgroundColor),
@@ -262,6 +272,33 @@ export class MolstarEngine implements MolecularViewer {
     this.disposePlugin = mounted.dispose;
     this.plugin = plugin;
     this.mountTarget = target;
+    const initialCamera = plugin.canvas3d?.camera.getSnapshot();
+    if (initialCamera) {
+      if (this.retainedSessionCamera) this.setSessionCamera(this.retainedSessionCamera);
+      else {
+        this.retainedSessionCamera = sessionCamera(initialCamera, Math.max(initialCamera.radius, 0.01));
+        this.updateCameraBounds();
+      }
+    }
+    if (plugin.canvas3d) {
+      const canvas = plugin.canvas3d, requestReset = canvas.requestCameraReset.bind(canvas);
+      // Public native navigation (axis helper and Reset key) uses the same
+      // immediate ownership as application Fit/Focus. No queued reset may win
+      // over navigation made while an asynchronous scene is being installed.
+      canvas.requestCameraReset = options => {
+        if (this.disposed || this.movementInteraction !== "inactive") return;
+        const previous = this.retainedSessionCamera;
+        requestReset({ ...options, durationMs: 0 });
+        canvas.commit(true);
+        const camera = sessionCamera(canvas.camera.getSnapshot());
+        if (camera) {
+          // The commit observer may already have published this exact reset.
+          if (!sameSessionCamera(previous, camera) && sameSessionCamera(this.retainedSessionCamera, camera)) this.setSessionCamera(camera);
+          else this.acceptCamera(camera);
+        }
+      };
+      this.restoreCameraReset = () => { canvas.requestCameraReset = requestReset; };
+    }
     const inputRoot = target.parentElement ?? target;
     const down = (event: PointerEvent) => {
       if (event.target instanceof Element && (event.target instanceof HTMLCanvasElement
@@ -422,9 +459,11 @@ export class MolstarEngine implements MolecularViewer {
       }
       if (this.movementCamera && ["position", "target", "up"].some(key =>
         (snapshot[key as "position"] as number[]).some((value, axis) => value !== this.movementCamera![key as "position"][axis]))) {
-        this.setCamera(this.movementCamera);
+        const locked = parseSessionCamera({ ...this.movementCamera, fov: this.retainedSessionCamera?.fov ?? snapshot.fov });
+        if (locked) this.setSessionCamera(locked);
       }
       const camera = this.getCamera();
+      this.captureSessionCamera();
       // Mol* multisampling changes projection jitter on every marked frame.
       // Only application camera changes invalidate a stable molecular hover.
       if (this.hoverCamera && camera && JSON.stringify(this.hoverCamera) !== JSON.stringify(camera)) this.clearHover();
@@ -433,6 +472,9 @@ export class MolstarEngine implements MolecularViewer {
         for (const listener of this.cameraListeners) listener(camera);
       }
     });
+    // The native commit cadence runs even when sub-epsilon control changes do
+    // not redraw. Sampling it retains the exact final pose without another loop.
+    this.sceneFrameSubscription = plugin.canvas3d.commited.subscribe(() => this.observeCameraFrame());
   }
 
   setBackgroundColor(cssColor: string): void {
@@ -480,7 +522,6 @@ export class MolstarEngine implements MolecularViewer {
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
-      const camera = this.getCamera();
       this.rebuilding = true;
       try {
         await plugin.clear();
@@ -502,7 +543,7 @@ export class MolstarEngine implements MolecularViewer {
         await this.applyMeasurements();
         await this.applyInteractions();
         await this.applyModelPreview();
-        this.commitScene(camera);
+        this.commitScene();
         this.boundGeneration = generation;
       } finally {
         this.rebuilding = false;
@@ -680,9 +721,8 @@ export class MolstarEngine implements MolecularViewer {
     if (JSON.stringify(measurements) === JSON.stringify(this.measurements)) return this.syncQueue;
     this.measurements = measurements;
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
-      const camera = this.getCamera();
       await this.applyMeasurements();
-      this.commitScene(camera);
+      this.commitScene();
     });
     return this.syncQueue;
   }
@@ -735,18 +775,94 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   getCamera(): CameraState | null {
+    const camera = this.getSessionCamera();
+    return camera ? portableCamera(camera) : null;
+  }
+
+  getSessionCamera(): SessionCamera | null {
+    if (this.movementInteraction === "transform" && this.movementCamera) {
+      return parseSessionCamera({ ...this.movementCamera,
+        fov: this.retainedSessionCamera?.fov ?? this.plugin?.canvas3d?.camera.state.fov });
+    }
+    return this.readNativeSessionCamera();
+  }
+
+  private readNativeSessionCamera(): SessionCamera | null {
     const snapshot = this.plugin?.canvas3d?.camera.getSnapshot();
-    // Clearing a disposable scene can briefly yield radius zero. Never publish
-    // that reset as application camera state or carry it into the next rebuild.
-    if (this.rebuilding || !this.hasScene || !snapshot || snapshot.radius <= 0) return this.retainedCamera;
-    this.retainedCamera = {
-      mode: snapshot.mode,
-      position: [...snapshot.position] as CameraState["position"],
-      target: [...snapshot.target] as CameraState["target"],
-      up: [...snapshot.up] as CameraState["up"],
-      radius: snapshot.radius,
-    };
-    return this.retainedCamera;
+    if (!snapshot) return this.retainedSessionCamera ? structuredClone(this.retainedSessionCamera) : null;
+    const radius = snapshot.radius === this.nativeRadius ? this.retainedSessionCamera?.radius ?? snapshot.radius : snapshot.radius;
+    return sessionCamera(snapshot, radius) ?? (this.retainedSessionCamera ? structuredClone(this.retainedSessionCamera) : null);
+  }
+
+  subscribeSessionCamera(listener: (camera: SessionCamera) => void): () => void {
+    this.sessionCameraListeners.add(listener);
+    return () => this.sessionCameraListeners.delete(listener);
+  }
+
+  subscribeDrawable(listener: (drawable: boolean) => void): () => void {
+    this.drawableListeners.add(listener); listener(this.drawable);
+    return () => this.drawableListeners.delete(listener);
+  }
+
+  private captureSessionCamera(): void {
+    if (this.movementInteraction === "transform") {
+      if (this.movementCamera) {
+        const locked = parseSessionCamera({ ...this.movementCamera,
+          fov: this.retainedSessionCamera?.fov ?? this.plugin?.canvas3d?.camera.state.fov });
+        if (locked && !sameSessionCamera(this.readNativeSessionCamera(), locked)) this.setSessionCamera(locked);
+      }
+      return;
+    }
+    const camera = this.getSessionCamera();
+    if (camera && !sameSessionCamera(camera, this.retainedSessionCamera)) {
+      this.retainedSessionCamera = structuredClone(camera);
+      for (const listener of this.sessionCameraListeners) listener(structuredClone(camera));
+    }
+  }
+
+  private observeCameraFrame(): void {
+    if (this.disposed) return;
+    this.captureSessionCamera();
+    const canvas = this.plugin?.canvas3d;
+    const drawable = Boolean(canvas && canvas.getRenderObjects().some(drawableRenderObject)
+      && canvas.camera.viewport.width > 0 && canvas.camera.viewport.height > 0);
+    if (drawable !== this.drawable) {
+      this.drawable = drawable;
+      for (const listener of this.drawableListeners) listener(drawable);
+    }
+  }
+
+  setSessionCamera(value: SessionCamera): void {
+    const camera = parseSessionCamera(value);
+    if (!camera) throw new Error("The saved camera pose is invalid.");
+    const canvas = this.plugin?.canvas3d;
+    const state = canvas ? nativeCameraState(camera, renderedSceneBounds(canvas.getRenderObjects()), canvas.camera.viewport, canvas.camera.scale) : undefined;
+    this.retainedSessionCamera = structuredClone(camera);
+    if (state && canvas) {
+      this.nativeRadius = state.radius;
+      canvas.camera.setState(state, 0);
+      canvas.requestDraw();
+    }
+  }
+
+  private updateCameraBounds(): void {
+    // A native focus gesture can precede camera.changed. Retain its logical
+    // radius before replacing the native radius with derived clipping bounds.
+    this.captureSessionCamera();
+    const canvas = this.plugin?.canvas3d, camera = this.getSessionCamera();
+    if (!canvas || !camera) return;
+    const state = nativeCameraState(camera, renderedSceneBounds(canvas.getRenderObjects()), canvas.camera.viewport, canvas.camera.scale);
+    this.nativeRadius = state.radius;
+    // Preserve the latest native position/orientation even during asynchronous
+    // installation. Only disposable clipping fields depend on scene contents.
+    canvas.camera.setState({ radius: state.radius, radiusMax: state.radiusMax,
+      minNear: state.minNear, minFar: state.minFar, clipFar: state.clipFar }, 0);
+  }
+
+  private acceptCamera(camera: SessionCamera): void {
+    this.setSessionCamera(camera);
+    for (const listener of this.sessionCameraListeners) listener(structuredClone(camera));
+    for (const listener of this.cameraListeners) listener(portableCamera(camera));
   }
 
   getMovementView(): MovementView | null {
@@ -824,54 +940,55 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setCamera(camera: CameraState): void {
-    this.retainedCamera = camera;
-    this.plugin?.canvas3d?.camera.setState({
-      mode: camera.mode,
-      position: Vec3.create(...camera.position),
-      target: Vec3.create(...camera.target),
-      up: Vec3.create(...camera.up),
-      radius: camera.radius,
-      // A temporarily empty scene must not clamp the application radius to 0.01.
-      radiusMax: Math.max(camera.radius, (this.plugin?.canvas3d?.boundingSphere.radius ?? 0)
-        * (this.plugin?.canvas3d?.props.sceneRadiusFactor ?? 1)),
-    });
+    // Legacy scenes retain the current FOV and cannot corrupt the last valid pose.
+    const fov = this.getSessionCamera()?.fov ?? Math.PI / 4;
+    const session = parseSessionCamera({ ...camera, fov });
+    if (!session) throw new Error("The scene camera pose is invalid.");
+    this.acceptCamera(session);
   }
 
-  private commitScene(camera: CameraState | null) {
+  private commitScene() {
     const canvas = this.plugin?.canvas3d;
+    this.updateCameraBounds();
     canvas?.commit(true);
-    this.hasScene = (canvas?.reprCount.value ?? 0) > 0;
-    if (this.movementCamera) this.setCamera(this.movementCamera);
-    else if (camera) this.setCamera(camera);
-    else if (this.hasScene) canvas?.requestCameraReset({ durationMs: 0 });
+    this.updateCameraBounds();
   }
 
   setCameraMode(mode: CameraState["mode"]): void {
     if (this.movementInteraction !== "inactive") return;
-    this.plugin?.canvas3d?.camera.setState({ mode });
+    const camera = this.getSessionCamera();
+    if (camera) this.acceptCamera({ ...camera, mode });
   }
 
   zoom(factor: number): void {
-    const camera = this.plugin?.canvas3d?.camera;
-    if (!camera) return;
-    const snapshot = camera.getSnapshot();
-    const position = snapshot.position.map(
-      (value, index) =>
-        snapshot.target[index] + (value - snapshot.target[index]) * factor,
-    ) as CameraState["position"];
+    const camera = this.getSessionCamera();
+    if (!camera || !Number.isFinite(factor) || factor <= 0) return;
+    const position = camera.position.map((value, axis) => camera.target[axis] + (value - camera.target[axis]) * factor) as SessionCamera["position"];
+    const next = parseSessionCamera({ ...camera, position });
+    if (!next) return;
     if (this.movementCamera) this.movementCamera = { ...this.movementCamera, position };
-    camera.setState({ position: Vec3.create(...position) });
+    this.acceptCamera(next);
   }
 
   focusAtoms(atoms: AtomReference[]): void {
     if (this.movementInteraction !== "inactive") return;
-    const loci = this.lociFor(atoms);
-    if (loci) this.plugin?.managers.camera.focusLoci(loci);
+    const canvas = this.plugin?.canvas3d, loci = this.lociFor(atoms);
+    const sphere = loci && Loci.getBoundingSphere(loci);
+    if (!canvas || !sphere) return;
+    const radius = Math.max(sphere.radius + DefaultCameraFocusOptions.extraRadius, DefaultCameraFocusOptions.minRadius);
+    const focused = sessionCamera({ ...canvas.camera.getSnapshot(), ...canvas.camera.getFocus(sphere.center, radius) });
+    if (focused) this.acceptCamera(focused);
   }
 
   fitVisible(): void {
     if (this.movementInteraction !== "inactive") return;
-    this.plugin?.canvas3d?.requestCameraReset();
+    const canvas = this.plugin?.canvas3d;
+    if (!canvas) return;
+    this.commitScene();
+    const sphere = renderedSceneBounds(canvas.getRenderObjects(), true);
+    if (sphere.radius <= 0) return;
+    const focused = sessionCamera({ ...canvas.camera.getSnapshot(), ...canvas.camera.getFocus(sphere.center, sphere.radius) });
+    if (focused) this.acceptCamera(focused);
   }
 
   subscribeCamera(listener: (camera: CameraState) => void): () => void {
@@ -1025,7 +1142,7 @@ export class MolstarEngine implements MolecularViewer {
           if (appearance.opacity > 0 && binding.renderedAtoms) this.surfaceRenderedAtoms.set(key, binding.renderedAtoms);
           else this.surfaceRenderedAtoms.delete(key);
           binding.appearance = appearance;
-          this.updateSurfacePickingThreshold(); this.commitScene(this.getCamera());
+          this.updateSurfacePickingThreshold(); this.commitScene();
           return;
         }
         await this.removeSurfaceRepresentation(binding);
@@ -1047,7 +1164,7 @@ export class MolstarEngine implements MolecularViewer {
         }
         binding.installedGeometry = undefined; binding.appearance = appearance;
         if (binding.failureMessage) this.surfaces.fail(binding.entryId, binding.channel, binding.failureMessage, true, binding.surfaceId, true);
-        this.updateSurfacePickingThreshold(); this.applySelection(); this.commitScene(this.getCamera());
+        this.updateSurfacePickingThreshold(); this.applySelection(); this.commitScene();
         return;
       }
       const isolated = binding.displayGeometry ??= binding.channel === "pocket" ? isolatePocketSurface(geometry, binding.isolated) : geometry;
@@ -1056,7 +1173,7 @@ export class MolstarEngine implements MolecularViewer {
         if (!valid()) return;
         this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
         binding.installedGeometry = geometry; binding.appearance = appearance;
-        this.updateSurfacePickingThreshold(); this.commitScene(this.getCamera());
+        this.updateSurfacePickingThreshold(); this.commitScene();
         this.surfaces.markDisplayed(binding.entryId, binding.channel, binding.surfaceId, geometry, geometry.indices.length ? "Hidden by isolation" : undefined);
         return;
       }
@@ -1118,7 +1235,7 @@ export class MolstarEngine implements MolecularViewer {
       else this.surfaceRenderedAtoms.delete(key);
       this.updateSurfacePickingThreshold();
       if (replaceVisual) this.applySelection();
-      this.commitScene(this.getCamera());
+      this.commitScene();
       if (JSON.stringify(this.surfaceAppearance(binding, this.surfaceObject(binding)!.surface)) === JSON.stringify(appearance)) {
         this.surfaces.markDisplayed(binding.entryId, binding.channel, binding.surfaceId, geometry, appearance.opacity <= 0 ? "Opacity is zero" : undefined);
       }
@@ -1129,7 +1246,7 @@ export class MolstarEngine implements MolecularViewer {
       this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
       if (!geometry) {
         this.surfaces.fail(binding.entryId, binding.channel, "Surface and line rendering failed.", false, binding.surfaceId, true);
-        this.updateSurfacePickingThreshold(); this.commitScene(this.getCamera());
+        this.updateSurfacePickingThreshold(); this.commitScene();
         return;
       }
       binding.failureMessage = error instanceof Error ? error.message : "Surface upload failed.";
@@ -1198,9 +1315,13 @@ export class MolstarEngine implements MolecularViewer {
     this.mountTarget = null;
     this.clickSubscription?.unsubscribe();
     this.cameraSubscription?.unsubscribe();
+    this.sceneFrameSubscription?.unsubscribe(); this.sceneFrameSubscription = undefined;
+    this.restoreCameraReset?.(); this.restoreCameraReset = undefined;
     this.clickSubscription = undefined;
     this.listeners.clear();
     this.cameraListeners.clear();
+    this.sessionCameraListeners.clear();
+    this.drawableListeners.clear();
     this.loaded.clear();
     this.models.clear();
     this.coordinatePreviews.clear();
@@ -1264,7 +1385,6 @@ export class MolstarEngine implements MolecularViewer {
     this.clearHover();
     const plugin = this.plugin;
     if (!plugin) return;
-    const camera = this.getCamera();
     const ordered = loaded.atomIds.map((atomId) => {
       const point = coordinates.get(atomId);
       if (!point) throw new Error(`Coordinates for atom ${atomId} are unavailable.`);
@@ -1293,7 +1413,7 @@ export class MolstarEngine implements MolecularViewer {
     this.indexModels(loaded.entryId, refreshed, loaded.atomIds);
     this.applySelection();
     await this.applyMeasurements();
-    this.commitScene(camera);
+    this.commitScene();
   }
 
   private async loadStructure(structure: ViewerStructure): Promise<void> {
@@ -1433,7 +1553,7 @@ export class MolstarEngine implements MolecularViewer {
     this.movementCueRefs.set(source.entryId, component.ref);
     await plugin.builders.structure.representation.addRepresentation(component, { type: "spacefill", typeParams: movementCueParams, color: "element-symbol" });
     this.applySelection();
-    this.commitScene(this.getCamera());
+    this.commitScene();
   }
 
   private async restorePreviewRepresentations(source: ViewerStructure) {
@@ -1442,7 +1562,7 @@ export class MolstarEngine implements MolecularViewer {
     this.previewRenderedAtoms.delete(source.entryId);
     this.previewTargetIds.delete(source.entryId);
     if (cue) await this.plugin?.state.data.build().delete(cue).commit();
-    this.commitScene(this.getCamera());
+    this.commitScene();
   }
 
   private pocketSurfaces() {

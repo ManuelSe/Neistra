@@ -11,8 +11,8 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 - JSON request and response bodies use `snake_case`.
 - Every persisted mutation except initial project creation includes
   `expected_revision`.
-- A successful project command increments `revision`.
-- A stale mutation returns HTTP 409 with
+- A successful project command increments `revision`; a complete no-op preserves it.
+- A stale project mutation returns HTTP 409 with
   `{"detail":{"code":"revision_conflict","message":"..."}}`.
 - Molecular parse and format errors use HTTP 422 with file, operation, and
   optional record index. Upload/atom hard limits use HTTP 413.
@@ -22,6 +22,36 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
   reads return empty patch lists.
 - Save advances the checkpoint to the working revision without creating a
   reversible edit command.
+
+## Workspace presentation
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/v1/workspace/presentation` | Read the installation's shared camera preference. |
+| `PUT` | `/api/v1/workspace/presentation` | Save a complete camera using its independent expected revision. |
+
+`WorkspacePresentationV1` contains `schema_version: 1`, `revision`, `camera` and
+`updated_at`. A missing preference returns revision 0 and null camera/timestamp.
+PUT accepts `{expected_revision, camera}`; camera is non-null and contains mode,
+three-element position/target/up vectors, positive radius and vertical FOV in
+**radians**. Zoom derives from distance, FOV and viewport; radius controls focus/
+clipping rather than an independent zoom scalar. The API checks finite native view-basis and projection-height arithmetic; the
+client additionally validates projection in the actual viewport and reports
+rendering refusal without disabling navigation.
+Unknown camera/request fields are rejected.
+
+The preference is one singleton across entries and projects, independent from
+project commands, revisions, dirty state, timestamps, checkpoints, history and
+Redo. Identical writes at the current expected revision preserve both revision
+and timestamp. Stale writes, including stale identical poses, return HTTP 409
+with code `presentation_revision_conflict`. Atomic comparison and update prevent
+concurrent windows from silently replacing each other's acknowledged state.
+
+This preference is excluded from projects, portable named scenes and archives.
+Their existing schema 2 and legacy scene camera fields remain unchanged. The
+browser supplies bounded local interruption recovery, with explicit **Save current
+view** when its dirty recovery base differs from the server; API clients must
+perform their own conflict reconciliation.
 
 ## Archive filename compatibility
 

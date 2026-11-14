@@ -3,6 +3,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "../App";
+import { workspacePresentationApi } from "../api/client";
 import { useWorkspaceStore } from "../store/workspace";
 
 function response(body: unknown, status = 200): Response {
@@ -36,6 +37,7 @@ describe("project workspace", () => {
       mobilePanel: null,
     });
     vi.restoreAllMocks();
+    vi.spyOn(workspacePresentationApi, "read").mockResolvedValue({ schema_version: 1, revision: 0, camera: null, updated_at: null });
   });
 
   it("creates a real project and exposes its durable checkpoint state", async () => {

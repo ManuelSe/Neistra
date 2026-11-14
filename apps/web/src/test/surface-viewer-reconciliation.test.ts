@@ -161,7 +161,7 @@ describe("surface-only viewer updates", () => {
     expect(h.state.surfaceBindings.get(surfaceKey("unrelated", "entry", "one"))).toBe(unrelated);
     expect(h.load).not.toHaveBeenCalled(); expect(h.fields).not.toHaveBeenCalled(); expect(h.clear).not.toHaveBeenCalled();
     expect(h.add).not.toHaveBeenCalled(); expect(h.deleted).toEqual([]); expect(native.map).not.toHaveBeenCalled();
-    expect(h.selection).not.toHaveBeenCalled(); expect(h.commit).toHaveBeenLastCalledWith(h.camera);
+    expect(h.selection).not.toHaveBeenCalled(); expect(h.commit).toHaveBeenLastCalledWith();
   });
 
   it("replaces only the selected mode visual from retained mapped geometry", async () => {

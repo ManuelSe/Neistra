@@ -12,7 +12,8 @@ import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
 import type { HydrogenPolicy } from "./api/types";
 import { surfacePruningWarnings } from "./selection/surfaceWarnings";
-import { useViewerCameraStore } from "./store/viewerCamera";
+import { WorkspacePresentationController } from "./workspacePresentation/controller";
+import { CameraRecovery } from "./components/CameraRecovery";
 import { useEditingStore } from "./store/editing";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -26,7 +27,7 @@ import {
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi } from "./api/client";
+import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
 import type {
   Entry,
   AtomReference,
@@ -100,6 +101,22 @@ function errorMessage(error: unknown): string {
 }
 
 export default function App() {
+  const [cameraPresentation] = useState(() => new WorkspacePresentationController({
+    api: workspacePresentationApi,
+    storage: { getItem: key => window.localStorage.getItem(key), setItem: (key, value) => window.localStorage.setItem(key, value) },
+  }));
+  useEffect(() => {
+    cameraPresentation.start();
+    const flush = () => { void cameraPresentation.flush({ keepalive: true }); };
+    const visibility = () => { if (document.visibilityState === "hidden") flush(); };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", visibility);
+      cameraPresentation.stop();
+    };
+  }, [cameraPresentation]);
   const queryClient = useQueryClient();
   const compact = useMediaQuery("(max-width: 840px)");
   const {
@@ -218,7 +235,6 @@ export default function App() {
     useSequenceNavigationStore.getState().setProject(activeProjectId);
     useEditingStore.getState().setProject(activeProjectId);
     useMinimizationStore.getState().setProject(activeProjectId);
-    useViewerCameraStore.getState().setProject(activeProjectId);
   }, [activeProjectId]);
 
   useEffect(() => {
@@ -1010,6 +1026,7 @@ export default function App() {
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAtomVisibility(project, selection, action));
     },
     onLoadPocketStructures: () => loadStructureProjections(project?.entries.map((entry) => entry.id) ?? []),
+    cameraPresentation,
     surfaceSession,
     onSurfaces: {
       create: async (items: SurfaceCreateItem[]) => {
@@ -1127,6 +1144,7 @@ export default function App() {
           onMobilePanel={openMobilePanel}
         />
 
+        <CameraRecovery cameraPresentation={cameraPresentation} />
         <ApplicationNotice notice={notice} setNotice={setNotice} />
 
         {projectsQuery.isError || projectQuery.isError ? (

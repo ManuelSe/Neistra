@@ -2,32 +2,36 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C3 implemented and qualified; C4 in progress** under the
+Issue #140 — **C1–C4 implemented and qualified; C5 in progress** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-The `/goal` authorizes complete delivery; the PR must use Closes #140. No
-application changes have been pushed pending the final seven-role gate.
+The `/goal` authorizes complete delivery; the PR must use Closes #140. Application
+changes remain local pending the final seven-role gate.
 
-Completed: corrected stick profiles, no-op history and scoped resets (C1);
-combined bounded entry/fragment/pocket fields with canonical ownership and
-installed readiness (C2); shared chooser, exact result activation, sixteen-object
-manager, immediate Undoable appearance, retained source drafts, uncertainty
-recovery and surface-only reconciliation (C3). No durable schema/migration/version
-change yet; versions remain 0.29.0 and database head 0014.
+Completed: corrected sticks/no-op history/scoped resets (C1); combined bounded
+surfaces and canonical ownership (C2); cohesive creation/manager/gesture/draft
+workflow and narrow surface reconciliation (C3); one persistent application camera
+with CAS singleton, bounded recovery, genuine first-drawable fitting, latest-pose
+protection, conflict/display recovery and legacy scene compatibility (C4).
+Migration head is now **0015**, adding only the installation preference. Existing
+project/viewer/archive 2 and normalized/selection/component 1 remain. Versions
+remain **0.29.0** until C6; planned stable minor release is **0.30.0**.
 
-C3 verification: **601 frontend / 80 files**, lint/types/build; unaffected 57
-backend surface integration cases reused. **50 unique native passes / 10 exact
-unchanged layout exclusions**, with shader-confirmed pending/uncertain remounts,
-three completed gestures/three Undo steps, cancellation, stale picking, geometry
-retention, actual 100,001-atom entries, sixteen-object accessibility and real
-100/200% browser zoom. [C3 evidence](assets/representation-surfaces-session-camera/c3-checkpoint.json)
-records hashes, corrections, observations, failed diagnostics and reuse. Primary
-checkpoint diff review passes. No timing improvement or universal capacity claim.
+C4 evidence: **723 frontend / 84 files**, lint/types/build, Ruff/mypy203 and **202
+backend integration cases**. **18 native passes / zero exclusions** on desktop and
+mobile include both projection modes/FOV, actual API process restart, fresh browser,
+zero-frame final close recovery, actual first surface Fit, held async intent,
+legacy scenes and conflict/recovery accessibility. Migration round trips preserve
+all old rows and artifact bytes; camera changes preserve molecular history/Redo.
+[C4 receipt](assets/representation-surfaces-session-camera/c4-checkpoint.json)
+records hashes, corrections, diagnostics and reuse. Architecture/performance
+correction assessments pass; final all-seven assessment remains required.
 
-Known limitations: C4 global camera remains; full release gate, actual archive
-readers/migration qualification and all-seven final assessments are pending.
-Additional pre-existing strict native-test typing audit remains a C5 item.
-Blockers: none requiring user input. Next: implement and qualify C4. The feature
-plan remains the detailed checkpoint source of truth; no PR/release is claimed.
+Known limitations: C5 full integrated originals/archives/scientific/native and test
+consolidation work, C6 final-version clean gate/tagged readers/all-seven assessment,
+and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup
+remain. No strict timing gain or power-loss-proof recovery claim. Blockers: none
+requiring user input. Next: C5. The feature plan remains the detailed source of
+truth; no application push, PR or release is claimed.
 
 ### Approved planning checkpoint — issue #140 C0
 

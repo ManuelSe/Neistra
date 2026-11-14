@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C3 complete; C4 in progress; C5–C7 pending.
+**Status:** approved contract; C0–C4 complete; C5 in progress; C6–C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -600,3 +600,77 @@ versions remain 0.29.0 and head 0014. Known limitations: C4 automatic global cam
 and C5–C7 integrated qualification/delivery remain; pre-existing additional strict
 native-test typing audit is a C5 consolidation item. Next: C4. No application
 changes pushed, and no PR, merge, tag or release claimed.
+
+
+### C4 — Durable shared camera complete (2026-11-14)
+
+One App-owned controller now persists the complete shared SessionCamera across
+entries, projects and disposable viewers. Migration 0015 and GET/PUT workspace
+presentation add one independent singleton with strict native-compatible numeric
+validation, atomic revision comparison, stale-identical rejection and exact no-op
+revision/timestamp preservation. Camera writes do not enter project commands or
+alter molecular/history/Redo/checkpoint/timestamp/artifact state. Existing named
+scene fields and project/viewer/archive 2 remain unchanged; FOV stays separate and
+legacy scene application retains the current FOV.
+
+The controller hydrates once, buffers lazy restoration, serializes one write plus
+latest intent, and saves after 250 ms quiet time or at most 2 seconds during
+continuous navigation. Validated 4 KiB recovery retains the original dirty base;
+refresh cannot silently authorize overwriting another saved view. Page hiding and
+binding retirement capture the exact final known pose, including unnotified small
+native changes. Explicit Save resolves conflicts; failed saves and viewport
+restoration refusal leave navigation usable. A typed display-failure path prevents
+fallback autosaves and keeps lazy startup alive. Failed scene intent cancels only
+its owning generation/binding, with newer navigation preserved.
+
+First fit is globally reserved before installation, after successful empty
+hydration. It requires canonical targets plus actual committed visible geometry
+and a usable viewport. Actual fitting or navigation consumes the opportunity;
+ordinary content/style/surface changes, empty/repopulated scenes, new molecules,
+project switching and remounts cannot repeat it. Native clipping derives from
+current committed render-object spheres, preserving logical radius, FOV and pose.
+The pinned provider's cached public spheres can remain stale with automatic reset
+disabled; BoundaryHelper98 aggregation over visual objects resolves that defect
+without scanning molecular atoms. Existing native cadence and guarded final
+sampling retain sub-epsilon poses; no additional animation loop is introduced.
+
+Verification: **723 frontend tests / 84 files**, lint/typecheck/build; Ruff and
+mypy (**203 files**); **202 backend integration cases** combining presentation,
+all migrations and viewer-state regressions. Actual concurrent insert/update races
+produce one success and one presentation conflict. Empty and populated
+0014→0015→0014→0015 preserve every old table and original/current artifact byte;
+downgrade removes only the preference. Focused tests include 71 controller, 30
+component lifecycle, 14 independent numerical, 12 actual-camera Engine and eight
+recovery cases within the frontend total.
+
+**18 native passes / zero exclusions** across desktop and mobile verify both
+projection modes, rolled/nondefault-FOV poses and independently observed projected
+landmarks, entry/project/empty-project switching, responsive remounts, reload,
+fresh contexts and actual API process restart. Same-browser actual close recovers
+a final raw 1e-7 update injected before pagehide flush with no next renderer frame.
+Held hydration/upload/scene responses preserve newer input; first surface Fit must
+produce a real positive radius and changed pose, not merely a call count. Recovery
+passes axe at 320px, remains reachable beside the surface manager, keeps its focused
+action during a held real acknowledgement and requires explicit conflict Save.
+Legacy scene application omits stored FOV while retaining current FOV; a native
+matrix-suppressed tiny pose still persists and reloads exactly.
+
+[C4 receipt](../assets/representation-surfaces-session-camera/c4-checkpoint.json)
+retains source/log hashes, actual API process logs, native observations/screenshots,
+failed attempts, corrections and exact reuse. Earlier first-fit count-only evidence
+was insufficient and led to the real drawable/bounds corrections; it is not final
+qualification. Native dependency-optimizer reload and an overlay-intercepted test
+gesture remain separate diagnostics. No assertion, resource budget, skip or retry
+was relaxed. Architecture and performance correction assessments pass; these are
+checkpoint assessments, not the final seven-role feature gate. A reviewer corrected
+an early probe that had awaited start rather than hydration; controlled regressions
+and the corrected probe establish final capture behavior independently.
+
+README, API, architecture, upgrade/recovery guidance and D-154 are current. Fetch
+reconfirmed origin/master `a1f2e2fd` and availability of 0015. All five versions
+remain 0.29.0 until release preparation; planned impact remains stable minor
+0.30.0. Known limitations: C5 integrated native/scientific/archive compatibility
+qualification and test consolidation, C6 final-version full gate/readers/all-seven
+assessment, and C7 normal delivery remain. Browser recovery is best effort under
+simultaneous storage/network/process failure. No application push, PR, merge,
+tag or release is claimed. Next: C5.

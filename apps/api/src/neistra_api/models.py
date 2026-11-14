@@ -6,6 +6,7 @@ from typing import Any
 from sqlalchemy import (
     JSON,
     Boolean,
+    CheckConstraint,
     DateTime,
     Float,
     ForeignKey,
@@ -21,6 +22,23 @@ from neistra_api.database import Base
 
 def utc_now() -> datetime:
     return datetime.now(UTC)
+
+
+class WorkspacePresentation(Base):
+    """Installation preference with its own revision, independent of projects."""
+
+    __tablename__ = "workspace_presentations"
+    __table_args__ = (
+        CheckConstraint("id = 1", name="ck_workspace_presentation_singleton"),
+        CheckConstraint("schema_version = 1", name="ck_workspace_presentation_schema"),
+        CheckConstraint("revision >= 1", name="ck_workspace_presentation_revision"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    schema_version: Mapped[int] = mapped_column(Integer, nullable=False)
+    revision: Mapped[int] = mapped_column(Integer, nullable=False)
+    camera: Mapped[dict[str, Any]] = mapped_column(JSON, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
 
 class Project(Base):

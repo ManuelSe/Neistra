@@ -16,6 +16,8 @@ flowchart TB
     Components[Derived component hierarchy]
     Spatial[Spatial-query Web Worker]
     Viewer[Mol* adapter and disposable scene]
+    Camera[Application camera session]
+    Recovery[Bounded browser recovery]
     React --> Query
     React --> Prefs
     React --> Selection
@@ -24,12 +26,18 @@ flowchart TB
     Components --> Viewer
     Selection <--> Viewer
     Selection --> Spatial
+    React --> Camera
+    Camera <--> Viewer
+    Camera --> Recovery
   end
 
   Query -->|REST| API[FastAPI API layer]
   Query <-->|durable job events| WS[WebSocket and polling]
   WS --> API
   API --> Project[Project command/service layer]
+  Camera -->|presentation preference API| API
+  API --> ViewPreference[Independent presentation service]
+  ViewPreference --> DB
   API --> Molecular[Format, chemistry, validation, transform services]
   Project --> DB[(SQLite metadata and history)]
   Project --> Store[Content-addressed artifact store]
@@ -65,8 +73,9 @@ legacy imports. See D-150 and the issue #99 feature contract.
 - Gemmi, RDKit, PDBFixer/OpenMM, SciPy, and format writers are adapters or
   services around the normalized model, never alternate project authorities.
 - TanStack Query caches API state. Zustand persists only theme, panel layout,
-  collapse state, and active-project pointer. Current selection and camera are
-  transient unless stored in an application-owned named scene.
+  collapse state, and active-project pointer. Current selection remains
+  transient unless stored in a named selection/scene. One App-owned camera session
+  persists independently through the workspace presentation preference.
 - Mol* consumes generated mmCIF/SDF projections plus application settings. Its
   internal tree is disposable and is rebuilt after topology changes; it never
   serializes project state.
@@ -192,9 +201,9 @@ do not frame a hit or reset the camera. Secondary camera behavior and Mol*'s
 trackball gestures remain owned by Mol*, while camera framing occurs only through
 explicit application operations such as `focusAtoms` and `fitVisible`.
 
-These interactions update transient viewer/application state only. They do not
-issue project commands, refetch normalized structures, mutate molecular data, or
-persist ordinary selection or camera state.
+Selection remains transient. These interactions do not issue project commands,
+refetch normalized structures, mutate molecular data or persist ordinary selection. The independent presentation writer persists accepted
+camera navigation without entering project history.
 
 Molecular hover uses the same structural target resolver as ordinary clicks but
 owns only transient renderer marks. Its one adapter subscription replaces the
@@ -764,3 +773,50 @@ without a progress stream or App subscription to optimizer frames. Original data
 server validation and molecular history retain their existing authority. D-143 and
 the issue #93 feature plan govern the presentation correction; no durable field,
 API, job/plugin contract, migration or physical-model change is introduced.
+
+
+## Shared application camera
+
+One App-owned `WorkspacePresentationController` outlives projects and disposable
+viewer instances. Its pure constructor and resumable start/stop tolerate StrictMode
+replay. It hydrates once, owns one pose and one independent presentation revision,
+and keeps only one write in flight plus the latest pending pose. Navigation is
+captured immediately; saves run after 250 ms quiet time or at most 2 seconds during
+continuous input. Acknowledgements update provenance, never camera position.
+
+The 4 KiB versioned browser mirror contains pose, dirty flag and its original base
+revision. Matching dirty recovery can publish automatically; unknown/different
+bases require explicit consent. Refresh cannot silently rebase an external
+conflict. Page hiding writes recovery synchronously and attempts keepalive; no
+power-loss or failed-storage/network guarantee is made. The global recovery row
+remains separate from project checkpoint notices and has no effect on molecular
+publication eligibility. It subscribes only to stable status fields; the workspace
+subscribes only to hydration readiness rather than every navigation frame.
+
+`SessionCamera` adds FOV to a separate complete navigation value. Portable
+`CameraState` deliberately omits FOV; scene application retains the current FOV.
+The lazy adapter buffers the latest pose. A viewport-specific restoration refusal
+keeps native startup and navigation working, reports through a typed failure
+channel, and cannot automatically save the fallback over the rejected preference.
+
+The adapter derives clipping from complete current bounds without replacing the
+logical radius, position, target, up, FOV or apparent zoom. It samples exact poses
+on the mounted canvas's existing commit cadence, including sub-epsilon changes
+that native matrix-change notifications omit. Clip-only updates and restorations
+emit no navigation. Transform locking restores even those small changes silently.
+Ordinary asynchronous scene completion updates clipping only; it never restores a
+camera captured at the start of work. Explicit native Reset/axis actions use the
+public immediate-reset boundary so queued animation cannot overwrite later input.
+
+One globally reserved initial-fit ticket requires successful empty hydration and
+no saved/local/user camera. It is claimed before scene installation and completed
+only when both canonical rendered targets and committed native drawable bounds
+exist. Delayed surfaces, hidden/empty scenes and retired bindings cannot consume
+it prematurely. Actual fitting or navigation consumes the opportunity permanently.
+Explicit scene requests own an intent generation before publication; failure or
+binding retirement cancels only that owned intent, and newer navigation supersedes
+late camera application. Molecular scene-command outcomes remain independent.
+
+Migration 0015 adds only the installation singleton, with atomic expected-revision
+writes. Downgrade drops that preference and leaves project/history/artifacts intact.
+See D-154 and the issue #140 contract for scope and verification.

@@ -49,6 +49,7 @@ import type {
   QuickMinimizationCapabilities,
 } from "./types";
 import type { InteractionInput, InteractionResult } from "../interactions/types";
+import type { WorkspacePresentationApi, WorkspacePresentationV1 } from "../workspacePresentation/types";
 
 export const interactionApi = {
   analyze: (projectId: string, inputs: InteractionInput[], signal: AbortSignal) => request<InteractionResult>(`/api/v1/projects/${projectId}/interactions`, {
@@ -115,6 +116,14 @@ async function request<ResponseType>(
   }
   return (await response.json()) as ResponseType;
 }
+
+export const workspacePresentationApi: WorkspacePresentationApi = {
+  read: () => request<WorkspacePresentationV1>("/api/v1/workspace/presentation"),
+  write: (camera, expectedRevision, options) => request<WorkspacePresentationV1>("/api/v1/workspace/presentation", {
+    method: "PUT", keepalive: options?.keepalive,
+    body: JSON.stringify({ expected_revision: expectedRevision, camera }),
+  }),
+};
 
 export const projectApi = {
   list: () => request<ProjectListItem[]>("/api/v1/projects"),

@@ -21,6 +21,8 @@ import type {
 
 import { THEME_TOKENS } from "../theme";
 import { surfaceIdentityKey } from "./surfaceReconciliation";
+import type { SessionCamera } from "../workspacePresentation/types";
+import { parseSessionCamera } from "../workspacePresentation/validation";
 
 class LazyMolstarViewer implements MolecularViewer {
   capturePresentation() {
@@ -35,6 +37,12 @@ class LazyMolstarViewer implements MolecularViewer {
   private movementInteraction: MovementInteraction = "inactive";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
+  private sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
+  private sessionCameraBindings = new Map<(camera: SessionCamera) => void, () => void>();
+  private pendingSessionCamera: SessionCamera | null = null;
+  private cameraFailureListeners = new Set<(camera: SessionCamera) => void>();
+  private drawableListeners = new Set<(drawable: boolean) => void>();
+  private drawableBindings = new Map<(drawable: boolean) => void, () => void>();
   private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
   private surfaceSelectionListeners = new Set<(surface: SurfaceIdentity) => void>();
   private surfaceSelectionBindings = new Map<(surface: SurfaceIdentity) => void, () => void>();
@@ -51,6 +59,11 @@ class LazyMolstarViewer implements MolecularViewer {
     engine.setBackgroundColor(this.backgroundColor);
     await engine.mount(target);
     if (this.disposed || this.engine !== engine) { engine.dispose(); return; }
+    let refusedCamera: SessionCamera | undefined;
+    if (this.pendingSessionCamera) {
+      try { engine.setSessionCamera(this.pendingSessionCamera); }
+      catch { refusedCamera = this.pendingSessionCamera; this.pendingSessionCamera = null; }
+    }
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
     this.engine.setActiveSurface(this.activeSurface);
@@ -70,6 +83,11 @@ class LazyMolstarViewer implements MolecularViewer {
       ),
     );
     this.mounted = true;
+    for (const listener of this.sessionCameraListeners) {
+      this.sessionCameraBindings.set(listener, engine.subscribeSessionCamera(listener));
+    }
+    for (const listener of this.drawableListeners) this.drawableBindings.set(listener, engine.subscribeDrawable(listener));
+    if (refusedCamera) for (const listener of this.cameraFailureListeners) listener(structuredClone(refusedCamera));
   }
 
   setBackgroundColor(cssColor: string): void {
@@ -135,6 +153,39 @@ class LazyMolstarViewer implements MolecularViewer {
 
   getCamera(): CameraState | null {
     return this.engine?.getCamera() ?? null;
+  }
+
+  getSessionCamera(): SessionCamera | null {
+    return this.engine?.getSessionCamera() ?? (this.pendingSessionCamera ? structuredClone(this.pendingSessionCamera) : null);
+  }
+
+  setSessionCamera(value: SessionCamera): void {
+    const camera = parseSessionCamera(value);
+    if (!camera) throw new Error("The saved camera pose is invalid.");
+    if (this.disposed) return;
+    this.engine?.setSessionCamera(camera);
+    this.pendingSessionCamera = camera;
+  }
+
+  subscribeSessionCamera(listener: (camera: SessionCamera) => void): () => void {
+    this.sessionCameraListeners.add(listener);
+    if (this.mounted && this.engine) this.sessionCameraBindings.set(listener, this.engine.subscribeSessionCamera(listener));
+    return () => {
+      this.sessionCameraListeners.delete(listener);
+      this.sessionCameraBindings.get(listener)?.();
+      this.sessionCameraBindings.delete(listener);
+    };
+  }
+
+  subscribeSessionCameraFailure(listener: (camera: SessionCamera) => void): () => void {
+    this.cameraFailureListeners.add(listener);
+    return () => this.cameraFailureListeners.delete(listener);
+  }
+
+  subscribeDrawable(listener: (drawable: boolean) => void): () => void {
+    this.drawableListeners.add(listener);
+    if (this.mounted && this.engine) this.drawableBindings.set(listener, this.engine.subscribeDrawable(listener));
+    return () => { this.drawableListeners.delete(listener); this.drawableBindings.get(listener)?.(); this.drawableBindings.delete(listener); };
   }
 
   getMovementView(): MovementView | null {
@@ -232,6 +283,10 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engineUnsubscribers = [];
     this.selectionListeners.clear();
     this.cameraListeners.clear();
+    for (const release of this.sessionCameraBindings.values()) release();
+    this.sessionCameraBindings.clear(); this.sessionCameraListeners.clear(); this.pendingSessionCamera = null;
+    for (const release of this.drawableBindings.values()) release();
+    this.drawableBindings.clear(); this.drawableListeners.clear(); this.cameraFailureListeners.clear();
     this.surfaceListeners.clear();
     this.surfaceSelectionListeners.clear();
     for (const unsubscribe of this.surfaceSelectionBindings.values()) unsubscribe();

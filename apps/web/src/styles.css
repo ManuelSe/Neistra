@@ -3768,3 +3768,38 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   .archive-compatibility summary { min-height: 44px; padding: 14px 0; }
   .archive-compatibility label { min-height: 44px; }
 }
+.app-shell:has(> .camera-recovery) { grid-template-rows: 52px auto minmax(0, 1fr); }
+.camera-recovery {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+  font-size: 12px;
+}
+:root { --camera-recovery-height: 0px; }
+.camera-recovery > svg { flex-shrink: 0; color: var(--warning); }
+.camera-recovery-message { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.camera-recovery button {
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+}
+.camera-recovery button[aria-disabled="true"] { opacity: 0.6; cursor: default; }
+.camera-recovery-spinner { animation: spin 800ms linear infinite; }
+@media (prefers-reduced-motion: reduce) { .camera-recovery-spinner { animation: none; } }
+.surface-manager {
+  top: calc(72px + var(--camera-recovery-height, 0px));
+  height: min(720px, calc(100dvh - 88px - var(--camera-recovery-height, 0px)));
+  max-height: calc(100dvh - 88px - var(--camera-recovery-height, 0px));
+}
