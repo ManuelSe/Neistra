@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C5 complete; C6 in progress; C7 pending.
+**Status:** approved contract; C0–C5 complete; C6 candidate qualified; C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -841,3 +841,55 @@ mandatory. The single approved deferred-styling issue now exists as
 [#141](https://github.com/ManuelSe/Neistra/issues/141), with its remote body verified;
 it preserves the global camera contract and coordinates #64/#107. No new runtime,
 schema, dependency, version or scope decision is introduced by this correction.
+
+### C6 — 2026-11-14: complete stable 0.30.0 candidate qualification
+
+Clean committed candidate `c8468c89472b2c67fbb70eea433bce71c3a13a5c` passes all
+**33 complete sequential release steps** in the precommitted `c6-candidate3` recipe.
+[Verified summary](../assets/representation-surfaces-session-camera/c6-candidate3-summary.json)
+records **1,542 Python / zero skips, 723 frontend, 14 supervisor, and 441 browser
+passes / 75 exact existing exclusions**. All 516 inventoried cases execute or have
+their registered exclusion; there are zero failures, flakes, automatic retries or
+new exclusions. All **791 current source identities**, **754 actual tagged
+v0.29.0 source identities**, recipe/runner identities and 33 lossless log hashes
+verify. No partial browser command or preceding command result is reused in this
+complete candidate gate. The two failed attempts remain separate diagnostics.
+
+Frozen installs, empty upgrade/downgrade/re-upgrade, Ruff/mypy204, lint/types,
+production build, version/schema/dependency/historical-migration/license audits,
+legacy CLI and complete native matrix pass. Actual **0.29.0 ↔ final 0.30.0**
+producer/readers run in separate processes for rich display/history and canonical
+connectivity/unapplied-proposal specimens. Both archive suffixes pass deep
+entry/surface/scene/selection/measurement/canonical/original comparisons and copied
+corruption controls. Module paths and source identities prove actual tagged code
+rather than a current-code stand-in. Both versions retain quick1.0.3/current-canonical
+policy; this is not a historical-model-refusal claim.
+
+[Native receipt](../assets/representation-surfaces-session-camera/c6-candidate3-native-receipt.json)
+verifies **563 observations/screenshots**, ZIP CRC and internal hashes. Hidden RPC
+scratch and raw traces are retained outside the repository. Final desktop/light,
+320px/mobile/dark and managed mesh screenshots were visually inspected. Full native
+coverage includes the real 100,001-atom entry, existing 100k capacities, all source
+kinds, exact picks/colors, 16-object management, accessibility, both camera
+projections, API restart/fresh browser, immediate close, conflict/display recovery,
+legacy scenes and remount/held-intent cases.
+
+[Seven specialist assessments](../assets/representation-surfaces-session-camera/c6-specialist-review.json)
+all PASS the qualified candidate. The [complete local review](../assets/representation-surfaces-session-camera/c6-review.md)
+is implementer self-review; no independent human approval or remote CI success is
+claimed. The final evidence/documentation diff is reconfirmed by all seven before
+application push, with the exact final feature head recorded in the PR pre-merge
+receipt. No consequential finding remains; the shared source-context Retry label
+suggestion is nonblocking P3 polish, deferred without another speculative issue.
+The one approved scope follow-up is [#141](https://github.com/ManuelSe/Neistra/issues/141).
+
+All five versions remain **0.30.0**; migration0015 adds only the installation
+camera preference. Portable schemas, historical migrations, dependencies and
+scientific profiles remain unchanged. No further cross-project architectural
+decision was required. Known limits: approximate fixed-grid visualization,
+specimen-specific capacity, best-effort browser recovery, and portable rather than
+strict reference-host timing qualification. Next: final same-head review, fresh
+remote/base/version/protection checks, normal PR/merge and the mandatory complete
+exact-master `c7-merged1` gate, then tag/release/download verification, issue reply,
+normal receipt integration and branch cleanup. No PR, merge, tag or release exists
+at this receipt's creation.

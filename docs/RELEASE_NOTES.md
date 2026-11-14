@@ -2,8 +2,8 @@
 
 ## 0.30.0 — Representation styling, surfaces and the shared view
 
-**Status:** release candidate preparation for issue #140. Publication and complete
-final-version candidate/exact-master qualification are pending. The
+**Status:** complete final-version candidate qualification passes for issue #140.
+Normal merge, exact-master qualification and publication remain required. The
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md) and
 [evidence index](assets/representation-surfaces-session-camera/README.md) retain
 scope, checkpoint evidence and limits.
@@ -66,18 +66,25 @@ their historical rendering behavior.
 
 **Scope and limits.** Per-entry camera maps and camera payloads in archives were
 rejected in favor of the approved global installation view. Independent polymer
-visibility and expanded local opacity/themes/inheritance move to one linked
-styling follow-up, with existing #64 property-coloring and #107 picking work kept
+visibility and expanded local opacity/themes/inheritance move to
+[styling follow-up #141](https://github.com/ManuelSe/Neistra/issues/141), with existing
+#64 property-coloring and #107 picking work kept
 separate. Additional surface families, property calculations, quality selectors,
 bulk management and shared receptor meshes remain deferred. Fixed-grid surfaces
 are approximate visualization; no area/volume, electrostatics, implicit repair or
 new chemistry is claimed. Specific capacity and portable correctness do not
 establish universal throughput, broader browser certification or strict-host timing.
 
-**Verification.** Checkpoints C1–C5 are recorded, including actual tagged 0.29.0
-readers in both directions and both archive suffixes with deep scene/settings
-comparisons and copied-corruption controls. Complete clean final-version candidate,
-exact-master gates and same-candidate seven-role confirmation remain pending.
+**Verification.** Clean committed candidate `c8468c89` passes all 33 release steps:
+1,542 Python / zero skips, 723 frontend, 14 supervisor and 441 browser passes /
+75 exact existing exclusions; zero failures/flakes/retries/new exclusions. All791
+current and754 actual tagged0.29.0 source identities and lossless logs verify.
+Actual0.29.0 ↔ final0.30.0 readers pass both directions/suffixes, with deep
+scene/settings/original comparisons and copied-corruption controls. All seven
+specialists PASS the qualified code; final documentation reconfirmation precedes
+push. Local full-diff review is implementer self-review. Complete exact-master
+qualification and publication remain required; no independent human approval,
+remote CI success or strict-host timing certification is claimed.
 
 ## 0.29.0 — Authoritative connectivity and reliable minimization
 

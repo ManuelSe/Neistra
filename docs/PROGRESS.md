@@ -2,63 +2,38 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C5 complete; C6 release preparation in progress** under the
+Issue #140 — **C1–C5 complete; C6 candidate qualified; C7 delivery next** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-The `/goal` authorizes complete delivery; the PR must use Closes #140. Application
-changes remain local pending the final seven-role gate.
+Implemented: correct stick geometry/no-op history/scoped styling; complete bounded
+surface context and truthful installation status; shared creation/manager,
+immediate Undoable appearance and retained source drafts; one independent,
+installation-wide persisted camera across entries, projects and reopening.
 
-Completed: corrected sticks/no-op history/scoped resets (C1); combined bounded
-surfaces and canonical ownership (C2); cohesive creation/manager/gesture/draft
-workflow and narrow surface reconciliation (C3); one persistent application camera
-with CAS singleton, bounded recovery, genuine first-drawable fitting, latest-pose
-protection, conflict/display recovery and legacy scene compatibility (C4).
-Migration head is now **0015**, adding only the installation preference. Existing
-project/viewer/archive 2 and normalized/selection/component 1 remain. Versions
-now agree at **0.30.0** for C6; stable minor release qualification is pending.
+Clean candidate `c8468c89` passes all **33 complete release steps**: **1,542 Python
+(zero skips), 723 frontend, 14 supervisor, 441 browser passes / 75 exact existing
+exclusions**. Zero failures/flakes/retries/new exclusions. All 791 current and754
+actual preceding-tag source identities and lossless logs verify. Actual tagged
+0.29.0 ↔ final0.30.0 readers pass both directions/suffixes with deep display/history,
+canonical/original checks and corruption controls. Frozen/static/build, empty
+migration round trip, version/schema/dependency/production/license and CLI checks
+pass. [Candidate summary](assets/representation-surfaces-session-camera/c6-candidate3-summary.json)
+and the feature plan retain exact evidence and distinct failed diagnostics.
 
-C4 evidence: **723 frontend / 84 files**, lint/types/build, Ruff/mypy203 and **202
-backend integration cases**. **18 native passes / zero exclusions** on desktop and
-mobile include both projection modes/FOV, actual API process restart, fresh browser,
-zero-frame final close recovery, actual first surface Fit, held async intent,
-legacy scenes and conflict/recovery accessibility. Migration round trips preserve
-all old rows and artifact bytes; camera changes preserve molecular history/Redo.
-[C4 receipt](assets/representation-surfaces-session-camera/c4-checkpoint.json)
-records hashes, corrections, diagnostics and reuse. Architecture/performance
-correction assessments pass; final all-seven assessment remains required.
+All seven specialists PASS the qualified code; final evidence/documentation
+reconfirmation precedes application push and is recorded on the PR. Primary
+full-diff review is implementer self-review. No independent human approval, remote
+CI result or strict timing certification is claimed. Five versions agree at
+**0.30.0**; migration **0015** adds only the automatic camera preference. Portable
+project/viewer/archive stay2, normalized/selection/component stay1. Downgrade to0014
+removes the preference only; preserve it with an upgraded-store backup.
 
-C5 evidence: **182 unique native passes / 25 unchanged registered exclusions**
-across documented development invocations; final mobile command **78 passes / 22
-existing exclusions** and final viewer command **23 passes / 5 exclusions**.
-All observed failures are corrected and requalified. Full Python: 1,539 passes and
-two missing-compatibility-alias failures; the standard forwarding alias fixes both,
-and all eight namespace tests pass. Unaffected Python results are retained rather
-than presented as a clean final-version run. Final frontend **723 / 84 files**,
-lint/types/build, Ruff/mypy204, production/license audit and strict surface-native
-typing/lint pass. Actual tagged **0.29.0** readers pass both directions and suffixes
-with enriched styles, surface appearances, full scenes and corruption controls.
-[C5 receipt](assets/representation-surfaces-session-camera/c5-checkpoint.json) and
-[reader evidence](assets/representation-surfaces-session-camera/c5-preversion-reader.json)
-retain commands, lossless logs, hashes and diagnostic boundaries. Seven early
-specialist assessments PASS; final same-candidate reconfirmation remains required.
-
-C6 first clean candidate passes 1,542 Python (zero skips), 723 frontend, 14
-supervisor, frozen/static/migration/build checks, then stops at one legacy native
-fixture lacking explicit Fit (205 browser passes before failure). The corrected
-fixture passes from a real saved off-screen pose; 19 toolbar cases / one existing
-exclusion also pass after explicit setup framing. Production behavior and limits
-are unchanged. The next clean candidate2 passes the corrected case but stops
-later at an ambiguous opacity numeric/slider test label after 207
-passes. An exact numeric-field locator fixes it; the complete viewer-controls
-file passes 5 cases / 5 existing exclusions. Product behavior, assertions and
-limits remain unchanged. Fresh clean candidate3 repeats all 33 steps and the
-complete matrix. Failed-attempt evidence remains separate. The approved single
-deferred-styling follow-up is [#141](https://github.com/ManuelSe/Neistra/issues/141).
-
-Known limitations: C6 final-version clean gate/tagged readers/all-seven assessment,
-and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup
-remain. No strict timing gain or power-loss-proof recovery claim. Blockers: none
-requiring user input. Next: clean C6 candidate gate, stable minor **0.30.0**. The feature plan remains the detailed source of
-truth; no application push, PR or release is claimed.
+Known limits: approximate fixed-grid surfaces, specimen-specific capacities and
+best-effort browser recovery. Independent polymer visibility/local appearance is
+explicitly deferred to [#141](https://github.com/ManuelSe/Neistra/issues/141), with
+#64/#107 kept separate. Blockers requiring user input: none. Next: final review,
+fresh base/version/protection checks, PR with Closes #140, normal merge, complete
+exact-master gate, annotated v0.30.0/release, issue reply, normal receipt integration
+and cleanup. No PR, merge, tag or release is claimed at receipt creation.
 
 ### Approved planning checkpoint — issue #140 C0
 
