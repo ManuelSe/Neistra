@@ -1,0 +1,32 @@
+{
+  "status": "focused correction qualification only; full clean candidate3 and exact-master still mandatory",
+  "correction": "Viewer-controls numeric opacity assertion uses exact accessible label; no product code or assertion-value change.",
+  "native": {
+    "passed": 5,
+    "existing_exclusions": 5,
+    "failures_flakes_retries": 0
+  },
+  "source": {
+    "path": "tests/e2e/viewer-controls.spec.ts",
+    "sha256": "0c35d226104b03f454c2f3c681ef5fd56f90b23442f54d81ad48bd83f17f55b6"
+  },
+  "bundles": [
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-controls-preflight.log.gz",
+      "uncompressed_sha256": "47242b0fabddb3d01d011f4c3e2bddd6e57e448656466835f57ff14324b6d83d"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-controls-preflight.json.gz",
+      "uncompressed_sha256": "c379f5bbe8673e6ce23e4533d6b94096baf27033cfae5924afc26fa298071e3e"
+    }
+  ],
+  "prior_failed_attempt": "c6-candidate2-diagnostic.json",
+  "source_review": "Repository-wide Surface opacity locator scan finds no other ambiguous numeric-field locator. Other appearance workflow assertions already use exact:true.",
+  "static": {
+    "lint": "corepack pnpm --dir apps/web lint: exit0, zero warnings",
+    "typecheck": "corepack pnpm --dir apps/web typecheck: exit0",
+    "typecheck_log": "docs/assets/representation-surfaces-session-camera/c6-controls-typecheck.log.gz",
+    "typecheck_uncompressed_sha256": "9918f2a03f29f9bb9352e0c30c7b9e1f872630ef70d815d221bfdd725139c0a8",
+    "diff_check": "git diff --check: exit0"
+  }
+}

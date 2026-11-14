@@ -46,8 +46,13 @@ supervisor, frozen/static/migration/build checks, then stops at one legacy nativ
 fixture lacking explicit Fit (205 browser passes before failure). The corrected
 fixture passes from a real saved off-screen pose; 19 toolbar cases / one existing
 exclusion also pass after explicit setup framing. Production behavior and limits
-are unchanged. A fresh full 33-step clean candidate2 gate is next; the partial
-browser result is not final qualification.
+are unchanged. The next clean candidate2 passes the corrected case but stops
+later at an ambiguous opacity numeric/slider test label after 207
+passes. An exact numeric-field locator fixes it; the complete viewer-controls
+file passes 5 cases / 5 existing exclusions. Product behavior, assertions and
+limits remain unchanged. Fresh clean candidate3 repeats all 33 steps and the
+complete matrix. Failed-attempt evidence remains separate. The approved single
+deferred-styling follow-up is [#141](https://github.com/ManuelSe/Neistra/issues/141).
 
 Known limitations: C6 final-version clean gate/tagged readers/all-seven assessment,
 and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup

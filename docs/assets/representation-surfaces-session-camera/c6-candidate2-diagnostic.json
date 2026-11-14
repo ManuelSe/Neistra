@@ -1,0 +1,36 @@
+{
+  "status": "failed development candidate, not release qualification",
+  "candidate": "7019a3d7c29a1ccce0efca5d5d1ccf383468181a",
+  "completed_passing_steps": 14,
+  "browser": {
+    "passed": 207,
+    "executed_existing_exclusions": 7,
+    "failed": 1,
+    "not_run": 301,
+    "failure": "Viewer-controls opacity assertion uses a substring label matching both distinct numeric and slider controls",
+    "automatic_retries": 0,
+    "runner_error": "Playwright reports its expected stop-after-first-failure sentinel outside individual tests."
+  },
+  "sources_unchanged": true,
+  "previous_failure_requalified": "Synchronized-selection explicit Fit passes in this full attempt.",
+  "correction": "Select the existing numeric Surface opacity field by its exact accessible label; preserve value assertion, product controls, deadlines, retries and exclusions.",
+  "restart_policy": "Fresh clean candidate3 repeats all33 steps and the complete browser matrix. No partial browser result counts as a completed gate.",
+  "observations": {
+    "label": "c6-candidate2",
+    "path": "docs/assets/representation-surfaces-session-camera/c6-candidate2-native-observations.zip",
+    "bytes": 29617605,
+    "sha256": "7bf6fd4bc443703ae7d4a88473beb3c9caf3d0152ddfba07dd26ad0d1fb778ae",
+    "manifest_files": 329,
+    "types": {
+      ".png": 291,
+      ".json": 37,
+      ".md": 1
+    },
+    "crc_and_internal_hashes_valid": true,
+    "scope": "All normal JSON observations, PNG screenshots and Markdown diagnostic contexts; hidden RPC scratch directories and raw RPC traces excluded."
+  },
+  "browser_report": {
+    "path": "docs/assets/representation-surfaces-session-camera/c6-candidate2-browser.json.gz",
+    "uncompressed_sha256": "1346c5bf4f0813cbe775f90f76d74dc4675276c6bbb18322641140c74ad7b36d"
+  }
+}

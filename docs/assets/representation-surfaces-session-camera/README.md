@@ -67,3 +67,13 @@ complete gate: 14 preceding steps pass and the browser stops after 205 passes at
 one fixture requiring explicit framing. [Correction evidence](c6-framing-correction.json)
 qualifies the off-screen remembered-view setup and both-layout toolbar behavior.
 The new clean candidate2 recipe repeats all 33 steps and the entire browser suite.
+
+C6 candidate2 is a second [retained failed attempt](c6-candidate2-diagnostic.json):
+14 preceding steps and the earlier synchronized-selection correction pass, but a
+numeric opacity assertion ambiguously matches both numeric and slider labels.
+The full browser command stops after 207 passes; no partial result qualifies the
+release. [Exact-label correction evidence](c6-controls-correction.json) records
+the complete viewer-controls command: 5 passes / 5 unchanged exclusions. No product
+behavior, expected value, deadline or exclusion changes. The fresh candidate3
+recipe repeats all 33 steps and the entire browser matrix. The approved single
+styling follow-up is [#141](https://github.com/ManuelSe/Neistra/issues/141).

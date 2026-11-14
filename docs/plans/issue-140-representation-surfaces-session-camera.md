@@ -813,3 +813,31 @@ browser matrix and final-version readers. The exact-master recipe remains requir
 Seven-role reconfirmation must cover the corrected candidate; earlier approvals
 are not carried forward automatically. Versions remain 0.30.0; scope/release class
 and migration0015 are unchanged. No application push or PR is claimed.
+
+### C6 correction — 2026-11-14: unambiguous opacity assertion
+
+Clean candidate `7019a3d7` again passes the 14 preceding release steps, including
+1,542 Python / zero skips, 723 frontend, 14 supervisor and the 516-case inventory.
+The previously failing synchronized-selection case passes. The browser command
+then stops at the viewer-controls assertion after **207 passes / 7 executed
+existing exclusions / one failure / 301 not run**. Its substring label matches
+both correctly distinct controls, `Surface opacity` and `Surface opacity slider`.
+[Diagnostic receipt](../assets/representation-surfaces-session-camera/c6-candidate2-diagnostic.json)
+preserves the frozen source, all lossless logs/report and 329 observations; this
+partial run is not release qualification.
+
+The numeric-field assertion now uses its exact accessible label. Its expected
+value, all remaining assertions, product controls, scientific behavior, deadlines,
+retries and exclusions are unchanged. A repository-wide opacity-locator scan finds
+no other ambiguous numeric-field locator. The complete viewer-controls command
+passes **5 applicable cases / 5 existing exclusions**, including representations,
+named scenes, explicit camera actions, focus, compact controls and WebGL failure.
+[Correction evidence](../assets/representation-surfaces-session-camera/c6-controls-correction.json)
+retains the source identity and lossless report/log hashes.
+
+The fresh precommitted **c6-candidate3** recipe repeats all 33 steps and the entire
+browser matrix. Final seven-role reconfirmation and exact-master repetition remain
+mandatory. The single approved deferred-styling issue now exists as
+[#141](https://github.com/ManuelSe/Neistra/issues/141), with its remote body verified;
+it preserves the global camera contract and coordinates #64/#107. No new runtime,
+schema, dependency, version or scope decision is introduced by this correction.
