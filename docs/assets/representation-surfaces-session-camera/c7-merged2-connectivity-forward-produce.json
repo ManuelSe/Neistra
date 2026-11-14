@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "producer": "0.30.0",
+    "cases": 4,
+    "quick_active_conformers_multi_entry_repair_and_legacy": true
+  },
+  "historical_apply_refused": null,
+  "mode": "produce",
+  "application_version": "0.30.0",
+  "implementation_root": "/datadisk/dev/neistra",
+  "module_paths": {
+    "molweave_api.main": "/datadisk/dev/neistra/apps/api/src/neistra_api/main.py",
+    "molweave_api.archive_service": "/datadisk/dev/neistra/apps/api/src/neistra_api/archive_service.py",
+    "molweave_core.molecular": "/datadisk/dev/neistra/packages/neistra_core/src/neistra_core/molecular.py",
+    "molweave_core.adapters.macromolecular": "/datadisk/dev/neistra/packages/neistra_core/src/neistra_core/adapters/macromolecular.py",
+    "molweave_core.minimization.quick_plugin": "/datadisk/dev/neistra/packages/neistra_core/src/neistra_core/minimization/quick_plugin.py",
+    "molweave_demo_plugin": "/datadisk/dev/neistra/packages/neistra_demo_plugin/src/molweave_demo_plugin/__init__.py",
+    "tests.support.api_client": "/datadisk/dev/neistra/tests/support/api_client.py",
+    "tests.support.quick_minimization_reader_qualification": "/datadisk/dev/neistra/tests/support/quick_minimization_reader_qualification.py",
+    "tests.support.modeling_reader_qualification": "/datadisk/dev/neistra/tests/support/modeling_reader_qualification.py",
+    "tests.integration.test_model_edits": "/datadisk/dev/neistra/tests/integration/test_model_edits.py",
+    "tests.integration.test_quick_minimization": "/datadisk/dev/neistra/tests/integration/test_quick_minimization.py",
+    "tests.support.minimization": "/datadisk/dev/neistra/tests/support/minimization.py"
+  },
+  "four_case_quick_retention": true,
+  "result_values_exact": true,
+  "connectivity_retention": true,
+  "unapplied_job_retention": true,
+  "assertion_scope": "producer specimens verified",
+  "both_archive_suffixes": false,
+  "limitations": [
+    "Data retention under an older reader does not qualify its future authoring",
+    "Old reader never executes or applies a new implementation job",
+    "Archives retain historical results, not portable Undo or fresh Apply eligibility",
+    "Existing sparse projects remain unchanged; no automatic connectivity repair"
+  ]
+}

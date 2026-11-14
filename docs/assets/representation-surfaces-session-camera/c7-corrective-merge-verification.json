@@ -1,0 +1,23 @@
+{
+  "verified_utc": "2026-11-14T11:52:40.917266+00:00",
+  "pr": 143,
+  "url": "https://github.com/ManuelSe/Neistra/pull/143",
+  "runtime": "851ccf34b639e3974815aede9979c22f334a5767",
+  "feature_head": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+  "parents": [
+    "54277903cba52bd56881bee070bafdca5b0eeeea",
+    "4b858b0ab8f2e914a0b65b85c3d4acbf25170116"
+  ],
+  "exact_tree_equality": true,
+  "normal_merge_no_bypass": true,
+  "pr_readback": {
+    "headRefOid": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+    "mergeCommit": {
+      "oid": "851ccf34b639e3974815aede9979c22f334a5767"
+    },
+    "mergedAt": "2026-11-14T11:52:38Z",
+    "number": 143,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/143"
+  }
+}

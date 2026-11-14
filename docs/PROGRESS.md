@@ -2,31 +2,40 @@
 
 ## Current milestone
 
-Issue #140 — **corrected candidate fully qualified; C7 delivery continues** under
- the [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-[PR #142](https://github.com/ManuelSe/Neistra/pull/142) merges the initial implementation
-at54277903. Its exact-master gate catches a real positioned-manager entrance defect;
-no tag/release is created. One opacity-only entrance fixes it. Native old-rule
-negative control fails; all12 strict actual100%/200% both-theme timeline samples pass.
-Test helpers now await established Inspector/Components focus handoffs without
-changing application input policy, assertions, deadlines, retries or exclusions.
+Issue #140 — **approved runtime implemented, verified and released as stable
+[v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0)**, through
+[PR #142](https://github.com/ManuelSe/Neistra/pull/142) and
+[correction #143](https://github.com/ManuelSe/Neistra/pull/143).
+The [feature plan](plans/issue-140-representation-surfaces-session-camera.md) remains
+the detailed source of truth. Exact released master: **`851ccf34b639e3974815aede9979c22f334a5767`**.
 
-The corrected clean **ca428af2** candidate passes all **33 release steps**: **1,542
-Python /zero skips,723 frontend,14 supervisor,441 browser passes /75 exact existing
-exclusions**; zero failures/flakes/retries/new exclusions. All516 native cases/69files,
-791 current and754 actual tagged0.29.0 source identities, logs, migrations and actual
-reader families in both directions/suffixes verify. [Summary](assets/representation-surfaces-session-camera/c7-candidate2-summary.json).
-[Native receipt](assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
-verifies567 observations. Earlier failed attempts remain separate diagnostics.
+Completed: correct uniform sticks/no-op history/scoped styling, combined bounded
+surfaces, shared creation/management/immediate Undoable appearance and one
+installation-wide automatically retained camera across entries/projects/reopening.
+The manager stays bounded throughout opening at actual100%/200% in both themes.
+Fixtures await established focus handoffs without relaxing behavior or gates.
 
-Five versions remain0.30.0; migration0015 and portable schemas remain unchanged.
-Known limits: approximate fixed-grid surfaces, specimen-specific capacities,
-best-effort browser recovery and portable rather than strict-host timing evidence.
-Deferred styling is #141, with #64/#107 separate. No user-input blocker. Next:
-final seven-role same-head reconfirmation, corrective normal PR/merge, full clean
-c7-merged2 exact-master gate, then tag/release/download verification, final issue
-reply, normal receipt integration and cleanup. The issue is closed by the requested
-PR keyword; the full delivery goal remains active.
+Both clean corrected candidate and exact released master pass all **33 sequential
+release steps**: **1,542 Python /zero skips,723 frontend,14 supervisor,441 browser
+passes /75 exact existing exclusions**,516cases/69files; zero failures/flakes/retries/
+new exclusions. All791 current/754 actual preceding-tag source identities and
+lossless logs verify, with actual0.29.0↔0.30.0 reader families/directions/suffixes,
+deep state/original checks and corruption controls. [Master summary](assets/representation-surfaces-session-camera/c7-merged2-summary.json).
+Seven specialist agents PASS the same final feature head4b858b0a; the released tree
+is identical. Local full-diff review is self-review; Codex returns no external result
+before merge. No independent human/CI/strict-host certification is claimed.
+
+All five versions are0.30.0. Migration0015 adds only the installation camera;
+portable schemas/originals remain compatible. [Publication receipt](assets/representation-surfaces-session-camera/c7-publication.json)
+verifies the annotated tag, stable/latest public release and anonymous qualification
+asset download SHA-256, CRC and all manifest hashes. Runtime tag stays fixed.
+Known limits: approximate surfaces, specimen-specific capacity, best-effort recovery
+and portable timing evidence. Deferred local styling is #141; #64/#107 stay separate.
+
+Blockers: none. The [verified issue closeout reply](https://github.com/ManuelSe/Neistra/issues/140#issuecomment-6877948856) is also the terminal
+record for normal documentation receipt integration and remote/local branch cleanup.
+This receipt records publication facts; final integration/cleanup is verified there
+after completion, without retargeting the runtime tag or creating a receipt loop.
 
 ### Approved planning checkpoint — issue #140 C0
 

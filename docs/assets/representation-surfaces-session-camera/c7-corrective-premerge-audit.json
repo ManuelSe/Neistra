@@ -1,0 +1,187 @@
+{
+  "verified_utc": "2026-11-14T11:52:35.521059+00:00",
+  "pr": 143,
+  "url": "https://github.com/ManuelSe/Neistra/pull/143",
+  "feature_head": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+  "base": "54277903cba52bd56881bee070bafdca5b0eeeea",
+  "view": {
+    "baseRefName": "master",
+    "headRefOid": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/ManuelSe/Neistra/pull/143"
+  },
+  "normal_merge_allowed": true,
+  "policy": {
+    "master_protected": false,
+    "rulesets": [],
+    "actions_workflows": 0,
+    "delete_branch_on_merge": false,
+    "required_reviews_or_checks": "None configured; no bypass"
+  },
+  "reviews": [],
+  "inline_comments": [],
+  "threads": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    }
+  },
+  "codex": {
+    "request_comment": 6876822643,
+    "external_result_returned": false,
+    "reactions": [],
+    "fallback": "Complete local self-review and seven specialist-agent assessments; no independent human approval or remote CI success claimed."
+  },
+  "all_seven_same_head_pass": {
+    "candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+    "base": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+    "full_gate_pending": false,
+    "final_evidence_reconfirmation_required": false,
+    "roles": {
+      "scientific_theory": {
+        "agent": "final_science140",
+        "checks": "44 independent numerical/geometry tests reused;38 unchanged runtime files; C5 scientifically meaningful assertions reviewed",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent33command-loghashes/791current754oldtag sources;8readerreports/versions/deepstateoriginal/corruptionchecks;516inventory441pass75exactoldexclusions;567nativehashesCRC/12strictsamples; priornumericaltestsvalid;no consequentialscientificfindings",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:47:22.977896+00:00"
+      },
+      "scientific_implementation": {
+        "agent": "final_scientific_impl140",
+        "checks": "75 independent focused tests reused;59 C5 lossless/bundle hashes;791-source snapshot diff; reader digest",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent33command-loghashes/791current754oldtag sources;516cases69files441pass75exactoldexclusions;8readerreportsprovenance/deeparchive/corruptioncontrols;567nativehashesCRC/12strictsamples; prior75focusedtestsvalid;diffcheck;no consequentialfindings",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:47:23.001708+00:00"
+      },
+      "software_architecture": {
+        "agent": "final_architecture140",
+        "checks": "144 frontend and48 API tests reused;8 namespace tests and version/schema/migration audit;16 passive-presentation tests",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent33completegate/logs/791current754oldtag sources; readerfamiliesbothdirections/suffixes/corruptioncontrols; exact4auditregenerations;567nativehashesCRC; correction sourcehashes/clean/diff; no consequential finding",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:46:52.451730+00:00"
+      },
+      "performance": {
+        "agent": "final_performance140",
+        "checks": "123 focused tests reused;791 current source identities;59 evidence hashes/ZIPCRC; unchanged limits and measurement boundaries",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent33vectors/recipe/runner/losslesslogs;791current754oldtag frozenprovenance;516cases69files441pass75exactoldexclusions;567nativehashesCRC/12strictsamples;8readerhashesversions/deepcomparisons/corruptioncontrols; prior123focusedchecksvalid; portablelimitsretained, no consequentialfinding",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:47:38.165672+00:00"
+      },
+      "ui_design": {
+        "agent": "final_ui140",
+        "checks": "60 UI tests reused;5 UI source hashes; native23/5 and78/22 reports; retained screenshot/accessibility evidence",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent791source/33losslesslogs/516browseridentities;567nativehashesCRC;12strictopening samples; light1366/dark320screenshots; fullscope/cumulativefixture/docs/diff reviewed, no new finding",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:46:52.430472+00:00"
+      },
+      "ux_design": {
+        "agent": "final_ux140",
+        "checks": "106 workflow tests reused;18 source hashes; scene intent ownership and C5 recovery/chooser adaptations",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent791source/33command-log/516browser8readerreport identities;567nativehashesCRC;12strictopening samples; complete scope/cumulativefixture/evidence/docs reviewed; no consequential findings, recorded P3 nonblocking",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:46:52.408106+00:00"
+      },
+      "modeling_reference": {
+        "agent": "final_reference140",
+        "checks": "13 tests and official evidence reused;20 workflow hashes; scope and neutral documentation inspected",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4b858b0ab8f2e914a0b65b85c3d4acbf25170116",
+        "intervening_diff": "Two test-only Components handoff/assertion files plus final complete clean candidate2 evidence/documentation; production source remains83dcee26 CSS correction",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "Independent791current754taggedreaderidentities/33successfullogs/8readerhashes; richbothdirections/suffixes/deepstatecorruptioncontrols;516cases69files441pass75exactoldexclusions;567nativehashesCRC/12strictsamples; scope/docsneutralityreviewed, priorofficialreferencevalid; no consequentialfinding",
+        "correction_checks": "10 log/report hashes,2 source hashes,75 native manifest hashes/CRC,12 bounded samples and failing old-rule negative control",
+        "previous_assessed_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+        "assessment_received_utc": "2026-11-14T11:48:32.705001+00:00"
+      }
+    },
+    "optional_findings": [
+      {
+        "priority": "P3",
+        "file": "apps/web/src/components/SurfaceEditor.tsx:255",
+        "description": "Shared input error may show unrelated source-context Retry action",
+        "disposition": "Nonblocking feedback polish deferred; no additional speculative issue."
+      }
+    ],
+    "previous_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+    "follow_up": {
+      "number": 141,
+      "url": "https://github.com/ManuelSe/Neistra/issues/141",
+      "remote_body_verified": true
+    },
+    "qualified_source_candidate": "ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d",
+    "all_seven_final_pass": true,
+    "verified_utc": "2026-11-14T11:45:54.803304+00:00",
+    "qualification": "c7-candidate2 COMPLETE33 PASS",
+    "corrected_production_delta": "One manager-specific opacity-only CSS entrance; no scientific/camera/API/persistence/resource change.",
+    "all_seven_source_pass": true
+  },
+  "qualification": {
+    "commit": "ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d",
+    "branch": "feat/issue-140-representation-surfaces-session-camera",
+    "clean_start": true,
+    "complete_steps": 33,
+    "source_count": 791,
+    "source_inventory_unchanged": true,
+    "source_digest": "c9e9432cb5c3f5a587dfb76ae2bd4dce0741de9fc4731a232fe0d0bffd97a358",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 1542,
+    "python_skips": 0,
+    "frontend": 723,
+    "supervisor": 14,
+    "browser_passed": 441,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 516,
+    "browser_inventory_sha256": "4dee4dd32cb105132b3060c4b317612cc5ef0fe35517558cada1e0e846233dde",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/authoritative-minimization/c8-merged4-browser.json.gz",
+    "exclusion_baseline_sha256": "956d266b314142979389200125fa44c4c2a636738593045e191aec348a1bc62f",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.29.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 754,
+    "actual_reader_audit": "c7-candidate2-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 5001.493,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 5004.0
+  },
+  "qualified_source_unchanged": true,
+  "clean_worktree": true,
+  "merge_strategy": "normal merge commit preserving checkpoint history, exact head match, no bypass flags"
+}

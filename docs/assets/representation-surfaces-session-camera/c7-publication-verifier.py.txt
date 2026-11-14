@@ -1,0 +1,22 @@
+"""Read back public release/tag/download identity after explicit publication."""
+import argparse,datetime,hashlib,json,re,subprocess,zipfile
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('--runtime',required=True);p.add_argument('--asset',type=Path,required=True);p.add_argument('--notes',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+def api(path):return json.loads(subprocess.check_output(['gh','api',path],text=True))
+def git(*args):return subprocess.check_output(['git',*args],text=True).strip()
+assert re.fullmatch('[0-9a-f]{40}',a.runtime)
+r=api('repos/ManuelSe/Neistra/releases/tags/v0.30.0');latest=api('repos/ManuelSe/Neistra/releases/latest');ref=api('repos/ManuelSe/Neistra/git/ref/tags/v0.30.0');assert ref['object']['type']=='tag';tag=api('repos/ManuelSe/Neistra/git/tags/'+ref['object']['sha']);assert tag['object']['type']=='commit' and tag['object']['sha']==a.runtime==git('rev-parse','v0.30.0^{}')
+assert r['tag_name']=='v0.30.0' and not r['draft'] and not r['prerelease'] and latest['id']==r['id']
+assert r['body']==a.notes.read_text().rstrip('\n') or r['body']==a.notes.read_text()
+asset=next(x for x in r['assets'] if x['name']==a.asset.name);assert asset['state']=='uploaded' and asset['size']==a.asset.stat().st_size
+sha=hashlib.sha256(a.asset.read_bytes()).hexdigest();assert asset.get('digest') in (None,'sha256:'+sha)
+download=Path('/tmp/neistra-v0.30.0-public-download.zip');assert not download.exists();subprocess.run(['curl','--fail','--location','--retry','2','--output',str(download),asset['browser_download_url']],check=True)
+assert download.stat().st_size==asset['size'] and hashlib.sha256(download.read_bytes()).hexdigest()==sha
+with zipfile.ZipFile(download) as z:
+ assert z.testzip() is None
+ m=json.loads(z.read('MANIFEST.json'));assert m['runtime']==a.runtime
+ assert set(z.namelist())==set(m['files'])|{'MANIFEST.json'}
+ for name,item in m['files'].items():
+  b=z.read(name);assert len(b)==item['bytes'] and hashlib.sha256(b).hexdigest()==item['sha256'],name
+receipt={'verified_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'runtime':a.runtime,'tag':{'name':'v0.30.0','annotated_object':ref['object']['sha'],'peeled_commit':tag['object']['sha'],'message':tag['message']},'release':{'id':r['id'],'url':r['html_url'],'name':r['name'],'tag_name':r['tag_name'],'draft':r['draft'],'prerelease':r['prerelease'],'latest':True,'published_at':r['published_at'],'body_sha256':hashlib.sha256(r['body'].encode()).hexdigest()},'asset':{'id':asset['id'],'url':asset['browser_download_url'],'name':asset['name'],'bytes':asset['size'],'sha256':sha,'api_digest':asset.get('digest'),'anonymous_download_verified':True,'zip_crc_and_manifest_hashes_valid':True,'manifest_files':len(m['files']),'download_path':str(download)},'runtime_tag_never_retargeted':True,'terminal_verification_policy':'Final documentation integration and branch cleanup are recorded in the same verified issue closeout reply. Its initial body hash is historical, not an immutable terminal-body assertion.'}
+assert not a.output.exists();a.output.write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))

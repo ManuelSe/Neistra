@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C5 complete; C6 first candidate qualified and merged; C7 corrected candidate qualified; corrective merge and exact-master qualification pending.
+**Status:** approved runtime scope complete and released; terminal repository receipt is recorded on the linked issue closeout reply.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -1027,3 +1027,57 @@ styling follow-up; #64/#107 remain separate. Next: same-head final review, fresh
 base/version/policy checks, normal corrective PR/merge, complete clean c7-merged2
 exact-master qualification, then tag/release/download verification, final issue
 reply, normal documentation receipt integration and cleanup. No user-input blocker.
+
+
+### C7 — 2026-11-14: verified runtime publication
+
+The corrective [PR #143](https://github.com/ManuelSe/Neistra/pull/143) normally merges
+final reviewed head **4b858b0ab8f2e914a0b65b85c3d4acbf25170116** at exact released
+master **`851ccf34b639e3974815aede9979c22f334a5767`**, with parents54277903/4b858b0a and complete tree equality.
+All seven specialist agents explicitly PASS that same final candidate, including
+the complete intended implementation, cumulative corrections and final evidence.
+[Assessment record](../assets/representation-surfaces-session-camera/c7-specialist-review.json).
+Normal merge preserves checkpoint history; no protection, required approval or
+check is bypassed. Codex is requested on #142/#143 but returns no external result
+before merge; local full-diff review is implementer self-review, not human approval.
+[Initial](../assets/representation-surfaces-session-camera/c7-initial-premerge-audit.json)
+and [corrective](../assets/representation-surfaces-session-camera/c7-corrective-premerge-audit.json)
+pre-merge receipts and exact-parent/tree readbacks retain remote evidence.
+
+The clean exact-master **c7-merged2** gate completes all33 steps, matching the
+clean corrected candidate:1,542 Python/zero skips,723 frontend,14 supervisor,
+441browser/75 exact existing exclusions,516cases/69files; zero failures/flakes/
+retries/new exclusions. All791 current/754 actual preceding-tag source identities,
+recipes/runner/lossless logs and actual rich/connectivity reader families in both
+directions/suffixes verify. Deep state/original/corruption controls, empty migration
+roundtrip, locked/static/build/version/production/legacy checks pass. Source bytes
+remain identical between candidate and master. [Master summary](../assets/representation-surfaces-session-camera/c7-merged2-summary.json).
+Historical failed/intermediate attempts remain distinct diagnostics.
+
+Stable minor **[v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0)** is published from that exact verified master.
+The annotated tag object, peeled runtime, stable/latest release metadata and notes
+are verified remotely. The public qualification ZIP is downloaded anonymously;
+**382646867bytes**, SHA-256 **`4942f0ecc74c8c4e03f4ccc9e0bfb930e7715af65cc3996803bf283b32f05379`**, CRC and all
+**560 internal manifest files** verify. [Publication receipt](../assets/representation-surfaces-session-camera/c7-publication.json).
+Five authoritative versions agree; migration0015 adds only the installation camera.
+Project/viewer/archive2 and normalized/selection/component1, originals, historical
+migrations, dependencies and quick1.0.3/current-canonical policy remain compatible.
+Upgrade client/server together after backing up the managed store; downgrade0014
+removes only the camera preference. Automatic camera data stays out of archives.
+
+The [verified issue closeout reply](https://github.com/ManuelSe/Neistra/issues/140#issuecomment-6877948856) records implemented outcomes,
+PRs/release, validation, migration/compatibility and approved scope dispositions.
+The one follow-up is [#141](https://github.com/ManuelSe/Neistra/issues/141): independent
+polymer visibility and local opacity/themes/inheritance need a separate durable
+contract. #64/#107 retain their scopes. Per-entry camera maps/archive preferences
+remain rejected by the approved global-view direction; extra surface families,
+quality/property/bulk/cache extensions remain deferred without speculative issues.
+Approximate surfaces, specimen-specific capacity, best-effort recovery and portable
+rather than strict-host timing remain documented limitations. Recorded P3 shared
+Retry-label polish remains nonblocking. No additional architectural decision is needed.
+
+This documentation-only receipt uses the same planned feature branch and normal
+PR integration; it does not move the runtime tag. The latest verified version of
+that same owned issue reply is the terminal receipt for the documentation PR/merge,
+remote/local feature-branch deletion and clean synchronized master. Those final
+facts are posted only after verification, avoiding an endless receipt-commit loop.

@@ -1,0 +1,14 @@
+{
+  "verified_utc": "2026-11-14T07:50:28.440055+00:00",
+  "pr": 142,
+  "merge_commit": "54277903cba52bd56881bee070bafdca5b0eeeea",
+  "expected_parents": [
+    "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+    "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f"
+  ],
+  "feature_tree_equals_merged_tree": true,
+  "origin_master_exact": true,
+  "strategy": "normal merge commit, checkpoint history preserved",
+  "issue_closed_by_pr": true,
+  "tag_release_pending": true
+}

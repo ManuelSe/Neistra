@@ -1,5 +1,29 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — released runtime qualification
+
+Stable [v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0) tags exact master **`851ccf34b639e3974815aede9979c22f334a5767`**.
+Both [corrected candidate](assets/representation-surfaces-session-camera/c7-candidate2-summary.json)
+and [exact master](assets/representation-surfaces-session-camera/c7-merged2-summary.json)
+complete all33 sequential gates:1,542 Python/zero skips,723 frontend,14 supervisor,
+441 browser/75 exact existing exclusions,516cases/69files; zero failures/flakes/
+retries/new exclusions. All791 current and754 actual tagged0.29.0 identities,
+lossless logs and actual reader families/directions/suffixes verify. Deep portable
+state/original comparisons, copied-corruption controls, migration roundtrip,
+locked/static/build/version/production/legacy checks pass. Candidate/master source
+bytes and released/reviewed trees match. Earlier failures remain diagnostics.
+
+All seven [specialist assessments](assets/representation-surfaces-session-camera/c7-specialist-review.json)
+PASS final feature head4b858b0a; primary [full-diff review](assets/representation-surfaces-session-camera/c7-review.md)
+is self-review. Codex was requested with no external result before merge; no human
+approval or remote CI is claimed. [Publication verification](assets/representation-surfaces-session-camera/c7-publication.json)
+checks annotated tag target, stable/latest release, anonymous asset checksum, CRC and
+all internal manifest hashes. [Issue reply](https://github.com/ManuelSe/Neistra/issues/140#issuecomment-6877948856) records final normal receipt
+integration and cleanup. Runtime tag is not moved by documentation integration.
+Portable correctness does not establish strict reference-host timing or universal
+capacity; approximate visualization and best-effort recovery limits remain.
+
+
 ## Issue #140 — corrected clean candidate2 qualification
 
 Committed **ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d** passes all33 complete
