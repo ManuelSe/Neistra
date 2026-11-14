@@ -2,6 +2,38 @@
 
 ## Current milestone
 
+Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **approved plan,
+C0 persistence only**. The detailed source of truth is the
+[feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md).
+The user's “Implement the plan.” approves this planning checkpoint, with runtime
+work explicitly deferred until `/goal`.
+
+Completed: read-only investigation and seven specialist planning assessments;
+approved manager-only surface activation/deselection and passive picking/marking;
+user-selected surface-only empty-pick behavior; prominent original H icon with
+All/Polar/Mixed state and existing graph-attached-H targeting. D-156/D-157 append
+the narrowly superseding decisions. Clean master was fetched and fast-forward
+checked at `923fc249`; the dedicated branch is
+`fix/issue-145-surface-selection-hydrogen-toggle`.
+
+Verification: baseline 65 frontend cases across six suites and one existing
+hydrogen API case passed during planning; these do not qualify future behavior.
+C0 validates documentation scope, links, append-only decisions, unchanged global
+plan/runtime/versions, clean diff and exact remote commit readback at handoff.
+
+Planned checkpoints: C0 approved planning; C1 surface interaction correction;
+C2 prominent attached-hydrogen toggle; C3 integrated final-version qualification;
+C4 verified release delivery. Planned impact is stable **minor 0.31.0** for new
+attached-H authoring, without schema/API/migration/dependency changes. Current
+application versions remain 0.30.0 and migration head remains 0015.
+
+Known limitations: reported surface behavior and the existing dropdown remain
+unchanged; no implementation, candidate qualification, PR or future release is
+claimed. Blockers: none for C0. Next action: **`/goal`** after the approved plan
+commit/push and remote readback; do not start C1 in this planning checkpoint.
+
+### Previous completed milestone — issue #140
+
 Issue #140 — **approved runtime implemented, verified and released as stable
 [v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0)**, through
 [PR #142](https://github.com/ManuelSe/Neistra/pull/142) and

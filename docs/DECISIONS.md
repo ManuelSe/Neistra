@@ -7015,3 +7015,75 @@ uses current effective visible bounds. Explicit native Reset/axis navigation
 resolves immediately at the public boundary so queued fitting cannot overwrite
 later input. Native qualification and full release status remain in the feature
 plan; this decision does not certify pending delivery gates.
+
+## D-156 — Manager-only surface activation and passive surface rendering
+
+Date: 2026-11-14. Status: approved planning contract for issue #145; runtime
+implementation pending. The user's “Implement the plan.” authorizes C0 planning
+persistence only under the [feature contract](plans/issue-145-surface-selection-hydrogen-toggle.md).
+
+Surface activation is a transient application-owned manager editing target,
+independent of molecular selection and requested visibility. Clicking its active
+row toggles it off; an ordinary empty primary viewer click clears activation even
+when molecular selection is already empty. Molecular picks retain the manager
+editing target and cannot activate a surface or open the manager. A surface-only
+shell pixel without molecular geometry behind it follows ordinary empty-pick
+behavior, as explicitly selected by the user; no ownership or nearest-atom proxy.
+
+Plan nonpickable, unmarked native solid/mesh/fallback visuals before display
+acknowledgement and through updates/rebuilds. Remove renderer activation/highlight
+wiring and surface-driven picking-threshold adjustment, retaining managed/retired
+identity guards, rendered-atom accounting and ordinary molecular feedback. Reuse
+the existing empty replace selection event for application-side clearing, including
+zero molecular selection, while preserving modifiers/movement/generation guards.
+
+This narrowly supersedes D-155 C3's selectable fallback/surface behavior. It does
+not change surface source definitions, geometry, worker policy, visibility, previews,
+draft ownership, history, archive contracts or D-154's shared camera. Deselecting
+preserves source drafts and existing unfinished/completed/pending gesture recovery.
+Native click-through and marker/rendered regression evidence remain required;
+planning and pinned-source inspection do not certify the future implementation.
+
+## D-157 — Prominent icon control for graph-attached hydrogen visibility
+
+Date: 2026-11-14. Status: approved planning contract for issue #145; runtime
+implementation pending. The user explicitly chose attached-H targeting, a minimal
+icon and prominent placement among representation controls, then approved the
+[feature contract](plans/issue-145-surface-selection-hydrogen-toggle.md) for C0.
+
+Replace the selected-hydrogen dropdown with one original H icon in an always-
+visible Hydrogens row after atomic representation/Hide controls and before Polymer.
+Use the stable accessible name Show non-polar hydrogens: pressed=true means All,
+false means Polar, mixed means differing effective preferences; mixed activation
+chooses All. Check/mixed-state cues supplement color, with current/next mode and
+inheritance in the tooltip/accessible description. A secondary reset restores
+entry inheritance for the same target. Avoid chemical addition/charge imagery.
+
+Resolve one exact operand: selected existing element-H atoms plus element-H
+neighbors of selected heavy atoms in the current normalized bond graph. Heavy
+seeds exclude H/D/T. Use one edge, stable entry/atom IDs and deduplication; recorded
+unknown-order/inferred edges count, absent edges are never guessed. Include hidden
+and explicitly selected isolated H; no recursive traversal, proximity inference,
+atom generation, molecular-state edit or global selection expansion. Preserve
+current isotope representation/metadata; broader isotope targeting remains #83.
+
+This supersedes only D-053's prohibition on heavy-atom-to-attached-H targeting.
+Complete-projection polarity classification remains renderer-owned and unchanged.
+The control expresses nonpolar display preference, local override over entry
+default; equal effective inherited/explicit values are uniform. The master switch
+remains an independent visibility gate; rendering never publishes a preference.
+
+Use the same memoized pure resolver for state/set/reset. Capture project/epoch,
+seed selection, participating artifact identities and explicit H operand; reject
+stale contexts before dispatch and after asynchronous preflight. Submit through
+the existing revision-guarded appearance API and current-artifact H validation,
+without a REST expansion flag, persisted field, migration or new job. Color
+targeting remains unchanged. One action retains existing atomic Undo/Redo,
+scene/archive and recovery contracts.
+
+Plan stable minor 0.31.0: attached-H authoring adds user-visible functionality to
+0.30.0, while surface fixes alone would be patch scope. Established stable history
+is verified. All five version sources change only in release preparation; schemas,
+0015 migration head and dependencies remain. Actual preceding readers, complete
+candidate/exact-master checks and same-candidate seven-role implementation review
+remain required. C0 adds no application behavior or version change.
