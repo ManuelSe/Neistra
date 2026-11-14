@@ -536,3 +536,31 @@ TS2345 in unchanged `support/interactions.ts:20` for baseline923fc249 and the
 corrected test: zero new diagnostics. This is outside the registered frontend
 type gate, which passes. Baseline/current comparison is retained; no suppression
 or unrelated shared-helper change is introduced to this scoped correction.
+
+
+### 2026-11-14 — C3 exact polymer picking oracle
+
+Clean candidate5b97cf8d again passed the first14gate steps and the corrected
+zoom workflow, then stopped at190native passes/5existing exclusions. The visibility
+test's seven coarse canvas positions missed narrow cartoon/backbone geometry.
+Its former surface-shell hit mapping had never established polymer provenance.
+Candidate2 logs, report and failed trace/images remain diagnostic, not qualification.
+
+The corrected test fixes CA7/GLY2 and independent normalized residue IDs6–9, then
+locates an exact actual-polymer pixel in a bounded projected neighborhood before
+one real Shift-click. It requires exactly one add/atom event and exact IDs, with
+unchanged hidden mask, camera and polymer/surface geometry. Native proof succeeds
+on desktop(584,450) and mobile(173,473);6focused cases pass with zero exclusions,
+failures/flakes/retries. Architecture and scientific implementation independently
+confirm the oracle and evidence, resolving the diagnostic runtime uncertainty.
+No production behavior, granularity, identity, resource/deadline or exclusion
+change is made. Final type-only/camera-evidence refinements receive another
+focused run before the fresh committed complete gate.
+
+Final focused refinement:6passes/0exclusions, zero failures/flakes/retries;
+[c3-polymer-final-receipt](../assets/surface-selection-hydrogen-toggle/c3-polymer-final-receipt.json)
+records the exact final source and both native observations. Exploratory strict
+native comparison has20existing dynamic-import/shared-harness diagnostics versus
+21on candidate5b97cf8d, zero new diagnostics and no blanket suppression. Registered
+frontend types pass; this standalone gap is not presented as a passing gate.
+Fresh complete qualification restarts from step1 on the next clean commit.

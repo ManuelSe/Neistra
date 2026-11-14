@@ -1,0 +1,28 @@
+{
+  "qualification": "focused only; fresh complete gate pending",
+  "browser_passed": 6,
+  "exclusions": 0,
+  "failures_flakes_retries": 0,
+  "sources": {
+    "tests/e2e/selection-visibility.spec.ts": "b0c8c1253996ac899c5a1f47b27e4084950aca57e01de56c7af84c134af84cbb"
+  },
+  "artifacts": {
+    "c3-polymer-tsconfig.json.gz": "232b824fa59c35ff49656aac0d1711bd332c95e8ea99692ab9caba1886864bcd",
+    "c3-polymer-fix.log.gz": "5a59f22651b72bea8410941c86a0526caa21113f6d99574759e10ca7555ae5c9",
+    "c3-polymer-observations.zip": "38a8b14bfef00f20d1b48d17ae6d4c126c05d1f0097143cc5234991537b1ae01",
+    "c3-polymer-correction.json": "9d87e88abfbb72149cab446f631a1dd085a46b028237fda7227ac95c2932bc8f",
+    "c3-polymer-types2.log.gz": "a654fb414e6cb5f58e3d4f0ab642c71ea4fc5f79a9b0fcc4d5276dc4a60117ce",
+    "c3-polymer-types-comparison.json.gz": "1c3d56b4930b4576a9d4f5c30b09f6646a120ef17f84118a516d7e63847a111f",
+    "c3-polymer-fix.json.gz": "6d383ba529c0e86e154334c37f4a2ff01401d2c0e97a28168aac721878fa7c53",
+    "c3-polymer-final.json.gz": "e9b1c45bfbd4916f24f22dc3b61c0a022e4103b600e26ca8737eae22abed0626",
+    "c3-polymer-final-observations.zip": "a4d57b095b29c1c5a3c484aa4cb1c3f763d052c36fc04a33ec3b71f1b11a803b",
+    "c3-polymer-final.log.gz": "7452ee9029ce19c00d438c68b8507f520073c4d4321381f7434379fd1e42f375"
+  },
+  "strictStandalone": {
+    "pass": false,
+    "newDiagnostics": 0,
+    "baselineCount": 21,
+    "currentCount": 20,
+    "reason": "Existing dynamic-import/shared native typing gaps outside registered frontend gate; one callback explicitly typed. No suppression."
+  }
+}

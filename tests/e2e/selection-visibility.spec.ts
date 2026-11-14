@@ -3,7 +3,13 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { expect, test, type APIRequestContext } from "@playwright/test";
 import type { AtomReference, Project, StructureProjection } from "../../apps/web/src/api/types";
 
-declare global { interface Window { visibilityPicks: AtomReference[] } }
+import type { ViewerSelectionEvent } from "../../apps/web/src/viewer/MolecularViewer";
+import type { MolstarEngine } from "../../apps/web/src/viewer/MolstarEngine";
+import type { PluginUIContext } from "../../apps/web/node_modules/molstar/lib/mol-plugin-ui/context";
+import type { Loci } from "../../apps/web/node_modules/molstar/lib/mol-model/loci";
+import type { Vec2, Vec3, Vec4 } from "../../apps/web/node_modules/molstar/lib/mol-math/linear-algebra";
+
+declare global { interface Window { visibilityPicks: AtomReference[]; visibilityEvents: ViewerSelectionEvent[] } }
 
 async function fixture(request: APIRequestContext, name: string) {
   const initial: Project = await (await request.post("/api/v1/projects", { data: { name: `Visibility ${name} ${Date.now()}` } })).json();
@@ -104,12 +110,12 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
     }
     source.settings.selection_hidden_atoms = []; await h.sync([source]);
     const restored = h.details();
-    // Leave only native polymer/surface pick targets, with all atom detail hidden.
+    // Leave only native polymer pick targets and passive surface context, with all atom detail hidden.
     source.settings.selection_hidden_atoms = entry.atom_ids;
     source.settings.labels = { atoms: false, residues: false, chains: false, structure: false };
     await h.engine.setMeasurements([]); await h.sync([source]); h.engine.setSelection([]);
-    window.productionSurface = h; window.visibilityPicks = [];
-    h.engine.subscribeSelection((event) => window.visibilityPicks.push(...event.atoms));
+    window.productionSurface = h; window.visibilityPicks = []; window.visibilityEvents = [];
+    h.engine.subscribeSelection((event: ViewerSelectionEvent) => { window.visibilityPicks.push(...event.atoms); window.visibilityEvents.push(event); });
     return { before, stages, restored, camera };
   }, { entry, projection });
   const polymer = (state: typeof result.before) => state.representations.filter((r) => r.tags.some((tag) => /-(cartoon|backbone)$/.test(tag)));
@@ -133,17 +139,54 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
   }
   expect(result.restored.representations).toEqual(result.before.representations);
   expect(result.restored.labels).toBe(result.before.labels);
-  const canvas = page.locator("canvas").first(), box = (await canvas.boundingBox())!;
-  for (const [x, y] of [[0.5, 0.5], [0.4, 0.5], [0.6, 0.5], [0.4, 0.4], [0.6, 0.6], [0.3, 0.6], [0.7, 0.4]]) {
-    // Passive surfaces preserve ordinary molecular picking with the add modifier.
-    await page.keyboard.down("Shift");
-    await page.mouse.click(box.x + box.width * x, box.y + box.height * y);
-    await page.keyboard.up("Shift");
-    if (await page.waitForFunction(() => window.visibilityPicks.length > 0, undefined, { timeout: 500 }).then(() => true, () => false)) break;
-  }
-  const picked = await page.evaluate(() => window.visibilityPicks);
-  expect(picked.length).toBeGreaterThan(0);
-  for (const atom of picked) { expect(atom.structure_id).toBe(entry.id); expect(entry.atom_ids).toContain(atom.atom_id); }
+  // Native polymer groups map to complete residue loci even in atom mode.
+  // Fix the independent GLY2 oracle before locating its narrow rendered geometry.
+  const trace = projection.structure.atoms.find(atom => atom.id === 7)!;
+  expect(trace.name).toBe("CA");
+  const expected = projection.structure.atoms.filter(atom => atom.residue_id === trace.residue_id)
+    .map(atom => ({ structure_id: entry.id, atom_id: atom.id })).sort((a, b) => a.atom_id - b.atom_id);
+  expect(expected.map(atom => atom.atom_id)).toEqual([6, 7, 8, 9]);
+  const pixel = await page.evaluate(async ({ coordinates, expected }) => {
+    await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+    const engine = window.productionSurface.engine as unknown as Pick<MolstarEngine, "getCamera"> & {
+      plugin: PluginUIContext; referencesFromLoci(loci: Loci): AtomReference[];
+    };
+    const canvas = engine.plugin.canvas3d!, element = canvas.webgl.gl.canvas as HTMLCanvasElement;
+    const rect = element.getBoundingClientRect();
+    const projected = canvas.camera.project([0, 0, 0, 0] as unknown as Vec4, coordinates as unknown as Vec3);
+    const centerX = Math.round(rect.left + projected[0] / element.width * rect.width);
+    const centerY = Math.round(rect.top + (1 - projected[1] / element.height) * rect.height);
+    // Inspect a bounded pixel neighborhood before one real input; never accept
+    // a surface hit, widen the residue oracle or retry clicks until one works.
+    const offsets = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1], [-2, 0], [2, 0], [0, -2], [0, 2],
+      [-2, -2], [2, -2], [-2, 2], [2, 2], [-4, 0], [4, 0], [0, -4], [0, 4]];
+    for (const [dx, dy] of offsets) {
+      const x = centerX + dx, y = centerY + dy;
+      const hit = canvas.identify(new Float32Array([x - rect.left, y - rect.top]) as unknown as Vec2);
+      const loci = canvas.getLoci(hit?.id);
+      const atoms = engine.referencesFromLoci(loci.loci).sort((a, b) => a.atom_id - b.atom_id);
+      const polymer = [...engine.plugin.state.data.cells.values()].some(cell => {
+        const data = cell.obj?.data as { repr?: unknown } | undefined;
+        return data?.repr === loci.repr && cell.transform.tags?.some(tag => /-(cartoon|backbone)$/.test(tag));
+      });
+      if (document.elementFromPoint(x, y) === element && polymer && JSON.stringify(atoms) === JSON.stringify(expected)) {
+        return { x, y, atoms, polymer, camera: engine.getCamera() };
+      }
+    }
+    throw new Error("No exact GLY2 native polymer pixel in the bounded projected neighborhood");
+  }, { coordinates: trace.coordinates, expected });
+  expect(pixel.polymer).toBe(true); expect(pixel.atoms).toEqual(expected); expect(pixel.camera).toEqual(result.camera);
+  await page.keyboard.down("Shift"); await page.mouse.click(pixel.x, pixel.y); await page.keyboard.up("Shift");
+  await expect.poll(() => page.evaluate(() => window.visibilityPicks)).toEqual(expected);
+  const afterPick = await page.evaluate(() => ({ events: window.visibilityEvents,
+    hidden: window.productionSurface.source.settings.selection_hidden_atoms,
+    camera: window.productionSurface.engine.getCamera(), details: window.productionSurface.details() }));
+  expect(afterPick.events).toHaveLength(1);
+  expect(afterPick.events[0]).toMatchObject({ mode: "add", granularity: "atom", atoms: expected });
+  expect(afterPick.hidden).toEqual(entry.atom_ids); expect(afterPick.camera).toEqual(result.camera);
+  expect(polymer(afterPick.details)).toEqual(polymer(result.before));
+  expect(surfaces(afterPick.details)).toEqual(surfaces(result.before));
+  writeFileSync(info.outputPath("visibility-polymer-pick.json"), JSON.stringify({ pixel, expected, afterPick }, null, 2));
   await page.evaluate(() => window.productionSurface.dispose());
   writeFileSync(info.outputPath("visibility-channels.json"), JSON.stringify(result, null, 2));
 });

@@ -28,7 +28,10 @@ First complete-gate attempt stopped at an obsolete native row-activation
 expectation after146browser passes. Corrected test proves creation activation and
 keyboard toggle-off/on; focused4passes/4existing exclusions. Runtime unchanged.
 Seven full-diff specialist assessments pass subject to final evidence/head
-reconfirmation. Fresh complete33-step candidate qualification is next.
+reconfirmation. A second attempt passed190native cases before a coarse polymer-pixel oracle
+missed narrow geometry. Exact independent GLY2 native provenance/ID/event checks
+now pass6both-layout cases, with no runtime change or relaxed expectation.
+Fresh complete33-step candidate qualification remains required.
 No implementation push, PR or release yet. PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0

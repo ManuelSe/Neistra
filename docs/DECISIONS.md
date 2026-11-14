@@ -7152,3 +7152,15 @@ qualification is mandatory in both producer/reader directions and archive suffix
 version-string compatibility tests alone are insufficient. Fresh complete candidate
 and exact merged-master gates, plus all-seven final specialist review, remain
 required before publication. This preparation does not assert those future results.
+
+
+### D-156 qualification note — native polymer provenance
+
+Removing managed surface picking exposes test oracles that formerly obtained
+molecular IDs from shell loci. For atom-detail-hidden polymer acceptance, fix an
+independent normalized residue target, locate actual native cartoon/backbone
+geometry in a bounded projected neighborhood, then verify one real input and its
+exact event/IDs. Native polymer groups may return complete residue loci at atom
+granularity; do not filter hidden atomic detail, widen accepted IDs, re-enable
+shell picks or retry input to preserve an obsolete test. This refines verification
+provenance without changing runtime or scientific semantics.

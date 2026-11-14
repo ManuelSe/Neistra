@@ -1,0 +1,15 @@
+{
+  "qualification": "focused correction; fresh full gate pending",
+  "browser_passed": 6,
+  "exclusions": 0,
+  "failures_flakes_retries": 0,
+  "source": {
+    "tests/e2e/selection-visibility.spec.ts": "e79328554aac62f97157dc3469f8386dc7da2df6ba0ff389029e25dd6c1462e6"
+  },
+  "artifacts": {
+    "c3-polymer-fix.log.gz": "5a59f22651b72bea8410941c86a0526caa21113f6d99574759e10ca7555ae5c9",
+    "c3-polymer-observations.zip": "38a8b14bfef00f20d1b48d17ae6d4c126c05d1f0097143cc5234991537b1ae01",
+    "c3-polymer-fix.json.gz": "6d383ba529c0e86e154334c37f4a2ff01401d2c0e97a28168aac721878fa7c53"
+  },
+  "scientific_oracle": "FixedCA7/GLY2 expected6\u20139; exact polymer provenance and nativecanvas pixel, onerealShiftclick, add/atom/exactIDs, unchangedhidden/camera/geometry."
+}

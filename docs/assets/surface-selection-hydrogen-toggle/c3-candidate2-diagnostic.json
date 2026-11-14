@@ -1,0 +1,38 @@
+{
+  "candidate": "5b97cf8d973c0947aa7f01d6ae207a49bc54f523",
+  "qualification": false,
+  "completed_steps": 15,
+  "browser": {
+    "passes": 190,
+    "failed": 1,
+    "existing_exclusions_executed": 5,
+    "did_not_run": 330,
+    "cause": "Coarse7point final polymer picking oracle missed narrow remaining cartoon/backbone geometry. Prior surface-shell mapping did not establish polymer hit provenance.",
+    "correction": "Independent CA7/GLY2 residue6\u20139; bounded exact native polymer preflight then one real Shiftclick and exact event/hidden/camera/geometry assertions. No runtime/budget/exclusion changes."
+  },
+  "source_unchanged": true,
+  "preceding_source_unchanged": true,
+  "files": {
+    "c3-candidate2-mypy.log.gz": "c2a9e583883fb3bf063396455a48f8c822d2f2184608d26ef145fdc716c8f6d1",
+    "c3-candidate2-downgrade.log.gz": "3fe0d8c6c2f164ef935b116e5b2e2051cce88af30d588e9bbe6007cc84339bb0",
+    "c3-candidate2-web.log.gz": "147add8bb5bc6fc01cd370eacde887b73e752348f5cfa1cbc66a2a7aa9682d8a",
+    "c3-candidate2-browser.log.gz": "35b9192f4c63aeef8e4eff64c4a6d8348bd9561828fb5f861da063e3b3e1efaf",
+    "c3-candidate2-build.log.gz": "3b0d181653368ab25bfdf89ed5849377dd9c27b75c2edf71eec14b3f255cd23a",
+    "c3-candidate2-supervisor.log.gz": "de4479bdd43d550a410f49dac0ab59967fd59f0da9a30cf54e381767f1607d06",
+    "c3-candidate2-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c3-candidate2-gate.json": "3d02e2ad2858b23070377ac6d9a807a552185ef2561bcbedff35eccb46d905c3",
+    "c3-candidate2-migration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate2-uv.log.gz": "cee44556f9b883c63b25de7f566966b0e3970d4451af8af4365669f3f62b6182",
+    "c3-candidate2-remigration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate2-failure.zip": "c1f3c0b4251b06595b6a69422c1662ca876244b404a7e338c54f0e50fe54fb8c",
+    "c3-candidate2-browser.json.gz": "774f572425e21ebd8534d7a0362c3b42f05120a35b63e0a572eb9b300f3d6807",
+    "c3-candidate2-pnpm.log.gz": "6bde7fd7cbe2350086f8b49b7d82d5e8258186846f8e6e61c35a4ddb064eccbb",
+    "c3-candidate2-browser-inventory.log.gz": "cbdc87787be1431f5920e14f8ebd20ca0096dc9f6e2893ec7e051b487d82d394",
+    "c3-candidate2-recipe.json": "7645ed73643ff6c2a04a62e7909340336e6cc8839b6f16dc24cc5cadc21a8397",
+    "c3-candidate2-lint.log.gz": "d97b577e094b6f437fc6acd45e5a7a5f4e86e71a521c9cb993c863791ff7839b",
+    "c3-candidate2-python.log.gz": "ad95ebd34af694a3622f02b3ff6ce20bc71cbf4c9b1428df66db0f96cfe0b9be",
+    "c3-candidate2-browser-inventory.json": "b57af03578a05e1aee065024bdcfbc46129d2188ea775936da819b8fa3b76df1",
+    "c3-candidate2-types.log.gz": "39c8182fd388763d23285e460c35af45e9aead476c1f642fc40b85740193ab4b"
+  },
+  "native_diagnostics": "/tmp/neistra145-c3-diagnostics/candidate2-native"
+}
