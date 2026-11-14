@@ -31,6 +31,12 @@ export class SurfaceRuntime {
     return () => { this.listeners.delete(listener); };
   }
   statuses() { return [...this.requests.values()].map((request) => request.status); }
+  updateLabel(entryId: string, channel: SurfaceChannel, surfaceId: string, label: string): void {
+    const request = this.requests.get(surfaceKey(entryId, channel, surfaceId));
+    if (!request || request.status.channel !== channel || request.status.label === label) return;
+    request.status = { ...request.status, label };
+    this.emit();
+  }
   retain(entries: ReadonlySet<string>) {
     for (const [key, request] of this.requests) if (!entries.has(key)) this.remove(request.status.entryId, request.status.channel, request.status.surfaceId);
   }
@@ -120,6 +126,13 @@ export class SurfaceRuntime {
   canDisplay(entryId: string, channel: SurfaceChannel, surfaceId: string, geometry: SurfaceGeometry): boolean {
     const request = this.requests.get(surfaceKey(entryId, channel, surfaceId));
     return Boolean(request && request.status.channel === channel && !request.controller.signal.aborted && request.geometry === geometry);
+  }
+  markPreparing(entryId: string, channel: SurfaceChannel, surfaceId: string, geometry: SurfaceGeometry): boolean {
+    const request = this.requests.get(surfaceKey(entryId, channel, surfaceId));
+    if (!request || !this.canDisplay(entryId, channel, surfaceId, geometry)) return false;
+    request.status = { ...request.status, state: "rendering", message: "Preparing display" };
+    this.emit();
+    return true;
   }
   /** Acknowledge only the current calculation after its display has been installed. */
   markDisplayed(entryId: string, channel: SurfaceChannel, surfaceId: string, geometry: SurfaceGeometry, hiddenReason?: string): boolean {

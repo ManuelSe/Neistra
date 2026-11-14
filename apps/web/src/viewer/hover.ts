@@ -22,5 +22,5 @@ export function markMolecularHover(
   // root. Old-root loci then cannot remove the retained marks. This sole owner
   // clears the ordinary hover plane independently of molecular root identity.
   const current = action === MarkerAction.RemoveHighlight ? EveryLoci : loci;
-  for (const repr of representations) if (!surfaces.identityFor(repr)) mark({ repr, loci: current }, action);
+  for (const repr of representations) if (!surfaces.isManaged(repr)) mark({ repr, loci: current }, action);
 }

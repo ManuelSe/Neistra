@@ -1,10 +1,9 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, SelectionRepresentationChannel, StructureProjection } from "../api/types";
+import type { ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, SelectionRepresentationChannel, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
-import { PocketSurfaceControls } from "./PocketSurfaceControls";
 import { SelectionPalette } from "./SelectionPalette";
 import { SelectionColorControls } from "./SelectionColorControls";
 import { SelectionHydrogenControls } from "./SelectionHydrogenControls";
@@ -27,10 +26,8 @@ interface SelectionStyleDialogProps {
   onExpandDistance?: ExpandSelection;
   onExpandResidues?: (selection: Selection) => void;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
-  onSurfaces?: SurfaceActions;
   onManageSurfaces?: () => void;
-  onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
-  onCreateFragment?: () => Promise<void>;
+  onCreateSurface?: () => void;
   onAppearance?: ChangeSelectionAppearance;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle, channel?: SelectionRepresentationChannel) => Promise<void>;
 }
@@ -43,7 +40,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onExpandResidues, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
+  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onExpandResidues, onAppearance, onCreateSurface, onAtomVisibility, onManageSurfaces }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -145,18 +142,16 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
       </details> : null}
     </fieldset>
     {eligibilityError ? <p role="alert" id="selection-polymer-reason">{eligibilityError}</p> : null}
-    {onCreateFragment ? <div className="selection-surface-controls" role="group" aria-label="Surface">
+    {onCreateSurface ? <div className="selection-surface-controls" role="group" aria-label="Surface">
       <span><strong>Surface</strong><br /><span>{surfaceCount} saved</span></span>
-      <button type="button" aria-label="Create fragment surface" disabled={disabled}
-        onClick={() => void perform(onCreateFragment, "Surface definition saved; check rendering in Surfaces.")}>Create</button>
+      <button type="button" aria-label="Create surface" disabled={busy || pending}
+        onClick={onCreateSurface}>Create</button>
       <button type="button" aria-label={`Manage surfaces (${surfaceCount})`} disabled={busy || pending}
         onClick={onManageSurfaces}>Manage</button>
-      {onSurfaces && onLoadPocketStructures ? <PocketSurfaceControls entries={entries} selection={selection}
-        busy={busy || pending} onCreate={onSurfaces.create} load={onLoadPocketStructures} />
-        : <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
+      <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
           <p>A fragment surface uses only captured atoms. Cut boundaries can create artificial faces.
             Selection changes do not retarget saved surfaces. Atomic and polymer styles remain independent.</p>
-        </details>}
+        </details>
     </div> : null}
     {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled}
       mode={selectionColorMode} onModeChange={onSelectionColorModeChange} onChange={appearance} /> : null}

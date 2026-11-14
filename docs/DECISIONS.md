@@ -6953,3 +6953,27 @@ recorded in the feature plan; this does not certify the remaining workflow/camer
 work or the final release. Earlier native-entry behavior described in historical
 qualification sections remains historical, with current policy documented in
 SURFACES/PERFORMANCE/SCIENTIFIC_LIMITATIONS.
+
+### D-155 C3 editing and reconciliation boundary
+
+Surface creation uses one chooser and derives exact new object identities from
+the successful command response, preserving request order without matching names
+or guessing after an ambiguous response. An App-owned, project-local editing
+session retains captured source drafts and tokenized appearance intent across
+disposable viewer instances. It is transient and excluded from archives/history;
+only existing surface commands publish completed appearance gestures or explicit
+source Apply actions. Project switching discards source drafts with feedback.
+
+Canonical source, visibility or appearance changes retire conflicting previews.
+After a responsive remount, valid pending/uncertain intent is replayed only after
+canonical scene installation, with fresh tokens and current project/viewer guards.
+Uncertain publication requires a fresh read rather than automatic command replay.
+
+The incremental renderer recognizes only surface changes against an immutable
+last-sync snapshot. Other molecular/display changes retain the conservative full
+rebuild. Object-owned bindings preserve geometry for appearance, rebuild only the
+visual for solid/mesh, and retire only affected resources for removal/source
+changes. Retired visuals cannot activate an object or fall through into molecular
+selection. Fallback lines remain selectable objects, but only actual translucent
+meshes affect the mesh picking threshold. This is a bounded surface-specific
+path, not a general scene reconciliation framework.

@@ -15,6 +15,7 @@ import type {
   SelectionGranularity,
   SelectionMode,
   StructureProjection,
+  SurfaceAppearance,
   ViewerSettings,
 } from "../api/types";
 
@@ -88,6 +89,7 @@ export interface MolecularViewer {
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
   subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void;
   setActiveSurface(surface: SurfaceIdentity | null): void;
+  previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void>;
   cancelSurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   retrySurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   resize(): void;

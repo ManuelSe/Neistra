@@ -300,15 +300,15 @@ it("shows mixed style membership, remembers coloring mode, and resets panel-loca
   expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");
 });
 
-it("creates a distinct captured fragment and opens management independently of molecular styles", async () => {
+it("opens the shared surface chooser and management independently of molecular styles", async () => {
   const user = userEvent.setup();
   const entry = molecularEntry("protein", "Receptor", "protein");
-  const onCreateFragment = vi.fn().mockResolvedValue(undefined), onManageSurfaces = vi.fn();
+  const onCreateSurface = vi.fn().mockResolvedValue(undefined), onManageSurfaces = vi.fn();
   render(<Tooltip.Provider><SelectionStyleDialog open selection={completeResidue} entries={[entry]}
     structures={new Map([["protein", proteinProjection()]])} eligibilityBusy={false} busy={false}
-    onCreateFragment={onCreateFragment} onManageSurfaces={onManageSurfaces} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
-  await user.click(screen.getByRole("button", { name: "Create fragment surface" }));
-  expect(onCreateFragment).toHaveBeenCalledOnce();
+    onCreateSurface={onCreateSurface} onManageSurfaces={onManageSurfaces} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
+  await user.click(screen.getByRole("button", { name: "Create surface" }));
+  expect(onCreateSurface).toHaveBeenCalledOnce();
   await user.click(screen.getByRole("button", { name: "Manage surfaces (0)" }));
   expect(onManageSurfaces).toHaveBeenCalledOnce();
   await user.click(screen.getByLabelText("About surfaces"));

@@ -1,3 +1,4 @@
+import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
@@ -14,6 +15,7 @@ import type {
   SelectionGranularity,
   SelectionMode,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   StructureProjection,
   ViewerSettings,
 } from "../api/types";
@@ -48,6 +50,7 @@ interface WorkspaceCanvasProps {
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurfaces?: SurfaceActions;
+  surfaceSession?: SurfaceManagerSession;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
   selectionColorMode: SelectionColorMode;
@@ -55,6 +58,7 @@ interface WorkspaceCanvasProps {
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
+    channel?: SelectionRepresentationChannel,
   ) => Promise<void>;
 }
 
@@ -84,6 +88,7 @@ export function WorkspaceCanvas({
   onExpandDistance,
   onAtomVisibility,
   onSurfaces,
+  surfaceSession,
   onLoadPocketStructures,
   onAppearance,
   selectionColorMode,
@@ -159,6 +164,7 @@ export function WorkspaceCanvas({
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
           onSurfaces={onSurfaces}
+          surfaceSession={surfaceSession}
           onLoadPocketStructures={onLoadPocketStructures}
         />
       )}

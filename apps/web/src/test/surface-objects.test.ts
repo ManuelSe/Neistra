@@ -96,12 +96,24 @@ it("selects all primitives of one surface without selecting its same-entry neigh
   expect(selected).toHaveBeenCalledWith(id);
   expect(a.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
   expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.RemoveHighlight);
-  unbind(); expect(registry.pick(a)).toBe(false);
-  registry.clearVisuals(); expect(registry.pick(b)).toBe(false);
+  unbind(); expect(registry.pick(a)).toBe(false); expect(registry.isRetired(a)).toBe(true); expect(registry.isManaged(a)).toBe(true);
+  registry.clearVisuals(); expect(registry.pick(b)).toBe(false); expect(registry.isRetired(b)).toBe(true);
   registry.register(b, id);
+  expect(registry.isRetired(b)).toBe(false);
   expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
   unsubscribe(); registry.pick(b); expect(selected).toHaveBeenCalledTimes(1);
   registry.select(null);
   expect(b.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.RemoveHighlight);
   registry.dispose(); expect(registry.pick(b)).toBe(false);
+});
+
+it("keeps a renewed representation binding alive when an older unregister callback arrives", () => {
+  const registry = new SurfaceVisualRegistry(), repr = { mark: vi.fn() } as unknown as Representation.Any;
+  const old = registry.register(repr, { entryId: "entry", surfaceId: "old" });
+  const current = registry.register(repr, { entryId: "entry", surfaceId: "current" });
+  old();
+  expect(registry.identityFor(repr)).toEqual({ entryId: "entry", surfaceId: "current" });
+  expect(registry.isRetired(repr)).toBe(false);
+  current(); expect(registry.isRetired(repr)).toBe(true); expect(registry.identityFor(repr)).toBeNull();
+  expect(registry.isManaged({} as Representation.Any)).toBe(false);
 });

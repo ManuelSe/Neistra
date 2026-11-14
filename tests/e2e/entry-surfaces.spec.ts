@@ -204,13 +204,38 @@ test("renders a 100001-atom whole-entry surface with the fixed profile and bound
       const exactCoordinates = input.atomIds.every((id, index) => [input.x[index], input.y[index], input.z[index]]
         .every((value, axis) => Math.abs(value - coordinates.get(id)![axis]) < 0.001));
       const internals = h.engine as unknown as { surfaces: { statuses(): { state: string; channel: string }[];
-        requests: Map<string, { geometry?: typeof geometry; displayBytes: number }> }; surfaceRefs: Map<string, string> };
-      const retainedBytes = [...internals.surfaces.requests.values()].reduce((sum, value) => sum + value.displayBytes + (value.geometry?.evidence.meshBytes ?? 0), 0);
+        requests: Map<string, { geometry?: typeof geometry; displayBytes: number }> }; surfaceRefs: Map<string, string>;
+        loaded: Map<string, unknown>;
+        surfaceBindings: Map<string, { entryId: string; surfaceId: string; componentRef: string; representationRef?: string }>;
+        plugin: { state: { data: { cells: Map<string, { obj?: { data: { repr?: object } } }> } } } };
+      const retained = () => [...internals.surfaces.requests.values()].reduce((sum, value) => sum + value.displayBytes + (value.geometry?.evidence.meshBytes ?? 0), 0);
+      const retainedBytes = retained();
+      const binding = () => [...internals.surfaceBindings.values()].find(value => value.entryId === entry.id && value.surfaceId === whole.id);
+      const before = binding();
+      if (!before?.representationRef) throw new Error("Missing installed entry representation");
+      const loadedBefore = internals.loaded.get(entry.id);
+      const reprBefore = internals.plugin.state.data.cells.get(before.representationRef)?.obj?.data.repr;
+      const workersBefore = h.workers.created, appearanceStarted = performance.now();
+      h.source.settings.surface_objects = [{ ...whole, name: "Renamed bounded entry", appearance: { ...whole.appearance, custom_color: "#ff0000", opacity: 0.7 } }];
+      await h.sync([h.source]);
+      const appearanceMs = performance.now() - appearanceStarted;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      gl.finish(); gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+      let redPixels = 0;
+      for (let i = 0; i < pixels.length; i += 4) if (pixels[i] > pixels[i + 1] + 40 && pixels[i] > pixels[i + 2] + 40) redPixels++;
+      const after = binding();
+      const appearanceOnly = { appearanceMs, redPixels,
+        geometryRetained: h.geometry(entry.id, "entry") === geometry,
+        molecularStructureRetained: internals.loaded.get(entry.id) === loadedBefore,
+        componentRetained: before.componentRef === after?.componentRef,
+        representationRetained: Boolean(after?.representationRef && before.representationRef === after.representationRef
+          && internals.plugin.state.data.cells.get(after.representationRef)?.obj?.data.repr === reprBefore),
+        extraWorkers: h.workers.created - workersBefore, retainedBytesAfter: retained() };
       const summary = { ...geometry.evidence, dimensions: admission.dimensions, profile: SURFACE_PROFILE,
         inputKind: input.kind, atoms: geometry.atomIds.length, exactCoordinates,
         exactMembership: geometry.atomIds.every((id, index) => id === entry.atom_ids[index]),
         vertices: geometry.vertices.length / 3, triangles: geometry.indices.length / 3,
-        greenPixels, readyMs, longestSurfaceTaskMs: Math.max(0, ...tasks), retainedBytes,
+        greenPixels, readyMs, longestSurfaceTaskMs: Math.max(0, ...tasks), retainedBytes, appearanceOnly,
         statuses: internals.surfaces.statuses(), workers: { ...h.workers } };
       h.dispose();
       await Promise.resolve();
@@ -225,6 +250,10 @@ test("renders a 100001-atom whole-entry surface with the fixed profile and bound
   expect(evidence.statuses).toEqual([expect.objectContaining({ channel: "entry", state: "ready" })]);
   expect(evidence.vertices).toBeGreaterThan(0); expect(evidence.triangles).toBeGreaterThan(0);
   expect(evidence.greenPixels).toBeGreaterThan(100);
+  expect(evidence.appearanceOnly).toMatchObject({ geometryRetained: true, molecularStructureRetained: true,
+    componentRetained: true, representationRetained: true, extraWorkers: 0, retainedBytesAfter: evidence.retainedBytes });
+  expect(evidence.appearanceOnly.redPixels).toBeGreaterThan(100);
+  expect(Number.isFinite(evidence.appearanceOnly.appearanceMs)).toBe(true);
   expect(evidence.cells).toBeLessThanOrEqual(64_000_000);
   expect(evidence.meshBytes).toBeLessThanOrEqual(evidence.meshBoundBytes);
   expect(evidence.meshBoundBytes).toBeLessThanOrEqual(512 * 1024 ** 2);

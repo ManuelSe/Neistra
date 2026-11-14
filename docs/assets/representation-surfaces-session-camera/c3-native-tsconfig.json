@@ -1,0 +1,16 @@
+{
+  "extends": "/datadisk/dev/neistra/apps/web/tsconfig.app.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "/datadisk/dev/neistra/apps/web/node_modules/@types",
+      "/datadisk/dev/neistra/node_modules/@types"
+    ]
+  },
+  "include": [
+    "/datadisk/dev/neistra/tests/e2e/entry-surfaces.spec.ts",
+    "/datadisk/dev/neistra/tests/e2e/surface-workflow.spec.ts"
+  ]
+}

@@ -14,6 +14,7 @@ const calls = vi.hoisted(() => ({
   sync: vi.fn(),
   selection: vi.fn(),
   activeSurface: vi.fn(),
+  surfacePreview: vi.fn(),
   surfaceSelection: vi.fn((listener: unknown) => { void listener; return vi.fn(); }),
   granularity: vi.fn(),
   movement: vi.fn(),
@@ -53,6 +54,7 @@ vi.mock("../viewer/MolstarEngine", () => ({
       calls.selection(atoms);
     }
     setActiveSurface(surface: unknown) { calls.activeSurface(surface); }
+    previewSurfaceAppearance(identity: unknown, appearance: unknown) { calls.surfacePreview(identity, appearance); return Promise.resolve(); }
     subscribeSurfaceSelection(listener: unknown) { return calls.surfaceSelection(listener); }
 
     setPickingGranularity(granularity: string) {
@@ -117,6 +119,38 @@ vi.mock("../viewer/MolstarEngine", () => ({
 describe("MolecularViewer Molstar adapter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("forwards transient surface appearance and cancellation independently from canonical sync", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    await viewer.mount(document.createElement("div"));
+    const identity = { entryId: "entry", surfaceId: "surface" };
+    const appearance = { color_by: "custom" as const, custom_color: "#00ff00", opacity: 0.3, mode: "solid" as const, inherit_atom_colors: false };
+    await viewer.previewSurfaceAppearance(identity, appearance);
+    await viewer.previewSurfaceAppearance(identity, null);
+    expect(calls.surfacePreview.mock.calls).toEqual([[identity, appearance], [identity, null]]);
+    expect(calls.sync).not.toHaveBeenCalled();
+    viewer.dispose();
+    await viewer.previewSurfaceAppearance(identity, appearance);
+    expect(calls.surfacePreview).toHaveBeenCalledTimes(2);
+  });
+
+  it("buffers only the latest pre-mount appearance and drops retired object identities", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    const identity = { entryId: "entry", surfaceId: "surface" };
+    const appearance = { color_by: "element" as const, custom_color: "#00ff00", opacity: 0.3, mode: "solid" as const, inherit_atom_colors: false };
+    await viewer.previewSurfaceAppearance({ entryId: "retired", surfaceId: "old" }, appearance);
+    for (let i = 1; i <= 1000; i++) await viewer.previewSurfaceAppearance(identity, { ...appearance, opacity: i / 1000 });
+    await viewer.mount(document.createElement("div"));
+    const normalized = proteinStructure();
+    await viewer.syncStructures([{ entryId: "entry", label: "Entry", normalized, hierarchy: componentHierarchy(normalized),
+      projection: { format: "mmcif", data: "projection" }, atomIds: normalized.atoms.map(atom => atom.id),
+      settings: { ...viewerSettings(), surface_objects: [{ id: "surface", name: "Surface", visible: true, source: { kind: "entry" }, appearance }] },
+    }]);
+    expect(calls.surfacePreview).toHaveBeenCalledExactlyOnceWith(identity, { ...appearance, opacity: 1 });
+    viewer.dispose();
   });
 
   it("releases a native engine whose asynchronous mount completes after disposal", async () => {

@@ -253,3 +253,33 @@ it("explains inactive requests without changing active, cancelled, failed or dis
   runtime.remove("owner", "entry", "surface");
   expect(runtime.markHidden("owner", "entry", "surface", "Missing")).toBe(false);
 });
+
+it("updates only metadata labels without redisplaying or recalculating surfaces", async () => {
+  const { runtime, pending, compute } = setup(), notify = vi.fn(), subscriber = vi.fn(), mesh = geometry();
+  runtime.subscribe(subscriber);
+  runtime.request("owner", "entry", "Old", "coords", () => input(0, "entry"), notify, undefined, "surface");
+  pending[0].resolve(mesh); await vi.waitFor(() => expect(notify).toHaveBeenCalledOnce());
+  runtime.markDisplayed("owner", "entry", "surface", mesh);
+  runtime.updateLabel("owner", "entry", "surface", "Renamed");
+  expect(runtime.statuses()[0]).toMatchObject({ label: "Renamed", state: "ready" });
+  expect(notify).toHaveBeenCalledOnce(); expect(compute).toHaveBeenCalledOnce();
+  const calls = subscriber.mock.calls.length;
+  runtime.updateLabel("owner", "entry", "surface", "Renamed");
+  runtime.updateLabel("owner", "fragment", "surface", "Wrong kind");
+  expect(subscriber).toHaveBeenCalledTimes(calls);
+});
+
+it("prepares only current live geometry and waits for its new visual acknowledgement", async () => {
+  const { runtime, pending } = setup(), mesh = geometry();
+  runtime.request("owner", "entry", "Surface", "coords", () => input(0, "entry"), vi.fn(), undefined, "surface");
+  expect(runtime.markPreparing("owner", "entry", "surface", mesh)).toBe(false);
+  pending[0].resolve(mesh); await vi.waitFor(() => expect(runtime.canDisplay("owner", "entry", "surface", mesh)).toBe(true));
+  runtime.markDisplayed("owner", "entry", "surface", mesh);
+  expect(runtime.markPreparing("owner", "entry", "surface", mesh)).toBe(true);
+  expect(runtime.statuses()[0]).toMatchObject({ state: "rendering", message: "Preparing display" });
+  expect(runtime.markPreparing("owner", "entry", "surface", { ...mesh })).toBe(false);
+  runtime.cancel("owner", "entry", "surface");
+  expect(runtime.markPreparing("owner", "entry", "surface", mesh)).toBe(false);
+  runtime.remove("owner", "entry", "surface");
+  expect(runtime.markPreparing("owner", "entry", "surface", mesh)).toBe(false);
+});

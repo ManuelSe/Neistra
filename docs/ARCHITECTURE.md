@@ -439,6 +439,32 @@ adjustments even when the underlying entry theme is custom. Existing disjoint
 membership/history/archive/pruning behavior applies; no geometry or molecular state
 is added. Empty appearance collections avoid the additional palette-resolution pass.
 
+## Surface editing session
+
+The App retains one transient manager session per active project, independent of
+responsive viewer mounts and authoritative project commands. Object-keyed source
+drafts contain captured IDs, source baselines and unapplied input. Appearance
+previews carry canonical source/appearance/visibility baselines and generation
+tokens. Completed mutations use existing project revision/history contracts;
+quiet feedback preserves write guards, pruning warnings and failure recovery.
+Successful creation derives exact new identities from the returned Project in
+request order. Ambiguous publication reads the captured project without replay.
+
+After canonical synchronization, a replacement viewer replays only currently
+valid session previews, checking viewer/project/session ownership and fresh tokens.
+Confirmed, conflicting, removed or hidden targets cannot be resurrected. These
+UI records never enter persisted viewer settings, scenes or archives. Real project
+switches retire the session and disclose discarded source drafts.
+
+Surface-only reconciliation compares nonsurface molecular/display inputs first.
+Unchanged molecular inputs permit object-specific name, appearance, visibility,
+source and visual-mode updates. Ordinary molecular/display changes retain the
+conservative full rebuild. Appearance updates change the affected native transform
+and overpaint; mode changes reuse bounded cached geometry. A bounded latest-intent
+queue prevents per-slider-event scene work. Retired representation hits are weakly
+tracked and ignored while old pixels await removal; unchanged atomics and other
+surfaces remain interactive. No generic scene-diff or shared-field cache is added.
+
 ## Selection surface runtime
 
 `ViewerSettingsV2.surface_objects` is durable application state. Entry, fragment,

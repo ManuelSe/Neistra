@@ -257,18 +257,21 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
           await action.focus(); await page.keyboard.press("Enter");
           await expect(appearance.getByRole("status")).toContainText("Atom detail");
         }
-        const createSurface = appearance.getByRole("button", { name: "Create fragment surface" });
+        const createSurface = appearance.getByRole("button", { name: "Create surface", exact: true });
         await createSurface.scrollIntoViewIfNeeded();
         await createSurface.focus(); await page.keyboard.press("Enter");
-        await expect(appearance.getByRole("status")).toContainText("Surface definition saved");
-        await appearance.getByRole("button", { name: /^Manage surfaces/ }).focus(); await page.keyboard.press("Enter");
         const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
-        await expect(manager).toBeFocused();
+        await manager.getByRole("button", { name: "Create fragment", exact: true }).focus(); await page.keyboard.press("Enter");
+        await expect(manager.getByText("1 surface created.", { exact: true })).toBeVisible();
         await manager.getByRole("button", { name: /Captured fragment/ }).focus(); await page.keyboard.press("Enter");
         await manager.getByLabel("Surface color scheme").selectOption("custom");
-        await manager.getByLabel("Surface opacity").fill("0.3");
+        await expect(manager.getByLabel("Surface color scheme")).toHaveAttribute("aria-disabled", "false");
+        await manager.getByLabel("Surface opacity", { exact: true }).fill("0.3");
+        await manager.getByLabel("Surface opacity", { exact: true }).press("Enter");
+        await expect(manager.getByLabel("Surface color scheme")).toHaveAttribute("aria-disabled", "false");
         await manager.getByLabel("Surface display").selectOption("mesh");
-        await manager.getByRole("button", { name: "Apply appearance" }).focus(); await page.keyboard.press("Enter");
+        await expect(manager.getByLabel("Surface display")).toHaveAttribute("aria-disabled", "false");
+        await manager.getByRole("button", { name: /^Rename surface/ }).click();
         await expect.poll(() => manager.evaluate(node => getComputedStyle(node).opacity)).toBe("1");
         expect((await new AxeBuilder({ page }).include(".surface-manager").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
         for (const control of await manager.locator("button:visible, input:visible, select:visible").all()) {
@@ -286,23 +289,20 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await manager.getByRole("button", { name: "Close surfaces" }).focus(); await page.keyboard.press("Enter");
         await expect(launcher).toBeFocused();
         await page.keyboard.press("Enter");
-        const surfaceOptions = appearance.getByRole("button", { name: "Surface options" });
-        await surfaceOptions.focus(); await page.keyboard.press("Enter");
-        await page.getByRole("menuitem", { name: "About surfaces" }).click();
-        const surfaceHelp = page.getByRole("dialog", { name: "About surfaces" });
-        await expect(surfaceHelp.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
-        await surfaceHelp.getByRole("button", { name: "Close surface panel" }).click();
-        await surfaceOptions.click();
-        await page.getByRole("menuitem", { name: "Pocket…" }).click();
-        const pocket = page.getByRole("dialog", { name: "Protein pocket" });
-        await expect(pocket).toBeVisible();
-        expect(await pocket.evaluate((node) => {
+        await appearance.getByLabel("About surfaces").click();
+        await expect(appearance.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
+        await appearance.getByRole("button", { name: "Create surface", exact: true }).focus(); await page.keyboard.press("Enter");
+        await manager.getByRole("button", { name: "Around selection", exact: true }).click();
+        await expect(manager.getByRole("combobox", { name: "Surface receptor" })).toBeVisible();
+        expect(await manager.evaluate((node) => {
           const box = node.getBoundingClientRect();
           return box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight &&
             node.scrollWidth <= node.clientWidth + 1;
         })).toBe(true);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-pocket.png`);
-        await pocket.getByRole("button", { name: "Close surface panel" }).click();
+        await manager.getByRole("button", { name: "Close surfaces" }).click();
+        await expect(launcher).toBeFocused();
+        await page.keyboard.press("Enter");
         await captureZoomPage(page, info, `${theme}-${factor * 100}-selection-appearance.png`);
         await page.keyboard.press("Escape");
         await expect(launcher).toBeFocused();

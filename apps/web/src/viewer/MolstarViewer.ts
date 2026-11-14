@@ -9,6 +9,7 @@ import type {
   CameraState,
   CoordinatePatch,
   SelectionGranularity,
+  SurfaceAppearance,
 } from "../api/types";
 import type {
   MolecularViewer,
@@ -19,6 +20,7 @@ import type {
 } from "./MolecularViewer";
 
 import { THEME_TOKENS } from "../theme";
+import { surfaceIdentityKey } from "./surfaceReconciliation";
 
 class LazyMolstarViewer implements MolecularViewer {
   capturePresentation() {
@@ -37,6 +39,8 @@ class LazyMolstarViewer implements MolecularViewer {
   private surfaceSelectionListeners = new Set<(surface: SurfaceIdentity) => void>();
   private surfaceSelectionBindings = new Map<(surface: SurfaceIdentity) => void, () => void>();
   private activeSurface: SurfaceIdentity | null = null;
+  private mounted = false;
+  private pendingSurfacePreviews = new Map<string, { identity: SurfaceIdentity; appearance: SurfaceAppearance }>();
   private engineUnsubscribers: (() => void)[] = [];
 
   async mount(target: HTMLElement): Promise<void> {
@@ -65,6 +69,7 @@ class LazyMolstarViewer implements MolecularViewer {
         this.engine!.subscribeCamera(listener),
       ),
     );
+    this.mounted = true;
   }
 
   setBackgroundColor(cssColor: string): void {
@@ -72,8 +77,15 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engine?.setBackgroundColor(cssColor);
   }
 
-  syncStructures(structures: ViewerStructure[]): Promise<void> {
-    return this.engine?.syncStructures(structures) ?? Promise.resolve();
+  async syncStructures(structures: ViewerStructure[]): Promise<void> {
+    const identities = new Set(structures.flatMap(source => source.settings.surface_objects.map(surface =>
+      surfaceIdentityKey({ entryId: source.entryId, surfaceId: surface.id }))));
+    for (const key of this.pendingSurfacePreviews.keys()) if (!identities.has(key)) this.pendingSurfacePreviews.delete(key);
+    const engine = this.engine;
+    await engine?.syncStructures(structures);
+    if (!engine || this.disposed || engine !== this.engine) return;
+    const previews = [...this.pendingSurfacePreviews.values()]; this.pendingSurfacePreviews.clear();
+    await Promise.all(previews.map(({ identity, appearance }) => engine.previewSurfaceAppearance(identity, appearance)));
   }
 
   replaceStructure(structure: ViewerStructure): Promise<void> {
@@ -187,6 +199,17 @@ class LazyMolstarViewer implements MolecularViewer {
     this.activeSurface = surface ? { ...surface } : null;
     this.engine?.setActiveSurface(surface);
   }
+  previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void> {
+    if (this.disposed) return Promise.resolve();
+    const key = surfaceIdentityKey(identity);
+    if (this.engine && this.mounted) {
+      this.pendingSurfacePreviews.delete(key);
+      return this.engine.previewSurfaceAppearance(identity, appearance);
+    }
+    if (appearance) this.pendingSurfacePreviews.set(key, { identity: { ...identity }, appearance: { ...appearance } });
+    else this.pendingSurfacePreviews.delete(key);
+    return Promise.resolve();
+  }
   subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void {
     this.surfaceSelectionListeners.add(listener);
     if (this.engine) this.surfaceSelectionBindings.set(listener, this.engine.subscribeSurfaceSelection(listener));
@@ -203,6 +226,8 @@ class LazyMolstarViewer implements MolecularViewer {
 
   dispose(): void {
     this.disposed = true;
+    this.mounted = false;
+    this.pendingSurfacePreviews.clear();
     for (const unsubscribe of this.engineUnsubscribers) unsubscribe();
     this.engineUnsubscribers = [];
     this.selectionListeners.clear();

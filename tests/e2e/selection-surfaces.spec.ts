@@ -139,16 +139,21 @@ test("adds and removes saved surfaces from the compact palette with reload and u
   const palette = page.getByRole("dialog", { name: "Style selection" });
   let structureGets = 0;
   page.on("request", (req) => { if (req.method() === "GET" && /\/entries\/[^/]+\/structure(?:\?|$)/.test(req.url())) structureGets++; });
-  await palette.getByRole("button", { name: "Create fragment surface" }).click();
-  await expect(palette.getByRole("status")).toContainText("Surface definition saved");
+  const selectionBeforeCreation = await page.locator(".viewer-status").textContent();
+  await palette.getByRole("button", { name: "Create surface", exact: true }).click();
+  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
+  await expect(manager.getByRole("button", { name: "Selected atoms", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await manager.getByRole("button", { name: "Create fragment", exact: true }).click();
+  await expect(manager.getByText("1 surface created.", { exact: true })).toBeVisible();
+  expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeCreation);
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  await expect(manager.locator('.surface-object[data-active="true"]')).toHaveAttribute("data-surface-key", JSON.stringify([entry.id, project.entries[0].viewer_settings.surface_objects[0].id]));
   expect(project.entries[0].viewer_settings.surface_objects[0].source).toEqual({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids });
   expect(project.entries[0].current_artifact_id).toBe(entry.current_artifact_id);
   // Creation always makes a distinct object, including from the same selection.
-  await palette.getByRole("button", { name: "Create fragment surface" }).click();
+  await manager.getByRole("button", { name: "Create surface", exact: true }).click();
+  await manager.getByRole("button", { name: "Create fragment", exact: true }).click();
   await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.surface_objects.length).toBe(2);
-  await palette.getByRole("button", { name: "Manage surfaces" }).click();
-  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
   await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
   const names = (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.surface_objects.map((s: { name: string }) => s.name);
   await manager.getByRole("button", { name: `Hide surface ${names[0]}`, exact: true }).click();
@@ -297,7 +302,8 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         const atom = h.source.normalized.atoms[0];
         const patch = { entry_id: id, artifact_id: "test-projection", atom_ids: [atom.id], coordinates: [[atom.coordinates[0] + 5, atom.coordinates[1], atom.coordinates[2]] as [number, number, number]] };
         await h.engine.applyCoordinatePatch(patch, "preview");
-        await h.sync([h.source]); // A style rebuild during an active preview must preserve it.
+        h.source.label += " (preview rebuild)"; // Deliberately take the conservative full-sync path.
+        await h.sync([h.source]); // A nonsurface rebuild during an active preview must preserve it.
         const preview = h.inspect(), previewX = h.input(id).x[0];
         await h.engine.clearCoordinatePreview(id); await h.wait(); const restored = [...h.geometry(id)!.vertices];
         await h.engine.applyCoordinatePatch(patch, "commit"); await h.wait(); const committed = [...h.geometry(id)!.vertices];

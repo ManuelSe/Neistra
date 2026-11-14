@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C2 complete; C3–C7 pending.
+**Status:** approved contract; C0–C3 complete; C4 in progress; C5–C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -548,3 +548,55 @@ audit of the pre-existing object browser test exposes baseline typing/unsafe-JSO
 patterns outside the configured gate; introduced diagnostic typing was corrected.
 Consolidate that browser-test typing during C5. Blockers requiring user input: none.
 Next: C3 cohesive surface editing; no application changes pushed yet.
+
+
+### C3 — Cohesive surface editing complete (2026-11-14)
+
+One chooser now handles captured fragments, protein-context pockets and explicit
+whole-entry owners from Style, Display and Surfaces. Exact returned identities
+reveal created rows and activate the first in request order, preserving selection,
+parent visibility and camera. The nonmodal manager separates its persistent
+header, independently scrolling compact list and details; sixteen long-named
+objects remain keyboard accessible in light/dark, desktop/mobile and narrow views.
+
+Appearance previews locally and publishes one existing command per completed
+gesture. Escape cancels the gesture before dismissing the manager; stale trailing
+inputs cannot republish it. Immediate choices preserve focus and quiet feedback.
+Captured source drafts have Apply/Revert, survive row changes, closing and
+responsive remounts, and are discarded with one notice on real project switching.
+Source selection distinguishes saved seeds and protein context. Rename remains
+explicit. Ambiguous creation/appearance publication uses fresh reads without
+blind command replay; pending/uncertain shader appearance survives replacement
+viewers through token-guarded replay after canonical installation.
+
+The narrow surface path preserves unrelated molecular structures and field work:
+rename is metadata-only, appearance updates its representation, solid/mesh reuses
+geometry, and hide/remove/source changes retire only affected bindings. Managed
+retired hits cannot activate or become molecular picks. Only eligible translucent
+meshes lower the mesh picking threshold; opaque fallback lines remain selectable.
+
+Verification: **601 frontend tests / 80 files**, lint/typecheck/build; unaffected
+57 backend surface integration cases reused from C2. **50 unique native passes /
+10 unchanged layout exclusions** across both layouts, including exact result
+ownership, three gestures/three revisions and Undo, cancelled edits, held writes,
+uncertain response recovery, actual native shader values after remount, stale
+queued pixels, sixteen-object accessibility and actual 100/200% browser zoom.
+Actual 100,001-atom entries preserve geometry, representation and accounted bytes
+through appearance edits. [C3 receipt](../assets/representation-surfaces-session-camera/c3-checkpoint.json)
+retains source/log hashes, independent native observations, screenshots, failures,
+corrections and explicit reuse boundaries. No strict timing gain is claimed.
+
+Native diagnostics corrected fixture lifecycle assumptions rather than production
+identity guards: standalone objects now use real definitions/bindings and explicit
+framing before installation. Accessibility opens disclosures before checking their
+controls and asserts first-Escape cancellation followed by second-Escape dismissal.
+Original camera/selection/history/ownership/resource assertions remain. No new
+skip, retry or relaxed timing budget was added. Primary complete C3 diff review and
+`git diff --check` pass; architecture, UX and scientific checkpoint assessments
+pass. Final all-seven assessment remains required on the complete C6 candidate.
+
+No migration, project/viewer/archive schema or version change in C3. Current
+versions remain 0.29.0 and head 0014. Known limitations: C4 automatic global camera
+and C5–C7 integrated qualification/delivery remain; pre-existing additional strict
+native-test typing audit is a C5 consolidation item. Next: C4. No application
+changes pushed, and no PR, merge, tag or release claimed.

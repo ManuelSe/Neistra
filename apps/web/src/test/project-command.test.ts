@@ -3,9 +3,9 @@ import { expect, it, vi } from "vitest";
 import { captureProjectCommand, dispatchProjectCommand } from "../coordinates/projectCommand";
 import { molecularProject } from "./molecular-fixtures";
 
-it("checks the retained command's project after the active project changes", async () => {
+it.each([undefined, "quiet"] as const)("checks the retained command's project after the active project changes (%s)", async feedback => {
   const dispatch = vi.fn(() => Promise.resolve(molecularProject()));
-  const command = captureProjectCommand("P", dispatch);
+  const command = captureProjectCommand("P", dispatch, feedback);
   const activeProject = "Q";
   const guard = vi.fn((id: string) => { if (id !== activeProject) throw new Error("P is guarded"); });
   const client = new QueryClient();
@@ -18,10 +18,10 @@ it("checks the retained command's project after the active project changes", asy
   client.clear();
 });
 
-it("rechecks source ownership after awaited mutation preflight", async () => {
+it.each([undefined, "quiet"] as const)("rechecks source ownership after awaited mutation preflight (%s)", async feedback => {
   let guarded = false;
   const dispatch = vi.fn(() => Promise.resolve(molecularProject()));
-  const command = captureProjectCommand("P", dispatch);
+  const command = captureProjectCommand("P", dispatch, feedback);
   const guard = vi.fn(() => { if (guarded) throw new Error("publication started"); });
   const client = new QueryClient();
   const mutation = client.getMutationCache().build(client, {

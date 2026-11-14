@@ -268,6 +268,7 @@ class FakeViewer implements MolecularViewer {
   setActiveSurface(): void {}
   cancelSurface(): void {}
   retrySurface(): void {}
+  previewSurfaceAppearance(): Promise<void> { return Promise.resolve(); }
   resize(): void {}
 
   dispose(): void {

@@ -1,3 +1,5 @@
+import { createSurfaceManagerSession, type SurfaceCreationRequest, type SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
+import { replaySurfacePreviews } from "../surfaces/surfacePreviewBinding";
 import { SequenceViewer } from "./SequenceViewer";
 import { usePresentation } from "../presentation/context";
 import { displayedProteinRows } from "../viewer/sequenceDisplay";
@@ -91,6 +93,7 @@ interface StructureViewerProps {
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurfaces?: SurfaceActions;
+  surfaceSession?: SurfaceManagerSession;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
   selectionColorMode: SelectionColorMode;
@@ -125,6 +128,7 @@ export function StructureViewer({
   onExpandDistance,
   onAtomVisibility,
   onSurfaces,
+  surfaceSession,
   onLoadPocketStructures,
   onAppearance,
   selectionColorMode,
@@ -164,11 +168,22 @@ export function StructureViewer({
   const [surfaceProjectId, setSurfaceProjectId] = useState<string | null>(null);
   const [activeSurface, setActiveSurface] = useState<SurfaceIdentity | null>(null);
   const surfaceOpenedByCanvas = useRef(false);
+  const managerSession = useMemo(() => surfaceSession ?? createSurfaceManagerSession(project.id), [surfaceSession, project.id]);
+  const surfaceContext = useRef({ session: managerSession, projectId: project.id, entries: project.entries });
+  surfaceContext.current = { session: managerSession, projectId: project.id, entries: project.entries };
+  const [surfaceCreation, setSurfaceCreation] = useState<SurfaceCreationRequest>();
+  const nextSurfaceCreation = useRef(0);
   const openSurfaces = () => {
     if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
     surfaceOpenedByCanvas.current = false;
+    setSurfaceCreation(undefined);
     useMinimizationStore.getState().dismiss();
     setStyleProjectId(null); setSurfaceProjectId(project.id);
+  };
+  const openSurfaceCreation = (kind?: SurfaceCreationRequest["kind"], entryId?: string) => {
+    openSurfaces();
+    setSurfaceCreation({ id: `${project.id}:${++nextSurfaceCreation.current}`, kind, entryId,
+      selection: selection.atoms.map(atom => ({ ...atom })) });
   };
   const [viewerReady, setViewerReady] = useState(false);
   const [sceneLoading, setSceneLoading] = useState(false);
@@ -284,6 +299,7 @@ export function StructureViewer({
     const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {
       if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
       surfaceOpenedByCanvas.current = true;
+      setSurfaceCreation(undefined);
       setActiveSurface(identity); setStyleProjectId(null); setSurfaceProjectId(project.id);
     });
     initialSceneReady.current = false;
@@ -405,9 +421,13 @@ export function StructureViewer({
     setSceneLoading(true);
     void syncedViewer
       ?.syncStructures(viewerStructuresRef.current)
-      .then(() => {
+      .then(async () => {
         const viewer = viewerRef.current;
         if (!current || !viewer || viewer !== syncedViewer) return;
+        await replaySurfacePreviews(managerSession, viewer, () => surfaceContext.current.entries,
+          () => current && viewerRef.current === syncedViewer && surfaceContext.current.session === managerSession
+            && surfaceContext.current.projectId === project.id);
+        if (!current || viewerRef.current !== syncedViewer) return;
         const workflow = currentMovement.current;
         const active = Boolean(workflow?.state.capture && workflow.state.phase !== "idle");
         if (!initialSceneReady.current && !structuresPending && viewerStructuresRef.current.length) {
@@ -438,7 +458,7 @@ export function StructureViewer({
         if (current && viewerRef.current === syncedViewer) setSceneLoading(false);
       });
     return () => { current = false; };
-  }, [structuresPending, syncKey, viewerReady, project.id]);
+  }, [structuresPending, syncKey, viewerReady, project.id, managerSession]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -754,18 +774,8 @@ export function StructureViewer({
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
           key={project.id}
-          onSurfaces={onSurfaces}
           onManageSurfaces={openSurfaces}
-          onCreateFragment={onSurfaces ? async () => {
-            const grouped = new Map<string, number[]>();
-            for (const atom of selection.atoms) {
-              const ids = grouped.get(atom.structure_id) ?? [];
-              ids.push(atom.atom_id); grouped.set(atom.structure_id, ids);
-            }
-            await onSurfaces.create([...grouped].map(([entry_id, ids]) => ({ entry_id,
-              source: { kind: "fragment", profile: "molecular-v1", atom_ids: [...new Set(ids)].sort((a, b) => a - b) } })));
-          } : undefined}
-          onLoadPocketStructures={onLoadPocketStructures}
+          onCreateSurface={onSurfaces ? () => openSurfaceCreation() : undefined}
           open={styleDialogOpen}
           restoreFocus={surfaceProjectId !== project.id && !editOpen && !minimizationPreview.open && !minimizationPreview.state.autoApply}
           selection={selection}
@@ -790,9 +800,7 @@ export function StructureViewer({
         isolated={isolation !== null}
         onActiveEntry={setActiveEntryId}
         onManageSurfaces={openSurfaces}
-        onCreateSurface={onSurfaces ? entryId => {
-          void onSurfaces.create([{ entry_id: entryId, source: { kind: "entry" } }]).then(openSurfaces).catch(() => undefined);
-        } : undefined}
+        onCreateSurface={onSurfaces ? entryId => openSurfaceCreation("entry", entryId) : undefined}
         onSettings={(entryId, settings) => {
           void onUpdateSettings?.(entryId, settings);
         }}
@@ -825,6 +833,9 @@ export function StructureViewer({
         /> : null}
       </Tooltip.Provider>
       {onSurfaces ? <SurfaceManager key={project.id} open={surfaceProjectId === project.id}
+        projectId={project.id} session={managerSession} creationRequest={surfaceCreation}
+        loadPocketStructures={onLoadPocketStructures}
+        onPreviewAppearance={(identity, appearance) => viewerRef.current?.previewSurfaceAppearance(identity, appearance)}
         onOpenChange={open => setSurfaceProjectId(open ? project.id : null)} entries={project.entries}
         active={activeSurface} onActivate={setActiveSurface} actions={onSurfaces} statuses={surfaceStatuses} busy={busy}
         selection={selection.atoms}

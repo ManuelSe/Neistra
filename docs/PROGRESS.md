@@ -2,31 +2,32 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C2 implemented and qualified; C3 next** under the
+Issue #140 — **C1–C3 implemented and qualified; C4 in progress** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-The `/goal` authorizes implementation and complete delivery; the PR must use
-Closes #140. No application changes have been pushed pending the final seven-role gate.
+The `/goal` authorizes complete delivery; the PR must use Closes #140. No
+application changes have been pushed pending the final seven-role gate.
 
-Completed: uniform stick profiles, no-op styling/history, scoped resets and residue
-recovery (C1); combined bounded entry/fragment/pocket surfaces, canonical ownership
-mapping, entry cancellation and readiness after installation (C2). No durable
-schema, migration or version change yet. Current versions remain 0.29.0, head 0014.
+Completed: corrected stick profiles, no-op history and scoped resets (C1);
+combined bounded entry/fragment/pocket fields with canonical ownership and
+installed readiness (C2); shared chooser, exact result activation, sixteen-object
+manager, immediate Undoable appearance, retained source drafts, uncertainty
+recovery and surface-only reconciliation (C3). No durable schema/migration/version
+change yet; versions remain 0.29.0 and database head 0014.
 
-C2 verification: 540 frontend tests / 75 files, lint/types/build, 57 backend
-surface integration cases; 37 unique native passes / one unchanged mobile
-exclusion across both layouts. Independent interface/fixed-grid oracles, exact
-entry/fragment equivalence, actual 100,001-atom entry and existing capacity profiles
-pass. Scientific checkpoint assessments pass. Native cancellation, deferred
-teardown and wireframe input-coordinate corrections retain all identity/state
-assertions. [C2 evidence](assets/representation-surfaces-session-camera/c2-checkpoint.json)
-separates diagnostics from reused unaffected and corrected passing cases.
+C3 verification: **601 frontend / 80 files**, lint/types/build; unaffected 57
+backend surface integration cases reused. **50 unique native passes / 10 exact
+unchanged layout exclusions**, with shader-confirmed pending/uncertain remounts,
+three completed gestures/three Undo steps, cancellation, stale picking, geometry
+retention, actual 100,001-atom entries, sixteen-object accessibility and real
+100/200% browser zoom. [C3 evidence](assets/representation-surfaces-session-camera/c3-checkpoint.json)
+records hashes, corrections, observations, failed diagnostics and reuse. Primary
+checkpoint diff review passes. No timing improvement or universal capacity claim.
 
-Known limitations: C3 workflow/incremental surface updates and C4 global camera
-remain; full release/readers and all-seven final assessments pending. Extra strict
-audit found pre-existing native-test typing patterns outside configured frontend
-gates; consolidate during C5. No strict timing/universal capacity claim.
-Blockers: none requiring user input. Next: C3. Detailed C1/C2 history and evidence
-remain in the feature plan; these are checkpoints, not complete release qualification.
+Known limitations: C4 global camera remains; full release gate, actual archive
+readers/migration qualification and all-seven final assessments are pending.
+Additional pre-existing strict native-test typing audit remains a C5 item.
+Blockers: none requiring user input. Next: implement and qualify C4. The feature
+plan remains the detailed checkpoint source of truth; no PR/release is claimed.
 
 ### Approved planning checkpoint — issue #140 C0
 

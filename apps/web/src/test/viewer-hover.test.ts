@@ -32,3 +32,14 @@ it("keeps both active and inactive managed surfaces outside queued molecular hig
   expect(mark).toHaveBeenCalledTimes(2);
   expect(surface.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
 });
+
+it("does not turn retired surface pixels into molecular hover while their removal waits", () => {
+  const registry = new SurfaceVisualRegistry();
+  const retired = { mark: vi.fn() } as unknown as Representation.Any;
+  const molecule = { mark: vi.fn() } as unknown as Representation.Any;
+  const remove = registry.register(retired, { entryId: "entry", surfaceId: "surface" }); remove();
+  const mark = vi.fn();
+  markMolecularHover([retired, molecule], registry, EmptyLoci, MarkerAction.Highlight, mark);
+  expect(mark).toHaveBeenCalledExactlyOnceWith({ repr: molecule, loci: EmptyLoci }, MarkerAction.Highlight);
+  expect(retired.mark).not.toHaveBeenCalled();
+});
