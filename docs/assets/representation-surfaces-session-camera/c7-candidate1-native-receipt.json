@@ -1,0 +1,14 @@
+{
+  "label": "c7-candidate1",
+  "path": "docs/assets/representation-surfaces-session-camera/c7-candidate1-native-observations.zip",
+  "bytes": 54537399,
+  "sha256": "3d46578a91f3af4c8f66f78838526e7e837b0346f48c6eb92d24e000847220fa",
+  "manifest_files": 532,
+  "types": {
+    ".png": 462,
+    ".json": 69,
+    ".md": 1
+  },
+  "crc_and_internal_hashes_valid": true,
+  "scope": "All normal JSON observations, PNG screenshots and Markdown diagnostic contexts; hidden RPC scratch directories and raw RPC traces excluded."
+}

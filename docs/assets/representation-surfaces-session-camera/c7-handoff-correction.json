@@ -1,0 +1,376 @@
+{
+  "status": "passing focused test-fixture synchronization; complete clean candidate2 and exact-master2 gates mandatory",
+  "base_candidate": "83dcee263a1df2810061913c426ee789f1c709f2",
+  "production_code_unchanged": true,
+  "source_changes": {
+    "tests/e2e/structure-hierarchy.spec.ts": "6879e9e030b94fd098f3a1929460b1885cb7d6e2a2e8368c5fbbeb67fb69b6a7",
+    "tests/e2e/support/navigation.ts": "503c0853b347e52b531b07c6a0a902873397b8c24850580a9b1bd8aee67662a7"
+  },
+  "handoff_contract": "Explicit Components action schedules focus to its heading. Shared fixture now awaits that landing before forcing disclosure focus and pressing Enter; checks focus/expanded state explicitly. No click substitution, timeout, retry or exclusion change.",
+  "focused_reports": {
+    "mobile-handoff": {
+      "stats": {
+        "startTime": "2026-11-14T10:02:03.431Z",
+        "duration": 514750.855,
+        "expected": 46,
+        "skipped": 12,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "records": [
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 6vxx selection within bounded capacity",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete 1aon selection within bounded capacity",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-capacity.spec.ts \u203a renders the complete synthetic-100k selection within bounded capacity",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a manages production object appearance and explicit sources independently through reload and undo",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-objects.spec.ts \u203a keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-workflow.spec.ts \u203a creates exact multi-entry objects and retains captured source drafts through viewer remounts",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/surface-workflow.spec.ts \u203a rebinds inactive saving and uncertain appearance previews after responsive remounts",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/synchronized-selection.spec.ts \u203a keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a keeps primary selection and empty clearing independent from the camera",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a uses the compact trigger path for selection and empty clearing",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (light)",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (dark)",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a keeps native UI absent through loading, themes, camera actions and reload",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-native-ui.spec.ts \u203a retains molecular annotations through native tasks, rebuilds, remounts and projects",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a expires after ten real seconds without changing molecular data, camera or renderer",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a successive identical confirmations receive fresh deadlines across theme changes",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keeps viewer controls clickable beneath a persistent short import notice",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a viewer remounts retain the deadline and project changes invalidate old notices",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-notifications.spec.ts \u203a keeps long diagnostics scrollable and Close reachable in narrow and short viewports",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-theme.spec.ts \u203a keeps the persisted theme through the real viewer lifecycle",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ends held mouse gestures at accepted coordinates and camera before ownership changes",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a clears temporary navigation on interruption and remount while preserving preview and camera",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a qualifies native touch navigation, secondary tools and accessible theme layouts",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a keeps viewer errors readable and primary transform actions reachable",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a releases native navigation keys held before movement starts",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details-zoom.spec.ts \u203a keeps warning details reachable at actual 100% and 200% browser zoom",
+          "status": "skipped",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a inspects exact real entry warnings without changing molecular, project or native state",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a keeps 500 complete warning records scrollable and read-only in both themes",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a passes ordinary status input to the canvas and preserves normal canvas navigation after dismissal",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a updates current groups through rename, visibility, deletion and undo, and retains an open empty state",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a retires warning details on responsive remount and project switch",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/viewer-warning-details.spec.ts \u203a focused warning details own Escape without cancelling an active movement preview",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a keeps the shared perspective camera across projects, reload, API restart and a fresh browser",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a keeps the shared orthographic camera across projects, reload, API restart and a fresh browser",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a recovers a same-browser immediate close before the camera write is acknowledged",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a preserves native navigation through late hydration and requires explicit conflict publication",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a fits the first installed surface once with navigation pending=false",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a fits the first installed surface once with navigation pending=true",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a keeps unsaved camera recovery visible and reconciles an external writer before explicit Save",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a keeps the native viewer usable when a saved pose cannot project in its viewport",
+          "status": "passed",
+          "retries": 0
+        },
+        {
+          "identity": "[mobile-chromium] \u203a tests/e2e/workspace-presentation.spec.ts \u203a applies legacy scenes with current FOV, supersedes delayed scene cameras and captures exact native poses",
+          "status": "passed",
+          "retries": 0
+        }
+      ]
+    },
+    "desktop-handoff": {
+      "stats": {
+        "startTime": "2026-11-14T10:11:26.105Z",
+        "duration": 14196.65,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "records": [
+        {
+          "identity": "[chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+          "status": "passed",
+          "retries": 0
+        }
+      ]
+    }
+  },
+  "logs_reports": [
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-mobile-handoff.json.gz",
+      "uncompressed_sha256": "007d6b56e18d7718398a489faa67947dbbc7788b9dadf9cfd5b6f6522a73088b"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-mobile-handoff.log.gz",
+      "uncompressed_sha256": "b89f8d28f20c9fd9ac1a010ecfc095365ea311caeb5bb2a27c6b8a077a4056f1"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-desktop-handoff.json.gz",
+      "uncompressed_sha256": "d1ec86759433d957659001d64ba41480c31426e048cf883ebf8eecbfd8a72f5d"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-desktop-handoff.log.gz",
+      "uncompressed_sha256": "54d89f387cda7cbb412bdb6cf102b5062566d01f1bdb9801d19a69bf2ff3c762"
+    }
+  ],
+  "native_command_files": [
+    "tests/e2e/structure-hierarchy.spec.ts",
+    "tests/e2e/surface-capacity.spec.ts",
+    "tests/e2e/surface-objects.spec.ts",
+    "tests/e2e/surface-workflow.spec.ts",
+    "tests/e2e/synchronized-selection.spec.ts",
+    "tests/e2e/viewer-click-selection.spec.ts",
+    "tests/e2e/viewer-controls.spec.ts",
+    "tests/e2e/viewer-hover.spec.ts",
+    "tests/e2e/viewer-native-ui.spec.ts",
+    "tests/e2e/viewer-notifications.spec.ts",
+    "tests/e2e/viewer-theme.spec.ts",
+    "tests/e2e/viewer-transform-toolbar.spec.ts",
+    "tests/e2e/viewer-warning-details-zoom.spec.ts",
+    "tests/e2e/viewer-warning-details.spec.ts",
+    "tests/e2e/workspace-presentation.spec.ts"
+  ],
+  "observations": {
+    "path": "docs/assets/representation-surfaces-session-camera/c7-handoff-observations.zip",
+    "sha256": "e891e1bc17c0b968001a2db54beca709353b437776dfa92bdacecfd1b6234f6e",
+    "files": 37,
+    "crc_and_internal_hashes_valid": true,
+    "raw_rpc_policy": "Hidden RPC scratch and raw traces remain outside repository."
+  },
+  "validation_reuse": "All application/backend/frontend/test-tool source bytes match the failed candidate\u2019s14 passing preceding steps; only two e2e files change. Frontend723/lint/types/build and backend1542/zero skips remain valid focused evidence. Full fresh candidate2 repeats all33 commands.",
+  "failed_attempt": "c7-candidate1-diagnostic.json",
+  "independent_diagnosis": "UX source/trace assessment confirms expected heading focus handoff; no production focus-policy change indicated."
+}

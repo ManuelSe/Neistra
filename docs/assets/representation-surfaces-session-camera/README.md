@@ -114,3 +114,14 @@ deadlines and exclusions remain. The separate Inspector focus-handoff fixture
 synchronization is explicit. Logs/reports and75 observations have verified hashes/
 CRC. Fresh candidate1 and merged2 recipes repeat all33 release steps; final-seven
 review and publication remain pending. Version0.30.0 is still unpublished.
+
+
+C7 corrected candidate1 is a [retained failed attempt](c7-candidate1-diagnostic.json):
+14 preceding steps and395 browser cases pass, including the strengthened opening
+case, then the mobile Components fixture races its expected heading-focus landing.
+All532 observations and exact source/log/report identities are preserved. The
+[test-only handoff correction](c7-handoff-correction.json) passes46 complete mobile
+cases/12 registered exclusions plus1 desktop case, with no retries or relaxed
+assertions/deadlines. All37 observations and report/log hashes verify. Application
+code is unchanged from83dcee26. Fresh candidate2 and exact-master2 full33-step gates
+and final seven-role review remain required; no partial command qualifies release.

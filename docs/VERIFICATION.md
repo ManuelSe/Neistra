@@ -1,5 +1,22 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — Components fixture handoff qualification
+
+Corrected candidate83dcee26 passes the strengthened actual100%/200% opening case
+and395 browser cases, then fails the mobile hierarchy fixture before its expected
+Components heading focus return completes. [Failed attempt](assets/representation-surfaces-session-camera/c7-candidate1-diagnostic.json)
+retains all14 preceding passing steps, exact source/logs and532 observations. No
+partial run is release qualification.
+
+The helper now awaits the existing heading landing and checks keyboard disclosure
+focus/expansion explicitly. Application code, keyboard path, deadlines and exclusions
+remain unchanged. Complete focused qualification passes46 mobile cases/12 registered
+exclusions plus1 desktop hierarchy case, with zero failures/flakes/retries.
+[Correction receipt](assets/representation-surfaces-session-camera/c7-handoff-correction.json)
+verifies logs/reports/source identities and37 observations. Fresh complete clean
+candidate2 and exact-master2 gates plus final same-head review remain mandatory.
+
+
 ## Issue #140 — C7 release hold and entrance correction
 
 The first exact-master gate on54277903 fails a real viewport-bounds assertion

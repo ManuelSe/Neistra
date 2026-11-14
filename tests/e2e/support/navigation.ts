@@ -10,4 +10,6 @@ export async function browseComponents(page: Page, entryName: string) {
   await page.getByRole("button", { name: `Actions for ${entryName}`, exact: true }).click();
   await page.getByRole("menuitem", { name: "Components", exact: true }).click();
   await expect(page.locator(".component-parent")).toContainText(entryName);
+  await expect(page.getByRole("region", { name: "Component browser", exact: true })
+    .getByRole("heading", { name: "Components", exact: true })).toBeFocused();
 }

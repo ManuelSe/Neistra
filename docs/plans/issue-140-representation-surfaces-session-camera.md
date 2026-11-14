@@ -948,3 +948,40 @@ normal PR will preserve history; the runtime will be tagged only after its verif
 merge and exact-master gate. Five versions remain **0.30.0** because the first0.30
 release is still unpublished; no patch tag is invented. No new architectural or
 scientific method decision is required. The approved follow-up remains #141.
+
+### C7 — 2026-11-14: complete Components fixture handoff
+
+The first corrected clean candidate `83dcee26` passes the strengthened actual
+100%/200% both-theme entrance workflow and395 browser cases, then stops in the
+mobile hierarchy keyboard fixture after **64 executed existing exclusions / one
+failure /56 not run**. All14 preceding release steps pass. [Diagnostic receipt](../assets/representation-surfaces-session-camera/c7-candidate1-diagnostic.json)
+retains the exact frozen source/log/report identities and532 observations. No
+partial browser command qualifies the release.
+
+Independent UX source/trace assessment identifies another incomplete expected
+focus handoff: explicit Components inspection schedules its heading focus in an
+animation frame, while `browseComponents` only awaits parent text. The fixture
+forces disclosure focus before that landing completes; Enter reaches the heading
+and leaves the category collapsed. Application hierarchy and focus-policy code
+are unchanged. The shared helper now awaits the existing Components heading focus;
+the mobile keyboard case verifies disclosure focus and expanded state before its
+original ligand-selection assertions. It retains keyboard activation, geometry,
+accessibility, deadlines, retries and exclusion policy.
+
+The complete previously unexecuted mobile surface/viewer/camera command passes
+**46 cases /12 registered existing exclusions**, and the desktop hierarchy workflow
+passes **1 case**. No failures, flakes or retries occur. [Handoff correction receipt](../assets/representation-surfaces-session-camera/c7-handoff-correction.json)
+retains both complete command reports, all hashes and37 observations. All current
+application/backend/frontend/tool bytes match the first corrected candidate;
+only two additional e2e files change. The14 preceding passing steps, including
+1,542 Python/zero skips and723 frontend/lint/types/build, remain valid focused
+evidence. A fresh **c7-candidate2** clean33-step recipe repeats every command and
+the complete browser matrix. The precommitted **c7-merged2** recipe remains the
+mandatory exact-master gate after a corrective normal PR.
+
+The bounded manager animation remains the sole production correction. Versions
+remain0.30.0; no tag/release exists. All seven assessments of83dcee26 are historical
+source assessments; final reconfirmation must cover this fixture change and final
+qualification evidence before push. No new scientific/architectural decision,
+product scope or follow-up issue is introduced. Next: corrected candidate2 complete
+gate, final review, normal corrective PR/merge, exact-master2 gate and publication.

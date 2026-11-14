@@ -5,33 +5,32 @@
 Issue #140 — **implementation merged; C7 correction and requalification in progress**
 under the [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
 [PR #142](https://github.com/ManuelSe/Neistra/pull/142) normally merges reviewed
-head4ee4fea4 at54277903, with exact tree/parent verification and no policy bypass.
-All seven specialists PASS that initial head; complete candidate33-step evidence
-passes1,542 Python/zero skips,723 frontend,14 supervisor,441 browser/75 exact old
-exclusions. These initial-source results are historical evidence, not qualification
-of the subsequent correction.
+head4ee4fea4 at54277903. Initial full candidate qualification passes; the first
+exact-master gate finds a real positioned-manager entrance defect. No tag/release
+exists, and delivery remains held.
 
-The first clean exact-master gate stops at a genuine opening-animation bounds
-defect after14 successful steps and146 browser passes. The right-anchored surface
-manager inherits a centered transform; deterministic native sampling puts its top
-outside the viewport at start and midpoint. Publication is held; **no tag/release
-exists**. [Failed-attempt receipt](assets/representation-surfaces-session-camera/c7-merged1-diagnostic.json).
+One opacity-only manager entrance fixes that defect. Strict native start/midpoint/
+end geometry at actual100%/200% zoom passes all12 both-theme samples; the old-rule
+negative control fails. The corrected full candidate passes395 browser cases and
+all14 preceding steps (1,542 Python/zero skips,723 frontend,14 supervisor), then
+stops at an unrelated Components fixture focus handoff. [Failed-candidate receipt](assets/representation-surfaces-session-camera/c7-candidate1-diagnostic.json).
 
-On the planned feature branch, one opacity-only entrance override fixes the
-positioned panel. Existing real100%/200% zoom qualification gains strict native
-start/midpoint/end checks in both themes; all12 samples are bounded. The old rule
-fails the negative control. A separate fixture handoff now awaits the Inspector's
-expected deferred focus return before canvas Space; all original assertions,
-deadlines and exclusions remain. The complete focused workflow and lint/types/
-723 frontend/build pass. [Correction receipt](assets/representation-surfaces-session-camera/c7-opening-correction.json).
+The shared Components fixture now awaits its established heading focus, then
+checks disclosure focus/expansion before the unchanged keyboard path. No additional
+application code, deadline, retry or exclusion changes. The remaining mobile
+surface/viewer/camera command passes46 cases/12 registered exclusions, plus1 desktop
+hierarchy pass; zero failures/flakes/retries. [Focused correction](assets/representation-surfaces-session-camera/c7-handoff-correction.json)
+retains source/log hashes and37 observations. Application/backend/frontend/tool
+bytes remain unchanged; prior corresponding checks remain valid focused evidence.
 
 Five versions remain0.30.0, migration0015 and portable schemas are unchanged. Known
 limits remain approximate surfaces, specimen-specific capacities and best-effort
 browser recovery. Deferred styling is #141, with #64/#107 separate. No user-input
-blocker. Next: clean full c7-candidate1 gate, final seven-role reconfirmation,
-corrective normal PR/merge, full c7-merged2 gate, then annotated tag/release/download
-verification, issue closeout, normal receipt integration and cleanup. The issue is
-closed by the requested PR keyword; the full delivery goal remains active.
+blocker. Next: fresh clean full c7-candidate2 gate, final seven-role same-head
+reconfirmation, corrective normal PR/merge, full c7-merged2 exact-master gate,
+then tag/release/download verification, final issue reply, normal receipt integration
+and cleanup. The issue is closed by the requested PR keyword; the full delivery
+goal remains active.
 
 ### Approved planning checkpoint — issue #140 C0
 

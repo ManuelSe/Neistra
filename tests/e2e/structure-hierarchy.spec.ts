@@ -269,7 +269,9 @@ test("keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer", 
   await expect(drawer.getByRole("button", { name: /^Select Protein in/ })).toBeVisible();
   const ligandSummary = categoryDetails(page, "Ligands / cofactors").locator(".hierarchy-disclosure");
   await ligandSummary.focus();
+  await expect(ligandSummary).toBeFocused();
   await page.keyboard.press("Enter");
+  await expect(ligandSummary).toHaveAttribute("aria-expanded", "true");
   const ligand = drawer.getByRole("button", { name: /Select LIG 101/ });
   await ligand.focus();
   await page.keyboard.press("Enter");
