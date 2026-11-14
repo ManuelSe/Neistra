@@ -31,7 +31,11 @@ Seven full-diff specialist assessments pass subject to final evidence/head
 reconfirmation. A second attempt passed190native cases before a coarse polymer-pixel oracle
 missed narrow geometry. Exact independent GLY2 native provenance/ID/event checks
 now pass6both-layout cases, with no runtime change or relaxed expectation.
-Fresh complete33-step candidate qualification remains required.
+Third attempt passes437native cases/75existing exclusions before an unchanged
+mobile warning scroll reversal fails. Passive terminal-event sequencing and real
+initial-camera acknowledgement waits strengthen fixture readiness;13focused
+warning/zoom cases pass with1existing exclusion. Actual tagged-reader/tool
+preflight passes17steps; complete qualification remains required.
 No implementation push, PR or release yet. PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0

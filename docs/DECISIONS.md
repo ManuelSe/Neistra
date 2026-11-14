@@ -7164,3 +7164,17 @@ exact event/IDs. Native polymer groups may return complete residue loci at atom
 granularity; do not filter hidden atomic detail, widen accepted IDs, re-enable
 shell picks or retry input to preserve an obsolete test. This refines verification
 provenance without changing runtime or scientific semantics.
+
+
+### D-148 qualification note — native readiness before read-only audits
+
+Issue145 full qualification exposed unrelated native warning-fixture races.
+Boundary-row visibility does not establish completed native scrolling: observe
+the body's own terminal scrollend before the next real input, with cleanup and
+unchanged viewport assertions/deadlines. Separately, equal native camera snapshots
+do not establish initial fitting's debounced autosave acknowledgement. Wait for
+the actual clean public mirror and matching server revision/camera before arming
+a read-only request audit; continue to reject every later write. These are bounded
+fixture-readiness corrections, not product changes, request exemptions, timing
+waivers or proof of a browser defect. Keep failed attempts and focused evidence;
+complete clean qualification still restarts from step1.

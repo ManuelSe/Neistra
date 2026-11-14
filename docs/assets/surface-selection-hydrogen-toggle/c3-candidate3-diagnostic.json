@@ -1,0 +1,38 @@
+{
+  "candidate": "89ff156fe2e75c7c7ba56efd473f5830a5fc34a9",
+  "qualification": false,
+  "completed_steps": 15,
+  "browser": {
+    "passes": 437,
+    "failed": 1,
+    "existing_exclusions_executed": 75,
+    "did_not_run": 13,
+    "cause": "Unchanged mobile warning-dialog Home reversal remained at End after15s. Trace Home170ms afterEnd; successful instrumented trials show Endscrollend171\u2013183ms and Homeaftercompletion. Timing evidence supports, but does not prove, a native scroll-settlement race.",
+    "correction": "Test-only passive own-element terminal scrollend observation before reversing or wheel; retain nativekeys,viewportassertions,deadlines and no scrollwrites/inputretries."
+  },
+  "source_unchanged": true,
+  "preceding_source_unchanged": true,
+  "files": {
+    "c3-candidate3-recipe.json": "f82fed2769124a7e9f88d4ba9d513038859d039e1afbe4d9a5f7cb446d3ee0fa",
+    "c3-candidate3-lint.log.gz": "d97b577e094b6f437fc6acd45e5a7a5f4e86e71a521c9cb993c863791ff7839b",
+    "c3-candidate3-browser.log.gz": "0af4e7bb5acb372304059d2ccbecb569974a5ab715968e9f117f5dff5b080da4",
+    "c3-candidate3-gate.json": "596fcabd8a1229aae9b55c9bd409dba70c4189a062781fbc00cd3158bbc59fe0",
+    "c3-candidate3-migration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate3-failure.zip": "d69dd5fed3ff14f3e9da54c4d5b40e6f5045c59c6721110a5bd42d0ffb426993",
+    "c3-candidate3-types.log.gz": "39c8182fd388763d23285e460c35af45e9aead476c1f642fc40b85740193ab4b",
+    "c3-candidate3-uv.log.gz": "827e7dde48eccda389369f87dd9fa49fcc7664fb4c286d8f94e975fae0574625",
+    "c3-candidate3-remigration.log.gz": "b91392f1b6b7d5729d88eaa86d450c3bb1166fb86370f889f3b0a4a24edae701",
+    "c3-candidate3-pnpm.log.gz": "bb9e7b77a0ae7a8358da99f351f9b5ee8824ef54000a6e68bbcbd5d3e51b7ad8",
+    "c3-candidate3-browser-inventory.log.gz": "a690a96d53df10b2da1813ad8c7d9c8f9b1ae152d85dd9d9ed6a0defb7df32e0",
+    "c3-candidate3-python.log.gz": "44189066cfa672ba56c4a56a74c683c73b265597820372b0e70f991d3558ab02",
+    "c3-candidate3-browser-inventory.json": "ca5bda63f80c9091af0d2c9def161392b9ffe4a825e2413b07d03e4093e058ef",
+    "c3-candidate3-browser.json.gz": "22d85cd5a497c99bf958e3f3a7bd2df0fea47f649762ef976c57dd83b8b289b8",
+    "c3-candidate3-ruff.log.gz": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+    "c3-candidate3-supervisor.log.gz": "1b2de7d568897116cdff9539b72f75e2a81ebb7c997c24bafe23b2341653ad5b",
+    "c3-candidate3-build.log.gz": "6a6718b24d2216083e6db8a433b059d8e2c89bd1dac14bcaf25f7d7f87a5eb0d",
+    "c3-candidate3-mypy.log.gz": "c2a9e583883fb3bf063396455a48f8c822d2f2184608d26ef145fdc716c8f6d1",
+    "c3-candidate3-downgrade.log.gz": "3fe0d8c6c2f164ef935b116e5b2e2051cce88af30d588e9bbe6007cc84339bb0",
+    "c3-candidate3-web.log.gz": "ff0cc9d8050e1fd41d130505140c9a3d66e0471f32fdd833cd2deb8a8130c604"
+  },
+  "native_diagnostics": "/tmp/neistra145-c3-diagnostics/candidate3-native"
+}

@@ -2,6 +2,9 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, type APIRequestContext, type Page } from "@playwright/test";
 import type { MolecularWarning, Project, StructureProjection } from "../../../apps/web/src/api/types";
+import { parsePresentationMirror, WORKSPACE_PRESENTATION_MIRROR_KEY } from "../../../apps/web/src/workspacePresentation/mirror";
+import { sameSessionCamera } from "../../../apps/web/src/workspacePresentation/validation";
+import type { WorkspacePresentationV1 } from "../../../apps/web/src/workspacePresentation/types";
 import type { MolstarEngine } from "../../../apps/web/src/viewer/MolstarEngine";
 
 declare global {
@@ -64,6 +67,17 @@ window.refetchWarningProject = projectId => queryClient.invalidateQueries({ quer
   await openWarningProject(page, project.name);
   await expect(page.locator(".viewer-status")).toContainText("3 visible / 3 loaded", { timeout: 30_000 });
   await expect.poll(() => page.evaluate(() => window.warningEngines?.length ?? 0)).toBeGreaterThan(0);
+  // Initial fitting has an independent debounced camera publication. Observe
+  // its real acknowledgement before a caller arms a read-only request audit.
+  // Later writes remain unexpected; this never flushes, ignores or mocks them.
+  await expect.poll(async () => {
+    const mirror = parsePresentationMirror(await page.evaluate(key => localStorage.getItem(key), WORKSPACE_PRESENTATION_MIRROR_KEY));
+    if (!mirror || mirror.dirty) return false;
+    const response = await request.get("/api/v1/workspace/presentation");
+    expect(response.status()).toBe(200);
+    const saved = await response.json() as WorkspacePresentationV1;
+    return mirror.base_revision === saved.revision && sameSessionCamera(mirror.camera, saved.camera);
+  }).toBe(true);
   return readWarningProject(request, project.id);
 }
 

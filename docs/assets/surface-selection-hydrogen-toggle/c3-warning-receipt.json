@@ -1,0 +1,26 @@
+{
+  "qualification": "focused corrections and reader preflight only; fresh full gate pending",
+  "final_warning_cases": 13,
+  "existing_exclusions": 1,
+  "failures_flakes_retries": 0,
+  "repeated_terminal_observation_cases": 6,
+  "original_instrumented_mobile_cases": 3,
+  "causal_limit": "Successful trials support native scroll sequencing hypothesis, not proof of browser or application defect. No warning runtime source changed.",
+  "camera_readiness": "Real parsed public mirror clean, matching actual server revision/camera before read-only audit; later writes remain forbidden. No force/flush/exemption.",
+  "sources": {
+    "tests/e2e/viewer-warning-details.spec.ts": "027c543eef23042ed1cf841dd056efd84da48b252ea177577e6f647230bc5132",
+    "tests/e2e/support/warning-details.ts": "ce272ff0c39e4067a13f4d6222f87a4f1ed0bbab5c68bb1fe010c713a6a1da0b"
+  },
+  "artifacts": {
+    "c3-warning-observations.zip": "22773b1f806c1c839e32cc15b13a7ada3b577938f67c313781ab09fa561b1dea",
+    "c3-warning-ready.json.gz": "3610288af78d5c757d1ecf771e2df742c21b2587c16125cca9b0a2c8c920f72e",
+    "c3-warning-final.log.gz": "f07d298e262d942d7b624f736c91fba619c9e206e1443bca02a5c29a87f8bf87",
+    "c3-warning-diagnostic.log.gz": "2a0eddf5a3a4213f1311a97194cc2b5c192d54095ffa21ed741d1d8bb7724185",
+    "c3-warning-final.json.gz": "1ac3da4463758e2e62a5e3ff57860a9b8dc9ffedb1d7815ee3ca02ebecbc467f",
+    "c3-warning-cleanup.json.gz": "8d2618de48b82a357c5a7961237abb6e2b03d047afa053e2f20d504898f61595",
+    "c3-warning-ready.log.gz": "3c1f77eebf2115175fe47c5a228690ae08c00c272089677dc24ded9947dc0cc2",
+    "c3-warning-diagnostic.json.gz": "d43f37a037f325266f98f0fec506cf530849dfaecb5fd72970c68254e4a506e3",
+    "c3-warning-cleanup.log.gz": "2b8d67b1e98e7d7515b5e684e561d686e469d21ec32df9ef3f354cca52982e01"
+  },
+  "raw_json_observations": 20
+}

@@ -564,3 +564,38 @@ native comparison has20existing dynamic-import/shared-harness diagnostics versus
 21on candidate5b97cf8d, zero new diagnostics and no blanket suppression. Registered
 frontend types pass; this standalone gap is not presented as a passing gate.
 Fresh complete qualification restarts from step1 on the next clean commit.
+
+
+### 2026-11-14 — C3 native warning-fixture sequencing
+
+Candidate89ff156f passed the first14gate steps and437browser cases, with75exact
+existing exclusions, before an unchanged mobile warning-dialog Home check failed;
+13cases did not run. Both-layout new surface/H workflows and the two prior test
+corrections pass within this attempt. It remains partial diagnostic evidence.
+
+The failed trace issues Home170ms afterEnd and leaves the list at its end. Three
+instrumented mobile cases/six theme trials pass: End's native scrollend occurs
+171–183ms after input, and successful Home follows it by0.5–0.9ms. This supports a
+settlement hypothesis without proving a browser or product defect. The bounded
+test correction observes the body's own passive scrollend at its real terminal
+position before reversing or wheeling, with success/failure listener cleanup.
+Original real End/Home/wheel, both viewport assertions,15s assertion limits,
+records/read-only/native/accessibility checks and exclusions remain unchanged.
+Six repeated both-layout cases/12theme terminal observations pass.
+
+A subsequent full-warning-file focused run catches an initial camera autosave
+after the read-only audit starts. The trace proves initialnullcamera/revision0,
+native baseline before the sole expected_revision0 PUT acknowledgement to1.
+Preparation now waits for the actual public mirror to be clean and match server
+revision/camera; it never flushes/forces a pose, ignores writes or adds sleeps.
+Stable native baseline capture follows this acknowledgement. All later PUTs remain
+forbidden. Final exact-source warning/zoom sweep:13passes/1existing exclusion,
+zero failures/flakes/retries. See c3-warning-receipt.json and retained raw profiles.
+Architecture, UI and performance read-only assessments support these bounded
+fixture corrections. No warning application source or product scope is changed.
+
+Independent17-step tool/actual-reader preflight passes versions/production/legacy
+CLI and actual0.30.0↔0.31.0 rich/connectivity producer/readers, both archive
+suffixes and deep retention controls. Its manifests/logs remain focused evidence,
+not a substituted complete gate. Next: commit and rerun all33steps on a clean
+final-version candidate; exact-master and all-seven final reconfirmation remain.
