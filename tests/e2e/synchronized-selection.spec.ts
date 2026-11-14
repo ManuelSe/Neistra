@@ -113,6 +113,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await page.goto("/");
   await openProject(page, project.name);
   await importStructures(page);
+  // The installation view may point elsewhere; this picking fixture owns its framing.
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
 
   const state = (await (
     await request.get(`/api/v1/projects/${project.id}`)

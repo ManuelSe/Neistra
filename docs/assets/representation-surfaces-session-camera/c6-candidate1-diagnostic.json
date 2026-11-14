@@ -1,0 +1,26 @@
+{
+  "status": "failed development candidate, not release qualification",
+  "candidate": "eb7ee674520ea159778fdb21698432a26fdaefdc",
+  "completed_passing_steps": 14,
+  "browser": {
+    "passed": 205,
+    "executed_existing_exclusions": 6,
+    "failed": 1,
+    "not_run": 304,
+    "failure": "synchronized-selection fixture native hit search without explicit framing",
+    "automatic_retries": 0
+  },
+  "sources_unchanged": true,
+  "correction": "Explicit caller Fit after import; validate from real saved off-screen pose. Late toolbar gesture fixture also explicitly frames before original baseline. Production automatic fitting remains unchanged.",
+  "restart_policy": "New clean candidate2 repeats all33 steps and the complete browser matrix; candidate1 is not presented as a full gate.",
+  "observations": {
+    "path": "docs/assets/representation-surfaces-session-camera/c6-candidate1-native-observations.zip",
+    "sha256": "88788ef37f8d357ab096a79b1cb101f02a60012d04a3bdf0b36156d3d9a380ee",
+    "files": 329,
+    "raw_rpc_policy": "Hidden RPC scratch/trace data retained outside repository, not a qualification artifact."
+  },
+  "browser_report": {
+    "path": "docs/assets/representation-surfaces-session-camera/c6-candidate1-browser.json.gz",
+    "uncompressed_sha256": "dc634a46e569697dd267a6fda587f7d24b82285b61172d2ef20873f1be12ff45"
+  }
+}

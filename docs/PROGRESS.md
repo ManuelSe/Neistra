@@ -41,6 +41,14 @@ with enriched styles, surface appearances, full scenes and corruption controls.
 retain commands, lossless logs, hashes and diagnostic boundaries. Seven early
 specialist assessments PASS; final same-candidate reconfirmation remains required.
 
+C6 first clean candidate passes 1,542 Python (zero skips), 723 frontend, 14
+supervisor, frozen/static/migration/build checks, then stops at one legacy native
+fixture lacking explicit Fit (205 browser passes before failure). The corrected
+fixture passes from a real saved off-screen pose; 19 toolbar cases / one existing
+exclusion also pass after explicit setup framing. Production behavior and limits
+are unchanged. A fresh full 33-step clean candidate2 gate is next; the partial
+browser result is not final qualification.
+
 Known limitations: C6 final-version clean gate/tagged readers/all-seven assessment,
 and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup
 remain. No strict timing gain or power-loss-proof recovery claim. Blockers: none

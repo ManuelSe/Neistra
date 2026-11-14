@@ -779,3 +779,37 @@ limits, migration/rollback, shared-camera scope and deliberate deferrals. The
 complete C6 gate, final actual 0.30.0 producer/readers, primary full-diff review
 and seven-role final reconfirmation remain required before pushing application
 changes or opening the PR. No remote feature completion/publication is claimed.
+
+### C6 correction — 2026-11-14: explicit native fixture framing
+
+The first clean candidate `eb7ee674` passes frozen installs, empty migration round
+trip, Ruff/mypy204, **1,542 Python / zero skips**, **723 frontend / 84 files**,
+**14 supervisor**, build and the full **516-case** inventory. Its complete browser
+command stops on the synchronized-selection fixture's missing native hit after
+**205 passes / 6 executed existing exclusions / one failure / 304 not run**.
+[Failed-attempt receipt](../assets/representation-surfaces-session-camera/c6-candidate1-diagnostic.json)
+retains the exact clean source/log evidence, report and 329 observations. This is
+not a completed release gate, and the partial browser run does not qualify it.
+
+The fixture had relied on automatic import fitting, contrary to the approved shared
+camera. It now explicitly chooses Fit after import before its existing picking
+baseline. A real migrated disposable installation is first seeded through the
+public API with off-screen target `[1000,1000,1000]`; the corrected native workflow
+passes, and a later real GET confirms that Fit's in-frame pose was persisted.
+A read-only scan of the unexecuted late files identifies the transform-toolbar
+fixture's related framing dependency. It now waits for actual drawable content and
+explicitly fits once before its original selection/camera baseline. All **19**
+applicable desktop/mobile toolbar cases pass, with **one unchanged touch-layout
+exclusion**. Camera, Cancel, held-pointer, accessibility and remount assertions
+remain. No production code, automatic fitting policy, molecular assertion,
+scientific fixture, deadline, retry or case exclusion is changed.
+
+[Focused correction evidence](../assets/representation-surfaces-session-camera/c6-framing-correction.json)
+retains lossless logs/reports and the real off-screen seed/after observations.
+Raw browser RPC scratch/traces remain outside the repository; portable diagnostic
+observations and contexts are losslessly retained. A fresh precommitted
+**c6-candidate2 33-step recipe** repeats the whole clean gate, including the entire
+browser matrix and final-version readers. The exact-master recipe remains required.
+Seven-role reconfirmation must cover the corrected candidate; earlier approvals
+are not carried forward automatically. Versions remain 0.30.0; scope/release class
+and migration0015 are unchanged. No application push or PR is claimed.

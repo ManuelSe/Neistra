@@ -61,3 +61,9 @@ corruption controls. Current producer is still 0.29.0 here; final 0.30.0 repetit
 is mandatory. Five release tools generate and verify an explicit 33-step clean
 candidate/exact-master recipe, including complete browser inventory and exact
 registered exclusions. Tool preparation is not successful release qualification.
+
+C6 candidate1 is a [retained failed attempt](c6-candidate1-diagnostic.json), not a
+complete gate: 14 preceding steps pass and the browser stops after 205 passes at
+one fixture requiring explicit framing. [Correction evidence](c6-framing-correction.json)
+qualifies the off-screen remembered-view setup and both-layout toolbar behavior.
+The new clean candidate2 recipe repeats all 33 steps and the entire browser suite.
