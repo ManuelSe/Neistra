@@ -1,0 +1,27 @@
+"""Produce final notes only from completed identical candidate/merged qualification."""
+import argparse,json,re,subprocess
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('--runtime',required=True);p.add_argument('--pr',type=int,required=True);p.add_argument('--roles',type=Path,required=True);p.add_argument('--candidate',default='c7-candidate2');p.add_argument('--merged',default='c7-merged2');a=p.parse_args()
+root=Path.cwd();out=root/'docs/assets/representation-surfaces-session-camera'
+assert re.fullmatch('[0-9a-f]{40}',a.runtime)
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==a.runtime
+assert subprocess.check_output(['git','branch','--show-current'],text=True).strip()=='master'
+c=json.loads((out/f'{a.candidate}-summary.json').read_text());m=json.loads((out/f'{a.merged}-summary.json').read_text());cg=json.loads((out/f'{a.candidate}-gate.json').read_text());mg=json.loads((out/f'{a.merged}-gate.json').read_text());roles=json.loads(a.roles.read_text())
+assert mg['commit']==a.runtime and mg['complete'] and cg['complete'] and mg['source_after']==cg['source_after']
+for key in ['complete_steps','source_count','source_digest','python','python_skips','frontend','supervisor','browser_passed','browser_exclusions','browser_inventory_count','failures_flakes_retries','new_exclusions']:
+ assert m[key]==c[key],key
+assert m['complete_steps']==33 and m['python_skips']==m['failures_flakes_retries']==m['new_exclusions']==0
+assert roles['all_seven_final_pass'] and len(roles['roles'])==7
+assert subprocess.check_output(['git','rev-parse',a.runtime+'^{tree}'],text=True).strip()==subprocess.check_output(['git','rev-parse',roles['candidate']+'^{tree}'],text=True).strip()
+t=(root/'docs/RELEASE_NOTES.md').read_text().split('## 0.30.0 — Representation styling, surfaces and the shared view\n',1)[1].split('\n## 0.29.0',1)[0]
+prefix=f'Released from exact qualified `master` commit `{a.runtime}` through [PR #142](https://github.com/ManuelSe/Neistra/pull/142) and [the entrance correction, PR #{a.pr}](https://github.com/ManuelSe/Neistra/pull/{a.pr}). Stable minor release from 0.29.0. The [approved plan](https://github.com/ManuelSe/Neistra/blob/master/docs/plans/issue-140-representation-surfaces-session-camera.md) retains scope decisions and checkpoint evidence.\n\n'
+t=prefix+'**Representations.** '+t.split('**Representations.**',1)[1].lstrip();t=t.split('**Verification.**',1)[0]
+t+=f'''**Verification.** Both the clean committed candidate and exact released master complete all **{m['complete_steps']} sequential release steps**: **{m['python']:,} Python passes / zero skips, {m['frontend']:,} frontend, {m['supervisor']} supervisor, and {m['browser_passed']} browser passes / {m['browser_exclusions']} exact existing exclusions across {m['browser_inventory_count']} cases**. Zero failures, flakes, automatic retries or new exclusions. All **{m['source_count']} current** and **{m['preceding_source_identities_verified']} actual tagged 0.29.0** source identities and lossless logs verify. Candidate and master runtime/test/tool bytes are identical.
+
+Frozen installs, Ruff/mypy, lint/typecheck/build, empty migration upgrade/downgrade/re-upgrade, populated-data preservation, version/schema/dependency/production/license audits and legacy CLI pass. Actual tagged **0.29.0 ↔ final 0.30.0** producer/readers run in separate processes, both directions and archive suffixes, with deep entry/surface/scene/measurement/canonical/original comparisons and copied corruption controls. Both implementations retain quick1.0.3/current-canonical policy; this is not historical-model-refusal evidence.
+
+All seven specialist agents PASS final feature head `{roles['candidate']}`; its complete tree equals the released merge. Primary complete-diff review is implementer self-review. Codex review was requested and its disposition is documented on the PR. No independent human approval, remote CI success or strict reference-host timing certification is claimed. Earlier failed attempts remain separate diagnostics. Deterministic native entrance sampling catches the old off-screen transform and qualifies the corrected geometry at actual 100%/200% zoom in both themes; focus helpers await established handoffs without relaxing keyboard assertions, deadlines or exclusions.
+
+[Download the qualification evidence](https://github.com/ManuelSe/Neistra/releases/download/v0.30.0/neistra-v0.30.0-qualification.zip): explicit recipes, source/log identities, actual-reader reports, native observations and internal SHA-256 manifest. Final closeout and terminal documentation/branch-cleanup verification are posted on [issue #140](https://github.com/ManuelSe/Neistra/issues/140) after publication. Later documentation integration does not move the runtime tag.
+'''
+path=Path('/tmp/neistra-v0.30.0-release-notes.md');assert not path.exists();path.write_text(t.strip()+'\n');print(path)

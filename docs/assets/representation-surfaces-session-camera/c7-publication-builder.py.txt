@@ -1,0 +1,94 @@
+"""Package already verified issue140 evidence; never qualifies an incomplete run."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import zipfile
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--runtime', required=True)
+parser.add_argument('--notes', type=Path, required=True)
+parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--candidate', default='c7-candidate2')
+parser.add_argument('--merged', default='c7-merged2')
+args = parser.parse_args()
+root = Path.cwd().resolve()
+assert re.fullmatch(r'[0-9a-f]{40}', args.runtime)
+assert subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip() == args.runtime
+assert subprocess.check_output(['git', 'branch', '--show-current'], text=True).strip() == 'master'
+assert subprocess.check_output(['git', 'rev-parse', 'v0.30.0^{}'], text=True).strip() == args.runtime
+out = root / 'docs/assets/representation-surfaces-session-camera'
+gates = {}
+for label in [args.candidate, args.merged]:
+    gate = json.loads((out / f'{label}-gate.json').read_text())
+    summary = json.loads((out / f'{label}-summary.json').read_text())
+    assert gate['complete'] and gate['source_unchanged'] and gate['preceding_source_unchanged']
+    assert summary['complete_steps'] == 33 and summary['python_skips'] == 0
+    assert summary['failures_flakes_retries'] == 0 and summary['browser_exclusions'] == 75
+    assert summary['new_exclusions'] == 0 and summary['all_lossless_log_hashes_valid']
+    assert gate['source_before'] == gate['source_after']
+    gates[label] = gate
+merged = gates[args.merged]
+assert merged['commit'] == args.runtime
+assert gates[args.candidate]['source_after'] == merged['source_after']
+for name, expected in merged['source_after'].items():
+    assert hashlib.sha256((root / name).read_bytes()).hexdigest() == expected, name
+assert not args.output.exists(), 'Never overwrite an existing publication asset.'
+files = {}
+for path in sorted(out.rglob('*')):
+    if not path.is_file():
+        continue
+    relative = path.relative_to(root).as_posix()
+    if any(part.startswith('.') or part == '__pycache__' for part in path.relative_to(out).parts):
+        continue
+    assert not path.is_symlink()
+    if path.suffix == '.zip':
+        with zipfile.ZipFile(path) as nested:
+            assert nested.testzip() is None, relative
+    files[relative] = path.read_bytes()
+plan = 'docs/plans/issue-140-representation-surfaces-session-camera.md'
+files[plan] = (root / plan).read_bytes()
+files['publication/RELEASE_NOTES.md'] = args.notes.read_bytes()
+for source, target in [
+    ('/tmp/neistra140-c7-review-candidates.json', 'publication/specialist-review.json'),
+    ('/tmp/neistra140-premerge-audit.json', 'publication/initial-premerge-audit.json'),
+    ('/tmp/neistra140-merge-verification.json', 'publication/initial-merge-verification.json'),
+    ('/tmp/neistra140-corrective-premerge-audit.json', 'publication/corrective-premerge-audit.json'),
+    ('/tmp/neistra140-corrective-merge-verification.json', 'publication/corrective-merge-verification.json'),
+]:
+    files[target] = Path(source).read_bytes()
+roles = json.loads(files['publication/specialist-review.json'])
+assert roles['all_seven_final_pass'] and roles['all_seven_exact_master_reconfirmed']
+assert all(item['exact_master_evidence']['runtime'] == args.runtime for item in roles['roles'].values())
+
+files['publication/build-publication-bundle.py'] = Path(__file__).read_bytes()
+recipe = {'command': ['.venv/bin/python', str(Path(__file__).resolve()), '--runtime', args.runtime,
+                      '--notes', str(args.notes), '--output', str(args.output),
+                      '--candidate', args.candidate, '--merged', args.merged],
+          'cwd': str(root), 'version': '0.30.0', 'tag': 'v0.30.0',
+          'candidate_gate': args.candidate, 'merged_gate': args.merged,
+          'source_files': len(merged['source_after']),
+          'transient_browser_cache_included': False}
+files['publication/recipe.json'] = (json.dumps(recipe, indent=2) + '\n').encode()
+manifest = {'schema_version': 1, 'version': '0.30.0', 'runtime': args.runtime,
+            'files': {name: {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+                      for name, data in files.items()}}
+with zipfile.ZipFile(args.output, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+    for name, data in files.items():
+        archive.writestr(name, data)
+    archive.writestr('MANIFEST.json', json.dumps(manifest, indent=2) + '\n')
+with zipfile.ZipFile(args.output) as archive:
+    assert archive.testzip() is None
+    assert set(archive.namelist()) == set(files) | {'MANIFEST.json'}
+    for name, expected in manifest['files'].items():
+        data = archive.read(name)
+        assert len(data) == expected['bytes']
+        assert hashlib.sha256(data).hexdigest() == expected['sha256'], name
+receipt = {'asset': str(args.output), 'bytes': args.output.stat().st_size,
+           'sha256': hashlib.sha256(args.output.read_bytes()).hexdigest(),
+           'manifest_files': len(files), 'zip_entries': len(files) + 1,
+           'qualified_commit': args.runtime, 'crc_and_internal_hashes_valid': True,
+           'transient_browser_cache_excluded': True}
+print(json.dumps(receipt, indent=2))

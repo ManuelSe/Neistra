@@ -1,0 +1,42 @@
+{
+  "verified_utc": "2026-11-14T13:25:30.272320+00:00",
+  "runtime": "851ccf34b639e3974815aede9979c22f334a5767",
+  "tag": {
+    "name": "v0.30.0",
+    "annotated_object": "8b3d79973db4210f46f335173abb82a2c1baafcf",
+    "peeled_commit": "851ccf34b639e3974815aede9979c22f334a5767",
+    "message": "Neistra v0.30.0 \u2014 Representation styling, surfaces and the shared view\n\nStable minor release for issue #140. Both clean candidate and exact merged master pass all33 release steps; all seven specialist agents PASS the identical runtime and final qualification evidence.\n"
+  },
+  "release": {
+    "id": 445312890,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0",
+    "name": "Neistra v0.30.0 \u2014 Representation styling, surfaces and the shared view",
+    "tag_name": "v0.30.0",
+    "draft": false,
+    "prerelease": false,
+    "latest": true,
+    "published_at": "2026-11-14T13:24:53Z",
+    "body_sha256": "10973d5866507755b77170f5224f6981ac1e64bc0bdfa92422179e37356e9686"
+  },
+  "asset": {
+    "id": 747566069,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.30.0/neistra-v0.30.0-qualification.zip",
+    "name": "neistra-v0.30.0-qualification.zip",
+    "bytes": 382646867,
+    "sha256": "4942f0ecc74c8c4e03f4ccc9e0bfb930e7715af65cc3996803bf283b32f05379",
+    "api_digest": "sha256:4942f0ecc74c8c4e03f4ccc9e0bfb930e7715af65cc3996803bf283b32f05379",
+    "anonymous_download_verified": true,
+    "zip_crc_and_manifest_hashes_valid": true,
+    "manifest_files": 560,
+    "download_path": "/tmp/neistra-v0.30.0-public-download.zip"
+  },
+  "runtime_tag_never_retargeted": true,
+  "terminal_verification_policy": "Final documentation integration and branch cleanup are recorded in the same verified issue closeout reply. Its initial body hash is historical, not an immutable terminal-body assertion.",
+  "issue_closeout": {
+    "id": 6877948856,
+    "url": "https://github.com/ManuelSe/Neistra/issues/140#issuecomment-6877948856",
+    "initial_body_sha256": "674def51cfad5d4af22d9e2ff2bc213888b6dd884f0ee137bc8c9440e1ff7d3a",
+    "initial_body_verified": true,
+    "terminal_policy": "The same owned reply is updated after normal receipt integration and verified branch cleanup; initial body hash is historical only."
+  }
+}

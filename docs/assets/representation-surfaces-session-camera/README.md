@@ -138,3 +138,15 @@ verifies567 observations (480PNG/87JSON), ZIP CRC and internal hashes. Actual100
 The [updated complete-diff self-review](c7-review.md) covers the complete approved
 scope and corrective diff. Final seven-role same-head assessment, normal corrective
 merge and full fresh exact-master2 gate remain mandatory before publication.
+
+
+C7 [exact released-master qualification](c7-merged2-summary.json) passes all33steps
+on `851ccf34b639e3974815aede9979c22f334a5767`, with the same1542Python/723frontend/14supervisor/
+441browser and75 exact existing exclusions as corrected candidate2. All791current/
+754actualoldtag sources, logs, readers and native observations verify. [Seven-role
+record](c7-specialist-review.json), normal pre-merge/merge readbacks and
+[publication receipt](c7-publication.json) retain final provenance. The annotated
+[v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0) tag stays on the exact runtime; anonymous public qualification
+asset download verifiesSHA-256/CRC/allmanifest hashes. [Same issue reply](https://github.com/ManuelSe/Neistra/issues/140#issuecomment-6877948856)
+records terminal normal documentation integration and branch cleanup after each is
+verified. No strict-host timing, remote CI or independent human approval is claimed.

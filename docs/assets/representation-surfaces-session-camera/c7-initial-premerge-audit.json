@@ -1,0 +1,179 @@
+{
+  "verified_utc": "2026-11-14T07:49:45.122210+00:00",
+  "pr": {
+    "baseRefName": "master",
+    "headRefOid": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "number": 142,
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/ManuelSe/Neistra/pull/142",
+    "baseRefOid": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9"
+  },
+  "base": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+  "feature_head": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+  "policy": {
+    "allow_merge_commit": true,
+    "delete_branch_on_merge": false,
+    "master_protected": false,
+    "rulesets": [],
+    "actions_workflows": 0,
+    "required_reviews_or_checks": "None configured; no bypass",
+    "review_requests": 0
+  },
+  "reviews": [],
+  "inline_comments": [],
+  "threads": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    }
+  },
+  "codex": {
+    "request_comment": 6874019900,
+    "requested_at": "2026-11-14T07:44:39Z",
+    "external_result_returned": false,
+    "reactions": [],
+    "fallback": "Complete local self-review and seven specialist-agent PASS assessments; no independent human approval claimed."
+  },
+  "candidate_summary": {
+    "commit": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+    "branch": "feat/issue-140-representation-surfaces-session-camera",
+    "clean_start": true,
+    "complete_steps": 33,
+    "source_count": 791,
+    "source_inventory_unchanged": true,
+    "source_digest": "c6281db1a299e2698b5a8b8b325237c743d7d77f2f2210b418f41b6f0daa1642",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 1542,
+    "python_skips": 0,
+    "frontend": 723,
+    "supervisor": 14,
+    "browser_passed": 441,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 516,
+    "browser_inventory_sha256": "3abe6d718dfe7039d938f9e7239a14372b126ccc50b2022d352397dca5171da9",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/authoritative-minimization/c8-merged4-browser.json.gz",
+    "exclusion_baseline_sha256": "956d266b314142979389200125fa44c4c2a636738593045e191aec348a1bc62f",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.29.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 754,
+    "actual_reader_audit": "c6-candidate3-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 4992.523,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 4995.0
+  },
+  "all_seven_same_head_pass": {
+    "candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+    "base": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+    "full_gate_pending": false,
+    "final_evidence_reconfirmation_required": false,
+    "roles": {
+      "scientific_theory": {
+        "agent": "final_science140",
+        "checks": "44 independent numerical/geometry tests reused;38 unchanged runtime files; C5 scientifically meaningful assertions reviewed",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "scientific_implementation": {
+        "agent": "final_scientific_impl140",
+        "checks": "75 independent focused tests reused;59 C5 lossless/bundle hashes;791-source snapshot diff; reader digest",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "software_architecture": {
+        "agent": "final_architecture140",
+        "checks": "144 frontend and48 API tests reused;8 namespace tests and version/schema/migration audit;16 passive-presentation tests",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "performance": {
+        "agent": "final_performance140",
+        "checks": "123 focused tests reused;791 current source identities;59 evidence hashes/ZIPCRC; unchanged limits and measurement boundaries",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "ui_design": {
+        "agent": "final_ui140",
+        "checks": "60 UI tests reused;5 UI source hashes; native23/5 and78/22 reports; retained screenshot/accessibility evidence",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "ux_design": {
+        "agent": "final_ux140",
+        "checks": "106 workflow tests reused;18 source hashes; scene intent ownership and C5 recovery/chooser adaptations",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      },
+      "modeling_reference": {
+        "agent": "final_reference140",
+        "checks": "13 tests and official evidence reused;20 workflow hashes; scope and neutral documentation inspected",
+        "verdict": "PASS",
+        "reconfirmed_candidate": "4ee4fea46e8e69bd1a89aa5671807d9c5d54d83f",
+        "intervening_diff": "57 documentation/evidence files only;791 qualified runtime/test/tool source identities unchanged",
+        "correction_hashes_valid": true,
+        "final_evidence_checks": "33 successful command/log hashes;516 browser cases/75 exact old exclusions;8 actual-reader evidence reports;563 native manifest hashes/CRC"
+      }
+    },
+    "optional_findings": [
+      {
+        "priority": "P3",
+        "file": "apps/web/src/components/SurfaceEditor.tsx:255",
+        "description": "Shared input error may show unrelated source-context Retry action",
+        "disposition": "Nonblocking feedback polish deferred; no additional speculative issue."
+      }
+    ],
+    "previous_candidate": "7019a3d7c29a1ccce0efca5d5d1ccf383468181a",
+    "follow_up": {
+      "number": 141,
+      "url": "https://github.com/ManuelSe/Neistra/issues/141",
+      "remote_body_verified": true
+    },
+    "qualified_source_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+    "all_seven_final_pass": true,
+    "verified_utc": "2026-11-14T07:43:41.393821+00:00"
+  },
+  "clean_worktree": true,
+  "planned_version": "0.30.0",
+  "tag_collision": false,
+  "release_collision": false,
+  "latest_release": {
+    "isDraft": false,
+    "isPrerelease": false,
+    "publishedAt": "2026-11-13T21:16:00Z",
+    "tagName": "v0.29.0"
+  },
+  "follow_up": 141,
+  "merge_strategy": "normal merge commit preserving checkpoints; match exact feature head; no bypass flags",
+  "review_receipt": {
+    "comment": 6874070359,
+    "body_remotely_verified": true
+  },
+  "local_audit_correction": "Installed gh pr view lacks baseRefOid JSON field; corrected query obtains the base SHA through REST. All checks rerun successfully before merge."
+}

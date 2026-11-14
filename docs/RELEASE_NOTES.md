@@ -2,14 +2,7 @@
 
 ## 0.30.0 — Representation styling, surfaces and the shared view
 
-**Status:** corrected clean candidate qualification passes. PR #142 contains the
-initial implementation; its first exact-master run identifies an entrance defect,
-now fixed and covered by strict native opening checks. Final same-head review,
-normal corrective merge and fresh complete exact-master qualification precede
-publication. No0.30 tag or release exists. The
-[approved contract](plans/issue-140-representation-surfaces-session-camera.md) and
-[evidence index](assets/representation-surfaces-session-camera/README.md) retain
-scope, checkpoint evidence and limits.
+Released from exact qualified `master` commit `851ccf34b639e3974815aede9979c22f334a5767` through [PR #142](https://github.com/ManuelSe/Neistra/pull/142) and [the entrance correction, PR #143](https://github.com/ManuelSe/Neistra/pull/143). Stable minor release from 0.29.0. The [approved plan](https://github.com/ManuelSe/Neistra/blob/master/docs/plans/issue-140-representation-surfaces-session-camera.md) retains scope decisions and checkpoint evidence.
 
 **Representations.** Thin and thick sticks use uniform matching cylinders and
 joints, with distinct sizes and native multiple/aromatic-bond notation. Ordinary
@@ -78,18 +71,13 @@ are approximate visualization; no area/volume, electrostatics, implicit repair o
 new chemistry is claimed. Specific capacity and portable correctness do not
 establish universal throughput, broader browser certification or strict-host timing.
 
-**Verification.** Clean committed corrected candidate `ca428af2` passes all33
-release steps:1,542 Python /zero skips,723 frontend,14 supervisor and441 browser
-passes /75 exact existing exclusions; zero failures/flakes/retries/new exclusions.
-All791 current and754 actual tagged0.29.0 source identities and lossless logs verify.
-Actual0.29.0↔final0.30.0 rich/connectivity readers pass both directions/suffixes,
-with deep state/original comparisons and copied-corruption controls. All567 curated
-native observations verify. The manager remains bounded at start/midpoint/end in
-all12 actual100%/200%, light/dark samples; the old-rule negative control fails.
-Final all-seven same-head review and a complete fresh exact-master gate remain
-mandatory before publication. Local full-diff review is implementer self-review.
-No independent human approval, remote CI success or strict-host timing certification
-is claimed. Earlier failed attempts remain separate diagnostic evidence.
+**Verification.** Both the clean committed candidate and exact released master complete all **33 sequential release steps**: **1,542 Python passes / zero skips, 723 frontend, 14 supervisor, and 441 browser passes / 75 exact existing exclusions across 516 cases**. Zero failures, flakes, automatic retries or new exclusions. All **791 current** and **754 actual tagged 0.29.0** source identities and lossless logs verify. Candidate and master runtime/test/tool bytes are identical.
+
+Frozen installs, Ruff/mypy, lint/typecheck/build, empty migration upgrade/downgrade/re-upgrade, populated-data preservation, version/schema/dependency/production/license audits and legacy CLI pass. Actual tagged **0.29.0 ↔ final 0.30.0** producer/readers run in separate processes, both directions and archive suffixes, with deep entry/surface/scene/measurement/canonical/original comparisons and copied corruption controls. Both implementations retain quick1.0.3/current-canonical policy; this is not historical-model-refusal evidence.
+
+All seven specialist agents PASS final feature head `4b858b0ab8f2e914a0b65b85c3d4acbf25170116`; its complete tree equals the released merge. Primary complete-diff review is implementer self-review. Codex review was requested and its disposition is documented on the PR. No independent human approval, remote CI success or strict reference-host timing certification is claimed. Earlier failed attempts remain separate diagnostics. Deterministic native entrance sampling catches the old off-screen transform and qualifies the corrected geometry at actual 100%/200% zoom in both themes; focus helpers await established handoffs without relaxing keyboard assertions, deadlines or exclusions.
+
+[Download the qualification evidence](https://github.com/ManuelSe/Neistra/releases/download/v0.30.0/neistra-v0.30.0-qualification.zip): explicit recipes, source/log identities, actual-reader reports, native observations and internal SHA-256 manifest. Final closeout and terminal documentation/branch-cleanup verification are posted on [issue #140](https://github.com/ManuelSe/Neistra/issues/140) after publication. Later documentation integration does not move the runtime tag.
 
 
 ## 0.29.0 — Authoritative connectivity and reliable minimization
