@@ -1,5 +1,24 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — C7 release hold and entrance correction
+
+The first exact-master gate on54277903 fails a real viewport-bounds assertion
+during surface-manager opening after14 successful steps and146 browser passes.
+[Failed-master evidence](assets/representation-surfaces-session-camera/c7-merged1-diagnostic.json)
+retains source/log identities, report and218 observations. It is not release
+qualification. No tag or release exists at this checkpoint.
+
+The right-anchored manager's inherited centering animation is replaced with an
+opacity-only entrance. The independent old-rule native control fails at negative
+top coordinates; the corrected complete real100%/200% both-theme workflow passes
+all12 strict timeline samples and original controls. A fixture awaits the existing
+Inspector close-focus handoff before forcing canvas Space. No assertion/deadline/
+retry/exclusion is relaxed. Lint/types/723 frontend/build pass.
+[Focused correction evidence](assets/representation-surfaces-session-camera/c7-opening-correction.json).
+Complete fresh candidate/exact-master gates and all-seven same-head assessment
+remain required. The following original-candidate results remain as-run evidence.
+
+
 ## Issue #140 — Qualified stable 0.30.0 candidate
 
 Clean candidate `c8468c89472b2c67fbb70eea433bce71c3a13a5c` completes all **33 release

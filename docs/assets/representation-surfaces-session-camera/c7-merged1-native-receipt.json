@@ -1,0 +1,13 @@
+{
+  "label": "c7-merged1",
+  "path": "docs/assets/representation-surfaces-session-camera/c7-merged1-native-observations.zip",
+  "bytes": 20283995,
+  "sha256": "35ccd7175fc55bbe4f4ed524cfa84a120dfbeb4dba2fdf956a14369c9913163a",
+  "manifest_files": 218,
+  "types": {
+    ".png": 196,
+    ".json": 22
+  },
+  "crc_and_internal_hashes_valid": true,
+  "scope": "All normal JSON observations, PNG screenshots and Markdown diagnostic contexts; hidden RPC scratch directories and raw RPC traces excluded."
+}

@@ -3581,6 +3581,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 /* On-demand surface objects; molecular browser/navigation retain their owners. */
 .surface-manager {
+  animation: fade-in 120ms ease-out;
   position: fixed;
   top: 72px;
   right: 12px;

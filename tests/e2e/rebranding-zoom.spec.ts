@@ -3,7 +3,7 @@ import { prepare } from "./support/interactions";
 import { browseComponents, showEntries } from "./support/navigation";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
-import { chromium, expect, test, type Page, type TestInfo, type Worker } from "@playwright/test";
+import { chromium, expect, test, type Locator, type Page, type TestInfo, type Worker } from "@playwright/test";
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -56,6 +56,41 @@ async function captureZoomPage(page: Page, info: TestInfo, name: string) {
     expect(png.readUInt32BE(20)).toBe(metrics.layoutViewport.clientHeight);
     await writeFile(info.outputPath(name), png);
   } finally { await session.detach(); }
+}
+
+async function expectBoundedSurfaceOpening(manager: Locator, info: TestInfo, name: string) {
+  const samples = await manager.evaluate(node => {
+    // Restart the actual CSS entrance, then sample its native animation timeline.
+    // This checks opening geometry deterministically, including before opacity 1.
+    const original = node.style.animation;
+    node.style.animation = "none";
+    node.getBoundingClientRect();
+    node.style.animation = original;
+    const animations = node.getAnimations();
+    for (const animation of animations) animation.pause();
+    try {
+      return [0, 0.5, 1].map(progress => {
+        for (const animation of animations) {
+          const duration = Number(animation.effect?.getComputedTiming().duration);
+          if (!Number.isFinite(duration) || duration < 0) throw new Error("Invalid panel entrance duration");
+          animation.currentTime = duration * progress;
+        }
+        const box = node.getBoundingClientRect(), style = getComputedStyle(node);
+        return { progress, left: box.left, right: box.right, top: box.top, bottom: box.bottom,
+          viewportWidth: innerWidth, viewportHeight: innerHeight,
+          scrollWidth: node.scrollWidth, clientWidth: node.clientWidth,
+          transform: style.transform, opacity: style.opacity, animation: style.animationName };
+      });
+    } finally { for (const animation of animations) animation.finish(); }
+  });
+  await writeFile(info.outputPath(name), JSON.stringify(samples, null, 2));
+  for (const sample of samples) {
+    expect(sample.left, JSON.stringify(sample)).toBeGreaterThanOrEqual(0);
+    expect(sample.right, JSON.stringify(sample)).toBeLessThanOrEqual(sample.viewportWidth);
+    expect(sample.top, JSON.stringify(sample)).toBeGreaterThanOrEqual(0);
+    expect(sample.bottom, JSON.stringify(sample)).toBeLessThanOrEqual(sample.viewportHeight);
+    expect(sample.scrollWidth, JSON.stringify(sample)).toBeLessThanOrEqual(sample.clientWidth + 1);
+  }
 }
 
 test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", async ({ request, baseURL }, info) => {
@@ -135,8 +170,14 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await page.keyboard.press("Enter");
         const movement = page.getByRole("region", { name: "Move selection controls" });
         await expect(movement).toBeVisible();
-        if (factor === 2) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
-        await page.getByRole("group", { name: "Move selection canvas" }).focus();
+        if (factor === 2) {
+          await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+          await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeHidden();
+          await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeFocused();
+        }
+        const movementCanvas = page.getByRole("group", { name: "Move selection canvas" });
+        await movementCanvas.focus();
+        await expect(movementCanvas).toBeFocused();
         await page.keyboard.down("Space");
         await expect(movement).toContainText("Adjusting camera");
         await page.keyboard.up("Space");
@@ -294,6 +335,7 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await appearance.getByRole("button", { name: "Create surface", exact: true }).focus(); await page.keyboard.press("Enter");
         await manager.getByRole("button", { name: "Around selection", exact: true }).click();
         await expect(manager.getByRole("combobox", { name: "Surface receptor" })).toBeVisible();
+        await expectBoundedSurfaceOpening(manager, info, `${theme}-${factor * 100}-surface-opening.json`);
         expect(await manager.evaluate((node) => {
           const box = node.getBoundingClientRect();
           return box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight &&

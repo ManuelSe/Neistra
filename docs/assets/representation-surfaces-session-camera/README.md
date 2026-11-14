@@ -99,3 +99,18 @@ about provenance, corrected diagnostics, optional P3 polish and remaining releas
 conditions. Final same-head documentation reconfirmation precedes push and is
 recorded on the PR. Complete exact-master qualification and publication remain
 mandatory; preparation/earlier partial attempts are not release qualification.
+
+
+C7 initial merge54277903 has a [failed exact-master attempt](c7-merged1-diagnostic.json):
+14 preceding steps and146 browser cases pass, then the native200% manager bounds
+assertion catches its inherited centering entrance transform. All218 curated
+observations and lossless logs are retained. No partial run qualifies the release.
+
+[Entrance correction](c7-opening-correction.json) replaces only manager motion with
+an opacity-only fade. Actual native CSS timeline sampling rejects the old rule at
+start/midpoint and keeps all12 new100%/200% both-theme samples inside strict bounds.
+The complete focused workflow passes; original camera/keyboard/accessibility,
+deadlines and exclusions remain. The separate Inspector focus-handoff fixture
+synchronization is explicit. Logs/reports and75 observations have verified hashes/
+CRC. Fresh candidate1 and merged2 recipes repeat all33 release steps; final-seven
+review and publication remain pending. Version0.30.0 is still unpublished.

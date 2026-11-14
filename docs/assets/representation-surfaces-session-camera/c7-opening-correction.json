@@ -1,0 +1,318 @@
+{
+  "status": "passing focused correction checkpoint; fresh complete candidate and exact-master gates remain mandatory",
+  "base_master": "54277903cba52bd56881bee070bafdca5b0eeeea",
+  "release_version": "0.30.0, not yet published",
+  "production_correction": "One surface-manager opacity-only entrance override; no positional transform, scientific/camera/persistence change.",
+  "negative_control": {
+    "actual_rule": "unchanged base-master stylesheet",
+    "samples": [
+      {
+        "progress": 0,
+        "left": 828,
+        "right": 1228,
+        "top": -273.6000061035156,
+        "bottom": 446.3999938964844,
+        "viewportWidth": 1440,
+        "viewportHeight": 861,
+        "scrollWidth": 398,
+        "clientWidth": 398,
+        "transform": "matrix(1, 0, 0, 1, -200, -345.6)",
+        "opacity": "0",
+        "animation": "dialog-in"
+      },
+      {
+        "progress": 0.5,
+        "left": 964.9286499023438,
+        "right": 1364.9287109375,
+        "top": -36.987281799316406,
+        "bottom": 683.0127182006836,
+        "viewportWidth": 1440,
+        "viewportHeight": 861,
+        "scrollWidth": 398,
+        "clientWidth": 398,
+        "transform": "matrix(1, 0, 0, 1, -63.0713, -108.987)",
+        "opacity": "0.684643",
+        "animation": "dialog-in"
+      },
+      {
+        "progress": 1,
+        "left": 1028,
+        "right": 1428,
+        "top": 72,
+        "bottom": 792,
+        "viewportWidth": 1440,
+        "viewportHeight": 861,
+        "scrollWidth": 398,
+        "clientWidth": 398,
+        "transform": "none",
+        "opacity": "1",
+        "animation": "dialog-in"
+      }
+    ],
+    "expected_rejection": true,
+    "purpose": "Independent native geometry oracle catches off-screen start and midpoint; no tolerance or deadline reduction."
+  },
+  "positive_native": {
+    "complete_cases": 1,
+    "failures_flakes_retries_exclusions": 0,
+    "actual_zoom_factors": [
+      1,
+      2
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "native_timeline_samples": 12,
+    "geometry": {
+      "dark-100-surface-opening.json": [
+        {
+          "progress": 0,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 0.5,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0.684643",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 1,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "1",
+          "animation": "fade-in"
+        }
+      ],
+      "dark-200-surface-opening.json": [
+        {
+          "progress": 0,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 0.5,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0.684643",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 1,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "1",
+          "animation": "fade-in"
+        }
+      ],
+      "light-100-surface-opening.json": [
+        {
+          "progress": 0,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 0.5,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0.684643",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 1,
+          "left": 1028,
+          "right": 1428,
+          "top": 72,
+          "bottom": 792,
+          "viewportWidth": 1440,
+          "viewportHeight": 861,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "1",
+          "animation": "fade-in"
+        }
+      ],
+      "light-200-surface-opening.json": [
+        {
+          "progress": 0,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 0.5,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "0.684643",
+          "animation": "fade-in"
+        },
+        {
+          "progress": 1,
+          "left": 308,
+          "right": 708,
+          "top": 72,
+          "bottom": 414.5,
+          "viewportWidth": 720,
+          "viewportHeight": 430,
+          "scrollWidth": 398,
+          "clientWidth": 398,
+          "transform": "none",
+          "opacity": "1",
+          "animation": "fade-in"
+        }
+      ]
+    }
+  },
+  "fixture_diagnostic": "Positive1 stops earlier at200% Space while delayed Inspector close focus return races an immediate programmatic canvasfocus. UX assessment confirms setup synchronization: await Inspector hidden and returned launcherfocus before explicitcanvasfocus. Space/geometry assertions and deadlines remain.",
+  "frontend": "lint/types/723tests84files/build PASS; later change only synchronizes e2e fixture focus handoff, so frontend evidence remains applicable.",
+  "sources": {
+    "css": {
+      "path": "apps/web/src/styles.css",
+      "sha256": "bafe1fc734d4909a7adaf3db964575ae39167d4be06729f00f29ba750076c66b"
+    },
+    "native_test": {
+      "path": "tests/e2e/rebranding-zoom.spec.ts",
+      "sha256": "0a7fd7165642a3d322750d8ededd7df79e627ab83d137d46c43739580625d236"
+    },
+    "provenance_before_fixture_sync": {
+      "negative_css_sha256": "213f278e72120ea087586a4756da68379adafa55820dbe40587f261bc0da4f98",
+      "positive_css_sha256": "bafe1fc734d4909a7adaf3db964575ae39167d4be06729f00f29ba750076c66b",
+      "test_before_focus_handoff_sha256": "316fcabab2c48002c05ae8c84dbc6526208d43d51db57363d696096860d07ce6",
+      "geometry_helper_sha256": "e91b8a8ccbbe86120fd7ef7cb46590b0266f2973044f62a48b62e74bafcdb84b",
+      "negative_report": "/tmp/neistra140-c7-opening-negative.json",
+      "positive_diagnostic_report": "/tmp/neistra140-c7-opening-positive.json",
+      "positive_diagnostic": "First100% opening geometry PASS, later200% Spaceprecondition fails during deferred mobileInspectorfocus return; no bounds/deadline weakened."
+    }
+  },
+  "logs_reports": [
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-negative.log.gz",
+      "uncompressed_sha256": "269deeccb4b36b192d6df7753f0807add6ab5f18e1cb1b8e8fb6e7272feec0b9"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-negative.json.gz",
+      "uncompressed_sha256": "d05867b6f5bb88db4c629db8998e669c88daffc8e5bfe72373b7e87a7f234c40"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-positive.log.gz",
+      "uncompressed_sha256": "1f4b80d481a9ff0beae8336d896fdb0158de639d0bcbdb8b46911b711c5e5a1f"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-positive.json.gz",
+      "uncompressed_sha256": "dcc13bc0d5441124dbe1251f326d92f35f440b2ac7db5a7df9c6d78e111d20f8"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-positive2.log.gz",
+      "uncompressed_sha256": "5400f171f972392f79c1920291358cea606e8ac4f923f3c7e308eda6cdcc35d9"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-positive2.json.gz",
+      "uncompressed_sha256": "60a4bd990a8d2ace010e591c2076a64875c0f91131c56707a45093a78b589e45"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-lint.log.gz",
+      "uncompressed_sha256": "57d20276247fd6209b485a4bba4e35fc07ad396c7f3d0257748706c23be60ea3"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-types.log.gz",
+      "uncompressed_sha256": "9918f2a03f29f9bb9352e0c30c7b9e1f872630ef70d815d221bfdd725139c0a8"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-web.log.gz",
+      "uncompressed_sha256": "49fd05fd916dfa958f78c6e74947dd549c399912c6cf6321409955fb9bad3fa5"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c7-opening-build.log.gz",
+      "uncompressed_sha256": "bdd2e68d7ada11e16502d588097fc55df55a00e06a8ffd2a8ec16a31d3a8608d"
+    }
+  ],
+  "observations": {
+    "path": "docs/assets/representation-surfaces-session-camera/c7-opening-observations.zip",
+    "sha256": "e7d28dcfccbaff22f8b0b9f0e2c543b8a2ea5b52a188bfcbe952d2f02ede4740",
+    "files": 75,
+    "crc_and_internal_hashes_valid": true,
+    "raw_rpc_policy": "Hidden RPC scratch and raw traces excluded; retained outside repository."
+  },
+  "failed_master_attempt": "c7-merged1-diagnostic.json",
+  "review": "UI and UX independently diagnose inherited centered transform and accept fade-only correction; final same-candidate seven-role assessment still required."
+}

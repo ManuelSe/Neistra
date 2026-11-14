@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C5 complete; C6 candidate qualified; C7 pending.
+**Status:** approved contract; C0–C5 complete; C6 first candidate qualified and merged; C7 corrective qualification in progress.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -893,3 +893,58 @@ remote/base/version/protection checks, normal PR/merge and the mandatory complet
 exact-master `c7-merged1` gate, then tag/release/download verification, issue reply,
 normal receipt integration and branch cleanup. No PR, merge, tag or release exists
 at this receipt's creation.
+
+### C7 — 2026-11-14: normal merge, release hold and bounded entrance correction
+
+[PR #142](https://github.com/ManuelSe/Neistra/pull/142) normally merges the reviewed
+feature head `4ee4fea4` at **`54277903cba52bd56881bee070bafdca5b0eeeea`**. Remote
+readback verifies parents `a1f2e2fd`/`4ee4fea4` and exact tree equality. Local master
+is fast-forwarded from a clean tree. No required review/check/ruleset or Actions
+workflow is configured; no protection is bypassed. Codex review is requested but
+returns no external result before merge. All seven final specialist agents PASS
+that exact feature head; this is not independent human approval. The requested
+Closes #140 closes the issue on merge; publication and final closeout remain work.
+
+The first clean exact-master `c7-merged1` run passes 14 release steps, including
+1,542 Python / zero skips, 723 frontend and14 supervisor. Its complete browser
+command stops after **146 passes / 4 executed existing exclusions / one failure /
+365 not run** at the real browser-zoom surface-manager bounds assertion.
+[Failed-master receipt](../assets/representation-surfaces-session-camera/c7-merged1-diagnostic.json)
+retains all source/log hashes, the report and218 curated observations. This is
+not successful exact-master qualification. **No tag or release is created.**
+
+Independent UI/UX investigation identifies a real entrance defect: the right/top
+anchored manager inherits the centered dialog's140ms transform from
+`translate(-50%, -48%)`, despite its resting transform being none. The failed
+assertion occurs inside that animation. Its clipped framework screenshot alone
+cannot establish settled width overflow. A deterministic native negative control
+samples the actual CSS animation at start/midpoint/end: the old rule puts its top
+at **−273.60px / −36.99px /72px** in the recorded100% viewport.
+
+Implementation resumes only on the planned feature branch, fast-forwarded to
+merged master. The correction adds one manager-specific **opacity-only fade-in**,
+matching other positioned tools. Position, size, scientific calculations, camera,
+API, persistence, migration and resource limits remain unchanged. The existing real
+100%/200% zoom workflow now deterministically samples the actual entrance timeline
+in both themes, retaining its original strict immediate bounds assertion. All
+**12 native samples** are bounded and position-invariant; the old rule is rejected.
+
+An initial positive preflight stops earlier at the200% Space-key precondition:
+programmatic canvas focus races the Inspector's scheduled return to its launcher.
+The existing navigation hook correctly requires canvas focus. The fixture now
+awaits the established panel-hidden/launcher-focus handoff, then explicitly focuses
+and checks the canvas before the original Space assertions. No production focus
+policy, assertion, deadline, retry or case exclusion is changed. The complete
+focused zoom workflow then passes, including all original camera/keyboard/
+accessibility controls. Lint/types, **723 frontend /84 files**, build and diff checks
+pass; the later test-only handoff synchronization leaves frontend evidence valid.
+[Correction evidence](../assets/representation-surfaces-session-camera/c7-opening-correction.json)
+retains lossless logs, source provenance, native samples and75 observations.
+
+Fresh precommitted **c7-candidate1** and **c7-merged2** recipes require complete
+33-step clean candidate and exact-master gates. Final seven-role assessments must
+cover the corrected full implementation and evidence before push. A corrective
+normal PR will preserve history; the runtime will be tagged only after its verified
+merge and exact-master gate. Five versions remain **0.30.0** because the first0.30
+release is still unpublished; no patch tag is invented. No new architectural or
+scientific method decision is required. The approved follow-up remains #141.

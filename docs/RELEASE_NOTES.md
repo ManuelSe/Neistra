@@ -2,8 +2,9 @@
 
 ## 0.30.0 — Representation styling, surfaces and the shared view
 
-**Status:** complete final-version candidate qualification passes for issue #140.
-Normal merge, exact-master qualification and publication remain required. The
+**Status:** the first qualified candidate is normally merged in PR #142; publication
+is held for a positioned-panel entrance correction and fresh complete candidate/
+exact-master qualification. No tag or release exists. The
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md) and
 [evidence index](assets/representation-surfaces-session-camera/README.md) retain
 scope, checkpoint evidence and limits.
@@ -82,9 +83,12 @@ current and754 actual tagged0.29.0 source identities and lossless logs verify.
 Actual0.29.0 ↔ final0.30.0 readers pass both directions/suffixes, with deep
 scene/settings/original comparisons and copied-corruption controls. All seven
 specialists PASS the qualified code; final documentation reconfirmation precedes
-push. Local full-diff review is implementer self-review. Complete exact-master
-qualification and publication remain required; no independent human approval,
-remote CI success or strict-host timing certification is claimed.
+push. Local full-diff review is implementer self-review. These are initial-source
+results. The first exact-master run catches an inherited manager entrance transform;
+an opacity-only correction now passes deterministic native opening checks. Fresh
+corrected candidate/exact-master gates and same-head reviews remain mandatory.
+No independent human approval, remote CI success or strict-host timing certification
+is claimed.
 
 ## 0.29.0 — Authoritative connectivity and reliable minimization
 
