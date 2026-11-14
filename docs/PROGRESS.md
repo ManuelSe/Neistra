@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #140 — **C1–C5 complete; C6 release preparation next** under the
+Issue #140 — **C1–C5 complete; C6 release preparation in progress** under the
 [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
 The `/goal` authorizes complete delivery; the PR must use Closes #140. Application
 changes remain local pending the final seven-role gate.
@@ -14,7 +14,7 @@ with CAS singleton, bounded recovery, genuine first-drawable fitting, latest-pos
 protection, conflict/display recovery and legacy scene compatibility (C4).
 Migration head is now **0015**, adding only the installation preference. Existing
 project/viewer/archive 2 and normalized/selection/component 1 remain. Versions
-remain **0.29.0** until C6; planned stable minor release is **0.30.0**.
+now agree at **0.30.0** for C6; stable minor release qualification is pending.
 
 C4 evidence: **723 frontend / 84 files**, lint/types/build, Ruff/mypy203 and **202
 backend integration cases**. **18 native passes / zero exclusions** on desktop and
@@ -44,7 +44,7 @@ specialist assessments PASS; final same-candidate reconfirmation remains require
 Known limitations: C6 final-version clean gate/tagged readers/all-seven assessment,
 and C7 protected delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup
 remain. No strict timing gain or power-loss-proof recovery claim. Blockers: none
-requiring user input. Next: C6, stable minor **0.30.0**. The feature plan remains the detailed source of
+requiring user input. Next: clean C6 candidate gate, stable minor **0.30.0**. The feature plan remains the detailed source of
 truth; no application push, PR or release is claimed.
 
 ### Approved planning checkpoint — issue #140 C0

@@ -1,0 +1,25 @@
+{
+  "status": "release preparation; full qualification pending",
+  "version": "0.30.0",
+  "semver": "stable minor: durable camera/API/workflow functionality with compatible portable schemas",
+  "preceding_tag": "v0.29.0",
+  "upstream_master": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+  "version_collision_checked": true,
+  "archive_preflight_passes": 44,
+  "five_sources_and_schema_dependency_audit": "PASS",
+  "recipes": [
+    "c6-candidate1-recipe.json",
+    "c7-merged1-recipe.json"
+  ],
+  "steps_each": 33,
+  "logs": [
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-archive-preflight.log.gz",
+      "sha256": "13d23d8afbc755ceb4a254b4c2bbf078f0b1551bfe593c6236727e3b5888d8a0"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-version-preflight.log.gz",
+      "sha256": "04c84d632320832cd3db73fec7fcc88f63c608319c36eccb5d4824d2a796adc1"
+    }
+  ]
+}

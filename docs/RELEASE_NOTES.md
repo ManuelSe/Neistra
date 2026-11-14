@@ -1,5 +1,84 @@
 # Neistra Release Notes
 
+## 0.30.0 — Representation styling, surfaces and the shared view
+
+**Status:** release candidate preparation for issue #140. Publication and complete
+final-version candidate/exact-master qualification are pending. The
+[approved contract](plans/issue-140-representation-surfaces-session-camera.md) and
+[evidence index](assets/representation-surfaces-session-camera/README.md) retain
+scope, checkpoint evidence and limits.
+
+**Representations.** Thin and thick sticks use uniform matching cylinders and
+joints, with distinct sizes and native multiple/aromatic-bond notation. Ordinary
+ball-and-stick and space filling retain physical size themes. Unchanged selection
+styling preserves revision, dirty state, history and Redo. Effective inherited,
+explicit, mixed and hidden states, atomic/polymer reset scopes, the Backbone trace
+label and explicit complete-residue expansion make selection styling clearer.
+
+**Surfaces.** Whole-entry surfaces use combined included context, correcting
+buried interfaces between separate structural units. Calculation/display ownership
+is validated against canonical atom identities. All three source kinds share a
+serial, cancellable worker path with installation-owned readiness and explained
+refusal. The existing fixed 1.4 Å probe, 0.5 Å grid and 36 probe positions remain;
+resolution is never silently coarsened. Entry admission is below 250,000 effective
+atoms; fragment/pocket admission remains at most 100,000. The normalized-parent
+250,000-atom reduced-detail rule and existing cell, mesh, working-memory and
+120-second bounds remain. Admission ceilings are not universal capacity promises.
+
+**Surface editing.** Style, Display and Surfaces use one Selected atoms / Around
+selection / Whole entry chooser with explicit ownership. Created objects are
+revealed and activated without replacing molecular selection. A compact manager
+keeps Create/Close reachable beside separate list/details scrolling. Appearance
+previews immediately and each completed gesture makes one Undo step; Escape
+cancels without history. Captured sources use Apply/Revert and survive manager
+closure while their project remains open. Pocket seed and protein-context actions
+are distinct. Ambiguous publication uses fresh reads without blind replay.
+Appearance, name and mode updates retain unrelated molecules and scientific fields;
+retired surface hits cannot fall through into molecular picking.
+
+**Shared view.** One installation-wide camera is retained across entries and
+projects, including empty scenes, imports, style/surface changes and responsive
+remounts. Reopening restores projection, position, target, up, logical radius and
+FOV; magnification derives from that pose and the viewport. A pristine installation
+may fit its first drawable geometry once. Fit, Focus, Reset, projection controls
+and named scenes remain explicit view actions. Automatic saves use an independent
+revision, bounded queue and small same-browser recovery mirror. Save failures and
+conflicts preserve navigation and offer Retry or Save current view. Closing flushes
+the final pose without requiring another renderer frame. Simultaneous storage,
+network and power failure cannot be guaranteed recoverable.
+
+**Compatibility, upgrade and rollback.** Stable minor increment from 0.29.0:
+the new durable camera preference/API and consolidated workflow add public
+functionality. All five authoritative versions advance to 0.30.0. Migration
+**0015** adds only `workspace_presentations`; project/viewer/archive stay **2**,
+normalized/selection/component stay **1**, and named-scene camera wires stay
+unchanged. Automatic camera data remains installation-local and excluded from
+archives. Entry representations remain their existing durable settings.
+Dependencies and quick implementation 1.0.3/current-canonical policy are unchanged.
+Both archive filename conventions and historical Python/settings aliases remain.
+
+Back up the complete managed store, run `alembic upgrade head`, and upgrade client
+and server together. Downgrade to 0014 removes only the installation camera
+preference; project/history rows and original/artifact bytes are preserved. Back up
+the upgraded store before downgrade to retain that preference. Existing 0014 downgrade
+guards still govern earlier surface-schema rollback. Older applications retain
+their historical rendering behavior.
+
+**Scope and limits.** Per-entry camera maps and camera payloads in archives were
+rejected in favor of the approved global installation view. Independent polymer
+visibility and expanded local opacity/themes/inheritance move to one linked
+styling follow-up, with existing #64 property-coloring and #107 picking work kept
+separate. Additional surface families, property calculations, quality selectors,
+bulk management and shared receptor meshes remain deferred. Fixed-grid surfaces
+are approximate visualization; no area/volume, electrostatics, implicit repair or
+new chemistry is claimed. Specific capacity and portable correctness do not
+establish universal throughput, broader browser certification or strict-host timing.
+
+**Verification.** Checkpoints C1–C5 are recorded, including actual tagged 0.29.0
+readers in both directions and both archive suffixes with deep scene/settings
+comparisons and copied-corruption controls. Complete clean final-version candidate,
+exact-master gates and same-candidate seven-role confirmation remain pending.
+
 ## 0.29.0 — Authoritative connectivity and reliable minimization
 
 **Status:** stable [v0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0),

@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C5 complete; C6–C7 pending.
+**Status:** approved contract; C0–C5 complete; C6 in progress; C7 pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -759,3 +759,23 @@ seven-role reconfirmation, then C7 protected delivery, exact-master gate,
 publication, one styling follow-up, issue reply and cleanup. Blockers requiring
 user input: none. Next: **C6, stable minor 0.30.0**. No application push, PR,
 merge, tag or release is claimed.
+
+### C6 preparation — 2026-11-14: stable 0.30.0 candidate
+
+C5 is committed at `d1ab63815914264391c31e4590f2c9df91d5e229`.
+Fresh remote reads confirm origin/master remains `a1f2e2fd`, latest stable release
+is v0.29.0 and v0.30.0 is free. Actual compatibility and new durable functionality
+support the approved **stable minor** increment; there is no portable-format break,
+major-release commitment or experimental-only scope requiring a different class.
+All five authoritative versions now agree at **0.30.0**, without dependency changes.
+Historical archive-producer assertions remain and add 0.29.0; all **44** archive
+round-trip cases pass under the frozen environment. Version/schema/dependency/
+historical-migration audits pass. [Preparation receipt](../assets/representation-surfaces-session-camera/c6-preparation.json)
+retains lossless logs; it is not complete release qualification.
+
+The candidate and exact-master **33-step** recipes are persisted before their
+clean-start execution. Release notes cover implemented outcomes, scientific/resource
+limits, migration/rollback, shared-camera scope and deliberate deferrals. The
+complete C6 gate, final actual 0.30.0 producer/readers, primary full-diff review
+and seven-role final reconfirmation remain required before pushing application
+changes or opening the PR. No remote feature completion/publication is claimed.
