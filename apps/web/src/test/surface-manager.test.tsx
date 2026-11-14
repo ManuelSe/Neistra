@@ -20,6 +20,40 @@ function fixture() {
 }
 const panel = (props: ComponentProps<typeof SurfaceManager>) => <Tooltip.Provider><SurfaceManager {...props} /></Tooltip.Provider>;
 
+it("toggles an active row off by pointer or keyboard without hiding or mutating it", async () => {
+  const { props, entry } = fixture(), user = userEvent.setup();
+  props.active = { entryId: entry.id, surfaceId: "first" };
+  const view = render(panel(props));
+  const row = screen.getByRole("button", { name: /entry surface Whole entry/ });
+  expect(row).toHaveAttribute("aria-pressed", "true");
+  await user.click(row);
+  expect(props.onActivate).toHaveBeenLastCalledWith(null);
+  expect(row).toHaveFocus();
+  view.rerender(panel({ ...props, active: null }));
+  expect(row).toHaveAttribute("aria-pressed", "false");
+  expect(screen.getByText(/Select a surface to edit its appearance/)).toBeVisible();
+  await user.keyboard("{Enter}");
+  expect(props.onActivate).toHaveBeenLastCalledWith(props.active);
+  view.rerender(panel(props));
+  await user.keyboard(" ");
+  expect(props.onActivate).toHaveBeenLastCalledWith(null);
+  expect(entry.viewer_settings.surface_objects[0].visible).toBe(true);
+  expect(props.actions.update).not.toHaveBeenCalled();
+  expect(props.actions.remove).not.toHaveBeenCalled();
+});
+
+it("returns from creation to the chosen row rather than toggling a visually inactive row off", async () => {
+  const { props, entry } = fixture(), user = userEvent.setup();
+  props.active = { entryId: entry.id, surfaceId: "first" };
+  render(panel(props));
+  await user.click(screen.getByRole("button", { name: "Create surface" }));
+  const row = screen.getByRole("button", { name: /entry surface Whole entry/ });
+  expect(row).toHaveAttribute("aria-pressed", "false");
+  await user.click(row);
+  expect(props.onActivate).toHaveBeenLastCalledWith(props.active);
+  expect(row).toHaveAttribute("aria-pressed", "true");
+});
+
 it("activates one object without issuing a project mutation, and changes only the requested visibility", async () => {
   const { props } = fixture();
   render(panel(props)); const user = userEvent.setup();
@@ -98,10 +132,48 @@ it("keeps the object list separate from details and retains unapplied sources ac
   await user.click(screen.getByRole("button", { name: "Capture fragment from selection" }));
   expect(screen.getByRole("button", { name: /fragment surface Captured fragment · unapplied/ })).toBeVisible();
   expect(screen.getByRole("button", { name: "Apply source" }).closest(".surface-object-list")).toBeNull();
+  await user.click(screen.getByRole("button", { name: /fragment surface Captured fragment · unapplied/ }));
+  expect(props.onActivate).toHaveBeenLastCalledWith(null);
+  view.rerender(panel({ ...props, active: null }));
+  expect(screen.getByText(/Select a surface to edit its appearance/)).toBeVisible();
+  view.rerender(panel(props));
+  expect(screen.getByRole("button", { name: "Apply source" })).toBeVisible();
   view.rerender(panel({ ...props, open: false }));
   view.rerender(panel({ ...props, selection: [{ structure_id: entry.id, atom_id: 3 }] }));
   await user.click(screen.getByRole("button", { name: "Apply source" }));
   expect(props.actions.update).toHaveBeenCalledWith(entry.id, "first", { source: { kind: "fragment", profile: "molecular-v1", atom_ids: [2] } });
+});
+
+it("retires an unfinished appearance preview on deselection without publishing", () => {
+  const { props } = fixture();
+  props.active = { entryId: "protein", surfaceId: "first" };
+  props.onPreviewAppearance = vi.fn();
+  const view = render(panel(props));
+  fireEvent.change(screen.getByLabelText("Surface opacity"), { target: { value: "0.7" } });
+  expect(Object.values(props.session.getSnapshot().previews)[0]?.phase).toBe("gesture");
+  view.rerender(panel({ ...props, active: null }));
+  expect(props.session.getSnapshot().previews).toEqual({});
+  expect(props.onPreviewAppearance).toHaveBeenLastCalledWith(props.active, null);
+  expect(props.actions.update).not.toHaveBeenCalled();
+});
+
+it.each([false, true])("keeps a submitted appearance outcome after deselection (failure=%s)", async failure => {
+  const { props } = fixture();
+  props.active = { entryId: "protein", surfaceId: "first" };
+  let resolve!: () => void, reject!: (error: Error) => void;
+  props.actions.update = vi.fn(() => new Promise<void>((yes, no) => { resolve = yes; reject = no; }));
+  const view = render(panel(props));
+  const input = screen.getByLabelText("Surface opacity");
+  fireEvent.change(input, { target: { value: "0.7" } });
+  fireEvent.keyDown(input, { key: "Enter" });
+  expect(Object.values(props.session.getSnapshot().previews)[0]?.phase).toBe("saving");
+  view.rerender(panel({ ...props, active: null }));
+  expect(Object.values(props.session.getSnapshot().previews)[0]?.phase).toBe("saving");
+  await act(async () => { if (failure) reject(new Error("Offline")); else resolve(); await Promise.resolve(); });
+  expect(screen.getByText(/Select a surface to edit its appearance/)).toBeVisible();
+  expect(props.onActivate).not.toHaveBeenCalled();
+  expect(props.actions.update).toHaveBeenCalledTimes(1);
+  if (failure) expect(Object.values(props.session.getSnapshot().previews)[0]?.phase).toBe("uncertain");
 });
 
 it("never activates a late created object after the manager has been retired", async () => {

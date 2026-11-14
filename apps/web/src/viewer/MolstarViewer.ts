@@ -44,9 +44,6 @@ class LazyMolstarViewer implements MolecularViewer {
   private drawableListeners = new Set<(drawable: boolean) => void>();
   private drawableBindings = new Map<(drawable: boolean) => void, () => void>();
   private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
-  private surfaceSelectionListeners = new Set<(surface: SurfaceIdentity) => void>();
-  private surfaceSelectionBindings = new Map<(surface: SurfaceIdentity) => void, () => void>();
-  private activeSurface: SurfaceIdentity | null = null;
   private mounted = false;
   private pendingSurfacePreviews = new Map<string, { identity: SurfaceIdentity; appearance: SurfaceAppearance }>();
   private engineUnsubscribers: (() => void)[] = [];
@@ -66,17 +63,11 @@ class LazyMolstarViewer implements MolecularViewer {
     }
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
-    this.engine.setActiveSurface(this.activeSurface);
     this.engine.setMovementMode(this.movementInteraction);
     this.engineUnsubscribers = [...this.selectionListeners].map((listener) =>
       this.engine!.subscribeSelection(listener),
     );
     this.engineUnsubscribers.push(...[...this.surfaceListeners].map((listener) => this.engine!.subscribeSurfaces(listener)));
-    for (const listener of this.surfaceSelectionListeners) {
-      if (!this.surfaceSelectionBindings.has(listener)) {
-        this.surfaceSelectionBindings.set(listener, this.engine.subscribeSurfaceSelection(listener));
-      }
-    }
     this.engineUnsubscribers.push(
       ...[...this.cameraListeners].map((listener) =>
         this.engine!.subscribeCamera(listener),
@@ -246,10 +237,6 @@ class LazyMolstarViewer implements MolecularViewer {
   cancelSurface(entryId: string, channel: SurfaceChannel = "fragment", surfaceId?: string): void { if (surfaceId === undefined) this.engine?.cancelSurface(entryId, channel); else this.engine?.cancelSurface(entryId, channel, surfaceId); }
   retrySurface(entryId: string, channel: SurfaceChannel = "fragment", surfaceId?: string): void { if (surfaceId === undefined) this.engine?.retrySurface(entryId, channel); else this.engine?.retrySurface(entryId, channel, surfaceId); }
 
-  setActiveSurface(surface: SurfaceIdentity | null): void {
-    this.activeSurface = surface ? { ...surface } : null;
-    this.engine?.setActiveSurface(surface);
-  }
   previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void> {
     if (this.disposed) return Promise.resolve();
     const key = surfaceIdentityKey(identity);
@@ -260,15 +247,6 @@ class LazyMolstarViewer implements MolecularViewer {
     if (appearance) this.pendingSurfacePreviews.set(key, { identity: { ...identity }, appearance: { ...appearance } });
     else this.pendingSurfacePreviews.delete(key);
     return Promise.resolve();
-  }
-  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void {
-    this.surfaceSelectionListeners.add(listener);
-    if (this.engine) this.surfaceSelectionBindings.set(listener, this.engine.subscribeSurfaceSelection(listener));
-    return () => {
-      this.surfaceSelectionListeners.delete(listener);
-      this.surfaceSelectionBindings.get(listener)?.();
-      this.surfaceSelectionBindings.delete(listener);
-    };
   }
 
   resize(): void {
@@ -288,9 +266,6 @@ class LazyMolstarViewer implements MolecularViewer {
     for (const release of this.drawableBindings.values()) release();
     this.drawableBindings.clear(); this.drawableListeners.clear(); this.cameraFailureListeners.clear();
     this.surfaceListeners.clear();
-    this.surfaceSelectionListeners.clear();
-    for (const unsubscribe of this.surfaceSelectionBindings.values()) unsubscribe();
-    this.surfaceSelectionBindings.clear();
     this.engine?.dispose();
     this.engine = undefined;
   }

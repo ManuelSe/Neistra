@@ -117,7 +117,5 @@ export function selectionModeForModifiers(modifiers: ModifiersKeys): SelectionMo
     metaKey: modifiers.meta, shiftKey: modifiers.shift });
 }
 
-export const shouldClearSelectionForEmptyPick = (
-  mode: SelectionMode,
-  hasSelection: boolean,
-): boolean => mode === "replace" && hasSelection;
+/** Empty picks also clear independent application editing targets. */
+export const shouldClearSelectionForEmptyPick = (mode: SelectionMode): boolean => mode === "replace";

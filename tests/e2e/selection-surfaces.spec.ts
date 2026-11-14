@@ -223,7 +223,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
     expect(initialState.geometry[0].atomIds).toEqual(hydrogen ? [4] : [1, 2, 3]);
     expect(initialState.workers.maximum).toBe(1);
     expect(initialState.workers.active).toBe(0);
-    expect(initialState.threshold).toBe(0.45);
+    expect(initialState.threshold).toBe(0.5);
     if (hydrogen) {
       const states = await page.evaluate(async () => {
         const h = window.productionSurface;
@@ -245,7 +245,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       expect(states.multiple.statuses.map((s) => s.state)).toEqual(["fallback", "ready"]);
       expect(states.multiple.meshes).toEqual([`fragment:${entry.id}`]);
       expect(states.membership!.atom_ids).toEqual([2, 4]);
-      // Removing the last mesh restores the threshold even while another entry is in fallback.
+      // Removing the last mesh leaves the molecular threshold unchanged, including fallback.
       const fallbackOnly = await page.evaluate(async () => {
         const h = window.productionSurface; h.source.settings.components.hydrogens = false;
         await h.engine.applyCoordinatePatch({ entry_id: h.source.entryId, artifact_id: "test-projection", atom_ids: [1], coordinates: [[0, 0, 0]] }, "preview");

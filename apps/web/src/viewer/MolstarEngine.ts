@@ -13,7 +13,7 @@ import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { surfaceWireframe } from "./surface/wireframe";
 import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
-import { SurfaceVisualRegistry, type SurfaceIdentity } from "./surface/objects";
+import { SurfaceVisualRegistry, makeSurfacePassive, type SurfaceIdentity } from "./surface/objects";
 import { attachSurfaceGeometry, detachSurfaceGeometry, SelectionSurfaceProvider, SelectionSurfaceWireframeProvider, attachSurfaceWireframe, surfaceInput, surfaceDisplayGeometry } from "./surface/visual";
 import { SURFACE_PROFILE, surfaceKey, type SurfaceChannel, type SurfaceGeometry } from "./surface/protocol";
 import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
@@ -215,7 +215,6 @@ export class MolstarEngine implements MolecularViewer {
   private surfaceVisuals = new SurfaceVisualRegistry();
   private surfaceSourceRevisions = new WeakMap<ViewerStructure["normalized"], number>();
   private nextSurfaceSourceRevision = 0;
-  private surfaceMeshEntries = new Set<string>();
   private surfaceRefs = new Map<string, string>();
   private movementCueRefs = new Map<string, string>();
   private renderedAtomReferences = new Map<string, AtomReference[]>();
@@ -412,19 +411,9 @@ export class MolstarEngine implements MolecularViewer {
         if (this.surfaceHitIgnored(current.repr)) {
           this.doubleClicks.clear(); return;
         }
-        if (mode === "replace" && this.surfaceVisuals.pick(current.repr)) {
-          this.doubleClicks.clear();
-          plugin.canvas3d?.requestDraw();
-          return;
-        }
         if (Loci.isEmpty(current.loci)) {
           this.doubleClicks.clear();
-          if (
-            shouldClearSelectionForEmptyPick(
-              mode,
-              this.pendingSelection.length > 0,
-            )
-          ) {
+          if (shouldClearSelectionForEmptyPick(mode)) {
             this.pendingSelection = [];
             this.emit({
               atoms: [],
@@ -526,8 +515,6 @@ export class MolstarEngine implements MolecularViewer {
       try {
         await plugin.clear();
         this.surfaceRefs.clear();
-        this.surfaceMeshEntries.clear();
-        this.updateSurfacePickingThreshold();
         this.measurementRefs = [];
         this.labelRefs = [];
         this.loaded.clear();
@@ -1007,14 +994,6 @@ export class MolstarEngine implements MolecularViewer {
     return this.surfaces.subscribe(listener);
   }
 
-  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void {
-    return this.surfaceVisuals.subscribe(listener);
-  }
-  setActiveSurface(surface: SurfaceIdentity | null): void {
-    this.surfaceVisuals.select(surface);
-    this.plugin?.canvas3d?.requestDraw();
-  }
-
   previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void> {
     if (this.disposed) return Promise.resolve();
     const current = this.surfaceObject(identity), key = surfaceIdentityKey(identity);
@@ -1037,14 +1016,9 @@ export class MolstarEngine implements MolecularViewer {
     return source && surface ? { source, surface } : undefined;
   }
 
-  private surfacePickEligible(identity: SurfaceIdentity): boolean {
-    const current = this.surfaceObject(identity), binding = this.findSurfaceBinding(identity);
-    return Boolean(current?.surface.visible && binding && this.surfaceBindingCurrent(binding)
-      && this.surfaceAppearance(identity, current.surface).opacity > 0);
-  }
   private surfaceHitIgnored(representation: Parameters<SurfaceVisualRegistry["identityFor"]>[0]): boolean {
-    const identity = this.surfaceVisuals.identityFor(representation);
-    return this.surfaceVisuals.isRetired(representation) || Boolean(identity && !this.surfacePickEligible(identity));
+    // Reject queued managed/retired hits; current surfaces never enter the native pick pass.
+    return this.surfaceVisuals.isManaged(representation);
   }
 
   private surfaceAppearance(identity: SurfaceIdentity, surface: SurfaceObject): SurfaceAppearance {
@@ -1138,23 +1112,26 @@ export class MolstarEngine implements MolecularViewer {
       if (!geometry) {
         if (binding.representationRef && !binding.installedGeometry) {
           const representation = plugin.state.data.cells.get(binding.representationRef)?.obj;
-          if (PluginStateObject.Molecule.Structure.Representation3D.is(representation)) representation.data.repr.setState({ visible: appearance.opacity > 0, pickable: appearance.opacity > 0 });
+          if (PluginStateObject.Molecule.Structure.Representation3D.is(representation)) {
+            makeSurfacePassive(representation.data.repr);
+            representation.data.repr.setState({ visible: appearance.opacity > 0 });
+          }
           if (appearance.opacity > 0 && binding.renderedAtoms) this.surfaceRenderedAtoms.set(key, binding.renderedAtoms);
           else this.surfaceRenderedAtoms.delete(key);
           binding.appearance = appearance;
-          this.updateSurfacePickingThreshold(); this.commitScene();
+          this.commitScene();
           return;
         }
         await this.removeSurfaceRepresentation(binding);
         if (!valid()) return;
         detachSurfaceGeometry(binding.structure); binding.mapped = undefined; binding.mappingBytes = 0;
-        this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
+        this.surfaceRenderedAtoms.delete(key);
         if (binding.channel !== "pocket") {
           const representation = await this.addSurfaceFallback(binding.componentRef);
           if (!valid()) return;
           if (representation?.obj) {
             binding.representationRef = representation.ref;
-            representation.obj.data.repr.setState({ visible: appearance.opacity > 0, pickable: appearance.opacity > 0 });
+            representation.obj.data.repr.setState({ visible: appearance.opacity > 0 });
             binding.unregister = this.surfaceVisuals.register(representation.obj.data.repr, { entryId: binding.entryId, surfaceId: binding.surfaceId });
           }
           const hidden = new Set(current.source.settings.selection_hidden_atoms);
@@ -1164,16 +1141,16 @@ export class MolstarEngine implements MolecularViewer {
         }
         binding.installedGeometry = undefined; binding.appearance = appearance;
         if (binding.failureMessage) this.surfaces.fail(binding.entryId, binding.channel, binding.failureMessage, true, binding.surfaceId, true);
-        this.updateSurfacePickingThreshold(); this.applySelection(); this.commitScene();
+        this.applySelection(); this.commitScene();
         return;
       }
       const isolated = binding.displayGeometry ??= binding.channel === "pocket" ? isolatePocketSurface(geometry, binding.isolated) : geometry;
       if (binding.channel === "pocket" && !isolated.indices.length) {
         await this.removeSurfaceRepresentation(binding);
         if (!valid()) return;
-        this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
+        this.surfaceRenderedAtoms.delete(key);
         binding.installedGeometry = geometry; binding.appearance = appearance;
-        this.updateSurfacePickingThreshold(); this.commitScene();
+        this.commitScene();
         this.surfaces.markDisplayed(binding.entryId, binding.channel, binding.surfaceId, geometry, geometry.indices.length ? "Hidden by isolation" : undefined);
         return;
       }
@@ -1222,9 +1199,8 @@ export class MolstarEngine implements MolecularViewer {
       await this.updateSurfaceOverpaint(binding, current.source, appearance);
       if (!valid()) return;
       const representation = plugin.state.data.cells.get(binding.representationRef!)?.obj;
-      if (PluginStateObject.Molecule.Structure.Representation3D.is(representation)) representation.data.repr.setState({ pickable: appearance.opacity > 0 });
+      if (PluginStateObject.Molecule.Structure.Representation3D.is(representation)) makeSurfacePassive(representation.data.repr);
       binding.installedGeometry = geometry; binding.appearance = appearance;
-      this.surfaceMeshEntries.add(key);
       if (!binding.renderedAtoms) {
         const hidden = new Set(current.source.settings.selection_hidden_atoms), displayedIds = new Set<number>();
         for (const group of binding.mapped!.groups) displayedIds.add(binding.mapped!.atomIds[group]);
@@ -1233,7 +1209,6 @@ export class MolstarEngine implements MolecularViewer {
       }
       if (appearance.opacity > 0) this.surfaceRenderedAtoms.set(key, binding.renderedAtoms);
       else this.surfaceRenderedAtoms.delete(key);
-      this.updateSurfacePickingThreshold();
       if (replaceVisual) this.applySelection();
       this.commitScene();
       if (JSON.stringify(this.surfaceAppearance(binding, this.surfaceObject(binding)!.surface)) === JSON.stringify(appearance)) {
@@ -1243,10 +1218,10 @@ export class MolstarEngine implements MolecularViewer {
       if (!valid()) return;
       await this.removeSurfaceRepresentation(binding);
       detachSurfaceGeometry(binding.structure); binding.mapped = undefined; binding.mappingBytes = 0;
-      this.surfaceMeshEntries.delete(key); this.surfaceRenderedAtoms.delete(key);
+      this.surfaceRenderedAtoms.delete(key);
       if (!geometry) {
         this.surfaces.fail(binding.entryId, binding.channel, "Surface and line rendering failed.", false, binding.surfaceId, true);
-        this.updateSurfacePickingThreshold(); this.commitScene();
+        this.commitScene();
         return;
       }
       binding.failureMessage = error instanceof Error ? error.message : "Surface upload failed.";
@@ -1267,16 +1242,6 @@ export class MolstarEngine implements MolecularViewer {
       await this.detachSurface(entryId, surfaceId);
       await this.prepareSurface(entryId, surfaceId);
     });
-  }
-
-  private updateSurfacePickingThreshold() {
-    const alphas = this.structures.flatMap(source => source.settings.surface_objects
-      .filter(surface => {
-        const key = surfaceKey(source.entryId, surface.source.kind, surface.id);
-        const rendered = this.surfaceMeshEntries.has(key) && Boolean(this.surfaceBindings.get(key)?.unregister);
-        return rendered && this.surfacePickEligible({ entryId: source.entryId, surfaceId: surface.id });
-      }).map(surface => this.surfaceAppearance({ entryId: source.entryId, surfaceId: surface.id }, surface).opacity));
-    this.plugin?.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: Math.min(0.5, ...alphas) } });
   }
 
   resize(): void {
@@ -1306,7 +1271,6 @@ export class MolstarEngine implements MolecularViewer {
     for (const binding of this.surfaceBindings.values()) { binding.controller.abort(); binding.unregister?.(); }
     this.surfaceBindings.clear();
     this.surfaceRefs.clear();
-    this.surfaceMeshEntries.clear();
     this.movementCueRefs.clear();
     this.renderedAtomReferences.clear();
     this.surfaceRenderedAtoms.clear();
@@ -1587,9 +1551,8 @@ export class MolstarEngine implements MolecularViewer {
     this.surfaceBindings.delete(key);
     this.surfaceRenderedAtoms.delete(key);
     const ref = binding?.componentRef ?? this.surfaceRefs.get(key);
-    this.surfaceRefs.delete(key); this.surfaceMeshEntries.delete(key);
+    this.surfaceRefs.delete(key);
     if (ref && this.plugin?.state.data.cells.has(ref)) await this.plugin.state.data.build().delete(ref).commit();
-    this.updateSurfacePickingThreshold();
   }
 
   private async prepareSurfaces(entryId: string) {

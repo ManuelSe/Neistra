@@ -15,14 +15,13 @@ it("removes only competing native hover while retaining selection, labels and ca
   for (const b of defaults) if (b.transformer !== PluginBehaviors.Representation.HighlightLoci) expect(actual).toContain(b);
 });
 
-it("keeps both active and inactive managed surfaces outside queued molecular highlight actions", () => {
+it("keeps all managed surfaces outside queued molecular highlight actions", () => {
   const registry = new SurfaceVisualRegistry();
-  const surface = { mark: vi.fn() } as unknown as Representation.Any;
-  const other = { mark: vi.fn() } as unknown as Representation.Any;
-  const molecule = { mark: vi.fn() } as unknown as Representation.Any;
+  const surface = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
+  const other = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
+  const molecule = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
   registry.register(surface, { entryId: "entry", surfaceId: "first" });
   registry.register(other, { entryId: "entry", surfaceId: "other" });
-  registry.pick(surface);
   const mark = vi.fn();
   for (const action of [MarkerAction.Highlight, MarkerAction.RemoveHighlight]) {
     markMolecularHover([surface, molecule, other], registry, EmptyLoci, action, mark);
@@ -30,16 +29,16 @@ it("keeps both active and inactive managed surfaces outside queued molecular hig
       loci: action === MarkerAction.RemoveHighlight ? EveryLoci : EmptyLoci }, action);
   }
   expect(mark).toHaveBeenCalledTimes(2);
-  expect(surface.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Highlight);
+  expect(surface.mark).toHaveBeenLastCalledWith({ kind: "every-loci" }, MarkerAction.Clear);
 });
 
 it("does not turn retired surface pixels into molecular hover while their removal waits", () => {
   const registry = new SurfaceVisualRegistry();
-  const retired = { mark: vi.fn() } as unknown as Representation.Any;
-  const molecule = { mark: vi.fn() } as unknown as Representation.Any;
+  const retired = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
+  const molecule = { mark: vi.fn(), setState: vi.fn() } as unknown as Representation.Any;
   const remove = registry.register(retired, { entryId: "entry", surfaceId: "surface" }); remove();
   const mark = vi.fn();
   markMolecularHover([retired, molecule], registry, EmptyLoci, MarkerAction.Highlight, mark);
   expect(mark).toHaveBeenCalledExactlyOnceWith({ repr: molecule, loci: EmptyLoci }, MarkerAction.Highlight);
-  expect(retired.mark).not.toHaveBeenCalled();
+  expect(retired.mark).toHaveBeenCalledExactlyOnceWith(EveryLoci, MarkerAction.Clear);
 });

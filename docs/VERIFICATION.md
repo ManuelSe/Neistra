@@ -1,5 +1,23 @@
 # V0.1 Requirement Evidence
 
+## Issue #145 — C1 surface interaction qualification
+
+Local C1 adds manager row toggling/empty clearing and passive solid/mesh/fallback
+visuals, preserving molecular picks and marker feedback. Native testing reproduced
+newly created pocket activation being pruned against old query props; entries-only
+reconciliation passes independent before/after and both-layout native regression.
+
+Final checkpoint checks pass lint/types,729 frontend cases/84 suites/build,37native
+cases/3existing layout exclusions, plus4native matrix cases/zero exclusions and
+200real clicks across all granularities/modifiers/appearances/fallbacks. No final
+failures/flakes or relaxed deadlines/budgets/exclusions.
+[Receipt](assets/surface-selection-hydrogen-toggle/c1-checkpoint.json) retains21
+source identities, lossless logs/reports, diagnostics and64hashed native observations.
+C2, complete final-version candidate/exact-master gates and all-seven final review
+remain pending. This is checkpoint evidence, not release or strict-host timing
+qualification. Versions, schemas, migration head, dependencies and originals remain.
+
+
 ## Issue #140 — released runtime qualification
 
 Stable [v0.30.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.30.0) tags exact master **`851ccf34b639e3974815aede9979c22f334a5767`**.

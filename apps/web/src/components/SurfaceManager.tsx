@@ -17,7 +17,7 @@ interface Props {
   onOpenChange: (open: boolean) => void;
   entries: Entry[];
   active: SurfaceIdentity | null;
-  onActivate: (identity: SurfaceIdentity) => void;
+  onActivate: (identity: SurfaceIdentity | null) => void;
   actions: SurfaceActions;
   statuses: SurfaceStatus[];
   selection?: AtomReference[];
@@ -89,7 +89,10 @@ export function SurfaceManager(props: Props) {
     }
   };
   const beginCreation = () => setCreation({ id: crypto.randomUUID(), selection: [...(props.selection ?? [])] });
-  const activate = (identity: SurfaceIdentity) => { setCreation(null); props.onActivate(identity); };
+  const activate = (identity: SurfaceIdentity) => {
+    setCreation(null);
+    props.onActivate(!creation && surfaceObjectKey(identity) === activeKey ? null : identity);
+  };
   return <Dialog.Root modal={false} open={props.open} onOpenChange={open => {
     closingWithFocus.current = !open && Boolean(content.current?.contains(document.activeElement));
     if (!open) setCreation(null);

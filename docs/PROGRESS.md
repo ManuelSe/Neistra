@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1 locally
+verified; C2 next**, under the subsequent `/goal` implementation/delivery authority.
+The [approved plan](plans/issue-145-surface-selection-hydrogen-toggle.md) remains
+the detailed contract. Manager toggle/empty clearing and passive native surfaces
+are implemented. A native-reproduced creation activation race is corrected through
+canonical-entry reconciliation, with independent before/after regression evidence.
+
+Verification: lint/types, **729 frontend cases/84 suites**, build; **37 native
+passes/3 exact existing exclusions** plus **4 picking-matrix passes/200 real
+clicks**, both layouts, zero final failures/flakes.
+[C1 receipt](assets/surface-selection-hydrogen-toggle/c1-checkpoint.json) retains
+21 source identities, exact logs/reports and 64 hashed native observations.
+Earlier attempts remain diagnostics. Architecture passes the bounded correction;
+seven-role final implementation review and complete candidate/exact-master gates
+remain pending. C1 complete-diff review found no further consequential finding.
+
+Known limitations: C2 hydrogen targeting/icon and C3/C4 qualification/delivery
+remain. Versions stay 0.30.0; no schema/API/migration/dependency change. Blockers:
+none for C2. Next: commit C1, then implement C2. No implementation push or release
+is claimed. The PR uses `Closes #145` per the explicit `/goal`.
+
+### Approved planning checkpoint — issue #145 C0
+
 Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **approved plan,
 C0 persistence only**. The detailed source of truth is the
 [feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md).

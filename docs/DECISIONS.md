@@ -7087,3 +7087,28 @@ is verified. All five version sources change only in release preparation; schema
 0015 migration head and dependencies remain. Actual preceding readers, complete
 candidate/exact-master checks and same-candidate seven-role implementation review
 remain required. C0 adds no application behavior or version change.
+
+
+### D-156/D-157 implementation and delivery authorization — 2026-11-14
+
+The subsequent issue #145 `/goal` authorizes C1–C4 and explicitly requires
+`Closes #145` in the PR. This supersedes the approved plan's Refs/late-close timing
+only. Normal merge can close the issue; exact-master checks, verified release and
+final issue response remain required. No product, schema, protection or review
+gate changes.
+
+### D-156 C1 creation acknowledgement and canonical UI publication
+
+Native mobile qualification reproduced loss of the second newly created pocket's
+manager activation without an intervening row click or molecular deselection.
+The command result exposes its exact identity before asynchronous query observer
+notification necessarily supplies new entry props. Pruning on local activation
+therefore rejected a valid new identity against the previous canonical snapshot.
+
+Reconcile activation on canonical entry changes using a functional state update,
+not merely when local activation changes. Preserve deletion pruning and exact
+creation identity without timers, guessed targets or forced reactivation. An
+independent held-notification component case fails before correction and passes
+afterward, including subsequent object removal; native qualification follows.
+This enforces existing creation ownership within D-156, adding no durable state,
+API or scientific-method change.

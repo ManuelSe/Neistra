@@ -13,8 +13,18 @@ the count without changing molecular selection, parent visibility or camera.
 The nonmodal manager keeps Create/Close above a scrollable list and separate
 details. Rows show name, source kind, requested visibility and current display
 status; a check marks the active object. The list reaches overlapping, hidden or
-zero-opacity objects. Clicking rendered geometry activates that object; modified
-clicks retain molecular add/subtract semantics. Obsolete surface hits are ignored.
+zero-opacity objects. Click a row to activate its details; click the active row
+again to deselect it. Clicking empty space in the viewer also deselects it, even
+when no atoms are selected. The manager stays open and surface visibility is
+unchanged. Modified empty clicks retain their existing selection behavior.
+
+Surfaces do not receive viewer picks or selection outlines. Click molecular
+geometry through a surface to select atoms, residues, chains or structures using
+the current selection mode and modifiers; the manager editing target stays put.
+A shell pixel without molecular geometry behind it behaves as empty space.
+Obsolete surface hits are ignored. Source drafts survive deselection/reselection;
+unfinished appearance previews cancel, while submitted changes retain their
+existing completion and recovery behavior.
 
 Hide keeps a definition; Remove is undoable. Parent visibility remains an upper
 bound. Removing the last display does not invent a replacement. All source kinds

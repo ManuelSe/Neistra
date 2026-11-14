@@ -2,7 +2,7 @@
 
 ## 1. Status, authority and approved direction
 
-**Status:** approved plan, C0 planning persistence only; runtime implementation pending.
+**Status:** C1 locally verified; C2–C4 pending. The subsequent `/goal` authorizes implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-14, following the proposal
 and explicit product choices below. Approval authorizes C0 only. Stop ready for
 `/goal` after committing and pushing this plan; do not begin application changes.
@@ -381,3 +381,59 @@ commit hash in this document.
 Known limitations: reported surface behavior and the existing hydrogen dropdown
 remain unchanged; no application fix, candidate qualification, PR or future release
 is claimed. Versions remain 0.30.0. Blockers: none for C0. Next action: `/goal`.
+
+
+### 2026-11-14 — C1–C4 implementation and delivery authorization
+
+The user's subsequent issue #145 `/goal` authorizes implementation, checkpoint
+commits, full qualification, PR/review/merge, version/tag/release and closeout.
+Its explicit `Closes #145` instruction supersedes the earlier Refs/late-close
+timing only; normal merge may close the issue. Exact-master qualification,
+verified publication and final issue reply remain mandatory. No acceptance,
+protection or specialist gate is waived. C1 is in progress; no passing checkpoint
+or future release is claimed by this authorization record.
+
+
+### 2026-11-14 — C1 locally verified checkpoint
+
+Manager rows toggle activation, ordinary empty picks clear surface-only activation,
+and renderer activation wiring is removed. Solid/mesh/fallback visuals are
+nonpickable and unmarked while molecular picks and feedback retain their normal
+semantics. Source drafts and gesture/publication recovery survive deselection.
+Native qualification also reproduced a newly created pocket losing activation
+before query notifications published its canonical entries; entries-only functional
+reconciliation fixes that race without timers or forced reactivation. The focused
+regression fails before correction and passes afterward, including deletion pruning.
+
+Final C1 validation: lint, types, **729 frontend cases/84 suites**, production build;
+**37 native passes/3 exact existing layout exclusions** across the six surface/
+viewer files, plus **4 native matrix passes/zero exclusions and 200 real clicks**
+through surface-free, opaque solid, translucent mesh and actual fallback visuals
+across all granularities/modifiers. Both layouts pass the explicit second keyboard
+creation activation regression. Scoped native strict TypeScript gates pass.
+
+The additional matrix command is:
+
+```sh
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/surface-passive-picking.spec.ts
+```
+
+[C1 receipt](../assets/surface-selection-hydrogen-toggle/c1-checkpoint.json) records
+21 source identities, retained logs/reports and 64 curated native observations
+with an internal hash manifest. Final sources match native source readback. Earlier
+failed attempts remain diagnostics. Obsolete surface-picking/idempotent-row test
+contracts were corrected; the raw geometry ownership oracle uses an opaque
+unregistered diagnostic fixture with the normal picking threshold, while managed
+production surfaces retain their declared profile. No existing deadline, chemistry
+assertion, budget or exclusion was relaxed. Representative native appearance was
+visually inspected; no strict reference-host timing or universal capacity is claimed.
+
+Architecture independently passes the bounded creation correction; this does not
+replace final all-seven same-candidate review. No schema/API/migration/dependency
+or version changes. Global plan and originals remain unchanged. Primary complete
+C1 diff review found no further consequential issue after the correction.
+
+Known limitations: C2 hydrogen control/targeting and C3/C4 qualification/release
+remain. Existing unrelated standalone pocket-test typing gaps are outside the
+registered strict gate and were not expanded. Blockers: none for C2. Next action:
+C2, after committing this passing C1 state. Implementation is not ready to push.
