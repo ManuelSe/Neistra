@@ -24,6 +24,11 @@ zero repeat structure reads. No speedup/strict-host claim. All five authoritativ
 no schema/API/migration/dependency change. C1/C2 commits are 0fd897e3/90aee46e.
 Blockers: none. Next: qualify the clean final-version candidate and actual tagged
 readers, then obtain all seven same-candidate specialist assessments.
+First complete-gate attempt stopped at an obsolete native row-activation
+expectation after146browser passes. Corrected test proves creation activation and
+keyboard toggle-off/on; focused4passes/4existing exclusions. Runtime unchanged.
+Seven full-diff specialist assessments pass subject to final evidence/head
+reconfirmation. Fresh complete33-step candidate qualification is next.
 No implementation push, PR or release yet. PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0

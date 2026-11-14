@@ -217,7 +217,7 @@ test("keeps primary selection and empty clearing independent from the camera", a
     "space-filling",
     "thick-stick",
   ];
-  // Whole-entry surface activation is qualified in surface-objects.spec.ts.
+  // Passive whole-entry surface pick-through is qualified in surface-objects.spec.ts.
   // This workflow retains primary molecular picking across ordinary styles.
   const settings = {
     schema_version: 2,

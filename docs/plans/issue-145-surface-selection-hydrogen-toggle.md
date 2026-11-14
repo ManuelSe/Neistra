@@ -506,3 +506,33 @@ reader/full-gate/final-review publication assertions remain explicitly pending.
 Next: commit the recipe and release preparation, run the clean final-version gate,
 inspect complete diff and obtain seven read-only specialist assessments covering
 the same final candidate. No implementation push, PR, merge or release is claimed.
+
+
+### 2026-11-14 — C3 obsolete native expectation correction
+
+Clean candidate31d6527e passed the first14gate steps (including1543Python,
+760frontend and14supervisor cases) then stopped after146native passes/4existing
+exclusions. The old rebranding-zoom workflow pressed Enter on an already active
+newly created row, correctly deselecting it, then waited for the hidden editor.
+This partial run is diagnostic only; no complete qualification is claimed.
+The exact failed trace/report/log hashes remain in c3-candidate1-diagnostic.json.
+
+The corrected workflow explicitly proves creation autoactivation, keyboard
+deselection/details hidden/focus retained, then keyboard reactivation before all
+existing appearance/viewport/axe assertions. Focused zoom file:4passes/4exact
+existing exclusions, zero failures/flakes/retries. A bounded audit found no other
+obsolete selectors; three historical inline descriptions now say passive picking.
+No runtime, title, input modifier, timing, resource limit or exclusion changes.
+Architecture and UX independently pass this correction.
+
+Final specialist reviews of the full intended implementation return seven PASS
+verdicts; reconfirmation after the final candidate/evidence commit remains. The
+scientific reviewer also caught a stale selected-H-only limitations paragraph; it
+is corrected to graph-attached targets without global selection mutation.
+Next: fresh committed candidate and complete33-step qualification from step1.
+
+Exploratory standalone strict native compilation reports the same existing
+TS2345 in unchanged `support/interactions.ts:20` for baseline923fc249 and the
+corrected test: zero new diagnostics. This is outside the registered frontend
+type gate, which passes. Baseline/current comparison is retained; no suppression
+or unrelated shared-helper change is introduced to this scoped correction.

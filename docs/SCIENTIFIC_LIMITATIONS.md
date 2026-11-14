@@ -378,9 +378,10 @@ or binding-site inference. Residue mode completes matching residues and retains
 matching atoms without residue membership.
 
 Color follows atom-associated primitives; continuous cartoon and surface geometry
-does not provide atom-shaped color boundaries. Local hydrogen preferences target
-only explicit selected H. Selecting heavy atoms does not select attached H, and
-polar H is unaffected by a nonpolar preference. Full-projection Mol* connectivity
+does not provide atom-shaped color boundaries. The hydrogen styling target includes
+existing selected element-H atoms and element-H endpoints one recorded graph edge
+from selected heavy atoms. This expansion does not change the global molecular
+selection. Polar H is unaffected by a nonpolar preference. Full-projection Mol* connectivity
 owns display polarity using the established polar-neighbor convention. No hydrogen
 generation, protonation assignment or chemistry repair occurs. Master hydrogen,
 component and isolation bounds still apply. Fragment-surface science and capacity are described below.
