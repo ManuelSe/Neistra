@@ -2,8 +2,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect, type ComponentProps } from "react";
-import { afterEach, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import App from "../App";
+import { workspacePresentationApi } from "../api/client";
 import type { ProjectInspector } from "../components/ProjectInspector";
 import type { WorkspaceCanvas } from "../components/WorkspaceCanvas";
 import { canonicalSelection } from "../selection/selection";
@@ -13,6 +14,9 @@ import { useMinimizationStore } from "../minimization/store";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
 
 const seen = vi.hoisted(() => ({ preview: vi.fn() }));
+beforeEach(() => {
+  vi.spyOn(workspacePresentationApi, "read").mockResolvedValue({ schema_version: 1, revision: 0, camera: null, updated_at: null });
+});
 vi.mock("../components/WorkspaceCanvas", () => ({
   WorkspaceCanvas: function Canvas(props: ComponentProps<typeof WorkspaceCanvas>) {
     seen.preview(props.coordinatePreview);

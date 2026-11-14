@@ -718,6 +718,7 @@ class SelectionRepresentationUpdate(BaseModel):
     selection: SelectionV1
     action: Literal["apply", "reset"]
     style: SelectionRepresentationStyle | None = None
+    channel: Literal["atomic", "polymer", "all"] = "all"
 
     @model_validator(mode="after")
     def validate_action(self) -> SelectionRepresentationUpdate:
@@ -725,6 +726,8 @@ class SelectionRepresentationUpdate(BaseModel):
             raise ValueError("Select at least one atom to change its representation")
         if self.action == "apply" and self.style is None:
             raise ValueError("Style is required when applying a selection representation")
+        if self.action == "apply" and self.channel != "all":
+            raise ValueError("Channel is only supported when resetting representations")
         if self.action == "reset" and self.style is not None:
             raise ValueError("Style must be omitted when resetting selection representations")
         return self

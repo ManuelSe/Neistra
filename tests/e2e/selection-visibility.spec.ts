@@ -86,6 +86,7 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
     source.settings.labels = { atoms: true, residues: true, chains: true, structure: false };
     source.settings.surface_objects = [...source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids })];
     const h = await mountProductionSurfaceHarness(container, source);
+    h.engine.fitVisible();
     await h.engine.setMeasurements([{ id: "distance", name: "Distance", kind: "distance", label: "Distance", visible: true,
       atom_references: [1, 2].map((atom_id) => ({ structure_id: entry.id, atom_id })), warnings: [], created_at: "", modified_at: "" }]);
     h.engine.setSelection([{ structure_id: entry.id, atom_id: 2 }]);
@@ -112,6 +113,8 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
     return { before, stages, restored, camera };
   }, { entry, projection });
   const polymer = (state: typeof result.before) => state.representations.filter((r) => r.tags.some((tag) => /-(cartoon|backbone)$/.test(tag)));
+  const surfaces = (state: typeof result.before) => state.representations.filter(r => r.tags.includes("neistra-representation-surface-fragment"));
+  expect(surfaces(result.before)).toHaveLength(1);
   expect(polymer(result.before)).toHaveLength(2);
   for (const repr of polymer(result.before)) expect(repr.objects.some((o) => o.drawCount > 0)).toBe(true);
   for (const stage of result.stages) {
@@ -121,7 +124,12 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
     expect(stage.details.measurements).toBe(1);
     expect(stage.details.selection).toEqual(result.before.selection);
     expect(stage.camera).toEqual(result.camera);
-    if (stage.name === "all") expect(stage.details.representations).toHaveLength(2);
+    expect(surfaces(stage.details)).toEqual(surfaces(result.before));
+    if (stage.name === "all") {
+      expect(stage.details.representations).toHaveLength(polymer(result.before).length + surfaces(result.before).length);
+      expect(stage.details.representations).toEqual(expect.arrayContaining([...polymer(result.before), ...surfaces(result.before)]));
+    }
+    if (stage.name === "all") expect(stage.details.representations.filter(r => r.tags.includes("neistra-representation-inherited-ball-and-stick"))).toHaveLength(0);
   }
   expect(result.restored.representations).toEqual(result.before.representations);
   expect(result.restored.labels).toBe(result.before.labels);
@@ -147,6 +155,7 @@ test("compact Hide/Show preserves selection, styles and cached projections", asy
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   for (const notice of await page.getByRole("button", { name: "Dismiss message" }).all()) await notice.click();
   const browser = page.getByRole("button", { name: "Project browser", exact: true });
   if (isMobile) await browser.click();
@@ -166,7 +175,7 @@ test("compact Hide/Show preserves selection, styles and cached projections", asy
   for (const theme of ["light", "dark"]) {
     const switcher = page.getByRole("button", { name: `Use ${theme} theme` });
     if (await switcher.count()) await switcher.click();
-    const tiles = palette.getByRole("group", { name: "Atom detail", exact: true }).getByRole("button");
+    const tiles = palette.getByRole("group", { name: "Atom detail", exact: true }).locator(".selection-style-grid").getByRole("button");
     expect(await tiles.count()).toBe(6);
     const bounds = await tiles.evaluateAll((nodes) => nodes.map((node) => { const box = node.getBoundingClientRect(); return { x: box.x, y: box.y, width: box.width, height: box.height }; }));
     expect(new Set(bounds.map((b) => b.y)).size).toBe(1);

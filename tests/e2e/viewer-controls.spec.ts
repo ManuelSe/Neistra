@@ -225,7 +225,7 @@ test("applies complete representations, navigation, isolation, and named scenes"
   const surfaces = page.getByRole("dialog", { name: "Surfaces", exact: true });
   await surfaces.getByRole("button", { name: /^Qualification surface/ }).click();
   await expect(surfaces.getByLabel("Surface color scheme")).toHaveValue("element");
-  await expect(surfaces.getByLabel("Surface opacity")).toHaveValue("0.35");
+  await expect(surfaces.getByLabel("Surface opacity", { exact: true })).toHaveValue("0.35");
   await surfaces.getByRole("button", { name: "Close surfaces" }).click();
   await expect(page.getByLabel("Viewer navigation")).toBeVisible();
 

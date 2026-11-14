@@ -1,0 +1,63 @@
+{
+  "status": "focused correction qualified; complete candidate2 gate pending",
+  "failed_candidate": "eb7ee674520ea159778fdb21698432a26fdaefdc",
+  "scope": [
+    "tests/e2e/synchronized-selection.spec.ts",
+    "tests/e2e/viewer-transform-toolbar.spec.ts"
+  ],
+  "production_code_changed": false,
+  "initial_gate_completed_passing_steps": 14,
+  "failed_browser_case": "Synchronized selection assumed automatic import framing",
+  "correction": "Explicit public Fit owned by the native picking/gesture fixtures before their existing baselines. No later fits, preference resets, production autofitting, changed assertions, deadlines, retries or exclusions.",
+  "sync_negative_start": "Real migrated server record seeded via public PUT with target[1000,1000,1000]; after successful fixture, real GET confirms revision>=2 and target within100 of origin.",
+  "reports": {
+    "sync-preflight": {
+      "stats": {
+        "startTime": "2026-11-14T05:10:21.167Z",
+        "duration": 15738.811,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "path": "docs/assets/representation-surfaces-session-camera/c6-sync-preflight.json.gz",
+      "sha256": "40871aff01379d760da122ec38d27daa8c24ef24dc01b08cd2747f41cf847a05"
+    },
+    "toolbar-preflight": {
+      "stats": {
+        "startTime": "2026-11-14T05:12:29.146Z",
+        "duration": 179343.98599999998,
+        "expected": 19,
+        "skipped": 1,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "path": "docs/assets/representation-surfaces-session-camera/c6-toolbar-preflight.json.gz",
+      "sha256": "167eb3b871139a72eda08e3f44748395d64e1a47ae2dddb3381e547508593fe3"
+    }
+  },
+  "logs": [
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-sync-preflight-migration.log.gz",
+      "sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-sync-preflight-seed.log.gz",
+      "sha256": "a71b6b17cb074a6069a0312bb50c461d3fa3fbecf0fa24a227dde1b080a08b0f"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-sync-preflight-after.log.gz",
+      "sha256": "07d16e1ea70614f23f139def7798b64248dd99ea9e62838f56fc50dbd7492032"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-sync-preflight.log.gz",
+      "sha256": "7d6ef097c1a90ae36a3f9388332532bc40bde2edeaf900b5efa5cab51e28458b"
+    },
+    {
+      "path": "docs/assets/representation-surfaces-session-camera/c6-toolbar-preflight.log.gz",
+      "sha256": "bd0e3bb940da870a1cc3d662f33a3ae9c1ca6140b267ada9b84804eb6f29593f"
+    }
+  ],
+  "restart_recipe": "c6-candidate2-recipe.json",
+  "restart_policy": "Repeat complete33-step gate from clean committed candidate, including all516browsercases. Earlier partial browser is not full qualification."
+}

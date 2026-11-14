@@ -1,0 +1,726 @@
+{
+  "checkpoint": "C4",
+  "date": "2026-11-14",
+  "issue": 140,
+  "base_commit": "f9cb6091a5a4ccb6f5d00e89f71891f9a8f3722e",
+  "source_sha256": {
+    "apps/api/migrations/versions/0015_workspace_presentation.py": "bd8ecf488dd1eb4b4c660a5fce303aa8de929cbcd58a79f2a8c50b04d73976d5",
+    "apps/api/src/neistra_api/main.py": "7b2ec10671cd5d4c30616253c18cd526a2b82c1ffe8e888cd52a1e119d4905ef",
+    "apps/api/src/neistra_api/models.py": "566680efad439277edf99f66e04b15810c5cfba6ce3c33a97425c6f527082953",
+    "apps/api/src/neistra_api/workspace_presentation.py": "36f2b61ed875c6153a26b055c46af41d5e18fdeb4d48d4bdc1aca5041b075c55",
+    "apps/web/src/App.tsx": "889e4bbd6128671dee7d66001339516119f06e3d6ffe25d186f44a175b12aca3",
+    "apps/web/src/api/client.ts": "0b5e9bcc3e08ebb90a697833c4ba110dbec7223e16502ee904e32a40ceb3cfd7",
+    "apps/web/src/components/CameraRecovery.tsx": "055d33eb25ef3ed24b6e61a00b4fc634cfa06994f46fd8e287ed84b6cd794862",
+    "apps/web/src/components/StructureViewer.tsx": "a7ab7667adf03446fc2ecf8cb62caaa71af65740896d9ee1a5022750a781ae5b",
+    "apps/web/src/components/WorkspaceCanvas.tsx": "09360bd8c4473f2280258ad13b0b2b73f654106385f8ae26e55a64f7a7b1ce52",
+    "apps/web/src/styles.css": "213f278e72120ea087586a4756da68379adafa55820dbe40587f261bc0da4f98",
+    "apps/web/src/test/camera-recovery.test.tsx": "416fbfa17107d0bf4055eeef1d8bcb4329970164d977c4d83fd25a0928b6dfd6",
+    "apps/web/src/test/notification-producers.test.tsx": "8959552700348753129969649bd40b7d5bf268dc5876d9c7d50a70c982774bb4",
+    "apps/web/src/test/numeric-preview-ownership.test.tsx": "2172160149d3f3d9ec1b6e140d1c039e254edcc6e6ee0e950f3012b910d8dd0d",
+    "apps/web/src/test/project-workspace.test.tsx": "fefc5838b10257e09d6b26f01cc56c2744eabe2e474678e9da604b0bb0381753",
+    "apps/web/src/test/session-camera.test.ts": "b64bb9a3392c65d2ff58eda1a04e238503d96ef029d07f2818486bae5b3c0bef",
+    "apps/web/src/test/structure-loading.test.tsx": "8604135c1f45fb34e58ea4c440f850e00f122108dde46a1e9161b7d0dc31380c",
+    "apps/web/src/test/surface-viewer-reconciliation.test.ts": "74a3c8c7e70e69e5283f4a24d90906673803997effcdc72fa751da4eacad6675",
+    "apps/web/src/test/viewer-adapter.test.ts": "7f505fcdf3c9296ee62087d3baba0c5d6cd28b1fb2920edc6e66f7d89a4fde78",
+    "apps/web/src/test/viewer-session-camera.test.ts": "70b4633188712c72b27fad83a9c0bef04b2ebb266966f43f688e29eb1a8910b2",
+    "apps/web/src/test/workspace-presentation.test.ts": "673f86188349c57e181145ff78aa7c976415e94de534599e3c73856b7c51a150",
+    "apps/web/src/viewer/MolecularViewer.ts": "799d8ec1ac4e194e023d4834aed60c2bcc576c5c75f77bed4153d5c25bb4ebab",
+    "apps/web/src/viewer/MolstarEngine.ts": "37a529de9bf79408f8b735d32362f84748075c07725c2bdd803b5ccceb2ff4cb",
+    "apps/web/src/viewer/MolstarViewer.ts": "561e7b0fff3b67e382b533474fa04285a77851546f661fcf6b44f3f487262caa",
+    "apps/web/src/viewer/sessionCamera.ts": "5971739771dad0ce067a640c81522ab8cb934f0a5248961adf62212c9830b76d",
+    "apps/web/src/workspacePresentation/controller.ts": "0e31a1ba97399e473bb4752dac8b6858aec05701a33cfd92843d862369443c86",
+    "apps/web/src/workspacePresentation/mirror.ts": "d0e118b5ce038113ee19732453a28355279985b35c614187ccee9ccd30f486bd",
+    "apps/web/src/workspacePresentation/types.ts": "b067369df69d81d43280a35f1308e781f8629b762d3a3893054beaef71bd252d",
+    "apps/web/src/workspacePresentation/validation.ts": "91a73134fe35e3a3939b9ba6dcf32ecabc4a75c91e9882c14ed90169e50f469b",
+    "tests/e2e/support/workspace-presentation.ts": "deb0f134bdf0ae4cc2ebdfc5f739fbdd3b443a61b5e123ea3176cc692a956ddd",
+    "tests/e2e/workspace-presentation.spec.ts": "fdec116e8f0b8ef248d2c8efe1ffe6f6d2e00fb8483518cdb560fd6f4a68fd11",
+    "tests/integration/test_migrations.py": "18bb19e6ce22a966cd114ad01fc5de0caab75a977a5df5522eaab124d2081949",
+    "tests/integration/test_workspace_presentation.py": "2125aea2f70da4e3303c55f2bbdb2735f652f898f648399aba0ada43c499b137"
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "frontend_tests": 723,
+      "files": 84,
+      "commands": [
+        "corepack pnpm --dir apps/web lint",
+        "corepack pnpm --dir apps/web typecheck",
+        "corepack pnpm --dir apps/web test",
+        "corepack pnpm --dir apps/web build"
+      ],
+      "logs": [
+        "c4-root-lint4.log.gz",
+        "c4-root-types6.log.gz",
+        "c4-root-frontend4.log.gz",
+        "c4-root-build3.log.gz"
+      ],
+      "warning": "Existing renderer chunk-size warning"
+    },
+    {
+      "result": "PASS",
+      "command": ".venv/bin/uv run pytest tests/integration/test_workspace_presentation.py tests/integration/test_migrations.py tests/integration/test_viewer_state.py -q",
+      "passed": 202,
+      "logs": [
+        "c4-backend-integrated.log.gz"
+      ],
+      "warning": "Existing Alembic path_separator deprecation"
+    },
+    {
+      "result": "PASS",
+      "commands": [
+        ".venv/bin/uv run ruff check .",
+        ".venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin"
+      ],
+      "mypy_files": 203,
+      "logs": [
+        "c4-ruff.log.gz",
+        "c4-mypy.log.gz"
+      ]
+    },
+    {
+      "result": "PASS",
+      "command": "New workspace-presentation spec and disposable API helper: strict TypeScript + typed ESLint",
+      "logs": [
+        "c4-native-types5.log.gz",
+        "c4-native-lint5.log.gz"
+      ],
+      "configs": [
+        "c4-native-tsconfig.json",
+        "c4-native-eslint.config.mjs.txt"
+      ]
+    },
+    {
+      "result": "PASS across all unique current cases after corrections",
+      "unique_passed": 18,
+      "exclusions": 0,
+      "suite": "tests/e2e/workspace-presentation.spec.ts",
+      "passed_identities": [
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "applies legacy scenes with current FOV, supersedes delayed scene cameras and captures exact native poses"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "fits the first installed surface once with navigation pending=false"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "fits the first installed surface once with navigation pending=true"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the native viewer usable when a saved pose cannot project in its viewport"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the shared orthographic camera across projects, reload, API restart and a fresh browser"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the shared perspective camera across projects, reload, API restart and a fresh browser"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps unsaved camera recovery visible and reconciles an external writer before explicit Save"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "preserves native navigation through late hydration and requires explicit conflict publication"
+        ],
+        [
+          "chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "recovers a same-browser immediate close before the camera write is acknowledged"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "applies legacy scenes with current FOV, supersedes delayed scene cameras and captures exact native poses"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "fits the first installed surface once with navigation pending=false"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "fits the first installed surface once with navigation pending=true"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the native viewer usable when a saved pose cannot project in its viewport"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the shared orthographic camera across projects, reload, API restart and a fresh browser"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps the shared perspective camera across projects, reload, API restart and a fresh browser"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "keeps unsaved camera recovery visible and reconciles an external writer before explicit Save"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "preserves native navigation through late hydration and requires explicit conflict publication"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/workspace-presentation.spec.ts",
+          "recovers a same-browser immediate close before the camera write is acknowledged"
+        ]
+      ],
+      "runs": [
+        {
+          "run": "native4",
+          "reused_passes": 8,
+          "diagnostic_failed": 1,
+          "not_run": 9
+        },
+        {
+          "run": "native5",
+          "passed": 1
+        },
+        {
+          "run": "native6",
+          "passed": 1,
+          "duplicate_identity": 1,
+          "strengthening": "actual pagehide capture-phase raw sub-epsilon update, without an intervening renderer notification"
+        },
+        {
+          "run": "native7",
+          "passed": 9
+        }
+      ],
+      "reuse": "Application sources remained frozen for these runs. Test-only corrections close the controls overlay before real navigation during a held scene response and strengthen immediate-close capture. Affected cases rerun. C6 still requires the entire clean-candidate command."
+    }
+  ],
+  "native_evidence": {
+    "file": "c4-native-evidence.json.gz",
+    "files": 19,
+    "uncompressed_sha256": "536d655bf1b48e56efdc6beddace2206616628064a21f56f4533dad19412c724",
+    "uncompressed_bytes": 21075
+  },
+  "lossless_logs": {
+    "c4-backend-final.log.gz": {
+      "sha256": "85bdc4c5029198bb12ea70aff85c99be56b042762642494925035dc4795a52f4",
+      "bytes": 99
+    },
+    "c4-backend-first.log.gz": {
+      "sha256": "43a89e7294034060b27c34ff2e7edcc6e4a107dc766c2c1657f0f31bf32d4ca1",
+      "bytes": 1926
+    },
+    "c4-backend-integrated.log.gz": {
+      "sha256": "5639b81cd298d27cc75aab53e979b9963558d00be5ebc1c8736acfe1be43c1b4",
+      "bytes": 789
+    },
+    "c4-backend-second.log.gz": {
+      "sha256": "e00bd22e03a56d0b54b6d7aebac8ae8790c380a93ba8d57e8fde7e407c529a90",
+      "bytes": 789
+    },
+    "c4-bounds-focused1.log.gz": {
+      "sha256": "25cbc3968032c62ccebd91f17864aa45ae76fe9480481a58396e71132d536c48",
+      "bytes": 342
+    },
+    "c4-camera-math-lint1.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-camera-math-tests1.log.gz": {
+      "sha256": "22266388d3f0265520a986883a8ac045143850c81d808e186df48241e8dcc403",
+      "bytes": 286
+    },
+    "c4-camera-math-types1.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint.log.gz": {
+      "sha256": "a0aa3710196b2916333f95c2d431a74176d371be69cec7e3f7f757d79da532c2",
+      "bytes": 14988
+    },
+    "c4-controller-lint10.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint3.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint4.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint5.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint6.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint7.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint8.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-lint9.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-controller-tests.log.gz": {
+      "sha256": "40d766aea5e89d51b607a066901e6b2e96abe53717ea13a8bc36fd1b20320b2a",
+      "bytes": 292
+    },
+    "c4-controller-tests2.log.gz": {
+      "sha256": "651adb44530b2bc35033e9b225e2c33d97bdae33df247ad7928cb4f6a9632426",
+      "bytes": 292
+    },
+    "c4-controller-tests3.log.gz": {
+      "sha256": "5c93aa88ec29c4a37f34cd3eeb860609f83a964228578d731b954527f5301793",
+      "bytes": 292
+    },
+    "c4-controller-tests4.log.gz": {
+      "sha256": "410459f3191cb36b11ac7033db9dafe6189bebd9eba76c72056ae188cd261b9a",
+      "bytes": 292
+    },
+    "c4-controller-tests5.log.gz": {
+      "sha256": "8c7ed0f163de614578afd42d041411c5974e10b1ea781897ed4d1fb3f7ba7f7b",
+      "bytes": 292
+    },
+    "c4-controller-tests6.log.gz": {
+      "sha256": "cc8dcf1687268bc078a9edc46b605012b6023647321b303a2400bb2090f925f3",
+      "bytes": 292
+    },
+    "c4-controller-tests7.log.gz": {
+      "sha256": "dad65e4748dabd6b84844875a6f3b16f71a6c2c898d4e4bc1865f3e020949730",
+      "bytes": 292
+    },
+    "c4-controller-tests8.log.gz": {
+      "sha256": "c066c754e565ccc17fd59da58e941140f383027906d07dba516292bf414d95d3",
+      "bytes": 293
+    },
+    "c4-controller-types.log.gz": {
+      "sha256": "76e23ad20a96cada9aea09b2c718cea1f9e7e278b9393f494fe137a8f2694335",
+      "bytes": 10146
+    },
+    "c4-engine-regressions-lint1.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-engine-regressions-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-engine-regressions-red1.log.gz": {
+      "sha256": "838d158386fd898cc0e69ba9f52877d0d5a29ee234e8b5a3db4946f4c264ff16",
+      "bytes": 2632
+    },
+    "c4-engine-regressions-tests2.log.gz": {
+      "sha256": "9e97ffdc2621eab3fb9228bd34e476d13359722583a1b6ba9b8f325b6cfca42e",
+      "bytes": 290
+    },
+    "c4-engine-regressions-tests3.log.gz": {
+      "sha256": "3d133ab29ca67ddcccfeb9a5c2b2d8b7881360e2a6d5acf685cfdaf2d027759a",
+      "bytes": 293
+    },
+    "c4-engine-regressions-types1.log.gz": {
+      "sha256": "d55477ee5a3546eb969e170fca86acba74318007b88e1b888a60ec3d32de5497",
+      "bytes": 392
+    },
+    "c4-engine-regressions-types2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-engine-regressions-types3.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-drawable-lint1.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-drawable-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-drawable-tests1.log.gz": {
+      "sha256": "ecd75ea2cd4ce87617c4bb487302c7baab43961fd58e24d98cb9fc4b596c4005",
+      "bytes": 5604
+    },
+    "c4-lifecycle-drawable-tests2.log.gz": {
+      "sha256": "aa5e08749a2d169b201355a87c866865f2997123649f13f4557ca6a484475e83",
+      "bytes": 293
+    },
+    "c4-lifecycle-drawable-types1.log.gz": {
+      "sha256": "51d2bf1151810a911de7b12b4e1423d9fe6538f2ccf4827bc6e39e400975e47c",
+      "bytes": 395
+    },
+    "c4-lifecycle-drawable-types2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-lint1.log.gz": {
+      "sha256": "817e90b7671937cf362b81af0ec911a001f540c8c1210941e9012ba6ad982415",
+      "bytes": 205
+    },
+    "c4-lifecycle-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-lint3.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-lifecycle-tests1.log.gz": {
+      "sha256": "ea0860e629fbdc01b82201f82738cbdc924d8087c616704fa09b9deafb21c926",
+      "bytes": 3884
+    },
+    "c4-lifecycle-tests2.log.gz": {
+      "sha256": "c41fd0fe2745bdce69ccf9991097c2f194685f4d03c4856d1944974f2706f72a",
+      "bytes": 293
+    },
+    "c4-lifecycle-tests3.log.gz": {
+      "sha256": "2d8cc1db950068be44402252a5ca791761360b4f06e0438dca96c6609bdc1f81",
+      "bytes": 293
+    },
+    "c4-lifecycle-tests4.log.gz": {
+      "sha256": "519f3fa748d58dabcea39bec032458b5b7b9f30065bc806ed6650907c2dd8005",
+      "bytes": 293
+    },
+    "c4-lifecycle-types1.log.gz": {
+      "sha256": "e10b2b0d530381ba4dd39c85809cef03ab36c07db8484984fcf54f370c3c81a5",
+      "bytes": 1037
+    },
+    "c4-lifecycle-types2.log.gz": {
+      "sha256": "08b3b32648c6cd1f548486b332345ed11426c37785a40364ea4adbd7584b6cad",
+      "bytes": 123
+    },
+    "c4-lifecycle-types3.log.gz": {
+      "sha256": "d55477ee5a3546eb969e170fca86acba74318007b88e1b888a60ec3d32de5497",
+      "bytes": 392
+    },
+    "c4-lifecycle-types4.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-main-ruff1.log.gz": {
+      "sha256": "6aa0cdc636524bb80639dd0bd4cab804c24fb769ecd3af00b91b10dfbb36d990",
+      "bytes": 6534
+    },
+    "c4-main-ruff2.log.gz": {
+      "sha256": "aac3a0503d8b95052cc85fb9f1717dc82b74aa55853a5aa9749b41e30275d472",
+      "bytes": 38
+    },
+    "c4-migration-final.log.gz": {
+      "sha256": "87ee8dd85a8d150e083e6cd916d1447c52f74ae22b26b8520f166c6bc5816777",
+      "bytes": 1417
+    },
+    "c4-mypy.log.gz": {
+      "sha256": "913201c08d6920cfacfea77a5920444f948ee5e81cdaf969fc5e5ca153bb63be",
+      "bytes": 45
+    },
+    "c4-native-lint1.log.gz": {
+      "sha256": "0a933c6fc3bb6efdc5ef26f56369c3d29155f2506f9ab6cd62fbca6b727ca003",
+      "bytes": 607
+    },
+    "c4-native-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-lint3.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-lint4.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-lint5.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-types1.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-types2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-types3.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-types4.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native-types5.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c4-native1.log.gz": {
+      "sha256": "0386c41e529a9ff3e60a2be490ebbdbf61815b7cdea1898100316d1bc3f041af",
+      "bytes": 8500
+    },
+    "c4-native2.log.gz": {
+      "sha256": "596952b1a8c23958861e8b544d261f216abc7349b5e5e4e72ccf11c650a1f465",
+      "bytes": 6886
+    },
+    "c4-native3.log.gz": {
+      "sha256": "cfe9a9227ed84f85011fe40bc54c7481f6a386af759080c5e4231f5546bdb4cb",
+      "bytes": 6304
+    },
+    "c4-native4.log.gz": {
+      "sha256": "b56f1c9ec953a7d53dd69c19f5b3d4873776e383f64f76c8f6fd842e59f3f7cc",
+      "bytes": 8595
+    },
+    "c4-native5.log.gz": {
+      "sha256": "88aceaf1f2e4942b4c15fdadbdf2089a3adb958c88be1255611b1a3bf9f32b04",
+      "bytes": 3586
+    },
+    "c4-native6.log.gz": {
+      "sha256": "3f9222662378f6e1509566a806a383eda88c2aa776cd0c80ebfd85eb13a0091e",
+      "bytes": 3560
+    },
+    "c4-native7.log.gz": {
+      "sha256": "664a5ae3ed375ee4046943b5e458f0693c242a033314c5f8c9efa662463d5dda",
+      "bytes": 4976
+    },
+    "c4-root-build1.log.gz": {
+      "sha256": "8c71889ec95efdfbb2e03f597cdfab71aa844230b9d934718b35fb2851a477c8",
+      "bytes": 1243
+    },
+    "c4-root-build2.log.gz": {
+      "sha256": "aff732411bcc97c582be1165e8af48c808c701eda845512272166b0e469e8a99",
+      "bytes": 1243
+    },
+    "c4-root-build3.log.gz": {
+      "sha256": "62d23152b5531a54c3253b30c4de780c77e3b040b637476bf3c46f71802807ee",
+      "bytes": 1243
+    },
+    "c4-root-focused1.log.gz": {
+      "sha256": "8994ff6c633db454489c13361135235b1ff7056716e1e7692671daa474d68666",
+      "bytes": 3245
+    },
+    "c4-root-frontend1.log.gz": {
+      "sha256": "fdafa11c398d85f784c55355d7e792634fbfac814588b04726e5a96a02bbb294",
+      "bytes": 73303
+    },
+    "c4-root-frontend2.log.gz": {
+      "sha256": "741cde0f8dffc19736483c861f81bb9d8b26229a135a82fde68252bd0e275016",
+      "bytes": 8996
+    },
+    "c4-root-frontend3.log.gz": {
+      "sha256": "9d7837a91f9f16eee12823b0ed578524fc0b8180b644ed074a7a5383e0534e24",
+      "bytes": 10846
+    },
+    "c4-root-frontend4.log.gz": {
+      "sha256": "0777d621372bec89c0f2f7f763ee5178f77ae68f55aec6d5ccb3bf09fe55a78a",
+      "bytes": 10800
+    },
+    "c4-root-lint1.log.gz": {
+      "sha256": "9b7611d1f63f65aae6a9570737eab2185f77cb7c1ff7f4d7e339959e7fb565ea",
+      "bytes": 1078
+    },
+    "c4-root-lint2.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c4-root-lint3.log.gz": {
+      "sha256": "53ad0d8a89cc336e0213f12094015fc967cbfdccdc39c3d9f33ae99367708bf2",
+      "bytes": 338
+    },
+    "c4-root-lint4.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c4-root-types1.log.gz": {
+      "sha256": "b0a9c9ea87b60b5926ee4628ce265f024154224d7b2791fa70ad9595e966eeeb",
+      "bytes": 1420
+    },
+    "c4-root-types2.log.gz": {
+      "sha256": "20a817608cdbd57dd0ffc63e277ce4763f122210e722f49d344f6f6e335abe79",
+      "bytes": 745
+    },
+    "c4-root-types3.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c4-root-types4.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c4-root-types5.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c4-root-types6.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c4-ruff.log.gz": {
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    "c4-native4-workspace-presentation-app-44cef-captures-exact-native-poses-chromium-api.log.gz": {
+      "sha256": "c1cd5429118cf5cc66d6dc01f5265cf1354fe7b40e83306b30779f7c8ecfe46e",
+      "bytes": 4453
+    },
+    "c4-native4-workspace-presentation-fit-84e99-th-navigation-pending-false-chromium-api.log.gz": {
+      "sha256": "116af3107b88f5a7b4e0dcc9e0db5a755eb76830040621f42cb0ea450816117e",
+      "bytes": 3662
+    },
+    "c4-native4-workspace-presentation-fit-f92e3-ith-navigation-pending-true-chromium-api.log.gz": {
+      "sha256": "253d30123e034822af31cb41a7e4c2bc0537f0bf3fb4dc3cccb2f2eb47c686a2",
+      "bytes": 3500
+    },
+    "c4-native4-workspace-presentation-kee-7448d-restart-and-a-fresh-browser-chromium-api.log.gz": {
+      "sha256": "53f8970877ab28c1fc25e39dc54f486328e18fefaef2fb34eda13707e8829180",
+      "bytes": 6879
+    },
+    "c4-native4-workspace-presentation-kee-9e3d6-not-project-in-its-viewport-chromium-api.log.gz": {
+      "sha256": "96eae21f30efc20ea3a56a96def72c9215f6189d3bfec219b9b90188938e854d",
+      "bytes": 3626
+    },
+    "c4-native4-workspace-presentation-kee-c77cc-writer-before-explicit-Save-chromium-api.log.gz": {
+      "sha256": "79f10a48b85d334fb836e619e74b7ba0b96c20dfd9a47eee9a2e5d9a90bb7e6e",
+      "bytes": 4361
+    },
+    "c4-native4-workspace-presentation-kee-feb4d-restart-and-a-fresh-browser-chromium-api.log.gz": {
+      "sha256": "f2366d1e31406b492c77053614f4e4289118c3e1a7a19facb967d4bb949a3e0a",
+      "bytes": 6960
+    },
+    "c4-native4-workspace-presentation-pre-d375d-plicit-conflict-publication-chromium-api.log.gz": {
+      "sha256": "fc1259248fc86918be6e203fee79640ce4f4fe4a5959d019cdc3fc17744b3670",
+      "bytes": 3626
+    },
+    "c4-native4-workspace-presentation-rec-44ea7-amera-write-is-acknowledged-chromium-api.log.gz": {
+      "sha256": "4d39301ec3a68323fb906f8b05101e6fb1392bd435f967800409be1e20957010",
+      "bytes": 3956
+    },
+    "c4-native5-workspace-presentation-app-44cef-captures-exact-native-poses-chromium-api.log.gz": {
+      "sha256": "6fdeb8c39dd5d4d22ef242e39580d6c0b31b1efb03e25888d6e5617172b3e148",
+      "bytes": 5660
+    },
+    "c4-native6-workspace-presentation-rec-44ea7-amera-write-is-acknowledged-chromium-api.log.gz": {
+      "sha256": "9e545aee64636dcbc78c2c34a2bae4b3993ea662b7f73b0ab48a6bb3d9d6a5af",
+      "bytes": 4037
+    },
+    "c4-native7-workspace-presentation-app-44cef-captures-exact-native-poses-mobile-chromium-api.log.gz": {
+      "sha256": "3eabc29e81f821998e1a9319fb00d5875bd0b022b94185d7a0b94929d681a0bc",
+      "bytes": 5660
+    },
+    "c4-native7-workspace-presentation-fit-84e99-th-navigation-pending-false-mobile-chromium-api.log.gz": {
+      "sha256": "829543db94b3588f353bf40f24c5259ef5b88921c8a3188167846d6760a6437e",
+      "bytes": 3662
+    },
+    "c4-native7-workspace-presentation-fit-f92e3-ith-navigation-pending-true-mobile-chromium-api.log.gz": {
+      "sha256": "2ee67e193942050e0179d74a53d3a54e42074e7bd37319626a1ca53c8f944d32",
+      "bytes": 3500
+    },
+    "c4-native7-workspace-presentation-kee-7448d-restart-and-a-fresh-browser-mobile-chromium-api.log.gz": {
+      "sha256": "65c7ea464a207428be0beb19858bd2fdc11cab88bdc50652c7bd16c984e50804",
+      "bytes": 6879
+    },
+    "c4-native7-workspace-presentation-kee-9e3d6-not-project-in-its-viewport-mobile-chromium-api.log.gz": {
+      "sha256": "261c43fe846eb084842f400ca967c98d469ac023ddde72e320aa7af59b6e32c8",
+      "bytes": 3626
+    },
+    "c4-native7-workspace-presentation-kee-c77cc-writer-before-explicit-Save-mobile-chromium-api.log.gz": {
+      "sha256": "6984e18470104a99f71c9ca2be6c6f53121a31e801d9fa28088517806be4fd3b",
+      "bytes": 4361
+    },
+    "c4-native7-workspace-presentation-kee-feb4d-restart-and-a-fresh-browser-mobile-chromium-api.log.gz": {
+      "sha256": "664bb0eda43c1fa0cba05ad5b0c3122baa9be634fd1c5bd32f3bf3250a4c4263",
+      "bytes": 6879
+    },
+    "c4-native7-workspace-presentation-pre-d375d-plicit-conflict-publication-mobile-chromium-api.log.gz": {
+      "sha256": "8af77afd6e76381bf4dabaff5d22d59872448c61053240f4e48e90b9d51272d5",
+      "bytes": 3626
+    },
+    "c4-native7-workspace-presentation-rec-44ea7-amera-write-is-acknowledged-mobile-chromium-api.log.gz": {
+      "sha256": "74d2dc08e73ca5b3f52ce9b82a4296cb512ff305364b8deb1fb6529dbf448a85",
+      "bytes": 3956
+    }
+  },
+  "verified_outcomes": [
+    "One shared complete camera/FOV across entries, projects, an empty project, responsive remount, reload, fresh browser and actual API process restart, in both projection modes/layouts. Native projected landmarks and target-plane scale preserved at identical viewport.",
+    "Actual first drawable surface fits once with positive focus radius and nondefault pose; navigation while upload is held cancels that opportunity.",
+    "Same-browser actual close recovers an unacknowledged pose including a last raw 1e-7 update injected before the App pagehide flush, with no next renderer frame.",
+    "Late hydration preserves newer native touch/mouse navigation; conflicts never overwrite automatically, survive reload with original dirty base, and publish only on explicit Save.",
+    "Recovery remains reachable at 320px with the nonmodal manager open, passes axe and retains focused action while real PUT acknowledgement is held.",
+    "Legacy scene wire fields omit FOV; applying a scene retains current FOV, while later navigation supersedes its held response. Native sub-epsilon update with matrixChanged=false persists and reloads exactly.",
+    "Wire-valid but viewport-unrenderable saved poses report recoverable display failure, retaining startup, native geometry and explicit Fit.",
+    "Independent API CAS insert/update races, stale identical rejection, exact no-op, all-old-table/history/Redo/timestamp invariance, archive exclusion, populated/empty migration round trips and artifact byte preservation pass."
+  ],
+  "corrections": [
+    "Actual drawable geometry is separate from canonical target references; counting a Fit request alone did not prove fitting.",
+    "Public cached canvas spheres can remain stale with manual resets; current render-object spheres and native BoundaryHelper98 now own clipping/Fit.",
+    "Exact per-canvas native observation and guarded final capture close sub-epsilon publication and closure/replacement gaps; transform lock restores silently.",
+    "Typed lazy restoration failures preserve usable startup and prevent fallback autosaves. Failed scene intent retires by generation/binding.",
+    "Test setup now waits for actual drawability and accepted camera, and closes overlay controls before sending real canvas gestures."
+  ],
+  "diagnostic_limits": [
+    "Earlier native1 first-fit counts were insufficient evidence; its default-camera result led to strengthened assertions and is not reused as final qualification.",
+    "Native2 exposed stale provider bounds; native3 was interrupted by Vite dependency optimization reload after a new import. Subsequent source-frozen runs pass; no retries, skips or timing relaxation were introduced.",
+    "An early reviewer inline probe awaited start() rather than hydration and was not a reliable hydrated reproduction. Corrected probe and new controlled regression tests establish final capture behavior."
+  ],
+  "reviews": {
+    "software_architecture": "PASS for current C4 correction; not final feature approval",
+    "performance": "PASS for current C4 correction; not final feature approval",
+    "other_evidence": "71 controller, 30 lifecycle, 14 independent numerical, 12 actual-camera Engine and 8 recovery tests are included in the 723 total. Scientific eligibility policy consulted before implementation.",
+    "final_seven_role_gate": "Pending complete final candidate C6; no application push readiness claimed."
+  },
+  "compatibility": {
+    "migration": "0015 adds only workspace_presentations; downgrade removes only that preference",
+    "unchanged": "project/viewer/archive 2; normalized/selection/component 1; legacy portable camera fields; originals/dependencies",
+    "remote_base_rechecked": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9; migration0015 available on origin/master",
+    "versions": "All authoritative versions remain 0.29.0 until C6; planned stable minor 0.30.0"
+  },
+  "environment": {
+    "ports": [
+      8140,
+      8141,
+      5184
+    ],
+    "api_isolation": "Each new native case owns a real migrated disposable SQLite/API process on an allocated local port; browser routes forward actual HTTP responses, not fabricated data. Restart reuses that exact store.",
+    "cleared_aliases": [
+      "DATABASE_URL",
+      "NEISTRA_DATABASE_URL",
+      "MOLWEAVE_DATABASE_URL",
+      "NEISTRA_DATA_DIR",
+      "MOLWEAVE_DATA_DIR"
+    ],
+    "performance": "Portable correctness/resource policy; no strict timing/overall speedup certification."
+  },
+  "known_limitations": [
+    "C5 integrated original/archive/scene/movement/capacity qualification and test consolidation pending.",
+    "C6 complete clean-candidate gate, actual final-version tagged readers, five version updates and all-seven final assessment pending.",
+    "C7 protected normal delivery/exact-master gate/tag/release/follow-up/issue reply/cleanup pending. No application push/PR/merge/tag/release claimed.",
+    "Browser interruption recovery remains best effort when storage/network/process termination fail simultaneously."
+  ]
+}

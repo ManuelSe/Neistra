@@ -1,0 +1,80 @@
+{
+  "candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+  "base": "a1f2e2fd92d19e4a85b3237b41f2d552eff3a0d9",
+  "full_gate_pending": false,
+  "final_evidence_reconfirmation_required": true,
+  "roles": {
+    "scientific_theory": {
+      "agent": "final_science140",
+      "checks": "44 independent numerical/geometry tests reused;38 unchanged runtime files; C5 scientifically meaningful assertions reviewed",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "scientific_implementation": {
+      "agent": "final_scientific_impl140",
+      "checks": "75 independent focused tests reused;59 C5 lossless/bundle hashes;791-source snapshot diff; reader digest",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "software_architecture": {
+      "agent": "final_architecture140",
+      "checks": "144 frontend and48 API tests reused;8 namespace tests and version/schema/migration audit;16 passive-presentation tests",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "performance": {
+      "agent": "final_performance140",
+      "checks": "123 focused tests reused;791 current source identities;59 evidence hashes/ZIPCRC; unchanged limits and measurement boundaries",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "ui_design": {
+      "agent": "final_ui140",
+      "checks": "60 UI tests reused;5 UI source hashes; native23/5 and78/22 reports; retained screenshot/accessibility evidence",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "ux_design": {
+      "agent": "final_ux140",
+      "checks": "106 workflow tests reused;18 source hashes; scene intent ownership and C5 recovery/chooser adaptations",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    },
+    "modeling_reference": {
+      "agent": "final_reference140",
+      "checks": "13 tests and official evidence reused;20 workflow hashes; scope and neutral documentation inspected",
+      "verdict": "PASS",
+      "reconfirmed_candidate": "c8468c89472b2c67fbb70eea433bce71c3a13a5c",
+      "intervening_diff": "One existing numeric opacity test locator made exact, failed-attempt diagnostics/evidence and fresh recipe; no production change",
+      "correction_hashes_valid": true
+    }
+  },
+  "optional_findings": [
+    {
+      "priority": "P3",
+      "file": "apps/web/src/components/SurfaceEditor.tsx:255",
+      "description": "Shared input error may show unrelated source-context Retry action",
+      "disposition": "Nonblocking feedback polish deferred; no additional speculative issue."
+    }
+  ],
+  "previous_candidate": "7019a3d7c29a1ccce0efca5d5d1ccf383468181a",
+  "follow_up": {
+    "number": 141,
+    "url": "https://github.com/ManuelSe/Neistra/issues/141",
+    "remote_body_verified": true
+  },
+  "qualification": "c6-candidate3-summary.json",
+  "documentation_reconfirmation_policy": "All seven inspect the final evidence/documentation diff before application push. Their exact final feature-head reconfirmation is recorded in the PR pre-merge review receipt; initial runtime assessments below cover the qualified source candidate."
+}

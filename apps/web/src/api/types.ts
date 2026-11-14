@@ -209,10 +209,12 @@ export interface SurfaceCreateItem {
   appearance?: SurfaceAppearance;
 }
 export type SurfaceChange = Partial<Pick<SurfaceObject, "name" | "visible" | "source" | "appearance">>;
+export interface SurfaceIdentity { entryId: string; surfaceId: string }
 export interface SurfaceActions {
-  create: (items: SurfaceCreateItem[]) => Promise<void>;
+  create: (items: SurfaceCreateItem[]) => Promise<SurfaceIdentity[]>;
   update: (entryId: string, surfaceId: string, change: SurfaceChange) => Promise<void>;
   remove: (entryId: string, surfaceId: string) => Promise<void>;
+  refresh?: () => Promise<readonly Entry[]>;
 }
 
 export interface ViewerSettings {
@@ -240,6 +242,7 @@ export interface ViewerSettings {
 }
 
 export type SelectionRepresentationStyle = Exclude<RepresentationStyle, "surface">;
+export type SelectionRepresentationChannel = "atomic" | "polymer" | "all";
 
 export interface SelectionRepresentation {
   style: SelectionRepresentationStyle;

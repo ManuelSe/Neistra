@@ -6,10 +6,10 @@ import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/ele
 import { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure, ViewerSelectionEvent } from "../viewer/MolecularViewer";
 import { SurfaceCalculator } from "../viewer/surface/client";
-import { SelectionSurfaceProvider, surfaceInput, attachSurfaceGeometry } from "../viewer/surface/visual";
+import { SelectionSurfaceProvider, surfaceInput, surfaceDisplayGeometry, attachSurfaceGeometry } from "../viewer/surface/visual";
 import type { SurfaceObject, SurfaceSource } from "../api/types";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceGeometry } from "../viewer/surface/protocol";
+import type { SurfaceChannel, SurfaceGeometry } from "../viewer/surface/protocol";
 import { SURFACE_PROFILE } from "../viewer/surface/protocol";
 
 export async function mountSurfaceHarness(container: HTMLElement, source: ViewerStructure) {
@@ -43,7 +43,8 @@ export async function mountSurfaceHarness(container: HTMLElement, source: Viewer
   const observer = new PerformanceObserver((list) => list.getEntries().forEach((e) => longTasks.push(e.duration)));
   observer.observe({ type: "longtask", buffered: false });
   const geometry = await calculator.compute(input, new AbortController().signal);
-  attachSurfaceGeometry(component.obj.data, geometry);
+  const display = await surfaceDisplayGeometry(component.obj.data, loaded.atomIds, geometry, new AbortController().signal, () => {});
+  attachSurfaceGeometry(component.obj.data, display.geometry);
   const representation = await plugin.builders.structure.representation.addRepresentation(component, {
     type: SelectionSurfaceProvider, typeParams: { alpha: SURFACE_PROFILE.opacity }, color: ElementSymbolColorThemeProvider,
   });
@@ -127,12 +128,13 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
         }) }] : [];
       }),
     }),
-    geometry: (id: string, channel: "fragment" | "pocket" = "fragment") => internal.surfaces.requests.get(`${channel}:${id}`)?.geometry,
-    input: (id: string, channel: "fragment" | "pocket" = "fragment") => {
+    geometry: (id: string, channel: SurfaceChannel = "fragment") => internal.surfaces.requests.get(`${channel}:${id}`)?.geometry,
+    input: (id: string, channel: SurfaceChannel = "fragment") => {
       const loaded = internal.loaded.get(id)!;
       const component = internal.surfaceRefs.get(`${channel}:${id}`);
       const structure = component ? internal.plugin.state.data.cells.get(component)?.obj?.data as Structure : loaded.structure;
-      return surfaceInput(structure, loaded.atomIds);
+      // Pocket qualification compares the uncropped complete-context field.
+      return surfaceInput(structure, loaded.atomIds, channel === "entry" ? "entry" : "fragment");
     },
     failRepresentations(count: number) {
       const builder = internal.plugin.builders.structure.representation;

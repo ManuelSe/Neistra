@@ -76,6 +76,7 @@ test("retains molecular annotations through native tasks, rebuilds, remounts and
     expect(annotations.find(item => item.kind === "label")?.text).toBe(entry.name);
     await expectApplicationViewer(page);
   };
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await settled();
   const persistedBefore = await (await request.get(path)).json() as typeof project;
   const original = await (await request.get(`${path}/entries/${entry.id}/original`)).body();

@@ -6855,3 +6855,163 @@ owner. Do not dismiss notices or force clicks in tests to conceal interception.
 Independent actual-component hit testing and the unchanged native hardening case
 verify the correction. Long reading, identity reset, focus, lifetimes, scientific
 payloads and production/qualification limits remain unchanged.
+
+## D-154 — One installation-local camera across the application
+
+Date: 2026-11-13. Status: accepted by the user's explicit planning choices and
+“Implement the plan.” under the [issue #140 contract](plans/issue-140-representation-surfaces-session-camera.md).
+C0 persists planning only; implementation requires the subsequent `/goal`.
+
+Representations remain authoritative per-entry settings. One application camera
+is shared across molecules **and projects**. Entry/project changes, imports,
+visibility changes, styles, surfaces, new molecules and renderer remounts do not
+reset it. Reopening restores the installation's last camera. The sole automatic
+fit is the first drawable content on a pristine installation, after hydration
+proves no saved/adjusted camera exists; user navigation cancels that opportunity.
+Explicit Fit, Focus, Reset, projection and named-scene actions remain effective.
+No per-molecule camera map, view selector or new switching workflow is approved.
+
+Plan a singleton WorkspacePresentationV1 with independent revision and typed
+camera (mode, position, target, up, radius, FOV), GET/PUT workspace presentation
+API and migration 0015, subject to collision check. Navigation writes must not
+touch project revisions, dirty state, checkpoints, history, Redo or entry
+timestamps. Presentation is installation-local and excluded from archives;
+project/viewer/archive 2 and normalized/selection/component 1 remain unchanged.
+Existing browser last-project navigation remains sufficient.
+
+One App-owned controller hydrates once, buffers the latest camera through lazy
+mounts, serializes/coalesces writes and prevents late responses/restores from
+overwriting newer navigation. A bounded local recovery mirror and best-effort
+closure flush address interrupted writes; differing server/base revisions require
+explicit Save current view. Failures remain visible without disabling navigation.
+No power-loss-proof or failed-network persistence guarantee is made.
+
+This supersedes D-022's transient ordinary-camera policy and D-023's implicit
+scene-content fitting only where necessary for the approved shared-camera
+contract. Their separation of molecular authority, portable scenes and navigation
+history remains. Runtime/schema changes, migration and qualification are pending.
+
+## D-155 — Corrected display geometry with bounded surface ownership
+
+Date: 2026-11-13. Status: accepted planning contract for issue #140; implementation
+pending. The user explicitly selected a focused release and immediate Undoable
+surface appearance, with expanded local styling deferred to one follow-up.
+
+Thin/thick sticks retain the pinned native provider but use uniform size 1,
+aspect 1 and existing scale 0.22/0.36 so atom spheres act as matching-radius caps.
+Ball-and-stick/space filling retain physical sizes; native multiple/aromatic
+notation and canonical graph restrictions remain. Complete styling no-ops must
+not consume revision, dirty state, history or Redo.
+
+Whole-entry surfaces move from independent unit shells to combined-context worker
+geometry, sharing the existing molecular definition (physical radii, probe 1.4 Å,
+grid 0.5 Å, 36 probe positions). Retain fragment/pocket meanings and durable identities.
+Input admission is kind-specific: fragment/pocket ≤100,000 effective atoms; entry
+<250,000, with the existing parent ≥250,000 fallback still enforced. Preserve
+64 million cells, 512 MiB mesh, 1 GiB retained, 2 GiB accounted working buffers, 120 seconds
+and one worker. These are eligibility/resource ceilings, not universal throughput
+claims. Never silently coarsen. Refusal preserves definitions with explained
+fallback. Capacity qualification is required; failure cannot silently reduce the
+approved contract. Canonical calculation order requires validated/accounted
+display ownership mapping, not equal-count assumptions.
+
+Surface readiness follows successful current-generation installation and is
+distinct from effective visibility/isolation. Keep existing entry-owned objects,
+commands, source pruning, scene/archive remapping and transient activation. A
+unified chooser, bounded list/details manager and narrow surface-only incremental
+updates improve the workflow without a generic layer/scene framework. Appearance
+commits once per completed gesture; source changes remain explicit captured
+Apply/Revert actions. Shared receptor meshes, new scientific surface families,
+polymer hiding and local appearance schemas are outside this slice. D-154 owns
+the camera across every display transition.
+
+Plan stable minor 0.30.0 because additive persistence/API and workflow functionality
+accompany fixes. Five version sources change only in release preparation. Existing
+stable 0.29.0 history is verified; all future candidate/exact-master gates, actual
+tagged readers and seven-role final assessments remain required. C0 introduces
+no application, version, dependency, migration or durable-schema implementation.
+
+### D-155 implementation and delivery authorization
+
+The subsequent issue #140 `/goal` authorizes C1–C7 and explicitly requires
+`Closes #140` in the PR. This supersedes the approved plan's earlier Refs/late-close
+timing only. Normal merge can close the issue; complete exact-master verification,
+annotated tag/release and the final issue response remain required. No protection,
+review or acceptance gate is waived. C1 introduces no migration or persisted
+viewer-field change; reset scope is an additive request control with all-channel
+default, and complete no-ops retain existing history/Redo.
+
+### D-155 C2 implementation boundary
+
+The combined surface calculation is implemented as an internal worker source-kind
+contract; it adds no persisted viewer field or project/archive version. Cached
+geometry stays in canonical atom order, while a checked bijection owns separate
+native display groups/IDs. Retained and active allocation accounting includes
+that mapping. Installation acknowledgement, not worker completion, owns Ready.
+All kinds use the same terminating worker cancellation lifecycle. C2 evidence is
+recorded in the feature plan; this does not certify the remaining workflow/camera
+work or the final release. Earlier native-entry behavior described in historical
+qualification sections remains historical, with current policy documented in
+SURFACES/PERFORMANCE/SCIENTIFIC_LIMITATIONS.
+
+### D-155 C3 editing and reconciliation boundary
+
+Surface creation uses one chooser and derives exact new object identities from
+the successful command response, preserving request order without matching names
+or guessing after an ambiguous response. An App-owned, project-local editing
+session retains captured source drafts and tokenized appearance intent across
+disposable viewer instances. It is transient and excluded from archives/history;
+only existing surface commands publish completed appearance gestures or explicit
+source Apply actions. Project switching discards source drafts with feedback.
+
+Canonical source, visibility or appearance changes retire conflicting previews.
+After a responsive remount, valid pending/uncertain intent is replayed only after
+canonical scene installation, with fresh tokens and current project/viewer guards.
+Uncertain publication requires a fresh read rather than automatic command replay.
+
+The incremental renderer recognizes only surface changes against an immutable
+last-sync snapshot. Other molecular/display changes retain the conservative full
+rebuild. Object-owned bindings preserve geometry for appearance, rebuild only the
+visual for solid/mesh, and retire only affected resources for removal/source
+changes. Retired visuals cannot activate an object or fall through into molecular
+selection. Fallback lines remain selectable objects, but only actual translucent
+meshes affect the mesh picking threshold. This is a bounded surface-specific
+path, not a general scene reconciliation framework.
+
+
+### D-154 implementation boundary — 2026-11-14
+
+Migration 0015 adds an installation singleton with an independent atomic revision;
+it does not use project commands or mutate any project/history/artifact table.
+Project/viewer/archive 2 and portable scene camera fields remain unchanged. The
+separate session camera stores FOV in radians, with zoom derived rather than stored.
+Pinned numerical eligibility rejects exact native degeneracy (including the
+lookAt component-wise 1e-6 identity shortcut, raw-up cross under/overflow and
+nonfinite view/projection arithmetic). These are renderer eligibility checks,
+not chemistry rules or a new minimum physical radius. Logical radius remains
+positive even below the native clipping floor.
+
+App owns the controller and recovery mirror; viewers own disposable bindings.
+Hydration, acknowledgements, mirror conflicts and target retirement use independent
+revision/token/generation guards. Unknown or different dirty bases require explicit
+publication; a failed refresh cannot silently rebase them. A typed asynchronous
+restoration-failure channel keeps lazy startup usable without saving the fallback
+over the rejected preference. Failed scene requests cancel only their own pending
+intent, including after binding retirement; newer navigation remains authoritative.
+
+The exact final native pose is sampled on the existing commit cadence and once
+more during flush/retirement when a valid pose is already known. Final sampling
+excludes pristine defaults, pending scene intent and refused display recovery.
+Transform-mode getters and observations retain the locked pose silently. No extra
+animation loop or per-molecule camera map is introduced. One-fit eligibility is
+reserved globally before installation; canonical target references alone are
+insufficient. Actual committed, visible, nonzero-alpha native geometry is required.
+
+With native automatic resets disabled, cached public canvas spheres can remain
+stale after commits. Current bounds therefore use public committed render objects
+and the pinned BoundaryHelper98 aggregation, operating over visual objects rather
+than atoms. Clipping changes preserve logical pose and zoom, while explicit Fit
+uses current effective visible bounds. Explicit native Reset/axis navigation
+resolves immediately at the public boundary so queued fitting cannot overwrite
+later input. Native qualification and full release status remain in the feature
+plan; this decision does not certify pending delivery gates.

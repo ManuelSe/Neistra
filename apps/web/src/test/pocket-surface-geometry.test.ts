@@ -3,7 +3,7 @@ import { computeSurface } from "../viewer/surface/geometry";
 import { cropPocketSurface, isolatePocketSurface, validatePocketCrop } from "../viewer/surface/pocket";
 import { SURFACE_LIMITS, type SurfaceGeometry, type SurfaceInput } from "../viewer/surface/protocol";
 
-const input: SurfaceInput = { atomIds: Uint32Array.of(11, 22, 33, 44), x: Float64Array.of(0, 2.5, 5, 7.5),
+const input: SurfaceInput = { kind: "fragment", atomIds: Uint32Array.of(11, 22, 33, 44), x: Float64Array.of(0, 2.5, 5, 7.5),
   y: new Float64Array(4), z: new Float64Array(4), radii: new Float32Array(4).fill(1.7) };
 const crop = (seeds: number[], radius = 2.5) => ({ profile: "pocket-v1" as const, seeds: Float64Array.from(seeds), radius });
 function triangleData(g: SurfaceGeometry, triangle: number) {
@@ -14,7 +14,7 @@ function triangleData(g: SurfaceGeometry, triangle: number) {
 
 it("matches a full-context reference triangle-for-triangle with unchanged normals, winding and owners", async () => {
   const full = await computeSurface(input), definition = crop([0, 0, 0]);
-  const patch = await computeSurface({ ...input, pocket: definition });
+  const patch = await computeSurface({ ...input, kind: "pocket", pocket: definition });
   const expected = [];
   // Independent brute-force cutoff, without the production spatial index.
   for (let t = 0; t < full.indices.length / 3; t++) {
@@ -27,7 +27,7 @@ it("matches a full-context reference triangle-for-triangle with unchanged normal
   expect(patch.evidence.sourceTriangles).toBe(full.indices.length / 3);
   expect(patch.atomIds).toEqual(input.atomIds);
   expect(patch.evidence.meshBytes).toBeLessThan(full.evidence.meshBytes);
-  const fragment = await computeSurface({ atomIds: Uint32Array.of(11), x: Float64Array.of(0),
+  const fragment = await computeSurface({ kind: "fragment", atomIds: Uint32Array.of(11), x: Float64Array.of(0),
     y: Float64Array.of(0), z: Float64Array.of(0), radii: Float32Array.of(1.7) });
   expect(patch.vertices).not.toEqual(fragment.vertices);
   const positions = new Set(Array.from({ length: fragment.vertices.length / 3 }, (_, i) => [...fragment.vertices.subarray(i * 3, i * 3 + 3)].join(",")));
@@ -50,7 +50,7 @@ it("uses an inclusive centroid cutoff and allows empty and disconnected patches"
 });
 
 it("filters isolation by receptor ownership without changing cached geometry or context", async () => {
-  const patch = await computeSurface({ ...input, pocket: crop([2.5, 0, 0], 5) });
+  const patch = await computeSurface({ ...input, kind: "pocket", pocket: crop([2.5, 0, 0], 5) });
   const before = patch.indices.slice();
   const isolated = isolatePocketSurface(patch, new Set([22]));
   expect(isolated.indices.length).toBeGreaterThan(0);

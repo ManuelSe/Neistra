@@ -49,6 +49,8 @@ export function hydrogenDisplayMode(
 }
 
 export interface MolstarRepresentationProfile {
+  size?: "uniform";
+  sizeParams?: { value: 1 };
   type:
     | "cartoon"
     | "backbone"
@@ -96,6 +98,9 @@ export function molstarRepresentationProfile(
         };
   return {
     type,
+    ...((style === "stick" || style === "thick-stick")
+      ? { size: "uniform" as const, sizeParams: { value: 1 as const } }
+      : {}),
     typeParams: {
       alpha: options.opacity,
       ...hydrogenParams,
@@ -105,9 +110,9 @@ export function molstarRepresentationProfile(
         ? { includeParent: false as const }
         : {}),
       ...(style === "stick"
-        ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
+        ? { sizeFactor: 0.22, sizeAspectRatio: 1 }
         : style === "thick-stick"
-          ? { sizeFactor: 0.36, sizeAspectRatio: 0.78 }
+          ? { sizeFactor: 0.36, sizeAspectRatio: 1 }
           : {}),
     },
   };

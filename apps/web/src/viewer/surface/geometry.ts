@@ -6,14 +6,15 @@ import { calcMolecularSurface } from "molstar/lib/mol-math/geometry/molecular-su
 import { computeMarchingCubesMesh } from "molstar/lib/mol-geo/util/marching-cubes/algorithm";
 import { Mesh } from "molstar/lib/mol-geo/geometry/mesh/mesh";
 import { RuntimeContext } from "molstar/lib/mol-task";
-import { SURFACE_LIMITS, SURFACE_PROFILE, type SurfaceGeometry, type SurfaceInput } from "./protocol";
+import { SURFACE_LIMITS, SURFACE_PROFILE, validateSurfaceAtomCount, type SurfaceGeometry, type SurfaceInput } from "./protocol";
 
 export function surfaceAdmission(input: SurfaceInput) {
+  if ((input.kind === "pocket") !== Boolean(input.pocket)) throw new Error("Surface source kind/crop mismatch.");
   if (input.pocket) validatePocketCrop(input.pocket);
   const n = input.atomIds.length;
-  if (!n || n > SURFACE_LIMITS.atoms) throw new Error("Surface requires 1–100,000 atoms.");
+  validateSurfaceAtomCount(input.kind, n);
   if ([input.x, input.y, input.z, input.radii].some((a) => a.length !== n)
-    || new Set(input.atomIds).size !== n || input.atomIds.some((id) => id === 0)) {
+    || input.atomIds.some((id, index) => id === 0 || (index > 0 && id <= input.atomIds[index - 1]))) {
     throw new Error("Invalid surface atom mapping.");
   }
   const min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];

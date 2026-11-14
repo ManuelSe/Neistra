@@ -30,6 +30,16 @@ MolstarEngine.prototype.mount = async function(target) {
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  // Native gesture fixtures frame their specimen explicitly before capturing a baseline.
+  await expect.poll(() => page.evaluate(() => {
+    const engine = window.movementEngines?.at(-1);
+    if (!engine) return false;
+    let drawable = false;
+    const release = engine.subscribeDrawable(value => { drawable = value; }); release();
+    return drawable && engine.getRenderedAtomReferences().length > 0;
+  })).toBe(true);
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   const launcher = page.getByRole("button", { name: "Transform selection", exact: true });
   await expect(launcher).toHaveAttribute("aria-disabled", "true");
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();

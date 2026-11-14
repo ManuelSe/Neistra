@@ -46,6 +46,7 @@ for (const modeled of [false, true]) test(`bounds native ${modeled ? "authored d
     };
     const tasks: { start: number; duration: number }[] = [];
     await wait(() => h.engine.getCamera() !== null);
+    h.engine.fitVisible();
     // Qualify movement on the rendered scene, after its initial presentation.
     await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
     const observer = new PerformanceObserver(list => tasks.push(...list.getEntries().map(e => ({ start: e.startTime, duration: e.duration }))));
@@ -113,6 +114,7 @@ for (const modeled of [false, true]) test(`bounds native ${modeled ? "authored d
     }
     // Expensive surface regeneration is reported separately from coordinate restoration.
     await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings, representations: [], surface_objects: [fixtureSurface({ kind: "entry" })] } }]);
+    await h.settled();
     const selection = { schema_version: 1, atoms: ligand.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })), granularity: "atom", source: "inspector" };
     const capture = captureMovement(project, selection, new Map([[entry.id, projection]]), h.engine.getRenderedAtomReferences());
     h.engine.setMovementMode("transform");
@@ -128,6 +130,7 @@ for (const modeled of [false, true]) test(`bounds native ${modeled ? "authored d
     const restoration = h.engine.clearCoordinatePreview(entry.id);
     await canceled;
     await restoration;
+    await h.settled();
     const regenerationCompleteMs = performance.now() - started;
     const surface = { coordinateCancelMs, regenerationCompleteMs, inheritedRestored: h.inspect().inheritedSurfaces > 0 };
     h.engine.setMovementMode("inactive"); observer.disconnect(); h.dispose();

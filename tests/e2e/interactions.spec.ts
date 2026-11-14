@@ -4,7 +4,7 @@ import { writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import type { Project, NormalizedStructure } from "../../apps/web/src/api/types";
-import { prepare, native, cyanPixels } from "./support/interactions";
+import { frameFixture, prepare, native, cyanPixels } from "./support/interactions";
 
 test("compact interaction control analyzes once and filters cached scopes", async ({ page, request }, info) => {
   test.setTimeout(90_000);
@@ -45,6 +45,7 @@ test("compact interaction control analyzes once and filters cached scopes", asyn
 test("qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation", async ({ page, request }, info) => {
   test.setTimeout(150_000);
   const project = await prepare(page, request, ["tests/fixtures/interactions/hydrogen_pair.mol"], "Interaction lifecycle");
+  await frameFixture(page);
   let analyses = 0, structureGets = 0;
   page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) analyses++; if (/\/entries\/[^/]+\/structure$/.test(outgoing.url())) structureGets++; });
   const launcher = page.getByRole("button", { name: "Interactions", exact: true });

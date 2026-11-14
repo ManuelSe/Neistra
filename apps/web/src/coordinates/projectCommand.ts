@@ -3,11 +3,12 @@ import type { Project } from "../api/types";
 export interface ProjectCommand {
   readonly projectId: string;
   readonly operation: () => Promise<Project>;
+  readonly feedback?: "quiet";
 }
 
 /** Capture source ownership together with the command, before any asynchronous preflight. */
-export function captureProjectCommand(projectId: string, operation: () => Promise<Project>): ProjectCommand {
-  return Object.freeze({ projectId, operation });
+export function captureProjectCommand(projectId: string, operation: () => Promise<Project>, feedback?: "quiet"): ProjectCommand {
+  return Object.freeze({ projectId, operation, ...(feedback ? { feedback } : {}) });
 }
 
 /** The guard must run at dispatch, after any awaited mutation preflight. */

@@ -1,5 +1,30 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — Qualified stable 0.30.0 candidate
+
+Clean candidate `c8468c89472b2c67fbb70eea433bce71c3a13a5c` completes all **33 release
+steps**: **1,542 Python (zero skips), 723 frontend, 14 supervisor, 441 browser
+passes / 75 exact existing exclusions**, zero failures/flakes/retries/new exclusions.
+All 516 native identities, 791 current sources, 754 actual tagged0.29.0 sources and
+lossless log hashes verify. [Candidate summary](assets/representation-surfaces-session-camera/c6-candidate3-summary.json).
+Actual0.29.0 ↔ final0.30.0 readers pass both directions and archive suffixes, with
+deep styles/surfaces/scenes/measurements/original checks and corruption controls.
+Both implementations retain quick1.0.3/current-canonical policy. Frozen/static/
+build/production/license/version/schema/dependency, legacy CLI and disposable
+migration upgrade/downgrade/re-upgrade checks pass. Populated migration preservation
+is covered by the complete Python suite and C4 receipt.
+
+Seven specialist agents PASS the qualified code; the final documentation/evidence
+diff requires same-head reconfirmation before push, recorded in the PR receipt.
+[Local full-diff review](assets/representation-surfaces-session-camera/c6-review.md)
+is implementer self-review. Two earlier failed attempts are separate diagnostics;
+no partial command reuse qualifies this candidate. [563 curated native observations](assets/representation-surfaces-session-camera/c6-candidate3-native-observations.zip)
+verify by CRC/internal hashes; representative final screenshots were inspected.
+Exact-master qualification, normal merge/publication/issue reply and cleanup remain
+mandatory. No independent human approval, remote CI success, strict timing
+certification or universal capacity claim is made.
+
+
 ## Issue #137 — Released v0.29.0 / exact-master qualification
 
 [PR #138](https://github.com/ManuelSe/Neistra/pull/138) normally merged at

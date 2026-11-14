@@ -926,3 +926,79 @@ def test_0014_refusals_prevalidate_before_any_row_changes(
             entry = session.get(StructureEntry, "e")
             assert entry and entry.viewer_settings == current
     engine.dispose()
+
+
+@pytest.mark.parametrize("populated", [False, True])
+def test_0015_roundtrip_changes_only_installation_presentation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, populated: bool
+) -> None:
+    from neistra_api.main import create_app
+    from neistra_api.settings import Settings
+    from sqlalchemy import inspect
+
+    from tests.integration.test_archive_roundtrip import build_rich_project
+    from tests.integration.test_workspace_presentation import CAMERA, other_tables, put
+    from tests.support.api_client import ApiClient
+
+    config = migration_config(tmp_path, monkeypatch)
+    command.upgrade(config, "0014")
+    data_dir = tmp_path / "migration-data"
+    settings = Settings(data_dir=data_dir, database_url=f"sqlite:///{data_dir / 'molweave.db'}")
+    app = create_app(settings)
+    client = ApiClient(app)
+    if populated:
+        project = build_rich_project(client)
+        project = client.post(
+            f"/api/v1/projects/{project['id']}/save",
+            json={"expected_revision": project["revision"]},
+        ).json()
+        # Retain a redo branch and checkpoint as well as live settings/scenes.
+        changed = client.patch(
+            f"/api/v1/projects/{project['id']}",
+            json={"expected_revision": project["revision"], "name": "Migration edit"},
+        ).json()
+        recovered = client.post(
+            f"/api/v1/projects/{project['id']}/history/undo",
+            json={"expected_revision": changed["revision"]},
+        ).json()
+        assert recovered["history"]["can_redo"]
+
+    def snapshot() -> tuple[dict[str, Any], dict[str, bytes]]:
+        rows: dict[str, Any] = other_tables(client)
+        rows.pop("alembic_version", None)
+        # Include original and current artifact bytes, independently of row equality.
+        from neistra_api.models import Artifact
+
+        with app.state.session_factory() as session:
+            files = {
+                artifact.relative_path: (data_dir / artifact.relative_path).read_bytes()
+                for artifact in session.scalars(select(Artifact))
+            }
+        return rows, files
+
+    try:
+        before = snapshot()
+        tables = set(inspect(app.state.engine).get_table_names())
+        assert "workspace_presentations" not in tables
+        command.upgrade(config, "0015")
+        assert set(inspect(app.state.engine).get_table_names()) == tables | {
+            "workspace_presentations"
+        }
+        assert snapshot() == before
+        saved = put(client, 0)
+        assert saved.status_code == 200, saved.text
+        assert saved.json()["camera"] == CAMERA
+        assert snapshot() == before
+        command.downgrade(config, "0014")
+        assert set(inspect(app.state.engine).get_table_names()) == tables
+        assert snapshot() == before
+        command.upgrade(config, "0015")
+        assert snapshot() == before
+        assert client.get("/api/v1/workspace/presentation").json() == {
+            "schema_version": 1,
+            "revision": 0,
+            "camera": None,
+            "updated_at": None,
+        }
+    finally:
+        app.state.engine.dispose()

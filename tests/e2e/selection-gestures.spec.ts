@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import type { AtomReference, Project, StructureProjection } from "../../apps/web/src/api/types";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import { observe } from "./support/modeling";
 
 // Synthetic selection-only fixture. Record order, gaps and insertion codes are
@@ -43,6 +43,9 @@ async function setup(page: Page, request: Parameters<typeof prepare>[1]) {
   const projection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json() as StructureProjection;
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+  // Frame the authored ball-and-stick scene, including the short second chain
+  // that has no default cartoon geometry.
+  await frameFixture(page);
   await observe(page);
   await page.evaluate(async entryId => {
     const path = "/src/test/selectionGestureHarness.ts";
@@ -114,6 +117,7 @@ for (const theme of ["light", "dark"] as const) test(`expands native protein and
 test("expands a standalone SDF ligand through its individual component", async ({ page, request }) => {
   test.setTimeout(60000);
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Standalone double-click");
+  await frameFixture(page);
   const entry = project.entries[0];
   const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
   await observe(page);
@@ -260,7 +264,9 @@ test("shares fixed residue starts between native picks and Sequence with partial
   const reads: string[] = [], writes: string[] = [];
   page.on("request", r => {
     if (r.url().endsWith("/structure")) reads.push(r.url());
-    if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
+    // Installation view saves are independent of these molecular-state checks.
+    if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
+      && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
   });
   const camera = await page.evaluate(() => window.editingPicks.camera());
   const canvas = page.locator(".molstar-host canvas").first();

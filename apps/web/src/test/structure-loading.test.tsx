@@ -5,9 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ComponentProps, ReactNode } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
   AtomReference,
+  CameraState,
   CoordinatePatch,
   Project,
   Selection,
@@ -21,6 +22,12 @@ import type {
   ViewerStructure,
 } from "../viewer/MolecularViewer";
 import { componentHierarchy, viewerSettings } from "./molecular-fixtures";
+import type { SessionCamera } from "../workspacePresentation/types";
+import type { WorkspacePresentationV1 } from "../workspacePresentation/types";
+import { WorkspacePresentationController } from "../workspacePresentation/controller";
+import { useWorkspaceStore } from "../store/workspace";
+import { useEditingStore } from "../store/editing";
+import type { SurfaceStatus } from "../viewer/surface/runtime";
 
 type StructureViewerOverrides =
   | "onPickingGranularity"
@@ -159,6 +166,15 @@ function projection(entryId: string): StructureProjection {
 }
 
 class FakeViewer implements MolecularViewer {
+  sessionCamera: SessionCamera | null = null;
+  sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
+  getSessionCamera() { return this.sessionCamera; }
+  setSessionCamera(camera: SessionCamera) { this.sessionCamera = structuredClone(camera); }
+  subscribeSessionCamera(listener: (camera: SessionCamera) => void) {
+    this.sessionCameraListeners.add(listener);
+    return () => { this.sessionCameraListeners.delete(listener); };
+  }
+  subscribeDrawable(listener: (drawable: boolean) => void) { void listener; return () => {}; }
   setInteractions = vi.fn(async () => {});
   mounted = false;
   mounts = 0;
@@ -230,15 +246,15 @@ class FakeViewer implements MolecularViewer {
     return Promise.resolve();
   }
 
-  getCamera() {
+  getCamera(): CameraState | null {
     return null;
   }
 
   getMovementView() { return null; }
-  getRenderedAtomReferences() { return []; }
+  getRenderedAtomReferences(): AtomReference[] { return []; }
   setMovementMode(): void {}
 
-  setCamera(): void {}
+  setCamera(camera?: CameraState): void { void camera; }
 
   setCameraMode(): void {}
 
@@ -263,11 +279,12 @@ class FakeViewer implements MolecularViewer {
     };
   }
 
-  subscribeSurfaces(): () => void { return () => {}; }
+  subscribeSurfaces(listener?: (statuses: SurfaceStatus[]) => void): () => void { void listener; return () => {}; }
   subscribeSurfaceSelection(): () => void { return () => {}; }
   setActiveSurface(): void {}
   cancelSurface(): void {}
   retrySurface(): void {}
+  previewSurfaceAppearance(): Promise<void> { return Promise.resolve(); }
   resize(): void {}
 
   dispose(): void {
@@ -1022,4 +1039,312 @@ it("keeps loading through rendering and rejects obsolete rebuild completion and 
   expect(screen.getByRole("alert")).toHaveTextContent("Current render failed");
   expect(screen.queryByLabelText("Loading molecular structures")).not.toBeInTheDocument();
   view.unmount(); queryClient.clear();
+});
+
+const savedCamera: SessionCamera = {
+  mode: "orthographic", position: [21, -8, 47], target: [3, 4, -2],
+  up: [1, 2, 0], radius: 0.003, fov: 0.57,
+};
+const navigatedCamera: SessionCamera = {
+  mode: "perspective", position: [-14, 25, 63], target: [4, -2, 3],
+  up: [2, 1, 0], radius: 11, fov: 0.92,
+};
+const fittedCamera: SessionCamera = {
+  mode: "perspective", position: [0, 0, 18], target: [0, 0, 0],
+  up: [0, 1, 0], radius: 7, fov: 0.73,
+};
+
+function deferred<Value>() {
+  let resolve!: (value: Value) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<Value>((done, fail) => { resolve = done; reject = fail; });
+  return { promise, resolve, reject };
+}
+
+/** Emits accepted navigation separately from silent renderer restoration. */
+class CameraViewer extends FakeViewer {
+  restored: SessionCamera[] = [];
+  sceneCameras: CameraState[] = [];
+  cameraAtSync: (SessionCamera | null)[] = [];
+  rendered: AtomReference[] = [];
+  drawOnSync = true;
+  commitDrawableOnSync = true;
+  drawable = false;
+  drawableListeners = new Set<(drawable: boolean) => void>();
+  syncGate: Promise<void> | undefined;
+  surfaceListener: ((statuses: SurfaceStatus[]) => void) | undefined;
+
+  override setSessionCamera(camera: SessionCamera) {
+    super.setSessionCamera(camera);
+    this.restored.push(structuredClone(camera));
+  }
+  navigate(camera: SessionCamera) {
+    this.sessionCamera = structuredClone(camera);
+    for (const listener of this.sessionCameraListeners) listener(structuredClone(camera));
+  }
+  override getCamera(): CameraState | null {
+    const camera = this.sessionCamera;
+    return camera ? { mode: camera.mode, position: [...camera.position], target: [...camera.target],
+      up: [...camera.up], radius: camera.radius } : null;
+  }
+  override setCamera(camera?: CameraState) {
+    if (!camera) return;
+    this.sceneCameras.push(structuredClone(camera));
+    this.navigate({ ...camera, fov: this.sessionCamera?.fov ?? Math.PI / 4 });
+  }
+  override async syncStructures(structures: ViewerStructure[]) {
+    this.cameraAtSync.push(structuredClone(this.sessionCamera));
+    await super.syncStructures(structures);
+    await this.syncGate;
+    if (this.drawOnSync) {
+      this.rendered = structures.flatMap(structure => structure.atomIds.map(atom_id => ({ structure_id: structure.entryId, atom_id })));
+      if (this.commitDrawableOnSync) this.setDrawable(this.rendered.length > 0);
+    }
+  }
+  override getRenderedAtomReferences() { return this.rendered; }
+  override subscribeDrawable(listener: (drawable: boolean) => void) {
+    this.drawableListeners.add(listener); listener(this.drawable);
+    return () => { this.drawableListeners.delete(listener); };
+  }
+  setDrawable(drawable: boolean) {
+    if (this.drawable === drawable) return;
+    this.drawable = drawable;
+    for (const listener of this.drawableListeners) listener(drawable);
+  }
+  override fitVisible() {
+    super.fitVisible();
+    if (this.drawable) this.navigate(fittedCamera);
+  }
+  override subscribeSurfaces(listener?: (statuses: SurfaceStatus[]) => void) {
+    this.surfaceListener = listener;
+    return () => { if (this.surfaceListener === listener) this.surfaceListener = undefined; };
+  }
+  surfaceReady() {
+    this.setDrawable(true);
+    this.surfaceListener?.([{ entryId: "protein", surfaceId: "entry", channel: "entry",
+      label: "Receptor surface", state: "ready", message: "Ready" }]);
+  }
+}
+
+describe("shared camera component lifecycle", () => {
+  const controllers: WorkspacePresentationController[] = [];
+  const clients: QueryClient[] = [];
+
+  function controller(read: () => Promise<WorkspacePresentationV1>) {
+    const memory = new Map<string, string>();
+    const value = new WorkspacePresentationController({
+      api: { read, write: (camera, revision) => Promise.resolve({ schema_version: 1, revision: revision + 1,
+        camera, updated_at: "2026-11-14T03:00:00Z" }) },
+      storage: { getItem: key => memory.get(key) ?? null, setItem: (key, content) => { memory.set(key, content); } },
+    });
+    controllers.push(value); value.start(); return value;
+  }
+  function props(cameraPresentation: WorkspacePresentationController, fake: CameraViewer, current = project()): StructureViewerProps {
+    return { cameraPresentation, createViewer: () => fake, project: current, theme: "light",
+      selection: emptySelection, pickingGranularity: "atom", onViewerSelection: vi.fn() };
+  }
+  function mount(options: StructureViewerProps) {
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    clients.push(client);
+    return render(<StructureViewer {...options} />, { wrapper: wrapper(client) });
+  }
+  const emptyPresentation = (): Promise<WorkspacePresentationV1> => Promise.resolve({ schema_version: 1, revision: 0, camera: null, updated_at: null });
+  const savedPresentation = (): Promise<WorkspacePresentationV1> => Promise.resolve({ schema_version: 1, revision: 5,
+    camera: savedCamera, updated_at: "2026-11-14T02:00:00Z" });
+
+  beforeEach(() => {
+    useWorkspaceStore.setState({ activeProjectId: "project-1" });
+    useEditingStore.getState().setProject(null);
+    useEditingStore.getState().setProject("project-1");
+    vi.spyOn(globalThis, "fetch").mockImplementation(input => Promise.resolve(new Response(JSON.stringify(
+      projection(requestUrl(input).includes("/ligand/") ? "ligand" : "protein")),
+    { status: 200, headers: { "Content-Type": "application/json" } })));
+  });
+  afterEach(() => {
+    cleanup();
+    for (const value of controllers.splice(0)) value.stop();
+    for (const client of clients.splice(0)) client.clear();
+    useEditingStore.getState().setProject(null);
+    useWorkspaceStore.setState({ activeProjectId: null });
+    vi.restoreAllMocks();
+  });
+
+  it("seeds the complete saved pose before the first scene sync without fitting or losing FOV", async () => {
+    const camera = controller(savedPresentation); await camera.hydrate();
+    const fake = new CameraViewer(), options = props(camera, fake);
+    const view = mount(options);
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    expect(fake.cameraAtSync.every(value => JSON.stringify(value) === JSON.stringify(savedCamera))).toBe(true);
+    expect(fake.restored).toEqual([savedCamera]); expect(fake.fits).toBe(0);
+    const styled = structuredClone(options.project);
+    styled.entries[0].viewer_settings.representations[0].opacity = 0.4;
+    view.rerender(<StructureViewer {...options} project={styled} />);
+    await waitFor(() => expect(fake.syncs.at(-1)?.[0].settings.representations[0].opacity).toBe(0.4));
+    expect(fake.getSessionCamera()).toEqual(savedCamera); expect(fake.fits).toBe(0);
+    expect(camera.getSnapshot().navigationGeneration).toBe(0);
+  });
+
+  it("fits once globally and preserves later navigation across project, empty and responsive remounts", async () => {
+    const camera = controller(emptyPresentation); await camera.hydrate();
+    const first = new CameraViewer();
+    const view = mount(props(camera, first));
+    await waitFor(() => expect(first.fits).toBe(1));
+    act(() => first.navigate(navigatedCamera));
+    view.unmount();
+    const second = new CameraViewer(), other = { ...project(false, false), id: "project-2" };
+    useWorkspaceStore.setState({ activeProjectId: other.id });
+    const options = props(camera, second, other), next = mount(options);
+    await waitFor(() => expect(second.syncs.length).toBeGreaterThan(0));
+    expect(second.syncs.at(-1)).toEqual([]); expect(second.getSessionCamera()).toEqual(navigatedCamera);
+    const populated = { ...other, entries: project().entries };
+    next.rerender(<StructureViewer {...options} project={populated} />);
+    await waitFor(() => expect(second.syncs.at(-1)).toHaveLength(1));
+    expect(second.fits).toBe(0); expect(second.getSessionCamera()).toEqual(navigatedCamera);
+    next.unmount();
+    const remounted = new CameraViewer();
+    useWorkspaceStore.setState({ activeProjectId: "project-1" });
+    mount(props(camera, remounted));
+    await waitFor(() => expect(remounted.syncs.at(-1)).toHaveLength(1));
+    expect(remounted.getSessionCamera()).toEqual(navigatedCamera); expect(remounted.fits).toBe(0);
+    expect(first.fits + second.fits + remounted.fits).toBe(1);
+  });
+
+  it("keeps prehydration navigation when a delayed server pose arrives", async () => {
+    const hydration = deferred<WorkspacePresentationV1>(), camera = controller(() => hydration.promise);
+    const fake = new CameraViewer(); mount(props(camera, fake));
+    await waitFor(() => expect(fake.mounted).toBe(true));
+    expect(fake.syncs).toEqual([]);
+    act(() => fake.navigate(navigatedCamera));
+    await act(async () => { hydration.resolve(await savedPresentation()); await camera.hydrate(); });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    expect(fake.restored).toEqual([]); expect(fake.getSessionCamera()).toEqual(navigatedCamera);
+    expect(camera.getSnapshot().camera).toEqual(navigatedCamera); expect(fake.fits).toBe(0);
+  });
+
+  it("does not fit an initially held scene after newer navigation", async () => {
+    const camera = controller(emptyPresentation); await camera.hydrate();
+    const gate = deferred<void>(), fake = new CameraViewer(); fake.syncGate = gate.promise;
+    mount(props(camera, fake));
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    act(() => fake.navigate(navigatedCamera));
+    await act(async () => { gate.resolve(); await Promise.resolve(); });
+    await waitFor(() => expect(fake.rendered.length).toBeGreaterThan(0));
+    expect(fake.fits).toBe(0); expect(fake.getSessionCamera()).toEqual(navigatedCamera);
+    expect(camera.getSnapshot().camera).toEqual(navigatedCamera);
+  });
+
+  it("waits for actual surface drawing before the single pristine fit", async () => {
+    const camera = controller(emptyPresentation); await camera.hydrate();
+    const fake = new CameraViewer(); fake.drawOnSync = false;
+    const current = project(); current.entries[0].viewer_settings.representations = [];
+    current.entries[0].viewer_settings.surface_objects = [surfaceObject("entry", { kind: "entry" })];
+    mount(props(camera, fake, current));
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    await act(async () => { await Promise.resolve(); });
+    expect(fake.fits).toBe(0); expect(camera.getSnapshot().camera).toBeNull();
+    act(() => { fake.rendered = [{ structure_id: "protein", atom_id: 1 }]; fake.surfaceReady(); });
+    await waitFor(() => expect(fake.fits).toBe(1));
+    act(() => fake.surfaceReady());
+    expect(fake.fits).toBe(1); expect(camera.getSnapshot().camera).toEqual(fittedCamera);
+  });
+
+  it("does not consume the initial fit when canonical references precede native drawable bounds", async () => {
+    const camera = controller(emptyPresentation); await camera.hydrate();
+    const fake = new CameraViewer(); fake.commitDrawableOnSync = false;
+    mount(props(camera, fake));
+    await waitFor(() => expect(fake.rendered).toEqual([{ structure_id: "protein", atom_id: 1 }]));
+    await act(async () => { await Promise.resolve(); });
+    expect(fake.drawable).toBe(false); expect(fake.fits).toBe(0);
+    expect(fake.getSessionCamera()).toBeNull(); expect(camera.getSnapshot().camera).toBeNull();
+    act(() => fake.setDrawable(true));
+    await waitFor(() => expect(fake.fits).toBe(1));
+    expect(fake.getSessionCamera()).toEqual(fittedCamera); expect(camera.getSnapshot().camera).toEqual(fittedCamera);
+    act(() => { fake.setDrawable(false); fake.setDrawable(true); });
+    expect(fake.fits).toBe(1);
+  });
+
+  it("releases an uncompleted fit on project replacement and ignores the retired installation", async () => {
+    const camera = controller(emptyPresentation); await camera.hydrate();
+    const gate = deferred<void>(), retired = new CameraViewer(); retired.syncGate = gate.promise;
+    const previous = mount(props(camera, retired));
+    await waitFor(() => expect(retired.syncs.at(-1)).toHaveLength(1));
+    expect(retired.fits).toBe(0); previous.unmount();
+    const current = new CameraViewer(), other = { ...project(), id: "project-2" };
+    useWorkspaceStore.setState({ activeProjectId: other.id });
+    mount(props(camera, current, other));
+    await waitFor(() => expect(current.fits).toBe(1));
+    await act(async () => { gate.resolve(); await Promise.resolve(); });
+    expect(retired.fits).toBe(0); expect(current.fits).toBe(1);
+    expect(current.getSessionCamera()).toEqual(fittedCamera); expect(camera.getSnapshot().camera).toEqual(fittedCamera);
+  });
+
+  it.each(["navigation", "replacement"] as const)("does not apply a held named-scene camera after %s supersedes it", async replacement => {
+    const user = userEvent.setup(), camera = controller(emptyPresentation); await camera.hydrate();
+    const publication = deferred<void>(), sceneSync = deferred<void>(), fake = new CameraViewer(); fake.syncGate = sceneSync.promise;
+    const current = project();
+    current.scenes = [{ id: "scene", name: "Captured scene", camera: { mode: "perspective", position: [0, 0, 25],
+      target: [0, 0, 0], up: [0, 1, 0], radius: 10 }, entry_states: [], selection: emptySelection,
+      created_at: "2026-11-14T02:00:00Z", modified_at: "2026-11-14T02:00:00Z" }];
+    const apply = vi.fn(() => publication.promise), options = { ...props(camera, fake, current), onApplyScene: apply };
+    const view = mount(options);
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    await user.click(screen.getByRole("button", { name: "Open viewer controls" }));
+    await user.click(screen.getByRole("button", { name: "Captured scene" }));
+    expect(apply).toHaveBeenCalledOnce(); expect(camera.getSnapshot().navigationGeneration).toBe(1);
+    let live = fake;
+    if (replacement === "navigation") act(() => fake.navigate(navigatedCamera));
+    else {
+      view.unmount();
+      live = new CameraViewer();
+      const other = { ...project(), id: "project-2" };
+      useWorkspaceStore.setState({ activeProjectId: other.id });
+      mount(props(camera, live, other));
+      await waitFor(() => expect(live.syncs.at(-1)).toHaveLength(1));
+      act(() => live.navigate(navigatedCamera));
+    }
+    await act(async () => { publication.resolve(); sceneSync.resolve(); await Promise.resolve(); });
+    expect(fake.sceneCameras).toEqual([]); expect(live.sceneCameras).toEqual([]);
+    expect(live.getSessionCamera()).toEqual(navigatedCamera); expect(fake.fits + (live === fake ? 0 : live.fits)).toBe(0);
+  });
+
+  it.each([
+    { navigate: false, hydrateFirst: false }, { navigate: true, hydrateFirst: false },
+    { navigate: false, hydrateFirst: true }, { navigate: true, hydrateFirst: true },
+  ])("a failed prehydration scene reconciles saved state (newer input: $navigate, hydration first: $hydrateFirst)", async ({ navigate, hydrateFirst }) => {
+    const user = userEvent.setup(), hydration = deferred<WorkspacePresentationV1>();
+    const camera = controller(() => hydration.promise), publication = deferred<void>(), fake = new CameraViewer();
+    const current = project();
+    current.scenes = [{ id: "scene", name: "Captured scene", camera: { mode: "perspective", position: [0, 0, 25],
+      target: [0, 0, 0], up: [0, 1, 0], radius: 10 }, entry_states: [], selection: emptySelection,
+      created_at: "2026-11-14T02:00:00Z", modified_at: "2026-11-14T02:00:00Z" }];
+    const apply = vi.fn(() => publication.promise), options = { ...props(camera, fake, current), onApplyScene: apply };
+    mount(options);
+    await waitFor(() => expect(fake.mounted).toBe(true));
+    await user.click(screen.getByRole("button", { name: "Open viewer controls" }));
+    await user.click(screen.getByRole("button", { name: "Captured scene" }));
+    expect(apply).toHaveBeenCalledOnce(); expect(fake.syncs).toEqual([]);
+    if (navigate) act(() => fake.navigate(navigatedCamera));
+    const hydrate = async () => { hydration.resolve(await savedPresentation()); await camera.hydrate(); };
+    if (hydrateFirst) await act(hydrate);
+    await act(async () => { publication.reject(new Error("Scene publication failed")); await Promise.resolve(); });
+    expect(screen.getByRole("alert")).toHaveTextContent("Scene publication failed");
+    if (!hydrateFirst) await act(hydrate);
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    expect(fake.getSessionCamera()).toEqual(navigate ? navigatedCamera : savedCamera);
+    expect(camera.getSnapshot().camera).toEqual(navigate ? navigatedCamera : savedCamera);
+    expect(fake.restored).toEqual(navigate ? [] : [savedCamera]);
+    expect(fake.sceneCameras).toEqual([]); expect(fake.fits).toBe(0);
+    expect(options.onViewerSelection).not.toHaveBeenCalled();
+  });
+
+  it("keeps the saved camera when a newly created atom is selected", async () => {
+    const camera = controller(savedPresentation); await camera.hydrate();
+    const fake = new CameraViewer(), selection: Selection = { ...emptySelection,
+      atoms: [{ structure_id: "ligand", atom_id: 1 }] };
+    useEditingStore.getState().setFocusNewMolecule({ entryId: "ligand", atomId: 1, selection });
+    mount({ ...props(camera, fake, project(true, true)), selection });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
+    await waitFor(() => expect(useEditingStore.getState().focusNewMolecule).toBeNull());
+    expect(fake.focusTargets).toEqual([]); expect(fake.fits).toBe(0); expect(fake.getSessionCamera()).toEqual(savedCamera);
+  });
 });

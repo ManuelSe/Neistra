@@ -4,6 +4,7 @@ import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type { ViewerPick } from "../selection/gestures";
+import type { SessionCamera } from "../workspacePresentation/types";
 import type {
   MolecularProposalGeometry,
   AtomReference,
@@ -15,6 +16,7 @@ import type {
   SelectionGranularity,
   SelectionMode,
   StructureProjection,
+  SurfaceAppearance,
   ViewerSettings,
 } from "../api/types";
 
@@ -75,6 +77,13 @@ export interface MolecularViewer {
   setInteractions(interactions: InteractionRecord[]): Promise<void>;
   setIsolation(atoms: AtomReference[] | null): Promise<void>;
   getCamera(): CameraState | null;
+  getSessionCamera(): SessionCamera | null;
+  setSessionCamera(camera: SessionCamera): void;
+  /** Accepted navigation only; no initial/default or restoration emission. */
+  subscribeSessionCamera(listener: (camera: SessionCamera) => void): () => void;
+  subscribeSessionCameraFailure?(listener: (camera: SessionCamera) => void): () => void;
+  /** Actual committed native geometry, distinct from intended atom targets. */
+  subscribeDrawable(listener: (drawable: boolean) => void): () => void;
   getMovementView(): MovementView | null;
   getRenderedAtomReferences(): AtomReference[];
   setMovementMode(interaction: MovementInteraction): void;
@@ -88,6 +97,7 @@ export interface MolecularViewer {
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
   subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void;
   setActiveSurface(surface: SurfaceIdentity | null): void;
+  previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void>;
   cancelSurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   retrySurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   resize(): void;

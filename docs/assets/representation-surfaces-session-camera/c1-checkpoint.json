@@ -1,0 +1,91 @@
+{
+  "checkpoint": "C1",
+  "base_commit": "3d94394a425855540898a828edc10b10347ddf70",
+  "issue": 140,
+  "source_sha256": {
+    "apps/api/src/neistra_api/project_service.py": "541022ea7a91bf556511c4b8302da34d9951aa3d44ec7c191dc9371b8b39bba3",
+    "apps/api/src/neistra_api/schemas.py": "ac49fde3965bcb00ff73a881d018f9095b24475519bfbd3dece50c64fd9cf636",
+    "apps/api/src/neistra_api/selection_style_service.py": "71a0e8dfd67e44ca52399a89e6899e6afd86bd02f589882be9b679865008764c",
+    "apps/api/src/neistra_api/viewer_state.py": "24c580bd58a1bf381cfe853b9f7d58d29e2773c78df79d268a724356d2782204",
+    "apps/web/src/App.tsx": "44e2faad226f4a57bebace92758afb1a43fcc99301cd41a6f7e51fda9e9085ae",
+    "apps/web/src/api/client.ts": "b9a6799817fe5cb9d160041fef7d9b3d5f6be7cbe24ace7d33b2638c1359057f",
+    "apps/web/src/api/types.ts": "cf49d1edf39a4bc876a47aca0e785b1db63531ce711a88b2eff6aa81b5a76265",
+    "apps/web/src/components/SelectionPalette.tsx": "144c8fdabc647c969e6cef8ee5ba5fb7d8589fc123d53528fbed95bfda1bcb2c",
+    "apps/web/src/components/SelectionStyleDialog.tsx": "3718599d94688f9c4e515d1f56b79b851c9c1940153fc30fe4b849a7368c59de",
+    "apps/web/src/components/StructureViewer.tsx": "45482ddb8e724927efbf9039f57f621b91b83e9b5641dfa2ce0c5b1b5c958e41",
+    "apps/web/src/components/ViewerControls.tsx": "8b1b1f9897e6a25672671eee23d0188f8bd37fe09752b146ddd73fdb927f27a4",
+    "apps/web/src/styles.css": "18c40425a5a502a0d0cbdc66d2fce36ae546548741007dab27f23cacfdb40ee3",
+    "apps/web/src/test/representations.test.ts": "ebf73af694a72d2d6dad9950df36875d88642470a89378082596e777f9d16426",
+    "apps/web/src/test/selection-style-dialog.test.tsx": "11356d9f9d5ca45e37915aaa9360611dd2980fc790d4908b635500668537f827",
+    "apps/web/src/test/selection-style-state.test.ts": "eea159f44d6e64ac9031463f1ca6417c3c51e33dcda74e7e6eaba2a7ecddb46b",
+    "apps/web/src/test/stick-geometry.test.ts": "48fbdd3787ced725d047c004cc039df6a354d833d0ac74dc7ae4559fc9308a45",
+    "apps/web/src/viewer/MolstarEngine.ts": "73ea12d0e09efa0254acf7ac622794f488752f4fb8993c38b98c150235b03608",
+    "apps/web/src/viewer/selectionStyleEligibility.ts": "94a1e658b2cb8ae3c9d2f1fe0ce05cbb73cc5f5a4dd18f807434cca1e1b0c0cd",
+    "apps/web/src/viewer/selectionStyleState.ts": "be4552427bc1b5a24c779407333c0cab764ec913a7e0196a40bd29993b68e957",
+    "apps/web/src/viewer/settings.ts": "e9bfe7bd8e96f3686d821cf7442d5eaabcf349e9dad882c8d3384aad4be5d2cb",
+    "tests/e2e/selection-style-recovery.spec.ts": "b9fa59dd0367b863f47d021569a5f834e879608cb80c14ae53629d810452ddaa",
+    "tests/integration/test_viewer_state.py": "3e0071edc0546b505bf0a91617ab63964c5a01cb26baf0cf6015d0ac2fe4a2c6"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/uv run pytest tests/integration/test_viewer_state.py tests/unit/test_commands.py -q",
+      "passed": 27
+    },
+    {
+      "command": ".venv/bin/uv run ruff check .",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin",
+      "sources": 201,
+      "result": "PASS"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web lint && corepack pnpm --dir apps/web typecheck && corepack pnpm --dir apps/web test && corepack pnpm --dir apps/web build",
+      "frontend_passed": 520,
+      "result": "PASS",
+      "build_warning": "Existing large renderer chunk warning"
+    },
+    {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/selection-styling.spec.ts tests/e2e/selection-appearance.spec.ts tests/e2e/selection-style-recovery.spec.ts --output=/tmp/neistra140-c1-final-native",
+      "passed": 11,
+      "existing_layout_exclusions": 5,
+      "result": "PASS",
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra140-c1-e2e",
+        "NEISTRA_E2E_API_PORT": "8130",
+        "NEISTRA_E2E_WORKER_PORT": "8131",
+        "NEISTRA_E2E_WEB_PORT": "5183",
+        "cleared": [
+          "DATABASE_URL",
+          "NEISTRA_DATABASE_URL",
+          "MOLWEAVE_DATABASE_URL",
+          "NEISTRA_DATA_DIR",
+          "MOLWEAVE_DATA_DIR"
+        ]
+      }
+    }
+  ],
+  "corrections": [
+    "Explicit C-C/C-O native radius cases added after scientific review",
+    "Compact legend and sibling-launcher clearance correct palette pointer interception; no forced clicks or weakened tests",
+    "Semantic span legend markup rechecked through focused UI tests/static checks"
+  ],
+  "reviews": {
+    "scientific_theory": "PASS checkpoint only",
+    "software_architecture": "PASS checkpoint only",
+    "primary": "Complete intended diff and fixture screenshots inspected"
+  },
+  "limits": [
+    "Not a complete release gate",
+    "C2-C7 pending",
+    "All seven final feature assessments pending",
+    "No strict reference-host timing qualification"
+  ],
+  "artifacts": {
+    "c1-desktop.png": "68647cd18ead7b922371c3e61f13eaf4a07da9ac29a75ddf3c2bed116c860691",
+    "c1-mobile.png": "8fe35bf03d6d89ab360c125cae878a02fa393e7ac24dd8ba08814e1111902a79",
+    "c1-native.log.gz": "bceb2ca7c4db1611a9a457da85628d1c58fbd4ac11925de2b796431cf73a8dc9",
+    "c1-palette-overlap-failed-trace.zip": "27c38047187527db93d6baf5dd3e5903bc2e7ea1db58cef0d838b2fb1fab25d8"
+  }
+}

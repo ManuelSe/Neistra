@@ -1,3 +1,6 @@
+import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
+import type { Representation } from "molstar/lib/mol-repr/representation";
+import type { SurfaceStatus } from "../viewer/surface/runtime";
 import { Unit, type Structure } from "molstar/lib/mol-model/structure";
 import type { AtomReference, Point3D } from "../api/types";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
@@ -10,10 +13,23 @@ export async function mountInteractiveTransformHarness(target: HTMLElement, sour
   await engine.syncStructures([source]);
   const internals = engine as unknown as {
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
-    inheritedSurfaceRefs: Map<string, string[]>;
     movementCueRefs: Map<string, string>;
     updateCoordinates: (...args: unknown[]) => Promise<void>;
+    syncQueue: Promise<void>;
+    surfaces: { statuses(): SurfaceStatus[] };
   };
+  // Combined surfaces finish after molecular synchronization. Qualification waits
+  // for that actual lifecycle explicitly; coordinate callbacks stay independent.
+  const settled = async () => {
+    await internals.syncQueue;
+    const deadline = performance.now() + 120_000;
+    while (internals.surfaces.statuses().some(status => status.state === "queued" || status.state === "rendering")) {
+      if (performance.now() > deadline) throw new Error("Movement fixture surface did not settle.");
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    await internals.syncQueue;
+  };
+  await settled();
   const coordinateUpdates = new Set<() => void>();
   const updateCoordinates = internals.updateCoordinates.bind(engine);
   internals.updateCoordinates = async (...args) => {
@@ -23,7 +39,7 @@ export async function mountInteractiveTransformHarness(target: HTMLElement, sour
   const events: AtomReference[][] = [];
   const unsubscribe = engine.subscribeSelection(event => events.push(event.atoms));
   const inspect = () => ({ ...inspectInteractiveTransform(engine, source.entryId), events: [...events] });
-  return { engine, source, inspect,
+  return { engine, source, inspect, settled,
     onCoordinatesUpdated: (listener: () => void) => { coordinateUpdates.add(listener); return () => { coordinateUpdates.delete(listener); }; },
     dispose: () => { coordinateUpdates.clear(); unsubscribe(); engine.dispose(); } };
 }
@@ -32,10 +48,10 @@ export async function mountInteractiveTransformHarness(target: HTMLElement, sour
 export function inspectInteractiveTransform(engine: MolstarEngine, entryId: string) {
   const internals = engine as unknown as {
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
-    inheritedSurfaceRefs: Map<string, string[]>;
+    surfaceBindings: Map<string, { entryId: string; channel: string; representationRef?: string }>;
     movementCueRefs: Map<string, string>;
     movementInteraction: string;
-    plugin?: { canvas3d?: { attribs: { trackball: { bindings: Record<string, { triggers: unknown[] }> } } } };
+    plugin?: PluginUIContext;
   };
   const loaded = internals.loaded.get(entryId);
   const coordinates = new Map<number, Point3D>();
@@ -51,7 +67,14 @@ export function inspectInteractiveTransform(engine: MolstarEngine, entryId: stri
   }
   return {
     camera: engine.getCamera(), coordinates: [...coordinates].sort(([a], [b]) => a - b),
-    inheritedSurfaces: internals.inheritedSurfaceRefs.get(entryId)?.length ?? 0,
+    // Keep the existing report field, but observe installed combined entry
+    // representations instead of the retired unit-surface reference map.
+    inheritedSurfaces: [...internals.surfaceBindings.values()].filter(binding => {
+      if (binding.entryId !== entryId || binding.channel !== "entry" || !binding.representationRef) return false;
+      const cell = internals.plugin?.state.data.cells.get(binding.representationRef);
+      const repr = (cell?.obj?.data as { repr?: Representation.Any } | undefined)?.repr;
+      return repr?.renderObjects.some(object => object.state.visible && object.values.drawCount.ref.value > 0);
+    }).length,
     previewCues: internals.movementCueRefs.has(entryId) ? 1 : 0,
     movementActive: internals.movementInteraction !== "inactive",
     movementInteraction: internals.movementInteraction,

@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { writeFileSync } from "node:fs";
 import type { AtomReference, SelectionGranularity, StructureProjection } from "../../apps/web/src/api/types";
 import type { observeHover } from "../../apps/web/src/test/viewerHoverHarness";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import { observe } from "./support/modeling";
 
 declare global { interface Window {
@@ -56,6 +56,7 @@ for (const theme of ["light", "dark"] as const) test(`native hover matches all m
   // hover is qualified in desktop Chromium; mobile selection regressions remain.
   test.skip(info.project.name !== "chromium", "Hover requires a fine pointer; touch behavior is covered by selection regressions.");
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Hover modes");
+  await frameFixture(page);
   const entry = project.entries[0];
   const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
   const button = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
@@ -152,6 +153,7 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
   test.skip(info.project.name !== "chromium", "Fine-pointer native hover qualification.");
   test.setTimeout(120000);
   let project = await prepare(page, request, [{ name: "hover-complex.pdb", mimeType: "chemical/x-pdb", buffer: complexFixture() }], "Complex hover");
+  await frameFixture(page);
   const entry = project.entries[0];
   const configured = await request.put(`/api/v1/projects/${project.id}/entries/${entry.id}/viewer-settings`, { data: {
     expected_revision: project.revision, settings: { ...entry.viewer_settings,
@@ -202,7 +204,10 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
       if (transition === "rebuild") {
         const barrier = new Promise<void>(resolve => { window.releaseHoverRebuild = resolve; });
         native.syncQueue = native.syncQueue.then(() => barrier);
-        window.hoverTransition = engine.replaceStructure(native.structures[0]);
+        // A freshly parsed immutable frame triggers the conservative rebuild;
+        // synchronizing the identical frame now correctly retains its visuals.
+        window.hoverTransition = engine.replaceStructure({ ...native.structures[0],
+          normalized: structuredClone(native.structures[0].normalized) });
       }
       if (transition === "coordinates") window.hoverTransition = engine.applyCoordinatePatch({ entry_id: entryId,
         artifact_id: "hover-test-preview", atom_ids: [atom.id], coordinates: [atom.coordinates] }, "preview");

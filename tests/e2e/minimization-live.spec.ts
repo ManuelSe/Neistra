@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { MinimizationLive } from "../../apps/web/src/api/types";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import { configure, startAdvanced, coordinateEntries, coordinateSummary, current, panel, prepared, select, structures } from "./support/minimization";
 
 test("acknowledges an eligible unconverged native result and retains exact Undo/Redo", async ({ page, request }, info) => {
@@ -43,6 +43,7 @@ for (const wholeProtein of [false, true]) test(`renders accepted native steps fo
   test.skip(info.project.name !== "chromium", "Pinned desktop native timing; mobile controls qualified separately.");
   test.setTimeout(180000);
   const p = await prepare(page, request, [{ name: "prepared1STP.pdb", mimeType: "chemical/x-pdb", buffer: await readFile("tests/fixtures/minimization/1stp-protein-prepared.pdb") }], "Live native protein");
+  await frameFixture(page);
   const before = await structures(request, p), entry = p.entries[0];
   await page.evaluate(() => {
     const native = window.interactionEngines.at(-1)! as unknown as Record<string, (...args: unknown[]) => Promise<void>>;

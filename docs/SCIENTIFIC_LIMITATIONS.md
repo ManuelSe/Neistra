@@ -259,16 +259,21 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   polymer, or validate secondary structure.
 - Atomic and polymer styles are independent replacement channels. A selected
   atom can retain one style in each channel; applying another style replaces
-  only same-channel membership. Reset removes both selection-specific channels
-  for the target so entry-level styles become visible again. Independent
+  only same-channel membership. Reset removes its requested channel(s)
+  for the target so entry-level styles become visible again. The default resets
+  both channels. Polymer-only reset preserves atomic hiding. Independent
   entry-level surfaces are never subtracted by these replacements.
-- Thin and Thick sticks are fixed display profiles mapped to Mol* ball-and-stick
-  with different radii. “Thick” is a visual distinction, not a bond-order,
+- Thin and Thick sticks use uniform tube/cap radii of 0.22 and 0.36 Å with the
+  native sphere/bond provider. Rounded atom joints also represent isolated atoms;
+  mixed elements do not introduce physical-radius bulges. Native multiple-bond
+  subsidiary cylinders retain their smaller radii and aromatic notation.
+  “Thick” is a visual distinction, not a bond-order,
   confidence, contact, or chemical-type assertion.
-- Selection-specific layers use element coloring and full opacity. This release
-  has no selection-specific colors, opacity, labels, surfaces, presets,
-  same-channel overlays, component overrides/export, ligand designation, or
-  docking semantics. Component and hydrogen visibility plus active isolation
+- Selection-specific layers use element base coloring and full opacity. Existing
+  local uniform/carbon coloring overrides and independent surface objects remain
+  available. New local opacity/thematic controls, presets, same-channel overlays,
+  component overrides/export, ligand designation and docking semantics are not
+  added by this correction. Component and hydrogen visibility plus active isolation
   can hide assigned atoms without deleting their durable assignment.
 
 ## Selection And Spatial Queries
@@ -478,9 +483,14 @@ opacity and atom-color inheritance change presentation only. No surface charge,
 partial-charge or electrostatic-potential contract is inferred from existing atom
 fields. A focused scientific follow-up is required before offering charge colors.
 
-Worker-output/allocation bounds include additional mesh-line/isolation buffers and
-apply across identified fragment/pocket requests. They do not cap native entry
-calculations, browser memory or GPU memory. A saved object can exceed rendering
+All surface kinds now use a combined calculation across included units, rather
+than separate entry-unit shells. The fixed physical radii, 1.4 Å probe, 0.5 Å grid
+and 36 probe positions remain; grid spacing never silently coarsens. Fragment and
+pocket admission remains at most 100,000 effective atoms; whole entries admit
+fewer than 250,000. The normalized-parent ≥250,000 reduced-detail rule still
+applies before extraction. Worker-output/allocation bounds include display
+ownership and mesh-line/isolation buffers across every kind. They do not cap total
+browser memory or GPU memory. A saved object can exceed rendering
 limits; status retains and explains it. Hiding/removing it releases runtime work.
 
 

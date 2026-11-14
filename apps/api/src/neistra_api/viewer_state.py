@@ -89,16 +89,22 @@ def update_selection_representations(
     *,
     action: str,
     style: str | None = None,
+    channel: str = "all",
 ) -> list[dict[str, Any]]:
     """Apply deterministic replacement-channel algebra to one entry."""
     if not atom_ids:
         raise ValueError("Selection representation target must not be empty")
+    if channel not in {"atomic", "polymer", "all"} or (action != "reset" and channel != "all"):
+        raise ValueError("Channel is only supported for scoped representation resets")
     target_channel = selection_style_channel(style) if style is not None else None
     result: dict[str, set[int]] = {
         str(item["style"]): {int(atom_id) for atom_id in item["atom_ids"]} for item in assignments
     }
     for existing_style, existing_ids in result.items():
-        if action == "reset" or selection_style_channel(existing_style) == target_channel:
+        existing_channel = selection_style_channel(existing_style)
+        if (action == "reset" and channel in {"all", existing_channel}) or (
+            action == "apply" and existing_channel == target_channel
+        ):
             existing_ids.difference_update(atom_ids)
     if action == "apply":
         if style is None:

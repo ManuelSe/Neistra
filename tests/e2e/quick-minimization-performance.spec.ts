@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { QuickTiming } from "../../apps/web/src/test/quickMinimizationHarness";
 import type { Job, QuickMinimizationProposal } from "../../apps/web/src/api/types";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import { coordinateEntries, coordinateSummary, current, panel } from "./support/minimization";
 
 declare global { interface Window { quickPublicationTiming: Promise<QuickTiming> } }
@@ -22,6 +22,7 @@ for (const copies of [0, 1, 8]) test(`bounds cold quick publication for ${copies
     fixtures.push({ name: "biotin.mol", mimeType: "chemical/x-mdl-molfile", buffer: await readFile("tests/fixtures/minimization/1stp-biotin-prepared.mol") });
   }
   const p = await prepare(page, request, fixtures, `Cold quick ${copies}`);
+  await frameFixture(page);
   const ligand = p.entries.find(e => e.structure_type === "ligand")!;
   expect(ligand).toBeDefined();
   await page.getByRole("tab", { name: "selection", exact: true }).click();
@@ -76,6 +77,7 @@ test("renders genuine quick steps and clears native preview within500ms on Cance
   test.skip(info.project.name !== "chromium", "Pinned desktop native timing; mobile controls are independently exercised.");
   test.setTimeout(120000);
   const p = await prepare(page, request, ["tests/fixtures/minimization/long-alkane.mol"], "Live quick");
+  await frameFixture(page);
   const entry = p.entries[0];
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");

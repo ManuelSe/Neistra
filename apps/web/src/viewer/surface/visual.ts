@@ -8,17 +8,19 @@ import type { Lines } from "molstar/lib/mol-geo/geometry/lines/lines";
 import { ComplexRepresentation, StructureRepresentationProvider } from "molstar/lib/mol-repr/structure/representation";
 import { ElementIterator, getSerialElementLoci, eachSerialElement } from "molstar/lib/mol-repr/structure/visual/util/element";
 import type { SurfaceGeometry, SurfaceInput } from "./protocol";
-import { SURFACE_LIMITS, SURFACE_PROFILE } from "./protocol";
+import { SURFACE_PROFILE, validateSurfaceAtomCount, type SurfaceChannel } from "./protocol";
+import { checkMeshAllocation, checkWorkingAllocation } from "./allocation";
 
 const geometryByStructure = new WeakMap<Structure, SurfaceGeometry>();
 const wireframeByStructure = new WeakMap<Structure, Lines>();
+const validatedDisplayGeometry = new WeakMap<SurfaceGeometry, { structure: Structure; sourceAtomIds: readonly number[] }>();
 const params = { ...ComplexMeshParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity) };
 
-export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[]): SurfaceInput {
-  if (!structure.elementCount || structure.elementCount > SURFACE_LIMITS.atoms) {
-    throw new Error("Surface requires 1–100,000 atoms.");
-  }
+export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[], kind: SurfaceChannel = "fragment"): SurfaceInput {
+  validateSurfaceAtomCount(kind, structure.elementCount);
   const n = structure.elementCount;
+  // Native-order inputs, sort indices and canonical-order output coexist.
+  checkWorkingAllocation(n * (32 * 2 + 4));
   const atomIds = new Uint32Array(n), x = new Float64Array(n), y = new Float64Array(n),
     z = new Float64Array(n), radii = new Float32Array(n);
   let offset = 0;
@@ -34,7 +36,79 @@ export function surfaceInput(structure: Structure, sourceAtomIds: readonly numbe
       radii[offset++] = getPhysicalRadius(unit, element);
     }
   }
-  return { atomIds, x, y, z, radii };
+  const order = Uint32Array.from({ length: n }, (_, i) => i);
+  order.sort((a, b) => atomIds[a] - atomIds[b]);
+  const canonical: SurfaceInput = { kind, atomIds: new Uint32Array(n), x: new Float64Array(n),
+    y: new Float64Array(n), z: new Float64Array(n), radii: new Float32Array(n) };
+  for (let i = 0; i < n; i++) {
+    const serial = order[i], id = atomIds[serial];
+    if (i > 0 && id === canonical.atomIds[i - 1]) throw new Error("Surface atom identity is duplicated.");
+    canonical.atomIds[i] = id;
+    canonical.x[i] = x[serial]; canonical.y[i] = y[serial]; canonical.z[i] = z[serial];
+    canonical.radii[i] = radii[serial];
+  }
+  return canonical;
+}
+
+function canonicalIndex(ids: Uint32Array, id: number): number {
+  let low = 0, high = ids.length - 1;
+  while (low <= high) {
+    const mid = (low + high) >>> 1, value = ids[mid];
+    if (value === id) return mid;
+    if (value < id) low = mid + 1; else high = mid - 1;
+  }
+  throw new Error("Surface component membership changed.");
+}
+
+/** Map cached canonical ownership into the disposable component's native iterator. */
+export async function surfaceDisplayGeometry(structure: Structure, sourceAtomIds: readonly number[],
+  canonical: SurfaceGeometry, signal: AbortSignal, reserve: (bytes: number) => void,
+): Promise<{ geometry: SurfaceGeometry; displayBytes: number }> {
+  signal.throwIfAborted();
+  const n = canonical.atomIds.length;
+  if (structure.elementCount !== n || canonical.vertices.length % 3 !== 0
+    || canonical.normals.length !== canonical.vertices.length || canonical.groups.length !== canonical.vertices.length / 3
+    || canonical.indices.length % 3 !== 0
+    || canonical.atomIds.some((id, i) => id === 0 || (i > 0 && id <= canonical.atomIds[i - 1]))) {
+    throw new Error("Invalid canonical surface ownership.");
+  }
+  const displayBytes = checkMeshAllocation(canonical.groups.byteLength + n * 4);
+  // A pocket's isolated index copy can coexist with its cached calculation.
+  const workingBytes = checkWorkingAllocation(canonical.evidence.meshBytes + canonical.indices.byteLength + displayBytes + n * 5);
+  reserve(displayBytes);
+  const atomIds = new Uint32Array(n), canonicalToSerial = new Uint32Array(n), seen = new Uint8Array(n);
+  let serial = 0;
+  for (const unit of structure.units) {
+    if (!Unit.isAtomic(unit)) throw new Error("Surface display requires explicit atoms.");
+    for (let local = 0; local < unit.elements.length; local++) {
+      const element = unit.elements[local];
+      if (serial % 4096 === 0) {
+        if (serial) await new Promise<void>(resolve => setTimeout(resolve, 0));
+        signal.throwIfAborted();
+      }
+      const id = sourceAtomIds[unit.model.atomicHierarchy.atomSourceIndex.value(element)];
+      if (!Number.isSafeInteger(id) || id < 1 || id > 0xffffffff) throw new Error("Surface atom identity could not be resolved.");
+      const index = canonicalIndex(canonical.atomIds, id);
+      if (seen[index]) throw new Error("Surface display atom identity is duplicated.");
+      seen[index] = 1; atomIds[serial] = id; canonicalToSerial[index] = serial++;
+    }
+  }
+  if (serial !== n || seen.some(value => value !== 1)) throw new Error("Surface component membership changed.");
+  const groups = new Float32Array(canonical.groups.length);
+  for (let i = 0; i < groups.length; i++) {
+    if (i % 16384 === 0) {
+      if (i) await new Promise<void>(resolve => setTimeout(resolve, 0));
+      signal.throwIfAborted();
+    }
+    const group = canonical.groups[i];
+    if (!Number.isInteger(group) || group < 0 || group >= n) throw new Error("Invalid surface owner group.");
+    groups[i] = canonicalToSerial[group];
+  }
+  signal.throwIfAborted();
+  const geometry = { ...canonical, atomIds, groups,
+    evidence: { ...canonical.evidence, workingBoundBytes: Math.max(canonical.evidence.workingBoundBytes, workingBytes) } };
+  validatedDisplayGeometry.set(geometry, { structure, sourceAtomIds });
+  return { geometry, displayBytes };
 }
 
 export function detachSurfaceGeometry(structure: Structure) { geometryByStructure.delete(structure); wireframeByStructure.delete(structure); }
@@ -45,7 +119,21 @@ export function attachSurfaceWireframe(structure: Structure, lines: Lines) {
 }
 
 export function attachSurfaceGeometry(structure: Structure, geometry: SurfaceGeometry) {
-  if (structure.elementCount !== geometry.atomIds.length) throw new Error("Surface component membership changed.");
+  const binding = validatedDisplayGeometry.get(geometry);
+  if (binding?.structure !== structure || structure.elementCount !== geometry.atomIds.length) {
+    throw new Error("Surface display ownership must be validated for this component.");
+  }
+  let serial = 0;
+  for (const unit of structure.units) {
+    if (!Unit.isAtomic(unit)) throw new Error("Surface display requires explicit atoms.");
+    for (let local = 0; local < unit.elements.length; local++) {
+      const element = unit.elements[local];
+      if (geometry.atomIds[serial++] !== binding.sourceAtomIds[unit.model.atomicHierarchy.atomSourceIndex.value(element)]) {
+        throw new Error("Surface component membership changed.");
+      }
+    }
+  }
+  if (geometry.groups.some(group => !Number.isInteger(group) || group < 0 || group >= serial)) throw new Error("Invalid surface owner group.");
   wireframeByStructure.delete(structure);
   geometryByStructure.set(structure, geometry);
 }

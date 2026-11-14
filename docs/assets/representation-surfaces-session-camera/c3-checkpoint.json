@@ -1,0 +1,639 @@
+{
+  "checkpoint": "C3",
+  "date": "2026-11-14",
+  "issue": 140,
+  "base_commit": "aeb38b087a0e5b848a4aba7bdee214b1e88113c2",
+  "source_sha256": {
+    "apps/web/src/App.tsx": "34f329f0e8311ee15b23016a24cc7f6c9b95494de70de39a2f258ac482e78f86",
+    "apps/web/src/api/types.ts": "05d9a1bdf0a8e9bd18265148af36c5292aad922562b3a775f49b9eb1926a548e",
+    "apps/web/src/components/SelectionStyleDialog.tsx": "16b30cc0cb860937d4c3010edd45370d070ebfef70d6d6eb8b0b0442f0aca835",
+    "apps/web/src/components/StructureViewer.tsx": "c2b0aa607f6feab7fefe81b908c53a9befcbd3afcdb8c28a754a7f0929fb24e3",
+    "apps/web/src/components/SurfaceCreateForm.tsx": "0426a6a181003ed7d73184ab85cdf2a783cc42c0ada38306da35638b7b7a3364",
+    "apps/web/src/components/SurfaceEditor.tsx": "ce96840701378790ac1068fd7264494e0659fde4c9c8cb4fbcd9b32036a2685d",
+    "apps/web/src/components/SurfaceHelp.tsx": "6ebb3d52e23c9643fff1c8f3beda1c4276613eb973c9a8a5cc8729e769826b58",
+    "apps/web/src/components/SurfaceManager.tsx": "b217e879fc468d87f9731ba76e59327515b45785ba8de71a53199cd4595e3093",
+    "apps/web/src/components/WorkspaceCanvas.tsx": "ba49f13d75ea4478a9a97a99b75a524656831e944ea378b18fb1d91bc200130d",
+    "apps/web/src/coordinates/projectCommand.ts": "d31ae509575bdc29b7a00f9dce53cbecc07fe3d1e6a0d670aeea3145ea562035",
+    "apps/web/src/styles.css": "508b203110adef4cd1009b5b1a6de49e125c47268777b39fdb9fc6a20ef290c8",
+    "apps/web/src/surfaces/createdSurfaces.ts": "aa0137d4e43926ad05b5636b3b9d381c3e796f42aa37ede696ef872d860a76a8",
+    "apps/web/src/surfaces/surfaceManagerSession.ts": "55b41177815feaa7f83797d5cdd27c27f4e741b6ee29ee03f2e57f79fd1175bd",
+    "apps/web/src/surfaces/surfacePreviewBinding.ts": "312f3aa36b53710419dd3129610a7154b15dbc7b6c7ac5bd76262ec81f778e46",
+    "apps/web/src/test/created-surfaces.test.ts": "d3099ace1c0cd5635120ba12e0b09224301155ed97356bed3997f6cafcbc8d09",
+    "apps/web/src/test/project-command.test.ts": "18ba8e46a4d7ade80b9d8081e626b285b6a60a10aea91c7ca7a716693da059cf",
+    "apps/web/src/test/selection-style-dialog.test.tsx": "0eadb0a72c684d0763c38b212fa1140a3a2301febe5dad29051829d6f832a32e",
+    "apps/web/src/test/selection-surface-runtime.test.ts": "d673c97b47e626eca0e06257757d273007fc30c66623574835c8885227e61705",
+    "apps/web/src/test/structure-loading.test.tsx": "52c4eeaae59a739a60914756b8076e902bc17b9f5dc9d4d84e4a28ee953d8863",
+    "apps/web/src/test/surface-create-form.test.tsx": "c6da3c3f4a95d6ee2c99569e720dfbe25e0eeb18f1a6cba6b6f89a34af80b173",
+    "apps/web/src/test/surface-editor.test.tsx": "a42b681ac00aa18658a5ab9e02993d2e4698158c4c7729bc6e519b9dfb8a9639",
+    "apps/web/src/test/surface-manager-session.test.ts": "bf01eb0530eda6609bb195ad9e996d037195ef307e7afdd80a83a58a186bc48d",
+    "apps/web/src/test/surface-manager.test.tsx": "086a6266456261564c85d03a351e0d69f2c2197193399d86fa72426daec8ffb5",
+    "apps/web/src/test/surface-objects.test.ts": "ba35d016a098f0c09239d0ebeb08ad48b865da62a9f8824f11a4b84ddf402776",
+    "apps/web/src/test/surface-preview-binding.test.ts": "cc1440efa451a1d67d2d46cad55f9c6d09f4b98fe9b9e91e5a80bf857099f88d",
+    "apps/web/src/test/surface-reconciliation.test.ts": "fc18e23db2bf007e9856248e40bbe8f10442ee2e25694972a8cc3be150ba6305",
+    "apps/web/src/test/surface-viewer-reconciliation.test.ts": "b49d5f6a0241c9970521da51f3959a995de8cc2ff835c6a396ef9058ca85c9fa",
+    "apps/web/src/test/surfaceObjectsHarness.ts": "3ea7ee2208784f633a938cd9e461c4557585e5aacdff8875f16512d08a92230d",
+    "apps/web/src/test/viewer-adapter.test.ts": "3e03d648086e12715ae841acb91ed55d7e8288a52adce720c7fd7f77e0a3141e",
+    "apps/web/src/test/viewer-hover.test.ts": "0cba1d92dfd657f2226b9dd05ac79eb785286cb532b1209d4506d4933c4e7e57",
+    "apps/web/src/viewer/MolecularViewer.ts": "be6374351982708093650155f40ebdafdfa5209cc70b0ecae1aa8bb6679e9e86",
+    "apps/web/src/viewer/MolstarEngine.ts": "e93c32b1164b033ad10e44c971678b139010454909e38fec94fe683a7a46909c",
+    "apps/web/src/viewer/MolstarViewer.ts": "641e4bb9e6ec8e784530a1711b3b46417b573767c0fcef3d7e73f273682a6b1d",
+    "apps/web/src/viewer/hover.ts": "d4fa80239fb2330c31730762d40e30a1fe632912fb28bb67bd0cdd0a36be1849",
+    "apps/web/src/viewer/surface/objects.ts": "65ace971fccf32eeeadcc68d42996ef3cc5eec3bc0f4be50b288c4209d628dbb",
+    "apps/web/src/viewer/surface/runtime.ts": "05971f4927d24af62229da32a128c5174c97929b52e8a90143d6f9187e3b051b",
+    "apps/web/src/viewer/surfaceReconciliation.ts": "65947356ec657849076325f7db74c47a56fac38ad8df2e84c6021bd3b19d1c56",
+    "tests/e2e/entry-surfaces.spec.ts": "02fa614fad46247336dfd2d79a3cbec031fcb6fc616a40ebf75a203050316d55",
+    "tests/e2e/pocket-surfaces.spec.ts": "573c3accab43e638c0409ba9f0429c00b08f3f5e66be3dc68716fecc6a55e442",
+    "tests/e2e/rebranding-zoom.spec.ts": "6cc4f79666396f918779bbd770b0421f373b7949c36880f61f35e85060e5d61b",
+    "tests/e2e/selection-surfaces.spec.ts": "4e8fa51b5a6cfe1c6c0fdac16e22509fed6007bd47fa6de6d2b298cbd19d5274",
+    "tests/e2e/surface-objects.spec.ts": "52cf7f9058877c935a36d04597f7d9ece4f7ff5bdffe7cde40c0529125e9f565",
+    "tests/e2e/surface-workflow.spec.ts": "3261c8023805280c32dbf22f9607150073e7759031e50c004ee51aaef0e65dac"
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "frontend_tests": 601,
+      "files": 80,
+      "commands": [
+        "corepack pnpm --dir apps/web lint",
+        "corepack pnpm --dir apps/web typecheck",
+        "corepack pnpm --dir apps/web test",
+        "corepack pnpm --dir apps/web build"
+      ],
+      "logs_prefix": "c3-final3-",
+      "warning": "Existing renderer chunk-size warning"
+    },
+    {
+      "result": "PASS (unaffected evidence reused)",
+      "backend_surface_cases": 57,
+      "receipt": "c2-checkpoint.json",
+      "reason": "C3 changes no Python/API schema/commands or molecular calculation"
+    },
+    {
+      "result": "PASS",
+      "new_native_types_lint": "entry-surfaces.spec.ts and surface-workflow.spec.ts",
+      "logs": [
+        "c3-native-types2.log.gz",
+        "c3-native-lint2.log.gz"
+      ],
+      "limitation": "Pre-existing extra strict native-test audit outside configured frontend gate remains C5 consolidation work."
+    },
+    {
+      "result": "PASS across all unique applicable cases after corrections",
+      "unique_passed": 50,
+      "unchanged_exclusions": 10,
+      "passed_identities": [
+        [
+          "chromium",
+          "tests/e2e/entry-surfaces.spec.ts",
+          "renders a 100001-atom whole-entry surface with the fixed profile and bounded worker resources"
+        ],
+        [
+          "chromium",
+          "tests/e2e/entry-surfaces.spec.ts",
+          "whole-entry surfaces combine contacting units and match a complete captured fragment"
+        ],
+        [
+          "chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "invalidates native pockets for hidden seed and receptor preview, cancel and commit"
+        ],
+        [
+          "chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb"
+        ],
+        [
+          "chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb"
+        ],
+        [
+          "chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif"
+        ],
+        [
+          "chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "saves pockets through the compact panel and restores hidden seed inputs"
+        ],
+        [
+          "chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps actions and dialogs reachable at real 100% and 200% browser zoom"
+        ],
+        [
+          "chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps expanded protein residues selectable at actual 100% and 200% browser zoom"
+        ],
+        [
+          "chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps shell and inspector controls bounded around both responsive breakpoints"
+        ],
+        [
+          "chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps the molecular editor keyboard controls reachable at actual browser zoom"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "expands from styling across hidden entries without durable changes"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "integrated selection appearance is durable and accessible in dark"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "integrated selection appearance is durable and accessible in light"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "remembers coloring mode across panels and projects until reload"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-style-recovery.spec.ts",
+          "explicit residue recovery and channel resets preserve their independent settings through reload"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "keeps ion, water, and covalent-boundary targets exact"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "styles a 1STP complex without changing scientific or transient state"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "adds and removes saved surfaces from the compact palette with reload and undo"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production 1STP surface response and partial-fragment boundaries"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production surface lifecycle for formats/ethanol.mol"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol"
+        ],
+        [
+          "chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies worker geometry, real element colors, picking and cancellation"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "manages production object appearance and explicit sources independently through reload and undo"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "native same-entry surface objects have independent identity, colors, mesh and whole-object activation"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-workflow.spec.ts",
+          "creates exact multi-entry objects and retains captured source drafts through viewer remounts"
+        ],
+        [
+          "chromium",
+          "tests/e2e/surface-workflow.spec.ts",
+          "rebinds inactive saving and uncertain appearance previews after responsive remounts"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/entry-surfaces.spec.ts",
+          "renders a 100001-atom whole-entry surface with the fixed profile and bounded worker resources"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/entry-surfaces.spec.ts",
+          "whole-entry surfaces combine contacting units and match a complete captured fragment"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "invalidates native pockets for hidden seed and receptor preview, cancel and commit"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/pocket-surfaces.spec.ts",
+          "saves pockets through the compact panel and restores hidden seed inputs"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "integrated selection appearance is durable and accessible in dark"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "integrated selection appearance is durable and accessible in light"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-style-recovery.spec.ts",
+          "explicit residue recovery and channel resets preserve their independent settings through reload"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production 1STP surface response and partial-fragment boundaries"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production surface lifecycle for formats/ethanol.mol"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "qualifies worker geometry, real element colors, picking and cancellation"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "manages production object appearance and explicit sources independently through reload and undo"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-objects.spec.ts",
+          "native same-entry surface objects have independent identity, colors, mesh and whole-object activation"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-workflow.spec.ts",
+          "creates exact multi-entry objects and retains captured source drafts through viewer remounts"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/surface-workflow.spec.ts",
+          "rebinds inactive saving and uncertain appearance previews after responsive remounts"
+        ]
+      ],
+      "excluded_identities": [
+        [
+          "chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps actions and dialogs reachable at real 100% and 200% browser zoom"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps expanded protein residues selectable at actual 100% and 200% browser zoom"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps shell and inspector controls bounded around both responsive breakpoints"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/rebranding-zoom.spec.ts",
+          "keeps the molecular editor keyboard controls reachable at actual browser zoom"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "expands from styling across hidden entries without durable changes"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-appearance.spec.ts",
+          "remembers coloring mode across panels and projects until reload"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "keeps ion, water, and covalent-boundary targets exact"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-styling.spec.ts",
+          "styles a 1STP complex without changing scientific or transient state"
+        ],
+        [
+          "mobile-chromium",
+          "tests/e2e/selection-surfaces.spec.ts",
+          "adds and removes saved surfaces from the compact palette with reload and undo"
+        ]
+      ],
+      "runs": [
+        {
+          "run": "final-browser3",
+          "reused_passes": 23,
+          "existing_exclusions": 1,
+          "failed_diagnostic": 1,
+          "not_run": 35
+        },
+        {
+          "run": "final-browser7",
+          "reused_passes": 2,
+          "failed_diagnostic": 1,
+          "not_run": 3
+        },
+        {
+          "run": "final-browser8",
+          "passed": 4
+        },
+        {
+          "run": "final-mobile1",
+          "passed": 21,
+          "existing_exclusions": 9
+        }
+      ],
+      "reuse": "Final application sources were frozen for all four runs. Later changes only migrate the standalone native harness to real production ownership/explicit framing and correct accessibility test disclosure/Escape semantics. Those affected cases were rerun; unchanged geometry and styling cases retain valid evidence."
+    }
+  ],
+  "native_evidence": {
+    "file": "c3-native-evidence.json.gz",
+    "uncompressed_sha256": "a87a45f82eb1db3bd80ae5fe58bc1c0101c23ef760fbeda707ab0a4ca605b843",
+    "files": 32,
+    "uncompressed_bytes": 2289069
+  },
+  "lossless_logs": {
+    "c3-build.log.gz": {
+      "sha256": "a3145d85e94523494daa74149dce58ff8ec79af9688c3c1aa6b43febf8830f07",
+      "bytes": 1243
+    },
+    "c3-desktop-remainder2.log.gz": {
+      "sha256": "e81d5f8a40241dc4a2f922b8aa065375b9c4a173c621dfcb6ed92a4e29cc70f7",
+      "bytes": 8411
+    },
+    "c3-discovery.log.gz": {
+      "sha256": "4302bf651a477d211fd40757166458e305b982bcd3b9419df737b8edc156bffd",
+      "bytes": 5327
+    },
+    "c3-entry-discovery.log.gz": {
+      "sha256": "8dfadb43f9138f4a10af001bf546b9acd06a785e83f53f9ac09ae9e988316287",
+      "bytes": 610
+    },
+    "c3-entry-types.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c3-final-browser3.log.gz": {
+      "sha256": "18af67cb03bcda03aaf43335e7acbac111d9e5757afa817f8f5d4c85bedb2da7",
+      "bytes": 12319
+    },
+    "c3-final-browser4.log.gz": {
+      "sha256": "e2f4777cf54037f90e7dcd3fbd04cea5546a182a8a3557962a495f260d818999",
+      "bytes": 6160
+    },
+    "c3-final-browser5.log.gz": {
+      "sha256": "b3c5e501e4939b66bd10af46508282cc35ec769e4e633dfac27da91c2374feee",
+      "bytes": 7203
+    },
+    "c3-final-browser6.log.gz": {
+      "sha256": "c27d64815f87b4ac1a4845161b5b1e224e2e1f0bbed3d52eebd33396e99a578f",
+      "bytes": 6604
+    },
+    "c3-final-browser7.log.gz": {
+      "sha256": "c62aecc66b9756edfe915722e6c8d09a44c720cc21863f05aacc15ccdccf9ae4",
+      "bytes": 6917
+    },
+    "c3-final-browser8.log.gz": {
+      "sha256": "9762caaec49dbd1bbb84fc9fb4023a4fccac2952292c4c54c1dbf70483ce9e17",
+      "bytes": 3899
+    },
+    "c3-final-build.log.gz": {
+      "sha256": "a287a9bd32bc4c970b7c6b72d043383d3a94485c4653104923d815bc7419cdeb",
+      "bytes": 1243
+    },
+    "c3-final-frontend.log.gz": {
+      "sha256": "8deb82337d909262d2e8669ab87f2ef1f0e5c4bef29e399ef850d4302138cffc",
+      "bytes": 8309
+    },
+    "c3-final-lint.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c3-final-mobile1.log.gz": {
+      "sha256": "62ff88bc6377997587c2195ba023cf27ab197d31eb135ee2455733e887e61504",
+      "bytes": 8126
+    },
+    "c3-final-types.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c3-final2-build.log.gz": {
+      "sha256": "73b27cec8cd29ac1e55041993117b02190181e6df8f1ffd64cf5bd1cdd4af525",
+      "bytes": 1243
+    },
+    "c3-final2-frontend.log.gz": {
+      "sha256": "cf02bff5cc8f63104930cc308799ab70e3c882effbc0eb4ffd747fa70e29afdc",
+      "bytes": 8867
+    },
+    "c3-final2-lint.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c3-final2-types.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c3-final3-build.log.gz": {
+      "sha256": "9e51ece8c2470803299a90298d4dda8b7b69ba20853e65f9facdead5ec039c23",
+      "bytes": 1243
+    },
+    "c3-final3-frontend.log.gz": {
+      "sha256": "22e4de7e96e6af0bd92dd520241591b42d2ab770178ac4746db1114473b2280b",
+      "bytes": 10507
+    },
+    "c3-final3-lint.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c3-final3-types.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c3-frontend.log.gz": {
+      "sha256": "dbb76d8129fcb0de71af32b397b0e2588b0af46c09cf9c383451ea89de52b89c",
+      "bytes": 8524
+    },
+    "c3-lint.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c3-native-lint.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c3-native-lint2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c3-native-remainder1.log.gz": {
+      "sha256": "f3a57a29a54566504989ad3b9f459606c8b5804591f1860c8477aa284d2c6770",
+      "bytes": 7308
+    },
+    "c3-native-types.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c3-native-types2.log.gz": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "c3-qualified-build.log.gz": {
+      "sha256": "36f4357b2fd02b9eb857389ce5dafd70661abdc7f1db76322426335afbf30c35",
+      "bytes": 1243
+    },
+    "c3-qualified-frontend.log.gz": {
+      "sha256": "798791a2cc2e44db9317e5c71a00ce0b1bf4a1f8d27df760655d8283d31175bd",
+      "bytes": 9569
+    },
+    "c3-qualified-lint.log.gz": {
+      "sha256": "15e5be977f9d36088e683ea2c1eafd7ba45445006ea1dc33e18b64f84e8e242b",
+      "bytes": 88
+    },
+    "c3-qualified-types.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c3-rebinding.log.gz": {
+      "sha256": "9e29f6ecb9aeca8231f65d554653f53be7ddcf08b106ab26751d1e91602c39ea",
+      "bytes": 353
+    },
+    "c3-root-focused.log.gz": {
+      "sha256": "927919411f1f1c7ecbf404644c46df93ad0a46100f79343499805e52bb66d40c",
+      "bytes": 405
+    },
+    "c3-types.log.gz": {
+      "sha256": "ea3eee7911086d8f703aca9de83d8e25362d5fa6d729bd72d7fb62e29a4eb7b7",
+      "bytes": 89
+    },
+    "c3-ui-corrected1.log.gz": {
+      "sha256": "71735d3d4d8c721c241bf98661906d8c138bfb57ce763e0ceddd453ea5d22f2d",
+      "bytes": 6682
+    },
+    "c3-ui-corrected2.log.gz": {
+      "sha256": "2f7fa0ddaa4ad133f3b69e255f49e73db31ae7a70bc9f98109d25f6102b09170",
+      "bytes": 6781
+    },
+    "c3-ui-corrected3.log.gz": {
+      "sha256": "184a0e3f4d4a5c10fc1fe17744b6a894f0bbee34785707bc0bb2d16686a35440",
+      "bytes": 6920
+    },
+    "c3-ui-first.log.gz": {
+      "sha256": "44a1bae5cbd08f21c530659bc0f3d25ff5e04b054c8915b3f3e3c63e5bdf4beb",
+      "bytes": 6942
+    },
+    "c3-workflow-final1.log.gz": {
+      "sha256": "e558effdffa1a9cc8c2f7eca87f7afb0a4feb62d3df978089ac5e2d930858046",
+      "bytes": 4243
+    }
+  },
+  "corrections": [
+    "Escape cancels the active appearance gesture before dialog dismissal; trailing inputs cannot republish cancelled values.",
+    "CSS specificity preserves 44px creation/coarse controls and compact desktop rows.",
+    "Replacement viewers replay current tokenized saving/uncertain previews after canonical installation; shader alpha is verified.",
+    "Only actual eligible translucent meshes lower picking threshold; opaque fallback lines remain independently selectable.",
+    "Retired/hidden/removed surface hits cannot activate or fall through to molecular selection.",
+    "Standalone native harness now uses real production definitions/bindings and explicit initial framing; no production picking guard or camera equality assertion was weakened.",
+    "Accessibility qualification opens disclosures before scrolling their controls and verifies first-Escape cancellation plus second-Escape dismissal."
+  ],
+  "work_evidence": [
+    "Appearance/rename/mode preserve molecular load counts and field counts; object removal/recreation retires only affected geometry.",
+    "Actual 100001-atom entries retain geometry/representation identity and accounted bytes through appearance changes in both layouts.",
+    "Three completed appearance gestures produce three revisions and Undo steps; cancelled gesture produces none.",
+    "Exact multi-entry result identities, hidden-owner Whole-entry chooser, sixteen-object keyboard access, actual 100/200 percent browser zoom, light/dark/narrow layouts, uncertain publication recovery and remount shader values verified."
+  ],
+  "environment": {
+    "ports": [
+      8140,
+      8141,
+      5184
+    ],
+    "disposable_data_roots": [
+      "/tmp/neistra140-c3-final-browser3",
+      "/tmp/neistra140-c3-final-browser7",
+      "/tmp/neistra140-c3-final-browser8",
+      "/tmp/neistra140-c3-final-mobile1"
+    ],
+    "cleared": [
+      "DATABASE_URL",
+      "NEISTRA_DATABASE_URL",
+      "MOLWEAVE_DATABASE_URL",
+      "NEISTRA_DATA_DIR",
+      "MOLWEAVE_DATA_DIR"
+    ],
+    "performance": "Portable correctness/resource qualification; frontend validation overlapped initial mobile cases. No strict-host timing or universal latency claim."
+  },
+  "reviews": {
+    "checkpoint": "Architecture, UX and scientific-theory checkpoint assessments passed; UI/performance authors supplied focused validation. These do not substitute for all-seven final-candidate assessment."
+  },
+  "known_limitations": [
+    "C4 shared camera not implemented yet.",
+    "C5 integrated archives/migrations/readers and C6 clean-candidate full gate/all-seven final assessments pending.",
+    "No application push, PR, merge, tag or release claimed."
+  ]
+}

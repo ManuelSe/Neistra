@@ -1,7 +1,7 @@
 import { performanceBudget } from "./support/performance";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import { configure, coordinateEntries, coordinateSummary, current, panel, select } from "./support/minimization";
 
 declare global { interface Window { minimizationTasks: { longest: number; observer: PerformanceObserver; longestTasks: { start: number; duration: number }[] }; minimizationPreviewTime: Promise<number> } }
@@ -18,6 +18,7 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
   }).join("\n")) }));
   fixtures.push({ name: "biotin.mol", mimeType: "chemical/x-mdl-molfile", buffer: await readFile("tests/fixtures/minimization/1stp-biotin-prepared.mol") });
   const p = await prepare(page, request, fixtures, `Minimization performance ${copies}`);
+  await frameFixture(page);
   const ligand = p.entries.find(e => e.structure_type === "ligand")!;
   expect(p.entries.reduce((n, e) => n + e.atom_count, 0)).toBe(2272 * copies + 32);
   await select(page, ligand.atom_ids.map(atom_id => ({ structure_id: ligand.id, atom_id })), false);

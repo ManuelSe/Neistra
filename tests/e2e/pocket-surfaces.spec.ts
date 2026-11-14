@@ -242,21 +242,22 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   if (isMobile) await page.keyboard.press("Escape");
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const palette = page.getByRole("dialog", { name: "Style selection" });
+  await palette.getByRole("button", { name: "Create surface", exact: true }).click();
+  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
   const openPocket = async () => {
-    await expect(palette.getByRole("button", { name: "Surface options" })).toBeVisible();
-    await palette.getByRole("button", { name: "Surface options" }).click();
-    await page.getByRole("menuitem", { name: "Pocket…" }).click();
+    await manager.getByRole("button", { name: "Around selection", exact: true }).click();
+    await expect(manager.getByRole("combobox", { name: "Surface receptor" })).toHaveValue(receptor.id);
+    await expect(manager.getByText("22 captured seeds", { exact: true })).toBeVisible();
   };
   await openPocket();
-  const pocket = page.getByRole("dialog", { name: "Protein pocket" });
-  await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toHaveValue(receptor.id);
-  await page.keyboard.press("Tab");
-  await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toBeFocused();
-  await expect(pocket.getByText("22 captured seeds")).toBeVisible();
-  await pocket.getByRole("spinbutton", { name: "Pocket radius" }).fill("5.5");
-  await pocket.getByRole("button", { name: "Create pocket" }).focus();
+  const form = manager.locator(".surface-create-form");
+  for (const button of await form.getByRole("button").all()) {
+    const box = await button.boundingBox(); expect(box!.height).toBeGreaterThanOrEqual(44); expect(box!.width).toBeGreaterThanOrEqual(44);
+  }
+  await manager.getByRole("spinbutton", { name: "Surface creation radius" }).fill("5.5");
+  await manager.getByRole("button", { name: "Create pocket", exact: true }).focus();
   await page.keyboard.press("Enter");
-  await expect(pocket.getByText("Pocket definition saved. Check rendering in Surfaces.")).toBeVisible();
+  await expect(manager.getByText("1 surface created.", { exact: true })).toBeVisible();
   await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries.find((e: { id: string }) => e.id === receptor.id).viewer_settings.surface_objects.length).toBeGreaterThan(0);
   let reads = 0;
   page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(r.url())) reads++; });
@@ -265,25 +266,30 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   const saved = savedObject.source;
   if (saved.kind !== "pocket") throw new Error("Expected pocket");
   expect(saved.radius).toBe(5.5); expect(saved.seed_atom_references).toHaveLength(22);
-  // Repeated creation makes another independently owned definition using cached projections.
-  await pocket.getByRole("button", { name: "Create pocket" }).focus();
+  // Explicit repeated creation remains distinct and uses cached projections.
+  await manager.getByRole("button", { name: "Create surface", exact: true }).click();
+  await openPocket();
+  await manager.getByRole("spinbutton", { name: "Surface creation radius" }).fill("5.5");
+  await manager.getByRole("button", { name: "Create pocket", exact: true }).focus();
   await page.keyboard.press("Enter");
-  await expect(pocket.getByText("Pocket definition saved. Check rendering in Surfaces.")).toBeVisible();
+  await expect(manager.locator(".surface-object")).toHaveCount(2);
   expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision + 1);
   for (const theme of ["light", "dark"]) {
     const switcher = page.getByRole("button", { name: `Use ${theme} theme` });
     if (await switcher.count()) await switcher.click();
-    const bounds = await pocket.boundingBox(), viewport = page.viewportSize()!;
+    const bounds = await manager.boundingBox(), viewport = page.viewportSize()!;
     expect(bounds!.x).toBeGreaterThanOrEqual(0); expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
-    for (const button of await pocket.getByRole("button").all()) {
+    if (isMobile) for (const button of await manager.getByRole("button").all()) {
+      await button.scrollIntoViewIfNeeded();
       const box = await button.boundingBox(); expect(box!.height).toBeGreaterThanOrEqual(44); expect(box!.width).toBeGreaterThanOrEqual(44);
     }
-    const axe = await new AxeBuilder({ page }).include(".pocket-popover").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+    const axe = await new AxeBuilder({ page }).include(".surface-manager").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
     expect(axe.violations).toEqual([]);
     await page.screenshot({ path: info.outputPath(`${theme}-pocket-workflow.png`) });
   }
-  await pocket.getByRole("button", { name: "Close surface panel" }).click();
-  await expect(palette.getByRole("button", { name: "Surface options" })).toBeFocused();
+  await manager.getByRole("button", { name: "Close surfaces" }).click();
+  await expect(page.getByRole("button", { name: "Style selection", exact: true })).toBeFocused();
+  await page.keyboard.press("Enter");
   await palette.getByRole("button", { name: "Apply blue color" }).click();
   await expect(palette.getByRole("status")).toContainText("Selection color applied");
   expect(reads).toBe(0);
@@ -301,7 +307,6 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   // Objects remain manageable with an empty current atom selection.
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   await palette.getByRole("button", { name: "Manage surfaces" }).click();
-  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
   await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
   await manager.getByRole("button", { name: `Remove surface ${savedObject.name}`, exact: true }).click();
   await expect(manager.locator(".surface-object")).toHaveCount(1);

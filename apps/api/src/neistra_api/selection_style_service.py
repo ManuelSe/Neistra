@@ -44,6 +44,7 @@ class SelectionStyleService:
             references,
             action=payload.action,
             style=payload.style,
+            channel=payload.channel,
         )
 
     def update_appearance(self, project_id: str, payload: SelectionAppearanceUpdate) -> ProjectRead:

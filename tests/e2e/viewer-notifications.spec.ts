@@ -58,7 +58,7 @@ async function save(page: Page) {
   await expect(notice(page)).toHaveText("Checkpoint saved.Close");
 }
 
-test("expires after ten real seconds without molecular, camera, network or renderer changes", async ({ page, request }, info) => {
+test("expires after ten real seconds without changing molecular data, camera or renderer", async ({ page, request }, info) => {
   test.setTimeout(90_000);
   const { project, inspect } = await prepare(page, request);
   await page.evaluate(() => {
@@ -76,7 +76,9 @@ test("expires after ten real seconds without molecular, camera, network or rende
   const native = await inspect();
   const requests: string[] = [];
   page.on("request", r => {
-    if (r.method() !== "GET" || /\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname)) requests.push(`${r.method()} ${r.url()}`);
+    // Camera preference saves have their own qualification; observe project work.
+    if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
+      && (r.method() !== "GET" || /\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname))) requests.push(`${r.method()} ${r.url()}`);
   });
   await info.attach("light notice", { body: await page.screenshot(), contentType: "image/png" });
   // Inspection and screenshot overhead consume the notice's real lifetime.

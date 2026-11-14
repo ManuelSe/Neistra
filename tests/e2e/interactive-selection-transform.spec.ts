@@ -269,6 +269,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
       atomIds: entry.atom_ids, settings: { ...entry.viewer_settings, representations: [], surface_objects: [fixtureSurface({ kind: "entry" })] },
     });
     const h = window.movementHarness;
+    h.engine.fitVisible();
     const before = h.inspect();
     const selection = { schema_version: 1, atoms: [1, 2, 7].map(atom_id => ({ structure_id: entry.id, atom_id })), granularity: "atom", source: "inspector" };
     h.engine.setSelection(selection.atoms);
@@ -297,6 +298,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
       } catch { rejected = true; }
       if (!rejected) throw new Error("The viewer accepted an invalid atom patch.");
       await h.engine.clearCoordinatePreview(entry.id);
+      await h.settled();
       h.engine.setMovementMode("inactive");
       results.push({ mode, camera, heldCamera, preview, depth, expected, restored: h.inspect() });
     }
@@ -319,6 +321,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     await h.engine.applyCoordinatePatch(movementPreview(fragmentCapture, fragmentPose)[0], "preview");
     const fragmentPreview = h.inspect();
     await h.engine.clearCoordinatePreview(entry.id);
+    await h.settled();
     h.engine.setMovementMode("inactive");
     await waitForRendered();
     return { before, results, fragment: { rendered: rendered.length, preview: fragmentPreview, restored: h.inspect() }, cachedOriginals: projection.structure.atoms.map(atom => [atom.id, atom.coordinates]) };

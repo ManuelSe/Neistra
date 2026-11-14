@@ -2,7 +2,7 @@ import { addOneHydrogen } from "./support/hydrogen";
 import { readFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
-import { prepare } from "./support/interactions";
+import { frameFixture, prepare } from "./support/interactions";
 import type { observeEditPicks } from "../../apps/web/src/test/molecularEditHarness";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -55,6 +55,7 @@ test("performs one selection-driven atom/H edit with exact undo and unchanged or
 test("maps a native bond hit to canonical endpoints and changes its order from the panel", async ({ page, request }) => {
   test.setTimeout(90000);
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Bond edit");
+  await frameFixture(page);
   const entry = project.entries[0];
   const path = `/api/v1/projects/${project.id}`;
   const projection: StructureProjection = await (await request.get(`${path}/entries/${entry.id}/structure`)).json();
@@ -115,6 +116,7 @@ test("previews and substitutes a selected H with illustrated COOH", async ({ pag
 test("mutates a natively picked residue successively and preserves exact backbone and undo", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const project = await prepare(page, request, ["tests/fixtures/formats/protein_editing.pdb"], "Residue edit");
+  await frameFixture(page);
   const entry = project.entries[0];
   const path = `/api/v1/projects/${project.id}`;
   const projection = async () => (await (await request.get(`${path}/entries/${entry.id}/structure`)).json()) as StructureProjection;
@@ -339,6 +341,7 @@ test("keeps late edit responses owned by their original project", async ({ page,
 test("retains a newer native selection and recovers an affected-artifact refetch failure", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Edit selection owner");
+  await frameFixture(page);
   const entry = project.entries[0];
   const path = `/api/v1/projects/${project.id}`;
   const source = (await (await request.get(`${path}/entries/${entry.id}/structure`)).json() as StructureProjection).structure;

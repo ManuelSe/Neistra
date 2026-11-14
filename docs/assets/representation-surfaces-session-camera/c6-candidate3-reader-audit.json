@@ -1,0 +1,79 @@
+{
+  "preceding_tag": "v0.29.0",
+  "preceding_runtime": "382f2bda26796e13454ec1394cbe89c393d5b871",
+  "preceding_source_identities": 754,
+  "directions": {
+    "rich-forward-produce": {
+      "version": "0.30.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-rich-forward-produce.json",
+      "evidence_sha256": "69f8eb5a0195920f7631ff2e647e9cea88915a9f43fefdcc070351fa986411dc"
+    },
+    "rich-forward-read": {
+      "version": "0.29.0",
+      "implementation_root": "/tmp/neistra140-reader-0290",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-rich-forward-read.json",
+      "evidence_sha256": "50f5f4886bcd465bd123fb707b747f2c12f06f771f03569e2a178d5271b49f8d"
+    },
+    "rich-reverse-produce": {
+      "version": "0.29.0",
+      "implementation_root": "/tmp/neistra140-reader-0290",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-rich-reverse-produce.json",
+      "evidence_sha256": "29401cf0dec29a3163ceec272ee6a00d5e704a5102f3e8f294db589fa8fecb1f"
+    },
+    "rich-reverse-read": {
+      "version": "0.30.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-rich-reverse-read.json",
+      "evidence_sha256": "c27e2508538fe427fdee01fed6c0a5695ede18e77d41dcb42c72d329d426f91d"
+    },
+    "connectivity-forward-produce": {
+      "version": "0.30.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-connectivity-forward-produce.json",
+      "evidence_sha256": "41ca60b8763864f05b55de32cf05a11820e11ac712541af68b2bbec836114ec7"
+    },
+    "connectivity-forward-read": {
+      "version": "0.29.0",
+      "implementation_root": "/tmp/neistra140-reader-0290",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-connectivity-forward-read.json",
+      "evidence_sha256": "51de0fab41ba55ceea30a472519c3de55bbab45daaa5f57c70268682c482a609"
+    },
+    "connectivity-reverse-produce": {
+      "version": "0.29.0",
+      "implementation_root": "/tmp/neistra140-reader-0290",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-connectivity-reverse-produce.json",
+      "evidence_sha256": "e4f979c95f04cd78ff8a086c5a5214551049125394b74eaf5ac9451a891beaff"
+    },
+    "connectivity-reverse-read": {
+      "version": "0.30.0",
+      "implementation_root": "/datadisk/dev/neistra",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/representation-surfaces-session-camera/c6-candidate3-connectivity-reverse-read.json",
+      "evidence_sha256": "0bcd571b9e22e3e81aedc99944fe4ad7c1f5395f8bc7d38ed082abcd948ce99c"
+    }
+  }
+}

@@ -1,3 +1,5 @@
+import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
+import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
@@ -14,6 +16,7 @@ import type {
   SelectionGranularity,
   SelectionMode,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   StructureProjection,
   ViewerSettings,
 } from "../api/types";
@@ -48,6 +51,8 @@ interface WorkspaceCanvasProps {
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurfaces?: SurfaceActions;
+  surfaceSession?: SurfaceManagerSession;
+  cameraPresentation?: WorkspacePresentationController;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
   selectionColorMode: SelectionColorMode;
@@ -55,6 +60,7 @@ interface WorkspaceCanvasProps {
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
+    channel?: SelectionRepresentationChannel,
   ) => Promise<void>;
 }
 
@@ -84,6 +90,8 @@ export function WorkspaceCanvas({
   onExpandDistance,
   onAtomVisibility,
   onSurfaces,
+  surfaceSession,
+  cameraPresentation,
   onLoadPocketStructures,
   onAppearance,
   selectionColorMode,
@@ -133,6 +141,7 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          cameraPresentation={cameraPresentation}
           onEdit={onEdit}
           key={project.id}
           project={project}
@@ -159,6 +168,7 @@ export function WorkspaceCanvas({
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
           onSurfaces={onSurfaces}
+          surfaceSession={surfaceSession}
           onLoadPocketStructures={onLoadPocketStructures}
         />
       )}

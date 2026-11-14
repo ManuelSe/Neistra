@@ -1,0 +1,141 @@
+{
+  "checkpoint": "C2",
+  "base_commit": "f37871da128941ea715b3188b26b280f42da0127",
+  "date": "2026-11-14",
+  "issue": 140,
+  "source_sha256": {
+    "apps/web/src/components/SurfaceManager.tsx": "e54937b3ec58e9fc617fe619785ac285686d5cf2644b61ed6c926355e76ad7ba",
+    "apps/web/src/test/pocket-surface-geometry.test.ts": "d312bb72bc05f5846c6acbb5dbd58c68ab17676996c281932d984e173d45e87a",
+    "apps/web/src/test/selection-surface-geometry.test.ts": "9be251a3bc446e6a1524b0e33c17279f70048be64031cc025d5f0cc0e5457448",
+    "apps/web/src/test/selection-surface-runtime.test.ts": "ff83ccf6256d1dfe4524453c2dd28601af10aa0636da72602158583e257ea651",
+    "apps/web/src/test/selection-surface-worker.test.ts": "0c5fcd41119134139922dc994a695e7f09d60a20120a1914f05800af6da79bbd",
+    "apps/web/src/test/selectionSurfaceHarness.ts": "2f44ca8ab585105e829abc4f1e9731d13cddd538720e408a5c589c33a95b0768",
+    "apps/web/src/test/surface-mapping.test.ts": "a4382bedac2e5cc257156ca5ff075395c7975df0c2fd8a237d45b8a6242d89eb",
+    "apps/web/src/test/surface-objects.test.ts": "00635d22a2f5879328835196b7f4edb9da85e3c398bc026f70b74c6a1315be74",
+    "apps/web/src/test/surfaceObjectsHarness.ts": "cf7a2d9cb3f1f549c03dd1e1a1023e05c8de2b987c9880108a7d1d5bcc26316c",
+    "apps/web/src/viewer/MolstarEngine.ts": "1aa2ab0fde6e1a9965a97f53cc84163bcb770439074c30341cf2a9a7ab36ce4a",
+    "apps/web/src/viewer/surface/geometry.ts": "ce9187a93df03ee0f0a51d719bc658432a7ef40f0f048e87c923519dacb26b0d",
+    "apps/web/src/viewer/surface/protocol.ts": "3aed3d26ab144bb1adc8108b3b4b91562df243ea0e87aae0dfba01edc1b7c832",
+    "apps/web/src/viewer/surface/runtime.ts": "5b65b72443945bb8c3e6e5dc124e30f3c82d898e410997541d1a3a4a0cdb423c",
+    "apps/web/src/viewer/surface/visual.ts": "34e84eaa4c0f645f2a1451c7a7469ac599903f0878359293c5dfdd4cd17d7fed",
+    "apps/web/src/viewer/surface/wireframe.ts": "d45f26b305a81206fd9ac00701f27ae44daffdfa5d7bd4196c1675a247ede408",
+    "tests/e2e/entry-surfaces.spec.ts": "72361b05209162efcae46a038d299ad7ddc87d91da4b1830e9834b86c4767f60",
+    "tests/e2e/surface-objects.spec.ts": "b067124b93e8db2e34a70489526825ab852e53eba66f180e0c81e2e2ab6de48e"
+  },
+  "checks": [
+    {
+      "result": "PASS",
+      "frontend_tests": 540,
+      "files": 75,
+      "warning": "Existing large renderer chunk warning",
+      "commands": [
+        "corepack pnpm --dir apps/web lint",
+        "corepack pnpm --dir apps/web typecheck",
+        "corepack pnpm --dir apps/web test",
+        "corepack pnpm --dir apps/web build"
+      ]
+    },
+    {
+      "command": ".venv/bin/uv run pytest tests/integration/test_surface_objects.py tests/integration/test_selection_surfaces.py tests/integration/test_pocket_surfaces.py -q",
+      "passed": 57
+    },
+    {
+      "command": "New entry-surfaces.spec.ts strict TypeScript and typed ESLint with recorded temporary configurations",
+      "result": "PASS",
+      "commands": [
+        "corepack pnpm --dir apps/web exec tsc --project /tmp/neistra-entry-surfaces-tsconfig.json --pretty false",
+        "./apps/web/node_modules/.bin/eslint --config /tmp/neistra-entry-surfaces-eslint.config.mjs tests/e2e/entry-surfaces.spec.ts --max-warnings 0"
+      ],
+      "configurations": [
+        "c2-entry-tsconfig.json",
+        "c2-entry-eslint.config.mjs.txt"
+      ]
+    },
+    {
+      "command": "Native entry/selection/pocket/surface-objects/surface-capacity suites, desktop and mobile",
+      "unique_passed": 37,
+      "existing_mobile_exclusions": 1,
+      "runs": [
+        {
+          "log": "c2-desktop-initial.log.gz",
+          "reused_passed": 16,
+          "diagnostic_failed": 1,
+          "not_run": 21
+        },
+        {
+          "log": "c2-mobile.log.gz",
+          "passed": 17,
+          "existing_mobile_exclusions": 1
+        },
+        {
+          "log": "c2-objects.log.gz",
+          "passed": 8,
+          "duplicates_with_other_runs": 4
+        }
+      ],
+      "result": "PASS across all unique cases after corrections",
+      "reuse": "Application sources remained frozen across all runs; final test-only corrections preserve expected identities. Last nominal casts and optional diagnostic page guard do not change the exercised native path.",
+      "suite_files": [
+        "tests/e2e/entry-surfaces.spec.ts",
+        "tests/e2e/selection-surfaces.spec.ts",
+        "tests/e2e/pocket-surfaces.spec.ts",
+        "tests/e2e/surface-objects.spec.ts",
+        "tests/e2e/surface-capacity.spec.ts"
+      ]
+    }
+  ],
+  "environment": {
+    "NEISTRA_E2E_API_PORT": 8140,
+    "NEISTRA_E2E_WORKER_PORT": 8141,
+    "NEISTRA_E2E_WEB_PORT": 5184,
+    "data_dirs": [
+      "/tmp/neistra140-c2-qualified1",
+      "/tmp/neistra140-c2-mobile-final",
+      "/tmp/neistra140-c2-objects-final2"
+    ],
+    "cleared": [
+      "DATABASE_URL",
+      "NEISTRA_DATABASE_URL",
+      "MOLWEAVE_DATABASE_URL",
+      "NEISTRA_DATA_DIR",
+      "MOLWEAVE_DATA_DIR"
+    ]
+  },
+  "corrections": [
+    "Cancelled fallback no longer reserves display buffers against an aborted request.",
+    "The small native fixture uses three real polymer units, with independent buried-interface and no-gap oracles.",
+    "Disposal assertions await the existing deferred React teardown, retaining zero workers/canvases/requests/component refs.",
+    "Post-rebuild picking waits for installed surfaces and validates the same integer absolute client coordinates sent by real input; original identity, stale-hit, camera, selection, state and highlight checks remain."
+  ],
+  "reviews": {
+    "scientific_theory": "PASS C2 method/tests/docs",
+    "scientific_implementation": "PASS C2 complete implementation diff",
+    "performance": "PASS native coordinate correction rationale",
+    "primary": "Complete C2 diff reviewed; no durable schema/API/version changes"
+  },
+  "limitations": [
+    "Not complete feature or release qualification; C3-C7 remain.",
+    "No strict timing or universal capacity claim.",
+    "Optional defensive rejection of an impossible empty atomic worker output is deferred: the real kernel already rejects zero triangles.",
+    "An additional ad hoc strict audit of the pre-existing surface-objects native test exposed baseline typing/unsafe JSON patterns outside the configured frontend gate. Introduced diagnostic typing was corrected; consolidate native typing during C5 rather than broadening this scientific checkpoint."
+  ],
+  "artifacts": {
+    "c2-desktop-initial.log.gz": "390c2dbd91a48a2d60db67cb5db16273f4ee92bd824f72b9d3e1f4544a487c6d",
+    "c2-mobile.log.gz": "2a961fdcb8222bb7fa774e104746f3a7f73c9fbba2b1b886954f54dc73dfd04f",
+    "c2-objects.log.gz": "58830881e61ef70122a9a4d3425beacc3d48e66e6135969e3435cd904641ffb0",
+    "c2-frontend.log.gz": "22f53afdcf2885aa12284f99ef062b602eb9b5638ec6bf5e2795e7716cea78e4",
+    "c2-backend.log.gz": "d7545f385f14683bd557cb8dfaeb853ffea064d53350dea2cf85531d9ea1a32d",
+    "c2-lint.log.gz": "eb935f68f75537c7d30f9e2dac2a942fa9c959131a5a813348ba97efc26abace",
+    "c2-types.log.gz": "365453d700e765eb96133a9b7e9c55084ebd972e2d532517625c0fda7afc2163",
+    "c2-build.log.gz": "6721449b59449287a71283fe07e1f4a6762208804c683ead4117ef39b0fd5efc",
+    "c2-coordinate-diagnostic.log.gz": "0ee0a2e83bb2d1b1c96dad234e8fa73b426fefcb645387e95a900bca234e3ebd",
+    "c2-coordinate-diagnostic.json": "ab01ffe6ca8be6824fdf1cb0553dc73701630a16fd112babcabc694dde54750d",
+    "c2-entry-tsconfig.json": "56d4f8c116c7e8be4aa7cdb835a0a799c5e43782bed390576ebb7415607a1ca0",
+    "c2-entry-eslint.config.mjs.txt": "50f38ac2aad3dcd6f13c1b14298f82ed8bc5a222f94164c12c5d259a0938f10e",
+    "c2-extra-native-types.log.gz": "d24a11a2a927af2f4dee3386d57eec11490bfcb60215a6e6a469af606da155cb",
+    "c2-extra-native-lint.log.gz": "7f334ffe4dcf0fae2a4420762e38f780bfd54a89466dcd56f9b23bf19407c443",
+    "c2-native-evidence.json.gz": "75b7ab090ce81dea52098aab58526d83a654fc59c393a0ba8dbb01bdbbf6fa1f"
+  },
+  "native_artifact_count": 37,
+  "native_evidence_uncompressed_sha256": "10443bd86f21b1ff4df7232efbc2dde4010aedb4cd65e5825c38ba8423f4bd84"
+}

@@ -139,21 +139,22 @@ touch use explicit controls. Partial selections still move complete entries,
 empty groups remain reusable, and molecular/viewer state stays unchanged.
 See [Structure groups](docs/GROUPS.md).
 
-Saved **protein pocket views** remain behind
-**Surface options → Pocket…**. Capture ligand or site atoms, choose a protein
-receptor and create a view at the chosen radius. The view crops a complete protein molecular surface;
-it does not discover cavities or infer binding. Hidden seed entries remain valid.
-Several independent pockets can belong to one receptor.
+Use **Create surface** from Style, Display or **Manage surfaces**. Choose
+**Selected atoms**, **Around selection** or **Whole entry**. Pockets capture seeds
+and an explicit protein owner; they crop a complete protein molecular surface
+without discovering cavities or inferring binding. Hidden seed entries remain
+valid, and several independent pockets can belong to one receptor.
 
 Reversible **Hide / Show** remains in the existing Atom detail row. Hide selected
 atoms while retaining polymer and surface geometry; Show restores prior styles.
 Saved styling survives undo/redo, scenes, reload and project archives.
 
-Whole-protein fragment surfaces now support up to 100,000 effective atoms within
-explicit grid, memory and time bounds: 512 MiB mesh allocation, 1 GiB retained
-output, 2 GiB accounted working buffers and a 120-second calculation deadline.
-Real 23,694- and 58,870-atom proteins and a synthetic 100,000-atom target are
-qualified on desktop and Pixel 7 emulation; this is not an arbitrary-device guarantee.
+Captured fragments and protein pockets support up to 100,000 effective atoms;
+combined whole-entry surfaces admit fewer than 250,000 atoms. Fixed grid, memory
+and time bounds apply: 512 MiB mesh allocation, 1 GiB retained output, 2 GiB
+accounted working buffers and a 120-second calculation deadline. Entry sources
+at/above 250,000 atoms retain the explained fallback. These admission ceilings
+are not an arbitrary-device throughput guarantee.
 
 Select atoms or an entry and open **Style selection**. The compact palette stays
 open while you pick another selection or move the camera. Apply an illustrated
@@ -173,17 +174,35 @@ fragment and pocket objects. Click/tap a surface to activate it independently of
 atom selection; choose **Select source atoms** when you want its molecular source.
 See the [surface workflow](docs/SURFACES.md).
 
-Back up the complete managed database and artifacts before migration **0014**.
-Project/viewer payloads and new archives use schema **2**; validated schema-1
-archives still import. Upgrade client and server together. New exports require an
-upgraded reader. Downgrade refuses retained objects or empty ordinary representation
-sets, including history; restore the complete pre-upgrade backup for rollback.
+Back up the complete managed database and artifacts before upgrading. Migration
+**0015** adds only the installation camera preference; downgrade to 0014 removes
+that preference while preserving project/history/artifact data. Existing
+project/viewer/archive schemas remain **2**, and validated schema-1 archives still
+import. Earlier 0014 downgrade guards still refuse retained surface objects or
+empty ordinary representation sets; use the complete pre-upgrade backup when
+reverting further. Upgrade client and server together.
 Atomic hiding does not change entry-based Visible export.
 Current UI exports use `.neistra.zip`; legacy `.molweave.zip` archives, Python
 imports, `MOLWEAVE_*` settings and existing stores remain supported. See [release notes](docs/RELEASE_NOTES.md) and
 [migration guidance](docs/DEVELOPMENT.md#pocket-definition-migration-090).
 The [pocket feature plan](docs/plans/issue-36-pocket-surfaces.md) records scope,
 scientific boundaries and qualification evidence.
+
+## Shared view
+
+One camera is shared across molecules and projects and restored when Neistra
+reopens. Representation settings remain entry-owned. Switching projects, importing
+or showing molecules, changing styles and editing surfaces preserve the view.
+A pristine installation fits its first drawable geometry once. Use **Fit all
+visible**, **Focus**, projection controls or a named scene to change framing
+explicitly. Ordinary camera navigation never enters molecular Undo/Redo.
+
+Saving is automatic. If a save fails, the view recovery row offers **Retry** while
+navigation remains available. If another window saved a different view, **Save
+current view** explicitly replaces it. The automatic camera stays outside project
+archives; named scenes remain portable. Browser-close recovery is best effort and
+requires working browser storage and API access. See the
+[upgrade and recovery guide](docs/DEVELOPMENT.md#upgrading-the-shared-camera-preference-0015).
 
 ## Prerequisites
 

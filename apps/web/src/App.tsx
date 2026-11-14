@@ -1,3 +1,5 @@
+import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
+import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
 import { seedCoordinateProjections } from "./coordinates/cache";
 import { captureProjectCommand, dispatchProjectCommand, type ProjectCommand } from "./coordinates/projectCommand";
 import { usePresentation } from "./presentation/context";
@@ -10,21 +12,22 @@ import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
 import type { HydrogenPolicy } from "./api/types";
 import { surfacePruningWarnings } from "./selection/surfaceWarnings";
-import { useViewerCameraStore } from "./store/viewerCamera";
+import { WorkspacePresentationController } from "./workspacePresentation/controller";
+import { CameraRecovery } from "./components/CameraRecovery";
 import { useEditingStore } from "./store/editing";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { MutateOptions } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
   Panel,
   PanelGroup,
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi } from "./api/client";
+import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
 import type {
   Entry,
   AtomReference,
@@ -45,6 +48,7 @@ import type {
   SelectionColorMode,
   SelectionMode,
   SelectionRepresentationStyle,
+  SelectionRepresentationChannel,
   SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
@@ -97,6 +101,22 @@ function errorMessage(error: unknown): string {
 }
 
 export default function App() {
+  const [cameraPresentation] = useState(() => new WorkspacePresentationController({
+    api: workspacePresentationApi,
+    storage: { getItem: key => window.localStorage.getItem(key), setItem: (key, value) => window.localStorage.setItem(key, value) },
+  }));
+  useEffect(() => {
+    cameraPresentation.start();
+    const flush = () => { void cameraPresentation.flush({ keepalive: true }); };
+    const visibility = () => { if (document.visibilityState === "hidden") flush(); };
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", visibility);
+      cameraPresentation.stop();
+    };
+  }, [cameraPresentation]);
   const queryClient = useQueryClient();
   const compact = useMediaQuery("(max-width: 840px)");
   const {
@@ -197,6 +217,15 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+  const surfaceSession = useMemo(() => createSurfaceManagerSession(activeProjectId ?? ""), [activeProjectId]);
+  const previousSurfaceSession = useRef(surfaceSession);
+  useEffect(() => {
+    const previous = previousSurfaceSession.current;
+    previousSurfaceSession.current = surfaceSession;
+    if (previous !== surfaceSession && previous.hasUnappliedDrafts()) {
+      setNotice({ kind: "success", text: "Unapplied surface source changes were discarded when switching projects." });
+    }
+  }, [surfaceSession]);
   const presentation = usePresentation();
   useLayoutEffect(() => { presentation?.retire(); }, [presentation, activeProjectId]);
   useEffect(() => setNewMoleculeOpen(false), [project?.id]);
@@ -206,7 +235,6 @@ export default function App() {
     useSequenceNavigationStore.getState().setProject(activeProjectId);
     useEditingStore.getState().setProject(activeProjectId);
     useMinimizationStore.getState().setProject(activeProjectId);
-    useViewerCameraStore.getState().setProject(activeProjectId);
   }, [activeProjectId]);
 
   useEffect(() => {
@@ -386,19 +414,19 @@ export default function App() {
       }
       return { projectId: command.projectId };
     },
-    onSuccess: (next) => {
+    onSuccess: (next, command) => {
       const previous = queryClient.getQueryData<Project>(["project", next.id]);
       const warnings = previous ? surfacePruningWarnings(previous, next) : [];
       updateProjectCache(next);
       if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
       setEditedThisSession(true);
-      setNotice({ kind: "success", text: ["Change stored locally.", ...warnings].join(" "), lifetime: warnings.length ? "persistent" : "transient" });
+      if (command.feedback !== "quiet" || warnings.length) setNotice({ kind: "success", text: ["Change stored locally.", ...warnings].join(" "), lifetime: warnings.length ? "persistent" : "transient" });
     },
     onError: (error, command) => {
       if (error instanceof ApiError && error.code === "revision_conflict") {
         void queryClient.invalidateQueries({ queryKey: ["project", command.projectId] });
       }
-      if (useWorkspaceStore.getState().activeProjectId !== command.projectId) return;
+      if (useWorkspaceStore.getState().activeProjectId !== command.projectId || command.feedback === "quiet") return;
       setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
@@ -998,18 +1026,30 @@ export default function App() {
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAtomVisibility(project, selection, action));
     },
     onLoadPocketStructures: () => loadStructureProjections(project?.entries.map((entry) => entry.id) ?? []),
+    cameraPresentation,
+    surfaceSession,
     onSurfaces: {
       create: async (items: SurfaceCreateItem[]) => {
-        if (!project) return;
-        await projectMutation.mutateAsync(() => projectApi.createSurfaceObjects(project, items));
+        if (!project) throw new Error("Open a project before creating a surface.");
+        const next = await commandMutation.mutateAsync(captureProjectCommand(project.id,
+          () => projectApi.createSurfaceObjects(project, items), "quiet"));
+        return createdSurfaceIdentities(project, next, items);
       },
       update: async (entryId: string, surfaceId: string, change: SurfaceChange) => {
-        if (!project) return;
-        await projectMutation.mutateAsync(() => projectApi.updateSurfaceObject(project, entryId, surfaceId, change));
+        if (!project) throw new Error("Open a project before editing a surface.");
+        await commandMutation.mutateAsync(captureProjectCommand(project.id,
+          () => projectApi.updateSurfaceObject(project, entryId, surfaceId, change), "quiet"));
       },
       remove: async (entryId: string, surfaceId: string) => {
-        if (!project) return;
-        await projectMutation.mutateAsync(() => projectApi.removeSurfaceObject(project, entryId, surfaceId));
+        if (!project) throw new Error("Open a project before removing a surface.");
+        await commandMutation.mutateAsync(captureProjectCommand(project.id,
+          () => projectApi.removeSurfaceObject(project, entryId, surfaceId), "quiet"));
+      },
+      refresh: async () => {
+        if (!project) throw new Error("The surface project is no longer available.");
+        const latest = await projectApi.get(project.id);
+        updateProjectCache(latest);
+        return latest.entries;
       },
     },
     onAppearance: async (change: SelectionAppearanceChange) => {
@@ -1038,6 +1078,7 @@ export default function App() {
     onSelectionStyle: async (
       action: "apply" | "reset",
       style?: SelectionRepresentationStyle,
+      channel?: SelectionRepresentationChannel,
     ) => {
       if (!project) return;
       await projectMutation.mutateAsync(() =>
@@ -1046,13 +1087,14 @@ export default function App() {
           selection,
           action,
           style,
+          channel,
         ),
       );
       setNotice({
         kind: "success",
         text:
           action === "reset"
-            ? "Selection representations reset to entry defaults."
+            ? `Selection ${channel === "atomic" ? "atom detail" : channel === "polymer" ? "polymer representation" : "representations"} reset to entry defaults.`
             : "Selection representation applied.",
       });
     },
@@ -1102,6 +1144,7 @@ export default function App() {
           onMobilePanel={openMobilePanel}
         />
 
+        <CameraRecovery cameraPresentation={cameraPresentation} />
         <ApplicationNotice notice={notice} setNotice={setNotice} />
 
         {projectsQuery.isError || projectQuery.isError ? (

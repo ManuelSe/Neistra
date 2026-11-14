@@ -1,8 +1,8 @@
 # Development And Troubleshooting
 
-Status: Neistra development guide; current Alembic head is 0014, project/viewer/
+Status: Neistra development guide; current Alembic head is 0015, project/viewer/
 archive schemas are 2, and normalized/selection schemas remain 1. See
-[upgrade instructions](#upgrading-independent-surfaces-0014). Earlier issue upgrade
+[upgrade instructions](#upgrading-the-shared-camera-preference-0015). Earlier issue upgrade
 sections are historical; configuration names and process commands are retained.
 
 The private JavaScript packages are `neistra` and `@neistra/web`. Workspace
@@ -646,6 +646,32 @@ no downgrade/data stripping; reload the frontend to restore the old notice lifet
 The [approved plan](plans/issue-56-viewer-notification-timeout.md) and its evidence
 log govern release blockers and verification.
 
+
+## Upgrading the shared camera preference (0015)
+
+Stop the API and worker and back up the complete managed directory before
+`.venv/bin/uv run alembic upgrade head`. Migration 0015 creates one installation
+presentation table; no project, checkpoint, history, scene, artifact or uploaded
+file is rewritten. Deploy the matching client and API together for the new
+workspace presentation endpoint. Project/viewer/archive schemas remain 2 and
+normalized/selection/component schemas remain 1.
+
+From 0015, `alembic downgrade 0014` drops only the automatic camera preference.
+Project/history/artifact data is preserved. Restore the complete backup if that
+preference must also be retained. Browser recovery data is origin-local and is not
+a substitute for a managed-store backup. Older 0014 downgrade guards remain
+unchanged when reverting further. Upgrading again starts with no server preference;
+validated browser recovery may require explicit confirmation against that new base.
+
+The remembered view is global across entries and projects, excluded from archives,
+and does not advance molecular revisions or history. **Fit all visible**, **Focus**,
+projection and named scenes are explicit camera actions; imported or newly shown
+molecules preserve the current view. A pristine installation fits once only after
+its first real geometry is drawable. On failure, use the independent view recovery
+row; **Retry** reconciles first, while **Save current view** explicitly replaces a
+conflicting saved view. Both network and browser storage must work for full
+interruption recovery. If a stored pose cannot render in the current viewport,
+adjust the view or use Fit; the viewer remains usable.
 
 ## Upgrading independent surfaces (0014)
 

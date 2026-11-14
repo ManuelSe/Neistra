@@ -10,14 +10,15 @@ export function surfaceWireframeBytes(indexCount: number) {
 
 /** Same triangle edges/groups as native Lines.fromMesh, with exact buffers and cooperative yields. */
 export async function surfaceWireframe(geometry: SurfaceGeometry, signal: AbortSignal,
-  reserve: (bytes: number) => void): Promise<Lines> {
+  reserve: (bytes: number) => void, additionalWorkingBytes = 0): Promise<Lines> {
   signal.throwIfAborted();
+  checkWorkingAllocation(additionalWorkingBytes);
   const count = geometry.indices.length;
   const bytes = surfaceWireframeBytes(count);
   // Native Lines.groupMapping retains one index per line and group offsets;
   // its two temporary bucket arrays each have one entry per line.
   const retainedBytes = checkMeshAllocation(bytes + count * 4 + (geometry.atomIds.length + 2) * 4);
-  checkWorkingAllocation(geometry.evidence.meshBytes + retainedBytes + count * 8);
+  checkWorkingAllocation(geometry.evidence.meshBytes + retainedBytes + count * 8 + additionalWorkingBytes);
   reserve(retainedBytes);
   const mappings = new Float32Array(count * 8), indices = new Uint32Array(count * 6),
     groups = new Float32Array(count * 4), starts = new Float32Array(count * 12), ends = new Float32Array(count * 12);

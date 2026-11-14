@@ -28,6 +28,9 @@ it.each(["import", "ligand", "protein"] as const)("classifies %s results from st
   useWorkspaceStore.setState({ activeProjectId: project.id, mobilePanel: null });
   vi.spyOn(globalThis, "fetch").mockImplementation(input => {
     const path = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    if (path === "/api/v1/workspace/presentation") return Promise.resolve(new Response(JSON.stringify({
+      schema_version: 1, revision: 0, camera: null, updated_at: null,
+    }), { headers: { "Content-Type": "application/json" } }));
     return Promise.resolve(new Response(JSON.stringify(
       path.endsWith(`/projects/${project.id}`) ? project : [{ ...project, entry_count: 0 }],
     ), { headers: { "Content-Type": "application/json" } }));

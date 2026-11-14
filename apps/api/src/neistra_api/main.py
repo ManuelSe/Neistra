@@ -153,6 +153,13 @@ from neistra_api.selection_edit_service import SelectionEditService
 from neistra_api.selection_style_service import SelectionStyleService
 from neistra_api.settings import Settings
 from neistra_api.surface_service import SurfaceService
+from neistra_api.workspace_presentation import (
+    PresentationRevisionConflict,
+    WorkspacePresentationUpdate,
+    WorkspacePresentationV1,
+    read_presentation,
+    update_presentation,
+)
 
 
 def _prepare_import_child(
@@ -496,7 +503,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Neistra API",
-        version="0.29.0",
+        version="0.30.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -561,6 +568,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
             for registered in job_registry.definitions()
         ]
+
+    @router.get("/workspace/presentation", response_model=WorkspacePresentationV1)
+    async def get_workspace_presentation(
+        session: Session = Depends(session_dependency),
+    ) -> WorkspacePresentationV1:
+        return read_presentation(session)
+
+    @router.put("/workspace/presentation", response_model=WorkspacePresentationV1)
+    async def put_workspace_presentation(
+        payload: WorkspacePresentationUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> WorkspacePresentationV1:
+        return _call(lambda: update_presentation(session, payload))
 
     @router.get("/projects", response_model=list[ProjectListItem])
     async def list_projects(
@@ -1703,6 +1723,12 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
         raise _error(404, "project_not_found", f"Project {error} was not found") from error
     except EntryNotFoundError as error:
         raise _error(404, "entry_not_found", f"Entry {error} was not found") from error
+    except PresentationRevisionConflict as error:
+        raise _error(
+            409,
+            "presentation_revision_conflict",
+            f"The saved view changed; current revision is {error.current_revision}",
+        ) from error
     except RevisionConflictError as error:
         raise _error(
             409,

@@ -2,6 +2,67 @@
 
 ## Current milestone
 
+Issue #140 — **C1–C5 complete; C6 candidate qualified; C7 delivery next** under the
+[approved contract](plans/issue-140-representation-surfaces-session-camera.md).
+Implemented: correct stick geometry/no-op history/scoped styling; complete bounded
+surface context and truthful installation status; shared creation/manager,
+immediate Undoable appearance and retained source drafts; one independent,
+installation-wide persisted camera across entries, projects and reopening.
+
+Clean candidate `c8468c89` passes all **33 complete release steps**: **1,542 Python
+(zero skips), 723 frontend, 14 supervisor, 441 browser passes / 75 exact existing
+exclusions**. Zero failures/flakes/retries/new exclusions. All 791 current and754
+actual preceding-tag source identities and lossless logs verify. Actual tagged
+0.29.0 ↔ final0.30.0 readers pass both directions/suffixes with deep display/history,
+canonical/original checks and corruption controls. Frozen/static/build, empty
+migration round trip, version/schema/dependency/production/license and CLI checks
+pass. [Candidate summary](assets/representation-surfaces-session-camera/c6-candidate3-summary.json)
+and the feature plan retain exact evidence and distinct failed diagnostics.
+
+All seven specialists PASS the qualified code; final evidence/documentation
+reconfirmation precedes application push and is recorded on the PR. Primary
+full-diff review is implementer self-review. No independent human approval, remote
+CI result or strict timing certification is claimed. Five versions agree at
+**0.30.0**; migration **0015** adds only the automatic camera preference. Portable
+project/viewer/archive stay2, normalized/selection/component stay1. Downgrade to0014
+removes the preference only; preserve it with an upgraded-store backup.
+
+Known limits: approximate fixed-grid surfaces, specimen-specific capacities and
+best-effort browser recovery. Independent polymer visibility/local appearance is
+explicitly deferred to [#141](https://github.com/ManuelSe/Neistra/issues/141), with
+#64/#107 kept separate. Blockers requiring user input: none. Next: final review,
+fresh base/version/protection checks, PR with Closes #140, normal merge, complete
+exact-master gate, annotated v0.30.0/release, issue reply, normal receipt integration
+and cleanup. No PR, merge, tag or release is claimed at receipt creation.
+
+### Approved planning checkpoint — issue #140 C0
+
+Issue [#140](https://github.com/ManuelSe/Neistra/issues/140) — **approved planning
+persistence, C0 only**. The [feature contract](plans/issue-140-representation-surfaces-session-camera.md)
+and D-154/D-155 define corrected sticks/combined surfaces/no-op history, coherent
+surface editing, and one installation-local camera across entries and projects.
+The user selected immediate Undoable appearance, one pristine-installation fit,
+and a focused release with expanded local styling in one delivery follow-up.
+
+Completed: read-only investigation and seven specialist planning assessments;
+user scope decisions; clean master fetched/fast-forwarded at `a1f2e2fd`; dedicated
+`feat/issue-140-representation-surfaces-session-camera` branch and planning records.
+Verification: clean base, stable latest v0.29.0 and absence of planned branch/tag
+collision; C0 documentation/diff checks and exact remote commit readback are the
+handoff evidence. Prior audit tests are baseline, not future qualification.
+
+Planned checkpoints: C1 atomic styling/history; C2 combined surfaces; C3 surface
+workflow; C4 shared-camera persistence; C5 integrated qualification; C6 candidate;
+C7 delivery. Target **minor 0.30.0**, with planned migration 0015 and existing
+project/viewer/archive 2 retained. Current versions remain 0.29.0 and head 0014.
+No runtime or dependency change, implemented fix, PR or release is claimed.
+
+Known limitations: audited defects remain; new entry capacity and camera recovery
+require implementation qualification. Blockers: none for planning persistence.
+Next action: **/goal**. Stop after the approved plan commit/push; do not begin C1.
+
+### Previous completed milestone — issue #137
+
 Issue [#137](https://github.com/ManuelSe/Neistra/issues/137) is implemented and
 released as stable [v0.29.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.29.0)
 through [PR #138](https://github.com/ManuelSe/Neistra/pull/138). The

@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
+import type { SessionCamera } from "../workspacePresentation/types";
+import { WorkspacePresentationController } from "../workspacePresentation/controller";
 import {
   componentHierarchy,
   proteinStructure,
@@ -14,6 +16,7 @@ const calls = vi.hoisted(() => ({
   sync: vi.fn(),
   selection: vi.fn(),
   activeSurface: vi.fn(),
+  surfacePreview: vi.fn(),
   surfaceSelection: vi.fn((listener: unknown) => { void listener; return vi.fn(); }),
   granularity: vi.fn(),
   movement: vi.fn(),
@@ -32,6 +35,10 @@ const calls = vi.hoisted(() => ({
     void listener;
     return () => undefined;
   }),
+  sessionSet: vi.fn(),
+  sessionGet: vi.fn<() => SessionCamera | null>(() => null),
+  sessionSubscribe: vi.fn((listener: unknown) => { void listener; return vi.fn(); }),
+  drawableSubscribe: vi.fn((listener: (value: boolean) => void) => { listener(false); return vi.fn(); }),
 }));
 
 vi.mock("../viewer/MolstarEngine", () => ({
@@ -53,6 +60,7 @@ vi.mock("../viewer/MolstarEngine", () => ({
       calls.selection(atoms);
     }
     setActiveSurface(surface: unknown) { calls.activeSurface(surface); }
+    previewSurfaceAppearance(identity: unknown, appearance: unknown) { calls.surfacePreview(identity, appearance); return Promise.resolve(); }
     subscribeSurfaceSelection(listener: unknown) { return calls.surfaceSelection(listener); }
 
     setPickingGranularity(granularity: string) {
@@ -81,6 +89,10 @@ vi.mock("../viewer/MolstarEngine", () => ({
     getCamera() {
       return null;
     }
+    getSessionCamera() { return calls.sessionGet(); }
+    setSessionCamera(camera: SessionCamera) { calls.sessionSet(camera); }
+    subscribeSessionCamera(listener: unknown) { return calls.sessionSubscribe(listener); }
+    subscribeDrawable(listener: (value: boolean) => void) { return calls.drawableSubscribe(listener); }
 
     getMovementView() { return null; }
     getRenderedAtomReferences() { return []; }
@@ -117,6 +129,89 @@ vi.mock("../viewer/MolstarEngine", () => ({
 describe("MolecularViewer Molstar adapter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    calls.sessionGet.mockReturnValue(null);
+  });
+
+  it("buffers the latest complete camera through lazy mount without initial navigation or lost FOV", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    const camera: SessionCamera = { mode: "orthographic", position: [10, 7, 25], target: [1, 2, 3], up: [1, 1, 0], radius: 0.001, fov: 0.55 };
+    const listener = vi.fn(), release = viewer.subscribeSessionCamera(listener);
+    viewer.setSessionCamera({ ...camera, fov: 0.8 });
+    viewer.setSessionCamera(camera);
+    expect(viewer.getSessionCamera()).toEqual(camera);
+    await viewer.mount(document.createElement("div"));
+    expect(calls.sessionSet).toHaveBeenCalledExactlyOnceWith(camera);
+    expect(listener).not.toHaveBeenCalled();
+    expect(calls.sessionSubscribe).toHaveBeenCalledOnce();
+    release();
+    const subscription = calls.sessionSubscribe.mock.results[0];
+    if (subscription.type !== "return") throw new Error("Missing native camera subscription.");
+    const released = subscription.value;
+    expect(released).toHaveBeenCalledOnce();
+    viewer.dispose();
+    expect(released).toHaveBeenCalledOnce();
+  });
+
+  it("drops a retired pre-mount camera subscription before the engine exists", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    viewer.subscribeSessionCamera(vi.fn())();
+    await viewer.mount(document.createElement("div"));
+    expect(calls.sessionSubscribe).not.toHaveBeenCalled();
+    viewer.dispose();
+  });
+
+  it("reports deferred viewport restoration refusal without preventing scene startup or navigation binding", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    const saved: SessionCamera = { mode: "perspective", position: [0, 0, 20], target: [0, 0, 0], up: [0, 1, 0], radius: 2, fov: 1e-307 };
+    const fallback = { ...saved, fov: Math.PI / 4 };
+    calls.sessionGet.mockReturnValue(fallback);
+    calls.sessionSet.mockImplementationOnce(() => { throw new Error("Viewport projection overflow"); });
+    const api = { read: vi.fn(() => Promise.resolve({ schema_version: 1 as const, revision: 1, camera: saved, updated_at: "2026-11-14T00:00:00Z" })), write: vi.fn() };
+    const controller = new WorkspacePresentationController({ api, storage: { getItem: () => null, setItem: vi.fn() } });
+    await controller.hydrate();
+    const release = controller.bind(viewer);
+    await expect(viewer.mount(document.createElement("div"))).resolves.toBeUndefined();
+    expect(controller.getSnapshot()).toMatchObject({ camera: fallback, problem: "display" });
+    expect(calls.sessionSubscribe).toHaveBeenCalledOnce();
+    await viewer.syncStructures([]);
+    expect(calls.sync).toHaveBeenCalledExactlyOnceWith([]);
+    expect(api.write).not.toHaveBeenCalled();
+    release(); viewer.dispose(); controller.stop();
+  });
+
+  it("forwards transient surface appearance and cancellation independently from canonical sync", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    await viewer.mount(document.createElement("div"));
+    const identity = { entryId: "entry", surfaceId: "surface" };
+    const appearance = { color_by: "custom" as const, custom_color: "#00ff00", opacity: 0.3, mode: "solid" as const, inherit_atom_colors: false };
+    await viewer.previewSurfaceAppearance(identity, appearance);
+    await viewer.previewSurfaceAppearance(identity, null);
+    expect(calls.surfacePreview.mock.calls).toEqual([[identity, appearance], [identity, null]]);
+    expect(calls.sync).not.toHaveBeenCalled();
+    viewer.dispose();
+    await viewer.previewSurfaceAppearance(identity, appearance);
+    expect(calls.surfacePreview).toHaveBeenCalledTimes(2);
+  });
+
+  it("buffers only the latest pre-mount appearance and drops retired object identities", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    const identity = { entryId: "entry", surfaceId: "surface" };
+    const appearance = { color_by: "element" as const, custom_color: "#00ff00", opacity: 0.3, mode: "solid" as const, inherit_atom_colors: false };
+    await viewer.previewSurfaceAppearance({ entryId: "retired", surfaceId: "old" }, appearance);
+    for (let i = 1; i <= 1000; i++) await viewer.previewSurfaceAppearance(identity, { ...appearance, opacity: i / 1000 });
+    await viewer.mount(document.createElement("div"));
+    const normalized = proteinStructure();
+    await viewer.syncStructures([{ entryId: "entry", label: "Entry", normalized, hierarchy: componentHierarchy(normalized),
+      projection: { format: "mmcif", data: "projection" }, atomIds: normalized.atoms.map(atom => atom.id),
+      settings: { ...viewerSettings(), surface_objects: [{ id: "surface", name: "Surface", visible: true, source: { kind: "entry" }, appearance }] },
+    }]);
+    expect(calls.surfacePreview).toHaveBeenCalledExactlyOnceWith(identity, { ...appearance, opacity: 1 });
+    viewer.dispose();
   });
 
   it("releases a native engine whose asynchronous mount completes after disposal", async () => {
