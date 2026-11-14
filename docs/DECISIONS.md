@@ -7112,3 +7112,31 @@ independent held-notification component case fails before correction and passes
 afterward, including subsequent object removal; native qualification follows.
 This enforces existing creation ownership within D-156, adding no durable state,
 API or scientific-method change.
+
+
+### D-157 C2 captured targeting and measured work — 2026-11-14
+
+The one-hop resolver is pure and shared by mode/set/reset. It refuses missing or
+mismatched participating projections and stale selected IDs rather than returning
+partial targets. A hydrogen-only typed callback captures project/epoch, seed
+identity, artifact IDs and the exact H operand; a small command factory checks
+current cache/store ownership before construction and after awaited preflight.
+The existing endpoint receives only the captured explicit-H selection and revision.
+Quiet command feedback reuses the palette's action status; color remains separate.
+These are transient UI interfaces, not new wire/schema/archive fields.
+
+Final C2 native qualification covers heavy-only selection, full-graph polar
+classification, reset/inheritance/mixed/master precedence, history/reload and
+retired hidden loads in both layouts. Native actual200% captures and real keyboard/
+pointer actions resolve an earlier incorrectly scaled screenshot artifact without
+a product positioning change. The main H row remains before Polymer.
+
+Independent loaded-control profiling across128/10k/100k synthetic atoms confirms
+one atom/bond scan per cold/changed context and none on warm preference, busy,
+focus or click updates. A real58,870-atom protein plus4-atom ligand uses2initial
+structure reads,0repeat reads and4exact single-H commands. Large-scene observed
+warm actions take1.87–4.70sdesktop/2.58–5.21smobile, including the unchanged D-155
+conservative non-surface renderer path. This is a material known limitation, not
+a demonstrated new regression, speedup or strict-host timing result. No broader
+scene reconciliation/cache/worker is justified within this correction. Preserve
+the existing release gates and resource limits; final seven-role review remains.

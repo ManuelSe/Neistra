@@ -2,7 +2,7 @@
 
 ## 1. Status, authority and approved direction
 
-**Status:** C1 locally verified; C2–C4 pending. The subsequent `/goal` authorizes implementation and delivery.
+**Status:** C1 and C2 locally verified; C3/C4 pending. The subsequent `/goal` authorizes implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-14, following the proposal
 and explicit product choices below. Approval authorizes C0 only. Stop ready for
 `/goal` after committing and pushing this plan; do not begin application changes.
@@ -437,3 +437,51 @@ Known limitations: C2 hydrogen control/targeting and C3/C4 qualification/release
 remain. Existing unrelated standalone pocket-test typing gaps are outside the
 registered strict gate and were not expanded. Blockers: none for C2. Next action:
 C2, after committing this passing C1 state. Implementation is not ready to push.
+
+
+### 2026-11-14 — C2 locally verified checkpoint
+
+The primary original H icon now precedes Polymer, with All/Polar/Mixed pressed
+state, secondary inheritance reset, actionable unavailable/master-hidden feedback
+and retained keyboard focus during publication. Its pure resolver includes current
+selected H and one-hop graph-attached H without source/global-selection mutation.
+Typed captures reject changed project epochs, seed identities and artifacts before
+construction and after awaited preflight; the existing API receives only explicit
+H targets and the captured revision. Color and complete-projection polarity
+classification remain independent.
+
+Final gates: lint/types, **760 frontend cases/87 suites**, production build;
+**26 API regressions/zero skips**; **24 native passes/8 exact existing exclusions**
+across all five focused files. No final failure, flake or retry. Native scenarios
+include exact heavy-C→H2 payloads and H visibility, unchanged selection/model/
+originals/camera, Undo/Redo/reload, mixed/default/reset/master precedence, retired
+hidden loads, both themes,320px and actual100%/200% keyboard/pointer interactions.
+Native full-viewport CDP images were inspected in light/dark at200% and mobile320;
+earlier cropped images were capture artifacts, not a product layout defect.
+Three changed native specs pass scoped strict TypeScript.
+
+[C2 receipt](../assets/surface-selection-hydrogen-toggle/c2-checkpoint.json) records
+17 final source identities, exact logs/reports and26hashed native observations.
+Earlier fixture diagnostics remain separate. Existing test dropdown/idempotence
+expectations were migrated without weakening chemistry, input, identity or state
+assertions, timing/resource policy or registered exclusions.
+
+Independent performance work profiles the actual browser control at128/10k/100k
+synthetic atoms, with zero repeated graph reads on warm/busy/focus/click updates.
+The real large loaded scene has58,870protein atoms plus4ligand atoms:2initial
+structure reads,0repeat reads,4exact ligand-H commands and unchanged selection,
+camera, artifacts and protein settings. Warm actions observed1.87–4.70sdesktop/
+2.58–5.21smobile include existing conservative renderer work. Retain this limitation;
+no speedup, universal capacity, strict-host or peak-memory/leak qualification is
+claimed. Reproducible profile scripts and source hashes are retained with evidence.
+
+Scientific implementation's7independent resolver cases,19command-boundary cases,
+UI state/focus/memoization tests, and independent architecture/performance/UI
+checkpoint assessments support the implementation. These overlap the complete
+frontend count and do not replace final all-seven same-candidate review.
+Primary complete C2 diff review found no further consequential finding.
+
+Known limitations: C3 final-version complete gate/actual v0.30.0 readers and C4
+delivery remain. No schema/API/migration/dependency or version change yet;
+versions remain0.30.0. Blockers:none for C3. Next:commit C2, prepare stable0.31.0
+and qualify the committed final-version candidate. Implementation is not ready to push.

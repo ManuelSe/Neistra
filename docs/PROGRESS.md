@@ -2,26 +2,28 @@
 
 ## Current milestone
 
-Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1 locally
-verified; C2 next**, under the subsequent `/goal` implementation/delivery authority.
-The [approved plan](plans/issue-145-surface-selection-hydrogen-toggle.md) remains
-the detailed contract. Manager toggle/empty clearing and passive native surfaces
-are implemented. A native-reproduced creation activation race is corrected through
-canonical-entry reconciliation, with independent before/after regression evidence.
+Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1/C2 locally
+verified; C3 next** under the explicit `/goal`. The
+[feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md) owns detail.
+C1 fixes surface toggling/empty clearing/passive picking and marking, including
+canonical creation activation. C2 adds the prominent H icon, graph-attached H
+targeting and guarded captured publication through the unchanged appearance API.
 
-Verification: lint/types, **729 frontend cases/84 suites**, build; **37 native
-passes/3 exact existing exclusions** plus **4 picking-matrix passes/200 real
-clicks**, both layouts, zero final failures/flakes.
-[C1 receipt](assets/surface-selection-hydrogen-toggle/c1-checkpoint.json) retains
-21 source identities, exact logs/reports and 64 hashed native observations.
-Earlier attempts remain diagnostics. Architecture passes the bounded correction;
-seven-role final implementation review and complete candidate/exact-master gates
-remain pending. C1 complete-diff review found no further consequential finding.
+C2 checks pass lint/types, **760 frontend cases/87 suites**, build, **26 API cases**,
+and **24 native passes/8 exact existing exclusions**, zero final failures/flakes/
+retries. Both themes/320px/actual200% and full-graph classification/history/
+source invariants pass. [C2 receipt](assets/surface-selection-hydrogen-toggle/c2-checkpoint.json)
+retains17source identities, logs/reports and26hashed native observations.
+C1's729frontend/37+4native and200real-click evidence remains in its receipt.
+Independent checkpoint architecture/performance/UI assessments pass; full final
+seven-role review and complete candidate/exact-master gates remain pending.
 
-Known limitations: C2 hydrogen targeting/icon and C3/C4 qualification/delivery
-remain. Versions stay 0.30.0; no schema/API/migration/dependency change. Blockers:
-none for C2. Next: commit C1, then implement C2. No implementation push or release
-is claimed. The PR uses `Closes #145` per the explicit `/goal`.
+Known limits: large-scene preference changes retain the existing conservative
+renderer path; observed warm actions take1.87–4.70sdesktop/2.58–5.21smobile with
+zero repeat structure reads. No speedup/strict-host claim. Versions remain0.30.0;
+no schema/API/migration/dependency change. Blockers:none for C3. Next:commit C2,
+prepare0.31.0, qualify final committed candidate and actual tagged readers.
+No implementation push, PR or release yet. PR uses `Closes #145`.
 
 ### Approved planning checkpoint — issue #145 C0
 

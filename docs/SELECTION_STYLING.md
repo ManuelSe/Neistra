@@ -36,9 +36,18 @@ panels, or move the camera. Its count always describes the current selection.
   Atomic reset also shows the target's atom detail; Polymer reset preserves
   atomic styles and hiding. Reapplying an already-visible assigned style or
   resetting an already-default target preserves revision, dirty state and Redo.
-- **Non-polar H** stores Show/Hide/Use entry setting for explicit selected H.
-  Selecting heavy atoms does not include attached hydrogens. Master hydrogen,
-  entry/component visibility and isolation still apply; help explains these limits.
+- The prominent **H** icon, below Atom detail and before Polymer, switches between
+  **All** and **Polar** hydrogen preferences. A check means All; a dash means
+  mixed effective preferences, and clicking mixed chooses All. Its tooltip gives
+  the current mode and next action. The separate reset restores entry inheritance.
+  Keyboard users can press Enter or Space; focus stays on the action while saving.
+- Hydrogen targets include existing selected H and existing H directly bonded in
+  the current graph to selected heavy atoms, including hidden H. The molecular
+  selection is unchanged. Missing bonds are not guessed and missing hydrogens
+  are not created. Master hydrogen, entry/component visibility and isolation still
+  apply. Preferences can be edited while the master switch is off. Loading,
+  unavailable structure data and a valid target without existing H are distinct
+  disabled states; hydrogen help explains the scope.
 - Open **Expand by distance** to search all entries, including hidden entries,
   with a positive cutoff (default 4 Å). Choose matching atoms or complete residues.
   The search preserves seeds, assumes a common Cartesian frame, and can be cancelled.
@@ -48,6 +57,11 @@ While an action is pending, its target remains the selection captured at activat
 You may change the selection, but further palette mutations wait until it finishes.
 Errors for an older target are labeled **Previous selection**. Empty selection
 keeps the palette open with its actions disabled.
+
+Hydrogen targets are captured against the current selection, project epoch and
+entry artifacts. If those change before dispatch, the action is refused rather
+than applied to a different selection. Already dispatched actions retain their
+captured target; revision conflicts use the existing refresh/retry feedback.
 
 Close with the close button, toolbar toggle, or Escape while focus is inside the
 palette. Outside clicks do not close it. Switching projects closes it. Help and

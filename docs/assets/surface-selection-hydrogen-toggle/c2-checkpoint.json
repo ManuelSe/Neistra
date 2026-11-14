@@ -1,0 +1,194 @@
+{
+  "api": {
+    "log": "c2-web-api.log.gz",
+    "scope": "unchanged appearance/viewer API; heavy-only API remains refused",
+    "skips": 0,
+    "tests": 26
+  },
+  "application_version": "0.30.0",
+  "artifacts": {
+    "c2-native-final-summary.json.gz": {
+      "bytes": 2329,
+      "sha256": "66bea04e8dbe5d9251ff2807029e72ae4b8fa52ee8f3bdcc4680441a87f1f0b3"
+    },
+    "c2-native-final.log.gz": {
+      "bytes": 1906,
+      "sha256": "dbc9b395b7f5ed529fc00c0ebd825a05a96fde115f82542206776073aa2ac2e3"
+    },
+    "c2-native-final2.json.gz": {
+      "bytes": 524164,
+      "sha256": "012cf4c216b6b5a15cb196e4b4d9680c55ebb7c397bc4152e22226ce765d17db"
+    },
+    "c2-native-final2.log.gz": {
+      "bytes": 1784,
+      "sha256": "e51351718de458e79b864af23a4cff16d1eb31387d52ac4f42b64d7b2d2fcab5"
+    },
+    "c2-native-large-scene-measurements.json.gz": {
+      "bytes": 953,
+      "sha256": "874b9885db59329035dc0a8cf9736a46cecf5afa6cd298bccb879dccb590fe19"
+    },
+    "c2-native-observations.zip": {
+      "bytes": 2605432,
+      "sha256": "bd4bf864c862816f4435daa7f9174bd4fd8ff24d305463e7a432104ebf8b48ef"
+    },
+    "c2-native-run1.log.gz": {
+      "bytes": 1308,
+      "sha256": "92c6513e2d807e138ac8aa3915559ab71c752ff6f7a19680075bc4edf83c503b"
+    },
+    "c2-native-run2.log.gz": {
+      "bytes": 1735,
+      "sha256": "db7b17a744dd287bb735a17a440c4094dfae37ee5052d6cbcf2e051e33442ff3"
+    },
+    "c2-native-run3.log.gz": {
+      "bytes": 1681,
+      "sha256": "fb8d7bb9d38b498bdd92ad57b2b31fbbb789d7aa3adc239afe4154b501a2f1f5"
+    },
+    "c2-native-run4.log.gz": {
+      "bytes": 1133,
+      "sha256": "5b1a846cdfc81c53fbd43ac9c4417b83f5918b00cca0ffdab07beffed95425ea"
+    },
+    "c2-native-types-final.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c2-native-types.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c2-native-types2.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c2-native-types3.log.gz": {
+      "bytes": 20,
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    "c2-native-visual-viewport-evidence.json.gz": {
+      "bytes": 341,
+      "sha256": "1d5081f68f1b9eaa73f94ea14850888689c7949ab09cd474a98785e9c2261546"
+    },
+    "c2-performance-profile-final.log.gz": {
+      "bytes": 1357,
+      "sha256": "c2bcef32710f41bd26162ce8c5772a11dd9a0457a1463c46235e2f0c0194b955"
+    },
+    "c2-performance-profile.html.txt": {
+      "bytes": 171,
+      "sha256": "c81ee7e51fdfed659500ceb7c98f0ddf381832d7bdbbeb36534b084289f204d6"
+    },
+    "c2-performance-profile.json.gz": {
+      "bytes": 1357,
+      "sha256": "c2bcef32710f41bd26162ce8c5772a11dd9a0457a1463c46235e2f0c0194b955"
+    },
+    "c2-performance-profile.mjs.txt": {
+      "bytes": 8188,
+      "sha256": "23ce1704a21657f10ccd595522c8d9d9f3f401bac83abf63da835301356d0e10"
+    },
+    "c2-performance-unit.log.gz": {
+      "bytes": 271,
+      "sha256": "178f08e9a5fe219c3276d1976b53325960dfb5c89fb1d7eb4b908c9b3f769c5f"
+    },
+    "c2-performance-vite.config.mjs.txt": {
+      "bytes": 564,
+      "sha256": "b218668cb7276bea32e904fdb66caf3c3e0661b6f38291bec5f71512d5cb9057"
+    },
+    "c2-web-api.log.gz": {
+      "bytes": 261,
+      "sha256": "b1b59f936ad37e69b3fd898e21490f258690a458ebb24960e87ab3bcc5af38e0"
+    },
+    "c2-web-focused.log.gz": {
+      "bytes": 305,
+      "sha256": "734e0b29c646eca63a6509c65988aad8647e1dd47980abd0cfca18f3aca0f75b"
+    },
+    "c2-web-frontend-corrected.log.gz": {
+      "bytes": 3553,
+      "sha256": "1a9ee71c5c4324a93298ee1c021d9630ce592f84da651083a308ab67d1d0a9b7"
+    },
+    "c2-web-frontend-gate.log.gz": {
+      "bytes": 5458,
+      "sha256": "2e4a0231370659ec88d6d771c5d71b20e1a2ada177973e00245f07ec95c9e47f"
+    },
+    "c2-web-structure-loading.log.gz": {
+      "bytes": 304,
+      "sha256": "b4f08370ea88928a3efd61530f110599de4ac16746475c99841361ca6b34a5d8"
+    },
+    "c2-web-types.log.gz": {
+      "bytes": 97,
+      "sha256": "7d982b08f3c4fc9f4e825adf08c1c42200fbb5c97ecb36e1e9174387acb8249d"
+    }
+  },
+  "base_commit": "0fd897e31b61fb08a8607b378329fe952230b669",
+  "candidate": "base plus recorded C2 source identities",
+  "checkpoint": "C2",
+  "diagnostics": "Earlier selector/async-checkbox/held-route/capture-scale fixture attempts retained separately, not passing qualification. Correctly scaled native200 frames required no product CSS change.",
+  "frontend": {
+    "build": "PASS",
+    "lint": "PASS",
+    "log": "c2-web-frontend-corrected.log.gz",
+    "suites": 87,
+    "types": "PASS",
+    "unit_tests": 760
+  },
+  "limitations": [
+    "C3 final-version complete candidate gate/actual tagged readers/all-seven final assessment and C4 delivery pending",
+    "Large display updates retain conservative rebuild; observed large-scene toggles can take seconds",
+    "Existing strict/portable policy and resource deadlines unchanged"
+  ],
+  "native": {
+    "actual_zoom": "native CDP frames plus visualViewport containment/elementFromPoint and real keyboard/pointer at100/200%; early crop artifacts retained as diagnostics",
+    "cases": 32,
+    "existing_layout_exclusions": 8,
+    "failed": 0,
+    "flaky": 0,
+    "observation_count": 26,
+    "observations": "c2-native-observations.zip",
+    "passed": 24,
+    "report": "c2-native-final2.json.gz",
+    "retries": 0,
+    "strict_types": "three changed native specs PASS"
+  },
+  "performance": {
+    "additional_structure_reads": 0,
+    "component": "c2-performance-profile.json.gz",
+    "initial_structure_reads": 2,
+    "interpretation": "descriptive local observations; existing non-surface conservative renderer rebuild remains; not speedup, strict timing, universal capacity or peak-memory/leak qualification",
+    "large_scene_atoms": 58874,
+    "native_large_scene": "c2-native-large-scene-measurements.json.gz",
+    "scope": "Browser loaded-control mount/rerender work; synthetic valid graph fixtures, no3Dengine/API/worker pipeline; no baseline-vs-candidate speedup claim",
+    "warm_commands": 4,
+    "warm_latency_ms_ranges": {
+      "desktop": [
+        1867,
+        4698.8
+      ],
+      "mobile": [
+        2576.5,
+        5209.7
+      ]
+    }
+  },
+  "review": {
+    "architecture": "PASS for integrated ownership/guard; stale-loader test adapted; full frontend gate passes",
+    "final_feature_gate": "all-seven same-final-candidate assessment remains pending",
+    "performance": "PASS for bounded control and actual large-scene work; existing display latency retained as limitation",
+    "ui": "PASS after actual200 light/dark and mobile320 images inspected; no consequential visual finding"
+  },
+  "sources": {
+    "apps/web/src/App.tsx": "8368a775f2f051aa959c1fbfb35aaf3824e7175ecead89ad9df81b8dab10a82a",
+    "apps/web/src/api/types.ts": "ec13ca04a6c1340fbec37b82e23e2436498ad828bac5aee8ebbfd51948997d93",
+    "apps/web/src/components/SelectionHydrogenControls.tsx": "d9c44b980d3b2b0c8b648f27e4089c78cdc3c28d196c8d4a61d0d1c9751533a0",
+    "apps/web/src/components/SelectionStyleDialog.tsx": "bbbfe3f308e033f455ba000d182c4bd0646af41aae78c0156a4523cecdf76449",
+    "apps/web/src/components/StructureViewer.tsx": "213425b3a8ed34b5e2a47809b67db2b2af27a0c1d8de4a043976a7f6a6a44558",
+    "apps/web/src/components/WorkspaceCanvas.tsx": "633d1c4d9ea399f366de47e6872d583c770de94a54dff5e6a43ce8b79bd166e2",
+    "apps/web/src/selection/hydrogenAction.ts": "5609189adc4905b11aebf7e765578bc379d2ddbb6bd4a828dfe0678985d76df2",
+    "apps/web/src/selection/hydrogenTargets.ts": "cc73df467dd28b42f24445f6553f48c6d70c6db6799f138904f61553ce4ff372",
+    "apps/web/src/styles.css": "a54549e0098b26b9d0bdc723a6ca3c86717b7f3c593a445c73d0823c379e2517",
+    "apps/web/src/test/hydrogen-action.test.ts": "c284ff6f68668633ace77f9820e32c531f1e8f4a514f147d72e1b85145459d77",
+    "apps/web/src/test/selection-hydrogen-controls.test.tsx": "fc5889f4910b35167e5072feeba5c552c092d813697fb3e381599161df609077",
+    "apps/web/src/test/selection-hydrogen-targets.test.ts": "2095ba92c5aec17caa40bde8846a2360df5be40abc038ded699ee8bd3c76a8c4",
+    "apps/web/src/test/selection-style-dialog.test.tsx": "ce4b416b10753312aec1ff60e444e3b6069845d67e754b61f4c75d9a1291714b",
+    "apps/web/src/test/structure-loading.test.tsx": "aa3a83ad4a999ab50597a74afc8af9b8af52cc7fc786930600deaf28b8d9784b",
+    "tests/e2e/polar-hydrogen-visibility.spec.ts": "1dc483da561687f06bed168289123b1d7ba354dee2d5f6e542a6870f76bc72be",
+    "tests/e2e/selection-appearance.spec.ts": "5be601fb21c9667a8408fb93526ca28746dfabc24b2b8417a0068101a115c725",
+    "tests/e2e/selection-hydrogen-toggle.spec.ts": "8dc78c222b699ff7ebfa1264cf7bbb1fbdb0b3acf1423132e8b38706d8befbb8"
+  }
+}

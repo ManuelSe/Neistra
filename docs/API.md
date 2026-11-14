@@ -657,6 +657,13 @@ viewer on full projected connectivity, so selecting polar H can store a preferen
 without changing its visibility. Color and hydrogen values cannot be combined in
 one request. Omitted hydrogen assignments in entry settings are also preserved.
 
+The styling panel's H icon resolves its existing selected H plus one-hop H
+neighbors of selected heavy atoms from the current normalized graph before
+submission. It sends that explicit H selection through this same endpoint;
+heavy-only API requests retain their existing no-H refusal. Captured selection,
+project epoch and artifact checks are transient client guards, not new wire fields.
+The revision guard remains authoritative for concurrent server changes.
+
 ## Independent surface objects (issue #57)
 
 `POST /api/v1/projects/{project_id}/surfaces` accepts `expected_revision` and a

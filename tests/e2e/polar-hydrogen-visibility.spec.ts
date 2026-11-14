@@ -728,38 +728,47 @@ for (const fixture of ["polar_hydrogens_ligand.mol", "polar_hydrogens_protein.pd
       await expect(page.locator(".viewer-status")).toContainText("1 selected");
       await page.getByRole("button", { name: "Style selection", exact: true }).click();
     };
-    const local = page.getByRole("dialog", { name: "Style selection" }).getByLabel("Selected non-polar hydrogens");
+    const localDialog = page.getByRole("dialog", { name: "Style selection" });
+    const local = localDialog.getByRole("button", { name: "Show non-polar hydrogens", exact: true });
+    const setLocal = async (show: boolean) => {
+      await expect(local).toHaveAttribute("aria-disabled", "false");
+      await expect(local).toHaveAttribute("aria-pressed", String(!show));
+      await local.click();
+      await expect(local).toHaveAttribute("aria-pressed", String(show));
+    };
     const finish = async () => {
       await expect(page.getByRole("status").filter({ hasText: "Selection hydrogen visibility stored" })).toBeVisible();
       await page.keyboard.press("Escape");
       await page.getByRole("button", { name: "Clear", exact: true }).click();
     };
     await selectAtom(1);
-    await expect(local).toBeDisabled();
+    await expect(local).toHaveAttribute("aria-disabled", "false");
+    await expect(local).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".viewer-status")).toContainText("1 selected");
     await page.keyboard.press("Escape");
     await selectAtom(4); // O-H remains polar even though its O is outside the selection.
-    await local.selectOption("hide");
+    await setLocal(false);
     await finish();
     await same(all);
     await selectAtom(2); // Only this explicit C-H is hidden.
-    await local.selectOption("hide");
+    await setLocal(false);
     await finish();
     await expect.poll(async () => (await hydrogenPixels())[0]).toBeLessThan(5);
     const hidden = await hydrogenPixels();
     expect(hidden[1]).toBeGreaterThan(100);
     await selectAtom(2);
-    await local.selectOption("show");
+    await setLocal(true);
     await finish();
     await same(all);
     await setHydrogenControl(page, request, project.id, "Show non-polar hydrogens", false);
     await page.getByRole("button", { name: "Close viewer controls" }).click();
     await same(all); // Local Show overrides the entry preference.
     await selectAtom(2);
-    await local.selectOption("inherit");
+    await localDialog.getByRole("button", { name: "Use entry hydrogen setting", exact: true }).click();
     await finish();
     await same(hidden);
     await selectAtom(2);
-    await local.selectOption("show");
+    await setLocal(true);
     await finish();
     await setHydrogenControl(page, request, project.id, "Show hydrogens", false);
     await page.getByRole("button", { name: "Close viewer controls" }).click();

@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+## Issue #145 — C2 hydrogen targeting and UI qualification
+
+C2 passes lint/types,760frontend cases/87suites/build,26API regressions, and
+24native cases/8exact existing exclusions with zero final failures/flakes/retries.
+Attached-H payloads, unchanged selection/model/originals/camera, history/reload,
+mixed/default/reset/master states, retired hidden loads and full-graph polar
+classification pass. Actual200% keyboard/pointer/viewport evidence and correctly
+scaled native frames qualify both themes; mobile320screenshots were inspected.
+[C2 receipt](assets/surface-selection-hydrogen-toggle/c2-checkpoint.json) retains
+17source identities, logs/reports and26hashed observations. Prior fixture attempts
+remain diagnostics; no resource/timing/exclusion policy is weakened.
+
+Independent loaded-control profiles confirm one cold graph scan and no warm/
+busy/focus/click rescans. A real58,870+4atom scene produces2initial/0repeat reads
+and4exact H commands. Existing broad renderer updates can take seconds (observed
+1.87–4.70sdesktop/2.58–5.21smobile); this is a limitation, not a speedup or strict
+timing qualification. Final-version candidate/exact-master gates, actual tagged
+readers, final all-seven review and release remain pending. No schema/migration/
+dependency/version change yet.
+
+
 ## Issue #145 — C1 surface interaction qualification
 
 Local C1 adds manager row toggling/empty clearing and passive solid/mesh/fallback

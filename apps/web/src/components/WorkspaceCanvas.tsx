@@ -2,7 +2,7 @@ import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
-import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
@@ -55,6 +55,7 @@ interface WorkspaceCanvasProps {
   cameraPresentation?: WorkspacePresentationController;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
+  onHydrogenAppearance?: ChangeHydrogenAppearance;
   selectionColorMode: SelectionColorMode;
   onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onSelectionStyle?: (
@@ -94,6 +95,7 @@ export function WorkspaceCanvas({
   cameraPresentation,
   onLoadPocketStructures,
   onAppearance,
+  onHydrogenAppearance,
   selectionColorMode,
   onSelectionColorModeChange,
   onEdit,
@@ -164,6 +166,7 @@ export function WorkspaceCanvas({
           onSelectionStyle={onSelectionStyle}
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          onHydrogenAppearance={onHydrogenAppearance}
           selectionColorMode={selectionColorMode}
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}

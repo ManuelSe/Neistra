@@ -350,7 +350,10 @@ for (const theme of ["light", "dark"]) {
     expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.selection_colors).toEqual([]);
     await dialog.getByRole("button", { name: "Apply color" }).click();
     await expect(dialog.getByRole("status").filter({ hasText: "Selection color applied" })).toBeVisible();
-    await dialog.getByLabel("Selected non-polar hydrogens").selectOption("hide");
+    const hydrogenToggle = dialog.getByRole("button", { name: "Show non-polar hydrogens", exact: true });
+    await expect(hydrogenToggle).toHaveAttribute("aria-pressed", "true");
+    await hydrogenToggle.click();
+    await expect(hydrogenToggle).toHaveAttribute("aria-pressed", "false");
     await expect(dialog.getByRole("status").filter({ hasText: "Selection hydrogen visibility stored" })).toBeVisible();
     expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual([]);
     for (const control of await dialog.locator("button:visible, input:visible, select:visible").all()) {

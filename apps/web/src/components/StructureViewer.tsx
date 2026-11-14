@@ -1,3 +1,5 @@
+import { captureHydrogenTarget } from "../selection/hydrogenAction";
+import { useSelectionStore } from "../store/selection";
 import { createSurfaceManagerSession, type SurfaceCreationRequest, type SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import { replaySurfacePreviews } from "../surfaces/surfacePreviewBinding";
 import { SequenceViewer } from "./SequenceViewer";
@@ -12,7 +14,7 @@ import { useMinimizationStore } from "../minimization/store";
 import { MinimizationPanel } from "./MinimizationPanel";
 import { placementContext } from "../editing/placement";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { InitialFitTicket } from "../workspacePresentation/types";
@@ -97,6 +99,7 @@ interface StructureViewerProps {
   cameraPresentation?: WorkspacePresentationController;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
+  onHydrogenAppearance?: ChangeHydrogenAppearance;
   selectionColorMode: SelectionColorMode;
   onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onSelectionStyle?: (
@@ -133,6 +136,7 @@ export function StructureViewer({
   cameraPresentation,
   onLoadPocketStructures,
   onAppearance,
+  onHydrogenAppearance,
   selectionColorMode,
   onSelectionColorModeChange,
   onEdit,
@@ -782,6 +786,13 @@ export function StructureViewer({
           onExpandDistance={onExpandDistance}
           onExpandResidues={expanded => onViewerSelection(expanded, "replace")}
           onAppearance={onAppearance}
+          onHydrogenAppearance={onHydrogenAppearance ? (change, target) => {
+            if (onLoadSelectionStructures && (styleEligibilityBusy || styleLoadedContext !== styleContext || styleEligibilityError)) {
+              return Promise.reject(new Error("Selection structures are not current. Reopen styling to retry."));
+            }
+            const capture = captureHydrogenTarget(project, useSelectionStore.getState().projectEpoch, selection, target);
+            return onHydrogenAppearance(change, capture);
+          } : undefined}
           selectionColorMode={selectionColorMode}
           onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}

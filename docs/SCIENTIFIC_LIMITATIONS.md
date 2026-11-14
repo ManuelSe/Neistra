@@ -221,6 +221,15 @@ extend template eligibility, automatically reconcile protein H or add Grow.
 
 ### Hydrogen display
 
+- The selection styling H control targets existing normalized element-H atoms
+  selected directly or connected by one recorded bond to a selected heavy atom.
+  Heavy seeds exclude H/D/T; element-D/T targeting remains outside this control.
+  Isotope metadata on element H is preserved. Recorded unknown-order or inferred
+  edges count as current graph adjacency; absent edges are never inferred from
+  distance. This is display targeting, not new validation of covalent chemistry.
+  Bridging H is included once and no recursive expansion is performed. Missing
+  source data or stale selection/artifacts refuse the action rather than produce
+  a partial target. The visible molecular selection is unchanged.
 - The viewer has three effective presentation modes: all explicit hydrogens,
   polar-only, and none. The master **Show hydrogens** setting wins over the
   preserved **Show non-polar hydrogens** preference when disabled.

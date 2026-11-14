@@ -1003,22 +1003,23 @@ it("ignores stale styling eligibility and closes the palette across project swit
     selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] },
     pickingGranularity: "atom", onViewerSelection: vi.fn(), createViewer: () => fake,
     onLoadSelectionStructures: load, onSelectionStyle: vi.fn().mockResolvedValue(undefined),
-    onAppearance: vi.fn().mockResolvedValue(undefined) };
-  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+    onAppearance: vi.fn().mockResolvedValue(undefined), onHydrogenAppearance: vi.fn().mockResolvedValue(undefined) };
+  const panel = (value: StructureViewerProps) => <Tooltip.Provider><StructureViewer {...value} /></Tooltip.Provider>;
+  const view = render(panel(props), { wrapper: wrapper(queryClient) });
   await user.click(screen.getByRole("button", { name: "Style selection" }));
-  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeDisabled();
-  view.rerender(<StructureViewer {...props} selection={{ ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 2 }] }} />);
-  await waitFor(() => expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled());
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "true");
+  view.rerender(panel({ ...props, selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 2 }] } }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "false"));
   await act(async () => { staleFailure(new Error("Old structure load failed")); await Promise.resolve(); });
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled();
-  view.rerender(<StructureViewer {...props} project={{ ...props.project, id: "other-project" }} />);
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toHaveAttribute("aria-disabled", "false");
+  view.rerender(panel({ ...props, project: { ...props.project, id: "other-project" } }));
   expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
-  view.rerender(<StructureViewer {...props} />);
+  view.rerender(panel(props));
   expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
-  view.rerender(<StructureViewer {...props} onLoadSelectionStructures={undefined} />);
+  view.rerender(panel({ ...props, onLoadSelectionStructures: undefined }));
   await user.click(screen.getByRole("button", { name: "Style selection" }));
-  expect(screen.queryByText("Checking explicit hydrogen targets…")).not.toBeInTheDocument();
+  expect(screen.queryByText("Checking existing hydrogen targets…")).not.toBeInTheDocument();
   view.unmount();
   queryClient.clear();
 });
