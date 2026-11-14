@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+## Issue #140 — corrected clean candidate2 qualification
+
+Committed **ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d** passes all33 complete
+sequential release steps: **1,542 Python /zero skips,723 frontend,14 supervisor,
+441 browser /75 exact existing exclusions**; no failures/flakes/retries/new
+exclusions. All516 cases/69files,791 current and754 actual preceding-tag source
+identities, recipe/runner/lossless-log hashes verify. [Complete summary](assets/representation-surfaces-session-camera/c7-candidate2-summary.json).
+Actual0.29.0↔final0.30.0 rich/connectivity producers and readers pass both directions
+and archive suffixes, including deep state/original checks and corruption controls.
+Migration round trip, locked/static/build/version/production/legacy checks pass.
+
+[Native receipt](assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
+verifies567 observations/ZIP CRC and internal hashes. The strict actual100%/200%
+both-theme manager entrance case and Components keyboard workflows pass. Earlier
+failed attempts below remain diagnostic, not release qualification. Primary
+[complete-diff review](assets/representation-surfaces-session-camera/c7-review.md)
+is self-review; final all-seven same-head assessment precedes push. A fresh complete
+exact-master2 gate remains mandatory before publication. Portable correctness
+provides no strict-host timing, universal capacity or independent human approval.
+
+
 ## Issue #140 — Components fixture handoff qualification
 
 Corrected candidate83dcee26 passes the strengthened actual100%/200% opening case

@@ -2,7 +2,7 @@
 
 ## 1. Status, authority, and approved direction
 
-**Status:** approved contract; C0–C5 complete; C6 first candidate qualified and merged; C7 corrective qualification in progress.
+**Status:** approved contract; C0–C5 complete; C6 first candidate qualified and merged; C7 corrected candidate qualified; corrective merge and exact-master qualification pending.
 The subsequent `/goal` authorizes C1–C7 implementation and delivery.
 Approval: the user's “Implement the plan.” on 2026-11-13, following review and
 the explicit choices recorded below. Approval authorizes C0 only, not application
@@ -985,3 +985,45 @@ source assessments; final reconfirmation must cover this fixture change and fina
 qualification evidence before push. No new scientific/architectural decision,
 product scope or follow-up issue is introduced. Next: corrected candidate2 complete
 gate, final review, normal corrective PR/merge, exact-master2 gate and publication.
+
+
+### C7 — 2026-11-14: corrected clean candidate2 fully qualified
+
+Clean committed candidate **`ca428af276ebdbae2532b60c4b3ac2e5c5bdca7d`** passes
+all **33 sequential release steps**, without partial-command reuse: **1,542 Python /
+zero skips, 723 frontend, 14 supervisor, 441 browser passes /75 exact existing
+exclusions**, zero failures/flakes/retries/new exclusions. All516 native identities
+across69 files execute. [Summary](../assets/representation-surfaces-session-camera/c7-candidate2-summary.json),
+[gate](../assets/representation-surfaces-session-camera/c7-candidate2-gate.json) and
+[reader audit](../assets/representation-surfaces-session-camera/c7-candidate2-reader-audit.json)
+retain exact command, recipe, source and lossless-log evidence. All791 current and754
+actual tagged0.29.0 source identities remain unchanged. The current source digest is
+`c9e9432cb5c3f5a587dfb76ae2bd4dce0741de9fc4731a232fe0d0bffd97a358`.
+
+Actual0.29.0↔final0.30.0 rich and connectivity reader families pass in both
+directions and both archive suffixes, with deep scene/settings/canonical/original
+comparisons and copied-corruption controls. Empty upgrade/downgrade/reupgrade,
+locked dependencies, static checks, build, versions, production audit and legacy
+CLI pass. Portable correctness is qualified; no strict reference-host timing or
+universal capacity claim is made. Sequential durations total5001.493s.
+
+The complete strengthened actual100%/200%, light/dark opening workflow passes
+all12 strict native timeline samples, and all Components keyboard workflows pass.
+[Native receipt](../assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
+verifies all567 observations (480PNG/87JSON), internal hashes and ZIP CRC. The final
+light1366px and dark320px manager screenshots are inspected. Earlier failed-master
+and candidate attempts remain distinct diagnostic evidence, not successful gates.
+
+The [updated complete intended-diff review](../assets/representation-surfaces-session-camera/c7-review.md)
+is primary implementer self-review. All seven specialists must explicitly assess
+the same final evidence/documentation head before push; exact verdicts are recorded
+in the corrective PR pre-merge receipt. The only production correction since #142
+is the manager opacity entrance; fixture changes retain all scientific, geometry,
+keyboard, accessibility, deadline, retry and exclusion requirements. No new
+architectural/scientific decision, migration or product scope is introduced.
+
+Versions remain0.30.0, with no published0.30 tag/release. #141 is the one approved
+styling follow-up; #64/#107 remain separate. Next: same-head final review, fresh
+base/version/policy checks, normal corrective PR/merge, complete clean c7-merged2
+exact-master qualification, then tag/release/download verification, final issue
+reply, normal documentation receipt integration and cleanup. No user-input blocker.

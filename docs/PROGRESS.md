@@ -2,35 +2,31 @@
 
 ## Current milestone
 
-Issue #140 — **implementation merged; C7 correction and requalification in progress**
-under the [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
-[PR #142](https://github.com/ManuelSe/Neistra/pull/142) normally merges reviewed
-head4ee4fea4 at54277903. Initial full candidate qualification passes; the first
-exact-master gate finds a real positioned-manager entrance defect. No tag/release
-exists, and delivery remains held.
+Issue #140 — **corrected candidate fully qualified; C7 delivery continues** under
+ the [approved contract](plans/issue-140-representation-surfaces-session-camera.md).
+[PR #142](https://github.com/ManuelSe/Neistra/pull/142) merges the initial implementation
+at54277903. Its exact-master gate catches a real positioned-manager entrance defect;
+no tag/release is created. One opacity-only entrance fixes it. Native old-rule
+negative control fails; all12 strict actual100%/200% both-theme timeline samples pass.
+Test helpers now await established Inspector/Components focus handoffs without
+changing application input policy, assertions, deadlines, retries or exclusions.
 
-One opacity-only manager entrance fixes that defect. Strict native start/midpoint/
-end geometry at actual100%/200% zoom passes all12 both-theme samples; the old-rule
-negative control fails. The corrected full candidate passes395 browser cases and
-all14 preceding steps (1,542 Python/zero skips,723 frontend,14 supervisor), then
-stops at an unrelated Components fixture focus handoff. [Failed-candidate receipt](assets/representation-surfaces-session-camera/c7-candidate1-diagnostic.json).
+The corrected clean **ca428af2** candidate passes all **33 release steps**: **1,542
+Python /zero skips,723 frontend,14 supervisor,441 browser passes /75 exact existing
+exclusions**; zero failures/flakes/retries/new exclusions. All516 native cases/69files,
+791 current and754 actual tagged0.29.0 source identities, logs, migrations and actual
+reader families in both directions/suffixes verify. [Summary](assets/representation-surfaces-session-camera/c7-candidate2-summary.json).
+[Native receipt](assets/representation-surfaces-session-camera/c7-candidate2-native-receipt.json)
+verifies567 observations. Earlier failed attempts remain separate diagnostics.
 
-The shared Components fixture now awaits its established heading focus, then
-checks disclosure focus/expansion before the unchanged keyboard path. No additional
-application code, deadline, retry or exclusion changes. The remaining mobile
-surface/viewer/camera command passes46 cases/12 registered exclusions, plus1 desktop
-hierarchy pass; zero failures/flakes/retries. [Focused correction](assets/representation-surfaces-session-camera/c7-handoff-correction.json)
-retains source/log hashes and37 observations. Application/backend/frontend/tool
-bytes remain unchanged; prior corresponding checks remain valid focused evidence.
-
-Five versions remain0.30.0, migration0015 and portable schemas are unchanged. Known
-limits remain approximate surfaces, specimen-specific capacities and best-effort
-browser recovery. Deferred styling is #141, with #64/#107 separate. No user-input
-blocker. Next: fresh clean full c7-candidate2 gate, final seven-role same-head
-reconfirmation, corrective normal PR/merge, full c7-merged2 exact-master gate,
-then tag/release/download verification, final issue reply, normal receipt integration
-and cleanup. The issue is closed by the requested PR keyword; the full delivery
-goal remains active.
+Five versions remain0.30.0; migration0015 and portable schemas remain unchanged.
+Known limits: approximate fixed-grid surfaces, specimen-specific capacities,
+best-effort browser recovery and portable rather than strict-host timing evidence.
+Deferred styling is #141, with #64/#107 separate. No user-input blocker. Next:
+final seven-role same-head reconfirmation, corrective normal PR/merge, full clean
+c7-merged2 exact-master gate, then tag/release/download verification, final issue
+reply, normal receipt integration and cleanup. The issue is closed by the requested
+PR keyword; the full delivery goal remains active.
 
 ### Approved planning checkpoint — issue #140 C0
 

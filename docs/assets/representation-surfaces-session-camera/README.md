@@ -125,3 +125,16 @@ cases/12 registered exclusions plus1 desktop case, with no retries or relaxed
 assertions/deadlines. All37 observations and report/log hashes verify. Application
 code is unchanged from83dcee26. Fresh candidate2 and exact-master2 full33-step gates
 and final seven-role review remain required; no partial command qualifies release.
+
+
+C7 corrected [clean candidate2](c7-candidate2-summary.json), committedca428af2,
+passes all33 complete sequential release steps:1,542 Python/zero skips,723 frontend,
+14 supervisor,441 browser/75 exact existing exclusions; zero failures/flakes/retries/
+new exclusions. All516 cases/69files,791 current and754 actual tagged0.29.0 source
+identities and lossless logs verify. [Reader audit](c7-candidate2-reader-audit.json)
+retains both real versions, families, directions and suffixes. [Native receipt](c7-candidate2-native-receipt.json)
+verifies567 observations (480PNG/87JSON), ZIP CRC and internal hashes. Actual100%/
+200% both-theme strict entrance samples and Components keyboard workflows pass.
+The [updated complete-diff self-review](c7-review.md) covers the complete approved
+scope and corrective diff. Final seven-role same-head assessment, normal corrective
+merge and full fresh exact-master2 gate remain mandatory before publication.
