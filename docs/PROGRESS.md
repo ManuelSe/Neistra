@@ -2,8 +2,9 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1 verified locally;
-C2 integration next**. C0 is committed, pushed and verified at `82d41588`.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1/C2 verified locally;
+C3 implementation and C4 preparation next**. C0 is committed, pushed and verified at
+`82d41588`; C1's local passing checkpoint is `10e7eef2`.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
 **Authorized within agreed scope; not individually reviewed**. The owner accepts
 all twelve audit findings, five common fragments and preservation of deliberately
@@ -31,13 +32,16 @@ verify; 196 native observations retain CRC/internal hashes. StrictMode's redunda
 initial HTTP dispatch is corrected with a microtask/signal boundary and negative
 control; the original one-read native assertion remains. [C1 evidence](assets/structure-editor-reliability/README.md).
 
-C2's frozen isolated delta passes 198 scientific/API tests, scoped typing/lint and
-actual-validator performance qualification: 19 workloads/57 measured calls, 24
-predecessor-expression oracles, nonfinite and active-frame checks. Parent verifies
-40 output hashes and 66 current source identities. The narrow PRO closure and
-explicit-axis norm corrections have independent theory evidence. Integration and
-native checks remain. C3 execution work is isolated and unqualified. No application
-implementation is pushed or declared feature-complete; final all-seven gate remains.
+C2 integrates the exact frozen scientific delta and passes 223 Python tests,
+Ruff/default mypy204 and all 42 focused native cases: 40 pass/two exact existing
+exclusions, zero failures/flakes/retries/new exclusions. All 713 scoped identities,
+logs and 29 native outputs verify. Actual-validator qualification passes 19 workloads/
+57 calls and 24 predecessor-expression oracles; parent verifies 40 output hashes and
+66 current/baseline identities. PRO closure, nonfinite error boundaries and explicit-
+axis norm corrections have independent evidence. [C2 evidence/review](assets/structure-editor-reliability/README.md).
+Frontend checks are reused on unchanged sources. C3 execution work is isolated and
+not yet integrated. No application implementation is pushed or declared feature-
+complete; final all-seven gate remains.
 
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
@@ -48,9 +52,10 @@ anticipated portable schema, dependency or migration change.
 
 Known limitations: fixes are still being implemented and integrated. Broader
 chemistry, preparation, geometry/stereo authoring and remaining #71 work retain
-explicit separate dispositions. Blockers: none. Next action: commit C1's passing
-local checkpoint, integrate/qualify C2 and continue C3–C7; no further routine approval
-required. Hold application pushes until final all-seven same-candidate review.
+explicit separate dispositions. Blockers: none. Next action: commit C2's passing
+local checkpoint, continue isolated C3 and qualified torsion/fragments, then C5–C7;
+no further routine approval required. Hold application pushes until final all-seven
+same-candidate review.
 
 ### Previous completed milestone — issue #145
 

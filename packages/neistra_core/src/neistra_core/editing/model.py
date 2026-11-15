@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import dataclass, field
-from math import dist
+from math import dist, isfinite
 from typing import Annotated, Literal
 
 import numpy as np
@@ -47,6 +48,7 @@ from neistra_core.modeling_metadata import (
 from neistra_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible", "automatic"]
+_MAX_BOND_GEOMETRY_DETAILS = 100
 
 
 class InvalidModelEdit(ValueError):
@@ -367,6 +369,8 @@ class DirectMolecularEditor:
         warnings: list[MolecularWarning] = []
         replacements: dict[int, int] = {}
         if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
+            for _ in self._affected_bond_lengths(before, chosen):
+                pass
             try:
                 placement = (
                     place_atom(
@@ -606,6 +610,11 @@ class DirectMolecularEditor:
             after = after.model_copy(
                 update={"annotations": authored_protection(before, after.atoms, set())}
             )
+        # Refuse affected nonfinite input before optional chemistry or spatial
+        # libraries can turn it into an unrelated error.  Final generated/moved
+        # geometry is inspected again below with the operation's diagnostics.
+        for _ in self._affected_bond_lengths(after, touched):
+            pass
         hydrogen_report = None
         if hydrogen_policy == "complete_if_possible":
             if isinstance(action, ModelDelete) and any(atoms[i].element == "H" for i in chosen):
@@ -699,6 +708,17 @@ class DirectMolecularEditor:
                         [conformer.coordinates[i] for i in retained_indices]
                     )
                     new_points = np.asarray([conformer.coordinates[i] for i in created_indices])
+                    for checked_indices, points in (
+                        (retained_indices, retained_points), (created_indices, new_points),
+                    ):
+                        finite = np.isfinite(points).all(axis=1)
+                        if not finite.all():
+                            invalid_index = checked_indices[int(np.flatnonzero(~finite)[0])]
+                            raise InvalidModelEdit(
+                                f"Conformer {conformer.id}, atom {after.atoms[invalid_index].id} "
+                                "has nonfinite placement clash-check coordinates; "
+                                "the molecular edit was not saved."
+                            )
                     closest = min(
                         closest, float(np.min(cKDTree(retained_points).query(new_points)[0]))
                     )
@@ -713,19 +733,22 @@ class DirectMolecularEditor:
                         "coordinates",
                     )
                 )
-        warnings.extend(self._local_warnings(after, touched, action.operation))
-        # Retain previous scientific/source warnings, replacing exact duplicates.
-        unique = {(w.code, w.field, w.message): w for w in [*after.warnings, *warnings]}
-        after = after.model_copy(update={"warnings": list(unique.values())})
         old_atoms = {a.id: a for a in before.atoms}
         new_atoms = {a.id: a for a in after.atoms}
-        old_bonds = {b.id for b in before.bonds}
-        new_bonds = {b.id for b in after.bonds}
         moved_hydrogens = (
             {i for site in reconciliation_report.sites for i in site.moved_hydrogen_ids}
             if reconciliation_report is not None
             else set()
         )
+        diagnostic_targets = touched | moved_hydrogens | {
+            i for i, atom in new_atoms.items() if i not in old_atoms or atom != old_atoms[i]
+        }
+        warnings.extend(self._local_warnings(after, diagnostic_targets, action.operation))
+        # Retain previous scientific/source warnings, replacing exact duplicates.
+        unique = {(w.code, w.field, w.message): w for w in [*after.warnings, *warnings]}
+        after = after.model_copy(update={"warnings": list(unique.values())})
+        old_bonds = {b.id for b in before.bonds}
+        new_bonds = {b.id for b in after.bonds}
         return ModelEditResult(
             EditResult(
                 structure=after,
@@ -747,6 +770,87 @@ class DirectMolecularEditor:
             reconciliation_report,
             _appearance_sources(before, after, selected, action),
         )
+
+    @staticmethod
+    def _affected_bond_lengths(
+        structure: NormalizedStructureV1,
+        touched: set[int],
+    ) -> Iterator[tuple[int, Bond, float]]:
+        indices = {a.id: i for i, a in enumerate(structure.atoms)}
+        affected = [b for b in structure.bonds if touched & {b.atom_1_id, b.atom_2_id}]
+        checked_atoms = (touched & indices.keys()) | {
+            i for b in affected for i in (b.atom_1_id, b.atom_2_id)
+        }
+        checked_atom_ids = sorted(checked_atoms)
+        for atom_id in checked_atom_ids:
+            if not all(isfinite(v) for v in structure.atoms[indices[atom_id]].coordinates):
+                raise InvalidModelEdit(
+                    f"Atom {atom_id} has nonfinite affected coordinates; "
+                    "the molecular edit was not saved."
+                )
+        for conformer in structure.conformers:
+            for atom_id in checked_atom_ids:
+                if not all(isfinite(v) for v in conformer.coordinates[indices[atom_id]]):
+                    raise InvalidModelEdit(
+                        f"Conformer {conformer.id}, atom {atom_id} has nonfinite affected "
+                        "coordinates; the molecular edit was not saved."
+                    )
+            for bond in affected:
+                length = dist(
+                    conformer.coordinates[indices[bond.atom_1_id]],
+                    conformer.coordinates[indices[bond.atom_2_id]],
+                )
+                if not isfinite(length):
+                    raise InvalidModelEdit(
+                        f"Conformer {conformer.id}, bond {bond.id} "
+                        f"(atoms {bond.atom_1_id}, {bond.atom_2_id}) has nonfinite "
+                        "derived length; the molecular edit was not saved."
+                    )
+                yield conformer.id, bond, length
+
+    @staticmethod
+    def _bond_geometry_warnings(
+        structure: NormalizedStructureV1,
+        touched: set[int],
+        operation: str,
+    ) -> list[MolecularWarning]:
+        warnings: list[MolecularWarning] = []
+        total = measurements = 0
+        affected_bonds: set[int] = set()
+        for conformer_id, bond, length in DirectMolecularEditor._affected_bond_lengths(
+            structure, touched
+        ):
+            measurements += 1
+            if length < 0.4 or length > 3.0:
+                total += 1
+                affected_bonds.add(bond.id)
+                if len(warnings) < _MAX_BOND_GEOMETRY_DETAILS:
+                    warnings.append(
+                        model_warning(
+                            "model_bond_geometry",
+                            f"Conformer {conformer_id}, bond {bond.id} "
+                            f"(atoms {bond.atom_1_id}, {bond.atom_2_id}) is "
+                            f"{length:.3f} angstrom; review the unoptimized geometry.",
+                            operation,
+                            f"bonds.{bond.id}",
+                        )
+                    )
+        if total:
+            shown = len(warnings)
+            warnings.append(
+                model_warning(
+                    "model_bond_geometry_summary",
+                    f"Checked {measurements} affected bond/"
+                    f"conformer measurements across all {len(structure.conformers)} "
+                    f"conformers: {total} outside the geometry thresholds on "
+                    f"{len(affected_bonds)} bonds. Showing {shown} details; "
+                    f"{total - shown} details omitted"
+                    f"{' (detail limit reached)' if total > shown else ''}.",
+                    operation,
+                    "coordinates",
+                )
+            )
+        return warnings
 
     @staticmethod
     def _local_warnings(
@@ -777,18 +881,7 @@ class DirectMolecularEditor:
             for i in (bond.atom_1_id, bond.atom_2_id):
                 if i in neighbors:
                     neighbors[i].append(bond)
-            if touched & {bond.atom_1_id, bond.atom_2_id}:
-                length = dist(atoms[bond.atom_1_id].coordinates, atoms[bond.atom_2_id].coordinates)
-                if length < 0.4 or length > 3.0:
-                    result.append(
-                        model_warning(
-                            "model_bond_geometry",
-                            f"Bond {bond.id} is {length:.3f} angstrom; "
-                            "review the unoptimized geometry.",
-                            operation,
-                            f"bonds.{bond.id}",
-                        )
-                    )
+        result.extend(DirectMolecularEditor._bond_geometry_warnings(structure, touched, operation))
         if any(b.aromatic and touched & {b.atom_1_id, b.atom_2_id} for b in structure.bonds):
             result.append(
                 model_warning(

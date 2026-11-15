@@ -1,0 +1,69 @@
+{
+  "stage": "C2 retained topology, template admission and bounded diagnostics",
+  "full_release_gate": false,
+  "base_commit": "10e7eef29aaa0406636691e66432d094055236b8",
+  "python_tests": 223,
+  "mypy_sources": 204,
+  "ruff": "PASS",
+  "frontend_qualification_reused": "C1 772tests/89suites +lint/types/build; every frontend source identity is unchanged",
+  "native": {
+    "passed": 40,
+    "existing_exclusions": 2,
+    "inventory": 42,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "new_exclusions": 0,
+    "exclusions_match_exact_selected_qualified_v031_identities": true
+  },
+  "source_identities": 713,
+  "source_unchanged": true,
+  "source_scope": "Same scoped code/lock inventory as C1; not the complete release input inventory",
+  "only_code_delta_from_c1": [
+    "packages/neistra_core/src/neistra_core/editing/model.py",
+    "packages/neistra_core/src/neistra_core/editing/protein.py",
+    "tests/integration/test_retained_editing.py",
+    "tests/scientific/test_direct_geometry_diagnostics.py",
+    "tests/scientific/test_retained_protein_topology.py",
+    "tests/unit/editing/test_protein_overlap.py"
+  ],
+  "source_digest": "812d3cbe262b710304e349471ed3b1abe012b8d3efa47e40feaf609cc745be72",
+  "logs": {
+    "python": {
+      "file": "c2-python.log.gz",
+      "lossless_sha256": "595ba0653087fa793f0eae1b50aa57feb90d518c6721eec7fedfddce08ab4305"
+    },
+    "mypy": {
+      "file": "c2-mypy.log.gz",
+      "lossless_sha256": "9e351035883a02a67b64a62b90dac743576bf2ce6cfcd195a7d74cb33a0441b1"
+    },
+    "ruff": {
+      "file": "c2-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "browser": {
+      "file": "c2-browser.log.gz",
+      "lossless_sha256": "94cb57c9e804d1d6b38dd59fedb984100ac5c7ffe0e34c614e291803a4fd7d68"
+    },
+    "inventory": {
+      "file": "c2-inventory.log.gz",
+      "lossless_sha256": "cbb4bfdf2b066a2933428a6a45d067b9fcee6dbeee72e461bbe5659d1cb01bb3"
+    }
+  },
+  "runner_sha256": "a3e67f5e925f1f6739359e8f8ee846a8a9f720ed968884259b876ac9a4077eee",
+  "native_archive": {
+    "file": "c2-native-observations.zip",
+    "bytes": 4201065,
+    "sha256": "f40b8056bb48b84a61152624738ce090697cc25731fe97d47aeabe1e10a74025",
+    "files": 29,
+    "crc_and_all_internal_hashes_valid": true
+  },
+  "validator_performance": "c2-validator-performance-receipt.json; actual19workloads/57calls,24old-expressionoracles,66unchangedsourceidentities and40outputhashesverified",
+  "corrections": [
+    "Retained-atom targetPRO closure distinguishes new target chemistry from restoring source-required cuts; explicit exclusion/open and inverse-conflict warnings.",
+    "Nonfinite derived length and optional-chemistry/placement error boundaries refuse atomically with conformer/atom/bond identity.",
+    "Explicit-axis float64 norm preserves predecessor axis arithmetic; four actual-original-expression negative controls reproduce both-direction drift before correction."
+  ],
+  "profile": "Portable correctness, isolated ports/data; validator timings observational and RSS includes native/fixture allocations",
+  "limits": "No new mutation multi-conformer support, physical clash model, preparation/search, controlled speedup or universal capacity claim. C3-C7/final seven-role candidate review remain pending."
+}

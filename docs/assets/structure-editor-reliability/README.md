@@ -39,3 +39,32 @@ one read, without changing its assertion, deadline, capacity, exclusion or retry
 
 Current portable correctness does not establish strict reference-host timing,
 universal capacity, release completion or human approval. C2–C7 remain separate.
+
+## C2 — Retained topology, admission and bounded diagnostics
+
+[Checkpoint receipt](c2-checkpoint.json) records 223 integrated Python tests,
+Ruff/default mypy (204 sources) and all 42 focused native cases: **40 pass / two
+exact existing exclusions**, zero failures/flakes/retries/new exclusions. All 713
+scoped identities and lossless logs verify; only the six reviewed scientific/test
+files differ from C1. Frontend checks are reused on unchanged frontend sources.
+[Primary review](c2-review.md) records the PRO closure, numerical error-boundary and
+norm-reduction corrections and their independent negative controls.
+
+[Focused receipt](c2-focused-receipt.json.gz), [browser report](c2-browser.json.gz),
+[inventory](c2-inventory.json.gz), [runner](c2-runner.py.txt) and `c2-*.log.gz`
+retain actual commands/environment/results. [Native observations](c2-native-observations.zip)
+retain all 29 files with verified ZIP CRC and internal manifest hashes.
+
+[Validator qualification](c2-validator-performance.zip) retains the independent
+performance report, reproduction harness, all measured outputs/resource samples,
+analysis, original audit script and verified baseline gate. Its [receipt](c2-validator-performance-receipt.json)
+binds all 47 files by SHA-256/CRC/internal hashes. Actual validator qualification
+passes 19 workloads/57 calls, 24 original-expression oracles, three nonfinite
+refusals and two active-frame checks. Coincident input through one million normalized
+atoms queries one row; later batches remain at most 32. Whole-process peaks include
+fixture construction/native allocations. Different baseline/candidate harness
+footprints and host load prohibit a controlled speedup ratio or universal-capacity
+claim; production settings are unchanged by this external profile.
+
+C3 execution/cancellation/publication and C4–C7 remain separate; no complete feature,
+release, strict-host or final seven-role review claim is made here.
