@@ -1,0 +1,23 @@
+{
+  "id": 446142301,
+  "tag_name": "v0.32.0",
+  "draft": false,
+  "prerelease": false,
+  "created_at": "2026-11-15T15:05:52Z",
+  "published_at": "2026-11-15T15:08:14Z",
+  "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.32.0",
+  "target_commitish": "master",
+  "body": "Neistra 0.32.0 improves structure editing, compact modeling workflows and recovery, with five additional fragments.\n\n- Reliable artifact-qualified molecular reads, retained protein cuts/exclusions and backbone validation, bounded edit computation, atomic publication and explicit unknown-outcome recovery.\n- Compact chemistry and warning controls, deliberate residue recovery, geometry setup, per-conformer torsion and visible nonpickable previews.\n- Cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl and methoxy fragments.\n- Automatic attached-H maintenance after aromatic carbon authoring under a disclosed provisional neutral-carbon coordination rule.\n- A compact attached-H toggle and reset with the same exact-target semantics as styling, preserving selection and unrelated preferences.\n- Canonical known-single/nonaromatic torsion-axis admission before toolkit conversion, including zero-angle setup.\n\nDelivered through [PR #151](https://github.com/ManuelSe/Neistra/pull/151) and corrective [PR #154](https://github.com/ManuelSe/Neistra/pull/154). Runtime: `b8ecfdea49610d2d9ab611d4d68d86afc0c277c5`.\n\nData compatibility: no dependency or migration change; migration head 0015. Project/viewer/archive schemas remain 2 and normalized/selection/component schemas remain 1. Use matching current client/API versions. Actual 0.31.0 readers retain and reexport the qualified current-authored states in both directions and both archive suffixes; this does not qualify older authoring behavior.\n\nVerification: Each complete fresh 35-step gate\u2014candidate and exact merged master\u2014passes **2,246 Python/zero skips, 863 frontend tests, 14 supervisor checks, and 469 browser cases/75 exact preceding exclusions across 544 cases**, with zero failures, flakes, retries or new exclusions. All 852 current/793 actual preceding-source identities and lossless logs verify. All seven specialist roles independently PASS final reviewed head `473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a`; the complete merged tree is identical. Each run retains all 636 native outputs. Actual new-state readers cover 15 projects/24 transitions, 30 preceding-writer archives and 60 reverse imports/reexports.\n\nThe [qualification archive](https://github.com/ManuelSe/Neistra/releases/download/v0.32.0/neistra-v0.32.0-qualification.zip) is **386,570,024 bytes**, SHA-256 `5e9bd1259c8d1ec3fd43caad3b14e9f149aa61e0a942e251a7115d43ba992f5e`. Its 313 outer manifest entries, nested evidence and project archive files are verified by hashes and ZIP CRC. Candidate and exact-merged qualification are separate complete runs; earlier interrupted runs remain diagnostic. Specialist agent review does not replace required human or remote approval.\n\nLimits: constructed geometry remains unoptimized. Provisional carbon coordination does not certify aromaticity or assign protonation; unsupported/protected sites retain H with diagnostics. Apply receipts are process-local and private recovery metadata is not durable execution evidence. Historical scheduling observations do not establish universal throughput or aggregate-memory guarantees.\n\nScope: all twelve accepted audit findings and five qualified fragments are included. [#71](https://github.com/ManuelSe/Neistra/issues/71) remains open for its broader catalogue. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149), stereochemistry authoring [#150](https://github.com/ManuelSe/Neistra/issues/150), ring fusion/custom catalogues, isotope/radical schemas, general chemistry assignment and comprehensive preparation remain separate.\n",
+  "verified_latest": true,
+  "assets": [
+    {
+      "id": 751362459,
+      "name": "neistra-v0.32.0-qualification.zip",
+      "size": 386570024,
+      "state": "uploaded",
+      "content_type": "application/zip",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.32.0/neistra-v0.32.0-qualification.zip",
+      "digest": "sha256:5e9bd1259c8d1ec3fd43caad3b14e9f149aa61e0a942e251a7115d43ba992f5e"
+    }
+  ]
+}

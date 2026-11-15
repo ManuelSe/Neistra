@@ -1,0 +1,16 @@
+{
+  "qualified_master": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "reviewed_feature_head": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+  "path": "/tmp/neistra147-release-v032/neistra-v0.32.0-qualification.zip",
+  "bytes": 386570024,
+  "sha256": "5e9bd1259c8d1ec3fd43caad3b14e9f149aa61e0a942e251a7115d43ba992f5e",
+  "outer_manifest_entries": 313,
+  "nested_verification": {
+    "zip_archives": 663,
+    "manifest_entries": 3957,
+    "project_archive_files": 1233,
+    "text_members": 3991
+  },
+  "all_internal_hashes_and_crc_valid": true,
+  "not_published_by_this_script": true
+}

@@ -2,44 +2,43 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **corrected candidate
-qualification complete; corrective merge and v0.32.0 publication remain**. Original
-[PR #151](https://github.com/ManuelSe/Neistra/pull/151) is merged at `3f0fa1b9`.
-No v0.32.0 tag/release exists. The [authorized contract](plans/issue-147-structure-editor-reliability.md)
-includes all twelve findings/five fragments, both owner-reported H fixes and the
-canonical torsion-axis admission correction found during scientific review.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) is released as stable/latest
+[v0.32.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.32.0) through PRs
+[#151](https://github.com/ManuelSe/Neistra/pull/151) and
+[#154](https://github.com/ManuelSe/Neistra/pull/154). Exact qualified runtime:
+`b8ecfdea49610d2d9ab611d4d68d86afc0c277c5`. The annotated runtime tag stays fixed.
+[Delivery report](assets/structure-editor-reliability/c7-delivery-report.md) and the
+[authorized plan](plans/issue-147-structure-editor-reliability.md) retain scope/evidence.
 
-Corrective runtime `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes a fresh complete35-step gate:
-**2,246 Python/zero skips,863 frontend/96files,14 supervisor,469 browser/75 exact
-preceding exclusions across544cases**; zero failures/flakes/retries/new exclusions.
-All852 current/793 actual preceding identities and lossless log hashes verify.
-Actual0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions/suffixes,
-including15projects/24transitions,30preceding archives/60reverse imports/reexports,
-corruption/stale controls and deep retained state. All636 native outputs are retained.
-[Evidence](assets/structure-editor-reliability/README.md) records seven independent
-PASS assessments for this runtime. Reporting-only changes preserve every qualified
-input and receive required same-head reconfirmation before application push.
+Completed: all twelve audit findings, five fragments, aromatic carbon automatic-H
+maintenance, shared compact attached-H toggle/reset, canonical known-single torsion
+admission and visible geometry/recovery workflows. The owner manually tested both
+H corrections and reported that all looks good.
 
-Owner validation reports both H fixes work. Automatic aromatic C H maintenance is
-a disclosed provisional neutral-carbon coordination rule; compact H appearance
-shares exact attached-H toggle/reset semantics with styling. Direct rotation now
-refuses unknown/multiple/aromatic canonical axes before toolkit conversion, including
-zero-angle setup. The109focused rotation tests pass; identical42regressions reproduce
-six failures/36passes on untouched predecessor. The initial contrary implementation
-assessment was superseded and the actual scientific finding corrected.
+Candidate and exact merged master each pass all 35 fresh sequential commands:
+**2,246 Python/zero skips, 863 frontend/96 files, 14 supervisor, 469 browser passes/
+75 exact preceding exclusions across 544 cases**, zero failures/flakes/retries/new
+exclusions. All 852 current/793 preceding identities and lossless log hashes verify.
+Actual preceding readers cover both directions/suffixes and 15 new-state projects/
+24 transitions/30 preceding archives/60 reverse imports. All seven specialist roles
+PASS the same final reviewed head; the complete merged tree is identical. Both runs
+retain all 636 native outputs. No external Codex result or human approval is claimed.
 
-Historical original candidate and both interrupted runs remain separately identified;
-no partial commands substitute for complete qualification. Versions remain0.32.0; no
-dependency, migration or persisted-schema change, head0015. Generated geometry remains
-unoptimized, aromatic coordination provisional, receipts process-local and visibility
-master gates independent. Deferred work remains #71/#114/#83/#52/#12/#70 and geometry
-#149/stereo#150. One optional generic stale-target copy improvement is deferred; no
-consequential finding remains.
+Annotated tag, stable/latest release, notes and anonymous 386,570,024-byte asset
+readback verify. SHA-256 `5e9bd1259c8d1ec3fd43caad3b14e9f149aa61e0a942e251a7115d43ba992f5e`;
+all ZIP CRC/internal manifest/file checks pass. All five versions agree on 0.32.0;
+no dependency, migration or persisted-schema change, head 0015.
 
-Next: normal corrective PR/review/merge, fresh complete exact-master35-step gate,
-annotated immutable tag, stable release/anonymous evidence verification, final replies,
-terminal receipt PR and owned cleanup. Preserve the owner-used hydrogen-fix worktree
-and original checkout. No further routine scope or publication approval is required.
+Known limits: provisional carbon coordination, unoptimized geometry, constrained
+protein templates, process-local Apply receipts and disclosed scheduling/memory
+limits. Broader #71/#114/#83/#52/#12/#70 and geometry #149/stereo #150 remain separate.
+The partial #71 reply leaves it open; #147 is closed with its released-scope reply.
+One optional generic stale-target copy improvement remains deferred.
+
+Terminal documentation integration and owned-cleanup readback are tracked in the
+[final issue reply](https://github.com/ManuelSe/Neistra/issues/147#issuecomment-6896630309).
+Preserve the owner's original checkout and used hydrogen-fix worktree/branch/data.
+No new implementation work is authorized by this terminal receipt.
 
 ### Previous completed milestone — issue #145
 
@@ -3343,12 +3342,10 @@ Results:
 
 ## Blockers
 
-None for the authorized issue #147 corrections. Integrated scientific/native checks,
-all seven final assessments, fresh complete candidate and exact-master gates and
-remote release delivery remain required.
+None for released issue #147. Terminal receipt integration and owned cleanup are
+verified in its final issue reply; the owner-used testing checkout is preserved.
 
 ## Next action
 
-Finish and qualify aromatic carbon H maintenance and the compact attached-H toggle
-on the dedicated corrective branch, then deliver through normal review/merge and
-fresh exact-master release qualification. No additional routine approval is needed.
+Use the final #147 reply for terminal integration/cleanup readback. New application
+work requires its own scoped issue/contract; deferred items remain separate.

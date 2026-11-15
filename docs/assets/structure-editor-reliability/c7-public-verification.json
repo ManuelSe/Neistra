@@ -1,0 +1,18 @@
+{
+  "verified_utc": "2026-11-15T15:09:31.122273+00:00",
+  "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.32.0/neistra-v0.32.0-qualification.zip",
+  "anonymous_request_without_authorization_header": true,
+  "http_status": 200,
+  "downloaded_path": "/tmp/neistra147-public-readback/neistra-v0.32.0-qualification.zip",
+  "bytes": 386570024,
+  "sha256": "5e9bd1259c8d1ec3fd43caad3b14e9f149aa61e0a942e251a7115d43ba992f5e",
+  "matches_local_release_asset": true,
+  "qualified_master": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+  "verification_counts": {
+    "zip_archives": 664,
+    "evidence_manifest_entries": 4270,
+    "project_archive_files": 1233,
+    "outer_manifest_entries": 313
+  }
+}

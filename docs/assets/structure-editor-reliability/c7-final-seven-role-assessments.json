@@ -1,0 +1,127 @@
+{
+  "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+  "comparison_base": "2b5400deef2ab09850a9f677050b33fa2775bded",
+  "packet": "/tmp/neistra147-c6r-final-review-v4",
+  "qualified_runtime": "1dfab40136d54a1f7d08348c045f4617a7d12e56",
+  "complete": true,
+  "source_count": 852,
+  "all_qualified_inputs_identical": true,
+  "full_candidate_gate": {
+    "label": "c6r-candidate2",
+    "qualified_commit": "1dfab40136d54a1f7d08348c045f4617a7d12e56",
+    "complete_steps": 35,
+    "summary": {
+      "commit": "1dfab40136d54a1f7d08348c045f4617a7d12e56",
+      "branch": "",
+      "clean_start": true,
+      "complete_steps": 35,
+      "source_count": 852,
+      "source_inventory_unchanged": true,
+      "source_digest": "51a0fe15f644780b09c3f3bbc9db661a1fc3489e5e82df97ccccd4d185edf117",
+      "sources_unchanged": true,
+      "all_lossless_log_hashes_valid": true,
+      "python": 2246,
+      "python_skips": 0,
+      "frontend": 863,
+      "supervisor": 14,
+      "browser_passed": 469,
+      "browser_exclusions": 75,
+      "browser_inventory_count": 544,
+      "browser_inventory_sha256": "365d360932dac96960b704ee237e777acefebc5c471c2891625855bec8d127be",
+      "complete_browser_inventory_executed": true,
+      "exclusion_baseline": "docs/assets/surface-selection-hydrogen-toggle/c4-master1-browser.json.gz",
+      "exclusion_baseline_sha256": "4d2d1c4a3843ab3f73973267a5c8c49168965a2dc91f5a147e4cb0c00f13290b",
+      "existing_exclusion_identities_unchanged": true,
+      "new_exclusions": 0,
+      "failures_flakes_retries": 0,
+      "profile": "portable correctness; no strict reference-host timing claim",
+      "preceding_reader": "actual v0.31.0; separate producer/reader processes both directions and both archive suffixes",
+      "preceding_source_identities_verified": 793,
+      "actual_reader_audit": "c6r-candidate2-reader-audit.json",
+      "current_canonical_unapplied_proposal_retained": true,
+      "duration_seconds": 5880.685,
+      "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+      "wall_seconds": 5883.0
+    },
+    "native_observations": 636,
+    "all_native_bytes": 85675305,
+    "all_seven_verdicts": "PASS",
+    "exact_master_gate": "not yet performed; separately required after normal corrective merge"
+  },
+  "assessments": {
+    "scientific_theory": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/aromatic_h_theory_147",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate assessment plus independently inspected complete65path reportingdelta; wholeintendedchange reconfirmed",
+      "independent_evidence": "Inspected65delta/382whole/102corrective;852inputs identical;35zeroexits/alllosslesslogs/counts2246/863/14/469+75exactbaseline544;0newskip/retry;ZIPbytesSHA/CRC702hashes;actualreaders15/24/30/60;scientificprovisional/geometry/appearance limits preserved.",
+      "consequential_findings": [],
+      "limitations": "Fresh exact merged-master35gate and normalremoteprocess before immutabletag/release;agentreviewnot humanapproval."
+    },
+    "software_architecture": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/h_toggle_architecture_147",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate assessment plus independently inspected complete65path reportingdelta; wholeintendedchange reconfirmed",
+      "independent_evidence": "65docsnewfiles+382/102/65file/threepatchhashes/852inputs;all35steps/recipe+runnerbindings/logSHA/counts;852/793source/module/readers15/24/30/60;ZIP70680772B/702hashes/636native85675305B verified;state/ownership/publication/recovery/contracts unchanged.",
+      "consequential_findings": [],
+      "limitations": "Fresh exact merged-master35gate and normalremoteprocess before immutabletag/release;agentreviewnot humanapproval."
+    },
+    "scientific_implementation": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/c6r_final_scientific_implementation",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate assessment plus independently inspected complete65path reportingdelta; wholeintendedchange explicitlyreconfirmed",
+      "independent_evidence": "All382/102/65file+3patchhashes/852sourceidentities;35success/alllosslesslogs/recipe+runner;2246Python0skip863web96/14supervisor/469browser+75exactbaseline/544identities,0retry/unexpected/flaky;ZIP702/636native85675305B; readeractualsource/module/versionbindings; scientificlimitsunchanged.",
+      "consequential_findings": [],
+      "limitations": "Fresh exactmerged35gate and normalremoteprocess beforetag/release;agentreviewnot humanapproval."
+    },
+    "ui_design": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/c6r_final_ui_v3",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate assessment plus independently inspected complete65path reportingdelta; wholeintendedchange explicitlyreconfirmed",
+      "independent_evidence": "All382/102/65packetbytes+852sourceidentities;35success/alllosslessloghashes;469browser75existing0unexpected/flaky/bothcompactHcasesPASS;ZIPbytesSHA/CRC702hashes/native636;freshfullrun actualdark200percentHscreenshot inspected;allcontrols/focus/feedbackclearcontained.",
+      "consequential_findings": [],
+      "limitations": "Fresh exactmerged35gate and normalremoteprocess beforetag/release;agentreviewnot humanapproval."
+    },
+    "ux_design": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/c6r_final_ux_v3",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate assessment plus independently inspected complete65path reportingdelta; wholeintendedchange explicitlyreconfirmed",
+      "independent_evidence": "All65doc/evidencepathhashes852sourceidentical;35success/alllosslesslogs/sourceinventories;469browser75existing0unexpected/flaky/errors;all22compact/HworkflowcasesPASSonce inclcompactandregular;ZIPsizeSHA/CRC702hashes/636native85675305B;claims/dispositionsscopeinspected.",
+      "consequential_findings": [],
+      "limitations": "Fresh exactmerged35gate and normalremoteprocess beforetag/release;agentreviewnot humanapproval."
+    },
+    "modeling_reference": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/aromatic_h_reference_147",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate pluscomplete65reportingdelta independentlyrebound382/102/65fileandpatches",
+      "independent_evidence": "852sourceidentical;35zeroexits/everylogSHA;544browser469PASS75exactbaseline0retries;ZIPbytesSHA/CRC702hashes636native85675305B;progress/notes/plan/readeraudit+nativeHimagery;all12+five/deferred/neutralnaming/disclosedinference preserved.",
+      "consequential_findings": [],
+      "limitations": "Earlierprivateprimarysourceledger remains applicable;no newparityclaim;freshactualmerged35andnormalremoteprocess beforetag/release."
+    },
+    "performance": {
+      "candidate": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+      "agent": "/root/c6r_final_performance_v3",
+      "verdict": "PASS",
+      "scope": "Priorwholecandidate115independentoracles pluscomplete65reportingdelta;382whole102correctivehashes/threepatches",
+      "independent_evidence": "All852runtimeinputs identical;35sequentialzeroexit/committedrecipe+runner/alllogSHA/852current793oldsource;469PASS75exactold/544browser0retriesnewskip;ZIP70680772BSHA/CRC702manifest/636native85675305B verified;40submitted2renderedframes,maxactive1/exactrestore/no molecularrequests;portableclaimsunchanged.",
+      "consequential_findings": [],
+      "limitations": "Synchronouspublication/aggregate-memorylimits disclosed;strictreferencehosttimingnotclaimed;freshactualmerged35beforetag/release."
+    }
+  },
+  "nonblocking_suggestions": [
+    {
+      "role": "ux_design",
+      "file": "apps/web/src/selection/hydrogenAction.ts:19,38",
+      "suggestion": "Shared stale-target text says Reopen styling even from compact editor; future generic wording could say Reopen the tool.",
+      "disposition": "Deferred copy cleanup; stale-target refusal remains correct, current delivery scope unchanged."
+    }
+  ],
+  "unresolved_consequential_findings": [],
+  "all_seven_same_final_head": true,
+  "meaning_of_complete": "Seven independent specialist agent final-head assessments received; fresh exact-master gate and remote publication remain separate required stages."
+}
