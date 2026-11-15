@@ -7560,3 +7560,53 @@ including zero-angle setup. Preserve the legacy ligand API and all other eligibi
 checks. Refusal must leave originals, coordinates, artifacts, revision, history,
 allocator floors and staging unchanged. Independent known-single positive controls
 and unknown/multiple/aromatic negative controls qualify this admission correction.
+
+## D-163 — Explicit transient interaction targets and precise inspection
+
+Date: 2026-11-15. Status: authorized planning contract for issue #152 under the
+owner's plan-and-deliver invocation; wording not individually reviewed.
+
+Keep qualified immutable interaction records authoritative and apply explicit
+application-owned transient targets independently of molecular Inter/Intra scope.
+All visible remains dynamic. Selection capture stores exact canonical IDs; one
+complete participant group must intersect that set and the other must be disjoint.
+Retain full donor/H, ring and charge groups and unchanged scientific evidence.
+This is display targeting, not partial-site qualification or molecular selection
+expansion. Ordinary selection and result Select never recapture the target.
+
+Exact selection intent survives coordinate/chemistry changes while IDs remain
+valid. A whole-ligand label additionally requires the same explicit assigned
+instance and identical resolved full membership. Missing current projections mean
+validating; missing IDs or changed ligand membership require explicit Update.
+Never guess another ligand, prune invalid intent or silently fall back to workspace.
+Do not equate navigation residue components with universal molecule grouping.
+
+Use a bounded optional list and precise participant/metric inspector with existing
+camera Focus and explicit canonical Select actions. Retire old details on artifact
+change. Distinguish salt minimum-site distance from drawn group centers, H···A
+from donor···acceptor, centroid metrics and clash overlap. Counts describe records.
+Coverage remains a conservative input summary; stronger percentages are unsupported.
+Preserve known warning identity and preparation guidance without inventing mappings.
+Durable designation, chemistry assignment and 2D diagrams remain separate.
+
+## D-164 — Guarded interaction installation receipts and session appearance
+
+Date: 2026-11-15. Status: authorized planning contract for issue #152; implementation
+and qualification pending under the feature plan.
+
+An awaited native geometry task cannot publish after clear, newer requests,
+preview/rebuild retirement, renderer replacement or disposal. Recheck generation,
+canvas/plugin ownership and eligibility after awaited construction. Publish narrow
+display-key/scene-generation receipts: pending on invalidation and ready with exact
+installed record keys/counts only after successful current installation. Include
+native hydrogen visibility; lazy unmounted adapters cannot claim readiness. App
+also guards project, viewer and requested display identity. Shown means installed
+eligible records, not guaranteed on-screen unoccluded pixels.
+
+Master show/hide preserves categories/scopes/targets/appearance/cache and avoids
+unnecessary cold chemistry; an empty category choice never silently enables types.
+Keep all choices session-only. Shared category pattern/color definitions drive
+faithful original legend samples and renderer geometry; bounded color/width/reset
+are presentation only. Keep markers passive and no permanent contact text. Detailed
+identity/metric inspection supplies on-demand explanation without new annotation
+authority. No new service, job, molecular/durable schema or database migration.
