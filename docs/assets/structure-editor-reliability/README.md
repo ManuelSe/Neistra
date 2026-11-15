@@ -189,3 +189,22 @@ template-ownership and precision seams remain unchanged and qualified separately
 C4b primary integration and C5 native controls remain pending. No native compact
 rotation control, final seven-role implementation approval, reader compatibility
 or release qualification is claimed by this checkpoint.
+
+## C4b — Five qualified common fragments
+
+[Checkpoint](c4b-checkpoint.json) and [primary review](c4b-review.md) record the
+seven-path primary integration. All thirteen corrected scientific/API paths match
+both scoped scientific PASS assessments. [Integration bindings](c4b-integration-bindings.json.gz)
+prove all 737 source identities and 52 fixture hashes match the completed 585-case
+corrected run. [Environment](c4b-environment.json) proves identical Python and 49
+distribution versions. The existing Python/Ruff/mypy218 evidence is reused because
+these inputs are unchanged; it is not represented as a new execution.
+
+Five fixed neutral templates retain graph/formula/root-H/identity/original/history
+coverage and 360 final-automatic placement cases across both attachment modes,
+every direction/turn and three conformers. The preservation seam certifies internal
+construction ownership; unoptimized or precision-limited geometry remains warned.
+No ring fusion, custom library, wider H chemistry or preparation claim is added.
+
+C5 native compact controls, actual preceding-reader qualification, full release
+gates and all seven final whole-feature assessments remain outstanding.

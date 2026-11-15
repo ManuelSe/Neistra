@@ -3,13 +3,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import isfinite
+from math import dist, isfinite
 from typing import Any
 
 import numpy as np
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
-from neistra_core.editing.fragments import FRAGMENT_SEED, FragmentName, fragment_template
+from neistra_core.editing.fragments import (
+    FRAGMENT_SEED,
+    PRESERVED_TEMPLATE_FRAGMENTS,
+    FragmentName,
+    TemplatePlacementEvidence,
+    fragment_template,
+    require_proper_local_rotation,
+)
 from neistra_core.editing.geometry import covalent_length as _length
 from neistra_core.editing.geometry import covalent_radius as _radius
 from neistra_core.editing.geometry import local_frame as _frame
@@ -22,6 +29,9 @@ from neistra_core.molecular import (
     NormalizedStructureV1,
 )
 
+_MAX_FRAGMENT_PRECISION_DETAILS = 100
+_FRAGMENT_PRECISION_ADVISORY = 1e-8
+
 
 @dataclass(frozen=True)
 class Placement:
@@ -29,6 +39,7 @@ class Placement:
     replacements: dict[int, int]
     touched: set[int]
     warnings: tuple[MolecularWarning, ...] = ()
+    template_evidence: TemplatePlacementEvidence | None = None
 
 
 def _unit(vector: Any) -> Any:
@@ -223,30 +234,78 @@ def place_fragment(
     )
     parent_indices = {a.id: i for i, a in enumerate(before.atoms)}
     frames: list[list[tuple[float, float, float]]] = []
+    precision_warnings: list[MolecularWarning] = []
+    precision_frames = 0
+    maximum_loss = 0.0
     for conformer in before.conformers:
         points = np.asarray(conformer.coordinates)
         origin = points[parent_indices[anchor.id]]
         axis = _direction(before, anchor.id, points, direction, replaced)
-        aligned = relative @ (_frame(axis) @ _frame(source_axis).T).T
+        alignment = _frame(axis) @ _frame(source_axis).T
+        if fragment in PRESERVED_TEMPLATE_FRAGMENTS:
+            require_proper_local_rotation(alignment)
+        aligned = relative @ alignment.T
         retained_points = np.asarray(
             [points[i] for i, a in enumerate(before.atoms) if a.id not in {anchor.id, replaced}]
         )
         tree = cKDTree(retained_points) if len(retained_points) else None
         cross = np.array([[0, -axis[2], axis[1]], [axis[2], 0, -axis[0]], [-axis[1], axis[0], 0]])
         candidates = []
+        local_candidates = []
         scores = []
         for turn in range(6):
             angle = turn * np.pi / 3
             around = np.eye(3) + np.sin(angle) * cross + (1 - np.cos(angle)) * cross @ cross
+            if fragment in PRESERVED_TEMPLATE_FRAGMENTS:
+                require_proper_local_rotation(around)
+            local = aligned @ around.T
             generated = (
-                aligned @ around.T
+                local
                 + origin
                 + axis * _length(anchor.element, template.GetAtomWithIdx(1).GetSymbol())
             )
+            local_candidates.append(local)
             candidates.append(generated)
             scores.append(float(np.min(tree.query(generated)[0])) if tree is not None else 10.0)
         best = max(range(6), key=lambda i: scores[i])
-        frames.append([tuple(point) for point in candidates[(best + rotation) % 6]])
+        chosen = (best + rotation) % 6
+        generated = candidates[chosen]
+        if fragment in PRESERVED_TEMPLATE_FRAGMENTS:
+            if len({tuple(point) for point in generated}) != len(generated):
+                raise ValueError(
+                    f"Conformer {conformer.id}: world-coordinate precision collapsed "
+                    f"distinct generated {fragment} atoms; no placement was saved."
+                )
+            kept_indices = {idx: n for n, idx in enumerate(kept)}
+            for template_bond in template.GetBonds():
+                a, b = template_bond.GetBeginAtomIdx(), template_bond.GetEndAtomIdx()
+                if a in kept_indices and b in kept_indices:
+                    length = dist(generated[kept_indices[a]], generated[kept_indices[b]])
+                    if not isfinite(length) or length < 0.4 or length > 3.0:
+                        raise ValueError(
+                            f"Conformer {conformer.id}: world-coordinate precision cannot "
+                            f"represent internal {fragment} bond {mapping[a]}-{mapping[b]} "
+                            f"({length:.9g} angstrom); no placement was saved."
+                        )
+            world_relative = generated - generated[0]
+            local_relative = local_candidates[chosen] - local_candidates[chosen][0]
+            loss = float(np.max(np.linalg.norm(world_relative - local_relative, axis=1)))
+            if loss > _FRAGMENT_PRECISION_ADVISORY:
+                precision_frames += 1
+                maximum_loss = max(maximum_loss, loss)
+                if len(precision_warnings) < _MAX_FRAGMENT_PRECISION_DETAILS:
+                    precision_warnings.append(MolecularWarning(
+                        code="model_fragment_precision_limited",
+                        operation="model.fragment.attach",
+                        field=f"conformers.{conformer.id}.coordinates",
+                        message=f"Conformer {conformer.id}: world-coordinate representation "
+                        f"of {fragment} loses up to {loss:.9g} angstrom relative to its local "
+                        "construction "
+                        f"(numerical fidelity advisory {_FRAGMENT_PRECISION_ADVISORY:g}). "
+                        "Template-owned H coordinates were retained exactly as generated; "
+                        "this geometry is precision-limited and unoptimized.",
+                    ))
+        frames.append([tuple(point) for point in generated])
     active = next(i for i, c in enumerate(before.conformers) if c.id == before.active_conformer_id)
     source_index = max((a.source_index for a in before.atoms), default=-1) + 1
     new_atoms = [
@@ -290,11 +349,26 @@ def place_fragment(
         "rigid transforms in each conformer, "
         "no parent embedding/minimization or protonation determination.",
     )
+    if precision_frames:
+        shown = len(precision_warnings)
+        precision_warnings.append(MolecularWarning(
+            code="model_fragment_precision_summary", operation="model.fragment.attach",
+            field="coordinates",
+            message=f"Checked all {len(before.conformers)} conformers: {precision_frames} "
+            f"precision-limited frames, maximum representation loss {maximum_loss:.9g} angstrom. "
+            f"Showing {shown} details; {precision_frames - shown} details omitted.",
+        ))
     return Placement(
         after,
         {} if replaced is None else {replaced: mapping[1]},
         {anchor.id, *[a.id for a in new_atoms]},
-        _radius_warning(anchor.element, "fragment.attach")
-        if _radius(anchor.element) is None
-        else (),
+        (_radius_warning(anchor.element, "fragment.attach")
+         if _radius(anchor.element) is None else ()) + tuple(precision_warnings),
+        TemplatePlacementEvidence(
+            fragment=fragment,
+            template_indices=tuple(kept),
+            atom_ids=tuple(mapping[i] for i in kept),
+            conformer_ids=tuple(c.id for c in before.conformers),
+            coordinates=tuple(tuple(frame) for frame in frames),
+        ) if fragment in PRESERVED_TEMPLATE_FRAGMENTS else None,
     )

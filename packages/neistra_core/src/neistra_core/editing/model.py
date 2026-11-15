@@ -20,7 +20,11 @@ from pydantic import (
 from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
-from neistra_core.editing.fragments import FragmentName
+from neistra_core.editing.fragments import (
+    PRESERVED_TEMPLATE_FRAGMENTS,
+    FragmentName,
+    qualified_template_atom_ids,
+)
 from neistra_core.editing.hydrogen import (
     Geometry,
     HydrogenBuilder,
@@ -436,6 +440,7 @@ class DirectMolecularEditor:
         touched = set(chosen)
         warnings: list[MolecularWarning] = []
         replacements: dict[int, int] = {}
+        qualified_fragment_ids: frozenset[int] = frozenset()
         if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
             for _ in self._affected_bond_lengths(before, chosen):
                 pass
@@ -470,6 +475,16 @@ class DirectMolecularEditor:
                 placement.touched,
             )
             warnings.extend(placement.warnings)
+            if (
+                isinstance(action, ModelFragmentAdd)
+                and action.fragment in PRESERVED_TEMPLATE_FRAGMENTS
+            ):
+                try:
+                    qualified_fragment_ids = qualified_template_atom_ids(
+                        before, after, action.fragment, placement.template_evidence,
+                    )
+                except ValueError as error:
+                    raise InvalidModelEdit(str(error)) from error
         elif isinstance(action, ModelDelete):
             if hydrogen_policy == "automatic":
                 deletion_adjacency = _adjacency(before)
@@ -754,6 +769,7 @@ class DirectMolecularEditor:
                 inferred_deletion=isinstance(action, ModelBondDelete) and old is None,
                 policy="automatic" if hydrogen_policy == "automatic" else "reconcile_if_possible",
                 suppressed_targets=suppressed,
+                qualified_fragment_atom_ids=qualified_fragment_ids,
             )
             after, reconciliation_report = outcome.structure, outcome.report
             warnings.extend(outcome.warnings)

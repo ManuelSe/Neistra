@@ -1,0 +1,47 @@
+{
+  "stage": "C4b five qualified common fragments integrated into primary",
+  "full_release_gate": false,
+  "base_commit": "14c792c53db77e503cce15f2cfbdb9086874de1d",
+  "domain_test_paths_changed": [
+    "packages/neistra_core/src/neistra_core/editing/fragments.py",
+    "packages/neistra_core/src/neistra_core/editing/model.py",
+    "packages/neistra_core/src/neistra_core/editing/placement.py",
+    "packages/neistra_core/src/neistra_core/editing/reconciliation.py",
+    "tests/integration/test_fixed_fragment_history.py",
+    "tests/scientific/test_fixed_fragment_geometry.py",
+    "tests/unit/editing/test_template_placement_evidence.py"
+  ],
+  "qualified_python_tests": 585,
+  "python_skips": 0,
+  "ruff": "PASS",
+  "default_mypy_sources": 218,
+  "verification_reused_from": "c4-full-receipt.json.gz; exact current737source hashes, all52fixture hashes and49Python distribution/interpreter metadata match the qualified owned tree",
+  "source_bindings": {
+    "scoped_source_identities": 737,
+    "fixtures": 52,
+    "source_and_fixtures_match": true,
+    "python_metadata_sha256": "73449919060f391b1eedb54338cab951c1f4992cc4bb8900b09b05eba8095838",
+    "bindings_file": "c4b-integration-bindings.json.gz",
+    "bindings_lossless_sha256": "ad065d4bb3f1bf72328bdac029d5ff2dec47cfc093f80444ebbbf8d2c2af74e2"
+  },
+  "fragments": [
+    "cyclopropyl",
+    "cyclobutyl",
+    "cyclopentyl",
+    "cyclohexyl",
+    "methoxy"
+  ],
+  "scientific_scope": [
+    "Five fixed neutral C/O templates with one external attachment, seeded existing builder",
+    "Template-owned complete H geometry preserved only through internal constructed evidence",
+    "Original parent and existing fragment chemistry continue ordinary automatic reconciliation",
+    "All conformers, directions/turns, heavy attachment/H replacement, formulas/IDs/original/history independently asserted",
+    "Finite-coordinate precision warns without refitting; collapse/extreme internal bonds refuse atomically"
+  ],
+  "early_scientific_reviews": "Both roles PASS the same corrected full13path candidate; unchanged after primary integration",
+  "limits": [
+    "No arbitrary fragments, ring fusion, isotope/radical expansion, preparation, rotamer search or physical quality certification",
+    "C5 compact frontend/native qualification not yet integrated",
+    "Final seven-role whole-feature, actual preceding-reader and complete release gates remain required"
+  ]
+}

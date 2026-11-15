@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C3 verified and
-committed locally; corrected C4 scientific/API integration and C5 native workflows
-next**. C0 is committed, pushed and verified at `82d41588`; application pushes remain
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C3 committed;
+C4 scientific/API source qualified; compact frontend and native integration next**.
+C0 is committed, pushed and verified at `82d41588`; application pushes remain
 held for the final seven-role gate.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
 **Authorized within agreed scope; not individually reviewed**. The owner accepts
@@ -62,7 +62,11 @@ finite-angle periodicity and inactive-frame diagnostics; all 27 new regressions
 fail before repair. The complete corrected thirteen-path scientific/API candidate
 passes 585 overlapping cases with all 737 scoped identities/logs unchanged, and
 both scientific roles return scoped PASS. [C4a evidence/review](assets/structure-editor-reliability/README.md).
-Primary five-fragment integration and native compact controls are still pending.
+C4a is committed locally as `14c792c5`. C4b integrates the exact qualified five-
+fragment implementation/tests. All 737 scoped source identities, 52 fixture hashes
+and Python/49 distribution metadata match the completed 585-case scientific gate,
+so its evidence is reused. [C4b bindings/review](assets/structure-editor-reliability/README.md).
+Native compact controls and final whole-feature review remain pending.
 
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
@@ -76,8 +80,8 @@ Known limitations: fixes are still being implemented and integrated. A synthetic
 461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
 evidence, not universal responsiveness/capacity qualification. Broader chemistry,
 preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. Next action: commit corrected C4a locally,
-integrate the qualified five fragments and frozen compact frontend, then run native
+separate dispositions. Blockers: none. Next action: commit qualified C4b locally,
+integrate the frozen compact frontend, then run native
 workflows and C6–C7. No further routine approval is required. Hold application
 pushes until final all-seven same-candidate review.
 
