@@ -7610,3 +7610,14 @@ faithful original legend samples and renderer geometry; bounded color/width/rese
 are presentation only. Keep markers passive and no permanent contact text. Detailed
 identity/metric inspection supplies on-demand explanation without new annotation
 authority. No new service, job, molecular/durable schema or database migration.
+
+### D-164 implementation clarification — source-scene ownership
+
+An unchanged canonical isolation request must retain installed markers/readiness;
+the surface-specific no-op path does not schedule interaction restoration. Preserve
+null versus an empty isolation set. A structural rebuild must also check its own
+captured scene after awaited stages before adopting interaction work or publishing
+commit/bound generation. Merely reading the latest generation inside the interaction
+installer cannot certify the older rebuild's native scene. Held-source regressions
+and scoped architecture reassessment qualify this boundary without widening the
+scene reconciliation framework.

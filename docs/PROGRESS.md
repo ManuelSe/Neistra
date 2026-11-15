@@ -14,10 +14,12 @@ faithful swatches and compact target/visibility controls.
 The 2D diagram remains independently deliverable child #153; chemistry stays fixed.
 
 Verification: C1 passes 94 focused Python, Ruff/mypy218, web lint/types,
-915 frontend tests/101 suites/build and four native six-type/unsupported-chemistry
+919 frontend tests/101 suites/build and four native six-type/unsupported-chemistry
 cases in both layouts, zero failures/flakes/retries/skips. The
-[checkpoint receipt](assets/interaction-inspection/c1-checkpoint.json) retains
-source/native evidence. All seven early planning assessments PASS; final review
+[corrected checkpoint receipt](assets/interaction-inspection/c1-corrected-checkpoint.json)
+retains source/native evidence. Early architecture findings for no-op isolation
+and superseded rebuilds have independently failing regressions and corrected scoped
+PASS. All seven early planning assessments PASS; final review
 and complete candidate/exact-master gates remain separate requirements.
 Provisional compatible minor 0.33.0 follows verified stable 0.32.0. No PR/release yet.
 Known limits: existing fixed-profile chemistry and coarse input-coverage summaries.

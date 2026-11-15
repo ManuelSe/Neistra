@@ -7,6 +7,7 @@ import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
 import { componentAtomIds } from "../selection/components";
+import { canonicalSelection } from "../selection/selection";
 import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisplayState, type InteractionRecord } from "../interactions/types";
 import { defaultInteractionAppearance, normalizeInteractionAppearance } from "../interactions/styles";
 import { interactionRecordKey } from "../interactions/presentation";
@@ -523,9 +524,11 @@ export class MolstarEngine implements MolecularViewer {
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
+      const current = () => !this.disposed && this.plugin === plugin && generation === this.generation;
       this.rebuilding = true;
       try {
         await plugin.clear();
+        if (!current()) return;
         this.surfaceRefs.clear();
         this.measurementRefs = [];
         this.labelRefs = [];
@@ -533,17 +536,23 @@ export class MolstarEngine implements MolecularViewer {
         this.nonpolarHydrogenIds.clear();
         this.models.clear();
         for (const structure of structures) {
-          if (generation !== this.generation) return;
+          if (!current()) return;
           if (structure.normalized.atoms.length === 0) continue;
           await this.loadStructure(structure);
+          if (!current()) return;
           await this.addStructureLabels(structure);
+          if (!current()) return;
         }
         this.applySelection();
+        if (!current()) return;
         await this.applyMeasurements();
+        if (!current()) return;
         await this.applyInteractions();
+        if (!current()) return;
         await this.applyModelPreview();
+        if (!current()) return;
         this.commitScene();
-        this.boundGeneration = generation;
+        if (current()) this.boundGeneration = generation;
       } finally {
         this.rebuilding = false;
       }
@@ -819,7 +828,14 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
-    this.isolation = atoms;
+    const next = atoms === null ? null : canonicalSelection(atoms).atoms.map(atom => ({ ...atom }));
+    const previous = this.isolation === null ? null : canonicalSelection(this.isolation).atoms;
+    if (next === null && previous === null || next !== null && previous !== null && next.length === previous.length
+      && next.every((atom, index) => atom.structure_id === previous[index].structure_id && atom.atom_id === previous[index].atom_id)) {
+      await this.syncQueue.catch(() => undefined);
+      return;
+    }
+    this.isolation = next;
     this.invalidateInteractionDisplay("pending");
     await this.syncQueue.catch(() => undefined);
     await this.syncStructures(this.structures);

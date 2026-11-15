@@ -7,12 +7,13 @@ const native = vi.hoisted(() => ({
   listeners: new Set<(value: InteractionDisplayState) => void>(),
   interaction: vi.fn<(records: InteractionRecord[], options?: InteractionDisplayOptions) => void>(),
   disposed: vi.fn(),
+  mountEntered: vi.fn(),
   current: undefined as InteractionDisplayState | undefined,
 }));
 
 vi.mock("../viewer/MolstarEngine", () => ({
   MolstarEngine: class {
-    mount() { return native.mounting ?? Promise.resolve(); }
+    mount() { native.mountEntered(); return native.mounting ?? Promise.resolve(); }
     setBackgroundColor() {}
     setPickingGranularity() {}
     setSelection() {}
@@ -65,7 +66,7 @@ describe("lazy interaction display receipts", () => {
     viewer.subscribeInteractionDisplay!(value => states.push(value));
     await viewer.setInteractions([], { displayKey: "old" });
     const mounting = viewer.mount(document.createElement("div"));
-    await vi.waitFor(() => expect(native.mounting).toBeDefined());
+    await vi.waitFor(() => expect(native.mountEntered).toHaveBeenCalledOnce());
     await viewer.setInteractions([], { displayKey: "new" });
     expect(states.some(value => value.status === "ready")).toBe(false);
     finish(); await mounting;

@@ -4,6 +4,8 @@ import type { InteractionDisplayState, InteractionRecord } from "../interactions
 import { interactionRecordKey } from "../interactions/presentation";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
 import { componentHierarchy, proteinStructure, viewerSettings } from "./molecular-fixtures";
+import { captureSurfaceSync, type SurfaceSyncSnapshot } from "../viewer/surfaceReconciliation";
+import type { AtomReference } from "../api/types";
 
 function deferred() {
   let resolve!: () => void;
@@ -24,12 +26,16 @@ function record(atomId = 1): InteractionRecord {
 }
 
 interface EngineProbe {
-  plugin: { canvas3d: ReturnType<typeof canvas>; clear(): Promise<void> };
+  plugin: { canvas3d: ReturnType<typeof canvas>; clear: () => Promise<void> };
   structures: ViewerStructure[];
   interactionRepresentation: { createOrUpdate: ReturnType<typeof vi.fn>; setState: ReturnType<typeof vi.fn>; destroy: ReturnType<typeof vi.fn> };
   coordinatePreviews: Map<string, unknown>;
   nonpolarHydrogenIds: Map<string, Set<number>>;
   syncQueue: Promise<void>;
+  isolation: AtomReference[] | null;
+  surfaceSyncSnapshot: SurfaceSyncSnapshot;
+  generation: number;
+  boundGeneration: number;
   loadStructure(source: ViewerStructure): Promise<void>;
   addStructureLabels(source: ViewerStructure): Promise<void>;
   applySelection(): void;
@@ -55,7 +61,87 @@ function setup() {
   return { engine, state, draw, run, receipts };
 }
 
+function mockRebuild(state: EngineProbe) {
+  const load = vi.spyOn(state, "loadStructure").mockResolvedValue();
+  const labels = vi.spyOn(state, "addStructureLabels").mockResolvedValue();
+  const measurements = vi.spyOn(state, "applyMeasurements").mockResolvedValue();
+  const model = vi.spyOn(state, "applyModelPreview").mockResolvedValue();
+  vi.spyOn(state, "applySelection").mockImplementation(() => {});
+  const commit = vi.spyOn(state, "commitScene").mockImplementation(() => {});
+  return { load, labels, measurements, model, commit };
+}
+
 describe("current native interaction installation", () => {
+  it("preserves installed records and readiness for repeated null isolation without rebuilding", async () => {
+    const h = setup();
+    h.state.surfaceSyncSnapshot = captureSurfaceSync(h.state.structures, null);
+    await h.engine.setInteractions([record()], { displayKey: "installed" });
+    const removes = h.draw.remove.mock.calls.length, updates = h.run.mock.calls.length, receipts = h.receipts.length;
+    await h.engine.setIsolation(null);
+    expect(h.draw.remove).toHaveBeenCalledTimes(removes);
+    expect(h.run).toHaveBeenCalledTimes(updates);
+    expect(h.receipts).toHaveLength(receipts);
+    expect(h.receipts.at(-1)).toMatchObject({ status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+    expect(h.state.plugin.clear).not.toHaveBeenCalled();
+  });
+
+  it("treats reordered and duplicate isolation references as the same installed target", async () => {
+    const h = setup(), members = [{ structure_id: "a", atom_id: 1 }, { structure_id: "b", atom_id: 1 }];
+    h.state.isolation = members;
+    h.state.surfaceSyncSnapshot = captureSurfaceSync(h.state.structures, members);
+    mockRebuild(h.state);
+    await h.engine.setInteractions([record()], { displayKey: "isolated" });
+    const removes = h.draw.remove.mock.calls.length, updates = h.run.mock.calls.length;
+    await h.engine.setIsolation([members[1], members[0], members[1]]);
+    expect(h.draw.remove).toHaveBeenCalledTimes(removes);
+    expect(h.run).toHaveBeenCalledTimes(updates);
+    expect(h.state.plugin.clear).not.toHaveBeenCalled();
+    expect(h.receipts.at(-1)).toMatchObject({ status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
+  it("retires a held update for changed isolation and acknowledges only the rebuilt target", async () => {
+    const h = setup(), held = deferred();
+    h.state.surfaceSyncSnapshot = captureSurfaceSync(h.state.structures, null);
+    const rebuild = mockRebuild(h.state);
+    h.run.mockImplementationOnce(() => held.promise);
+    const original = h.engine.setInteractions([record(), record(2)], { displayKey: "isolation" });
+    await vi.waitFor(() => expect(h.run).toHaveBeenCalledOnce());
+    const changed = h.engine.setIsolation([{ structure_id: "a", atom_id: 2 }, { structure_id: "b", atom_id: 2 }]);
+    expect(h.receipts.at(-1)).toMatchObject({ status: "pending", installedRecordKeys: [] });
+    held.resolve(); await original; await changed;
+    expect(h.draw.add).toHaveBeenCalledOnce();
+    expect(h.state.plugin.clear).toHaveBeenCalledOnce();
+    expect(rebuild.load).toHaveBeenCalledTimes(2);
+    expect(h.receipts.filter(value => value.status === "ready")).toEqual([
+      expect.objectContaining({ sceneGeneration: 1, installedRecordKeys: [interactionRecordKey(record(2))] }),
+    ]);
+  });
+
+  it("does not let a retired scene adopt the next scene generation after held measurements", async () => {
+    const h = setup();
+    await h.engine.setInteractions([record()], { displayKey: "scene-owner" });
+    h.receipts.length = 0; h.draw.add.mockClear();
+    const oldMeasurements = deferred(), newSceneClear = deferred();
+    const rebuild = mockRebuild(h.state);
+    rebuild.measurements.mockImplementationOnce(() => oldMeasurements.promise);
+    const clear = vi.spyOn(h.state.plugin, "clear");
+    clear.mockResolvedValueOnce(undefined).mockImplementationOnce(() => newSceneClear.promise);
+    const first = h.engine.syncStructures([source("a"), source("b")]);
+    await vi.waitFor(() => expect(rebuild.measurements).toHaveBeenCalledOnce());
+    const second = h.engine.syncStructures([source("a"), source("b")]);
+    oldMeasurements.resolve(); await first;
+    await vi.waitFor(() => expect(clear).toHaveBeenCalledTimes(2));
+    expect(h.receipts.some(value => value.status === "ready")).toBe(false);
+    expect(h.draw.add).not.toHaveBeenCalled();
+    expect(rebuild.commit).not.toHaveBeenCalled();
+    expect(h.state.boundGeneration).toBe(0);
+    newSceneClear.resolve(); await second;
+    expect(h.draw.add).toHaveBeenCalledOnce();
+    expect(rebuild.commit).toHaveBeenCalledOnce();
+    expect(h.state.boundGeneration).toBe(2);
+    expect(h.receipts.at(-1)).toMatchObject({ sceneGeneration: 2, status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
   it("does not reinstall an obsolete held task after a synchronous clear", async () => {
     const h = setup(), held = deferred();
     h.run.mockImplementationOnce(() => held.promise);
