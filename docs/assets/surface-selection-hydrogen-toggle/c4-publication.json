@@ -1,0 +1,22 @@
+{
+  "version": "0.31.0",
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0",
+  "runtime_commit": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "annotated_tag_object": "6331147bf13071552463a683f98abcf24a6d3254",
+  "remote_tag_target_verified": true,
+  "stable_latest_release_verified": true,
+  "asset": {
+    "name": "neistra-v0.31.0-qualification.zip",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.31.0/neistra-v0.31.0-qualification.zip",
+    "bytes": 177651530,
+    "sha256": "4b65be17d806ec81f75616c1885b3b8aa2c0b337fecb7ecc01010ba18e03393c",
+    "anonymous_download_matches": true,
+    "crc_and_all_internal_manifest_hashes_valid": true,
+    "manifest_files": 337
+  },
+  "reviewed_head": "7ed58d988fb602b335fea8fbc2bef9ceef226ab0",
+  "reviewed_and_released_tree_identical": true,
+  "candidate_and_exact_master_gates": "33 complete fresh sequential steps each;1543Python,760frontend,14supervisor,451browser/75exactexisting;zero failures/flakes/retries/newexclusions",
+  "source_digest": "f6440690fdb2a4f37f6f2f84590288c403363bd0b43d8d59a5aaf667476e1e56",
+  "verified_utc": "2026-11-15T01:43:07.309266+00:00"
+}

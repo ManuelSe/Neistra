@@ -1,5 +1,23 @@
 # V0.1 Requirement Evidence
 
+## Issue #145 — verified v0.31.0 delivery
+
+Exact [released master](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0):
+cc54cd324c5aebe86024c1b85165715691ddcbb3 through PR #146. Both complete clean
+candidate and exact-master33-step gates pass1,543 Python/zero skips,760 frontend,
+14 supervisor,451 browser/75 exact existing exclusions,526 cases/71 files; zero
+failures/flakes/retries/new exclusions.798 current/786 preceding identities, all
+lossless hashes, actual reader directions/suffixes and596 native files per run verify.
+
+Seven specialist roles PASS exact reviewed `7ed58d98`; merge tree is identical.
+[Publication receipt](assets/surface-selection-hydrogen-toggle/c4-publication.json)
+verifies annotated tag target, stable/latest release and anonymous asset checksum,
+CRC/all 337manifest hashes. [Delivery report](assets/surface-selection-hydrogen-toggle/c4-delivery-report.md)
+records each role, corrections, diagnostic attempts and limits. Primary review is
+self-review, not human approval. No qualified source or tag changes for this
+documentation receipt. Portable correctness does not imply strict-host timing.
+
+
 ## Issue #145 — complete clean candidate qualification
 
 [Candidate summary](assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json)

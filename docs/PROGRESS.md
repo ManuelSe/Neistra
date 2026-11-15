@@ -2,34 +2,35 @@
 
 ## Current milestone
 
-Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **C1/C2 implemented;
-C3 locally verified; final receipt-head affirmation/C4 next**. The
+Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **implemented,
+verified and released as stable [v0.31.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0)**
+through [PR #146](https://github.com/ManuelSe/Neistra/pull/146). Exact released
+master: **cc54cd324c5aebe86024c1b85165715691ddcbb3**. The
 [feature plan](plans/issue-145-surface-selection-hydrogen-toggle.md) owns detail.
-Manager-only surface activation/deselection and passive rendering/picking are in
-place. The prominent H icon targets existing selected and graph-attached H with
-captured project/selection/artifact guards through the unchanged appearance API.
 
-Clean candidate **636040bdfd289e39b1bc0be34591e044faed37fc** passes all33steps:
-**1543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
-exclusions**;526cases/71files, zero failures/flakes/retries/new exclusions. All798
-current and786actual tagged0.30.0 source identities and lossless log hashes verify.
-Both rich/connectivity reader directions and archive suffixes pass deep state,
-original and corruption controls. Migration roundtrip, locks/static/build/version/
-production/license/legacy checks pass. [Summary](assets/surface-selection-hydrogen-toggle/c3-candidate4-summary.json).
-Earlier partial runs remain diagnostic; bounded test corrections preserve input,
-identity, viewport, read-only, resource and exclusion contracts.
+Completed: manager-only surface activation, row/blank deselection, passive
+outline-free surfaces with molecular pick-through; prominent H icon with
+existing selected/graph-attached-H targets and captured publication guards.
 
-All five authoritative versions prepare stable minor0.31.0; no REST/persisted
-schema, dependency or migration change, head0015. All seven specialists reconfirm PASS for636040bd plus its documentation/evidence
-receipt; explicit committed receipt-head affirmation remains before push.
-Known limit: existing conservative large-scene renderer updates take seconds
-(1.87–4.70sdesktop/2.58–5.21smobile observed), with zero repeat structure reads.
-No speedup or strict-host qualification is claimed.
+Both complete clean candidate and fresh exact-master gates pass all 33 steps:
+**1,543 Python/zero skips,760 frontend,14 supervisor,451 browser/75 exact existing
+exclusions**,526 cases/71 files; zero failures/flakes/retries/new exclusions.798
+current/786 actual preceding-tag identities, lossless logs, actual bidirectional
+reader/retention/corruption checks and596 native outputs per run verify. All seven
+specialist roles PASS the exact reviewed head; released tree is byte-identical.
+Primary review is self-review; no external Codex result or human approval claimed.
 
-Blockers:none. Next: final documentation/full-diff and seven-role reconfirmation,
-then push/PR/review/normal merge and fresh exact-master qualification before
-annotated tag/release/verified reply/cleanup. No implementation push, PR or future
-release exists yet; the PR uses `Closes #145`.
+Stable minor 0.31.0 updates all five version sources. No REST/persisted schema,
+dependency or migration change, head 0015. Annotated tag, stable/latest release,
+anonymous asset download, SHA-256/CRC and337 internal manifest hashes verify.
+[Delivery report](assets/surface-selection-hydrogen-toggle/c4-delivery-report.md)
+retains corrections and operational diagnostics; failed attempts are not combined
+into qualification. Existing graph/scientific limits and seconds-long large-scene
+updates remain; no speedup/strict-host claim. No new follow-up issue.
+
+Terminal documentation integration and branch-cleanup verification are retained
+in the [issue reply](https://github.com/ManuelSe/Neistra/issues/145#issuecomment-6887471495).
+Keep the qualified runtime tag fixed for subsequent documentation receipts.
 
 ### Approved planning checkpoint — issue #145 C0
 
@@ -3301,14 +3302,13 @@ Results:
 
 ## Blockers
 
-None for current issue #145 candidate qualification. Final same-candidate seven-role
-reconfirmation and remote review/merge requirements remain delivery gates; exact
-merged-master qualification is required before tag/release publication. Strict
-reference-host timing remains separate from portable correctness.
+None for implemented and published issue #145 scope. Terminal documentation
+integration and branch-cleanup verification are retained in the
+[issue reply](https://github.com/ManuelSe/Neistra/issues/145#issuecomment-6887471495).
+Strict reference-host timing remains separate from portable correctness.
 
 ## Next action
 
-Complete issue #145 C3 review/evidence receipt, push and open the planned PR, then
-perform normal reviewed merge and fresh exact-master qualification. Publish and
-verify v0.31.0, issue closeout and documentation receipt before deleting only the
-planned feature branch. Preserve previously released runtime tags.
+Use the linked issue reply for terminal receipt/cleanup readbacks. Subsequent
+product work requires its own approved plan. Preserve the qualified v0.31.0
+runtime tag when integrating documentation.

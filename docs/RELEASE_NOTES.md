@@ -2,10 +2,12 @@
 
 ## 0.31.0 — Surface selection and prominent hydrogen visibility
 
-**Qualified candidate; exact-master qualification and publication pending.** Stable minor
+Released from exact qualified master `cc54cd324c5aebe86024c1b85165715691ddcbb3`
+through [PR #146](https://github.com/ManuelSe/Neistra/pull/146) and
+[stable v0.31.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0). Stable minor
 from 0.30.0: graph-attached-H authoring adds user-visible functionality alongside
 surface corrections. The [issue #145 contract](plans/issue-145-surface-selection-hydrogen-toggle.md)
-and D-156/D-157 record approved scope and evidence. No tag/release is claimed yet.
+and D-156/D-157 record approved scope and evidence. Publication and anonymous qualification-asset verification pass.
 
 **Highlights and fixes.** The surface manager toggles its active row off; ordinary
 empty viewer clicks clear activation even with no molecular selection. Managed
@@ -27,20 +29,25 @@ visibility, complete-projection polarity classification, scenes and reload remai
 project/viewer/archive stay 2 and normalized/selection/component stay 1. The H control
 submits explicit targets through the unchanged appearance API. Preserve original
 uploads and back up the complete managed store before deployment changes. Actual
-v0.30.0↔0.31.0 reader qualification passes on the clean candidate; exact-master
-publication checks remain pending;
+v0.30.0↔0.31.0 reader qualification passes on both clean candidate and exact
+released master;
 older interfaces retain their older interaction behavior. No schema downgrade is
 needed from 0.30.0; earlier migration downgrade guards remain binding.
 
-**Verification.** Clean candidate636040bd passes all33complete release steps:
-1,543Python/zero skips,760frontend,14supervisor,451browser/75exact existing
-exclusions;526cases/71files, zero failures/flakes/retries/new exclusions. Current
+**Verification.** Clean candidate `636040bd` and exact released master `cc54cd32`
+each pass all 33 complete release steps:
+1,543Python/zero skips,760 frontend,14 supervisor,451 browser/75 exact existing
+exclusions;526 cases/71 files, zero failures/flakes/retries/new exclusions. Current
 and actual preceding-tag source/log/inventory audits verify. Actual rich and
 connectivity readers pass both directions/suffixes with deep retention and
 corruption controls. Native checks include200real picking actions, exact H
 payloads,200%/320px/themes/accessibility and state/history/source invariants.
-Earlier partial attempts remain diagnostics. Final same-candidate seven-role
-reconfirmation and complete exact-master qualification remain publication gates.
+Earlier partial attempts remain diagnostics. All seven specialists PASS exact
+reviewed `7ed58d98`; released tree is identical. Annotated tag, stable/latest release,
+anonymous asset SHA-256/CRC and all 337 internal manifest entries verify. The
+qualification archive is 177,651,530 bytes with SHA-256
+`4b65be17d806ec81f75616c1885b3b8aa2c0b337fecb7ecc01010ba18e03393c`.
+Primary review is self-review; no external review result or human approval is claimed.
 
 **Limitations and follow-up.** Hydrogen targeting uses existing normalized graph
 edges; it does not generate H, infer missing bonds, assign protonation or alter

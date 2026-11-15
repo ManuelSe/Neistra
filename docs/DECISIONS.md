@@ -7178,3 +7178,15 @@ a read-only request audit; continue to reject every later write. These are bound
 fixture-readiness corrections, not product changes, request exemptions, timing
 waivers or proof of a browser defect. Keep failed attempts and focused evidence;
 complete clean qualification still restarts from step1.
+
+
+### D-156/D-157 verified delivery — 2026-11-15
+
+Stable v0.31.0 ships approved issue #145 scope through PR #146, exact qualified master
+cc54cd324c5aebe86024c1b85165715691ddcbb3. All33 candidate and fresh exact-master
+gates pass; all seven specialists PASS the exact reviewed head with identical
+released tree. Actual 0.30.0 bidirectional readers, unchanged schemas/head 0015,
+annotated tag, stable/latest release and downloaded qualification-asset hashes
+verify. Scientific/portable timing limits remain. No new method, migration or
+follow-up issue. Final documentation/cleanup readbacks live in the issue reply;
+subsequent documentation never moves the qualified runtime tag.
