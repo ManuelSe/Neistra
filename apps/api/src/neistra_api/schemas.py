@@ -1178,7 +1178,18 @@ class ModelPreviewRemoval(BaseModel):
     coordinates: tuple[float, float, float]
 
 
+class ModelPreviewRotation(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    axis_atom_ids: tuple[int, int]
+    moving_endpoint_id: int
+    angle_degrees: float
+    rotating_atom_count: int
+    fixed_atom_count: int
+    no_op: bool
+
+
 class ModelPreviewRead(BaseModel):
+    rotation: ModelPreviewRotation | None = None
     removed_atoms: list[ModelPreviewRemoval] = Field(default_factory=list)
     moved_atoms: list[ModelPreviewMovement] = Field(default_factory=list)
     hydrogen_report: HydrogenReport | None = None

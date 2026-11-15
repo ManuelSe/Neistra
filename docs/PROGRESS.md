@@ -2,9 +2,10 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1/C2 verified locally;
-C3 implementation and C4 preparation next**. C0 is committed, pushed and verified at
-`82d41588`; C1's local passing checkpoint is `10e7eef2`.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C3 verified and
+committed locally; corrected C4 scientific/API integration and C5 native workflows
+next**. C0 is committed, pushed and verified at `82d41588`; application pushes remain
+held for the final seven-role gate.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
 **Authorized within agreed scope; not individually reviewed**. The owner accepts
 all twelve audit findings, five common fragments and preservation of deliberately
@@ -49,10 +50,19 @@ source identities, lossless logs and 29 retained native outputs verify.
 the real Chromium/proxy abort, exact project/artifact preservation, frozen author
 handoffs and bounded-outcome fault tests. Scoped architecture/performance review
 passes the backend with explicit limits; architecture/UX accept unknown-only
-manual continuation without replay. Torsion/fragments and compact workflows remain
-isolated work.
+manual continuation without replay. Scientific integration continues below;
+the compact frontend remains isolated until integrated native qualification.
 No application implementation is pushed or declared feature-complete; final
 all-seven gate remains.
+
+C3 is committed locally as `34e1f3f9`. C4a's corrected torsion/API slice passes
+147 focused cases plus one additional distal-bond case, Ruff/default mypy218.
+Independent scientific reviews identify and resolve configured-cap admission,
+finite-angle periodicity and inactive-frame diagnostics; all 27 new regressions
+fail before repair. The complete corrected thirteen-path scientific/API candidate
+passes 585 overlapping cases with all 737 scoped identities/logs unchanged, and
+both scientific roles return scoped PASS. [C4a evidence/review](assets/structure-editor-reliability/README.md).
+Primary five-fragment integration and native compact controls are still pending.
 
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
@@ -66,11 +76,10 @@ Known limitations: fixes are still being implemented and integrated. A synthetic
 461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
 evidence, not universal responsiveness/capacity qualification. Broader chemistry,
 preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. Next action: finish C3 integration and
-qualification, qualified torsion/fragments and compact workflows, then C6–C7;
-no further routine approval required. Commit the passing C3 checkpoint locally;
-hold application pushes until final all-seven
-same-candidate review.
+separate dispositions. Blockers: none. Next action: commit corrected C4a locally,
+integrate the qualified five fragments and frozen compact frontend, then run native
+workflows and C6–C7. No further routine approval is required. Hold application
+pushes until final all-seven same-candidate review.
 
 ### Previous completed milestone — issue #145
 

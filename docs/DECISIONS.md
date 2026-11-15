@@ -7451,3 +7451,30 @@ Retain unrelated quick-publication/movement guards. A late old response can upda
 its own record and monotonic project authority, but cannot erase a newer attempt,
 restore an old proposal/selection or steal focus. This is the agreed recovery
 workflow, not new execution or durable-receipt functionality.
+
+
+### D-161 C4 review corrections — admission, periodicity and retained diagnostics
+
+Independent scientific review reproduces three gaps in the new torsion early
+return: configured result-size admission and all-conformer affected-bond diagnostics
+were skipped, while the reused method converted very large unreduced degrees to
+radians and lost rotation periodicity. Passing initial torsion/API cases did not
+qualify these boundaries. Permanent regressions reproduce all three before repair.
+
+Refuse an oversized rotation operand before qualification, including zero-angle
+setup, using the existing configured result-limit diagnostic. Keep this check
+inside rotation so deletion can still reduce an oversized entry. Reduce finite
+degrees with `math.remainder(angle_degrees, 360.0)` before radians/trigonometry;
+preserve the requested angle in the transient plan/preview and retain the established
+fixed-to-moving axis orientation and no-op contract. Regression expectations use
+integer-ratio arithmetic for the actual representable float, including positive
+and negative 1e12, 1e20 and 1e308, rather than treating a rounded float as an exact
+decimal integer. No new magnitude cap or scientific rotation method is introduced.
+
+Reuse finite-derived-length validation and the existing bounded bond-geometry
+diagnostic over both axis endpoints and every rotating atom. Include distal moving
+bonds and all conformers without expanding the operand to disconnected spectators.
+Persist deduplicated diagnostics for a real change; no-op setup returns diagnostics
+without changing original warnings, coordinates, artifacts, history or floors.
+Tests include inactive-frame outliers, explicit truncation/full counts, distal
+bonds, exact fixed material and spawned preview/Apply refusal/publication outcomes.

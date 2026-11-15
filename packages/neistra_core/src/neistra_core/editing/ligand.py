@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from math import cos, isfinite, radians, sin
+from math import cos, isfinite, radians, remainder, sin
 from typing import Any, Literal, Protocol
 
 import numpy as np
@@ -49,6 +49,15 @@ class EditResult:
     deleted_bond_ids: tuple[int, ...] = ()
     changed_atom_ids: tuple[int, ...] = ()
     force_field: ForceFieldReport | None = None
+
+
+@dataclass(frozen=True)
+class BondRotationPlan:
+    axis_atom_ids: tuple[int, int]
+    moving_endpoint_id: int
+    rotating_atom_ids: tuple[int, ...]
+    fixed_atom_ids: tuple[int, ...]
+    angle_degrees: float
 
 
 class MolecularEditor(Protocol):
@@ -366,17 +375,35 @@ class RdkitLigandEditor:
             raise InvalidLigandEditError("No explicit hydrogens are selected for removal")
         return self.delete_atoms(structure, hydrogens)
 
-    def rotate_bond(
+    def _prepare_bond_rotation(
         self,
         structure: NormalizedStructureV1,
         *,
         bond_id: int,
         movable_atom_ids: list[int],
         angle_degrees: float,
-    ) -> EditResult:
-        if not isfinite(angle_degrees) or angle_degrees % 360 == 0:
-            raise InvalidLigandEditError("Bond rotation angle must be finite and non-zero")
+    ) -> tuple[
+        BondRotationPlan,
+        list[tuple[Conformer, np.ndarray[Any, np.dtype[np.float64]]]],
+        list[np.ndarray[Any, np.dtype[np.float64]]],
+    ]:
+        if not isfinite(angle_degrees):
+            raise InvalidLigandEditError("Bond rotation angle must be finite")
+        if structure.structure_type != "ligand":
+            raise InvalidLigandEditError("Ligand editing requires a ligand entry")
         bond = self._bond(structure, bond_id)
+        index_by_id = {atom.id: index for index, atom in enumerate(structure.atoms)}
+        frames = []
+        for conformer in structure.conformers:
+            coordinates = np.asarray(conformer.coordinates, dtype=np.float64)
+            finite = np.isfinite(coordinates).all(axis=1)
+            if not finite.all():
+                atom_id = structure.atoms[int(np.flatnonzero(~finite)[0])].id
+                raise InvalidLigandEditError(
+                    f"Conformer {conformer.id}, atom {atom_id} has nonfinite coordinates; "
+                    "bond rotation made no change"
+                )
+            frames.append((conformer, coordinates))
         mol = self._sanitized_mol(structure)
         indices = self._atom_indices(structure, [bond.atom_1_id, bond.atom_2_id])
         rd_bond = mol.GetBondBetweenAtoms(indices[bond.atom_1_id], indices[bond.atom_2_id])
@@ -397,27 +424,87 @@ class RdkitLigandEditor:
             fixed_id, moving_axis_id = second, first
         else:
             fixed_id, moving_axis_id = first, second
+        angle_radians = radians(remainder(angle_degrees, 360.0))
+        rotations = []
+        for conformer, coordinates in frames:
+            axis_start = coordinates[index_by_id[fixed_id]]
+            axis_end = coordinates[index_by_id[moving_axis_id]]
+            with np.errstate(over="ignore", invalid="ignore"):
+                direction = axis_end - axis_start
+                norm = float(np.linalg.norm(direction))
+            if not isfinite(norm):
+                raise InvalidLigandEditError(
+                    f"Conformer {conformer.id}, bond {bond.id} has a nonfinite derived axis; "
+                    "bond rotation made no change"
+                )
+            if norm < 1e-12:
+                raise InvalidLigandEditError(
+                    f"Conformer {conformer.id}: bond axis has coincident endpoints"
+                )
+            rotations.append(self._axis_rotation(direction / norm, angle_radians))
+        rotated_ids = movable - {first, second}
+        return (
+            BondRotationPlan(
+                axis_atom_ids=(fixed_id, moving_axis_id),
+                moving_endpoint_id=moving_axis_id,
+                rotating_atom_ids=tuple(sorted(rotated_ids)),
+                fixed_atom_ids=tuple(sorted(index_by_id.keys() - rotated_ids)),
+                angle_degrees=angle_degrees,
+            ),
+            frames,
+            rotations,
+        )
+
+    def describe_bond_rotation(
+        self,
+        structure: NormalizedStructureV1,
+        *,
+        bond_id: int,
+        moving_endpoint_id: int,
+        angle_degrees: float,
+    ) -> BondRotationPlan:
+        """Qualify the existing method, including zero-angle setup, without an edit."""
+        bond = self._bond(structure, bond_id)
+        if moving_endpoint_id not in {bond.atom_1_id, bond.atom_2_id}:
+            raise InvalidLigandEditError("The moving-side endpoint must belong to the current bond")
+        sides = self._cut_components(structure, bond)
+        moving = next(side for side in sides if moving_endpoint_id in side)
+        plan, _, _ = self._prepare_bond_rotation(
+            structure, bond_id=bond_id, movable_atom_ids=sorted(moving),
+            angle_degrees=angle_degrees,
+        )
+        return plan
+
+    def rotate_bond(
+        self,
+        structure: NormalizedStructureV1,
+        *,
+        bond_id: int,
+        movable_atom_ids: list[int],
+        angle_degrees: float,
+    ) -> EditResult:
+        if not isfinite(angle_degrees) or angle_degrees % 360 == 0:
+            raise InvalidLigandEditError("Bond rotation angle must be finite and non-zero")
+        plan, frames, rotations = self._prepare_bond_rotation(
+            structure, bond_id=bond_id, movable_atom_ids=movable_atom_ids,
+            angle_degrees=angle_degrees,
+        )
         index_by_id = {atom.id: index for index, atom in enumerate(structure.atoms)}
-        axis_start = np.asarray(
-            structure.active_coordinates[index_by_id[fixed_id]], dtype=np.float64
-        )
-        axis_end = np.asarray(
-            structure.active_coordinates[index_by_id[moving_axis_id]], dtype=np.float64
-        )
-        direction = axis_end - axis_start
-        norm = float(np.linalg.norm(direction))
-        if norm < 1e-12:
-            raise InvalidLigandEditError("Bond axis has coincident endpoints")
-        rotation = self._axis_rotation(direction / norm, radians(angle_degrees))
+        fixed_id = plan.axis_atom_ids[0]
+        rotated_ids = set(plan.rotating_atom_ids)
         conformers: list[Conformer] = []
-        for conformer in structure.conformers:
-            coordinates = np.asarray(conformer.coordinates, dtype=np.float64)
+        for (conformer, coordinates), rotation in zip(frames, rotations, strict=True):
             conformer_start = coordinates[index_by_id[fixed_id]]
-            for atom_id in movable:
+            for atom_id in rotated_ids:
                 atom_index = index_by_id[atom_id]
                 coordinates[atom_index] = (
                     rotation @ (coordinates[atom_index] - conformer_start)
                 ) + conformer_start
+            if not np.isfinite(coordinates).all():
+                raise InvalidLigandEditError(
+                    f"Conformer {conformer.id}: bond rotation produced nonfinite coordinates; "
+                    "no change was saved"
+                )
             conformers.append(
                 conformer.model_copy(
                     update={
@@ -434,6 +521,7 @@ class RdkitLigandEditor:
         )
         atoms = [
             atom.model_copy(update={"coordinates": active[index]})
+            if atom.id in rotated_ids else atom
             for index, atom in enumerate(structure.atoms)
         ]
         edited = structure.model_copy(update={"atoms": atoms, "conformers": conformers})
@@ -444,7 +532,7 @@ class RdkitLigandEditor:
         return EditResult(
             structure=self._with_warnings(edited, warnings),
             warnings=warnings,
-            changed_atom_ids=tuple(sorted(movable)),
+            changed_atom_ids=tuple(sorted(set(movable_atom_ids))),
         )
 
     def cleanup(

@@ -12,6 +12,7 @@ from neistra_core.editing.model import (
     InvalidModelEdit,
     ModelAtomAdd,
     ModelBondDelete,
+    ModelBondRotate,
     ModelBondSet,
     ModelEditResult,
     ModelFragmentAdd,
@@ -39,6 +40,7 @@ from neistra_api.schemas import (
     ModelPreviewMovement,
     ModelPreviewRead,
     ModelPreviewRemoval,
+    ModelPreviewRotation,
     ProjectRead,
     SelectionEditCreate,
     SelectionEditRead,
@@ -115,6 +117,8 @@ def molecular_summary(structure: NormalizedStructureV1) -> dict[str, Any]:
 
 
 def needs_original_protection(before: NormalizedStructureV1, payload: ModelEditCreate) -> bool:
+    if isinstance(payload.action, ModelBondRotate):
+        return False
     if (
         payload.hydrogen_policy not in {"reconcile_if_possible", "automatic"}
         and payload.action.operation != "hydrogens.add_one"
@@ -313,6 +317,7 @@ def model_description(name: str, operation: str) -> str:
         "atom.add": "Add atom",
         "bond.set": "Assign bond order",
         "bond.delete": "Break selected bond",
+        "bond.rotate": "Rotate selected bond",
         "fragment.attach": "Attach fragment",
     }[operation]
     return f"{label} in {name}"
@@ -341,7 +346,7 @@ def prepare_model_publication(
     payload: ModelEditCreate,
     result: ModelEditResult,
 ) -> tuple[PreparedPublication, NormalizedStructureV1]:
-    applied = not (
+    applied = not result.no_op and not (
         isinstance(payload.action, (ModelHydrogenComplete, ModelHydrogenAdd))
         and not result.edit.created_atom_ids
     )
@@ -411,6 +416,7 @@ def validate_preview_action(payload: ModelEditCreate) -> None:
             ModelHydrogenAdd,
             ModelBondSet,
             ModelBondDelete,
+            ModelBondRotate,
         ),
     ):
         raise InvalidEditComputation("Preview requires atom, fragment or hydrogen placement.")
@@ -431,7 +437,20 @@ def build_model_preview(
         for a in result.structure.atoms
         if a.id in old_atoms and a.coordinates != old_atoms[a.id].coordinates
     }
+    plan = outcome.rotation
     return ModelPreviewRead(
+        rotation=(
+            ModelPreviewRotation(
+                axis_atom_ids=plan.axis_atom_ids,
+                moving_endpoint_id=plan.moving_endpoint_id,
+                angle_degrees=plan.angle_degrees,
+                rotating_atom_count=len(plan.rotating_atom_ids),
+                fixed_atom_count=len(plan.fixed_atom_ids),
+                no_op=outcome.no_op,
+            )
+            if plan is not None
+            else None
+        ),
         removed_atoms=[
             ModelPreviewRemoval(atom_id=i, coordinates=old_atoms[i].coordinates)
             for i in result.deleted_atom_ids

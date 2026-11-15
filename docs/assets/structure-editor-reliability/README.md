@@ -146,3 +146,46 @@ acknowledgment that retains uncertainty, discards the old proposal and never rep
 Its client implementation, preview-only busy retry and submitted-attempt ownership
 remain C5 work. C4/C5, complete preceding-reader checks, final candidate/exact-master
 gates and all seven final same-candidate verdicts remain pending.
+
+## C4a — Corrected torsion and compact API
+
+[Checkpoint receipt](c4a-checkpoint.json) records 147 corrected focused passes,
+Ruff/default mypy218 and one additional, nonoverlapping distal-bond case. The latter
+is the only intervening test-only addition; its source delta is verified. The
+complete corrected domain/API candidate includes it in the 585-case run below.
+[Focused receipt](c4a-integrated-receipt.json.gz), [runner](c4a-runner.py.txt) and
+`c4a-*.log.gz` retain exact commands and lossless backend logs. Runner dependencies
+are retained in the correction archive; paths describe historical owned runs.
+
+The initial 100 passing cases missed configured-size admission, extreme finite-angle
+periodicity and inactive-frame diagnostics. That evidence is retained under
+`c4a-preliminary-*`; [original source/API handoff](c4a-source-and-api-evidence.zip)
+is a historical candidate, not corrected qualification. Independent scientific
+review identifies all three gaps. Seventeen new core and ten spawned API controls
+fail against the predecessor before correction.
+
+[Correction/domain evidence](c4-corrections-and-domain-evidence.zip) retains the
+original author snapshot/logs, all four correction paths, failed negative controls,
+exact corrected thirteen-path source and manifest, and focused runner dependencies.
+ZIP CRC and all 38 internal hashes verify. [Primary review](c4a-review.md) explains
+the corrections and distinguishes self-review from scoped scientific agent review.
+
+[Complete corrected focused receipt](c4-full-receipt.json.gz),
+[runner](c4-full-runner.py.txt) and `c4-full-*.log.gz` record **585 passes/zero skips**,
+Ruff/default mypy218 and all **737 scoped source identities unchanged**. This run
+uses the full prospective C4 scientific/API candidate in the isolated owned tree,
+including the five fragments, before their separate primary integration. Its
+unused historical E2E environment values do not imply that browsers ran: the three
+actual steps are Python, Ruff and mypy. These cases overlap focused and author
+results; do not add their counts.
+
+Scientific theory and a fresh scientific implementation reviewer return **scoped
+PASS** for the same complete corrected thirteen-path candidate after reassessment.
+Implementation separately executes 465 overlapping cases. The configured cap,
+periodicity, raw angle/sign, exact fixed material, no-op state, bounded all-frame
+warnings and distal moving bonds have explicit regression coverage. The original
+template-ownership and precision seams remain unchanged and qualified separately.
+
+C4b primary integration and C5 native controls remain pending. No native compact
+rotation control, final seven-role implementation approval, reader compatibility
+or release qualification is claimed by this checkpoint.

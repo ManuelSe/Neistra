@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from math import dist, isfinite
 from typing import Annotated, Literal
 
@@ -27,7 +27,12 @@ from neistra_core.editing.hydrogen import (
     HydrogenReport,
     apply_hydrogen_proposal,
 )
-from neistra_core.editing.ligand import EditResult
+from neistra_core.editing.ligand import (
+    BondRotationPlan,
+    EditResult,
+    InvalidLigandEditError,
+    RdkitLigandEditor,
+)
 from neistra_core.editing.placement import place_atom, place_fragment
 from neistra_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from neistra_core.editing.selection import SelectionEditResult
@@ -101,6 +106,12 @@ class ModelBondDelete(ModelActionBase):
     operation: Literal["bond.delete"]
 
 
+class ModelBondRotate(ModelActionBase):
+    operation: Literal["bond.rotate"]
+    moving_endpoint_id: StrictInt = Field(ge=1)
+    angle_degrees: FiniteFloat
+
+
 class ModelAtomAdd(ModelActionBase):
     operation: Literal["atom.add"]
     element: str = Field(min_length=1, max_length=3)
@@ -143,6 +154,7 @@ ModelAction = Annotated[
     | ModelDelete
     | ModelBondSet
     | ModelBondDelete
+    | ModelBondRotate
     | ModelAtomAdd
     | ModelFragmentAdd
     | ModelHydrogenComplete
@@ -241,6 +253,8 @@ class ModelEditResult(SelectionEditResult):
     hydrogen_report: HydrogenReport | None = None
     hydrogen_reconciliation_report: ReconciliationReport | None = None
     appearance_sources: dict[int, int] = field(default_factory=dict)
+    rotation: BondRotationPlan | None = None
+    no_op: bool = False
 
 
 class DirectMolecularEditor:
@@ -284,6 +298,60 @@ class DirectMolecularEditor:
         exclusions = set(modeling_metadata(before).excluded_bonds)
         if exclusions & pairs.keys():
             raise InvalidModelEdit("Authored bonds contradict recorded bond exclusions.")
+        if isinstance(action, ModelBondRotate):
+            if len(before.atoms) > atom_limit:
+                raise InvalidModelEdit(f"The result exceeds the entry limit of {atom_limit} atoms.")
+            if len(selected) != 2 or action.moving_endpoint_id not in chosen:
+                raise InvalidModelEdit(
+                    "Select the two current bond endpoints and choose one endpoint's moving side."
+                )
+            bond = pairs.get(tuple(sorted(selected)))
+            if bond is None:
+                raise InvalidModelEdit("Bond rotation requires two endpoints of a current bond.")
+            editor = RdkitLigandEditor()
+            try:
+                plan = editor.describe_bond_rotation(
+                    before, bond_id=bond.id, moving_endpoint_id=action.moving_endpoint_id,
+                    angle_degrees=action.angle_degrees,
+                )
+                diagnostic_targets = set(plan.axis_atom_ids) | set(plan.rotating_atom_ids)
+                for _ in self._affected_bond_lengths(before, diagnostic_targets):
+                    pass
+                no_op = action.angle_degrees % 360 == 0
+                if no_op:
+                    result = EditResult(
+                        before, warnings=editor.validator.validate(before, "bond.rotate")
+                    )
+                else:
+                    result = editor.rotate_bond(
+                        before, bond_id=bond.id,
+                        movable_atom_ids=sorted([plan.moving_endpoint_id, *plan.rotating_atom_ids]),
+                        angle_degrees=action.angle_degrees,
+                    )
+                    no_op = result.structure.conformers == before.conformers
+                    if no_op:
+                        result = EditResult(before, warnings=result.warnings)
+            except InvalidLigandEditError as error:
+                raise InvalidModelEdit(str(error)) from error
+            geometry_warnings = self._bond_geometry_warnings(
+                result.structure, diagnostic_targets, action.operation,
+            )
+            if geometry_warnings:
+                with_geometry = {
+                    (w.code, w.field, w.message): w
+                    for w in [*result.structure.warnings, *geometry_warnings]
+                }
+                result = replace(
+                    result,
+                    structure=before if no_op else result.structure.model_copy(
+                        update={"warnings": list(with_geometry.values())},
+                    ),
+                    warnings=(*result.warnings, *geometry_warnings),
+                )
+            # This is the existing coordinate-only method.  The endpoint names
+            # a graph side; both axis endpoints stay fixed, and no H/stereo or
+            # appearance authoring policy is applied to the coordinate change.
+            return ModelEditResult(result, {}, rotation=plan, no_op=no_op)
         if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd, ModelHydrogenAddOne)):
             if hydrogen_policy != "preserve":
                 raise InvalidModelEdit(
