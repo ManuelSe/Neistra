@@ -3342,8 +3342,8 @@ Results:
 
 ## Blockers
 
-None for released issue #147. Terminal receipt integration and owned cleanup are
-verified in its final issue reply; the owner-used testing checkout is preserved.
+None for released issue #147. Terminal receipt integration and owned-cleanup
+readback are tracked in its final issue reply; preserve the owner-used testing checkout.
 
 ## Next action
 
