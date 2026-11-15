@@ -461,3 +461,20 @@ and self-contained traces:24,266,725bytes,SHA-256
 `7394162e124d302a16e1d7a1b3dedec2f547fd1f52d8098308db22ed79c9c844`,138manifest entries
 and28nested ZIP CRCs. Every ZIP CRC/internal hash verifies. No partial attempt is
 combined into a full pass or release claim.
+
+### C6R canonical rotation-axis correction
+
+Scientific review reproduces unknown canonical order accepted through a toolkit
+default. The direct action now requires known nonaromatic single order before
+projection, preserving the legacy ligand API. [Checkpoint](c6r-rotation-axis-checkpoint.json)
+and [focused archive](c6r-rotation-axis-focused.zip) retain 109 passing focused
+rotation cases, 42 final frozen regressions and six actual-predecessor failures,
+source identities and logs. ZIP 29,004 bytes, SHA-256
+`e9c6ee3faafc14a15e7b86f6c799385e295330bbbeb064ebe405e4c83807e79f`; 11 manifest entries verify.
+
+[First corrective full-run diagnostic](c6r-candidate1-interrupted.zip) retains
+eight completed commands before the scientific finding stopped execution.
+[Receipt](c6r-candidate1-interruption.json) explicitly records incomplete Python
+stdout and no full qualification claim. ZIP209,496 bytes, SHA-256
+`6f38dd8bd9de54270a1f37ae64514d0f43061cbfcb52860bed8c42dfb5af497e`.
+Fresh complete candidate/exact-master qualification and all-seven review are pending.

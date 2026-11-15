@@ -1,0 +1,14 @@
+{
+  "commit": "549db1f1ba66ef347ed91669055435c0c3957484",
+  "complete": false,
+  "reason": "Scientific review reproduced direct torsion accepting unknown canonical bond order via toolkit default; stopped before correction.",
+  "completed_steps": 8,
+  "current_python_command_incomplete_no_pass_claim": true,
+  "incomplete_python_stdout_not_retained_losslessly": true,
+  "all850source_inputs_unchanged": true,
+  "all8completed_lossless_logs_valid": true,
+  "owned_children_settled": true,
+  "bytes": 209496,
+  "sha256": "6f38dd8bd9de54270a1f37ae64514d0f43061cbfcb52860bed8c42dfb5af497e",
+  "manifest_entries": 12
+}

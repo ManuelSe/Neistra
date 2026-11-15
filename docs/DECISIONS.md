@@ -7548,3 +7548,15 @@ of styling-panel loading. Capture current epoch/seed/artifacts/revision and rech
 through the existing App publication path. Keep master visibility separate, retain
 All/Polar/Mixed and reset semantics, and own pending/late feedback without changing
 molecular Apply ownership. This adds no service, schema, migration or second cache.
+
+
+### D-161 clarification — canonical torsion-axis admission
+
+Whole-candidate scientific review reproduces the new direct rotation accepting an
+unknown canonical axis order because the toolkit projection supplies a single-bond
+default. The accepted direct workflow requires a known nonaromatic single axis.
+Check canonical order equal to 1 and aromatic flag false before toolkit qualification,
+including zero-angle setup. Preserve the legacy ligand API and all other eligibility
+checks. Refusal must leave originals, coordinates, artifacts, revision, history,
+allocator floors and staging unchanged. Independent known-single positive controls
+and unknown/multiple/aromatic negative controls qualify this admission correction.

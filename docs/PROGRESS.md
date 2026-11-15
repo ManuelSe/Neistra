@@ -41,6 +41,15 @@ clarification is separately qualified by final39/static checks. The owner manual
 reports both fixes work in the local testing worktree. Full corrective gates and
 all-seven final review remain outstanding.
 
+Final scientific review additionally reproduces unknown canonical torsion axes
+accepted through a toolkit default. A two-line direct-action guard now enforces
+known nonaromatic single order before projection. Identical frozen regressions
+reproduce six failures/36 passes on the untouched predecessor; 109 focused rotation
+cases pass after correction, with Ruff and focused mypy passing. The first corrective
+full gate is intentionally stopped after eight completed commands; incomplete Python
+output is not claimed as qualification. Its diagnostic archive is preserved. Both
+owner-tested H fixes are unchanged. A fresh complete candidate gate remains required.
+
 Known limitations: provisional carbon coordination does not certify aromaticity;
 unsupported/protected sites retain H with warnings. Geometry remains unoptimized,
 receipts process-local and visibility master gates independent. Broader chemistry,

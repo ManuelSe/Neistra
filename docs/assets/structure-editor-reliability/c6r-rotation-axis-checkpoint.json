@@ -1,0 +1,20 @@
+{
+  "source_parent": "6e4d901296452f8237c7238e02c3c96f1507ab5f",
+  "candidate_scope": "two-line canonical direct-rotation guard plus two regression files; existing H/UI fixes unchanged",
+  "focused_result": {
+    "focused_rotation": "109 passed, zero skips, 50.80s",
+    "new_regressions_included": 42,
+    "ruff": "PASS on model and both new test files",
+    "test_format": "PASS on both new test files",
+    "mypy": "PASS on model.py, one source file",
+    "source_scope": "Two-line model.py guard and two new rotation test files only; no H profile, reader, UI, docs or legacy ligand code changes."
+  },
+  "predecessor": "Same final frozen tests: 6 failed, 36 passed on actual untouched predecessor; initial diagnostic logs also include intentionally narrowed message checks and are not final qualification.",
+  "archive": {
+    "path": "c6r-rotation-axis-focused.zip",
+    "bytes": 29004,
+    "sha256": "e9c6ee3faafc14a15e7b86f6c799385e295330bbbeb064ebe405e4c83807e79f",
+    "manifest_entries": 11
+  },
+  "final_gate": "not yet passed; new fresh candidate gate required"
+}

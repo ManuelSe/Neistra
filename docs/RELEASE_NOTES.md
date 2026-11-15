@@ -19,6 +19,8 @@ candidate/exact-master gates and all seven final assessments remain required.
 - Compact target chemistry, warnings/details and explicit whole-residue recovery
   support successive edits. Geometry opens exact-selection setup; ligand torsion
   uses per-conformer axes, fixed endpoints and a visible nonpickable proposal.
+  Direct rotation requires a known nonaromatic single canonical axis, including
+  zero-angle setup; unknown orders refuse atomically before toolkit defaults.
 - Cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl and methoxy join the fixed fragment
   controls. Their generated geometry remains unoptimized and carries diagnostics.
 - Automatic aromatic carbon edits adjust attached H under a disclosed provisional
