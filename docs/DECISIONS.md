@@ -7363,3 +7363,91 @@ request-count assertion is introduced. The unchanged native oracle passes with o
 read in both layouts; the complete focused 80-case run passes with its three exact
 existing exclusions and unchanged source. This refines transient request ownership,
 without changing molecular state, schema, science or production capacity policy.
+
+
+### D-160 C3 clarification — ephemeral Apply outcome evidence
+
+An unchanged project read cannot establish that a lost Apply request has stopped:
+an upstream request may still be computing before its atomic revision check. Keep
+the submitted attempt above panel/viewer remounts and never infer cancellation or
+replay permission from a successful GET. Closing the editor hides a submitted
+attempt without aborting its owned request.
+
+Add an optional UUID request header for model/selection Apply and a bounded,
+process-local outcome registry/read endpoint. Previews remain outside this registry.
+Store only request identity/digest, phase, small outcome/error metadata, timestamps
+and confirmed committed revision/artifact identity. Reject reuse rather than execute
+an existing token again. Missing, evicted, expired, restarted or different-process
+records mean unknown. Do not dispatch a tagged request if registration fails. Keep
+active/finishing records until settled; bound completed retention with TTL/LRU.
+This is session recovery evidence, not durable exactly-once execution or a new job.
+
+Record commit proof inside a controller-owned transaction observer before the
+existing post-commit project response is built. The observer reads only already
+loaded identity/revision values, performs no database queries and cannot raise.
+An observer failure leaves an unknown outcome. Confirmed saved proof survives a
+later project-read, response-encoding or cleanup failure. Proven prepublication
+failure and successful no-change outcomes become not-applied only after their
+owned work settles. An ambiguous publication exception must remain unknown.
+
+The client freezes one request/context/token, retains one dispatch promise and
+queries its outcome during recovery; current project refreshes remain separate.
+Never install an earlier committed response over later authoritative edits or Undo.
+A deliberate retry after confirmed nonpublication captures fresh context and a
+new token. This implements the accepted recovery contract without persisted schema
+or migration changes; final integrated verification remains required.
+
+
+### D-161 C4 clarification — constructed fragment H and finite-coordinate precision
+
+For the five added fixed fragments, derive transient template-to-new-ID ownership
+inside the actual placement construction. Validate proper finite local alignment
+and rotation matrices, ordinary identities, complete graph/valence, fresh atom
+ownership and every conformer before preserving generated H coordinates through
+automatic maintenance. This record certifies template-owned construction, not
+physical quality or a client-supplied exemption. Existing fragments retain their
+ordinary reconciliation, including conjugation-dependent amino H placement.
+
+Do not reconstruct the placement through a runtime rigid fit. A fixed fit residual
+can falsely reject representable large translations, while a tolerance growing with
+world coordinates can conceal collapsed geometry. Compare each represented
+world-space displacement from the generated root directly with its intended local
+displacement. Above 1e-8 Å representation error, retain a precise conformer-specific
+precision warning and preserve the actual generated rows. This is a numerical
+reporting threshold, not physical admission or a new bond-quality model. Bound
+diagnostic detail explicitly if many conformers are affected.
+
+Refuse nonfinite coordinates, collapsed distinct generated rows and internal bonds
+outside the existing extreme-distance bounds atomically. Do not silently fall back
+to ideal H refitting for a small ring. Independent tests must demonstrate proper
+transforms, mapping/graph ownership negatives, exact generated-coordinate retention,
+ordinary/large translations and distortion before collapse/extreme distances.
+
+
+### D-160 client recovery clarification — acknowledge uncertainty without replay
+
+Architecture and workflow review identify a permanent recovery dead end if a
+missing/restarted/expired receipt keeps a project write-blocked forever. For an
+unknown outcome, offer Check status and Review current state. A verified fresh
+review shows the canonical affected structure and history, or verified absence if
+the target was deleted. Then allow the explicit Continue editing current state
+acknowledgment while stating that the earlier outcome remains unknown and may
+still arrive. Positively identified pending/finishing operations keep their normal
+waiting path; review failure keeps the guard.
+
+Capture and recheck reviewed project/revision/artifact/token identities immediately
+before acknowledgment. Changed context requires another review. Persist/read back
+the acknowledgment for the exact token before releasing only that editing guard;
+storage failure remains visible and keeps recovery active. Keep acknowledgment
+separate from outcome and retain bounded read-only old context. Discard the earlier
+proposal, automatic Apply and retry intent. Never relabel an unknown operation as
+unapplied, cancel it implicitly or automatically resubmit it.
+
+Subsequent editing requires a new deliberate action, fresh captured revision/
+artifact/selection and new UUID. Existing fresh atomic checks resolve a late old
+operation racing that new action: one can publish from the shared expected
+revision, while the other conflicts and must refresh without silent rebasing.
+Retain unrelated quick-publication/movement guards. A late old response can update
+its own record and monotonic project authority, but cannot erase a newer attempt,
+restore an old proposal/selection or steal focus. This is the agreed recovery
+workflow, not new execution or durable-receipt functionality.

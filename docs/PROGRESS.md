@@ -39,9 +39,20 @@ logs and 29 native outputs verify. Actual-validator qualification passes 19 work
 57 calls and 24 predecessor-expression oracles; parent verifies 40 output hashes and
 66 current/baseline identities. PRO closure, nonfinite error boundaries and explicit-
 axis norm corrections have independent evidence. [C2 evidence/review](assets/structure-editor-reliability/README.md).
-Frontend checks are reused on unchanged sources. C3 execution work is isolated and
-not yet integrated. No application implementation is pushed or declared feature-
-complete; final all-seven gate remains.
+Frontend checks are reused on unchanged sources. C2's passing local checkpoint is
+`b67ab74c`. C3 integrates bounded execution and ephemeral Apply outcomes, preserving
+C1's conditional reads. The exact integrated five-step run passes 177 Python/zero
+skips, Ruff/default mypy218 and all 42 focused native cases: 40 passes/two exact
+existing exclusions, zero failures/flakes/retries/new exclusions. All 731 scoped
+source identities, lossless logs and 29 retained native outputs verify.
+[C3 evidence/review](assets/structure-editor-reliability/README.md) also retains
+the real Chromium/proxy abort, exact project/artifact preservation, frozen author
+handoffs and bounded-outcome fault tests. Scoped architecture/performance review
+passes the backend with explicit limits; architecture/UX accept unknown-only
+manual continuation without replay. Torsion/fragments and compact workflows remain
+isolated work.
+No application implementation is pushed or declared feature-complete; final
+all-seven gate remains.
 
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
@@ -50,11 +61,15 @@ final-version qualification/all-seven review; normal merge/exact-master release 
 verified closeout. Provisional impact: compatible stable minor **0.32.0**, with no
 anticipated portable schema, dependency or migration change.
 
-Known limitations: fixes are still being implemented and integrated. Broader
-chemistry, preparation, geometry/stereo authoring and remaining #71 work retain
-explicit separate dispositions. Blockers: none. Next action: commit C2's passing
-local checkpoint, continue isolated C3 and qualified torsion/fragments, then C5–C7;
-no further routine approval required. Hold application pushes until final all-seven
+Known limitations: fixes are still being implemented and integrated. A synthetic
+100,000-atom API probe observes approximately 200 ms synchronous publication and
+461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
+evidence, not universal responsiveness/capacity qualification. Broader chemistry,
+preparation, geometry/stereo authoring and remaining #71 work retain explicit
+separate dispositions. Blockers: none. Next action: finish C3 integration and
+qualification, qualified torsion/fragments and compact workflows, then C6–C7;
+no further routine approval required. Commit the passing C3 checkpoint locally;
+hold application pushes until final all-seven
 same-candidate review.
 
 ### Previous completed milestone — issue #145

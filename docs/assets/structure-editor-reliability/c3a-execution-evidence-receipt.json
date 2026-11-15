@@ -1,0 +1,13 @@
+{
+  "file": "c3a-execution-evidence.zip",
+  "bytes": 102409,
+  "sha256": "54f1bfba5c4fa010bff0f4465081af849db0130cebb40018a4920289b3d1bb91",
+  "files": 31,
+  "crc_all_internal_hashes_valid": true,
+  "limitations": [
+    "Author handoff/profile is C0-based; distinguish from integrated parent validation",
+    "Proxy v1/v3 are diagnostic failed harness attempts, never combined with v4 success",
+    "Proxy v4 native abort/cleanup control is successful; its runner has no independent source inventory",
+    "100k size profile has full before/after Python source identities; concurrent load makes timings observational"
+  ]
+}

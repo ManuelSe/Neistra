@@ -4,15 +4,17 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from neistra_core.adapters.base import ImportOptions
 from neistra_core.adapters.defaults import create_default_registry
 from neistra_core.hydrogen_protection import AtomProtection, protection_facts, recover_protection
 from neistra_core.molecular import NormalizedStructureV1
 
-from neistra_api.import_export import ArtifactService
-from neistra_api.models import StructureEntry
-from neistra_api.settings import Settings
+if TYPE_CHECKING:
+    from neistra_api.import_export import ArtifactService
+    from neistra_api.models import StructureEntry
+    from neistra_api.settings import Settings
 
 
 @dataclass(frozen=True)
@@ -41,7 +43,39 @@ def recover_original_identity(
         if record.size > settings.max_structure_file_bytes:
             return None
         _, data = artifacts.read(record.id)
-        if len(data) != record.size or hashlib.sha256(data).hexdigest() != record.sha256:
+        return recover_original_bytes(
+            before,
+            data,
+            record.id,
+            record.sha256,
+            record.size,
+            max_file_bytes=settings.max_structure_file_bytes,
+            atom_limit=settings.atom_hard_limit,
+            atom_ids=atom_ids,
+        )
+    except (ValueError, RuntimeError, OverflowError, OSError, LookupError):
+        return None
+
+
+def recover_original_bytes(
+    before: NormalizedStructureV1,
+    data: bytes,
+    artifact_id: str,
+    sha256: str,
+    size: int,
+    *,
+    max_file_bytes: int,
+    atom_limit: int,
+    atom_ids: set[int] | None = None,
+) -> VerifiedOriginalIdentity | None:
+    """Recover evidence from verified immutable bytes without database capability."""
+    try:
+        existing = protection_facts(before)
+        needed = {a.id for a in before.atoms} if atom_ids is None else atom_ids
+        missing = needed - existing.keys()
+        if not missing or size > max_file_bytes:
+            return None
+        if len(data) != size or hashlib.sha256(data).hexdigest() != sha256:
             return None
         parsed = (
             create_default_registry()
@@ -53,13 +87,13 @@ def recover_original_identity(
         for original in parsed.structures:
             if original.source.record_index != before.source.record_index:
                 continue
-            if len(original.atoms) > settings.atom_hard_limit:
+            if len(original.atoms) > atom_limit:
                 return None
             restored = recover_protection(before, original, atom_ids=atom_ids)
             facts = protection_facts(restored)
             recovered = tuple(facts[i] for i in sorted(missing) if i in facts)
             if recovered:
-                return VerifiedOriginalIdentity(restored, record.id, record.sha256, recovered)
+                return VerifiedOriginalIdentity(restored, artifact_id, sha256, recovered)
             return None
     except (ValueError, RuntimeError, OverflowError, OSError, LookupError):
         # An absent/invalid original never proves ordinary identity. Existing

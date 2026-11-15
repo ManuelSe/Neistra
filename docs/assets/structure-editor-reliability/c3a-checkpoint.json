@@ -1,0 +1,48 @@
+{
+  "stage": "C3a integrated bounded execution; C3b outcome recovery and final C3 gate pending",
+  "full_release_gate": false,
+  "base": "b67ab74c0ca8a32282cbe3193766b6ed0481a2e0",
+  "native": {
+    "inventory": 42,
+    "passed": 40,
+    "exact_existing_exclusions": 2,
+    "failed": 0,
+    "flaky": 0,
+    "retries": 0,
+    "new_exclusions": 0
+  },
+  "sources": 728,
+  "source_unchanged": true,
+  "scope": "Scoped code/lock inventory, not complete release inventory",
+  "native_zip": {
+    "file": "c3a-native-observations.zip",
+    "bytes": 4237452,
+    "sha256": "4cd99cb5c17e0ba87cd3224fedd07f811e91589a978cc5b61f80d43144bbd8fe",
+    "files": 29,
+    "crc_all_internal_hashes_valid": true
+  },
+  "backend_checks": {
+    "python": 103,
+    "seconds": 94.87,
+    "default_mypy": 216,
+    "ruff": "PASS",
+    "evidence": "Observed successful command output in session transcript; final C3b integrated logs remain to be recorded"
+  },
+  "backend_command": [
+    ".venv/bin/uv",
+    "run",
+    "pytest",
+    "tests/integration/test_edit_execution.py",
+    "tests/unit/test_edit_execution_bootstrap.py",
+    "tests/integration/test_model_edits.py",
+    "tests/integration/test_selection_edits.py",
+    "tests/integration/test_protein_edits.py",
+    "tests/integration/test_structure_projection_identity.py",
+    "tests/integration/test_retained_editing.py"
+  ],
+  "limitations": [
+    "C3b header/outcome registry not integrated in this run",
+    "C4/C5/final all-seven/release gates remain pending",
+    "No strict-host or universal capacity claim"
+  ]
+}

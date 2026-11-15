@@ -3,11 +3,12 @@ from __future__ import annotations
 import asyncio
 import multiprocessing
 import time
-from collections.abc import AsyncIterator, Callable
+from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager, suppress
 from multiprocessing.connection import Connection
-from typing import Literal, cast
+from typing import Literal, NoReturn, cast
 from urllib.parse import quote
+from uuid import UUID
 
 from fastapi import (
     APIRouter,
@@ -15,6 +16,7 @@ from fastapi import (
     FastAPI,
     File,
     Form,
+    Header,
     HTTPException,
     Request,
     Response,
@@ -49,6 +51,7 @@ from neistra_api.archive_service import (
 )
 from neistra_api.coordinate_service import CoordinateService
 from neistra_api.database import Base, create_database_engine, create_session_factory
+from neistra_api.edit_execution import EditExecutionController, EditExecutionError
 from neistra_api.import_export import (
     ArtifactNotFoundError,
     ImportExportService,
@@ -99,6 +102,7 @@ from neistra_api.schemas import (
     ContactQuery,
     ContactRead,
     CoordinateTransformCreate,
+    EditAttemptRead,
     EntryRevisionRequest,
     EntryToggle,
     EntryUpdate,
@@ -150,7 +154,6 @@ from neistra_api.schemas import (
     TestEntryCreate,
     ViewerSettingsUpdate,
 )
-from neistra_api.selection_edit_service import SelectionEditService
 from neistra_api.selection_style_service import SelectionStyleService
 from neistra_api.settings import Settings
 from neistra_api.surface_service import SurfaceService
@@ -513,6 +516,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.engine = engine
     app.state.session_factory = factory
     app.state.job_registry = job_registry
+    app.state.edit_execution = EditExecutionController(factory, app_settings)
     app.state.cancelled_imports = {}
     app.state.cancelled_exports = {}
     app.add_middleware(
@@ -1252,29 +1256,57 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             project_id, payload,
         ))
 
+    @router.get(
+        "/projects/{project_id}/edit-attempts/{attempt_id}", response_model=EditAttemptRead
+    )
+    async def read_edit_attempt(
+        project_id: str, attempt_id: UUID, response: Response
+    ) -> EditAttemptRead:
+        response.headers["Cache-Control"] = "no-store"
+        controller: EditExecutionController = app.state.edit_execution
+        return controller.attempts.lookup(project_id, str(attempt_id))
+
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/model-edits/preview",
         response_model=ModelPreviewRead,
     )
     async def preview_model(
-        project_id: str, entry_id: str, payload: ModelEditCreate,
-        session: Session = Depends(session_dependency),
-    ) -> ModelPreviewRead:
-        return _call(lambda: ModelEditService(session, app_settings).preview(
-            project_id, entry_id, payload,
-        ))
+        project_id: str,
+        entry_id: str,
+        payload: ModelEditCreate,
+        request: Request,
+    ) -> Response:
+        return await _edit_response(
+            app.state.edit_execution.execute(
+                "preview",
+                project_id,
+                entry_id,
+                payload,
+                request,
+            )
+        )
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/model-edits",
         response_model=ModelEditRead,
     )
     async def edit_model(
-        project_id: str, entry_id: str, payload: ModelEditCreate,
-        session: Session = Depends(session_dependency),
-    ) -> ModelEditRead:
-        return _call(lambda: ModelEditService(session, app_settings).model_edit(
-            project_id, entry_id, payload,
-        ))
+        project_id: str,
+        entry_id: str,
+        payload: ModelEditCreate,
+        request: Request,
+        edit_attempt: UUID | None = Header(default=None, alias="X-Neistra-Edit-Attempt"),
+    ) -> Response:
+        return await _edit_response(
+            app.state.edit_execution.execute(
+                "model",
+                project_id,
+                entry_id,
+                payload,
+                request,
+                attempt_id=str(edit_attempt) if edit_attempt is not None else None,
+            )
+        )
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/selection-edits",
@@ -1284,11 +1316,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         project_id: str,
         entry_id: str,
         payload: SelectionEditCreate,
-        session: Session = Depends(session_dependency),
-    ) -> SelectionEditRead:
-        return _call(lambda: SelectionEditService(session, app_settings).selection_edit(
-            project_id, entry_id, payload,
-        ))
+        request: Request,
+        edit_attempt: UUID | None = Header(default=None, alias="X-Neistra-Edit-Attempt"),
+    ) -> Response:
+        return await _edit_response(
+            app.state.edit_execution.execute(
+                "selection",
+                project_id,
+                entry_id,
+                payload,
+                request,
+                attempt_id=str(edit_attempt) if edit_attempt is not None else None,
+            )
+        )
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/ligand-edits",
@@ -1718,6 +1758,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.include_router(testing)
 
     return app
+
+
+async def _edit_response(operation: Awaitable[bytes]) -> Response:
+    try:
+        data = await operation
+    except EditExecutionError as error:
+        raise HTTPException(
+            error.status,
+            detail={"code": error.code, "message": str(error)},
+            headers={"Retry-After": "1"} if error.status == 429 else None,
+        ) from error
+    except Exception as error:
+
+        def rethrow(captured_error: Exception = error) -> NoReturn:
+            raise captured_error
+
+        return _call(rethrow)
+    return Response(content=data, media_type="application/json")
 
 
 def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
