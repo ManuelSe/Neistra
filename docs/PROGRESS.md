@@ -28,6 +28,12 @@ archives. Packaging/reader tooling passes 54 focused tests; complete source-set
 checks reject additions, edits and symlinks. Both complete 35-step release gates and
 final all-seven same-candidate assessment remain required.
 
+The first full gate stops at Python: 42 historical archive cases share an obsolete
+strict 0.32.0 producer assertion; 2,263 other cases pass. The assertion now pins
+0.33.0 and the matrix additionally includes 0.32.0, preserving every older case.
+All 47 focused archive checks pass. [Diagnostic/correction](assets/interaction-inspection/c4-candidate1-correction.json)
+retains the failed attempt; a fresh complete candidate2 gate is required.
+
 Only planning C0 is pushed; no application PR, merge, tag or release is claimed.
 The 2D child #153 remains independently open. Known scientific/display limits are in
 the contract and documentation. Next action: complete the clean 35-step candidate gate and final review,

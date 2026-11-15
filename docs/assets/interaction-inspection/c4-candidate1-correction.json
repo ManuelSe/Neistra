@@ -1,0 +1,22 @@
+{
+  "diagnostic_candidate": "d66068b92b0927868e320f0ca4717621c4f5baba",
+  "candidate1_exit": {
+    "runner_pid": 2245564,
+    "command": [
+      "/datadisk/dev/neistra-worktrees/issue-152/.venv/bin/python",
+      "/datadisk/dev/neistra-worktrees/issue-152/docs/assets/interaction-inspection/qualification.py.txt",
+      "/datadisk/dev/neistra-worktrees/issue-152/docs/assets/interaction-inspection/c4-candidate1-recipe.json"
+    ],
+    "started_utc": "2026-11-15T22:24:44Z",
+    "status": "failed",
+    "qualification_pid": 2245565,
+    "exit_code": 1,
+    "finished_utc": "2026-11-15T22:35:37Z"
+  },
+  "cause": "Historical archive matrix retained a strict current-producer 0.32.0 assertion after all five authoritative runtime versions advanced to 0.33.0. All 42 failing cases reached this same assertion; 2263 other Python cases passed.",
+  "correction": "Pin strict producer assertion to 0.33.0 and add preceding 0.32.0 to the complete historical reader matrix, retaining every prior case. Runtime source is unchanged.",
+  "focused_result": "47 passed in 23.89s",
+  "focused_log": "c4-archive-version-correction.log.gz",
+  "focused_log_sha256": "1de2d9f631b3949e1c529ddfd5d2c91b60a2364f28552c76180473fb40120f55",
+  "qualification": "Candidate1 stopped at Python step 9 of 35; preserved as failed diagnostic. Fresh full candidate2 gate required."
+}
