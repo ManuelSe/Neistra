@@ -421,3 +421,43 @@ Duplicate temporary browser capture resources remain in the complete local
 All retained ZIP CRCs and internal hashes verify; owned test services are stopped.
 New before/after scientific, component and actual-native evidence will remain
 separate, followed by a fresh complete candidate and exact-master qualification.
+
+
+## C6R focused integrated qualification
+
+[Checkpoint](c6r-hydrogen-checkpoint.json) separates the complete focused checks
+from pending full release qualification. Final scientific source passes39cases;
+matching final predecessor tests fail25unit/oneAPI while13controls still pass.
+The broader310-case run overlaps; a docstring-only clarification during that run
+is separately covered by final39/static validation. All863 frontend tests/96files
+pass. Nine static/build/version/license checks pass with850unchanged inputs.
+
+The complete36-case desktop/mobile native run passes without exclusions, failures,
+flakes or retries and retains49native outputs. It verifies actual attached-H
+rendering/picking, exact scope/toggle/reset/history, both themes, real desktopzoom,
+keyboard/44px containment, selection/artifact/camera/original invariants and all
+existing compact/chemistry workflows. Only the separate reader fixture's canonical
+closing-edge selection changes afterward; production/native-test bytes remain
+identical. [Focused evidence](c6r-hydrogen-focused.zip):7,470,324bytes,SHA-256
+`374699eb918a4c8ea976e3b416d9a75229674cc430b5097cb780762fdb9255cd`,112manifest entries.
+
+[Actual-reader preflight](c6r-hydrogen-reader-preflight.zip) retains every synthetic
+store/archive/report from0.32.0→tagged0.31.0→current:15projects/24transitions, including
+partial/sequential aromatic authoring and exact H-appearance history,30old-written
+archives and60current imports/reexports across bothsuffixes. All current/source/
+module/version/log hashes and corruption/stale/allocator/deep controls verify.
+Archive1,864,563bytes,SHA-256
+`6d8651c2f62860efa7b9b97fc514ee77c7274351e59cd59ecdc2f82437db69b4`,353manifest entries
+and60nested ZIP CRCs. This preflight does not replace the full gate's reader step.
+
+[Diagnostics](c6r-hydrogen-diagnostics.zip) retains before-fix tests and incomplete
+native attempts: v1 waits only for viewportwidth before responsive replacement;
+v2 incorrectly expects Polar in an All fixture. The repaired tests retain all
+native/history/zoom assertions and deadlines. The reader launch executes no phase;
+a subsequent attempt correctly refuses noncanonical fixture selection. Sorting the
+fixture input preserves production validation. Full raw local folders retain
+duplicate capture resources; the public ZIP retains named observations, reports
+and self-contained traces:24,266,725bytes,SHA-256
+`7394162e124d302a16e1d7a1b3dedec2f547fd1f52d8098308db22ed79c9c844`,138manifest entries
+and28nested ZIP CRCs. Every ZIP CRC/internal hash verifies. No partial attempt is
+combined into a full pass or release claim.
