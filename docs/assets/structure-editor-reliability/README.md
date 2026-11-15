@@ -478,3 +478,26 @@ eight completed commands before the scientific finding stopped execution.
 stdout and no full qualification claim. ZIP209,496 bytes, SHA-256
 `6f38dd8bd9de54270a1f37ae64514d0f43061cbfcb52860bed8c42dfb5af497e`.
 Fresh complete candidate/exact-master qualification and all-seven review are pending.
+
+### C6R complete corrected candidate
+
+Exact runtime candidate `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes all35 fresh sequential
+commands: **2,246 Python/zero skips,863 frontend/96files,14 supervisor,
+469 browser/75 exact preceding exclusions across544cases**. Zero failures, flakes,
+retries or new exclusions. All852 current/793 actual preceding-source identities
+and every lossless log hash verify. Actual rich/connectivity/new-editing readers
+exercise both directions/suffixes; new-state coverage is15projects/24transitions,
+30preceding-writer archives/60current reverse imports/reexports.
+
+[Summary](c6r-candidate2-summary.json), [reader audit](c6r-candidate2-reader-audit.json),
+[packaging receipt](c6r-candidate2-packaging.json), and
+[all-seven runtime assessments](c6r-runtime-seven-role-assessments.json) retain exact
+commands, source/provenance evidence and scope. The [complete archive](c6r-candidate2-qualified-01.zip)
+retains all636 native observations (85,675,305 bytes), lossless logs and executed
+qualification tools. ZIP 70,680,772 bytes; SHA-256
+`c4b0a2650561d93350968188376405ab12cf23ed1aac47e88390e45f60cf4dcc`; all702 manifest entries/CRC verify.
+
+The final reporting/evidence-only delta preserves all852 qualified inputs and
+requires explicit same-head seven-role reconfirmation before push. Normal corrective
+PR/merge, fresh complete exact-master qualification and publication remain required.
+Earlier interrupted runs are diagnostic and do not contribute partial commands.

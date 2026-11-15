@@ -3,10 +3,10 @@
 ## 0.32.0 — Structure editor reliability (candidate)
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
-Original PR #151 is merged and its reviewed candidate passed qualification.
-Owner validation adds aromatic carbon H maintenance and an attached-H display
-toggle before publication. Focused corrections pass; fresh complete corrective
-candidate/exact-master gates and all seven final assessments remain required.
+Original PR #151 is merged. Owner-validation H fixes and canonical torsion-axis
+admission now pass a fresh complete corrected-candidate gate and all-seven runtime
+assessment. Normal corrective merge, same-head reporting reconfirmation and fresh
+complete exact-master qualification precede publication.
 
 - Immutable projection identity prevents delayed reads from populating a newer
   artifact's cache. Molecular state and original uploads remain authoritative.
@@ -33,6 +33,15 @@ archive 2 and normalized/selection/component 1 remain. Matching current client/A
 versions are required for the additive qualified-read/action/receipt contracts.
 Private recovery metadata is not durable execution evidence. Keep complete managed
 backups; preceding-reader retention does not qualify older authoring behavior.
+
+The corrected candidate passes all35 fresh commands: **2,246 Python/zero skips,
+863 frontend/96files,14 supervisor,469 browser/75 exact preceding exclusions across
+544cases**, zero failures/flakes/retries/new exclusions. All852 current/793 actual
+preceding identities and lossless log hashes verify. Actual preceding readers retain
+and reexport15new-state projects/24transitions across both suffixes;636native outputs
+are retained. All seven specialist roles independently PASS the runtime candidate.
+These agent assessments do not replace required remote/human approvals. Exact-master
+qualification remains required after the corrective merge.
 
 The original candidate, before these owner-validation corrections, passes one
 complete clean 35-step gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793

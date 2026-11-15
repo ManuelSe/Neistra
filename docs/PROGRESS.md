@@ -2,67 +2,44 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **owner validation
-corrections C6R underway; v0.32.0 publication held**. Original implementation
-[PR #151](https://github.com/ManuelSe/Neistra/pull/151) is normally merged at
-`3f0fa1b990f6913c39f5afaf48027a2b5815be74`; no v0.32.0 tag or release exists.
-The [authorized contract](plans/issue-147-structure-editor-reliability.md) now includes
-the owner's explicit aromatic-H maintenance and compact attached-H toggle fixes.
-No further routine scope or publication approval is required.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **corrected candidate
+qualification complete; corrective merge and v0.32.0 publication remain**. Original
+[PR #151](https://github.com/ManuelSe/Neistra/pull/151) is merged at `3f0fa1b9`.
+No v0.32.0 tag/release exists. The [authorized contract](plans/issue-147-structure-editor-reliability.md)
+includes all twelve findings/five fragments, both owner-reported H fixes and the
+canonical torsion-axis admission correction found during scientific review.
 
-Completed: original twelve findings/five fragments, clean 35-step candidate gate
-(2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact existing
-exclusions across 542 cases), actual preceding readers, and all seven PASS for
-reviewed reporting head `a6bc08b8`. The original merge tree is identical. These are
-historical evidence for that source, not qualification of the new corrections.
-Codex review was requested; no result or human approval is claimed.
+Corrective runtime `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes a fresh complete35-step gate:
+**2,246 Python/zero skips,863 frontend/96files,14 supervisor,469 browser/75 exact
+preceding exclusions across544cases**; zero failures/flakes/retries/new exclusions.
+All852 current/793 actual preceding identities and lossless log hashes verify.
+Actual0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions/suffixes,
+including15projects/24transitions,30preceding archives/60reverse imports/reexports,
+corruption/stale controls and deep retained state. All636 native outputs are retained.
+[Evidence](assets/structure-editor-reliability/README.md) records seven independent
+PASS assessments for this runtime. Reporting-only changes preserve every qualified
+input and receive required same-head reconfirmation before application push.
 
-The original exact-master run passes its first 15 commands, including 2,165 Python,
-843 frontend and 14 supervisor, before owner validation adds the two fixes. The run
-is intentionally stopped during browser execution after progress case 63; no final
-browser report exists and no complete exact-master gate is claimed. All completed
-lossless logs/source identities and native outputs are preserved with hashes/CRC.
-A bounded diagnostic omits only duplicate temporary browser capture resources; the
-complete local archive retains them. Owned test services are stopped.
+Owner validation reports both H fixes work. Automatic aromatic C H maintenance is
+a disclosed provisional neutral-carbon coordination rule; compact H appearance
+shares exact attached-H toggle/reset semantics with styling. Direct rotation now
+refuses unknown/multiple/aromatic canonical axes before toolkit conversion, including
+zero-angle setup. The109focused rotation tests pass; identical42regressions reproduce
+six failures/36passes on untouched predecessor. The initial contrary implementation
+assessment was superseded and the actual scientific finding corrected.
 
-Implementation: isolated branch `fix/issue-147-aromatic-hydrogen-controls`. Early
-scientific, reference, UX and architecture assessments identify the unconditional
-aromatic reconciliation exclusion and the editor's entry-default H write bypassing
-per-H overrides. D-162 defines a disclosed automatic-only neutral-carbon sp2 profile
-and reuse of the existing exact-target H appearance control. Scientific and frontend
-implementers have disjoint ownership; before-fix regressions reproduce both defects.
-Integrated focused verification passes39 final-source scientific/API cases,
-863 frontend tests/96files, all36 native cases/zero exclusions/failures/retries and
-nine static/build/version/license checks with850unchanged inputs. The actual
-0.32.0→0.31.0→current preflight passes15projects/24transitions,30preceding archives
-and60reverse imports/reexports with all source/module/log/negative controls verified.
-The broader310-case scientific run is overlapping evidence; its docstring-only
-clarification is separately qualified by final39/static checks. The owner manually
-reports both fixes work in the local testing worktree. Full corrective gates and
-all-seven final review remain outstanding.
+Historical original candidate and both interrupted runs remain separately identified;
+no partial commands substitute for complete qualification. Versions remain0.32.0; no
+dependency, migration or persisted-schema change, head0015. Generated geometry remains
+unoptimized, aromatic coordination provisional, receipts process-local and visibility
+master gates independent. Deferred work remains #71/#114/#83/#52/#12/#70 and geometry
+#149/stereo#150. One optional generic stale-target copy improvement is deferred; no
+consequential finding remains.
 
-Final scientific review additionally reproduces unknown canonical torsion axes
-accepted through a toolkit default. A two-line direct-action guard now enforces
-known nonaromatic single order before projection. Identical frozen regressions
-reproduce six failures/36 passes on the untouched predecessor; 109 focused rotation
-cases pass after correction, with Ruff and focused mypy passing. The first corrective
-full gate is intentionally stopped after eight completed commands; incomplete Python
-output is not claimed as qualification. Its diagnostic archive is preserved. Both
-owner-tested H fixes are unchanged. A fresh complete candidate gate remains required.
-
-Known limitations: provisional carbon coordination does not certify aromaticity;
-unsupported/protected sites retain H with warnings. Geometry remains unoptimized,
-receipts process-local and visibility master gates independent. Broader chemistry,
-preparation, remaining #71/#114, length/angle #149 and stereo #150 stay separate.
-Versions remain 0.32.0 with no anticipated dependency, migration or portable-schema
-change. Blockers: none.
-
-Next: integrate and independently review both corrections, qualify actual native H
-visibility/picking and scientific/API/history behavior, extend preceding-reader
-specimens, obtain all-seven same-candidate assessments and pass a fresh full candidate
-gate. Then normal corrective PR/merge and fresh exact-master gate precede tag,
-release, anonymous evidence verification, final replies, receipt PR and owned cleanup.
-Preserve the owner's working checkout; the owner may update it independently.
+Next: normal corrective PR/review/merge, fresh complete exact-master35-step gate,
+annotated immutable tag, stable release/anonymous evidence verification, final replies,
+terminal receipt PR and owned cleanup. Preserve the owner-used hydrogen-fix worktree
+and original checkout. No further routine scope or publication approval is required.
 
 ### Previous completed milestone — issue #145
 
