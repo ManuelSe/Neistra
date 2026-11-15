@@ -1,5 +1,43 @@
 # Neistra Release Notes
 
+## 0.32.0 — Structure editor reliability (candidate)
+
+Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
+Implementation checkpoints pass locally; full final-version qualification, all seven
+final specialist assessments and remote release delivery remain in progress.
+
+- Immutable projection identity prevents delayed reads from populating a newer
+  artifact's cache. Molecular state and original uploads remain authoritative.
+- Mutation preserves authored retained cuts/exclusions and rejects incompatible
+  backbone elements atomically. Bounded diagnostics cover all affected conformers;
+  protein overlap validation avoids the dense quadratic allocation.
+- Expensive edits use bounded isolated child computation and fresh atomic
+  publication. Apply ownership, visible errors/status and explicit unknown-outcome
+  recovery survive panel closure, remounts and project visits without blind replay.
+- Compact target chemistry, warnings/details and explicit whole-residue recovery
+  support successive edits. Geometry opens exact-selection setup; ligand torsion
+  uses per-conformer axes, fixed endpoints and a visible nonpickable proposal.
+- Cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl and methoxy join the fixed fragment
+  controls. Their generated geometry remains unoptimized and carries diagnostics.
+
+**Data and limits.** No dependency or migration change; head 0015, project/viewer/
+archive 2 and normalized/selection/component 1 remain. Matching current client/API
+versions are required for the additive qualified-read/action/receipt contracts.
+Private recovery metadata is not durable execution evidence. Keep complete managed
+backups; preceding-reader retention does not qualify older authoring behavior.
+
+Focused checks pass 843 frontend tests and 56 browser cases/four exact existing
+exclusions, with real desktop 100%/200% zoom, both themes, mobile, Undo/originals and
+rendered rotation evidence. Complete release checks and actual final 0.32.0↔0.31.0
+reader qualification are still required before publication.
+
+**Deferred scope.** [#71](https://github.com/ManuelSe/Neistra/issues/71) receives only
+the five-fragment partial completion. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149)
+and intentional stereochemistry authoring [#150](https://github.com/ManuelSe/Neistra/issues/150),
+ring fusion/custom catalogues, isotope/radical schema, chemistry assignment, rotamer
+search and comprehensive preparation remain separate. No broad modeling completeness
+or preparation claim is made by these fixes.
+
 ## 0.31.0 — Surface selection and prominent hydrogen visibility
 
 Released from exact qualified master `cc54cd324c5aebe86024c1b85165715691ddcbb3`

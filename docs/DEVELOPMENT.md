@@ -114,6 +114,21 @@ unknown, not unapplied. This is ephemeral recovery, without a durable job or sch
 migration. Failed filesystem cleanup can leave private staging residue while a
 confirmed saved receipt remains saved; do not infer rollback from an HTTP error.
 
+### Structure editor release qualification (0.32.0 candidate)
+
+The issue #147 final gate adds actual preceding v0.31.0 retention for new fragment,
+cut-preserving mutation and per-conformer torsion states. Run
+`tests/support/structure_editing_reader_qualification.py run` with explicit current/
+preceding roots, the verified tagged-source receipt, the owned venv Python and a
+fresh external workspace. The current source must declare 0.32.0 consistently;
+without a diagnostic flag the tool fails closed on another version. It runs three
+separate actual-source processes, preserves raw command/history/allocator/original
+proof, exercises both archive suffixes and refusal controls, and records module
+paths/hashes. The old writer reexports current-authored new-state seeds; it does
+not author new fragment operations. Rich/connectivity/opaque-job checks remain
+separate required families. Run both candidate and exact merged-master gates before
+publication. The feature plan and generated recipe retain exact command vectors.
+
 ## Validation
 
 The complete release gate is:

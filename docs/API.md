@@ -135,6 +135,10 @@ from the existing checkpoint comparison. No new migration or schema is needed.
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/transform` | Translate or rotate a whole entry or selected atoms. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/ligand-edits` | Apply one validated ligand graph, hydrogen, rotation, or cleanup command. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/protein-edits` | Apply one validated protein hierarchy, mutation, or hydrogen command. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/model-edits` | Apply a captured direct model action, including qualified ligand torsion. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` | Compute a disposable placement/rotation proposal without publication. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/selection-edits` | Apply one captured selection edit. |
+| `GET` | `/api/v1/projects/{project_id}/edit-attempts/{attempt_id}` | Read bounded process-local Apply outcome evidence without replay. |
 | `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
 
 ## Job Endpoints

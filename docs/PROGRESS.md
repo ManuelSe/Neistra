@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C4 committed;
-C5 corrected compact workflows qualified locally, C6 release preparation next**.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C5 committed;
+C6 final 0.32.0 preparation and whole-candidate qualification underway**.
 C0 is committed, pushed and verified at `82d41588`; application pushes remain
 held for the final seven-role gate.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
@@ -107,8 +107,12 @@ Known limitations: fixes are still being implemented and integrated. A synthetic
 461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
 evidence, not universal responsiveness/capacity qualification. Broader chemistry,
 preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. Next action: commit qualified C5 locally, prepare final 0.32.0 versions
-and run C6–C7, including actual final-version readers and all seven final reviews. No further routine approval is required. Hold application
+separate dispositions. Blockers: none. C5 is committed locally as `cf78dadb`. All five authoritative version sources
+now prepare 0.32.0; no remote v0.32.0 tag exists and remote master remains the
+approved base. A frozen actual-source new-state reader tool has passing diagnostic
+evidence, explicitly not final-version qualification. Next action: validate and
+commit release preparation, then run C6–C7 including actual final-version readers
+and all seven final reviews. No further routine approval is required. Hold application
 pushes until final all-seven same-candidate review.
 
 ### Previous completed milestone — issue #145

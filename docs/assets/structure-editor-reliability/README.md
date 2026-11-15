@@ -291,3 +291,33 @@ same-final-candidate assessments, remote merge/release and closeout remain.
 [Scientific bindings](c5-scientific-bindings.json) prove all 384 Python source
 identities and 52 fixtures are unchanged from the passing 585-case C4 domain/API
 qualification; its Ruff/mypy evidence is reused, without claiming a fresh run.
+
+
+## C6 release preparation and reader diagnostics
+
+All five version sources prepare 0.32.0. `c6-preparation-evidence.zip` retains the
+failed formatting-only preparatory attempt separately from seven passing focused
+checks: frozen install, all-version/schema/dependency audit, Ruff, mypy218,
+reader-tool mypy1, 46 archive cases and diff checks. The passing run freezes 846
+scoped identities and lossless log hashes. The ZIP has 14 manifest entries,
+172,064 bytes, SHA-256
+`eb08524263c386367a0aa64012ca547f8bcacc98d368f8db1eef0059092d98cb`.
+
+The new helper `tests/support/structure_editing_reader_qualification.py` matches
+frozen SHA-256 `534a22a5120b8887890d262340eb7263356bf68071024b1f02387bd2292f0acf`.
+`c6-editing-reader-diagnostic.zip` preserves all 278 source/evidence/store/archive
+files from its passing three-process diagnostic: 1,482,314 bytes, SHA-256
+`69fc720d4f92e51fbc282604355b7dc461126ce20518b65a8bf4fb1b87ffe1b7`.
+It covers 12 current-authored projects/13 transitions, all five fragments and both
+attachment modes/multiple conformers, cut-preserving mutation and analytic torsion.
+Actual preceding 0.31.0 retains current-authored states and reexports them; a current
+reader retains that old writer's generic edit/history and both archive suffixes.
+Corruption, stale and deep-oracle controls preserve canonical publication invariants.
+The diagnostic explicitly reports `release_qualification=false` because its current
+runtime still declares 0.31.0. It does not replace actual final 0.32.0 execution or
+rich/connectivity/opaque-job qualification.
+
+The generated [35-step candidate recipe](c6-candidate1-recipe.json) requires a clean
+committed candidate. The source-bound runner, strict summary auditor, version audit
+and production/license audit are retained as executable `.py.txt` evidence tools.
+Candidate and exact merged-master complete gates remain separate requirements.
