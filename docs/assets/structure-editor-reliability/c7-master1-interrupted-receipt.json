@@ -1,0 +1,10 @@
+{
+  "file": "c7-master1-interrupted.zip",
+  "bytes": 5734980,
+  "sha256": "814cb1736efe13e5f8f229f5b4fc3de5405a2ee145bb61effd03c6d96ff87320",
+  "manifest_entries": 75,
+  "omitted_duplicate_temporary_capture_members": 9596,
+  "complete_local_archive_sha256": "841891c8fa89ebe10636d0bb5d789891e4840484998d2db94696092b38a96ed9",
+  "all_crc_and_hashes_valid": true,
+  "complete_gate": false
+}

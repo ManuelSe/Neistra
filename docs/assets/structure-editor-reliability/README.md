@@ -395,3 +395,29 @@ agent review is not human approval. The [primary review](c6-candidate2-review.md
 records scope, provenance and remaining delivery stages. The committed
 [exact-master recipe](c7-master1-recipe.json) is a future fresh gate, not evidence of
 an executed merged-master run or a published release.
+
+
+## C6R — Owner validation corrections before publication
+
+Original PR #151 merges the reviewed tree at `3f0fa1b9`. Owner validation then
+requires aromatic carbon H maintenance and a genuine attached-H toggle in Edit.
+The [authorized amendment](../../plans/issue-147-structure-editor-reliability.md)
+and appended D-162 define the bounded corrections. No v0.32.0 tag or release exists.
+Earlier complete qualification covers its recorded original source only.
+
+The [interrupted-run receipt](c7-master1-interrupted-receipt.json) and
+[bounded diagnostic archive](c7-master1-interrupted.zip) retain the intentionally
+stopped exact-master attempt: 15 successful commands with lossless log hashes,
+846 unchanged source inputs and native progress through case63. No final browser
+report exists. The interrupted browser stdout was not persisted losslessly by the
+runner; its filtered progress is retained. It is not a complete gate or assertion
+failure and cannot be combined with another run as qualification.
+
+The archive has75 internal manifest entries,5,734,980bytes,SHA-256
+`814cb1736efe13e5f8f229f5b4fc3de5405a2ee145bb61effd03c6d96ff87320`.
+Duplicate temporary browser capture resources remain in the complete local
+386,436,588-byte preservation archive (SHA-256
+`841891c8fa89ebe10636d0bb5d789891e4840484998d2db94696092b38a96ed9`).
+All retained ZIP CRCs and internal hashes verify; owned test services are stopped.
+New before/after scientific, component and actual-native evidence will remain
+separate, followed by a fresh complete candidate and exact-master qualification.

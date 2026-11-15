@@ -2,47 +2,50 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C6 qualified locally;
-final reporting review and normal remote delivery remain**. The
-[feature contract](plans/issue-147-structure-editor-reliability.md) is **Authorized
-within agreed scope; not individually reviewed**. All planned decisions are settled.
-The owner's checkout and qualified v0.31.0 tag remain untouched.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **owner validation
+corrections C6R underway; v0.32.0 publication held**. Original implementation
+[PR #151](https://github.com/ManuelSe/Neistra/pull/151) is normally merged at
+`3f0fa1b990f6913c39f5afaf48027a2b5815be74`; no v0.32.0 tag or release exists.
+The [authorized contract](plans/issue-147-structure-editor-reliability.md) now includes
+the owner's explicit aromatic-H maintenance and compact attached-H toggle fixes.
+No further routine scope or publication approval is required.
 
-Completed: all twelve audit findings, five common fragments, cut-preserving residue
-mutation, immutable artifact reads, bounded computation/publication, compact feedback,
-exact-target geometry setup, rendered torsion proposals and explicit Apply recovery.
-D-158–D-161 record scientific and ownership decisions. C0 is the only pushed commit;
-application publication waits for the final same-candidate reporting review.
+Completed: original twelve findings/five fragments, clean 35-step candidate gate
+(2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact existing
+exclusions across 542 cases), actual preceding readers, and all seven PASS for
+reviewed reporting head `a6bc08b8`. The original merge tree is identical. These are
+historical evidence for that source, not qualification of the new corrections.
+Codex review was requested; no result or human approval is claimed.
 
-Verification: clean candidate `5f9fbeb8229c801563180364322c04c01dd49692` passes every command in one fresh
-35-step release gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, zero failures/flakes/retries/new exclusions.
-All 846 current and 793 actual tagged preceding-source identities, lossless logs,
-complete inventory and exact exclusion identities verify. Actual 0.32.0↔0.31.0
-rich/connectivity readers pass both directions and archive suffixes. New-state
-qualification passes three actual implementation processes, 12 projects/13 edits,
-cut mutation, all five fragments and analytic torsion, preceding-writer retention/
-reexport, generic old-authored history, corruption and stale no-publication controls.
-[Evidence and review](assets/structure-editor-reliability/README.md).
+The original exact-master run passes its first 15 commands, including 2,165 Python,
+843 frontend and 14 supervisor, before owner validation adds the two fixes. The run
+is intentionally stopped during browser execution after progress case 63; no final
+browser report exists and no complete exact-master gate is claimed. All completed
+lossless logs/source identities and native outputs are preserved with hashes/CRC.
+A bounded diagnostic omits only duplicate temporary browser capture resources; the
+complete local archive retains them. Owned test services are stopped.
 
-All seven specialist agents explicitly PASS the reviewed runtime candidate. Their
-consequential findings are corrected; agent review is not human approval. The final
-reporting/evidence-only delta requires explicit reconfirmation before application
-push. Earlier partial runs remain diagnostics and are not combined into this gate.
-The separate captured-geometry run passes 45/one exact preceding exclusion across
-46 cases, with 846 unchanged identities and complete native/log evidence.
+Implementation: isolated branch `fix/issue-147-aromatic-hydrogen-controls`. Early
+scientific, reference, UX and architecture assessments identify the unconditional
+aromatic reconciliation exclusion and the editor's entry-default H write bypassing
+per-H overrides. D-162 defines a disclosed automatic-only neutral-carbon sp2 profile
+and reuse of the existing exact-target H appearance control. Scientific and frontend
+implementers have disjoint ownership; before-fix regressions reproduce both defects.
+Focused author tests are preliminary until integrated independent qualification.
 
-Compatible minor 0.32.0 updates all five sources. No dependency/migration change;
-head 0015, project/viewer/archive 2 and normalized/selection/component 1 remain.
-Known limitations: deterministic fragment/mutation geometry is unoptimized; receipts
-are process-local and private recovery metadata is not durable execution evidence.
-The historical 100k-atom probe's 200 ms publication/461 ms loop lag is observational,
-not current timing or universal capacity qualification. Broader chemistry/preparation,
-remaining #71, length/angle #149 and stereo #150 retain separate dispositions.
+Known limitations: provisional carbon coordination does not certify aromaticity;
+unsupported/protected sites retain H with warnings. Geometry remains unoptimized,
+receipts process-local and visibility master gates independent. Broader chemistry,
+preparation, remaining #71/#114, length/angle #149 and stereo #150 stay separate.
+Versions remain 0.32.0 with no anticipated dependency, migration or portable-schema
+change. Blockers: none.
 
-Blockers: none. Next action: obtain all-seven explicit reporting-delta reconfirmations,
-then normal PR/review/merge, a fresh complete gate on the exact merged commit,
-annotated release, anonymous asset verification, closeout and owned cleanup.
-No additional routine approval is required; release completion is not yet claimed.
+Next: integrate and independently review both corrections, qualify actual native H
+visibility/picking and scientific/API/history behavior, extend preceding-reader
+specimens, obtain all-seven same-candidate assessments and pass a fresh full candidate
+gate. Then normal corrective PR/merge and fresh exact-master gate precede tag,
+release, anonymous evidence verification, final replies, receipt PR and owned cleanup.
+Preserve the owner's working checkout; the owner may update it independently.
 
 ### Previous completed milestone — issue #145
 
@@ -3346,13 +3349,12 @@ Results:
 
 ## Blockers
 
-None for the accepted issue #147 scope. Final reporting reconfirmation, normal
-remote delivery and fresh exact-merged-master qualification remain required.
-Strict reference-host timing remains separate from portable correctness.
+None for the authorized issue #147 corrections. Integrated scientific/native checks,
+all seven final assessments, fresh complete candidate and exact-master gates and
+remote release delivery remain required.
 
 ## Next action
 
-Reconfirm all seven specialists on the evidence-only reporting candidate, then push,
-open and normally merge its PR. Qualify the exact merged commit freshly before tag,
-release, anonymous evidence verification, issue replies and owned cleanup. Continue
-without another routine approval; preserve the owner's checkout and v0.31.0 tag.
+Finish and qualify aromatic carbon H maintenance and the compact attached-H toggle
+on the dedicated corrective branch, then deliver through normal review/merge and
+fresh exact-master release qualification. No additional routine approval is needed.

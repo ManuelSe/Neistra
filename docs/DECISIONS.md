@@ -7512,3 +7512,39 @@ ordinary atom/fragment placement retains automatic policy. Do not change science
 to make context keys match. Qualification must inspect the actual native moving
 geometry, nonpickable rendered objects, visible pixels and Cancel removal while
 canonical coordinates, originals and history remain unchanged before Apply.
+
+
+### D-162 — Owner-validated aromatic carbon H and shared attached-H appearance
+
+The owner reports aromatic bond creation retaining excessive explicit H and the
+compact Show explicit H action failing to reveal attached H or toggle. Correct both
+before publication of issue #147. The aromatic exclusion is scientific eligibility,
+not merely missing dispatch; changing entry-wide visibility defaults cannot replace
+selection-local H overrides. Preserve the original merged commit and qualify a
+normal corrective PR before tagging, without editing master or retargeting a tag.
+
+For automatic maintenance only, explicitly interpret an eligible ordinary neutral
+carbon with authored aromatic incident connectivity as provisional trigonal sp2
+coordination. With one to three heavy neighbors and only consistent single/aromatic
+heavy edges, target total attached H equals three minus heavy-neighbor degree.
+Preserve the authored graph and heavy coordinates, retain aromaticity-unvalidated
+warnings and record this local inference. This neither certifies aromaticity nor
+repairs rings, assigns charges or predicts protonation. Fractional bond-order
+rounding is invalid, including at fused degree-three aromatic carbon.
+
+Keep existing protected/labelled/radical/alternate and explicit-H-intent checks,
+whole-site/all-conformer staging and resource limits. Unsupported charge/identity,
+heteroatoms, mixed multiple/unknown/contradictory orders and excessive degree retain
+H with precise diagnostics. Independent qualified sites may succeed with partial
+feedback. Legacy and additive policies remain unchanged. Fixed independent graphs,
+counts, formulas and coordinate invariants qualify this bounded extension. Every
+aromatic bond edit revisits its endpoints; this local degree rule avoids relying on
+later global aromatic perception to revisit previously skipped eligible carbon.
+
+Use the same shared H control and central appearance command in both editor and
+styling. Resolve only selected existing H and graph-attached existing H; preserve
+selection and canonical molecular state. Compact projection readiness is independent
+of styling-panel loading. Capture current epoch/seed/artifacts/revision and recheck
+through the existing App publication path. Keep master visibility separate, retain
+All/Polar/Mixed and reset semantics, and own pending/late feedback without changing
+molecular Apply ownership. This adds no service, schema, migration or second cache.

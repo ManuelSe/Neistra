@@ -319,6 +319,67 @@ starting a receipt/release loop. Then delete only owned delivered branches and
 worktrees, preserving the owner's checkout and unrelated state. Verify clean owned
 delivery state, merged PRs, release, issue reply and cleanup before declaring done.
 
+### C6R — Owner validation corrections before publication
+
+On 2026-11-15 the owner explicitly requires two additional corrections before
+finishing this delivery. This amends the authorized contract within that request;
+its wording is not individually reviewed. Original PR #151 is merged at
+`3f0fa1b990f6913c39f5afaf48027a2b5815be74`, but no v0.32.0 tag or release exists.
+Its exact-master run is intentionally interrupted and retained as diagnostic only.
+Use `fix/issue-147-aromatic-hydrogen-controls` and a normal corrective PR; never edit
+master or publish the original merged candidate before these corrections qualify.
+
+1. **Automatic H after aromatic bond authoring.** Extend only the automatic policy
+   with a separately qualified provisional local carbon-coordination profile:
+   ordinary unlabelled nonradical C, assigned charge zero, consistent aromatic
+   flags/orders, at least one aromatic edge, all heavy edges single/aromatic and
+   heavy-neighbor degree one through three. Target total attached H is `3 - degree`,
+   with existing trigonal-planar placement. This is an explicit authored sp2
+   assumption, not aromaticity perception, ring repair or protonation assignment.
+   Keep authored bonds, heavy coordinates and the existing aromatic-draft warning;
+   add precise inference provenance and visible diagnostics. Preserve all existing
+   protection, explicit-H intent, alternate, identity, resource and whole-site/
+   all-conformer gates. Unknown/charged or protected carbon, unsupported isotope/
+   radical identity, heteroaromatic sites, mixed double/triple/unknown/contradictory
+   orders and excessive degree remain unchanged with precise diagnostics. Legacy,
+   omitted and additive policies retain their existing contracts. Do not round
+   fractional 1.5 bond-order sums. Independent fixed-count/formula oracles cover
+   ethane 3→2 H per endpoint, partial cyclohexane 2→1 at affected endpoints,
+   sequential aromatic six-ring final H1 per carbon, fused/substituted degree-three
+   carbon H0, aromatic→single 2→3 and deletion to isolated neutral carbon H4.
+   Qualify multi-frame geometry, deterministic surviving/new IDs, protected and
+   unsupported negatives, preview/Apply, exact Undo/Redo/reload/archive and originals.
+2. **Attached-H visibility in the compact editor.** Replace the entry-wide settings
+   write with the shared selection-based H control, target resolver, effective
+   All/Polar/Mixed state and exact-target inheritance reset. Targets are selected
+   existing element-H and existing H directly bonded to selected heavy atoms,
+   including hidden H; never infer connectivity, generate atoms or expand molecular
+   selection. All→Polar, Polar/Mixed→All and Reset match the regular styling panel.
+   Retain independent master/entry/component/isolation/explicit-hide gates and their
+   visible explanations. Admit the compact panel's own complete artifact-matched
+   projection, not styling-only readiness. Reuse the existing captured appearance
+   command and project/epoch/selection/artifact/revision guards. Own synchronous
+   duplicate exclusion, pending state and late feedback without acquiring molecular
+   Apply ownership or stealing focus. Native regressions must seed local false H
+   overrides, verify actual H rendering and picking with selected C unchanged,
+   unrelated H/settings unchanged, toggle twice, Mixed→All, exact Reset, Undo/Redo,
+   reload, master-off explanation and stale/failed/late-context behavior. Preserve
+   44 px compact actions, keyboard access, themes and supported zoom/narrow layouts.
+
+Scientific theory, workflow reference, UX and architecture are consulted before
+implementation. Reference evidence does not establish arbitrary partial aromatic
+handling; the disclosed local profile is an original qualified editor convention.
+No broader chemistry/preparation or portable-schema/dependency/migration change is
+introduced. D-162 records the accepted method and ownership boundaries. Expand actual
+preceding-reader specimens to include the new aromatic and appearance states.
+
+Retain before-fix failures, exact-source focused checks and native evidence. Run a
+fresh complete candidate gate and all seven same-candidate assessments over the
+whole intended change, including new files, before application push. After normal
+corrective merge, run a fresh complete exact-merged gate before the immutable v0.32.0
+annotated tag/release. Earlier passing or partial runs remain separately identified;
+no partial command reuse, new exclusion or relaxed requirement substitutes for them.
+
 ## Cross-cutting decisions and compatibility
 
 D-158 establishes immutable projection identity and provisional cache truth.
