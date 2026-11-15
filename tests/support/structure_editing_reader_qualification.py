@@ -16,7 +16,7 @@ import zipfile
 from copy import deepcopy
 from importlib.metadata import version as distribution_version
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, Literal, cast
 
 PREVIOUS_COMMIT = "cc54cd324c5aebe86024c1b85165715691ddcbb3"
 SUFFIXES = (".neistra.zip", ".molweave.zip")
@@ -149,6 +149,11 @@ def selected(
     ids: list[int],
     action: dict[str, Any],
     kind: str = "model",
+    *,
+    hydrogen_policy: Literal[
+        "preserve", "complete_if_possible", "reconcile_if_possible", "automatic"
+    ]
+    | None = None,
 ) -> dict[str, Any]:
     current = next(e for e in project["entries"] if e["id"] == entry)
     payload = {
@@ -163,7 +168,7 @@ def selected(
         "action": action,
     }
     if kind == "model":
-        payload["hydrogen_policy"] = (
+        payload["hydrogen_policy"] = hydrogen_policy or (
             "automatic" if action["operation"] in {"fragment.attach", "bond.rotate"} else "preserve"
         )
     response = client.post(
@@ -292,17 +297,18 @@ def import_bytes(client: Any, content: bytes, suffix: str, label: str) -> dict[s
     return cast(dict[str, Any], project)
 
 
-def ligand_seed(label: str) -> Any:
+def ligand_seed(label: str, *, smiles: str = "C.O") -> Any:
     import numpy as np
     from neistra_core.molecular import Conformer, MolecularWarning
 
     from tests.support.hydrogen_fixture import model
 
-    before = model("C.O")
-    oxygen = {2} | {
+    before = model(smiles)
+    oxygen_id = next(a.id for a in before.atoms if a.element == "O")
+    oxygen = {oxygen_id} | {
         i
         for b in before.bonds
-        if 2 in {b.atom_1_id, b.atom_2_id}
+        if oxygen_id in {b.atom_1_id, b.atom_2_id}
         for i in (b.atom_1_id, b.atom_2_id)
     }
     points = np.asarray(before.active_coordinates)
@@ -328,7 +334,7 @@ def ligand_seed(label: str) -> Any:
                 a.model_copy(
                     update={
                         "coordinates": frames[1].coordinates[n],
-                        **({"formal_charge": None} if a.id == 2 else {}),
+                        **({"formal_charge": None} if a.id == oxygen_id else {}),
                     }
                 )
                 for n, a in enumerate(before.atoms)
@@ -346,7 +352,7 @@ def ligand_seed(label: str) -> Any:
                     code="reader_unknown_spectator_charge",
                     message="Synthetic spectator charge deliberately unknown.",
                     operation="fixture",
-                    field="atoms.2.formal_charge",
+                    field=f"atoms.{oxygen_id}.formal_charge",
                 ),
             ],
         }
@@ -387,6 +393,48 @@ def torsion_seed() -> Any:
         conformers=frames,
         active_conformer_id=25,
         metadata={"reader_opaque_provenance": {"do_not_interpret": [None, "torsion"]}},
+    )
+
+
+def hydrogen_neighbors(document: dict[str, Any], parents: set[int]) -> dict[int, list[int]]:
+    atoms = {a["id"]: a for a in document["atoms"]}
+    return {
+        parent: sorted(
+            neighbor
+            for bond in document["bonds"]
+            for center, neighbor in (
+                (bond["atom_1_id"], bond["atom_2_id"]),
+                (bond["atom_2_id"], bond["atom_1_id"]),
+            )
+            if center == parent and atoms[neighbor]["element"] == "H"
+        )
+        for parent in parents
+    }
+
+
+def assert_aromatic_fixed(seed: Any, document: dict[str, Any]) -> None:
+    original = seed.model_dump(mode="json")
+    heavy = {a["id"] for a in original["atoms"] if a["element"] != "H"}
+    oxygen = {a["id"] for a in original["atoms"] if a["element"] == "O"}
+    spectator = oxygen | {i for ids in hydrogen_neighbors(original, oxygen).values() for i in ids}
+    fixed = heavy | spectator
+    assert [a for a in document["atoms"] if a["id"] in fixed] == [
+        a for a in original["atoms"] if a["id"] in fixed
+    ]
+    old_indices = {a["id"]: n for n, a in enumerate(original["atoms"])}
+    new_indices = {a["id"]: n for n, a in enumerate(document["atoms"])}
+    assert len(document["conformers"]) == 3 and document["active_conformer_id"] == 7
+    for before, after in zip(original["conformers"], document["conformers"], strict=True):
+        assert before["id"] == after["id"]
+        for atom_id in fixed:
+            assert (
+                after["coordinates"][new_indices[atom_id]]
+                == before["coordinates"][old_indices[atom_id]]
+            )
+    assert document["source"] == original["source"]
+    assert (
+        document["metadata"]["reader_opaque_provenance"]
+        == original["metadata"]["reader_opaque_provenance"]
     )
 
 
@@ -526,6 +574,144 @@ def produce(client: Any, root: Path, exchange: Path, version: str) -> dict[str, 
     for frame, expected_row in zip(document["conformers"], expected_rows, strict=True):
         np.testing.assert_allclose(frame["coordinates"][3], expected_row, rtol=0, atol=1e-12)
     finish("torsion", project, [{"operation": "bond.rotate", "before": before, "after": after}])
+
+    for label, smiles, edges, carbon_ids in [
+        ("aromatic-partial", "CC.O", [(1, 2)], {1, 2}),
+        (
+            "aromatic-ring",
+            "C1CCCCC1.O",
+            [(3, 4), (1, 2), (5, 6), (2, 3), (4, 5), (6, 1)],
+            set(range(1, 7)),
+        ),
+    ]:
+        seed = ligand_seed(label, smiles=smiles)
+        project = import_bytes(
+            client, build_fixture(seed, application_version=version), SUFFIXES[0], f"seed-{label}"
+        )
+        entry = project["entries"][0]
+        transitions = []
+        planar_sites: set[int] = set()
+        authored_edges: set[frozenset[int]] = set()
+        for left, right in edges:
+            before = state(client, project)
+            result = selected(
+                client,
+                project,
+                entry["id"],
+                sorted((left, right)),
+                {"operation": "bond.set", "order": 1.5},
+                hydrogen_policy="automatic",
+            )
+            project = result["project"]
+            after = state(client, project)
+            document = next(iter(after["canonical"].values()))
+            planar_sites.update((left, right))
+            authored_edges.add(frozenset((left, right)))
+            # Fixed molecular oracles: isolated C pair has two H each; a six-ring
+            # carbon has one H once incident to an authored aromatic edge, else two.
+            expected_counts = (
+                {1: 2, 2: 2}
+                if label == "aromatic-partial"
+                else {i: 1 if i in planar_sites else 2 for i in range(1, 7)}
+            )
+            assert {
+                i: len(ids) for i, ids in hydrogen_neighbors(document, carbon_ids).items()
+            } == expected_counts
+            assert_aromatic_fixed(seed, document)
+            report = result["hydrogen_reconciliation_report"]
+            assert report["policy"] == "automatic" and report["skipped_count"] == 0
+            assert report["reason_counts"]["provisional_aromatic_carbon"] >= 2
+            for warnings in (result["warnings"], document["warnings"]):
+                assert any(
+                    w["code"] == "model_hydrogen_provisional_aromatic_carbon"
+                    and "Provisional" in w["message"]
+                    and "3 minus" in w["message"]
+                    for w in warnings
+                )
+                assert any(w["code"] == "model_aromaticity_unvalidated" for w in warnings)
+            assert any(
+                "method=provisional_authored_sp2_carbon" in i["message"]
+                for i in document["inferences"]
+            )
+            for bond in document["bonds"]:
+                pair = frozenset((bond["atom_1_id"], bond["atom_2_id"]))
+                if pair <= carbon_ids:
+                    assert bond["order"] == (1.5 if pair in authored_edges else 1.0)
+                    assert bond["aromatic"] == (pair in authored_edges)
+            assert after["original_sha256"] == before["original_sha256"]
+            transitions.append(
+                {
+                    "operation": f"bond.set:aromatic:{left}-{right}",
+                    "before": before,
+                    "after": after,
+                }
+            )
+        finish(label, project, transitions)
+
+    label = "attached-h-appearance"
+    seed = ligand_seed(label)
+    project = import_bytes(
+        client, build_fixture(seed, application_version=version), SUFFIXES[0], f"seed-{label}"
+    )
+    entry = project["entries"][0]
+    initial = state(client, project)
+    name = entry["name"]
+    document = initial["canonical"][name]
+    neighbors = hydrogen_neighbors(document, {1, 2})
+    carbon_h, oxygen_h = neighbors[1], neighbors[2]
+    assert len(carbon_h) == 4 and len(oxygen_h) == 2
+    transitions = []
+    appearances: list[tuple[str, list[int], bool | None, list[dict[str, Any]]]] = [
+        (
+            "seed-false",
+            sorted(carbon_h + oxygen_h),
+            False,
+            [{"show": False, "atom_ids": sorted(carbon_h + oxygen_h)}],
+        ),
+        (
+            "carbon-true",
+            carbon_h,
+            True,
+            [{"show": False, "atom_ids": oxygen_h}, {"show": True, "atom_ids": carbon_h}],
+        ),
+        (
+            "carbon-false",
+            carbon_h,
+            False,
+            [{"show": False, "atom_ids": sorted(carbon_h + oxygen_h)}],
+        ),
+        ("carbon-reset", carbon_h, None, [{"show": False, "atom_ids": oxygen_h}]),
+    ]
+    for operation, atom_ids, show, expected_assignments in appearances:
+        before = state(client, project)
+        response = client.post(
+            f"/api/v1/projects/{project['id']}/selection-appearance",
+            json={
+                "expected_revision": project["revision"],
+                "selection": {
+                    "schema_version": 1,
+                    "atoms": [{"structure_id": entry["id"], "atom_id": i} for i in atom_ids],
+                    "granularity": "atom",
+                    "source": "viewer",
+                },
+                "property": "nonpolar_hydrogens",
+                "action": "reset" if show is None else "set",
+                **({"show": show} if show is not None else {}),
+            },
+        )
+        assert response.status_code == 200, response.text
+        project = response.json()
+        after = state(client, project)
+        expected_state = deepcopy(initial)
+        expected_state["entries"][name]["viewer_settings"]["selection_nonpolar_hydrogens"] = (
+            expected_assignments
+        )
+        assert_state(after, expected_state, retained=True)
+        transitions.append(
+            {"operation": f"appearance:{operation}", "before": before, "after": after}
+        )
+    finish(label, project, transitions)
+
     result = {
         "producer_version": version,
         "cases": cases,
@@ -535,6 +721,7 @@ def produce(client: Any, root: Path, exchange: Path, version: str) -> dict[str, 
     write_json(exchange / "expectations.json", result)
     return {
         "cases": len(cases),
+        "case_labels": [c["label"] for c in cases],
         "transitions": sum(len(c["transitions"]) for c in cases),
         "expectations_sha256": digest((exchange / "expectations.json").read_bytes()),
     }
@@ -789,6 +976,7 @@ def consume(
     )
     return {
         "cases": len(cases),
+        "case_labels": [c["label"] for c in cases],
         "archive_reads": len(written),
         "retained_history": retained,
         "archive_history_omission": True,

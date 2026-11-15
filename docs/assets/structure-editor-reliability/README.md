@@ -395,3 +395,109 @@ agent review is not human approval. The [primary review](c6-candidate2-review.md
 records scope, provenance and remaining delivery stages. The committed
 [exact-master recipe](c7-master1-recipe.json) is a future fresh gate, not evidence of
 an executed merged-master run or a published release.
+
+
+## C6R — Owner validation corrections before publication
+
+Original PR #151 merges the reviewed tree at `3f0fa1b9`. Owner validation then
+requires aromatic carbon H maintenance and a genuine attached-H toggle in Edit.
+The [authorized amendment](../../plans/issue-147-structure-editor-reliability.md)
+and appended D-162 define the bounded corrections. No v0.32.0 tag or release exists.
+Earlier complete qualification covers its recorded original source only.
+
+The [interrupted-run receipt](c7-master1-interrupted-receipt.json) and
+[bounded diagnostic archive](c7-master1-interrupted.zip) retain the intentionally
+stopped exact-master attempt: 15 successful commands with lossless log hashes,
+846 unchanged source inputs and native progress through case63. No final browser
+report exists. The interrupted browser stdout was not persisted losslessly by the
+runner; its filtered progress is retained. It is not a complete gate or assertion
+failure and cannot be combined with another run as qualification.
+
+The archive has75 internal manifest entries,5,734,980bytes,SHA-256
+`814cb1736efe13e5f8f229f5b4fc3de5405a2ee145bb61effd03c6d96ff87320`.
+Duplicate temporary browser capture resources remain in the complete local
+386,436,588-byte preservation archive (SHA-256
+`841891c8fa89ebe10636d0bb5d789891e4840484998d2db94696092b38a96ed9`).
+All retained ZIP CRCs and internal hashes verify; owned test services are stopped.
+New before/after scientific, component and actual-native evidence will remain
+separate, followed by a fresh complete candidate and exact-master qualification.
+
+
+## C6R focused integrated qualification
+
+[Checkpoint](c6r-hydrogen-checkpoint.json) separates the complete focused checks
+from pending full release qualification. Final scientific source passes39cases;
+matching final predecessor tests fail25unit/oneAPI while13controls still pass.
+The broader310-case run overlaps; a docstring-only clarification during that run
+is separately covered by final39/static validation. All863 frontend tests/96files
+pass. Nine static/build/version/license checks pass with850unchanged inputs.
+
+The complete36-case desktop/mobile native run passes without exclusions, failures,
+flakes or retries and retains49native outputs. It verifies actual attached-H
+rendering/picking, exact scope/toggle/reset/history, both themes, real desktopzoom,
+keyboard/44px containment, selection/artifact/camera/original invariants and all
+existing compact/chemistry workflows. Only the separate reader fixture's canonical
+closing-edge selection changes afterward; production/native-test bytes remain
+identical. [Focused evidence](c6r-hydrogen-focused.zip):7,470,324bytes,SHA-256
+`374699eb918a4c8ea976e3b416d9a75229674cc430b5097cb780762fdb9255cd`,112manifest entries.
+
+[Actual-reader preflight](c6r-hydrogen-reader-preflight.zip) retains every synthetic
+store/archive/report from0.32.0→tagged0.31.0→current:15projects/24transitions, including
+partial/sequential aromatic authoring and exact H-appearance history,30old-written
+archives and60current imports/reexports across bothsuffixes. All current/source/
+module/version/log hashes and corruption/stale/allocator/deep controls verify.
+Archive1,864,563bytes,SHA-256
+`6d8651c2f62860efa7b9b97fc514ee77c7274351e59cd59ecdc2f82437db69b4`,353manifest entries
+and60nested ZIP CRCs. This preflight does not replace the full gate's reader step.
+
+[Diagnostics](c6r-hydrogen-diagnostics.zip) retains before-fix tests and incomplete
+native attempts: v1 waits only for viewportwidth before responsive replacement;
+v2 incorrectly expects Polar in an All fixture. The repaired tests retain all
+native/history/zoom assertions and deadlines. The reader launch executes no phase;
+a subsequent attempt correctly refuses noncanonical fixture selection. Sorting the
+fixture input preserves production validation. Full raw local folders retain
+duplicate capture resources; the public ZIP retains named observations, reports
+and self-contained traces:24,266,725bytes,SHA-256
+`7394162e124d302a16e1d7a1b3dedec2f547fd1f52d8098308db22ed79c9c844`,138manifest entries
+and28nested ZIP CRCs. Every ZIP CRC/internal hash verifies. No partial attempt is
+combined into a full pass or release claim.
+
+### C6R canonical rotation-axis correction
+
+Scientific review reproduces unknown canonical order accepted through a toolkit
+default. The direct action now requires known nonaromatic single order before
+projection, preserving the legacy ligand API. [Checkpoint](c6r-rotation-axis-checkpoint.json)
+and [focused archive](c6r-rotation-axis-focused.zip) retain 109 passing focused
+rotation cases, 42 final frozen regressions and six actual-predecessor failures,
+source identities and logs. ZIP 29,004 bytes, SHA-256
+`e9c6ee3faafc14a15e7b86f6c799385e295330bbbeb064ebe405e4c83807e79f`; 11 manifest entries verify.
+
+[First corrective full-run diagnostic](c6r-candidate1-interrupted.zip) retains
+eight completed commands before the scientific finding stopped execution.
+[Receipt](c6r-candidate1-interruption.json) explicitly records incomplete Python
+stdout and no full qualification claim. ZIP209,496 bytes, SHA-256
+`6f38dd8bd9de54270a1f37ae64514d0f43061cbfcb52860bed8c42dfb5af497e`.
+Fresh complete candidate/exact-master qualification and all-seven review are pending.
+
+### C6R complete corrected candidate
+
+Exact runtime candidate `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes all35 fresh sequential
+commands: **2,246 Python/zero skips,863 frontend/96files,14 supervisor,
+469 browser/75 exact preceding exclusions across544cases**. Zero failures, flakes,
+retries or new exclusions. All852 current/793 actual preceding-source identities
+and every lossless log hash verify. Actual rich/connectivity/new-editing readers
+exercise both directions/suffixes; new-state coverage is15projects/24transitions,
+30preceding-writer archives/60current reverse imports/reexports.
+
+[Summary](c6r-candidate2-summary.json), [reader audit](c6r-candidate2-reader-audit.json),
+[packaging receipt](c6r-candidate2-packaging.json), and
+[all-seven runtime assessments](c6r-runtime-seven-role-assessments.json) retain exact
+commands, source/provenance evidence and scope. The [complete archive](c6r-candidate2-qualified-01.zip)
+retains all636 native observations (85,675,305 bytes), lossless logs and executed
+qualification tools. ZIP 70,680,772 bytes; SHA-256
+`c4b0a2650561d93350968188376405ab12cf23ed1aac47e88390e45f60cf4dcc`; all702 manifest entries/CRC verify.
+
+The final reporting/evidence-only delta preserves all852 qualified inputs and
+requires explicit same-head seven-role reconfirmation before push. Normal corrective
+PR/merge, fresh complete exact-master qualification and publication remain required.
+Earlier interrupted runs are diagnostic and do not contribute partial commands.

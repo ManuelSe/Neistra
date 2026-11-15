@@ -305,9 +305,22 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   await selectAtom(page, entry.id, target.id, info.project.name === "mobile-chromium");
   await launcher.click();
   await expect.poll(async () => (await projection()).structure.atoms.length).toBe(source.atoms.length + 6);
-  await expect(panel.getByRole("button", { name: "Show explicit H" })).toBeEnabled();
-  await panel.getByRole("button", { name: "Show explicit H" }).click();
-  await expect.poll(async () => (await (await request.get(path)).json()).entries[0].viewer_settings.components.nonpolar_hydrogens).toBe(true);
+  const hydrogenStructure = (await projection()).structure;
+  const neighbors = new Set(hydrogenStructure.bonds.flatMap(bond => bond.atom_1_id === target.id ? [bond.atom_2_id] : bond.atom_2_id === target.id ? [bond.atom_1_id] : []));
+  const attachedH = hydrogenStructure.atoms.filter(atom => atom.element === "H" && neighbors.has(atom.id)).map(atom => atom.id).sort((a, b) => a - b);
+  expect(attachedH.length).toBeGreaterThan(0);
+  const hydrogenToggle = panel.getByRole("button", { name: "Show non-polar hydrogens" });
+  const localHydrogens = async () => ((await (await request.get(path)).json()) as Project).entries[0].viewer_settings.selection_nonpolar_hydrogens;
+  await expect(hydrogenToggle).toHaveAttribute("aria-disabled", "false");
+  await expect(hydrogenToggle).toHaveAttribute("aria-pressed", "true");
+  await hydrogenToggle.click();
+  await expect(hydrogenToggle).toHaveAttribute("aria-pressed", "false");
+  await expect.poll(localHydrogens).toEqual([{ atom_ids: attachedH, show: false }]);
+  await expect(hydrogenToggle).toHaveAttribute("aria-disabled", "false");
+  await hydrogenToggle.click();
+  await expect(hydrogenToggle).toHaveAttribute("aria-pressed", "true");
+  await expect.poll(localHydrogens).toEqual([{ atom_ids: attachedH, show: true }]);
+  expect((await projection()).structure).toEqual(hydrogenStructure);
   await panel.getByRole("button", { name: "Close molecular editor" }).click();
   const prepared = (await projection()).structure;
   await page.evaluate(async () => {

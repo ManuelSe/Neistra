@@ -312,6 +312,8 @@ class DirectMolecularEditor:
             bond = pairs.get(tuple(sorted(selected)))
             if bond is None:
                 raise InvalidModelEdit("Bond rotation requires two endpoints of a current bond.")
+            if bond.order != 1.0 or bond.aromatic:
+                raise InvalidModelEdit("Choose a nonaromatic single bond with known order.")
             editor = RdkitLigandEditor()
             try:
                 plan = editor.describe_bond_rotation(

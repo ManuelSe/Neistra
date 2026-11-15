@@ -2,47 +2,44 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C6 qualified locally;
-final reporting review and normal remote delivery remain**. The
-[feature contract](plans/issue-147-structure-editor-reliability.md) is **Authorized
-within agreed scope; not individually reviewed**. All planned decisions are settled.
-The owner's checkout and qualified v0.31.0 tag remain untouched.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **corrected candidate
+qualification complete; corrective merge and v0.32.0 publication remain**. Original
+[PR #151](https://github.com/ManuelSe/Neistra/pull/151) is merged at `3f0fa1b9`.
+No v0.32.0 tag/release exists. The [authorized contract](plans/issue-147-structure-editor-reliability.md)
+includes all twelve findings/five fragments, both owner-reported H fixes and the
+canonical torsion-axis admission correction found during scientific review.
 
-Completed: all twelve audit findings, five common fragments, cut-preserving residue
-mutation, immutable artifact reads, bounded computation/publication, compact feedback,
-exact-target geometry setup, rendered torsion proposals and explicit Apply recovery.
-D-158–D-161 record scientific and ownership decisions. C0 is the only pushed commit;
-application publication waits for the final same-candidate reporting review.
+Corrective runtime `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes a fresh complete35-step gate:
+**2,246 Python/zero skips,863 frontend/96files,14 supervisor,469 browser/75 exact
+preceding exclusions across544cases**; zero failures/flakes/retries/new exclusions.
+All852 current/793 actual preceding identities and lossless log hashes verify.
+Actual0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions/suffixes,
+including15projects/24transitions,30preceding archives/60reverse imports/reexports,
+corruption/stale controls and deep retained state. All636 native outputs are retained.
+[Evidence](assets/structure-editor-reliability/README.md) records seven independent
+PASS assessments for this runtime. Reporting-only changes preserve every qualified
+input and receive required same-head reconfirmation before application push.
 
-Verification: clean candidate `5f9fbeb8229c801563180364322c04c01dd49692` passes every command in one fresh
-35-step release gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, zero failures/flakes/retries/new exclusions.
-All 846 current and 793 actual tagged preceding-source identities, lossless logs,
-complete inventory and exact exclusion identities verify. Actual 0.32.0↔0.31.0
-rich/connectivity readers pass both directions and archive suffixes. New-state
-qualification passes three actual implementation processes, 12 projects/13 edits,
-cut mutation, all five fragments and analytic torsion, preceding-writer retention/
-reexport, generic old-authored history, corruption and stale no-publication controls.
-[Evidence and review](assets/structure-editor-reliability/README.md).
+Owner validation reports both H fixes work. Automatic aromatic C H maintenance is
+a disclosed provisional neutral-carbon coordination rule; compact H appearance
+shares exact attached-H toggle/reset semantics with styling. Direct rotation now
+refuses unknown/multiple/aromatic canonical axes before toolkit conversion, including
+zero-angle setup. The109focused rotation tests pass; identical42regressions reproduce
+six failures/36passes on untouched predecessor. The initial contrary implementation
+assessment was superseded and the actual scientific finding corrected.
 
-All seven specialist agents explicitly PASS the reviewed runtime candidate. Their
-consequential findings are corrected; agent review is not human approval. The final
-reporting/evidence-only delta requires explicit reconfirmation before application
-push. Earlier partial runs remain diagnostics and are not combined into this gate.
-The separate captured-geometry run passes 45/one exact preceding exclusion across
-46 cases, with 846 unchanged identities and complete native/log evidence.
+Historical original candidate and both interrupted runs remain separately identified;
+no partial commands substitute for complete qualification. Versions remain0.32.0; no
+dependency, migration or persisted-schema change, head0015. Generated geometry remains
+unoptimized, aromatic coordination provisional, receipts process-local and visibility
+master gates independent. Deferred work remains #71/#114/#83/#52/#12/#70 and geometry
+#149/stereo#150. One optional generic stale-target copy improvement is deferred; no
+consequential finding remains.
 
-Compatible minor 0.32.0 updates all five sources. No dependency/migration change;
-head 0015, project/viewer/archive 2 and normalized/selection/component 1 remain.
-Known limitations: deterministic fragment/mutation geometry is unoptimized; receipts
-are process-local and private recovery metadata is not durable execution evidence.
-The historical 100k-atom probe's 200 ms publication/461 ms loop lag is observational,
-not current timing or universal capacity qualification. Broader chemistry/preparation,
-remaining #71, length/angle #149 and stereo #150 retain separate dispositions.
-
-Blockers: none. Next action: obtain all-seven explicit reporting-delta reconfirmations,
-then normal PR/review/merge, a fresh complete gate on the exact merged commit,
-annotated release, anonymous asset verification, closeout and owned cleanup.
-No additional routine approval is required; release completion is not yet claimed.
+Next: normal corrective PR/review/merge, fresh complete exact-master35-step gate,
+annotated immutable tag, stable release/anonymous evidence verification, final replies,
+terminal receipt PR and owned cleanup. Preserve the owner-used hydrogen-fix worktree
+and original checkout. No further routine scope or publication approval is required.
 
 ### Previous completed milestone — issue #145
 
@@ -3346,13 +3343,12 @@ Results:
 
 ## Blockers
 
-None for the accepted issue #147 scope. Final reporting reconfirmation, normal
-remote delivery and fresh exact-merged-master qualification remain required.
-Strict reference-host timing remains separate from portable correctness.
+None for the authorized issue #147 corrections. Integrated scientific/native checks,
+all seven final assessments, fresh complete candidate and exact-master gates and
+remote release delivery remain required.
 
 ## Next action
 
-Reconfirm all seven specialists on the evidence-only reporting candidate, then push,
-open and normally merge its PR. Qualify the exact merged commit freshly before tag,
-release, anonymous evidence verification, issue replies and owned cleanup. Continue
-without another routine approval; preserve the owner's checkout and v0.31.0 tag.
+Finish and qualify aromatic carbon H maintenance and the compact attached-H toggle
+on the dedicated corrective branch, then deliver through normal review/merge and
+fresh exact-master release qualification. No additional routine approval is needed.

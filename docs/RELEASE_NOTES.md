@@ -3,9 +3,10 @@
 ## 0.32.0 — Structure editor reliability (candidate)
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
-The complete clean final-version candidate gate passes. All seven specialists PASS
-the reviewed runtime; final reporting reconfirmation and normal remote delivery,
-including a fresh exact-merged-master gate, remain required.
+Original PR #151 is merged. Owner-validation H fixes and canonical torsion-axis
+admission now pass a fresh complete corrected-candidate gate and all-seven runtime
+assessment. Normal corrective merge, same-head reporting reconfirmation and fresh
+complete exact-master qualification precede publication.
 
 - Immutable projection identity prevents delayed reads from populating a newer
   artifact's cache. Molecular state and original uploads remain authoritative.
@@ -18,8 +19,14 @@ including a fresh exact-merged-master gate, remain required.
 - Compact target chemistry, warnings/details and explicit whole-residue recovery
   support successive edits. Geometry opens exact-selection setup; ligand torsion
   uses per-conformer axes, fixed endpoints and a visible nonpickable proposal.
+  Direct rotation requires a known nonaromatic single canonical axis, including
+  zero-angle setup; unknown orders refuse atomically before toolkit defaults.
 - Cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl and methoxy join the fixed fragment
   controls. Their generated geometry remains unoptimized and carries diagnostics.
+- Automatic aromatic carbon edits adjust attached H under a disclosed provisional
+  trigonal-coordination profile; draft aromaticity warnings remain explicit.
+- The compact H control now shares exact attached-H targeting, All/Polar/Mixed
+  toggle and inheritance reset with styling, preserving unrelated preferences.
 
 **Data and limits.** No dependency or migration change; head 0015, project/viewer/
 archive 2 and normalized/selection/component 1 remain. Matching current client/API
@@ -27,12 +34,30 @@ versions are required for the additive qualified-read/action/receipt contracts.
 Private recovery metadata is not durable execution evidence. Keep complete managed
 backups; preceding-reader retention does not qualify older authoring behavior.
 
-One complete clean 35-step candidate gate passes **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793
+The corrected candidate passes all35 fresh commands: **2,246 Python/zero skips,
+863 frontend/96files,14 supervisor,469 browser/75 exact preceding exclusions across
+544cases**, zero failures/flakes/retries/new exclusions. All852 current/793 actual
+preceding identities and lossless log hashes verify. Actual preceding readers retain
+and reexport15new-state projects/24transitions across both suffixes;636native outputs
+are retained. All seven specialist roles independently PASS the runtime candidate.
+These agent assessments do not replace required remote/human approvals. Exact-master
+qualification remains required after the corrective merge.
+
+The original candidate, before these owner-validation corrections, passes one
+complete clean 35-step gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793
 actual preceding-source identities and lossless logs verify. Actual final
 0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions and suffixes,
 including preceding-writer retention/reexport, exact history and corruption/stale
 controls. Native qualification includes desktop 100%/200% zoom, both themes, mobile,
 Undo/originals and actual rendered rotation geometry. [Evidence](assets/structure-editor-reliability/README.md).
+
+Corrective focused evidence passes39 new scientific/API cases,863 frontend tests,
+36 desktop/mobile native cases without exclusions/failures/retries, and nine static/
+build/version/license checks. A broader310-case scientific run has a docstring-only
+clarification during execution; the final39-case and static checks freeze its final
+source. Actual preceding-reader preflight covers15projects/24transitions and both
+suffixes, including the new aromatic and H-appearance states. These are focused
+checks, not a substitute for the new complete release gates.
 
 **Deferred scope.** [#71](https://github.com/ManuelSe/Neistra/issues/71) receives only
 the five-fragment partial completion. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149)

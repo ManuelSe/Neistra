@@ -1,0 +1,96 @@
+{
+  "current_version": "0.32.0",
+  "diagnostic": false,
+  "limitations": [
+    "Older writer retained current-authored seeds; it did not author new fragment operations.",
+    "Native archives omit portable Undo history; copied live stores exercise actual retained history."
+  ],
+  "phases": [
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "produce",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification",
+        "--version",
+        "0.32.0",
+        "--data",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/current-produced",
+        "--exchange",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/produce-0.32.0.json"
+      ],
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification",
+      "log": "/tmp/neistra147-c6r-candidate2/editing-readers/produce-0.32.0.log",
+      "log_sha256": "a73b8dc412988d427ebcd1c4aae7ed6de43f98541b5a8aab2ca39dbfbdd005c7",
+      "mode": "produce",
+      "returncode": 0,
+      "version": "0.32.0"
+    },
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "consume",
+        "--root",
+        "/tmp/neistra147-reader-0310",
+        "--version",
+        "0.31.0",
+        "--data",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/previous-retained",
+        "--exchange",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/consume-0.31.0.json",
+        "--output",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/previous-reexports",
+        "--receipt",
+        "/tmp/neistra147-reader-0310-source.json"
+      ],
+      "cwd": "/tmp/neistra147-reader-0310",
+      "log": "/tmp/neistra147-c6r-candidate2/editing-readers/consume-0.31.0.log",
+      "log_sha256": "6245915e2c0099a788035d0646b8029280c37ec61597073fd8371cfd1a2e9b3c",
+      "mode": "consume",
+      "returncode": 0,
+      "version": "0.31.0"
+    },
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "read-reexports",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification",
+        "--version",
+        "0.32.0",
+        "--data",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/current-reverse",
+        "--exchange",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/read-reexports-0.32.0.json",
+        "--previous-output",
+        "/tmp/neistra147-c6r-candidate2/editing-readers/previous-reexports"
+      ],
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-147-hydrogen-qualification",
+      "log": "/tmp/neistra147-c6r-candidate2/editing-readers/read-reexports-0.32.0.log",
+      "log_sha256": "847179310a167ea974875e7c34499bfb568f38e3bea653d3ebab0710e5196009",
+      "mode": "read-reexports",
+      "returncode": 0,
+      "version": "0.32.0"
+    }
+  ],
+  "previous_commit": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "previous_version": "0.31.0",
+  "release_qualification": true,
+  "scope": "new editing states; existing rich/connectivity and opaque-job families remain separate",
+  "wrapper_sha256": "d08fc38ac73345b98025b36efa2447576501cb528ad4034e250d45e54dcc2d79"
+}

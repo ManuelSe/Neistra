@@ -790,7 +790,10 @@ export function StructureViewer({
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
             attempt={editAttempt} onCheckEdit={onCheckEdit} onReviewEdit={onReviewEdit} onContinueEdit={onContinueEdit} editReviewCurrent={editReviewCurrent} onRecoverResidue={onRecoverResidue}
             onGeometry={onGeometry} geometryUnavailable={coordinatePreview ? "Finish coordinate preview before opening geometry." : movement?.state.phase !== "idle" && movement ? "Finish movement before opening geometry." : null}
-            onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
+            onEdit={onEdit} onHydrogenAppearance={onHydrogenAppearance ? (change, target) => {
+              const capture = captureHydrogenTarget(project, useSelectionStore.getState().projectEpoch, selection, target);
+              return onHydrogenAppearance(change, capture);
+            } : undefined} /> : null}
           {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimizationPreview.error ?? minimizationPreview.previewError }}
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>

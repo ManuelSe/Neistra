@@ -1,12 +1,12 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { placementContext, placementHydrogenPolicy, type PlacementAction } from "../editing/placement";
 import { useQuery } from "@tanstack/react-query";
-import { Pencil, X, Trash2, Plus, Minus, ChevronRight, RotateCw, Link, Unlink, Hexagon, Eye, Move3D, LoaderCircle, CircleHelp } from "lucide-react";
+import { Pencil, X, Trash2, Plus, Minus, ChevronRight, RotateCw, Link, Unlink, Hexagon, Move3D, LoaderCircle, CircleHelp } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { projectApi } from "../api/client";
 import { isCompleteProjection, structureQueryOptions } from "../structures/query";
-import type { ApplySelectionEdit, HydrogenReport, HydrogenReconciliationReport, MolecularWarning, Project, Selection, SelectionEditAction, ViewerSettings } from "../api/types";
+import type { ApplySelectionEdit, ChangeHydrogenTarget, HydrogenReport, HydrogenReconciliationReport, MolecularWarning, Project, Selection, SelectionEditAction } from "../api/types";
 import { useEditingStore } from "../store/editing";
 import { isBondAction, nextPlacement, placementLabel } from "../editing/hydrogen";
 import { HydrogenReconciliationDetails } from "./HydrogenReconciliationDetails";
@@ -24,6 +24,7 @@ import { captureSelectionTarget, type SelectionTargetCapture } from "../selectio
 import { useSelectionStore } from "../store/selection";
 import { EditApplyError, editAttemptBlocksWrites, type EditAttemptSnapshot } from "../editing/attempt";
 import { EditAttemptStatus } from "./EditAttemptStatus";
+import { SelectionHydrogenControls } from "./SelectionHydrogenControls";
 
 interface Props {
   onOpen?: () => boolean | void;
@@ -32,7 +33,7 @@ interface Props {
   busy: boolean;
   unavailable: string | null;
   onEdit: ApplySelectionEdit;
-  onSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
+  onHydrogenAppearance?: ChangeHydrogenTarget;
   attempt?: EditAttemptSnapshot;
   onCheckEdit?: () => Promise<void>;
   onReviewEdit?: () => Promise<void>;
@@ -43,14 +44,16 @@ interface Props {
   onRecoverResidue?: (capture: SelectionTargetCapture) => void;
 }
 
-export function MolecularEditPanel({ project, selection, busy, unavailable, onEdit, onSettings, onOpen, attempt, onCheckEdit, onReviewEdit, onContinueEdit, editReviewCurrent, onGeometry, geometryUnavailable, onRecoverResidue }: Props) {
+export function MolecularEditPanel({ project, selection, busy, unavailable, onEdit, onHydrogenAppearance, onOpen, attempt, onCheckEdit, onReviewEdit, onContinueEdit, editReviewCurrent, onGeometry, geometryUnavailable, onRecoverResidue }: Props) {
   const editing = useEditingStore();
   const { setOpen, setPending, section, setSection } = editing;
   const open = editing.projectId === project.id && editing.open;
   const journalRecovery = Boolean(attempt?.journalRecovery && !attempt.journalRecovery.acknowledged);
   const applying = attempt?.phase === "submitting" || attempt?.phase === "reconciling";
   const unresolved = attempt ? editAttemptBlocksWrites(attempt) : false;
-  const pending = unresolved || (editing.projectId === project.id && editing.pending);
+  const [hydrogenPending, setHydrogenPending] = useState(false);
+  const hydrogenLocked = useRef(false);
+  const pending = hydrogenPending || unresolved || (editing.projectId === project.id && editing.pending);
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const { element: addElement, charge: addCharge, unknown: addUnknown } = editing.atomDraft;
@@ -67,6 +70,13 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     enabled: open && Boolean(entry && artifact),
   });
   const projection = isCompleteProjection(query.data, entry?.id ?? "", artifact) ? query.data : undefined;
+  const hydrogenStructures = useMemo(() => projection ? new Map([[projection.entry_id, projection]]) : new Map(), [projection]);
+  const projectEpoch = useSelectionStore(state => state.projectEpoch);
+  const hydrogenContext = useMemo(() => ({ projectId: project.id, projectEpoch, selection, artifact, generation: editing.generation, open }),
+    [project.id, projectEpoch, selection, artifact, editing.generation, open]);
+  const currentHydrogenContext = useRef(hydrogenContext);
+  currentHydrogenContext.current = hydrogenContext;
+  const [hydrogenMessage, setHydrogenMessage] = useState<{ context: typeof hydrogenContext; text: string; failed: boolean } | null>(null);
   const atoms = projection?.structure.atoms;
   const atomIds = useMemo(() => new Set(atoms?.map(atom => atom.id)), [atoms]);
   const selectedAtom = useMemo(() => selection.atoms.length === 1 ? atoms?.find(a => a.id === selection.atoms[0].atom_id) : undefined, [atoms, selection]);
@@ -195,17 +205,20 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     editing.setRotationDraft(rotationDraft ?? { context: rotationContext, open: true, movingEndpointId: null, angle: "30" });
     setError(null);
   };
-  const showHydrogens = async () => {
-    if (!onSettings || !entry || busy || pending) return;
-    const owner = project.id;
-    const generation = useEditingStore.getState().generation;
-    if (panel.current?.contains(document.activeElement)) panel.current.focus();
+  const changeHydrogens: ChangeHydrogenTarget = async (change, target) => {
+    if (!onHydrogenAppearance || hydrogenLocked.current || busy || pending || unavailable || draft || !projection) return;
+    hydrogenLocked.current = true;
+    const owner = hydrogenContext;
+    setHydrogenPending(true);
+    setHydrogenMessage(null);
     try {
-      await onSettings(entry.id, { ...entry.viewer_settings, components: {
-        ...entry.viewer_settings.components, hydrogens: true, nonpolar_hydrogens: true,
-      } });
+      await onHydrogenAppearance(change, target);
+      if (currentHydrogenContext.current === owner) setHydrogenMessage({ context: owner, text: "Selection hydrogen visibility stored.", failed: false });
     } catch (failure) {
-      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setError(`${entry.name}: ${String(failure)}`);
+      if (currentHydrogenContext.current === owner) setHydrogenMessage({ context: owner, text: failure instanceof Error ? failure.message : "Hydrogen visibility could not be changed. Try again.", failed: true });
+    } finally {
+      hydrogenLocked.current = false;
+      setHydrogenPending(false);
     }
   };
   return <Tooltip.Provider><div className="molecular-edit-tools">
@@ -313,7 +326,10 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         {draft.result?.hydrogen_report ? <HydrogenReportDetails report={draft.result.hydrogen_report} /> : null}
         {draft.result?.warnings.length ? <details open={showPreviewDetails} onToggle={event => setShowPreviewDetails(event.currentTarget.open)}><summary>Placement warnings ({draft.result.warnings.length})</summary>{draft.result.warnings.map((warning, i) => <p key={i}>{warning.message}</p>)}</details> : null}
       </fieldset> : null}
-      {!rotationOpen && section !== "residues" && onSettings && entry ? <IconButton className="edit-hydrogen-display" label="Show explicit H" disabled={busy || pending} onClick={() => void showHydrogens()}><Eye size={16} /><span aria-hidden="true">H</span></IconButton> : null}
+      {!rotationOpen && section !== "residues" && onHydrogenAppearance ? <SelectionHydrogenControls selection={selection} entries={project.entries}
+        structures={hydrogenStructures} loading={Boolean(entry) && !projection && !query.isError} busy={busy || pending}
+        error={unavailable ?? (draft ? "Apply or cancel the current preview before changing hydrogen visibility." : query.isError ? "The selected molecule could not be loaded. Retry molecule to continue." : null)} onChange={changeHydrogens} /> : null}
+      {hydrogenMessage?.context === hydrogenContext ? <p role={hydrogenMessage.failed ? "alert" : "status"}>{hydrogenMessage.text}</p> : null}
       {rotationOpen ? rotationReason ? <p role="status">{rotationReason}</p> : null : reason ? <p role="status">{reason}</p> : null}
       {query.isError ? <button type="button" onClick={() => void query.refetch()}>Retry molecule</button> : null}
       {visibleError ? <p role="alert">{visibleError}</p> : null}

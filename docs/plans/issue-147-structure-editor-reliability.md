@@ -319,6 +319,67 @@ starting a receipt/release loop. Then delete only owned delivered branches and
 worktrees, preserving the owner's checkout and unrelated state. Verify clean owned
 delivery state, merged PRs, release, issue reply and cleanup before declaring done.
 
+### C6R — Owner validation corrections before publication
+
+On 2026-11-15 the owner explicitly requires two additional corrections before
+finishing this delivery. This amends the authorized contract within that request;
+its wording is not individually reviewed. Original PR #151 is merged at
+`3f0fa1b990f6913c39f5afaf48027a2b5815be74`, but no v0.32.0 tag or release exists.
+Its exact-master run is intentionally interrupted and retained as diagnostic only.
+Use `fix/issue-147-aromatic-hydrogen-controls` and a normal corrective PR; never edit
+master or publish the original merged candidate before these corrections qualify.
+
+1. **Automatic H after aromatic bond authoring.** Extend only the automatic policy
+   with a separately qualified provisional local carbon-coordination profile:
+   ordinary unlabelled nonradical C, assigned charge zero, consistent aromatic
+   flags/orders, at least one aromatic edge, all heavy edges single/aromatic and
+   heavy-neighbor degree one through three. Target total attached H is `3 - degree`,
+   with existing trigonal-planar placement. This is an explicit authored sp2
+   assumption, not aromaticity perception, ring repair or protonation assignment.
+   Keep authored bonds, heavy coordinates and the existing aromatic-draft warning;
+   add precise inference provenance and visible diagnostics. Preserve all existing
+   protection, explicit-H intent, alternate, identity, resource and whole-site/
+   all-conformer gates. Unknown/charged or protected carbon, unsupported isotope/
+   radical identity, heteroaromatic sites, mixed double/triple/unknown/contradictory
+   orders and excessive degree remain unchanged with precise diagnostics. Legacy,
+   omitted and additive policies retain their existing contracts. Do not round
+   fractional 1.5 bond-order sums. Independent fixed-count/formula oracles cover
+   ethane 3→2 H per endpoint, partial cyclohexane 2→1 at affected endpoints,
+   sequential aromatic six-ring final H1 per carbon, fused/substituted degree-three
+   carbon H0, aromatic→single 2→3 and deletion to isolated neutral carbon H4.
+   Qualify multi-frame geometry, deterministic surviving/new IDs, protected and
+   unsupported negatives, preview/Apply, exact Undo/Redo/reload/archive and originals.
+2. **Attached-H visibility in the compact editor.** Replace the entry-wide settings
+   write with the shared selection-based H control, target resolver, effective
+   All/Polar/Mixed state and exact-target inheritance reset. Targets are selected
+   existing element-H and existing H directly bonded to selected heavy atoms,
+   including hidden H; never infer connectivity, generate atoms or expand molecular
+   selection. All→Polar, Polar/Mixed→All and Reset match the regular styling panel.
+   Retain independent master/entry/component/isolation/explicit-hide gates and their
+   visible explanations. Admit the compact panel's own complete artifact-matched
+   projection, not styling-only readiness. Reuse the existing captured appearance
+   command and project/epoch/selection/artifact/revision guards. Own synchronous
+   duplicate exclusion, pending state and late feedback without acquiring molecular
+   Apply ownership or stealing focus. Native regressions must seed local false H
+   overrides, verify actual H rendering and picking with selected C unchanged,
+   unrelated H/settings unchanged, toggle twice, Mixed→All, exact Reset, Undo/Redo,
+   reload, master-off explanation and stale/failed/late-context behavior. Preserve
+   44 px compact actions, keyboard access, themes and supported zoom/narrow layouts.
+
+Scientific theory, workflow reference, UX and architecture are consulted before
+implementation. Reference evidence does not establish arbitrary partial aromatic
+handling; the disclosed local profile is an original qualified editor convention.
+No broader chemistry/preparation or portable-schema/dependency/migration change is
+introduced. D-162 records the accepted method and ownership boundaries. Expand actual
+preceding-reader specimens to include the new aromatic and appearance states.
+
+Retain before-fix failures, exact-source focused checks and native evidence. Run a
+fresh complete candidate gate and all seven same-candidate assessments over the
+whole intended change, including new files, before application push. After normal
+corrective merge, run a fresh complete exact-merged gate before the immutable v0.32.0
+annotated tag/release. Earlier passing or partial runs remain separately identified;
+no partial command reuse, new exclusion or relaxed requirement substitutes for them.
+
 ## Cross-cutting decisions and compatibility
 
 D-158 establishes immutable projection identity and provisional cache truth.
@@ -380,3 +441,6 @@ remain fixed unless an independently justified material decision is authorized.
 | C6 final-version preparation | C5 is committed locally as `cf78dadb`. All five authoritative sources prepare 0.32.0; dependency graphs, historical migrations, head 0015 and persisted schemas remain unchanged. Seven focused preparation checks pass: frozen install, version/schema/dependency audit, Ruff, default mypy218, reader-tool mypy1, 46 archive cases and diff checks. All 846 scoped source identities/log hashes remain unchanged. The exact frozen actual-source new-state reader tool has passing diagnostic evidence on 0.31.0, explicitly not final 0.32.0 qualification. A 35-step recipe adds final-version new-state readers to rich/connectivity families and the complete release gate. | Commit release preparation, then run the clean full candidate gate and all seven same-candidate reviews. Application pushes remain held. Remote master remains `2b5400de`; v0.32.0 tag is absent. No schema/dependency change or release completion claimed. |
 | C6 candidate 1 reconciliation | All seven independent whole-candidate assessments PASS exact `bc241a8c`; actual final 0.32.0→tagged 0.31.0→current preflight passes with independently verified source/version/module/log evidence. The separate full gate passes 2,165 Python/zero skips, 843 frontend, 14 supervisor, migrations/static/build, but stops after 70 browser passes/two existing skips on an obsolete movement-message literal; 469 cases are not run. The real refusal guidance is visible and correct. UX accepts semantic assertions retaining named Unlock/coordinate guidance and every hidden/canonical/revision check; added empty-target invariants pass in both layouts (two/zero exclusions). Theory's optional overlap wording is corrected to all distinct pairs. [Diagnostic](../assets/structure-editor-reliability/c6-candidate1-diagnostic.json). | No product method, settings or accepted requirement changes. Commit the test/documentation correction; obtain all-seven new-head reconfirmations and a fresh complete 35-step gate. Earlier partial commands are not combined as qualification. Application pushes remain held. |
 | C6 complete clean candidate | Exact `5f9fbeb8229c801563180364322c04c01dd49692` passes all 35 fresh sequential commands: 2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases; zero failures/flakes/retries/new exclusions, all 846 current/793 preceding identities and lossless log hashes unchanged. Actual rich/connectivity/new-editing readers pass both directions/suffixes, with deep retention and negative controls. All seven independently PASS the runtime candidate; 45/one exact exclusion geometry regression also passes. [Qualification/review](../assets/structure-editor-reliability/README.md). | Reconfirm the final reporting/evidence-only delta on one head before application push. C7 normal PR/merge, fresh exact-master qualification, tag/release/closeout/cleanup remain; no partial gate reuse or release claim. |
+| C6R focused integrated correction | Automatic-only provisional neutral-carbon H and shared exact-H appearance control pass39 final scientific/API cases,863 frontend/96files,36 native/zero exclusions/failures/retries and nine static/build/version/license checks. All850 scoped inputs are stable; only the separate reader fixture canonicalizes its closing-edge selection after native qualification. Actual three-process preceding-reader preflight verifies15projects/24transitions,30archives/60reverse imports, all original and new labels, source/module/log hashes and negative controls. [Checkpoint](../assets/structure-editor-reliability/c6r-hydrogen-checkpoint.json). | Earlier native remount/default-mode fixture failures and noncanonical reader-input refusal remain diagnostic. Freeze clean candidate/recipes; fresh complete gates and all-seven whole-candidate review still required before corrective push/merge/release. Preserve owner-used testing worktree. |
+| C6R torsion admission correction | Whole-candidate theory review finds unknown canonical axis order normalized to single by the toolkit. A two-line canonical known-single/nonaromatic guard before projection preserves the accepted C4 contract and legacy ligand API. Frozen final regressions reproduce six failures/36 passes on actual untouched predecessor; corrected focused109/zero skips, Ruff and focused mypy pass. [Checkpoint](../assets/structure-editor-reliability/c6r-rotation-axis-checkpoint.json). | First corrective full run intentionally stops after eight completed commands; incomplete Python output is diagnostic, not a pass. Preserve its archive and obtain fresh complete candidate qualification and all-seven same-candidate assessment. Owner-tested H/UI source is unchanged. |
+| C6R complete corrected candidate | Exact `1dfab40136d54a1f7d08348c045f4617a7d12e56` passes all35 fresh sequential commands:2,246Python/zero skips,863frontend/96files,14supervisor,469browser/75 exact preceding exclusions across544cases; zero failures/flakes/retries/new exclusions. All852current/793preceding identities/lossless logs verify; actual readers15projects/24transitions/30archives/60reverse imports and all636native outputs retained. All seven independent roles PASS this runtime. [Evidence](../assets/structure-editor-reliability/README.md). | Preserve all852inputs through reporting-only evidence integration and obtain explicit all-seven same-head reconfirmation. Normal corrective PR/merge and fresh exact-master35-step gate precede immutable tag/release/closeout. No partial gate reuse. |

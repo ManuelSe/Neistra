@@ -676,7 +676,7 @@ viewer on full projected connectivity, so selecting polar H can store a preferen
 without changing its visibility. Color and hydrogen values cannot be combined in
 one request. Omitted hydrogen assignments in entry settings are also preserved.
 
-The styling panel's H icon resolves its existing selected H plus one-hop H
+The styling and compact molecular-editor H icons resolve existing selected H plus one-hop H
 neighbors of selected heavy atoms from the current normalized graph before
 submission. It sends that explicit H selection through this same endpoint;
 heavy-only API requests retain their existing no-H refusal. Captured selection,
@@ -958,6 +958,16 @@ never changes assigned formal charges or heavy coordinates, and a skipped H site
 cannot block an otherwise valid direct edit. The existing supported local profile
 also admits bounded single-bond S-1/S0/S+1 states in this new policy, without
 extending legacy profiles or claiming protonation prediction.
+
+Automatic maintenance additionally admits a disclosed provisional local aromatic
+carbon profile: ordinary unlabelled nonradical C with assigned formal charge zero,
+consistent aromatic flags/orders, at least one aromatic edge, only single/aromatic
+heavy edges and one to three heavy neighbors. Its total attached H target is
+`3 - heavy_degree`, using existing trigonal-planar placement. Authored bonds and
+heavy coordinates remain fixed. `model_hydrogen_provisional_aromatic_carbon` warns
+that this is local coordination, not aromaticity validation or protonation choice;
+inference messages retain the method. Unsupported/protected sites remain unchanged
+with diagnostics. Legacy/additive contracts do not acquire this behavior.
 
 Preview and Apply use the same computation, captured guards and generic molecular
 publication/history path. Shared target/H/coordinate/analysis/diagnostic budgets
