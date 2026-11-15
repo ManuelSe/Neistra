@@ -7,7 +7,9 @@ import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
 import { componentAtomIds } from "../selection/components";
-import type { InteractionRecord } from "../interactions/types";
+import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisplayState, type InteractionRecord } from "../interactions/types";
+import { defaultInteractionAppearance, normalizeInteractionAppearance } from "../interactions/styles";
+import { interactionRecordKey } from "../interactions/presentation";
 import { createInteractionRepresentation } from "./interactionGeometry";
 import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
@@ -206,9 +208,18 @@ export class MolstarEngine implements MolecularViewer {
   private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
   private interactions: InteractionRecord[] = [];
+  private interactionAppearance = defaultInteractionAppearance();
+  private interactionDisplayKey = "";
+  private interactionGeneration = 0;
+  private interactionPreviewEntries = new Set<string>();
+  private interactionDisplayListeners = new Set<(state: InteractionDisplayState) => void>();
+  private interactionDisplayState: InteractionDisplayState = {
+    displayKey: "", sceneGeneration: 0, status: "pending", installedRecordKeys: [],
+    countsByKind: Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0])) as InteractionDisplayState["countsByKind"],
+  };
   private modelPreview: MolecularProposalGeometry | null = null;
   private modelPreviewRepresentation = createModelPreviewRepresentation(() => modelPreviewColor(this.backgroundColor));
-  private interactionRepresentation = createInteractionRepresentation();
+  private interactionRepresentation = createInteractionRepresentation(() => this.interactionAppearance);
   private nonpolarHydrogenIds = new Map<string, Set<number>>();
   private isolation: AtomReference[] | null = null;
   private surfaces = new SurfaceRuntime();
@@ -508,6 +519,7 @@ export class MolstarEngine implements MolecularViewer {
     this.renderedAtomReferences.clear();
     this.surfaceRenderedAtoms.clear();
     const generation = ++this.generation;
+    this.invalidateInteractionDisplay("pending");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
@@ -559,7 +571,8 @@ export class MolstarEngine implements MolecularViewer {
     mode: "preview" | "commit",
   ): Promise<void> {
     this.clearHover();
-    if (mode === "preview") this.plugin?.canvas3d?.remove(this.interactionRepresentation);
+    if (mode === "preview") this.interactionPreviewEntries.add(patch.entry_id);
+    this.invalidateInteractionDisplay(mode === "preview" ? "paused" : "pending");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       if (!this.plugin) return;
       const loaded = this.loaded.get(patch.entry_id);
@@ -578,7 +591,7 @@ export class MolstarEngine implements MolecularViewer {
         const seedChanged = this.pocketSurfaces().some(({ pocket }) => pocket.seeds.some(seed =>
           seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id) &&
           differs(seed.coordinates, changed.get(seed.reference.atom_id)!)));
-        if (!moleculeChanged && !seedChanged) return;
+        if (!moleculeChanged && !seedChanged) { await this.applyInteractions(); return; }
       }
 
       if (mode === "preview") this.pocketPreviewEntries.add(patch.entry_id);
@@ -641,7 +654,7 @@ export class MolstarEngine implements MolecularViewer {
         }
       }
       if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
-      else this.coordinatePreviews.delete(patch.entry_id);
+      else { this.coordinatePreviews.delete(patch.entry_id); this.interactionPreviewEntries.delete(patch.entry_id); }
       if (mode === "commit") {
         loaded.baseCoordinates = coordinates;
         // Local visibility/isolation rebuilds must use the latest authoritative patch.
@@ -666,8 +679,10 @@ export class MolstarEngine implements MolecularViewer {
 
   clearCoordinatePreview(entryId: string): Promise<void> {
     this.clearHover();
+    this.invalidateInteractionDisplay("paused");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       this.coordinatePreviews.delete(entryId);
+      this.interactionPreviewEntries.delete(entryId);
       this.pocketPreviewEntries.delete(entryId);
       const loaded = this.loaded.get(entryId);
       if (!loaded) {
@@ -732,31 +747,80 @@ export class MolstarEngine implements MolecularViewer {
     canvas.add(this.modelPreviewRepresentation);
   }
 
-  setInteractions(interactions: InteractionRecord[]): Promise<void> {
+  setInteractions(interactions: InteractionRecord[], options?: InteractionDisplayOptions): Promise<void> {
     this.interactions = interactions;
-    // Clear synchronously before queued coordinate operations can reach the canvas.
-    if (!interactions.length) this.plugin?.canvas3d?.remove(this.interactionRepresentation);
-    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyInteractions());
+    this.interactionDisplayKey = options?.displayKey ?? "";
+    this.interactionAppearance = normalizeInteractionAppearance(options?.appearance);
+    const generation = this.invalidateInteractionDisplay("pending");
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyInteractions(generation));
     return this.syncQueue;
   }
 
-  private async applyInteractions(): Promise<void> {
-    const canvas = this.plugin?.canvas3d;
-    if (!canvas) return;
-    if (!this.interactions.length || this.coordinatePreviews.size) {
+  subscribeInteractionDisplay(listener: (state: InteractionDisplayState) => void): () => void {
+    this.interactionDisplayListeners.add(listener);
+    listener(structuredClone(this.interactionDisplayState));
+    return () => this.interactionDisplayListeners.delete(listener);
+  }
+
+  private publishInteractionDisplay(status: InteractionDisplayState["status"], records: InteractionRecord[] = [], error?: string): void {
+    const countsByKind = Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0])) as InteractionDisplayState["countsByKind"];
+    for (const record of records) countsByKind[record.kind]++;
+    this.interactionDisplayState = {
+      displayKey: this.interactionDisplayKey, sceneGeneration: this.generation, status,
+      installedRecordKeys: records.map(interactionRecordKey), countsByKind, ...(error ? { error } : {}),
+    };
+    for (const listener of this.interactionDisplayListeners) listener(structuredClone(this.interactionDisplayState));
+  }
+
+  private invalidateInteractionDisplay(status: "pending" | "paused"): number {
+    this.interactionGeneration++;
+    if (this.interactions.length || this.interactionDisplayState.installedRecordKeys.length) {
+      this.plugin?.canvas3d?.remove(this.interactionRepresentation);
+    }
+    this.publishInteractionDisplay(this.coordinatePreviews.size || this.interactionPreviewEntries.size ? "paused" : status);
+    return this.interactionGeneration;
+  }
+
+  private async applyInteractions(expectedGeneration = this.interactionGeneration): Promise<void> {
+    const plugin = this.plugin;
+    const canvas = plugin?.canvas3d;
+    if (this.disposed || !canvas || expectedGeneration !== this.interactionGeneration) return;
+    const sceneGeneration = this.generation;
+    const interactions = this.interactions;
+    const current = () => !this.disposed && this.plugin === plugin && this.plugin?.canvas3d === canvas
+      && expectedGeneration === this.interactionGeneration && sceneGeneration === this.generation && interactions === this.interactions;
+    if (this.coordinatePreviews.size || this.interactionPreviewEntries.size) {
       canvas.remove(this.interactionRepresentation);
+      this.publishInteractionDisplay("paused");
       return;
     }
-    const types = [...new Set(this.interactions.map(record => record.kind))];
-    const visible = filterInteractions(this.interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
-    if (!visible.length) { canvas.remove(this.interactionRepresentation); return; }
-    await this.interactionRepresentation.createOrUpdate({ sizeFactor: 2.5 }, visible).run();
-    this.interactionRepresentation.setState({ pickable: false, markerActions: 0 });
-    canvas.add(this.interactionRepresentation);
+    try {
+      const types = [...new Set(interactions.map(record => record.kind))];
+      const visible = filterInteractions(interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
+      if (!visible.length) {
+        canvas.remove(this.interactionRepresentation);
+        this.publishInteractionDisplay("ready");
+        return;
+      }
+      await this.interactionRepresentation.createOrUpdate({ sizeFactor: 2.5 }, visible).run();
+      if (!current() || this.coordinatePreviews.size || this.interactionPreviewEntries.size) {
+        if (this.disposed) this.interactionRepresentation.destroy();
+        return;
+      }
+      this.interactionRepresentation.setState({ pickable: false, markerActions: 0 });
+      canvas.add(this.interactionRepresentation);
+      this.publishInteractionDisplay("ready", visible);
+    } catch (error: unknown) {
+      if (!current()) { if (this.disposed) this.interactionRepresentation.destroy(); return; }
+      canvas.remove(this.interactionRepresentation);
+      this.publishInteractionDisplay("error", [], error instanceof Error ? error.message : "Interaction markers could not be displayed.");
+      throw error;
+    }
   }
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
     this.isolation = atoms;
+    this.invalidateInteractionDisplay("pending");
     await this.syncQueue.catch(() => undefined);
     await this.syncStructures(this.structures);
   }
@@ -1251,6 +1315,9 @@ export class MolstarEngine implements MolecularViewer {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    this.invalidateInteractionDisplay("pending");
+    this.interactionDisplayListeners.clear();
+    this.interactionPreviewEntries.clear();
     this.clearHover();
     this.hoverSubscription?.unsubscribe();
     this.hoverSubscription = undefined;

@@ -133,6 +133,11 @@ def interaction_groups(
                             f"{name} aromatic ring has missing or untyped atoms; "
                             "centroid interactions are skipped."
                         ),
+                        atom_ids=sorted(
+                            sites[names[atom_name]].atom.id
+                            for atom_name in ring_names
+                            if atom_name in names
+                        ),
                     )
                 )
         group_names = {
@@ -178,6 +183,7 @@ def interaction_groups(
                             f"Supplied {name} charges conflict with canonical side-chain "
                             "typing; its ionic sites are skipped."
                         ),
+                        atom_ids=sorted(sites[index].atom.id for index in members),
                     )
                 )
         elif not conflict:

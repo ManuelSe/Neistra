@@ -1,6 +1,7 @@
 import type { AtomReference } from "../api/types";
 
 export type InteractionKind = "clash" | "hydrogen_bond" | "hydrophobic" | "pi_pi" | "cation_pi" | "salt_bridge";
+export const INTERACTION_KINDS: readonly InteractionKind[] = ["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge", "clash"];
 export interface InteractionRecord {
   kind: InteractionKind;
   scope: "intra" | "inter";
@@ -19,6 +20,22 @@ export interface InteractionResult {
   candidate_comparisons: number;
 }
 export interface InteractionChoices { types: InteractionKind[]; intra: boolean; inter: boolean }
+
+/** Session presentation only; never molecular state or a scientific threshold. */
+export type InteractionAppearance = Record<InteractionKind, { color: string; width: number }>;
+export interface InteractionDisplayOptions {
+  displayKey: string;
+  appearance?: InteractionAppearance;
+}
+/** Installed means native-eligible records, including off-screen/occluded geometry. */
+export interface InteractionDisplayState {
+  displayKey: string;
+  sceneGeneration: number;
+  status: "pending" | "ready" | "paused" | "error";
+  installedRecordKeys: string[];
+  countsByKind: Record<InteractionKind, number>;
+  error?: string;
+}
 
 export const INTERACTION_LABELS: Record<InteractionKind, string> = {
   clash: "Clashes", hydrogen_bond: "H bonds", hydrophobic: "Hydrophobic",

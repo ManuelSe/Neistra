@@ -2,23 +2,26 @@
 
 ## Current milestone
 
-Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **authorized planning**.
+Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C1 qualified locally**.
 The [feature contract](plans/issue-152-interaction-inspection.md) is **Authorized
 within agreed scope; not individually reviewed** under the owner's explicit
 plan-and-deliver invocation. Work is isolated on `feat/issue-152-interaction-inspection`.
 
-Completed: current remote/release intake, seven-role audit reconciliation, early
-target/scientific/lifecycle/workflow planning and frozen local environment setup.
-Scope: guarded native interaction installation, explicit targets, precise contact
-inspection, truthful counts/warnings, faithful styles and compact visibility controls.
+Completed: remotely verified C0 d1ec1f6b; canonical captured-target validation,
+precise metrics/known warning IDs, shared styles and guarded native/lazy rendering
+receipts. C2 will expose these through precise contact inspection, truthful status,
+faithful swatches and compact target/visibility controls.
 The 2D diagram remains independently deliverable child #153; chemistry stays fixed.
 
-Verification: clean base `0f228589`; no runtime/version/schema/dependency change in
-C0. All seven early planning assessments PASS; existing focused baselines pass
-89 Python and 18 frontend cases, separately from future implementation qualification.
+Verification: C1 passes 94 focused Python, Ruff/mypy218, web lint/types,
+915 frontend tests/101 suites/build and four native six-type/unsupported-chemistry
+cases in both layouts, zero failures/flakes/retries/skips. The
+[checkpoint receipt](assets/interaction-inspection/c1-checkpoint.json) retains
+source/native evidence. All seven early planning assessments PASS; final review
+and complete candidate/exact-master gates remain separate requirements.
 Provisional compatible minor 0.33.0 follows verified stable 0.32.0. No PR/release yet.
 Known limits: existing fixed-profile chemistry and coarse input-coverage summaries.
-Blockers: none. Next action: finish C0, then implement and verify C1–C5 without a
+Blockers: none. Next action: commit C1, then implement and verify C2–C5 without a
 second plan approval. Preserve every other session's checkout/process/store/ports.
 
 ### Previous completed milestone — issue #147

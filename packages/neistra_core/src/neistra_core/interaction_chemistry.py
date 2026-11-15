@@ -152,6 +152,11 @@ def type_sites(
                             "Histidine acceptor nitrogens lack observed tautomer evidence; "
                             "their H-bond typing is skipped."
                         ),
+                        atom_ids=sorted(
+                            sites[names[name]].atom.id
+                            for name in ("ND1", "NE2")
+                            if name in names
+                        ),
                     )
                 )
             for name, index in names.items():
@@ -390,6 +395,11 @@ def type_sites(
                     message=(
                         "Some donors lack explicit hydrogens: hydrogen bonds require supplied "
                         "explicit H atoms. Use existing hydrogen preparation tools."
+                    ),
+                    atom_ids=sorted(
+                        sites[index].atom.id
+                        for index in chemistry.missing_hydrogens
+                        if sites[index].reference.structure_id == entry
                     ),
                 )
             )

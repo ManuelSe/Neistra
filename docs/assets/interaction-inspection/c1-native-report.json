@@ -1,0 +1,1266 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra-worktrees/issue-152/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra-worktrees/issue-152/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/tmp/neistra152-c1-native-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra-worktrees/issue-152/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/tmp/neistra152-c1-native-output",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra-worktrees/issue-152/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "interaction-corrections.spec.ts",
+      "file": "interaction-corrections.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 36880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1258
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 16
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 172
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 182
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 69
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 215
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 52
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 330
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 159
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 166
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 156
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 169
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 146
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 161
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 168
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 167
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 229
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 172
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 63
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 209
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 50
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 336
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 171
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 157
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 166
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 138
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 175
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 187
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 237
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 177
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 61
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 218
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 254
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 57
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 367
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 71
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 367
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 52
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 367
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 50
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 16
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 364
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 51
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 68
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 475
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 72
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 68
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 518
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 73
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 56
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 301
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 64
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 57
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 298
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 60
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 364
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 43
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 16
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 349
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 40
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 345
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 42
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 354
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 45
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 361
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 40
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 348
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 38
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 76
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 368
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 98
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 65
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 68
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 73
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 72
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 73
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 18
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 68
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 1855
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 497
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 354
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 1175
+                    }
+                  ],
+                  "startTime": "2026-11-15T19:20:39.391Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8d8079c74a186043948f-e097462d279fbe361d3b",
+          "file": "interaction-corrections.spec.ts",
+          "line": 91,
+          "column": 5
+        },
+        {
+          "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4871,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 567
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 10
+                    }
+                  ],
+                  "startTime": "2026-11-15T19:21:16.344Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8d8079c74a186043948f-6e1e6ce0e5c067bb8f49",
+          "file": "interaction-corrections.spec.ts",
+          "line": 188,
+          "column": 5
+        },
+        {
+          "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 34437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1114
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 162
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 169
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 81
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 197
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 50
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 312
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 144
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 129
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 142
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 162
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 143
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 141
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 5
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 156
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 143
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 165
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 155
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 93
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 198
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 50
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 301
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 151
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 170
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 145
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 147
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 146
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 148
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 148
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBeLessThanOrEqual\"",
+                      "duration": 145
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 58
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 157
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 226
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 53
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 311
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 45
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 321
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 58
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 318
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 39
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 297
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 35
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 4
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 58
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 259
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 55
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 53
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 272
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 54
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 57
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 262
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 53
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 65
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 236
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 51
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 4
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 347
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 34
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 321
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 37
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 310
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 33
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 21
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 340
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 37
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 320
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 51
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 5
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 311
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 33
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 100
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 336
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 77
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 63
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 60
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 58
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 58
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 76
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 62
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 1855
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 63
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 353
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 1018
+                    }
+                  ],
+                  "startTime": "2026-11-15T19:21:22.556Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8d8079c74a186043948f-694b6fd2f7b133450217",
+          "file": "interaction-corrections.spec.ts",
+          "line": 91,
+          "column": 5
+        },
+        {
+          "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4882,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 819
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 9
+                    }
+                  ],
+                  "startTime": "2026-11-15T19:21:57.066Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8d8079c74a186043948f-859b1a53a9a1cbd60ef4",
+          "file": "interaction-corrections.spec.ts",
+          "line": 188,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-15T19:20:32.969Z",
+    "duration": 89157.33200000001,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

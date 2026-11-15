@@ -3,16 +3,9 @@ import { LinesBuilder } from "molstar/lib/mol-geo/geometry/lines/lines-builder";
 import { Shape } from "molstar/lib/mol-model/shape";
 import { ShapeRepresentation } from "molstar/lib/mol-repr/shape/representation";
 import { Color } from "molstar/lib/mol-util/color";
-import type { InteractionKind, InteractionRecord } from "../interactions/types";
-
-export const INTERACTION_COLORS: Record<InteractionKind, number> = {
-  clash: 0xdb3850, hydrogen_bond: 0x1597b0, hydrophobic: 0xa88836,
-  pi_pi: 0x9567c4, cation_pi: 0x5079d3, salt_bridge: 0xd56b30,
-};
-const patterns: Record<InteractionKind, number[]> = {
-  clash: [1], hydrogen_bond: [0.25, 0.18], hydrophobic: [0.08, 0.18],
-  pi_pi: [0.45, 0.2], cation_pi: [0.45, 0.15, 0.08, 0.15], salt_bridge: [0.18, 0.1, 0.18, 0.25],
-};
+import type { InteractionAppearance, InteractionRecord } from "../interactions/types";
+import { defaultInteractionAppearance, INTERACTION_PATTERNS, normalizeInteractionAppearance } from "../interactions/styles";
+export { INTERACTION_COLORS } from "../interactions/styles";
 
 export function interactionLines(records: InteractionRecord[], previous?: Lines) {
   // ShapeRepresentation retains these ValueCells on its existing render object.
@@ -22,7 +15,7 @@ export function interactionLines(records: InteractionRecord[], previous?: Lines)
     const [a, b] = record.endpoints;
     if (!a || !b) return;
     const distance = Math.hypot(...a.map((value, index) => b[index] - value));
-    const pattern = record.kind === "clash" ? [distance] : patterns[record.kind];
+    const pattern = record.kind === "clash" ? [distance] : INTERACTION_PATTERNS[record.kind];
     if (!distance) {
       if (record.kind === "clash") {
         for (let axis = 0; axis < 3; axis++) {
@@ -47,9 +40,15 @@ export function interactionLines(records: InteractionRecord[], previous?: Lines)
   return builder.getLines();
 }
 
-export function createInteractionRepresentation() {
+export function createInteractionRepresentation(appearance: () => InteractionAppearance = defaultInteractionAppearance) {
   return ShapeRepresentation<InteractionRecord[], Lines, typeof Lines.Params>(
-    (_ctx, records, _props, previous) => Shape.create("Molecular interactions", records, interactionLines(records, previous?.geometry), group => Color(INTERACTION_COLORS[records[group].kind]), () => 1, () => "", undefined, records.length),
+    (_ctx, records, _props, previous) => {
+      const styles = normalizeInteractionAppearance(appearance());
+      return Shape.create("Molecular interactions", records, interactionLines(records, previous?.geometry),
+        group => Color.fromHexStyle(styles[records[group].kind].color),
+        group => styles[records[group].kind].width / 2.5,
+        () => "", undefined, records.length);
+    },
     Lines.Utils,
   );
 }

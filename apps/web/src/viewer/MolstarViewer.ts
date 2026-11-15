@@ -1,6 +1,6 @@
 import type { SurfaceChannel } from "./surface/protocol";
 import type { SurfaceIdentity } from "./surface/objects";
-import type { InteractionRecord } from "../interactions/types";
+import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisplayState, type InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
@@ -44,6 +44,13 @@ class LazyMolstarViewer implements MolecularViewer {
   private drawableListeners = new Set<(drawable: boolean) => void>();
   private drawableBindings = new Map<(drawable: boolean) => void, () => void>();
   private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
+  private interactionListeners = new Set<(state: InteractionDisplayState) => void>();
+  private interactionBindings = new Map<(state: InteractionDisplayState) => void, () => void>();
+  private pendingInteractions: { records: InteractionRecord[]; options?: InteractionDisplayOptions } | undefined;
+  private interactionState: InteractionDisplayState = {
+    displayKey: "", sceneGeneration: 0, status: "pending", installedRecordKeys: [],
+    countsByKind: Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0])) as InteractionDisplayState["countsByKind"],
+  };
   private mounted = false;
   private pendingSurfacePreviews = new Map<string, { identity: SurfaceIdentity; appearance: SurfaceAppearance }>();
   private engineUnsubscribers: (() => void)[] = [];
@@ -78,6 +85,8 @@ class LazyMolstarViewer implements MolecularViewer {
       this.sessionCameraBindings.set(listener, engine.subscribeSessionCamera(listener));
     }
     for (const listener of this.drawableListeners) this.drawableBindings.set(listener, engine.subscribeDrawable(listener));
+    for (const listener of this.interactionListeners) this.bindInteractionDisplay(listener, engine);
+    if (this.pendingInteractions) await engine.setInteractions(this.pendingInteractions.records, this.pendingInteractions.options);
     if (refusedCamera) for (const listener of this.cameraFailureListeners) listener(structuredClone(refusedCamera));
   }
 
@@ -134,8 +143,36 @@ class LazyMolstarViewer implements MolecularViewer {
     return this.engine?.setMeasurements(measurements) ?? Promise.resolve();
   }
 
-  setInteractions(interactions: InteractionRecord[]): Promise<void> {
-    return this.engine?.setInteractions(interactions) ?? Promise.resolve();
+  setInteractions(interactions: InteractionRecord[], options?: InteractionDisplayOptions): Promise<void> {
+    if (this.disposed) return Promise.resolve();
+    this.pendingInteractions = { records: interactions, options };
+    this.interactionState = {
+      displayKey: options?.displayKey ?? "", sceneGeneration: this.interactionState.sceneGeneration,
+      status: "pending", installedRecordKeys: [],
+      countsByKind: Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0])) as InteractionDisplayState["countsByKind"],
+    };
+    for (const listener of this.interactionListeners) listener(structuredClone(this.interactionState));
+    return this.engine?.setInteractions(interactions, options) ?? Promise.resolve();
+  }
+
+  private bindInteractionDisplay(listener: (state: InteractionDisplayState) => void, engine: MolecularViewer): void {
+    const release = engine.subscribeInteractionDisplay?.(state => {
+      if (this.disposed || this.engine !== engine) return;
+      this.interactionState = state;
+      listener(structuredClone(state));
+    });
+    if (release) this.interactionBindings.set(listener, release);
+  }
+
+  subscribeInteractionDisplay(listener: (state: InteractionDisplayState) => void): () => void {
+    this.interactionListeners.add(listener);
+    listener(structuredClone(this.interactionState));
+    if (this.mounted && this.engine) this.bindInteractionDisplay(listener, this.engine);
+    return () => {
+      this.interactionListeners.delete(listener);
+      this.interactionBindings.get(listener)?.();
+      this.interactionBindings.delete(listener);
+    };
   }
 
   setIsolation(atoms: AtomReference[] | null): Promise<void> {
@@ -257,6 +294,12 @@ class LazyMolstarViewer implements MolecularViewer {
     this.disposed = true;
     this.mounted = false;
     this.pendingSurfacePreviews.clear();
+    this.pendingInteractions = undefined;
+    this.interactionState = { ...this.interactionState, status: "pending", installedRecordKeys: [],
+      countsByKind: Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0])) as InteractionDisplayState["countsByKind"] };
+    for (const listener of this.interactionListeners) listener(structuredClone(this.interactionState));
+    for (const release of this.interactionBindings.values()) release();
+    this.interactionBindings.clear(); this.interactionListeners.clear();
     for (const unsubscribe of this.engineUnsubscribers) unsubscribe();
     this.engineUnsubscribers = [];
     this.selectionListeners.clear();
