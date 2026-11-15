@@ -817,7 +817,8 @@ Additional direct actions:
 | Operation | Fields / operands |
 |---|---|
 | `atom.add` | recognized element, nullable charge (default0), direction0–5; one attachment atom or an explicitly selected empty entry. Optional finite coordinates explicitly position a disconnected atom with empty selection; that point is used in each conformer. |
-| `fragment.attach` | one heavy anchor or terminal H to replace; one of the six existing fragment names, direction0–5 and rotation0–5. |
+| `fragment.attach` | one heavy anchor or terminal H to replace; methyl, ethyl, hydroxyl, amino, carboxylic_acid, phenyl, cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl or methoxy; direction0–5 and rotation0–5. |
+| `bond.rotate` | exactly two current ligand bond endpoints; strict positive `moving_endpoint_id` identifies the moving graph side; finite `angle_degrees` is relative to the fixed→moving axis. |
 
 `POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` accepts
 the same request for placement actions, performs the same structural/ownership
@@ -830,6 +831,31 @@ Generated coordinates cover all conformers; retained coordinates stay exact.
 Optional H merges only new H/bonds from an eligible helper, retaining the direct
 candidate exactly when completion is unavailable. Existing legacy HTTP endpoints
 retain their behavior; compact and advanced manual atom/bond UI share direct edits.
+
+Bond rotation preview additionally returns nullable `rotation`: `axis_atom_ids`
+(fixed, moving), `moving_endpoint_id`, requested `angle_degrees`,
+`rotating_atom_count`, `fixed_atom_count` and `no_op`. Counts include all explicit
+H; both endpoints count as fixed. It uses the supported ligand single/nonaromatic/
+nonring/nonterminal admission. Each conformer uses its own axis; nonfinite or
+invalid frames refuse atomically. Pure rotation preserves graph/chemistry and
+bypasses H maintenance. Zero/full-turn or exactly unchanged Apply returns
+`applied: false`, without artifact/history/floor allocation.
+
+Model/selection Apply optionally accepts `X-Neistra-Edit-Attempt: <UUID>`; preview
+does not register attempts. `GET /api/v1/projects/{project_id}/edit-attempts/{attempt_id}`
+returns `Cache-Control: no-store` with server-instance/attempt/project identity,
+nullable entry/kind/expected revision/artifact, phase (`pending`, `finishing`,
+`finished`, `unknown`), nullable outcome (`saved`, `not_applied`, `unknown`),
+committed revision/artifact and reason. Commit proof can survive a response failure.
+Missing/expired/restarted/different-process records mean unknown. Reusing a token
+returns a conflict and never executes it again. Registry admission failure refuses
+dispatch. These are bounded process-local receipts, not durable exactly-once jobs.
+
+Scientific work runs in an isolated child from immutable input, with fresh atomic
+revision/artifact/lock checks before publication. Busy admission returns
+`429 editing_busy` and `Retry-After: 1`. Only disposable previews use bounded retry;
+never replay an uncertain Apply automatically. Closing the client panel does not
+cancel an already submitted Apply. See [execution settings and limits](DEVELOPMENT.md#structure-editing-execution).
 
 Draft chemical export remains distinct from the structure viewer projection.
 A representational loss requiring acknowledgement returns409 without publishing an

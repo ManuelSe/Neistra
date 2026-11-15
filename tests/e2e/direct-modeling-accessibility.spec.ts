@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import type { Project } from "../../apps/web/src/api/types";
-import { newEmptyProject, observe, previewState } from "./support/modeling";
+import { expectCompactInspection, newEmptyProject, observe, previewState } from "./support/modeling";
 import { cyanPixels, frameFixture } from "./support/interactions";
 
 test("reveals a nonpickable placement with reachable controls in both themes and narrow layouts", async ({ page, request }, info) => {
@@ -30,8 +30,7 @@ test("reveals a nonpickable placement with reachable controls in both themes and
     const point = await page.evaluate(p => window.editingPicks.point(p), native.preview!.atoms[0].coordinates);
     const canvas = (await page.locator(".molstar-host canvas").first().boundingBox())!;
     expect(await page.evaluate(({ x, y }) => !document.elementFromPoint(x, y)?.closest(".molecular-edit-panel, .notice"), { x: canvas.x + point.x, y: canvas.y + point.y })).toBe(true);
-    const bounds = (await panel.boundingBox())!;
-    expect(bounds.height).toBeLessThanOrEqual(70);
+    await expectCompactInspection(panel);
     for (const control of await panel.getByRole("button").all()) {
       const box = (await control.boundingBox())!;
       expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44);

@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C3 committed;
-C4 scientific/API source qualified; compact frontend and native integration next**.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C4 committed;
+C5 corrected compact workflows qualified locally, C6 release preparation next**.
 C0 is committed, pushed and verified at `82d41588`; application pushes remain
 held for the final seven-role gate.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
@@ -66,7 +66,34 @@ C4a is committed locally as `14c792c5`. C4b integrates the exact qualified five-
 fragment implementation/tests. All 737 scoped source identities, 52 fixture hashes
 and Python/49 distribution metadata match the completed 585-case scientific gate,
 so its evidence is reused. [C4b bindings/review](assets/structure-editor-reliability/README.md).
-Native compact controls and final whole-feature review remain pending.
+C4b is committed locally as `53fe2027`. C5 integrates the corrected compact
+frontend and typed workspace bridge. Its initial integrated web gate passes
+832 tests/95 files, lint, TypeScript and build with 752 stable scoped identities.
+Six new desktop workflows pass before an ambiguous empty-project test selector
+stops that diagnostic run; the selector is corrected, and an isolated recovery
+run passes desktop/mobile. These partial runs do not constitute C5 qualification.
+Independent architecture review reproduces unbounded acknowledged-record retention;
+its bounded correction is in progress. UI review requests workspace-bound empty-
+project recovery scrolling and real desktop zoom evidence. The visible warning
+row replaces the historical single-row preview size contract while preserving
+44 px actions, keyboard, hit-target and accessibility checks. A complete 60-case native run then passes 56/four exact preceding exclusions,
+but rendered review exposes an uncovered P1: the rotation editor uses preserve
+context while the viewer hardcodes automatic, dropping every rotation ghost.
+A new actual-native oracle fails before correction; shared-context repair and
+complete rerun remain required. Native qualification and final whole-feature
+review remain pending.
+
+The shared action-derived context fixes the dropped rotation ghost without
+changing H policy. The actual native negative fails before repair; desktop/mobile
+positive cases verify moving coordinates, nonpickable drawn geometry, cyan pixels,
+Cancel removal and unchanged canonical/history before Apply. The corrected complete
+C5 run passes all 60 cases: 56/four exact preceding exclusions, zero failures,
+flakes/retries/new exclusions, 752 unchanged source identities and 171 retained
+native outputs. Web lint, 843 tests/95 files and TypeScript/build pass on the same
+sources. UI returns scoped PASS for the exact final 42-path candidate.
+[C5 checkpoint and evidence](assets/structure-editor-reliability/c5-checkpoint.json)
+retain every native output with CRC/hashes and distinguish the uncovered earlier
+green run. No application push or final whole-feature approval is claimed.
 
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
@@ -80,9 +107,8 @@ Known limitations: fixes are still being implemented and integrated. A synthetic
 461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
 evidence, not universal responsiveness/capacity qualification. Broader chemistry,
 preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. Next action: commit qualified C4b locally,
-integrate the frozen compact frontend, then run native
-workflows and C6–C7. No further routine approval is required. Hold application
+separate dispositions. Blockers: none. Next action: commit qualified C5 locally, prepare final 0.32.0 versions
+and run C6–C7, including actual final-version readers and all seven final reviews. No further routine approval is required. Hold application
 pushes until final all-seven same-candidate review.
 
 ### Previous completed milestone — issue #145
@@ -3387,13 +3413,13 @@ Results:
 
 ## Blockers
 
-None for implemented and published issue #145 scope. Terminal documentation
-integration and branch-cleanup verification are retained in the
-[issue reply](https://github.com/ManuelSe/Neistra/issues/145#issuecomment-6887471495).
-Strict reference-host timing remains separate from portable correctness.
+None for the accepted issue #147 scope. Final-version/full release qualification,
+all seven final assessments and remote delivery remain required. Strict reference-
+host timing remains separate from portable correctness.
 
 ## Next action
 
-Use the linked issue reply for terminal receipt/cleanup readbacks. Subsequent
-product work requires its own approved plan. Preserve the qualified v0.31.0
-runtime tag when integrating documentation.
+Commit qualified C5 locally, prepare consistent 0.32.0 metadata and complete the
+release gate, actual preceding-reader checks and final seven-role review before
+application push. Continue the authorized issue #147 delivery without another
+routine approval. Preserve the qualified v0.31.0 tag and the owner's checkout.

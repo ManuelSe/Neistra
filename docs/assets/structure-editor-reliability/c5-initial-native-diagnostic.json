@@ -1,0 +1,33 @@
+{
+  "stage": "C5 original handoff native diagnostic; FAILED and not qualification",
+  "base_commit": "53fe2027bf9be49513fdaa85cf5b2c7a347b1772",
+  "source_identities": 749,
+  "source_unchanged": true,
+  "listed_cases": 12,
+  "passed_before_stop": 1,
+  "failed": 1,
+  "not_run_after_stop": 10,
+  "not_run_are_not_new_exclusions": true,
+  "root_cause": "WorkspaceCanvas omitted all new App-owned editing state/recovery/geometry bindings, leaving real viewer without those props. Held Apply status/launcher missing; Geometry and recovery callbacks unreachable.",
+  "secondary_harness_cleanup": "Held route released in finally without awaiting completion; context disposal caused a route.fetch teardown error. Keep separate from application root cause.",
+  "artifact": {
+    "file": "c5-initial-native-diagnostics.zip",
+    "bytes": 3516907,
+    "sha256": "7b4273f99f1b81093c078d7d8e6afbefe45b07077008e088d47e10539d9d5d11",
+    "files": 6,
+    "crc_all_internal_hashes_valid": true,
+    "nested_trace_crc": [
+      {
+        "file": "compact-edit-workflows-ret-b25b1-ut-completion-focus-changes-chromium/trace.zip",
+        "crc_valid": true,
+        "members": 101
+      }
+    ]
+  },
+  "limits": [
+    "PageScaleFactor case is visual-viewport zoom, not desktop browser zoom/reflow",
+    "Actual desktop editor zoom case was selected but not reached before early stop",
+    "Existing real desktop zoom/mobile exclusion remains unchanged",
+    "Source33path original frontend handoff is superseded by pending corrections; no UI/feature PASS"
+  ]
+}

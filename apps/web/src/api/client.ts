@@ -40,6 +40,7 @@ import type {
   JobEvent,
   JobResultImport,
   NormalizedStructure,
+  EditAttemptReceipt,
   MinimizationCapabilities,
   MinimizationRequest,
   MinimizationProposal,
@@ -62,6 +63,7 @@ export class ApiError extends Error {
   readonly code: string;
   readonly warnings: MolecularWarning[];
   readonly reports: ExportEntryReport[];
+  readonly retryAfterMs: number | null;
 
   constructor(
     status: number,
@@ -69,6 +71,7 @@ export class ApiError extends Error {
     message: string,
     warnings: MolecularWarning[] = [],
     reports: ExportEntryReport[] = [],
+    retryAfterMs: number | null = null,
   ) {
     super(message);
     this.name = "ApiError";
@@ -76,10 +79,11 @@ export class ApiError extends Error {
     this.code = code;
     this.warnings = warnings;
     this.reports = reports;
+    this.retryAfterMs = retryAfterMs;
   }
 }
 
-function apiError(status: number, body: ApiErrorBody): ApiError {
+function apiError(status: number, body: ApiErrorBody, retryAfter: string | null = null): ApiError {
   const detail = body.detail;
   const message =
     typeof detail === "object" && detail?.message
@@ -90,7 +94,10 @@ function apiError(status: number, body: ApiErrorBody): ApiError {
   const code = typeof detail === "object" && detail?.code ? detail.code : "request_failed";
   const warnings = typeof detail === "object" ? (detail?.warnings ?? []) : [];
   const reports = typeof detail === "object" ? (detail?.reports ?? []) : [];
-  return new ApiError(status, code, message, warnings, reports);
+  const retryAfterMs = retryAfter !== null && /^\d+(?:\.\d+)?$/.test(retryAfter)
+    ? Number(retryAfter) * 1000 : null;
+  return new ApiError(status, code, message, warnings, reports,
+    retryAfterMs !== null && Number.isFinite(retryAfterMs) ? retryAfterMs : null);
 }
 
 async function request<ResponseType>(
@@ -113,7 +120,7 @@ async function request<ResponseType>(
 
   if (!response.ok) {
     const body = (await response.json().catch(() => ({}))) as ApiErrorBody;
-    throw apiError(response.status, body);
+    throw apiError(response.status, body, response.headers.get("Retry-After"));
   }
   return (await response.json()) as ResponseType;
 }
@@ -127,6 +134,9 @@ export const workspacePresentationApi: WorkspacePresentationApi = {
 };
 
 export const projectApi = {
+  editAttempt: (projectId: string, attemptId: string) => request<EditAttemptReceipt>(
+    `/api/v1/projects/${projectId}/edit-attempts/${attemptId}`,
+  ),
   list: () => request<ProjectListItem[]>("/api/v1/projects"),
   get: (projectId: string) => request<Project>(`/api/v1/projects/${projectId}`),
   create: (name: string, description: string | null) =>
@@ -193,9 +203,9 @@ export const projectApi = {
         }),
       },
     ),
-  selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = "preserve") =>
+  selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = "preserve", attemptId?: string) =>
     request<SelectionEditResult>(`/api/v1/projects/${project.id}/entries/${entryId}/${["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? "selection-edits" : "model-edits"}`, {
-      method: "POST", body: JSON.stringify({ expected_revision: project.revision,
+      method: "POST", headers: attemptId ? { "X-Neistra-Edit-Attempt": attemptId } : undefined, body: JSON.stringify({ expected_revision: project.revision,
         expected_artifact_id: artifactId, selection, action, ...(!["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? { hydrogen_policy: hydrogenPolicy } : {}) }),
     }),
   modelPreview: (project: Project, entryId: string, artifactId: string, selection: Selection, action: ModelPlacementAction, hydrogenPolicy: HydrogenPolicy, signal?: AbortSignal) =>

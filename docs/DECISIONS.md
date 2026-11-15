@@ -7478,3 +7478,37 @@ Persist deduplicated diagnostics for a real change; no-op setup returns diagnost
 without changing original warnings, coordinates, artifacts, history or floors.
 Tests include inactive-frame outliers, explicit truncation/full counts, distal
 bonds, exact fixed material and spawned preview/Apply refusal/publication outcomes.
+
+
+### D-160 C5 clarification — damaged client journal and bounded acknowledged history
+
+Private recovery-journal reads distinguish absent, ready, invalid and unavailable.
+Failed/oversized/partly invalid reads never authorize an assumption that no edit
+exists. Retain recoverable identities. Unavailable storage visibly pauses writes;
+a corrupt value needs explicit review/continuation before replacement by a small
+versioned envelope with an identity-unavailable unknown marker. Each project has
+its own reviewed acknowledgment, persisted and read back before only that guard
+is released. Keep the marker unknown and preserve known pending owners. Do not
+claim every structure was verified when only project/history and no attempt
+identity are available. Bound marker acknowledgments to 64 projects; eviction
+requires that project to review again rather than silently retaining permission.
+
+Independent 32-cycle reproduction shows that pruning before re-adopting journal
+rows resurrects retired records. Merge first, preserve journal age order, then
+bound retired acknowledged history to 20 while retaining current and unresolved
+owners. Apply the same bound on reload, restore the latest acknowledged current
+record and let an aged-out callback retire without regaining UI ownership.
+The corrected independent probe retains 20 previous/21 total rows and latest
+attempt after reload. Acknowledgment remains distinct from a confirmed outcome.
+
+### D-161 C5 clarification — one operation policy across preview composition
+
+A qualified rotation DTO and correct Apply do not establish visible proposal
+geometry. Rendered review finds that the editor captures rotation under preserve
+policy while the viewer compares against automatic policy, dropping the proposal.
+Use the same operation-specific policy/context resolver at request, capture and
+viewer admission. Rotation remains coordinate-only with preserve policy;
+ordinary atom/fragment placement retains automatic policy. Do not change science
+to make context keys match. Qualification must inspect the actual native moving
+geometry, nonpickable rendered objects, visible pixels and Cancel removal while
+canonical coordinates, originals and history remain unchanged before Apply.

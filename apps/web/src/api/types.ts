@@ -13,6 +13,7 @@ export interface HydrogenReport {
   reason_counts: Record<string, number>; diagnostics_truncated: boolean;
 }
 export type BondAction = { operation: "bond.set"; order: number | null } | { operation: "bond.delete" };
+export interface BondRotationAction { operation: "bond.rotate"; moving_endpoint_id: number; angle_degrees: number }
 export interface HydrogenReconciliationReport {
   policy: "reconcile_if_possible" | "automatic";
   status: "complete" | "partial" | "unchanged" | "unresolved";
@@ -27,11 +28,16 @@ export interface HydrogenReconciliationReport {
 }
 export type ModelPlacementAction =
   | BondAction
+  | BondRotationAction
   | HydrogenAction
   | { operation: "atom.add"; element: string; charge: number | null; direction: number; coordinates?: [number, number, number] }
   | { operation: "fragment.attach"; fragment: FragmentName; direction: number; rotation: number };
 
 export interface ModelPreview {
+  rotation?: {
+    axis_atom_ids: [number, number]; moving_endpoint_id: number; angle_degrees: number;
+    rotating_atom_count: number; fixed_atom_count: number; no_op: boolean;
+  } | null;
   moved_atoms?: { atom_id: number; before: [number, number, number]; after: [number, number, number] }[];
   removed_atoms?: { atom_id: number; coordinates: [number, number, number] }[];
   hydrogen_report?: HydrogenReport | null;
@@ -67,7 +73,8 @@ export type SelectionEditAction =
   | { operation: "fragment.replace"; fragment: FragmentName }
   | { operation: "residue.mutate"; target_name: StandardAminoAcid };
 
-export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl";
+export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl"
+  | "cyclopropyl" | "cyclobutyl" | "cyclopentyl" | "cyclohexyl" | "methoxy";
 
 export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
   applied?: boolean;
@@ -81,6 +88,21 @@ export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
 export type ApplySelectionEdit = (
   entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction, hydrogenPolicy?: HydrogenPolicy,
 ) => Promise<SelectionEditResult>;
+
+export interface EditAttemptReceipt {
+  server_instance_id: string;
+  attempt_id: string;
+  project_id: string;
+  entry_id: string | null;
+  kind: "model" | "selection" | null;
+  expected_revision: number | null;
+  expected_artifact_id: string | null;
+  phase: "pending" | "finishing" | "finished" | "unknown";
+  outcome: "saved" | "not_applied" | "unknown" | null;
+  committed_revision: number | null;
+  committed_artifact_id: string | null;
+  reason: string | null;
+}
 
 export interface MolecularWarning {
   code: string;

@@ -89,14 +89,14 @@ it("handles Ctrl+M once while respecting typing, composition modifiers, repeated
   fireEvent.keyDown(window, { key: "m", ctrlKey: true }); expect(run).toHaveBeenCalledTimes(1);
 });
 function workflow(publication?: QuickPublicationController,
-  dispatch?: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>) {
+  dispatch?: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>, assertWritable?: () => void) {
   const p = project(); useWorkspaceStore.setState({ activeProjectId: p.id }); useMinimizationStore.getState().setProject(p.id);
   const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   const wrapper = ({ children }: { children: ReactNode }) => <QueryClientProvider client={client}>{children}</QueryClientProvider>;
   const commit = vi.fn((operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => dispatch ? dispatch(operation, quick) : operation());
   const notice = vi.fn();
   const hook = renderHook(({ currentProject, currentSelection }) => {
-    const w = useMinimization(currentProject, currentSelection, commit, undefined, notice, publication);
+    const w = useMinimization(currentProject, currentSelection, commit, undefined, notice, publication, undefined, assertWritable);
     return { ...w, ...useMinimizationPreview(currentProject, w) };
   }, { wrapper, initialProps: { currentProject: p, currentSelection: selection } });
   return { ...hook, client, commit, notice, p, wrapper };
@@ -301,25 +301,20 @@ it("preserves the quick session across viewer remounts and cancels when App comm
   expect(cancel).toHaveBeenCalledWith(job.id); client.clear();
 });
 
-it("opening settings disarms a late completion before cancellation returns", async () => {
-  const job = completedQuick();
-  const running = { ...job, status: "running" } as Job;
+it("refuses setup retargeting while a calculation is active without cancelling or replacing it", async () => {
+  const running = { ...completedQuick(), status: "running" } as Job;
   vi.mocked(quickMinimizationApi.submit).mockResolvedValue(running);
   vi.mocked(jobApi.get).mockResolvedValue(running);
-  vi.spyOn(quickMinimizationApi, "live").mockResolvedValue({ schema_version: 1, job_id: job.id, status: "running", capture_sha256: null, selection: null, sources: [], frame: null, unavailable_reason: null });
-  let cancelled!: (job: Job) => void;
-  vi.spyOn(jobApi, "cancel").mockImplementation(() => new Promise(resolve => { cancelled = resolve; }));
-  const apply = vi.spyOn(quickMinimizationApi, "apply");
+  vi.spyOn(quickMinimizationApi, "live").mockResolvedValue({ schema_version: 1, job_id: running.id, status: "running", capture_sha256: null, selection: null, sources: [], frame: null, unavailable_reason: null });
+  const cancel = vi.spyOn(jobApi, "cancel");
   const w = workflow();
   await act(async () => { await w.result.current.quick(); });
-  let pending!: Promise<void>;
-  act(() => { pending = w.result.current.configure("quick"); });
-  expect(useMinimizationStore.getState()).toMatchObject({ autoApply: false, live: false, preview: false });
-  await act(async () => { await w.result.current.finishQuick(quickProposal()); });
-  expect(apply).not.toHaveBeenCalled(); expect(w.commit).not.toHaveBeenCalled();
-  await act(async () => { cancelled({ ...job, status: "cancelled" }); await pending; });
-  expect(w.result.current.state.draft).toBeDefined();
-  expect(w.result.current.state.autoApply).toBe(false); w.client.clear();
+  const generation: number = useMinimizationStore.getState().generation;
+  await act(async () => { expect(await w.result.current.configure("quick")).toBe(false); });
+  expect(useMinimizationStore.getState()).toMatchObject({ generation, autoApply: true, live: true, jobId: String(running.id) });
+  expect(cancel).not.toHaveBeenCalled();
+  expect(w.notice).toHaveBeenCalledWith({ kind: "error", text: "Finish or cancel the current minimization before starting another tool." });
+  w.client.clear();
 });
 
 
@@ -672,4 +667,49 @@ it("does not authorize stale availability while an offline recheck is paused", a
     await waitFor(() => expect(w.result.current.capabilitiesReady).toBe(true));
     expect(submit).not.toHaveBeenCalled();
   } finally { onlineManager.setOnline(true); w.client.clear(); }
+});
+
+it("does not recapture a different selection into an existing setup", async () => {
+  const w = workflow();
+  await act(async () => { await w.result.current.configure("quick"); });
+  const captured = useMinimizationStore.getState().draft, generation = useMinimizationStore.getState().generation;
+  w.rerender({ currentProject: w.p, currentSelection: { ...selection, atoms: [{ structure_id: "protein", atom_id: 2 }] } });
+  await act(async () => { expect(await w.result.current.configure("quick")).toBe(false); });
+  expect(useMinimizationStore.getState().generation).toBe(generation);
+  expect(useMinimizationStore.getState().draft).toBe(captured);
+  w.client.clear();
+});
+it("rejects a selection change while advanced setup sources are loading without submitting", async () => {
+  let release!: (value: ReturnType<typeof proteinStructure>) => void;
+  vi.spyOn(minimizationApi, "source").mockImplementation(() => new Promise(resolve => { release = resolve; }));
+  const submit = vi.spyOn(minimizationApi, "submit"); const w = workflow();
+  let opening!: Promise<boolean>;
+  act(() => { opening = w.result.current.configure("amber"); });
+  await waitFor(() => expect(minimizationApi.source).toHaveBeenCalledOnce());
+  w.rerender({ currentProject: w.p, currentSelection: { ...selection, atoms: [{ structure_id: "protein", atom_id: 2 }] } });
+  await act(async () => { release(proteinStructure()); expect(await opening).toBe(false); });
+  expect(useMinimizationStore.getState().error).toContain("selection changed"); expect(submit).not.toHaveBeenCalled(); w.client.clear();
+});
+it("refuses an unresolved or completed unapplied calculation when another setup is requested", async () => {
+  const cancel = vi.spyOn(jobApi, "cancel"), w = workflow();
+  for (const status of ["missing", "completed"] as const) {
+    if (status === "completed") w.client.setQueryData(["job", "retained"], { id: "retained", status: "completed" } as Job);
+    act(() => { const state = useMinimizationStore.getState(); state.patch(state.generation, { jobId: "retained", draft: null, applied: false }); });
+    await act(async () => { expect(await w.result.current.configure("quick")).toBe(false); });
+    expect(useMinimizationStore.getState().jobId).toBe("retained");
+  }
+  expect(cancel).not.toHaveBeenCalled(); w.client.clear();
+});
+
+
+it("rechecks the combined edit guard after held capabilities without dispatch or a repeated start side effect", async () => {
+  let release!: (value: Awaited<ReturnType<typeof quickMinimizationApi.capabilities>>) => void;
+  vi.spyOn(quickMinimizationApi, "capabilities").mockImplementation(() => new Promise(resolve => { release = resolve; }));
+  const submit = vi.spyOn(quickMinimizationApi, "submit"); let writable = true;
+  const guard = vi.fn(() => { if (!writable) throw new Error("An edit is now unresolved"); });
+  const w = workflow(undefined, undefined, guard); let pending!: Promise<void>;
+  act(() => { pending = w.result.current.quick(); });
+  await waitFor(() => expect(quickMinimizationApi.capabilities).toHaveBeenCalledOnce()); writable = false;
+  await act(async () => { release({ model: "quick-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} }); await pending; });
+  expect(submit).not.toHaveBeenCalled(); expect(useMinimizationStore.getState().error).toContain("An edit is now unresolved"); w.client.clear();
 });

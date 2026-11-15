@@ -1,5 +1,20 @@
-import { expect, type APIRequestContext, type Page } from "@playwright/test";
+import { expect, type APIRequestContext, type Locator, type Page } from "@playwright/test";
 import type { Project } from "../../../apps/web/src/api/types";
+
+/** One visible readiness row followed by one 44px action row, including warnings. */
+export async function expectCompactInspection(panel: Locator) {
+  await expect(panel.getByRole("status")).toContainText(/^Ready/);
+  const bounds = await panel.evaluate(node => {
+    const strip = node.querySelector(".edit-placement-inspection")!;
+    const status = strip.querySelector<HTMLElement>('[role="status"]')!, style = getComputedStyle(node), statusStyle = getComputedStyle(status);
+    const actions = [...strip.querySelectorAll("button")];
+    const maximum = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth)
+      + status.getBoundingClientRect().height + parseFloat(statusStyle.marginTop) + parseFloat(statusStyle.marginBottom)
+      + parseFloat(getComputedStyle(strip).rowGap) + Math.max(...actions.map(action => action.getBoundingClientRect().height));
+    return { actual: node.getBoundingClientRect().height, maximum };
+  });
+  expect(bounds.actual).toBeLessThanOrEqual(bounds.maximum + 1);
+}
 
 export async function selectPair(page: Page, entry: string, ids: number[], mobile: boolean) {
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();

@@ -109,12 +109,12 @@ it("uses two canonical endpoints for bond order without a manual bond ID", async
   expect(screen.queryByRole("spinbutton", { name: /bond/i })).toBeNull();
 });
 
-it("shows six structural previews and substitutes an H through one fragment action", async () => {
+it("shows eleven structural previews and substitutes an H through one fragment action", async () => {
   const molecule: StructureProjection = { ...projection, structure: { ...projection.structure, atoms: [{ ...projection.structure.atoms[0], element: "H" }] } };
   const { user, onEdit } = setup(selection, null, molecule);
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Fragments" }));
-  expect(document.querySelectorAll(".edit-fragment-grid svg")).toHaveLength(6);
+  expect(document.querySelectorAll(".edit-fragment-grid svg")).toHaveLength(11);
   await user.click(screen.getByRole("button", { name: "Replace H with Carboxylic acid" }));
   expect(onEdit).not.toHaveBeenCalled();
   await screen.findByRole("button", { name: "Apply placement" });
@@ -134,7 +134,7 @@ it("opens by keyboard into the dialog and closes with owned focus", async () => 
 });
 
 it("mutates a complete standard residue through one action and explains partial selection", async () => {
-  const atoms = ["N", "CA", "C", "O", "CB"].map((name, index) => ({ ...projection.structure.atoms[0], id: index + 1, name, residue_id: 1 }));
+  const atoms = ["N", "CA", "C", "O", "CB"].map((name, index) => ({ ...projection.structure.atoms[0], id: index + 1, name, element: name === "N" ? "N" : name === "O" ? "O" : "C", residue_id: 1 }));
   const molecule: StructureProjection = { ...projection, structure: { ...projection.structure,
     structure_type: "protein", atoms, residues: [{ id: 1, chain_id: 1, name: "ALA", author_number: 1, label_number: 1, insertion_code: null, component_type: "polymer" }],
   } };

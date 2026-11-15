@@ -1,5 +1,7 @@
 # Molecular editing
 
+The compact reliability and geometry workflows follow the
+[issue #147 contract](plans/issue-147-structure-editor-reliability.md).
 The direct atom/bond workflow follows the
 [issue #92 contract](plans/issue-92-automatic-hydrogen-editing.md), extending the
 [issue #74 foundation](plans/issue-74-direct-molecular-modeling.md).
@@ -65,7 +67,8 @@ there is no fallback to another loaded entry. The advanced inspector can also ad
 an explicitly positioned disconnected atom; its target must be chosen explicitly.
 
 In **Fragments**, select a heavy atom to attach methyl, ethyl, hydroxyl, amino,
-carboxylic acid or phenyl, or select a terminal explicit H to replace it. Terminal H
+carboxylic acid, phenyl, cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl or
+methoxy, or select a terminal explicit H to replace it. Terminal H
 replacement needs an explicit heavy parent, but not complete charge/order chemistry.
 The parent stays fixed; supported local H may be added, removed or repositioned. Replacement consumes H identity
 and maps it to the new root; ordinary element assignment instead retains identity.
@@ -74,7 +77,9 @@ label; terminal-H replacement prefers that H's alternate label.
 
 A cyan, nonpickable **Placement preview** shows proposed atoms/bonds. The panel
 collapses to a compact inspection bar at the bottom of the workspace so the
-proposal stays visible. **Placement tools** restores inputs and warnings;
+proposal stays visible. Preparing, readiness, warning count and partial H status
+remain visible on that bar. **Details** opens the full reports before deliberate
+Apply; **Placement tools** restores inputs and warnings;
 **Inspect placement** returns to the bar without recomputing. Use **Next
 direction** to cycle six local directions and **Rotate fragment** for six60-degree
 turns. **Apply placement** recomputes and saves one command; **Cancel placement**
@@ -83,13 +88,26 @@ project visit, revision/artifact, input or tool/movement changes invalidate
 it. Ghosts are not molecular atoms and cannot become canonical operands. Normal
 canvas/camera gestures and explicit Transform remain available.
 
-Only the six existing methyl-capped templates are embedded (ETKDGv3, seed690,
+The eleven fixed methyl-capped templates are embedded (ETKDGv3, seed690,
 at most200 iterations); the parent is never embedded or minimized. Proper rigid
 transforms retain template geometry. Six torsions compare distance to retained
 material, with deterministic first-best ties, followed by a user turn offset.
 Each conformer gets new coordinates without moving retained points. Overlap and
 unoptimized geometry warn rather than block the requested draft. This is not
 proof of favorable geometry, protonation or force-field readiness.
+
+**Geometry** captures the exact current selection for existing move/rotate and
+Quick or Advanced minimization setup. Opening setup does not execute a calculation.
+A changed project, selection or artifact requires opening it again. Existing
+movement or unapplied minimization must finish or be cancelled first.
+
+**Rotate bond** accepts two endpoints of a supported ligand's known nonaromatic,
+acyclic single bond with nonterminal sides. Choose the moving endpoint and relative
+angle, then preview. The qualified summary shows fixed→moving axis orientation,
+signed degrees and complete moving/fixed counts, including hidden H. Each conformer
+uses its own axis. Both axis atoms, the fixed graph side and disconnected spectators
+remain exact. Zero/full-turn or unchanged rotations create no command. This does
+not assign stereochemistry or provide bond-length/angle authoring.
 
 Ordinary atom, fragment and bond edits automatically maintain changed/new heavy
 sites and immediate canonical neighbors. Supported local H can be added, removed
@@ -106,7 +124,7 @@ exact molecular state; monotonic IDs are not reused after branching. Warnings
 persist in entry Details. Locks, revisions, artifact ownership, valid references,
 finite coordinates and aligned conformers remain required. The application entry
 atom limit applies; the helper's256-heavy-atom limit is not a direct-edit limit.
-No database or top-level schema migration is introduced (Alembic0014;
+No database or top-level schema migration is introduced (Alembic0015;
 project/viewer/archive2, normalized/selection1). Native archives preserve drafts,
 unknowns, generated/empty entries and conformers exactly. Chemical exports explain
 representational defaults/losses or refuse a graph the format cannot represent;
@@ -124,6 +142,14 @@ typed ID. The current amino-acid name is unavailable as a no-op. The result uses
 the existing pinned PDBFixer/OpenMM template service: retain present backbone
 N/CA/C/O IDs and coordinates, preserve chain identity and unrelated records,
 allocate new side-chain identities and expose template/terminal/clash warnings.
+Deliberately cut retained backbone/peptide bonds and authored exclusions remain
+cut, with a specific warning; incompatible N/CA/C/existing O elements refuse
+mutation atomically. Retained nonstandard topology is preserved and reported.
+A narrowly qualified newly required proline side-chain closure may be inferred,
+unless explicitly excluded; its measured, unoptimized geometry is warned about.
+After Undo leaves only part of a residue selected, **Select whole residue** is an
+explicit recovery action for the current target. It does not mutate, create
+history or silently expand a newer selection.
 The complete result residue becomes selected, so another mutation needs no
 reselection. Undo/Redo restores exact molecular state; ordinary transient
 selection reconciles surviving IDs. Protein mutation does not invoke the
@@ -144,6 +170,22 @@ not undo a successful server command or overwrite newer selection.
 Opening Style, Surfaces, Interactions or active movement hands off tool ownership
 without restoring an outgoing tool over the new one. Active movement temporarily
 replaces the launchers with its own controls; numeric preview blocks chemistry.
+
+Submitted Apply remains owned by the application across closure, responsive
+remounts and project visits; closing hides it without cancelling its computation.
+**Applying**, **Saved**, **Not applied** and specific errors appear on the active
+surface. A rejected placement requires **Prepare preview again** and a later new
+Apply; it is never replayed automatically.
+
+After a lost response, **Check edit status** can confirm saved/not-applied state.
+A missing receipt remains unknown. **Review current state** refreshes the affected
+structure and history, or verifies its absence. Explicit **Continue editing current
+state** acknowledges uncertainty before a new deliberate edit; it neither retries
+nor undoes the earlier operation, which may still arrive. Positive pending work
+keeps the guard. Changed context or failed storage requires review/recovery again.
+Unreadable edit identity information has the same per-project acknowledgment path,
+including in an empty workspace; unavailable storage keeps writes paused. Small
+session metadata retains the uncertainty, without promising durable execution.
 
 Viewport-bounded placement responds to resize/zoom and observed notices, keeping
 the heading/Close action reachable. Scientific limits and full operation warnings

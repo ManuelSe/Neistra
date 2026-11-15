@@ -208,3 +208,86 @@ No ring fusion, custom library, wider H chemistry or preparation claim is added.
 
 C5 native compact controls, actual preceding-reader qualification, full release
 gates and all seven final whole-feature assessments remain outstanding.
+
+## Deferred completeness follow-ups
+
+Refreshed open title/body searches confirm that the existing linked issues do not
+own dedicated length/angle or intentional stereochemistry authoring. [#149](https://github.com/ManuelSe/Neistra/issues/149)
+and [#150](https://github.com/ManuelSe/Neistra/issues/150) retain those deferred
+capabilities as bounded product briefs, with scientific planning and independent
+acceptance criteria before implementation. [Verified receipt](followup-issues.json)
+records exact title/body hashes and open state after connected/CLI readback.
+The connected app rejects creation with 403; authenticated CLI creation succeeds.
+These issues neither expand #147 implementation scope nor authorize their delivery.
+
+
+## C5 corrective evidence (qualification still in progress)
+
+`c5-corrective-evidence.zip` retains 162 hashed entries: original/corrected frontend
+handoffs, the retention correction, the frozen 40-path pre-ghost-review candidate,
+author logs, both independent retention probes and lossless primary diagnostic
+logs/receipts/failure images. SHA-256
+`3a3ff4c3149fdffd0203e76fe8559eade0ce985f8f42e2ca40fef998d9a8baa4`;
+29,798,841 bytes. CRC and every internal hash verify. The actual contrast-failure
+trace is included; repeated harness traces are retained separately for release
+packaging, rather than duplicating them in the repository. Their complete local
+ZIP is 99,813,848 bytes, SHA-256
+`c65347b0aac28eb542f00cd0fdbafbce7c1e7d754a11e25cc0d69e1dc011fdd3`.
+
+The integrated web gate passes 835 tests/95 files, lint and TypeScript/build with
+752 unchanged scoped source identities. Primary verifies every lossless log hash.
+The independent 32-cycle retention probe changes from 31 previous/32 persisted
+records to the intended 20 previous/21 persisted, preserving the latest owner
+across reload. Prior bridge, failed-Apply feedback, torsion scope, coarse targets,
+unknown/unavailable journal and final quick-dispatch guard findings are corrected.
+Actual desktop extension 100%/200% zoom, both themes, controls/hit targets/focus/axe
+and empty-project reviewed recovery pass; page-scale screenshots remain separate.
+
+A complete focused pre-ghost-review run subsequently passes all 60 listed cases:
+56 pass/four exact preceding exclusions, zero failures/flakes/retries. This run
+misses a real defect: the panel and viewer use different rotation context policies,
+so no cyan proposal appears despite a qualified DTO and correct Apply. Rendered
+specialist review identifies it in both layouts. New actual-native geometry/Cancel
+regressions and the shared-context correction are required before C5 qualification.
+Neither the earlier partial runs nor that uncovered green run establishes feature
+completion. Final whole-candidate seven-role and release gates remain separate.
+
+
+## C5 — Corrected compact workflow checkpoint
+
+[Checkpoint](c5-checkpoint.json) binds the exact 42-path candidate to integrated
+843 frontend tests/95 files, lint and TypeScript/build plus the complete focused
+60-case browser run: 56 pass/four exact preceding exclusions, zero failures,
+flakes/retries/new exclusions. All 752 scoped code identities and lossless logs
+match between web and browser runs. `c5-qualified-native-and-web.zip` retains all
+171 native outputs and source/runner/report evidence: 225 manifest entries,
+18,593,293 bytes, SHA-256
+`756b11e9a15caa0936cc73b372cd1b89bd9fc906c9c3f7ab89e02ae8a00a0694`.
+CRC and every internal hash verify.
+
+`c5-rotation-preview-correction.zip` retains the typed shared-policy correction,
+its exact pre/postimages, independent actual-native negative and positive evidence,
+and the preceding green-run reports/images that missed the defect. It has 36
+manifest entries, 4,747,960 bytes, SHA-256
+`28107162c40051b59cc574c31bff17524082f1e8d0659c0453009d0ba9efef04`.
+The live native oracle verifies exact moving geometry, nonpickable GPU draw,
+representation attachment and visible cyan pixels; Cancel removes it without a
+canonical/history change, and later deliberate Apply/Undo preserves originals.
+UI independently reassesses the same final 42 paths and returns scoped PASS.
+
+The two historical 70 px preview assertions now use a shared content-derived
+one-status-row/one-44 px-action-row bound. Visible Ready/warnings, 44 px targets,
+hit testing, focus, axe, native picking/cyan and canonical assertions remain.
+The existing held-response/project-return case now requires the actual first
+Saved receipt (UUID/revision/artifact, one GET/no replay) before a second deliberate
+UUID while the first response stays held; its late response cannot clear the
+new owner. Workflow review accepts this reconciliation, without relaxing ownership.
+
+This is a passing local checkpoint. Final-version readers/full gates, all seven
+same-final-candidate assessments, remote merge/release and closeout remain.
+
+
+[Primary self-review](c5-review.md) records the complete checkpoint reconciliation.
+[Scientific bindings](c5-scientific-bindings.json) prove all 384 Python source
+identities and 52 fixtures are unchanged from the passing 585-case C4 domain/API
+qualification; its Ruff/mypy evidence is reused, without claiming a fresh run.

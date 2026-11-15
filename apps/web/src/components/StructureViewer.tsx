@@ -14,7 +14,7 @@ import { useMinimizationStore } from "../minimization/store";
 import { MinimizationPanel } from "./MinimizationPanel";
 import { placementContext } from "../editing/placement";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { InitialFitTicket } from "../workspacePresentation/types";
@@ -67,14 +67,15 @@ import { InteractionPanel } from "./InteractionPanel";
 import { useInteractions } from "../interactions/useInteractions";
 import { filterInteractions } from "../interactions/filter";
 import { ViewerWarningDetails } from "./ViewerWarningDetails";
+import { editAttemptBlocksWrites } from "../editing/attempt";
+import type { MolecularEditingPorts } from "../editing/ports";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
   dark: THEME_TOKENS.dark["viewer-background"],
 };
 
-interface StructureViewerProps {
-  onEdit?: ApplySelectionEdit;
+interface StructureViewerProps extends MolecularEditingPorts {
   project: Project;
   theme: Theme;
   selection: Selection;
@@ -140,6 +141,13 @@ export function StructureViewer({
   selectionColorMode,
   onSelectionColorModeChange,
   onEdit,
+  editAttempt,
+  onCheckEdit,
+  onReviewEdit,
+  onContinueEdit,
+  editReviewCurrent,
+  onGeometry,
+  onRecoverResidue,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
@@ -213,6 +221,7 @@ export function StructureViewer({
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
   const [interactionProjectId, setInteractionProjectId] = useState<string | null>(null);
   const openMinimization = () => { useEditingStore.getState().setOpen(false); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); };
+  useEffect(() => { if (minimizationPreview.open) useEditingStore.getState().setOpen(false); }, [minimizationPreview.open]);
   const minimizationUnavailable = movementActive ? "Finish movement before minimizing selection" : coordinatePreview ? "Finish coordinate preview before minimizing" : busy ? "Finish the current change before minimizing" : !selection.atoms.length ? "Select atoms before minimizing" : null;
   useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
     openMinimization(); void minimization?.quick();
@@ -487,7 +496,7 @@ export function StructureViewer({
 
   const placement = editingState.placement;
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
-    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, "automatic")
+    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, placement.action)
     ? placement.result : null;
   useEffect(() => {
     if (!viewerReady) return;
@@ -770,10 +779,17 @@ export function StructureViewer({
             zoom={factor => viewerRef.current?.zoom(factor)}
             unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
               : busy ? "Finish the current project change before moving selection"
-              : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+              : minimization?.startReason() ?? viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
           {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
-            onOpen={() => { useMinimizationStore.getState().dismiss(); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
+            onOpen={() => {
+              const reason = minimization?.startReason();
+              if (reason && !(editAttempt && editAttemptBlocksWrites(editAttempt))) { setViewerError(reason); return false; }
+              if (!reason) useMinimizationStore.getState().dismiss();
+              setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); return true;
+            }}
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
+            attempt={editAttempt} onCheckEdit={onCheckEdit} onReviewEdit={onReviewEdit} onContinueEdit={onContinueEdit} editReviewCurrent={editReviewCurrent} onRecoverResidue={onRecoverResidue}
+            onGeometry={onGeometry} geometryUnavailable={coordinatePreview ? "Finish coordinate preview before opening geometry." : movement?.state.phase !== "idle" && movement ? "Finish movement before opening geometry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
           {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimizationPreview.error ?? minimizationPreview.previewError }}
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}

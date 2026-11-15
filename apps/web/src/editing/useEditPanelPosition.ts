@@ -27,14 +27,22 @@ export function useEditPanelPosition(
     const position = () => {
       const anchor = launcher.current?.getBoundingClientRect();
       const workspace = launcher.current?.closest(".structure-viewer")?.getBoundingClientRect();
-      const leftBound = Math.max(8, workspace?.left ?? 8);
-      const rightBound = Math.min(window.innerWidth - 8, workspace?.right || window.innerWidth - 8);
-      const width = Math.max(120, Math.min(300, rightBound - leftBound));
+      const viewport = window.visualViewport;
+      const viewportLeft = viewport?.offsetLeft ?? 0, viewportTop = viewport?.offsetTop ?? 0;
+      const viewportRight = viewportLeft + (viewport?.width ?? window.innerWidth);
+      const viewportBottom = viewportTop + (viewport?.height ?? window.innerHeight);
+      let leftBound = Math.max(viewportLeft + 8, workspace?.left ?? viewportLeft + 8);
+      let rightBound = Math.min(viewportRight - 8, workspace?.right || viewportRight - 8);
+      if (rightBound - leftBound < 120) { leftBound = viewportLeft + 8; rightBound = viewportRight - 8; }
+      const width = Math.max(80, Math.min(300, rightBound - leftBound));
       const left = Math.max(leftBound, Math.min(anchor?.left ?? leftBound, rightBound - width));
       if (inspecting) {
-        const bottom = Math.min(window.innerHeight - 8, (workspace?.bottom ?? window.innerHeight) - 8);
+        const bottom = Math.min(viewportBottom - 8, (workspace?.bottom ?? viewportBottom) - 8);
+        // Measure after the new width/height constraints, including visual zoom.
+        panel.style.width = `${width}px`;
+        panel.style.maxHeight = `${Math.max(44, bottom - Math.max(viewportTop, workspace?.top ?? viewportTop) - 8)}px`;
         const height = panel.getBoundingClientRect().height;
-        Object.assign(panel.style, { left: `${left}px`, top: `${Math.max(8, bottom - height)}px`, width: `${width}px`, maxHeight: `${Math.max(44, bottom - (workspace?.top ?? 0) - 8)}px` });
+        Object.assign(panel.style, { left: `${left}px`, top: `${Math.max(viewportTop + 8, bottom - height)}px`, width: `${width}px`, maxHeight: `${Math.max(44, bottom - Math.max(viewportTop, workspace?.top ?? viewportTop) - 8)}px` });
         return;
       }
       let top = (anchor?.bottom ?? 60) + 6;
@@ -48,9 +56,9 @@ export function useEditPanelPosition(
       if (noticeBox && left < noticeBox.right && left + width > noticeBox.left && top < noticeBox.bottom + 8) {
         top = noticeBox.bottom + 8;
       }
-      top = Math.max(8, Math.min(top, window.innerHeight - 100));
+      top = Math.max(viewportTop + 8, Math.min(top, viewportBottom - 100));
       Object.assign(panel.style, { left: `${left}px`, top: `${top}px`, width: `${width}px`,
-        maxHeight: `${Math.max(80, Math.min(520, window.innerHeight - top - 12))}px` });
+        maxHeight: `${Math.max(44, Math.min(520, viewportBottom - top - 12))}px` });
     };
     const schedule = () => {
       if (frame !== null) return;
@@ -62,6 +70,8 @@ export function useEditPanelPosition(
     const mutation = new MutationObserver(schedule);
     mutation.observe(document.body, { childList: true, subtree: true, characterData: true });
     window.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("scroll", schedule);
     position();
     if (useEditingStore.getState().focusRequested) {
       panel.focus(); useEditingStore.getState().setFocusRequested(false);
@@ -69,6 +79,8 @@ export function useEditPanelPosition(
     return () => {
       if (frame !== null) cancelAnimationFrame(frame);
       resize?.disconnect(); mutation.disconnect(); window.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("scroll", schedule);
       const state = useEditingStore.getState();
       if (state.projectId === projectId && state.open && panel.contains(document.activeElement)) state.setFocusRequested(true);
     };

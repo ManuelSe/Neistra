@@ -660,3 +660,47 @@ remain visible through existing notices, and full scientific reports remain
 explicitly inspectable in Jobs. Temporary chemistry, approximate repair, unchanged
 fixed/inactive rows and local-improvement/convergence limits remain those documented
 in MINIMIZATION.md; toolbar uniformity is not additional scientific qualification.
+
+
+## Structure editor reliability and qualified additions (issue #147)
+
+Side-chain mutation preserves retained authored bonds, orders, IDs and exclusions,
+including deliberate backbone/peptide cuts. A specific warning identifies an
+unresolved backbone; incompatible N/CA/C/existing O elements refuse before template
+computation. Existing missing-O behavior and single-conformer template admission
+remain. A new PRO N–CD closure is narrowly permitted for ARG/GLN/GLU/LYS sources
+when the source template does not require it, the pair is absent and unexcluded.
+Its inferred provenance and measured unoptimized distance are explicit. Excluded
+closure remains open; reverse retained topology is preserved with disagreement
+warnings. This does not repair geometry or qualify protein preparation.
+
+Affected-bond diagnostics inspect every retained conformer with the existing
+extreme-distance thresholds (<0.4 or >3.0 Å), cap details at 100 and report complete
+counts. Finite coordinates with nonfinite derived lengths refuse atomically.
+Protein overlap still checks active-frame all-pair strict <0.4 Å existence, now with
+exact bounded-memory spatial queries and the predecessor's explicit-axis float64
+norm arithmetic. This is an overlap predicate, not an element-aware clash model
+or a universal linear-time/capacity claim.
+
+Ligand bond rotation uses the chosen fixed→moving axis independently in each
+conformer, reducing finite degrees modulo a turn before trigonometry. Axis endpoints,
+fixed material and disconnected spectators remain exact; coordinates alone change.
+Affected all-conformer diagnostics and result-size limits still apply. Huge finite
+angles have the periodic meaning of the actual representable float. No-op rotation
+returns diagnostics without publication or altering original metadata. Rotation
+neither assigns stereo nor optimizes strained conformers.
+
+The five added neutral fragments use the existing seeded fixed-template builder:
+cyclopropyl C3H5, cyclobutyl C4H7, cyclopentyl C5H9, cyclohexyl C6H11 and methoxy CH3O
+as final attached groups. Internally validated transient placement ownership retains
+their actual generated H coordinates through automatic reconciliation in every
+conformer. Existing fragments retain their established reconciliation. Proper local
+matrices, mapping, graph and ordinary C/O/H chemistry are checked; there is no
+client-supplied bypass or runtime rigid-fit inference. Parent-site H still follows
+ordinary policy. Represented displacement error above 1e-8 Å produces a bounded,
+conformer-specific precision warning; it is a reporting threshold, not physical
+admission. Collapsed generated rows, nonfinite geometry or extreme internal bond
+lengths refuse. No ring fusion, arbitrary fragment library, new bond-length/angle
+or stereochemistry authoring, isotope/radical schema, rotamer search, chemistry
+assignment or comprehensive preparation is included. See the
+[scope dispositions](plans/issue-147-structure-editor-reliability.md#requirement-disposition).
