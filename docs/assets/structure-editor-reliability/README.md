@@ -321,3 +321,39 @@ The generated [35-step candidate recipe](c6-candidate1-recipe.json) requires a c
 committed candidate. The source-bound runner, strict summary auditor, version audit
 and production/license audit are retained as executable `.py.txt` evidence tools.
 Candidate and exact merged-master complete gates remain separate requirements.
+
+
+## C6 candidate 1: complete review, incomplete release gate
+
+All seven specialists independently PASS `bc241a8c`, with no consequential finding.
+The bounded [diagnostic receipt](c6-candidate1-diagnostic.json) and ZIP retain those
+neutral assessments, the complete comparison, original gate/source/log records,
+all retained named screenshots, self-contained failed-test trace and the separate
+actual final-version reader preflight stores/archives. The ZIP has 362 manifest
+entries, 9,948,174 bytes, SHA-256
+`9c4db61b1fefffaa46cff721c9359586b1124355099f3ebbd8bf5bd433da043c`.
+Duplicate temporary browser capture resources remain outside the repository;
+the complete originals are preserved. CRC and all internal hashes verify.
+
+Actual final 0.32.0→tagged 0.31.0→current preflight passes all three processes,
+12 projects/13 transitions, retained old generic-command history, both suffixes,
+corruption/stale controls and module/source identities (846 current/793 tagged).
+It resolves the reviewers' earlier evidence-only compatibility gap. It is not
+substituted for the mandatory complete gate's reader step.
+
+The full gate passes 2,165 Python/zero skips, 843 frontend/95 files, 14 supervisor,
+frozen installs, migration up/down/up, static checks and build. Browser execution
+stops at 70 passes/two preceding exclusions/one obsolete-copy failure; 469 cases
+are not run. This is not a complete qualification. Shared target capture correctly
+shows Select atoms / Unlock named entry before editing coordinates; the test still
+expects older movement-only words. UX accepts a semantic oracle reconciliation
+rather than changing valid product copy. The test retains every locked/hidden/
+canonical/revision assertion and adds empty-target no-controls/no-mutation checks.
+
+`c6-movement-guidance-focused.zip` records the corrected two-layout regression:
+two passes, no exclusions/failures/retries, 753 stable scoped code identities and
+lossless logs. Eight manifest entries, 104,407 bytes, SHA-256
+`ce51d8fb0ce90d0ddc41a39f53a12fbbe91d1698e11b6e90dfab2555fa5ddc0f`.
+The [fresh 35-step recipe](c6-candidate2-recipe.json) requires a clean corrective
+candidate. All seven final assessments must explicitly cover that new candidate;
+earlier approval is not carried forward automatically.

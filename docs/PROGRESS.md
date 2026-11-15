@@ -107,12 +107,21 @@ Known limitations: fixes are still being implemented and integrated. A synthetic
 461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
 evidence, not universal responsiveness/capacity qualification. Broader chemistry,
 preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. C5 is committed locally as `cf78dadb`. All five authoritative version sources
-now prepare 0.32.0; no remote v0.32.0 tag exists and remote master remains the
-approved base. A frozen actual-source new-state reader tool has passing diagnostic
-evidence, explicitly not final-version qualification. Next action: validate and
-commit release preparation, then run C6–C7 including actual final-version readers
-and all seven final reviews. No further routine approval is required. Hold application
+separate dispositions. Blockers: none. C5 is committed locally as `cf78dadb`; release preparation is `bc241a8c`.
+All seven specialists return whole-candidate PASS for that exact prepared source.
+The actual final 0.32.0→tagged 0.31.0→current reader preflight also passes, with
+source/version/module/log proof. It is separate from complete release qualification.
+The first full gate passes 2,165 Python/zero skips, 843 frontend/95 files, 14
+supervisor, migrations/static/build checks, then stops after 70 browser passes on
+an obsolete movement-message literal. The actual refusal remains correct. UX
+accepts semantic assertions, preserving named-entry/coordinate guidance and all
+hidden/canonical checks; added empty-target invariants strengthen the test.
+Focused desktop/mobile cases pass 2/zero exclusions. The optional scientific
+wording correction now identifies all distinct atom pairs, including bonded pairs.
+[Failed-run receipt](assets/structure-editor-reliability/c6-candidate1-diagnostic.json)
+retains complete logs/reports/failure trace and separate reader proof. No partial
+run is a complete gate. Next action: commit this test/documentation reconciliation,
+reconfirm all seven on the same new candidate, and run the fresh complete C6 gate. No further routine approval is required. Hold application
 pushes until final all-seven same-candidate review.
 
 ### Previous completed milestone — issue #145
@@ -3423,7 +3432,7 @@ host timing remains separate from portable correctness.
 
 ## Next action
 
-Commit qualified C5 locally, prepare consistent 0.32.0 metadata and complete the
-release gate, actual preceding-reader checks and final seven-role review before
-application push. Continue the authorized issue #147 delivery without another
+Commit the semantic movement-test/documentation reconciliation, reconfirm all
+seven specialists on its new candidate and pass a fresh complete release gate
+before application push. Continue the authorized issue #147 delivery without another
 routine approval. Preserve the qualified v0.31.0 tag and the owner's checkout.

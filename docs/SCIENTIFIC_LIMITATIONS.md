@@ -152,8 +152,8 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   movement but are reported and excluded from template-based mutation or
   hydrogen inference. Terminal residues are also reported because template
   capping and protonation may require specialist preparation.
-- Severe-clash warnings are a deterministic Cartesian screen for nonbonded
-  atom pairs closer than 0.4 angstrom. This intentionally catches obvious
+- Severe-clash warnings are a deterministic Cartesian screen for distinct
+  atom pairs closer than 0.4 angstrom, including bonded pairs. This intentionally catches obvious
   overlaps; it is not a van der Waals, symmetry, bonded-geometry, or
   force-field validation.
 - Chain rename changes authored/display labels while stable normalized identity
