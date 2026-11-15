@@ -1,0 +1,96 @@
+{
+  "current_version": "0.32.0",
+  "diagnostic": false,
+  "limitations": [
+    "Older writer retained current-authored seeds; it did not author new fragment operations.",
+    "Native archives omit portable Undo history; copied live stores exercise actual retained history."
+  ],
+  "phases": [
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "produce",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-147",
+        "--version",
+        "0.32.0",
+        "--data",
+        "/tmp/neistra147-c6-candidate2/editing-readers/current-produced",
+        "--exchange",
+        "/tmp/neistra147-c6-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6-candidate2/editing-readers/produce-0.32.0.json"
+      ],
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-147",
+      "log": "/tmp/neistra147-c6-candidate2/editing-readers/produce-0.32.0.log",
+      "log_sha256": "9ed0a3e4749131e7d196d701e1a4c0058df6fdd0e3d7399c1974d84aac0d07de",
+      "mode": "produce",
+      "returncode": 0,
+      "version": "0.32.0"
+    },
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "consume",
+        "--root",
+        "/tmp/neistra147-reader-0310",
+        "--version",
+        "0.31.0",
+        "--data",
+        "/tmp/neistra147-c6-candidate2/editing-readers/previous-retained",
+        "--exchange",
+        "/tmp/neistra147-c6-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6-candidate2/editing-readers/consume-0.31.0.json",
+        "--output",
+        "/tmp/neistra147-c6-candidate2/editing-readers/previous-reexports",
+        "--receipt",
+        "/tmp/neistra147-reader-0310-source.json"
+      ],
+      "cwd": "/tmp/neistra147-reader-0310",
+      "log": "/tmp/neistra147-c6-candidate2/editing-readers/consume-0.31.0.log",
+      "log_sha256": "0b0657eb5c2697adf2ee3d92b9e4a77bb33eb660f29ce9e957c21716d30e3800",
+      "mode": "consume",
+      "returncode": 0,
+      "version": "0.31.0"
+    },
+    {
+      "argv": [
+        "/datadisk/dev/neistra-worktrees/issue-147/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-147/tests/support/structure_editing_reader_qualification.py",
+        "child",
+        "read-reexports",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-147",
+        "--version",
+        "0.32.0",
+        "--data",
+        "/tmp/neistra147-c6-candidate2/editing-readers/current-reverse",
+        "--exchange",
+        "/tmp/neistra147-c6-candidate2/editing-readers/current-exchange",
+        "--evidence",
+        "/tmp/neistra147-c6-candidate2/editing-readers/read-reexports-0.32.0.json",
+        "--previous-output",
+        "/tmp/neistra147-c6-candidate2/editing-readers/previous-reexports"
+      ],
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-147",
+      "log": "/tmp/neistra147-c6-candidate2/editing-readers/read-reexports-0.32.0.log",
+      "log_sha256": "429ce055d473a5cd40bb199aa89ff3717a998416b5784e8c8c3a378af2e394bd",
+      "mode": "read-reexports",
+      "returncode": 0,
+      "version": "0.32.0"
+    }
+  ],
+  "previous_commit": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "previous_version": "0.31.0",
+  "release_qualification": true,
+  "scope": "new editing states; existing rich/connectivity and opaque-job families remain separate",
+  "wrapper_sha256": "534a22a5120b8887890d262340eb7263356bf68071024b1f02387bd2292f0acf"
+}

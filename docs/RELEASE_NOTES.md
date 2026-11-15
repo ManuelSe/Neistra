@@ -3,8 +3,9 @@
 ## 0.32.0 — Structure editor reliability (candidate)
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
-Implementation checkpoints pass locally; full final-version qualification, all seven
-final specialist assessments and remote release delivery remain in progress.
+The complete clean final-version candidate gate passes. All seven specialists PASS
+the reviewed runtime; final reporting reconfirmation and normal remote delivery,
+including a fresh exact-merged-master gate, remain required.
 
 - Immutable projection identity prevents delayed reads from populating a newer
   artifact's cache. Molecular state and original uploads remain authoritative.
@@ -26,10 +27,12 @@ versions are required for the additive qualified-read/action/receipt contracts.
 Private recovery metadata is not durable execution evidence. Keep complete managed
 backups; preceding-reader retention does not qualify older authoring behavior.
 
-Focused checks pass 843 frontend tests and 56 browser cases/four exact existing
-exclusions, with real desktop 100%/200% zoom, both themes, mobile, Undo/originals and
-rendered rotation evidence. Complete release checks and actual final 0.32.0↔0.31.0
-reader qualification are still required before publication.
+One complete clean 35-step candidate gate passes **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793
+actual preceding-source identities and lossless logs verify. Actual final
+0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions and suffixes,
+including preceding-writer retention/reexport, exact history and corruption/stale
+controls. Native qualification includes desktop 100%/200% zoom, both themes, mobile,
+Undo/originals and actual rendered rotation geometry. [Evidence](assets/structure-editor-reliability/README.md).
 
 **Deferred scope.** [#71](https://github.com/ManuelSe/Neistra/issues/71) receives only
 the five-fragment partial completion. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149)

@@ -357,3 +357,41 @@ lossless logs. Eight manifest entries, 104,407 bytes, SHA-256
 The [fresh 35-step recipe](c6-candidate2-recipe.json) requires a clean corrective
 candidate. All seven final assessments must explicitly cover that new candidate;
 earlier approval is not carried forward automatically.
+
+
+## C6 candidate 2 — complete clean final-version qualification
+
+Exact `5f9fbeb8229c801563180364322c04c01dd49692` passes all **35 fresh sequential commands**:
+**2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**; zero failures/flakes/retries/new exclusions. The
+[summary](c6-candidate2-summary.json), [full gate](c6-candidate2-gate.json),
+[recipe](c6-candidate2-recipe.json), [reader audit](c6-candidate2-reader-audit.json),
+complete browser inventory/cases and lossless `c6-candidate2-*.log.gz` records verify.
+All 846 current/793 actual preceding-tag source identities remain unchanged.
+All 75 preceding exclusion identities match exactly; none are introduced or renamed.
+
+Actual 0.32.0↔0.31.0 rich/connectivity readers cover both directions/suffixes and
+opaque jobs. The new three-process editing qualification covers 12 projects/13
+transitions, all five fragments in both attachment modes/multiple conformers,
+cut-preserving mutation and analytic torsion. The preceding writer retains and
+reexports current-authored states; it does not author the new fragment operations.
+Current readers also preserve old-authored generic history. Corruption, deep-oracle,
+allocator and stale no-publication controls pass with actual source/module proofs.
+
+All 632 native observations, gate records, tools and lossless
+logs are retained with CRC and every internal hash verified:
+
+- [c6-candidate2-qualified-01.zip](c6-candidate2-qualified-01.zip): 69,704,394 bytes, SHA-256 `3d586fb1a8d85f90aa34fd749aa2cf07b46d75b56b84ee21ed3356d89a414c3b`; 698 internal manifest entries.
+
+[Packaging receipt](c6-candidate2-packaging.json) enumerates every native file.
+The separate [captured-geometry archive](c6-captured-geometry-qualified.zip) and
+[receipt](c6-captured-geometry-packaging.json) retain 45 passes/one exact preceding
+exclusion across 46 cases, 846 unchanged source identities and all native/log files.
+That focused run is separate from this complete gate.
+
+[Neutral seven-role reconciliation](c6-candidate2-specialists.json) records explicit
+whole-candidate PASS for this runtime, corrected findings and limits. The final
+reporting/evidence-only delta still requires all-seven same-head reconfirmation;
+agent review is not human approval. The [primary review](c6-candidate2-review.md)
+records scope, provenance and remaining delivery stages. The committed
+[exact-master recipe](c7-master1-recipe.json) is a future fresh gate, not evidence of
+an executed merged-master run or a published release.

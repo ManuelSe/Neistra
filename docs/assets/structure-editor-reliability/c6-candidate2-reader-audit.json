@@ -1,0 +1,90 @@
+{
+  "preceding_tag": "v0.31.0",
+  "preceding_runtime": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "preceding_source_identities": 793,
+  "directions": {
+    "rich-forward-produce": {
+      "version": "0.32.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-147",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-rich-forward-produce.json",
+      "evidence_sha256": "98f1b35f6257abf079fbf1c903c5570ea096a61c1320e1a72ff91deb993b7fc8"
+    },
+    "rich-forward-read": {
+      "version": "0.31.0",
+      "implementation_root": "/tmp/neistra147-reader-0310",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-rich-forward-read.json",
+      "evidence_sha256": "61c0c5943117f7bc8a2eac989b55f0143c585193498d2ba8e503b18f43dca95d"
+    },
+    "rich-reverse-produce": {
+      "version": "0.31.0",
+      "implementation_root": "/tmp/neistra147-reader-0310",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-rich-reverse-produce.json",
+      "evidence_sha256": "6be2287c178ab3184b47bf16c08e85921d1a40f8aa492099837cb3d0e630d529"
+    },
+    "rich-reverse-read": {
+      "version": "0.32.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-147",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-rich-reverse-read.json",
+      "evidence_sha256": "a99d5e7252338e7fadc6892e82188ff58e6278755c78339e1affb618e5c88f5a"
+    },
+    "connectivity-forward-produce": {
+      "version": "0.32.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-147",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-connectivity-forward-produce.json",
+      "evidence_sha256": "ee1f26377945cd6872824fedaa7297700015d8d623e3e8c55e1b22d180485214"
+    },
+    "connectivity-forward-read": {
+      "version": "0.31.0",
+      "implementation_root": "/tmp/neistra147-reader-0310",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-connectivity-forward-read.json",
+      "evidence_sha256": "bd2af22e6d8ea9599d169d054d0fdc01dc69cfc23651c51920420703ca5ff757"
+    },
+    "connectivity-reverse-produce": {
+      "version": "0.31.0",
+      "implementation_root": "/tmp/neistra147-reader-0310",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-connectivity-reverse-produce.json",
+      "evidence_sha256": "d6d44efdc2c9f9307971b38c93eb06a4ea1d73f8296b8d16b374843877fab751"
+    },
+    "connectivity-reverse-read": {
+      "version": "0.32.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-147",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/structure-editor-reliability/c6-candidate2-connectivity-reverse-read.json",
+      "evidence_sha256": "40dc2cd88f6a891492d72412e08507cc82965ff7db936e25e98063aa5c5329bd"
+    }
+  },
+  "new_editing_states": {
+    "wrapper_sha256": "534a22a5120b8887890d262340eb7263356bf68071024b1f02387bd2292f0acf",
+    "actual_three_phases_verified": true,
+    "current_authored_projects": 12,
+    "retained_transitions": 13,
+    "preceding_writer_retains_and_reexports_current_authored_seeds": true,
+    "both_suffixes_verified": true,
+    "reverse_old_authored_generic_history": true,
+    "corruption_and_stale_guards_no_publication": true,
+    "summary_sha256": "51c98587a28e689e0e377755c2a7423b794f4f4881a1bc24748515d48c792385"
+  }
+}

@@ -2,127 +2,47 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C5 committed;
-C6 final 0.32.0 preparation and whole-candidate qualification underway**.
-C0 is committed, pushed and verified at `82d41588`; application pushes remain
-held for the final seven-role gate.
-The [feature contract](plans/issue-147-structure-editor-reliability.md) is
-**Authorized within agreed scope; not individually reviewed**. The owner accepts
-all twelve audit findings, five common fragments and preservation of deliberately
-cut backbone connectivity during side-chain mutation, with a specific warning.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C6 qualified locally;
+final reporting review and normal remote delivery remain**. The
+[feature contract](plans/issue-147-structure-editor-reliability.md) is **Authorized
+within agreed scope; not individually reviewed**. All planned decisions are settled.
+The owner's checkout and qualified v0.31.0 tag remain untouched.
 
-Completed: read-only audit/planning assessments from all seven specialists; early
-scope decisions; independent verification of issue #145's full delivery; fresh base
-`2b5400deef2ab09850a9f677050b33fa2775bded` and clean isolated branch
-`feat/issue-147-structure-editor-reliability`. D-158–D-161 append the implementation
-boundaries. No #147 repository changes preceded #145's completed delivery.
+Completed: all twelve audit findings, five common fragments, cut-preserving residue
+mutation, immutable artifact reads, bounded computation/publication, compact feedback,
+exact-target geometry setup, rendered torsion proposals and explicit Apply recovery.
+D-158–D-161 record scientific and ownership decisions. C0 is the only pushed commit;
+application publication waits for the final same-candidate reporting review.
 
-Verification: #145's final report, merged PRs #146/#148, exact-master gate/source/log
-identities, annotated tag, stable release, anonymous qualification download and
-issue closeout/cleanup verify. These and the earlier audit tests are baseline,
-not evidence of implemented #147 fixes. C0 documentation scope/links/naming,
-append-only decisions, unchanged application/global plan/version files and
-`git diff --check` pass; the planned remote branch is absent before creation.
+Verification: clean candidate `5f9fbeb8229c801563180364322c04c01dd49692` passes every command in one fresh
+35-step release gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, zero failures/flakes/retries/new exclusions.
+All 846 current and 793 actual tagged preceding-source identities, lossless logs,
+complete inventory and exact exclusion identities verify. Actual 0.32.0↔0.31.0
+rich/connectivity readers pass both directions and archive suffixes. New-state
+qualification passes three actual implementation processes, 12 projects/13 edits,
+cut mutation, all five fragments and analytic torsion, preceding-writer retention/
+reexport, generic old-authored history, corruption and stale no-publication controls.
+[Evidence and review](assets/structure-editor-reliability/README.md).
 
-C1 conditional immutable reads and explicit response identity pass 35 API tests;
-shared query/cancellation/provisional gating passes 772 frontend tests/89 suites,
-Ruff/mypy (204 sources), frontend lint/types/build, and all 80 focused native cases:
-77 pass/three unchanged exclusions, zero failures/flakes/retries/new exclusions.
-All 709 scoped code/lock identities, complete inventory and lossless log hashes
-verify; 196 native observations retain CRC/internal hashes. StrictMode's redundant
-initial HTTP dispatch is corrected with a microtask/signal boundary and negative
-control; the original one-read native assertion remains. [C1 evidence](assets/structure-editor-reliability/README.md).
+All seven specialist agents explicitly PASS the reviewed runtime candidate. Their
+consequential findings are corrected; agent review is not human approval. The final
+reporting/evidence-only delta requires explicit reconfirmation before application
+push. Earlier partial runs remain diagnostics and are not combined into this gate.
+The separate captured-geometry run passes 45/one exact preceding exclusion across
+46 cases, with 846 unchanged identities and complete native/log evidence.
 
-C2 integrates the exact frozen scientific delta and passes 223 Python tests,
-Ruff/default mypy204 and all 42 focused native cases: 40 pass/two exact existing
-exclusions, zero failures/flakes/retries/new exclusions. All 713 scoped identities,
-logs and 29 native outputs verify. Actual-validator qualification passes 19 workloads/
-57 calls and 24 predecessor-expression oracles; parent verifies 40 output hashes and
-66 current/baseline identities. PRO closure, nonfinite error boundaries and explicit-
-axis norm corrections have independent evidence. [C2 evidence/review](assets/structure-editor-reliability/README.md).
-Frontend checks are reused on unchanged sources. C2's passing local checkpoint is
-`b67ab74c`. C3 integrates bounded execution and ephemeral Apply outcomes, preserving
-C1's conditional reads. The exact integrated five-step run passes 177 Python/zero
-skips, Ruff/default mypy218 and all 42 focused native cases: 40 passes/two exact
-existing exclusions, zero failures/flakes/retries/new exclusions. All 731 scoped
-source identities, lossless logs and 29 retained native outputs verify.
-[C3 evidence/review](assets/structure-editor-reliability/README.md) also retains
-the real Chromium/proxy abort, exact project/artifact preservation, frozen author
-handoffs and bounded-outcome fault tests. Scoped architecture/performance review
-passes the backend with explicit limits; architecture/UX accept unknown-only
-manual continuation without replay. Scientific integration continues below;
-the compact frontend remains isolated until integrated native qualification.
-No application implementation is pushed or declared feature-complete; final
-all-seven gate remains.
+Compatible minor 0.32.0 updates all five sources. No dependency/migration change;
+head 0015, project/viewer/archive 2 and normalized/selection/component 1 remain.
+Known limitations: deterministic fragment/mutation geometry is unoptimized; receipts
+are process-local and private recovery metadata is not durable execution evidence.
+The historical 100k-atom probe's 200 ms publication/461 ms loop lag is observational,
+not current timing or universal capacity qualification. Broader chemistry/preparation,
+remaining #71, length/angle #149 and stereo #150 retain separate dispositions.
 
-C3 is committed locally as `34e1f3f9`. C4a's corrected torsion/API slice passes
-147 focused cases plus one additional distal-bond case, Ruff/default mypy218.
-Independent scientific reviews identify and resolve configured-cap admission,
-finite-angle periodicity and inactive-frame diagnostics; all 27 new regressions
-fail before repair. The complete corrected thirteen-path scientific/API candidate
-passes 585 overlapping cases with all 737 scoped identities/logs unchanged, and
-both scientific roles return scoped PASS. [C4a evidence/review](assets/structure-editor-reliability/README.md).
-C4a is committed locally as `14c792c5`. C4b integrates the exact qualified five-
-fragment implementation/tests. All 737 scoped source identities, 52 fixture hashes
-and Python/49 distribution metadata match the completed 585-case scientific gate,
-so its evidence is reused. [C4b bindings/review](assets/structure-editor-reliability/README.md).
-C4b is committed locally as `53fe2027`. C5 integrates the corrected compact
-frontend and typed workspace bridge. Its initial integrated web gate passes
-832 tests/95 files, lint, TypeScript and build with 752 stable scoped identities.
-Six new desktop workflows pass before an ambiguous empty-project test selector
-stops that diagnostic run; the selector is corrected, and an isolated recovery
-run passes desktop/mobile. These partial runs do not constitute C5 qualification.
-Independent architecture review reproduces unbounded acknowledged-record retention;
-its bounded correction is in progress. UI review requests workspace-bound empty-
-project recovery scrolling and real desktop zoom evidence. The visible warning
-row replaces the historical single-row preview size contract while preserving
-44 px actions, keyboard, hit-target and accessibility checks. A complete 60-case native run then passes 56/four exact preceding exclusions,
-but rendered review exposes an uncovered P1: the rotation editor uses preserve
-context while the viewer hardcodes automatic, dropping every rotation ghost.
-A new actual-native oracle fails before correction; shared-context repair and
-complete rerun remain required. Native qualification and final whole-feature
-review remain pending.
-
-The shared action-derived context fixes the dropped rotation ghost without
-changing H policy. The actual native negative fails before repair; desktop/mobile
-positive cases verify moving coordinates, nonpickable drawn geometry, cyan pixels,
-Cancel removal and unchanged canonical/history before Apply. The corrected complete
-C5 run passes all 60 cases: 56/four exact preceding exclusions, zero failures,
-flakes/retries/new exclusions, 752 unchanged source identities and 171 retained
-native outputs. Web lint, 843 tests/95 files and TypeScript/build pass on the same
-sources. UI returns scoped PASS for the exact final 42-path candidate.
-[C5 checkpoint and evidence](assets/structure-editor-reliability/c5-checkpoint.json)
-retain every native output with CRC/hashes and distinguish the uncovered earlier
-green run. No application push or final whole-feature approval is claimed.
-
-Planned checkpoints: immutable projection identity; retained topology/template
-admission/bounded diagnostics; bounded backend execution and atomic publication;
-qualified torsion/five fragments; compact feedback and captured geometry workflows;
-final-version qualification/all-seven review; normal merge/exact-master release and
-verified closeout. Provisional impact: compatible stable minor **0.32.0**, with no
-anticipated portable schema, dependency or migration change.
-
-Known limitations: fixes are still being implemented and integrated. A synthetic
-100,000-atom API probe observes approximately 200 ms synchronous publication and
-461 ms maximum loop heartbeat lag under concurrent test load; this is diagnostic
-evidence, not universal responsiveness/capacity qualification. Broader chemistry,
-preparation, geometry/stereo authoring and remaining #71 work retain explicit
-separate dispositions. Blockers: none. C5 is committed locally as `cf78dadb`; release preparation is `bc241a8c`.
-All seven specialists return whole-candidate PASS for that exact prepared source.
-The actual final 0.32.0→tagged 0.31.0→current reader preflight also passes, with
-source/version/module/log proof. It is separate from complete release qualification.
-The first full gate passes 2,165 Python/zero skips, 843 frontend/95 files, 14
-supervisor, migrations/static/build checks, then stops after 70 browser passes on
-an obsolete movement-message literal. The actual refusal remains correct. UX
-accepts semantic assertions, preserving named-entry/coordinate guidance and all
-hidden/canonical checks; added empty-target invariants strengthen the test.
-Focused desktop/mobile cases pass 2/zero exclusions. The optional scientific
-wording correction now identifies all distinct atom pairs, including bonded pairs.
-[Failed-run receipt](assets/structure-editor-reliability/c6-candidate1-diagnostic.json)
-retains complete logs/reports/failure trace and separate reader proof. No partial
-run is a complete gate. Next action: commit this test/documentation reconciliation,
-reconfirm all seven on the same new candidate, and run the fresh complete C6 gate. No further routine approval is required. Hold application
-pushes until final all-seven same-candidate review.
+Blockers: none. Next action: obtain all-seven explicit reporting-delta reconfirmations,
+then normal PR/review/merge, a fresh complete gate on the exact merged commit,
+annotated release, anonymous asset verification, closeout and owned cleanup.
+No additional routine approval is required; release completion is not yet claimed.
 
 ### Previous completed milestone — issue #145
 
@@ -3426,13 +3346,13 @@ Results:
 
 ## Blockers
 
-None for the accepted issue #147 scope. Final-version/full release qualification,
-all seven final assessments and remote delivery remain required. Strict reference-
-host timing remains separate from portable correctness.
+None for the accepted issue #147 scope. Final reporting reconfirmation, normal
+remote delivery and fresh exact-merged-master qualification remain required.
+Strict reference-host timing remains separate from portable correctness.
 
 ## Next action
 
-Commit the semantic movement-test/documentation reconciliation, reconfirm all
-seven specialists on its new candidate and pass a fresh complete release gate
-before application push. Continue the authorized issue #147 delivery without another
-routine approval. Preserve the qualified v0.31.0 tag and the owner's checkout.
+Reconfirm all seven specialists on the evidence-only reporting candidate, then push,
+open and normally merge its PR. Qualify the exact merged commit freshly before tag,
+release, anonymous evidence verification, issue replies and owned cleanup. Continue
+without another routine approval; preserve the owner's checkout and v0.31.0 tag.
