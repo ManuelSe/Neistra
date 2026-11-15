@@ -3,6 +3,8 @@ import type { PlacementAction } from "../editing/placement";
 import { create } from "zustand";
 
 export interface PlacementDraft {
+  id: string;
+  submittedAttemptId?: string;
   context: string;
   action: PlacementAction;
   result?: ModelPreview;
@@ -10,6 +12,8 @@ export interface PlacementDraft {
 }
 
 interface EditingState {
+  rotationDraft: { context: string; open: boolean; movingEndpointId: number | null; angle: string } | null;
+  setRotationDraft: (draft: EditingState["rotationDraft"]) => void;
   launcherFocusRequested: boolean;
   setLauncherFocusRequested: (requested: boolean) => void;
   inspectingPlacement: boolean;
@@ -38,6 +42,7 @@ interface EditingState {
 }
 
 export const useEditingStore = create<EditingState>((set) => ({
+  rotationDraft: null, setRotationDraft: rotationDraft => set({ rotationDraft, placement: null }),
   launcherFocusRequested: false, setLauncherFocusRequested: launcherFocusRequested => set({ launcherFocusRequested }),
   inspectingPlacement: false, setInspectingPlacement: inspectingPlacement => set({ inspectingPlacement }),
   atomDraft: { element: "C", charge: "0", unknown: false },
@@ -48,8 +53,8 @@ export const useEditingStore = create<EditingState>((set) => ({
   focusNewMolecule: null, setFocusNewMolecule: focusNewMolecule => set({ focusNewMolecule }),
   projectId: null, generation: 0, open: false, pending: false, section: "atoms", focusRequested: false,
   setFocusRequested: focusRequested => set({ focusRequested }),
-  setSection: section => set({ section, placement: null }),
-  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, previewBondChanges: false, placement: null, inspectingPlacement: false, focusNewMolecule: null, atomDraft: { element: "C", charge: "0", unknown: false } }),
+  setSection: section => set({ section, placement: null, rotationDraft: null }),
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, previewBondChanges: false, placement: null, rotationDraft: null, inspectingPlacement: false, focusNewMolecule: null, atomDraft: { element: "C", charge: "0", unknown: false } }),
   setOpen: open => set(state => ({ open, placement: open ? state.placement : null })),
   setPending: pending => set({ pending }),
 }));

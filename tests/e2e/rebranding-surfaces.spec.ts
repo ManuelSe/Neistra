@@ -264,7 +264,8 @@ test("keeps ambiguous classification warnings and legacy user copy visible", asy
   const warning = "MolWeave diagnostic fixture: source facts are insufficient for a narrower classification.";
   // Deliberately synthetic UI-warning response, not a claim about ethanol
   // chemistry. Molecular atoms/bonds and the real server state remain intact.
-  await page.route(`**/api/v1/projects/${project.id}/entries/*/structure`, async route => {
+  await page.route(url => url.pathname.startsWith(`/api/v1/projects/${project.id}/entries/`)
+    && /\/entries\/[^/]+\/structure$/.test(url.pathname), async route => {
     const response = await route.fetch();
     const data = await response.json() as StructureProjection;
     const component = data.hierarchy.components[0];

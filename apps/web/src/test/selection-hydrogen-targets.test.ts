@@ -13,7 +13,7 @@ function bond(id: number, a: number, b: number, options: Partial<MolecularBond> 
 }
 function projection(id: string, atoms: MolecularAtom[], bonds: MolecularBond[]): StructureProjection {
   const structure = { ...proteinStructure(), title: id, atoms, bonds, chains: [], residues: [] };
-  return { entry_id: id, structure, hierarchy: componentHierarchy(structure), viewer: { format: "mmcif", data: "preserved viewer source" } };
+  return { entry_id: id, artifact_id: `current-${id}`, structure, hierarchy: componentHierarchy(structure), viewer: { format: "mmcif", data: "preserved viewer source" } };
 }
 const refs = (entry: string, ...ids: number[]): AtomReference[] => ids.map(atom_id => ({ structure_id: entry, atom_id }));
 function seed(atoms: AtomReference[]): Selection {

@@ -30,6 +30,10 @@ class Settings:
     )
     job_worker_poll_seconds: float = 0.1
     job_worker_health_port: int | None = None
+    edit_preview_timeout_seconds: float = 30.0
+    edit_compute_timeout_seconds: float = 300.0
+    edit_worker_max_rss_bytes: int = 4 * 1024**3
+    edit_cleanup_grace_seconds: float = 2.0
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -56,6 +60,10 @@ class Settings:
             ),
             job_worker_poll_seconds=positive_float("JOB_WORKER_POLL_SECONDS", 0.1),
             job_worker_health_port=health_port(),
+            edit_preview_timeout_seconds=positive_float("EDIT_PREVIEW_TIMEOUT_SECONDS", 30),
+            edit_compute_timeout_seconds=positive_float("EDIT_COMPUTE_TIMEOUT_SECONDS", 300),
+            edit_worker_max_rss_bytes=positive_int("EDIT_WORKER_MAX_RSS_BYTES", 4 * 1024**3),
+            edit_cleanup_grace_seconds=positive_float("EDIT_CLEANUP_GRACE_SECONDS", 2),
         )
 
 

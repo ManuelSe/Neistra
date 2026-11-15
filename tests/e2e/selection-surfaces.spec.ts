@@ -138,7 +138,7 @@ test("adds and removes saved surfaces from the compact palette with reload and u
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const palette = page.getByRole("dialog", { name: "Style selection" });
   let structureGets = 0;
-  page.on("request", (req) => { if (req.method() === "GET" && /\/entries\/[^/]+\/structure(?:\?|$)/.test(req.url())) structureGets++; });
+  page.on("request", (req) => { if (req.method() === "GET" && /\/entries\/[^/]+\/structure(?:\?|$)/.test(new URL(req.url()).pathname)) structureGets++; });
   const selectionBeforeCreation = await page.locator(".viewer-status").textContent();
   await palette.getByRole("button", { name: "Create surface", exact: true }).click();
   const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });

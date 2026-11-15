@@ -1,5 +1,46 @@
 # Neistra Release Notes
 
+## 0.32.0 — Structure editor reliability (candidate)
+
+Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
+The complete clean final-version candidate gate passes. All seven specialists PASS
+the reviewed runtime; final reporting reconfirmation and normal remote delivery,
+including a fresh exact-merged-master gate, remain required.
+
+- Immutable projection identity prevents delayed reads from populating a newer
+  artifact's cache. Molecular state and original uploads remain authoritative.
+- Mutation preserves authored retained cuts/exclusions and rejects incompatible
+  backbone elements atomically. Bounded diagnostics cover all affected conformers;
+  protein overlap validation avoids the dense quadratic allocation.
+- Expensive edits use bounded isolated child computation and fresh atomic
+  publication. Apply ownership, visible errors/status and explicit unknown-outcome
+  recovery survive panel closure, remounts and project visits without blind replay.
+- Compact target chemistry, warnings/details and explicit whole-residue recovery
+  support successive edits. Geometry opens exact-selection setup; ligand torsion
+  uses per-conformer axes, fixed endpoints and a visible nonpickable proposal.
+- Cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl and methoxy join the fixed fragment
+  controls. Their generated geometry remains unoptimized and carries diagnostics.
+
+**Data and limits.** No dependency or migration change; head 0015, project/viewer/
+archive 2 and normalized/selection/component 1 remain. Matching current client/API
+versions are required for the additive qualified-read/action/receipt contracts.
+Private recovery metadata is not durable execution evidence. Keep complete managed
+backups; preceding-reader retention does not qualify older authoring behavior.
+
+One complete clean 35-step candidate gate passes **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793
+actual preceding-source identities and lossless logs verify. Actual final
+0.32.0↔0.31.0 rich/connectivity/new-state readers pass both directions and suffixes,
+including preceding-writer retention/reexport, exact history and corruption/stale
+controls. Native qualification includes desktop 100%/200% zoom, both themes, mobile,
+Undo/originals and actual rendered rotation geometry. [Evidence](assets/structure-editor-reliability/README.md).
+
+**Deferred scope.** [#71](https://github.com/ManuelSe/Neistra/issues/71) receives only
+the five-fragment partial completion. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149)
+and intentional stereochemistry authoring [#150](https://github.com/ManuelSe/Neistra/issues/150),
+ring fusion/custom catalogues, isotope/radical schema, chemistry assignment, rotamer
+search and comprehensive preparation remain separate. No broad modeling completeness
+or preparation claim is made by these fixes.
+
 ## 0.31.0 — Surface selection and prominent hydrogen visibility
 
 Released from exact qualified master `cc54cd324c5aebe86024c1b85165715691ddcbb3`

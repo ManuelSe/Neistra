@@ -1,0 +1,73 @@
+{
+  "stage": "C3 integrated bounded computation, atomic publication and ephemeral Apply outcomes",
+  "full_release_gate": false,
+  "base_commit": "b67ab74c0ca8a32282cbe3193766b6ed0481a2e0",
+  "python_tests": 177,
+  "python_skips": 0,
+  "ruff": "PASS",
+  "default_mypy_sources": 218,
+  "frontend_qualification_reused": "C1/C2 lint/types/772tests/build on unchanged frontend sources",
+  "native": {
+    "inventory": 42,
+    "passed": 40,
+    "exact_existing_exclusions": 2,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "new_exclusions": 0,
+    "exclusions_match_qualified_baseline": true
+  },
+  "source_identities": 731,
+  "source_unchanged": true,
+  "source_scope": "Scoped code/lock inventory; not complete release input inventory",
+  "logs": {
+    "python": {
+      "file": "c3-python.log.gz",
+      "lossless_sha256": "45ab58a6d3a8a25cceb6b7a9cbe46c82e3c1efc93fcb3a6822c990d8b0d1dffc"
+    },
+    "ruff": {
+      "file": "c3-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "mypy": {
+      "file": "c3-mypy.log.gz",
+      "lossless_sha256": "7a43b17c0515eb1dbf58707b957b8ce209fa17c9d05ad50e445b65e47019fa96"
+    },
+    "inventory": {
+      "file": "c3-inventory.log.gz",
+      "lossless_sha256": "cbb4bfdf2b066a2933428a6a45d067b9fcee6dbeee72e461bbe5659d1cb01bb3"
+    },
+    "browser": {
+      "file": "c3-browser.log.gz",
+      "lossless_sha256": "2901b4350460191706e2ab21127857563a00d990ef969eeadde753c4bee58352"
+    }
+  },
+  "runner_sha256": "1fc36bd0bfeb14385d823c841eb1be26129eb1fcdecb03f4cec14d77c356970b",
+  "native_archive": {
+    "file": "c3-native-observations.zip",
+    "bytes": 4235182,
+    "sha256": "0ecd8c47339748cd78699445e8e31672d9d70589e6d730914cdb0385dc2a0297",
+    "files": 29,
+    "crc_all_internal_hashes_valid": true
+  },
+  "c3b_author_handoff": {
+    "file": "c3b-outcome-handoff.zip",
+    "bytes": 47873,
+    "sha256": "bd8e57a2a0b7ee0204c79b45dbe64f3a5c72c013bb68f3a2542e4bcaeffb1323",
+    "files": 8,
+    "crc_all_internal_hashes_valid": true
+  },
+  "early_specialist_assessments": {
+    "architecture": "PASS frozen C3a and C3b backend scopes; final integrated feature review pending",
+    "performance": "PASS early C3 scope with large-entry scheduling limitation; profile v1 belongs to C3a, not exact-current C3b",
+    "ux": "PASS unknown-only explicit acknowledgment method; frontend implementation approval pending"
+  },
+  "limits": [
+    "No complete feature, release, strict-host or final same-candidate seven-role approval",
+    "Large edits can briefly delay unrelated scheduling; off-loop threads do not guarantee no event-loop stalls",
+    "Parent/aggregate memory and arbitrary-size responsiveness unqualified",
+    "Ephemeral missing/restarted/expired/different-process receipt is unknown; no durable exactly-once claim",
+    "Filesystem cleanup failure can leave private staging residue without erasing commit proof",
+    "C4/C5 client workflow integration and final candidate/exact-master qualifications remain pending"
+  ]
+}

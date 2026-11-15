@@ -1,0 +1,50 @@
+{
+  "stage": "C4a independently passing torsion core and compact API checkpoint",
+  "full_release_gate": false,
+  "base_commit": "34e1f3f9943522a99e3ed347635044113160ddba",
+  "python_tests": 100,
+  "python_skips": 0,
+  "ruff": "PASS",
+  "default_mypy_sources": 218,
+  "source_scope": "Seven changed scientific/API/test paths before and after; unchanged committed C3 baseline is separate",
+  "source_unchanged": true,
+  "logs": {
+    "python": {
+      "file": "c4a-python.log.gz",
+      "lossless_sha256": "cf74b2e98a6bbd3ed1937836894d03dcdcd192bd79cda8293cb0791e86ee4480"
+    },
+    "ruff": {
+      "file": "c4a-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "mypy": {
+      "file": "c4a-mypy.log.gz",
+      "lossless_sha256": "7a43b17c0515eb1dbf58707b957b8ce209fa17c9d05ad50e445b65e47019fa96"
+    }
+  },
+  "artifact": {
+    "file": "c4a-source-and-api-evidence.zip",
+    "bytes": 49995,
+    "sha256": "6da24c2b1b87abc83b98e41b79c646bd9cddef40cb18be0e3cc1b0ddb1b19c33",
+    "files": 12,
+    "crc_and_all_internal_hashes_valid": true
+  },
+  "author_api_tests": {
+    "count": 524,
+    "new_api_cases": 14,
+    "scope": "Full isolated C4domain+API candidate, not an additional integrated C4a count"
+  },
+  "core_and_api": [
+    "Each conformer rotates about its own fixed-to-selected-side axis with both endpoints exact",
+    "Old ligand graph/sanitization/size admission and side-dependent legacy sign retained",
+    "Coordinate-only action preserves stereo/H/protection/annotations and disconnected spectators",
+    "Qualified preview counts include all graph atoms independent of H visibility",
+    "Zero/full/exact unchanged result does not allocate artifact/history/floors and returns no_change receipt"
+  ],
+  "limitations": [
+    "No new native compact rotation control is integrated at this checkpoint; C5 owns that workflow and native acceptance",
+    "Five-fragment integration remains C4b",
+    "Early full-domain scientific review is in progress; no final same-candidate seven-role approval",
+    "Complete candidate/exact-master gates and actual preceding-reader qualification remain pending"
+  ]
+}

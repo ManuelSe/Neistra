@@ -82,6 +82,53 @@ The worker is required only for executing queued jobs. The project, import,
 editing, export, and API workflows remain usable when it is stopped; queued
 jobs stay queued.
 
+### Structure editing execution
+
+Model/selection editing captures an immutable input, runs scientific computation
+in a spawned child and publishes through a fresh atomic project transaction.
+Each API process admits one active edit and one bounded preview waiter. A busy
+request returns `429 editing_busy` with `Retry-After: 1`; only previews may use
+bounded automatic retry. Never automatically replay an Apply request.
+
+| Setting | Default | Scope |
+| --- | --- | --- |
+| `NEISTRA_EDIT_PREVIEW_TIMEOUT_SECONDS` | 30 | Child computation deadline, including startup |
+| `NEISTRA_EDIT_COMPUTE_TIMEOUT_SECONDS` | 300 | Apply child computation deadline, including startup |
+| `NEISTRA_EDIT_WORKER_MAX_RSS_BYTES` | 4294967296 | Sampled child process-tree resident-memory budget |
+| `NEISTRA_EDIT_CLEANUP_GRACE_SECONDS` | 2 | Graceful termination before kill/reap |
+
+Settings require positive values and accept the established same-suffix legacy
+aliases. The RSS budget does not qualify parent/aggregate memory or arbitrary-size
+responsiveness. Large edits can briefly delay unrelated API scheduling during
+parsing/publication; moving work into a thread does not guarantee an unstalled
+event loop. Preserve the shared synchronous lock/check/commit boundary unless all
+project writers receive a separately verified reservation contract.
+
+Apply callers may send `X-Neistra-Edit-Attempt: <UUID>` and inspect
+`GET /api/v1/projects/{project_id}/edit-attempts/{attempt_id}` after a lost response.
+The process-local registry retains small identities/outcomes, with 128 records,
+one fingerprint slot, no fingerprint queue and a one-hour completed-record TTL;
+active/finishing records cannot expire or be evicted. Reusing a retained token
+never executes it again. Missing/restarted/expired/different-process evidence means
+unknown, not unapplied. This is ephemeral recovery, without a durable job or schema
+migration. Failed filesystem cleanup can leave private staging residue while a
+confirmed saved receipt remains saved; do not infer rollback from an HTTP error.
+
+### Structure editor release qualification (0.32.0 candidate)
+
+The issue #147 final gate adds actual preceding v0.31.0 retention for new fragment,
+cut-preserving mutation and per-conformer torsion states. Run
+`tests/support/structure_editing_reader_qualification.py run` with explicit current/
+preceding roots, the verified tagged-source receipt, the owned venv Python and a
+fresh external workspace. The current source must declare 0.32.0 consistently;
+without a diagnostic flag the tool fails closed on another version. It runs three
+separate actual-source processes, preserves raw command/history/allocator/original
+proof, exercises both archive suffixes and refusal controls, and records module
+paths/hashes. The old writer reexports current-authored new-state seeds; it does
+not author new fragment operations. Rich/connectivity/opaque-job checks remain
+separate required families. Run both candidate and exact merged-master gates before
+publication. The feature plan and generated recipe retain exact command vectors.
+
 ## Validation
 
 The complete release gate is:

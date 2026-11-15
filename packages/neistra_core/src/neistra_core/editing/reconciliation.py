@@ -101,6 +101,7 @@ def reconcile_hydrogens(
     inferred_deletion: bool = False,
     policy: Literal["reconcile_if_possible", "automatic"] = "reconcile_if_possible",
     suppressed_targets: set[int] | None = None,
+    qualified_fragment_atom_ids: frozenset[int] = frozenset(),
 ) -> ReconciliationResult:
     """Compute complete per-site conformer changes before materializing any change."""
     find_centres: Any = Chem.FindMolChiralCenters
@@ -237,6 +238,24 @@ def reconcile_hydrogens(
                         "protected_hydrogen",
                         "Charged, ambiguous, nonterminal or stereo-significant H is protected.",
                     )
+            # Only the direct editor's verified five-template construction can
+            # supply these fresh IDs.  Preserve its complete C/O geometry;
+            # original parent sites and every other editing path still reconcile.
+            if (
+                target in qualified_fragment_atom_ids
+                and target not in original.atoms
+                and parent.element in {"C", "O"}
+                and parent.formal_charge == 0
+                and set(h_ids) <= qualified_fragment_atom_ids
+                and all(
+                    b.order in {1.0, 1.5, 2.0, 3.0} and b.aromatic == (b.order == 1.5)
+                    for _, b in current.adjacency[target]
+                )
+                and sum(b.order or 0 for _, b in current.adjacency[target])
+                == {"C": 4.0, "O": 2.0}[parent.element]
+            ):
+                sites.append(ReconciliationSite(atom_id=target, status="unchanged"))
+                continue
             amount, shape = builder.automatic_configuration(
                 target, bounded_sulfur=policy == "automatic"
             )

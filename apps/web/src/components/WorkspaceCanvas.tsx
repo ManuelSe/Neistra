@@ -2,7 +2,7 @@ import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
-import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
@@ -25,8 +25,11 @@ import { StructureViewer } from "./StructureViewer";
 import { Brand } from "./Brand";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
-interface WorkspaceCanvasProps {
-  onEdit?: ApplySelectionEdit;
+import { EditAttemptStatus } from "./EditAttemptStatus";
+import { editAttemptBlocksWrites } from "../editing/attempt";
+import type { MolecularEditingBindings, MolecularEditingPorts } from "../editing/ports";
+
+interface WorkspaceCanvasProps extends MolecularEditingPorts {
   project: Project | undefined;
   theme: Theme;
   selection: Selection;
@@ -98,8 +101,11 @@ export function WorkspaceCanvas({
   onHydrogenAppearance,
   selectionColorMode,
   onSelectionColorModeChange,
-  onEdit,
+  onEdit, editAttempt, onCheckEdit, onReviewEdit, onContinueEdit, editReviewCurrent, onGeometry, onRecoverResidue,
 }: WorkspaceCanvasProps) {
+  const editingPorts: MolecularEditingBindings = {
+    onEdit, editAttempt, onCheckEdit, onReviewEdit, onContinueEdit, editReviewCurrent, onGeometry, onRecoverResidue,
+  };
   if (loading) {
     return (
       <main className="workspace-canvas" aria-busy="true">
@@ -126,7 +132,7 @@ export function WorkspaceCanvas({
         </div>
       ) : project.entries.length === 0 ||
         !project.entries.some((entry) => entry.current_artifact_id) ? (
-        <div className="project-stage">
+        <div className={`project-stage${editAttempt && editAttemptBlocksWrites(editAttempt) ? " has-edit-recovery" : ""}`}>
           <Brand className="stage-brand" />
           <h1>{project.name}</h1>
           <p>
@@ -136,15 +142,18 @@ export function WorkspaceCanvas({
           <div className={`checkpoint-state ${project.has_uncheckpointed_changes ? "dirty" : ""}`}>
             {project.has_uncheckpointed_changes ? "Changes stored locally" : "Checkpoint saved"}
           </div>
-          {onNewMolecule ? <button type="button" className="primary-button" onClick={onNewMolecule}>New molecule</button> : null}
-          <button type="button" className="secondary-button stage-import" onClick={onImport}>
+          {editAttempt && editAttemptBlocksWrites(editAttempt) ? <div className="empty-edit-recovery" aria-label="Molecular edit recovery">
+            <EditAttemptStatus attempt={editAttempt} onCheck={onCheckEdit} onReview={onReviewEdit} onContinue={onContinueEdit} reviewCurrent={editReviewCurrent} />
+          </div> : null}
+          {onNewMolecule ? <button type="button" className="primary-button" disabled={busy} onClick={onNewMolecule}>New molecule</button> : null}
+          <button type="button" className="secondary-button stage-import" disabled={busy} onClick={onImport}>
             <Upload size={16} /> Import structures
           </button>
         </div>
       ) : (
         <StructureViewer
           cameraPresentation={cameraPresentation}
-          onEdit={onEdit}
+          {...editingPorts}
           key={project.id}
           project={project}
           theme={theme}

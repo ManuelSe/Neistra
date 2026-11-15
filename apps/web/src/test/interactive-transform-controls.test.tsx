@@ -20,7 +20,7 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
     refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn() };
   function Harness() {
     const { workflow } = useMovementSession(ports);
-    return <><button type="button" onClick={workflow.start}>Move selection</button>
+    return <><button type="button" onClick={() => workflow.start()}>Move selection</button>
       {workflow.state.capture ? <><MovementOverlay movement={workflow} zoom={zoom}
         view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /><MovementControls movement={workflow} zoom={zoom} unavailableReason={null} view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /></> : null}</>;
   }
@@ -64,7 +64,7 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
     return <>
       {dialog ? <div role="dialog" aria-label="Inspector panel"
         onKeyDown={event => { if (event.key === "Escape") setDialog(false); }}>
-        <button type="button" onClick={workflow.start}>Move selection</button>
+        <button type="button" onClick={() => workflow.start()}>Move selection</button>
       </div> : null}
       {workflow.state.capture ? <><MovementOverlay movement={workflow} zoom={vi.fn()}
         view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /><MovementControls movement={workflow} zoom={vi.fn()} unavailableReason={null} view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /></> : null}
@@ -98,7 +98,7 @@ it("retains one capture and pose across scoped Space and explicit view-toggle ow
   function Harness() {
     const { workflow } = useMovementSession(ports);
     const view = () => ({ camera: { mode: "perspective" as const, position: [0, 0, 10] as [number, number, number], target: [0, 0, 0] as [number, number, number], up: [0, 1, 0] as [number, number, number], radius: 5 }, height: 400, fov: Math.PI / 4 });
-    return <><button onClick={workflow.start}>Launch</button><input aria-label="Other input" />
+    return <><button onClick={() => workflow.start()}>Launch</button><input aria-label="Other input" />
       <output data-testid="ownership">{workflow.cameraNavigation ? "camera" : "transform"}</output>
       <output data-testid="pose">{JSON.stringify(workflow.state.pose)}</output>
       {workflow.state.capture ? <><MovementOverlay movement={workflow} view={view} zoom={vi.fn()} />

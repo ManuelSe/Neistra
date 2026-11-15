@@ -2,6 +2,50 @@
 
 ## Current milestone
 
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1–C6 qualified locally;
+final reporting review and normal remote delivery remain**. The
+[feature contract](plans/issue-147-structure-editor-reliability.md) is **Authorized
+within agreed scope; not individually reviewed**. All planned decisions are settled.
+The owner's checkout and qualified v0.31.0 tag remain untouched.
+
+Completed: all twelve audit findings, five common fragments, cut-preserving residue
+mutation, immutable artifact reads, bounded computation/publication, compact feedback,
+exact-target geometry setup, rendered torsion proposals and explicit Apply recovery.
+D-158–D-161 record scientific and ownership decisions. C0 is the only pushed commit;
+application publication waits for the final same-candidate reporting review.
+
+Verification: clean candidate `5f9fbeb8229c801563180364322c04c01dd49692` passes every command in one fresh
+35-step release gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, zero failures/flakes/retries/new exclusions.
+All 846 current and 793 actual tagged preceding-source identities, lossless logs,
+complete inventory and exact exclusion identities verify. Actual 0.32.0↔0.31.0
+rich/connectivity readers pass both directions and archive suffixes. New-state
+qualification passes three actual implementation processes, 12 projects/13 edits,
+cut mutation, all five fragments and analytic torsion, preceding-writer retention/
+reexport, generic old-authored history, corruption and stale no-publication controls.
+[Evidence and review](assets/structure-editor-reliability/README.md).
+
+All seven specialist agents explicitly PASS the reviewed runtime candidate. Their
+consequential findings are corrected; agent review is not human approval. The final
+reporting/evidence-only delta requires explicit reconfirmation before application
+push. Earlier partial runs remain diagnostics and are not combined into this gate.
+The separate captured-geometry run passes 45/one exact preceding exclusion across
+46 cases, with 846 unchanged identities and complete native/log evidence.
+
+Compatible minor 0.32.0 updates all five sources. No dependency/migration change;
+head 0015, project/viewer/archive 2 and normalized/selection/component 1 remain.
+Known limitations: deterministic fragment/mutation geometry is unoptimized; receipts
+are process-local and private recovery metadata is not durable execution evidence.
+The historical 100k-atom probe's 200 ms publication/461 ms loop lag is observational,
+not current timing or universal capacity qualification. Broader chemistry/preparation,
+remaining #71, length/angle #149 and stereo #150 retain separate dispositions.
+
+Blockers: none. Next action: obtain all-seven explicit reporting-delta reconfirmations,
+then normal PR/review/merge, a fresh complete gate on the exact merged commit,
+annotated release, anonymous asset verification, closeout and owned cleanup.
+No additional routine approval is required; release completion is not yet claimed.
+
+### Previous completed milestone — issue #145
+
 Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **implemented,
 verified and released as stable [v0.31.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0)**
 through [PR #146](https://github.com/ManuelSe/Neistra/pull/146). Exact released
@@ -3302,13 +3346,13 @@ Results:
 
 ## Blockers
 
-None for implemented and published issue #145 scope. Terminal documentation
-integration and branch-cleanup verification are retained in the
-[issue reply](https://github.com/ManuelSe/Neistra/issues/145#issuecomment-6887471495).
+None for the accepted issue #147 scope. Final reporting reconfirmation, normal
+remote delivery and fresh exact-merged-master qualification remain required.
 Strict reference-host timing remains separate from portable correctness.
 
 ## Next action
 
-Use the linked issue reply for terminal receipt/cleanup readbacks. Subsequent
-product work requires its own approved plan. Preserve the qualified v0.31.0
-runtime tag when integrating documentation.
+Reconfirm all seven specialists on the evidence-only reporting candidate, then push,
+open and normally merge its PR. Qualify the exact merged commit freshly before tag,
+release, anonymous evidence verification, issue replies and owned cleanup. Continue
+without another routine approval; preserve the owner's checkout and v0.31.0 tag.

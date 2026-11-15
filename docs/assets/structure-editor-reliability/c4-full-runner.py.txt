@@ -1,0 +1,85 @@
+from __future__ import annotations
+
+import gzip
+import hashlib
+import json
+import os
+import platform
+import subprocess
+import time
+from datetime import UTC, datetime
+from pathlib import Path
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-147-fragments')
+OUT = Path('/tmp/neistra147-c4-corrected-full-v1')
+OUT.mkdir(exist_ok=True)
+FILES = [
+    'tests/e2e/molecular-editing.spec.ts',
+    'tests/e2e/protein-editing.spec.ts',
+    'tests/e2e/direct-molecular-modeling.spec.ts',
+    'tests/e2e/bond-hydrogen-reconciliation.spec.ts',
+]
+
+
+def sources() -> dict[str, str]:
+    paths = subprocess.check_output(
+        ['git', 'ls-files', '-z', '--cached', '--others', '--exclude-standard'], cwd=ROOT,
+    ).decode().split('\0')
+    suffixes = {'.py', '.ts', '.tsx', '.js', '.css', '.html', '.toml', '.yaml', '.yml'}
+    exact = {'pyproject.toml', 'uv.lock', 'package.json', 'pnpm-lock.yaml',
+             'apps/web/package.json', 'playwright.config.ts'}
+    return {
+        p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
+        for p in sorted(set(paths)) if p and (p in exact or
+        (p.startswith(('apps/', 'packages/', 'tests/', 'tools/'))
+         and Path(p).suffix in suffixes))
+    }
+
+
+env = os.environ.copy()
+for name in ['NEISTRA_DATA_DIR', 'NEISTRA_DATABASE_URL', 'MOLWEAVE_DATA_DIR',
+             'MOLWEAVE_DATABASE_URL', 'DATABASE_URL']:
+    env.pop(name, None)
+overrides = {
+    'NEISTRA_E2E_API_PORT': '8210', 'NEISTRA_E2E_WORKER_PORT': '8211',
+    'NEISTRA_E2E_WEB_PORT': '5373', 'NEISTRA_E2E_DATA_DIR': '/tmp/neistra147-c3-final-e2e-attempt1',
+    'NEISTRA_PERFORMANCE': '0', 'PLAYWRIGHT_BROWSERS_PATH': '/datadisk/dev/neistra/.playwright',
+}
+env.update(overrides)
+receipt = {
+    'label': 'c4-corrected-full', 'attempt': 1, 'full_release_gate': False,
+    'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+    'working_changes': subprocess.check_output(['git', 'status', '--short'], cwd=ROOT, text=True),
+    'started_utc': datetime.now(UTC).isoformat(), 'platform': platform.platform(),
+    'overrides': overrides, 'source_before': sources(), 'steps': [],
+}
+exit_code = 0
+steps = [('python', ['.venv/bin/uv', 'run', 'pytest', '-q', 'tests/integration/test_model_bond_rotation.py', 'tests/integration/test_conformer_bond_rotation.py', 'tests/scientific/test_conformer_bond_rotation.py', 'tests/integration/test_fixed_fragment_history.py', 'tests/scientific/test_fixed_fragment_geometry.py', 'tests/unit/editing/test_template_placement_evidence.py', 'tests/integration/test_model_edits.py', 'tests/integration/test_hydrogen_completion.py', 'tests/integration/test_edit_attempts.py', 'tests/integration/test_edit_execution.py', 'tests/unit/test_edit_execution_bootstrap.py', 'tests/unit/test_namespace_compatibility.py', 'tests/scientific/test_direct_geometry_diagnostics.py', 'tests/integration/test_retained_editing.py', 'tests/integration/test_edit_execution.py::test_existing_over_limit_entry_can_be_reduced_below_its_configured_limit'], None), ('ruff', ['.venv/bin/uv', 'run', 'ruff', 'check', 'apps', 'packages', 'tests', 'tools'], None), ('mypy', ['.venv/bin/uv', 'run', 'mypy', 'apps/api', 'packages/neistra_core', 'packages/neistra_demo_plugin'], None)]
+for label, command, output_name in steps:
+    step_env = dict(env)
+    if output_name is not None:
+        step_env['PLAYWRIGHT_JSON_OUTPUT_FILE'] = str(OUT / output_name)
+    log = OUT / f'{label}.log'
+    print('START', label, flush=True)
+    started = time.monotonic()
+    with log.open('wb') as handle:
+        result = subprocess.run(command, cwd=ROOT, env=step_env, stdout=handle,
+                                stderr=subprocess.STDOUT, check=False)
+    content = log.read_bytes()
+    (OUT / f'{label}.log.gz').write_bytes(gzip.compress(content, mtime=0))
+    receipt['steps'].append({
+        'label': label, 'command': command, 'exit_code': result.returncode,
+        'seconds': time.monotonic() - started,
+        'lossless_log_sha256': hashlib.sha256(content).hexdigest(),
+    })
+    print('END', label, result.returncode, flush=True)
+    if result.returncode:
+        exit_code = result.returncode
+        break
+receipt['source_after'] = sources()
+receipt['source_unchanged'] = receipt['source_before'] == receipt['source_after']
+receipt['finished_utc'] = datetime.now(UTC).isoformat()
+receipt['complete'] = exit_code == 0 and len(receipt['steps']) == 3 and receipt['source_unchanged']
+(OUT / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+print('COMPLETE', receipt['complete'], str(OUT / 'receipt.json'), flush=True)
+raise SystemExit(exit_code if exit_code else (0 if receipt['source_unchanged'] else 2))

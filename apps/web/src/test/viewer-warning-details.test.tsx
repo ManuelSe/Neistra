@@ -172,7 +172,7 @@ describe("viewer warning details", () => {
         load: () => Promise.resolve(new Map([["protein", proteinProjection()]])), commit,
         refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn(),
       });
-      return <Tooltip.Provider><button onClick={workflow.start}>Start movement</button>
+      return <Tooltip.Provider><button onClick={() => workflow.start()}>Start movement</button>
         {workflow.state.capture ? <MovementOverlay movement={workflow} zoom={vi.fn()}
           view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /> : null}
         <ViewerWarningDetails entries={[entry("a", "Receptor")]}

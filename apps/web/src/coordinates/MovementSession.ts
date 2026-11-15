@@ -1,6 +1,7 @@
 import { ApiError } from "../api/client";
 import type { NoticeLifetime } from "../components/ApplicationNotice";
 import type { AtomReference, Project, Selection, SelectionTransform, StructureProjection } from "../api/types";
+import { assertSelectionTargetCurrent, type SelectionTargetCapture, type SelectionTargetContext } from "../selection/capture";
 import {
   captureMovement, initialMovementPose, movementContextMatches, movementRequest,
   type MovementCapture, type MovementPose,
@@ -12,6 +13,7 @@ export interface MovementSessionState {
   pose: MovementPose;
 }
 export interface MovementSessionPorts {
+  targetContext?: () => SelectionTargetContext;
   context: () => { project: Project | undefined; selection: Selection };
   load: (project: Project, entryIds: string[]) => Promise<Map<string, StructureProjection>>;
   rendered: () => AtomReference[];
@@ -39,17 +41,23 @@ export class MovementSession {
     this.listeners.forEach(listener => listener());
   }
 
-  async begin(): Promise<void> {
+  async begin(target?: SelectionTargetCapture): Promise<void> {
     if (this.state.phase !== "idle") return;
-    const { project, selection } = this.ports.context();
+    const context = this.ports.context();
+    const project = target?.project ?? context.project, selection = target?.selection ?? context.selection;
     if (!project) return;
     const capturedProject = structuredClone(project);
     const capturedSelection = structuredClone(selection);
     const generation = ++this.generation;
     this.publish({ ...idle(), phase: "loading" });
     try {
+      if (target) {
+        if (!this.ports.targetContext) throw new Error("The current target context is unavailable.");
+        assertSelectionTargetCurrent(target, this.ports.targetContext());
+      }
       const structures = await this.ports.load(capturedProject, [...new Set(selection.atoms.map(atom => atom.structure_id))]);
       if (generation !== this.generation) return;
+      if (target) assertSelectionTargetCurrent(target, this.ports.targetContext!());
       const capture = captureMovement(capturedProject, capturedSelection, structures, this.ports.rendered());
       const context = this.ports.context();
       if (!movementContextMatches(capture, context.project, context.selection)) throw new Error("Move selection was discarded because its project or selection changed.");

@@ -9,13 +9,14 @@ export function placementLabel(action: PlacementAction): string {
   switch (action.operation) {
     case "bond.set": return `Assign bond ${action.order ?? "unknown"}`;
     case "bond.delete": return "Break bond";
+    case "bond.rotate": return `Rotate bond by ${action.angle_degrees}°`;
     case "atom.add": return `Add ${action.element} · direction ${action.direction + 1} of 6`;
     case "fragment.attach": return `Attach ${action.fragment} · direction ${action.direction + 1} of 6 · rotation ${action.rotation * 60}°`;
   }
 }
 
 export function nextPlacement(action: PlacementAction): PlacementAction {
-  if (isBondAction(action)) return action;
+  if (isBondAction(action) || action.operation === "bond.rotate") return action;
   return { ...action, direction: (action.direction + 1) % 6 };
 }
 

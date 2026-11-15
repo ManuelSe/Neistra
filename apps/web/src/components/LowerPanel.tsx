@@ -1,7 +1,7 @@
 import { useQueries } from "@tanstack/react-query";
 import { BriefcaseBusiness, ChevronDown, History, TableProperties } from "lucide-react";
 import { useMemo } from "react";
-import { molecularApi } from "../api/client";
+import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type { Project, Selection } from "../api/types";
 import { canonicalSelection } from "../selection/selection";
 import { HistoryPanel } from "./HistoryPanel";
@@ -48,17 +48,16 @@ export function LowerPanel({
     queries: entryIds.map((entryId) => {
       const entry = project?.entries.find((item) => item.id === entryId);
       return {
-        queryKey: ["structure", project?.id, entryId, entry?.current_artifact_id],
-        queryFn: () => molecularApi.structure(project?.id ?? "", entryId),
-        enabled: !!entry?.current_artifact_id,
-        staleTime: Number.POSITIVE_INFINITY,
+        ...structureQueryOptions(project?.id ?? "", entryId, entry?.current_artifact_id),
       };
     }),
   });
   const structures = new Map(
-    queries.flatMap((query) =>
-      query.data ? [[query.data.entry_id, query.data.structure] as const] : [],
-    ),
+    queries.flatMap((query, index) => {
+      const entry = project?.entries.find(item => item.id === entryIds[index]);
+      return isCompleteProjection(query.data, entryIds[index], entry?.current_artifact_id)
+        ? [[query.data.entry_id, query.data.structure] as const] : [];
+    }),
   );
 
   return (

@@ -8,6 +8,7 @@ from neistra_core.molecular import NormalizedStructureV1
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from neistra_api.edit_computation import molecular_summary
 from neistra_api.import_export import (
     NORMALIZED_MEDIA_TYPE,
     ArtifactService,
@@ -175,16 +176,7 @@ class LigandEditService:
 
     @staticmethod
     def _summary(structure: NormalizedStructureV1) -> dict[str, Any]:
-        return {
-            "atom_count": len(structure.atoms),
-            "atom_ids": [atom.id for atom in structure.atoms],
-            "bond_count": len(structure.bonds),
-            "residue_count": len(structure.residues),
-            "conformer_count": len(structure.conformers),
-            "warnings": [
-                warning.model_dump(mode="json") for warning in structure.warnings
-            ],
-        }
+        return molecular_summary(structure)
 
     @staticmethod
     def _description(

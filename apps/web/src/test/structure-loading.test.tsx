@@ -1,4 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { projectApi } from "../api/client";
 import { surfaceObject } from "./molecular-fixtures";
 import { PresentationContext } from "../presentation/context";
 import type { PresentationController } from "../presentation/controller";
@@ -11,6 +12,8 @@ import type {
   AtomReference,
   CameraState,
   CoordinatePatch,
+  ModelPlacementAction,
+  ModelPreview,
   Project,
   Selection,
   SelectionGranularity,
@@ -116,7 +119,7 @@ function project(proteinVisible = true, ligandVisible = false): Project {
   };
 }
 
-function projection(entryId: string): StructureProjection {
+function projection(entryId: string, artifactId = `current-${entryId}`): StructureProjection {
   const structure: StructureProjection["structure"] = {
     schema_version: 1,
     title: entryId,
@@ -157,6 +160,7 @@ function projection(entryId: string): StructureProjection {
   };
   return {
     entry_id: entryId,
+    artifact_id: artifactId,
     structure,
     hierarchy: componentHierarchy(structure),
     viewer: {
@@ -177,6 +181,7 @@ class FakeViewer implements MolecularViewer {
   }
   subscribeDrawable(listener: (drawable: boolean) => void) { void listener; return () => {}; }
   setInteractions = vi.fn(async () => {});
+  setModelPreview = vi.fn<NonNullable<MolecularViewer["setModelPreview"]>>().mockResolvedValue(undefined);
   mounted = false;
   mounts = 0;
   disposed = false;
@@ -721,7 +726,7 @@ describe("lazy structure loading", () => {
     };
     queryClient.setQueryData(
       ["structure", initial.id, "protein", patch.artifact_id],
-      projection("protein"),
+      projection("protein", patch.artifact_id),
     );
     const next: Project = {
       ...initial,
@@ -765,6 +770,7 @@ describe("lazy structure loading", () => {
     const view = render(<StructureViewer {...props} project={initial} />, { wrapper: wrapper(queryClient) });
     await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
     current = structuredClone(current);
+    current.artifact_id = "reconciled-artifact";
     current.structure.atoms[0].coordinates = [7, 8, 9];
     const refreshed = { ...initial, revision: initial.revision + 1,
       entries: initial.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "reconciled-artifact" } : entry) };
@@ -803,7 +809,7 @@ describe("lazy structure loading", () => {
     await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
     const syncCount = fake.syncs.length;
     const artifactId = "ligand-topology-2";
-    const replacement = projection("ligand");
+    const replacement = projection("ligand", artifactId);
     replacement.structure.atoms = [1, 2, 3, 4].map((id) => ({
       ...replacement.structure.atoms[0],
       id,
@@ -1028,7 +1034,8 @@ it("loads hidden pocket seeds by artifact, keeps them invisible, and reuses styl
   const fake = new FakeViewer(), createViewer = () => fake;
   const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
     const id = requestUrl(input).includes("/protein/") ? "protein" : "ligand";
-    return Promise.resolve(new Response(JSON.stringify(projection(id)), {
+    const artifact = new URL(requestUrl(input), "http://localhost").searchParams.get("expected_artifact_id")!;
+    return Promise.resolve(new Response(JSON.stringify(projection(id, artifact)), {
       status: 200, headers: { "Content-Type": "application/json" },
     }));
   });
@@ -1405,5 +1412,75 @@ describe("shared camera component lifecycle", () => {
     await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
     await waitFor(() => expect(useEditingStore.getState().focusNewMolecule).toBeNull());
     expect(fake.focusTargets).toEqual([]); expect(fake.fits).toBe(0); expect(fake.getSessionCamera()).toEqual(savedCamera);
+  });
+});
+
+describe("editor proposal geometry through the production viewer", () => {
+  const clients: QueryClient[] = [];
+  afterEach(() => { cleanup(); clients.splice(0).forEach(client => client.clear()); useEditingStore.getState().setProject(null); useWorkspaceStore.setState({ activeProjectId: null }); vi.restoreAllMocks(); });
+  async function mountProposal(action: ModelPlacementAction) {
+    const current = project(false, true), source = projection("ligand"), fake = new FakeViewer(), createViewer = () => fake;
+    const atoms = Array.from({ length: 4 }, (_, index) => ({ ...source.structure.atoms[0], id: index + 1, name: `C${index + 1}`, formal_charge: 0,
+      coordinates: [[0, 1, 0], [0, 0, 0], [1.5, 0, 0], [1.5, 1, 0]][index] as [number, number, number] }));
+    source.structure.atoms = atoms;
+    source.structure.bonds = [[1, 2], [2, 3], [3, 4]].map(([a, b], index) => ({ id: index + 1, atom_1_id: a, atom_2_id: b, order: 1, aromatic: false, stereo: null, inferred: false }));
+    source.structure.conformers = [{ id: 1, name: "3D", coordinates: atoms.map(atom => atom.coordinates) }];
+    current.entries[1] = { ...current.entries[1], atom_ids: [1, 2, 3, 4], atom_count: 4, bond_count: 3 };
+    const canonicalBefore = structuredClone(source);
+    const selected: Selection = { ...emptySelection, source: "viewer", atoms: (action.operation === "bond.rotate" ? [2, 3] : [2]).map(atom_id => ({ structure_id: "ligand", atom_id })) };
+    const noOp = action.operation === "bond.rotate" && action.angle_degrees === 0;
+    const answer: ModelPreview = { entry_id: "ligand", expected_revision: current.revision, expected_artifact_id: "current-ligand", warnings: [], removed_atom_ids: [],
+      atoms: action.operation === "bond.rotate" ? [] : [{ preview_id: "ghost", element: "C", coordinates: [0, 0, 1.5] }], bonds: [],
+      moved_atoms: action.operation === "bond.rotate" && !noOp ? [{ atom_id: 4, before: [1.5, 1, 0], after: [1.5, 0, 1] }] : [],
+      rotation: action.operation === "bond.rotate" ? { axis_atom_ids: [2, 3], moving_endpoint_id: 3, angle_degrees: action.angle_degrees, rotating_atom_count: 1, fixed_atom_count: 3, no_op: noOp } : null };
+    const request = vi.spyOn(projectApi, "modelPreview").mockResolvedValue(answer), onEdit = vi.fn(), onGeometry = vi.fn().mockResolvedValue(true);
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } }); clients.push(client);
+    client.setQueryData(["structure", current.id, "ligand", "current-ligand"], source);
+    useWorkspaceStore.setState({ activeProjectId: current.id }); useEditingStore.getState().setProject(current.id);
+    const props: StructureViewerProps = { project: current, theme: "light", selection: selected, pickingGranularity: "atom", onViewerSelection: vi.fn(), onEdit, onGeometry, createViewer };
+    const view = render(<StructureViewer {...props} />, { wrapper: wrapper(client) }), user = userEvent.setup();
+    await waitFor(() => expect(fake.syncs.length).toBeGreaterThan(0));
+    await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+    if (action.operation === "bond.rotate") {
+      await user.click(screen.getByText("Geometry", { exact: true })); await user.click(screen.getByRole("button", { name: "Rotate bond" }));
+      await user.selectOptions(screen.getByRole("combobox", { name: "Moving side" }), "3");
+      await user.clear(screen.getByRole("spinbutton", { name: "Rotation (degrees)" })); await user.type(screen.getByRole("spinbutton", { name: "Rotation (degrees)" }), String(action.angle_degrees));
+      await user.click(screen.getByRole("button", { name: "Preview rotation" }));
+    } else if (action.operation === "fragment.attach") {
+      await user.click(screen.getByRole("button", { name: "Fragments" })); await user.click(screen.getByRole("button", { name: "Attach Methoxy" }));
+    } else {
+      await user.click(screen.getByText("Add atom", { exact: true })); await user.click(screen.getByRole("button", { name: "Preview atom" }));
+    }
+    await waitFor(() => expect(screen.getByRole("group", { name: "Placement inspection" })).toHaveTextContent(noOp ? "No change" : "Ready"));
+    return { current, source, canonicalBefore, fake, request, client, props, view, selected, user, answer, onEdit };
+  }
+  it.each([
+    { operation: "bond.rotate", moving_endpoint_id: 3, angle_degrees: 90 } as const,
+    { operation: "bond.rotate", moving_endpoint_id: 3, angle_degrees: 0 } as const,
+    { operation: "atom.add", element: "C", charge: 0, direction: 0 } as const,
+    { operation: "fragment.attach", fragment: "methoxy", direction: 0, rotation: 0 } as const,
+  ])("delivers %s through the editor and clears it on Cancel without changing the canonical source", async action => {
+    const { current, source, canonicalBefore, fake, request, client, selected, user, answer, onEdit } = await mountProposal(action);
+    expect(request).toHaveBeenCalledExactlyOnceWith(current, "ligand", "current-ligand", selected, action,
+      action.operation === "bond.rotate" ? "preserve" : "automatic", expect.any(AbortSignal));
+    await waitFor(() => expect(fake.setModelPreview).toHaveBeenLastCalledWith(answer));
+    if (action.operation === "bond.rotate" && action.angle_degrees === 0) {
+      expect(fake.setModelPreview.mock.lastCall?.[0]?.moved_atoms).toEqual([]); expect(screen.getByRole("button", { name: "Apply placement" })).toBeDisabled();
+    } else expect(screen.getByRole("button", { name: "Apply placement" })).toBeEnabled();
+    await user.click(screen.getByRole("button", { name: "Cancel placement" })); await waitFor(() => expect(fake.setModelPreview).toHaveBeenLastCalledWith(null));
+    expect(client.getQueryData(["structure", current.id, "ligand", "current-ligand"])).toEqual(canonicalBefore); expect(source).toEqual(canonicalBefore); expect(onEdit).not.toHaveBeenCalled();
+  });
+  it.each(["selection", "revision", "artifact", "generation"] as const)("retires qualified rotation geometry after a stale %s context", async changed => {
+    const { current, source, fake, client, props, view, selected, answer } = await mountProposal({ operation: "bond.rotate", moving_endpoint_id: 3, angle_degrees: 90 });
+    await waitFor(() => expect(fake.setModelPreview).toHaveBeenLastCalledWith(answer));
+    if (changed === "generation") act(() => { useEditingStore.getState().setProject(null); useEditingStore.getState().setProject(current.id); });
+    else {
+      const next = changed === "selection" ? { ...props, selection: { ...selected, atoms: [selected.atoms[0]] } }
+        : changed === "revision" ? { ...props, project: { ...current, revision: current.revision + 1 } }
+        : { ...props, project: { ...current, entries: current.entries.map(entry => entry.id === "ligand" ? { ...entry, current_artifact_id: "replacement" } : entry) } };
+      if (changed === "artifact") client.setQueryData(["structure", current.id, "ligand", "replacement"], { ...source, artifact_id: "replacement" });
+      view.rerender(<StructureViewer {...next} />);
+    }
+    await waitFor(() => expect(fake.setModelPreview).toHaveBeenLastCalledWith(null));
   });
 });

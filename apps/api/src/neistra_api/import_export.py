@@ -61,6 +61,10 @@ class StructureUnavailableError(LookupError):
     pass
 
 
+class StructureArtifactConflictError(RuntimeError):
+    pass
+
+
 class LossAcknowledgementRequiredError(RuntimeError):
     def __init__(
         self,
@@ -367,11 +371,25 @@ class ImportExportService:
             warnings=warnings,
         )
 
-    def structure(self, project_id: str, entry_id: str) -> StructureRead:
+    def structure(
+        self,
+        project_id: str,
+        entry_id: str,
+        *,
+        expected_artifact_id: str | None = None,
+    ) -> StructureRead:
         entry = self._entry(project_id, entry_id)
-        if entry.current_artifact_id is None:
+        artifact_id = entry.current_artifact_id
+        if artifact_id is None:
             raise StructureUnavailableError(entry_id)
-        _, payload = self.artifacts.read(entry.current_artifact_id)
+        if expected_artifact_id is not None and artifact_id != expected_artifact_id:
+            raise StructureArtifactConflictError(
+                f"Entry {entry_id} changed. Refresh its structure before continuing."
+            )
+        # Bind both the payload and its response identity to this immutable snapshot.
+        # Reading a later current pointer here can poison an artifact-keyed cache.
+        captured_entry_id, captured_name = entry.id, entry.name
+        _, payload = self.artifacts.read(artifact_id)
         structure = NormalizedStructureV1.from_bytes(payload)
         viewer_format = (
             "mmcif"
@@ -388,10 +406,11 @@ class ImportExportService:
         # Display has no requirement to produce chemically normalized export.
         data = ligand_viewer_sdf(structure) if viewer_format == "sdf" else (
             self._registry().for_format(viewer_format)
-            .export(structure, safe_filename_stem(entry.name)).data.decode("utf-8")
+            .export(structure, safe_filename_stem(captured_name)).data.decode("utf-8")
         )
         return StructureRead(
-            entry_id=entry.id,
+            entry_id=captured_entry_id,
+            artifact_id=artifact_id,
             structure=structure,
             hierarchy=derive_component_hierarchy(structure),
             viewer=ViewerProjection(

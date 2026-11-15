@@ -1,0 +1,18 @@
+{
+  "scope": "C2 actual-validator performance only; complete C2 integration qualification remains pending",
+  "archive": "c2-validator-performance.zip",
+  "bytes": 314691,
+  "sha256": "5f9c655b7d833004c956790f71d38d712a134c82d577d39209d889f0632a2352",
+  "files": 47,
+  "crc_and_all_internal_hashes_valid": true,
+  "source_identities_match_integrated_primary": 66,
+  "baseline_identities_verified_against_both_qualified_snapshots": 66,
+  "qualified_baseline_commit": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "profile_workloads": 19,
+  "measured_calls": 57,
+  "original_expression_oracles": 24,
+  "nonfinite_rejections": 3,
+  "active_conformer_checks": 2,
+  "strict_timing_qualified": false,
+  "limits": "Actual validator only; timings observational, whole-process memory includes fixture/native allocations. No full mutation latency, universal capacity or production resource-setting claim."
+}

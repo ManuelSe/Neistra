@@ -1,7 +1,8 @@
-"""Six fixed single-attachment templates, generated independently of the parent."""
+"""Eleven fixed single-attachment templates, generated independently of the parent."""
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any, Literal
 
@@ -10,7 +11,13 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
-FragmentName = Literal["methyl", "ethyl", "hydroxyl", "amino", "carboxylic_acid", "phenyl"]
+from neistra_core.hydrogen_protection import protection_facts
+from neistra_core.molecular import Bond, NormalizedStructureV1
+
+FragmentName = Literal[
+    "methyl", "ethyl", "hydroxyl", "amino", "carboxylic_acid", "phenyl",
+    "cyclopropyl", "cyclobutyl", "cyclopentyl", "cyclohexyl", "methoxy",
+]
 FRAGMENT_CAP_SMILES: dict[FragmentName, str] = {
     "methyl": "CC",
     "ethyl": "CCC",
@@ -18,12 +25,149 @@ FRAGMENT_CAP_SMILES: dict[FragmentName, str] = {
     "amino": "CN",
     "carboxylic_acid": "CC(=O)O",
     "phenyl": "Cc1ccccc1",
+    "cyclopropyl": "CC1CC1",
+    "cyclobutyl": "CC1CCC1",
+    "cyclopentyl": "CC1CCCC1",
+    "cyclohexyl": "CC1CCCCC1",
+    "methoxy": "COC",
 }
 FRAGMENT_SEED = 690
 all_chem: Any = AllChem
+PRESERVED_TEMPLATE_FRAGMENTS: frozenset[FragmentName] = frozenset({
+    "cyclopropyl", "cyclobutyl", "cyclopentyl", "cyclohexyl", "methoxy",
+})
 
 
-@lru_cache(maxsize=6)
+@dataclass(frozen=True)
+class TemplatePlacementEvidence:
+    """Transient evidence from actual construction, never molecular metadata."""
+
+    fragment: FragmentName
+    template_indices: tuple[int, ...]
+    atom_ids: tuple[int, ...]
+    conformer_ids: tuple[int, ...]
+    coordinates: tuple[tuple[tuple[float, float, float], ...], ...]
+
+
+def require_proper_local_rotation(matrix: Any) -> None:
+    if (
+        np.shape(matrix) != (3, 3)
+        or not np.isfinite(matrix).all()
+        or not np.allclose(matrix.T @ matrix, np.eye(3), rtol=0, atol=1e-12)
+        or abs(float(np.linalg.det(matrix)) - 1.0) > 1e-12
+    ):
+        raise ValueError("Fixed fragment placement requires a finite proper local rotation.")
+
+
+def qualified_template_atom_ids(
+    before: NormalizedStructureV1,
+    draft: NormalizedStructureV1,
+    fragment: FragmentName,
+    evidence: TemplatePlacementEvidence | None,
+) -> frozenset[int]:
+    """Validate template ownership; precision warnings remain separate from it."""
+    if (
+        fragment not in PRESERVED_TEMPLATE_FRAGMENTS
+        or evidence is None
+        or evidence.fragment != fragment
+    ):
+        raise ValueError("Fixed fragment construction evidence is missing or incompatible.")
+    old_ids = {a.id for a in before.atoms}
+    atoms = {a.id: a for a in draft.atoms}
+    created = atoms.keys() - old_ids
+    template = fragment_template(fragment)
+    cap = template.GetAtomWithIdx(0)
+    removed = {0, *[a.GetIdx() for a in cap.GetNeighbors() if a.GetSymbol() == "H"]}
+    kept = tuple(a.GetIdx() for a in template.GetAtoms() if a.GetIdx() not in removed)
+    if (
+        evidence.template_indices != kept
+        or evidence.atom_ids != tuple(sorted(created))
+        or len(created) != len(kept)
+    ):
+        raise ValueError("Fixed fragment atoms do not match the actual fresh template mapping.")
+    mapping = dict(zip(kept, evidence.atom_ids, strict=True))
+    facts = protection_facts(draft)
+    for template_index, atom_id in mapping.items():
+        atom = atoms[atom_id]
+        fact = facts.get(atom_id)
+        if (
+            atom.element != template.GetAtomWithIdx(template_index).GetSymbol()
+            or atom.element not in {"C", "O", "H"}
+            or atom.formal_charge != 0
+            or atom.stereo not in {None, "NONE"}
+            or not fact or not fact.matches(atom) or not fact.ordinary
+        ):
+            raise ValueError(
+                f"Fixed fragment atom {atom_id} lacks ordinary neutral template identity."
+            )
+    expected_bonds = {
+        frozenset((mapping[b.GetBeginAtomIdx()], mapping[b.GetEndAtomIdx()])):
+            (float(b.GetBondTypeAsDouble()), bool(b.GetIsAromatic()))
+        for b in template.GetBonds()
+        if b.GetBeginAtomIdx() in mapping and b.GetEndAtomIdx() in mapping
+    }
+    internal = [b for b in draft.bonds if {b.atom_1_id, b.atom_2_id} <= created]
+    actual_bonds = {frozenset((b.atom_1_id, b.atom_2_id)): (b.order, b.aromatic) for b in internal}
+    if actual_bonds != expected_bonds or len(internal) != len(expected_bonds):
+        raise ValueError(
+            "Fixed fragment internal connectivity differs from its qualified template."
+        )
+    external = [b for b in draft.bonds if len({b.atom_1_id, b.atom_2_id} & created) == 1]
+    if (
+        len(external) != 1 or mapping[1] not in {external[0].atom_1_id, external[0].atom_2_id}
+        or external[0].order != 1.0 or external[0].aromatic
+    ):
+        raise ValueError("Fixed fragment requires exactly one external single bond at its root.")
+    root = atoms[mapping[1]]
+    parent_id = next(i for i in (external[0].atom_1_id, external[0].atom_2_id) if i not in created)
+    parent = atoms[parent_id]
+    if (
+        parent_id not in old_ids or parent.element in {"H", "D", "T"}
+        or parent.alternate_location not in {None, "", root.alternate_location}
+    ):
+        raise ValueError("Fixed fragment root does not have one compatible existing heavy parent.")
+    neighbors: dict[int, list[tuple[int, Bond]]] = {i: [] for i in created}
+    for bond in [*internal, *external]:
+        for i, j in [(bond.atom_1_id, bond.atom_2_id), (bond.atom_2_id, bond.atom_1_id)]:
+            if i in neighbors:
+                neighbors[i].append((j, bond))
+    valences = {"C": 4.0, "O": 2.0, "H": 1.0}
+    for atom_id, incident in neighbors.items():
+        atom = atoms[atom_id]
+        if sum(b.order or 0 for _, b in incident) != valences[atom.element]:
+            raise ValueError(f"Fixed fragment atom {atom_id} has incomplete template valence.")
+        if atom.element == "H" and (
+            len(incident) != 1 or atoms[incident[0][0]].element not in {"C", "O"}
+            or atom.alternate_location not in {None, "", atoms[incident[0][0]].alternate_location}
+        ):
+            raise ValueError(
+                f"Fixed fragment H {atom_id} has incompatible ownership or alternate identity."
+            )
+    if (
+        evidence.conformer_ids != tuple(c.id for c in draft.conformers)
+        or len(set(evidence.conformer_ids)) != len(evidence.conformer_ids)
+    ):
+        raise ValueError("Fixed fragment construction does not cover all current conformers.")
+    if len(evidence.coordinates) != len(draft.conformers):
+        raise ValueError("Fixed fragment construction lacks complete conformer coordinates.")
+    indices = {a.id: i for i, a in enumerate(draft.atoms)}
+    for conformer, captured in zip(draft.conformers, evidence.coordinates, strict=True):
+        current = tuple(conformer.coordinates[indices[i]] for i in evidence.atom_ids)
+        if current != captured or not np.isfinite(np.asarray(current)).all():
+            raise ValueError(
+                "Fixed fragment coordinates changed after construction in "
+                f"conformer {conformer.id}."
+            )
+        if conformer.id == draft.active_conformer_id and current != tuple(
+            atoms[i].coordinates for i in evidence.atom_ids
+        ):
+            raise ValueError(
+                "Fixed fragment active atom coordinates differ from the constructed frame."
+            )
+    return frozenset(created)
+
+
+@lru_cache(maxsize=11)
 def fragment_template(fragment: FragmentName) -> Any:
     mol = Chem.AddHs(Chem.MolFromSmiles(FRAGMENT_CAP_SMILES[fragment]))
     params = all_chem.ETKDGv3()

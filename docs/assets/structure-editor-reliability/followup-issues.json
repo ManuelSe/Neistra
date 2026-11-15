@@ -1,0 +1,23 @@
+{
+  "followups": [
+    {
+      "number": 149,
+      "url": "https://github.com/ManuelSe/Neistra/issues/149",
+      "title": "Plan direct bond length and angle authoring",
+      "state": "OPEN",
+      "body_sha256": "0e80a55a26e85822757a2b96849dd24a59632728db5ca3b611de8612e298fdbc",
+      "verified_body_equals_draft": true
+    },
+    {
+      "number": 150,
+      "url": "https://github.com/ManuelSe/Neistra/issues/150",
+      "title": "Plan intentional stereochemistry assignment and inversion",
+      "state": "OPEN",
+      "body_sha256": "bcb721c6b7f27f2170600984bbb6b8525f46ec20e66b4701828ea2ad8495ce2f",
+      "verified_body_equals_draft": true
+    }
+  ],
+  "authority": "Authorized issue147 delivery plan and standing issue-delivery workflow; future product briefs only",
+  "duplicate_search": "Refreshed open title/body searches on 2026-11-15; no equivalent dedicated open issue",
+  "creation_transport": "GitHub connector create rejected403; authenticated gh CLI succeeded, connector and CLI readback verified"
+}

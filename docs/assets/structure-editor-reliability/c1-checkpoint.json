@@ -1,0 +1,91 @@
+{
+  "stage": "C1 immutable projection identity",
+  "full_release_gate": false,
+  "base_commit": "82d415886132db95cbcdda92af7b4a18069e3178",
+  "candidate_identity": "Expected working delta plus 709 recorded scoped code/lock identities; local checkpoint commit follows.",
+  "native": {
+    "passed": 77,
+    "existing_exclusions": 3,
+    "inventory": 80,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "new_exclusions": 0,
+    "exclusion_comparison": "Exact file/title/project identities are a subset of qualified v0.31.0 c4-master1 browser exclusions."
+  },
+  "api_tests": 35,
+  "frontend_tests": 772,
+  "frontend_suites": 89,
+  "mypy_sources": 204,
+  "static_results": {
+    "ruff": "PASS",
+    "frontend_lint": "PASS",
+    "frontend_types": "PASS",
+    "frontend_build": "PASS"
+  },
+  "frontend_evidence_origin": "Implementation agent recorded successful tool exits; complete final-source logs retained and inspected by parent.",
+  "source_identities": 709,
+  "source_unchanged": true,
+  "source_scope": "Root lock/package/Playwright metadata and .py/.ts/.tsx/.js/.css/.html/.toml/.yaml/.yml files under apps/packages/tests/tools; not the complete release input inventory.",
+  "source_digest": "57c8826061241b1def066b9670d1a32bf469ccdd7c74b0792934bb3082e39257",
+  "logs": {
+    "api": {
+      "file": "c1-api.log.gz",
+      "lossless_sha256": "922bbdf23c59d1cece662f1264e0656c91fb4b7cee9554d70b081898ac9fe18d"
+    },
+    "mypy": {
+      "file": "c1-mypy.log.gz",
+      "lossless_sha256": "9e351035883a02a67b64a62b90dac743576bf2ce6cfcd195a7d74cb33a0441b1"
+    },
+    "ruff": {
+      "file": "c1-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "frontend": {
+      "file": "c1-frontend.log.gz",
+      "lossless_sha256": "8f6e6744b1a600acc8148a0e4456a2b87e4eddcd74acfcbce5cafd145d180085"
+    },
+    "lint": {
+      "file": "c1-lint.log.gz",
+      "lossless_sha256": "993af651c75047337f5960188104f94c48f23456bc502699fb03adc7894a5396"
+    },
+    "types": {
+      "file": "c1-types.log.gz",
+      "lossless_sha256": "8a4b523a41be62e1c3b920f78fd778ca214fd3962ab3d0d080667deac4859295"
+    },
+    "build": {
+      "file": "c1-build.log.gz",
+      "lossless_sha256": "7c6daea6b44f6aae7502ab6355705713f71fb77ace4d41591edd2ee8f05578fe"
+    },
+    "browser": {
+      "file": "c1-browser.log.gz",
+      "lossless_sha256": "c575a0454f0e9f04be7da732435f60f70fc43bc5cb986a7aeb1aa04193f8263c"
+    },
+    "inventory": {
+      "file": "c1-inventory.log.gz",
+      "lossless_sha256": "e2892299e03dbf57d6b03923891a753928cef79bd3e7743b3c1cdd39d917eb8c"
+    }
+  },
+  "runner_sha256": "c340ef10bc240e130a61ddde993f472314a4a5973baf1119011c626b1dc4b099",
+  "native_archive": {
+    "file": "c1-native-observations.zip",
+    "bytes": 23063537,
+    "sha256": "8e7c3d6a4f3c024fd222164596f30f8675a1825f91d118d0a80d2c8643ccef68",
+    "files": 196,
+    "crc_and_all_internal_hashes_valid": true
+  },
+  "diagnostic_archive": {
+    "file": "c1-diagnostics.zip",
+    "bytes": 12621708,
+    "sha256": "a285fd12ef25886f060e925479e1c43112c32abf69cc07ec43a82002dc31f904",
+    "files": 53,
+    "crc_and_all_internal_hashes_valid": true
+  },
+  "corrections": [
+    "Exact C button locator excludes Cl in the new race test.",
+    "StrictMode query retirement consumes AbortSignal: one microtask before dispatch and captured-signal check avoid abandoned first HTTP request; no timer/registry.",
+    "Delayed-response fixtures await real request dispatch; original native one-read assertion unchanged."
+  ],
+  "profile": "Portable correctness on isolated ports8210/8211/5373 and dedicated disposable data; no strict-host timing claim.",
+  "limits": "Earlier partial attempts are diagnostic only; C2-C7 and final seven-role same-candidate application review remain pending. No application push authorized by this checkpoint."
+}

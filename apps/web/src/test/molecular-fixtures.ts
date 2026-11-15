@@ -254,6 +254,7 @@ export function proteinProjection(): StructureProjection {
   const structure = proteinStructure();
   return {
     entry_id: "protein",
+    artifact_id: "current-protein",
     structure,
     hierarchy: componentHierarchy(structure),
     viewer: { format: "mmcif", data: "viewer projection" },

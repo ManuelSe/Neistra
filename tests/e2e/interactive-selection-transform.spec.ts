@@ -461,7 +461,10 @@ test("explains empty, locked and wholly hidden movement targets without changing
   const original = await structure(request, project.id, project.entries[0].id);
   await page.evaluate(async () => { const path = "/src/store/selection.ts"; (await import(/* @vite-ignore */ path)).useSelectionStore.getState().clear(); });
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
-  await expect(page.getByRole("alert").filter({ hasText: "Select atoms before starting" })).toBeVisible();
+  await expect(page.getByRole("alert").filter({ hasText: /Select atoms before (?:opening a geometry tool|starting Move selection)\./ })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Move selection controls" })).toBeHidden();
+  expect((await read(request, project.id)).revision).toBe(project.revision);
+  expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
   for (const condition of ["lock", "visibility"] as const) {
     const response = await request.post(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/${condition}`, {
       data: { expected_revision: project.revision, value: condition === "lock" },
@@ -479,7 +482,7 @@ test("explains empty, locked and wholly hidden movement targets without changing
     await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
     await page.getByRole("tab", { name: "transform", exact: true }).click();
     await page.getByRole("button", { name: "Move selection", exact: true }).click();
-    await expect(page.getByRole("alert").filter({ hasText: condition === "lock" ? "Unlock Ethanol before moving the selection" : "Show selected atoms in the viewer" })).toBeVisible();
+    await expect(page.getByRole("alert").filter({ hasText: condition === "lock" ? /Unlock Ethanol before (?:editing its coordinates|moving the selection)\./ : "Show selected atoms in the viewer" })).toBeVisible();
     await expect(page.getByRole("region", { name: "Move selection controls" })).toBeHidden();
     expect((await read(request, project.id)).revision).toBe(project.revision);
     expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);

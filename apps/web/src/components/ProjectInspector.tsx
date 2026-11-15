@@ -9,7 +9,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { molecularApi } from "../api/client";
+import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   Project,
   CoordinateTransform,
@@ -516,22 +516,20 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     queries: relevantIds.map((entryId) => {
       const entry = project?.entries.find((item) => item.id === entryId);
       return {
-        queryKey: ["structure", project?.id, entryId, entry?.current_artifact_id],
-        queryFn: () => molecularApi.structure(project?.id ?? "", entryId),
-        enabled: !!project && !!entry?.current_artifact_id,
-        retry: false,
-        staleTime: Number.POSITIVE_INFINITY,
+        ...structureQueryOptions(project?.id ?? "", entryId, entry?.current_artifact_id),
       };
     }),
   });
   const structures = useMemo(
     () =>
       new Map(
-        structureQueries.flatMap((query) =>
-          query.data ? [[query.data.entry_id, query.data.structure] as const] : [],
-        ),
+        structureQueries.flatMap((query, index) => {
+          const entry = project?.entries.find(item => item.id === relevantIds[index]);
+          return isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
+            ? [[query.data.entry_id, query.data.structure] as const] : [];
+        }),
       ),
-    [structureQueries],
+    [structureQueries, project?.entries, relevantIds],
   );
   return (
     <section className="panel-content project-inspector" aria-label="Project inspector">

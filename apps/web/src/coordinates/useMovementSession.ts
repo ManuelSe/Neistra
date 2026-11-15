@@ -3,6 +3,7 @@ import { MovementSession, type MovementSessionPorts, type MovementSessionState }
 import type { MovementMode, MovementPose } from "./interactiveTransform";
 import type { CameraState } from "../api/types";
 import { useMovementNavigation } from "./useMovementNavigation";
+import { assertSelectionTargetCurrent, captureSelectionTarget, type SelectionTargetCapture } from "../selection/capture";
 
 export interface MovementWorkflow {
   state: MovementSessionState;
@@ -10,7 +11,7 @@ export interface MovementWorkflow {
   sensitivity: number;
   setMode: (mode: MovementMode) => void;
   setSensitivity: (value: number) => void;
-  start: () => void;
+  start: (capture?: SelectionTargetCapture) => void;
   apply: () => void;
   cancel: () => void;
   reconcile: () => void;
@@ -29,6 +30,7 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
   portsRef.current = ports;
   const [session] = useState(() => new MovementSession({
     context: () => portsRef.current.context(),
+    targetContext: ports.targetContext ? () => portsRef.current.targetContext!() : undefined,
     load: (project, ids) => portsRef.current.load(project, ids),
     rendered: () => portsRef.current.rendered(),
     commit: (project, transform) => portsRef.current.commit(project, transform),
@@ -63,9 +65,23 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
     ...navigation,
     state, mode, sensitivity, setMode,
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
-    start: () => {
+    start: requested => {
       if (session.snapshot().phase !== "idle") return;
-      portsRef.current.beforeStart?.();
+      let capture = requested;
+      try {
+        if (portsRef.current.targetContext) {
+          const current = portsRef.current.targetContext();
+          if (!current.project) return;
+          capture ??= captureSelectionTarget(current.project, current.selection, current.projectEpoch);
+          assertSelectionTargetCurrent(capture, current);
+        } else if (capture) throw new Error("The current target context is unavailable.");
+        portsRef.current.beforeStart?.();
+        if (capture) assertSelectionTargetCurrent(capture, portsRef.current.targetContext!());
+      } catch (error) {
+        const id = portsRef.current.context().project?.id;
+        if (id) portsRef.current.notice(id, error instanceof Error ? error.message : "Move selection could not start.", true);
+        return;
+      }
       setMode("rotate");
       setSensitivity(1);
       movementCamera.current = null;
@@ -73,7 +89,7 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
         element: document.activeElement instanceof HTMLElement ? document.activeElement : null,
         projectId: portsRef.current.context().project?.id,
       };
-      void session.begin();
+      void session.begin(capture);
     },
     apply: () => { void session.apply(); },
     cancel: () => session.cancel(),

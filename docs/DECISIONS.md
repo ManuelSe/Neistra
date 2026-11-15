@@ -7190,3 +7190,325 @@ annotated tag, stable/latest release and downloaded qualification-asset hashes
 verify. Scientific/portable timing limits remain. No new method, migration or
 follow-up issue. Final documentation/cleanup readbacks live in the issue reply;
 subsequent documentation never moves the qualified runtime tag.
+
+
+## D-158 — Immutable artifact identity for structure projections
+
+Issue #147's read-only audit reproduces an Undo/delayed-read/Redo race: a request
+keyed by one artifact can fetch current data from another and retain it indefinitely
+under the wrong cache key. Add an optional expected-artifact parameter to the
+existing structure GET. Reject a mismatch with 409 before capture; capture one
+immutable artifact identity, read its bytes and return that identity explicitly.
+Unqualified legacy callers retain current-read behavior. New clients validate entry
+and artifact identity before shared-cache insertion and propagate cancellation.
+
+Every projection consumer uses the same typed query contract, including hidden
+loads, editing, hierarchy, tables, surface inputs and coordinate publication.
+Coordinate-seeded continuity values carry the new identity and explicit provisional
+status; they cannot certify chemistry/provenance before the mandatory complete
+refresh. Request interception/counting compares endpoint pathname so query strings
+cannot bypass race coverage. No viewer-owned molecular authority or portable
+schema/migration change is introduced; matching client/server deployment is required.
+
+
+## D-159 — Preserve authored topology through template mutation and diagnostics
+
+The owner explicitly chooses preservation of deliberately cut retained/backbone
+bonds while mutating a supported side chain, with a precise warning identifying
+the unresolved connectivity. Existing retained bonds, orders, IDs, coordinates and
+exclusions are authoritative; new template bonds require a genuinely new endpoint.
+Do not silently repair a cut or infer chemical preparation. Existing N/CA/C/O
+template-element contradictions refuse atomically. Unknown charge/order in raw
+protein input alone does not become a whole-entry veto.
+
+Affected direct-edit bond diagnostics inspect every retained conformer, identify
+conformer/bond/atom IDs and explicitly bound/truncate detail without silently
+omitting frames. Preserve current geometric thresholds and deliberate warned
+drafts; nonfinite affected geometry cannot be published.
+
+Replace the validator's quadratic arrays while preserving its actual scientific
+decision: any distinct active-frame pair with strict separation <0.4 Å, including
+bonded atoms and alternate locations, yields the existing overlap warning. This is
+not an element-aware nonbonded model. Use exact bounded nearest-neighbor existence
+queries, first row alone then small batches with immediate exit, inspect both k=2
+neighbors excluding self and recompute the original distance. An all-N query can
+repeat a full coincident-point leaf scan despite bounded result storage. Independent
+brute-force boundary/tie oracles and measured memory/work establish equivalence and
+scaling; no universal linear-time claim or altered production atom limit.
+
+
+## D-160 — Bounded pure editing computation and fresh atomic publication
+
+Use a short immutable snapshot and an ephemeral spawned computation child without
+ORM/session or canonical publication authority. Reuse existing process/resource
+lifecycle primitives. Heavy parsing, scientific work, staged-result validation and
+serialization belong off the event loop; return a small verified result descriptor
+rather than receiving a complete large model pickle on the loop. No new durable
+job or persisted editing schema is required.
+
+After compute, a fresh session takes the project publication lock before reads,
+rechecks revision/artifact/entry lock/allocation floors and publishes one existing
+command atomically. Neutralize the lock name while preserving its existing wrapper.
+Keep final lock→check→commit synchronous without awaits because other project
+writers currently rely on main-loop serialization. Offloading only edit publication
+would break that shared boundary. Measure remaining critical-section work; any
+necessary off-loop publication must first establish shared revision reservation
+across all writers in a separately verified checkpoint, not an edit-only shortcut.
+
+Qualify one active child per API process with bounded admission and no unbounded
+queue. Proposed preview/edit compute deadlines are 30/300 seconds, sampled child
+process-tree RSS 4 GiB and graceful cleanup 2 seconds before kill/reap. These are
+separately named production settings to verify, not the audit's diagnostic 1 GiB
+ceiling, import-size limit or a universal aggregate-memory guarantee. Existing atom
+and hydrogen work bounds remain binding. Superseded previews are cancellable;
+submitted Apply retains operation ownership after panel closure. Cancellation
+before publication leaves history/allocators untouched; a committed result requires
+reconciliation/Undo, never a false promise of cancellation or blind uncertain replay.
+
+
+## D-161 — Compact editor truth, captured geometry handoff and five fragments
+
+Keep a bounded original icon-led compact panel with visible verified target identity,
+element/formal-charge uncertainty or residue/chain information and actionable
+prerequisite reasons. Preview inspection must visibly show preparing/ready/warnings/
+partial state, details, Applying and failure/recovery. Preserve deliberate warned
+draft authoring, keyboard/focus/coarse-pointer behavior, both themes and real zoom.
+Fix the compound eye/H control locally rather than changing every icon button.
+
+Offer explicit guarded Select whole residue recovery after history operations;
+never silently broaden an arbitrary or newer selection. Geometry handoff captures
+project/epoch/selection/artifacts and opens existing move/rotate, Quick/Advanced
+minimization or eligible ligand torsion without running it. Do not inherit a stale
+inspector entry or invent a whole-entry operand. Correct torsion's per-conformer
+axis, exact endpoints and graph-cut movable side before compact exposure; preserve
+fixed atoms and disconnected spectators, units and existing chemistry admission.
+
+The owner accepts five neutral fixed fragments from #71: cyclopropyl, cyclobutyl,
+cyclopentyl, cyclohexyl and methoxy. Reuse the existing seeded placement/builder,
+qualify final automatic-H output and preserve internally qualified complete template
+geometry without a client bypass or general reconciliation disable. Give every
+fragment a truthful original glyph. No ring fusion, arbitrary fragments, new
+length/angle/stereo authoring, isotope schema, chemistry assignment, preparation or
+peptide growth is added. The feature contract records separate issue dispositions.
+
+The owner's explicit plan-and-deliver request and early decisions authorize C0
+through full release delivery without finished-plan review. Record the plan as
+Authorized within agreed scope; not individually reviewed. This changes no scientific,
+verification, seven-role same-candidate, remote protection or compatibility gate.
+Provisional stable minor 0.32.0 reflects added functionality; recheck collisions and
+all authoritative versions before preparation/publication.
+
+
+### D-159 C2 clarification — new target connection with retained atom identities
+
+Scientific implementation identifies an overbroad consequence of the new-endpoint
+rule: pinned mutation retains common heavy-atom names, so ARG/GLN/GLU/LYS→PRO can
+retain every ring atom while legitimately requiring a new N–CD connection. Theory
+independently enumerates all 20 pinned templates and finds exactly those four
+retained-name target-edge additions. A new target connection need not have a new
+atom identity; it must not be confused with restoring a missing source-required edge.
+
+Permit only same-residue PRO N–CD closure with compatible retained N/CD identities,
+requested target PRO, a standard source template that did not require N–CD, an absent
+current pair and no authored exclusion. Allocate a new inferred bond with template
+provenance; keep retained atom IDs and coordinates exact. An authored N–CD exclusion
+keeps the ring open with a precise warning. Existing edges retain IDs/order/provenance
+without duplication. Measure N–CD distance in Å and warn about unoptimized retained
+closure geometry even if it falls inside existing extreme-distance thresholds; no
+coordinate search, silent repositioning or validated-conformation claim.
+
+For reverse PRO→ARG/GLN/GLU/LYS, preserve the current N–CD edge under the accepted
+retained-topology policy and explicitly diagnose disagreement with target topology;
+do not silently certify an ordinary standard target or delete the retained edge.
+Keep protein mutation's existing single-conformer admission and atomic refusal of
+unsupported multiple frames. Direct-edit diagnostic coverage is independently
+all-conformer. This narrowly supersedes only the endpoint condition in D-159,
+preserving authored cuts, exclusions and the authorized side-chain workflow.
+
+
+### D-159 C2 clarification — preserve the predecessor's floating-point reduction
+
+Parent complete-diff inspection identifies that a scalar no-axis NumPy norm uses
+a dot-product path while the predecessor dense validator uses explicit-axis
+elementwise squaring and reduction. Theory reproduces strict 0.4 Å decisions
+changing in both directions on pinned NumPy 2.4.6. For example, the origin and
+`[-0.007012883902680816, -0.378476683284495, 0.12925254221614194]` have predecessor
+axis norm 0.4, but scalar norm 0.39999999999999997. A second independent vector
+reverses the decision. A scalar pair-loop oracle would repeat the same mistake.
+
+Recompute candidate distances with explicit `axis=-1` on the original float64
+subtraction, preserving the predecessor's axis-reduction arithmetic. Use the actual
+old dense axis=2 expression only for independent small-fixture regression oracles.
+Permanent vectors and symmetric ties demonstrate failures before correction.
+Bounded theory probes cover 128 clouds and three tree leaf sizes, including adjacent
+floats, ties, underflow/overflow and large coordinates with a close pair, without
+corrected decision or nearest-rank discrepancies. This qualifies the chosen pinned
+arithmetic path; it is not a universal hardware/library equivalence claim. Exact
+queries, both-index/self handling, first-row admission, small batches and strict
+threshold remain unchanged. No approximation or tolerance relaxation.
+
+
+### D-158 C1 implementation — cancellation before HTTP dispatch
+
+Consuming the shared query AbortSignal exposes a real redundant-read boundary in
+development StrictMode: synchronous dispatch starts an HTTP request immediately,
+observer cleanup aborts it, and re-subscription starts the same immutable read.
+The unchanged native 10,000-component oracle detects two requests instead of one.
+An actual StrictMode component negative control reproduces the same two reads.
+
+Settle one microtask, then check the captured signal before HTTP dispatch. A retired
+probe exits without network work; live requests still receive AbortSignal and cancel
+when their final observer retires. No timer, second cache, registry or weakened
+request-count assertion is introduced. The unchanged native oracle passes with one
+read in both layouts; the complete focused 80-case run passes with its three exact
+existing exclusions and unchanged source. This refines transient request ownership,
+without changing molecular state, schema, science or production capacity policy.
+
+
+### D-160 C3 clarification — ephemeral Apply outcome evidence
+
+An unchanged project read cannot establish that a lost Apply request has stopped:
+an upstream request may still be computing before its atomic revision check. Keep
+the submitted attempt above panel/viewer remounts and never infer cancellation or
+replay permission from a successful GET. Closing the editor hides a submitted
+attempt without aborting its owned request.
+
+Add an optional UUID request header for model/selection Apply and a bounded,
+process-local outcome registry/read endpoint. Previews remain outside this registry.
+Store only request identity/digest, phase, small outcome/error metadata, timestamps
+and confirmed committed revision/artifact identity. Reject reuse rather than execute
+an existing token again. Missing, evicted, expired, restarted or different-process
+records mean unknown. Do not dispatch a tagged request if registration fails. Keep
+active/finishing records until settled; bound completed retention with TTL/LRU.
+This is session recovery evidence, not durable exactly-once execution or a new job.
+
+Record commit proof inside a controller-owned transaction observer before the
+existing post-commit project response is built. The observer reads only already
+loaded identity/revision values, performs no database queries and cannot raise.
+An observer failure leaves an unknown outcome. Confirmed saved proof survives a
+later project-read, response-encoding or cleanup failure. Proven prepublication
+failure and successful no-change outcomes become not-applied only after their
+owned work settles. An ambiguous publication exception must remain unknown.
+
+The client freezes one request/context/token, retains one dispatch promise and
+queries its outcome during recovery; current project refreshes remain separate.
+Never install an earlier committed response over later authoritative edits or Undo.
+A deliberate retry after confirmed nonpublication captures fresh context and a
+new token. This implements the accepted recovery contract without persisted schema
+or migration changes; final integrated verification remains required.
+
+
+### D-161 C4 clarification — constructed fragment H and finite-coordinate precision
+
+For the five added fixed fragments, derive transient template-to-new-ID ownership
+inside the actual placement construction. Validate proper finite local alignment
+and rotation matrices, ordinary identities, complete graph/valence, fresh atom
+ownership and every conformer before preserving generated H coordinates through
+automatic maintenance. This record certifies template-owned construction, not
+physical quality or a client-supplied exemption. Existing fragments retain their
+ordinary reconciliation, including conjugation-dependent amino H placement.
+
+Do not reconstruct the placement through a runtime rigid fit. A fixed fit residual
+can falsely reject representable large translations, while a tolerance growing with
+world coordinates can conceal collapsed geometry. Compare each represented
+world-space displacement from the generated root directly with its intended local
+displacement. Above 1e-8 Å representation error, retain a precise conformer-specific
+precision warning and preserve the actual generated rows. This is a numerical
+reporting threshold, not physical admission or a new bond-quality model. Bound
+diagnostic detail explicitly if many conformers are affected.
+
+Refuse nonfinite coordinates, collapsed distinct generated rows and internal bonds
+outside the existing extreme-distance bounds atomically. Do not silently fall back
+to ideal H refitting for a small ring. Independent tests must demonstrate proper
+transforms, mapping/graph ownership negatives, exact generated-coordinate retention,
+ordinary/large translations and distortion before collapse/extreme distances.
+
+
+### D-160 client recovery clarification — acknowledge uncertainty without replay
+
+Architecture and workflow review identify a permanent recovery dead end if a
+missing/restarted/expired receipt keeps a project write-blocked forever. For an
+unknown outcome, offer Check status and Review current state. A verified fresh
+review shows the canonical affected structure and history, or verified absence if
+the target was deleted. Then allow the explicit Continue editing current state
+acknowledgment while stating that the earlier outcome remains unknown and may
+still arrive. Positively identified pending/finishing operations keep their normal
+waiting path; review failure keeps the guard.
+
+Capture and recheck reviewed project/revision/artifact/token identities immediately
+before acknowledgment. Changed context requires another review. Persist/read back
+the acknowledgment for the exact token before releasing only that editing guard;
+storage failure remains visible and keeps recovery active. Keep acknowledgment
+separate from outcome and retain bounded read-only old context. Discard the earlier
+proposal, automatic Apply and retry intent. Never relabel an unknown operation as
+unapplied, cancel it implicitly or automatically resubmit it.
+
+Subsequent editing requires a new deliberate action, fresh captured revision/
+artifact/selection and new UUID. Existing fresh atomic checks resolve a late old
+operation racing that new action: one can publish from the shared expected
+revision, while the other conflicts and must refresh without silent rebasing.
+Retain unrelated quick-publication/movement guards. A late old response can update
+its own record and monotonic project authority, but cannot erase a newer attempt,
+restore an old proposal/selection or steal focus. This is the agreed recovery
+workflow, not new execution or durable-receipt functionality.
+
+
+### D-161 C4 review corrections — admission, periodicity and retained diagnostics
+
+Independent scientific review reproduces three gaps in the new torsion early
+return: configured result-size admission and all-conformer affected-bond diagnostics
+were skipped, while the reused method converted very large unreduced degrees to
+radians and lost rotation periodicity. Passing initial torsion/API cases did not
+qualify these boundaries. Permanent regressions reproduce all three before repair.
+
+Refuse an oversized rotation operand before qualification, including zero-angle
+setup, using the existing configured result-limit diagnostic. Keep this check
+inside rotation so deletion can still reduce an oversized entry. Reduce finite
+degrees with `math.remainder(angle_degrees, 360.0)` before radians/trigonometry;
+preserve the requested angle in the transient plan/preview and retain the established
+fixed-to-moving axis orientation and no-op contract. Regression expectations use
+integer-ratio arithmetic for the actual representable float, including positive
+and negative 1e12, 1e20 and 1e308, rather than treating a rounded float as an exact
+decimal integer. No new magnitude cap or scientific rotation method is introduced.
+
+Reuse finite-derived-length validation and the existing bounded bond-geometry
+diagnostic over both axis endpoints and every rotating atom. Include distal moving
+bonds and all conformers without expanding the operand to disconnected spectators.
+Persist deduplicated diagnostics for a real change; no-op setup returns diagnostics
+without changing original warnings, coordinates, artifacts, history or floors.
+Tests include inactive-frame outliers, explicit truncation/full counts, distal
+bonds, exact fixed material and spawned preview/Apply refusal/publication outcomes.
+
+
+### D-160 C5 clarification — damaged client journal and bounded acknowledged history
+
+Private recovery-journal reads distinguish absent, ready, invalid and unavailable.
+Failed/oversized/partly invalid reads never authorize an assumption that no edit
+exists. Retain recoverable identities. Unavailable storage visibly pauses writes;
+a corrupt value needs explicit review/continuation before replacement by a small
+versioned envelope with an identity-unavailable unknown marker. Each project has
+its own reviewed acknowledgment, persisted and read back before only that guard
+is released. Keep the marker unknown and preserve known pending owners. Do not
+claim every structure was verified when only project/history and no attempt
+identity are available. Bound marker acknowledgments to 64 projects; eviction
+requires that project to review again rather than silently retaining permission.
+
+Independent 32-cycle reproduction shows that pruning before re-adopting journal
+rows resurrects retired records. Merge first, preserve journal age order, then
+bound retired acknowledged history to 20 while retaining current and unresolved
+owners. Apply the same bound on reload, restore the latest acknowledged current
+record and let an aged-out callback retire without regaining UI ownership.
+The corrected independent probe retains 20 previous/21 total rows and latest
+attempt after reload. Acknowledgment remains distinct from a confirmed outcome.
+
+### D-161 C5 clarification — one operation policy across preview composition
+
+A qualified rotation DTO and correct Apply do not establish visible proposal
+geometry. Rendered review finds that the editor captures rotation under preserve
+policy while the viewer compares against automatic policy, dropping the proposal.
+Use the same operation-specific policy/context resolver at request, capture and
+viewer admission. Rotation remains coordinate-only with preserve policy;
+ordinary atom/fragment placement retains automatic policy. Do not change science
+to make context keys match. Qualification must inspect the actual native moving
+geometry, nonpickable rendered objects, visible pixels and Cancel removal while
+canonical coordinates, originals and history remain unchanged before Apply.

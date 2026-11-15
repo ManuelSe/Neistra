@@ -2,6 +2,7 @@ import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
 import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
 import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
 import { seedCoordinateProjections } from "./coordinates/cache";
+import { isCompleteProjection, structureQueryKey, structureQueryOptions } from "./structures/query";
 import { captureProjectCommand, dispatchProjectCommand, type ProjectCommand } from "./coordinates/projectCommand";
 import { usePresentation } from "./presentation/context";
 import type { ResidueSelectionRequest, ViewerPick } from "./selection/gestures";
@@ -16,6 +17,10 @@ import { surfacePruningWarnings } from "./selection/surfaceWarnings";
 import { WorkspacePresentationController } from "./workspacePresentation/controller";
 import { CameraRecovery } from "./components/CameraRecovery";
 import { useEditingStore } from "./store/editing";
+import { EditAttemptController, EditApplyError, editAttemptBlocksWrites, type EditReview } from "./editing/attempt";
+import { createEditAttemptJournal } from "./editing/attemptJournal";
+import { assertSelectionTargetCurrent, type SelectionTargetCapture } from "./selection/capture";
+import { wholeResidueSelection } from "./editing/residues";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,7 +33,7 @@ import {
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
+import { ApiError, jobApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
 import type {
   Entry,
   AtomReference,
@@ -338,9 +343,13 @@ export default function App() {
   }, createPublicationJournal()));
   const publicationState = useSyncExternalStore(publication.subscribe,
     () => publication.snapshot(activeProjectId ?? ""));
+  const [editAttempts] = useState(() => new EditAttemptController(createEditAttemptJournal()));
+  const editAttempt = useSyncExternalStore(editAttempts.subscribe,
+    () => editAttempts.snapshot(activeProjectId ?? ""));
+  const editReviewContext = useRef<{ id: string; selection: Selection; epoch: number; key: string } | null>(null);
   const publicationBlocked = publicationState.phase !== "idle";
   const assertPublicationWritable = (id: string) => {
-    try { publication.assertWritable(id); }
+    try { publication.assertWritable(id); editAttempts.assertWritable(id); }
     catch (error) {
       if (id === useWorkspaceStore.getState().activeProjectId) {
         setNotice({ kind: "error", lifetime: "persistent", text: error instanceof Error
@@ -354,8 +363,19 @@ export default function App() {
     if (activeProjectId) void publication.attachProject(activeProjectId);
   }, [activeProjectId, publication]);
 
+  const selectionTargetContext = () => {
+    const current = useSelectionStore.getState(), active = useWorkspaceStore.getState().activeProjectId;
+    return { activeProjectId: active, selectionProjectId: current.projectId, projectEpoch: current.projectEpoch,
+      project: queryClient.getQueryData<Project>(["project", active]), selection: current.selection };
+  };
   const { session: movementSession, workflow: movement } = useMovementSession({
-    beforeStart: () => { clearCoordinatePreview(); useMinimizationStore.getState().dismiss(); },
+    targetContext: selectionTargetContext,
+    beforeStart: () => {
+      const reason = minimization.startReason();
+      if (reason) throw new Error(reason);
+      if (project) assertPublicationWritable(project.id);
+      clearCoordinatePreview(); useMinimizationStore.getState().dismiss();
+    },
     context: () => ({
       project: queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]),
       selection: useSelectionStore.getState().selection,
@@ -363,11 +383,7 @@ export default function App() {
     load: async (captured, ids) => new Map(await Promise.all(ids.map(async id => {
       const entry = captured.entries.find(item => item.id === id);
       if (!entry?.current_artifact_id) throw new Error("A selected structure is unavailable.");
-      const projection = await queryClient.fetchQuery({
-        queryKey: ["structure", captured.id, id, entry.current_artifact_id],
-        queryFn: () => molecularApi.structure(captured.id, id),
-        staleTime: Number.POSITIVE_INFINITY,
-      });
+      const projection = await queryClient.fetchQuery(structureQueryOptions(captured.id, id, entry.current_artifact_id));
       return [id, projection] as const;
     }))),
     rendered: () => renderedMovementAtoms.current(),
@@ -461,7 +477,8 @@ export default function App() {
 
   const editingPending = useEditingStore(state => state.pending);
   const minimizationApplying = useMinimizationStore(state => state.applying);
-  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying || publicationBlocked;
+  const editBlocked = editAttemptBlocksWrites(editAttempt);
+  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying || publicationBlocked || editBlocked;
   const readBusy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || (minimizationApplying && !publicationBlocked);
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
@@ -522,11 +539,7 @@ export default function App() {
       requested.map(async (entryId) => {
         const entry = project.entries.find((item) => item.id === entryId);
         if (!entry?.current_artifact_id) return null;
-        const result = await queryClient.fetchQuery({
-          queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
-          queryFn: () => molecularApi.structure(project.id, entry.id),
-          staleTime: Number.POSITIVE_INFINITY,
-        });
+        const result = await queryClient.fetchQuery(structureQueryOptions(project.id, entry.id, entry.current_artifact_id));
         return [entry.id, result] as const;
       }),
     );
@@ -543,9 +556,10 @@ export default function App() {
         clearCoordinatePreview();
         if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Unapplied movement was discarded before minimization publication.");
       }
+      assertPublicationWritable(attempt.projectId);
       return publication.start(attempt);
     },
-    clearCoordinatePreview, setNotice, publication);
+    clearCoordinatePreview, setNotice, publication, selectionTargetContext, assertPublicationWritable);
   useEffect(() => {
     if (projectDialogOpen || createMode || newMoleculeOpen || importDialogOpen || archiveImportDialogOpen || exportDialogOpen || entryDialog || jobDialogOpen || groupDialog) useMinimizationStore.getState().dismiss();
   }, [projectDialogOpen, createMode, newMoleculeOpen, importDialogOpen, archiveImportDialogOpen, exportDialogOpen, entryDialog, jobDialogOpen, groupDialog]);
@@ -601,8 +615,8 @@ export default function App() {
     const current = queryClient.getQueryData<Project>(["project", request.projectId]);
     const entry = current?.entries.find(item => item.id === request.entryId);
     if (!entry || entry.current_artifact_id !== request.artifactId) return;
-    const projection = queryClient.getQueryData<StructureProjection>(["structure", request.projectId, entry.id, request.artifactId]);
-    if (!projection) return;
+    const projection = queryClient.getQueryData<StructureProjection>(structureQueryKey(request.projectId, entry.id, request.artifactId));
+    if (!isCompleteProjection(projection, entry.id, request.artifactId)) return;
     state.applyResidue(request, { projectId: request.projectId, artifactId: request.artifactId,
       source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
   };
@@ -614,8 +628,8 @@ export default function App() {
     const entryId = pick.atoms[0]?.structure_id;
     const entry = project.entries.find(item => item.id === entryId);
     if (!entry?.current_artifact_id) return;
-    const projection = queryClient.getQueryData<StructureProjection>(["structure", project.id, entry.id, entry.current_artifact_id]);
-    if (!projection) return;
+    const projection = queryClient.getQueryData<StructureProjection>(structureQueryKey(project.id, entry.id, entry.current_artifact_id));
+    if (!isCompleteProjection(projection, entry.id, entry.current_artifact_id)) return;
     state.applyViewer(operand, mode, pick, { projectId: project.id, artifactId: entry.current_artifact_id,
       source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
   };
@@ -827,7 +841,7 @@ export default function App() {
           const entry = project.entries.find(e => e.id === entryId);
           if (!entry?.current_artifact_id) throw new Error("Load the target before editing.");
           const structure = edit.operation === "bond.order" || edit.operation === "bond.delete"
-            ? (await molecularApi.structure(project.id, entryId)).structure : undefined;
+            ? (await queryClient.fetchQuery(structureQueryOptions(project.id, entryId, entry.current_artifact_id))).structure : undefined;
           if (!owns() || useSelectionStore.getState().selection !== captured) throw new Error("The target context changed; submit the edit again.");
           const direct = manualModelEdit(entryId, edit, structure);
           if (!direct) throw new Error("Unsupported direct action.");
@@ -962,19 +976,111 @@ export default function App() {
     setNotice({ kind: "success", text: "Molecule created. Build with Add atom or Fragments in Edit; review scientific warnings.", lifetime: "persistent" });
   };
 
+  const editReviewKey = (value: Project) => JSON.stringify([value.id, value.revision,
+    value.entries.map(entry => [entry.id, entry.current_artifact_id, entry.locked])]);
+  const editReviewIsCurrent = () => {
+    const proof = editReviewContext.current, context = selectionTargetContext();
+    return Boolean(proof && editAttempts.recoveryOwner(context.activeProjectId ?? "") === proof.id
+      && context.project && proof.epoch === context.projectEpoch && proof.selection === context.selection
+      && context.activeProjectId === context.selectionProjectId && editReviewKey(context.project) === proof.key);
+  };
+  const checkEdit = async (owner: string, reviewed?: (value: Project) => void) => editAttempts.check(owner,
+    identity => projectApi.editAttempt(owner, identity.id), async () => {
+      const latest = await projectApi.get(owner); updateProjectCache(latest);
+      await queryClient.invalidateQueries({ queryKey: ["structure", owner] });
+      reviewed?.(latest);
+    });
+  const reviewEdit = async (acknowledge = false) => {
+    const context = selectionTargetContext(), owner = context.activeProjectId;
+    if (!owner || !context.project) return;
+    const before = editAttempts.snapshot(owner), identity = before.identity, priorReview = before.review;
+    const recoveryOwner = editAttempts.recoveryOwner(owner);
+    if (!before.canReview) return;
+    if (acknowledge && (!priorReview || !editReviewIsCurrent())) {
+      editAttempts.reviewFailed(owner, recoveryOwner, "Project changed — review again."); return;
+    }
+    try {
+      let reviewed: Project | undefined;
+      await checkEdit(owner, value => { reviewed = value; });
+      const status = editAttempts.snapshot(owner);
+      if (editAttempts.recoveryOwner(owner) !== recoveryOwner || !status.canReview) return;
+      const latest = reviewed;
+      if (!latest) throw new Error("The current project could not be reviewed. Editing remains paused.");
+      const target = latest.entries.find(entry => entry.id === identity?.entryId);
+      if (target?.current_artifact_id) await queryClient.fetchQuery(structureQueryOptions(owner, target.id, target.current_artifact_id));
+      const now = selectionTargetContext();
+      if (now.activeProjectId !== owner || now.selectionProjectId !== owner || now.selection !== context.selection
+        || now.projectEpoch !== context.projectEpoch || !now.project || editReviewKey(now.project) !== editReviewKey(latest)) {
+        throw new Error("Project changed — review again.");
+      }
+      const review: EditReview = { revision: latest.revision, artifactId: target?.current_artifact_id ?? null,
+        undo: latest.history.undo_description, redo: latest.history.redo_description, contextKey: editReviewKey(latest),
+        ...(status.journalRecovery && !status.journalRecovery.acknowledged ? { identityUnavailable: true } : {}) };
+      if (acknowledge && JSON.stringify(review) !== JSON.stringify(priorReview)) throw new Error("Project changed — review again.");
+      editReviewContext.current = { id: recoveryOwner, selection: now.selection, epoch: now.projectEpoch, key: review.contextKey };
+      editAttempts.setReview(owner, recoveryOwner, review);
+      if (acknowledge && editAttempts.acknowledgeRecovery(owner, recoveryOwner, review)) {
+        useEditingStore.getState().setPlacement(null);
+        useEditingStore.getState().setRotationDraft(null);
+      }
+    } catch (error) { editAttempts.reviewFailed(owner, recoveryOwner, errorMessage(error)); }
+  };
   const projects = projectsQuery.data ?? [];
   const viewerActions = {
+    onGeometry: async (kind: "move" | "quick" | "advanced", capture: SelectionTargetCapture) => {
+      assertSelectionTargetCurrent(capture, selectionTargetContext());
+      assertPublicationWritable(capture.projectId);
+      if (movementSession.snapshot().phase !== "idle") throw new Error("Finish or cancel movement before opening another geometry tool.");
+      const editorIntent = useEditingStore.getState();
+      await Promise.all(Object.entries(capture.artifacts).map(([id, artifact]) => queryClient.fetchQuery(structureQueryOptions(capture.projectId, id, artifact))));
+      assertSelectionTargetCurrent(capture, selectionTargetContext());
+      const currentEditor = useEditingStore.getState();
+      if (!currentEditor.open || currentEditor.projectId !== editorIntent.projectId || currentEditor.generation !== editorIntent.generation
+        || currentEditor.section !== editorIntent.section) throw new Error("The editor target changed or closed. Open geometry again for the current target.");
+      assertPublicationWritable(capture.projectId);
+      if (kind === "move") {
+        const reason = minimization.startReason(); if (reason) throw new Error(reason);
+        movement.start(capture);
+        return true;
+      }
+      if (movementSession.snapshot().phase !== "idle") throw new Error("Finish or cancel movement before opening minimization.");
+      return minimization.configure(kind === "quick" ? "quick" : "amber", capture);
+    },
+    onRecoverResidue: (capture: SelectionTargetCapture) => {
+      assertSelectionTargetCurrent(capture, selectionTargetContext());
+      const id = Object.keys(capture.artifacts)[0];
+      const projection = queryClient.getQueryData<StructureProjection>(structureQueryKey(capture.projectId, id, capture.artifacts[id]));
+      if (!isCompleteProjection(projection, id, capture.artifacts[id])) throw new Error("Reload the current residue before expanding its selection.");
+      const expanded = wholeResidueSelection(projection, capture.selection);
+      if (!expanded) throw new Error("Select part of one standard amino-acid residue before expanding it.");
+      useSelectionStore.getState().replace(expanded);
+    },
+    editAttempt,
+    editReviewCurrent: editReviewIsCurrent(),
+    onReviewEdit: () => reviewEdit(),
+    onContinueEdit: () => reviewEdit(true),
+    onCheckEdit: async () => { if (project) await checkEdit(project.id); },
     onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = action.operation.startsWith("hydrogens.") ? "preserve" : "automatic") => {
       if (!project) throw new Error("Open a project before editing.");
       const owner = project.id;
       const generation = useEditingStore.getState().generation;
       const captured = useSelectionStore.getState().selection;
       const targetEntryId = useEditingStore.getState().targetEntryId;
+      let dispatchedAttempt: string | null = null;
       try {
         assertPublicationWritable(project.id);
-        const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action, hydrogenPolicy);
+        const result = await editAttempts.submit({ projectId: owner, entryId, artifactId,
+          expectedRevision: project.revision, operation: action.operation,
+          targetLabel: project.entries.find(entry => entry.id === entryId)?.name ?? "Molecular target",
+          kind: ["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? "selection" : "model",
+        }, attemptId => {
+          dispatchedAttempt = attemptId;
+          const placement = useEditingStore.getState().placement;
+          if (placement?.action === action) useEditingStore.getState().setPlacement({ ...placement, submittedAttemptId: attemptId });
+          return projectApi.selectionEdit(project, entryId, artifactId, operand, action, hydrogenPolicy, attemptId);
+        });
         if (result.applied !== false) updateProjectCache(result.project);
-        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
+        if ((!dispatchedAttempt || editAttempts.owns(owner, dispatchedAttempt)) && useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           const latest = queryClient.getQueryData<Project>(["project", owner]);
           if (result.applied !== false && latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured && useEditingStore.getState().targetEntryId === targetEntryId) {
             replaceSelection(result.selection_after);
@@ -985,11 +1091,11 @@ export default function App() {
         }
         return result;
       } catch (error) {
-        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
+        if ((!dispatchedAttempt || editAttempts.owns(owner, dispatchedAttempt)) && useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           setNotice({ kind: "error", text: errorMessage(error) });
           void queryClient.invalidateQueries({ queryKey: ["project", owner] });
         }
-        throw error;
+        throw new EditApplyError(error, dispatchedAttempt);
       }
     },
     busy,

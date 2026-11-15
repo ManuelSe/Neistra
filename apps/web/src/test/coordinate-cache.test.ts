@@ -7,6 +7,7 @@ import { molecularProject, proteinProjection } from "./molecular-fixtures";
 
 for (const direction of ["Apply/Redo", "Undo after reload"]) it(`refreshes canonical provenance and active conformers for ${direction}`, async () => {
   const before = proteinProjection();
+  before.artifact_id = "before";
   before.structure.annotations = [];
   before.structure.conformers = [
     { id: 1, name: "Inactive", coordinates: before.structure.atoms.map(a => [...a.coordinates]) },
@@ -14,6 +15,7 @@ for (const direction of ["Apply/Redo", "Undo after reload"]) it(`refreshes canon
   ];
   before.structure.active_conformer_id = 7;
   const after: StructureProjection = structuredClone(before);
+  after.artifact_id = "after";
   after.structure.atoms[0].coordinates = [10, 1, 0];
   after.structure.conformers[1].coordinates[0] = [10, 1, 0];
   after.structure.annotations = [{ kind: "neistra_quick_minimization", job_id: "job" }];
@@ -30,6 +32,8 @@ for (const direction of ["Apply/Redo", "Undo after reload"]) it(`refreshes canon
   seedCoordinateProjections(client, project, next);
   const key = ["structure", project.id, "protein", newId];
   const immediate = client.getQueryData<StructureProjection>(key)!;
+  expect(immediate.artifact_id).toBe(newId);
+  expect(immediate.projection_state).toBe("coordinate-seed");
   expect(immediate.structure.atoms[0].coordinates).toEqual(canonical.structure.atoms[0].coordinates);
   expect(immediate.structure.conformers[1].coordinates).toEqual(canonical.structure.conformers[1].coordinates);
   expect(immediate.structure.conformers[0]).toEqual(source.structure.conformers[0]);

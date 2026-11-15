@@ -1,5 +1,6 @@
 import { addOneHydrogen } from "./support/hydrogen";
 import { prepare } from "./support/interactions";
+import { expectCompactInspection } from "./support/modeling";
 import { browseComponents, showEntries } from "./support/navigation";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
@@ -455,7 +456,8 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
         await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
         await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
-        expect((await panel.boundingBox())!.height).toBeLessThanOrEqual(70);
+        await expect(panel.getByRole("status")).toContainText(/Ready.*warnings?/);
+        await expectCompactInspection(panel);
         for (const control of await panel.getByRole("button").all()) {
           await control.focus(); await expect(control).toBeFocused();
           expect(await control.evaluate(node => {
@@ -469,6 +471,29 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         await panel.getByRole("button", { name: "Cancel placement", exact: true }).click();
         await page.keyboard.press("Escape"); await expect(launcher).toBeFocused();
       }
+    }
+    for (const factor of [1, 2]) {
+      expect(await setZoom(worker, baseURL!, factor)).toBe(factor);
+      await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(factor);
+      await expect.poll(() => page.evaluate(() => innerWidth)).toBe(1440 / factor);
+      const empty = await (await request.post("/api/v1/projects", { data: { name: `Empty edit recovery ${factor} ${Date.now()}` } })).json() as Project;
+      await page.reload();
+      await page.getByRole("button", { name: "Projects", exact: true }).click();
+      await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${empty.name}`) }).click();
+      await page.evaluate(() => sessionStorage.setItem("neistra.edit-attempts.v1", "unreadable earlier edit")); await page.reload();
+      const recovery = page.getByLabel("Molecular edit recovery", { exact: true }); await expect(recovery).toBeVisible();
+      await recovery.getByRole("button", { name: "Review current state", exact: true }).click();
+      const continuation = recovery.getByRole("button", { name: "Continue editing current state", exact: true });
+      await continuation.scrollIntoViewIfNeeded(); await continuation.focus(); await expect(continuation).toBeFocused();
+      expect(await continuation.evaluate(node => {
+        const bounds = node.getBoundingClientRect(), workspace = node.closest(".workspace-canvas")!.getBoundingClientRect();
+        return bounds.height >= 44 && bounds.top >= workspace.top && bounds.bottom <= workspace.bottom && bounds.left >= workspace.left && bounds.right <= workspace.right
+          && node.contains(document.elementFromPoint(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2));
+      })).toBe(true);
+      expect((await new AxeBuilder({ page }).include(".project-stage").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+      await captureZoomPage(page, info, `${factor * 100}-empty-edit-recovery.png`);
+      await page.keyboard.press("Enter"); await expect(recovery).toBeHidden();
+      expect((await (await request.get(`/api/v1/projects/${empty.id}`)).json() as Project).revision).toBe(empty.revision);
     }
   } finally { await context.close(); }
 });

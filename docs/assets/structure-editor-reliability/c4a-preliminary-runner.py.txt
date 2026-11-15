@@ -1,0 +1,23 @@
+import gzip,hashlib,json,subprocess,time
+from pathlib import Path
+root=Path('/datadisk/dev/neistra-worktrees/issue-147')
+out=Path('/tmp/neistra147-c4a-integrated-checks-v1')
+r=json.loads((out/'receipt-initial.json').read_text())
+steps=json.loads(Path('/tmp/neistra147-c4a-check-commands.json').read_text())
+result_code=0
+for label,command in steps:
+ print('START',label,flush=True)
+ start=time.monotonic()
+ with (out/(label+'.log')).open('wb') as log:
+  p=subprocess.run(command,cwd=root,stdout=log,stderr=subprocess.STDOUT)
+ data=(out/(label+'.log')).read_bytes()
+ (out/(label+'.log.gz')).write_bytes(gzip.compress(data,mtime=0))
+ r['steps'].append({'label':label,'command':command,'exit_code':p.returncode,'seconds':time.monotonic()-start,'lossless_sha256':hashlib.sha256(data).hexdigest()})
+ print('END',label,p.returncode,flush=True)
+ if p.returncode:result_code=p.returncode;break
+r['source_after']={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in r['source_before']}
+r['source_unchanged']=r['source_before']==r['source_after']
+r['complete']=result_code==0 and len(r['steps'])==3 and r['source_unchanged']
+(out/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+print('COMPLETE',r['complete'],flush=True)
+raise SystemExit(result_code or (0 if r['complete'] else 2))

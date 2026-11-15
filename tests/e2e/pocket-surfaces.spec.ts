@@ -288,7 +288,7 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   await expect(manager.getByText("1 surface created.", { exact: true })).toBeVisible();
   await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries.find((e: { id: string }) => e.id === receptor.id).viewer_settings.surface_objects.length).toBeGreaterThan(0);
   let reads = 0;
-  page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(r.url())) reads++; });
+  page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname)) reads++; });
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   const savedObject = project.entries.find(e => e.id === receptor.id)!.viewer_settings.surface_objects[0];
   const saved = savedObject.source;

@@ -1,0 +1,66 @@
+{
+  "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+  "comparison_base": "2b5400deef2ab09850a9f677050b33fa2775bded",
+  "report_kind": "Primary agent's neutral reconciliation of returned specialist agent assessments; not human approval",
+  "full_candidate_paths": 236,
+  "full_patch_sha256": "5b515dd9f0a1aa0269fd6ed719243f44991acfd2331d1653076065d04393a8bf",
+  "intervening_patch_sha256": "c7e0e801c4509855249441f37be29e401c9865e0b06bfcd4a3f032dc4c831692",
+  "assessments": {
+    "scientific_theory": {
+      "agent": "/root/science_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Whole scientific method, topology, finite-angle, all-frame and fragment validity assessment explicitly reconfirmed after inspecting the corrective delta. Optional overlap wording correction resolves the remaining documentation suggestion. Prior independent scientific probes remain scoped evidence."
+    },
+    "scientific_implementation": {
+      "agent": "/root/scientific_implementation_c4_review",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Whole implementation assessment explicitly reconfirmed after the test/documentation-only delta. Scientific source and fixtures remain unchanged; retained independent 83-case log, earlier 465-case C4 overlap, and actual final-version preceding-reader provenance were independently inspected. Session-only unretained probes are excluded from reproducible qualification claims."
+    },
+    "software_architecture": {
+      "agent": "/root/architecture_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Full state, publication, persistence, lifecycle and recovery assessment explicitly reconfirmed. All 236 candidate hashes and both patch hashes verify; only one of 846 qualification inputs changes, an E2E test. Actual 0.32.0/0.31.0 preflight resolves the preceding evidence-only blocker."
+    },
+    "performance": {
+      "agent": "/root/performance_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Full performance assessment explicitly reconfirmed after independent 236-file and two-patch verification. No runtime, resource policy or timing-threshold change. Both corrective archives and focused source/log proof verify; all 35 recipe steps remain equivalent. Historical C3a latency is not current timing or universal capacity qualification."
+    },
+    "ui_design": {
+      "agent": "/root/ui_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Whole rendered assessment explicitly reconfirmed after 236-file, two-patch and 42 unchanged C5 source checks. Prior preview, zoom, contrast, recovery and target-size corrections remain qualified. Focused desktop/mobile evidence and all corrective archive CRC/internal hashes verify."
+    },
+    "ux_design": {
+      "agent": "/root/ux_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Whole workflow assessment explicitly reconfirmed. Semantic movement guidance assertions preserve named unlock/coordinate guidance and all hidden/canonical/revision invariants; added empty-target checks strengthen the oracle. No workflow, requirement or accepted scope is relaxed."
+    },
+    "modeling_reference": {
+      "agent": "/root/reference_editing_audit",
+      "candidate": "5f9fbeb8229c801563180364322c04c01dd49692",
+      "verdict": "PASS",
+      "assessment": "Full reference-workflow assessment explicitly reconfirmed after independent 236-file, nine-path delta and two-patch checks. No interaction, capability claim or accepted completeness boundary changed. Both archive manifests, focused two-layout evidence and equivalent 35-step recipe verify."
+    }
+  },
+  "consequential_findings_remaining": [],
+  "corrections": [
+    "Retained PRO closure, nonfinite boundaries and exact-axis overlap arithmetic",
+    "Bounded Apply outcome ownership and unknown-only reviewed recovery",
+    "Rotation configured-limit admission, huge finite-angle periodicity and all-frame distal diagnostics",
+    "Typed workspace bridge, bounded recovery journal, damaged-journal and empty-workspace recovery",
+    "Shared action-derived preview context and actual native nonpickable moving geometry",
+    "Semantic movement refusal oracle preserving and strengthening canonical-state invariants"
+  ],
+  "limits": [
+    "These assessments do not claim complete release-gate success or release delivery.",
+    "All seven must inspect and explicitly reconfirm any subsequent candidate delta.",
+    "Agent assessments do not satisfy required human or remote approvals."
+  ]
+}

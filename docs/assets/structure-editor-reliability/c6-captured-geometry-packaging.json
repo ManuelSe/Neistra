@@ -1,0 +1,22 @@
+{
+  "commit": "5f9fbeb8229c801563180364322c04c01dd49692",
+  "source_identities": 846,
+  "source_unchanged": true,
+  "browser_passes": 45,
+  "existing_exclusions": [
+    [
+      "mobile-chromium",
+      "quick-minimization.spec.ts",
+      "preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts"
+    ]
+  ],
+  "new_exclusions": 0,
+  "failures_flakes_retries": 0,
+  "inventory": 46,
+  "archive": "c6-captured-geometry-qualified.zip",
+  "bytes": 2099060,
+  "sha256": "7fcdc5ad70b194c1038c8a2a6ee92fd769dd551500b7d5c80d90de57c42fe8c5",
+  "manifest_entries": 22,
+  "crc_and_internal_hashes_valid": true,
+  "native_observations": 15
+}

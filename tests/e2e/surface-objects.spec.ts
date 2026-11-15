@@ -185,7 +185,7 @@ test("manages production object appearance and explicit sources independently th
   const initialCalculations = await calculations(); expect(initialCalculations).toBe(5);
   expect(await page.evaluate(() => (window as unknown as { surfaceMaximum: number }).surfaceMaximum)).toBe(1);
   expect(await page.evaluate(() => (window as unknown as { surfaceActive: number }).surfaceActive)).toBe(0);
-  let reads = 0; page.on("request", r => { if (r.method() === "GET" && /\/structure(?:\?|$)/.test(r.url())) reads++; });
+  let reads = 0; page.on("request", r => { if (r.method() === "GET" && /\/structure(?:\?|$)/.test(new URL(r.url()).pathname)) reads++; });
   const managerBaseline: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
   const fragmentRow = manager.getByRole("button", { name: "Fragment A Captured fragment", exact: true });
   await fragmentRow.click();

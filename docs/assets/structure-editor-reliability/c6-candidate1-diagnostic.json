@@ -1,0 +1,25 @@
+{
+  "candidate": "bc241a8ce4749aa46a6ed2579ca8dad75c9434b5",
+  "qualification_complete": false,
+  "completed_steps": 16,
+  "total_steps": 35,
+  "browser": {
+    "inventory": 542,
+    "passed_before_stop": 70,
+    "existing_skips_before_stop": 2,
+    "failed": 1,
+    "not_run": 469
+  },
+  "failure": "Legacy movement feedback assertions expect old words; actual refusal guidance is visible and correct. UX recommends semantic assertion reconciliation, preserving behavior/canonical checks.",
+  "other_checks": "2165 Python/0skips,843web/95,14supervisor,frozen installs,migrationup/down/up,Ruff/mypy218+tool1 and build passed; no partial reuse as final complete gate.",
+  "all_seven_reviews": "PASS for this candidate, without claiming full gate completion; corrective candidate requires updated assessments/reconfirmation.",
+  "early_final_version_reader_preflight": "Actual32/31/32 phases PASS, separately preserved; does not replace complete35stepgate.",
+  "archive": "c6-candidate1-diagnostic.zip",
+  "bytes": 9948174,
+  "sha256": "9c4db61b1fefffaa46cff721c9359586b1124355099f3ebbd8bf5bd433da043c",
+  "manifest_entries": 362,
+  "originals_retained": "/tmp/neistra147-c6-candidate1-diagnostic-originals",
+  "temporary_duplicate_capture_resources": "Excluded from repository ZIP; complete original capture files and all-resource ZIP retained outside checkout. Self-contained failure trace, screenshots, logs, reports and reader state evidence remain included.",
+  "all_temporary_traces_local": "/tmp/neistra147-c6-candidate1-diagnostic-all-temporary-traces.zip",
+  "all_temporary_traces_sha256": "7f6005490e7849baad8975d9437c78e443faf83d6b4d45974740a3fc6034cff3"
+}

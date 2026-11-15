@@ -1,0 +1,87 @@
+from __future__ import annotations
+
+import gzip
+import hashlib
+import json
+import os
+import platform
+import subprocess
+import time
+from datetime import UTC, datetime
+from pathlib import Path
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-147')
+OUT = Path('/tmp/neistra147-c3a-evidence-attempt1')
+OUT.mkdir(exist_ok=True)
+FILES = [
+    'tests/e2e/molecular-editing.spec.ts',
+    'tests/e2e/protein-editing.spec.ts',
+    'tests/e2e/direct-molecular-modeling.spec.ts',
+    'tests/e2e/bond-hydrogen-reconciliation.spec.ts',
+]
+
+
+def sources() -> dict[str, str]:
+    paths = subprocess.check_output(
+        ['git', 'ls-files', '-z', '--cached', '--others', '--exclude-standard'], cwd=ROOT,
+    ).decode().split('\0')
+    suffixes = {'.py', '.ts', '.tsx', '.js', '.css', '.html', '.toml', '.yaml', '.yml'}
+    exact = {'pyproject.toml', 'uv.lock', 'package.json', 'pnpm-lock.yaml',
+             'apps/web/package.json', 'playwright.config.ts'}
+    return {
+        p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest()
+        for p in sorted(set(paths)) if p and (p in exact or
+        (p.startswith(('apps/', 'packages/', 'tests/', 'tools/'))
+         and Path(p).suffix in suffixes))
+    }
+
+
+env = os.environ.copy()
+for name in ['NEISTRA_DATA_DIR', 'NEISTRA_DATABASE_URL', 'MOLWEAVE_DATA_DIR',
+             'MOLWEAVE_DATABASE_URL', 'DATABASE_URL']:
+    env.pop(name, None)
+overrides = {
+    'NEISTRA_E2E_API_PORT': '8210', 'NEISTRA_E2E_WORKER_PORT': '8211',
+    'NEISTRA_E2E_WEB_PORT': '5373', 'NEISTRA_E2E_DATA_DIR': '/tmp/neistra147-c3a-e2e-attempt1',
+    'NEISTRA_PERFORMANCE': '0', 'PLAYWRIGHT_BROWSERS_PATH': '/datadisk/dev/neistra/.playwright',
+}
+env.update(overrides)
+receipt = {
+    'label': 'c3a-focused', 'attempt': 1, 'full_release_gate': False,
+    'commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+    'working_changes': subprocess.check_output(['git', 'status', '--short'], cwd=ROOT, text=True),
+    'started_utc': datetime.now(UTC).isoformat(), 'platform': platform.platform(),
+    'overrides': overrides, 'source_before': sources(), 'steps': [],
+}
+exit_code = 0
+for label, arguments, output_name in [
+    ('inventory', ['--list', '--reporter=json'], 'inventory.json'),
+    ('browser', ['--reporter=list,json', '--max-failures=1', '--output', str(OUT / 'native')],
+     'browser.json'),
+]:
+    command = ['corepack', 'pnpm', 'exec', 'playwright', 'test', *FILES, *arguments]
+    step_env = {**env, 'PLAYWRIGHT_JSON_OUTPUT_FILE': str(OUT / output_name)}
+    log = OUT / f'{label}.log'
+    print('START', label, flush=True)
+    started = time.monotonic()
+    with log.open('wb') as handle:
+        result = subprocess.run(command, cwd=ROOT, env=step_env, stdout=handle,
+                                stderr=subprocess.STDOUT, check=False)
+    content = log.read_bytes()
+    (OUT / f'{label}.log.gz').write_bytes(gzip.compress(content, mtime=0))
+    receipt['steps'].append({
+        'label': label, 'command': command, 'exit_code': result.returncode,
+        'seconds': time.monotonic() - started,
+        'lossless_log_sha256': hashlib.sha256(content).hexdigest(),
+    })
+    print('END', label, result.returncode, flush=True)
+    if result.returncode:
+        exit_code = result.returncode
+        break
+receipt['source_after'] = sources()
+receipt['source_unchanged'] = receipt['source_before'] == receipt['source_after']
+receipt['finished_utc'] = datetime.now(UTC).isoformat()
+receipt['complete'] = exit_code == 0 and len(receipt['steps']) == 2 and receipt['source_unchanged']
+(OUT / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+print('COMPLETE', receipt['complete'], str(OUT / 'receipt.json'), flush=True)
+raise SystemExit(exit_code if exit_code else (0 if receipt['source_unchanged'] else 2))

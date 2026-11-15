@@ -135,6 +135,10 @@ from the existing checkpoint comparison. No new migration or schema is needed.
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/transform` | Translate or rotate a whole entry or selected atoms. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/ligand-edits` | Apply one validated ligand graph, hydrogen, rotation, or cleanup command. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/protein-edits` | Apply one validated protein hierarchy, mutation, or hydrogen command. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/model-edits` | Apply a captured direct model action, including qualified ligand torsion. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` | Compute a disposable placement/rotation proposal without publication. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/selection-edits` | Apply one captured selection edit. |
+| `GET` | `/api/v1/projects/{project_id}/edit-attempts/{attempt_id}` | Read bounded process-local Apply outcome evidence without replay. |
 | `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
 
 ## Job Endpoints
@@ -252,13 +256,22 @@ seed endpoint under `/api/v1/testing`; normal startup never registers it.
 
 ## Lazy Structure And Component Contract
 
-The structure endpoint is artifact-keyed and returns an additive
-`ComponentHierarchyV1` projection beside the authoritative normalized document
-and disposable viewer payload:
+The structure endpoint returns the immutable `artifact_id` that produced its
+normalized document, derived `ComponentHierarchyV1` and disposable viewer payload.
+Artifact-keyed clients pass `?expected_artifact_id=<artifact-id>` and validate both
+response `entry_id` and `artifact_id` before caching. If the entry no longer points
+to that artifact when the request is captured, the server returns 409
+`structure_artifact_conflict` without reading a different artifact. Refresh the
+target; do not cache another current structure under the requested identity.
+
+Once captured, a read stays bound to that immutable artifact even if the entry's
+current pointer changes before the response is produced. Legacy callers may omit
+the condition to capture the current artifact, and still receive its explicit ID:
 
 ```json
 {
   "entry_id": "entry-id",
+  "artifact_id": "normalized-artifact-id",
   "structure": {"schema_version": 1, "atoms": [], "residues": []},
   "hierarchy": {
     "schema_version": 1,
@@ -288,10 +301,16 @@ hierarchy. Consumers derive exact atom unions from the returned normalized
 document without duplicating category atom arrays. Classification source is
 `source`, `fallback`, or `ambiguous`; status is `assigned` or `ambiguous`.
 
+Coordinate-only client continuity seeds carry their new artifact identity and an
+explicit provisional marker. They require the full immutable refresh before
+chemistry controls or provenance can treat their warnings/hierarchy as complete;
+that marker is transient client state, not part of this response or archive data.
+Deploy matching client/server versions for the required response identity.
+
 The projection is read-only. Neistra exposes no component rename,
 reclassification, individual-style, individual-visibility, ligand-designation,
 or subset-export endpoint. `/api/v1` remains the transport prefix; project/archive
-schema 2 and Alembic head 0014 cover independent surface objects.
+schema 2 and current Alembic head 0015 remain unchanged by projection identity.
 
 ## Selection Contract
 
@@ -802,7 +821,8 @@ Additional direct actions:
 | Operation | Fields / operands |
 |---|---|
 | `atom.add` | recognized element, nullable charge (default0), direction0–5; one attachment atom or an explicitly selected empty entry. Optional finite coordinates explicitly position a disconnected atom with empty selection; that point is used in each conformer. |
-| `fragment.attach` | one heavy anchor or terminal H to replace; one of the six existing fragment names, direction0–5 and rotation0–5. |
+| `fragment.attach` | one heavy anchor or terminal H to replace; methyl, ethyl, hydroxyl, amino, carboxylic_acid, phenyl, cyclopropyl, cyclobutyl, cyclopentyl, cyclohexyl or methoxy; direction0–5 and rotation0–5. |
+| `bond.rotate` | exactly two current ligand bond endpoints; strict positive `moving_endpoint_id` identifies the moving graph side; finite `angle_degrees` is relative to the fixed→moving axis. |
 
 `POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` accepts
 the same request for placement actions, performs the same structural/ownership
@@ -815,6 +835,31 @@ Generated coordinates cover all conformers; retained coordinates stay exact.
 Optional H merges only new H/bonds from an eligible helper, retaining the direct
 candidate exactly when completion is unavailable. Existing legacy HTTP endpoints
 retain their behavior; compact and advanced manual atom/bond UI share direct edits.
+
+Bond rotation preview additionally returns nullable `rotation`: `axis_atom_ids`
+(fixed, moving), `moving_endpoint_id`, requested `angle_degrees`,
+`rotating_atom_count`, `fixed_atom_count` and `no_op`. Counts include all explicit
+H; both endpoints count as fixed. It uses the supported ligand single/nonaromatic/
+nonring/nonterminal admission. Each conformer uses its own axis; nonfinite or
+invalid frames refuse atomically. Pure rotation preserves graph/chemistry and
+bypasses H maintenance. Zero/full-turn or exactly unchanged Apply returns
+`applied: false`, without artifact/history/floor allocation.
+
+Model/selection Apply optionally accepts `X-Neistra-Edit-Attempt: <UUID>`; preview
+does not register attempts. `GET /api/v1/projects/{project_id}/edit-attempts/{attempt_id}`
+returns `Cache-Control: no-store` with server-instance/attempt/project identity,
+nullable entry/kind/expected revision/artifact, phase (`pending`, `finishing`,
+`finished`, `unknown`), nullable outcome (`saved`, `not_applied`, `unknown`),
+committed revision/artifact and reason. Commit proof can survive a response failure.
+Missing/expired/restarted/different-process records mean unknown. Reusing a token
+returns a conflict and never executes it again. Registry admission failure refuses
+dispatch. These are bounded process-local receipts, not durable exactly-once jobs.
+
+Scientific work runs in an isolated child from immutable input, with fresh atomic
+revision/artifact/lock checks before publication. Busy admission returns
+`429 editing_busy` and `Retry-After: 1`. Only disposable previews use bounded retry;
+never replay an uncertain Apply automatically. Closing the client panel does not
+cancel an already submitted Apply. See [execution settings and limits](DEVELOPMENT.md#structure-editing-execution).
 
 Draft chemical export remains distinct from the structure viewer projection.
 A representational loss requiring acknowledgement returns409 without publishing an

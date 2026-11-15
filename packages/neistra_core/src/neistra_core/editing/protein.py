@@ -8,10 +8,15 @@ from typing import Any, Literal
 import numpy as np
 from openmm import Platform, unit
 from pdbfixer import PDBFixer
+from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from neistra_core.adapters.macromolecular import PdbAdapter
 from neistra_core.hydrogen_protection import ordinary_generated
-from neistra_core.modeling_metadata import InvalidModelingMetadata, update_bond_exclusions
+from neistra_core.modeling_metadata import (
+    InvalidModelingMetadata,
+    modeling_metadata,
+    update_bond_exclusions,
+)
 from neistra_core.molecular import (
     Atom,
     Bond,
@@ -49,10 +54,44 @@ STANDARD_AMINO_ACIDS = frozenset(
 )
 BACKBONE_ATOMS = frozenset({"N", "CA", "C", "O"})
 ProteinComponent = Literal["water", "ion"]
+_OVERLAP_QUERY_BATCH = 32
+# These source templates have the retained N/CA/CB/CG/CD path, but no N-CD edge.
+_RETAINED_PROLINE_SOURCES = frozenset({"ARG", "GLN", "GLU", "LYS"})
 
 
 class InvalidProteinEditError(ValueError):
     pass
+
+
+def _has_atomic_overlap(coordinates: np.ndarray[Any, np.dtype[np.float64]]) -> bool:
+    """Exact active-frame pair existence, with bounded query work before each exit.
+
+    The caller validates every coordinate before any query.  A coincident-point
+    tree can visit its entire leaf per row, so inspect the first row alone before
+    submitting even a small batch.  Both returned neighbors are considered: tied
+    coordinates need not put the query's own index first.
+    """
+    size = len(coordinates)
+    if size < 2:
+        return False
+    tree = cKDTree(coordinates)
+    start = 0
+    while start < size:
+        end = 1 if start == 0 else min(size, start + _OVERLAP_QUERY_BATCH)
+        _, neighbors = tree.query(coordinates[start:end], k=2, p=2, eps=0, workers=1)
+        for offset, candidates in enumerate(neighbors):
+            index = start + offset
+            for neighbor in candidates:
+                if neighbor != index and neighbor < size:
+                    # An explicit axis preserves the predecessor's axis=2
+                    # reduction; the scalar 1-D norm can round across 0.4.
+                    distance = float(np.linalg.norm(
+                        coordinates[index] - coordinates[neighbor], axis=-1,
+                    ))
+                    if distance < 0.4:
+                        return True
+        start = end
+    return False
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,25 +186,15 @@ class ProteinStructureValidator:
                     "residues.name",
                 )
             )
-        if len(coordinates) > 1:
-            distances = np.linalg.norm(
-                coordinates[:, np.newaxis, :] - coordinates[np.newaxis, :, :],
-                axis=2,
-            )
-            np.fill_diagonal(distances, np.inf)
-            minimum = float(np.min(distances))
-            if minimum < 0.4:
-                warnings.append(
-                    _warning(
-                        "severe_atomic_clash",
-                        (
-                            "Two protein atoms are closer than 0.4 angstrom "
-                            f"after {operation}."
-                        ),
-                        operation,
-                        "coordinates",
-                    )
+        if _has_atomic_overlap(coordinates):
+            warnings.append(
+                _warning(
+                    "severe_atomic_clash",
+                    (f"Two protein atoms are closer than 0.4 angstrom after {operation}."),
+                    operation,
+                    "coordinates",
                 )
+            )
         return tuple(warnings)
 
 
@@ -379,6 +408,18 @@ class PdbfixerProteinEditor:
                 f"missing {missing_anchors}"
             )
         chain = self._chain_for_residue(structure, residue)
+        expected_elements = {"N": "N", "CA": "C", "C": "C", "O": "O"}
+        for atom in structure.atoms:
+            if atom.residue_id != residue.id or atom.name not in expected_elements:
+                continue
+            expected = expected_elements[atom.name]
+            if atom.element != expected:
+                raise InvalidProteinEditError(
+                    f"Mutation requires {expected} at atom {atom.id} ({atom.name}) in "
+                    f"residue {residue.id} ({residue.name} {residue.author_number}) "
+                    f"of chain {chain.name!r}; current element is {atom.element}. "
+                    "The current molecular model was not changed."
+                )
         fixer = self._fixer(structure)
         try:
             fixer.applyMutations(
@@ -742,19 +783,16 @@ class PdbfixerProteinEditor:
                 )
             )
 
+        output_keys = {
+            (residue_map[output_atom.residue], output_atom.name)
+            for output_atom in output_atoms
+            if output_atom.residue in residue_map
+        }
         retained_atoms = [
             atom
             for atom in before.atoms
             if atom.residue_id not in residue_ids
-            or (atom.residue_id, atom.name)
-            in {
-                (
-                    residue_map[output_atom.residue],
-                    output_atom.name,
-                )
-                for output_atom in output_atoms
-                if output_atom.residue in residue_map
-            }
+            or (atom.residue_id, atom.name) in output_keys
         ]
         if only_new_hydrogens:
             retained_atoms = list(before.atoms)
@@ -765,17 +803,36 @@ class PdbfixerProteinEditor:
             if atom.id not in retained_atom_ids
         )
         atoms = sorted([*retained_atoms, *created_atoms], key=lambda atom: atom.id)
+        final_atom_ids = {atom.id for atom in atoms}
 
         existing_bonds = [
             bond
             for bond in before.bonds
-            if bond.atom_1_id in {atom.id for atom in atoms}
-            and bond.atom_2_id in {atom.id for atom in atoms}
+            if bond.atom_1_id in final_atom_ids
+            and bond.atom_2_id in final_atom_ids
         ]
         existing_pairs = {
             frozenset((bond.atom_1_id, bond.atom_2_id)) for bond in existing_bonds
         }
         created_bonds: list[Bond] = []
+        connectivity_warnings: list[MolecularWarning] = []
+        before_atoms = {atom.id: atom for atom in before.atoms}
+        before_residues = {residue.id: residue for residue in before.residues}
+        before_chains = {chain.id: chain for chain in before.chains}
+        try:
+            excluded_pairs = {frozenset(pair) for pair in modeling_metadata(before).excluded_bonds}
+        except InvalidModelingMetadata as error:
+            raise InvalidProteinEditError(str(error)) from error
+
+        def describe(atom_id: int) -> str:
+            atom = before_atoms[atom_id]
+            residue = before_residues[atom.residue_id or -1]
+            chain = before_chains[residue.chain_id]
+            return (
+                f"atom {atom.id} ({atom.name}) in residue {residue.id} "
+                f"({residue.name} {residue.author_number}) of chain {chain.name!r}"
+            )
+
         for first, second in fixer.topology.bonds():
             if first not in output_to_id or second not in output_to_id:
                 continue
@@ -793,6 +850,44 @@ class PdbfixerProteinEditor:
             pair = frozenset((first_id, second_id))
             if pair in existing_pairs:
                 continue
+            if first_id in retained_atom_ids and second_id in retained_atom_ids:
+                endpoint_atoms = [before_atoms[first_id], before_atoms[second_id]]
+                new_proline_closure = (
+                    first_residue_id == second_residue_id
+                    and before_residues[first_residue_id].name in _RETAINED_PROLINE_SOURCES
+                    and residue_names.get(first_residue_id) == "PRO"
+                    and {(a.name, a.element) for a in endpoint_atoms} == {("N", "N"), ("CD", "C")}
+                    and pair not in excluded_pairs
+                )
+                if not new_proline_closure:
+                    connectivity_warnings.append(
+                        _warning(
+                            "protein_retained_connectivity_unresolved",
+                            f"No current bond connects {describe(first_id)} and "
+                            f"{describe(second_id)}. Their unresolved connectivity was "
+                            "preserved; this template operation did not repair or "
+                            "reconnect retained atoms.",
+                            operation,
+                            "bonds",
+                        )
+                    )
+                    continue
+                length = float(np.linalg.norm(
+                    np.asarray(endpoint_atoms[0].coordinates) - endpoint_atoms[1].coordinates
+                ))
+                connectivity_warnings.append(
+                    _warning(
+                        "protein_retained_proline_closure",
+                        f"The PRO template adds a new N-CD connection between "
+                        f"{describe(first_id)} and {describe(second_id)} at "
+                        f"{length:.3f} angstrom. Retained coordinates were not moved; "
+                        "this side-chain closure is unoptimized and needs geometry review."
+                        + (" The distance is outside the 0.4-3.0 angstrom bond review thresholds."
+                           if length < 0.4 or length > 3.0 else ""),
+                        operation,
+                        f"bonds.{next_bond_id + len(created_bonds)}",
+                    )
+                )
             bond_id = next_bond_id + len(created_bonds)
             created_bonds.append(
                 Bond(
@@ -805,10 +900,35 @@ class PdbfixerProteinEditor:
             )
             existing_pairs.add(pair)
         bonds = sorted([*existing_bonds, *created_bonds], key=lambda bond: bond.id)
+        for residue_id, target_name in residue_names.items():
+            if (
+                before_residues[residue_id].name != "PRO"
+                or target_name not in _RETAINED_PROLINE_SOURCES
+            ):
+                continue
+            nitrogen = before_atoms_by_residue_name.get((residue_id, "N"))
+            delta_carbon = before_atoms_by_residue_name.get((residue_id, "CD"))
+            if nitrogen is None or delta_carbon is None:
+                continue
+            for bond in existing_bonds:
+                if {bond.atom_1_id, bond.atom_2_id} == {nitrogen.id, delta_carbon.id}:
+                    connectivity_warnings.append(
+                        _warning(
+                            "protein_target_topology_conflict",
+                            f"Current bond {bond.id} between {describe(nitrogen.id)} and "
+                            f"{describe(delta_carbon.id)} was retained although the "
+                            f"{target_name} template does not require N-CD connectivity. "
+                            f"This result is not a standard {target_name} topology; "
+                            "review the retained connection before further modeling.",
+                            operation,
+                            f"bonds.{bond.id}",
+                        )
+                    )
+        retained_bond_ids = {bond.id for bond in existing_bonds}
         deleted_bond_ids = sorted(
             bond.id
             for bond in before.bonds
-            if bond.id not in {item.id for item in existing_bonds}
+            if bond.id not in retained_bond_ids
         )
 
         coordinate_by_id = {
@@ -854,6 +974,7 @@ class PdbfixerProteinEditor:
             before,
             edited,
             operation,
+            extra_warnings=tuple(connectivity_warnings),
             created_atom_ids=tuple(created_atom_ids),
             created_bond_ids=tuple(bond.id for bond in created_bonds),
             deleted_atom_ids=tuple(deleted_atom_ids),

@@ -16,7 +16,7 @@ import { componentHierarchy, molecularProject, proteinStructure } from "./molecu
 const actions = { onRename: vi.fn(), onDuplicate: vi.fn(), onVisibility: vi.fn(), onLock: vi.fn(),
   onIsolate: vi.fn(), onGroup: vi.fn(), onDelete: vi.fn(), onExport: vi.fn() };
 const structure = proteinStructure();
-const projection: StructureProjection = { entry_id: "protein", structure,
+const projection: StructureProjection = { entry_id: "protein", artifact_id: "current-protein", structure,
   hierarchy: componentHierarchy(structure), viewer: { format: "mmcif", data: "projection" } };
 
 beforeEach(() => {
@@ -28,7 +28,8 @@ beforeEach(() => {
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
   });
-  vi.spyOn(molecularApi, "structure").mockResolvedValue(projection);
+  vi.spyOn(molecularApi, "structure").mockImplementation((_project, id, artifactId) =>
+    Promise.resolve({ ...projection, entry_id: id, artifact_id: artifactId }));
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.clearAllMocks(); });
 
@@ -106,11 +107,12 @@ it("keeps late previous-entry data out of the current pane and retries a failed 
   render(browser(molecularProject()));
   fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!);
   expect(screen.getByText("Loading components")).toBeVisible();
+  await waitFor(() => expect(resolveOld).toBeTypeOf("function"));
   fireEvent.click(document.querySelector('[data-entry-id="ligand"] .entry-select')!);
   await screen.findByText("Component hierarchy unavailable");
   resolveOld(projection);
   await waitFor(() => expect(screen.queryByRole("button", { name: /^Select Protein in/ })).not.toBeInTheDocument());
-  vi.mocked(molecularApi.structure).mockResolvedValue(projection);
+  vi.mocked(molecularApi.structure).mockResolvedValue({ ...projection, entry_id: "ligand", artifact_id: "current-ligand" });
   await user.click(screen.getByRole("button", { name: "Retry components" }));
   await screen.findByRole("button", { name: /^Select Protein in/ });
   expect(useNavigationStore.getState().inspectedEntryId).toBe("ligand");
@@ -155,6 +157,7 @@ it("preserves coordinate expansion and reconciles a removed focused category to 
   await screen.findByRole("button", { name: "Expand Water in Receptor" });
   await user.click(screen.getByRole("button", { name: "Expand Water in Receptor" }));
   const moved = structuredClone(waterProjection);
+  moved.artifact_id = "coordinate-revision";
   moved.structure.atoms[0].coordinates[0] += 1;
   vi.mocked(molecularApi.structure).mockResolvedValue(moved);
   const movedProject = { ...project, entries: project.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "coordinate-revision" } : entry) };
@@ -164,6 +167,7 @@ it("preserves coordinate expansion and reconciles a removed focused category to 
   const focused = screen.getByRole("button", { name: "Select Water residue in Receptor" });
   focused.focus();
   const removed = structuredClone(moved);
+  removed.artifact_id = "topology-revision";
   removed.structure.atoms = removed.structure.atoms.filter(atom => atom.residue_id !== 2);
   removed.hierarchy.components = removed.hierarchy.components.filter(component => component.category !== "water");
   vi.mocked(molecularApi.structure).mockResolvedValue(removed);

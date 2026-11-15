@@ -51,7 +51,7 @@ it("discards a delayed numerical preview cleared by movement while retaining val
   let finish!: () => void;
   let requested = false;
   vi.spyOn(globalThis, "fetch").mockImplementation(input => {
-    const path = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    const path = new URL(typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url, "http://localhost").pathname;
     if (path.endsWith("/entries/protein/structure")) {
       requested = true;
       return new Promise<Response>(resolve => { finish = () => resolve(Response.json(projection)); });
@@ -91,7 +91,7 @@ it("invalidates delayed numerical previews when minimization captures, and dismi
   useWorkspaceStore.setState({ activeProjectId: project.id, mobilePanel: null, theme: "light" });
   let finish!: () => void;
   vi.spyOn(globalThis, "fetch").mockImplementation(input => {
-    const path = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    const path = new URL(typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url, "http://localhost").pathname;
     if (path.endsWith("/entries/protein/structure")) return new Promise<Response>(resolve => { finish = () => resolve(Response.json(projection)); });
     if (path.endsWith("/artifacts/current-protein")) return Promise.resolve(Response.json(projection.structure));
     return Promise.resolve(Response.json(path.endsWith(`/projects/${project.id}`) ? project

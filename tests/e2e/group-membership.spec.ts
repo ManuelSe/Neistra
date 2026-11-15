@@ -59,7 +59,7 @@ test("moves filtered selected batches, preserves molecular state, and supports k
   const selectedStatus = await page.locator(".viewer-status").textContent();
   await page.getByPlaceholder("Search structures").fill(origin.name);
   const requests: string[] = [];
-  page.on("request", request => { if (/\/structure(?:\?|$)/.test(request.url())) requests.push(request.url()); });
+  page.on("request", request => { if (/\/structure(?:\?|$)/.test(new URL(request.url()).pathname)) requests.push(request.url()); });
   let mutationCount = 0;
   page.on("request", request => { if (request.method() === "POST" && request.url().endsWith("/group-membership")) mutationCount++; });
   await action(page, origin.id, "Move to group…");
@@ -266,7 +266,7 @@ test("keeps a live molecular viewer and prepared surface unchanged during member
   expect(before.camera).toBeTruthy();
   expect(before.surfaceJobs).toBeGreaterThan(0);
   const gets: string[] = [];
-  page.on("request", request => { if (/\/structure(?:\?|$)/.test(request.url())) gets.push(request.url()); });
+  page.on("request", request => { if (/\/structure(?:\?|$)/.test(new URL(request.url()).pathname)) gets.push(request.url()); });
   await action(page, receptor.id, "Move to group…");
   const target = initial.groups.find(group => group.name === "Destination")!;
   await page.getByRole("dialog", { name: "Move to group" }).getByLabel("Destination group").selectOption(target.id);

@@ -45,9 +45,20 @@ toggle and current-order indication keep the primary controls compact. Optional
 bond preview remains in **Advanced bond details**. Heavy deletion also removes
 canonically attached terminal H, including hidden H; explicitly deleted H is not
 immediately refilled.
-**New molecule** starts at one atom. Add atoms or six fixed fragments through a
+**New molecule** starts at one atom. Add atoms or eleven fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
+The compact editor keeps target chemistry, warning counts and Apply/recovery state
+visible. **Geometry** opens captured move/rotate or Quick/Advanced minimization
+setup without calculating; eligible ligand bonds offer a qualified relative
+rotation preview. Five added fragments are cyclopropyl, cyclobutyl, cyclopentyl,
+cyclohexyl and methoxy. After residue Undo, **Select whole residue** explicitly
+restores the current mutation target. Authored backbone cuts remain cut with a
+specific warning. Lost Apply responses have status/review/continuation recovery,
+including empty projects; closing the editor does not cancel submitted work.
+See the [structure editor contract](docs/plans/issue-147-structure-editor-reliability.md)
+for scope, qualification and deferred geometry/stereo authoring.
+
 Selection supports Ctrl/Cmd whole-entity toggling across the viewer and existing
 selection panels. In Atom mode, double-click expands to a protein residue or an
 assigned individual molecule. Expand a protein-chain row in Components to browse

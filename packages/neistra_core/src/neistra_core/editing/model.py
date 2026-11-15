@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from math import dist
+from collections.abc import Iterator
+from dataclasses import dataclass, field, replace
+from math import dist, isfinite
 from typing import Annotated, Literal
 
 import numpy as np
@@ -19,14 +20,23 @@ from pydantic import (
 from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
-from neistra_core.editing.fragments import FragmentName
+from neistra_core.editing.fragments import (
+    PRESERVED_TEMPLATE_FRAGMENTS,
+    FragmentName,
+    qualified_template_atom_ids,
+)
 from neistra_core.editing.hydrogen import (
     Geometry,
     HydrogenBuilder,
     HydrogenReport,
     apply_hydrogen_proposal,
 )
-from neistra_core.editing.ligand import EditResult
+from neistra_core.editing.ligand import (
+    BondRotationPlan,
+    EditResult,
+    InvalidLigandEditError,
+    RdkitLigandEditor,
+)
 from neistra_core.editing.placement import place_atom, place_fragment
 from neistra_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from neistra_core.editing.selection import SelectionEditResult
@@ -47,6 +57,7 @@ from neistra_core.modeling_metadata import (
 from neistra_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible", "automatic"]
+_MAX_BOND_GEOMETRY_DETAILS = 100
 
 
 class InvalidModelEdit(ValueError):
@@ -99,6 +110,12 @@ class ModelBondDelete(ModelActionBase):
     operation: Literal["bond.delete"]
 
 
+class ModelBondRotate(ModelActionBase):
+    operation: Literal["bond.rotate"]
+    moving_endpoint_id: StrictInt = Field(ge=1)
+    angle_degrees: FiniteFloat
+
+
 class ModelAtomAdd(ModelActionBase):
     operation: Literal["atom.add"]
     element: str = Field(min_length=1, max_length=3)
@@ -141,6 +158,7 @@ ModelAction = Annotated[
     | ModelDelete
     | ModelBondSet
     | ModelBondDelete
+    | ModelBondRotate
     | ModelAtomAdd
     | ModelFragmentAdd
     | ModelHydrogenComplete
@@ -239,6 +257,8 @@ class ModelEditResult(SelectionEditResult):
     hydrogen_report: HydrogenReport | None = None
     hydrogen_reconciliation_report: ReconciliationReport | None = None
     appearance_sources: dict[int, int] = field(default_factory=dict)
+    rotation: BondRotationPlan | None = None
+    no_op: bool = False
 
 
 class DirectMolecularEditor:
@@ -282,6 +302,60 @@ class DirectMolecularEditor:
         exclusions = set(modeling_metadata(before).excluded_bonds)
         if exclusions & pairs.keys():
             raise InvalidModelEdit("Authored bonds contradict recorded bond exclusions.")
+        if isinstance(action, ModelBondRotate):
+            if len(before.atoms) > atom_limit:
+                raise InvalidModelEdit(f"The result exceeds the entry limit of {atom_limit} atoms.")
+            if len(selected) != 2 or action.moving_endpoint_id not in chosen:
+                raise InvalidModelEdit(
+                    "Select the two current bond endpoints and choose one endpoint's moving side."
+                )
+            bond = pairs.get(tuple(sorted(selected)))
+            if bond is None:
+                raise InvalidModelEdit("Bond rotation requires two endpoints of a current bond.")
+            editor = RdkitLigandEditor()
+            try:
+                plan = editor.describe_bond_rotation(
+                    before, bond_id=bond.id, moving_endpoint_id=action.moving_endpoint_id,
+                    angle_degrees=action.angle_degrees,
+                )
+                diagnostic_targets = set(plan.axis_atom_ids) | set(plan.rotating_atom_ids)
+                for _ in self._affected_bond_lengths(before, diagnostic_targets):
+                    pass
+                no_op = action.angle_degrees % 360 == 0
+                if no_op:
+                    result = EditResult(
+                        before, warnings=editor.validator.validate(before, "bond.rotate")
+                    )
+                else:
+                    result = editor.rotate_bond(
+                        before, bond_id=bond.id,
+                        movable_atom_ids=sorted([plan.moving_endpoint_id, *plan.rotating_atom_ids]),
+                        angle_degrees=action.angle_degrees,
+                    )
+                    no_op = result.structure.conformers == before.conformers
+                    if no_op:
+                        result = EditResult(before, warnings=result.warnings)
+            except InvalidLigandEditError as error:
+                raise InvalidModelEdit(str(error)) from error
+            geometry_warnings = self._bond_geometry_warnings(
+                result.structure, diagnostic_targets, action.operation,
+            )
+            if geometry_warnings:
+                with_geometry = {
+                    (w.code, w.field, w.message): w
+                    for w in [*result.structure.warnings, *geometry_warnings]
+                }
+                result = replace(
+                    result,
+                    structure=before if no_op else result.structure.model_copy(
+                        update={"warnings": list(with_geometry.values())},
+                    ),
+                    warnings=(*result.warnings, *geometry_warnings),
+                )
+            # This is the existing coordinate-only method.  The endpoint names
+            # a graph side; both axis endpoints stay fixed, and no H/stereo or
+            # appearance authoring policy is applied to the coordinate change.
+            return ModelEditResult(result, {}, rotation=plan, no_op=no_op)
         if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd, ModelHydrogenAddOne)):
             if hydrogen_policy != "preserve":
                 raise InvalidModelEdit(
@@ -366,7 +440,10 @@ class DirectMolecularEditor:
         touched = set(chosen)
         warnings: list[MolecularWarning] = []
         replacements: dict[int, int] = {}
+        qualified_fragment_ids: frozenset[int] = frozenset()
         if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
+            for _ in self._affected_bond_lengths(before, chosen):
+                pass
             try:
                 placement = (
                     place_atom(
@@ -398,6 +475,16 @@ class DirectMolecularEditor:
                 placement.touched,
             )
             warnings.extend(placement.warnings)
+            if (
+                isinstance(action, ModelFragmentAdd)
+                and action.fragment in PRESERVED_TEMPLATE_FRAGMENTS
+            ):
+                try:
+                    qualified_fragment_ids = qualified_template_atom_ids(
+                        before, after, action.fragment, placement.template_evidence,
+                    )
+                except ValueError as error:
+                    raise InvalidModelEdit(str(error)) from error
         elif isinstance(action, ModelDelete):
             if hydrogen_policy == "automatic":
                 deletion_adjacency = _adjacency(before)
@@ -606,6 +693,11 @@ class DirectMolecularEditor:
             after = after.model_copy(
                 update={"annotations": authored_protection(before, after.atoms, set())}
             )
+        # Refuse affected nonfinite input before optional chemistry or spatial
+        # libraries can turn it into an unrelated error.  Final generated/moved
+        # geometry is inspected again below with the operation's diagnostics.
+        for _ in self._affected_bond_lengths(after, touched):
+            pass
         hydrogen_report = None
         if hydrogen_policy == "complete_if_possible":
             if isinstance(action, ModelDelete) and any(atoms[i].element == "H" for i in chosen):
@@ -677,6 +769,7 @@ class DirectMolecularEditor:
                 inferred_deletion=isinstance(action, ModelBondDelete) and old is None,
                 policy="automatic" if hydrogen_policy == "automatic" else "reconcile_if_possible",
                 suppressed_targets=suppressed,
+                qualified_fragment_atom_ids=qualified_fragment_ids,
             )
             after, reconciliation_report = outcome.structure, outcome.report
             warnings.extend(outcome.warnings)
@@ -699,6 +792,17 @@ class DirectMolecularEditor:
                         [conformer.coordinates[i] for i in retained_indices]
                     )
                     new_points = np.asarray([conformer.coordinates[i] for i in created_indices])
+                    for checked_indices, points in (
+                        (retained_indices, retained_points), (created_indices, new_points),
+                    ):
+                        finite = np.isfinite(points).all(axis=1)
+                        if not finite.all():
+                            invalid_index = checked_indices[int(np.flatnonzero(~finite)[0])]
+                            raise InvalidModelEdit(
+                                f"Conformer {conformer.id}, atom {after.atoms[invalid_index].id} "
+                                "has nonfinite placement clash-check coordinates; "
+                                "the molecular edit was not saved."
+                            )
                     closest = min(
                         closest, float(np.min(cKDTree(retained_points).query(new_points)[0]))
                     )
@@ -713,19 +817,22 @@ class DirectMolecularEditor:
                         "coordinates",
                     )
                 )
-        warnings.extend(self._local_warnings(after, touched, action.operation))
-        # Retain previous scientific/source warnings, replacing exact duplicates.
-        unique = {(w.code, w.field, w.message): w for w in [*after.warnings, *warnings]}
-        after = after.model_copy(update={"warnings": list(unique.values())})
         old_atoms = {a.id: a for a in before.atoms}
         new_atoms = {a.id: a for a in after.atoms}
-        old_bonds = {b.id for b in before.bonds}
-        new_bonds = {b.id for b in after.bonds}
         moved_hydrogens = (
             {i for site in reconciliation_report.sites for i in site.moved_hydrogen_ids}
             if reconciliation_report is not None
             else set()
         )
+        diagnostic_targets = touched | moved_hydrogens | {
+            i for i, atom in new_atoms.items() if i not in old_atoms or atom != old_atoms[i]
+        }
+        warnings.extend(self._local_warnings(after, diagnostic_targets, action.operation))
+        # Retain previous scientific/source warnings, replacing exact duplicates.
+        unique = {(w.code, w.field, w.message): w for w in [*after.warnings, *warnings]}
+        after = after.model_copy(update={"warnings": list(unique.values())})
+        old_bonds = {b.id for b in before.bonds}
+        new_bonds = {b.id for b in after.bonds}
         return ModelEditResult(
             EditResult(
                 structure=after,
@@ -747,6 +854,87 @@ class DirectMolecularEditor:
             reconciliation_report,
             _appearance_sources(before, after, selected, action),
         )
+
+    @staticmethod
+    def _affected_bond_lengths(
+        structure: NormalizedStructureV1,
+        touched: set[int],
+    ) -> Iterator[tuple[int, Bond, float]]:
+        indices = {a.id: i for i, a in enumerate(structure.atoms)}
+        affected = [b for b in structure.bonds if touched & {b.atom_1_id, b.atom_2_id}]
+        checked_atoms = (touched & indices.keys()) | {
+            i for b in affected for i in (b.atom_1_id, b.atom_2_id)
+        }
+        checked_atom_ids = sorted(checked_atoms)
+        for atom_id in checked_atom_ids:
+            if not all(isfinite(v) for v in structure.atoms[indices[atom_id]].coordinates):
+                raise InvalidModelEdit(
+                    f"Atom {atom_id} has nonfinite affected coordinates; "
+                    "the molecular edit was not saved."
+                )
+        for conformer in structure.conformers:
+            for atom_id in checked_atom_ids:
+                if not all(isfinite(v) for v in conformer.coordinates[indices[atom_id]]):
+                    raise InvalidModelEdit(
+                        f"Conformer {conformer.id}, atom {atom_id} has nonfinite affected "
+                        "coordinates; the molecular edit was not saved."
+                    )
+            for bond in affected:
+                length = dist(
+                    conformer.coordinates[indices[bond.atom_1_id]],
+                    conformer.coordinates[indices[bond.atom_2_id]],
+                )
+                if not isfinite(length):
+                    raise InvalidModelEdit(
+                        f"Conformer {conformer.id}, bond {bond.id} "
+                        f"(atoms {bond.atom_1_id}, {bond.atom_2_id}) has nonfinite "
+                        "derived length; the molecular edit was not saved."
+                    )
+                yield conformer.id, bond, length
+
+    @staticmethod
+    def _bond_geometry_warnings(
+        structure: NormalizedStructureV1,
+        touched: set[int],
+        operation: str,
+    ) -> list[MolecularWarning]:
+        warnings: list[MolecularWarning] = []
+        total = measurements = 0
+        affected_bonds: set[int] = set()
+        for conformer_id, bond, length in DirectMolecularEditor._affected_bond_lengths(
+            structure, touched
+        ):
+            measurements += 1
+            if length < 0.4 or length > 3.0:
+                total += 1
+                affected_bonds.add(bond.id)
+                if len(warnings) < _MAX_BOND_GEOMETRY_DETAILS:
+                    warnings.append(
+                        model_warning(
+                            "model_bond_geometry",
+                            f"Conformer {conformer_id}, bond {bond.id} "
+                            f"(atoms {bond.atom_1_id}, {bond.atom_2_id}) is "
+                            f"{length:.3f} angstrom; review the unoptimized geometry.",
+                            operation,
+                            f"bonds.{bond.id}",
+                        )
+                    )
+        if total:
+            shown = len(warnings)
+            warnings.append(
+                model_warning(
+                    "model_bond_geometry_summary",
+                    f"Checked {measurements} affected bond/"
+                    f"conformer measurements across all {len(structure.conformers)} "
+                    f"conformers: {total} outside the geometry thresholds on "
+                    f"{len(affected_bonds)} bonds. Showing {shown} details; "
+                    f"{total - shown} details omitted"
+                    f"{' (detail limit reached)' if total > shown else ''}.",
+                    operation,
+                    "coordinates",
+                )
+            )
+        return warnings
 
     @staticmethod
     def _local_warnings(
@@ -777,18 +965,7 @@ class DirectMolecularEditor:
             for i in (bond.atom_1_id, bond.atom_2_id):
                 if i in neighbors:
                     neighbors[i].append(bond)
-            if touched & {bond.atom_1_id, bond.atom_2_id}:
-                length = dist(atoms[bond.atom_1_id].coordinates, atoms[bond.atom_2_id].coordinates)
-                if length < 0.4 or length > 3.0:
-                    result.append(
-                        model_warning(
-                            "model_bond_geometry",
-                            f"Bond {bond.id} is {length:.3f} angstrom; "
-                            "review the unoptimized geometry.",
-                            operation,
-                            f"bonds.{bond.id}",
-                        )
-                    )
+        result.extend(DirectMolecularEditor._bond_geometry_warnings(structure, touched, operation))
         if any(b.aromatic and touched & {b.atom_1_id, b.atom_2_id} for b in structure.bonds):
             result.append(
                 model_warning(

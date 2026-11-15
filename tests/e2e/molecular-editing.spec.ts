@@ -10,6 +10,65 @@ declare global { interface Window { editingPicks: Awaited<ReturnType<typeof obse
 
 test.beforeEach(({ page }) => page.setDefaultTimeout(10000));
 
+test("keeps a held edit projection out of Undo and reloads the exact artifact on Redo", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const initial = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Immutable edit projection");
+  const entry = initial.entries[0], path = `/api/v1/projects/${initial.id}`;
+  const endpoint = `${path}/entries/${entry.id}/structure`;
+  const canonical = async () => (await (await request.get(endpoint)).json()) as StructureProjection;
+  const original = await (await request.get(`${path}/entries/${entry.id}/original`)).body();
+  const carbon = await canonical();
+  expect(carbon.artifact_id).toBe(entry.current_artifact_id);
+  expect(carbon.structure.atoms.find(atom => atom.id === 1)?.element).toBe("C");
+  await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
+  let release!: () => void, started!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const captured = new Promise<void>(resolve => { started = resolve; });
+  let heldCondition: string | null = null, heldStatus = 0, holdNext = true;
+  const conditions: (string | null)[] = [];
+  page.on("request", outgoing => {
+    const url = new URL(outgoing.url());
+    if (outgoing.method() === "GET" && url.pathname === endpoint) conditions.push(url.searchParams.get("expected_artifact_id"));
+  });
+  await page.route(url => url.pathname === endpoint, async route => {
+    const condition = new URL(route.request().url()).searchParams.get("expected_artifact_id");
+    if (holdNext && condition !== carbon.artifact_id) {
+      holdNext = false; heldCondition = condition; started(); await held;
+      const response = await route.fetch(); heldStatus = response.status();
+      await route.fulfill({ response });
+    } else await route.continue();
+  });
+  try {
+    await panel.getByRole("button", { name: "Replace selected atom with N" }).click();
+    await captured;
+    const nitrogen = await canonical();
+    expect(nitrogen.artifact_id).not.toBe(carbon.artifact_id);
+    expect(heldCondition).toBe(nitrogen.artifact_id);
+    expect(nitrogen.structure.atoms.find(atom => atom.id === 1)?.element).toBe("N");
+    await page.getByRole("button", { name: /^Undo:/ }).click();
+    await expect.poll(async () => (await canonical()).artifact_id).toBe(carbon.artifact_id);
+    await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeDisabled();
+    await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
+    release();
+    await expect.poll(() => heldStatus).toBe(409);
+    await page.getByRole("button", { name: /^Redo:/ }).click();
+    await expect.poll(async () => (await canonical()).structure).toEqual(nitrogen.structure);
+    await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeDisabled();
+    await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeEnabled();
+    await expect.poll(() => page.evaluate(async entryId => {
+      const modulePath = "/src/test/molecularEditHarness.ts";
+      const { displayedElements } = await import(/* @vite-ignore */ modulePath);
+      return (await displayedElements(window.interactionEngines.at(-1)!, entryId)).find(atom => atom.atom_id === 1)?.element;
+    }, entry.id)).toBe("N");
+    expect(conditions).toEqual([nitrogen.artifact_id, nitrogen.artifact_id]);
+    expect(await (await request.get(`${path}/entries/${entry.id}/original`)).body()).toEqual(original);
+    await page.screenshot({ path: info.outputPath("immutable-edit-projection-redo.png") });
+  } finally { release(); }
+});
+
 async function selectAtom(page: Page, entryId: string, atomId: number, mobile: boolean) {
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "selection", exact: true }).click();
@@ -102,7 +161,7 @@ test("previews and substitutes a selected H with illustrated COOH", async ({ pag
   await selectAtom(page, entry.id, h.id, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   await panel.getByRole("button", { name: "Fragments", exact: true }).click();
-  await expect(panel.locator(".edit-fragment-grid svg")).toHaveCount(6);
+  await expect(panel.locator(".edit-fragment-grid svg")).toHaveCount(11);
   await panel.getByRole("button", { name: "Replace H with Carboxylic acid", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
@@ -275,7 +334,7 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   expect(hydrogen, JSON.stringify(attempts)).toBeGreaterThan(0);
   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
   const reads: string[] = [];
-  page.on("request", req => { if (req.url().endsWith("/structure")) reads.push(req.url()); });
+  page.on("request", req => { if (new URL(req.url()).pathname.endsWith("/structure")) reads.push(req.url()); });
   await launcher.focus(); await page.keyboard.press("Enter");
   for (const section of ["Bonds", "Fragments", "Atoms"]) await panel.getByRole("button", { name: section, exact: true }).click();
   // Cross a responsive layout boundary with owned keyboard focus and open state.
@@ -359,7 +418,7 @@ test("retains a newer native selection and recovers an affected-artifact refetch
   const held = new Promise<void>(resolve => { release = resolve; });
   const committed = new Promise<void>(resolve => { received = resolve; });
   let failReads = true;
-  await page.route(`**/entries/${entry.id}/structure`, route => failReads ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Qualification read failure" }) }) : route.continue());
+  await page.route(url => url.pathname === `/api/v1/projects/${project.id}/entries/${entry.id}/structure`, route => failReads ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Qualification read failure" }) }) : route.continue());
   await page.route("**/model-edits", async route => {
     const response = await route.fetch(); received(); await held; await route.fulfill({ response });
   });
@@ -394,44 +453,69 @@ test("keeps a newer pending edit owned after leaving and returning to the same p
   const heldSecond = new Promise<void>(resolve => { releaseSecond = resolve; });
   const committedFirst = new Promise<void>(resolve => { receivedFirst = resolve; });
   const committedSecond = new Promise<void>(resolve => { receivedSecond = resolve; });
-  let requests = 0;
-  await page.route(/\/(selection-edits|model-edits)$/, async route => {
-    const ordinal = ++requests;
-    const response = await route.fetch();
-    if (ordinal === 1) { receivedFirst(); await heldFirst; }
-    else { receivedSecond(); await heldSecond; }
-    await route.fulfill({ response });
+  let requests = 0, firstReleased = false, receiptReads = 0;
+  const tokens: string[] = [], routes: Promise<void>[] = [];
+  page.on("request", outgoing => { if (outgoing.method() === "GET" && new URL(outgoing.url()).pathname.startsWith(`${path}/edit-attempts/`)) receiptReads++; });
+  await page.route(/\/(selection-edits|model-edits)$/, route => {
+    const completion = (async () => {
+      const ordinal = ++requests;
+      tokens.push(route.request().headers()["x-neistra-edit-attempt"]);
+      const response = await route.fetch();
+      if (ordinal === 1) { receivedFirst(); await heldFirst; }
+      else { receivedSecond(); await heldSecond; }
+      await route.fulfill({ response });
+    })(); routes.push(completion); return completion;
   });
   const switchProject = async (name: string) => {
     await page.getByRole("button", { name: "Projects", exact: true }).click();
     await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${name}`) }).click();
   };
-  await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
-  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
-  await addOneHydrogen(page);
-  await committedFirst;
-  await switchProject(other.name);
-  await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
-  // Let the existing 10-second project-query freshness interval expire while
-  // away so the second valid command captures the committed first revision.
-  await page.waitForTimeout(10_100);
-  await switchProject(project.name);
-  await expect(page.getByRole("button", { name: /^Undo: Add one hydrogen/ })).toBeVisible();
-  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
-  await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
-  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await panel.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
-  await committedSecond;
   try {
+    await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
+    await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+    await addOneHydrogen(page);
+    await committedFirst;
+    await switchProject(other.name);
+    await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
+    // The App still owns the held request across visits; a current project GET
+    // alone must not authorize another molecular edit.
+    await switchProject(project.name);
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+    await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+    await expect(panel.getByText("Applying…", { exact: true })).toBeVisible();
+    await expect(panel.getByRole("button", { name: "Replace selected atom with N", exact: true })).toBeDisabled();
+    const receiptResponse = page.waitForResponse(response => response.request().method() === "GET" && new URL(response.url()).pathname.startsWith(`${path}/edit-attempts/`));
+    await panel.getByRole("button", { name: "Check edit status", exact: true }).click();
+    const confirmed = await (await receiptResponse).json() as { phase: string; outcome: string; attempt_id: string; committed_revision: number; committed_artifact_id: string };
+    expect(confirmed).toMatchObject({ phase: "finished", outcome: "saved", attempt_id: tokens[0], committed_revision: project.revision + 1 });
+    const committed = await (await request.get(path)).json() as Project;
+    expect(committed.revision).toBe(confirmed.committed_revision);
+    expect(committed.entries.find(value => value.id === entry.id)?.current_artifact_id).toBe(confirmed.committed_artifact_id);
+    expect(receiptReads).toBe(1); expect(firstReleased).toBe(false);
+    await expect(panel.getByText("Saved", { exact: true })).toBeVisible(); expect(requests).toBe(1);
+    await expect(page.getByRole("button", { name: /^Undo: Add one hydrogen/ })).toBeVisible();
+    // Explicit commit proof permits a deliberately new command while the first
+    // response is still held. Its later arrival must not clear the newer owner.
+    await panel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
+    await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
+    await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+    await panel.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
+    await committedSecond;
+    expect(firstReleased).toBe(false); expect(tokens).toHaveLength(2); expect(new Set(tokens).size).toBe(2);
     const refreshedList = page.waitForResponse(response => new URL(response.url()).pathname === "/api/v1/projects" && response.request().method() === "GET");
-    releaseFirst(); await refreshedList;
+    firstReleased = true; releaseFirst(); await refreshedList;
     await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeDisabled();
     await expect(panel.getByText("Finish the current operation.", { exact: true })).toBeVisible();
     await expect(page.getByText(/Molecular edit stored/)).toBeHidden();
     expect(requests).toBe(2);
-  } finally { releaseFirst(); releaseSecond(); }
+  } finally {
+    firstReleased = true; releaseFirst(); releaseSecond();
+    for (const settled of await Promise.allSettled(routes)) if (settled.status === "rejected") throw settled.reason;
+  }
   await expect(panel.getByRole("button", { name: "Replace selected atom with O", exact: true })).toBeEnabled();
   const result = await (await request.get(path)).json() as Project;
   expect(result.revision).toBe(project.revision + 2);
+  const current = (await (await request.get(`${path}/entries/${entry.id}/structure`)).json() as StructureProjection).structure;
+  expect(current.atoms.find(atom => atom.id === 3)?.element).toBe("N");
 });

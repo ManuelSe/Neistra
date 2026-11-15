@@ -14,7 +14,7 @@ import { useMinimizationStore } from "../minimization/store";
 import { MinimizationPanel } from "./MinimizationPanel";
 import { placementContext } from "../editing/placement";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance, ApplySelectionEdit } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ChangeHydrogenAppearance } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { InitialFitTicket } from "../workspacePresentation/types";
@@ -24,7 +24,7 @@ import { useQueries, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { molecularApi } from "../api/client";
+import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   CameraState,
   AtomReference,
@@ -67,14 +67,15 @@ import { InteractionPanel } from "./InteractionPanel";
 import { useInteractions } from "../interactions/useInteractions";
 import { filterInteractions } from "../interactions/filter";
 import { ViewerWarningDetails } from "./ViewerWarningDetails";
+import { editAttemptBlocksWrites } from "../editing/attempt";
+import type { MolecularEditingPorts } from "../editing/ports";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
   dark: THEME_TOKENS.dark["viewer-background"],
 };
 
-interface StructureViewerProps {
-  onEdit?: ApplySelectionEdit;
+interface StructureViewerProps extends MolecularEditingPorts {
   project: Project;
   theme: Theme;
   selection: Selection;
@@ -140,6 +141,13 @@ export function StructureViewer({
   selectionColorMode,
   onSelectionColorModeChange,
   onEdit,
+  editAttempt,
+  onCheckEdit,
+  onReviewEdit,
+  onContinueEdit,
+  editReviewCurrent,
+  onGeometry,
+  onRecoverResidue,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
@@ -213,6 +221,7 @@ export function StructureViewer({
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
   const [interactionProjectId, setInteractionProjectId] = useState<string | null>(null);
   const openMinimization = () => { useEditingStore.getState().setOpen(false); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); };
+  useEffect(() => { if (minimizationPreview.open) useEditingStore.getState().setOpen(false); }, [minimizationPreview.open]);
   const minimizationUnavailable = movementActive ? "Finish movement before minimizing selection" : coordinatePreview ? "Finish coordinate preview before minimizing" : busy ? "Finish the current change before minimizing" : !selection.atoms.length ? "Select atoms before minimizing" : null;
   useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
     openMinimization(); void minimization?.quick();
@@ -235,11 +244,8 @@ export function StructureViewer({
   );
   const structureQueries = useQueries({
     queries: visibleEntries.map((entry) => ({
-      queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
-      queryFn: () => molecularApi.structure(project.id, entry.id),
-      retry: false,
-      staleTime: Number.POSITIVE_INFINITY,
-      placeholderData: (previous: StructureProjection | undefined) => previous,
+      ...structureQueryOptions(project.id, entry.id, entry.current_artifact_id),
+      placeholderData: (previous: StructureProjection | undefined) => previous?.entry_id === entry.id ? previous : undefined,
     })),
   });
 
@@ -251,17 +257,15 @@ export function StructureViewer({
   }, [project.entries, visibleEntries]);
   const hiddenSeedQueries = useQueries({
     queries: hiddenSeedEntries.map((entry) => ({
-      queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
-      queryFn: () => molecularApi.structure(project.id, entry.id),
-      retry: false, staleTime: Number.POSITIVE_INFINITY,
+      ...structureQueryOptions(project.id, entry.id, entry.current_artifact_id),
     })),
   });
   const pockets = resolvePocketInputs(visibleEntries.concat(hiddenSeedEntries), new Map([
     ...structureQueries.map((query, index) => [visibleEntries[index].id, {
-      data: query.data, current: Boolean(query.data) && !query.isPlaceholderData, failed: query.isError,
+      data: query.data, current: isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id) && !query.isPlaceholderData, failed: query.isError,
     }] as const),
     ...hiddenSeedQueries.map((query, index) => [hiddenSeedEntries[index].id, {
-      data: query.data, current: Boolean(query.data), failed: query.isError,
+      data: query.data, current: isCompleteProjection(query.data, hiddenSeedEntries[index].id, hiddenSeedEntries[index].current_artifact_id), failed: query.isError,
     }] as const),
   ]));
 
@@ -393,7 +397,7 @@ export function StructureViewer({
       key: JSON.stringify([source.entryId, row.componentId, row.chainId]),
       entryId: source.entryId, entryName: visibleEntries.filter(item => item.name === source.label).length > 1
         ? `${source.label} · entry ${visibleEntries.filter(item => item.name === source.label).findIndex(item => item.id === source.entryId) + 1}` : source.label, artifactId: entry.current_artifact_id ?? "",
-      current: !query.isPlaceholderData && !query.isError && !!entry.current_artifact_id,
+      current: !query.isPlaceholderData && !query.isError && isCompleteProjection(query.data, entry.id, entry.current_artifact_id),
     }));
   });
   const syncKey = viewerStructures
@@ -404,7 +408,8 @@ export function StructureViewer({
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
   viewerStructuresRef.current = viewerStructures;
-  const interactionViewReady = structureQueries.every(query => Boolean(query.data) && !query.isPlaceholderData && !query.isError);
+  const interactionViewReady = structureQueries.every((query, index) => !query.isPlaceholderData && !query.isError
+    && isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id));
   const interactionRecords = interactions.result && !interactionPaused && interactionViewReady
     ? filterInteractions(interactions.result.records, interactions.choices, viewerStructures, isolation) : [];
   const interactionDisplayKey = JSON.stringify(interactionRecords);
@@ -491,7 +496,7 @@ export function StructureViewer({
 
   const placement = editingState.placement;
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
-    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, "automatic")
+    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, placement.action)
     ? placement.result : null;
   useEffect(() => {
     if (!viewerReady) return;
@@ -501,7 +506,7 @@ export function StructureViewer({
 
   const topologyDataKey = structureQueries
     .map((query, index) =>
-      query.data && !query.isPlaceholderData
+      isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id) && !query.isPlaceholderData
         ? `${visibleEntries[index].id}:${visibleEntries[index].current_artifact_id}`
         : "",
     )
@@ -521,7 +526,8 @@ export function StructureViewer({
           entry.id === patch.entry_id &&
           entry.current_artifact_id === patch.artifact_id,
       );
-      if (queryIndex < 0 || structureQueries[queryIndex]?.isPlaceholderData) {
+      if (queryIndex < 0 || structureQueries[queryIndex]?.isPlaceholderData
+        || !isCompleteProjection(structureQueries[queryIndex]?.data, patch.entry_id, patch.artifact_id)) {
         continue;
       }
       const replacement = viewerStructures.find(
@@ -569,11 +575,12 @@ export function StructureViewer({
   const normalizedStructures = useMemo(
     () =>
       new Map(
-        structureQueries.flatMap((query) =>
-          query.data ? [[query.data.entry_id, query.data.structure] as const] : [],
+        structureQueries.flatMap((query, index) =>
+          isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
+            ? [[query.data.entry_id, query.data.structure] as const] : [],
         ),
       ),
-    [structureQueries],
+    [structureQueries, visibleEntries],
   );
 
   useEffect(() => {
@@ -646,7 +653,8 @@ export function StructureViewer({
     setSurfaceProjectId(null); setStyleDialogOpen(true);
     const visible = new Map(
       structureQueries.flatMap((query, index) =>
-        query.data ? [[visibleEntries[index].id, query.data] as const] : [],
+        isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
+          ? [[visibleEntries[index].id, query.data] as const] : [],
       ),
     );
     setStyleStructures(visible);
@@ -771,10 +779,17 @@ export function StructureViewer({
             zoom={factor => viewerRef.current?.zoom(factor)}
             unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
               : busy ? "Finish the current project change before moving selection"
-              : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+              : minimization?.startReason() ?? viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
           {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
-            onOpen={() => { useMinimizationStore.getState().dismiss(); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
+            onOpen={() => {
+              const reason = minimization?.startReason();
+              if (reason && !(editAttempt && editAttemptBlocksWrites(editAttempt))) { setViewerError(reason); return false; }
+              if (!reason) useMinimizationStore.getState().dismiss();
+              setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); return true;
+            }}
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
+            attempt={editAttempt} onCheckEdit={onCheckEdit} onReviewEdit={onReviewEdit} onContinueEdit={onContinueEdit} editReviewCurrent={editReviewCurrent} onRecoverResidue={onRecoverResidue}
+            onGeometry={onGeometry} geometryUnavailable={coordinatePreview ? "Finish coordinate preview before opening geometry." : movement?.state.phase !== "idle" && movement ? "Finish movement before opening geometry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
           {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimizationPreview.error ?? minimizationPreview.previewError }}
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
@@ -876,8 +891,7 @@ export function StructureViewer({
         loadSource={async entryId => {
           const entry = project.entries.find(item => item.id === entryId);
           if (!entry?.current_artifact_id) throw new Error("This source has no current molecular artifact.");
-          return queryClient.fetchQuery({ queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
-            queryFn: () => molecularApi.structure(project.id, entry.id), staleTime: Number.POSITIVE_INFINITY });
+          return queryClient.fetchQuery(structureQueryOptions(project.id, entry.id, entry.current_artifact_id));
         }}
         autoFocus={true}
         onReturnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLButtonElement>('[aria-label="Style selection"]')?.focus()}
@@ -900,7 +914,8 @@ export function StructureViewer({
       ) : null}
     </div>
     <SequenceViewer projectId={project.id} rows={sequenceRows} selection={selection}
-      loading={structureQueries.some(query => query.isPending || query.isPlaceholderData)}
+      loading={structureQueries.some((query, index) => query.isPending || query.isPlaceholderData
+        || !isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id))}
       failed={structureQueries.some(query => query.isError)} onSelectResidue={onSelectResidue}
       onHide={() => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("hidden"); }} />
     </div>

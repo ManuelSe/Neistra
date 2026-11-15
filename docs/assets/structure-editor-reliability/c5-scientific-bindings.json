@@ -1,0 +1,10 @@
+{
+  "scientific_gate": "/tmp/neistra147-c4-corrected-full-v1/receipt.json",
+  "python_cases": 585,
+  "python_source_count": 384,
+  "all_python_sources_unchanged": true,
+  "fixture_count": 52,
+  "all_fixtures_unchanged": true,
+  "current_c5_source_count": 752,
+  "reason": "C5 changes frontend/typed client/workflows and native tests only; prior passing Python/Ruff/mypy evidence remains valid; final release gate still required."
+}

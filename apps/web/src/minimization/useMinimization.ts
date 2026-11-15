@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { ApplicationNoticeValue } from "../components/ApplicationNotice";
 import { useQueryClient } from "@tanstack/react-query";
 import { jobApi, minimizationApi, quickMinimizationApi } from "../api/client";
@@ -9,6 +9,8 @@ import { type MinimizationDraft, type MinimizationProfile, useMinimizationStore 
 import type { QuickPublicationAttempt, QuickPublicationController } from "./publication";
 import { quickSelectionError } from "./presentation";
 import type { MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
+import { useSelectionStore } from "../store/selection";
+import { assertSelectionTargetCurrent, captureSelectionTarget, type SelectionTargetCapture, type SelectionTargetContext } from "../selection/capture";
 
 const quickReviewNotice = "Quick minimization needs review. See Jobs → Inspect minimization.";
 
@@ -24,11 +26,16 @@ export function quickRequest(snapshot: Project, draft: MinimizationDraft): Quick
 
 export function useMinimization(project: Project | undefined, selection: Selection,
   commit: (operation: () => Promise<Project>, quick?: QuickPublicationAttempt) => Promise<Project>, beforeStart?: () => void, onNotice?: (notice: ApplicationNoticeValue) => void,
-  publication?: QuickPublicationController) {
+  publication?: QuickPublicationController, targetContext?: () => SelectionTargetContext, assertWritable?: (projectId: string) => void) {
   // Commands read the current session at invocation. Presentation subscribes in the
   // viewer, so opening/progress/settings never rerender the whole molecular workspace.
   const state = useMinimizationStore.getState();
   const query = useQueryClient();
+  const contextRef = useRef<() => SelectionTargetContext>(() => { throw new Error("Selection context unavailable."); });
+  contextRef.current = targetContext ?? (() => ({ activeProjectId: useWorkspaceStore.getState().activeProjectId,
+    selectionProjectId: project?.id ?? null, projectEpoch: useSelectionStore.getState().projectEpoch, project, selection }));
+  const guardRef = useRef(assertWritable); guardRef.current = assertWritable;
+  const assertToolWritable = (id: string) => { publication?.assertWritable(id); guardRef.current?.(id); };
   const owner = (id: string, generation: number) => useWorkspaceStore.getState().activeProjectId === id &&
     useMinimizationStore.getState().projectId === id && useMinimizationStore.getState().generation === generation;
   // Tool/project ownership is presentation state. Leaving it cancels computation,
@@ -62,48 +69,77 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     }
     if (announce && !current.open) onNotice?.({ kind: "error", text: error });
   };
-  const begin = async (immediate = false, replacing = false, profile: MinimizationProfile = "amber") => {
-    if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+  const startReason = (allowDraft = false): string | null => {
+    const current = useMinimizationStore.getState();
+    if (project && publication && publication.snapshot(project.id).phase !== "idle") return "Resolve the pending coordinate application before starting another tool.";
+    if (current.loading || current.applying || current.autoApply) return "Finish or cancel the current minimization before starting another tool.";
+    if (current.recovery) return "Resolve minimization recovery before starting another tool.";
+    const job = query.getQueryData<Job>(["job", current.jobId]);
+    if (current.jobId && (!job || ["queued", "running"].includes(job.status))) return "Inspect or cancel the current minimization before starting another tool.";
+    if (job?.status === "completed" && !current.applied) return "Apply or discard the completed minimization before starting another tool.";
+    if (!allowDraft && current.draft) return "Finish or close the current minimization setup before starting another tool.";
+    return null;
+  };
+  const begin = async (immediate = false, profile: MinimizationProfile = "amber", requested?: SelectionTargetCapture): Promise<boolean> => {
+    if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return false;
     if (publication && publication.snapshot(project.id).phase !== "idle") {
       onNotice?.({ kind: "error", text: "Resolve the pending coordinate application before starting another calculation. Open minimization to check." });
-      return;
+      return false;
     }
-    try { publication?.assertWritable(project.id); }
-    catch (error) { onNotice?.({ kind: "error", text: message(error) }); return; }
+    try { assertToolWritable(project.id); }
+    catch (error) { onNotice?.({ kind: "error", text: message(error) }); return false; }
     if (immediate) {
       const capability = query.getQueryState<QuickMinimizationCapabilities>(["quick-minimization-capabilities"]);
       if ((capability && capability.fetchStatus !== "idle") || capability?.status === "error") {
         onNotice?.({ kind: "error", text: capability.fetchStatus === "paused" ? "The availability check is paused. Reconnect before running minimization."
           : capability.fetchStatus === "fetching" ? "Wait for the minimization availability check before running."
           : "Retry the availability check before running minimization." });
-        return;
+        return false;
       }
     }
     const current = useMinimizationStore.getState();
-    const job = query.getQueryData<Job>(["job", current.jobId]);
-    if (current.loading || current.applying || (!replacing && (current.autoApply || (job && ["queued", "running"].includes(job.status))))) return;
-    beforeStart?.();
-    const generation = state.begin(project, selection, profile, !immediate || current.open);
+    const unavailable = startReason(true);
+    if (unavailable) { onNotice?.({ kind: "error", text: unavailable }); return false; }
+    let capture: SelectionTargetCapture;
     try {
-      const sources = profile === "quick" ? new Map<string, CalculationSource>() : await load(project, [...new Set(selection.atoms.map(a => a.structure_id))]);
-      if (!owner(project.id, generation)) return;
+      const context = contextRef.current();
+      if (!context.project) return false;
+      capture = requested ?? captureSelectionTarget(context.project, context.selection, context.projectEpoch);
+      assertSelectionTargetCurrent(capture, context);
+      if (current.draft && (current.draft.project.id !== capture.projectId || current.draft.project.revision !== capture.expectedRevision
+        || JSON.stringify(current.draft.selection.atoms) !== JSON.stringify(capture.selection.atoms)
+        || Object.entries(capture.artifacts).some(([id, artifact]) => current.draft!.project.entries.find(entry => entry.id === id)?.current_artifact_id !== artifact))) {
+        throw new Error("Finish or close the existing minimization setup before choosing another target.");
+      }
+      beforeStart?.();
+      assertSelectionTargetCurrent(capture, contextRef.current());
+    } catch (error) { onNotice?.({ kind: "error", text: message(error) }); return false; }
+    const snapshot = capture.project;
+    const generation = state.begin(snapshot, capture.selection, profile, !immediate || current.open);
+    try {
+      const sources = profile === "quick" ? new Map<string, CalculationSource>() : await load(snapshot, [...new Set(capture.selection.atoms.map(a => a.structure_id))]);
+      if (!owner(snapshot.id, generation)) return false;
+      assertSelectionTargetCurrent(capture, contextRef.current());
       const draft = useMinimizationStore.getState().draft!;
       state.patch(generation, { draft: { ...draft, sources }, loading: immediate, autoApply: immediate && profile === "quick" });
       if (immediate) {
         const capabilities = await query.fetchQuery({ queryKey: ["quick-minimization-capabilities"], queryFn: quickMinimizationApi.capabilities, staleTime: 30_000 });
-        if (!owner(project.id, generation)) return;
+        if (!owner(snapshot.id, generation)) return false;
+        assertSelectionTargetCurrent(capture, contextRef.current());
         if (!capabilities.available) throw new Error(capabilities.unavailable_reason ?? "The local minimization model is unavailable.");
-        publication?.assertWritable(project.id);
-        const submitted = await quickMinimizationApi.submit(project.id, quickRequest(project, draft));
+        assertToolWritable(snapshot.id);
+        const submitted = await quickMinimizationApi.submit(snapshot.id, quickRequest(snapshot, draft));
         void query.invalidateQueries({ queryKey: ["jobs", project.id] });
         if (owner(project.id, generation) && useMinimizationStore.getState().autoApply) {
           query.setQueryData(["job", submitted.id], submitted);
           state.patch(generation, { jobId: submitted.id, loading: false, draft: null });
         } else { void jobApi.cancel(submitted.id).catch(() => {}); }
       }
+      return true;
     } catch (error) {
       if (immediate) failQuick(generation, message(error));
       else if (owner(project.id, generation)) state.patch(generation, { loading: false, error: message(error) });
+      return false;
     }
   };
   const mode = async (mode: "isolated" | "environment" | "automatic") => {
@@ -125,7 +161,8 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || !state.draft || useMinimizationStore.getState().loading || !owner(project.id, state.generation)) return;
     const generation = state.generation;
     try {
-      publication?.assertWritable(project.id);
+      beforeStart?.();
+      assertToolWritable(project.id);
       if (state.profile === "quick") {
         const capability = query.getQueryState<QuickMinimizationCapabilities>(["quick-minimization-capabilities"]);
         if (capability?.fetchStatus === "paused") throw new Error("The availability check is paused. Reconnect before running minimization.");
@@ -205,29 +242,28 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     try { const result = await jobApi.cancel(job.id); query.setQueryData<Job>(["job", job.id], result); }
     catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
   };
-  const configure = async (profile: MinimizationProfile = "quick") => {
+  const configure = async (profile: MinimizationProfile = "quick", requested?: SelectionTargetCapture): Promise<boolean> => {
     const state = useMinimizationStore.getState();
     if (project && publication && publication.snapshot(project.id).phase !== "idle") {
-      state.revealRecovery(project.id);
-      return;
+      onNotice?.({ kind: "error", text: "Resolve the pending coordinate application before opening a new setup." });
+      return false;
     }
-    if (!project || state.loading || state.applying) return;
-    const generation = state.generation;
-    const job = query.getQueryData<Job>(["job", state.jobId]);
-    // Changing tools ends publication ownership before any network cancellation.
-    state.patch(generation, { autoApply: false, live: false, preview: false });
+    if (!project) return false;
+    const unavailable = startReason(true);
+    if (unavailable) { onNotice?.({ kind: "error", text: unavailable }); return false; }
     try {
-      if (job && ["queued", "running"].includes(job.status)) {
-        try { const result = await jobApi.cancel(job.id); query.setQueryData(["job", job.id], result); }
-        catch (error) {
-          const result = await jobApi.get(job.id);
-          if (["queued", "running"].includes(result.status)) throw error;
-        }
+      const context = contextRef.current();
+      if (!context.project) return false;
+      const capture = requested ?? captureSelectionTarget(context.project, context.selection, context.projectEpoch);
+      assertSelectionTargetCurrent(capture, context);
+      if (state.draft && (state.draft.project.id !== capture.projectId || state.draft.project.revision !== capture.expectedRevision
+        || JSON.stringify(state.draft.selection.atoms) !== JSON.stringify(capture.selection.atoms)
+        || Object.entries(capture.artifacts).some(([id, artifact]) => state.draft!.project.entries.find(entry => entry.id === id)?.current_artifact_id !== artifact))) {
+        throw new Error("Finish or close the existing minimization setup before choosing another target.");
       }
-      if (!owner(project.id, generation)) return;
-      state.dismiss();
-      await begin(false, true, profile);
-    } catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
+      if (state.draft && state.profile === profile) { state.patch(state.generation, { open: true }); return true; }
+      return await begin(false, profile, capture);
+    } catch (error) { onNotice?.({ kind: "error", text: message(error) }); return false; }
   };
   const show = async () => {
     const current = useMinimizationStore.getState();
@@ -238,7 +274,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     }
     if (!owner(project.id, current.generation)) return;
     const job = query.getQueryData<Job>(["job", current.jobId]);
-    if (current.loading || current.applying || current.autoApply || (current.live && job && ["queued", "running"].includes(job.status))) {
+    if (current.draft || current.jobId || current.loading || current.applying || current.autoApply || (current.live && job && ["queued", "running"].includes(job.status))) {
       current.patch(current.generation, { open: true });
     } else await configure("quick");
   };
@@ -277,9 +313,11 @@ export function useMinimization(project: Project | undefined, selection: Selecti
   };
   return {
     publication,
+    startReason,
     recapture, recheckCapabilities, currentSelectionError: project ? quickSelectionError(project, selection) : "Open a project before selecting atoms.",
     refreshPublication: () => recoverPublication(false), retryPublication: () => recoverPublication(true),
-    begin: () => begin(false, false, useMinimizationStore.getState().profile), quick: () => begin(true, false, "quick"), configure, show, mode, run, apply, cancel, finishQuick, failQuick,
+    begin: async () => { await begin(false, useMinimizationStore.getState().profile); },
+    quick: async () => { await begin(true, "quick"); }, configure, show, mode, run, apply, cancel, finishQuick, failQuick,
     expandHydrogens: (expandHydrogens: boolean) => updateDraft({ expandHydrogens }),
     allowRepair: (allowRepair: boolean) => updateDraft({ allowRepair }),
     include: (key: string, include: boolean) => {

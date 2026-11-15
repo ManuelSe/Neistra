@@ -1,0 +1,62 @@
+{
+  "stage": "C4a corrected torsion core/API checkpoint",
+  "full_release_gate": false,
+  "base_commit": "34e1f3f9943522a99e3ed347635044113160ddba",
+  "focused_python": {
+    "combined_passes": 147,
+    "additional_distal_case_passes": 1,
+    "counts_overlap": false,
+    "additional_case_only_source_change_verified": true,
+    "additional_case_observation": "Successful pytest node execution in session transcript; also included in the source-bound full corrected 585-case run"
+  },
+  "python_skips": 0,
+  "ruff": "PASS",
+  "default_mypy_sources": 218,
+  "source_scope": "Seven changed paths for focused run; source-bound full corrected candidate includes 737 scoped identities and all 13 C4 scientific/API paths",
+  "source_unchanged_during_focused_run": true,
+  "logs": {
+    "python": {
+      "file": "c4a-python.log.gz",
+      "lossless_sha256": "81b27ecd01faf9950430a8ef843233ce39e9c51c7145231351b4d2f72aeb8e58"
+    },
+    "ruff": {
+      "file": "c4a-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "mypy": {
+      "file": "c4a-mypy.log.gz",
+      "lossless_sha256": "7a43b17c0515eb1dbf58707b957b8ce209fa17c9d05ad50e445b65e47019fa96"
+    }
+  },
+  "negative_controls": {
+    "core_failures_before_fix": 17,
+    "spawned_api_failures_before_fix": 10,
+    "expected_failures": true
+  },
+  "full_corrected_candidate": {
+    "python_passed": 585,
+    "skips": 0,
+    "ruff": "PASS",
+    "mypy_sources": 218,
+    "scoped_source_identities": 737,
+    "source_unchanged": true,
+    "scope": "Full C4domain/API prospective candidate in isolated owned tree; includes C4b fragments; overlaps focused evidence"
+  },
+  "early_scientific_reviews": {
+    "scientific_theory": "PASS corrected full 13-path scope after rechecking 585-case gate/hashes",
+    "scientific_implementation": "PASS corrected full 13-path scope; independently465passes (overlapping), matching gate/hashes"
+  },
+  "correction_evidence": {
+    "file": "c4-corrections-and-domain-evidence.zip",
+    "bytes": 150680,
+    "sha256": "74ae830db026d7b84a26812895d5b38da5c6125e4a6afdb852a2066fb89b9abb",
+    "files": 38,
+    "crc_all_internal_hashes_valid": true
+  },
+  "limits": [
+    "Full C4b source not yet integrated into primary at this torsion checkpoint",
+    "New native compact controls remain C5 work",
+    "Preliminary100passingcases missed three defects and are retained separately, not final qualification",
+    "No final seven-role whole-feature or release/compatibility approval"
+  ]
+}

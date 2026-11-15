@@ -6,12 +6,12 @@ import hashlib
 from collections.abc import Mapping
 
 from neistra_core.molecular import NormalizedStructureV1
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from neistra_api.import_export import ArtifactService
 from neistra_api.job_service import JobConflictError
 from neistra_api.models import Artifact, Project, StructureEntry
+from neistra_api.project_publication import lock_project_publication
 from neistra_api.project_service import (
     EntryNotFoundError,
     ProjectNotFoundError,
@@ -54,13 +54,8 @@ def parse_calculation_source(data: bytes) -> NormalizedStructureV1:
 
 
 def lock_coordinate_publication(session: Session, project_id: str) -> None:
-    # Acquire before dependency/retry reads so independent API processes cannot
-    # publish twice. Transaction completion remains the caller's responsibility.
-    connection = session.connection()
-    if connection.dialect.name == "sqlite":
-        connection.exec_driver_sql("BEGIN IMMEDIATE")
-    else:
-        session.execute(select(Project.id).where(Project.id == project_id).with_for_update())
+    """Compatibility entry point for coordinate-calculation publication."""
+    lock_project_publication(session, project_id)
 
 
 def replace_selected_coordinates(

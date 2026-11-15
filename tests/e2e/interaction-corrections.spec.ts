@@ -96,7 +96,7 @@ test("renders genuine six-type records alone, pairwise and together with indepen
   let records: InteractionRecord[] = [];
   page.on("request", outgoing => {
     if (outgoing.url().endsWith("/interactions")) analyses++;
-    if (/\/entries\/[^/]+\/structure$/.test(outgoing.url())) structureGets++;
+    if (/\/entries\/[^/]+\/structure$/.test(new URL(outgoing.url()).pathname)) structureGets++;
   });
   const response = page.waitForResponse(reply => reply.url().endsWith("/interactions") && reply.status() === 200);
   await page.getByRole("button", { name: "Interactions", exact: true }).click();
