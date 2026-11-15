@@ -116,7 +116,7 @@ function project(proteinVisible = true, ligandVisible = false): Project {
   };
 }
 
-function projection(entryId: string): StructureProjection {
+function projection(entryId: string, artifactId = `current-${entryId}`): StructureProjection {
   const structure: StructureProjection["structure"] = {
     schema_version: 1,
     title: entryId,
@@ -157,6 +157,7 @@ function projection(entryId: string): StructureProjection {
   };
   return {
     entry_id: entryId,
+    artifact_id: artifactId,
     structure,
     hierarchy: componentHierarchy(structure),
     viewer: {
@@ -721,7 +722,7 @@ describe("lazy structure loading", () => {
     };
     queryClient.setQueryData(
       ["structure", initial.id, "protein", patch.artifact_id],
-      projection("protein"),
+      projection("protein", patch.artifact_id),
     );
     const next: Project = {
       ...initial,
@@ -765,6 +766,7 @@ describe("lazy structure loading", () => {
     const view = render(<StructureViewer {...props} project={initial} />, { wrapper: wrapper(queryClient) });
     await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
     current = structuredClone(current);
+    current.artifact_id = "reconciled-artifact";
     current.structure.atoms[0].coordinates = [7, 8, 9];
     const refreshed = { ...initial, revision: initial.revision + 1,
       entries: initial.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "reconciled-artifact" } : entry) };
@@ -803,7 +805,7 @@ describe("lazy structure loading", () => {
     await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
     const syncCount = fake.syncs.length;
     const artifactId = "ligand-topology-2";
-    const replacement = projection("ligand");
+    const replacement = projection("ligand", artifactId);
     replacement.structure.atoms = [1, 2, 3, 4].map((id) => ({
       ...replacement.structure.atoms[0],
       id,
@@ -1028,7 +1030,8 @@ it("loads hidden pocket seeds by artifact, keeps them invisible, and reuses styl
   const fake = new FakeViewer(), createViewer = () => fake;
   const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
     const id = requestUrl(input).includes("/protein/") ? "protein" : "ligand";
-    return Promise.resolve(new Response(JSON.stringify(projection(id)), {
+    const artifact = new URL(requestUrl(input), "http://localhost").searchParams.get("expected_artifact_id")!;
+    return Promise.resolve(new Response(JSON.stringify(projection(id, artifact)), {
       status: 200, headers: { "Content-Type": "application/json" },
     }));
   });

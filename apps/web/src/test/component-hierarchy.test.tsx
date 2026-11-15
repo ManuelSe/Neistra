@@ -164,6 +164,7 @@ function complexProjection(): StructureProjection {
   };
   return {
     entry_id: "complex",
+    artifact_id: "current-complex",
     structure,
     hierarchy,
     viewer: { format: "mmcif", data: "projection" },

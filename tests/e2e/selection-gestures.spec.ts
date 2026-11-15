@@ -263,7 +263,7 @@ test("shares fixed residue starts between native picks and Sequence with partial
   const mobile = info.project.name === "mobile-chromium";
   const reads: string[] = [], writes: string[] = [];
   page.on("request", r => {
-    if (r.url().endsWith("/structure")) reads.push(r.url());
+    if (new URL(r.url()).pathname.endsWith("/structure")) reads.push(r.url());
     // Installation view saves are independent of these molecular-state checks.
     if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
       && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());

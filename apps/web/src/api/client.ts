@@ -106,7 +106,8 @@ async function request<ResponseType>(
         ...init?.headers,
       },
     });
-  } catch {
+  } catch (error) {
+    if (init?.signal?.aborted) throw error;
     throw new ApiError(0, "network_error", "Neistra could not reach the local API.");
   }
 
@@ -496,10 +497,16 @@ export interface ImportCallbacks {
 
 export const molecularApi = {
   formats: () => request<FormatCapability[]>("/api/v1/formats"),
-  structure: (projectId: string, entryId: string) =>
-    request<StructureProjection>(
-      `/api/v1/projects/${projectId}/entries/${entryId}/structure`,
-    ),
+  structure: async (projectId: string, entryId: string, artifactId: string, signal?: AbortSignal) => {
+    const projection = await request<StructureProjection>(
+      `/api/v1/projects/${projectId}/entries/${entryId}/structure?${new URLSearchParams({ expected_artifact_id: artifactId })}`,
+      { signal },
+    );
+    if (!projection || projection.entry_id !== entryId || projection.artifact_id !== artifactId) {
+      throw new ApiError(409, "structure_identity_mismatch", "The molecule response does not match the requested artifact. Reload the target before continuing.");
+    }
+    return projection;
+  },
   importStructures: (
     project: Project,
     files: File[],

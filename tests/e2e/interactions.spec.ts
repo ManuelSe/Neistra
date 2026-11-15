@@ -47,7 +47,7 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   const project = await prepare(page, request, ["tests/fixtures/interactions/hydrogen_pair.mol"], "Interaction lifecycle");
   await frameFixture(page);
   let analyses = 0, structureGets = 0;
-  page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) analyses++; if (/\/entries\/[^/]+\/structure$/.test(outgoing.url())) structureGets++; });
+  page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) analyses++; if (/\/entries\/[^/]+\/structure$/.test(new URL(outgoing.url()).pathname)) structureGets++; });
   const launcher = page.getByRole("button", { name: "Interactions", exact: true });
   await launcher.click();
   const panel = page.getByRole("dialog", { name: "Interactions", exact: true });
@@ -151,7 +151,7 @@ test("measures bounded analysis and cached toggles on pinned 1STP with aligned t
   test.setTimeout(90_000);
   const project = await prepare(page, request, ["tests/fixtures/complex/1stp.pdb", "tests/fixtures/interactions/aligned_ethanol.mol"], "Interaction performance");
   let analyses = 0, structureGets = 0, requestBytes = 0;
-  page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) { analyses++; requestBytes += Buffer.byteLength(outgoing.postData() ?? ""); } if (/\/entries\/[^/]+\/structure$/.test(outgoing.url())) structureGets++; });
+  page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) { analyses++; requestBytes += Buffer.byteLength(outgoing.postData() ?? ""); } if (/\/entries\/[^/]+\/structure$/.test(new URL(outgoing.url()).pathname)) structureGets++; });
   await page.evaluate(() => {
     const tasks: number[] = [];
     const observer = new PerformanceObserver(list => list.getEntries().forEach(entry => tasks.push(entry.duration)));

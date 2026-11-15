@@ -64,7 +64,7 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   const camera = await page.evaluate(() => window.editingPicks.camera());
   const reads: string[] = [], writes: string[] = [];
   page.on("request", r => {
-    if (r.url().endsWith("/structure")) reads.push(r.url());
+    if (new URL(r.url()).pathname.endsWith("/structure")) reads.push(r.url());
     // Installation view saves are independent of these molecular-state checks.
     if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
       && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
@@ -131,7 +131,7 @@ test("virtualizes 10000 observed residues and selects complete off-screen ranges
   const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
   const component = projection.hierarchy.components.find(c => c.category === "protein")!;
   expect(component.residue_ids).toHaveLength(10000);
-  const reads: string[] = []; page.on("request", r => { if (r.url().endsWith("/structure")) reads.push(r.url()); });
+  const reads: string[] = []; page.on("request", r => { if (new URL(r.url()).pathname.endsWith("/structure")) reads.push(r.url()); });
   await page.goto("/"); await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   const mobile = info.project.name === "mobile-chromium";

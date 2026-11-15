@@ -239,7 +239,7 @@ test("retires a held hidden-entry hydrogen load when the selection changes", asy
   const project = await hiddenReply.json() as Project;
   let started = false, release = () => {};
   const held = new Promise<void>(resolve => { release = resolve; });
-  await page.route(`**/projects/${project.id}/entries/${hidden.id}/structure`, async route => {
+  await page.route(url => url.pathname === `/api/v1/projects/${project.id}/entries/${hidden.id}/structure`, async route => {
     started = true; await held; await route.continue();
   }, { times: 1 });
   await open(page, project);

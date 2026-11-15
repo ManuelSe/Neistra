@@ -1272,6 +1272,7 @@ class ViewerProjection(BaseModel):
 
 class StructureRead(BaseModel):
     entry_id: str
+    artifact_id: str
     structure: NormalizedStructureV1
     hierarchy: ComponentHierarchyV1
     viewer: ViewerProjection

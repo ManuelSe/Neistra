@@ -214,7 +214,7 @@ test("compact Hide/Show preserves selection, styles and cached projections", asy
   await expect(palette.getByText("3 atoms", { exact: true })).toBeVisible();
   await expect(palette.getByText("Checking complete-residue compatibility")).toHaveCount(0);
   let reads = 0;
-  page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(r.url())) reads++; });
+  page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname)) reads++; });
   for (const theme of ["light", "dark"]) {
     const switcher = page.getByRole("button", { name: `Use ${theme} theme` });
     if (await switcher.count()) await switcher.click();

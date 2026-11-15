@@ -89,6 +89,7 @@ describe("coordinate transforms", () => {
   it("patches a structure projection immutably", () => {
     const projection: StructureProjection = {
       entry_id: "ligand",
+      artifact_id: "artifact-1",
       structure,
       hierarchy: componentHierarchy(structure),
       viewer: { format: "mol", data: "topology stays unchanged" },

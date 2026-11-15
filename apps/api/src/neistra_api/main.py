@@ -55,6 +55,7 @@ from neistra_api.import_export import (
     ImportLimitError,
     LossAcknowledgementRequiredError,
     PreparedFile,
+    StructureArtifactConflictError,
     StructureUnavailableError,
     UploadPayload,
     prepare_uploads,
@@ -1422,10 +1423,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def get_structure(
         project_id: str,
         entry_id: str,
+        expected_artifact_id: str | None = None,
         session: Session = Depends(session_dependency),
     ) -> StructureRead:
         return _call(
-            lambda: ImportExportService(session, app_settings).structure(project_id, entry_id)
+            lambda: ImportExportService(session, app_settings).structure(
+                project_id, entry_id, expected_artifact_id=expected_artifact_id
+            )
         )
 
     @router.get("/projects/{project_id}/entries/{entry_id}/original")
@@ -1765,6 +1769,8 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
             "structure_unavailable",
             f"Entry {error} does not have molecular data",
         ) from error
+    except StructureArtifactConflictError as error:
+        raise _error(409, "structure_artifact_conflict", str(error)) from error
     except JobNotFoundError as error:
         raise _error(404, "job_not_found", f"Job {error} was not found") from error
     except JobResultNotFoundError as error:

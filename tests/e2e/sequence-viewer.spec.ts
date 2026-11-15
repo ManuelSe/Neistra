@@ -27,7 +27,7 @@ for (const theme of ["light", "dark"] as const) test(`stacks visible chains and 
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   const reads: string[] = [], writes: string[] = [];
   page.on("request", r => {
-    if (r.url().endsWith("/structure")) reads.push(r.url());
+    if (new URL(r.url()).pathname.endsWith("/structure")) reads.push(r.url());
     // Installation view saves are independent of these molecular-state checks.
     if (new URL(r.url()).pathname !== "/api/v1/workspace/presentation"
       && ["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
@@ -142,7 +142,7 @@ test("bounds virtual DOM and complete selection for a displayed 10000-residue pr
   if (info.project.name === "chromium") await page.getByRole("tab", { name: "History", exact: true }).click();
   await expect(sequence(page).getByRole("button", { name: /^GLY 1 ·/ })).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.interactionEngines.at(-1)!.getRenderedAtomReferences().length), { timeout: 30000 }).toBeGreaterThan(0);
-  const reads: string[] = []; page.on("request", r => { if (r.url().endsWith("/structure")) reads.push(r.url()); });
+  const reads: string[] = []; page.on("request", r => { if (new URL(r.url()).pathname.endsWith("/structure")) reads.push(r.url()); });
   await page.evaluate(() => {
     const tasks: number[] = []; Object.assign(window, { sequenceTasks: tasks });
     new PerformanceObserver(list => { for (const item of list.getEntries()) tasks.push(item.duration); }).observe({ type: "longtask" });

@@ -10,6 +10,65 @@ declare global { interface Window { editingPicks: Awaited<ReturnType<typeof obse
 
 test.beforeEach(({ page }) => page.setDefaultTimeout(10000));
 
+test("keeps a held edit projection out of Undo and reloads the exact artifact on Redo", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const initial = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Immutable edit projection");
+  const entry = initial.entries[0], path = `/api/v1/projects/${initial.id}`;
+  const endpoint = `${path}/entries/${entry.id}/structure`;
+  const canonical = async () => (await (await request.get(endpoint)).json()) as StructureProjection;
+  const original = await (await request.get(`${path}/entries/${entry.id}/original`)).body();
+  const carbon = await canonical();
+  expect(carbon.artifact_id).toBe(entry.current_artifact_id);
+  expect(carbon.structure.atoms.find(atom => atom.id === 1)?.element).toBe("C");
+  await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
+  let release!: () => void, started!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const captured = new Promise<void>(resolve => { started = resolve; });
+  let heldCondition: string | null = null, heldStatus = 0, holdNext = true;
+  const conditions: (string | null)[] = [];
+  page.on("request", outgoing => {
+    const url = new URL(outgoing.url());
+    if (outgoing.method() === "GET" && url.pathname === endpoint) conditions.push(url.searchParams.get("expected_artifact_id"));
+  });
+  await page.route(url => url.pathname === endpoint, async route => {
+    const condition = new URL(route.request().url()).searchParams.get("expected_artifact_id");
+    if (holdNext && condition !== carbon.artifact_id) {
+      holdNext = false; heldCondition = condition; started(); await held;
+      const response = await route.fetch(); heldStatus = response.status();
+      await route.fulfill({ response });
+    } else await route.continue();
+  });
+  try {
+    await panel.getByRole("button", { name: "Replace selected atom with N" }).click();
+    await captured;
+    const nitrogen = await canonical();
+    expect(nitrogen.artifact_id).not.toBe(carbon.artifact_id);
+    expect(heldCondition).toBe(nitrogen.artifact_id);
+    expect(nitrogen.structure.atoms.find(atom => atom.id === 1)?.element).toBe("N");
+    await page.getByRole("button", { name: /^Undo:/ }).click();
+    await expect.poll(async () => (await canonical()).artifact_id).toBe(carbon.artifact_id);
+    await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeDisabled();
+    await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
+    release();
+    await expect.poll(() => heldStatus).toBe(409);
+    await page.getByRole("button", { name: /^Redo:/ }).click();
+    await expect.poll(async () => (await canonical()).structure).toEqual(nitrogen.structure);
+    await expect(panel.getByRole("button", { name: "Replace selected atom with N" })).toBeDisabled();
+    await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeEnabled();
+    await expect.poll(() => page.evaluate(async entryId => {
+      const modulePath = "/src/test/molecularEditHarness.ts";
+      const { displayedElements } = await import(/* @vite-ignore */ modulePath);
+      return (await displayedElements(window.interactionEngines.at(-1)!, entryId)).find(atom => atom.atom_id === 1)?.element;
+    }, entry.id)).toBe("N");
+    expect(conditions).toEqual([nitrogen.artifact_id, nitrogen.artifact_id]);
+    expect(await (await request.get(`${path}/entries/${entry.id}/original`)).body()).toEqual(original);
+    await page.screenshot({ path: info.outputPath("immutable-edit-projection-redo.png") });
+  } finally { release(); }
+});
+
 async function selectAtom(page: Page, entryId: string, atomId: number, mobile: boolean) {
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "selection", exact: true }).click();
@@ -275,7 +334,7 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   expect(hydrogen, JSON.stringify(attempts)).toBeGreaterThan(0);
   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
   const reads: string[] = [];
-  page.on("request", req => { if (req.url().endsWith("/structure")) reads.push(req.url()); });
+  page.on("request", req => { if (new URL(req.url()).pathname.endsWith("/structure")) reads.push(req.url()); });
   await launcher.focus(); await page.keyboard.press("Enter");
   for (const section of ["Bonds", "Fragments", "Atoms"]) await panel.getByRole("button", { name: section, exact: true }).click();
   // Cross a responsive layout boundary with owned keyboard focus and open state.
@@ -359,7 +418,7 @@ test("retains a newer native selection and recovers an affected-artifact refetch
   const held = new Promise<void>(resolve => { release = resolve; });
   const committed = new Promise<void>(resolve => { received = resolve; });
   let failReads = true;
-  await page.route(`**/entries/${entry.id}/structure`, route => failReads ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Qualification read failure" }) }) : route.continue());
+  await page.route(url => url.pathname === `/api/v1/projects/${project.id}/entries/${entry.id}/structure`, route => failReads ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Qualification read failure" }) }) : route.continue());
   await page.route("**/model-edits", async route => {
     const response = await route.fetch(); received(); await held; await route.fulfill({ response });
   });

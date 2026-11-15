@@ -2,6 +2,7 @@ import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
 import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
 import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
 import { seedCoordinateProjections } from "./coordinates/cache";
+import { isCompleteProjection, structureQueryKey, structureQueryOptions } from "./structures/query";
 import { captureProjectCommand, dispatchProjectCommand, type ProjectCommand } from "./coordinates/projectCommand";
 import { usePresentation } from "./presentation/context";
 import type { ResidueSelectionRequest, ViewerPick } from "./selection/gestures";
@@ -28,7 +29,7 @@ import {
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, jobApi, molecularApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
+import { ApiError, jobApi, projectApi, quickMinimizationApi, workspacePresentationApi } from "./api/client";
 import type {
   Entry,
   AtomReference,
@@ -363,11 +364,7 @@ export default function App() {
     load: async (captured, ids) => new Map(await Promise.all(ids.map(async id => {
       const entry = captured.entries.find(item => item.id === id);
       if (!entry?.current_artifact_id) throw new Error("A selected structure is unavailable.");
-      const projection = await queryClient.fetchQuery({
-        queryKey: ["structure", captured.id, id, entry.current_artifact_id],
-        queryFn: () => molecularApi.structure(captured.id, id),
-        staleTime: Number.POSITIVE_INFINITY,
-      });
+      const projection = await queryClient.fetchQuery(structureQueryOptions(captured.id, id, entry.current_artifact_id));
       return [id, projection] as const;
     }))),
     rendered: () => renderedMovementAtoms.current(),
@@ -522,11 +519,7 @@ export default function App() {
       requested.map(async (entryId) => {
         const entry = project.entries.find((item) => item.id === entryId);
         if (!entry?.current_artifact_id) return null;
-        const result = await queryClient.fetchQuery({
-          queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
-          queryFn: () => molecularApi.structure(project.id, entry.id),
-          staleTime: Number.POSITIVE_INFINITY,
-        });
+        const result = await queryClient.fetchQuery(structureQueryOptions(project.id, entry.id, entry.current_artifact_id));
         return [entry.id, result] as const;
       }),
     );
@@ -601,8 +594,8 @@ export default function App() {
     const current = queryClient.getQueryData<Project>(["project", request.projectId]);
     const entry = current?.entries.find(item => item.id === request.entryId);
     if (!entry || entry.current_artifact_id !== request.artifactId) return;
-    const projection = queryClient.getQueryData<StructureProjection>(["structure", request.projectId, entry.id, request.artifactId]);
-    if (!projection) return;
+    const projection = queryClient.getQueryData<StructureProjection>(structureQueryKey(request.projectId, entry.id, request.artifactId));
+    if (!isCompleteProjection(projection, entry.id, request.artifactId)) return;
     state.applyResidue(request, { projectId: request.projectId, artifactId: request.artifactId,
       source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
   };
@@ -614,8 +607,8 @@ export default function App() {
     const entryId = pick.atoms[0]?.structure_id;
     const entry = project.entries.find(item => item.id === entryId);
     if (!entry?.current_artifact_id) return;
-    const projection = queryClient.getQueryData<StructureProjection>(["structure", project.id, entry.id, entry.current_artifact_id]);
-    if (!projection) return;
+    const projection = queryClient.getQueryData<StructureProjection>(structureQueryKey(project.id, entry.id, entry.current_artifact_id));
+    if (!isCompleteProjection(projection, entry.id, entry.current_artifact_id)) return;
     state.applyViewer(operand, mode, pick, { projectId: project.id, artifactId: entry.current_artifact_id,
       source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
   };
@@ -827,7 +820,7 @@ export default function App() {
           const entry = project.entries.find(e => e.id === entryId);
           if (!entry?.current_artifact_id) throw new Error("Load the target before editing.");
           const structure = edit.operation === "bond.order" || edit.operation === "bond.delete"
-            ? (await molecularApi.structure(project.id, entryId)).structure : undefined;
+            ? (await queryClient.fetchQuery(structureQueryOptions(project.id, entryId, entry.current_artifact_id))).structure : undefined;
           if (!owns() || useSelectionStore.getState().selection !== captured) throw new Error("The target context changed; submit the edit again.");
           const direct = manualModelEdit(entryId, edit, structure);
           if (!direct) throw new Error("Unsupported direct action.");

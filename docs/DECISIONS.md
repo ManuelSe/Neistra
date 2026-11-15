@@ -7297,3 +7297,69 @@ Authorized within agreed scope; not individually reviewed. This changes no scien
 verification, seven-role same-candidate, remote protection or compatibility gate.
 Provisional stable minor 0.32.0 reflects added functionality; recheck collisions and
 all authoritative versions before preparation/publication.
+
+
+### D-159 C2 clarification — new target connection with retained atom identities
+
+Scientific implementation identifies an overbroad consequence of the new-endpoint
+rule: pinned mutation retains common heavy-atom names, so ARG/GLN/GLU/LYS→PRO can
+retain every ring atom while legitimately requiring a new N–CD connection. Theory
+independently enumerates all 20 pinned templates and finds exactly those four
+retained-name target-edge additions. A new target connection need not have a new
+atom identity; it must not be confused with restoring a missing source-required edge.
+
+Permit only same-residue PRO N–CD closure with compatible retained N/CD identities,
+requested target PRO, a standard source template that did not require N–CD, an absent
+current pair and no authored exclusion. Allocate a new inferred bond with template
+provenance; keep retained atom IDs and coordinates exact. An authored N–CD exclusion
+keeps the ring open with a precise warning. Existing edges retain IDs/order/provenance
+without duplication. Measure N–CD distance in Å and warn about unoptimized retained
+closure geometry even if it falls inside existing extreme-distance thresholds; no
+coordinate search, silent repositioning or validated-conformation claim.
+
+For reverse PRO→ARG/GLN/GLU/LYS, preserve the current N–CD edge under the accepted
+retained-topology policy and explicitly diagnose disagreement with target topology;
+do not silently certify an ordinary standard target or delete the retained edge.
+Keep protein mutation's existing single-conformer admission and atomic refusal of
+unsupported multiple frames. Direct-edit diagnostic coverage is independently
+all-conformer. This narrowly supersedes only the endpoint condition in D-159,
+preserving authored cuts, exclusions and the authorized side-chain workflow.
+
+
+### D-159 C2 clarification — preserve the predecessor's floating-point reduction
+
+Parent complete-diff inspection identifies that a scalar no-axis NumPy norm uses
+a dot-product path while the predecessor dense validator uses explicit-axis
+elementwise squaring and reduction. Theory reproduces strict 0.4 Å decisions
+changing in both directions on pinned NumPy 2.4.6. For example, the origin and
+`[-0.007012883902680816, -0.378476683284495, 0.12925254221614194]` have predecessor
+axis norm 0.4, but scalar norm 0.39999999999999997. A second independent vector
+reverses the decision. A scalar pair-loop oracle would repeat the same mistake.
+
+Recompute candidate distances with explicit `axis=-1` on the original float64
+subtraction, preserving the predecessor's axis-reduction arithmetic. Use the actual
+old dense axis=2 expression only for independent small-fixture regression oracles.
+Permanent vectors and symmetric ties demonstrate failures before correction.
+Bounded theory probes cover 128 clouds and three tree leaf sizes, including adjacent
+floats, ties, underflow/overflow and large coordinates with a close pair, without
+corrected decision or nearest-rank discrepancies. This qualifies the chosen pinned
+arithmetic path; it is not a universal hardware/library equivalence claim. Exact
+queries, both-index/self handling, first-row admission, small batches and strict
+threshold remain unchanged. No approximation or tolerance relaxation.
+
+
+### D-158 C1 implementation — cancellation before HTTP dispatch
+
+Consuming the shared query AbortSignal exposes a real redundant-read boundary in
+development StrictMode: synchronous dispatch starts an HTTP request immediately,
+observer cleanup aborts it, and re-subscription starts the same immutable read.
+The unchanged native 10,000-component oracle detects two requests instead of one.
+An actual StrictMode component negative control reproduces the same two reads.
+
+Settle one microtask, then check the captured signal before HTTP dispatch. A retired
+probe exits without network work; live requests still receive AbortSignal and cancel
+when their final observer retires. No timer, second cache, registry or weakened
+request-count assertion is introduced. The unchanged native oracle passes with one
+read in both layouts; the complete focused 80-case run passes with its three exact
+existing exclusions and unchanged source. This refines transient request ownership,
+without changing molecular state, schema, science or production capacity policy.

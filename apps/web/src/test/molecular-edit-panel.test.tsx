@@ -1,6 +1,6 @@
 import { projectApi } from "../api/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, expect, it, vi } from "vitest";
 import { MolecularEditPanel } from "../components/MolecularEditPanel";
@@ -12,7 +12,7 @@ const entry = molecularEntry("ligand", "Ethanol", "ligand");
 const project = molecularProject([entry]);
 const selection: Selection = { schema_version: 1, atoms: [{ structure_id: entry.id, atom_id: 1 }], granularity: "atom", source: "viewer" };
 const projection: StructureProjection = {
-  entry_id: entry.id, viewer: { format: "mol", data: "" },
+  entry_id: entry.id, artifact_id: entry.current_artifact_id!, viewer: { format: "mol", data: "" },
   hierarchy: { schema_version: 1, warnings: [], components: [{ id: "ligand-component", category: "ligand", display_label: "LIG", residue_ids: [], chain_ids: [], atom_ids: [1], classification_source: "source", classification_status: "assigned", warnings: [] }] },
   structure: { schema_version: 1, title: "Ethanol", structure_type: "ligand", chains: [], residues: [],
     atoms: [{ id: 1, name: "C1", element: "C", coordinates: [0, 0, 0], residue_id: null, formal_charge: 0, source_index: 0, alternate_location: null, occupancy: null, b_factor: null, stereo: null, inferred_fields: [] }],
@@ -33,8 +33,28 @@ function setup(operand = selection, unavailable: string | null = null, molecule 
   const onEdit = vi.fn().mockResolvedValue({ project, warnings: [], report: {}, replacements: {} });
   const panelProject = { ...project, entries: [{ ...entry, structure_type: molecule.structure.structure_type, atom_count: molecule.structure.atoms.length }] };
   render(<QueryClientProvider client={client}><MolecularEditPanel project={panelProject} selection={operand} busy={false} unavailable={unavailable} onEdit={onEdit} /></QueryClientProvider>);
-  return { onEdit, user: userEvent.setup() };
+  return { onEdit, client, user: userEvent.setup() };
 }
+
+it("keeps chemistry controls unavailable until a coordinate seed has complete artifact data", async () => {
+  let release!: (response: Response) => void;
+  const fetch = vi.spyOn(globalThis, "fetch").mockImplementation(() => new Promise(resolve => { release = resolve; }));
+  const seed: StructureProjection = { ...projection, projection_state: "coordinate-seed" };
+  const { user, client, onEdit } = setup(selection, null, seed);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await waitFor(() => expect(fetch).toHaveBeenCalledOnce());
+  expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Increase formal charge" })).toBeDisabled();
+  expect(screen.getByText("Loading selected molecule…")).toBeVisible();
+  expect(onEdit).not.toHaveBeenCalled();
+  await act(async () => { release(new Response(JSON.stringify(projection), { status: 200 })); await Promise.resolve(); });
+  await waitFor(() => expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled());
+  expect(screen.getByRole("button", { name: "Increase formal charge" })).toBeEnabled();
+  await user.click(screen.getByText("Advanced atom details"));
+  expect(screen.getByText("Formal charge: 0")).toBeVisible();
+  expect(client.getQueryData(["structure", project.id, entry.id, entry.current_artifact_id])).toEqual(projection);
+  client.clear();
+});
 
 it("captures canonical operands, stays open, and restores owned launcher focus", async () => {
   const { user, onEdit } = setup();

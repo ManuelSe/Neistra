@@ -29,7 +29,7 @@ test("keeps compact entries independent from component expansion, selection and 
   const normalizedRequests: string[] = [];
   const mutations: string[] = [];
   page.on("request", request => {
-    if (request.url().endsWith("/structure")) normalizedRequests.push(request.url());
+    if (new URL(request.url()).pathname.endsWith("/structure")) normalizedRequests.push(request.url());
     if (["POST", "PATCH", "DELETE"].includes(request.method())) mutations.push(request.url());
   });
   const baseline = await (await request.get(`/api/v1/projects/${project.id}`)).json();
@@ -104,7 +104,7 @@ test("keeps two hundred grouped long-name entries usable at narrow widths and re
     await page.mouse.down(); await page.mouse.move(box.x + box.width / 2 - (width - 240), box.y + box.height / 2, { steps:5 }); await page.mouse.up();
     expect((await page.locator(".project-browser").boundingBox())!.width).toBeCloseTo(240, -1);
   } else await page.setViewportSize({ width:320, height:700 });
-  let reads = 0; page.on("request", req => { if (req.url().endsWith("/structure")) reads++; });
+  let reads = 0; page.on("request", req => { if (new URL(req.url()).pathname.endsWith("/structure")) reads++; });
   const snapshot = () => page.evaluate(() => {
     const engines = (window as unknown as { navigationEngines: MolstarEngine[] }).navigationEngines;
     return { camera: engines.at(-1)?.getCamera(), mounts: engines.length };
@@ -176,7 +176,7 @@ test("virtualizes ten thousand real normalized components and reaches off-screen
   expect(payload.hierarchy.components).toHaveLength(10000);
   expect(payload.hierarchy.components.every(component => component.category === "water")).toBe(true);
   let loads = 0;
-  page.on("request", req => { if (req.url().endsWith("/structure")) loads++; });
+  page.on("request", req => { if (new URL(req.url()).pathname.endsWith("/structure")) loads++; });
   await page.goto("/");
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();

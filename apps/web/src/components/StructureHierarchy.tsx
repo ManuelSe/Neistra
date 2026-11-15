@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { defaultRangeExtractor, useVirtualizer } from "@tanstack/react-virtual";
 import { AlertTriangle, ChevronDown, ChevronRight, Eye, EyeOff, Info, LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { molecularApi } from "../api/client";
+import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type { ComponentCategory, Entry, Selection, SelectionMode, StructureProjection, ViewerSettings } from "../api/types";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { buildComponentMembership, indexedCategorySelection, indexedComponentSelection, membershipSelectedState } from "../selection/componentMembership";
@@ -235,17 +235,17 @@ export function StructureHierarchy(props: StructureHierarchyProps) {
   const { projectId, entry, onFocusFallback } = props;
   const ownsFocus = useRef(false);
   const artifact = useRef(entry.current_artifact_id);
-  const query = useQuery({ queryKey: ["structure", projectId, entry.id, entry.current_artifact_id],
-    queryFn: () => molecularApi.structure(projectId, entry.id), retry: false, staleTime: Number.POSITIVE_INFINITY });
+  const query = useQuery(structureQueryOptions(projectId, entry.id, entry.current_artifact_id));
+  const projection = isCompleteProjection(query.data, entry.id, entry.current_artifact_id) ? query.data : undefined;
   useLayoutEffect(() => {
     if (artifact.current !== entry.current_artifact_id && ownsFocus.current && document.hasFocus()) onFocusFallback?.();
     artifact.current = entry.current_artifact_id;
   }, [entry.current_artifact_id, onFocusFallback]);
   return <div className="hierarchy-shell" onFocusCapture={() => { ownsFocus.current = true; }}
     onBlurCapture={event => { if (event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) ownsFocus.current = false; }}>
-    {query.isPending ? <div className="hierarchy-loading" role="status"><LoaderCircle size={14} /> Loading components</div>
-      : query.isError || !query.data ? <div className="hierarchy-error" role="alert">Component hierarchy unavailable
+    {query.isPending || (!projection && !query.isError) ? <div className="hierarchy-loading" role="status"><LoaderCircle size={14} /> Loading components</div>
+      : query.isError || !projection ? <div className="hierarchy-error" role="alert">Component hierarchy unavailable
         <button type="button" onClick={() => void query.refetch()}>Retry components</button></div>
-        : <VirtualHierarchy key={`${projectId}:${entry.id}`} {...props} projection={query.data} />}
+        : <VirtualHierarchy key={`${projectId}:${entry.id}`} {...props} projection={projection} />}
   </div>;
 }

@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **authorized planning
-checkpoint C0**, followed by autonomous implementation and full release delivery.
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **C1 verified locally;
+C2 integration next**. C0 is committed, pushed and verified at `82d41588`.
 The [feature contract](plans/issue-147-structure-editor-reliability.md) is
 **Authorized within agreed scope; not individually reviewed**. The owner accepts
 all twelve audit findings, five common fragments and preservation of deliberately
@@ -22,6 +22,23 @@ not evidence of implemented #147 fixes. C0 documentation scope/links/naming,
 append-only decisions, unchanged application/global plan/version files and
 `git diff --check` pass; the planned remote branch is absent before creation.
 
+C1 conditional immutable reads and explicit response identity pass 35 API tests;
+shared query/cancellation/provisional gating passes 772 frontend tests/89 suites,
+Ruff/mypy (204 sources), frontend lint/types/build, and all 80 focused native cases:
+77 pass/three unchanged exclusions, zero failures/flakes/retries/new exclusions.
+All 709 scoped code/lock identities, complete inventory and lossless log hashes
+verify; 196 native observations retain CRC/internal hashes. StrictMode's redundant
+initial HTTP dispatch is corrected with a microtask/signal boundary and negative
+control; the original one-read native assertion remains. [C1 evidence](assets/structure-editor-reliability/README.md).
+
+C2's frozen isolated delta passes 198 scientific/API tests, scoped typing/lint and
+actual-validator performance qualification: 19 workloads/57 measured calls, 24
+predecessor-expression oracles, nonfinite and active-frame checks. Parent verifies
+40 output hashes and 66 current source identities. The narrow PRO closure and
+explicit-axis norm corrections have independent theory evidence. Integration and
+native checks remain. C3 execution work is isolated and unqualified. No application
+implementation is pushed or declared feature-complete; final all-seven gate remains.
+
 Planned checkpoints: immutable projection identity; retained topology/template
 admission/bounded diagnostics; bounded backend execution and atomic publication;
 qualified torsion/five fragments; compact feedback and captured geometry workflows;
@@ -29,10 +46,11 @@ final-version qualification/all-seven review; normal merge/exact-master release 
 verified closeout. Provisional impact: compatible stable minor **0.32.0**, with no
 anticipated portable schema, dependency or migration change.
 
-Known limitations: all reported implementation defects remain at C0. Broader
+Known limitations: fixes are still being implemented and integrated. Broader
 chemistry, preparation, geometry/stereo authoring and remaining #71 work retain
-explicit separate dispositions. Blockers: none. Next action: validate and commit/
-push/read back C0, then proceed directly to C1; no further routine approval required.
+explicit separate dispositions. Blockers: none. Next action: commit C1's passing
+local checkpoint, integrate/qualify C2 and continue C3–C7; no further routine approval
+required. Hold application pushes until final all-seven same-candidate review.
 
 ### Previous completed milestone — issue #145
 

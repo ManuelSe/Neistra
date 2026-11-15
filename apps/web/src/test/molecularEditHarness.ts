@@ -2,6 +2,20 @@ import { Vec3, Vec4 } from "molstar/lib/mol-math/linear-algebra";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerSelectionEvent } from "../viewer/MolecularViewer";
+import type { Structure } from "molstar/lib/mol-model/structure";
+
+/** Read element identities from the installed native model, without changing it. */
+export async function displayedElements(engine: MolstarEngine, entryId: string) {
+  const native = engine as unknown as { syncQueue: Promise<void>;
+    loaded: Map<string, { structure: Structure; atomIds: number[] }> };
+  await native.syncQueue;
+  const loaded = native.loaded.get(entryId), model = loaded?.structure.models[0];
+  if (!loaded || !model) return [];
+  return Array.from({ length: model.atomicHierarchy.atoms._rowCount }, (_, row) => ({
+    atom_id: loaded.atomIds[model.atomicHierarchy.atomSourceIndex.value(row)],
+    element: model.atomicHierarchy.atoms.type_symbol.value(row),
+  }));
+}
 
 /** Native observation only; production never imports this qualification module. */
 export async function observeEditPicks(engine: MolstarEngine) {

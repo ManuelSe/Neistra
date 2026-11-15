@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Pencil, X, Trash2, Plus, Minus, ChevronRight, RotateCw, Link, Unlink, Hexagon, Eye } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { molecularApi, projectApi } from "../api/client";
+import { projectApi } from "../api/client";
+import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type { ApplySelectionEdit, HydrogenReport, HydrogenReconciliationReport, MolecularWarning, Project, Selection, SelectionEditAction, ViewerSettings } from "../api/types";
 import { useEditingStore } from "../store/editing";
 import { isBondAction, nextPlacement, placementLabel } from "../editing/hydrogen";
@@ -43,20 +44,18 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const entry = entryIds.size === 1 ? project.entries.find(e => entryIds.has(e.id)) : selection.atoms.length === 0 ? project.entries.find(e => e.id === editing.targetEntryId) : undefined;
   const artifact = entry?.current_artifact_id;
   const query = useQuery({
-    queryKey: ["structure", project.id, entry?.id, artifact],
-    queryFn: () => molecularApi.structure(project.id, entry!.id),
+    ...structureQueryOptions(project.id, entry?.id ?? "", artifact),
     enabled: open && Boolean(entry && artifact),
-    retry: false,
-    staleTime: Number.POSITIVE_INFINITY,
   });
-  const atoms = query.data?.structure.atoms;
+  const projection = isCompleteProjection(query.data, entry?.id ?? "", artifact) ? query.data : undefined;
+  const atoms = projection?.structure.atoms;
   const atomIds = useMemo(() => new Set(atoms?.map(atom => atom.id)), [atoms]);
   const selectedAtom = useMemo(() => selection.atoms.length === 1 ? atoms?.find(a => a.id === selection.atoms[0].atom_id) : undefined, [atoms, selection]);
   const pair = selection.atoms.length === 2 && selection.atoms.every(ref => atomIds.has(ref.atom_id));
-  const bond = pair ? query.data?.structure.bonds.find(b => selection.atoms.every(ref => [b.atom_1_id, b.atom_2_id].includes(ref.atom_id))) : undefined;
+  const bond = pair ? projection?.structure.bonds.find(b => selection.atoms.every(ref => [b.atom_1_id, b.atom_2_id].includes(ref.atom_id))) : undefined;
   const canStepBondOrder = Boolean(bond && !bond.aromatic && [1, 2, 3].includes(bond.order ?? 0));
-  const mutationTarget = useMemo(() => residueMutationTarget(query.data, selection), [query.data, selection]);
-  const directReason = !query.data ? "Loading selected molecule…" : !selection.atoms.every(ref => atomIds.has(ref.atom_id)) ? "Some selected atoms are no longer present." : null;
+  const mutationTarget = useMemo(() => residueMutationTarget(projection, selection), [projection, selection]);
+  const directReason = !projection ? "Loading selected molecule…" : !selection.atoms.every(ref => atomIds.has(ref.atom_id)) ? "Some selected atoms are no longer present." : null;
   const reason = unavailable ?? (busy || pending ? "Finish the current operation." : !entry ? "Select atoms in one entry." : entry.locked ? "Unlock the entry before editing." : query.isError ? "The selected molecule could not be loaded." : section === "residues" ? !["protein", "complex"].includes(entry.structure_type) ? "Mutation requires a protein or complex entry." : mutationTarget.reason : directReason);
   const { placement: ownedPlacement, setPlacement } = editing;
   const context = placementContext(project, entry?.id, selection, editing.generation, "automatic");

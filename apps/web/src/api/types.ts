@@ -583,6 +583,9 @@ export interface ComponentHierarchy {
 
 export interface StructureProjection {
   entry_id: string;
+  artifact_id: string;
+  /** Client-only coordinate continuity seed; full artifact data must still be read. */
+  projection_state?: "coordinate-seed";
   structure: NormalizedStructure;
   hierarchy: ComponentHierarchy;
   viewer: {

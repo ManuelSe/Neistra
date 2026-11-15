@@ -60,7 +60,7 @@ registered test exclusions and portable/reference-host qualification remain bind
 | Requirement | Classification | Accepted treatment and independent acceptance | Follow-up |
 | --- | --- | --- | --- |
 | F1: stale data cached under a different artifact | Essential | Conditional immutable projection reads, response identity and shared verified query options across every consumer; held-read/history/publication races | None |
-| F2: mutation restores retained-atom cuts | Essential | Preserve retained bonds and exclusions exactly; template edges require a genuinely new endpoint; specific cut warning | None |
+| F2: mutation restores retained-atom cuts | Essential | Preserve retained bonds and exclusions; new-endpoint template edges plus the narrowly qualified new target PRO closure; specific cut/topology warnings | None |
 | F3: mutation accepts incompatible backbone elements | Essential | Validate N/CA/C/existing O identities before computation/publication; atomic refusal with precise diagnostics | None |
 | F4: inactive conformer diagnostics missing | Essential | Check affected bonds in every retained frame, identify conformer/bond/atoms, bound details with explicit truncation | None |
 | F5: quadratic protein overlap validation | Essential | Exact bounded-memory nearest-neighbor existence test preserving active-frame all-pair strict 0.4 Å semantics; independent oracle and scaling evidence | None |
@@ -126,22 +126,34 @@ review. Continue implementation without another approval or C0 stop.
 
 - Areas: protein/direct editors, modeling metadata, validators and regression tests.
 - Preserve retained bond IDs, endpoints, orders, aromaticity, exclusions and fixed
-  coordinates. Add template bonds only with a new endpoint. Cut intraresidue and
+  coordinates. Add ordinary template bonds only with a new endpoint. Cut intraresidue and
   peptide bonds remain cut; mutation succeeds with a residue/chain/atom-specific
   unresolved-backbone warning. Unrelated cuts remain untouched; new proline
   side-chain closure is legitimate. Missing O retains existing template behavior;
   existing N/CA/C/O element contradictions refuse atomically. Unknown PDB charge or
-  order alone is not a global admission veto.
+  order alone is not a global admission veto. Protein mutation retains its existing
+  single-conformer admission; unsupported multiple frames refuse atomically.
+- A narrow target-chemistry exception permits PRO N–CD closure between retained
+  compatible IDs for ARG/GLN/GLU/LYS→PRO: the source standard template does not
+  require it, the pair is absent and no authored exclusion prohibits it. Allocate
+  one inferred bond with provenance; preserve coordinates and show its measured
+  distance in Å with explicit unoptimized-closure feedback. Excluded N–CD stays
+  open with a precise warning. Existing N–CD is never duplicated/reidentified.
+  Reverse PRO→ARG/GLN/GLU/LYS preserves the current edge under retained-topology
+  policy and explicitly warns about target-template disagreement. Do not repair
+  geometry or silently delete retained bonds. Independent pinned-template comparison
+  identifies exactly these four standard-residue target-edge additions.
 - Affected-bond checks cover all conformers with existing <0.4/>3.0 Å thresholds,
   stable identities and explicit bounded diagnostic detail/truncation. Refuse
   nonfinite affected geometry before publication. Do not silently omit frames.
 - Replace active-frame N×N allocation with an exact spatial existence query. Validate
   the full coordinate input first. Query the first row alone at k=2, exact Euclidean
   search, one worker; inspect both indices excluding absolute self, recompute the
-  original NumPy distance and strict threshold. Continue only in fixed small batches
+  original NumPy explicit-axis float64 norm and strict threshold; a scalar no-axis
+  norm uses a different reduction and can change boundary decisions. Continue only in fixed small batches
   with immediate early exit. Avoid all-N queries, pair enumeration and approximation.
   Coincident points otherwise cause repeated full-leaf scans in the pinned library.
-- Independent brute-force oracle covers coincident/tied/collinear/nonclashing cases
+- Independent small dense predecessor-expression oracle covers coincident/tied/collinear/nonclashing cases
   and adjacent floating-point values around 0.4 Å. Qualify increasing supported
   sizes, peak process memory and actual query work, including coincident input at
   the configured atom bound. No universal linear-CPU or throughput claim.
@@ -345,3 +357,7 @@ remain fixed unless an independently justified material decision is authorized.
 | Read-only intake; audited 7ed58d98, refreshed base 2b5400de | Seven specialist audit and planning assessments; twelve findings, concrete scientific/cache reproductions, visible-control inspection and validator profiles. Baseline 18 browser/760 frontend/155 scientific-API tests pass; overlapping runs are not additional coverage. Owner accepts scope and cut behavior. | Baseline tests do not qualify fixes; no #147 implementation exists yet. |
 | Prerequisite issue #145 | Final completed-session report, implementation PR #146 and receipt #148 merges, exact-master 33-step success, 798 current/786 preceding identities, all lossless log hashes, annotated v0.31.0, stable/latest release and closed issue reply verified. Anonymous 177,651,530-byte asset SHA-256 4b65be17d806ec81f75616c1885b3b8aa2c0b337fecb7ecc01010ba18e03393c, CRC/337 outer manifest entries and all nested files verify; branch absent locally/remotely and master clean. | Prerequisite complete before any #147 repository change. |
 | C0; base 2b5400de | Fresh fetch; clean isolated planned branch/worktree; authorized contract and append-only decisions. `git diff --check` and Python documentation invariants pass: exact three-path scope, base identity, append-only decisions, all twelve findings/five fragments/checkpoints, metadata, neutral additions, local links and unchanged application/versions/dependencies/global plan. Remote planned branch is absent before creation. | Commit/push/read back C0, then proceed to C1 without a new approval. No application qualification claimed. |
+| C0 publication | Commit `82d415886132db95cbcdda92af7b4a18069e3178` and exact dedicated remote branch head verified; owned worktree clean. Frozen Python/JavaScript installs complete in isolated worktrees. | C1 implementation underway; no application implementation pushed or declared complete. |
+| C2 technical reconciliation | Scientific implementation identified retained-CD PRO closure; theory independently enumerated all pinned standard templates. Accepted narrow target-connection exception, explicit excluded/open and retained-extra topology diagnostics, and unchanged one-conformer mutation limit; append-only D-159 clarification. | Implement and independently qualify; no new preparation method or owner scope question. |
+| C2 numerical reconciliation | Parent diff review identifies scalar versus axis norm reduction; theory reproduces strict 0.4 Å decisions changing in both directions on pinned NumPy. Explicit-axis recomputation and an actual predecessor dense oracle are accepted; four regression negative controls fail before correction. Bounded theory probes across 128 clouds and three leaf sizes show no corrected nearest-rank/decision discrepancy. | Candidate profiling/integrated qualification remain pending; no threshold, precision, library or capacity policy change. |
+| C1 local qualification; working delta from 82d41588 | Conditional immutable reads, required response identity and shared verified frontend query/cancellation; explicit coordinate seeds and complete-data gates. 35 API, 772 frontend/89 suites, Ruff/mypy204, lint/types/build; complete focused native 77 pass/three exact existing exclusions across all 80 listed cases, zero failures/flakes/retries/new exclusions. 709 scoped identities and lossless logs verify. [Evidence/review](../assets/structure-editor-reliability/README.md) retains all 196 native outputs and 53 diagnostic files with CRC/hashes. | Locator correction and actual StrictMode redundant-dispatch regression are fixed without changing original oracles. Commit locally; no application push or full-feature/release qualification claimed. C2 integration next. |
