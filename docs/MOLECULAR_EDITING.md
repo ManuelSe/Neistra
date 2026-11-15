@@ -47,8 +47,14 @@ completion launcher or hydrogen-policy preference. The atom's charge and the new
 H publish together; unsupported requests leave the molecule unchanged. See the
 [finite chemistry table](SCIENTIFIC_LIMITATIONS.md) and the +H details below.
 
-**Show explicit H** changes viewer settings only; atomic representations, isolation,
-component visibility, local H preferences and atom hiding still control visibility.
+The editor's H icon uses the same **Show non-polar hydrogens** toggle and
+**Use entry hydrogen setting** reset as selection styling. It targets selected
+existing H plus existing H directly bonded to selected heavy atoms, including
+hidden H, without changing molecular selection. All→Polar, Polar/Mixed→All and
+Reset apply only to that target. These are appearance commands with Undo/Redo;
+no atoms or bonds are created. The master Show hydrogens setting, atomic
+representations, entry/component visibility, isolation and explicit atom hiding
+remain independent gates; a master-off explanation stays visible.
 
 Use **New molecule** in the project browser or empty-project view to name an entry
 and choose its first element/charge. Carbon/zero defaults are visible; unknown
@@ -236,6 +242,16 @@ All ordinary direct controls use automatic local H maintenance. There is no poli
 selector, including in Advanced. Existing clients retain omitted/preserve,
 complete_if_possible and reconcile_if_possible HTTP policies and standalone
 count/completion operations under their original semantics.
+
+For automatic aromatic authoring, ordinary neutral carbon with consistent
+single/aromatic heavy edges and one to three heavy neighbors uses provisional
+trigonal coordination: total attached H is three minus heavy-neighbor degree.
+A fresh ethane single→aromatic edit changes three H to two at each carbon;
+partial six-ring endpoints become H1, and substituted/fused degree-three carbon
+has H0. Authored aromatic bonds and fixed heavy coordinates remain. The report
+and persisted warning name this local assumption; aromaticity remains unvalidated.
+Charged/unknown/protected or unsupported heteroatom/mixed-order sites retain H
+with diagnostics. This adds no ring repair, protonation or optimized geometry.
 
 Enable **Preview changes before applying** for an optional inspect/Cancel/Apply
 workflow. Nonpickable H ghosts, movement lines and removal crosses are transient;

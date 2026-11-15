@@ -45,6 +45,9 @@ toggle and current-order indication keep the primary controls compact. Optional
 bond preview remains in **Advanced bond details**. Heavy deletion also removes
 canonically attached terminal H, including hidden H; explicitly deleted H is not
 immediately refilled.
+Automatic aromatic carbon edits use disclosed provisional planar coordination for
+H counts; aromaticity remains unvalidated. The editor's H icon now shares selection
+styling's attached-existing-H toggle/reset and leaves unrelated H unchanged.
 **New molecule** starts at one atom. Add atoms or eleven fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.

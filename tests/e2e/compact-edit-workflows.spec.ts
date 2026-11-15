@@ -13,7 +13,7 @@ async function selectAtom(page: Page, entryId: string, mobile: boolean, ids = [1
   }
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
 }
-test("keeps eleven fragment tiles and the eye/H control contained through visual viewport zoom in both themes", async ({ page, request }, info) => {
+test("keeps eleven fragment tiles and both hydrogen controls contained through visual viewport zoom in both themes", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const initial = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Compact editor zoom");
   await selectAtom(page, initial.entries[0].id, info.project.name === "mobile-chromium");
@@ -23,11 +23,27 @@ test("keeps eleven fragment tiles and the eye/H control contained through visual
     for (const dark of [false, true]) {
       if (((await page.locator("html").getAttribute("data-theme")) === "dark") !== dark) await page.getByRole("button", { name: /Use (dark|light) theme/ }).click();
       await panel.getByRole("button", { name: "Atoms", exact: true }).click();
-      const eye = panel.getByRole("button", { name: "Show explicit H", exact: true }); await eye.scrollIntoViewIfNeeded();
-      expect(await eye.evaluate(node => {
-        const b = node.getBoundingClientRect(); return [...node.children].every(child => { const c = child.getBoundingClientRect(); return c.left >= b.left && c.right <= b.right && c.top >= b.top && c.bottom <= b.bottom; });
-      })).toBe(true);
-      const eyeBox = (await eye.boundingBox())!; expect(eyeBox.width).toBeGreaterThanOrEqual(44); expect(eyeBox.height).toBeGreaterThanOrEqual(44);
+      const checkHydrogenControls = async () => {
+        for (const name of ["Show non-polar hydrogens", "Use entry hydrogen setting"]) {
+          const control = panel.getByRole("button", { name, exact: true });
+          await control.scrollIntoViewIfNeeded(); await expect(control).toBeVisible();
+          expect(await control.evaluate(node => {
+            const b = node.getBoundingClientRect(); return [...node.children].every(child => { const c = child.getBoundingClientRect(); return c.left >= b.left && c.right <= b.right && c.top >= b.top && c.bottom <= b.bottom; });
+          })).toBe(true);
+          const box = (await control.boundingBox())!, outer = (await panel.boundingBox())!;
+          expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44);
+          expect(box.x).toBeGreaterThanOrEqual(outer.x); expect(box.x + box.width).toBeLessThanOrEqual(outer.x + outer.width);
+          expect(box.y).toBeGreaterThanOrEqual(outer.y); expect(box.y + box.height).toBeLessThanOrEqual(outer.y + outer.height + 1);
+          expect(await control.evaluate(node => { const b = node.getBoundingClientRect(); return node.contains(document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2)); })).toBe(true);
+          expect(await control.evaluate(node => {
+            for (let parent = node.parentElement; parent && !parent.classList.contains("molecular-edit-panel"); parent = parent.parentElement) {
+              if (/auto|scroll/.test(getComputedStyle(parent).overflowY) && parent.scrollHeight > parent.clientHeight) return false;
+            }
+            return true;
+          })).toBe(true);
+        }
+      };
+      await checkHydrogenControls();
       await page.screenshot({ path: info.outputPath(`compact-atoms-${dark ? "dark" : "light"}.png`) });
       await panel.getByRole("button", { name: "Fragments", exact: true }).click();
       await expect(panel.locator(".edit-fragment-grid button")).toHaveCount(11);
@@ -43,6 +59,7 @@ test("keeps eleven fragment tiles and the eye/H control contained through visual
         await tile.scrollIntoViewIfNeeded(); await expect(tile).toBeVisible();
         await page.screenshot({ path: info.outputPath(`compact-fragments-${dark ? "dark" : "light"}-${name.toLowerCase()}-zoom2.png`) });
       }
+      await checkHydrogenControls();
       await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 1 });
     }
     await panel.getByRole("button", { name: "Close molecular editor", exact: true }).focus(); await page.keyboard.press("Escape"); await expect(launcher).toBeFocused();

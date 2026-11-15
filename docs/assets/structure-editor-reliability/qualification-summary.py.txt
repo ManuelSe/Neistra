@@ -233,19 +233,25 @@ for phase, mode, implementation, version in zip(editing_summary["phases"],
     (out / f"{args.label}-editing-{mode}.json.gz").write_bytes(gzip.compress(report_blob, mtime=0))
     editing_reports[mode] = evidence
 produced, consumed, reverse = (editing_reports[mode] for mode in ("produce", "consume", "read-reexports"))
-assert produced["cases"] == consumed["cases"] == 12 and produced["transitions"] == 13
-assert consumed["retained_history"] and consumed["archive_history_omission"] and consumed["archive_reads"] == 24
+assert produced["cases"] == consumed["cases"] == 15 and produced["transitions"] == 24
+assert consumed["retained_history"] and consumed["archive_history_omission"] and consumed["archive_reads"] == 30
+expected_cases = [
+    f"fragment-{fragment}-{mode}"
+    for fragment in ("cyclopropyl", "cyclobutyl", "cyclopentyl", "cyclohexyl", "methoxy")
+    for mode in ("heavy", "H")
+] + ["cut-mutation", "torsion", "aromatic-partial", "aromatic-ring", "attached-h-appearance"]
+assert produced["case_labels"] == consumed["case_labels"] == expected_cases
 assert not consumed["allocator_probe"]["reused"]
 assert len(consumed["corruption"]) == 6 and all(value["status"] == 422 and value["no_publication"] for value in consumed["corruption"])
 assert len(consumed["deep_oracle_negative_controls"]) == 6
 assert {(value["kind"], value["status"]) for value in consumed["stale_guards"]} == {("revision", 409), ("artifact", 422)}
 assert all(value["no_publication"] for value in consumed["stale_guards"])
-assert reverse["previous_writer_archives"] == reverse["retained_previous_writer_projects"] == 24
-assert reverse["current_reads"] == reverse["current_reexport_reimports"] == 48
+assert reverse["previous_writer_archives"] == reverse["retained_previous_writer_projects"] == 30
+assert reverse["current_reads"] == reverse["current_reexport_reimports"] == 60
 assert reverse["retained_old_authored_generic_history"]
 reader_audit["new_editing_states"] = {
     "wrapper_sha256": wrapper_sha, "actual_three_phases_verified": True,
-    "current_authored_projects": 12, "retained_transitions": 13,
+    "current_authored_projects": 15, "retained_transitions": 24, "case_labels": expected_cases,
     "preceding_writer_retains_and_reexports_current_authored_seeds": True,
     "both_suffixes_verified": True, "reverse_old_authored_generic_history": True,
     "corruption_and_stale_guards_no_publication": True,

@@ -27,13 +27,13 @@ const selection = (ids = [2, 3]): Selection => ({ schema_version: 1, atoms: ids.
 const preview = (values: Partial<ModelPreview> = {}): ModelPreview => ({ entry_id: "ligand", expected_revision: project.revision, expected_artifact_id: "current-ligand", atoms: [], bonds: [], removed_atom_ids: [], warnings: [], ...values });
 const result: SelectionEditResult = { project, selection_after: selection(), warnings: [], replacements: {}, report: { operation: "bond.rotate", created_atom_ids: [], created_bond_ids: [], deleted_atom_ids: [], deleted_bond_ids: [], changed_atom_ids: [4, 5], force_field: null, converged: null } };
 afterEach(() => { cleanup(); vi.restoreAllMocks(); useEditingStore.getState().setProject(null); sessionStorage.clear(); });
-function setup(operand = selection(), source = molecule) {
+function setup(operand = selection(), source = molecule, hydrogenControls = false) {
   const p = { ...project, entries: [{ ...project.entries[0], structure_type: source.structure.structure_type, atom_count: source.structure.atoms.length, atom_ids: source.structure.atoms.map(atom => atom.id) }] };
   useEditingStore.getState().setProject(p.id);
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   client.setQueryData(["structure", p.id, "ligand", "current-ligand"], source);
   const onEdit = vi.fn<ApplySelectionEdit>().mockResolvedValue(result), geometry = vi.fn().mockResolvedValue(true), recover = vi.fn();
-  const panel = <MolecularEditPanel project={p} selection={operand} busy={false} unavailable={null} onEdit={onEdit} onGeometry={geometry} onRecoverResidue={recover} />;
+  const panel = <MolecularEditPanel project={p} selection={operand} busy={false} unavailable={null} onEdit={onEdit} onGeometry={geometry} onRecoverResidue={recover} onHydrogenAppearance={hydrogenControls ? vi.fn().mockResolvedValue(undefined) : undefined} />;
   const view = render(<QueryClientProvider client={client}>{panel}</QueryClientProvider>);
   return { p, client, onEdit, geometry, recover, view, user: userEvent.setup(), panel };
 }
@@ -70,11 +70,15 @@ it("shows current atom charge including unknown with an actionable charge prereq
   expect(screen.getByText("Charge is unknown. Use Advanced atom details to assign it before using charge +/−.")).toBeVisible();
 });
 it("qualifies the moving side, fixed atom counts and no-op before applying torsion without H controls", async () => {
-  const { user, onEdit } = setup();
+  const { user, onEdit } = setup(selection(), molecule, true);
   const request = vi.spyOn(projectApi, "modelPreview").mockImplementation((_p, _e, _a, _s, action) => Promise.resolve(preview({ rotation: action.operation === "bond.rotate"
     ? { axis_atom_ids: [2, 3], moving_endpoint_id: 3, angle_degrees: action.angle_degrees, rotating_atom_count: 2, fixed_atom_count: 4, no_op: action.angle_degrees === 0 } : null })));
   await user.click(screen.getByRole("button", { name: "Edit molecule" })); await user.click(screen.getByText("Geometry", { exact: true }));
+  expect(screen.getByRole("button", { name: "Show non-polar hydrogens" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Use entry hydrogen setting" })).toBeVisible();
   await user.click(screen.getByRole("button", { name: "Rotate bond" }));
+  expect(screen.queryByRole("button", { name: "Show non-polar hydrogens" })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Use entry hydrogen setting" })).toBeNull();
   expect(screen.getByRole("button", { name: "Preview rotation" })).toBeDisabled();
   await user.selectOptions(screen.getByRole("combobox", { name: "Moving side" }), "3");
   await user.click(screen.getByRole("button", { name: "Preview rotation" }));
@@ -83,7 +87,8 @@ it("qualifies the moving side, fixed atom counts and no-op before applying torsi
   expect(within(strip).getByLabelText("Qualified bond rotation")).toHaveTextContent("C2 → C3 · +30° relative");
   expect(within(strip).getByLabelText("Qualified bond rotation")).toHaveTextContent("2 moving · 4 fixed");
   expect(within(strip).getByLabelText("Qualified bond rotation")).toHaveTextContent("Including all H; both axis atoms fixed.");
-  expect(screen.queryByRole("button", { name: "Next direction" })).toBeNull(); expect(screen.queryByRole("button", { name: "Show explicit H" })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Next direction" })).toBeNull(); expect(screen.queryByRole("button", { name: "Show non-polar hydrogens" })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Use entry hydrogen setting" })).toBeNull();
   await user.click(screen.getByRole("button", { name: "Placement details" }));
   expect(screen.getByText("Rotating: 2 atoms · fixed: 4 atoms, including both axis atoms.")).toBeVisible();
   await user.clear(screen.getByRole("spinbutton", { name: "Rotation (degrees)" })); await user.type(screen.getByRole("spinbutton", { name: "Rotation (degrees)" }), "0");

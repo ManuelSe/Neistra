@@ -31,6 +31,9 @@ import type { WorkspacePresentationV1 } from "../workspacePresentation/types";
 import { WorkspacePresentationController } from "../workspacePresentation/controller";
 import { useWorkspaceStore } from "../store/workspace";
 import { useEditingStore } from "../store/editing";
+import { useSelectionStore } from "../store/selection";
+import { hydrogenAppearanceCommand } from "../selection/hydrogenAction";
+import { dispatchProjectCommand } from "../coordinates/projectCommand";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 
 type StructureViewerOverrides =
@@ -1483,4 +1486,59 @@ describe("editor proposal geometry through the production viewer", () => {
     }
     await waitFor(() => expect(fake.setModelPreview).toHaveBeenLastCalledWith(null));
   });
+});
+
+
+it.each(["current", "selection", "artifact", "project epoch"] as const)("uses compact projection readiness without opening styling and checks %s after preflight", async transition => {
+  const user = userEvent.setup(), fake = new FakeViewer();
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
+  const current = project(false, false), molecule = projection("protein");
+  molecule.structure.atoms.push({ ...molecule.structure.atoms[0], id: 2, element: "H" });
+  molecule.structure.bonds = [{ id: 1, atom_1_id: 1, atom_2_id: 2, order: null, aromatic: false, stereo: null, inferred: true }];
+  current.entries[0].viewer_settings.selection_nonpolar_hydrogens = [{ atom_ids: [2], show: false }];
+  queryClient.setQueryData(["structure", current.id, "protein", "current-protein"], molecule);
+  queryClient.setQueryData(["project", current.id], current);
+  const selection = { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] };
+  useEditingStore.getState().setProject(null);
+  useEditingStore.getState().setProject(current.id);
+  useSelectionStore.getState().setProject(current.id);
+  useSelectionStore.getState().replace(selection);
+  const epoch = useSelectionStore.getState().projectEpoch;
+  let release!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const send = vi.fn().mockResolvedValue(current), load = vi.fn();
+  const hydrogen = vi.fn<NonNullable<StructureViewerProps["onHydrogenAppearance"]>>(async (change, capture) => {
+    const command = hydrogenAppearanceCommand(current, change, capture, () => {
+      const state = useSelectionStore.getState();
+      return { activeProjectId: state.projectId, selectionProjectId: state.projectId, projectEpoch: state.projectEpoch,
+        selection: state.selection, project: queryClient.getQueryData(["project", current.id]) };
+    }, send);
+    const mutation = queryClient.getMutationCache().build(queryClient, { onMutate: () => held, mutationFn: () => dispatchProjectCommand(command, vi.fn()) });
+    await mutation.execute(undefined);
+  });
+  const view = render(<Tooltip.Provider><StructureViewer project={current} theme="light" selection={selection} pickingGranularity="atom"
+    onViewerSelection={vi.fn()} createViewer={() => fake} onLoadSelectionStructures={load} onEdit={vi.fn()} onHydrogenAppearance={hydrogen} /></Tooltip.Provider>, { wrapper: wrapper(queryClient) });
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  const toggle = screen.getByRole("button", { name: "Show non-polar hydrogens" });
+  expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await user.click(toggle);
+  expect(hydrogen).toHaveBeenCalledExactlyOnceWith({ property: "nonpolar_hydrogens", action: "set", show: true }, {
+    projectId: current.id, projectEpoch: epoch, seed: selection, artifactIds: { protein: "current-protein" },
+    target: { ...selection, source: "inspector", atoms: [{ structure_id: "protein", atom_id: 2 }] },
+  });
+  expect(load).not.toHaveBeenCalled();
+  expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
+  act(() => {
+    if (transition === "selection") useSelectionStore.getState().replace(structuredClone(selection));
+    if (transition === "artifact") queryClient.setQueryData(["project", current.id], { ...current, entries: current.entries.map(entry => ({ ...entry, current_artifact_id: "changed-artifact" })) });
+    if (transition === "project epoch") {
+      useSelectionStore.getState().setProject("other"); useSelectionStore.getState().setProject(current.id); useSelectionStore.getState().replace(selection);
+    }
+    release();
+  });
+  await waitFor(() => expect(toggle).toHaveAttribute("aria-disabled", "false"));
+  if (transition === "current") expect(send).toHaveBeenCalledExactlyOnceWith(current, expect.objectContaining({ atoms: [{ structure_id: "protein", atom_id: 2 }] }), expect.objectContaining({ show: true }));
+  else expect(send).not.toHaveBeenCalled();
+  expect(toggle).toHaveFocus();
+  view.unmount(); queryClient.clear(); useSelectionStore.getState().setProject(null); useEditingStore.getState().setProject(null);
 });

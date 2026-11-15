@@ -274,8 +274,15 @@ class HydrogenBuilder:
         raise error
 
     def automatic_configuration(
-        self, target: int, *, bounded_sulfur: bool = False
+        self,
+        target: int,
+        *,
+        bounded_sulfur: bool = False,
+        provisional_aromatic_carbon: bool = False,
     ) -> tuple[int, Geometry]:
+        """Count missing H; the provisional mode requires a protected-identity,
+        H-stripped reconciliation context and returns the total attached H target.
+        """
         atom = self.atoms[target]
         if atom.formal_charge is None:
             raise UnsupportedSite(
@@ -315,6 +322,28 @@ class HydrogenBuilder:
                 ),
             )
         aromatic = any(b.aromatic or b.order == 1.5 for _, b in neighbors)
+        if aromatic and provisional_aromatic_carbon:
+            # Local authored sp2 coordination, including incomplete aromatic drafts.
+            # This deliberately neither perceives aromaticity nor sums fractional orders.
+            if atom.element != "C" or atom.formal_charge != 0:
+                raise UnsupportedSite(
+                    "aromatic_carbon_required",
+                    "Provisional aromatic H maintenance supports only neutral carbon; "
+                    "heteroaromatic/protonation states require explicit chemistry. H unchanged.",
+                )
+            if any(b.order not in {1.0, 1.5} for _, b in neighbors):
+                raise UnsupportedSite(
+                    "aromatic_mixed_coordination",
+                    "Provisional aromatic carbon requires only single/aromatic heavy edges; "
+                    "mixed multiple bonds require explicit chemistry. H unchanged.",
+                )
+            if not 1 <= len(neighbors) <= 3:
+                raise UnsupportedSite(
+                    "aromatic_coordination_degree",
+                    "Provisional aromatic carbon requires one to three heavy neighbors; "
+                    "H unchanged.",
+                )
+            return 3 - len(neighbors), "trigonal_planar"
         if aromatic:
             mol, indices = self.chemical_context(target)
             count = int(mol.GetAtomWithIdx(indices[target]).GetNumImplicitHs())

@@ -257,9 +257,12 @@ def reconcile_hydrogens(
                 sites.append(ReconciliationSite(atom_id=target, status="unchanged"))
                 continue
             amount, shape = builder.automatic_configuration(
-                target, bounded_sulfur=policy == "automatic"
+                target,
+                bounded_sulfur=policy == "automatic",
+                provisional_aromatic_carbon=policy == "automatic",
             )
-            if any(b.aromatic or b.order == 1.5 for _, b in builder.adjacency[target]):
+            aromatic = any(b.aromatic or b.order == 1.5 for _, b in builder.adjacency[target])
+            if aromatic and policy != "automatic":
                 raise UnsupportedSite(
                     "aromatic_reconciliation",
                     "Aromatic H reconciliation is outside this profile; draft retained.",
@@ -401,6 +404,14 @@ def reconcile_hydrogens(
                     "Fixed heavy geometry differs from ideal coordination; heavy atoms unchanged.",
                     mismatch,
                 )
+            if aromatic:
+                diagnostic(
+                    target,
+                    "provisional_aromatic_carbon",
+                    "Provisional authored-sp2 carbon coordination: total attached H = 3 minus "
+                    "heavy-neighbor degree, with trigonal-planar placement. This local assumption "
+                    "does not validate aromaticity, assign bond chemistry or select protonation.",
+                )
             moved_ids = []
             for n, h in enumerate(retained):
                 coordinates = [frame[n] for frame in frames]
@@ -450,7 +461,13 @@ def reconcile_hydrogens(
                     atom_ids=[target, *retained, *new_ids, *deleted],
                     message=(
                         f"{operation}; policy={policy}; geometry={shape}; "
-                        f"added={new_ids}; removed={deleted}; moved={moved_ids}; "
+                        + (
+                            "method=provisional_authored_sp2_carbon; total_H=3-heavy_degree; "
+                            "aromaticity_unvalidated; "
+                            if aromatic
+                            else ""
+                        )
+                        + f"added={new_ids}; removed={deleted}; moved={moved_ids}; "
                         "unoptimized endpoint-local placement, heavy coordinates fixed."
                     ),
                 )
@@ -602,7 +619,14 @@ def reconcile_hydrogens(
         MolecularWarning(
             code=f"model_hydrogen_{r}",
             operation=f"model.{operation}",
-            message=f"H reconciliation: {n} diagnostics for {r}; inspect report.",
+            message=(
+                f"Provisional authored-sp2 carbon H maintenance at {n} sites: total attached "
+                "H = 3 minus heavy-neighbor degree; trigonal-planar, unoptimized placement. "
+                "This local coordination assumption does not validate aromaticity, assign "
+                "bond chemistry or select protonation."
+                if r == "provisional_aromatic_carbon"
+                else f"H reconciliation: {n} diagnostics for {r}; inspect report."
+            ),
         )
         for r, n in sorted(reasons.items())
     )

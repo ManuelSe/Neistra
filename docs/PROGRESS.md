@@ -31,7 +31,15 @@ aromatic reconciliation exclusion and the editor's entry-default H write bypassi
 per-H overrides. D-162 defines a disclosed automatic-only neutral-carbon sp2 profile
 and reuse of the existing exact-target H appearance control. Scientific and frontend
 implementers have disjoint ownership; before-fix regressions reproduce both defects.
-Focused author tests are preliminary until integrated independent qualification.
+Integrated focused verification passes39 final-source scientific/API cases,
+863 frontend tests/96files, all36 native cases/zero exclusions/failures/retries and
+nine static/build/version/license checks with850unchanged inputs. The actual
+0.32.0→0.31.0→current preflight passes15projects/24transitions,30preceding archives
+and60reverse imports/reexports with all source/module/log/negative controls verified.
+The broader310-case scientific run is overlapping evidence; its docstring-only
+clarification is separately qualified by final39/static checks. The owner manually
+reports both fixes work in the local testing worktree. Full corrective gates and
+all-seven final review remain outstanding.
 
 Known limitations: provisional carbon coordination does not certify aromaticity;
 unsupported/protected sites retain H with warnings. Geometry remains unoptimized,

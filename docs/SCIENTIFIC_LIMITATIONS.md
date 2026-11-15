@@ -704,3 +704,30 @@ lengths refuse. No ring fusion, arbitrary fragment library, new bond-length/angl
 or stereochemistry authoring, isotope/radical schema, rotamer search, chemistry
 assignment or comprehensive preparation is included. See the
 [scope dispositions](plans/issue-147-structure-editor-reliability.md#requirement-disposition).
+
+
+### Provisional aromatic carbon H in automatic authoring (issue #147 correction)
+
+Automatic H maintenance alone supports a narrow authored-sp2 carbon assumption,
+including incomplete aromatic chains/rings. Ordinary unlabelled nonradical C with
+assigned charge zero, consistent single/aromatic heavy edges, at least one aromatic
+edge and degree one through three targets total attached H = three minus heavy
+neighbor degree. Existing trigonal-planar placement is approximate and unoptimized;
+all heavy coordinates and authored bonds remain fixed. Warnings and inference
+provenance explicitly disclose the assumption. A complete H-operation report does
+not validate aromaticity, choose protonation or certify preparation.
+
+Do not round fractional aromatic bond-order sums: fused degree-three aromatic
+carbon has H0 even when three aromatic edge orders sum to4.5. Unknown/charged or
+protected identities, heteroaromatic sites, incompatible alternates, mixed ordinary
+multiple/unknown/contradictory edges and excessive degree retain H with diagnostics.
+Whole-site/all-conformer staging and existing resource/protection gates remain.
+Legacy reconcile_if_possible and additive completion retain their prior boundaries.
+No global aromatic perception, ring repair or implicit bond/charge assignment is
+introduced. Each edited edge revisits its endpoints; the local degree rule does
+not rely on subsequent full-ring interpretation to repair previously skipped sites.
+
+The compact H display control independently reuses selection styling's exact-H
+appearance command, effective All/Polar/Mixed state and inheritance reset. It only
+affects existing graph-targeted H preferences; master visibility, isolation and
+explicit hiding remain separate. It does not create H or change molecular chemistry.
