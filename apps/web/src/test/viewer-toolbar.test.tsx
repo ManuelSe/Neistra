@@ -4,10 +4,40 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ViewerToolbar } from "../components/ViewerToolbar";
 import { useSelectionStore } from "../store/selection";
+import type { InteractionStatusView } from "../interactions/panelModel";
 
 afterEach(cleanup);
 
 describe("viewer toolbar", () => {
+  it("distinguishes closed interaction status while keeping visibility independent", () => {
+    const renderToolbar = (status: InteractionStatusView, visible = true) => <Tooltip.Provider>
+      <ViewerToolbar pickingGranularity="atom" onPickingGranularity={vi.fn()}
+        fitAllUnavailableReason={null} focusSelectionUnavailableReason={null} focusLigandsUnavailableReason={null}
+        selectionStyleUnavailableReason={null} selectionStyleOpen={false} onFitAll={vi.fn()} onFocusSelection={vi.fn()}
+        onFocusLigands={vi.fn()} onSelectionStyle={vi.fn()} onInteractions={vi.fn()} onInteractionVisibilityChange={vi.fn()}
+        interactionsConfigured interactionsVisible={visible} interactionsStatus={status} interactionsDescription={status.message} />
+    </Tooltip.Provider>;
+    const view = render(renderToolbar({ phase: "ready", partial: false, message: "1 shown · 1 detected" }));
+    const launcher = screen.getByRole("button", { name: "Interactions" });
+    expect(launcher).toHaveAttribute("aria-expanded", "false");
+    expect(launcher.querySelector(".lucide-check")).not.toBeNull();
+    for (const [phase, partial, icon, message] of [
+      ["paused", false, "pause", "Paused during preview"],
+      ["ready", true, "triangle-alert", "1 shown · partial input coverage"],
+      ["error", false, "circle-alert", "Molecular display unavailable"],
+      ["rendering", false, "loader-circle", "Rendering…"],
+    ] as const) {
+      view.rerender(renderToolbar({ phase, partial, message }));
+      expect(launcher.querySelector(`.lucide-${icon}`)).not.toBeNull();
+      expect(launcher).toHaveAttribute("aria-description", message);
+      expect(launcher).toHaveAttribute("aria-expanded", "false");
+      expect(screen.getByRole("button", { name: "Toggle interaction visibility" })).toHaveAttribute("aria-pressed", "true");
+    }
+    view.rerender(renderToolbar({ phase: "hidden", partial: true, message: "Hidden · choices retained" }, false));
+    expect(launcher.querySelector(".interaction-launcher-state")).toBeNull();
+    expect(screen.getByRole("button", { name: "Toggle interaction visibility" })).toHaveAttribute("aria-pressed", "false");
+  });
+
   it("exposes every picking mode as one controlled keyboard-accessible value", async () => {
     const user = userEvent.setup();
     const onPickingGranularity = vi.fn();

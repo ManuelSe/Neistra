@@ -76,4 +76,5 @@ export interface InteractionPanelProps {
   onAppearanceChange(kind: InteractionKind, patch: Partial<InteractionAppearance[InteractionKind]>): void;
   onResetAppearance(kind?: InteractionKind): void;
   onRetry?(): void;
+  retryLabel?: string;
 }

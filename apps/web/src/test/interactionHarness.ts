@@ -3,7 +3,7 @@ import type { MolstarEngine } from "../viewer/MolstarEngine";
 import type { createInteractionRepresentation } from "../viewer/interactionGeometry";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import type { LinesValues } from "molstar/lib/mol-gl/renderable/lines";
-import type { InteractionRecord } from "../interactions/types";
+import type { InteractionDisplayState, InteractionRecord } from "../interactions/types";
 
 /** Qualification-only native inspection; production never imports this module. */
 export async function inspectInteractions(engine: MolstarEngine) {
@@ -11,12 +11,18 @@ export async function inspectInteractions(engine: MolstarEngine) {
     syncQueue: Promise<void>;
     interactionRepresentation: ReturnType<typeof createInteractionRepresentation>;
     interactions: InteractionRecord[];
+    interactionDisplayKey: string;
+    generation: number;
+    interactionDisplayState: InteractionDisplayState;
     coordinatePreviews: Map<string, unknown>;
     plugin?: PluginUIContext;
   };
   await native.syncQueue;
   return {
     records: native.interactions,
+    requestedDisplayKey: native.interactionDisplayKey,
+    sceneGeneration: native.generation,
+    display: structuredClone(native.interactionDisplayState),
     projectedEndpoints: native.interactions.map(record => record.endpoints.map(point =>
       native.plugin?.canvas3d?.camera.project(Vec4(), Vec3.create(...point)).slice(0, 2) ?? [])),
     objects: native.interactionRepresentation.renderObjects.map(object => {
@@ -29,6 +35,10 @@ export async function inspectInteractions(engine: MolstarEngine) {
         ends: Array.from(values.aEnd.ref.value.slice(0, vertices * 3)),
         groups: Array.from(values.aGroup.ref.value.slice(0, vertices)),
         colors: Array.from(values.tColor.ref.value.array),
+        sizeType: values.dSizeType.ref.value,
+        uniformSize: values.uSize.ref.value,
+        sizeFactor: values.uSizeFactor.ref.value,
+        sizes: Array.from(values.tSize.ref.value.array),
       };
     }),
     representations: native.plugin?.canvas3d?.reprCount.value ?? 0,

@@ -7621,3 +7621,29 @@ commit/bound generation. Merely reading the latest generation inside the interac
 installer cannot certify the older rebuild's native scene. Held-source regressions
 and scoped architecture reassessment qualify this boundary without widening the
 scene reconciliation framework.
+
+### D-164 implementation clarification — failed molecular installation
+
+A display-generation match alone cannot certify that molecular source installation
+completed. Keep a transient successful-source generation, requested/completed source
+operation serial and retained source error inside the disposable renderer. Current
+source failure retires shown counts and prevents interaction or appearance retries
+from approving a partially installed scene, including empty-result readiness.
+Preview Cancel cannot clear this failure; a successful full source rebuild can.
+An unhealthy source must bypass the surface-only fast path. Obsolete operations
+cannot replace newer pending state, and valid queued updates must eventually make
+progress. Readiness follows all awaited source work and scene commit. This extends
+installation evidence without changing canonical molecular state, analysis caching,
+persisted schemas or scientific methods.
+
+### D-164 implementation clarification — drawable installed records
+
+Native shown counts require generated marker geometry as well as visibility and
+successful current installation. A shared pure presentation predicate requires
+two finite 3D endpoints and finite positive separation, or the existing exact-zero
+clash cross. Coincident nonclash endpoints produce no line and no installed key.
+Preserve their detected records, full participants, canonical endpoints and metric
+evidence; details explain the unavailable marker and retain Select atoms. Focus
+continues to require an installed eligible marker. No epsilon, scientific distance
+cutoff, detector change or substitute coordinate is introduced. Independent duplicate
+complete-ring input establishes this case without changing scientific classification.

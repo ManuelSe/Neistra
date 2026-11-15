@@ -19,6 +19,13 @@ export interface InteractionWarningGroup {
 
 export interface InteractionPresentationContext {
   describe(record: InteractionRecord): string[];
+  summarize(record: InteractionRecord): string;
+}
+
+interface ParticipantSummary {
+  siteKey: string;
+  label: string;
+  countOthers: boolean;
 }
 
 /** Geometry may change without changing a relationship's canonical identity. */
@@ -67,6 +74,7 @@ export function groupInteractionWarnings(warnings: InteractionResult["warnings"]
 /** Index current canonical identities once for a bounded result-list projection. */
 export function createInteractionPresentationContext(entries: readonly Entry[], projections: ReadonlyMap<string, StructureProjection>): InteractionPresentationContext {
   const labels = new Map<string, Map<number, string>>();
+  const summaries = new Map<string, Map<number, ParticipantSummary>>();
   const entryLabels = new Map<string, string>();
   const nameCounts = new Map<string, number>();
   for (const entry of entries) nameCounts.set(entry.name, (nameCounts.get(entry.name) ?? 0) + 1);
@@ -80,19 +88,45 @@ export function createInteractionPresentationContext(entries: readonly Entry[], 
     const residues = new Map(structure.residues.map(residue => [residue.id, residue]));
     const chains = new Map(structure.chains.map(chain => [chain.id, chain]));
     const atoms = new Map<number, string>();
+    const atomSummaries = new Map<number, ParticipantSummary>();
     for (const atom of structure.atoms) {
       const residue = atom.residue_id === null ? undefined : residues.get(atom.residue_id);
       const chain = residue ? chains.get(residue.chain_id) : undefined;
       const position = residue?.author_number ?? residue?.label_number ?? residue?.id;
       const residueLabel = residue ? ` · ${residue.name} ${position}${residue.insertion_code ?? ""}${chain ? ` · chain ${chain.name || chain.id}` : ""}` : "";
-      atoms.set(atom.id, `${entryLabel}${residueLabel} · ${atom.name || atom.element} #${atom.id}`);
+      const fullLabel = `${entryLabel}${residueLabel} · ${atom.name || atom.element} #${atom.id}`;
+      atoms.set(atom.id, fullLabel);
+      atomSummaries.set(atom.id, {
+        siteKey: JSON.stringify([entry.id, residue ? "residue" : "atoms", residue?.id, chain?.id]),
+        label: residue ? `${entryLabel}${residueLabel}` : fullLabel,
+        countOthers: !residue,
+      });
     }
     labels.set(entry.id, atoms);
+    summaries.set(entry.id, atomSummaries);
   }
-  return { describe: record => record.participants.map(group => group.map(reference =>
-    labels.get(reference.structure_id)?.get(reference.atom_id)
-      ?? `${entryLabels.get(reference.structure_id) ?? reference.structure_id} · Atom #${reference.atom_id}`,
-  ).join("; ")) };
+  const fallback = (reference: AtomReference) => `${entryLabels.get(reference.structure_id) ?? reference.structure_id} · Atom #${reference.atom_id}`;
+  return {
+    describe: record => record.participants.map(group => group.map(reference =>
+      labels.get(reference.structure_id)?.get(reference.atom_id) ?? fallback(reference),
+    ).join("; ")),
+    summarize: record => record.participants.map(group => {
+      const sites = new Map<string, { label: string; count: number; countOthers: boolean }>();
+      const seen = new Set<string>();
+      for (const reference of group) {
+        const identity = JSON.stringify([reference.structure_id, reference.atom_id]);
+        if (seen.has(identity)) continue;
+        seen.add(identity);
+        const summary = summaries.get(reference.structure_id)?.get(reference.atom_id);
+        const siteKey = summary?.siteKey ?? identity;
+        const previous = sites.get(siteKey);
+        if (previous) previous.count++;
+        else sites.set(siteKey, { label: summary?.label ?? fallback(reference), count: 1, countOthers: summary?.countOthers ?? false });
+      }
+      return [...sites.values()].map(site => site.countOthers && site.count > 1
+        ? `${site.label} +${site.count - 1} ${site.count === 2 ? "other" : "others"}` : site.label).join(" + ");
+    }).join(" ↔ "),
+  };
 }
 
 export function describeInteractionParticipants(record: InteractionRecord, entries: readonly Entry[], projections: ReadonlyMap<string, StructureProjection>): string[] {

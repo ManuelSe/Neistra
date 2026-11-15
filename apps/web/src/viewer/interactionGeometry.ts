@@ -4,7 +4,7 @@ import { Shape } from "molstar/lib/mol-model/shape";
 import { ShapeRepresentation } from "molstar/lib/mol-repr/shape/representation";
 import { Color } from "molstar/lib/mol-util/color";
 import type { InteractionAppearance, InteractionRecord } from "../interactions/types";
-import { defaultInteractionAppearance, INTERACTION_PATTERNS, normalizeInteractionAppearance } from "../interactions/styles";
+import { defaultInteractionAppearance, interactionHasDisplayGeometry, INTERACTION_PATTERNS, normalizeInteractionAppearance } from "../interactions/styles";
 export { INTERACTION_COLORS } from "../interactions/styles";
 
 export function interactionLines(records: InteractionRecord[], previous?: Lines) {
@@ -12,6 +12,7 @@ export function interactionLines(records: InteractionRecord[], previous?: Lines)
   // Reusing geometry updates attached buffers, not only draw counts and colors.
   const builder = LinesBuilder.create(2048, 1024, previous);
   records.forEach((record, group) => {
+    if (!interactionHasDisplayGeometry(record)) return;
     const [a, b] = record.endpoints;
     if (!a || !b) return;
     const distance = Math.hypot(...a.map((value, index) => b[index] - value));

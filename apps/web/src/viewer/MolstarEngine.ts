@@ -9,7 +9,7 @@ import type { MolecularProposalGeometry } from "../api/types";
 import { componentAtomIds } from "../selection/components";
 import { canonicalSelection } from "../selection/selection";
 import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisplayState, type InteractionRecord } from "../interactions/types";
-import { defaultInteractionAppearance, normalizeInteractionAppearance } from "../interactions/styles";
+import { defaultInteractionAppearance, interactionHasDisplayGeometry, normalizeInteractionAppearance } from "../interactions/styles";
 import { interactionRecordKey } from "../interactions/presentation";
 import { createInteractionRepresentation } from "./interactionGeometry";
 import { filterInteractions } from "../interactions/filter";
@@ -212,6 +212,10 @@ export class MolstarEngine implements MolecularViewer {
   private interactionAppearance = defaultInteractionAppearance();
   private interactionDisplayKey = "";
   private interactionGeneration = 0;
+  private interactionSourceGeneration = 0;
+  private interactionSourceOperation = 0;
+  private interactionSourceCompleted = 0;
+  private interactionSourceError: string | undefined;
   private interactionPreviewEntries = new Set<string>();
   private interactionDisplayListeners = new Set<(state: InteractionDisplayState) => void>();
   private interactionDisplayState: InteractionDisplayState = {
@@ -490,6 +494,8 @@ export class MolstarEngine implements MolecularViewer {
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     const snapshot = captureSurfaceSync(structures, this.isolation);
     const changes = this.plugin && !this.rebuilding && this.boundGeneration === this.generation
+      && this.interactionSourceGeneration === this.generation && !this.interactionSourceError
+      && this.interactionSourceCompleted === this.interactionSourceOperation
       ? surfaceSyncChanges(this.surfaceSyncSnapshot, snapshot) : undefined;
     this.pruneSurfacePreviews(structures);
     this.surfaceSyncSnapshot = snapshot;
@@ -520,11 +526,12 @@ export class MolstarEngine implements MolecularViewer {
     this.renderedAtomReferences.clear();
     this.surfaceRenderedAtoms.clear();
     const generation = ++this.generation;
-    this.invalidateInteractionDisplay("pending");
+    const sourceOperation = this.beginInteractionSourceUpdate("pending");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
       const current = () => !this.disposed && this.plugin === plugin && generation === this.generation;
+      let sourceInstalled = false;
       this.rebuilding = true;
       try {
         await plugin.clear();
@@ -547,12 +554,19 @@ export class MolstarEngine implements MolecularViewer {
         if (!current()) return;
         await this.applyMeasurements();
         if (!current()) return;
-        await this.applyInteractions();
-        if (!current()) return;
         await this.applyModelPreview();
         if (!current()) return;
         this.commitScene();
-        if (current()) this.boundGeneration = generation;
+        if (!current()) return;
+        this.boundGeneration = generation;
+        this.interactionSourceGeneration = generation;
+        this.interactionSourceError = undefined;
+        this.completeInteractionSourceUpdate(sourceOperation);
+        sourceInstalled = true;
+        await this.applyInteractions();
+      } catch (error: unknown) {
+        if (!sourceInstalled) this.failInteractionSourceUpdate(sourceOperation, generation, plugin, error);
+        throw error;
       } finally {
         this.rebuilding = false;
       }
@@ -581,106 +595,125 @@ export class MolstarEngine implements MolecularViewer {
   ): Promise<void> {
     this.clearHover();
     if (mode === "preview") this.interactionPreviewEntries.add(patch.entry_id);
-    this.invalidateInteractionDisplay(mode === "preview" ? "paused" : "pending");
+    const sourceGeneration = this.generation;
+    const sourceOperation = this.beginInteractionSourceUpdate(mode === "preview" ? "paused" : "pending");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
-      if (!this.plugin) return;
-      const loaded = this.loaded.get(patch.entry_id);
-      if (mode === "preview" && !this.coordinatePreviews.has(patch.entry_id)) {
-        this.previewRenderedAtoms.set(patch.entry_id, this.getRenderedAtomReferences().filter(atom => atom.structure_id === patch.entry_id));
-        this.previewTargetIds.set(patch.entry_id, new Set(patch.atom_ids));
-      }
-      if (patch.atom_ids.length !== patch.coordinates.length) throw new Error("Invalid coordinate patch.");
-      // A current artifact-keyed application sync may already contain this commit.
-      // Do not invalidate geometry again (or create a spurious seed revision).
-      if (mode === "commit" && !this.pocketPreviewEntries.has(patch.entry_id) &&
-        !this.coordinatePreviews.has(patch.entry_id)) {
-        const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
-        const differs = (a: Point3D | undefined, b: Point3D) => !a || a.some((value, axis) => value !== b[axis]);
-        const moleculeChanged = loaded && patch.atom_ids.some((id, index) => differs(loaded.baseCoordinates.get(id), patch.coordinates[index]));
-        const seedChanged = this.pocketSurfaces().some(({ pocket }) => pocket.seeds.some(seed =>
-          seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id) &&
-          differs(seed.coordinates, changed.get(seed.reference.atom_id)!)));
-        if (!moleculeChanged && !seedChanged) { await this.applyInteractions(); return; }
-      }
+      const plugin = this.plugin;
+      if (!plugin || this.disposed || sourceGeneration !== this.generation) return;
+      const current = () => !this.disposed && this.plugin === plugin && sourceGeneration === this.generation;
+      let sourceCompleted = false;
+      try {
+        const loaded = this.loaded.get(patch.entry_id);
+        if (mode === "preview" && !this.coordinatePreviews.has(patch.entry_id)) {
+          this.previewRenderedAtoms.set(patch.entry_id, this.getRenderedAtomReferences().filter(atom => atom.structure_id === patch.entry_id));
+          this.previewTargetIds.set(patch.entry_id, new Set(patch.atom_ids));
+        }
+        if (patch.atom_ids.length !== patch.coordinates.length) throw new Error("Invalid coordinate patch.");
+        // A current artifact-keyed application sync may already contain this commit.
+        // Do not invalidate geometry again (or create a spurious seed revision).
+        if (mode === "commit" && !this.pocketPreviewEntries.has(patch.entry_id) &&
+          !this.coordinatePreviews.has(patch.entry_id)) {
+          const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
+          const differs = (a: Point3D | undefined, b: Point3D) => !a || a.some((value, axis) => value !== b[axis]);
+          const moleculeChanged = loaded && patch.atom_ids.some((id, index) => differs(loaded.baseCoordinates.get(id), patch.coordinates[index]));
+          const seedChanged = this.pocketSurfaces().some(({ pocket }) => pocket.seeds.some(seed =>
+            seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id) &&
+            differs(seed.coordinates, changed.get(seed.reference.atom_id)!)));
+          if (!moleculeChanged && !seedChanged) {
+            this.completeInteractionSourceUpdate(sourceOperation);
+            sourceCompleted = true;
+            await this.applyInteractions();
+            return;
+          }
+        }
 
-      if (mode === "preview") this.pocketPreviewEntries.add(patch.entry_id);
-      else this.pocketPreviewEntries.delete(patch.entry_id);
-      const dependents = this.pocketSurfaces().filter(({ entryId, pocket }) => entryId === patch.entry_id ||
-        pocket.seeds.some(seed => seed.reference.structure_id === patch.entry_id));
-      for (const dependent of dependents) {
-        await this.detachSurface(dependent.entryId, dependent.surfaceId);
-        this.surfaces.remove(dependent.entryId, "pocket", dependent.surfaceId);
-        if (mode === "preview") {
-          const label = this.structures.find(item => item.entryId === dependent.entryId)?.label ?? "Surface";
-          this.surfaces.request(dependent.entryId, "pocket", label, "preview-paused", null, () => {}, undefined, dependent.surfaceId);
-          this.surfaces.markHidden(dependent.entryId, "pocket", dependent.surfaceId, "Paused during coordinate preview");
+        if (mode === "preview") this.pocketPreviewEntries.add(patch.entry_id);
+        else this.pocketPreviewEntries.delete(patch.entry_id);
+        const dependents = this.pocketSurfaces().filter(({ entryId, pocket }) => entryId === patch.entry_id ||
+          pocket.seeds.some(seed => seed.reference.structure_id === patch.entry_id));
+        for (const dependent of dependents) {
+          await this.detachSurface(dependent.entryId, dependent.surfaceId);
+          if (!current()) return;
+          this.surfaces.remove(dependent.entryId, "pocket", dependent.surfaceId);
+          if (mode === "preview") {
+            const label = this.structures.find(item => item.entryId === dependent.entryId)?.label ?? "Surface";
+            this.surfaces.request(dependent.entryId, "pocket", label, "preview-paused", null, () => {}, undefined, dependent.surfaceId);
+            this.surfaces.markHidden(dependent.entryId, "pocket", dependent.surfaceId, "Paused during coordinate preview");
+          }
         }
-      }
-      if (mode === "commit") {
-        const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
-        this.structures = this.structures.map(source => ({ ...source, pockets: Object.fromEntries(
-          Object.entries(source.pockets ?? {}).map(([id, pocket]) => [id, { ...pocket,
-            seeds: pocket.seeds.map(seed => seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id)
-              ? { ...seed, coordinates: [...changed.get(seed.reference.atom_id)!] as Point3D } : seed),
-            dependencyKey: dependents.some(item => item.entryId === source.entryId && item.surfaceId === id)
-              ? JSON.stringify([pocket.dependencyKey, patch.entry_id, patch.artifact_id]) : pocket.dependencyKey,
-          }])
-        ) }));
-      }
-      if (!loaded) {
         if (mode === "commit") {
-          this.previewRenderedAtoms.delete(patch.entry_id);
-          this.previewTargetIds.delete(patch.entry_id);
+          const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
+          this.structures = this.structures.map(source => ({ ...source, pockets: Object.fromEntries(
+            Object.entries(source.pockets ?? {}).map(([id, pocket]) => [id, { ...pocket,
+              seeds: pocket.seeds.map(seed => seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id)
+                ? { ...seed, coordinates: [...changed.get(seed.reference.atom_id)!] as Point3D } : seed),
+              dependencyKey: dependents.some(item => item.entryId === source.entryId && item.surfaceId === id)
+                ? JSON.stringify([pocket.dependencyKey, patch.entry_id, patch.artifact_id]) : pocket.dependencyKey,
+            }])
+          ) }));
         }
-        if (mode === "commit") for (const item of dependents) await this.prepareSurface(item.entryId, item.surfaceId);
-        return;
-      }
-      if (
-        patch.atom_ids.length !== patch.coordinates.length ||
-        patch.atom_ids.some((atomId) => !loaded.baseCoordinates.has(atomId))
-      ) {
-        throw new Error("The coordinate patch does not match the loaded structure.");
-      }
-      const coordinates = new Map(
-        [...loaded.baseCoordinates].map(([atomId, point]) => [
-          atomId,
-          [...point] as Point3D,
-        ]),
-      );
-      patch.atom_ids.forEach((atomId, index) => {
-        coordinates.set(atomId, [...patch.coordinates[index]] as Point3D);
-      });
-      await this.detachSurface(patch.entry_id);
-      for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
-        this.surfaces.remove(patch.entry_id, surface.source.kind, surface.id);
-      }
-      const firstPreview = mode === "preview" && !this.coordinatePreviews.has(patch.entry_id);
-      const hadPreview = this.coordinatePreviews.has(patch.entry_id);
-      if (firstPreview) {
-        for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
-          this.surfaces.request(patch.entry_id, surface.source.kind, surface.name, "preview-paused", null, () => {}, undefined, surface.id);
-          this.surfaces.markHidden(patch.entry_id, surface.source.kind, surface.id, "Paused during coordinate preview");
+        if (!loaded) {
+          if (mode === "commit") {
+            this.previewRenderedAtoms.delete(patch.entry_id);
+            this.previewTargetIds.delete(patch.entry_id);
+          }
+          if (mode === "commit") for (const item of dependents) await this.prepareSurface(item.entryId, item.surfaceId);
+          return;
         }
-      }
-      if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
-      else { this.coordinatePreviews.delete(patch.entry_id); this.interactionPreviewEntries.delete(patch.entry_id); }
-      if (mode === "commit") {
-        loaded.baseCoordinates = coordinates;
-        // Local visibility/isolation rebuilds must use the latest authoritative patch.
-        // Clone the disposable input; never mutate the application's query objects.
-        this.structures = this.structures.map((source) => source.entryId !== patch.entry_id ? source : {
-          ...source, normalized: { ...source.normalized, atoms: source.normalized.atoms.map((atom) => ({
-            ...atom, coordinates: coordinates.get(atom.id) ?? atom.coordinates,
-          })) },
+        if (
+          patch.atom_ids.length !== patch.coordinates.length ||
+          patch.atom_ids.some((atomId) => !loaded.baseCoordinates.has(atomId))
+        ) {
+          throw new Error("The coordinate patch does not match the loaded structure.");
+        }
+        const coordinates = new Map(
+          [...loaded.baseCoordinates].map(([atomId, point]) => [
+            atomId,
+            [...point] as Point3D,
+          ]),
+        );
+        patch.atom_ids.forEach((atomId, index) => {
+          coordinates.set(atomId, [...patch.coordinates[index]] as Point3D);
         });
-      }
-      await this.updateCoordinates(loaded, coordinates);
-      const source = this.structures.find(item => item.entryId === patch.entry_id);
-      if (firstPreview && source) await this.addMovementCue(source, loaded);
-      if (mode === "commit") {
-        if (hadPreview && source) await this.restorePreviewRepresentations(source);
-        await this.prepareSurfaces(patch.entry_id);
-        for (const item of dependents) if (item.entryId !== patch.entry_id) await this.prepareSurface(item.entryId, item.surfaceId);
+        await this.detachSurface(patch.entry_id);
+        if (!current()) return;
+        for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
+          this.surfaces.remove(patch.entry_id, surface.source.kind, surface.id);
+        }
+        const firstPreview = mode === "preview" && !this.coordinatePreviews.has(patch.entry_id);
+        const hadPreview = this.coordinatePreviews.has(patch.entry_id);
+        if (firstPreview) {
+          for (const surface of this.structures.find(item => item.entryId === patch.entry_id)?.settings.surface_objects ?? []) {
+            this.surfaces.request(patch.entry_id, surface.source.kind, surface.name, "preview-paused", null, () => {}, undefined, surface.id);
+            this.surfaces.markHidden(patch.entry_id, surface.source.kind, surface.id, "Paused during coordinate preview");
+          }
+        }
+        if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
+        else { this.coordinatePreviews.delete(patch.entry_id); this.interactionPreviewEntries.delete(patch.entry_id); }
+        if (mode === "commit") {
+          loaded.baseCoordinates = coordinates;
+          // Local visibility/isolation rebuilds must use the latest authoritative patch.
+          // Clone the disposable input; never mutate the application's query objects.
+          this.structures = this.structures.map((source) => source.entryId !== patch.entry_id ? source : {
+            ...source, normalized: { ...source.normalized, atoms: source.normalized.atoms.map((atom) => ({
+              ...atom, coordinates: coordinates.get(atom.id) ?? atom.coordinates,
+            })) },
+          });
+        }
+        await this.updateCoordinates(loaded, coordinates);
+        if (!current()) return;
+        const source = this.structures.find(item => item.entryId === patch.entry_id);
+        if (firstPreview && source) await this.addMovementCue(source, loaded);
+        if (mode === "commit") {
+          if (hadPreview && source) await this.restorePreviewRepresentations(source);
+          await this.prepareSurfaces(patch.entry_id);
+          for (const item of dependents) if (item.entryId !== patch.entry_id) await this.prepareSurface(item.entryId, item.surfaceId);
+        }
+      } catch (error: unknown) {
+        if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
+        throw error;
+      } finally {
+        if (current()) this.completeInteractionSourceUpdate(sourceOperation);
       }
     });
     return this.syncQueue;
@@ -688,30 +721,47 @@ export class MolstarEngine implements MolecularViewer {
 
   clearCoordinatePreview(entryId: string): Promise<void> {
     this.clearHover();
-    this.invalidateInteractionDisplay("paused");
+    const sourceGeneration = this.generation;
+    const sourceOperation = this.beginInteractionSourceUpdate("paused");
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
-      this.coordinatePreviews.delete(entryId);
-      this.interactionPreviewEntries.delete(entryId);
-      this.pocketPreviewEntries.delete(entryId);
-      const loaded = this.loaded.get(entryId);
-      if (!loaded) {
-        this.previewRenderedAtoms.delete(entryId);
-        this.previewTargetIds.delete(entryId);
-      }
-      if (loaded) {
-        await this.detachSurface(entryId);
-        await this.updateCoordinates(loaded, loaded.baseCoordinates);
-        const source = this.structures.find(item => item.entryId === entryId);
-        if (source) await this.restorePreviewRepresentations(source);
-        await this.prepareSurfaces(entryId);
-      }
-      for (const item of this.pocketSurfaces()) {
-        if (item.entryId !== entryId && item.pocket.seeds.some(seed => seed.reference.structure_id === entryId)) {
-          await this.detachSurface(item.entryId, item.surfaceId);
-          await this.prepareSurface(item.entryId, item.surfaceId);
+      const plugin = this.plugin;
+      if (!plugin || this.disposed || sourceGeneration !== this.generation) return;
+      const current = () => !this.disposed && this.plugin === plugin && sourceGeneration === this.generation;
+      let sourceCompleted = false;
+      try {
+        this.coordinatePreviews.delete(entryId);
+        this.interactionPreviewEntries.delete(entryId);
+        this.pocketPreviewEntries.delete(entryId);
+        const loaded = this.loaded.get(entryId);
+        if (!loaded) {
+          this.previewRenderedAtoms.delete(entryId);
+          this.previewTargetIds.delete(entryId);
         }
+        if (loaded) {
+          await this.detachSurface(entryId);
+          if (!current()) return;
+          await this.updateCoordinates(loaded, loaded.baseCoordinates);
+          if (!current()) return;
+          const source = this.structures.find(item => item.entryId === entryId);
+          if (source) await this.restorePreviewRepresentations(source);
+          await this.prepareSurfaces(entryId);
+        }
+        for (const item of this.pocketSurfaces()) {
+          if (item.entryId !== entryId && item.pocket.seeds.some(seed => seed.reference.structure_id === entryId)) {
+            await this.detachSurface(item.entryId, item.surfaceId);
+            await this.prepareSurface(item.entryId, item.surfaceId);
+          }
+        }
+        if (!current()) return;
+        this.completeInteractionSourceUpdate(sourceOperation);
+        sourceCompleted = true;
+        await this.applyInteractions();
+      } catch (error: unknown) {
+        if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
+        throw error;
+      } finally {
+        if (current()) this.completeInteractionSourceUpdate(sourceOperation);
       }
-      await this.applyInteractions();
     });
     return this.syncQueue;
   }
@@ -790,6 +840,26 @@ export class MolstarEngine implements MolecularViewer {
     return this.interactionGeneration;
   }
 
+  private beginInteractionSourceUpdate(status: "pending" | "paused"): number {
+    const operation = ++this.interactionSourceOperation;
+    this.invalidateInteractionDisplay(status);
+    return operation;
+  }
+
+  private completeInteractionSourceUpdate(operation: number): void {
+    this.interactionSourceCompleted = Math.max(this.interactionSourceCompleted, operation);
+  }
+
+  private failInteractionSourceUpdate(operation: number, generation: number, plugin: PluginUIContext, error: unknown): void {
+    if (this.disposed || this.plugin !== plugin || this.generation !== generation) return;
+    this.interactionSourceGeneration = -1;
+    const reason = error instanceof Error ? ` ${error.message}` : "";
+    this.interactionSourceError = `Molecular display unavailable. Reload the workspace to retry.${reason}`;
+    this.completeInteractionSourceUpdate(operation);
+    this.plugin.canvas3d?.remove(this.interactionRepresentation);
+    if (operation === this.interactionSourceOperation) this.publishInteractionDisplay("error", [], this.interactionSourceError);
+  }
+
   private async applyInteractions(expectedGeneration = this.interactionGeneration): Promise<void> {
     const plugin = this.plugin;
     const canvas = plugin?.canvas3d;
@@ -798,14 +868,23 @@ export class MolstarEngine implements MolecularViewer {
     const interactions = this.interactions;
     const current = () => !this.disposed && this.plugin === plugin && this.plugin?.canvas3d === canvas
       && expectedGeneration === this.interactionGeneration && sceneGeneration === this.generation && interactions === this.interactions;
+    if (this.interactionSourceCompleted === this.interactionSourceOperation && this.interactionSourceError) {
+      this.publishInteractionDisplay("error", [], this.interactionSourceError);
+      return;
+    }
     if (this.coordinatePreviews.size || this.interactionPreviewEntries.size) {
       canvas.remove(this.interactionRepresentation);
       this.publishInteractionDisplay("paused");
       return;
     }
+    if (this.interactionSourceGeneration !== this.generation || this.interactionSourceCompleted !== this.interactionSourceOperation) {
+      this.publishInteractionDisplay("pending");
+      return;
+    }
     try {
       const types = [...new Set(interactions.map(record => record.kind))];
-      const visible = filterInteractions(interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
+      const visible = filterInteractions(interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds)
+        .filter(interactionHasDisplayGeometry);
       if (!visible.length) {
         canvas.remove(this.interactionRepresentation);
         this.publishInteractionDisplay("ready");

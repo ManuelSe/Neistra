@@ -52,11 +52,11 @@ test("keeps centroid overlays current through scenes, deletion and project chang
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded");
-  await launcher.click(); await expect(panel.getByRole("status")).toHaveText("Off");
+  await launcher.click(); await expect(panel.getByRole("status")).toHaveText("Choose an interaction type");
   await expect(panel.getByRole("button", { name: "π–π", exact: true })).toHaveAttribute("aria-pressed", "false");
   await panel.getByRole("button", { name: "Cation–π", exact: true }).click();
   await expect(panel.getByRole("status")).toContainText("1 detected", { timeout: 20_000 });
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded");
-  await launcher.click(); await expect(panel.getByRole("status")).toHaveText("Off");
+  await launcher.click(); await expect(panel.getByRole("status")).toHaveText("Choose an interaction type");
 });

@@ -36,6 +36,7 @@ interface EngineProbe {
   surfaceSyncSnapshot: SurfaceSyncSnapshot;
   generation: number;
   boundGeneration: number;
+  loaded: Map<string, { baseCoordinates: Map<number, [number, number, number]> }>;
   loadStructure(source: ViewerStructure): Promise<void>;
   addStructureLabels(source: ViewerStructure): Promise<void>;
   applySelection(): void;
@@ -43,6 +44,10 @@ interface EngineProbe {
   applyModelPreview(): Promise<void>;
   commitScene(): void;
   clearHover(): void;
+  detachSurface(entryId: string): Promise<void>;
+  updateCoordinates(loaded: unknown, coordinates: Map<number, [number, number, number]>): Promise<void>;
+  restorePreviewRepresentations(source: ViewerStructure): Promise<void>;
+  prepareSurfaces(entryId: string): Promise<void>;
 }
 
 function canvas() { return { add: vi.fn(), remove: vi.fn() }; }
@@ -72,6 +77,123 @@ function mockRebuild(state: EngineProbe) {
 }
 
 describe("current native interaction installation", () => {
+  it("counts only drawable native records while preserving coincident clash markers", async () => {
+    const h = setup();
+    const coincident: InteractionRecord = { ...record(), kind: "pi_pi", endpoints: [[0, 0, 0], [0, 0, 0]], geometry: { distance: 0 } };
+    const clash: InteractionRecord = { ...record(), endpoints: [[0, 0, 0], [0, 0, 0]] };
+    const before = JSON.stringify(coincident);
+    await h.engine.setInteractions([coincident], { displayKey: "coincident-ring-centers" });
+    expect(h.receipts.at(-1)).toMatchObject({ status: "ready", installedRecordKeys: [], countsByKind: { pi_pi: 0 } });
+    expect(h.draw.add).not.toHaveBeenCalled();
+    await h.engine.setInteractions([coincident, clash], { displayKey: "mixed-coincident" });
+    expect(h.state.interactionRepresentation.createOrUpdate).toHaveBeenCalledWith({ sizeFactor: 2.5 }, [clash]);
+    expect(h.receipts.at(-1)).toMatchObject({ installedRecordKeys: [interactionRecordKey(clash)], countsByKind: { pi_pi: 0, clash: 1 } });
+    expect(JSON.stringify(coincident)).toBe(before);
+  });
+
+  it.each(["load", "labels", "measurements"] as const)("retains failed molecular %s state across appearance retries until full source recovery", async stage => {
+    const h = setup();
+    await h.engine.setInteractions([record()], { displayKey: "healthy" });
+    h.receipts.length = 0; h.draw.add.mockClear();
+    const build = mockRebuild(h.state), held = deferred();
+    if (stage === "load") build.load.mockResolvedValueOnce(undefined);
+    build[stage].mockImplementationOnce(() => held.promise);
+    const currentSources = [source("a"), source("b")];
+    const install = h.engine.syncStructures(currentSources);
+    const refused = expect(install).rejects.toThrow("Native molecular source refused");
+    await vi.waitFor(() => expect(build[stage]).toHaveBeenCalledTimes(stage === "load" ? 2 : 1));
+    const appearanceRetry = h.engine.setInteractions([record()], { displayKey: "appearance-retry" });
+    held.reject(new Error("Native molecular source refused"));
+    await refused; await appearanceRetry;
+    expect(h.draw.add).not.toHaveBeenCalled();
+    expect(h.receipts.some(value => value.status === "ready")).toBe(false);
+    expect(h.receipts.at(-1)).toMatchObject({ displayKey: "appearance-retry", status: "error", installedRecordKeys: [], countsByKind: { clash: 0 } });
+    expect(h.receipts.at(-1)?.error).toContain("Molecular display unavailable");
+    await h.engine.setInteractions([record()], { displayKey: "retry-again" });
+    expect(h.receipts.at(-1)).toMatchObject({ displayKey: "retry-again", status: "error", installedRecordKeys: [] });
+    await h.engine.setInteractions([], { displayKey: "empty-retry" });
+    expect(h.receipts.at(-1)).toMatchObject({ displayKey: "empty-retry", status: "error", installedRecordKeys: [] });
+    await h.engine.setInteractions([record()], { displayKey: "recover" });
+    await h.engine.syncStructures(currentSources);
+    expect(h.draw.add).toHaveBeenCalledOnce();
+    expect(h.receipts.at(-1)).toMatchObject({ sceneGeneration: 2, status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
+  it("keeps newer source pending when a superseded molecular install rejects", async () => {
+    const h = setup();
+    await h.engine.setInteractions([record()], { displayKey: "source-owner" });
+    h.receipts.length = 0; h.draw.add.mockClear();
+    const oldLabels = deferred(), newClear = deferred(), build = mockRebuild(h.state);
+    build.labels.mockImplementationOnce(() => oldLabels.promise);
+    const clear = vi.spyOn(h.state.plugin, "clear");
+    clear.mockResolvedValueOnce(undefined).mockImplementationOnce(() => newClear.promise);
+    const old = h.engine.syncStructures([source("a"), source("b")]);
+    const refused = expect(old).rejects.toThrow("Retired molecular installation refused");
+    await vi.waitFor(() => expect(build.labels).toHaveBeenCalledOnce());
+    const current = h.engine.syncStructures([source("a"), source("b")]);
+    oldLabels.reject(new Error("Retired molecular installation refused")); await refused;
+    await vi.waitFor(() => expect(clear).toHaveBeenCalledTimes(2));
+    expect(h.receipts.some(value => value.status === "error" || value.status === "ready")).toBe(false);
+    expect(h.receipts.at(-1)).toMatchObject({ status: "pending", sceneGeneration: 2, installedRecordKeys: [] });
+    newClear.resolve(); await current;
+    expect(h.receipts.at(-1)).toMatchObject({ status: "ready", sceneGeneration: 2, installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
+  it("waits for a queued coordinate operation after a successful held full install without losing progress", async () => {
+    const h = setup();
+    await h.engine.setInteractions([record()], { displayKey: "source-progress" });
+    h.receipts.length = 0; h.draw.add.mockClear();
+    const loadHeld = deferred(), patchHeld = deferred(), build = mockRebuild(h.state);
+    const loaded = (item: ViewerStructure) => {
+      h.state.loaded.set(item.entryId, { baseCoordinates: new Map(item.normalized.atoms.map(atom => [atom.id, atom.coordinates])) });
+      return Promise.resolve();
+    };
+    build.load.mockImplementation(loaded).mockImplementationOnce(async item => { await loadHeld.promise; await loaded(item); });
+    vi.spyOn(h.state, "detachSurface").mockResolvedValue();
+    vi.spyOn(h.state, "prepareSurfaces").mockResolvedValue();
+    const update = vi.spyOn(h.state, "updateCoordinates").mockImplementation(() => patchHeld.promise);
+    const install = h.engine.syncStructures([source("a"), source("b")]);
+    await vi.waitFor(() => expect(build.load).toHaveBeenCalledOnce());
+    const patch = h.engine.applyCoordinatePatch({ entry_id: "a", artifact_id: "moved", atom_ids: [1], coordinates: [[0.1, 0, 0]] }, "commit");
+    loadHeld.resolve(); await install;
+    await vi.waitFor(() => expect(update).toHaveBeenCalledOnce());
+    expect(h.receipts.some(value => value.status === "ready")).toBe(false);
+    expect(h.draw.add).not.toHaveBeenCalled();
+    patchHeld.resolve(); await patch;
+    const moved: InteractionRecord = { ...record(), endpoints: [[0.1, 0, 0], [2, 0, 0]], geometry: { distance: 1.9, overlap: 1.5 } };
+    await h.engine.setInteractions([moved], { displayKey: "current-coordinates" });
+    expect(h.draw.add).toHaveBeenCalledOnce();
+    expect(h.receipts.at(-1)).toMatchObject({ status: "ready", sceneGeneration: 1, displayKey: "current-coordinates", installedRecordKeys: [interactionRecordKey(moved)] });
+  });
+
+  it("does not clear a failed coordinate install with display retry or preview Cancel, and forces actual source recovery", async () => {
+    const h = setup(), originalSources = h.state.structures;
+    h.state.surfaceSyncSnapshot = captureSurfaceSync(originalSources, null);
+    h.state.loaded.set("a", { baseCoordinates: new Map(originalSources[0].normalized.atoms.map(atom => [atom.id, atom.coordinates])) });
+    vi.spyOn(h.state, "detachSurface").mockResolvedValue();
+    vi.spyOn(h.state, "prepareSurfaces").mockResolvedValue();
+    vi.spyOn(h.state, "restorePreviewRepresentations").mockResolvedValue();
+    const held = deferred(), update = vi.spyOn(h.state, "updateCoordinates").mockResolvedValue();
+    update.mockImplementationOnce(() => held.promise);
+    await h.engine.setInteractions([record()], { displayKey: "healthy" });
+    h.receipts.length = 0; h.draw.add.mockClear();
+    const patch = h.engine.applyCoordinatePatch({ entry_id: "a", artifact_id: "changed", atom_ids: [1], coordinates: [[9, 0, 0]] }, "commit");
+    const refused = expect(patch).rejects.toThrow("Coordinate installation refused");
+    await vi.waitFor(() => expect(update).toHaveBeenCalledOnce());
+    const retry = h.engine.setInteractions([record()], { displayKey: "after-patch" });
+    held.reject(new Error("Coordinate installation refused")); await refused; await retry;
+    expect(h.draw.add).not.toHaveBeenCalled();
+    expect(h.receipts.some(value => value.status === "ready")).toBe(false);
+    expect(h.receipts.at(-1)).toMatchObject({ status: "error", installedRecordKeys: [] });
+    await h.engine.clearCoordinatePreview("a");
+    expect(h.receipts.at(-1)).toMatchObject({ status: "error", installedRecordKeys: [] });
+    mockRebuild(h.state);
+    await h.engine.syncStructures(originalSources);
+    expect(h.state.plugin.clear).toHaveBeenCalledOnce();
+    expect(h.draw.add).toHaveBeenCalledOnce();
+    expect(h.receipts.at(-1)).toMatchObject({ sceneGeneration: 1, status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
   it("preserves installed records and readiness for repeated null isolation without rebuilding", async () => {
     const h = setup();
     h.state.surfaceSyncSnapshot = captureSurfaceSync(h.state.structures, null);

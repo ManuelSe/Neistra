@@ -159,7 +159,7 @@ test("renders genuine six-type records alone, pairwise and together with indepen
   await panel.getByRole("button", { name: "Intermolecular interactions" }).click();
   await attached(page, records.filter(record => record.scope === "intra"));
   await panel.getByRole("button", { name: "Intramolecular interactions" }).click();
-  await attached(page, []); await expect(panel.getByRole("status")).toHaveText("Off");
+  await attached(page, []); await expect(panel.getByRole("status")).toHaveText("Choose Inter or Intra");
   await panel.getByRole("button", { name: "Intermolecular interactions" }).click();
   await attached(page, records.filter(record => record.scope === "inter"));
   expect(analyses).toBe(1); expect(structureGets).toBe(0);
@@ -191,9 +191,9 @@ test("explains unsupported raw ligand chemistry without claiming complete zero c
   await page.getByRole("button", { name: "Interactions", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Interactions", exact: true });
   await panel.getByRole("button", { name: "H bonds", exact: true }).click();
-  await expect(panel.getByRole("status")).toContainText("partial coverage", { timeout: 20_000 });
-  await panel.getByRole("button", { name: "Interaction help", exact: true }).click();
-  await expect(panel).toContainText("Unassigned bond orders or formal charges prevent interaction typing");
-  await expect(panel).toContainText("explicit H atoms");
+  await expect(panel.getByRole("status")).toContainText("partial input coverage", { timeout: 20_000 });
+  await panel.locator(".interaction-warnings > summary").click();
+  await expect(panel.getByText(/Unassigned bond orders or formal charges prevent interaction typing/)).toBeVisible();
+  await expect(panel.getByText(/explicit H atoms/).first()).toBeVisible();
   await expect.poll(async () => (await native(page)).records.length).toBe(0);
 });

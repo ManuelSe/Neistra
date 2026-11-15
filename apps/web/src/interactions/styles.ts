@@ -1,4 +1,12 @@
-import { INTERACTION_KINDS, type InteractionAppearance, type InteractionKind } from "./types";
+import { INTERACTION_KINDS, type InteractionAppearance, type InteractionKind, type InteractionRecord } from "./types";
+
+/** Drawing eligibility only; detection and canonical contact endpoints stay intact. */
+export function interactionHasDisplayGeometry(record: InteractionRecord): boolean {
+  const [a, b] = record.endpoints;
+  if (!a || !b || a.length !== 3 || b.length !== 3 || !a.every(Number.isFinite) || !b.every(Number.isFinite)) return false;
+  const distance = Math.hypot(...a.map((value, axis) => b[axis] - value));
+  return Number.isFinite(distance) && (distance > 0 || record.kind === "clash");
+}
 
 export const INTERACTION_COLORS: Record<InteractionKind, number> = {
   clash: 0xdb3850, hydrogen_bond: 0x1597b0, hydrophobic: 0xa88836,

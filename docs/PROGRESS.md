@@ -2,29 +2,38 @@
 
 ## Current milestone
 
-Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C1 qualified locally**.
-The [feature contract](plans/issue-152-interaction-inspection.md) is **Authorized
-within agreed scope; not individually reviewed** under the owner's explicit
-plan-and-deliver invocation. Work is isolated on `feat/issue-152-interaction-inspection`.
+Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C2 locally verified;
+C3 performance qualification next**. The
+[feature contract](plans/issue-152-interaction-inspection.md) is **Authorized within
+agreed scope; not individually reviewed** under the owner's explicit delivery
+invocation. Work remains isolated on `feat/issue-152-interaction-inspection`.
 
-Completed: remotely verified C0 d1ec1f6b; canonical captured-target validation,
-precise metrics/known warning IDs, shared styles and guarded native/lazy rendering
-receipts. C2 will expose these through precise contact inspection, truthful status,
-faithful swatches and compact target/visibility controls.
-The 2D diagram remains independently deliverable child #153; chemistry stays fixed.
+Completed: explicit captured targets, compact session controls, exact contact
+inspection/actions, faithful patterns/appearance, grouped warnings and native
+installed-count receipts. Corrections cover obsolete geometry, source-installation
+failure, isolation/rebuild ownership, reachable panel actions, focused-tooltip
+Escape, closed launcher feedback and coincident nonclash marker accounting.
 
-Verification: C1 passes 94 focused Python, Ruff/mypy218, web lint/types,
-919 frontend tests/101 suites/build and four native six-type/unsupported-chemistry
-cases in both layouts, zero failures/flakes/retries/skips. The
-[corrected checkpoint receipt](assets/interaction-inspection/c1-corrected-checkpoint.json)
-retains source/native evidence. Early architecture findings for no-op isolation
-and superseded rebuilds have independently failing regressions and corrected scoped
-PASS. All seven early planning assessments PASS; final review
-and complete candidate/exact-master gates remain separate requirements.
-Provisional compatible minor 0.33.0 follows verified stable 0.32.0. No PR/release yet.
-Known limits: existing fixed-profile chemistry and coarse input-coverage summaries.
-Blockers: none. Next action: commit C1, then implement and verify C2–C5 without a
-second plan approval. Preserve every other session's checkout/process/store/ports.
+Verification: focused scientific/API94, reader-tool16, Ruff/mypy218, web lint/types,
+all964 frontend tests/103 suites and build pass. Corrected native21 pass/one exact
+existing platform exclusion; prior integrated23 pass/five exact existing exclusions
+includes all four actual 100%/200% desktop zoom checks. No failures/flakes/retries,
+new exclusions or source drift. [C2 receipt](assets/interaction-inspection/c2-checkpoint.json)
+retains source-bound reports, logs, native observations and before-correction
+regressions. The original wrapper inventory mistake is preserved and independently
+reconciled against the preceding release; browser results are unchanged.
+
+Early role assessments inform corrections; final seven-role same-candidate review
+and full candidate/exact-master gates remain required. Application work is local;
+only C0 is pushed. No PR/release yet. Provisional additive minor remains0.33.0.
+The independently delivered 2D child#153 and fixed scientific profile remain separate.
+
+Known limitations: coarse input coverage; existing chemistry/preparation boundaries.
+Baseline measurement demonstrates repeated display filtering/serialization; C3
+will compare the frozen candidate and reconcile a pre-existing extreme salt-group
+marker-length allocation risk without changing scientific detection.
+Blockers: none. Next action: commit C2, measure and qualify C3, then deliver C4–C5.
+Preserve every other session's checkout, processes, stores and ports.
 
 ### Previous completed milestone — issue #147
 

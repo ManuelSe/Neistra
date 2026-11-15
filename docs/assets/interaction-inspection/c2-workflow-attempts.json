@@ -1,0 +1,64 @@
+{
+  "scope": "Historical C2 focused workflow attempts; not final corrected checkpoint or complete release qualification",
+  "attempts": [
+    {
+      "head": "dac49bf935b3fb467df9801422bf0dac42515dde",
+      "status": "failed",
+      "exit_code": 1,
+      "complete": false,
+      "seconds": 157.12999921198934,
+      "source_unchanged": true,
+      "browser_stats": {
+        "startTime": "2026-11-15T20:06:13.723Z",
+        "duration": 156292.43,
+        "expected": 0,
+        "skipped": 5,
+        "unexpected": 1,
+        "flaky": 0
+      }
+    },
+    {
+      "head": "dac49bf935b3fb467df9801422bf0dac42515dde",
+      "status": "failed",
+      "exit_code": 1,
+      "complete": false,
+      "seconds": 48.98939847300062,
+      "source_unchanged": true,
+      "browser_stats": {
+        "startTime": "2026-11-15T20:12:56.467Z",
+        "duration": 48106.513,
+        "expected": 2,
+        "skipped": 3,
+        "unexpected": 1,
+        "flaky": 0
+      }
+    },
+    {
+      "head": "dac49bf935b3fb467df9801422bf0dac42515dde",
+      "status": "passed",
+      "exit_code": 0,
+      "complete": true,
+      "seconds": 61.37131493299967,
+      "source_unchanged": true,
+      "browser_stats": {
+        "startTime": "2026-11-15T20:18:36.860Z",
+        "duration": 60503.348,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ],
+  "corrections": [
+    "Constrain panel to remaining viewport and observe actual portal node.",
+    "Close on scoped Escape when a focused icon tooltip otherwise consumes the first key."
+  ],
+  "remaining_at_receipt": [
+    "Native molecular-source failure boundary and launcher cues corrected after successful attempt 3; fresh integrated qualification remains required."
+  ],
+  "archive": "c2-workflow-attempts.zip",
+  "archive_sha256": "1c7292a7ef1944d7bfc419121eb374db60b5ced558f9255350eed17a82f30a8a",
+  "files": 41,
+  "crc_and_manifest": "verified"
+}

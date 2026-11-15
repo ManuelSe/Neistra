@@ -50,6 +50,22 @@ name conventions; unsupported modified template sites and contradictory water
 charges are skipped with warnings. Disulfides are not unprepared thiol donors.
 CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
 
+Interaction targets filter complete qualified participant groups; selecting one
+ring atom or donor touches its whole participating site without qualifying partial
+chemistry or expanding molecular selection. Counts describe records, not unique
+residue partners. Detected and native-installed shown counts have distinct meanings;
+shown does not certify unoccluded pixels. Nonclash contacts with coincident marker
+endpoints remain detected with unchanged scientific evidence but have no drawable
+line and do not count as shown. Details retain canonical participant selection and
+explain why Focus is unavailable. No minimum-distance cutoff is introduced; the
+existing coincident-clash cross is preserved. Input-coverage counters are conservative
+typed/radius-bearing atom summaries, not per-category eligible-site/pair percentages.
+Known warning IDs identify observed sites only. Salt-bridge evidence uses nearest
+charge-site separation even though the marker joins charge-group centers. The
+inspector labels that quantity separately from H···A, donor···acceptor, centroid
+distances and clash overlap. No thresholds, classifications or preparation policy
+change with target or appearance controls.
+
 ## Macromolecular Formats
 
 - PDB and PDBx/mmCIF connectivity does not establish reliable ligand bond
