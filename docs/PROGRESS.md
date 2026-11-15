@@ -2,6 +2,40 @@
 
 ## Current milestone
 
+Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) — **authorized planning
+checkpoint C0**, followed by autonomous implementation and full release delivery.
+The [feature contract](plans/issue-147-structure-editor-reliability.md) is
+**Authorized within agreed scope; not individually reviewed**. The owner accepts
+all twelve audit findings, five common fragments and preservation of deliberately
+cut backbone connectivity during side-chain mutation, with a specific warning.
+
+Completed: read-only audit/planning assessments from all seven specialists; early
+scope decisions; independent verification of issue #145's full delivery; fresh base
+`2b5400deef2ab09850a9f677050b33fa2775bded` and clean isolated branch
+`feat/issue-147-structure-editor-reliability`. D-158–D-161 append the implementation
+boundaries. No #147 repository changes preceded #145's completed delivery.
+
+Verification: #145's final report, merged PRs #146/#148, exact-master gate/source/log
+identities, annotated tag, stable release, anonymous qualification download and
+issue closeout/cleanup verify. These and the earlier audit tests are baseline,
+not evidence of implemented #147 fixes. C0 documentation scope/links/naming,
+append-only decisions, unchanged application/global plan/version files and
+`git diff --check` pass; the planned remote branch is absent before creation.
+
+Planned checkpoints: immutable projection identity; retained topology/template
+admission/bounded diagnostics; bounded backend execution and atomic publication;
+qualified torsion/five fragments; compact feedback and captured geometry workflows;
+final-version qualification/all-seven review; normal merge/exact-master release and
+verified closeout. Provisional impact: compatible stable minor **0.32.0**, with no
+anticipated portable schema, dependency or migration change.
+
+Known limitations: all reported implementation defects remain at C0. Broader
+chemistry, preparation, geometry/stereo authoring and remaining #71 work retain
+explicit separate dispositions. Blockers: none. Next action: validate and commit/
+push/read back C0, then proceed directly to C1; no further routine approval required.
+
+### Previous completed milestone — issue #145
+
 Issue [#145](https://github.com/ManuelSe/Neistra/issues/145) — **implemented,
 verified and released as stable [v0.31.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0)**
 through [PR #146](https://github.com/ManuelSe/Neistra/pull/146). Exact released

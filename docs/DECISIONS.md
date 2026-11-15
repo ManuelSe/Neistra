@@ -7190,3 +7190,110 @@ annotated tag, stable/latest release and downloaded qualification-asset hashes
 verify. Scientific/portable timing limits remain. No new method, migration or
 follow-up issue. Final documentation/cleanup readbacks live in the issue reply;
 subsequent documentation never moves the qualified runtime tag.
+
+
+## D-158 — Immutable artifact identity for structure projections
+
+Issue #147's read-only audit reproduces an Undo/delayed-read/Redo race: a request
+keyed by one artifact can fetch current data from another and retain it indefinitely
+under the wrong cache key. Add an optional expected-artifact parameter to the
+existing structure GET. Reject a mismatch with 409 before capture; capture one
+immutable artifact identity, read its bytes and return that identity explicitly.
+Unqualified legacy callers retain current-read behavior. New clients validate entry
+and artifact identity before shared-cache insertion and propagate cancellation.
+
+Every projection consumer uses the same typed query contract, including hidden
+loads, editing, hierarchy, tables, surface inputs and coordinate publication.
+Coordinate-seeded continuity values carry the new identity and explicit provisional
+status; they cannot certify chemistry/provenance before the mandatory complete
+refresh. Request interception/counting compares endpoint pathname so query strings
+cannot bypass race coverage. No viewer-owned molecular authority or portable
+schema/migration change is introduced; matching client/server deployment is required.
+
+
+## D-159 — Preserve authored topology through template mutation and diagnostics
+
+The owner explicitly chooses preservation of deliberately cut retained/backbone
+bonds while mutating a supported side chain, with a precise warning identifying
+the unresolved connectivity. Existing retained bonds, orders, IDs, coordinates and
+exclusions are authoritative; new template bonds require a genuinely new endpoint.
+Do not silently repair a cut or infer chemical preparation. Existing N/CA/C/O
+template-element contradictions refuse atomically. Unknown charge/order in raw
+protein input alone does not become a whole-entry veto.
+
+Affected direct-edit bond diagnostics inspect every retained conformer, identify
+conformer/bond/atom IDs and explicitly bound/truncate detail without silently
+omitting frames. Preserve current geometric thresholds and deliberate warned
+drafts; nonfinite affected geometry cannot be published.
+
+Replace the validator's quadratic arrays while preserving its actual scientific
+decision: any distinct active-frame pair with strict separation <0.4 Å, including
+bonded atoms and alternate locations, yields the existing overlap warning. This is
+not an element-aware nonbonded model. Use exact bounded nearest-neighbor existence
+queries, first row alone then small batches with immediate exit, inspect both k=2
+neighbors excluding self and recompute the original distance. An all-N query can
+repeat a full coincident-point leaf scan despite bounded result storage. Independent
+brute-force boundary/tie oracles and measured memory/work establish equivalence and
+scaling; no universal linear-time claim or altered production atom limit.
+
+
+## D-160 — Bounded pure editing computation and fresh atomic publication
+
+Use a short immutable snapshot and an ephemeral spawned computation child without
+ORM/session or canonical publication authority. Reuse existing process/resource
+lifecycle primitives. Heavy parsing, scientific work, staged-result validation and
+serialization belong off the event loop; return a small verified result descriptor
+rather than receiving a complete large model pickle on the loop. No new durable
+job or persisted editing schema is required.
+
+After compute, a fresh session takes the project publication lock before reads,
+rechecks revision/artifact/entry lock/allocation floors and publishes one existing
+command atomically. Neutralize the lock name while preserving its existing wrapper.
+Keep final lock→check→commit synchronous without awaits because other project
+writers currently rely on main-loop serialization. Offloading only edit publication
+would break that shared boundary. Measure remaining critical-section work; any
+necessary off-loop publication must first establish shared revision reservation
+across all writers in a separately verified checkpoint, not an edit-only shortcut.
+
+Qualify one active child per API process with bounded admission and no unbounded
+queue. Proposed preview/edit compute deadlines are 30/300 seconds, sampled child
+process-tree RSS 4 GiB and graceful cleanup 2 seconds before kill/reap. These are
+separately named production settings to verify, not the audit's diagnostic 1 GiB
+ceiling, import-size limit or a universal aggregate-memory guarantee. Existing atom
+and hydrogen work bounds remain binding. Superseded previews are cancellable;
+submitted Apply retains operation ownership after panel closure. Cancellation
+before publication leaves history/allocators untouched; a committed result requires
+reconciliation/Undo, never a false promise of cancellation or blind uncertain replay.
+
+
+## D-161 — Compact editor truth, captured geometry handoff and five fragments
+
+Keep a bounded original icon-led compact panel with visible verified target identity,
+element/formal-charge uncertainty or residue/chain information and actionable
+prerequisite reasons. Preview inspection must visibly show preparing/ready/warnings/
+partial state, details, Applying and failure/recovery. Preserve deliberate warned
+draft authoring, keyboard/focus/coarse-pointer behavior, both themes and real zoom.
+Fix the compound eye/H control locally rather than changing every icon button.
+
+Offer explicit guarded Select whole residue recovery after history operations;
+never silently broaden an arbitrary or newer selection. Geometry handoff captures
+project/epoch/selection/artifacts and opens existing move/rotate, Quick/Advanced
+minimization or eligible ligand torsion without running it. Do not inherit a stale
+inspector entry or invent a whole-entry operand. Correct torsion's per-conformer
+axis, exact endpoints and graph-cut movable side before compact exposure; preserve
+fixed atoms and disconnected spectators, units and existing chemistry admission.
+
+The owner accepts five neutral fixed fragments from #71: cyclopropyl, cyclobutyl,
+cyclopentyl, cyclohexyl and methoxy. Reuse the existing seeded placement/builder,
+qualify final automatic-H output and preserve internally qualified complete template
+geometry without a client bypass or general reconciliation disable. Give every
+fragment a truthful original glyph. No ring fusion, arbitrary fragments, new
+length/angle/stereo authoring, isotope schema, chemistry assignment, preparation or
+peptide growth is added. The feature contract records separate issue dispositions.
+
+The owner's explicit plan-and-deliver request and early decisions authorize C0
+through full release delivery without finished-plan review. Record the plan as
+Authorized within agreed scope; not individually reviewed. This changes no scientific,
+verification, seven-role same-candidate, remote protection or compatibility gate.
+Provisional stable minor 0.32.0 reflects added functionality; recheck collisions and
+all authoritative versions before preparation/publication.
