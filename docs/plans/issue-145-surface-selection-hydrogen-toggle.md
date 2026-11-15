@@ -2,7 +2,7 @@
 
 ## 1. Status, authority and approved direction
 
-**Status:** C1–C3 locally verified; final receipt-head affirmation and C4 pending. The subsequent `/goal` authorizes implementation and delivery.
+**Status:** Approved scope implemented, verified, merged and released as v0.31.0. See the final issue reply for terminal receipt/branch-cleanup verification.
 Approval: the user's “Implement the plan.” on 2026-11-14, following the proposal
 and explicit product choices below. Approval authorizes C0 only. Stop ready for
 `/goal` after committing and pushing this plan; do not begin application changes.
@@ -649,3 +649,40 @@ collision. Normal merge preserves checkpoint history. Commit this coherent C3
 receipt, obtain each specialist's explicit affirmation of that exact committed
 head, then push/open PR. Remote requirements and exact-master33-step qualification
 remain mandatory; no merge/tag/release is asserted by this checkpoint.
+
+
+### 2026-11-15 — C4 verified release delivery
+
+[PR #146](https://github.com/ManuelSe/Neistra/pull/146) merges normally as
+cc54cd324c5aebe86024c1b85165715691ddcbb3, with both expected parents and a tree
+identical to reviewed `7ed58d98`. All seven specialists explicitly PASS that exact
+reviewed head. No required human approval, status check, ruleset or protection
+was bypassed. Codex was requested; no external review result returned.
+
+Fresh exact-master qualification completes all 33 steps:1,543 Python/zero skips,
+760 frontend,14 supervisor,451 browser/75 exact existing exclusions,526 cases/71 files,
+zero failures/flakes/retries/new exclusions.798 current and786 actual tagged-source
+identities, complete lossless logs, both reader families/directions/suffixes,
+corruption controls and596 native observations verify. Source digest equals the
+qualified candidate. Master durations sum to 5,192.411 s (5,195 s wall).
+
+Earlier master attempts remain separate diagnostics: unexplained SIGTERM before
+Python completed, then a dev-module HTTP socket reset after442 browser passes.
+Six unchanged focused camera cases pass; no source/transport retry, input,
+assertion, deadline, resource or exclusion change was made. The successful run
+starts from fresh data and re-executes every command. An unsupported-field audit
+recorder error and corrected postmerge verification are retained transparently.
+
+Annotated v0.31.0 tag6331147b targets exact qualified master `cc54cd32`. The stable
+latest [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.31.0) is verified.
+Its qualification archive of 177,651,530 bytes has SHA-256
+4b65be17d806ec81f75616c1885b3b8aa2c0b337fecb7ecc01010ba18e03393c; anonymous
+download, CRC and all 337 internal manifest entries verify.
+[c4-publication.json](../assets/surface-selection-hydrogen-toggle/c4-publication.json)
+and [delivery report](../assets/surface-selection-hydrogen-toggle/c4-delivery-report.md)
+retain scope, each specialist verdict, corrections, verification and limits.
+
+The [issue reply](https://github.com/ManuelSe/Neistra/issues/145#issuecomment-6887471495)
+records implementation/release/compatibility/follow-ups. Terminal documentation
+integration and branch-cleanup readbacks are retained there. This receipt changes
+only documentation/evidence; no qualified source or runtime tag is changed.

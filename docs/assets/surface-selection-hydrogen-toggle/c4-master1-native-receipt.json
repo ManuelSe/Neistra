@@ -1,0 +1,9 @@
+{
+  "candidate": "cc54cd324c5aebe86024c1b85165715691ddcbb3",
+  "archive": "c4-master1-native-observations.zip",
+  "bytes": 58878466,
+  "sha256": "7324ed4278d4a06aad0b531e5c9a90e98cae31e286a5cc740dda1e00f244f4c0",
+  "native_files": 596,
+  "all_native_files_retained": true,
+  "crc_and_every_internal_hash_valid": true
+}
