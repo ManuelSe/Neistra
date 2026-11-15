@@ -5,9 +5,11 @@ import { ShapeRepresentation } from "molstar/lib/mol-repr/shape/representation";
 import { Color } from "molstar/lib/mol-util/color";
 import type { InteractionAppearance, InteractionRecord } from "../interactions/types";
 import { defaultInteractionAppearance, interactionHasDisplayGeometry, INTERACTION_PATTERNS, normalizeInteractionAppearance } from "../interactions/styles";
+import { preflightInteractionGeometry } from "./interactionGeometryBudget";
 export { INTERACTION_COLORS } from "../interactions/styles";
 
 export function interactionLines(records: InteractionRecord[], previous?: Lines) {
+  preflightInteractionGeometry(records);
   // ShapeRepresentation retains these ValueCells on its existing render object.
   // Reusing geometry updates attached buffers, not only draw counts and colors.
   const builder = LinesBuilder.create(2048, 1024, previous);

@@ -774,3 +774,31 @@ Specific native capacity results are recorded in the issue plan and evidence;
 these policies are neither a total browser/GPU memory bound nor a strict timing
 certification on an uncontrolled host. Historical qualifications above retain
 their original profiles and scope.
+
+## Interaction display work and geometry admission (issue #152)
+
+Unchanged camera, panel and native-status renders reuse an application-owned
+visibility projection containing only entry identity, normalized structure,
+hierarchy and effective settings. Wrapper-only atom-ID/pocket/projection objects
+do not invalidate filtering. Molecular identity, visibility, target/scope/type,
+isolation, readiness, appearance and preview changes retain their required
+invalidation behavior. Scientific result caching and native hydrogen filtering
+remain independent. Source-bound baseline/candidate work counts and observations
+are recorded in the [C3 checkpoint](assets/interaction-inspection/c3-checkpoint.json); they are not strict-host timing
+or causal application-speedup claims.
+
+Interaction geometry has a separate atomic admission ceiling of 500,000
+conservatively estimated line segments. Preflight scans the complete drawable
+batch before native builders touch previous buffers. An extra pattern cycle
+reserves repeated-addition rounding at dash boundaries; this is an upper estimate,
+not an exact emitted-segment counter. Over-budget requests fail explicitly and
+retain scientific contacts/details/Select. Smaller cached displays can recover.
+
+The pinned builder's raw arrays require 168 bytes per segment, or 84,000,000 bytes
+(80.1 MiB) at the ceiling. A descriptive old/staging/GPU coexistence estimate is
+approximately 392 MB of payload before JavaScript, metadata and driver overhead;
+it is not a measured browser-heap guarantee. No ceiling-sized geometry allocation
+is inferred from estimator tests. The API's 20,000-record bound alone cannot bound
+marker length or drawing work, particularly for nearest-site classified charge
+groups whose centers are far apart. D-148 timing policy and all existing backend
+limits remain unchanged.

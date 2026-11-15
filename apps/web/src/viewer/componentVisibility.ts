@@ -1,7 +1,10 @@
 import { componentAtomIds } from "../selection/components";
 import type { ViewerStructure } from "./MolecularViewer";
 
-export function visibleComponentAtomIds(structure: ViewerStructure): number[] {
+/** Immutable fields consumed by component and atom visibility, without renderer wrappers. */
+export type ViewerVisibilitySource = Pick<ViewerStructure, "entryId" | "normalized" | "hierarchy" | "settings">;
+
+export function visibleComponentAtomIds(structure: ViewerVisibilitySource): number[] {
   const { components: settings } = structure.settings;
   return [
     ...new Set(

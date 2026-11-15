@@ -93,6 +93,16 @@ connectivity suppresses within-molecule screening. Analysis has explicit limits:
 100,000 atoms, one million candidate admissions, 20,000 records, 30 seconds, and
 one active request per API process. A limit failure returns no complete result.
 
+Drawing has a separate ceiling of **500,000 conservatively estimated line
+segments** for the entire current overlay. A single unusually long group-center
+marker can exceed it even when the scientific result is below 20,000 records.
+Preflight refuses the whole overlay before native allocation or previous-buffer
+mutation. It does not truncate contacts, simplify patterns, substitute endpoints
+or change detection. The error keeps detected contacts, evidence and Select atoms
+available; Focus and confirmed shown counts stay unavailable. Narrow the target
+or choose fewer types to recover from cached analysis. This is a drawing admission
+bound, not a promise of latency or total browser memory at the ceiling.
+
 Hydrogen bonds require chemically typed donors/acceptors and supplied explicit H.
 Markers connect H to the acceptor heavy atom. Donor–acceptor ≤3.5 Å, H–acceptor
 ≤2.5 Å, donor–H–acceptor ≥130°, and applicable H–acceptor–heavy-base ≥90°.

@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState, type RefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import type { AtomReference, Project, Selection, StructureProjection } from "../api/types";
-import { canonicalSelection } from "../selection/selection";
 import { useInteractionStore } from "../store/interactions";
 import type { MolecularViewer, ViewerStructure } from "../viewer/MolecularViewer";
+import type { ViewerVisibilitySource } from "../viewer/componentVisibility";
 import { filterInteractions } from "./filter";
 import type { InteractionCategoryView, InteractionContactDetails, InteractionPanelProps, InteractionStatusView } from "./panelModel";
 import { createInteractionPresentationContext, groupInteractionWarnings, interactionMetrics, interactionParticipants, interactionRecordKey } from "./presentation";
@@ -43,6 +43,7 @@ export function useInteractionInspection(input: InspectionInput) {
   const state = useInteractionStore();
   const own = state.projectId === project.id;
   const choices = own ? state.choices : DEFAULT_CHOICES;
+  const { inter, intra } = choices;
   const show = own ? state.show : true;
   const mode = own ? state.targetMode : "all";
   const appearance = own ? state.appearance : DEFAULT_APPEARANCE;
@@ -67,19 +68,31 @@ export function useInteractionInspection(input: InspectionInput) {
       const entry = entries.get(ref.structure_id);
       return entry?.visible && resultArtifacts.get(ref.structure_id) === entry.current_artifact_id;
     })));
-    return filterTargetInteractions(current.filter(record => choices[record.scope]), target);
-  }, [result, resolution.status, project.entries, choices, target]);
-  const displayRecords = result && viewReady && !paused && show
-    ? filterInteractions(records, choices, structures, isolation) : [];
-  const displayKey = JSON.stringify([project.id, resultIdentity, mode, target, choices, appearance, show, paused, viewReady, displayRetry, displayRecords]);
+    return filterTargetInteractions(current.filter(record => record.scope === "inter" ? inter : intra), target);
+  }, [result, resolution.status, project.entries, inter, intra, target]);
+  // Query containers and renderer wrappers can change during camera/receipt
+  // updates. Retain only immutable visibility inputs, never old pocket/projection
+  // resources, and compare every field the typed filter is allowed to consume.
+  const visibilitySnapshot = useRef<readonly ViewerVisibilitySource[]>([]);
+  if (visibilitySnapshot.current.length !== structures.length || structures.some((source, index) => {
+    const previous = visibilitySnapshot.current[index];
+    return !previous || source.entryId !== previous.entryId || source.normalized !== previous.normalized
+      || source.hierarchy !== previous.hierarchy || source.settings !== previous.settings;
+  })) visibilitySnapshot.current = structures.map(({ entryId, normalized, hierarchy, settings }) => ({ entryId, normalized, hierarchy, settings }));
+  const visibilitySources = visibilitySnapshot.current;
+  const displayRecords = useMemo(() => result && viewReady && !paused && show
+    ? filterInteractions(records, choices, visibilitySources, isolation) : [],
+  [result, viewReady, paused, show, records, choices, visibilitySources, isolation]);
+  const displayKey = useMemo(() => JSON.stringify([project.id, resultIdentity, mode, target, choices, appearance, show, paused, viewReady, displayRetry, displayRecords]),
+    [project.id, resultIdentity, mode, target, choices, appearance, show, paused, viewReady, displayRetry, displayRecords]);
   const receipt = native && native.viewer === viewer.current && native.state.displayKey === displayKey ? native.state : null;
   const installed = receipt?.status === "ready" && viewerReady && viewReady && !paused;
   const shownKeys = useMemo(() => new Set(installed ? receipt.installedRecordKeys : []), [installed, receipt]);
   const entries = useMemo(() => new Map(project.entries.map(entry => [entry.id, entry])), [project.entries]);
   const validAtomIds = useMemo(() => new Map(project.entries.map(entry => [entry.id, new Set(entry.atom_ids)])), [project.entries]);
   const analyzedArtifacts = useMemo(() => new Map(result?.inputs.map(source => [source.entry_id, source.artifact_id])), [result]);
-  const recordMap = useMemo(() => new Map(records.filter(record => choices.types.includes(record.kind))
-    .map(record => [interactionRecordKey(record), record])), [records, choices.types]);
+  const keyedRecords = useMemo(() => records.map(record => [interactionRecordKey(record), record] as const), [records]);
+  const recordMap = useMemo(() => new Map(keyedRecords.filter(([, record]) => choices.types.includes(record.kind))), [keyedRecords, choices.types]);
   const context = useMemo(() => createInteractionPresentationContext(project.entries, projections), [project.entries, projections]);
   const contacts = useMemo(() => [...recordMap].map(([key, record]) => {
     const metric = interactionMetrics(record)[0];
@@ -108,16 +121,22 @@ export function useInteractionInspection(input: InspectionInput) {
   };
   const inspectedKey = own && state.inspectedResultKey === resultIdentity && state.inspectedKey && recordMap.has(state.inspectedKey) ? state.inspectedKey : null;
   const inspectedRecord = inspectedKey ? recordMap.get(inspectedKey) : undefined;
+  const rendererError = receipt?.status === "error" ? receipt.error ?? "Interaction rendering failed."
+    : renderFailure && renderFailure.viewer === viewer.current && renderFailure.displayKey === displayKey ? renderFailure.message : null;
   const inspected: InteractionContactDetails | null = inspectedRecord && inspectedKey ? {
     key: inspectedKey, participants: context.describe(inspectedRecord), metrics: interactionMetrics(inspectedRecord), scope: inspectedRecord.scope,
-    focusUnavailable: actionUnavailable ?? (!show ? "Show interactions before focusing a displayed contact." : !installed ? "Wait for current interaction rendering." : !interactionHasDisplayGeometry(inspectedRecord) ? "This contact has coincident interaction endpoints; no marker can be drawn. Select its atoms to inspect the site." : !shownKeys.has(inspectedKey) ? "This contact's participants are hidden. Reveal them before focusing." : null),
+    focusUnavailable: actionUnavailable ?? (!show ? "Show interactions before focusing a displayed contact." : rendererError ? "Interaction display is unavailable. Resolve the display error before focusing." : !installed ? "Wait for current interaction rendering." : !interactionHasDisplayGeometry(inspectedRecord) ? "This contact has coincident interaction endpoints; no marker can be drawn. Select its atoms to inspect the site." : !shownKeys.has(inspectedKey) ? "This contact's participants are hidden. Reveal them before focusing." : null),
     selectUnavailable: actionUnavailable ?? (!knownCurrentAtoms(interactionParticipants(inspectedRecord)) ? "These interaction atoms are no longer current." : null),
   } : null;
   useEffect(() => {
     if (own && state.inspectedKey && (state.inspectedResultKey !== resultIdentity || !recordMap.has(state.inspectedKey))) state.setInspectedKey(null);
   }, [own, state, resultIdentity, recordMap]);
 
-  const counts = Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, records.filter(record => record.kind === kind).length]));
+  const counts = useMemo(() => {
+    const counts = Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, 0]));
+    for (const record of records) counts[record.kind]++;
+    return counts;
+  }, [records]);
   const categories = Object.fromEntries(INTERACTION_KINDS.map(kind => [kind, {
     detected: result && resolution.status === "ready" ? counts[kind] : null,
     shown: installed ? receipt.countsByKind[kind] : null,
@@ -125,8 +144,6 @@ export function useInteractionInspection(input: InspectionInput) {
   }])) as Record<(typeof INTERACTION_KINDS)[number], InteractionCategoryView>;
   const partial = choices.types.some(kind => result && result.coverage[kind].status !== "complete");
   const allUnavailable = choices.types.length > 0 && choices.types.every(kind => result?.coverage[kind].status === "unavailable");
-  const rendererError = receipt?.status === "error" ? receipt.error ?? "Interaction rendering failed."
-    : renderFailure && renderFailure.viewer === viewer.current && renderFailure.displayKey === displayKey ? renderFailure.message : null;
   let status: InteractionStatusView;
   if (!show) status = { phase: "hidden", message: "Hidden · choices retained", partial };
   else if (!choices.types.length) status = { phase: "off", message: "Choose an interaction type", partial: false };
@@ -145,10 +162,11 @@ export function useInteractionInspection(input: InspectionInput) {
     status = { phase: "ready", message: `${allUnavailable ? "Unavailable · " : ""}${shown} shown · ${detected} detected${partial ? " · partial input coverage" : ""}${detected > shown ? " · some markers hidden or unavailable" : ""}`, partial };
   }
 
-  const capturedSelection = captureSelectionTarget(selection.atoms);
-  const selectionValid = capturedSelection && validateInteractionTarget(capturedSelection, project.entries, projections).status === "ready";
-  const liveKey = JSON.stringify(canonicalSelection(selection.atoms).atoms);
-  const capturedKey = state.selectionTarget ? JSON.stringify(state.selectionTarget.atoms) : "";
+  const capturedSelection = useMemo(() => captureSelectionTarget(selection.atoms), [selection.atoms]);
+  const selectionValid = useMemo(() => capturedSelection && validateInteractionTarget(capturedSelection, project.entries, projections).status === "ready",
+    [capturedSelection, project.entries, projections]);
+  const liveKey = useMemo(() => JSON.stringify(capturedSelection?.kind === "selection" ? capturedSelection.atoms : []), [capturedSelection]);
+  const capturedKey = useMemo(() => state.selectionTarget ? JSON.stringify(state.selectionTarget.atoms) : "", [state.selectionTarget]);
   const ligandKey = state.ligandTarget ? JSON.stringify([state.ligandTarget.entryId, state.ligandTarget.componentId]) : "";
   const chosenLigand = candidates.find(candidate => candidate.key === ligandKey);
   const targetLabel = mode === "all" ? "All visible" : mode === "selection" ? state.selectionTarget ? `${state.selectionTarget.atoms.length} captured atom${state.selectionTarget.atoms.length === 1 ? "" : "s"}` : "No captured selection" : chosenLigand?.label ?? (state.ligandTarget ? `${state.ligandLabel ?? "Captured ligand"} · unavailable` : "No ligand chosen");

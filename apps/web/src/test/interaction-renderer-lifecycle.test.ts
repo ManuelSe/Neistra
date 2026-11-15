@@ -6,6 +6,7 @@ import type { ViewerStructure } from "../viewer/MolecularViewer";
 import { componentHierarchy, proteinStructure, viewerSettings } from "./molecular-fixtures";
 import { captureSurfaceSync, type SurfaceSyncSnapshot } from "../viewer/surfaceReconciliation";
 import type { AtomReference } from "../api/types";
+import { InteractionGeometryLimitError } from "../viewer/interactionGeometryBudget";
 
 function deferred() {
   let resolve!: () => void;
@@ -28,6 +29,7 @@ function record(atomId = 1): InteractionRecord {
 interface EngineProbe {
   plugin: { canvas3d: ReturnType<typeof canvas>; clear: () => Promise<void> };
   structures: ViewerStructure[];
+  interactions: InteractionRecord[];
   interactionRepresentation: { createOrUpdate: ReturnType<typeof vi.fn>; setState: ReturnType<typeof vi.fn>; destroy: ReturnType<typeof vi.fn> };
   coordinatePreviews: Map<string, unknown>;
   nonpolarHydrogenIds: Map<string, Set<number>>;
@@ -77,6 +79,42 @@ function mockRebuild(state: EngineProbe) {
 }
 
 describe("current native interaction installation", () => {
+  it("refuses an entire over-budget overlay before native update and recovers a narrowed cached set without rebuilding the healthy source", async () => {
+    const h = setup();
+    const overBudget: InteractionRecord[] = [{ ...record(), kind: "salt_bridge", endpoints: [[0, 0, 0], [1e308, 0, 0]] }];
+    const before = JSON.stringify(overBudget);
+    for (const displayKey of ["long-contact", "same-contact-retry"]) {
+      await expect(h.engine.setInteractions(overBudget, { displayKey })).resolves.toBeUndefined();
+      expect(h.state.interactionRepresentation.createOrUpdate).not.toHaveBeenCalled();
+      expect(h.draw.add).not.toHaveBeenCalled();
+      expect(h.receipts.at(-1)).toMatchObject({ displayKey, status: "error", installedRecordKeys: [], countsByKind: { salt_bridge: 0, clash: 0 } });
+      expect(h.receipts.at(-1)?.error).toContain("Narrow the target or show fewer types");
+      expect(h.state.interactions).toBe(overBudget);
+    }
+    expect(JSON.stringify(overBudget)).toBe(before);
+    await h.engine.setInteractions([record()], { displayKey: "narrowed" });
+    expect(h.state.interactionRepresentation.createOrUpdate).toHaveBeenCalledOnce();
+    expect(h.state.plugin.clear).not.toHaveBeenCalled();
+    expect(h.receipts.at(-1)).toMatchObject({ displayKey: "narrowed", status: "ready", installedRecordKeys: [interactionRecordKey(record())] });
+  });
+
+  it("keeps measurement acknowledgment and source restoration healthy after controlled drawing refusal", async () => {
+    const h = setup(), build = mockRebuild(h.state);
+    const oversized: InteractionRecord = { ...record(), kind: "salt_bridge", endpoints: [[0, 0, 0], [1e308, 0, 0]] };
+    await expect(h.engine.setInteractions([oversized], { displayKey: "controlled-refusal" })).resolves.toBeUndefined();
+    await expect(h.engine.setMeasurements([])).resolves.toBeUndefined();
+    expect(build.measurements).not.toHaveBeenCalled();
+    await h.engine.setMeasurements([{ id: "distance", name: "Distance", kind: "distance", label: "Distance",
+      atom_references: [{ structure_id: "a", atom_id: 1 }, { structure_id: "b", atom_id: 1 }], visible: true,
+      warnings: [], created_at: "2026-11-15T00:00:00Z", modified_at: "2026-11-15T00:00:00Z" }]);
+    expect(build.measurements).toHaveBeenCalledOnce();
+    await expect(h.engine.syncStructures([source("a"), source("b")])).resolves.toBeUndefined();
+    await expect(h.engine.clearCoordinatePreview("a")).resolves.toBeUndefined();
+    expect(h.state.boundGeneration).toBe(1);
+    expect(h.receipts.at(-1)).toMatchObject({ status: "error", error: new InteractionGeometryLimitError().message, installedRecordKeys: [] });
+    expect(h.draw.add).not.toHaveBeenCalled();
+  });
+
   it("counts only drawable native records while preserving coincident clash markers", async () => {
     const h = setup();
     const coincident: InteractionRecord = { ...record(), kind: "pi_pi", endpoints: [[0, 0, 0], [0, 0, 0]], geometry: { distance: 0 } };

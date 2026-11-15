@@ -3,6 +3,7 @@ import type { LinesValues } from "molstar/lib/mol-gl/renderable/lines";
 import { createInteractionRepresentation, INTERACTION_COLORS } from "../viewer/interactionGeometry";
 import type { InteractionRecord } from "../interactions/types";
 import { interactionHasDisplayGeometry } from "../interactions/styles";
+import { InteractionGeometryLimitError } from "../viewer/interactionGeometryBudget";
 
 const record = (kind: InteractionRecord["kind"], x: number): InteractionRecord => ({
   kind, scope: "inter", participants: [[{ structure_id: "a", atom_id: 1 }], [{ structure_id: "b", atom_id: 1 }]],
@@ -10,6 +11,24 @@ const record = (kind: InteractionRecord["kind"], x: number): InteractionRecord =
 });
 
 describe("attached native interaction buffers", () => {
+  it("preserves installed ValueCells and buffer bytes when a later complete overlay exceeds geometry admission", async () => {
+    const representation = createInteractionRepresentation();
+    try {
+      await representation.createOrUpdate({ sizeFactor: 2.5 }, [record("clash", 0)]).run();
+      const native = representation.renderObjects[0], values = native.values as LinesValues;
+      const cells = [values.aStart, values.aEnd, values.aGroup, values.elements];
+      const bytes = cells.map(cell => new Uint8Array(cell.ref.value.buffer, cell.ref.value.byteOffset, cell.ref.value.byteLength).slice());
+      const draw = values.drawCount.ref.value;
+      const refused = { ...record("salt_bridge", 0), endpoints: [[0, 0, 0], [1e308, 0, 0]] } as InteractionRecord;
+      await expect(representation.createOrUpdate({ sizeFactor: 2.5 }, [refused]).run()).rejects.toBeInstanceOf(InteractionGeometryLimitError);
+      expect(representation.renderObjects[0]).toBe(native);
+      expect(values.drawCount.ref.value).toBe(draw);
+      for (let i = 0; i < cells.length; i++) expect(new Uint8Array(cells[i].ref.value.buffer, cells[i].ref.value.byteOffset, cells[i].ref.value.byteLength)).toEqual(bytes[i]);
+      await representation.createOrUpdate({ sizeFactor: 2.5 }, [record("clash", 2)]).run();
+      expect(values.aStart.ref.value[0]).toBe(2);
+    } finally { representation.destroy(); }
+  });
+
   it("omits coincident nonclash markers and refuses nonfinite endpoints without changing the records", async () => {
     const representation = createInteractionRepresentation();
     const records = (["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge"] as const)

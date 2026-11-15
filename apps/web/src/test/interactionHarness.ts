@@ -6,7 +6,7 @@ import type { LinesValues } from "molstar/lib/mol-gl/renderable/lines";
 import type { InteractionDisplayState, InteractionRecord } from "../interactions/types";
 
 /** Qualification-only native inspection; production never imports this module. */
-export async function inspectInteractions(engine: MolstarEngine) {
+export async function inspectInteractions(engine: MolstarEngine, options: { allowQueueError?: boolean } = {}) {
   const native = engine as unknown as {
     syncQueue: Promise<void>;
     interactionRepresentation: ReturnType<typeof createInteractionRepresentation>;
@@ -17,8 +17,17 @@ export async function inspectInteractions(engine: MolstarEngine) {
     coordinatePreviews: Map<string, unknown>;
     plugin?: PluginUIContext;
   };
-  await native.syncQueue;
+  let queueError: string | null = null;
+  let queueErrorCode: string | null = null;
+  try { await native.syncQueue; }
+  catch (error: unknown) {
+    if (!options.allowQueueError) throw error;
+    queueError = error instanceof Error ? error.message : String(error);
+    queueErrorCode = error && typeof error === "object" && "code" in error && typeof error.code === "string" ? error.code : null;
+  }
   return {
+    queueError,
+    queueErrorCode,
     records: native.interactions,
     requestedDisplayKey: native.interactionDisplayKey,
     sceneGeneration: native.generation,
@@ -29,7 +38,8 @@ export async function inspectInteractions(engine: MolstarEngine) {
       const values = object.values as LinesValues;
       const count = values.drawCount.ref.value;
       const vertices = count / 6 * 4;
-      return { type: object.type, pickable: object.state.pickable, drawCount: count,
+      return { type: object.type, installed: native.plugin?.canvas3d?.getRenderObjects().some(current => current.id === object.id) ?? false,
+        pickable: object.state.pickable, drawCount: count,
         indexCapacity: values.elements.ref.value.length,
         starts: Array.from(values.aStart.ref.value.slice(0, vertices * 3)),
         ends: Array.from(values.aEnd.ref.value.slice(0, vertices * 3)),

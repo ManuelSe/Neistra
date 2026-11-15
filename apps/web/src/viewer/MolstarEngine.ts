@@ -12,6 +12,7 @@ import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisp
 import { defaultInteractionAppearance, interactionHasDisplayGeometry, normalizeInteractionAppearance } from "../interactions/styles";
 import { interactionRecordKey } from "../interactions/presentation";
 import { createInteractionRepresentation } from "./interactionGeometry";
+import { InteractionGeometryLimitError, preflightInteractionGeometry } from "./interactionGeometryBudget";
 import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { surfaceWireframe } from "./surface/wireframe";
@@ -885,6 +886,7 @@ export class MolstarEngine implements MolecularViewer {
       const types = [...new Set(interactions.map(record => record.kind))];
       const visible = filterInteractions(interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds)
         .filter(interactionHasDisplayGeometry);
+      preflightInteractionGeometry(visible);
       if (!visible.length) {
         canvas.remove(this.interactionRepresentation);
         this.publishInteractionDisplay("ready");
@@ -902,6 +904,9 @@ export class MolstarEngine implements MolecularViewer {
       if (!current()) { if (this.disposed) this.interactionRepresentation.destroy(); return; }
       canvas.remove(this.interactionRepresentation);
       this.publishInteractionDisplay("error", [], error instanceof Error ? error.message : "Interaction markers could not be displayed.");
+      // Admission refusal belongs to this display receipt; molecular and
+      // measurement acknowledgments must not inherit it through the queue.
+      if (error instanceof InteractionGeometryLimitError) return;
       throw error;
     }
   }

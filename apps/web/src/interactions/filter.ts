@@ -1,10 +1,10 @@
 import type { AtomReference } from "../api/types";
-import type { ViewerStructure } from "../viewer/MolecularViewer";
+import type { ViewerVisibilitySource } from "../viewer/componentVisibility";
 import { visibleRepresentationAtomIds } from "../viewer/representationProjection";
 import { atomicRepresentationStyles } from "../viewer/settings";
 import type { InteractionChoices, InteractionRecord } from "./types";
 
-export function filterInteractions(records: InteractionRecord[], choices: InteractionChoices, structures: ViewerStructure[], isolation: AtomReference[] | null, nativeNonpolar?: ReadonlyMap<string, ReadonlySet<number>>): InteractionRecord[] {
+export function filterInteractions(records: InteractionRecord[], choices: InteractionChoices, structures: readonly ViewerVisibilitySource[], isolation: AtomReference[] | null, nativeNonpolar?: ReadonlyMap<string, ReadonlySet<number>>): InteractionRecord[] {
   const visible = new Map(structures.map(structure => {
     const isolated = isolation === null ? null : new Set(isolation.filter(ref => ref.structure_id === structure.entryId).map(ref => ref.atom_id));
     const atoms = new Map(structure.normalized.atoms.map(atom => [atom.id, atom]));

@@ -7647,3 +7647,49 @@ evidence; details explain the unavailable marker and retain Select atoms. Focus
 continues to require an installed eligible marker. No epsilon, scientific distance
 cutoff, detector change or substitute coordinate is introduced. Independent duplicate
 complete-ring input establishes this case without changing scientific classification.
+
+### D-164 C3 clarification — measured work and atomic drawing admission
+
+Equivalent ordinary and dense fixed-profile fixtures establish repeated visibility
+filtering and full-record serialization on unchanged camera/panel/receipt renders.
+Use one controller-local readonly projection of entry identity, normalized data,
+hierarchy and effective settings; compiler-narrow visibility helpers to these
+consumed fields. Reuse only when length, order and all field identities match.
+Memoize derived display work while keeping immutable-artifact evidence identity
+independent. Do not retain old renderer wrappers or create a global cache.
+
+A separate reproduced baseline defect permits one nearest-site salt contact to
+request an arbitrarily long group-center dashed line. Add atomic admission before
+engine representation updates and before builder allocation or previous-buffer
+access. The ceiling is 500,000 conservatively estimated segments: positive clashes
+require one, coincident clashes three, and patterned records reserve one extra
+complete cycle beyond ceil(distance / cycle length). The reserve covers iterative
+floating-point accumulation; a 7.1 Å salt line emits 21 segments although an ideal
+cycle calculation predicts 20. Safe arithmetic refuses unsafe/overflowing estimates.
+
+The pinned native builder uses 168 raw array bytes per segment: 84,000,000 bytes
+(about 80.1 MiB) at the ceiling. Estimated old/staging/GPU payload coexistence is
+approximately 392 MB before JavaScript, metadata and driver overhead. These are
+engineering admission estimates, not measured heap or latency guarantees. The
+ceiling leaves headroom for ordinary 20,000-record bounded-distance categories;
+the analysis record limit does not guarantee every admitted result can be drawn.
+
+An over-budget batch produces the existing display error with no partial installed
+keys/counts. Preserve detector output, participants, metric evidence and endpoints.
+Keep details/Select available, disable Focus without installed geometry, and allow
+a smaller cached target/type set to recover without rebuilding molecular sources
+or repeating chemistry. No truncation, coarsening, new scientific threshold,
+persistence/API change, production-deadline relaxation or source-failure bypass.
+
+### D-164 C3 clarification — contain expected drawing refusal
+
+After publishing the current native display error and removing its overlay, the
+engine completes only a typed drawing-admission refusal without rejecting the
+shared molecular queue. Request completion is not a claim of rendered readiness;
+the receipt remains authoritative. An expected display limit must not make an
+unchanged measurement acknowledgment or completed molecular synchronization report
+a persistent generic viewer error. Direct preflight/builders still throw the typed
+limit error, and unexpected native/source failures continue rejecting. Qualify
+no-op/actual measurement progress, source restoration, cached recovery and absence
+of the generic viewer-error banner. Error-inspection test helpers reject by default
+and require explicit opt-in to observe an expected queue rejection.

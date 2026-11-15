@@ -11,6 +11,7 @@ import { captureSelectionTarget, captureLigandTarget, resolveInteractionLigands 
 import { INTERACTION_KINDS, type InteractionDisplayState, type InteractionRecord, type InteractionResult } from "../interactions/types";
 import { useInteractionInspection, type InteractionNativeState } from "../interactions/useInteractionInspection";
 import { interactionKey } from "../interactions/useInteractions";
+import * as visibilityFilter from "../interactions/filter";
 import type { MolecularViewer, ViewerStructure } from "../viewer/MolecularViewer";
 import { componentHierarchy, molecularEntry, molecularProject, proteinStructure, viewerSettings } from "./molecular-fixtures";
 
@@ -73,6 +74,41 @@ it("reports shown records only from the matching final native receipt", () => {
   expect(h.result.current.panel.categories.hydrogen_bond.shown).toBeNull();
 });
 
+it("reuses display work across native receipts and changing irrelevant renderer wrappers", () => {
+  const filtering = vi.spyOn(visibilityFilter, "filterInteractions");
+  const h = fixture(), records = h.result.current.displayRecords, key = h.result.current.displayKey;
+  filtering.mockClear();
+  h.props.structures = h.props.structures.map(source => ({ ...source, atomIds: [...source.atomIds],
+    projection: { ...source.projection }, pockets: {} }));
+  h.rerender({ ...h.props });
+  h.acknowledge(); h.rerender({ ...h.props });
+  expect(filtering).not.toHaveBeenCalled();
+  expect(h.result.current.displayRecords).toBe(records);
+  expect(h.result.current.displayKey).toBe(key);
+  act(() => { h.result.current.panel.onAppearanceChange("hydrogen_bond", { width: 4 }); });
+  expect(filtering).not.toHaveBeenCalled();
+  expect(h.result.current.displayRecords).toBe(records);
+  expect(h.result.current.displayKey).not.toBe(key);
+  h.props.structures = h.props.structures.map((source, index) => index ? source : { ...source,
+    settings: { ...source.settings, components: { ...source.settings.components, ligands: false } } });
+  h.rerender({ ...h.props });
+  expect(filtering).toHaveBeenCalledOnce();
+  expect(h.result.current.displayRecords).toHaveLength(0);
+  expect(Object.keys(filtering.mock.calls[0][2][0]).sort()).toEqual(["entryId", "hierarchy", "normalized", "settings"]);
+});
+
+it.each(["entryId", "normalized", "hierarchy", "settings"] as const)("invalidates the display when the consumed %s source changes", field => {
+  const filtering = vi.spyOn(visibilityFilter, "filterInteractions");
+  const h = fixture(), before = h.result.current.displayRecords;
+  filtering.mockClear();
+  h.props.structures = h.props.structures.map((source, index) => index ? source : {
+    ...source, [field]: field === "entryId" ? "replacement-entry" : { ...source[field] },
+  });
+  h.rerender({ ...h.props });
+  expect(filtering).toHaveBeenCalledOnce();
+  expect(h.result.current.displayRecords).not.toBe(before);
+});
+
 it("retires shown counts and Focus during a native source failure without repeating chemistry", () => {
   const analyze = vi.spyOn(interactionApi, "analyze");
   const h = fixture(), key = interactionRecordKey(h.records[0]);
@@ -83,7 +119,7 @@ it("retires shown counts and Focus during a native source failure without repeat
   expect(h.result.current.panel.status.phase).toBe("error");
   expect(h.result.current.panel.status.message).toContain("molecular scene is unavailable");
   expect(h.result.current.panel.categories.hydrogen_bond.shown).toBeNull();
-  expect(h.result.current.panel.inspected?.focusUnavailable).toBeTruthy();
+  expect(h.result.current.panel.inspected?.focusUnavailable).toContain("display is unavailable");
   act(() => { h.result.current.panel.onFocusContact(key); });
   expect(h.focusAtoms).not.toHaveBeenCalled();
   const failedKey = h.result.current.displayKey;

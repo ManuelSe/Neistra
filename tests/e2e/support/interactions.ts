@@ -33,10 +33,10 @@ export async function frameFixture(page: Page) {
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
 }
 
-export const native = (page: Page) => page.evaluate(async () => {
+export const native = (page: Page, options: { allowQueueError?: boolean } = {}) => page.evaluate(async options => {
   const { inspectInteractions } = await import("/src/test/interactionHarness.ts");
-  return inspectInteractions(window.interactionEngines.at(-1)!);
-});
+  return inspectInteractions(window.interactionEngines.at(-1)!, options);
+}, options);
 export const cyanPixels = (page: Page) => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
   const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
   if (!gl) throw new Error("WebGL required");

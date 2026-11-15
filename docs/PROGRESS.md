@@ -2,38 +2,39 @@
 
 ## Current milestone
 
-Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C2 locally verified;
-C3 performance qualification next**. The
+Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C3 locally verified;
+C4 release preparation next**. The
 [feature contract](plans/issue-152-interaction-inspection.md) is **Authorized within
 agreed scope; not individually reviewed** under the owner's explicit delivery
 invocation. Work remains isolated on `feat/issue-152-interaction-inspection`.
 
-Completed: explicit captured targets, compact session controls, exact contact
-inspection/actions, faithful patterns/appearance, grouped warnings and native
-installed-count receipts. Corrections cover obsolete geometry, source-installation
-failure, isolation/rebuild ownership, reachable panel actions, focused-tooltip
-Escape, closed launcher feedback and coincident nonclash marker accounting.
+Completed: explicit session targets, compact inspection/actions, faithful patterns/
+appearance, grouped warnings and truthful native receipts. C3 removes measured warm
+filtering/serialization through a typed four-field visibility projection and semantic
+memoization. Whole-overlay drawing admission now bounds conservative geometry work,
+retains scientific contacts and permits cached recovery without a generic viewer error.
 
-Verification: focused scientific/API94, reader-tool16, Ruff/mypy218, web lint/types,
-all964 frontend tests/103 suites and build pass. Corrected native21 pass/one exact
-existing platform exclusion; prior integrated23 pass/five exact existing exclusions
-includes all four actual 100%/200% desktop zoom checks. No failures/flakes/retries,
-new exclusions or source drift. [C2 receipt](assets/interaction-inspection/c2-checkpoint.json)
-retains source-bound reports, logs, native observations and before-correction
-regressions. The original wrapper inventory mistake is preserved and independently
-reconciled against the preceding release; browser results are unchanged.
+Verification: web lint/types, all 980 frontend tests/105 suites and build pass.
+Strict normal native qualification passes 23 cases/one exact existing exclusion;
+the final affected budget workflow passes both layouts with zero skips/failures/flakes
+and unchanged source. Unaffected actual 100%/200% zoom evidence is retained from C2;
+complete release gates rerun every file. Focused Python (94 tests), reader-tool (16 tests) and
+Ruff/mypy (218 files) evidence is unchanged. [C3 receipt](assets/interaction-inspection/c3-checkpoint.json)
+retains before/after regressions, diagnostics, native observations and verified archives.
 
-Early role assessments inform corrections; final seven-role same-candidate review
-and full candidate/exact-master gates remain required. Application work is local;
-only C0 is pushed. No PR/release yet. Provisional additive minor remains0.33.0.
-The independently delivered 2D child#153 and fixed scientific profile remain separate.
+Performance: ordinary 1,010 atoms/79 records and dense 180/11,970 retain exact baseline
+scientific/native geometry digests. Warm camera/panel filtering and full-record key
+serialization fall from 14/drag to zero; six cached toggles use 12 instead of 36 calls.
+Synthetic 100k atoms/20k records retain 30 DOM rows and perform zero warm work.
+All 496 measured source hashes remain unchanged; 34 script references match saved bytes.
+Timing-boundary diagnostics are preserved; no latency speedup/strict-host/heap claim.
 
-Known limitations: coarse input coverage; existing chemistry/preparation boundaries.
-Baseline measurement demonstrates repeated display filtering/serialization; C3
-will compare the frozen candidate and reconcile a pre-existing extreme salt-group
-marker-length allocation risk without changing scientific detection.
-Blockers: none. Next action: commit C2, measure and qualify C3, then deliver C4–C5.
-Preserve every other session's checkout, processes, stores and ports.
+Known limits: existing chemistry/coarse input coverage and a separate 500k conservative
+segment drawing admission ceiling. No molecular/API/schema/dependency change.
+Only C0 is pushed; no application PR/release yet. The 2D child #153 remains separate.
+Final all-seven same-candidate review and fresh complete candidate/exact-master gates
+remain required. Next action: commit C3, prepare consistent 0.33.0 versions/tooling,
+then qualify and deliver C4–C5. Preserve every other session's resources.
 
 ### Previous completed milestone — issue #147
 

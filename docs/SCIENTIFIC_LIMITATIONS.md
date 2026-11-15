@@ -66,6 +66,15 @@ inspector labels that quantity separately from H···A, donor···acceptor, ce
 distances and clash overlap. No thresholds, classifications or preparation policy
 change with target or appearance controls.
 
+Native interaction drawing separately admits at most 500,000 conservatively
+estimated line segments. The complete overlay is refused atomically if it exceeds
+that display budget; detected contacts, exact metrics and participant selection
+remain available. A valid nearest charge-site distance can coexist with a very long
+charge-group-center marker, so the 20,000-record analysis ceiling does not guarantee
+drawing admission. No detector cutoff, endpoint substitution, pattern coarsening or
+partial scientific result is introduced. The segment ceiling is not a peak-memory
+or reference-host latency guarantee.
+
 ## Macromolecular Formats
 
 - PDB and PDBx/mmCIF connectivity does not establish reliable ligand bond
