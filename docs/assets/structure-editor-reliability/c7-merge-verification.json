@@ -1,0 +1,28 @@
+{
+  "verified_utc": "2026-11-15T13:25:19.572247+00:00",
+  "pr": 154,
+  "url": "https://github.com/ManuelSe/Neistra/pull/154",
+  "merged": true,
+  "merge_commit": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "reviewed_feature_head": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+  "comparison_base": "3f0fa1b990f6913c39f5afaf48027a2b5815be74",
+  "parents": [
+    "3f0fa1b990f6913c39f5afaf48027a2b5815be74",
+    "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a"
+  ],
+  "remote_master": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "reachable_on_remote_master": true,
+  "complete_reviewed_and_merged_trees_identical": true,
+  "tree": "69b819bc89d182b9bf7f348b529088c58de7d6a1",
+  "owner_checkout_head": "3f0fa1b990f6913c39f5afaf48027a2b5815be74",
+  "owner_checkout_preserved": true,
+  "owner_used_fix_worktree_preserved": true,
+  "external_review": {
+    "requested": true,
+    "request_url": "https://github.com/ManuelSe/Neistra/pull/154#issuecomment-6894978513",
+    "result_received": false,
+    "required_remote_review": false,
+    "no_human_approval_claimed": true
+  },
+  "no_tag_or_release_created": true
+}

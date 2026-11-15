@@ -1,12 +1,14 @@
 # Neistra Release Notes
 
-## 0.32.0 — Structure editor reliability (candidate)
+## 0.32.0 — Structure editor reliability
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
-Original PR #151 is merged. Owner-validation H fixes and canonical torsion-axis
-admission now pass a fresh complete corrected-candidate gate and all-seven runtime
-assessment. Normal corrective merge, same-head reporting reconfirmation and fresh
-complete exact-master qualification precede publication.
+Released as stable/latest [v0.32.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.32.0)
+through PRs #151 and #154 at exact qualified master `b8ecfdea49610d2d9ab611d4d68d86afc0c277c5`.
+Both complete fresh 35-step candidate/exact-master gates pass; all seven roles PASS
+the same reviewed head, whose complete tree matches the merge. The annotated tag,
+release/notes and anonymous asset readback verify. See the
+[delivery report](assets/structure-editor-reliability/c7-delivery-report.md).
 
 - Immutable projection identity prevents delayed reads from populating a newer
   artifact's cache. Molecular state and original uploads remain authoritative.
@@ -34,14 +36,13 @@ versions are required for the additive qualified-read/action/receipt contracts.
 Private recovery metadata is not durable execution evidence. Keep complete managed
 backups; preceding-reader retention does not qualify older authoring behavior.
 
-The corrected candidate passes all35 fresh commands: **2,246 Python/zero skips,
-863 frontend/96files,14 supervisor,469 browser/75 exact preceding exclusions across
-544cases**, zero failures/flakes/retries/new exclusions. All852 current/793 actual
+The corrected candidate passes all 35 fresh commands: **2,246 Python/zero skips,
+863 frontend/96 files,14 supervisor,469 browser/75 exact preceding exclusions across
+544cases**, zero failures/flakes/retries/new exclusions. All 852 current/793 actual
 preceding identities and lossless log hashes verify. Actual preceding readers retain
-and reexport15new-state projects/24transitions across both suffixes;636native outputs
+and reexport15 new-state projects/24 transitions across both suffixes;636 native outputs
 are retained. All seven specialist roles independently PASS the runtime candidate.
-These agent assessments do not replace required remote/human approvals. Exact-master
-qualification remains required after the corrective merge.
+These agent assessments do not replace required remote/human approvals. The fresh exact-master gate independently passes these same counts.
 
 The original candidate, before these owner-validation corrections, passes one
 complete clean 35-step gate: **2,165 Python/zero skips, 843 frontend, 14 supervisor, 467 browser/75 exact preceding exclusions across 542 cases**, with zero failures/flakes/retries/new exclusions. All 846 current/793
@@ -51,13 +52,13 @@ including preceding-writer retention/reexport, exact history and corruption/stal
 controls. Native qualification includes desktop 100%/200% zoom, both themes, mobile,
 Undo/originals and actual rendered rotation geometry. [Evidence](assets/structure-editor-reliability/README.md).
 
-Corrective focused evidence passes39 new scientific/API cases,863 frontend tests,
+Corrective focused evidence passes 39 new scientific/API cases,863 frontend tests,
 36 desktop/mobile native cases without exclusions/failures/retries, and nine static/
-build/version/license checks. A broader310-case scientific run has a docstring-only
-clarification during execution; the final39-case and static checks freeze its final
-source. Actual preceding-reader preflight covers15projects/24transitions and both
-suffixes, including the new aromatic and H-appearance states. These are focused
-checks, not a substitute for the new complete release gates.
+build/version/license checks. A broader 310-case scientific run has a docstring-only
+clarification during execution; the final 39-case and static checks freeze its final
+source. Actual preceding-reader preflight covers15 projects/24 transitions and both
+suffixes, including the new aromatic and H-appearance states. These historical focused
+checks do not replace the two complete release gates recorded above.
 
 **Deferred scope.** [#71](https://github.com/ManuelSe/Neistra/issues/71) receives only
 the five-fragment partial completion. New length/angle authoring [#149](https://github.com/ManuelSe/Neistra/issues/149)

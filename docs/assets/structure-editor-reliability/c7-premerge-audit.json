@@ -1,0 +1,20 @@
+{
+  "verified_utc": "2026-11-15T13:24:41.593368+00:00",
+  "repository": "ManuelSe/Neistra",
+  "pr": 154,
+  "head": "473615cdb2bf66a3536aca3ea92f0ddabf7e2d8a",
+  "base": "3f0fa1b990f6913c39f5afaf48027a2b5815be74",
+  "normal_merge_commit_allowed": true,
+  "delete_branch_on_merge": false,
+  "branch_protected": false,
+  "applicable_rules": [],
+  "mergeable_state": "clean",
+  "status_contexts": 0,
+  "check_runs": 0,
+  "review_states": {},
+  "unresolved_review_threads": 0,
+  "all_seven_same_head": true,
+  "review_receipt_sha256": "84f59ba4d0f08647ce28f55a8a812ea015156f1d58963c4121ab35296688e0b2",
+  "tag_absent": true,
+  "performed_merge": false
+}

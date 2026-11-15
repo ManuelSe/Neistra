@@ -1,5 +1,12 @@
 # Structure editor reliability — issue 147
 
+Current delivery: stable/latest [v0.32.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.32.0).
+The [delivery report](c7-delivery-report.md) records both complete fresh gates,
+all-seven same-head assessments, exact merged runtime, anonymous public asset
+verification, compatibility, limits and terminal closeout. Earlier checkpoint
+status statements below remain historical records of those candidates.
+
+
 The [authorized feature contract](../../plans/issue-147-structure-editor-reliability.md)
 owns scope. Evidence is checkpoint-specific until the complete final-version and
 exact-master release gates pass. Specialist planning/audit assessments are separate
