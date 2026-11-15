@@ -7693,3 +7693,12 @@ limit error, and unexpected native/source failures continue rejecting. Qualify
 no-op/actual measurement progress, source restoration, cached recovery and absence
 of the generic viewer-error banner. Error-inspection test helpers reject by default
 and require explicit opt-in to observe an expected queue rejection.
+
+### D-164 release preparation — compatible minor 0.33.0
+
+The additive captured-target inspector, retained visibility/appearance controls and
+truthful display receipts justify minor 0.33.0 from 0.32.0. All five authoritative
+versions move together. No dependency, schema or migration changes are introduced.
+The actual tagged 0.32.0 implementation successfully retains/reexports current-authored
+editing states in three isolated-process preflight phases. Both fresh complete gates,
+final same-candidate specialist review and protected publication remain separate.

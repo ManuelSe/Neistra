@@ -8,6 +8,7 @@ import importlib
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -19,6 +20,7 @@ from pathlib import Path
 from typing import Any, Literal, cast
 
 PREVIOUS_COMMIT = "cc54cd324c5aebe86024c1b85165715691ddcbb3"
+PREVIOUS_VERSION = "0.31.0"
 SUFFIXES = (".neistra.zip", ".molweave.zip")
 PROFILES = {
     "cyclopropyl": (3, 5),
@@ -37,7 +39,22 @@ def write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
 
 
-def identity(root: Path, expected: str, receipt: Path | None) -> dict[str, Any]:
+def verify_previous_receipt(record: dict[str, Any], version: str, tag: str, commit: str) -> None:
+    """Bind extracted source evidence to the requested actual tagged implementation."""
+    assert re.fullmatch(r"\d+\.\d+\.\d+", version), "Stable preceding version required"
+    assert tag == f"v{version}", "Preceding tag/version mismatch"
+    assert re.fullmatch(r"[0-9a-f]{40}", commit), "Full preceding commit required"
+    assert record["commit"] == commit and record["tag"] == tag
+    assert record["files"], "Preceding source identity inventory is empty"
+
+
+def identity(
+    root: Path,
+    expected: str,
+    receipt: Path | None,
+    previous_tag: str = f"v{PREVIOUS_VERSION}",
+    previous_commit: str = PREVIOUS_COMMIT,
+) -> dict[str, Any]:
     assert sys.flags.optimize == 0 and Path.cwd().resolve() == root
     versions = {
         "environment": tomllib.loads((root / "pyproject.toml").read_text())["project"]["version"],
@@ -86,7 +103,7 @@ def identity(root: Path, expected: str, receipt: Path | None) -> dict[str, Any]:
         paths[name] = {"path": str(path), "sha256": digest(path.read_bytes())}
     if receipt is not None:
         record = json.loads(receipt.read_text())
-        assert record["commit"] == PREVIOUS_COMMIT and record["tag"] == "v0.31.0"
+        verify_previous_receipt(record, expected, previous_tag, previous_commit)
         source = record["files"]
         for relative, expected_hash in source.items():
             assert digest((root / relative).read_bytes()) == expected_hash, relative
@@ -989,12 +1006,17 @@ def consume(
 
 
 def read_reexports(
-    client: Any, exchange: Path, previous_output: Path, version: str
+    client: Any,
+    exchange: Path,
+    previous_output: Path,
+    version: str,
+    previous_version: str = PREVIOUS_VERSION,
 ) -> dict[str, Any]:
     cases = {
         c["label"]: c for c in json.loads((exchange / "expectations.json").read_text())["cases"]
     }
     previous_evidence = json.loads((previous_output / "reexports.json").read_text())
+    assert previous_evidence["writer_version"] == previous_version
     files = previous_evidence["files"]
     for retained in previous_evidence["retained_projects"]:
         project = client.get(f"/api/v1/projects/{retained['project_id']}").json()
@@ -1003,7 +1025,7 @@ def read_reexports(
     retained_history(client, previous_evidence["allocator_case"])
     for item in files:
         data = Path(item["path"]).read_bytes()
-        assert digest(data) == item["sha256"] and item["writer_version"] == "0.31.0"
+        assert digest(data) == item["sha256"] and item["writer_version"] == previous_version
         for suffix in SUFFIXES:
             project = import_bytes(client, data, suffix, f"reverse-{item['case']}-{suffix}")
             assert_state(state(client, project), cases[item["case"]]["after"])
@@ -1020,7 +1042,9 @@ def read_reexports(
         "current_reexport_reimports": len(files) * 2,
         "retained_previous_writer_projects": len(previous_evidence["retained_projects"]),
         "retained_old_authored_generic_history": True,
-        "reverse_scope": "actual 0.31 writer re-exported current-authored state seeds",
+        "reverse_scope": (
+            f"actual {previous_version} writer re-exported current-authored state seeds"
+        ),
     }
 
 
@@ -1033,7 +1057,7 @@ def child(args: argparse.Namespace) -> None:
     from tests.support.api_client import ApiClient
 
     root, data = args.root.resolve(), args.data.resolve()
-    record = identity(root, args.version, args.receipt)
+    record = identity(root, args.version, args.receipt, args.previous_tag, args.previous_commit)
     if args.mode == "produce":
         command.upgrade(Config(str(root / "alembic.ini")), "head")
     app = create_app(Settings(data_dir=data, database_url=f"sqlite:///{data / 'neistra.db'}"))
@@ -1053,7 +1077,9 @@ def child(args: argparse.Namespace) -> None:
         elif args.mode == "consume":
             result = consume(client, args.exchange, args.output, args.version, retained=True)
         else:
-            result = read_reexports(client, args.exchange, args.previous_output, args.version)
+            result = read_reexports(
+                client, args.exchange, args.previous_output, args.version, args.previous_version
+            )
         verify_source(record)
         result.update(
             mode=args.mode,
@@ -1081,7 +1107,21 @@ def run(args: argparse.Namespace) -> None:
     work = args.workspace.resolve()
     assert not work.exists(), "Use a new disposable qualification workspace"
     assert not work.is_relative_to(root) and not work.is_relative_to(previous)
-    assert args.current_version == "0.32.0" or args.diagnostic
+    assert re.fullmatch(r"\d+\.\d+\.\d+", args.current_version), "Stable current version required"
+    verify_previous_receipt(
+        json.loads(args.previous_receipt.read_text()),
+        args.previous_version,
+        args.previous_tag,
+        args.previous_commit,
+    )
+    actual_commit = subprocess.check_output(
+        ["git", "rev-parse", f"{args.previous_tag}^{{}}"], cwd=root, text=True
+    ).strip()
+    assert actual_commit == args.previous_commit, "Preceding commit differs from actual Git tag"
+    if not args.diagnostic:
+        assert tuple(map(int, args.current_version.split("."))) > tuple(
+            map(int, args.previous_version.split("."))
+        ), "Release producer must follow the preceding version"
     work.mkdir(parents=True)
     exchange, output = work / "current-exchange", work / "previous-reexports"
     exchange.mkdir()
@@ -1128,6 +1168,12 @@ def run(args: argparse.Namespace) -> None:
             str(exchange),
             "--evidence",
             str(evidence),
+            "--previous-version",
+            args.previous_version,
+            "--previous-tag",
+            args.previous_tag,
+            "--previous-commit",
+            args.previous_commit,
             *extra,
         ]
         log = work / f"{mode}-{version}.log"
@@ -1157,7 +1203,7 @@ def run(args: argparse.Namespace) -> None:
     invoke(
         "consume",
         previous,
-        "0.31.0",
+        args.previous_version,
         retained,
         ["--output", str(output), "--receipt", str(args.previous_receipt.resolve())],
     )
@@ -1171,11 +1217,12 @@ def run(args: argparse.Namespace) -> None:
         ["--previous-output", str(output)],
     )
     result = {
-        "release_qualification": args.current_version == "0.32.0" and not args.diagnostic,
+        "release_qualification": not args.diagnostic,
         "diagnostic": args.diagnostic,
         "current_version": args.current_version,
-        "previous_version": "0.31.0",
-        "previous_commit": PREVIOUS_COMMIT,
+        "previous_version": args.previous_version,
+        "previous_tag": args.previous_tag,
+        "previous_commit": args.previous_commit,
         "phases": phases,
         "wrapper_sha256": digest(Path(__file__).read_bytes()),
         "scope": "new editing states; existing rich/connectivity and opaque-job families "
@@ -1186,7 +1233,7 @@ def run(args: argparse.Namespace) -> None:
             "Native archives omit portable Undo history; "
             "copied live stores exercise actual retained history.",
             *(
-                ["Final 0.32.0 source/version rerun is required after diagnostic qualification."]
+                ["Final source/version rerun is required after diagnostic qualification."]
                 if args.diagnostic
                 else []
             ),
@@ -1196,7 +1243,7 @@ def run(args: argparse.Namespace) -> None:
     print(json.dumps(result, indent=2))
 
 
-def main() -> None:
+def parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest="task", required=True)
     runner = subs.add_parser("run")
@@ -1206,16 +1253,26 @@ def main() -> None:
     runner.add_argument("--python", type=Path, required=True)
     runner.add_argument("--workspace", type=Path, required=True)
     runner.add_argument("--current-version", default="0.32.0")
+    runner.add_argument("--previous-version", default=PREVIOUS_VERSION)
+    runner.add_argument("--previous-tag", default=f"v{PREVIOUS_VERSION}")
+    runner.add_argument("--previous-commit", default=PREVIOUS_COMMIT)
     runner.add_argument("--diagnostic", action="store_true")
     worker = subs.add_parser("child")
     worker.add_argument("mode", choices=("produce", "consume", "read-reexports"))
     for name in ("root", "data", "exchange", "evidence"):
         worker.add_argument(f"--{name}", type=Path, required=True)
     worker.add_argument("--version", required=True)
+    worker.add_argument("--previous-version", default=PREVIOUS_VERSION)
+    worker.add_argument("--previous-tag", default=f"v{PREVIOUS_VERSION}")
+    worker.add_argument("--previous-commit", default=PREVIOUS_COMMIT)
     worker.add_argument("--receipt", type=Path)
     worker.add_argument("--output", type=Path)
     worker.add_argument("--previous-output", type=Path)
-    args = parser.parse_args()
+    return parser
+
+
+def main() -> None:
+    args = parser().parse_args()
     (run if args.task == "run" else child)(args)
 
 

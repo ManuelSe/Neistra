@@ -1,5 +1,51 @@
 # Neistra Release Notes
 
+## 0.33.0 — Targeted molecular interaction inspection
+
+Compatible minor for the [issue #152 contract](plans/issue-152-interaction-inspection.md).
+
+- Choose All visible, an explicit assigned ligand instance, or a captured selection.
+  Inter/Intra remains independent; selecting contact participants does not retarget
+  the captured inspection. Invalid or changed instances require explicit update.
+- Inspect paginated contacts with exact participants and type-specific geometry,
+  Focus installed markers, or select their complete canonical participant groups.
+  Direct grouped warnings retain known affected-site identities and preparation guidance.
+- Hide/reveal retained choices, collapse the anchored panel and adjust session-only
+  colors/widths. Faithful patterns, visible enabled marks and closed-launcher status
+  cues support both themes, narrow layouts, keyboard and actual browser zoom.
+- Native receipts distinguish detected contacts from successfully installed markers.
+  Stale tasks, previews, source failures and coincident endpoints cannot inflate shown
+  counts. Expected drawing-capacity refusal retains inspection/selection and permits
+  cached recovery without a stale generic viewer error.
+- Measured warm camera/panel work no longer repeats visibility filtering or full
+  record serialization. Whole-overlay preflight bounds conservative native geometry
+  work before allocation; scientific records, endpoints and detection remain unchanged.
+
+**Data and limits.** No dependency, persisted schema or migration change; head 0015,
+project/viewer/archive 2 and normalized/selection/component 1 remain. Original uploads,
+molecular state and history stay authoritative. Display choices last for the project
+session and reset on project switch/reload. The fixed interaction profile, explicit-H
+requirements and conservative input-coverage meaning remain unchanged.
+
+Drawing separately admits at most 500,000 conservatively estimated line segments.
+An over-budget overlay is refused atomically, with detected contacts/details/Select
+available. The 20,000-record detector ceiling does not guarantee drawing admission;
+no truncation, pattern coarsening, scientific cutoff, heap or latency guarantee is
+introduced. [Performance evidence](assets/interaction-inspection/c3-checkpoint.json)
+records exact geometry equivalence and work-count reductions; timing observations
+are not causal application-speedup or strict-host claims.
+
+**Scope dispositions.** The independently delivered [2D child #153](https://github.com/ManuelSe/Neistra/issues/153)
+remains separate. Durable ligand designation #11, chemistry assignment #52 and molecular
+image export #128 remain independent. Per-contact canvas text is optional and deferred;
+precise evidence is available in the inspector. No new detector, interaction family,
+automatic preparation, energy or affinity inference is included.
+
+The [source-bound evidence](assets/interaction-inspection/README.md) distinguishes
+local checkpoints from the two mandatory complete release gates, actual preceding
+readers, final seven-role specialist review and verified publication receipts.
+Agent review does not replace required human/GitHub approvals.
+
 ## 0.32.0 — Structure editor reliability
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
