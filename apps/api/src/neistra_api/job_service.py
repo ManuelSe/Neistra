@@ -449,7 +449,11 @@ class JobService:
             "created_at": utc_now().isoformat(),
         }
         result.imported_entry_ids = [*result.imported_entry_ids, entry_id]
-        project_read = ProjectService(self.session).import_job_result(
+        project_read = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).import_job_result(
             project.id, expected_revision, entry_state, job.id
         )
         return project_read, entry_id

@@ -42,7 +42,7 @@ class WorkspacePresentation(Base):
 
 
 class Project(Base):
-    __tablename__ = "projects"
+    __tablename__ = "project_documents_v3"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     name: Mapped[str] = mapped_column(String(120))
@@ -76,11 +76,37 @@ class Project(Base):
     jobs: Mapped[list[Job]] = relationship(back_populates="project", cascade="all, delete-orphan")
 
 
+class LigandDepictionCache(Base):
+    """Regenerable derived output; never authoritative ligand designation."""
+
+    __tablename__ = "ligand_depiction_cache"
+
+    cache_key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    input_hash: Mapped[str] = mapped_column(String(64))
+    artifact_id: Mapped[str] = mapped_column(ForeignKey("artifacts.id", ondelete="RESTRICT"))
+    implementation: Mapped[str] = mapped_column(String(80))
+    library_version: Mapped[str] = mapped_column(String(80))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandDepictionBinding(Base):
+    __tablename__ = "ligand_depiction_bindings"
+
+    request_key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    cache_key: Mapped[str] = mapped_column(
+        ForeignKey("ligand_depiction_cache.cache_key", ondelete="CASCADE")
+    )
+    summary: Mapped[dict[str, Any]] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
 class EntryGroup(Base):
     __tablename__ = "entry_groups"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     parent_id: Mapped[str | None] = mapped_column(
         ForeignKey("entry_groups.id", ondelete="SET NULL"), nullable=True
     )
@@ -97,7 +123,9 @@ class StructureEntry(Base):
     __tablename__ = "structure_entries"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     group_id: Mapped[str | None] = mapped_column(
         ForeignKey("entry_groups.id", ondelete="SET NULL"), nullable=True
     )
@@ -119,6 +147,9 @@ class StructureEntry(Base):
     visible: Mapped[bool] = mapped_column(Boolean, default=True)
     locked: Mapped[bool] = mapped_column(Boolean, default=False)
     user_metadata: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    ligand_designation: Mapped[dict[str, Any]] = mapped_column(
+        JSON, default=lambda: {"schema_version": 1, "status": "unresolved"}
+    )
     dirty: Mapped[bool] = mapped_column(Boolean, default=False)
     job_links: Mapped[list[str]] = mapped_column(JSON, default=list)
     generated_results: Mapped[list[str]] = mapped_column(JSON, default=list)
@@ -141,7 +172,9 @@ class CommandRecord(Base):
     __table_args__ = (UniqueConstraint("project_id", "position"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     position: Mapped[int] = mapped_column(Integer)
     command_type: Mapped[str] = mapped_column(String(80))
     description: Mapped[str] = mapped_column(String(240))
@@ -160,7 +193,9 @@ class SavedSelection(Base):
     __table_args__ = (UniqueConstraint("project_id", "name"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     name: Mapped[str] = mapped_column(String(120))
     atom_references: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
     granularity: Mapped[str] = mapped_column(String(16), default="atom")
@@ -177,7 +212,9 @@ class Measurement(Base):
     __tablename__ = "measurements"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     name: Mapped[str] = mapped_column(String(120))
     kind: Mapped[str] = mapped_column(String(16))
     atom_references: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
@@ -196,7 +233,9 @@ class Scene(Base):
     __table_args__ = (UniqueConstraint("project_id", "name"),)
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     name: Mapped[str] = mapped_column(String(120))
     camera: Mapped[dict[str, Any]] = mapped_column(JSON)
     entry_states: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
@@ -225,7 +264,9 @@ class Job(Base):
     __tablename__ = "jobs"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE")
+    )
     plugin_name: Mapped[str] = mapped_column(String(120))
     job_type: Mapped[str] = mapped_column(String(120))
     implementation_version: Mapped[str] = mapped_column(String(64))

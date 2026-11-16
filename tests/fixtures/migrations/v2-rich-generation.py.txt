@@ -1,0 +1,46 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import sqlite3
+import zipfile
+from pathlib import Path
+
+from alembic import command
+from alembic.config import Config
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
+from tests.integration.test_archive_roundtrip import build_rich_project
+from tests.support.api_client import ApiClient
+
+root = Path('/tmp/neistra158-historical-rich-0014-attempt3')
+assert not (root / 'neistra.db').exists(), 'Preserve any prior fixture database'
+root.mkdir(exist_ok=True)
+command.upgrade(Config('alembic.ini'), '0014')
+app = create_app(Settings(data_dir=root, database_url=f'sqlite:///{root / "neistra.db"}'))
+client = ApiClient(app)
+project = build_rich_project(client)
+reply = client.post(f'/api/v1/projects/{project["id"]}/save', json={'expected_revision':project['revision']})
+assert reply.status_code == 200, reply.text
+project = reply.json()
+changed = client.patch(f'/api/v1/projects/{project["id"]}', json={'expected_revision':project['revision'],'name':'Migration edit'})
+assert changed.status_code == 200, changed.text
+recovered = client.post(f'/api/v1/projects/{project["id"]}/history/undo',json={'expected_revision':changed.json()['revision']})
+assert recovered.status_code == 200, recovered.text
+project = recovered.json()
+assert project['history']['can_redo'] and project['checkpoint_revision'] > 0
+assert project['saved_selections'] and project['measurements'] and project['scenes']
+app.state.engine.dispose()
+with sqlite3.connect(root/'neistra.db') as connection:
+ connection.execute('PRAGMA wal_checkpoint(TRUNCATE)')
+ tables=[r[0] for r in connection.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")]
+ counts={t:connection.execute('SELECT count(*) FROM "'+t+'"').fetchone()[0] for t in tables}
+ assert 'projects' in counts and 'workspace_presentations' not in counts
+files={p.relative_to(root).as_posix():p.read_bytes() for p in root.rglob('*') if p.is_file() and not p.name.endswith(('-wal','-shm'))}
+manifest={'source_tag':'v0.33.0','source_commit':'d8636064263f6221c402665da52a4a1738570845','migration_head':'0014','counts':counts,'project_id':project['id'],'retained_redo':True,'checkpoint_revision':project['checkpoint_revision'],'files':{n:{'sha256':hashlib.sha256(b).hexdigest(),'size':len(b)} for n,b in sorted(files.items())}}
+out=Path('/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/fixtures/migrations/v2-rich-project-0014.zip')
+out.parent.mkdir(parents=True,exist_ok=True);assert not out.exists()
+with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED) as z:
+ for n,b in sorted(files.items()):z.writestr(n,b)
+ z.writestr('manifest.json',json.dumps(manifest,indent=2)+'\n')
+print(out,out.stat().st_size,counts,hashlib.sha256(out.read_bytes()).hexdigest())

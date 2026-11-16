@@ -1,3 +1,4 @@
+import { unresolvedLigandDesignation } from "../ligands/types";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { projectApi } from "../api/client";
 import { surfaceObject } from "./molecular-fixtures";
@@ -68,6 +69,7 @@ function entry(id: string, visible: boolean) {
   return {
     id,
     group_id: null,
+    ligand_designation: unresolvedLigandDesignation(),
     name: id === "protein" ? "Receptor" : "Ligand",
     description: null,
     structure_type: id === "protein" ? ("protein" as const) : ("ligand" as const),
@@ -95,7 +97,7 @@ function entry(id: string, visible: boolean) {
 
 function project(proteinVisible = true, ligandVisible = false): Project {
   return {
-    schema_version: 2,
+    schema_version: 3,
     id: "project-1",
     name: "Viewer project",
     description: null,

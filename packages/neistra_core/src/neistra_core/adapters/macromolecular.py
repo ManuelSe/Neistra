@@ -18,6 +18,7 @@ from neistra_core.hydrogen_protection import (
     protection_annotation,
     protection_import_warnings,
 )
+from neistra_core.ligands.source_evidence import SOURCE_EVIDENCE_KEY, capture_mmcif_source
 from neistra_core.molecular import (
     Atom,
     Bond,
@@ -495,6 +496,7 @@ class MmcifAdapter:
                     filename=filename,
                     operation="import",
                 )
+            ligand_source_evidence = capture_mmcif_source(block, data)
             structure = gemmi.make_structure_from_block(block)
         except AdapterError:
             raise
@@ -512,6 +514,14 @@ class MmcifAdapter:
             categories=list(block.get_mmcif_category_names()),
             infer_bonds=import_options.infer_bonds,
         )
+        normalized = normalized.model_copy(update={
+            "source": normalized.source.model_copy(update={
+                "facts": {
+                    **normalized.source.facts,
+                    SOURCE_EVIDENCE_KEY: ligand_source_evidence,
+                },
+            }),
+        })
         return ParseResult(structures=(normalized,))
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:

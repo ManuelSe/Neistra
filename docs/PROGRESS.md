@@ -4,9 +4,11 @@
 
 Parent#11required156–163program remains active through verified release and closeout. Independent158pre-code preparation uses this isolatedworktree fromC0248807ec;156implementation/versioncandidate qualification continues in the originalprogramworktree. Publication order and finite dependencies/exclusions are unchanged.
 
-Completed here: existing parent/child plans reconciled, read-only architecture/theory/scientific-implementation/UX refinements and concrete158durability/source-qualification/compatibility contract persisted beforecode. Frozen dependencies installed in this worktree's own environment without lockfile changes. No158runtime implementation, test qualification, PR, release or closure is claimed.
+Implemented in the independent158worktree: exact candidate inventory/source qualification; first-class durable designation; conservative disposable2Dchemistry; schema3/0016older-reader fence; exact molecular/history/duplicate/archive reconciliation; controlled legacy-default enrichment preserving all200retained history/redo records; bounded depiction admission/cache; compact inspected-entry chooser with explicitUse/Clear. This is an initial vertical checkpoint, not finished delivery. No application push/PR/release/closure.
 
-Known limits: original source/protection facts must qualify chemistry; preceding directreaders need a real refusal fence, since checkpoint numbers alone do not prevent loss. Blockers: none requiring owner scope changes. Next: implement158coherent domain/durability slice under its contract, integrate actual preceding156/157delivery before final candidate gates. Preserve otherworktrees and the frozen156source.
+Verification:217focused domain/API/scientific cases,133historical migration cases,14finaldesignation cases,1,011frontend cases/108suites, Ruff, API/coremypy227, web lint/types/build pass. Native3passes4desktop/mobiletheme workflows with zero failures/flakes/retries; failed locator/StrictMode attempts remain diagnostics in [checkpoint evidence](assets/ligand-designation/c12-checkpoint.json). Ordinary large-chunk build warnings remain.
+
+Known limits: source-qualified chemistry only; candidate extraH/layout cap does not bound original parse/index work. Depiction aggregate accounting conservatively counts sharedcontent references. Assessment revision is historical provenance after archive import, never current-input freshness. Blockers: none requiring owner scope changes. Next: actual100/200zoom and fuller native lifecycle/negative cases, actualtaggedreader refusal and complete158gates/reviews; integrate verified preceding156/157master before publication.156remains frozen in its own candidate3release gate; finite program dependencies/exclusions are unchanged.
 
 ### Previous completed milestone — issue #152
 
@@ -1576,7 +1578,7 @@ feature merge; this documentation-only closeout records the remote evidence.
   Cartoon, Reset, multi-entry atomic commands, and existing hierarchy selection.
 - Classified every significant issue #7 requirement; deferred advanced
   presentation and presets, reused existing related issues, and rejected copied
-  Maestro design, a duplicate Ribbon value, and a duplicate Molecule granularity.
+  reference interface design, a duplicate Ribbon value, and a duplicate Molecule granularity.
 - Selected a backward-compatible minor release from v0.3.0 to v0.4.0 based on
   additive user-visible, viewer-settings, command, API, migration, scene, and
   archive behavior without a molecular, project-state, archive-major, or

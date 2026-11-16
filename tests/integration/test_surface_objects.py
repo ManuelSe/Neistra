@@ -82,7 +82,7 @@ def test_three_kinds_and_same_entry_objects_are_independent_reversible_and_molec
     )
     assert response.status_code == 200, response.text
     changed = response.json()
-    assert changed["schema_version"] == 2
+    assert changed["schema_version"] == 3
     assert changed["revision"] == project["revision"] + 1
     surfaces = deepcopy(objects(changed, receptor["id"]))
     assert len(surfaces) == len({surface["id"] for surface in surfaces}) == 4
@@ -206,7 +206,7 @@ def test_surface_scenes_checkpoints_and_archives_preserve_ids_and_remap_seeds(cl
     ).json()
     assert objects(project, receptor["id"]) == expected
     exported = export_archive(client, project["id"], "surface-objects")
-    assert exported["manifest_schema_version"] == 2
+    assert exported["manifest_schema_version"] == 3
     restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
         "project"
     ]

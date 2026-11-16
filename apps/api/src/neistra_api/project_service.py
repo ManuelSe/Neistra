@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from copy import deepcopy
 from datetime import UTC, datetime
 from typing import Any
 
+from neistra_core.ligands.candidates import resolve_candidates
+from neistra_core.ligands.models import RESOLVER_VERSION, LigandDesignationV1
+from neistra_core.ligands.reconcile import initial_designation, reconcile_designation
+from neistra_core.molecular import NormalizedStructureV1
 from neistra_core.selection import SelectionV1
 from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import Session
@@ -50,7 +55,7 @@ from neistra_api.viewer_state import (
 )
 
 HISTORY_LIMIT = 200
-PROJECT_STATE_SCHEMA_VERSION = 2
+PROJECT_STATE_SCHEMA_VERSION = 3
 
 
 class ProjectNotFoundError(LookupError):
@@ -101,6 +106,9 @@ def _entry_state(entry: StructureEntry) -> dict[str, Any]:
         "visible": entry.visible,
         "locked": entry.locked,
         "user_metadata": deepcopy(entry.user_metadata),
+        "ligand_designation": LigandDesignationV1.model_validate(
+            entry.ligand_designation or {}
+        ).model_dump(mode="json"),
         "job_links": deepcopy(entry.job_links),
         "generated_results": deepcopy(entry.generated_results),
         "original_artifact_id": entry.original_artifact_id,
@@ -272,8 +280,86 @@ def project_read(
 
 
 class ProjectService:
-    def __init__(self, session: Session) -> None:
+    def __init__(
+        self,
+        session: Session,
+        *,
+        load_structure: Callable[[str], NormalizedStructureV1] | None = None,
+        load_original_bytes: Callable[[str], bytes] | None = None,
+    ) -> None:
         self.session = session
+        self.load_structure = load_structure
+        self.load_original_bytes = load_original_bytes
+
+    def _original_bytes(self, artifact_id: str | None) -> bytes | None:
+        if artifact_id and self.load_original_bytes:
+            return self.load_original_bytes(artifact_id)
+        return None
+
+    @staticmethod
+    def _assessed_designation(
+        value: LigandDesignationV1, revision: int | None = None,
+    ) -> LigandDesignationV1:
+        return value.model_copy(update={
+            "resolver_version": RESOLVER_VERSION, "assessed_at": datetime.now(UTC),
+            "assessed_revision": revision,
+        })
+
+    def _initial_entry(self, state: dict[str, Any]) -> dict[str, Any]:
+        result = deepcopy(state)
+        if "ligand_designation" in result:
+            designation = LigandDesignationV1.model_validate(result["ligand_designation"])
+        elif result.get("current_artifact_id") and self.load_structure:
+            artifact_id = str(result["current_artifact_id"])
+            structure = self.load_structure(artifact_id)
+            inventory = resolve_candidates(
+                structure, original_bytes=self._original_bytes(result.get("original_artifact_id")),
+            )
+            designation = self._assessed_designation(initial_designation(inventory, artifact_id))
+        else:
+            designation = LigandDesignationV1()
+        result["ligand_designation"] = designation.model_dump(mode="json")
+        return result
+
+    def _next_designation(
+        self, entry: StructureEntry, artifact_id: str, revision: int | None = None,
+    ) -> dict[str, Any]:
+        designation = LigandDesignationV1.model_validate(entry.ligand_designation or {})
+        if designation.status in {"cleared", "stale"}:
+            return self._assessed_designation(designation.model_copy(update={
+                "source_artifact_id": artifact_id,
+            }), revision).model_dump(mode="json")
+        if not self.load_structure:
+            if designation.status == "resolved":
+                raise InvalidProjectOperationError(
+                    "Ligand reconciliation requires a verified molecular source loader"
+                )
+            return LigandDesignationV1(
+                source_artifact_id=artifact_id, reason_code="molecular_source_loader_unavailable",
+            ).model_dump(mode="json")
+        after = self.load_structure(artifact_id)
+        inventory = resolve_candidates(
+            after, original_bytes=self._original_bytes(entry.original_artifact_id),
+        )
+        if not entry.current_artifact_id:
+            return self._assessed_designation(
+                initial_designation(inventory, artifact_id), revision,
+            ).model_dump(mode="json")
+        before = self.load_structure(entry.current_artifact_id)
+        return self._assessed_designation(reconcile_designation(
+            designation, before, after, inventory, artifact_id,
+        ), revision).model_dump(mode="json")
+
+    @staticmethod
+    def _apply_designation(entry: StructureEntry, value: Any) -> None:
+        designation = LigandDesignationV1.model_validate(value)
+        if designation.source_artifact_id not in {None, entry.current_artifact_id}:
+            raise InvalidProjectOperationError("Ligand source is no longer current")
+        if designation.status == "resolved" and not set(designation.atom_ids).issubset(
+            set(entry.atom_ids)
+        ):
+            raise InvalidProjectOperationError("Ligand membership is no longer current")
+        entry.ligand_designation = designation.model_dump(mode="json")
 
     def list_projects(self) -> list[ProjectListItem]:
         projects = self.session.scalars(select(Project).order_by(Project.modified_at.desc())).all()
@@ -365,6 +451,8 @@ class ProjectService:
         )
         duplicate["name"] = self._copy_name(project, entry.name)
         duplicate["created_at"] = datetime.now(UTC).isoformat()
+        if duplicate["ligand_designation"].get("instance_id"):
+            duplicate["ligand_designation"]["instance_id"] = _uuid()
         return self._record(
             project,
             "entry.duplicate",
@@ -390,7 +478,10 @@ class ProjectService:
             project,
             "entry.import",
             f"Import {len(entry_states)} structures from {file_count} files",
-            [{"kind": "entry.create", "entry": state} for state in entry_states],
+            [
+                {"kind": "entry.create", "entry": self._initial_entry(state)}
+                for state in entry_states
+            ],
             [{"kind": "entry.delete", "entry_id": entry_id} for entry_id in reversed(entry_ids)],
             entry_ids,
         )
@@ -408,7 +499,7 @@ class ProjectService:
             project,
             "model.create",
             f"Create molecule {entry_state['name']}",
-            [{"kind": "entry.create", "entry": entry_state}],
+            [{"kind": "entry.create", "entry": self._initial_entry(entry_state)}],
             [{"kind": "entry.delete", "entry_id": entry_id}],
             [entry_id],
         )
@@ -427,7 +518,7 @@ class ProjectService:
             project,
             "job.result.import",
             f"Import result from job {job_id[:8]}",
-            [{"kind": "entry.create", "entry": entry_state}],
+            [{"kind": "entry.create", "entry": self._initial_entry(entry_state)}],
             [{"kind": "entry.delete", "entry_id": entry_id}],
             [entry_id],
         )
@@ -1363,6 +1454,9 @@ class ProjectService:
                     "entry_id": entry.id,
                     "artifact_id": str(change["after_artifact_id"]),
                     "patch": after_patch.model_dump(mode="json"),
+                    "ligand_designation": self._next_designation(
+                        entry, str(change["after_artifact_id"]), project.revision + 1,
+                    ),
                 }
             )
             inverse.insert(
@@ -1372,6 +1466,7 @@ class ProjectService:
                     "entry_id": entry.id,
                     "artifact_id": str(change["before_artifact_id"]),
                     "patch": before_patch.model_dump(mode="json"),
+                    "ligand_designation": deepcopy(entry.ligand_designation),
                 },
             )
             if "after_warnings" in change:
@@ -1466,6 +1561,9 @@ class ProjectService:
                     "entry_id": entry.id,
                     "artifact_id": str(change["after_artifact_id"]),
                     "values": deepcopy(change["after_values"]),
+                    "ligand_designation": self._next_designation(
+                        entry, str(change["after_artifact_id"]), project.revision + 1,
+                    ),
                     "next_atom_id": int(change["next_atom_id"]),
                     "next_bond_id": int(change["next_bond_id"]),
                 }
@@ -1477,6 +1575,7 @@ class ProjectService:
                     "entry_id": entry.id,
                     "artifact_id": str(change["before_artifact_id"]),
                     "values": deepcopy(change["before_values"]),
+                    "ligand_designation": deepcopy(entry.ligand_designation),
                 },
             )
             deleted = set(deleted_by_entry.get(entry.id, []))
@@ -1660,6 +1759,57 @@ class ProjectService:
                 }
             )
 
+    def _adapt_legacy_designation_history(
+        self, project: Project, command: CommandRecord, *, undo: bool,
+    ) -> None:
+        """Persist both exact intent snapshots on the first legacy molecular replay."""
+        actions = deepcopy(command.inverse_actions if undo else command.forward_actions)
+        opposite = deepcopy(command.forward_actions if undo else command.inverse_actions)
+        changed = False
+        adapted_entries: set[str] = set()
+        for action in actions:
+            if action["kind"] == "entry.delete":
+                entry = self._entry(project, action["entry_id"])
+                for paired in opposite:
+                    if paired["kind"] != "entry.create" or not paired.get("ligand_default_pending"):
+                        continue
+                    state = paired["entry"]
+                    if state["id"] == entry.id and \
+                            state.get("current_artifact_id") == entry.current_artifact_id:
+                        state["ligand_designation"] = deepcopy(entry.ligand_designation)
+                        paired.pop("ligand_default_pending")
+                        changed = True
+            elif action["kind"] == "entry.create" and action.get("ligand_default_pending"):
+                state = deepcopy(action["entry"])
+                if LigandDesignationV1.model_validate(state.get("ligand_designation", {})) \
+                        == LigandDesignationV1():
+                    state.pop("ligand_designation", None)
+                    state = self._initial_entry(state)
+                action["entry"] = state
+                action.pop("ligand_default_pending")
+                changed = True
+            if action["kind"] not in {"entry.coordinates", "entry.molecule"}:
+                continue
+            if "ligand_designation" in action:
+                continue
+            entry = self._entry(project, action["entry_id"])
+            pairs = [item for item in opposite if item["kind"] == action["kind"]
+                     and item["entry_id"] == entry.id
+                     and item["artifact_id"] == entry.current_artifact_id]
+            if len(pairs) != 1 or entry.id in adapted_entries:
+                raise InvalidProjectOperationError(
+                    "Legacy molecular history has no unambiguous inverse ligand state"
+                )
+            action["ligand_designation"] = self._next_designation(
+                entry, action["artifact_id"], project.revision + 1,
+            )
+            pairs[0]["ligand_designation"] = deepcopy(entry.ligand_designation)
+            adapted_entries.add(entry.id)
+            changed = True
+        if changed:
+            command.inverse_actions = actions if undo else opposite
+            command.forward_actions = opposite if undo else actions
+
     def undo(self, project_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -1671,6 +1821,7 @@ class ProjectService:
         )
         if command is None:
             raise HistoryUnavailableError("Nothing to undo")
+        self._adapt_legacy_designation_history(project, command, undo=True)
         self._apply(project, command.inverse_actions)
         command.is_applied = False
         self._touch(project)
@@ -1693,6 +1844,7 @@ class ProjectService:
         )
         if command is None:
             raise HistoryUnavailableError("Nothing to redo")
+        self._adapt_legacy_designation_history(project, command, undo=False)
         self._apply(project, command.forward_actions)
         command.is_applied = True
         self._touch(project)
@@ -1841,15 +1993,27 @@ class ProjectService:
                 for key, value in action["values"].items():
                     setattr(entry, key, deepcopy(value))
                 entry.modified_at = datetime.now(UTC)
+            elif kind == "entry.ligand":
+                entry = self._entry(project, action["entry_id"])
+                self._apply_designation(entry, action["designation"])
+                entry.modified_at = datetime.now(UTC)
             elif kind == "entry.coordinates":
                 entry = self._entry(project, action["entry_id"])
+                designation = action.get("ligand_designation")
+                if designation is None:
+                    designation = self._next_designation(entry, action["artifact_id"])
                 entry.current_artifact_id = action["artifact_id"]
+                self._apply_designation(entry, designation)
                 entry.modified_at = datetime.now(UTC)
             elif kind == "entry.molecule":
                 entry = self._entry(project, action["entry_id"])
+                designation = action.get("ligand_designation")
+                if designation is None:
+                    designation = self._next_designation(entry, action["artifact_id"])
                 entry.current_artifact_id = action["artifact_id"]
                 for key, value in action["values"].items():
                     setattr(entry, key, deepcopy(value))
+                self._apply_designation(entry, designation)
                 if "next_atom_id" in action:
                     entry.next_atom_id = max(entry.next_atom_id, int(action["next_atom_id"]))
                 if "next_bond_id" in action:
@@ -1900,6 +2064,9 @@ class ProjectService:
                         visible=state["visible"],
                         locked=state["locked"],
                         user_metadata=deepcopy(state["user_metadata"]),
+                        ligand_designation=LigandDesignationV1.model_validate(
+                            state.get("ligand_designation", {})
+                        ).model_dump(mode="json"),
                         job_links=deepcopy(state["job_links"]),
                         generated_results=deepcopy(state["generated_results"]),
                         original_artifact_id=state["original_artifact_id"],

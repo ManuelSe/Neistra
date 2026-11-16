@@ -1,3 +1,4 @@
+import type { LigandDesignation } from "../ligands/types";
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
 export type HydrogenPolicy = "preserve" | "complete_if_possible" | "reconcile_if_possible" | "automatic";
@@ -114,6 +115,7 @@ export interface MolecularWarning {
 }
 
 export interface Entry {
+  ligand_designation: LigandDesignation;
   id: string;
   group_id: string | null;
   name: string;
@@ -341,7 +343,7 @@ export interface History {
 }
 
 export interface Project {
-  schema_version: 2;
+  schema_version: 3;
   id: string;
   name: string;
   description: string | null;
@@ -826,7 +828,7 @@ export interface BatchExportResult {
 
 export interface ArchiveExportResult {
   artifact: Artifact;
-  manifest_schema_version: 2;
+  manifest_schema_version: 3;
   source_revision: number;
 }
 

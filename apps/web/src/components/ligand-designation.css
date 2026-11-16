@@ -1,0 +1,54 @@
+.ligand-designation-controls { flex: 0 0 auto; min-width: 0; padding: 8px 10px; border-bottom: 1px solid var(--border); background: var(--surface); font-size: var(--text-xs); }
+.ligand-designation-heading { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.ligand-entry-choice { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; }
+.ligand-entry-choice select { width: 100%; min-width: 0; min-height: 32px; color: var(--text); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font: inherit; }
+.ligand-designation-summary { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.ligand-designation-current { flex: 1 1 0; min-width: 0; }
+.ligand-designation-current > strong, .ligand-designation-current > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ligand-designation-current > span { color: var(--text-soft); margin-top: 2px; }
+.ligand-designation-summary .secondary-button { min-height: 32px; padding: 4px 8px; font-size: var(--text-xs); }
+.ligand-designation-clear { flex: 0 0 auto; white-space: nowrap; min-height: 32px; border: 0; background: transparent; color: var(--text-soft); cursor: pointer; font: inherit; }
+.ligand-designation-clear:disabled { opacity: .55; cursor: default; }
+.ligand-designation-empty, .ligand-designation-notice { color: var(--text-soft); line-height: 1.4; margin: 6px 0 0; }
+.ligand-designation-error { color: var(--danger); font-size: var(--text-sm); margin: 6px 0; overflow-wrap: anywhere; }
+.dialog-content.ligand-candidate-dialog { display: flex; flex-direction: column; width: min(720px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow: hidden; }
+.ligand-candidate-header { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ligand-candidate-header h2 { font-size: var(--text-lg); margin: 0; }
+.ligand-candidate-header p { margin: 4px 0 0; color: var(--text-soft); font-size: var(--text-sm); overflow-wrap: anywhere; }
+.ligand-candidate-header h2:focus { outline: none; }
+.ligand-candidate-body { min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 12px; }
+.ligand-candidate-loading { display: flex; gap: 8px; align-items: center; font-size: var(--text-sm); }
+.ligand-candidate-fieldset { min-width: 0; margin: 0; border: 0; padding: 0; }
+.ligand-candidate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ligand-candidate-card { min-width: 0; padding: 8px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: var(--surface); }
+.ligand-candidate-card[data-checked="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-soft); }
+.ligand-candidate-choice { display: block; min-width: 0; cursor: pointer; }
+.ligand-candidate-choice-title { display: flex; align-items: flex-start; gap: 8px; min-height: 44px; }
+.ligand-candidate-choice-title input { flex: 0 0 auto; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--accent); }
+.ligand-candidate-choice-title > span { min-width: 0; overflow-wrap: anywhere; }
+.ligand-candidate-choice-title strong { display: block; font-size: var(--text-md); }
+.ligand-candidate-choice-title span span, .ligand-candidate-choice-title small { display: block; font-size: var(--text-xs); color: var(--text-soft); margin-top: 3px; }
+.ligand-candidate-current { display: inline-block; margin: 4px 0 6px; padding: 3px 5px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: var(--text-xs); }
+.ligand-candidate-depiction { display: grid; place-items: center; width: 100%; min-width: 0; aspect-ratio: 4 / 3; margin: 5px 0 7px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fff; color: #555b63; font-size: var(--text-sm); text-align: center; }
+.ligand-candidate-depiction img { display: block; width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+.ligand-candidate-composition, .ligand-candidate-facts { display: block; margin-top: 4px; overflow-wrap: anywhere; font-size: var(--text-sm); }
+.ligand-candidate-facts { color: var(--text-soft); font-size: var(--text-xs); }
+.ligand-candidate-warning { color: var(--warning); background: var(--warning-soft); padding: 6px; font-size: var(--text-xs); line-height: 1.45; overflow-wrap: anywhere; }
+.ligand-candidate-information { margin-top: 6px; font-size: var(--text-xs); }
+.ligand-candidate-information summary { min-height: 32px; display: list-item; align-content: center; cursor: pointer; }
+.ligand-candidate-information ul { padding-left: 18px; overflow-wrap: anywhere; }
+.ligand-candidate-information dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 5px 8px; margin: 4px 0; }
+.ligand-candidate-information dt { color: var(--text-soft); }
+.ligand-candidate-information dd { margin: 0; overflow-wrap: anywhere; }
+.ligand-candidate-retry { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 4px 7px; background: var(--surface); color: var(--text); font: inherit; }
+.ligand-candidate-footer { flex: 0 0 auto; border-top: 1px solid var(--border); padding: 8px 12px; background: var(--surface); }
+.ligand-candidate-pagination { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: var(--text-xs); }
+.ligand-candidate-draft { margin: 5px 0; max-height: 3.8em; overflow: auto; overflow-wrap: anywhere; line-height: 1.4; font-size: var(--text-xs); }
+.ligand-candidate-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.ligand-candidate-actions button { min-height: 36px; }
+.ligand-entry-choice select:focus-visible, .ligand-designation-clear:focus-visible, .ligand-candidate-choice-title input:focus-visible, .ligand-candidate-information summary:focus-visible, .ligand-candidate-retry:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 560px) { .ligand-candidate-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (any-pointer: coarse), (max-width: 840px) {
+  .ligand-entry-choice select, .ligand-designation-summary .secondary-button, .ligand-designation-clear, .ligand-candidate-actions button, .ligand-candidate-retry, .ligand-candidate-information summary, .ligand-candidate-header .icon-button, .ligand-candidate-pagination .icon-button { min-height: 44px; }
+  .ligand-candidate-header .icon-button, .ligand-candidate-pagination .icon-button { min-width: 44px; }
+}

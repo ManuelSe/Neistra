@@ -172,7 +172,11 @@ class SelectionEditService(LigandEditService):
             if normalized_data is None:
                 raise ValueError("Prepared edit is missing its normalized payload")
             artifact = self.artifacts.publish(normalized_data, filename, NORMALIZED_MEDIA_TYPE)
-        return ProjectService(self.session).record_molecular_change(
+        return ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_molecular_change(
             entry.project_id,
             expected_revision,
             f"{prepared.command_prefix}.{prepared.operation}",

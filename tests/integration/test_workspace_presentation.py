@@ -312,11 +312,11 @@ def test_camera_is_excluded_from_archives_and_import_does_not_replace_it(client:
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
         manifest_text = archive.read("manifest.json").decode()
         manifest = json.loads(manifest_text)
-        assert manifest["schema_version"] == 2
+        assert manifest["schema_version"] == 3
         assert '"fov"' not in manifest_text
         assert "workspace_presentations" not in manifest_text
         assert "workspace_presentation" not in manifest_text
     restored = import_archive(client, data)["project"]
-    assert restored["schema_version"] == 2
+    assert restored["schema_version"] == 3
     assert restored["scenes"][0]["camera"] == project["scenes"][0]["camera"]
     assert client.get(PATH).json() == saved

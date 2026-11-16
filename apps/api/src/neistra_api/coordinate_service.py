@@ -86,7 +86,11 @@ class CoordinateService:
             )
             if moved:
                 prepared.append((entry, before, after, atom_ids))
-        service = ProjectService(self.session)
+        service = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        )
         if not prepared:
             return service.get_project(project.id)
         changes = [
@@ -152,7 +156,11 @@ class CoordinateService:
         )
         action = self._transform_action(payload)
         scope = "structure" if payload.scope == "structure" else f"{len(atom_ids)} selected atoms"
-        return ProjectService(self.session).record_coordinate_change(
+        return ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_coordinate_change(
             project.id,
             payload.expected_revision,
             "coordinates.transform",
@@ -188,7 +196,11 @@ class CoordinateService:
             atom_ids,
             after_artifact_id,
         )
-        project_read = ProjectService(self.session).record_coordinate_change(
+        project_read = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_coordinate_change(
             project.id,
             payload.expected_revision,
             "coordinates.superpose",

@@ -23,7 +23,7 @@ def test_both_names_share_exact_archive_content_and_preserve_source(client: ApiC
         assert artifact["media_type"] == "application/vnd.molweave.project+zip"
         exports.append(client.get(artifact["download_url"]).content)
     assert exports[0] == exports[1] == exports[2]
-    assert archive_manifest(exports[2])["schema_version"] == 2
+    assert archive_manifest(exports[2])["schema_version"] == 3
     assert client.get(path).json() == before
     for filename in [
         "current.neistra.zip",

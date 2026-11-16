@@ -10,6 +10,7 @@ from neistra_core.editing.hydrogen import HydrogenReport
 from neistra_core.editing.model import HydrogenPolicy, ModelAction, ModelElement
 from neistra_core.editing.reconciliation import ReconciliationReport
 from neistra_core.editing.selection import SelectionAction
+from neistra_core.ligands.models import LigandDesignationV1
 from neistra_core.molecular import MolecularWarning, NormalizedStructureV1
 from neistra_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator, model_validator
@@ -475,7 +476,7 @@ class ViewerSettingsV2(BaseModel):
 ViewerSettings = ViewerSettingsV2
 
 
-class EntryRead(BaseModel):
+class EntryReadV2(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: str
@@ -502,6 +503,10 @@ class EntryRead(BaseModel):
     generated_results: list[str]
     created_at: datetime
     modified_at: datetime
+
+
+class EntryRead(EntryReadV2):
+    ligand_designation: LigandDesignationV1 = Field(default_factory=LigandDesignationV1)
 
 
 class HistoryRead(BaseModel):
@@ -592,8 +597,28 @@ class TopologyPatch(BaseModel):
     artifact_id: str
 
 
-class ProjectRead(BaseModel):
+class ProjectReadV2(BaseModel):
     schema_version: Literal[2] = 2
+    id: str
+    name: str
+    description: str | None
+    revision: int
+    checkpoint_revision: int
+    has_uncheckpointed_changes: bool
+    created_at: datetime
+    modified_at: datetime
+    entries: list[EntryReadV2]
+    groups: list[GroupRead]
+    saved_selections: list[SavedSelectionRead]
+    measurements: list[MeasurementRead]
+    scenes: list[SceneRead]
+    history: HistoryRead
+    structure_patches: list[CoordinatePatch] = Field(default_factory=list)
+    topology_patches: list[TopologyPatch] = Field(default_factory=list)
+
+
+class ProjectRead(BaseModel):
+    schema_version: Literal[3] = 3
     id: str
     name: str
     description: str | None
@@ -1370,7 +1395,7 @@ class ArchiveExportCreate(BaseModel):
 
 class ArchiveExportRead(BaseModel):
     artifact: ArtifactRead
-    manifest_schema_version: Literal[2] = 2
+    manifest_schema_version: Literal[3] = 3
     source_revision: int = Field(ge=0)
 
 

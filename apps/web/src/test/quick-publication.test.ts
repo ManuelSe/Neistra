@@ -281,3 +281,12 @@ it("a malformed recovery project retains a retryable guard", async () => {
 it("only a completed calculation can carry valid recorded-application evidence", () => {
   expect(() => quickApplicationReceipt({ ...job(6), status: "running" }, attempt())).toThrow("evidence");
 });
+
+it("an older project document cannot confirm a new coordinate publication", async () => {
+  const { ports, session } = harness();
+  vi.mocked(ports.sendApply).mockRejectedValue(new Error("response lost"));
+  vi.mocked(ports.readProject).mockResolvedValue({ ...project(6), schema_version: 2 } as unknown as Project);
+  await expect(session.start(attempt())).rejects.toThrow("invalid project");
+  expect(ports.acceptProject).not.toHaveBeenCalled();
+  expect(session.snapshot(P).phase).toBe("uncertain");
+});

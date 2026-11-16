@@ -27,7 +27,7 @@ const definiteRejection = (error: unknown) => {
   return typeof status === "number" && status >= 400 && status < 500 && status !== 409;
 };
 function checkedProject(project: Project, projectId: string): Project {
-  if (!project || typeof project !== "object" || project.schema_version !== 2 ||
+  if (!project || typeof project !== "object" || project.schema_version !== 3 ||
     project.id !== projectId || !Number.isSafeInteger(project.revision) || project.revision < 0 ||
     ![project.entries, project.groups, project.saved_selections, project.measurements,
       project.scenes, project.structure_patches, project.topology_patches].every(Array.isArray) ||

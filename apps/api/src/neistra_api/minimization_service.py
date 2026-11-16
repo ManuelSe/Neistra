@@ -484,7 +484,11 @@ class MinimizationService:
                 "acknowledged_nonconvergence": nonconverged and payload.acknowledge_nonconvergence,
             },
         }
-        return ProjectService(self.session).record_molecular_changes(
+        return ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_molecular_changes(
             project_id,
             payload.expected_revision,
             JOB_TYPE,

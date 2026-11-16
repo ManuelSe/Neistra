@@ -1,3 +1,7 @@
+import { completeLegacyLigands } from "./ligands/resolve";
+import { LigandDesignationControls } from "./components/LigandDesignationControls";
+import { ligandApi } from "./ligands/api";
+import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
 import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
 import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
 import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
@@ -480,6 +484,54 @@ export default function App() {
   const editBlocked = editAttemptBlocksWrites(editAttempt);
   const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying || publicationBlocked || editBlocked;
   const readBusy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || (minimizationApplying && !publicationBlocked);
+  const ligandEntryId = useNavigationStore(state => state.projectId === activeProjectId ? state.inspectedEntryId : null);
+  const ligandEditingPreview = useEditingStore(state => !!state.placement?.result || !!state.rotationDraft);
+  const ligandMinimizationPreview = useMinimizationStore(state => state.preview);
+  const ligandPausedReason = coordinatePreview || ligandEditingPreview || ligandMinimizationPreview
+    || movement.state.phase !== "idle" ? "Preview — values unavailable. Finish the current preview to change the ligand choice."
+    : publicationBlocked || editBlocked ? "Reconcile the pending molecular change before choosing a ligand." : null;
+  const ligandGuard = useRef({ projectId: activeProjectId, paused: ligandPausedReason, busy });
+  ligandGuard.current = { projectId: activeProjectId, paused: ligandPausedReason, busy };
+  useLegacyLigandResolution({
+    project, activeProjectId, priorityEntryId: ligandEntryId,
+    blocked: busy || !!ligandPausedReason,
+    resolve: (captured, entryIds) => completeLegacyLigands(captured, entryIds, {
+      current: id => useWorkspaceStore.getState().activeProjectId === id && !ligandGuard.current.paused,
+      resolve: (source, ids) => commandMutation.mutateAsync(captureProjectCommand(source.id, () => {
+        if (useWorkspaceStore.getState().activeProjectId !== source.id || ligandGuard.current.paused) {
+          throw new ApiError(409, "ligand_context_changed", "Ligand recognition paused after the context changed.");
+        }
+        return ligandApi.resolve(source.id, source.revision, ids);
+      }, "quiet")),
+      read: projectApi.get,
+      accept: updateProjectCache,
+    }),
+    onError: (owner, error) => {
+      if (owner === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: "error", text: errorMessage(error) });
+    },
+  });
+  const ligandControls = project ? <LigandDesignationControls project={project} entryId={ligandEntryId}
+    onInspectEntry={id => useNavigationStore.getState().inspect(project.id, id)}
+    pausedReason={ligandPausedReason} busy={busy}
+    onDesignate={async (entry, candidateKey, inputHash) => {
+      const owner = project.id;
+      const captured = queryClient.getQueryData<Project>(["project", owner]);
+      const latest = captured?.entries.find(item => item.id === entry.id);
+      if (useWorkspaceStore.getState().activeProjectId !== owner || ligandGuard.current.paused
+        || ligandGuard.current.busy || captured?.revision !== project.revision
+        || latest?.current_artifact_id !== entry.current_artifact_id) {
+        throw new ApiError(409, "ligand_context_changed", "The ligand context changed. Inspect the current candidate before choosing it.");
+      }
+      await commandMutation.mutateAsync(captureProjectCommand(owner, () => {
+        if (ligandGuard.current.paused || useWorkspaceStore.getState().activeProjectId !== owner) {
+          throw new ApiError(409, "ligand_context_changed", "The ligand context changed before the choice was submitted.");
+        }
+        return ligandApi.designate(owner, entry.id, {
+          expected_revision: captured.revision, expected_artifact_id: entry.current_artifact_id,
+          ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
+        });
+      }));
+    }} /> : null;
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -1340,6 +1392,7 @@ export default function App() {
                       />
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
+                        ligandControls={ligandControls}
                         project={project}
                         busy={busy}
                         {...inspectorSelectionProps}
@@ -1521,6 +1574,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectInspector
+                        ligandControls={ligandControls}
                     project={project}
                     busy={busy}
                     {...inspectorSelectionProps}
