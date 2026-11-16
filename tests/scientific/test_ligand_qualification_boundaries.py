@@ -31,6 +31,8 @@ def test_exact_original_query_or_dummy_is_selectable_without_qualified_chemistry
     inventory = resolve_candidates(structure, original_bytes=original)
     candidate = inventory.automatic_candidate
     assert candidate is not None and candidate.selectable
+    expected_count = None if "*" in pattern else 1 if pattern == "[C;H3]" else 2
+    assert candidate.heavy_atom_count == expected_count
     chemistry = qualify_chemistry(structure, candidate.atom_ids, original_bytes=original)
     assert chemistry.status == "unavailable"
     assert chemistry.reason == "query_or_dummy_representation_unsupported"
@@ -41,6 +43,43 @@ def test_exact_original_query_or_dummy_is_selectable_without_qualified_chemistry
     drawing = depict_ligand(structure, candidate.atom_ids, original_bytes=original)
     assert drawing.status == "unavailable" and drawing.svg is None
     assert structure.to_bytes() == before
+
+
+@pytest.mark.parametrize("smiles,expected", [("[13CH4]", 1), ("[2H][3H]", 0), ("[2H]O[2H]", 1)])
+def test_nuclear_counts_preserve_isotopes_and_distinguish_zero(smiles: str, expected: int) -> None:
+    original = f"{smiles} isotope\n".encode()
+    structure = SmilesAdapter().parse(original, "isotope.smi").structures[0]
+    assert resolve_candidates(structure, original_bytes=original).candidates[0].heavy_atom_count \
+        == expected
+
+
+@pytest.mark.parametrize("element", ["Xx", "*", "D", "T"])
+def test_undefined_elements_do_not_become_known_heavy_counts(element: str) -> None:
+    original = b"C known\n"
+    structure = SmilesAdapter().parse(original, "known.smi").structures[0]
+    # This isolates the independent count of canonical sites, without claiming
+    # that these modified atoms have qualified chemistry or source provenance.
+    structure = structure.model_copy(update={"atoms": [
+        structure.atoms[0].model_copy(update={"element": element}), *structure.atoms[1:],
+    ]})
+    candidate = resolve_candidates(structure).candidates[0]
+    assert candidate.heavy_atom_count == (0 if element in {"D", "T"} else None)
+
+
+@pytest.mark.parametrize("missing", ["charge", "bond_order"])
+def test_missing_chemistry_does_not_erase_known_nuclear_counts(missing: str) -> None:
+    structure = SmilesAdapter().parse(b"CCO example\n", "known.smi").structures[0]
+    if missing == "charge":
+        structure = structure.model_copy(update={"atoms": [
+            atom.model_copy(update={"formal_charge": None}) for atom in structure.atoms
+        ]})
+    else:
+        structure = structure.model_copy(update={"bonds": [
+            bond.model_copy(update={"order": None}) for bond in structure.bonds
+        ]})
+    candidate = resolve_candidates(structure).candidates[0]
+    assert candidate.heavy_atom_count == 3
+    assert qualify_chemistry(structure, candidate.atom_ids).status == "unavailable"
 
 
 @pytest.mark.parametrize("smiles", ["O", "[2H]O[2H]", "[18OH2]"])

@@ -1,0 +1,55 @@
+{
+  "archive": {
+    "bytes": 323835,
+    "file": "c2-image-recovery-diagnostics.zip",
+    "outer_manifest_entries": 30,
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c2-image-recovery-diagnostics.zip",
+    "sha256": "002695db00b60438d08952230e289ea28219d280829df7929c79496c7a040640",
+    "verification_counts": {
+      "evidence_manifest_entries": 30,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "checks_logs": [
+    "neistra158-c2-image-recovery-after.log",
+    "neistra158-c2-image-recovery-after2.log",
+    "neistra158-c2-image-recovery-before.log",
+    "neistra158-c2-image-recovery-broad.log",
+    "neistra158-c2-image-recovery-build.log",
+    "neistra158-c2-image-recovery-lint.log",
+    "neistra158-c2-image-recovery-lint2.log",
+    "neistra158-c2-image-recovery-native-types.log",
+    "neistra158-c2-image-recovery-python-types2.log",
+    "neistra158-c2-image-recovery-ruff.log",
+    "neistra158-c2-image-recovery-ruff2.log",
+    "neistra158-c2-image-recovery-status-build.log",
+    "neistra158-c2-image-recovery-status-controls.log",
+    "neistra158-c2-image-recovery-status-lint.log",
+    "neistra158-c2-image-recovery-status-types.log",
+    "neistra158-c2-image-recovery-status-web-all.log",
+    "neistra158-c2-image-recovery-types.log",
+    "neistra158-c2-image-recovery-web-all.log",
+    "neistra158-c2-known-count-after.log",
+    "neistra158-c2-known-count-after2.log",
+    "neistra158-c2-known-count-before.log"
+  ],
+  "known_limits": "Native custom TypeScript command diagnostic omitted JSX and exposed existing helper type/absolute-module errors; it is not a declared successful gate. Default web types/lint/build pass. Initial native identical-image/coalescing failure remains in the separate native archive. No thresholds/timeouts/skips/retries are weakened. Current Python5 is separate.",
+  "python3": {
+    "child_exit": 0,
+    "head": "c62feb37f4f8b5bf2cac38a2943907836c48f0bd",
+    "outer_cause": "Unestablished; retain independently from child receipt.",
+    "outer_tool_exit": 143,
+    "passed": 2664,
+    "skipped": 0
+  },
+  "python4": {
+    "exit": 1,
+    "failed": 3,
+    "failure": "Injected exit/descriptor/unicode controls instead reached the unchanged0.3second worker deadline. Same34case file passed unmodified in isolation. No full-suite pass or causal resource claim.",
+    "passed": 2671,
+    "skipped": 0,
+    "source_unchanged": true
+  },
+  "scope": "Historical/scoped recovery diagnostics, separate from current full qualification"
+}

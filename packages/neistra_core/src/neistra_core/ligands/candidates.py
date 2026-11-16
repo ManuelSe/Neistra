@@ -7,6 +7,8 @@ import json
 from collections import Counter, defaultdict
 from typing import Any
 
+from rdkit import Chem
+
 from neistra_core.components import ION_ELEMENTS, POLYMER_CATEGORIES, derive_component_hierarchy
 from neistra_core.ligands.chemistry import PreparedLigandChemistry, prepare_chemistry
 from neistra_core.ligands.models import (
@@ -21,10 +23,15 @@ from neistra_core.ligands.source_evidence import (
     assess_mmcif_source,
     known_covalent_bond_ids,
 )
-from neistra_core.molecular import NormalizedStructureV1
+from neistra_core.molecular import Atom, NormalizedStructureV1
 
 _SMALL_FORMATS = {"mol", "sdf", "mol2", "smiles", "smi"}
 _MACRO_FORMATS = {"pdb", "mmcif", "cif"}
+_ATOMIC_NUMBERS = {
+    Chem.GetPeriodicTable().GetElementSymbol(number): number for number in range(1, 119)
+}
+# Counting aliases only; source isotope and representation facts stay intact.
+_ATOMIC_NUMBERS.update({"D": 1, "T": 1})
 
 
 def _hash(value: Any) -> str:
@@ -42,6 +49,16 @@ def _neutral_water(molecule: Any, formal_charge: int | None) -> bool:
         atom.GetNumExplicitHs() + atom.GetNumImplicitHs() for atom in molecule.GetAtoms()
     )
     return composition == {8: 1, 1: 2}
+
+
+def _known_heavy_count(atoms: list[Atom]) -> int | None:
+    count = 0
+    for atom in atoms:
+        number = _ATOMIC_NUMBERS.get(atom.element)
+        if number is None:
+            return None
+        count += int(number > 1)
+    return count
 
 
 def resolve_candidates(
@@ -293,7 +310,7 @@ def resolve_candidates(
                     else []
                 )
                 + (["authored_hydrogen_connectivity"] if group_key in authored_h_groups else []),
-                heavy_atom_count=sum(a.element not in {"H", "D"} for a in group_atoms),
+                heavy_atom_count=_known_heavy_count(group_atoms),
                 formal_charge=sum(
                     a.formal_charge for a in group_atoms if a.formal_charge is not None
                 )

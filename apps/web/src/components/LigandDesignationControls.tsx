@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Hexagon, LoaderCircle, RotateCw, X } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { ApiError } from "../api/client";
 import type { Entry, Project } from "../api/types";
 import { ligandApi } from "../ligands/api";
@@ -19,7 +19,7 @@ interface LigandDesignationControlsProps {
 }
 
 const PAGE_SIZE = 12;
-const POLICY = "ligand-instance-v2";
+const POLICY = "ligand-instance-v3";
 const CHEMISTRY_POLICY = "ligand-exact-representation-v2";
 const DRAWING_POLICY = "ligand-2d-v1";
 const abortError = () => new DOMException("The depiction request was cancelled", "AbortError");
@@ -318,7 +318,13 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
             && response.implementation === DRAWING_POLICY
             && (response.status !== "ready" || response.input_hash === candidate.chemical_input_hash)
             ? response : undefined;
-          return <article className="ligand-candidate-card" data-checked={currentChosen?.key === candidate.candidate_key || undefined} key={candidate.candidate_key}>
+          const imageSource = JSON.stringify([
+            sourceKey(project, entry), offset, inventory?.input_hash, Boolean(pausedReason),
+            candidate.candidate_key, currentDrawing?.input_hash, currentDrawing?.artifact?.id,
+            currentDrawing?.artifact?.sha256, currentDrawing?.artifact?.download_url, drawing.isError,
+          ]);
+          return <DepictionRecovery key={candidate.candidate_key} source={imageSource}>{recovery =>
+            <article className="ligand-candidate-card" data-checked={currentChosen?.key === candidate.candidate_key || undefined}>
             <label className="ligand-candidate-choice"><span className="ligand-candidate-choice-title"><input type="radio" name={groupId}
               aria-label={label} checked={currentChosen?.key === candidate.candidate_key}
               disabled={!selectable.has(candidate.candidate_key) || busy || Boolean(pausedReason)}
@@ -326,16 +332,29 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
               <span><strong>{candidate.label}</strong><span>{locationLabel(candidate)}</span><small>Instance {offset + index + 1}</small></span></span>
               {isCurrent ? <span className="ligand-candidate-current">Current designation</span> : null}
               <Depiction candidate={candidate} drawing={currentDrawing} pending={drawing.isFetching}
-                failed={drawing.isError} paused={Boolean(pausedReason)} />
+                failed={drawing.isError} paused={Boolean(pausedReason)} recovery={recovery} />
               <span className="ligand-candidate-composition">{pausedReason ? "Composition unavailable during preview"
                 : candidate.formula ?? "Formula unavailable"}</span>
-              <span className="ligand-candidate-facts">{!pausedReason && candidate.molecular_weight !== null
-                ? `MW ${candidate.molecular_weight.toFixed(2)} g/mol · ` : ""}{candidate.heavy_atom_count} heavy atoms
-                {!pausedReason && candidate.formal_charge !== null ? ` · charge ${candidate.formal_charge > 0 ? "+" : ""}${candidate.formal_charge}` : ""}</span>
+              <span className="ligand-candidate-facts">{pausedReason ? "Atom counts unavailable during preview" : <>
+                {candidate.molecular_weight !== null ? `MW ${candidate.molecular_weight.toFixed(2)} g/mol · ` : ""}
+                {candidate.heavy_atom_count === null ? `${candidate.atom_ids.length} atom sites` : `${candidate.heavy_atom_count} heavy atoms`}
+                {candidate.formal_charge !== null ? ` · charge ${candidate.formal_charge > 0 ? "+" : ""}${candidate.formal_charge}` : ""}
+              </>}</span>
             </label>
+            <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+              {recovery.announcement ? `${recovery.announcement} ${label}.` : ""}
+            </span>
             {!selectable.has(candidate.candidate_key) ? <p className="ligand-candidate-warning">Not selectable: {candidate.reason_codes.map(readableReason).join("; ") || "A complete molecule boundary is unavailable."}</p> : null}
-            {(drawing.isError || currentDrawing?.status === "busy") && !pausedReason ? <button type="button" className="ligand-candidate-retry"
-              disabled={drawing.isFetching} onClick={() => { void drawing.refetch(); }}><RotateCw size={14} aria-hidden="true" /> Retry 2D</button> : null}
+            {(drawing.isError || currentDrawing?.status === "busy" || recovery.failed) && !pausedReason ? <button type="button" className="ligand-candidate-retry"
+              disabled={drawing.isFetching} onClick={event => {
+                if (recovery.failed) {
+                  if (recovery.retry()) {
+                    const radio = event.currentTarget.closest("article")?.querySelector<HTMLInputElement>("input[type=radio]");
+                    if (radio && !radio.disabled) radio.focus({ preventScroll: true });
+                    else heading.current?.focus({ preventScroll: true });
+                  }
+                } else void drawing.refetch();
+              }}><RotateCw size={14} aria-hidden="true" /> Retry 2D</button> : null}
             <details className="ligand-candidate-information"><summary>Instance details</summary><dl>
               <dt>Boundary</dt><dd>{candidate.boundary_status === "qualified" ? "Qualified molecule" : candidate.boundary_status === "source_instance" ? "Source-assigned instance" : "Unsupported boundary"}</dd>
               <dt>Components</dt><dd>{candidate.component_ids.join(", ") || "Not recorded"}</dd>
@@ -346,7 +365,7 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
               {!pausedReason && currentDrawing?.reason ? <><dt>2D</dt><dd>{readableReason(currentDrawing.reason)}</dd></> : null}
               {candidate.reason_codes.length ? <><dt>Warnings</dt><dd>{candidate.reason_codes.map(readableReason).join("; ")}</dd></> : null}
             </dl></details>
-          </article>;
+          </article>}</DepictionRecovery>;
         })}</div>
       </fieldset>
     </div>
@@ -365,13 +384,65 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
   </Dialog.Content></Dialog.Portal>;
 }
 
-function Depiction({ candidate, drawing, pending, failed, paused }: {
+interface ImageRecovery {
+  token: string | null;
+  failed: boolean;
+  announcement: string;
+  onError: () => void;
+  onLoad: () => void;
+  retry: () => boolean;
+}
+
+function DepictionRecovery({ source, children }: { source: string; children: (state: ImageRecovery) => ReactNode }) {
+  const currentOwner = useRef({ source });
+  if (currentOwner.current.source !== source) currentOwner.current = { source };
+  const owner = currentOwner.current;
+  const active = useRef(true);
+  type Attempt = { owner: typeof owner; token: string | null; phase: "idle" | "failed" | "retrying" | "loaded" };
+  const [state, setState] = useState<Attempt | null>(null);
+  useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
+  const attempt: Attempt = state?.owner === owner ? state : { owner, token: null, phase: "idle" };
+  const onError = () => {
+    if (!active.current || currentOwner.current !== owner) return;
+    setState(previous => {
+      const current: Attempt = previous?.owner === owner ? previous : { owner, token: null, phase: "idle" };
+      return current.token !== attempt.token || current.phase === "failed" ? previous : { ...current, phase: "failed" };
+    });
+  };
+  const onLoad = () => {
+    if (!active.current || currentOwner.current !== owner || !attempt.token) return;
+    setState(previous => {
+      if (previous?.owner !== owner || previous.token !== attempt.token || previous.phase !== "retrying") return previous;
+      return { ...previous, phase: "loaded" };
+    });
+  };
+  const retry = () => {
+    if (!active.current || currentOwner.current !== owner) return false;
+    setState({ owner, token: crypto.randomUUID(), phase: "retrying" });
+    return true;
+  };
+  const announcement = attempt.phase === "failed" ? "2D could not be loaded. Retry 2D is available for"
+    : attempt.phase === "retrying" ? "Retrying 2D for" : attempt.phase === "loaded" ? "2D loaded for" : "";
+  return children({ token: attempt.token, failed: attempt.phase === "failed", announcement, onError, onLoad, retry });
+}
+
+function imageUrl(url: string, retryToken: string | null): string {
+  if (!retryToken) return url;
+  const retry = new URL(url, window.location.href);
+  retry.searchParams.set("neistra_image_retry", retryToken);
+  return retry.href;
+}
+
+function Depiction({ candidate, drawing, pending, failed, paused, recovery }: {
   candidate: LigandCandidate; drawing: LigandDepictionRead | undefined; pending: boolean; failed: boolean; paused: boolean;
+  recovery: ImageRecovery;
 }) {
   return <span className="ligand-candidate-depiction">
-    {!paused && drawing?.status === "ready" && drawing.artifact ? <img src={drawing.artifact.download_url}
+    {!paused && !failed && !recovery.failed && drawing?.status === "ready" && drawing.artifact ? <img
+      key={`${drawing.artifact.id}:${recovery.token ?? "initial"}`} src={imageUrl(drawing.artifact.download_url, recovery.token)}
+      onError={recovery.onError} onLoad={recovery.onLoad}
       alt={`2D depiction of ${candidate.label}, ${locationLabel(candidate)}`} width={240} height={180} />
-      : <span>{paused ? "2D unavailable during preview" : pending ? "Preparing 2D…" : failed ? "2D could not be loaded"
+      : <span>{paused ? "2D unavailable during preview" : failed || recovery.failed ? "2D could not be loaded" : pending ? "Preparing 2D…"
         : drawing?.status === "busy" ? "2D is busy" : "2D unavailable"}</span>}
   </span>;
 }

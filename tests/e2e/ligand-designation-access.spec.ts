@@ -242,3 +242,96 @@ test("keeps exact ligand draft, scrolling, cancellation and focus usable at 320 
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(stale);
   await info.attach("narrow-ligand-access", { body: JSON.stringify(evidence), contentType: "application/json" });
 });
+
+test("recovers failed SVG downloads and decoding without changing ligand intent", async ({ page, request }, info) => {
+  test.setTimeout(150_000);
+  await page.setViewportSize({ width: 320, height: 700 });
+  // Different molecules have independent image URLs. Identical occurrences
+  // intentionally share an artifact and a browser-coalesced failed download.
+  const images = { name: "independent-images.smi", mimeType: "chemical/x-daylight-smiles",
+    buffer: Buffer.from("CCO.CCN independent image requests\n") };
+  const project = await prepare(page, request, [images], "Ligand image recovery");
+  const originalUrl = `/api/v1/projects/${project.id}/entries/${project.entries[0].id}/original`;
+  const original = await (await request.get(originalUrl)).body();
+  let failure: "network" | "decode" | null = null;
+  let failedUrl = "";
+  let metadataRequests = 0;
+  const imageRequests: string[] = [];
+  page.on("request", outgoing => {
+    if (new URL(outgoing.url()).pathname.endsWith("/depiction")) metadataRequests += 1;
+  });
+  await page.route(/\/api\/v1\/artifacts\//, async route => {
+    if (route.request().resourceType() !== "image") { await route.continue(); return; }
+    imageRequests.push(route.request().url());
+    const mode = failure;
+    if (mode) {
+      failure = null;
+      failedUrl = route.request().url();
+      if (mode === "network") await route.abort("failed");
+      else await route.fulfill({ status: 200, contentType: "image/svg+xml",
+        headers: { "cache-control": "no-store" }, body: "This is not a decodable SVG." });
+    } else await route.continue();
+  });
+  const evidence = [];
+  for (const theme of ["light", "dark"] as const) {
+    for (const mode of ["network", "decode"] as const) {
+      await page.reload();
+      await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+      const themeButton = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
+      if (await themeButton.count()) await themeButton.click();
+      failure = mode;
+      const launcher = await openChoices(page, project.entries[0].id);
+      const panel = choices(page);
+      const card = panel.locator("article").filter({ hasText: "2D could not be loaded" });
+      await expect(card).toHaveCount(1);
+      await expect(panel.locator("article img")).toHaveCount(1);
+      await expect(card.getByText(/^(C2H6O|C2H7N)$/)).toBeVisible();
+      const radio = card.getByRole("radio");
+      const radioLabel = await radio.getAttribute("aria-label");
+      expect(radioLabel).not.toBeNull();
+      await expect(card.getByRole("status")).toContainText(`Retry 2D is available for ${radioLabel}`);
+      if (info.project.name === "mobile-chromium") await radio.tap(); else await radio.click();
+      await expect(radio).toBeChecked();
+      await expect.poll(() => panel.locator("article img").evaluateAll(images =>
+        images.every(element => (element as HTMLImageElement).complete
+          && (element as HTMLImageElement).naturalWidth > 0))).toBe(true);
+      const failedImageUrl = failedUrl;
+      const requestsBefore = imageRequests.length, metadataBefore = metadataRequests;
+      const observed = await bounds(page, panel);
+      await info.attach(`${theme}-${mode}-image-failure`, { body: await page.screenshot(), contentType: "image/png" });
+      const retry = card.getByRole("button", { name: "Retry 2D", exact: true });
+      if (info.project.name === "mobile-chromium") await retry.tap();
+      else { await retry.focus(); await page.keyboard.press("Enter"); }
+      // The failed-state locator no longer matches after recovery. Keep the
+      // actual card and radio owner by its exact accessible label.
+      const restored = panel.locator("article").filter({ has: page.getByRole("radio", {
+        name: radioLabel!, exact: true,
+      }) });
+      const image = restored.getByRole("img");
+      await expect(image).toBeVisible();
+      await expect.poll(() => image.evaluate(element => {
+        const img = element as HTMLImageElement;
+        return img.complete && img.naturalWidth > 0;
+      })).toBe(true);
+      const imageUrl = await image.getAttribute("src");
+      const requestedUrl = new URL(imageUrl!, page.url());
+      expect(requestedUrl.pathname).toBe(new URL(failedImageUrl).pathname);
+      expect(requestedUrl.href).not.toBe(failedImageUrl);
+      expect(imageRequests.length).toBe(requestsBefore + 1);
+      expect(metadataRequests).toBe(metadataBefore);
+      await expect(restored.getByRole("radio")).toBeChecked();
+      await expect(restored.getByRole("radio")).toBeFocused();
+      await expect(restored.getByRole("status")).toHaveText(`2D loaded for ${radioLabel}.`);
+      await expect(restored.getByRole("button", { name: "Retry 2D", exact: true })).toHaveCount(0);
+      await panel.getByRole("button", { name: "Cancel", exact: true }).click();
+      await expect(panel).toBeHidden(); await expect(launcher).toBeFocused();
+      await closeInspector(page);
+      expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(project);
+      expect(await (await request.get(originalUrl)).body()).toEqual(original);
+      evidence.push({ theme, mode, observed, failedImageUrl, imageUrl,
+        imageRequests: imageRequests.length - requestsBefore,
+        metadataRequests: metadataRequests - metadataBefore });
+    }
+  }
+  await info.attach("native-image-recovery", { body: JSON.stringify(evidence), contentType: "application/json" });
+});

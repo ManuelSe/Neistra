@@ -7833,3 +7833,19 @@ remain unchanged. Preserve explicit intent, original bytes and retained cache ro
 do not add broad garbage collection or a live-state migration for pre-release keys.
 Legacy completion captures its open visit for error feedback, preserving global
 serialization, bounded priority batches and final scheduling after retired requests.
+
+### D-166 clarification — independent nuclear counts and image recovery
+
+Known canonical element identities qualify heavy-site counts independently of
+molecular bond/charge chemistry. Any undefined/dummy element makes the complete
+count unavailable, preserving null versus known zero. Explicit D/T counting aliases
+are hydrogen only and never rewrite source isotope facts. Retire previous derived
+inventory keys through resolver/client v3; keep chemistry v2 and drawing v1.
+
+Depiction metadata success does not establish successful image download/decoding.
+Own recovery by exact source visit and image attempt; use a fresh same-artifact URL
+and remount for Retry, leaving metadata, choice and canonical state intact. A polite
+per-instance status reports failure and requested retry outcome only for the actual
+current attempt. Old/failed loads cannot claim recovery, and initial successes stay
+silent. Distinct-molecule native controls establish independent URLs; repeated exact
+occurrences intentionally share an artifact/browser request.

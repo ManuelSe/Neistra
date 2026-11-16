@@ -215,3 +215,62 @@ The earlier 2,639-Python/eight-native checkpoint remains historical 928-source
 evidence; it is not claimed to qualify the new sources. Final predecessor integration,
 versions, both complete release gates and all-seven final same-candidate review
 remain required before push/publication.
+
+### C2 recovery/count correction — current working qualification
+
+Image downloads and SVG decoding can fail after successful depiction metadata.
+Keep metadata and exact-instance selection available; replace broken images with a
+stable placeholder and Retry 2D. Per-card source visits and image-attempt tokens
+retire late events. Retry remounts the same immutable artifact through a fresh URL,
+adds exactly one image request and performs no new metadata/chemistry request.
+A pre-mounted polite/atomic status names the exact instance and announces failure,
+requested retry and actual successful load. Initial automatic successes stay silent;
+a failed or retired attempt cannot announce recovery. Focus returns to the radio,
+or the dialog heading when that radio is disabled. No persisted choice changes.
+
+The accepted pre-code scientific count rule is independent of molecular chemistry:
+count canonical sites with known atomic number >1 only when every site has a known
+element. Unknown/dummy sites make the complete count null; D/T are hydrogen-counting
+aliases without rewriting isotope/source facts. Known carbon queries and unknown
+charge/bond order can retain known site counts while chemistry remains unavailable.
+The UI distinguishes null (atom sites) from a known zero heavy count, and withholds
+counts during previews. Resolver/client keys advance to v3; chemistry v2 and drawing
+v1 stay unchanged. Constructed prior-v1/v2 bindings are negative controls, not actual
+historical producers or a database migration.
+
+Current checks pass 35 science/API cases, 229 broader Python cases, 50 recovery
+component cases, all 1,041 frontend cases/108 suites, global Ruff/API-core typing,
+web lint/types/build. Theory independently passes 18 count/import/JSON cases;
+implementation independently inspects current method/transport and retained tests.
+UX independently passes 50 cases and verifies actual recovery evidence. These are
+scoped assessments, not final integrated all-seven approval.
+
+The initial native recovery attempt fails twice because identical occurrences share
+one artifact URL: a browser-coalesced failed download affects both images. Distinct
+molecules establish independent image requests without changing product behavior.
+Corrected desktop/mobile workflows pass all eight theme/failure-mode observations,
+including decoded images, one extra image request, zero metadata requests, retained
+choice/focus, original bytes, containment and Axe. Full native3 requalification of
+both feature files passes all ten cases with zero failures/flakes/skips/retries;
+earlier eight-case evidence stays historical.
+
+Full Python3 at c62feb37 has 2,664 passes/zero skips and unchanged 930-source maps.
+Its child receipt records exit0; the outer tool wrapper reported143 with unexplained
+cause, retained separately. It is not a complete release-command gate. Full Python4
+at the earlier recovery/count bytes has 2,671 passes and three failures: unchanged
+worker-error controls return edit_timeout at their 0.3-second deadline instead of
+injected exit/descriptor/unicode errors. The same 34-case file passes unchanged in
+isolation. Preserve both runs and source maps; do not pool a full pass, increase a
+deadline or claim this failure resolved. Fresh full Python5 on current bytes passes all 2,674 cases/zero skips with exit0
+and all 930 source identities unchanged. Its complete log hash is
+`526df83849fceb700dad63f26c2ed1164931c4d41c351c6056aa6d969cc5501c`.
+The earlier full4 failure remains diagnostic; its causal mechanism is not claimed
+resolved merely from subsequent passes.
+
+[Passing checkpoint](../assets/ligand-designation/c2-image-recovery-checkpoint.json)
+binds current source, all checks, [native attempts](../assets/ligand-designation/c2-image-recovery-native.json)
+and [separate diagnostics](../assets/ligand-designation/c2-image-recovery-diagnostics.json).
+This coherent local correction is prepared for its checkpoint commit.
+It must later integrate verified #156/#157 master, actual predecessor readers and
+final versions before complete candidate/exact-merged gates and final all-seven
+review. No implementation push, PR, release or closeout is claimed.

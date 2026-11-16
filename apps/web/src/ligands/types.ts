@@ -34,7 +34,7 @@ export interface LigandCandidate {
   potential_ligand: boolean;
   reason_codes: string[];
   provenance: string[];
-  heavy_atom_count: number;
+  heavy_atom_count: number | null;
   formal_charge: number | null;
   formula: string | null;
   molecular_weight: number | null;

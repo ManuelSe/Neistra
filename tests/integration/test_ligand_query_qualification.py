@@ -43,6 +43,8 @@ def test_query_import_exposes_selection_without_guessed_formula_mass_or_depictio
     assert entry["ligand_designation"]["status"] == "resolved"
     assert candidate["chemistry_status"] == "unavailable"
     assert candidate["chemistry_reason"] == "query_or_dummy_representation_unsupported"
+    expected_count = None if pattern == "*C" else 1 if pattern == "[C;H3]" else 2
+    assert candidate["heavy_atom_count"] == expected_count
     for field in ("formula", "molecular_weight", "formal_charge", "chemical_input_hash"):
         assert candidate[field] is None
     drawing = client.get(
@@ -60,8 +62,12 @@ def test_query_import_exposes_selection_without_guessed_formula_mass_or_depictio
     assert client.get(f"/api/v1/projects/{project['id']}").json() == project
 
 
+@pytest.mark.parametrize("resolver,chemistry", [
+    ("ligand-instance-v1", "ligand-exact-representation-v1"),
+    ("ligand-instance-v2", "ligand-exact-representation-v2"),
+])
 def test_previous_policy_binding_cannot_bypass_query_requalification(
-    client: ApiClient, monkeypatch: pytest.MonkeyPatch,
+    client: ApiClient, monkeypatch: pytest.MonkeyPatch, resolver: str, chemistry: str,
 ) -> None:
     import neistra_api.ligand_service as module
 
@@ -75,7 +81,7 @@ def test_previous_policy_binding_cannot_bypass_query_requalification(
     # not qualify a current request, regardless of its cached drawing bytes.
     old_request_key = hashlib.sha256(json.dumps([
         entry["current_artifact_id"], entry["original_artifact_id"], candidate["candidate_key"],
-        "ligand-instance-v1", "ligand-exact-representation-v1", module.DEPICTION_POLICY,
+        resolver, chemistry, module.DEPICTION_POLICY,
         rdBase.rdkitVersion, 240, 180,
     ], separators=(",", ":")).encode()).hexdigest()
     with client.app.state.session_factory() as session:

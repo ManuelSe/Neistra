@@ -3,46 +3,33 @@
 ## Current milestone
 
 Parent #11 and required children #156–#163 remain active through verified releases
-and parent closeout. #156's fresh candidate6 is running at `37c3e040` in its owned
-worktree with unchanged application sources. Earlier failed/interrupted diagnostics
-remain separate; complete qualification and final same-candidate review are pending.
+and parent closeout. #156's clean committed candidate8 runs at b46222d2 with all885
+qualifying source identities frozen. All seven specialists reconfirm source PASS
+for this same commit; 2,344 Python, 1,029 frontend and preceding tooling pass. The
+complete564-case native suite is running. Final gate/merge/exact-master/release
+stages remain pending.
 
-Independent #158 preparation has a verified local C2 checkpoint after initial
-`d283ea9b`: **2,639 Python/zero skips with all 928 source identities unchanged;
-1,030 frontend/108 suites; eight final native workflows**, global lint/types/build,
-reader-helper types and development-version/production audits. Actual 320px and
-100%/200% zoom include real stale-choice recovery warnings, Axe and focus checks.
-[Checkpoint](assets/ligand-designation/c2-checkpoint.json) retains failed attempts,
-raw observations and current-source reader stores separately from final evidence.
+Independent #158 preparation now has a passing
+[recovery/count checkpoint](assets/ligand-designation/c2-image-recovery-checkpoint.json):
+**2,674 full Python/zero skips, 1,041 frontend/108 suites, ten native workflows**,
+35 science/API,229 broader Python,50 recovery component cases and global lint/types/
+build. All930 selected source identities stay unchanged through the fresh full run.
+Known element counts preserve null versus zero; image failures have source/attempt
+owned Retry and polite exact-instance feedback. Scoped theory, implementation and
+UX assessments pass. Original bytes, explicit intent and chemistry policy remain.
 
-The earlier 928-source #158 diagnostics passed 15 commands against released v0.33:
-older-reader safe refusal, independently old-authored retention/migration
-and current reopening. They are not final qualification against the later released
-predecessor. Scientific lineage/ion/scheme, recovery feedback, legacy aliases and
-measured allocation findings are corrected. The C2 feature branch is not ready to
-push: final integration, versions, both full gates and all seven final assessments
-remain required. No program application push, PR, release or child closure is claimed.
+Earlier full3 child exit0/outer-wrapper143, full4 worker-deadline failures, initial
+native coalesced-image fixture failures and other failed probes remain separately
+preserved. The same worker-control file and fresh full5 pass without changing any
+deadline. No causal diagnosis is inferred solely from subsequent passes. This local
+checkpoint is prepared for commit; it is not finished feature/push/release approval.
 
-A further [source audit](assets/ligand-designation/c2-corrections-checkpoint.json)
-found and corrected original-recovery dummy/query
-qualification, isotope-water and historical water-label exclusions, and retired-visit
-legacy error feedback. Current corrective checks pass 219 Python cases, all 1,033
-frontend cases, global lint/types and build. Three affected specialists reassessed
-the frozen 930-source correction and returned scoped PASS. Resolver/chemistry/client
-keys advance to v2; schema, drawing policy, intent and originals stay intact.
-Fresh full Python/native requalification for this correction is pending; the earlier
-2,639/eight-native results remain bound to their original 928-source checkpoint.
-
-Read-only research refines #159/#160's future contracts: descriptor options and H
-normalization, source-qualified named optional profiles and installation-preference/
-derived-cache ownership. These dependent features remain unimplemented. Publication
-order, dependency graph, exclusions and the original master checkout are preserved.
-
-Known limits: source-qualified chemistry only; original parse/index work stays
-upload-bound; cache work counts are workload-specific. Imported assessment revision
-is historical provenance. Blockers: none requiring an owner scope decision. Next:
-freeze and requalify the corrective #158 checkpoint while completing #156 delivery,
-then continue the serial program and integrate the actual prerequisites for #158.
+Next: complete156's frozen gate and normal verified delivery, then157. Integrate
+158 onto actualreleased156/157master before final versions, actual predecessor
+readers, both complete release gates and all-seven same-candidate assessment.
+No application push, PR, release or child closeout is claimed. Original master,
+dependency order and exclusions remain preserved. No owner scope decision is
+currently required; dependent later application features remain unimplemented.
 
 ### Previous completed milestone — issue #152
 

@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, FiniteFloat, model_validator
 
-RESOLVER_VERSION = "ligand-instance-v2"
+RESOLVER_VERSION = "ligand-instance-v3"
 
 
 class LigandDesignationV1(BaseModel):
@@ -73,7 +73,7 @@ class LigandCandidateV1(BaseModel):
     potential_ligand: bool = True
     reason_codes: list[str] = Field(default_factory=list)
     provenance: list[str] = Field(default_factory=list)
-    heavy_atom_count: int = Field(ge=0)
+    heavy_atom_count: int | None = Field(default=None, ge=0)
     formal_charge: int | None = None
     formula: str | None = None
     molecular_weight: FiniteFloat | None = None

@@ -1,7 +1,7 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { StrictMode } from "react";
 import { QueryClient, QueryClientProvider, QueryObserver } from "@tanstack/react-query";
-import { act, cleanup, render, screen, waitFor, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Entry } from "../api/types";
@@ -37,7 +37,7 @@ function candidate(id: number): LigandCandidate {
 function inventory(owner: Entry, offset = 0, count = 2): LigandCandidatesRead {
   const all = Array.from({ length: count }, (_, index) => candidate(index + 1));
   return { project_id: "project-1", entry_id: owner.id, artifact_id: owner.current_artifact_id,
-    designation: owner.ligand_designation, input_hash: "exact-inventory-hash", resolver_version: "ligand-instance-v2",
+    designation: owner.ligand_designation, input_hash: "exact-inventory-hash", resolver_version: "ligand-instance-v3",
     total: count, offset, limit: 12, candidates: all.slice(offset, offset + 12),
     selectable_candidate_keys: all.slice(offset, offset + 12).map(item => item.candidate_key),
     designated_candidate: owner.ligand_designation.status === "resolved" ? all[0] : null, warnings: [] };
@@ -77,9 +77,139 @@ beforeEach(() => {
 });
 
 describe("entry-owned ligand designation controls", () => {
-  it("does not display or commit inventory from the previous resolver policy", async () => {
+  it("recovers an image download failure with a fresh same-artifact request and preserves the choice", async () => {
+    const user = userEvent.setup();
+    const { props } = setup();
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const original = (await screen.findAllByRole("img"))[0];
+    const card = original.closest("article")!;
+    const originalUrl = original.getAttribute("src")!;
+    const radio = within(card).getByRole("radio");
+    const status = within(card).getByRole("status");
+    expect(status).toBeEmptyDOMElement();
+    fireEvent.load(original);
+    expect(status).toBeEmptyDOMElement();
+    await user.click(radio);
+    fireEvent.error(original);
+    expect(within(card).queryByRole("img")).not.toBeInTheDocument();
+    expect(within(card).getByText("2D could not be loaded")).toBeVisible();
+    expect(within(card).getByText("C1H2")).toBeVisible();
+    expect(status).toHaveAttribute("aria-live", "polite");
+    expect(status).toHaveAttribute("aria-atomic", "true");
+    expect(status).toHaveTextContent(`Retry 2D is available for ${radio.getAttribute("aria-label")}`);
+    expect(radio).toBeChecked(); expect(radio).toBeEnabled();
+    await user.click(within(card).getByRole("button", { name: "Retry 2D" }));
+    expect(status).toHaveTextContent(`Retrying 2D for ${radio.getAttribute("aria-label")}`);
+    const retried = await within(card).findByRole("img");
+    expect(radio).toHaveFocus();
+    expect(retried).not.toBe(original);
+    const retryUrl = new URL(retried.getAttribute("src")!, window.location.href);
+    expect(retryUrl.pathname).toBe(new URL(originalUrl, window.location.href).pathname);
+    expect(retried.getAttribute("src")).not.toBe(originalUrl);
+    fireEvent.error(original);
+    fireEvent.load(original);
+    expect(status).toHaveTextContent("Retrying 2D for");
+    fireEvent.load(retried);
+    expect(status).toHaveTextContent(`2D loaded for ${radio.getAttribute("aria-label")}`);
+    expect(within(card).getByRole("img")).toBe(retried);
+    expect(within(card).queryByText("2D could not be loaded")).not.toBeInTheDocument();
+    expect(within(card).queryByRole("button", { name: "Retry 2D" })).not.toBeInTheDocument();
+    expect(radio).toBeChecked();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+    expect(depictionMock).toHaveBeenCalledTimes(2);
+  });
+
+  it.each(["preview", "source", "page"])("retires image errors across a %s visit", async transition => {
+    const user = userEvent.setup(), owner = entry();
+    candidatesMock.mockImplementation((_project, item, offset) => Promise.resolve(inventory(item, offset, 25)));
+    const { props, update } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const original = (await screen.findAllByRole("img"))[0];
+    fireEvent.error(original);
+    expect(screen.getByText("2D could not be loaded")).toBeVisible();
+    if (transition === "preview") {
+      update({ ...props, pausedReason: "Changed chemistry preview" });
+      fireEvent.error(original);
+      update(props);
+    } else if (transition === "source") {
+      const changed = { ...owner, current_artifact_id: "changed-source" };
+      update({ ...props, project: molecularProject([changed]) });
+      fireEvent.error(original);
+      await user.click(screen.getByRole("button", { name: "Choose" }));
+    } else {
+      await user.click(screen.getByRole("button", { name: "Next ligand page" }));
+      await waitFor(() => expect(screen.getByText("Page 2 of 3")).toBeVisible());
+      fireEvent.error(original);
+      await user.click(screen.getByRole("button", { name: "Previous ligand page" }));
+    }
+    const current = (await screen.findAllByRole("img"))[0];
+    fireEvent.error(original);
+    fireEvent.load(original);
+    expect(current).toBeInTheDocument();
+    expect(screen.queryByText("2D could not be loaded")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Retry 2D is available for|Retrying 2D for|2D loaded for/)).not.toBeInTheDocument();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it("does not announce recovery when a failed retry later emits a load event", async () => {
+    const user = userEvent.setup();
+    const { props } = setup();
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const original = (await screen.findAllByRole("img"))[0], card = original.closest("article")!;
+    const status = within(card).getByRole("status");
+    fireEvent.error(original);
+    await user.click(within(card).getByRole("button", { name: "Retry 2D" }));
+    const retried = within(card).getByRole("img");
+    fireEvent.error(retried); fireEvent.load(retried);
+    expect(status).toHaveTextContent("Retry 2D is available for");
+    expect(status).not.toHaveTextContent("2D loaded for");
+    expect(within(card).getByText("2D could not be loaded")).toBeVisible();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it("retires a cached image when its metadata recheck fails and retries without changing designation", async () => {
+    const user = userEvent.setup();
+    const { client, props } = setup();
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const image = (await screen.findAllByRole("img"))[0], card = image.closest("article")!;
+    await waitFor(() => expect(client.isFetching()).toBe(0));
+    const query = client.getQueryCache().findAll({ queryKey: ["ligand-depiction"] }).find(item =>
+      (item.state.data as LigandDepictionRead | undefined)?.candidate_key === "candidate-1");
+    expect(query).toBeDefined();
+    depictionMock.mockRejectedValueOnce(new Error("Drawing metadata transport failed"));
+    await act(async () => { await client.refetchQueries({ queryKey: query!.queryKey, exact: true }); });
+    expect(query!.state.status).toBe("error");
+    await waitFor(() => expect(within(card).queryByRole("img")).not.toBeInTheDocument());
+    expect(within(card).getByText("2D could not be loaded")).toBeVisible();
+    expect(within(card).getByText("C1H2")).toBeVisible();
+    await user.click(within(card).getByRole("button", { name: "Retry 2D" }));
+    expect(await within(card).findByRole("img")).toBeVisible();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it("shows canonical sites for an unknown heavy count and keeps a known zero distinct", async () => {
+    const user = userEvent.setup(), owner = entry();
+    const page = inventory(owner);
+    page.candidates[0].heavy_atom_count = null;
+    page.candidates[0].chemistry_status = "unavailable";
+    page.candidates[0].chemistry_reason = "query_or_dummy_representation_unsupported";
+    page.candidates[0].formula = null;
+    page.candidates[0].molecular_weight = null;
+    page.candidates[0].formal_charge = null;
+    page.candidates[0].chemical_input_hash = null;
+    page.candidates[1].heavy_atom_count = 0;
+    page.candidates[1].formula = "H2";
+    page.candidates[1].molecular_weight = 2.016;
+    page.candidates[1].formal_charge = 0;
+    candidatesMock.mockResolvedValue(page);
+    setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("2 atom sites")).toBeVisible();
+    expect(screen.getByText(/0 heavy atoms/)).toBeVisible();
+  });
+  it.each(["ligand-instance-v1", "ligand-instance-v2"])("does not display or commit inventory from resolver policy %s", async policy => {
     const user = userEvent.setup(), owner = resolvedEntry();
-    candidatesMock.mockImplementation(() => Promise.resolve({ ...inventory(owner), resolver_version: "ligand-instance-v1" }));
+    candidatesMock.mockImplementation(() => Promise.resolve({ ...inventory(owner), resolver_version: policy }));
     const { client } = setup(owner);
     await waitFor(() => expect(client.isFetching()).toBe(0));
     expect(screen.getByText("Ligand designated")).toBeInTheDocument();
