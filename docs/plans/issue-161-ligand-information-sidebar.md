@@ -74,3 +74,52 @@ Proposed PR title: `feat(ligand): ligand information sidebar with live propertie
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+### Pre-code refinement — one current basis and deliberate context
+
+Read-only architecture, workflow and reference assessments of the independent
+`a4190bdf` checkpoint refine this contract; they do not qualify an implemented
+sidebar. Recheck these boundaries against the actually delivered prerequisites.
+
+Use the deliberate inspected-entry owner, independently of ordinary selection,
+visibility and browser membership. A filtered-out inspected entry remains shown
+with an outside-current-filters explanation; the entry chooser still offers all
+entries. Deletion clears that context without choosing the first remaining row.
+Keep the existing inspector reachable until #163.
+
+Join each producer's qualified outputs to one exact project/entry/instance,
+membership and current-source basis. The candidate inventory hash and normalized
+graph digest describe different inputs and must not be compared as interchangeable
+identities. Formula, depiction, descriptors and profile/radar may finish separately;
+partial availability is valid when every displayed output matches that basis.
+Retire incompatible outputs synchronously rather than clearing them in a later
+effect. Reuse #159 data ownership and #160 definitions/evaluation rather than adding
+another scientific cache or evaluator.
+
+Preview unavailability is a sidebar presentation overlay. Preserve the committed
+aggregate data used by filters. Cancel can immediately restore matching committed
+outputs; Apply rejects incompatible outputs in the same state transition. Do not
+globally mark committed results unavailable because a viewer proposal is visible.
+
+Radar is a comparison aid with the same identity, unrounded evaluation, units,
+domains, missing states and clipping evidence as its equivalent table. Never draw
+missing values as zero or interpret polygon area as a scientific score.
+Do not close a polygon across unavailable axes. Essential
+details and clipping indicators need keyboard/touch access without relying on
+hover. Sidebar profile selection and browser-preset browsing are separate session
+intents; neither applies filters implicitly. Keep source citations and unusual
+details secondary, with concise actionable errors in the primary view.
+
+Keep the future interaction-diagram boundary nullable and complex-only, carrying
+exact ligand/protein inputs, artifacts/revisions and generator/version if known.
+Do not infer a protein target, generate a diagram artifact or present a working
+generation action. #153 remains separately owned.
+
+Acceptance adds mixed/reordered aggregate pages, partially completed outputs,
+filtered inspected entries, duplicate names and instances, held A→B→A results,
+all previews/Cancel/Apply and actual source changes. Radar and table must agree
+without requiring every independent computation to finish. Qualify focus and
+reading position through collapse/remount, both themes, keyboard/touch, 320px and
+actual browser zoom. Reference research supports coordinated data views and scoped
+depiction controls; this combined exact-identity sidebar and automatic freshness
+are original application guarantees, not a claim of an identical external GUI.

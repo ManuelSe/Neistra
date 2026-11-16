@@ -74,3 +74,69 @@ Proposed PR title: `feat(ligand): synchronized name search and reversible curren
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+### Pre-code refinement — shared projection, counts and qualified presets
+
+Read-only architecture, workflow and reference assessments of `a4190bdf` refine
+this contract before code. They do not establish an implemented filter or qualify
+future performance. Reconcile with the actually delivered #159/#160 contracts.
+
+Move name/property filters and existing independent type/sort into one project
+session owner above responsive browser mounts. Preserve across collapse/resize;
+reset on project switch/reload. Keep existing sort comparisons and stable ID ties.
+Preserve the typed search text/caret while normalizing terms for matching. Numeric
+fields provide a complete keyboard/touch alternative to sliders. Invalid temporary
+numeric input must not become zero, swap bounds or silently replace the last valid
+applied constraint; expose validation until the draft is valid.
+The accepted current-display-name search deliberately replaces the old filename
+matching behavior. Neither filtering nor a hidden result prunes canonical
+selection, changes visibility/designation/groups or retargets the inspected entry.
+
+Use #159's committed aggregate matrix, joining each row to current entry and exact
+instance/source/membership plus its scientific stamp. Current project names remain
+authoritative during rename. Query identity excludes slider bounds, name, sort and
+unrelated project revisions. Coalesce descriptor demand from settings, sidebar
+profile, browsed preset and active constraints; never create per-entry/per-property
+observers or jobs. The proposed 200-entry page/five initial reads for 1,000 entries
+must be measured before adoption. Debounce slider drafts/projection only; mask
+incompatible source rows synchronously. Preview does not invalidate committed
+matrix data and its committed basis remains explicit.
+
+Partition counts over all project entries in this order:
+
+1. A known name/type failure or a current numeric-constraint failure is Excluded,
+   even when another required value is pending or unavailable.
+2. Otherwise a required terminal unavailable/error/unresolved value or unsupported
+   source domain is Unavailable.
+3. Otherwise a required pending/stale/running value is Pending.
+4. Otherwise the entry is Matching.
+
+The four counts are disjoint and sum to the denominator. With no active property
+or domain constraint, an entry without an eligible ligand is not excluded on that
+basis. Never use stale numbers or convert missing values to zero. Explain the
+active type scope when it still excludes entries after clearing other filters.
+
+Browsing a preset may request bounded dependencies and preview its definition,
+but does not change applied constraints. Explicit Apply installs registry numeric
+bounds, exact operators and typed source-domain conditions together. In particular,
+the named Teague adaptation retains its no-formally-charged-atoms domain; copying
+only MW/logP ranges would misrepresent it. Unsupported representation is Unavailable,
+not a numeric failure. Qualified individual descriptors remain usable in custom
+numeric constraints.
+
+Manual range edits/disabling mark the result Custom ranges while retaining any
+applied domain as a visible constraint. Provide explicit scoped removal of that
+eligibility requirement, preserving numeric ranges while removing the profile
+claim. Reset to preset restores its bounds/operators/domain. Clear property filters
+removes ranges and domain; Clear search and property filters also clears name.
+Both retain independent type/sort and molecular visibility/selection/cache. Avoid
+an ambiguous Clear all action with additional effects.
+
+Acceptance adds count precedence/denominator, unsupported domains, strict boundaries
+without display rounding, manual edits and domain removal, mixed/reordered pages,
+rename and stale completion races, filtered inspected/selected entries and group
+actions. Verify shared controls through responsive remounts, resets on project
+switch, preview Cancel/Apply, and the measured 1,000-entry request/job/DOM bounds.
+Sliding or typing must cause no molecular reads or chemistry jobs. Coordinated
+criteria are reference-informed; this non-mutating projection and automatic
+current-input retirement are explicit original application behavior.

@@ -7791,3 +7791,22 @@ explicit calculator adaptations. The optional lead-library range uses a disclose
 conservative charged-graph domain gate; it must not neutralize input, pretend to
 classify permanent charge, or require new pKa jobs. Source research refines the
 child plans; it does not claim those dependent features are implemented.
+
+### D-166 future sidebar/filter ownership clarification
+
+Read-only pre-code assessments refine #161/#162 without changing dependencies or
+claiming implementation. One exact current basis joins independently completing
+composition, depiction and analysis outputs; producer-specific inventory/graph
+hashes are not interchangeable. Sidebar preview unavailability is a presentation
+overlay and must not invalidate the committed aggregate data used by filters.
+Deliberately inspected entries remain accessible when filtered out; never retarget
+the first matching row.
+
+Own name/property/type/sort state above responsive browser mounts and keep filtering
+a reversible projection. Qualified preset application includes source-domain
+conditions and exact operators, not numeric ranges alone. Manual numeric changes
+retain a visible domain until explicitly removed. Count known failures as excluded,
+otherwise terminal unavailability before pending work, with disjoint counts over
+all entries. Scoped resets preserve independent type/sort and molecular state.
+The child plans record these decisions and required tests; proposed aggregate
+page sizes still require measurement against delivered #159/#160 before adoption.
