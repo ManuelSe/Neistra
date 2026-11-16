@@ -7,7 +7,7 @@ export function interactionKey(projectId: string, inputs: InteractionInput[]) {
   return JSON.stringify([projectId, "interaction-v1", [...inputs].sort((a, b) => a.entry_id.localeCompare(b.entry_id))]);
 }
 
-export function useInteractions(projectId: string, inputs: InteractionInput[], paused: boolean) {
+export function useInteractions(projectId: string, inputs: InteractionInput[], paused: boolean, targetReady = true) {
   const state = useInteractionStore();
   const setProject = state.setProject;
   const [feedback, setFeedback] = useState<{ key: string; loading: boolean; error: string | null }>({ key: "", loading: false, error: null });
@@ -15,7 +15,8 @@ export function useInteractions(projectId: string, inputs: InteractionInput[], p
   const [retry, setRetry] = useState(0);
   const key = interactionKey(projectId, inputs);
   const inputRef = useRef(inputs); inputRef.current = inputs;
-  const enabled = state.projectId === projectId && state.choices.types.length > 0 && (state.choices.intra || state.choices.inter);
+  const enabled = state.projectId === projectId && state.show && targetReady
+    && state.choices.types.length > 0 && (state.choices.intra || state.choices.inter);
   // Hiding/deleting an entry can reuse a complete immutable superset result.
   // Revealing a new or changed artifact still requires fresh analysis.
   const cachedInputs = new Map(state.cache?.result.inputs.map(input => [input.entry_id, input.artifact_id]));

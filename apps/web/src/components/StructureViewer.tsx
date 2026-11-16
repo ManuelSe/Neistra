@@ -1,4 +1,5 @@
 import { captureHydrogenTarget } from "../selection/hydrogenAction";
+import { canonicalSelection } from "../selection/selection";
 import { useSelectionStore } from "../store/selection";
 import { createSurfaceManagerSession, type SurfaceCreationRequest, type SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
 import { replaySurfacePreviews } from "../surfaces/surfacePreviewBinding";
@@ -64,8 +65,7 @@ import type { MovementWorkflow } from "../coordinates/useMovementSession";
 import { movementPreview, movementUnavailableReason } from "../coordinates/interactiveTransform";
 import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
 import { InteractionPanel } from "./InteractionPanel";
-import { useInteractions } from "../interactions/useInteractions";
-import { filterInteractions } from "../interactions/filter";
+import { useInteractionInspection, type InteractionNativeState, type InteractionRenderFailure } from "../interactions/useInteractionInspection";
 import { ViewerWarningDetails } from "./ViewerWarningDetails";
 import { editAttemptBlocksWrites } from "../editing/attempt";
 import type { MolecularEditingPorts } from "../editing/ports";
@@ -163,6 +163,11 @@ export function StructureViewer({
   }, [sequenceDisplay]);
   const targetRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
+  const [interactionBinding, setInteractionBinding] = useState<{ projectId: string; viewer: MolecularViewer; ready: boolean } | null>(null);
+  const [interactionNative, setInteractionNative] = useState<InteractionNativeState | null>(null);
+  const [interactionFailure, setInteractionFailure] = useState<InteractionRenderFailure | null>(null);
+  const interactionOwnerProject = useRef(project.id);
+  interactionOwnerProject.current = project.id;
   const themeRef = useRef(theme);
   themeRef.current = theme;
   const onViewerSelectionRef = useRef(onViewerSelection);
@@ -227,8 +232,6 @@ export function StructureViewer({
     openMinimization(); void minimization?.quick();
   });
   const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimizationPreview.patches.length) || minimizationPreview.state.applying;
-  const interactionInputs = project.entries.filter(entry => entry.visible && entry.current_artifact_id).map(entry => ({ entry_id: entry.id, artifact_id: entry.current_artifact_id! }));
-  const interactions = useInteractions(project.id, interactionInputs, interactionPaused);
   const styleDialogOpen = styleProjectId === project.id;
   const setStyleDialogOpen = (open: boolean) => setStyleProjectId(open ? project.id : null);
   useEffect(() => { setStyleProjectId(null); }, [project.id]);
@@ -283,6 +286,7 @@ export function StructureViewer({
       setViewerError(error instanceof Error ? error.message : "The viewer rejected a coordinate preview.");
     });
     viewerRef.current = viewer;
+    setInteractionBinding({ projectId: project.id, viewer, ready: false });
     const releaseCamera = cameraPresentation?.bind(viewer);
     const unsubscribeDrawable = viewer.subscribeDrawable(drawable => {
       nativeDrawable.current = { viewer, drawable };
@@ -290,12 +294,18 @@ export function StructureViewer({
     });
     viewer.setBackgroundColor(VIEWER_BACKGROUND_COLORS[themeRef.current]);
     let active = true;
+    const unsubscribeInteractionDisplay = viewer.subscribeInteractionDisplay?.(state => {
+      if (!active || viewerRef.current !== viewer || interactionOwnerProject.current !== project.id) return;
+      setInteractionNative(current => current?.viewer === viewer && current.state.sceneGeneration > state.sceneGeneration
+        ? current : { viewer, state });
+    });
     let releasePresentation: (() => void) | undefined;
     void viewer
       .mount(target)
       .then(() => {
         if (active) {
           setViewerReady(true);
+          setInteractionBinding({ projectId: project.id, viewer, ready: true });
           releasePresentation = presentation?.bind(viewer);
         }
       })
@@ -330,6 +340,7 @@ export function StructureViewer({
     });
     return () => {
       active = false;
+      unsubscribeInteractionDisplay?.();
       releaseCamera?.();
       unsubscribeDrawable();
       if (nativeDrawable.current?.viewer === viewer) nativeDrawable.current = null;
@@ -410,17 +421,36 @@ export function StructureViewer({
   viewerStructuresRef.current = viewerStructures;
   const interactionViewReady = structureQueries.every((query, index) => !query.isPlaceholderData && !query.isError
     && isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id));
-  const interactionRecords = interactions.result && !interactionPaused && interactionViewReady
-    ? filterInteractions(interactions.result.records, interactions.choices, viewerStructures, isolation) : [];
-  const interactionDisplayKey = JSON.stringify(interactionRecords);
-  const interactionRecordsRef = useRef(interactionRecords); interactionRecordsRef.current = interactionRecords;
+  const interactionProjectionKey = JSON.stringify(project.entries.map(entry => [entry.id, entry.current_artifact_id,
+    isCompleteProjection(queryClient.getQueryData<StructureProjection>(["structure", project.id, entry.id, entry.current_artifact_id]), entry.id, entry.current_artifact_id)]));
+  const interactionProjections = useMemo(() => {
+    const identities = JSON.parse(interactionProjectionKey) as [string, string | null, boolean][];
+    return new Map(identities.flatMap(([entryId, artifactId, complete]) => {
+      const data = queryClient.getQueryData<StructureProjection>(["structure", project.id, entryId, artifactId]);
+      return complete && data ? [[entryId, data] as const] : [];
+    }));
+  }, [interactionProjectionKey, project.id, queryClient]);
+  const interactions = useInteractionInspection({ project, selection, projections: interactionProjections,
+    structures: viewerStructures, isolation, paused: interactionPaused, busy,
+    viewerReady: Boolean(interactionBinding?.projectId === project.id && interactionBinding.viewer === viewerRef.current && interactionBinding.ready),
+    viewReady: interactionViewReady, viewer: viewerRef, native: interactionNative, renderFailure: interactionFailure,
+    onSelect: atoms => onViewerSelection(canonicalSelection(atoms, "atom", "inspector"), "replace"),
+  });
+  const interactionRequest = useRef(interactions);
+  interactionRequest.current = interactions;
   useLayoutEffect(() => {
-    if (interactionPaused || !interactions.result || !interactionViewReady) void viewerRef.current?.setInteractions([]).catch(() => undefined);
-  }, [interactionPaused, interactions.result, interactionViewReady, viewerReady]);
-  useEffect(() => {
-    if (!viewerReady) return;
-    void viewerRef.current?.setInteractions(interactionRecordsRef.current).catch((error: unknown) => setViewerError(error instanceof Error ? error.message : "Interaction markers could not be displayed."));
-  }, [interactionDisplayKey, syncKey, viewerReady]);
+    const viewer = viewerRef.current;
+    if (!viewer || interactionBinding?.viewer !== viewer || interactionBinding.projectId !== project.id || !interactionBinding.ready) return;
+    const request = interactionRequest.current;
+    setInteractionFailure(null);
+    void viewer.setInteractions(request.displayRecords, { displayKey: request.displayKey, appearance: request.appearance })
+      .catch((error: unknown) => {
+        if (viewerRef.current === viewer && interactionOwnerProject.current === project.id && interactionRequest.current.displayKey === request.displayKey) {
+          setInteractionFailure({ viewer, displayKey: request.displayKey,
+            message: error instanceof Error ? error.message : "Interaction markers could not be displayed." });
+        }
+      });
+  }, [interactions.displayKey, syncKey, interactionBinding, project.id]);
   const renderedCallback = useRef(onRenderedMovementAtoms);
   renderedCallback.current = onRenderedMovementAtoms;
   useEffect(() => {
@@ -759,6 +789,11 @@ export function StructureViewer({
             } : undefined}
             onShowSequences={sequenceDisplay === "hidden" ? () => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("expanded"); } : undefined}
             interactionsOpen={interactionProjectId === project.id}
+            interactionsConfigured={interactions.configured}
+            interactionsVisible={interactions.show}
+            interactionsDescription={interactions.launcherDescription}
+            interactionsStatus={interactions.panel.status}
+            onInteractionVisibilityChange={interactions.panel.onShowChange}
             onInteractions={() => { useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
@@ -798,8 +833,8 @@ export function StructureViewer({
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>
         </div>
-        <InteractionPanel restoreFocus={!minimizationPreview.open && !minimizationPreview.state.autoApply} open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
-          status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />
+        <InteractionPanel {...interactions.panel} restoreFocus={!minimizationPreview.open && !minimizationPreview.state.autoApply}
+          open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onExpandResidues={expanded => onViewerSelection(expanded, "replace")}

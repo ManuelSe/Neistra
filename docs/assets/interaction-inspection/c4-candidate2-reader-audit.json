@@ -1,0 +1,107 @@
+{
+  "preceding_tag": "v0.32.0",
+  "preceding_runtime": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "preceding_source_identities": 847,
+  "directions": {
+    "rich-forward-produce": {
+      "version": "0.33.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-152",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-rich-forward-produce.json",
+      "evidence_sha256": "fa297f77d53cf293f6662a9d0c2d07f7953a10e0775f43306e7eb8f922e391a0"
+    },
+    "rich-forward-read": {
+      "version": "0.32.0",
+      "implementation_root": "/tmp/neistra152-reader-0320",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-rich-forward-read.json",
+      "evidence_sha256": "5fa170354ed34230eed67fa9dd179ef115137603ae3a77a8fca12c4ecbc26b60"
+    },
+    "rich-reverse-produce": {
+      "version": "0.32.0",
+      "implementation_root": "/tmp/neistra152-reader-0320",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-rich-reverse-produce.json",
+      "evidence_sha256": "7b00f6e5fb2d9d4fda3803d6cdecf8e8e61e530132437f1eb425d9cc31138481"
+    },
+    "rich-reverse-read": {
+      "version": "0.33.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-152",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-rich-reverse-read.json",
+      "evidence_sha256": "553e436eddd20cbe94c0b9df66b5dd3b19fa3adc809e3347527379e0fd589b59"
+    },
+    "connectivity-forward-produce": {
+      "version": "0.33.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-152",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-connectivity-forward-produce.json",
+      "evidence_sha256": "4d9352d296c622e7977643c2412cc806ade545b354a48ac1eedae2b425811039"
+    },
+    "connectivity-forward-read": {
+      "version": "0.32.0",
+      "implementation_root": "/tmp/neistra152-reader-0320",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-connectivity-forward-read.json",
+      "evidence_sha256": "36b04ab5df2990946a473462302803024b8a47010614d25aa2629c9c8e9d88f5"
+    },
+    "connectivity-reverse-produce": {
+      "version": "0.32.0",
+      "implementation_root": "/tmp/neistra152-reader-0320",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": false,
+      "phase": "producer specimens verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-connectivity-reverse-produce.json",
+      "evidence_sha256": "de4c0ab3a6370c5aa14deb6832ce0139eb36adfd7f34f86b2fc226d003f3ab22"
+    },
+    "connectivity-reverse-read": {
+      "version": "0.33.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-152",
+      "module_paths_verified": true,
+      "both_suffixes_reader_verified": true,
+      "phase": "reader retention verified",
+      "evidence": "docs/assets/interaction-inspection/c4-candidate2-connectivity-reverse-read.json",
+      "evidence_sha256": "2517d578abdffd60178c75f43da50e2298d2694b952a81a258692e42dd676cc3"
+    }
+  },
+  "new_editing_states": {
+    "wrapper_sha256": "8978b92384b23804a6464c86514b054698a9970de1c9073f617394fb525264f1",
+    "actual_three_phases_verified": true,
+    "current_authored_projects": 15,
+    "retained_transitions": 24,
+    "case_labels": [
+      "fragment-cyclopropyl-heavy",
+      "fragment-cyclopropyl-H",
+      "fragment-cyclobutyl-heavy",
+      "fragment-cyclobutyl-H",
+      "fragment-cyclopentyl-heavy",
+      "fragment-cyclopentyl-H",
+      "fragment-cyclohexyl-heavy",
+      "fragment-cyclohexyl-H",
+      "fragment-methoxy-heavy",
+      "fragment-methoxy-H",
+      "cut-mutation",
+      "torsion",
+      "aromatic-partial",
+      "aromatic-ring",
+      "attached-h-appearance"
+    ],
+    "preceding_writer_retains_and_reexports_current_authored_seeds": true,
+    "both_suffixes_verified": true,
+    "reverse_old_authored_generic_history": true,
+    "corruption_and_stale_guards_no_publication": true,
+    "summary_sha256": "25095f410aa37af63eca489a9a3bf42db47edcc39f53c77abb29cb427f968ed9"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "scope": "Focused release-preparation preflight, not the complete candidate or exact-master release gate",
+  "current_version": "0.33.0",
+  "preceding_version": "0.32.0",
+  "preceding_tag": "v0.32.0",
+  "preceding_commit": "b8ecfdea49610d2d9ab611d4d68d86afc0c277c5",
+  "five_versions_agree": true,
+  "dependencies_and_schemas_unchanged": true,
+  "migration_head": "0015",
+  "actual_new_state_reader_phases": [
+    {
+      "mode": "produce",
+      "version": "0.33.0",
+      "returncode": 0,
+      "log_sha256": "a6680fd6362dc1708bf72ab259cef582590663029e4e42d58953779873ac2c96"
+    },
+    {
+      "mode": "consume",
+      "version": "0.32.0",
+      "returncode": 0,
+      "log_sha256": "843984c082c94ded59d576c80dafde3b816b9b29ee0513f50aae18e9e2e19f6a"
+    },
+    {
+      "mode": "read-reexports",
+      "version": "0.33.0",
+      "returncode": 0,
+      "log_sha256": "a8f6724dbc725c1a225e0edf9ae81b20c446e267b8cefbe534ad667e68194f73"
+    }
+  ],
+  "namespace_reader_preflight_tests": 25,
+  "packaging_and_reader_contract_tests": 54,
+  "archive": {
+    "file": "c4-preflight.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-152/docs/assets/interaction-inspection/c4-preflight.zip",
+    "bytes": 1878165,
+    "sha256": "9a4295fcf4efd4895551e8948bd33b4eca912f555d9426e50ea42f910a6eba01",
+    "outer_manifest_entries": 354,
+    "verification_counts": {
+      "zip_archives": 226,
+      "evidence_manifest_entries": 354,
+      "project_archive_files": 435
+    }
+  },
+  "reader_workspace_files": 350,
+  "reader_workspace_cache_exclusions": [],
+  "source_bound_tools": {
+    "qualification.py.txt": "e4c9540098628ebacaebd02022682113c34a809df12e6244cf6e39b1cff47902",
+    "release-evidence.py.txt": "9ea150187c6dc7666e52943fd013e0026ff7f8dee68c51854fb2bf85d66abda3"
+  },
+  "limitations": [
+    "Both complete35-step gates and final same-candidate seven-role assessments remain required.",
+    "Actual reader preflight uses three isolated processes with independently checked historical source and five version fields."
+  ],
+  "final_focused_preparation_tests": 62,
+  "ruff": "pass",
+  "mypy_source_files": 218,
+  "focused_logs": {
+    "ruff": {
+      "file": "c4-preflight-ruff.log.gz",
+      "lossless_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "mypy": {
+      "file": "c4-preflight-mypy.log.gz",
+      "lossless_sha256": "7a43b17c0515eb1dbf58707b957b8ce209fa17c9d05ad50e445b65e47019fa96"
+    },
+    "tests": {
+      "file": "c4-preflight-tests.log.gz",
+      "lossless_sha256": "6126454bb851182be387a99aa54f0aceb0c4853cee8f9323ca620715d8607ce2"
+    }
+  }
+}

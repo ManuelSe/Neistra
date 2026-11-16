@@ -7560,3 +7560,145 @@ including zero-angle setup. Preserve the legacy ligand API and all other eligibi
 checks. Refusal must leave originals, coordinates, artifacts, revision, history,
 allocator floors and staging unchanged. Independent known-single positive controls
 and unknown/multiple/aromatic negative controls qualify this admission correction.
+
+## D-163 — Explicit transient interaction targets and precise inspection
+
+Date: 2026-11-15. Status: authorized planning contract for issue #152 under the
+owner's plan-and-deliver invocation; wording not individually reviewed.
+
+Keep qualified immutable interaction records authoritative and apply explicit
+application-owned transient targets independently of molecular Inter/Intra scope.
+All visible remains dynamic. Selection capture stores exact canonical IDs; one
+complete participant group must intersect that set and the other must be disjoint.
+Retain full donor/H, ring and charge groups and unchanged scientific evidence.
+This is display targeting, not partial-site qualification or molecular selection
+expansion. Ordinary selection and result Select never recapture the target.
+
+Exact selection intent survives coordinate/chemistry changes while IDs remain
+valid. A whole-ligand label additionally requires the same explicit assigned
+instance and identical resolved full membership. Missing current projections mean
+validating; missing IDs or changed ligand membership require explicit Update.
+Never guess another ligand, prune invalid intent or silently fall back to workspace.
+Do not equate navigation residue components with universal molecule grouping.
+
+Use a bounded optional list and precise participant/metric inspector with existing
+camera Focus and explicit canonical Select actions. Retire old details on artifact
+change. Distinguish salt minimum-site distance from drawn group centers, H···A
+from donor···acceptor, centroid metrics and clash overlap. Counts describe records.
+Coverage remains a conservative input summary; stronger percentages are unsupported.
+Preserve known warning identity and preparation guidance without inventing mappings.
+Durable designation, chemistry assignment and 2D diagrams remain separate.
+
+## D-164 — Guarded interaction installation receipts and session appearance
+
+Date: 2026-11-15. Status: authorized planning contract for issue #152; implementation
+and qualification pending under the feature plan.
+
+An awaited native geometry task cannot publish after clear, newer requests,
+preview/rebuild retirement, renderer replacement or disposal. Recheck generation,
+canvas/plugin ownership and eligibility after awaited construction. Publish narrow
+display-key/scene-generation receipts: pending on invalidation and ready with exact
+installed record keys/counts only after successful current installation. Include
+native hydrogen visibility; lazy unmounted adapters cannot claim readiness. App
+also guards project, viewer and requested display identity. Shown means installed
+eligible records, not guaranteed on-screen unoccluded pixels.
+
+Master show/hide preserves categories/scopes/targets/appearance/cache and avoids
+unnecessary cold chemistry; an empty category choice never silently enables types.
+Keep all choices session-only. Shared category pattern/color definitions drive
+faithful original legend samples and renderer geometry; bounded color/width/reset
+are presentation only. Keep markers passive and no permanent contact text. Detailed
+identity/metric inspection supplies on-demand explanation without new annotation
+authority. No new service, job, molecular/durable schema or database migration.
+
+### D-164 implementation clarification — source-scene ownership
+
+An unchanged canonical isolation request must retain installed markers/readiness;
+the surface-specific no-op path does not schedule interaction restoration. Preserve
+null versus an empty isolation set. A structural rebuild must also check its own
+captured scene after awaited stages before adopting interaction work or publishing
+commit/bound generation. Merely reading the latest generation inside the interaction
+installer cannot certify the older rebuild's native scene. Held-source regressions
+and scoped architecture reassessment qualify this boundary without widening the
+scene reconciliation framework.
+
+### D-164 implementation clarification — failed molecular installation
+
+A display-generation match alone cannot certify that molecular source installation
+completed. Keep a transient successful-source generation, requested/completed source
+operation serial and retained source error inside the disposable renderer. Current
+source failure retires shown counts and prevents interaction or appearance retries
+from approving a partially installed scene, including empty-result readiness.
+Preview Cancel cannot clear this failure; a successful full source rebuild can.
+An unhealthy source must bypass the surface-only fast path. Obsolete operations
+cannot replace newer pending state, and valid queued updates must eventually make
+progress. Readiness follows all awaited source work and scene commit. This extends
+installation evidence without changing canonical molecular state, analysis caching,
+persisted schemas or scientific methods.
+
+### D-164 implementation clarification — drawable installed records
+
+Native shown counts require generated marker geometry as well as visibility and
+successful current installation. A shared pure presentation predicate requires
+two finite 3D endpoints and finite positive separation, or the existing exact-zero
+clash cross. Coincident nonclash endpoints produce no line and no installed key.
+Preserve their detected records, full participants, canonical endpoints and metric
+evidence; details explain the unavailable marker and retain Select atoms. Focus
+continues to require an installed eligible marker. No epsilon, scientific distance
+cutoff, detector change or substitute coordinate is introduced. Independent duplicate
+complete-ring input establishes this case without changing scientific classification.
+
+### D-164 C3 clarification — measured work and atomic drawing admission
+
+Equivalent ordinary and dense fixed-profile fixtures establish repeated visibility
+filtering and full-record serialization on unchanged camera/panel/receipt renders.
+Use one controller-local readonly projection of entry identity, normalized data,
+hierarchy and effective settings; compiler-narrow visibility helpers to these
+consumed fields. Reuse only when length, order and all field identities match.
+Memoize derived display work while keeping immutable-artifact evidence identity
+independent. Do not retain old renderer wrappers or create a global cache.
+
+A separate reproduced baseline defect permits one nearest-site salt contact to
+request an arbitrarily long group-center dashed line. Add atomic admission before
+engine representation updates and before builder allocation or previous-buffer
+access. The ceiling is 500,000 conservatively estimated segments: positive clashes
+require one, coincident clashes three, and patterned records reserve one extra
+complete cycle beyond ceil(distance / cycle length). The reserve covers iterative
+floating-point accumulation; a 7.1 Å salt line emits 21 segments although an ideal
+cycle calculation predicts 20. Safe arithmetic refuses unsafe/overflowing estimates.
+
+The pinned native builder uses 168 raw array bytes per segment: 84,000,000 bytes
+(about 80.1 MiB) at the ceiling. Estimated old/staging/GPU payload coexistence is
+approximately 392 MB before JavaScript, metadata and driver overhead. These are
+engineering admission estimates, not measured heap or latency guarantees. The
+ceiling leaves headroom for ordinary 20,000-record bounded-distance categories;
+the analysis record limit does not guarantee every admitted result can be drawn.
+
+An over-budget batch produces the existing display error with no partial installed
+keys/counts. Preserve detector output, participants, metric evidence and endpoints.
+Keep details/Select available, disable Focus without installed geometry, and allow
+a smaller cached target/type set to recover without rebuilding molecular sources
+or repeating chemistry. No truncation, coarsening, new scientific threshold,
+persistence/API change, production-deadline relaxation or source-failure bypass.
+
+### D-164 C3 clarification — contain expected drawing refusal
+
+After publishing the current native display error and removing its overlay, the
+engine completes only a typed drawing-admission refusal without rejecting the
+shared molecular queue. Request completion is not a claim of rendered readiness;
+the receipt remains authoritative. An expected display limit must not make an
+unchanged measurement acknowledgment or completed molecular synchronization report
+a persistent generic viewer error. Direct preflight/builders still throw the typed
+limit error, and unexpected native/source failures continue rejecting. Qualify
+no-op/actual measurement progress, source restoration, cached recovery and absence
+of the generic viewer-error banner. Error-inspection test helpers reject by default
+and require explicit opt-in to observe an expected queue rejection.
+
+### D-164 release preparation — compatible minor 0.33.0
+
+The additive captured-target inspector, retained visibility/appearance controls and
+truthful display receipts justify minor 0.33.0 from 0.32.0. All five authoritative
+versions move together. No dependency, schema or migration changes are introduced.
+The actual tagged 0.32.0 implementation successfully retains/reexports current-authored
+editing states in three isolated-process preflight phases. Both fresh complete gates,
+final same-candidate specialist review and protected publication remain separate.

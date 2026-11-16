@@ -2,6 +2,46 @@
 
 ## Current milestone
 
+Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C4 complete candidate
+qualification PASS; C5 final review and protected delivery pending**. The
+[feature contract](plans/issue-152-interaction-inspection.md) is **Authorized within
+agreed scope; not individually reviewed**. Work remains isolated on
+`feat/issue-152-interaction-inspection`.
+
+Completed: explicit target-to-inspection workflow, compact session controls,
+truthful installed counts, known warning-site identities and native lifecycle
+corrections. Measured warm camera/panel filtering and full serialization are removed;
+atomic conservative drawing admission retains inspection and cached recovery.
+
+The clean candidate `b73305f775e9f17e8b6e05948ca06e9cdcc7d454` passes all **35 fresh
+sequential commands**: **2,306 Python/zero skips, 980 frontend/105 suites,
+14 supervisor, 479 browser passes/75 exact preceding exclusions across 554 cases**.
+Zero failures, flakes, retries or new exclusions. All 876 current and 847 actual
+preceding source identities and lossless log hashes verify. Actual tagged 0.32.0
+readers pass both directions/suffixes, including 15 new-state projects/24 transitions,
+retained history, reverse reexports and corruption/stale-publication controls.
+[Summary](assets/interaction-inspection/c4-candidate2-summary.json) and
+[packaging receipt](assets/interaction-inspection/c4-candidate2-packaging.json) retain
+all 660 browser-native, seven scientific-native and 350 complete reader-workspace
+files. The verified 75,898,562-byte archive has 1,083 manifest entries and 226 checked
+ZIP archives, including the outer archive. Failed candidate1 remains a separate diagnostic; its obsolete strict producer
+pin was corrected while retaining every historical case and adding 0.32.0 coverage.
+
+All five versions agree on compatible minor 0.33.0. Dependencies, persisted schemas
+and migration head 0015 are unchanged. [C3 evidence](assets/interaction-inspection/c3-checkpoint.json)
+preserves exact ordinary/dense geometry equivalence and bounded synthetic work;
+no causal latency speedup, strict-host, ceiling-sized native throughput or heap claim.
+
+All seven specialists PASS the qualified source candidate. The generated evidence/
+documentation head still requires explicit same-head reconfirmation before application
+push. Only planning C0 is remotely pushed; no application PR, merge, tag or release
+is claimed. The independent 2D child #153 stays open. Next: commit verified evidence,
+renew all seven assessments, perform protected delivery, then run the separate fresh
+35-step exact-merged gate before tagging/release. Preserve all other checkouts,
+processes, ports and stores, including retained #147 resources.
+
+### Previous completed milestone — issue #147
+
 Issue [#147](https://github.com/ManuelSe/Neistra/issues/147) is released as stable/latest
 [v0.32.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.32.0) through PRs
 [#151](https://github.com/ManuelSe/Neistra/pull/151) and
@@ -3342,10 +3382,11 @@ Results:
 
 ## Blockers
 
-None for released issue #147. Terminal receipt integration and owned-cleanup
-readback are tracked in its final issue reply; preserve the owner-used testing checkout.
+None requiring owner input for issue #152. Final same-head assessment, protected
+remote delivery and exact-merged qualification remain incomplete requirements.
 
 ## Next action
 
-Use the final #147 reply for terminal integration/cleanup readback. New application
-work requires its own scoped issue/contract; deferred items remain separate.
+Commit the verified candidate evidence, obtain all seven same-head reconfirmations,
+then complete protected merge, fresh exact-merged qualification, immutable annotated
+release, closeout and owned cleanup. Preserve all other sessions and #153's scope.

@@ -23,7 +23,7 @@ test("compact interaction control analyzes once and filters cached scopes", asyn
   page.on("request", request => { if (request.url().endsWith("/interactions")) analyses++; });
   await page.getByRole("button", { name: "Interactions", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Interactions", exact: true });
-  await expect(panel.getByRole("status")).toHaveText("Off");
+  await expect(panel.getByRole("status")).toHaveText("Choose an interaction type");
   expect(analyses).toBe(0);
   await panel.getByRole("button", { name: "Clashes", exact: true }).click();
   await expect(panel.getByRole("status")).toContainText(/\d+ detected/, { timeout: 20_000 });
@@ -34,7 +34,7 @@ test("compact interaction control analyzes once and filters cached scopes", asyn
   }
   expect(analyses).toBe(1);
   await panel.getByRole("button", { name: "Intermolecular interactions" }).click();
-  await expect(panel.getByRole("status")).toHaveText("Off");
+  await expect(panel.getByRole("status")).toHaveText("Choose Inter or Intra");
   await panel.getByRole("button", { name: "Intramolecular interactions" }).click();
   await expect(panel.getByRole("status")).toContainText("0 detected");
   expect(analyses).toBe(1);
@@ -79,6 +79,7 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
   await page.getByRole("button", { name: "Transform selection", exact: true }).click();
+  await expect(launcher.locator('[data-interaction-status="paused"]')).toBeVisible();
   await launcher.click(); await expect(panel.getByRole("status")).toHaveText("Paused during preview");
   await panel.getByRole("button", { name: "Close interactions" }).click();
   await page.getByRole("button", { name: "More movement tools" }).click();
@@ -88,6 +89,7 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   expect(analyses).toBe(1);
   await page.getByRole("button", { name: "Cancel movement", exact: true }).click();
   await expect.poll(async () => (await native(page)).records[0]?.endpoints).toEqual(geometry.records[0].endpoints);
+  await expect(launcher.locator('[data-interaction-status="paused"]')).toHaveCount(0);
   expect(analyses).toBe(1);
   await page.getByRole("button", { name: "Transform selection", exact: true }).click();
   await page.getByRole("button", { name: "More movement tools" }).click();

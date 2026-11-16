@@ -1,10 +1,74 @@
 # Molecular interactions
 
-Open **Interactions** (network icon) at the right end of the viewer quick-action toolbar. Choose independent
-interaction types and **Inter** / **Intra** scopes. Opening the panel alone does
-not start analysis; turning every type or scope off hides markers. Choices last
-for the current project session and survive renderer remounts. Switching projects
-or reloading restores defaults: types off, Inter on, Intra off.
+Open **Interactions** (network icon) at the right end of the viewer quick-action
+toolbar. Choose independent interaction types and **Inter** / **Intra** scopes.
+The eye control hides/reveals markers while retaining types, scopes, target and
+appearance. A quick eye action is also available beside the configured launcher.
+Opening, closing or collapsing the panel does not change molecular data. Opening
+alone starts no analysis; no category is automatically enabled. Choices last for
+the current project session and survive renderer remounts. Switching projects or
+reloading restores types off, Inter on, Intra off and default appearance.
+
+## Targets and contact inspection
+
+**All visible** uses current visible entries. **Ligand** requires an explicit
+assigned instance choice; repeated names/copies remain separate. A navigation
+component is not universally an entire multi-residue molecule. Known links to
+another nonpolymer instance require explicit selection rather than guessed grouping.
+This target is transient and does not create a durable ligand designation.
+
+**Selection** captures exact existing atoms only when **Use current selection**
+or **Update from selection** is activated. Later selection changes, including
+Select atoms in contact details, do not change that target. Contacts touching one
+captured participant site and not the other are included. Complete donor/H, ring
+and charge groups are retained; no partial-ring chemistry or global selection
+expansion is performed. Inter/Intra remains the scientific molecule relationship.
+
+Captured selection IDs survive valid coordinate/chemistry changes. A whole-ligand
+target additionally requires identical full instance membership; adding/removing
+members requires deliberate Update. Invalid targets are never silently pruned or
+replaced. Hidden targets retain their identity. Missing current ligand data means
+validation is pending, not that the target has disappeared.
+
+Open **Contacts** to inspect a paged list, with at most 30 rows displayed at once.
+Details identify canonical entry/residue/atom participants and named evidence in
+Å/degrees. **Focus** changes the camera for an installed eligible contact;
+**Select atoms** explicitly selects the full participant union. Neither action
+changes chemistry or the captured interaction target. Old details retire when
+immutable analysis inputs change. Passive canvas lines do not intercept molecular
+picking. Contact-specific canvas text and the separate 2D diagram are not included.
+
+**Warnings** groups input explanations by entry and cause, retaining distinct
+messages and exact known affected IDs. Select affected atoms is available only
+when those identities are current. Known IDs are not a claim that all affected
+sites were mapped. Follow the explicit preparation guidance; no automatic repair
+or hydrogen generation occurs. Scientific criteria remain in Help; category
+color/width/reset controls are under **Advanced appearance**, for this session only.
+
+## Counts and readiness
+
+Detected counts describe qualified records for current visible-entry analysis
+inputs, the captured target and scopes; a reusable cached superset does not add
+excluded entries back into this count. Component/H/isolation display gates within
+those entries can suppress shown markers without removing detected records. Counts
+do not mean unique residue partners or complete chemical assessment. Shown
+counts acknowledge eligible native installation for the current display generation,
+including native hydrogen visibility. Installed records may be occluded or outside
+the camera view. Pending/error/preview states cannot claim an exact shown count.
+Hidden participants can therefore yield zero shown while qualified records exist.
+Coincident interaction endpoints also prevent a nonclash line from being drawn;
+that contact remains detected, with its full participants and metrics available.
+Details explain the unavailable marker, disable Focus under the installed-marker
+policy, and retain Select atoms. The existing coincident-clash cross remains drawn.
+The closed launcher uses distinct supplementary pause, uncertainty, loading and
+error cues alongside its accessible status description.
+
+Input coverage is conservative: the existing typed/radius-bearing atom counters
+and warnings are not per-kind eligible-site or pair completeness percentages.
+Partial/unavailable guidance must not be interpreted as an independently measured
+percentage of every potential interaction family.
+
+## Scientific profile and lifecycle
 
 Analysis uses immutable normalized structures from visible entries in the current
 workspace Cartesian frame. Separate entries have no cross-entry covalent bonds.
@@ -14,8 +78,8 @@ crystallographic symmetry, periodic boundaries or automatic alignment.
 
 Results are geometric screening, not evidence of binding or an energy estimate.
 **Partial coverage** means some chemistry or connectivity could not be assessed;
-zero detected does not imply a complete assessment. Help shows preparation
-guidance and structured warnings. Unsupported metal coordination and unresolved
+zero detected does not imply a complete assessment. Warnings shows preparation
+guidance and grouped structured warnings. Unsupported metal coordination and unresolved
 alternate sites are skipped. Analysis-only templates never change molecular
 artifacts, original uploads, history, jobs, scenes or archives.
 
@@ -28,6 +92,16 @@ The fixed `interaction-v1` clash rule uses pinned RDKit element radii and at lea
 connectivity suppresses within-molecule screening. Analysis has explicit limits:
 100,000 atoms, one million candidate admissions, 20,000 records, 30 seconds, and
 one active request per API process. A limit failure returns no complete result.
+
+Drawing has a separate ceiling of **500,000 conservatively estimated line
+segments** for the entire current overlay. A single unusually long group-center
+marker can exceed it even when the scientific result is below 20,000 records.
+Preflight refuses the whole overlay before native allocation or previous-buffer
+mutation. It does not truncate contacts, simplify patterns, substitute endpoints
+or change detection. The error keeps detected contacts, evidence and Select atoms
+available; Focus and confirmed shown counts stay unavailable. Narrow the target
+or choose fewer types to recover from cached analysis. This is a drawing admission
+bound, not a promise of latency or total browser memory at the ceiling.
 
 Hydrogen bonds require chemically typed donors/acceptors and supplied explicit H.
 Markers connect H to the acceptor heavy atom. Donor–acceptor ≤3.5 Å, H–acceptor

@@ -1,0 +1,14 @@
+{
+  "classification": "diagnostic only; incomplete and not qualification",
+  "command": "playwright test interactions.spec.ts interactions-lifecycle.spec.ts interaction-corrections.spec.ts --max-failures=1",
+  "exit_code": 143,
+  "observed_passes": 7,
+  "uncompleted_cases": 7,
+  "complete_json_report": false,
+  "cause": "Parent process received SIGTERM; source not established. Only task-owned orphan services were stopped after cwd validation.",
+  "visual_finding": "Generic dialog selector overrides width and anchor from equally specific component selector; screenshot shows centered 460px instead of bounded 336px.",
+  "artifact": "c2-initial-diagnostic-native.zip",
+  "sha256": "a99d269faf86cc60825b0143e342fa809abe445b176e9ca51c3eeb7b45dbd236",
+  "retained_files": 116,
+  "next_action": "Correct CSS specificity and run a fresh complete focused browser gate; no partial run reuse."
+}

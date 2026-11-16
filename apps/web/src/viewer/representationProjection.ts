@@ -1,6 +1,6 @@
 import type { ColorScheme, RepresentationStyle, SurfaceObject } from "../api/types";
 import type { ViewerStructure } from "./MolecularViewer";
-import { visibleComponentAtomIds } from "./componentVisibility";
+import { visibleComponentAtomIds, type ViewerVisibilitySource } from "./componentVisibility";
 import {
   atomicRepresentationStyles,
   hydrogenDisplayMode,
@@ -108,7 +108,7 @@ export function representationLayers(
 }
 
 export function visibleRepresentationAtomIds(
-  structure: ViewerStructure, isolatedAtomIds: ReadonlySet<number> | null = null,
+  structure: ViewerVisibilitySource, isolatedAtomIds: ReadonlySet<number> | null = null,
   nonpolarHydrogenIds?: ReadonlySet<number>,
 ): Set<number> {
   const hydrogenMode = hydrogenDisplayMode(structure.settings.components);

@@ -1,7 +1,8 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Focus, Frame, Palette, Pill, Network, Rows3, MonitorUp } from "lucide-react";
+import { AlertTriangle, Check, CircleAlert, Eye, EyeOff, Focus, Frame, LoaderCircle, Palette, Pause, Pill, Network, Rows3, MonitorUp } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
+import type { InteractionStatusView } from "../interactions/panelModel";
 
 const PICKING_MODES: {
   value: SelectionGranularity;
@@ -22,6 +23,11 @@ interface ViewerToolbarProps {
   onPresentation?: () => void;
   onShowSequences?: () => void;
   interactionsOpen?: boolean;
+  interactionsConfigured?: boolean;
+  interactionsVisible?: boolean;
+  interactionsDescription?: string;
+  interactionsStatus?: InteractionStatusView;
+  onInteractionVisibilityChange?: (show: boolean) => void;
   onInteractions?: () => void;
   pickingUnavailableReason?: string | null;
   pickingGranularity: SelectionGranularity;
@@ -45,6 +51,8 @@ interface ViewerActionButtonProps {
   children: ReactNode;
   hasPopup?: "dialog";
   expanded?: boolean;
+  pressed?: boolean;
+  description?: string;
 }
 
 function ViewerActionButton({
@@ -55,6 +63,8 @@ function ViewerActionButton({
   children,
   hasPopup,
   expanded,
+  pressed,
+  description,
 }: ViewerActionButtonProps) {
   const unavailable = unavailableReason !== null;
   return (
@@ -67,6 +77,8 @@ function ViewerActionButton({
           aria-disabled={unavailable}
           aria-haspopup={hasPopup}
           aria-expanded={hasPopup ? expanded : undefined}
+          aria-pressed={pressed}
+          aria-description={description}
           onClick={() => {
             if (!unavailable) onClick();
           }}
@@ -88,6 +100,11 @@ export function ViewerToolbar({
   onPresentation,
   onShowSequences,
   interactionsOpen = false,
+  interactionsConfigured = false,
+  interactionsVisible = true,
+  interactionsDescription = "Inspect molecular interactions",
+  interactionsStatus,
+  onInteractionVisibilityChange,
   onInteractions,
   pickingUnavailableReason = null,
   pickingGranularity,
@@ -102,6 +119,12 @@ export function ViewerToolbar({
   onFocusLigands,
   onSelectionStyle,
 }: ViewerToolbarProps) {
+  const interactionState = interactionsStatus?.phase === "error" ? "error"
+    : interactionsStatus?.phase === "paused" ? "paused"
+    : interactionsStatus?.partial ? "partial"
+    : interactionsStatus?.phase === "loading" || interactionsStatus?.phase === "rendering" ? "pending" : "enabled";
+  const InteractionStatusIcon = interactionState === "error" ? CircleAlert : interactionState === "paused" ? Pause
+    : interactionState === "partial" ? AlertTriangle : interactionState === "pending" ? LoaderCircle : Check;
   return (
     <div className="viewer-toolbar" role="toolbar" aria-label="Viewer quick actions">
       {onPresentation ? <ViewerActionButton label="Detach viewer" tooltip="Open a read-only presentation window"
@@ -187,7 +210,20 @@ export function ViewerToolbar({
           <Palette size={15} />
         </ViewerActionButton>
         {onShowSequences ? <ViewerActionButton label="Show sequences" tooltip="Show protein sequences" unavailableReason={null} onClick={onShowSequences}><Rows3 size={15} /></ViewerActionButton> : null}
-        {onInteractions ? <ViewerActionButton label="Interactions" tooltip="Inspect molecular interactions" unavailableReason={null} onClick={onInteractions} hasPopup="dialog" expanded={interactionsOpen}><Network size={15} /></ViewerActionButton> : null}
+        {onInteractions ? <span className="viewer-interaction-actions">
+          {interactionsConfigured && onInteractionVisibilityChange ? <ViewerActionButton label="Toggle interaction visibility"
+            tooltip={interactionsVisible ? "Hide interactions; retain choices" : "Show interactions with retained choices"}
+            description={interactionsDescription} pressed={interactionsVisible} unavailableReason={null}
+            onClick={() => onInteractionVisibilityChange(!interactionsVisible)}>
+            {interactionsVisible ? <Eye size={15} /> : <EyeOff size={15} />}
+          </ViewerActionButton> : null}
+          <ViewerActionButton label="Interactions" tooltip={interactionsDescription} description={interactionsDescription}
+            unavailableReason={null} onClick={onInteractions} hasPopup="dialog" expanded={interactionsOpen}>
+            <span className="interaction-launcher-icon"><Network size={15} />
+              {interactionsConfigured && interactionsVisible ? <InteractionStatusIcon size={10} className="interaction-launcher-state" data-interaction-status={interactionState} aria-hidden="true" /> : null}
+            </span>
+          </ViewerActionButton>
+        </span> : null}
       </div>
     </div>
   );
