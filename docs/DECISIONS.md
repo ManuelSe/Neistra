@@ -7702,3 +7702,51 @@ versions move together. No dependency, schema or migration changes are introduce
 The actual tagged 0.32.0 implementation successfully retains/reexports current-authored
 editing states in three isolated-process preflight phases. Both fresh complete gates,
 final same-candidate specialist review and protected publication remain separate.
+
+
+## D-165 — Finite ligand-information program and independent identities
+
+Date: 2026-11-16. Authorized by explicit owner plan-and-deliver invocation for parent11 and required children156–163; plan wording not individually reviewed. The parent contract records finite native dependency order and serial independently qualified child releases. Related acquisition/processing, additional chemistry, interaction diagram, superposition relocation and metadata redesign remain separately owned; no hidden external issue delivery is implied.
+
+Keep canonical sorted selection separate from transient ordered inspection/measurement targets, deliberate inspected entry, durable exact ligand designation and existing transient interaction targeting. Singleton picks or explicit user ordering establish angle/torsion sequence; sorted set order never implies click order. Use current complete observed finite coordinates; missing/preview/degenerate geometry stays explicitly unavailable. Hover single-atom identity is emitted through the existing native owner independently of grouped highlighting, with source/lifecycle retirement and no per-move API work.
+
+Durable designation uses exact canonical membership/origin and an explicit cleared choice, not viewer IDs/labels or automatic first/size/proximity guesses. Candidate eligibility and reliable chemistry are independent. Current-input derived displays synchronously select exact instance/input/source/implementation/policy/settings matches and immediately retire incompatible values; bounded automatic jobs then refresh. Changed chemistry previews initially show labelled unavailable; entry filters always use committed project inputs. Existing fallback neutral/single chemistry adapters cannot qualify descriptors. Migration/archive/history/old-reader preservation or safe refusal must be established before durable code.
+
+Keep the existing inspector until final163; audit and relocate every retained selection/measurement/contact/editing capability.163 expressly supersedes only saved-selection UI and standalone numerical-transform controls, preserving data/services/history. Update product specification then; do not rewrite historical global plan. Full scientific/current release gates, all-seven same-candidate specialist agent assessments, remote protections/reviews and exact merged qualification remain binding. Parent closure and Goalcompletion require all eight delivered plus final integration/release/closeout evidence.
+
+### D-165 C1 clarification — local inspection ownership and truthful target choices
+
+Keep atom-hover subscription/render state in a narrow viewer-information child. A loaded100,000-atom component probe confirmed that pointer publications in the parent invalidate query-result-array memoization and repeat full-source derivation; the corrected component performs no full-source mapping or network read over20distinct warm targets. This is measured work reduction, not a strict-host latency claim. Source/artifact/settings/renderer qualification remains synchronous in the child.
+
+Selected details own one bounded hidden-source observer only while the disclosure and chosen subject remain current. The pinned query library misses teardown when an observer array only loses its trailing items. Use four fixed quick-inspection slots with unique disabled empty-entry identities, plus one ordinary detail query, retaining existing immutable source keys and cancellation. Release local observers without globally cancelling shared consumers. Test4→1→0, disclosure close, selection retirement, held cancellation, shared consumers and later retired artifact changes. No dependency patch or broader observer refactor is included.
+
+Secondary target choices expose canonical atom IDs and known alternate sites; duplicate entry names gain exact entry identity. Passive strip copy stays compact. Below400px, overflowing header actions scroll inside their own bounded area with focus-outline padding, preventing keyboard focus from shifting the whole viewer outside the viewport. Actual browser zoom uses the fractional visual viewport for containment; integer window dimensions can truncate half a CSS pixel.
+
+### D-165 clarification — atomic atom-field readiness
+
+The complete release journey exposed editable XYZ fields before their current
+selected-atom initialization. A traced late projection overwrote an accepted X=4
+before submission. Keep element, charge, coordinates and initialized owner in one
+atomic local draft. Owner visits include project, chosen editor entry, immutable
+artifact and single target; returning through a missing source is a new visit.
+Gate the Atoms fieldset until current initialization commits, preserve same-owner
+manual drafts across equivalent refetch objects, and keep missing targets explicit.
+No/multiple selection marks its owner without reseeding absolute-add inputs.
+Existing projection qualification, explicit command publication and other editing
+guards remain authoritative. Preserve exact native input/assertion requirements.
+
+### D-165 qualification clarification — pixel ownership and cache retirement
+
+A full-canvas color count also sees unrelated molecular and camera-axis edge
+pixels. Qualify interaction drawing against frozen pre-analysis full-canvas masks
+for each actual H-visibility state, requiring stable masks, identical camera/size
+and restored-background equality. Count actual later cyan coordinates absent from
+the matching mask; never subtract scalar totals or crop away potential residuals.
+Keep native installation/geometry checks, channel thresholds, count bounds and
+existing timeouts. Preserve failed evidence separately from complete qualification.
+
+The native hover source lookup is disposable scene-owned state. Clearing feedback
+must release its cached source array/map as well: an independent 100,000-atom
+probe showed one retired scene held until disposal. Retire the lookup immediately;
+rebuild only O(entries) membership on the next actual atom hover. Preserve warmed
+per-atom work and deduplication, with no canonical molecular mutation.

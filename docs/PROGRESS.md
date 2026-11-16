@@ -2,6 +2,46 @@
 
 ## Current milestone
 
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active through
+verified release and closeout for exactly #156–#163. The parent and child plans are
+Authorized within agreed scope; not individually reviewed. The original master
+checkout and all exclusions remain preserved.
+
+#156 implements the passive atom/ordered-geometry strip and accessible details.
+All five versions are prepared as 0.34.0; schema/dependencies remain unchanged.
+The clean committed candidate `b46222d2` passed all 35 sequential qualification
+commands: 2,344 Python/zero skips, 1,029 frontend, 14 supervisor and 489 native
+browser passes with the same 75 exclusions. All 885 current and 870 actual v0.33.0
+source identities, lossless logs and reader evidence verify. Actual old/new readers
+pass both directions and both suffixes, including 15 editing projects/24 transitions.
+The complete 82,962,711-byte qualified packet verifies recursively. Failed and
+interrupted earlier attempts remain separately preserved; no partial runs are pooled.
+
+The originating outer session reported 143 after COMPLETE; all 35 actual recipe
+children exited zero, and the independent finalizer exited zero. Its cause is
+unestablished. Independent architecture review verified the exact commands, logs,
+source maps, reader phases and complete packet and found no missing required check.
+The separate transport receipt preserves that observation without claiming a zero
+outer-session exit. Atomic atom-draft readiness, marker-background ownership and
+retired-hover-source corrections retain their scoped diagnostic evidence.
+
+Independent #158 preparation is committed locally at `68b1a868`: 2,674 Python/zero
+skips, 1,041 frontend and ten native recovery cases pass on its frozen 930-file
+source map. Earlier timeouts and fixture failures remain preserved; no deadlines
+changed. Exact-instance image retry/status and known-count corrections have scoped
+science/UX/reference assessments. A nonblocking small-screen heading-clipping
+observation is retained for final integration review. No #158 release gate is claimed.
+
+Known limits: preview geometry is explicitly unavailable; #156 introduces no durable
+schema. Blockers: no owner scope decision required. Next: final seven-role review
+of the evidence commit, protected merge, fresh exact-master qualification and
+verified release before #157. #158 must integrate verified #156/#157 master and
+its actual released predecessor before final versions/gates. One program Goal
+stays active through all eight children and parent closeout. No application push,
+PR, release or child closeout is claimed.
+
+### Previous completed milestone — issue #152
+
 Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) is released as stable/latest
 [v0.33.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0) through [PR #166](https://github.com/ManuelSe/Neistra/pull/166).
 Exact qualified runtime: `d8636064263f6221c402665da52a4a1738570845`. The annotated runtime tag stays fixed.
@@ -1568,7 +1608,7 @@ feature merge; this documentation-only closeout records the remote evidence.
   Cartoon, Reset, multi-entry atomic commands, and existing hierarchy selection.
 - Classified every significant issue #7 requirement; deferred advanced
   presentation and presets, reused existing related issues, and rejected copied
-  Maestro design, a duplicate Ribbon value, and a duplicate Molecule granularity.
+  reference interface design, a duplicate Ribbon value, and a duplicate Molecule granularity.
 - Selected a backward-compatible minor release from v0.3.0 to v0.4.0 based on
   additive user-visible, viewer-settings, command, API, migration, scene, and
   archive behavior without a molecular, project-state, archive-major, or
@@ -3387,3 +3427,7 @@ readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neis
 
 Use the final #152 reply for terminal integration/cleanup readback. New application
 work requires its own scoped issue/contract; deferred work remains separate.
+
+Issue156 qualification update: candidate2 stopped at an unaccepted native residue pick after144passes; no full-gate pass. Stronger exact native-pixel oracle passes all4desktop/mobile theme cases with unchanged selection assertions. Failed logs/trace/complete diagnostic inventory are retained; fresh candidate3 and final all-seven same-candidate assessments remain next. Independent158 remains preparation only.
+
+Issue156 candidate3 stopped after180nativepasses when a synthetic fixture target lay beneath the toolbar. Public-camera deterministicframing and exact unoccluded nativepixels now pass16gesturecases acrossdesktop/mobile with all outcomeassertions retained. Full candidate4 and final all-seven reconfirmation remain required; no publication/closeout. Independent158has a local initialverticalcheckpointd283ea9b, still awaitingserialintegration/furtherqualification.

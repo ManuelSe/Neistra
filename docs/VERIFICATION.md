@@ -2026,3 +2026,22 @@ annotated tag target, stable/latest public release and notes, anonymous asset
 SHA-256/CRC and all 1,309 internal hashes. The verified
 [issue close-out](https://github.com/ManuelSe/Neistra/issues/98#issuecomment-6851862559) is the receipt location for later documentation
 integration and branch cleanup. The released runtime tag remains fixed.
+
+## Issue #156 complete candidate qualification
+
+Clean committed `b46222d2eb55003a46485ad5e3f9b402699885fe` passes all 35
+sequential source-bound commands: 2,344 Python/zero skips, 1,029 frontend,
+14 supervisor, 489 native browser passes and the same 75 exclusions, with zero
+failures/flakes/retries/new exclusions. All 885 current and 870 actual v0.33.0
+source identities and lossless logs verify. Actual producer/readers pass both
+directions and both archive suffixes, including 15 editing projects/24 transitions.
+[Summary](assets/viewer-information/c4-candidate8-summary.json) and
+[complete packet receipt](assets/viewer-information/c4-candidate8-packaging.json)
+retain the complete evidence. The separate
+[transport receipt](assets/viewer-information/c4-candidate8-transport.json) records
+outer-session 143 after COMPLETE, all 35 actual child exits zero and independent
+finalizer exit zero; cause unestablished. Independent architecture assessment
+confirms no missing required check. No zero original outer exit is claimed.
+Seven-role final-head reconfirmation, normal protected merge, fresh exact-merged
+full qualification and verified publication remain required. Portable correctness
+only; no strict reference-host performance or human approval is claimed.

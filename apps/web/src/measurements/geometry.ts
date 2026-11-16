@@ -24,14 +24,21 @@ function cross(a: Point, b: Point): Point {
 
 function unit(vector: Point): Point {
   const length = Math.hypot(...vector);
-  if (length <= Number.EPSILON) throw new Error("Measurement geometry is undefined");
+  if (!Number.isFinite(length) || length <= Number.EPSILON) throw new Error("Measurement geometry is undefined");
   return vector.map((value) => value / length) as Point;
 }
 
 export function measurePoints(kind: MeasurementKind, points: Point[]): number {
   const expected = { distance: 2, angle: 3, dihedral: 4 }[kind];
   if (points.length !== expected) throw new Error(`${kind} requires ${expected} atoms`);
-  if (kind === "distance") return Math.hypot(...subtract(points[1], points[0]));
+  if (points.some(point => point.length !== 3 || !point.every(Number.isFinite))) {
+    throw new Error("Measurement coordinates must be finite 3D points");
+  }
+  if (kind === "distance") {
+    const value = Math.hypot(...subtract(points[1], points[0]));
+    if (!Number.isFinite(value)) throw new Error("Measurement geometry is outside numerical limits");
+    return value;
+  }
   if (kind === "angle") {
     const a = unit(subtract(points[0], points[1]));
     const b = unit(subtract(points[2], points[1]));
@@ -61,7 +68,8 @@ export function measurementValue(
       ?.atoms.find((candidate) => candidate.id === reference.atom_id);
     return atom?.coordinates;
   });
-  if (points.some((point) => point === undefined)) return null;
+  if (points.some((point) => point === undefined)
+    || references.some(reference => structures.get(reference.structure_id)?.warnings.some(warning => warning.code === "missing_coordinates"))) return null;
   try {
     return measurePoints(kind, points as Point[]);
   } catch {
@@ -70,6 +78,6 @@ export function measurementValue(
 }
 
 export function formatMeasurement(kind: MeasurementKind, value: number | null): string {
-  if (value === null) return "Unavailable";
+  if (value === null || !Number.isFinite(value)) return "Unavailable";
   return kind === "distance" ? `${value.toFixed(2)} Å` : `${value.toFixed(1)}°`;
 }

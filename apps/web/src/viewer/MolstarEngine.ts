@@ -56,6 +56,7 @@ import type {
   MolecularViewer,
   MovementInteraction,
   ViewerSelectionEvent,
+  ViewerAtomHover,
   ViewerStructure,
   ViewerMeasurement,
   PresentationPointer,
@@ -198,6 +199,9 @@ export class MolstarEngine implements MolecularViewer {
   private hoverSubscription: { unsubscribe(): void } | undefined;
   private stopHoverMarking: (() => void) | undefined;
   private hoverTarget: PickingTarget | null = null;
+  private atomHover: ViewerAtomHover | null = null;
+  private atomHoverListeners = new Set<(event: ViewerAtomHover | null) => void>();
+  private hoverSources: { sources: ViewerStructure[]; byEntry: Map<string, ViewerStructure> } | undefined;
   private hoverNativeLoci: Loci | null = null;
   private hoverCamera: CameraState | null = null;
   private cameraSubscription: { unsubscribe(): void } | undefined;
@@ -406,6 +410,9 @@ export class MolstarEngine implements MolecularViewer {
         || this.surfaceVisuals.isManaged(current.repr) || Loci.isEmpty(current.loci)) {
         this.clearHover(); return;
       }
+      // Raw atom feedback is independent of the expanded highlighting target.
+      // It must update within a chain without rematerializing chain membership.
+      this.updateAtomHover(current.loci);
       const nativeLoci = this.pickingGranularity === "residue" ? null : Loci.normalize(current.loci,
         this.pickingGranularity === "atom" ? "element" : this.pickingGranularity, true);
       // Compare native membership before materializing canonical reference sets
@@ -790,6 +797,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
+    if (this.modelPreview !== preview) this.clearHover();
     this.modelPreview = preview;
     if (!preview) this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
     this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyModelPreview());
@@ -1149,6 +1157,15 @@ export class MolstarEngine implements MolecularViewer {
     return () => this.cameraListeners.delete(listener);
   }
 
+  getAtomHover(): ViewerAtomHover | null { return this.disposed ? null : this.atomHover; }
+
+  subscribeAtomHover(listener: (event: ViewerAtomHover | null) => void): () => void {
+    if (this.disposed) { listener(null); return () => {}; }
+    this.atomHoverListeners.add(listener);
+    listener(this.atomHover);
+    return () => { this.atomHoverListeners.delete(listener); };
+  }
+
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
@@ -1419,6 +1436,7 @@ export class MolstarEngine implements MolecularViewer {
     this.interactionDisplayListeners.clear();
     this.interactionPreviewEntries.clear();
     this.clearHover();
+    this.atomHoverListeners.clear(); this.hoverSources = undefined;
     this.hoverSubscription?.unsubscribe();
     this.hoverSubscription = undefined;
     this.stopHoverMarking?.();
@@ -1487,7 +1505,41 @@ export class MolstarEngine implements MolecularViewer {
     });
   }
 
+  private updateAtomHover(loci: Loci): void {
+    if (this.modelPreview || this.coordinatePreviews.size || this.interactionPreviewEntries.size
+      || this.interactionSourceError || this.interactionSourceCompleted !== this.interactionSourceOperation
+      || !StructureElement.Loci.is(loci)) { this.publishAtomHover(null); return; }
+    // A residue/bond/group locus has no unique raw atom. Never invent a first atom.
+    if (loci.elements.length !== 1 || !Unit.isAtomic(loci.elements[0].unit)
+      || OrderedSet.size(loci.elements[0].indices) !== 1) { this.publishAtomHover(null); return; }
+    const element = loci.elements[0];
+    const mapping = this.models.get(element.unit.model);
+    const unitIndex = OrderedSet.getAt(element.indices, 0);
+    const sourceIndex = element.unit.model.atomicHierarchy.atomSourceIndex.value(element.unit.elements[unitIndex]);
+    const atomId = mapping?.atomIds[sourceIndex];
+    if (!mapping || atomId === undefined) { this.publishAtomHover(null); return; }
+    if (this.hoverSources?.sources !== this.structures) this.hoverSources = {
+      sources: this.structures, byEntry: new Map(this.structures.map(source => [source.entryId, source])),
+    };
+    const source = this.hoverSources.byEntry.get(mapping.entryId);
+    if (!source) { this.publishAtomHover(null); return; }
+    this.publishAtomHover({ reference: { structure_id: mapping.entryId, atom_id: atomId },
+      source, sceneGeneration: this.generation });
+  }
+
+  private publishAtomHover(event: ViewerAtomHover | null): void {
+    const previous = this.atomHover;
+    if (previous === event || previous && event && previous.reference.structure_id === event.reference.structure_id
+      && previous.reference.atom_id === event.reference.atom_id && previous.source.normalized === event.source.normalized
+      && previous.source.artifactId === event.source.artifactId && previous.source.settings === event.source.settings
+      && previous.sceneGeneration === event.sceneGeneration) return;
+    this.atomHover = event;
+    for (const listener of this.atomHoverListeners) listener(event);
+  }
+
   private clearHover(): void {
+    this.publishAtomHover(null);
+    this.hoverSources = undefined;
     this.hoverTarget = null;
     this.hoverNativeLoci = null;
     this.hoverCamera = null;

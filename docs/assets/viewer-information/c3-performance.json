@@ -1,0 +1,1165 @@
+{
+  "qualification": "Portable work/request evidence; no strict-host timing or controlled speedup claim",
+  "hover_profiles": [
+    {
+      "project": "chromium",
+      "title": "native hover matches all modes and preserves selection (light)",
+      "data": {
+        "theme": "light",
+        "timing": "Automation/poll-inclusive elapsed is separate from in-browser native-event/text and latest-pointer/text observations; these text observations do not establish native frame presentation or a hardware throughput claim",
+        "observations": [
+          {
+            "mode": "atom",
+            "automationElapsedMs": 342,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 5,
+              "markerActions": 3,
+              "resolutions": 3,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 4,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.899999976158142,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "residue",
+            "automationElapsedMs": 333,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 10,
+              "markerActions": 7,
+              "resolutions": 5,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 8,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.899999976158142,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.600000023841858,
+                  "pointerToTextMs": 52,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.5,
+                  "pointerToTextMs": 19.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "chain",
+            "automationElapsedMs": 316,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 13,
+              "markerActions": 9,
+              "resolutions": 6,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 10,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.899999976158142,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.600000023841858,
+                  "pointerToTextMs": 52,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.5,
+                  "pointerToTextMs": 19.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 18.80000001192093,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "structure",
+            "automationElapsedMs": 326,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 17,
+              "markerActions": 11,
+              "resolutions": 7,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 13,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.899999976158142,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.600000023841858,
+                  "pointerToTextMs": 52,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.5,
+                  "pointerToTextMs": 19.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 18.80000001192093,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 1
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.600000023841858,
+                  "pointerToTextMs": 35.10000002384186,
+                  "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.699999988079071,
+                  "pointerToTextMs": 18.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          }
+        ],
+        "informationTimings": [
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.899999976158142,
+            "pointerToTextMs": 18.899999976158142,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.600000023841858,
+            "pointerToTextMs": 52,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2.5,
+            "pointerToTextMs": 19.5,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2.199999988079071,
+            "pointerToTextMs": 18.80000001192093,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 1
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.600000023841858,
+            "pointerToTextMs": 35.10000002384186,
+            "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.699999988079071,
+            "pointerToTextMs": 18.5,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e326-fdcf-7932-a090-540be0fc0e8c",
+              "atom_id": 1
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.899999976158142,
+            "pointerToTextMs": 19.099999964237213,
+            "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+          }
+        ]
+      }
+    },
+    {
+      "project": "chromium",
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "data": {
+        "theme": "dark",
+        "timing": "Automation/poll-inclusive elapsed is separate from in-browser native-event/text and latest-pointer/text observations; these text observations do not establish native frame presentation or a hardware throughput claim",
+        "observations": [
+          {
+            "mode": "atom",
+            "automationElapsedMs": 344,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 5,
+              "markerActions": 3,
+              "resolutions": 3,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 4,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 19.19999998807907,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "residue",
+            "automationElapsedMs": 325,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 10,
+              "markerActions": 7,
+              "resolutions": 5,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 8,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 19.19999998807907,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 19.100000023841858,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "chain",
+            "automationElapsedMs": 327,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 13,
+              "markerActions": 9,
+              "resolutions": 6,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 10,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 19.19999998807907,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 19.100000023841858,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.5,
+                  "pointerToTextMs": 19.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          },
+          {
+            "mode": "structure",
+            "automationElapsedMs": 325,
+            "state": {
+              "highlighted": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "selected": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                }
+              ],
+              "hoverSamples": 17,
+              "markerActions": 11,
+              "resolutions": 7,
+              "cameraEvents": 1,
+              "camera": {
+                "mode": "perspective",
+                "position": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  8.673235443816688
+                ],
+                "target": [
+                  -0.18553892592667554,
+                  0.021996654582417424,
+                  -0.19720247787095752
+                ],
+                "up": [
+                  0,
+                  1,
+                  0
+                ],
+                "radius": 3.394569630452882
+              },
+              "lastHover": {
+                "atoms": [
+                  {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  }
+                ],
+                "buttons": 0
+              },
+              "atomHoverPublications": 13,
+              "atomHover": {
+                "reference": {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                },
+                "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                "sceneGeneration": 1
+              },
+              "informationTimings": [
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.199999988079071,
+                  "pointerToTextMs": 19.19999998807907,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 19.100000023841858,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2,
+                  "pointerToTextMs": 18.899999976158142,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.5,
+                  "pointerToTextMs": 19.5,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 1
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 1.800000011920929,
+                  "pointerToTextMs": 35.80000001192093,
+                  "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+                },
+                {
+                  "reference": {
+                    "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                    "atom_id": 3
+                  },
+                  "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+                  "sceneGeneration": 1,
+                  "nativeEventToTextMs": 2.699999988079071,
+                  "pointerToTextMs": 19.600000023841858,
+                  "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+                }
+              ],
+              "target": [
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 1
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 2
+                },
+                {
+                  "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+                  "atom_id": 3
+                }
+              ],
+              "held": 0,
+              "busy": false,
+              "generation": 1,
+              "boundGeneration": 1
+            }
+          }
+        ],
+        "informationTimings": [
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2.199999988079071,
+            "pointerToTextMs": 19.19999998807907,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2,
+            "pointerToTextMs": 19.100000023841858,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2,
+            "pointerToTextMs": 18.899999976158142,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2.5,
+            "pointerToTextMs": 19.5,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 1
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.800000011920929,
+            "pointerToTextMs": 35.80000001192093,
+            "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 3
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 2.699999988079071,
+            "pointerToTextMs": 19.600000023841858,
+            "text": "Prepared ethanol \u00b7 O O3 \u00b7 LIG 1"
+          },
+          {
+            "reference": {
+              "structure_id": "01a1e327-2194-7bd3-93fc-d2704960f5c1",
+              "atom_id": 1
+            },
+            "artifactId": "01a1e317-3f4f-7009-9aaf-5877ac651640",
+            "sceneGeneration": 1,
+            "nativeEventToTextMs": 1.899999976158142,
+            "pointerToTextMs": 52.09999996423721,
+            "text": "Prepared ethanol \u00b7 C C1 \u00b7 LIG 1"
+          }
+        ]
+      }
+    }
+  ],
+  "component_workload": {
+    "atoms": 100000,
+    "distinct_warm_targets": 20,
+    "full_atom_maps": 0,
+    "network_reads": 0,
+    "viewer_syncs": 0,
+    "source": "apps/web/src/test/structure-loading.test.tsx",
+    "evidence": "c2-final-focused2.log in forthcoming checkpoint log archive"
+  },
+  "scope": "Measured existing array dependency before correction; immutable source index primed once before warm callback checks. Browser text timings differ from presented-frame metrics."
+}

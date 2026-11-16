@@ -57,11 +57,58 @@ MolstarEngine.prototype.mount = async function(target) {
 }
 
 async function drag(page: Page, button: "left" | "right", dx: number, dy: number, camera = false) {
-  const box = (await page.getByTestId("structure-viewer").boundingBox())!;
-  const x = box.x + box.width * 0.8, y = box.y + box.height * 0.8;
-  expect(await page.evaluate(point => point.camera
-    ? Boolean(document.elementFromPoint(point.x, point.y)?.closest(".molstar-host"))
-    : document.elementFromPoint(point.x, point.y)?.getAttribute("data-testid") === "movement-pointer-surface", { x, y, camera })).toBe(true);
+  const observed = await page.getByTestId("structure-viewer").evaluate((viewer, movement) => {
+    const box = viewer.getBoundingClientRect();
+    const margin = 4, clearance = 2;
+    const candidates: [number, number][] = [[0.8, 0.8], [0.92, 0.9]];
+    for (const fy of [0.08, 0.2, 0.35, 0.5, 0.65, 0.8, 0.92]) {
+      for (const fx of [0.08, 0.2, 0.35, 0.5, 0.65, 0.8, 0.92]) candidates.push([fx, fy]);
+    }
+    const native = (element: Element | null) => movement.camera
+      ? Boolean(element?.closest(".molstar-host"))
+      : element?.getAttribute("data-testid") === "movement-pointer-surface";
+    const attempts = [];
+    let selected: { x: number; y: number } | null = null;
+    for (const [fx, fy] of candidates) {
+      const x = box.x + box.width * fx, y = box.y + box.height * fy;
+      const samples = Array.from({ length: 9 }, (_, step) => {
+        const px = x + movement.dx * step / 8, py = y + movement.dy * step / 8;
+        const hit = document.elementFromPoint(px, py);
+        return { x: px, y: py,
+          inside: px >= box.left + margin && px <= box.right - margin
+            && py >= box.top + margin && py <= box.bottom - margin,
+          native: [[0, 0], [-clearance, 0], [clearance, 0], [0, -clearance], [0, clearance]]
+            .every(([ox, oy]) => native(document.elementFromPoint(px + ox, py + oy))),
+          hit: hit ? { tag: hit.tagName, testId: hit.getAttribute("data-testid"),
+            role: hit.getAttribute("role"), label: hit.getAttribute("aria-label"),
+            className: hit.getAttribute("class") } : null };
+      });
+      attempts.push({ x, y, samples });
+      if (samples.every(sample => sample.inside && sample.native)) { selected = { x, y }; break; }
+    }
+    return { box: { x: box.x, y: box.y, width: box.width, height: box.height },
+      movement, margin, clearance, attempts, selected };
+  }, { dx, dy, camera });
+  await test.info().attach("native-movement-drag-path", {
+    body: JSON.stringify(observed), contentType: "application/json",
+  });
+  expect(observed.selected, "The fixed gesture needs an unobscured native path; see its measured attachment").not.toBeNull();
+  const { x, y } = observed.selected!;
+  // Floating tools may cover a fractional canvas point. Recheck the complete
+  // fixed path immediately before trusted input; do not change its displacement.
+  expect(await page.getByTestId("structure-viewer").evaluate((viewer, movement) => {
+    const box = viewer.getBoundingClientRect();
+    return Array.from({ length: 9 }, (_, step) => {
+      const px = movement.x + movement.dx * step / 8, py = movement.y + movement.dy * step / 8;
+      return px >= box.left + movement.margin && px <= box.right - movement.margin
+        && py >= box.top + movement.margin && py <= box.bottom - movement.margin
+        && [[0, 0], [-2, 0], [2, 0], [0, -2], [0, 2]].every(([ox, oy]) => {
+          const hit = document.elementFromPoint(px + ox, py + oy);
+          return movement.camera ? Boolean(hit?.closest(".molstar-host"))
+            : hit?.getAttribute("data-testid") === "movement-pointer-surface";
+        });
+    });
+  }, { x, y, dx, dy, camera, margin: observed.margin })).toEqual(Array<boolean>(9).fill(true));
   await page.mouse.move(x, y); await page.mouse.down({ button });
   await page.mouse.move(x + dx, y + dy, { steps: 8 }); await page.mouse.up({ button });
   if (camera) await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));

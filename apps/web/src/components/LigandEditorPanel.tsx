@@ -11,7 +11,7 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   CoordinateTransform,
   LigandEdit,
@@ -33,6 +33,14 @@ interface LigandEditorPanelProps {
 
 const commonElements = ELEMENTS;
 
+interface AtomDraftOwner { key: string }
+interface AtomDraft {
+  owner: AtomDraftOwner | null;
+  element: string;
+  charge: string;
+  coordinates: [string, string, string];
+}
+
 function numeric3(values: [string, string, string]): Point3D | null {
   const parsed = values.map(Number) as Point3D;
   return parsed.every(Number.isFinite) ? parsed : null;
@@ -51,13 +59,10 @@ export function LigandEditorPanel({
   const selectedEntryIds = new Set(selection.atoms.map(ref => ref.structure_id));
   const selectedLigand = selectedEntryIds.size === 1 ? ligands.find(entry => selectedEntryIds.has(entry.id))?.id : undefined;
   const [entryId, setEntryId] = useState(selectedLigand ?? "");
-  const [element, setElement] = useState("C");
-  const [charge, setCharge] = useState("0");
-  const [coordinates, setCoordinates] = useState<[string, string, string]>([
-    "0",
-    "0",
-    "0",
-  ]);
+  const [atomDraft, setAtomDraft] = useState<AtomDraft>({
+    owner: null, element: "C", charge: "0", coordinates: ["0", "0", "0"],
+  });
+  const { element, charge, coordinates } = atomDraft;
   const [bondId, setBondId] = useState("");
   const [atom1, setAtom1] = useState("1");
   const [atom2, setAtom2] = useState("2");
@@ -93,15 +98,30 @@ export function LigandEditorPanel({
   const selectedAtom = selectedAtomIds.length === 1
     ? structure?.atoms.find((atom) => atom.id === selectedAtomIds[0])
     : undefined;
+  const hasSingleAtom = selectedAtomIds.length === 1;
+  const ownerKey = JSON.stringify([
+    project.id, entryId, entry?.current_artifact_id ?? null,
+    hasSingleAtom ? selectedAtomIds[0] : null,
+  ]);
+  // Returning through an unavailable source is a new visit, even if its
+  // eventual immutable target matches an earlier initialized draft.
+  const currentOwner = useRef<AtomDraftOwner>({ key: ownerKey });
+  if (currentOwner.current.key !== ownerKey) currentOwner.current = { key: ownerKey };
+  const owner = currentOwner.current;
   const bonds = useMemo(() => structure?.bonds ?? [], [structure]);
 
   useEffect(() => {
-    if (selectedAtom) {
-      setElement(selectedAtom.element);
-      setCharge(selectedAtom.formal_charge === null ? "" : String(selectedAtom.formal_charge));
-      setCoordinates(selectedAtom.coordinates.map(String) as [string, string, string]);
-    }
-  }, [selectedAtom]);
+    if (!structure || (hasSingleAtom && !selectedAtom)) return;
+    setAtomDraft(previous => {
+      if (currentOwner.current !== owner || previous.owner === owner) return previous;
+      return selectedAtom ? {
+        owner,
+        element: selectedAtom.element,
+        charge: selectedAtom.formal_charge === null ? "" : String(selectedAtom.formal_charge),
+        coordinates: selectedAtom.coordinates.map(String) as [string, string, string],
+      } : { ...previous, owner };
+    });
+  }, [hasSingleAtom, owner, selectedAtom, structure]);
 
   useEffect(() => {
     if (!bonds.some((bond) => String(bond.id) === bondId)) {
@@ -121,6 +141,8 @@ export function LigandEditorPanel({
     }
   };
   const disabled = busy || pending || sharedPending || !entry || entry.locked || !structure;
+  const missingAtom = Boolean(structure) && hasSingleAtom && !selectedAtom;
+  const atomInitialized = Boolean(structure) && !missingAtom && atomDraft.owner === owner;
   const selectedScope = scope === "selection" ? selectedAtomIds : null;
   const selectedBond = bonds.find((bond) => String(bond.id) === bondId);
 
@@ -145,12 +167,19 @@ export function LigandEditorPanel({
         {entry?.locked ? <strong>Locked</strong> : null}
       </div>
 
-      <fieldset className="edit-section">
+      <fieldset className="edit-section" disabled={disabled || !atomInitialized}
+        aria-busy={Boolean(entry) && !missingAtom && !atomInitialized}>
         <legend><Atom size={15} /> Atoms</legend>
+        {missingAtom ? <p className="inline-error" role="status">
+          Selected atom is unavailable. Choose a current atom or clear the selection.
+        </p> : null}
         <div className="form-row">
           <label>
             Element
-            <select value={element} onChange={(event) => setElement(event.target.value)}>
+            <select value={element} onChange={(event) => {
+              const value = event.target.value;
+              setAtomDraft(current => ({ ...current, element: value }));
+            }}>
               {commonElements.map((item) => <option key={item}>{item}</option>)}
             </select>
           </label>
@@ -161,7 +190,10 @@ export function LigandEditorPanel({
               step="1"
               placeholder="unknown"
               value={charge}
-              onChange={(event) => setCharge(event.target.value)}
+              onChange={(event) => {
+                const value = event.target.value;
+                setAtomDraft(current => ({ ...current, charge: value }));
+              }}
             />
           </label>
         </div>
@@ -173,13 +205,13 @@ export function LigandEditorPanel({
                 type="number"
                 step="0.1"
                 value={coordinates[index]}
-                onChange={(event) =>
-                  setCoordinates((current) =>
-                    current.map((value, item) =>
-                      item === index ? event.target.value : value,
-                    ) as [string, string, string],
-                  )
-                }
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setAtomDraft(current => ({ ...current,
+                    coordinates: current.coordinates.map((coordinate, item) =>
+                      item === index ? value : coordinate) as [string, string, string],
+                  }));
+                }}
               />
             </label>
           ))}

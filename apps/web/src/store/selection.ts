@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type {
+  AtomReference,
   Entry,
   Selection,
   SelectionGranularity,
@@ -11,6 +12,7 @@ import {
   emptySelection,
 } from "../selection/selection";
 import { containsResidue, gestureIndex, proteinResidueTarget, residueRange, type ResidueRangeAnchor, type ResidueSelectionRequest, type ResidueTarget, type SelectionStructure, type ViewerPick } from "../selection/gestures";
+import { inspectionOrderMatches, pickedInspectionOrder, reconcileInspectionOrder } from "../selection/inspection";
 
 export interface ViewerSelectionContext {
   projectId: string;
@@ -23,9 +25,11 @@ interface SelectionState {
   projectEpoch: number;
   rangeAnchor: ResidueRangeAnchor | null;
   selection: Selection;
+  inspectionOrder: AtomReference[] | null;
   pickingGranularity: SelectionGranularity;
   setProject: (projectId: string | null) => void;
   setPickingGranularity: (granularity: SelectionGranularity) => void;
+  setInspectionOrder: (order: readonly AtomReference[]) => boolean;
   apply: (operand: Selection, mode?: SelectionMode) => void;
   replace: (selection: Selection) => void;
   clear: () => void;
@@ -42,13 +46,13 @@ function residueTransition(state: SelectionState, operand: Selection, mode: Sele
     || (anchor.entryId === context.source.entryId && anchor.artifactId !== context.artifactId))) anchor = null;
   if (shift && mode === "add" && allowRange && anchor && target) {
     const range = residueRange(anchor, target, context.source, operand.source);
-    if (range) return { selection: combineSelection(state.selection, range, "add"), rangeAnchor: anchor };
+    if (range) return { selection: combineSelection(state.selection, range, "add"), rangeAnchor: anchor, rangeApplied: true };
   }
   const selection = combineSelection(state.selection, operand, mode);
   if (!shift && explicitResidue && (mode === "replace" || mode === "toggle") && target && containsResidue(selection, target)) {
     anchor = { ...target, projectId: context.projectId, artifactId: context.artifactId };
   } else if (mode === "replace" || (anchor && !containsResidue(selection, anchor))) anchor = null;
-  return { selection, rangeAnchor: anchor };
+  return { selection, rangeAnchor: anchor, rangeApplied: false };
 }
 
 export const useSelectionStore = create<SelectionState>((set) => ({
@@ -56,30 +60,49 @@ export const useSelectionStore = create<SelectionState>((set) => ({
   projectEpoch: 0,
   rangeAnchor: null,
   selection: emptySelection(),
+  inspectionOrder: null,
   pickingGranularity: "atom",
   setProject: (projectId) =>
     set((state) =>
       state.projectId === projectId
         ? state
-        : { projectId, projectEpoch: state.projectEpoch + 1, selection: emptySelection(), rangeAnchor: null },
+        : { projectId, projectEpoch: state.projectEpoch + 1, selection: emptySelection(), rangeAnchor: null, inspectionOrder: null },
     ),
   apply: (operand, mode = "replace") =>
     set((state) => {
       const selection = combineSelection(state.selection, operand, mode);
       const rangeAnchor = mode !== "replace" && state.rangeAnchor && containsResidue(selection, state.rangeAnchor) ? state.rangeAnchor : null;
-      return { selection, rangeAnchor };
+      return { selection, rangeAnchor,
+        inspectionOrder: reconcileInspectionOrder(state.selection.atoms, selection.atoms, state.inspectionOrder) };
     }),
-  replace: (selection) => set({ selection, rangeAnchor: null }),
+  replace: (selection) => set(state => ({ selection, rangeAnchor: null,
+    inspectionOrder: reconcileInspectionOrder(state.selection.atoms, selection.atoms, state.inspectionOrder) })),
+  setInspectionOrder: order => {
+    let accepted = false;
+    set(state => {
+      if (order.length < 2 || order.length > 4 || !inspectionOrderMatches(state.selection.atoms, order)) return state;
+      accepted = true;
+      return { inspectionOrder: order.map(reference => ({ ...reference })) };
+    });
+    return accepted;
+  },
   setPickingGranularity: (pickingGranularity) => set(state => state.pickingGranularity === pickingGranularity ? state : { pickingGranularity, rangeAnchor: null }),
-  clear: () => set({ selection: emptySelection(), rangeAnchor: null }),
+  clear: () => set({ selection: emptySelection(), rangeAnchor: null, inspectionOrder: null }),
   reconcileAnchor: entries => set(state => !state.rangeAnchor || entries.some(entry =>
     entry.id === state.rangeAnchor!.entryId && entry.current_artifact_id === state.rangeAnchor!.artifactId)
     ? state : { rangeAnchor: null }),
   applyViewer: (operand, mode, pick, context) => set(state => {
     if (state.projectId !== context.projectId) return state;
-    return residueTransition(state, operand, mode, context, proteinResidueTarget(pick.atoms, context.source), pick.shift,
+    const next = residueTransition(state, operand, mode, context, proteinResidueTarget(pick.atoms, context.source), pick.shift,
       state.pickingGranularity === "residue" || state.pickingGranularity === "atom",
       state.pickingGranularity === "residue" || pick.kind === "double");
+    const isSingleAtom = state.pickingGranularity === "atom" && operand.granularity === "atom"
+      && pick.kind === "single" && pick.atoms.length === 1 && operand.atoms.length === 1
+      && inspectionOrderMatches(pick.atoms, operand.atoms)
+      && !next.rangeApplied;
+    return { selection: next.selection, rangeAnchor: next.rangeAnchor, inspectionOrder: isSingleAtom
+      ? pickedInspectionOrder(state.selection.atoms, next.selection.atoms, state.inspectionOrder, pick.atoms[0], mode === "replace")
+      : reconcileInspectionOrder(state.selection.atoms, next.selection.atoms, state.inspectionOrder) };
   }),
   applyResidue: (request, context) => set(state => {
     if (state.projectId !== request.projectId || state.projectEpoch !== request.projectEpoch
@@ -89,6 +112,8 @@ export const useSelectionStore = create<SelectionState>((set) => ({
     if (!membership) return state;
     const target = { ...membership, entryId: request.entryId };
     const operand = canonicalSelection(target.atomIds.map(atom_id => ({ structure_id: request.entryId, atom_id })), "residue", request.source);
-    return residueTransition(state, operand, request.mode, context, target, request.shift, true, true);
+    const next = residueTransition(state, operand, request.mode, context, target, request.shift, true, true);
+    return { selection: next.selection, rangeAnchor: next.rangeAnchor,
+      inspectionOrder: reconcileInspectionOrder(state.selection.atoms, next.selection.atoms, state.inspectionOrder) };
   }),
 }));

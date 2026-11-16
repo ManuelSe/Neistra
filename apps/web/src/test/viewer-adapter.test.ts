@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ViewerStructure } from "../viewer/MolecularViewer";
+import type { ViewerAtomHover, ViewerStructure } from "../viewer/MolecularViewer";
 import type { SessionCamera } from "../workspacePresentation/types";
 import { WorkspacePresentationController } from "../workspacePresentation/controller";
 import {
@@ -36,6 +36,8 @@ const calls = vi.hoisted(() => ({
   sessionSet: vi.fn(),
   sessionGet: vi.fn<() => SessionCamera | null>(() => null),
   sessionSubscribe: vi.fn((listener: unknown) => { void listener; return vi.fn(); }),
+  atomHoverGet: vi.fn<() => ViewerAtomHover | null>(() => null),
+  atomHoverSubscribe: vi.fn((listener: (value: ViewerAtomHover | null) => void) => { listener(null); return vi.fn(); }),
   drawableSubscribe: vi.fn((listener: (value: boolean) => void) => { listener(false); return vi.fn(); }),
 }));
 
@@ -88,6 +90,8 @@ vi.mock("../viewer/MolstarEngine", () => ({
     getSessionCamera() { return calls.sessionGet(); }
     setSessionCamera(camera: SessionCamera) { calls.sessionSet(camera); }
     subscribeSessionCamera(listener: unknown) { return calls.sessionSubscribe(listener); }
+    getAtomHover() { return calls.atomHoverGet(); }
+    subscribeAtomHover(listener: (value: ViewerAtomHover | null) => void) { return calls.atomHoverSubscribe(listener); }
     subscribeDrawable(listener: (value: boolean) => void) { return calls.drawableSubscribe(listener); }
 
     getMovementView() { return null; }
@@ -126,6 +130,52 @@ describe("MolecularViewer Molstar adapter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     calls.sessionGet.mockReturnValue(null);
+    calls.atomHoverGet.mockReturnValue(null);
+  });
+
+  it("binds atom feedback after lazy mount and refuses held callbacks after unsubscribe/dispose", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer(), listener = vi.fn();
+    const release = viewer.subscribeAtomHover!(listener);
+    expect(listener).toHaveBeenCalledExactlyOnceWith(null);
+    await viewer.mount(document.createElement("div"));
+    const native = calls.atomHoverSubscribe.mock.calls[0][0];
+    const structure = proteinStructure();
+    const source = { entryId: "entry", artifactId: "a", label: "Entry", normalized: structure,
+      atomIds: structure.atoms.map(atom => atom.id), hierarchy: componentHierarchy(structure),
+      projection: { format: "mmcif" as const, data: "" }, settings: viewerSettings() };
+    const event = { reference: { structure_id: "entry", atom_id: 1 }, source, sceneGeneration: 1 };
+    calls.atomHoverGet.mockReturnValue(event); native(event);
+    expect(listener).toHaveBeenLastCalledWith(event);
+    const beforeRetirement = listener.mock.calls.length;
+    calls.atomHoverGet.mockReturnValue(null); native(event);
+    expect(listener).toHaveBeenCalledTimes(beforeRetirement);
+    // A held old clear cannot erase newer atom feedback either.
+    calls.atomHoverGet.mockReturnValue(event); native(null);
+    expect(listener).toHaveBeenCalledTimes(beforeRetirement);
+    const count = listener.mock.calls.length;
+    release(); native(event);
+    expect(listener).toHaveBeenCalledTimes(count);
+    const second = vi.fn(); viewer.subscribeAtomHover!(second);
+    const held = calls.atomHoverSubscribe.mock.calls[1][0];
+    viewer.dispose();
+    expect(second).toHaveBeenLastCalledWith(null);
+    const stopped = second.mock.calls.length;
+    held(event); expect(second).toHaveBeenCalledTimes(stopped);
+    expect(calls.atomHoverSubscribe.mock.results.every(result => result.type === "return"
+      && result.value.mock.calls.length === 1)).toBe(true);
+  });
+
+  it("does not bind a retired pre-mount atom consumer or a disposed viewer", async () => {
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    viewer.subscribeAtomHover!(vi.fn())();
+    await viewer.mount(document.createElement("div"));
+    expect(calls.atomHoverSubscribe).not.toHaveBeenCalled();
+    viewer.dispose();
+    const late = vi.fn(); viewer.subscribeAtomHover!(late);
+    expect(late).toHaveBeenCalledExactlyOnceWith(null);
+    expect(calls.atomHoverSubscribe).not.toHaveBeenCalled();
   });
 
   it("buffers the latest complete camera through lazy mount without initial navigation or lost FOV", async () => {
