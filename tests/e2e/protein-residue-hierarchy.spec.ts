@@ -60,7 +60,23 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   }, entry.id);
   const mobile = info.project.name === "mobile-chromium";
   const canvas = page.locator(".molstar-host canvas").first();
-  const point = (id: number) => page.evaluate(xyz => window.editingPicks.point(xyz), projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
+  const nativePickObservations: { atomId: number; projected: { x: number; y: number }; pixel: { x: number; y: number } }[] = [];
+  const point = async (id: number) => {
+    const observed = await page.evaluate(async ({ entryId, atomId, coordinates }) => {
+      const path = "/src/test/selectionGestureHarness.ts";
+      const harness = await import(/* @vite-ignore */ path);
+      const engine = window.interactionEngines.at(-1)!;
+      const reference = { structure_id: entryId, atom_id: atomId };
+      await harness.settleSelectionScene(engine, reference);
+      const projected = window.editingPicks.point(coordinates);
+      // Tiny glyphs need an exact native raster identity, rather than an
+      // unchecked fractional center. Selection still uses a trusted UI click.
+      const pixel = harness.atomPickPixel(engine, projected, reference);
+      return { atomId, projected, pixel };
+    }, { entryId: entry.id, atomId: id, coordinates: projection.structure.atoms.find(atom => atom.id === id)!.coordinates });
+    nativePickObservations.push(observed);
+    return observed.pixel;
+  };
   const camera = await page.evaluate(() => window.editingPicks.camera());
   const reads: string[] = [], writes: string[] = [];
   page.on("request", r => {
@@ -91,6 +107,9 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   await expect(page.getByRole("button", { name: /^GLY 10A · chain A/ })).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: /^GLY 10 · chain A/ }).click();
   await canvas.click({ position: await point(14), modifiers: ["Shift"] });
+  await info.attach("residue-native-pick-observations", { contentType: "application/json", body: JSON.stringify({
+    picks: nativePickObservations, events: await page.evaluate(() => window.editingPicks.events),
+  }) });
   await expect.poll(() => selected(page)).toEqual(refs(entry.id, Array.from({ length: 16 }, (_, i) => i + 1)));
   if (mobile) { await page.getByRole("button", { name: "Project browser", exact: true }).click(); await page.getByRole("tab", { name: "Components", exact: true }).click(); }
   await expect(page.getByRole("button", { name: `Collapse ${a.display_label} in ${entry.name}`, exact: true })).toBeVisible();

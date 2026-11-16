@@ -3397,3 +3397,5 @@ readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neis
 
 Use the final #152 reply for terminal integration/cleanup readback. New application
 work requires its own scoped issue/contract; deferred work remains separate.
+
+Issue156 qualification update: candidate2 stopped at an unaccepted native residue pick after144passes; no full-gate pass. Stronger exact native-pixel oracle passes all4desktop/mobile theme cases with unchanged selection assertions. Failed logs/trace/complete diagnostic inventory are retained; fresh candidate3 and final all-seven same-candidate assessments remain next. Independent158 remains preparation only.
