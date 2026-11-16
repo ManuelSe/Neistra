@@ -90,3 +90,7 @@ Earlier missing browser-path, mixed-payload, locator, viewport and interrupted d
 ### C3 preparation — compatible additive0.34.0
 
 C1/C2checkpoint eb088e79 is committed locally and has not been pushed. All five authoritative versions move from0.33.0to0.34.0 together; no schema/dependency/migration change. New user-visible viewer inspection justifies a minor release. Remote master remains62623a16; remote annotated0.33.0tag4bb78f11→d8636064 and stable/latest publication were read back. Complete candidate recipe uses the actual extracted0.33.0source and source receipt870identities, isolated8240/8241/5403resources and disposable migration/reader stores. Final gates and final same-candidate assessments remain pending.
+
+### C3 diagnostic and correction — current-version archive guard
+
+Complete candidate1at4dba31d5stopped after its ninth step:43historical-archive cases retained the previous current-version assertion0.33.0;2,300other Python cases passed. The full717.93sPython log and all preceding step logs remain retained as diagnostics, not complete qualification. No runtime/scientific failure or source drift was observed. The guard now asserts0.34.0 and adds preceding0.33.0to the historical archive matrix. All44focused archive/original/history round trips pass in24.05s. A fresh clean35step candidate2will repeat the complete gate; partial candidate1results are not combined into a pass.
