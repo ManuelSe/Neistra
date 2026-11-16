@@ -93,7 +93,7 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 
 | Child | Plan/prerequisites | Stage | Branch/base/candidate | PR/merge/release/reply/cleanup | Blocker / next action |
 | --- | --- | --- | --- | --- | --- |
-| #156 | [Contract](issue-156-viewer-information-strip.md); None | Planned, unimplemented | planned `feat/issue-156-viewer-information-strip`; base recheck pending | None | Implement in dependency order after C0 |
+| #156 | [Contract](issue-156-viewer-information-strip.md); None | Implementation and focused qualification in progress; unreleased | `feat/issue-156-viewer-information-strip`; C0 `248807ec`, base `62623a16`, working changes | No application push/PR/release/closeout | Complete native corrections and full candidate qualification |
 | #157 | [Contract](issue-157-viewer-measurements.md); #156 | Planned, unimplemented | planned `feat/issue-157-viewer-measurements`; base recheck pending | None | Implement in dependency order after C0 |
 | #158 | [Contract](issue-158-durable-ligand-designation.md); None | Planned, unimplemented | planned `feat/issue-158-durable-ligand-designation`; base recheck pending | None | Implement in dependency order after C0 |
 | #159 | [Contract](issue-159-live-ligand-properties.md); #158 | Planned, unimplemented | planned `feat/issue-159-live-ligand-properties`; base recheck pending | None | Implement in dependency order after C0 |
@@ -105,3 +105,9 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 ### Intake evidence (not implementation qualification)
 
 2026-11-16: all issue bodies/comments/native membership/dependencies read authenticated; fresh fetch and remote master/tag dereference verified. Clean isolated checkout created at observed base. Frozen dependencies installed in its own .venv/node_modules without changing lockfiles. No current application tests/PR/release or child completion is claimed. Existing v0.33.0 and delivered152 code are baseline reuse only. All seven early assessments received; none is final implementation approval. Next: persist/push C0, begin #156.
+
+### 2026-11-16 — reconciled takeover and #156 correction cycle
+
+Owner explicitly confirmed takeover of the existing program checkout. Reverified native membership and all blocking edges, remote master62623a16, planning branch248807ec and stable/latest0.33.0. All required issues remain open; no unrelated checkout/ref/process is changed. The one durable Goal covers the complete program endpoint. Current remote classic protection reports unprotected and rulesets empty; these are observations, never authority to bypass later protection.
+
+Current #156 work and diagnostic evidence are being reconciled under its child log. Planning assessments identified concrete pre-code refinements for158/159: typed entry durability and reader refusal, complete instance connectivity, explicit-H/isotope protection, atomic current publication and bounded priority scheduling. These preserve the accepted scope and are not implementation approval. Serial dependencies and exclusions remain unchanged.

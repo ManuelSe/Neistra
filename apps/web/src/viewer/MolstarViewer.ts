@@ -15,6 +15,7 @@ import type {
   MolecularViewer,
   MovementInteraction,
   ViewerSelectionEvent,
+  ViewerAtomHover,
   ViewerStructure,
   ViewerMeasurement,
 } from "./MolecularViewer";
@@ -36,6 +37,8 @@ class LazyMolstarViewer implements MolecularViewer {
   private pickingGranularity: SelectionGranularity = "atom";
   private movementInteraction: MovementInteraction = "inactive";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
+  private atomHoverListeners = new Set<(event: ViewerAtomHover | null) => void>();
+  private atomHoverBindings = new Map<(event: ViewerAtomHover | null) => void, () => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
   private sessionCameraBindings = new Map<(camera: SessionCamera) => void, () => void>();
@@ -84,6 +87,7 @@ class LazyMolstarViewer implements MolecularViewer {
     for (const listener of this.sessionCameraListeners) {
       this.sessionCameraBindings.set(listener, engine.subscribeSessionCamera(listener));
     }
+    for (const listener of this.atomHoverListeners) this.bindAtomHover(listener, engine);
     for (const listener of this.drawableListeners) this.drawableBindings.set(listener, engine.subscribeDrawable(listener));
     for (const listener of this.interactionListeners) this.bindInteractionDisplay(listener, engine);
     if (this.pendingInteractions) await engine.setInteractions(this.pendingInteractions.records, this.pendingInteractions.options);
@@ -257,6 +261,29 @@ class LazyMolstarViewer implements MolecularViewer {
     };
   }
 
+  private bindAtomHover(listener: (event: ViewerAtomHover | null) => void, engine: MolecularViewer): void {
+    const release = engine.subscribeAtomHover?.(event => {
+      if (!this.disposed && this.mounted && this.engine === engine && this.atomHoverListeners.has(listener)
+        && (!engine.getAtomHover || engine.getAtomHover() === event)) listener(event);
+    });
+    if (release) this.atomHoverBindings.set(listener, release);
+  }
+
+  getAtomHover(): ViewerAtomHover | null {
+    return this.disposed || !this.mounted ? null : this.engine?.getAtomHover?.() ?? null;
+  }
+
+  subscribeAtomHover(listener: (event: ViewerAtomHover | null) => void): () => void {
+    if (this.disposed) { listener(null); return () => {}; }
+    this.atomHoverListeners.add(listener);
+    if (this.mounted && this.engine) this.bindAtomHover(listener, this.engine);
+    else listener(null);
+    return () => {
+      this.atomHoverListeners.delete(listener);
+      this.atomHoverBindings.get(listener)?.(); this.atomHoverBindings.delete(listener);
+    };
+  }
+
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void {
     this.selectionListeners.add(listener);
     const engineUnsubscribe = this.engine?.subscribeSelection(listener);
@@ -293,6 +320,10 @@ class LazyMolstarViewer implements MolecularViewer {
   dispose(): void {
     this.disposed = true;
     this.mounted = false;
+    for (const release of this.atomHoverBindings.values()) release();
+    this.atomHoverBindings.clear();
+    for (const listener of this.atomHoverListeners) listener(null);
+    this.atomHoverListeners.clear();
     this.pendingSurfacePreviews.clear();
     this.pendingInteractions = undefined;
     this.interactionState = { ...this.interactionState, status: "pending", installedRecordKeys: [],

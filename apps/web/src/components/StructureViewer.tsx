@@ -1,3 +1,4 @@
+import { ViewerInformationStrip, type ViewerInformationStripProps } from "./ViewerInformationStrip";
 import { captureHydrogenTarget } from "../selection/hydrogenAction";
 import { canonicalSelection } from "../selection/selection";
 import { useSelectionStore } from "../store/selection";
@@ -21,10 +22,10 @@ import type { WorkspacePresentationController } from "../workspacePresentation/c
 import type { InitialFitTicket } from "../workspacePresentation/types";
 import { useEditingStore } from "../store/editing";
 import type { ExpandSelection } from "../selection/expansion";
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   CameraState,
@@ -47,6 +48,7 @@ import type {
   MolecularViewer,
   MolecularViewerFactory,
   ViewerStructure,
+  ViewerAtomHover,
 } from "../viewer/MolecularViewer";
 import { createMolstarViewer } from "../viewer/MolstarViewer";
 import { visibleLigandAtoms } from "../viewer/focusTargets";
@@ -61,6 +63,7 @@ import { surfaceKey } from "../viewer/surface/protocol";
 import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
 import { MovementOverlay, MovementControls } from "./MovementOverlay";
+
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 import { movementPreview, movementUnavailableReason } from "../coordinates/interactiveTransform";
 import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
@@ -69,6 +72,32 @@ import { useInteractionInspection, type InteractionNativeState, type Interaction
 import { ViewerWarningDetails } from "./ViewerWarningDetails";
 import { editAttemptBlocksWrites } from "../editing/attempt";
 import type { MolecularEditingPorts } from "../editing/ports";
+
+/** Atom feedback owns its own renders; pointer updates never rebuild the scene. */
+function ViewerInspection({ viewer, projectId, sources, ...props }: Omit<ViewerInformationStripProps, "hover"> & {
+  viewer: MolecularViewer | undefined;
+  projectId: string;
+  sources: readonly ViewerStructure[];
+}) {
+  const [hover, setHover] = useState<{ viewer: MolecularViewer; projectId: string; event: ViewerAtomHover } | null>(null);
+  useEffect(() => {
+    if (!viewer) return;
+    let active = true;
+    const release = viewer.subscribeAtomHover?.(event => {
+      if (active) setHover(event ? { viewer, projectId, event } : null);
+    });
+    return () => { active = false; release?.(); };
+  }, [viewer, projectId]);
+  const event = hover && hover.viewer === viewer && hover.projectId === projectId ? hover.event : null;
+  const entry = event ? props.entries.find(entry => entry.id === event.reference.structure_id) : undefined;
+  const source = event ? sources.find(source => source.entryId === event.reference.structure_id) : undefined;
+  const reference = !props.paused && event && entry?.visible
+    && (!viewer?.getAtomHover || viewer.getAtomHover() === event)
+    && event.source.artifactId === entry.current_artifact_id
+    && props.structures.get(entry.id) === event.source.normalized
+    && source?.settings === event.source.settings ? event.reference : null;
+  return <ViewerInformationStrip {...props} hover={reference} />;
+}
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
@@ -221,6 +250,13 @@ export function StructureViewer({
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [presentationError, setPresentationError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
+  const [inspectionEntry, setInspectionEntry] = useState<{ projectId: string; entryId: string } | null>(null);
+  const inspectionOrder = useSelectionStore(state => state.projectId === project.id ? state.inspectionOrder : null);
+  const inspectionContext = useRef({ project, selection });
+  inspectionContext.current = { project, selection };
+  const inspectEntry = useCallback((entryId: string | null) => {
+    setInspectionEntry(entryId === null ? null : { projectId: project.id, entryId });
+  }, [project.id]);
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
@@ -251,6 +287,24 @@ export function StructureViewer({
       placeholderData: (previous: StructureProjection | undefined) => previous?.entry_id === entry.id ? previous : undefined,
     })),
   });
+
+  // Quick geometry loads at most four selected sources. Atom details may lazily
+  // request one additional selected entry; hover never initiates a request.
+  const inspectionEntries = useMemo(() => {
+    const needed = new Set(selection.atoms.length <= 4 ? selection.atoms.map(atom => atom.structure_id) : []);
+    return project.entries.filter(entry => !entry.visible && needed.has(entry.id));
+  }, [selection.atoms, project.entries]);
+  // Keep four observer slots: the pinned query observer does not release a
+  // removed trailing query. Disabled unique slots retire its actual source key.
+  const inspectionQueries = useQueries({ queries: Array.from({ length: 4 }, (_, slot) => {
+    const entry = inspectionEntries[slot];
+    return entry ? structureQueryOptions(project.id, entry.id, entry.current_artifact_id)
+      : structureQueryOptions(project.id, "", `inspection-unused-${slot}`);
+  }) });
+  const detailEntry = inspectionEntry?.projectId === project.id
+    && selection.atoms.some(atom => atom.structure_id === inspectionEntry.entryId)
+    ? project.entries.find(entry => entry.id === inspectionEntry.entryId && !entry.visible) : undefined;
+  const detailQuery = useQuery(structureQueryOptions(project.id, detailEntry?.id ?? "", detailEntry?.current_artifact_id));
 
   const hiddenSeedEntries = useMemo(() => {
     const needed = new Set(visibleEntries.flatMap((entry) =>
@@ -372,6 +426,7 @@ export function StructureViewer({
           ? [
               {
                 entryId: visibleEntries[index].id,
+                artifactId: query.data.artifact_id,
                 pockets: Object.fromEntries(visibleEntries[index].viewer_settings.surface_objects.flatMap(surface => {
                   const resolved = pockets.get(surfaceKey(visibleEntries[index].id, "pocket", surface.id));
                   return surface.source.kind === "pocket" && resolved ? [[surface.id, resolved]] : [];
@@ -400,6 +455,21 @@ export function StructureViewer({
       ),
     [structureQueries, visibleEntries, pockets],
   );
+  const inspectionStructures = new Map([
+    ...visibleEntries.flatMap((entry, index) => {
+      const query = structureQueries[index];
+      return !query.isError && !query.isPlaceholderData
+        && isCompleteProjection(query.data, entry.id, entry.current_artifact_id)
+        ? [[entry.id, query.data.structure] as const] : [];
+    }),
+    ...inspectionEntries.flatMap((entry, index) => {
+      const query = inspectionQueries[index];
+      return !query.isError && isCompleteProjection(query.data, entry.id, entry.current_artifact_id)
+        ? [[entry.id, query.data.structure] as const] : [];
+    }),
+    ...(detailEntry && !detailQuery.isError && isCompleteProjection(detailQuery.data, detailEntry.id, detailEntry.current_artifact_id)
+      ? [[detailEntry.id, detailQuery.data.structure] as const] : []),
+  ]);
   const sequenceRows = viewerStructures.flatMap(source => {
     const position = visibleEntries.findIndex(entry => entry.id === source.entryId);
     const entry = visibleEntries[position];
@@ -528,6 +598,8 @@ export function StructureViewer({
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
     && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, placement.action)
     ? placement.result : null;
+  const inspectionPaused = movementActive || Boolean(coordinatePreview) || Boolean(modelPreview)
+    || Boolean(editOpen && placement) || Boolean(minimizationPreview.patches.length) || minimizationPreview.state.applying;
   useEffect(() => {
     if (!viewerReady) return;
     const operation = viewerRef.current?.setModelPreview?.(modelPreview);
@@ -951,6 +1023,18 @@ export function StructureViewer({
         </div>
       ) : null}
     </div>
+    <ViewerInspection key={project.id} projectId={project.id} viewer={viewerRef.current} sources={viewerStructures}
+      selection={selection} order={inspectionOrder}
+      structures={inspectionStructures} entries={project.entries} paused={inspectionPaused}
+      onOrder={targets => { useSelectionStore.getState().setInspectionOrder(targets); }}
+      onInspectEntry={inspectEntry}
+      onLoadEntry={async entryId => {
+        const context = inspectionContext.current;
+        if (context.project.id !== project.id || !context.selection.atoms.some(atom => atom.structure_id === entryId)) return;
+        const entry = context.project.entries.find(item => item.id === entryId);
+        if (!entry?.current_artifact_id) throw new Error("This entry has no current molecular artifact.");
+        await queryClient.fetchQuery(structureQueryOptions(project.id, entry.id, entry.current_artifact_id));
+      }} />
     <SequenceViewer projectId={project.id} rows={sequenceRows} selection={selection}
       loading={structureQueries.some((query, index) => query.isPending || query.isPlaceholderData
         || !isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id))}

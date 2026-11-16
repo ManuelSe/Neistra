@@ -2,16 +2,40 @@ import { expect, test, type Page } from "@playwright/test";
 import { writeFileSync } from "node:fs";
 import type { AtomReference, SelectionGranularity, StructureProjection } from "../../apps/web/src/api/types";
 import type { observeHover } from "../../apps/web/src/test/viewerHoverHarness";
+import type { ViewerStructure } from "../../apps/web/src/viewer/MolecularViewer";
 import { frameFixture, prepare } from "./support/interactions";
 import { observe } from "./support/modeling";
+import { performanceBudget } from "./support/performance";
 
 declare global { interface Window {
   hoverObservation: ReturnType<typeof observeHover>;
   releaseHoverRebuild?: () => void;
   hoverTransition?: Promise<void>;
+  hoverCanonicalSource?: ViewerStructure;
 } }
 const refs = (entry: string, ids: number[]) => ids.sort((a, b) => a - b).map(atom_id => ({ structure_id: entry, atom_id }));
 const inspect = (page: Page) => page.evaluate(() => window.hoverObservation.inspect());
+async function informationIdentity(page: Page, reference: AtomReference, artifactId: string | null, label: string) {
+  const information = page.getByRole("region", { name: "Viewer information", exact: true });
+  await expect(information).toHaveCount(1);
+  await expect(information.getByTestId("viewer-atom-information")).toContainText(label);
+  await expect.poll(async () => (await inspect(page)).atomHover?.reference).toEqual(reference);
+  expect((await inspect(page)).atomHover?.artifactId).toBe(artifactId);
+}
+async function noncanonicalInformation(page: Page, reference: AtomReference, artifactId: string | null) {
+  await expect.poll(async () => (await inspect(page)).atomHover?.reference).toEqual(reference);
+  const receipt = await page.evaluate(() => {
+    const engine = window.interactionEngines.at(-1)!;
+    const native = engine as unknown as { structures: ViewerStructure[] };
+    const event = engine.getAtomHover();
+    return { reference: event?.reference, artifactId: event?.source.artifactId,
+      canonicalSourcePresent: Boolean(window.hoverCanonicalSource),
+      noncanonical: Boolean(event && window.hoverCanonicalSource && event.source.normalized !== window.hoverCanonicalSource.normalized),
+      currentEngineSource: Boolean(event && native.structures.find(source => source.entryId === event.reference.structure_id) === event.source) };
+  });
+  expect(receipt).toEqual({ reference, artifactId, canonicalSourcePresent: true, noncanonical: true, currentEngineSource: true });
+  await expect(page.getByRole("region", { name: "Viewer information", exact: true }).getByTestId("viewer-atom-information")).toHaveText("Selected atoms");
+}
 const selection = (page: Page) => page.evaluate(async () => {
   const path = "/src/store/selection.ts";
   const { useSelectionStore } = await import(/* @vite-ignore */ path);
@@ -87,16 +111,22 @@ for (const theme of ["light", "dark"] as const) test(`native hover matches all m
     const pixel = await point(page, projection, entry.id, oxygen.id);
     const start = Date.now();
     await hoverAt(page, pixel, expected);
+    await informationIdentity(page, { structure_id: entry.id, atom_id: oxygen.id }, entry.current_artifact_id,
+      `${entry.name} · ${oxygen.element} ${oxygen.name}`.trim());
     observations.push({ mode: granularity, automationElapsedMs: Date.now() - start, state: await inspect(page) });
     const before = await inspect(page);
     for (let i = 0; i < 4; i++) await page.mouse.move((await canvas.boundingBox())!.x + pixel.x + i % 2 * 0.2, (await canvas.boundingBox())!.y + pixel.y);
     await page.waitForTimeout(150);
     expect((await inspect(page)).markerActions).toBe(before.markerActions);
+    expect((await inspect(page)).atomHoverPublications).toBe(before.atomHoverPublications);
     if (granularity === "chain" || granularity === "structure") {
       const otherPixel = await point(page, projection, entry.id, carbon.id);
       const bounds = (await canvas.boundingBox())!;
       await page.mouse.move(bounds.x + otherPixel.x, bounds.y + otherPixel.y);
       await expect.poll(async () => (await inspect(page)).lastHover?.atoms).toEqual(refs(entry.id, [carbon.id]));
+      await informationIdentity(page, { structure_id: entry.id, atom_id: carbon.id }, entry.current_artifact_id,
+        `${entry.name} · ${carbon.element} ${carbon.name}`.trim());
+      expect((await inspect(page)).atomHoverPublications).toBe(before.atomHoverPublications + 1);
       expect((await inspect(page)).resolutions).toBe(before.resolutions);
       expect((await inspect(page)).markerActions).toBe(before.markerActions);
     }
@@ -111,19 +141,30 @@ for (const theme of ["light", "dark"] as const) test(`native hover matches all m
       // input and actual native markers, without injecting a preview result.
       await page.evaluate(() => window.dispatchEvent(new Event("blur")));
       await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]);
+      expect((await inspect(page)).atomHover).toBeNull();
       expect((await inspect(page)).selected).toEqual(refs(entry.id, [carbon.id]));
       await hoverAt(page, pixel, expected);
     }
     await page.mouse.move(0, 0);
     await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]);
+    expect((await inspect(page)).atomHover).toBeNull();
+    await expect(page.getByTestId("viewer-atom-information")).toContainText(`${entry.name} · ${carbon.element} ${carbon.name}`.trim());
     expect((await inspect(page)).selected).toEqual(refs(entry.id, [carbon.id]));
   }
   expect((await inspect(page)).cameraEvents).toBe(cameraEvents);
   expect(reads).toEqual([]);
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persisted);
   expect(await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/original`)).body()).toEqual(original);
+  const informationTimings = (await inspect(page)).informationTimings;
+  expect(informationTimings.length).toBeGreaterThan(0);
+  for (const timing of informationTimings) {
+    performanceBudget(timing.nativeEventToTextMs, 100, "Native atom-hover publication to information text");
+    if (timing.pointerToTextMs !== null) performanceBudget(timing.pointerToTextMs, 100, "Latest trusted canvas pointer sample to information text");
+  }
   const observationPath = info.outputPath("hover-observations.json");
-  writeFileSync(observationPath, JSON.stringify({ theme, timing: "Automation/poll-inclusive elapsed time; not native UI latency or a hardware throughput claim", observations }, null, 2));
+  writeFileSync(observationPath, JSON.stringify({ theme,
+    timing: "Automation/poll-inclusive elapsed is separate from in-browser native-event/text and latest-pointer/text observations; these text observations do not establish native frame presentation or a hardware throughput claim",
+    observations, informationTimings }, null, 2));
   await info.attach("hover-observations", { path: observationPath, contentType: "application/json" });
   await page.screenshot({ path: info.outputPath(`viewer-hover-${theme}.png`) });
 });
@@ -172,6 +213,12 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
   const canvas = page.locator(".molstar-host canvas").first();
   await mode(page, "atom");
   await hoverAt(page, await point(page, projection, entry.id, 4), refs(entry.id, [4]));
+  await informationIdentity(page, { structure_id: entry.id, atom_id: 4 }, entry.current_artifact_id,
+    `${entry.name} · C CB · ALA 10 · chain A`);
+  await page.evaluate(() => {
+    const native = window.interactionEngines.at(-1)! as unknown as { structures: ViewerStructure[] };
+    window.hoverCanonicalSource = native.structures[0];
+  });
   await page.mouse.move(0, 0);
   await mode(page, "residue");
   await canvas.click({ position: await point(page, projection, entry.id, 4) });
@@ -183,11 +230,15 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
     if (modifier) await page.keyboard.down(modifier);
     await page.mouse.move(0, 0);
     await hoverAt(page, pixel, refs(entry.id, [6, 7, 8, 9]));
+    await informationIdentity(page, { structure_id: entry.id, atom_id: 9 }, entry.current_artifact_id,
+      `${entry.name} · C CB · ALA 11 · chain A`);
     expect(await selection(page)).toEqual(state);
     if (modifier) await page.keyboard.up(modifier);
   }
   for (const [atomId, expected] of [[11, [11, 12]], [13, [13, 14]]] as const) {
     await hoverAt(page, await point(page, projection, entry.id, atomId), refs(entry.id, [...expected]));
+    await informationIdentity(page, { structure_id: entry.id, atom_id: atomId }, entry.current_artifact_id,
+      `${entry.name} · C C1 · LIG ${atomId === 11 ? 201 : 202} · chain L`);
     expect(await selection(page)).toEqual(state);
   }
   expect((await inspect(page)).camera).toEqual(camera);
@@ -214,9 +265,11 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
       return native.hoverTarget === null;
     }, { transition, entryId: entry.id, atom: projection.structure.atoms[0] });
     expect(cleared, `${transition} clears the owned preview immediately`).toBe(true);
+    expect((await inspect(page)).atomHover, `${transition} retires the atom-information event`).toBeNull();
     if (transition !== "coordinates") {
       await hoverAt(page, retainedPixel, []);
       expect((await inspect(page)).lastHover?.atoms).toEqual(refs(entry.id, [11]));
+      expect((await inspect(page)).atomHover).toBeNull();
     }
     await page.mouse.move(0, 0);
     await page.evaluate(async () => {
@@ -225,6 +278,7 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
     });
     try { await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]); }
     catch (error) { console.error("Lifecycle hover observation", transition, JSON.stringify(await inspect(page))); throw error; }
+    expect((await inspect(page)).atomHover).toBeNull();
     expect(await selection(page)).toEqual(state);
     await page.evaluate(async ({ transition, entryId }) => {
       const engine = window.interactionEngines.at(-1)!;
@@ -237,6 +291,18 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
     await mode(page, granularity);
     const visible = granularity === "chain" ? [1, 2, 3, 4, 6, 7, 8, 9] : [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14];
     await hoverAt(page, await point(page, projection, entry.id, 4), refs(entry.id, visible));
+    // The lifecycle fixture deliberately leaves a native-only cloned frame in
+    // the engine. Its markers remain qualified, but that frame cannot certify
+    // application-current inspection data. A fresh remount below restores it.
+    await noncanonicalInformation(page, { structure_id: entry.id, atom_id: 4 }, entry.current_artifact_id);
+    const before = await inspect(page);
+    const otherPixel = await point(page, projection, entry.id, 9);
+    const bounds = (await canvas.boundingBox())!;
+    await page.mouse.move(bounds.x + otherPixel.x, bounds.y + otherPixel.y);
+    await expect.poll(async () => (await inspect(page)).lastHover?.atoms).toEqual(refs(entry.id, [9]));
+    await noncanonicalInformation(page, { structure_id: entry.id, atom_id: 9 }, entry.current_artifact_id);
+    expect((await inspect(page)).resolutions).toBe(before.resolutions);
+    expect((await inspect(page)).markerActions).toBe(before.markerActions);
     await page.mouse.move(0, 0);
   }
   const engines = await page.evaluate(() => {
@@ -247,8 +313,10 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
   await expect.poll(() => page.evaluate(() => window.interactionEngines.length)).toBeGreaterThan(engines);
   expect(await page.evaluate(index => {
     const old = window.interactionEngines[index - 1] as unknown as {
-      plugin?: unknown; hoverSubscription?: unknown; stopHoverMarking?: unknown; hoverTarget: unknown };
-    return !old.plugin && !old.hoverSubscription && !old.stopHoverMarking && old.hoverTarget === null;
+      plugin?: unknown; hoverSubscription?: unknown; stopHoverMarking?: unknown; hoverTarget: unknown;
+      atomHover: unknown; atomHoverListeners: Set<unknown> };
+    return !old.plugin && !old.hoverSubscription && !old.stopHoverMarking && old.hoverTarget === null
+      && old.atomHover === null && old.atomHoverListeners.size === 0;
   }, engines)).toBe(true);
   await observe(page);
   await page.evaluate(async () => {
@@ -259,10 +327,13 @@ test("protein/individual complex hover preserves hidden membership, anchors and 
   await mode(page, "residue");
   await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
   await hoverAt(page, await point(page, projection, entry.id, 11), refs(entry.id, [11, 12]));
+  await informationIdentity(page, { structure_id: entry.id, atom_id: 11 }, entry.current_artifact_id,
+    `${entry.name} · C C1 · LIG 201 · chain L`);
   expect((await inspect(page)).markerActions).toBe(1);
   expect((await selection(page)).selection).toEqual(state.selection);
   await page.mouse.move(0, 0);
   await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]);
+  expect((await inspect(page)).atomHover).toBeNull();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persisted);
   await page.screenshot({ path: info.outputPath("viewer-hover-complex.png") });
 });

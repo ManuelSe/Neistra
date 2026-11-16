@@ -30,12 +30,19 @@ export interface ResolvedPocket {
 export interface ViewerStructure {
   pockets?: Readonly<Record<string, ResolvedPocket>>;
   entryId: string;
+  artifactId?: string;
   label: string;
   projection: StructureProjection["viewer"];
   atomIds: number[];
   normalized: NormalizedStructure;
   hierarchy: ComponentHierarchy;
   settings: ViewerSettings;
+}
+
+export interface ViewerAtomHover {
+  reference: AtomReference;
+  source: ViewerStructure;
+  sceneGeneration: number;
 }
 
 export interface ViewerSelectionEvent {
@@ -94,6 +101,8 @@ export interface MolecularViewer {
   focusAtoms(atoms: AtomReference[]): void;
   fitVisible(): void;
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
+  getAtomHover?(): ViewerAtomHover | null;
+  subscribeAtomHover?(listener: (event: ViewerAtomHover | null) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
   previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void>;

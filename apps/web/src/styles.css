@@ -3485,6 +3485,13 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 @media (max-width: 400px) {
+  .topbar-actions {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block: 4px;
+  }
+
   /* The logo still opens Projects; avoid a duplicate cramped name control. */
   .project-switcher {
     display: none;

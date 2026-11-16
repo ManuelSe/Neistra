@@ -16,11 +16,14 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "docs/assets/interaction-inspection/release-evidence.py.txt"
+VIEWER_SCRIPT = ROOT / "docs/assets/viewer-information/release-evidence.py.txt"
 
 
-@pytest.fixture(scope="module")
-def tools() -> dict[str, Any]:
-    return runpy.run_path(str(SCRIPT))
+@pytest.fixture(
+    scope="module", params=[SCRIPT, VIEWER_SCRIPT], ids=["interaction", "viewer-information"]
+)
+def tools(request: pytest.FixtureRequest) -> dict[str, Any]:
+    return runpy.run_path(str(request.param))
 
 
 def zipped(items: dict[str, bytes], manifest: Any = None) -> bytes:
@@ -205,11 +208,11 @@ def source_snapshot(tools: dict[str, Any], tmp_path: Path) -> tuple[Path, dict[s
         check=True,
         capture_output=True,
     )
-    destination = source / "docs/assets/interaction-inspection"
+    destination = source / tools["ASSETS"]
     destination.mkdir(parents=True)
     for name in tools["TOOL_NAMES"]:
         (destination / name).write_bytes(
-            (ROOT / "docs/assets/interaction-inspection" / name).read_bytes()
+            (ROOT / tools["ASSETS"] / name).read_bytes()
         )
     application = source / "apps/qualified.py"
     application.parent.mkdir()
@@ -238,7 +241,7 @@ def test_source_inventory_uses_explicit_root_and_allows_generated_document_evide
     tools: dict[str, Any], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     source, snapshot = source_snapshot(tools, tmp_path)
-    document = source / "docs/assets/interaction-inspection/unit-summary.json"
+    document = source / tools["ASSETS"] / "unit-summary.json"
     document.write_text('{"scope": "source-guard unit observation only"}\n')
     outside = tmp_path / "outside"
     outside.mkdir()

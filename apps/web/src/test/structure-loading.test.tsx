@@ -24,6 +24,7 @@ import { StructureViewer as ProductionStructureViewer } from "../components/Stru
 import type {
   MolecularViewer,
   ViewerStructure,
+  ViewerAtomHover,
 } from "../viewer/MolecularViewer";
 import { componentHierarchy, viewerSettings } from "./molecular-fixtures";
 import type { SessionCamera } from "../workspacePresentation/types";
@@ -33,6 +34,8 @@ import { useWorkspaceStore } from "../store/workspace";
 import { useEditingStore } from "../store/editing";
 import { useSelectionStore } from "../store/selection";
 import { hydrogenAppearanceCommand } from "../selection/hydrogenAction";
+import { structureQueryKey, structureQueryOptions } from "../structures/query";
+import { QueryObserver } from "@tanstack/react-query";
 import { dispatchProjectCommand } from "../coordinates/projectCommand";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 
@@ -174,6 +177,11 @@ function projection(entryId: string, artifactId = `current-${entryId}`): Structu
 }
 
 class FakeViewer implements MolecularViewer {
+  atomHoverListener: ((event: ViewerAtomHover | null) => void) | undefined;
+  subscribeAtomHover(listener: (event: ViewerAtomHover | null) => void) {
+    this.atomHoverListener = listener;
+    return () => { this.atomHoverListener = undefined; };
+  }
   sessionCamera: SessionCamera | null = null;
   sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
   getSessionCamera() { return this.sessionCamera; }
@@ -314,6 +322,133 @@ describe("lazy structure loading", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+  });
+
+  it("releases hidden atom-detail reads on close and preserves another current consumer", async () => {
+    const user = userEvent.setup(), current = project(), fake = new FakeViewer();
+    let hiddenSignal: AbortSignal | null | undefined;
+    const fetch = vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+      if (requestUrl(input).includes("/ligand/")) {
+        hiddenSignal = init?.signal;
+        return new Promise<Response>((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError"))));
+      }
+      return Promise.resolve(new Response(JSON.stringify(projection("protein")), { status: 200 }));
+    });
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const selected: Selection = { ...emptySelection, atoms: [1, 2, 3, 4, 5].map(atom_id => ({ structure_id: "ligand", atom_id })) };
+    const props = { project: current, theme: "light" as const, selection: selected,
+      pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer: () => fake };
+    const view = render(<StructureViewer {...props} />, { wrapper: wrapper(client) });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    const visibleReads = fetch.mock.calls.length;
+    await user.click(screen.getByRole("button", { name: "Atom details" }));
+    await user.selectOptions(screen.getByLabelText("Selected atom", { exact: true }), JSON.stringify(["ligand", 1]));
+    await waitFor(() => expect(hiddenSignal).toBeDefined());
+    expect(client.getQueryCache().find({ queryKey: structureQueryKey(current.id, "ligand", "current-ligand") })?.getObserversCount()).toBe(1);
+    await user.click(screen.getByRole("button", { name: "Close viewer information" }));
+    await waitFor(() => expect(client.getQueryCache().find({ queryKey: structureQueryKey(current.id, "ligand", "current-ligand") })?.getObserversCount()).toBe(0));
+    expect(hiddenSignal?.aborted).toBe(true);
+    view.rerender(<StructureViewer {...props} project={{ ...current, entries: current.entries.map(entry => entry.id === "ligand" ? { ...entry, current_artifact_id: "next-ligand" } : entry) }} />);
+    await act(async () => { await Promise.resolve(); });
+    expect(fetch).toHaveBeenCalledTimes(visibleReads + 1);
+
+    view.rerender(<StructureViewer {...props} />);
+    const observer = new QueryObserver(client, structureQueryOptions(current.id, "ligand", "current-ligand"));
+    const release = observer.subscribe(() => {});
+    await waitFor(() => expect(hiddenSignal?.aborted).toBe(false));
+    const sharedSignal = hiddenSignal;
+    await user.click(screen.getByRole("button", { name: "Atom details" }));
+    await user.selectOptions(screen.getByLabelText("Selected atom", { exact: true }), JSON.stringify(["ligand", 1]));
+    await waitFor(() => expect(client.getQueryCache().find({ queryKey: structureQueryKey(current.id, "ligand", "current-ligand") })?.getObserversCount()).toBe(2));
+    view.rerender(<StructureViewer {...props} selection={emptySelection} />);
+    await waitFor(() => expect(client.getQueryCache().find({ queryKey: structureQueryKey(current.id, "ligand", "current-ligand") })?.getObserversCount()).toBe(1));
+    expect(sharedSignal?.aborted).toBe(false);
+    release();
+    await waitFor(() => expect(sharedSignal?.aborted).toBe(true));
+  });
+
+  it("releases all retired quick-geometry sources as four hidden entries narrow to one then none", async () => {
+    const current = project(false, false);
+    current.entries = ["a", "b", "c", "d"].map(id => entry(id, false));
+    const signals = new Map<string, AbortSignal>();
+    const fetch = vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+      const id = requestUrl(input).match(/entries\/([^/]+)\/structure/)![1];
+      signals.set(id, init!.signal!);
+      return new Promise<Response>((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError"))));
+    });
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const selected: Selection = { ...emptySelection, atoms: current.entries.map(entry => ({ structure_id: entry.id, atom_id: 1 })) };
+    const fake = new FakeViewer(), props = { project: current, theme: "light" as const, selection: selected,
+      pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer: () => fake };
+    const view = render(<StructureViewer {...props} />, { wrapper: wrapper(client) });
+    await waitFor(() => expect(signals.size).toBe(4));
+    view.rerender(<StructureViewer {...props} selection={{ ...selected, atoms: selected.atoms.slice(0, 1) }} />);
+    await waitFor(() => expect(["b", "c", "d"].every(id => signals.get(id)?.aborted)).toBe(true));
+    expect(signals.get("a")?.aborted).toBe(false);
+    view.rerender(<StructureViewer {...props} selection={emptySelection} />);
+    await waitFor(() => expect(signals.get("a")?.aborted).toBe(true));
+    view.rerender(<StructureViewer {...props} selection={emptySelection} project={{ ...current,
+      entries: current.entries.map(entry => ({ ...entry, current_artifact_id: `new-${entry.id}` })) }} />);
+    await act(async () => { await Promise.resolve(); });
+    expect(fetch).toHaveBeenCalledTimes(4);
+  });
+
+  it("keeps distinct atom hover updates outside full-scene derivation for a loaded 100000-atom source", async () => {
+    const current = project(), data = projection("protein"), fake = new FakeViewer();
+    data.structure.atoms = Array.from({ length: 100_000 }, (_, index) => ({ ...data.structure.atoms[0], id: index + 1, name: `C${index + 1}` }));
+    const map = vi.spyOn(data.structure.atoms, "map");
+    const fetch = vi.spyOn(globalThis, "fetch");
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    client.setQueryData(structureQueryKey(current.id, "protein", "current-protein"), data);
+    render(<StructureViewer project={current} theme="light" selection={emptySelection} pickingGranularity="atom"
+      onViewerSelection={vi.fn()} createViewer={() => fake} />, { wrapper: wrapper(client) });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    const source = fake.syncs.at(-1)![0];
+    act(() => fake.atomHoverListener!({ reference: { structure_id: "protein", atom_id: 1 }, source, sceneGeneration: 1 }));
+    map.mockClear(); fetch.mockClear();
+    const syncs = fake.syncs.length;
+    for (let atom_id = 2; atom_id <= 21; atom_id++) {
+      act(() => fake.atomHoverListener!({ reference: { structure_id: "protein", atom_id }, source, sceneGeneration: 1 }));
+      expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent(`C${atom_id}`);
+    }
+    expect(map).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
+    expect(fake.syncs).toHaveLength(syncs);
+  });
+
+  it("admits only current canonical hover sources and rejects held hidden/preview/project callbacks", async () => {
+    const fake = new FakeViewer(), current = project(), createViewer = () => fake;
+    vi.spyOn(globalThis, "fetch").mockImplementation(input => Promise.resolve(new Response(
+      JSON.stringify(projection(requestUrl(input).includes("/protein/") ? "protein" : "ligand")),
+      { status: 200, headers: { "Content-Type": "application/json" } },
+    )));
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const props = { project: current, theme: "light" as const, selection: emptySelection,
+      pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer };
+    const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    const source = fake.syncs.at(-1)![0], held = fake.atomHoverListener!;
+    const event = { reference: { structure_id: "protein", atom_id: 1 }, source, sceneGeneration: 1 };
+    act(() => held(event));
+    expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("Receptor · C C1");
+    for (const stale of [ { ...source, artifactId: "obsolete" }, { ...source, normalized: structuredClone(source.normalized) },
+      { ...source, settings: structuredClone(source.settings) } ]) {
+      act(() => held({ ...event, source: stale }));
+      expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("Hover or select an atom");
+    }
+    act(() => held(event));
+    const patch = { entry_id: "protein", artifact_id: "preview", atom_ids: [1], coordinates: [[1, 0, 0] as [number, number, number]] };
+    view.rerender(<StructureViewer {...props} coordinatePreview={patch} />);
+    expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("Hover or select an atom");
+    const hidden = { ...current, entries: current.entries.map(entry => ({ ...entry, visible: false })) };
+    view.rerender(<StructureViewer {...props} project={hidden} />);
+    act(() => held(event));
+    expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("Hover or select an atom");
+    view.rerender(<StructureViewer {...props} project={{ ...hidden, id: "other-project" }} />);
+    act(() => held(event));
+    expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("Hover or select an atom");
+    view.unmount(); expect(fake.atomHoverListener).toBeUndefined();
+    act(() => held(event)); expect(props.onViewerSelection).not.toHaveBeenCalled();
   });
 
   it("retains the exact created surface while the canonical project notification is pending", async () => {
