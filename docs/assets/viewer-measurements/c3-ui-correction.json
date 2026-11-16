@@ -1,0 +1,49 @@
+{
+  "scope": "Coherent measured44pixel UI correction; final full gate and seven-role reconfirmation pending",
+  "archive": "c3-ui-correction.zip",
+  "files": 38,
+  "archive_bytes": 405346,
+  "archive_sha256": "760746a8c978cff2d79937c882663682f7b19b1c841df90f66e55a83c2e5b24e",
+  "all_member_hashes_and_crcs_verified": true,
+  "changed_ui_files": [
+    "apps/web/src/components/MeasurementContacts.tsx",
+    "apps/web/src/components/measurement-tool.css",
+    "apps/web/src/components/ViewerToolbar.tsx",
+    "apps/web/src/styles.css"
+  ],
+  "findings_and_corrections": [
+    "Contact pagers37x44 now44x44 with sharediconclass.",
+    "Result rowheight previously29or44dependingCSSorder now44inbothorders via scopedselector.",
+    "NewRuler launcher28x26 now44x44 withspecificmodifier; inheritedothercontrols outsidethischange."
+  ],
+  "focused_verification": {
+    "frontend": 1173,
+    "suites": 118,
+    "lint": 0,
+    "types": 0,
+    "build": 0,
+    "actual_native_cases": 6,
+    "exclusions": 0,
+    "retries": 0,
+    "axe_violations": 0,
+    "source_identities": 920,
+    "source_scope": "Application/tests/config and originalsixhelpers; newsixreleasehelpers separatelyaudited, completegate source926.",
+    "source_unchanged": true,
+    "child_and_enclosing_exits": 0,
+    "coverage": "320px desktop/touch and actualChrome100/200zoomboth themes, nativepicks/keyboardrecovery, real1STP10Angstrom currentcontactpagination withall44targetchecks and unchangedprojectstate"
+  },
+  "independent_ui_review": "PASS scoped correctedtargets+33component/workspacechecks+actualApp6; finalsamecandidate/full42reconfirmationremains",
+  "independent_scientific_review": "Fresh nonauthorPASS scoped fc5scientificcontent:172Python,121frontend,1440numericalprobes,702nativepacketmembersverified; no scientificcodechangeinUIcorrection. Finalcandidate/full42reconfirmation remains.",
+  "documentation": "APIcontactsorting clarified distancefirst then canonicalIDs; existingalgorithm/DTO unchanged.",
+  "stopped_candidate1": {
+    "candidate": "fc5c757cec78b46dc7ef20c6e91b3336588e2356",
+    "completed_commands": 8,
+    "python_interrupted_exit": 143,
+    "wrapper_exit": 143,
+    "cause": "Explicit rootSIGTERM to verifiedexactownedisolatedPythoncommandgroup for measuredUIcorrection. Not an unexplained failure and not a completegatePASS.",
+    "sources_unchanged_at_stop": true,
+    "remaining_owned_run_environment_processes": 0,
+    "partial_checks_not_reused_for_full_gate": true
+  },
+  "next": "Commit clean correctedcandidate plusfreshcandidate2recipe; restartall42checksfromstep1, independentaudit/package, allsevenfinalsamecandidate beforeapplicationpush; normaldelivery/exactmergedfresh42/publication/closeout stillpending"
+}

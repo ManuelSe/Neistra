@@ -107,9 +107,9 @@ export function MeasurementContacts({ project, session, preferredEntryId, paused
         onSelect([{ ...contact.atom_1 }, { ...contact.atom_2 }]);
       }}>Atoms {contact.atom_1.atom_id}–{contact.atom_2.atom_id}<span>{contact.distance.toFixed(2)} Å</span></button>)}</div>
     {pages > 1 ? <div className="measurement-pagination">
-      <button type="button" aria-label="Previous contact page" disabled={shownPage === 0} onClick={() => setPage(shownPage - 1)}><ChevronLeft size={17} /></button>
+      <button type="button" className="measurement-icon" aria-label="Previous contact page" disabled={shownPage === 0} onClick={() => setPage(shownPage - 1)}><ChevronLeft size={17} /></button>
       <span>Page {shownPage + 1} of {pages}</span>
-      <button type="button" aria-label="Next contact page" disabled={shownPage + 1 >= pages} onClick={() => setPage(shownPage + 1)}><ChevronRight size={17} /></button>
+      <button type="button" className="measurement-icon" aria-label="Next contact page" disabled={shownPage + 1 >= pages} onClick={() => setPage(shownPage + 1)}><ChevronRight size={17} /></button>
     </div> : null}
   </section>;
 }

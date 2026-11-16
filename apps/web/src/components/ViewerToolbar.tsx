@@ -46,6 +46,7 @@ interface ViewerToolbarProps {
 }
 
 interface ViewerActionButtonProps {
+  className?: string;
   label: string;
   tooltip: string;
   unavailableReason: string | null;
@@ -58,6 +59,7 @@ interface ViewerActionButtonProps {
 }
 
 function ViewerActionButton({
+  className,
   label,
   tooltip,
   unavailableReason,
@@ -74,7 +76,7 @@ function ViewerActionButton({
       <Tooltip.Trigger asChild>
         <button
           type="button"
-          className="viewer-action-button"
+          className={`viewer-action-button${className ? ` ${className}` : ""}`}
           aria-label={label}
           aria-disabled={unavailable}
           aria-haspopup={hasPopup}
@@ -179,7 +181,7 @@ export function ViewerToolbar({
         </select>
       </label>
       <div className="viewer-focus-actions" role="group" aria-label="Viewer focus actions">
-        {onMeasurements ? <ViewerActionButton label="Measurements" tooltip="Measure distance, angle or torsion"
+        {onMeasurements ? <ViewerActionButton className="viewer-measurements-action" label="Measurements" tooltip="Measure distance, angle or torsion"
           unavailableReason={null} onClick={onMeasurements} hasPopup="dialog" expanded={measurementsOpen}><Ruler size={16} /></ViewerActionButton> : null}
         <ViewerActionButton
           label="Fit all visible"

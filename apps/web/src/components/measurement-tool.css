@@ -62,6 +62,7 @@
 .measurement-saved-actions { display: grid; gap: 7px; padding: 4px 0 10px; }
 .measurement-saved-secondary-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
 .measurement-contact-content { padding: 2px 0 8px; min-width: 0; }
+.measurement-tool .contact-results button { min-height: 44px; }
 @media (max-width: 360px) {
   .dialog-content.measurement-tool { padding-inline: 8px; }
   .measurement-target { gap: 4px; }

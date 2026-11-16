@@ -1151,8 +1151,8 @@ leases are transient application state. No durable measurement schema changed.
 `POST /api/v1/projects/{project_id}/contacts` accepts `entry_id`, optional
 `expected_artifact_id`, `cutoff` (default2, greater than0 and at most10Å), and
 `minimum_distance` (default0.5Å, at least0 and less than cutoff). Success retains
-the existing JSON list of `{atom_1, atom_2, distance}` records, sorted by canonical
-IDs. All recorded bonded pairs are excluded. The minimum remains inclusive and0
+the existing JSON list of `{atom_1, atom_2, distance}` records, sorted by distance and then canonical
+atom IDs. All recorded bonded pairs are excluded. The minimum remains inclusive and0
 is supported; results are geometric within-entry Cartesian proximity.
 
 A source-bound read captures immutable input and verifies it again after computation.

@@ -63,9 +63,19 @@ ordered persistence cases pass. Six new qualification helpers pass scoped archit
 review after correcting the release-plan path; recipe retains all35baseline commands
 and adds seven new-state reader commands. No complete42-command gate is claimed yet.
 
-Next: commit C3 preparation, run the fresh complete42-command candidate gate and
-independent source/log/reader/exclusion/recursive-package audit, then obtain all-seven
-final same-candidate assessments before application push and normal release. Schema/dependencies remain
+C3 candidate1fc5c757c was intentionally stopped during Python after eight completed
+checks when independent UI review measured undersized new controls. Its source maps,
+lossless partial logs and explicitSIGTERM receipt remain retained; no complete gate
+pass is claimed. The [correction](assets/viewer-measurements/c3-ui-correction.json)
+sets ruler/pagers44×44 and contact rows at least44px in either CSS order. Fresh
+lint/types/all1173frontend/build and six actual-App narrow/zoom/contact-pagination
+cases pass with zero exclusions/retries; scoped nonauthor UI reassessment passes.
+Nonauthor scientific implementation independently passes172Python/121frontend and
+1440numerical probes; final current-candidate reconfirmation remains required.
+
+Next: commit the measured UI correction and fresh candidate2recipe, then restart
+all42commands from step1. Independently audit/package the completed gate and obtain
+all-seven final same-candidate assessments before application push and normal release. Schema/dependencies remain
 unchanged. Preserve other worktrees and one active Goal through all eight releases
 and parent closeout.
 

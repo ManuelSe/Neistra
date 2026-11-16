@@ -15,6 +15,9 @@ async function exercise(page: Page, source: StructureProjection, theme: "light" 
   const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
   if (await toggle.count()) await toggle.click();
   const ruler = page.getByRole("button", { name: "Measurements", exact: true });
+  const launcher = await ruler.boundingBox();
+  expect(launcher?.width).toBeGreaterThanOrEqual(44);
+  expect(launcher?.height).toBeGreaterThanOrEqual(44);
   await ruler.focus(); await page.keyboard.press("Enter");
   const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
   await expect(tool).toBeVisible();
@@ -109,4 +112,43 @@ test("keeps measurement acquisition and keyboard recovery usable at actual brows
     expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(project);
     await info.attach("measurement-actual-zoom-native-keyboard", { body: JSON.stringify(observations), contentType: "application/json" });
   } finally { await context.close(); await rm(profile, { recursive: true, force: true }); }
+});
+
+
+test("keeps paged contact controls at 44 pixel targets in the narrow application", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 320, height: 700 });
+  const project = await prepareInformationProject(page, request, "Contact target access", ["tests/fixtures/complex/1stp.pdb"]);
+  const entry = project.entries.find(item => item.source_format === "pdb")!;
+  const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
+  const observations = [];
+  for (const theme of ["light", "dark"] as const) {
+    const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
+    if (await toggle.count()) await toggle.click();
+    await page.getByRole("button", { name: "Measurements", exact: true }).click();
+    await tool.getByRole("button", { name: "Close contacts", exact: true }).click();
+    await tool.getByRole("combobox", { name: "Structure", exact: true }).selectOption(entry.id);
+    await tool.getByRole("spinbutton", { name: "Cutoff (Å)", exact: true }).fill("10");
+    await tool.getByRole("button", { name: "Find contacts", exact: true }).click();
+    const previous = tool.getByRole("button", { name: "Previous contact page", exact: true });
+    const next = tool.getByRole("button", { name: "Next contact page", exact: true });
+    await expect(next).toBeEnabled();
+    const targets = tool.locator(".contact-results button");
+    await expect(targets).toHaveCount(50);
+    const dimensions = [];
+    for (const target of [previous, next, targets.first()]) {
+      await target.scrollIntoViewIfNeeded();
+      const box = (await target.boundingBox())!;
+      expect(box.width).toBeGreaterThanOrEqual(44);
+      expect(box.height).toBeGreaterThanOrEqual(44);
+      dimensions.push({ width: box.width, height: box.height });
+    }
+    if (info.project.name === "mobile-chromium") await next.tap(); else await next.click();
+    await expect(tool.getByText(/^Page 2 of /)).toBeVisible();
+    await expect(previous).toBeEnabled();
+    observations.push({ theme, dimensions });
+    await tool.getByRole("button", { name: "Close measurements", exact: true }).click();
+  }
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(project);
+  await info.attach("current-contact-hit-targets", { body: JSON.stringify(observations), contentType: "application/json" });
 });

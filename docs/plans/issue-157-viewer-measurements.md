@@ -503,3 +503,35 @@ plan path was corrected and independently probed. Original helpers remain unchan
 This is preparation only. Commit the candidate cleanly, then run all42fresh commands,
 independent summary and complete recursive packaging. Final all-seven current-candidate
 review, protected delivery, exact-merged qualification and publication remain pending.
+
+### C3 corrective checkpoint — explicit44px controls before complete-gate restart
+
+Candidate1fc5c757c completed eight commands, then the primary intentionally stopped
+its isolated Python command group withSIGTERM after independent UI measurements
+found the new ruler28×26 and contact pagers37×44 below the approved44px target
+contract. Contact rows also depended on stylesheet order (29/44px). Partial source/
+log receipts remain truthful, Python/wrapper exit143 has this explicit cause, and
+no partial check is pooled into a completed gate. No owned run-environment process
+remained after stop. Original recipe, logs and owned run data are retained in the
+[correction packet](../assets/viewer-measurements/c3-ui-correction.json).
+
+The primary applied a Measurements-specific44px launcher modifier, shared44px pager
+icon class and stronger scoped result-row min-height. No inherited unrelated toolbar
+control or scientific method changes. Independent probes verify both stylesheet
+orders;33component/workspace checks pass. Fresh whole web lint/types/1173tests in
+118suites/build pass, then six actual-App native cases verify ruler/pager/row targets,
+real1STPcontact pagination, native picking and keyboard recovery at320px, both themes,
+desktop/touch and actual100/200%browser zoom. No exclusions/retries; child/enclosing0,
+all920focused source identities unchanged. The additional six release helpers retain
+their separate audited hashes; the full-gate inventory is926.
+
+Fresh nonauthor scientific implementation review independently passes172Python,
+121frontend and1440exhaustive numerical queries, verifies702native packet members,
+and finds no consequential method/transport/native defect. Its minor API wording
+finding is corrected: contact order is distance first, then canonical-ID tie-break.
+Scoped UI review now PASSes the corrected actual-App evidence. Both roles explicitly
+require final candidate/full42reconfirmation; no all-seven final approval yet.
+
+Commit the coherent correction and new candidate2recipe cleanly, then execute all42
+commands afresh with unchanged deadlines/retries/exclusions, independent summary and
+complete packaging. Candidate1remains intentionally interrupted historical evidence.
