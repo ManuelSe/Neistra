@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, FiniteFloat, model_validator
 
-RESOLVER_VERSION = "ligand-instance-v1"
+RESOLVER_VERSION = "ligand-instance-v2"
 
 
 class LigandDesignationV1(BaseModel):

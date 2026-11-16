@@ -14,8 +14,8 @@ export interface LegacyResolutionPorts {
 export function useLegacyLigandResolution(ports: LegacyResolutionPorts): void {
   const current = useRef(ports);
   current.current = ports;
-  const work = useRef<{ projectId: string | null; captured: boolean; queue: string[]; running: boolean }>({
-    projectId: null, captured: false, queue: [], running: false,
+  const work = useRef<{ projectId: string | null; visit: number; captured: boolean; queue: string[]; running: boolean }>({
+    projectId: null, visit: 0, captured: false, queue: [], running: false,
   });
   const [tick, resume] = useReducer((value: number) => value + 1, 0);
   useEffect(() => {
@@ -23,6 +23,7 @@ export function useLegacyLigandResolution(ports: LegacyResolutionPorts): void {
     const input = current.current;
     if (state.projectId !== input.activeProjectId) {
       state.projectId = input.activeProjectId;
+      state.visit += 1;
       state.captured = false;
       state.queue = [];
     }
@@ -43,9 +44,12 @@ export function useLegacyLigandResolution(ports: LegacyResolutionPorts): void {
     // Remove attempts before dispatch. Ordinary revisions, Undo and failures do
     // not reseed this epoch or repeatedly invoke an expensive unsupported input.
     const owner = project.id;
+    const visit = state.visit;
     state.running = true;
     void input.resolve(project, batch).catch(error => {
-      current.current.onError(owner, error);
+      if (state.visit === visit && state.projectId === owner && current.current.activeProjectId === owner) {
+        current.current.onError(owner, error);
+      }
     }).finally(() => {
       state.running = false;
       resume();

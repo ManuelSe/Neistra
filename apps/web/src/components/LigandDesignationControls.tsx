@@ -19,7 +19,8 @@ interface LigandDesignationControlsProps {
 }
 
 const PAGE_SIZE = 12;
-const POLICY = "ligand-instance-v1";
+const POLICY = "ligand-instance-v2";
+const CHEMISTRY_POLICY = "ligand-exact-representation-v2";
 const DRAWING_POLICY = "ligand-2d-v1";
 const abortError = () => new DOMException("The depiction request was cancelled", "AbortError");
 
@@ -75,7 +76,7 @@ function designationKey(entry: Entry) {
 function inventoryOptions(project: Project, entry: Entry, offset: number) {
   return {
     queryKey: ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
-      entry.original_artifact_id, "ligand-exact-representation-v1", designationKey(entry), offset, PAGE_SIZE],
+      entry.original_artifact_id, CHEMISTRY_POLICY, designationKey(entry), offset, PAGE_SIZE],
     queryFn: ({ signal }: { signal: AbortSignal }) => ligandApi.candidates(project.id, entry, offset, signal),
     staleTime: Infinity,
     gcTime: 60_000,
@@ -252,7 +253,7 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
     const candidate = candidates[index];
     return {
       queryKey: ["ligand-depiction", POLICY, DRAWING_POLICY, pausedReason ? "preview-unavailable" : "committed", project.id, entry.id,
-        entry.current_artifact_id, entry.original_artifact_id, "ligand-exact-representation-v1", inventory?.input_hash,
+        entry.current_artifact_id, entry.original_artifact_id, CHEMISTRY_POLICY, inventory?.input_hash,
         candidate?.candidate_key ?? `unused-${index}`, 240, 180],
       enabled: !pausedReason && Boolean(candidate && selectable.has(candidate.candidate_key)),
       queryFn: ({ signal }: { signal: AbortSignal }) => queuedDepiction(

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from typing import Any
 
 from neistra_core.components import ION_ELEMENTS, POLYMER_CATEGORIES, derive_component_hierarchy
@@ -31,6 +31,17 @@ def _hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def _neutral_water(molecule: Any, formal_charge: int | None) -> bool:
+    """Count physical elements without discarding source isotope information."""
+    if formal_charge != 0:
+        return False
+    composition = Counter(int(atom.GetAtomicNum()) for atom in molecule.GetAtoms())
+    composition[1] += sum(
+        atom.GetNumExplicitHs() + atom.GetNumImplicitHs() for atom in molecule.GetAtoms()
+    )
+    return composition == {8: 1, 1: 2}
 
 
 def resolve_candidates(
@@ -201,13 +212,30 @@ def resolve_candidates(
                 reasons = ["source_instance_requires_deliberate_choice"]
         else:
             status, reasons = "unsupported", ["molecular_boundary_not_qualified"]
-        is_water = categories == {"water"}
-        if not is_water and len(ids) <= 3 and {a.element for a in group_atoms} <= {"O", "H"}:
+        elements = [atom.element for atom in group_atoms]
+        water_like = len(ids) <= 3 and elements.count("O") == 1 \
+            and set(elements) <= {"O", "H", "D"}
+        source_assigned_water = source_kinds == {"water"} or (
+            format_name == "pdb" and categories == {"water"}
+        )
+        is_water = False
+        if water_like or source_assigned_water or categories == {"water"}:
             if prepared_chemistry is None:
                 prepared_chemistry = prepare_chemistry(structure, original_bytes=original_bytes)
             chemistry = prepared_chemistry.qualify(ids)
-            is_water = chemistry.formula == "H2O" and chemistry.formal_charge == 0
-            if chemistry.status != "qualified" and status == "qualified":
+            if chemistry.status == "qualified":
+                is_water = _neutral_water(chemistry.molecule, chemistry.formal_charge)
+                if not is_water and source_assigned_water and status == "qualified":
+                    status, reasons = "source_instance", ["source_water_identity_changed"]
+            else:
+                # Source-assigned water may lack complete H/charge evidence.
+                # Keep that boundary fact separate from qualified chemistry;
+                # labels alone cannot defeat raw nonpolymer ownership.
+                is_water = source_assigned_water and water_like and all(
+                    atom.formal_charge in {None, 0} for atom in group_atoms
+                )
+            if not is_water and chemistry.status != "qualified" and status == "qualified" \
+                    and (water_like or source_assigned_water):
                 status, reasons = "source_instance", ["water_identity_unresolved"]
         known_source_ion = (
             len(ids) == 1

@@ -792,6 +792,16 @@ chemistry remains unavailable. No protonation, neutralization, desalting, cappin
 preparation is performed by choosing or drawing a ligand. Changed chemistry
 previews expose composition and 2D as unavailable until committed inputs qualify.
 
+Exact-original recovery does not qualify dummy atoms or atom/bond query predicates.
+Their complete candidate may remain selectable, but formula, mass, charge and
+depiction are unavailable with a reason. Qualified isotope, radical and stereo
+representations retain their source facts. Water identity uses qualified physical
+composition, including isotope-labelled H/O and complete H accounting; it does not
+compare isotope-explicit formula text with a single spelling. Compatible established
+PDB/mmCIF water membership may remain source-assigned when H/charge facts are
+incomplete, without inventing qualified chemistry. Historical water labels cannot
+exclude proved current nonwater or override raw nonpolymer ownership by name.
+
 Candidate layout is limited to 1,024 atoms, each SVG to 512 KiB, and retained content
 to 1,024 records/128 MiB with conservative shared-reference accounting. At capacity,
 existing matching content remains usable and new publication is explicitly declined.

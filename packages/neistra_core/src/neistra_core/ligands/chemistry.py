@@ -18,7 +18,7 @@ from neistra_core.adapters.rdkit_common import mol_to_normalized
 from neistra_core.hydrogen_protection import AtomProtection, protection_facts
 from neistra_core.molecular import Atom, Bond, NormalizedStructureV1
 
-CHEMISTRY_POLICY = "ligand-exact-representation-v1"
+CHEMISTRY_POLICY = "ligand-exact-representation-v2"
 DEPICTION_POLICY = "ligand-2d-v1"
 MAX_DEPICTION_ATOMS = 1024
 _descriptors: Any = Descriptors
@@ -397,6 +397,12 @@ def _qualify_prepared(
             provenance = "exact_immutable_source_match"
         else:
             mol = _explicit_molecule(index, members)
+        # Exact source recovery preserves representation; it does not make
+        # placeholders or query predicates a fully specified molecule.
+        if any(atom.GetAtomicNum() <= 0 or atom.HasQuery() for atom in mol.GetAtoms()) or any(
+            bond.HasQuery() for bond in mol.GetBonds()
+        ):
+            raise ValueError("query_or_dummy_representation_unsupported")
         if len(Chem.GetMolFrags(mol)) != 1:
             return QualifiedLigandChemistry("unavailable", "candidate_is_disconnected")
         identity = {

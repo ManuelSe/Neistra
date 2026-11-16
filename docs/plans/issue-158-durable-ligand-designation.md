@@ -178,3 +178,40 @@ This is a passing local checkpoint, not finished feature delivery or readiness t
 push. Final integration still waits for verified156/157master and the real released
 predecessor, consistent final versions, both complete35-command gates and all-seven
 same-candidate review before protected publication/closeout.
+
+### C2 corrective source checkpoint — concrete chemistry and current identity
+
+[Corrective evidence](../assets/ligand-designation/c2-corrections-checkpoint.json)
+binds the source map, checked archive, regressions and scoped assessments below.
+
+Independent complete-source assessments of `48955b36` found reachable unsupported
+query/dummy qualification through exact-original recovery, isotope-water identity,
+historical water-label overrides and A→B→A legacy error feedback. The correction
+adds a shared post-recovery/reconstruction guard before derived outputs; exact
+candidate selection remains available. Water recognition retains isotopes and uses
+qualified physical composition, while compatible established PDB/mmCIF source-water
+fallback remains separate from qualified chemistry. Current nonwater and raw
+nonpolymer ownership cannot be overridden by water-like labels. No global component
+classification redesign is added.
+
+Resolver and chemistry policies plus both client query keys advance to v2, retiring
+old fast bindings. Drawing v1, schema/migration, explicit intent and original bytes
+remain unchanged. A constructed prior-stamp cache negative control retains old rows
+while proving current qualification runs; it is not actual historical-producer
+compatibility evidence. Legacy error callbacks capture their visit and preserve
+global serialization, priority, bounded batches and final scheduling.
+
+The frozen correction has 930 selected source identities. Initial regressions fail
+13 science cases with six controls passing and two new legacy cases with all 1,030
+prior frontend cases passing. Corrected checks pass 25 new science/API cases, 219
+broader Python cases, 49 focused frontend cases and all 1,033 frontend cases, plus
+global Ruff, API/core typing, web lint/types/build. Theory independently checks 41
+cases, implementation 47, and architecture 52 frontend/25 backend cases plus the
+original held-request probe; all return scoped PASS. Failed checks and actual probes
+remain preserved separately.
+
+This freezes a coherent corrective state for full Python/native requalification.
+The earlier 2,639-Python/eight-native checkpoint remains historical 928-source
+evidence; it is not claimed to qualify the new sources. Final predecessor integration,
+versions, both complete release gates and all-seven final same-candidate review
+remain required before push/publication.

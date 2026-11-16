@@ -3,10 +3,9 @@
 ## Current milestone
 
 Parent #11 and required children #156–#163 remain active through verified releases
-and parent closeout. #156's candidate4 stopped near the end of its mobile suite:
-466 passes, one fixed drag sample occluded by an open movement-panel border, and
-23 remaining cases not reached. All diagnostics are retained; a bounded native-path
-fixture correction and focused tail coverage precede the next complete gate.
+and parent closeout. #156's fresh candidate6 is running at `37c3e040` in its owned
+worktree with unchanged application sources. Earlier failed/interrupted diagnostics
+remain separate; complete qualification and final same-candidate review are pending.
 
 Independent #158 preparation has a verified local C2 checkpoint after initial
 `d283ea9b`: **2,639 Python/zero skips with all 928 source identities unchanged;
@@ -16,13 +15,23 @@ reader-helper types and development-version/production audits. Actual 320px and
 [Checkpoint](assets/ligand-designation/c2-checkpoint.json) retains failed attempts,
 raw observations and current-source reader stores separately from final evidence.
 
-Current #158 source diagnostics pass 15 commands against actual released v0.33
-source: older-reader safe refusal, independently old-authored retention/migration
+The earlier 928-source #158 diagnostics passed 15 commands against released v0.33:
+older-reader safe refusal, independently old-authored retention/migration
 and current reopening. They are not final qualification against the later released
 predecessor. Scientific lineage/ion/scheme, recovery feedback, legacy aliases and
 measured allocation findings are corrected. The C2 feature branch is not ready to
 push: final integration, versions, both full gates and all seven final assessments
 remain required. No program application push, PR, release or child closure is claimed.
+
+A further [source audit](assets/ligand-designation/c2-corrections-checkpoint.json)
+found and corrected original-recovery dummy/query
+qualification, isotope-water and historical water-label exclusions, and retired-visit
+legacy error feedback. Current corrective checks pass 219 Python cases, all 1,033
+frontend cases, global lint/types and build. Three affected specialists reassessed
+the frozen 930-source correction and returned scoped PASS. Resolver/chemistry/client
+keys advance to v2; schema, drawing policy, intent and originals stay intact.
+Fresh full Python/native requalification for this correction is pending; the earlier
+2,639/eight-native results remain bound to their original 928-source checkpoint.
 
 Read-only research refines #159/#160's future contracts: descriptor options and H
 normalization, source-qualified named optional profiles and installation-preference/
@@ -32,7 +41,7 @@ order, dependency graph, exclusions and the original master checkout are preserv
 Known limits: source-qualified chemistry only; original parse/index work stays
 upload-bound; cache work counts are workload-specific. Imported assessment revision
 is historical provenance. Blockers: none requiring an owner scope decision. Next:
-commit the passing local checkpoint, complete #156 qualification/review/release,
+freeze and requalify the corrective #158 checkpoint while completing #156 delivery,
 then continue the serial program and integrate the actual prerequisites for #158.
 
 ### Previous completed milestone — issue #152

@@ -37,7 +37,7 @@ function candidate(id: number): LigandCandidate {
 function inventory(owner: Entry, offset = 0, count = 2): LigandCandidatesRead {
   const all = Array.from({ length: count }, (_, index) => candidate(index + 1));
   return { project_id: "project-1", entry_id: owner.id, artifact_id: owner.current_artifact_id,
-    designation: owner.ligand_designation, input_hash: "exact-inventory-hash", resolver_version: "ligand-instance-v1",
+    designation: owner.ligand_designation, input_hash: "exact-inventory-hash", resolver_version: "ligand-instance-v2",
     total: count, offset, limit: 12, candidates: all.slice(offset, offset + 12),
     selectable_candidate_keys: all.slice(offset, offset + 12).map(item => item.candidate_key),
     designated_candidate: owner.ligand_designation.status === "resolved" ? all[0] : null, warnings: [] };
@@ -77,6 +77,19 @@ beforeEach(() => {
 });
 
 describe("entry-owned ligand designation controls", () => {
+  it("does not display or commit inventory from the previous resolver policy", async () => {
+    const user = userEvent.setup(), owner = resolvedEntry();
+    candidatesMock.mockImplementation(() => Promise.resolve({ ...inventory(owner), resolver_version: "ligand-instance-v1" }));
+    const { client } = setup(owner);
+    await waitFor(() => expect(client.isFetching()).toBe(0));
+    expect(screen.getByText("Ligand designated")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    const dialog = screen.getByRole("dialog");
+    await waitFor(() => expect(client.isFetching()).toBe(0));
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    expect(within(dialog).queryByText("C1H2")).not.toBeInTheDocument();
+  });
   it.each(["stale", "unresolved"] as const)("explains an unverifiable original for a %s choice without a background duplicate announcement", async status => {
     const user = userEvent.setup();
     const owner = status === "stale" ? resolvedEntry() : entry();

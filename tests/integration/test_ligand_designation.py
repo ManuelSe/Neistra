@@ -272,7 +272,7 @@ def test_legacy_default_enrichment_preserves_all_200_history_records_and_redo_po
     from uuid import uuid4
 
     from neistra_api.models import CommandRecord, Project, StructureEntry
-    from neistra_core.ligands.models import LigandDesignationV1
+    from neistra_core.ligands.models import RESOLVER_VERSION, LigandDesignationV1
     from sqlalchemy import select
 
     project = imported(client)
@@ -315,7 +315,7 @@ def test_legacy_default_enrichment_preserves_all_200_history_records_and_redo_po
     result = resolved.json()
     designation = result["entries"][0]["ligand_designation"]
     assert designation["status"] == "resolved"
-    assert designation["resolver_version"] == "ligand-instance-v1"
+    assert designation["resolver_version"] == RESOLVER_VERSION
     assert designation["assessed_at"] and designation["assessed_revision"] == 101
     assert result["revision"] == 101
     assert history() == before

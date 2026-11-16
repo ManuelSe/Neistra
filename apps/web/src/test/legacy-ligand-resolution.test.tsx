@@ -17,8 +17,9 @@ function ports(project: Project): LegacyResolutionPorts {
 }
 function deferred() {
   let resolve!: (project: Project) => void;
-  const promise = new Promise<Project>(done => { resolve = done; });
-  return { promise, resolve };
+  let reject!: (error: Error) => void;
+  const promise = new Promise<Project>((done, fail) => { resolve = done; reject = fail; });
+  return { promise, resolve, reject };
 }
 
 describe("controlled legacy ligand completion", () => {
@@ -82,5 +83,20 @@ describe("controlled legacy ligand completion", () => {
     renderHook(value => useLegacyLigandResolution(value), { initialProps: input });
     await act(async () => { await Promise.resolve(); });
     expect(input.resolve).not.toHaveBeenCalled();
+  });
+
+  it.each(["other project", "closed project"])("retires held errors after leaving and returning through %s", async transition => {
+    const a = ports(legacy(1, "A")), held = deferred();
+    vi.mocked(a.resolve).mockReturnValueOnce(held.promise);
+    const { rerender } = renderHook(value => useLegacyLigandResolution(value), { initialProps: a });
+    await waitFor(() => expect(a.resolve).toHaveBeenCalledOnce());
+    const away = transition === "other project" ? ports(legacy(1, "B"))
+      : { ...a, activeProjectId: null, project: undefined };
+    rerender(away);
+    rerender(a);
+    await act(async () => { held.reject(new Error("Retired visit source failure")); await held.promise.catch(() => undefined); });
+    await waitFor(() => expect(a.resolve).toHaveBeenCalledTimes(2));
+    expect(a.onError).not.toHaveBeenCalled();
+    expect(away.onError).not.toHaveBeenCalled();
   });
 });

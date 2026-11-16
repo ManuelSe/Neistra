@@ -7810,3 +7810,26 @@ otherwise terminal unavailability before pending work, with disjoint counts over
 all entries. Scoped resets preserve independent type/sort and molecular state.
 The child plans record these decisions and required tests; proposed aggregate
 page sizes still require measurement against delivered #159/#160 before adoption.
+
+### D-166 corrective source audit — representation, water and visit ownership
+
+Independent complete-source review found reachable exact-original query/dummy
+qualification, isotope-water exclusions, historical water-label overrides and an
+old-visit legacy-resolution error. Apply one concrete-molecule guard after either
+recovery or reconstruction, before input hashing, composition or depiction. Keep
+exact selectable membership independent and preserve source-proven isotope,
+radical, stereo and H semantics.
+
+Qualified water uses atomic-number composition and full H accounting with zero
+formal charge; isotope information is retained. A compatible established PDB/mmCIF
+water boundary can remain source-assigned without qualified molecular values.
+Verified current nonwater wins over historical classification, while raw nonpolymer
+ownership defeats name-only water heuristics. Preserve conservative unresolved
+states and existing unsupported reasons; no global classification override is added.
+
+Advance resolver/chemistry and matching client keys to v2 so previous derived
+bindings cannot bypass corrected qualification. Drawing policy and database/schema
+remain unchanged. Preserve explicit intent, original bytes and retained cache rows;
+do not add broad garbage collection or a live-state migration for pre-release keys.
+Legacy completion captures its open visit for error feedback, preserving global
+serialization, bounded priority batches and final scheduling after retired requests.
