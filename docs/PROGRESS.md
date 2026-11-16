@@ -2,43 +2,47 @@
 
 ## Current milestone
 
-Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active through
-verified release and closeout for exactly #156–#163. The parent and child plans are
-Authorized within agreed scope; not individually reviewed. The original master
-checkout and all exclusions remain preserved.
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active for exactly
+#156–#163 through verified release and parent closeout. Plans remain Authorized
+within agreed scope; not individually reviewed. Dependencies and exclusions stand.
 
-#156 implements the passive atom/ordered-geometry strip and accessible details.
-All five versions are prepared as 0.34.0; schema/dependencies remain unchanged.
-The clean committed candidate `b46222d2` passed all 35 sequential qualification
-commands: 2,344 Python/zero skips, 1,029 frontend, 14 supervisor and 489 native
-browser passes with the same 75 exclusions. All 885 current and 870 actual v0.33.0
-source identities, lossless logs and reader evidence verify. Actual old/new readers
-pass both directions and both suffixes, including 15 editing projects/24 transitions.
-The complete 82,962,711-byte qualified packet verifies recursively. Failed and
-interrupted earlier attempts remain separately preserved; no partial runs are pooled.
+#156 is released and explicitly closed: [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0),
+[PR #168](https://github.com/ManuelSe/Neistra/pull/168), runtime `ab5e5fef`, annotated
+tag `7aacc228`. Both fresh complete35-command gates pass:2,344Python/zero skips,
+1,029frontend,14supervisor,489native/75exact existing exclusions; zero failures,
+flakes,retries or new exclusions. All885current/870actual0.33source identities,
+lossless logs and reader phases verify. All seven final specialist agent verdicts
+cover reviewed20cf198b; the complete released tree is identical. Exact-master
+qualifier, independent summary and packaging exits are each0; enclosing session0.
+The separately disclosed candidate outer143 remains historical, cause unestablished.
 
-The originating outer session reported 143 after COMPLETE; all 35 actual recipe
-children exited zero, and the independent finalizer exited zero. Its cause is
-unestablished. Independent architecture review verified the exact commands, logs,
-source maps, reader phases and complete packet and found no missing required check.
-The separate transport receipt preserves that observation without claiming a zero
-outer-session exit. Atomic atom-draft readiness, marker-background ownership and
-retired-hover-source corrections retain their scoped diagnostic evidence.
+The published313,970,966-byte ZIP and sidecars match anonymous downloads; all511
+nested ZIPs/2,779manifest entries/870project files verify. The
+[publication receipt](assets/viewer-information/c6-publication.json) records remote
+readback. [Final reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
+and completed issue state are verified. Normal terminal documentation integration
+and owned156branch cleanup are the remaining delivery bookkeeping actions.
 
-Independent #158 preparation is committed locally at `68b1a868`: 2,674 Python/zero
-skips, 1,041 frontend and ten native recovery cases pass on its frozen 930-file
-source map. Earlier timeouts and fixture failures remain preserved; no deadlines
-changed. Exact-instance image retry/status and known-count corrections have scoped
-science/UX/reference assessments. A nonblocking small-screen heading-clipping
-observation is retained for final integration review. No #158 release gate is claimed.
+#157 is the next implementation milestone, from actual verified0.34runtimeab5e5fef
+on `feat/issue-157-viewer-measurements` in the owned program checkout. Its pre-code
+contract now specifies application-owned numbered drafts, a verified native-pick
+lease, shared truthful geometry, explicit ordered Promise Save, bounded management,
+and cancellable current-source close-contact reads. Independent theory/implementation
+planning supports conservative p∞ neighbor streaming with a declared stable norm;
+limits await measurement. No157 application implementation or final review is claimed.
 
-Known limits: preview geometry is explicitly unavailable; #156 introduces no durable
-schema. Blockers: no owner scope decision required. Next: final seven-role review
-of the evidence commit, protected merge, fresh exact-master qualification and
-verified release before #157. #158 must integrate verified #156/#157 master and
-its actual released predecessor before final versions/gates. One program Goal
-stays active through all eight children and parent closeout. No application push,
-PR, release or child closeout is claimed.
+Independent158 preparation remains local68b1a868:2,674Python/zero skips,
+1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
+failures/timeouts remain preserved, deadlines unchanged; its final integration,
+versions, actual predecessor readers and release gates remain pending. Retain the
+nonblocking small-screen heading observation for integration review.
+
+Next: integrate this documentation/planning checkpoint normally, verify156cleanup,
+measure157contact budgets and implement its coherent vertical slice. No source,
+schema, dependency or version changes occur in this checkpoint. Original master,
+unrelated worktrees and locally retained diagnostics remain preserved. One program
+Goal stays active through all eight required children and parent closeout.
+
 
 ### Previous completed milestone — issue #152
 

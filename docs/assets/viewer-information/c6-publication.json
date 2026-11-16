@@ -1,0 +1,177 @@
+{
+  "version": "0.34.0",
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0",
+  "release_id": 447469775,
+  "pr": 168,
+  "pr_url": "https://github.com/ManuelSe/Neistra/pull/168",
+  "reviewed_feature_head": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+  "qualified_merged_commit": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+  "annotated_tag_object": "7aacc228b425dd0e8f3c593cb119bb3e869bd361",
+  "tag_annotation_and_dereferenced_target_verified": true,
+  "reviewed_and_merged_complete_trees_identical": true,
+  "stable_latest_published_verified_at_observation": true,
+  "notes_match_prepared_scope_and_evidence": true,
+  "candidate_summary": {
+    "commit": "b46222d2eb55003a46485ad5e3f9b402699885fe",
+    "application_version": "0.34.0",
+    "branch": "feat/issue-156-viewer-information-strip",
+    "clean_start": true,
+    "complete_steps": 35,
+    "source_count": 885,
+    "source_inventory_unchanged": true,
+    "source_digest": "b523757604b123dee5bfb79e33c0fe39092a238d03b8cfc2083dfd67d129cf80",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 2344,
+    "python_skips": 0,
+    "frontend": 1029,
+    "supervisor": 14,
+    "browser_passed": 489,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 564,
+    "browser_inventory_sha256": "cde06ed4e0adf68fc0ad43e6e800696f04477902995dd5dad043e6c3910a9c75",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/interaction-inspection/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "b037069a8b1b84ed6516916d82dda63b19efe96a2660f2c94de41dc0e482fe72",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.33.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 870,
+    "actual_reader_audit": "c4-candidate8-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 6284.063,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 6287.0
+  },
+  "exact_master_summary": {
+    "commit": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+    "application_version": "0.34.0",
+    "branch": "",
+    "clean_start": true,
+    "complete_steps": 35,
+    "source_count": 885,
+    "source_inventory_unchanged": true,
+    "source_digest": "b523757604b123dee5bfb79e33c0fe39092a238d03b8cfc2083dfd67d129cf80",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 2344,
+    "python_skips": 0,
+    "frontend": 1029,
+    "supervisor": 14,
+    "browser_passed": 489,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 564,
+    "browser_inventory_sha256": "35affa2a153eeecc0f05a0ce0159e028203437c88dcd7753613db05c6714bb3a",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/interaction-inspection/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "b037069a8b1b84ed6516916d82dda63b19efe96a2660f2c94de41dc0e482fe72",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.33.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 870,
+    "actual_reader_audit": "c5-master1-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 6178.258,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 6180.0
+  },
+  "exact_master_wrapper_phase_exits": [
+    [
+      "qualification",
+      0
+    ],
+    [
+      "independent_summary",
+      0
+    ],
+    [
+      "complete_packaging",
+      0
+    ]
+  ],
+  "original_outer_session_zero_claimed": false,
+  "original_outer_session_observation": "Candidate8 originating session143 afterCOMPLETE;35actualchildren0;independentfinalizer0;causeunestablished;independentarchitecture foundno missingrequiredcheck. Separate transport receipt included in qualificationasset.",
+  "seven_specialist_agent_verdicts": {
+    "software_architecture": {
+      "agent": "/root/issue156_architecture_review7",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "ui_design": {
+      "agent": "/root/issue156_ui_review7",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "modeling_reference": {
+      "agent": "/root/issue156_reference_review7",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "scientific_theory": {
+      "agent": "/root/issue156_theory_final9",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "performance": {
+      "agent": "/root/issue156_performance_final9",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "scientific_implementation": {
+      "agent": "/root/issue156_scientific_final9",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    },
+    "ux_design": {
+      "agent": "/root/issue156_ux_final9",
+      "candidate": "20cf198b66222d4969b01f1c9b99cba9fcf93993",
+      "verdict": "PASS"
+    }
+  },
+  "specialist_agents_are_not_human_approval": true,
+  "no_required_remote_review_or_check_configured_at_merge": true,
+  "code_review_request_returned_no_remote_review": true,
+  "no_protection_or_approval_bypass": true,
+  "anonymous_archive_verification": {
+    "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+    "anonymous_request_without_authorization_header": true,
+    "bytes": 313970966,
+    "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.34.0/anonymous/neistra-v0.34.0-qualification.zip",
+    "http_status": 200,
+    "matches_local_release_asset": true,
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.34.0/neistra-v0.34.0-qualification.zip",
+    "qualified_master": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+    "sha256": "e51f2b0f0dd4c3f42abf38a268fc00dd3e7f49658d62ce32296ff2991197f1d6",
+    "verification_counts": {
+      "evidence_manifest_entries": 2779,
+      "project_archive_files": 870,
+      "zip_archives": 511
+    }
+  },
+  "anonymous_sidecar_verification": [
+    {
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.34.0/neistra-v0.34.0-qualification.zip.sha256",
+      "http_status": 200,
+      "bytes": 100,
+      "sha256": "5f54125bf70a4fa40daba32229d87e451b1b93783e26411b729760222de47566",
+      "anonymous_without_authorization": true,
+      "matches_local": true
+    },
+    {
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.34.0/neistra-v0.34.0-qualification.zip.package.json",
+      "http_status": 200,
+      "bytes": 1255,
+      "sha256": "4d09313cd221d02cb6f6f88ed00abb477835cd2028052165e6b56eb35193d5b7",
+      "anonymous_without_authorization": true,
+      "matches_local": true
+    }
+  ],
+  "all_three_original_asset_sizes_and_server_sha256_match_local": true,
+  "scope": "Child156only applicationdelivery plus parent/all-eight planningcheckpoint;157\u2013163remaining, parentopen. Previewgeometryunavailable;no dependency/migration/persistedschemachange.",
+  "terminal_documentation_and_branch_cleanup": "Pending normal documentationintegration; receipt will be reconciled through final issue reply/terminal delivery receipt without moving the runtime tag.",
+  "observed_utc": "2026-11-16T19:13:43.770041+00:00"
+}
