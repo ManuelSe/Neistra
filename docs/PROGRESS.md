@@ -23,8 +23,8 @@ retained history, reverse reexports and corruption/stale-publication controls.
 [Summary](assets/interaction-inspection/c4-candidate2-summary.json) and
 [packaging receipt](assets/interaction-inspection/c4-candidate2-packaging.json) retain
 all 660 browser-native, seven scientific-native and 350 complete reader-workspace
-files. The verified 75,898,562-byte archive has 1,083 manifest entries and 226 nested
-ZIPs. Failed candidate1 remains a separate diagnostic; its obsolete strict producer
+files. The verified 75,898,562-byte archive has 1,083 manifest entries and 226 checked
+ZIP archives, including the outer archive. Failed candidate1 remains a separate diagnostic; its obsolete strict producer
 pin was corrected while retaining every historical case and adding 0.32.0 coverage.
 
 All five versions agree on compatible minor 0.33.0. Dependencies, persisted schemas

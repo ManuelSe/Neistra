@@ -9,7 +9,8 @@ pass both directions/suffixes, including 15 new-state projects/24 transitions.
 
 The [verified package](c4-candidate2-packaging.json) retains 660 browser-native,
 seven scientific-native and 350 complete reader-workspace files. Its 75,898,562-byte
-archive has 1,083 manifest entries and 226 checked nested ZIPs. Candidate1 remains a
+archive has 1,083 manifest entries and 226 checked ZIP archives, including the outer
+archive. Candidate1 remains a
 failed diagnostic with its strict-version correction preserved. Checkpoints and
 failed attempts are distinct from complete qualification.
 
