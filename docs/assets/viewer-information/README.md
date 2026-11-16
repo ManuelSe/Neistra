@@ -41,3 +41,17 @@ sync. Warm work/deduplication, all 1,029 frontend cases and native hover lifecyc
 checks pass; three unchanged mobile fine-pointer exclusions remain explicit.
 Candidate8's full 35-command recipe is prepared; no complete gate or publication
 is implied by these focused checks or scoped source assessments.
+
+Candidate8 at `b46222d2` completes all 35 commands: 2,344 Python/zero skips,
+1,029 frontend, 14 supervisor and 489 native passes/75 exact existing exclusions.
+See `c4-candidate8-summary.json`, reader audit and packaging receipt. The checked
+82,962,711-byte complete packet contains all native files and synthetic reader
+stores. The raw browser tree remains in owned ignored evidence after every file
+was checked against the packet; the retention receipt records this move.
+
+All recipe children exited zero. The originating outer tool session reported 143
+after COMPLETE, while the independent finalizer exited zero. The cause remains
+unestablished; `c4-candidate8-transport.json` separately preserves this diagnostic
+and the independent architecture contract assessment. It postdates the packet
+and must accompany it as supplemental release evidence. All-seven final-head
+reconfirmation, normal merge and fresh exact-master qualification remain pending.

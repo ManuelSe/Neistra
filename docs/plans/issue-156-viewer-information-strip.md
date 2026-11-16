@@ -242,3 +242,42 @@ Three native hover workflows pass with the same three mobile fine-pointer
 exclusions. New candidate8 must repeat every complete-gate command from its clean
 committed state. All seven final committed-candidate assessments, normal merge,
 fresh exact-merged qualification and publication remain required.
+
+### C3 complete frozen candidate8 — evidence checkpoint
+
+Clean candidate `b46222d2eb55003a46485ad5e3f9b402699885fe` completed every one
+of the 35 sequential recipe commands: 2,344 Python/zero skips, 1,029 frontend,
+14 supervisor, 489 native passes and the exact 75 existing exclusions across
+564 cases/77 files. Zero failures, flakes, retries or new exclusions. All 885
+current and 870 actual annotated v0.33.0 source identities remain unchanged;
+every lossless log hash verifies. Actual old/new producer/readers pass in separate
+processes both directions and both archive suffixes. The editing phases retain
+15 projects/24 transitions, corruption/stale/allocator controls and the current
+unapplied proposal. This is a fresh complete invocation, not pooled partial runs.
+
+[Summary](../assets/viewer-information/c4-candidate8-summary.json),
+[reader audit](../assets/viewer-information/c4-candidate8-reader-audit.json) and
+[packaging receipt](../assets/viewer-information/c4-candidate8-packaging.json)
+identify the complete 82,962,711-byte packet, SHA-256
+`3edc358affe456991d03477865ef57a4fda52b8b9b273d7245992a55ee88c9bb`.
+Recursive verification covers 1,089 manifest entries, 226 ZIPs and 435 project
+files, including every 666 browser-native files, seven scientific-native files
+and 350 reader workspace files. The matching extracted native tree is retained
+under owned ignored evidence; its tracked retention receipt verifies every file.
+
+The [transport observation](../assets/viewer-information/c4-candidate8-transport.json)
+records outer tool-session 143 after COMPLETE. Every actual recipe child exited
+zero; the independent finalizer exited zero. The outer cause is unestablished,
+and a natural zero termination of that originating session is not claimed.
+Independent architecture assessment verified all 35 exact commands/environments,
+logs, source maps, reader phases, finalizer receipt and recursively checked packet.
+It confirms the approved contract is satisfied with no missing required check;
+no acceptance is waived. The transport observation postdates the packet and must
+also be included as supplemental release evidence.
+
+All seven source assessments pass for b46222d2. This evidence-only checkpoint
+requires explicit same-final-head reconfirmation by every role before push.
+The tracked `c5-master1-recipe.json` prepares a fresh isolated exact-merged gate;
+it has not executed. Normal PR/review/merge, fresh exact-master qualification,
+verified annotated stable release/assets, issue reply/closure and safe cleanup
+remain required. Parent #11 stays open through all required children.
