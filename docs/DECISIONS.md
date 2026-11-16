@@ -7911,3 +7911,59 @@ Scoped architecture/UX assessments pass after correcting concrete ownership,
 observer and canvas-access findings. They do not constitute final seven-role
 approval. The [native baseline](assets/viewer-measurements/c2-native-label-baseline.json)
 records inherited100-label latency/resource costs requiring measured C2 correction.
+
+
+## D-170 — Bounded native measurement batches with one full-text layer
+
+Date:2026-11-16. Child157 C2 design refinement within accepted scope; authorized
+through the standing program delivery instruction. Architecture and theory PASS
+this proposed direction; implementation and performance approval remain pending.
+
+The source-bound [baseline](assets/viewer-measurements/c2-native-label-baseline.json)
+justifies correcting per-record native representation/text resources. Use a small
+typed adapter over the pinned public distance/angle/dihedral APIs: at most three
+kind-grouped geometry representations with their text visual disabled, and one
+LabelRepresentation containing every qualified visible record. Keep full Root
+formatted labels in each infos[].label, global customText empty, existing font
+quality and explicit record-ID/group maps. Equal names/targets never deduplicate
+records. No measurement cap, truncation, font quality reduction, schema, dependency
+or global font-cache patch. Native geometry still consumes ordered current loci;
+application data remains authoritative. A CPU font-cache fix alone would leave
+one large GPU font texture per text renderable and is insufficient.
+
+Each label uses its own DataLoci and copied finite point anchor from the SAME
+current single-atom native sphere centers used by its geometry. Distance anchors
+at midpoint(A,B), angle at vertexB, torsion at midpoint(B,C), with overflow-safe
+midpoint calculation. These are display positions only. Radius-dependent label
+scaling is disabled. Valid coincident distance and0/180degree angles stay labelled
+when the native arc plane degenerates. Full signed values/units/order remain Root
+formatted. Anchor placement is a deliberate presentation adaptation; do not claim
+pixel-identical per-kind text depth, arc placement or occlusion.
+
+Engine owns installed and staged batches, fenced by plugin identity, measurement
+epoch, scene generation and source-operation identity. Build replacement native
+representations off canvas, check current ownership after each await, then attach
+the complete batch without awaits between attachments. Failure/retirement discards
+all staged objects. Direct canvas representations are outside plugin measurement
+state: explicitly hide/remove/destroy installed and staged resources on source
+replacement, preview, source failure, empty scene and disposal. A late completion
+must destroy its own obsolete batch. Draft target markers retain a separate owner.
+
+Source sync currently calls applyMeasurements before completing its generation/
+source operation; coordinate paths also update measurements. Integrate installation
+at a successfully completed source boundary or stage explicitly for that owning
+operation. An atom-pick readiness check at the old call site would incorrectly
+reject legitimate installation. Preserve current-source/finite/source-fact/preview
+qualification and existing no-op avoidance. Avoid incremental in-place updates
+until measurements justify their additional stale-update complexity.
+
+Acceptance: mixed kinds/ordered refs, signed±90degree torsions, zero distance,
+0/180degree angles, rigid-frame anchor covariance, full/duplicate/long names,
+rename/hide/delete/reorder, moved/deleted participants, preview cancellation and
+held stale completion. Verify exactly one saved-label text representation and
+constant bounded native representation count at10/100records; measure initial,
+rename, identical no-op and retirement/restoration cycles including resource
+baselines. Qualify actual appearance and retain draft markers, structure labels,
+selection, camera and immutable originals. Thousand-record manager DOM/observer
+qualification remains separate. Scientific implementation author cannot supply
+independent final review; all seven final assessments remain required.

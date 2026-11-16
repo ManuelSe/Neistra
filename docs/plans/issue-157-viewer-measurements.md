@@ -381,3 +381,21 @@ Next: persist the reviewed grouped-native-geometry/shared-label design, implemen
 and measure it, then complete C2 held-operation/preview/history/archive qualification.
 C3 versions/actual0.34readers, both full35-command gates and final all-seven same-
 candidate review remain required before application push and normal release.
+
+### C2 refinement before implementation — native rendering resources
+
+D-170 records the bounded response to the measured100-label bottleneck. Implement
+one typed public-native geometry/label adapter, with up to three geometry batches
+and one complete full-text layer, explicit current-source lifecycle ownership and
+finite display anchors. The scientific method, durable data and all formatted
+names/values remain unchanged. Angle labels use vertexB and torsion labels the
+central-bond midpoint; qualify these presentation positions rather than claim
+pixel parity. Architecture and theory independently support the proposed contract;
+no implementation or speedup is yet claimed. Retain every baseline/failed run.
+
+Before calling C2 complete, require independent before/after native measurements
+with exact identity/full-text/analytic/selection/camera/original-source controls,
+held lifecycle failure cases, constant resource counts, no-op and repeated cycles.
+No new caps, reduced quality, omitted valid records, dependencies or schema changes.
+Then complete current contact/preview/held Save/history/reload/both-suffix reader
+acceptance. Full versions/gates and final seven-role review remain C3/C4 work.
