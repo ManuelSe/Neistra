@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) — **authorized planning and delivery intake**, covering exactly required children #156–#163. The [parent contract](plans/issue-11-ligand-information.md) owns finite scope, dependency order, shared contracts and program ledger; all eight child plans are linked. Status: **Authorized within agreed scope; not individually reviewed**. One matching durable Goal remains active through verified release and parent closeout.
+Parent#11required156–163program remains active through verified release and closeout. Independent158pre-code preparation uses this isolatedworktree fromC0248807ec;156implementation/versioncandidate qualification continues in the originalprogramworktree. Publication order and finite dependencies/exclusions are unchanged.
 
-Completed: authenticated issues/comments/native dependency reconciliation, fresh v0.33.0 base62623a16, isolated program checkout and early scientific/reference/architecture/UX planning assessments. No child implementation or future release claimed. Preserving owner master, retained #147 resources and unrelated scope.
+Completed here: existing parent/child plans reconciled, read-only architecture/theory/scientific-implementation/UX refinements and concrete158durability/source-qualification/compatibility contract persisted beforecode. Frozen dependencies installed in this worktree's own environment without lockfile changes. No158runtime implementation, test qualification, PR, release or closure is claimed.
 
-Verification: remote master/tag/release and clean planning isolation checked; frozen dependencies installed with unchanged locks. Application gates and final all-seven assessments remain pending. Known limits: raw unknown chemistry remains unavailable; optional profiles source-qualified only; explicit preview-unavailable policy. Blockers: none identified in bounded scope. Next: persist/push C0, then serial156→157→158→159→160→161→162→163 child PR/releases and final integration/parent closeout.
+Known limits: original source/protection facts must qualify chemistry; preceding directreaders need a real refusal fence, since checkpoint numbers alone do not prevent loss. Blockers: none requiring owner scope changes. Next: implement158coherent domain/durability slice under its contract, integrate actual preceding156/157delivery before final candidate gates. Preserve otherworktrees and the frozen156source.
 
 ### Previous completed milestone — issue #152
 

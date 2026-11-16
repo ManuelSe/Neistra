@@ -30,7 +30,7 @@ Required scope and dependency order:
 | [#162](https://github.com/ManuelSe/Neistra/issues/162) | Synchronized name search and reversible current-property filters | #159, #160 | [Contract](issue-162-live-property-entry-filters.md) |
 | [#163](https://github.com/ManuelSe/Neistra/issues/163) | Retire general inspector and qualify complete parent workflow | #156, #157, #161, #162 | [Contract](issue-163-ligand-workflow-integration.md) |
 
-Implement serially #156 → #157 → #158 → #159 → #160 → #161 → #162 → #163. This is a topological order, not an added external dependency. Independent investigation may proceed while another child is blocked; do not bypass its runtime prerequisites.
+Publish serially #156 → #157 → #158 → #159 → #160 → #161 → #162 → #163. This is a topological release order, not an added dependency. Independent required children may be prepared in separate owned worktrees while long qualification runs; integrate/rebase them onto the verified preceding delivery before their final gates/PR. Runtime prerequisites remain binding; preparation does not establish delivery.
 
 ## Requirement disposition and exclusions
 
@@ -105,3 +105,9 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 ### Intake evidence (not implementation qualification)
 
 2026-11-16: all issue bodies/comments/native membership/dependencies read authenticated; fresh fetch and remote master/tag dereference verified. Clean isolated checkout created at observed base. Frozen dependencies installed in its own .venv/node_modules without changing lockfiles. No current application tests/PR/release or child completion is claimed. Existing v0.33.0 and delivered152 code are baseline reuse only. All seven early assessments received; none is final implementation approval. Next: persist/push C0, begin #156.
+
+### Preparation concurrency refinement — independent158
+
+2026-11-16: complete156qualification has long sequential scientific/native stages. Prepare independent158in its own `feat/issue-158-durable-ligand-designation` worktree at `/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation`, initially fromC0248807ec. The156candidate/worktree remains frozen. This reversible engineering change does not add scope/dependencies or publication authority. Final158integration waits for156/157serialreleases, rebases currentmaster, and receives fresh complete final-version gates/all-sevenreview before any implementationpush. Preserve original master and unrelated147resources.
+
+The158contract below records concrete schema/compatibility/scientific policy before code. Older checkpoint schema numbers do not enforce read/write compatibility; use an actual source-bound refusal fence and original-source scientific qualification. No future behavior or release is claimed.
