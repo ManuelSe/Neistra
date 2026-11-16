@@ -7702,3 +7702,14 @@ versions move together. No dependency, schema or migration changes are introduce
 The actual tagged 0.32.0 implementation successfully retains/reexports current-authored
 editing states in three isolated-process preflight phases. Both fresh complete gates,
 final same-candidate specialist review and protected publication remain separate.
+
+
+## D-165 — Finite ligand-information program and independent identities
+
+Date: 2026-11-16. Authorized by explicit owner plan-and-deliver invocation for parent11 and required children156–163; plan wording not individually reviewed. The parent contract records finite native dependency order and serial independently qualified child releases. Related acquisition/processing, additional chemistry, interaction diagram, superposition relocation and metadata redesign remain separately owned; no hidden external issue delivery is implied.
+
+Keep canonical sorted selection separate from transient ordered inspection/measurement targets, deliberate inspected entry, durable exact ligand designation and existing transient interaction targeting. Singleton picks or explicit user ordering establish angle/torsion sequence; sorted set order never implies click order. Use current complete observed finite coordinates; missing/preview/degenerate geometry stays explicitly unavailable. Hover single-atom identity is emitted through the existing native owner independently of grouped highlighting, with source/lifecycle retirement and no per-move API work.
+
+Durable designation uses exact canonical membership/origin and an explicit cleared choice, not viewer IDs/labels or automatic first/size/proximity guesses. Candidate eligibility and reliable chemistry are independent. Current-input derived displays synchronously select exact instance/input/source/implementation/policy/settings matches and immediately retire incompatible values; bounded automatic jobs then refresh. Changed chemistry previews initially show labelled unavailable; entry filters always use committed project inputs. Existing fallback neutral/single chemistry adapters cannot qualify descriptors. Migration/archive/history/old-reader preservation or safe refusal must be established before durable code.
+
+Keep the existing inspector until final163; audit and relocate every retained selection/measurement/contact/editing capability.163 expressly supersedes only saved-selection UI and standalone numerical-transform controls, preserving data/services/history. Update product specification then; do not rewrite historical global plan. Full scientific/current release gates, all-seven same-candidate specialist agent assessments, remote protections/reviews and exact merged qualification remain binding. Parent closure and Goalcompletion require all eight delivered plus final integration/release/closeout evidence.

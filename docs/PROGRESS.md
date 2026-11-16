@@ -2,6 +2,14 @@
 
 ## Current milestone
 
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) — **authorized planning and delivery intake**, covering exactly required children #156–#163. The [parent contract](plans/issue-11-ligand-information.md) owns finite scope, dependency order, shared contracts and program ledger; all eight child plans are linked. Status: **Authorized within agreed scope; not individually reviewed**. One matching durable Goal remains active through verified release and parent closeout.
+
+Completed: authenticated issues/comments/native dependency reconciliation, fresh v0.33.0 base62623a16, isolated program checkout and early scientific/reference/architecture/UX planning assessments. No child implementation or future release claimed. Preserving owner master, retained #147 resources and unrelated scope.
+
+Verification: remote master/tag/release and clean planning isolation checked; frozen dependencies installed with unchanged locks. Application gates and final all-seven assessments remain pending. Known limits: raw unknown chemistry remains unavailable; optional profiles source-qualified only; explicit preview-unavailable policy. Blockers: none identified in bounded scope. Next: persist/push C0, then serial156→157→158→159→160→161→162→163 child PR/releases and final integration/parent closeout.
+
+### Previous completed milestone — issue #152
+
 Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) is released as stable/latest
 [v0.33.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0) through [PR #166](https://github.com/ManuelSe/Neistra/pull/166).
 Exact qualified runtime: `d8636064263f6221c402665da52a4a1738570845`. The annotated runtime tag stays fixed.
