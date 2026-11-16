@@ -1,5 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { AlertTriangle, Check, CircleAlert, Eye, EyeOff, Focus, Frame, LoaderCircle, Palette, Pause, Pill, Network, Rows3, MonitorUp } from "lucide-react";
+import { AlertTriangle, Check, CircleAlert, Eye, EyeOff, Focus, Frame, LoaderCircle, Palette, Pause, Pill, Network, Rows3, MonitorUp, Ruler } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
 import type { InteractionStatusView } from "../interactions/panelModel";
@@ -20,6 +20,8 @@ const PICKING_MODES: {
 ];
 
 interface ViewerToolbarProps {
+  onMeasurements?: () => void;
+  measurementsOpen?: boolean;
   onPresentation?: () => void;
   onShowSequences?: () => void;
   interactionsOpen?: boolean;
@@ -97,6 +99,8 @@ function ViewerActionButton({
 }
 
 export function ViewerToolbar({
+  onMeasurements,
+  measurementsOpen = false,
   onPresentation,
   onShowSequences,
   interactionsOpen = false,
@@ -175,6 +179,8 @@ export function ViewerToolbar({
         </select>
       </label>
       <div className="viewer-focus-actions" role="group" aria-label="Viewer focus actions">
+        {onMeasurements ? <ViewerActionButton label="Measurements" tooltip="Measure distance, angle or torsion"
+          unavailableReason={null} onClick={onMeasurements} hasPopup="dialog" expanded={measurementsOpen}><Ruler size={16} /></ViewerActionButton> : null}
         <ViewerActionButton
           label="Fit all visible"
           tooltip="Frame all visible molecular objects"

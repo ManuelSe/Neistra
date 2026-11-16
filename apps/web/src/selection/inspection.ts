@@ -136,3 +136,27 @@ export function inspectSelectionGeometry(
     return { status: "unavailable", kind, targets: resolvedTargets, reason: "Measurement geometry is undefined or outside numerical limits." };
   }
 }
+
+/** A deliberate partial angle/torsion never falls back to a smaller kind. */
+export function inspectMeasurementDraft(
+  kind: MeasurementKind,
+  slots: readonly (AtomReference | null)[],
+  structures: ReadonlyMap<string, NormalizedStructure>,
+  paused = false,
+): SelectionGeometry {
+  const targets = slots.filter((ref): ref is AtomReference => ref !== null).map(ref => ({ ...ref }));
+  if (paused) return { status: "unavailable", kind, targets, reason: "Geometry unavailable during preview." };
+  const count = { distance: 2, angle: 3, dihedral: 4 }[kind];
+  const missing = slots.findIndex(ref => ref === null);
+  if (slots.length !== count || missing !== -1) {
+    const label = kind === "dihedral" ? "Torsion" : kind === "angle" ? "Angle" : "Distance";
+    return { status: "unavailable", kind, targets, reason: `${label}: choose target ${missing >= 0 ? missing + 1 : 1} (${targets.length}/${count}).` };
+  }
+  const coordinates = measurementCoordinates(targets, structures);
+  if (coordinates.status !== "ready") return { ...coordinates, kind, targets };
+  try {
+    return { status: "ready", kind, targets, value: measurePoints(kind, coordinates.points) };
+  } catch {
+    return { status: "unavailable", kind, targets, reason: "Measurement geometry is undefined or outside numerical limits." };
+  }
+}

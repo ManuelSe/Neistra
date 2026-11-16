@@ -24,22 +24,22 @@ and completed issue state are verified. Terminal documentation merged normally i
 [PR #169](https://github.com/ManuelSe/Neistra/pull/169), and owned156branch cleanup
 was verified. The annotated runtime tag remains unchanged.
 
-#157 is in C1 implementation on `feat/issue-157-viewer-measurements`, from verified
-master `4b8ae716` (runtime0.34plus terminal documentation). The bounded contact core,
-verified ephemeral child read, source-bound cancellable client transport and shared
-immutable geometry index are implemented locally. Invalid saved geometry is omitted
-from native drawing while durable records remain recoverable. The deliberate draft,
-native pick lease and compact management workflow are still pending.
+#157 has coherent local C1a/C1b checkpoints on
+`feat/issue-157-viewer-measurements` from verified master4b8ae716. Bounded verified
+contact reads, application-owned numbered drafts, selection-preserving native pick
+leases, scoped Promise Save and compact saved/contact management are implemented.
+The [C1b packet](assets/viewer-measurements/c1b-measurement-checkpoint.json) passes
+all1,134frontend tests/116suites, lint/types/build, and five real native workflows
+across mouse/touch and both themes. One exact legacy exclusion remains, no retries
+or new exclusions. Source maps313/316 remain unchanged. Native child0 and independent
+completion verifier0 are distinct from enclosing tool143, cause unestablished.
+C1a274Python/zero-skip evidence remains unaffected; no Python changed in C1b.
 
-The [C1a checkpoint](assets/viewer-measurements/c1-contact-checkpoint.json) passes
-274Python/zero skips, all1,040frontend tests/110suites, repository Ruff,222-file mypy,
-web lint/types/build and the retained native measurement/contact workflow with zero
-retries. Twenty-seven contact lifecycle cases cover cancellation/failure/recovery.
-Theory/performance support D-168 measured limits; architecture independently verifies
-73transport/51affected component cases after the failed-cache P2 correction. These
-are scoped checkpoint checks, not either complete release gate or final all-seven
-implementation approval. The implementation specialist authored core/tests; final
-scientific implementation review needs a fresh nonauthor.
+Scoped architecture/UX correction reviews pass; final all-seven feature review
+remains pending. Fresh nonauthor final scientific implementation and UI reviewers
+are required. The [native baseline](assets/viewer-measurements/c2-native-label-baseline.json)
+measures an inherited100-label install around11.7s and rename4.2s; a bounded shared
+label/native-geometry correction is next. No157application push/PR/release/closeout.
 
 Independent158 preparation remains local68b1a868:2,674Python/zero skips,
 1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
@@ -47,11 +47,11 @@ failures/timeouts remain preserved, deadlines unchanged; its final integration,
 versions, actual predecessor readers and release gates remain pending. Retain the
 nonblocking small-screen heading observation for integration review.
 
-Next: implement the application-owned numbered draft, verified native lease and
-compact tool from the passing C1a checkpoint. No
-schema, dependency or version change yet. Original master, unrelated worktrees and
-retained diagnostics remain preserved. One program Goal stays active through all
-eight required children and parent closeout.
+Next: implement/measure the reviewed C2 native batching correction, then qualify
+held operations, preview recovery, history/reload/archives and actual preceding
+readers. All five versions remain0.34.0; no schema/dependency change. Both complete
+release gates and all-seven final same-candidate assessments remain. Preserve other
+worktrees and one active Goal through all eight releases and parent closeout.
 
 
 ### Previous completed milestone — issue #152

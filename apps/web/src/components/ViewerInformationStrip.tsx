@@ -1,12 +1,13 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowDownUp, ChevronLeft, ChevronRight, Info, ListOrdered, X } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import type { AtomReference, Entry, NormalizedStructure, Selection } from "../api/types";
+import type { AtomReference, Entry, MeasurementKind, NormalizedStructure, Selection } from "../api/types";
 import { formatMeasurement } from "../measurements/geometry";
-import { atomInspection, inspectSelectionGeometry } from "../selection/inspection";
+import { atomInspection, inspectMeasurementDraft, inspectSelectionGeometry } from "../selection/inspection";
 import "./viewer-information.css";
 
 export interface ViewerInformationStripProps {
+  measurementBasis?: { kind: MeasurementKind; slots: readonly (AtomReference | null)[]; structures?: ReadonlyMap<string, NormalizedStructure> };
   selection: Selection;
   order: AtomReference[] | null;
   structures: ReadonlyMap<string, NormalizedStructure>;
@@ -28,16 +29,18 @@ function targetLabel(reference: AtomReference, structures: ReadonlyMap<string, N
 }
 
 /** Passive viewer feedback; the disclosures never change molecular selection. */
-export function ViewerInformationStrip({ selection, order, structures, entries, hover, paused, onOrder, onLoadEntry, onInspectEntry }: ViewerInformationStripProps) {
+export function ViewerInformationStrip({ selection, order, structures, entries, hover, paused, onOrder, onLoadEntry, onInspectEntry, measurementBasis }: ViewerInformationStripProps) {
   const targetNames = useMemo(() => {
     const counts = new Map<string, number>();
     for (const entry of entries) counts.set(entry.name, (counts.get(entry.name) ?? 0) + 1);
     return new Map(entries.map(entry => [entry.id, counts.get(entry.name)! > 1 ? `${entry.name} (${entry.id})` : entry.name]));
   }, [entries]);
   const entryArtifacts = useMemo(() => new Map(entries.map(entry => [entry.id, entry.current_artifact_id])), [entries]);
-  const geometry = useMemo(() => inspectSelectionGeometry(selection.atoms, order, structures, paused), [selection.atoms, order, structures, paused]);
+  const geometry = useMemo(() => measurementBasis
+    ? inspectMeasurementDraft(measurementBasis.kind, measurementBasis.slots, measurementBasis.structures ?? structures, paused)
+    : inspectSelectionGeometry(selection.atoms, order, structures, paused), [selection.atoms, order, structures, paused, measurementBasis]);
   const subjectKey = useMemo(() => JSON.stringify(selection.atoms.map(reference => [reference.structure_id, reference.atom_id, entryArtifacts.get(reference.structure_id)])), [selection.atoms, entryArtifacts]);
-  const contextKey = `${subjectKey}:${paused}`;
+  const contextKey = `${subjectKey}:${paused}:${JSON.stringify(measurementBasis ? [measurementBasis.kind, measurementBasis.slots] : null)}`;
   const currentContext = useRef(contextKey);
   currentContext.current = contextKey;
   const [dialog, setDialog] = useState<{ kind: "details" | "order"; context: string } | null>(null);
@@ -103,7 +106,7 @@ export function ViewerInformationStrip({ selection, order, structures, entries, 
     setDialog({ kind, context: contextKey });
   };
 
-  return <div className="viewer-information-strip" role="region" aria-label="Viewer information">
+  return <div className={`viewer-information-strip${measurementBasis ? " has-measurement-basis" : ""}`} role="region" aria-label="Viewer information">
     <div className="viewer-info-body">
       <div className="viewer-info-identity">
         <span className="viewer-info-text" title={shownInfo?.label} data-testid="viewer-atom-information">
@@ -114,8 +117,9 @@ export function ViewerInformationStrip({ selection, order, structures, entries, 
           onClick={() => show("details")}><Info size={16} aria-hidden="true" /></button>
       </div>
       <div className="viewer-info-geometry" data-geometry-status={geometry.status}>
+        {measurementBasis ? <span className="viewer-info-basis">Measurement targets</span> : null}
         <span className="viewer-info-text" title={readout} data-testid="viewer-selection-geometry">{readout}</span>
-        {selection.atoms.length >= 2 && selection.atoms.length <= 4 ? <button ref={orderTrigger} type="button" className="viewer-info-action"
+        {!measurementBasis && selection.atoms.length >= 2 && selection.atoms.length <= 4 ? <button ref={orderTrigger} type="button" className="viewer-info-action"
           aria-label={geometry.status === "ordering_required" ? "Order measurement targets" : "Inspect measurement targets"}
           title={geometry.status === "ordering_required" ? "Choose measurement target order" : "Inspect or change target order"}
           aria-haspopup="dialog" aria-expanded={open && dialog.kind === "order"} onClick={() => show("order")}>

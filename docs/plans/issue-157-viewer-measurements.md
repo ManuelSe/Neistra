@@ -339,3 +339,45 @@ harness mistakes were corrected without production deadline/skip/retry changes.
 The deliberately ordered draft, verified native lease, explicit Promise Save,
 bounded manager and current-result contact UI remain the next coherent slice.
 No157application push/PR/release/closeout or final implementation approval yet.
+
+### C1b — Deliberate draft, native acquisition and compact management checkpoint
+
+Implemented D-169: application-owned numbered draft and explicit selection order,
+source-qualified native singleton lease and nonpickable numbered markers, exact
+kind-aware information-strip basis independent of hover, scoped Promise Save,
+compact picking/review, bounded chooser/saved manager, and explicit current-source
+contact disclosure. The legacy inspector now bridges to this tool while retaining
+its remaining advanced/scientific workflows. Original files, canonical selection,
+ordinary picking mode and camera ownership remain intact.
+
+The [checkpoint packet](../assets/viewer-measurements/c1b-measurement-checkpoint.json)
+preserves116lossless evidence files, including stopped/failed diagnostic runs.
+Fresh web3 passes lint/types/all1,134tests in116suites/build,313source identities
+unchanged. Native4 passes five actual browser workflows: distance/angle/torsion
+management plus trusted acquisition in both themes using mouse and real touch.
+One exact pre-existing mobile inspector exclusion remains; no new exclusions,
+flakes or retries. All316native source identities remain unchanged. The completed
+Playwright child exits0; the enclosing tool reports143 after that receipt, cause
+unestablished. A separate independent verifier exits0 after checking raw logs,
+source maps and passed last-run metadata. No enclosing0 is claimed.
+
+No Python source changed after the C1a274-pass/zero-skip checkpoint; its unaffected
+focused evidence is reused. Native lease author checks include55scoped cases;
+controlled tool checks include20cases and eight isolated presentation browser
+cases with actual200% zoom. These are distinguished from integrated native tests.
+Architecture and UX independently pass their scoped correction cycle. Scientific
+implementation and UI authors require fresh nonauthor final reviewers.
+
+The [twelve-context native baseline](../assets/viewer-measurements/c2-native-label-baseline.json)
+shows100saved1STP labels take11.59/11.70s baseline/candidate median initial install
+and4.10/4.23s one-name update. Endpoint mapping is only8.8/9.5ms. Per-label text
+atlases/renderable resources and representation rebuilding warrant C2 correction;
+this is inherited behavior, not evidence for an ID-index optimization. All names,
+geometry, selection, camera and source-retirement controls passed. Reported GPU
+process RSS is neither VRAM nor operation peak/leak proof. No optimization is yet
+implemented. Versions stay0.34.0; dependencies/schema/migrations unchanged.
+
+Next: persist the reviewed grouped-native-geometry/shared-label design, implement
+and measure it, then complete C2 held-operation/preview/history/archive qualification.
+C3 versions/actual0.34readers, both full35-command gates and final all-seven same-
+candidate review remain required before application push and normal release.

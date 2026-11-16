@@ -7865,3 +7865,49 @@ all-seven final same-candidate assessments or either complete release gate. D148
 portable/strict-host distinction remains. Existing immutable endpoint inspection
 indexes now serve saved and quick geometry; failed current queries, missing source
 facts and every preview must suppress saved native geometry while retaining records.
+
+
+## D-169 — Transient measurement ownership and bounded disclosures
+
+Date:2026-11-16. Child157 C1b checkpoint; no durable schema/version change.
+
+Own the numbered measurement draft above responsive viewer remounts. Native atom
+acquisition is an explicit disposable lease: consume its primary picks before
+ordinary selection effects, verify raw singleton identity against the current
+source, and preserve canonical selection, inspection order and ordinary picking
+mode. Kind changes empty the draft; removing a target leaves its numbered gap.
+Explicit selection import confirms three/four-target order. Compact picking keeps
+fields and exposes the canvas; Review returns to the retained draft. Native marker
+labels are nonpickable and independently owned from saved measurements.
+
+Promise Save captures project/revision/visit epoch, session/generation, exact
+ordered references and artifacts. Synchronous admission prevents double dispatch.
+A failed current Save retains fields; late acknowledgements can update only their
+own monotonic project cache, without taking over another session's feedback.
+Stopping acquisition does not retire an already admitted Save. Source change or
+preview entry retires its UI owner even when acquisition has stopped; restoring
+an old source or leaving a preview cannot revive it. Closing is not rollback.
+
+Use four fixed disabled-capable source observer slots per draft and expanded
+record. Variable-length query arrays retained trailing observers in the pinned
+library; shrinking the number of calls did not establish bounded subscriptions.
+Chooser correction substitutes the active draft slot, preserving independent
+inspection consumers. At most50saved summary rows and one expansion are mounted.
+Current source facts and every preview qualify geometry independently of hover.
+
+Contact disclosure owns an AbortSignal, request and current-result actions.
+Collapse, compact picking, project/source/preview retirement synchronously abort
+before publishing the new disclosure state. Retained Find callbacks also reject
+an already aborted disclosure before admitting work. A→B→A cannot revive a request
+or row action. Explicit entry choice includes hidden/locked entries; selection
+remains a separate deliberate result action. Existing contacts remain read-only.
+
+Focused [checkpoint evidence](assets/viewer-measurements/c1b-measurement-checkpoint.json)
+passes1,134frontend cases/116suites plus lint/types/build and five real native
+workflows, with one unchanged legacy mobile exclusion and no retries/new exclusions.
+Native child exits0; its enclosing tool reports143 after completion, cause
+unestablished. Separate independent log/source completion verification exits0.
+Scoped architecture/UX assessments pass after correcting concrete ownership,
+observer and canvas-access findings. They do not constitute final seven-role
+approval. The [native baseline](assets/viewer-measurements/c2-native-label-baseline.json)
+records inherited100-label latency/resource costs requiring measured C2 correction.

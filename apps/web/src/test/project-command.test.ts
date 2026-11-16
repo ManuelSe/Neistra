@@ -36,3 +36,23 @@ it.each([undefined, "quiet"] as const)("rechecks source ownership after awaited 
   expect(dispatch).not.toHaveBeenCalled();
   client.clear();
 });
+
+it("rechecks an ephemeral visit owner after held preflight before publication or dispatch", async () => {
+  let visit = 1;
+  const dispatch = vi.fn(() => Promise.resolve(molecularProject()));
+  const publication = vi.fn();
+  const command = captureProjectCommand("P", dispatch, "quiet", {
+    assertDispatchable: () => { if (visit !== 1) throw new Error("Measurement visit retired"); },
+    ownsFeedback: () => visit === 1,
+  });
+  const client = new QueryClient();
+  const mutation = client.getMutationCache().build(client, {
+    onMutate: async () => { command.context?.assertDispatchable(); await Promise.resolve(); visit = 3; },
+    mutationFn: () => dispatchProjectCommand(command, publication),
+  });
+  await expect(mutation.execute(undefined)).rejects.toThrow("visit retired");
+  expect(publication).not.toHaveBeenCalled();
+  expect(dispatch).not.toHaveBeenCalled();
+  expect(command.context?.ownsFeedback()).toBe(false);
+  client.clear();
+});

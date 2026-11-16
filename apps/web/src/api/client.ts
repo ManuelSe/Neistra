@@ -1,6 +1,7 @@
 import type { HydrogenPolicy, ModelPlacementAction, ModelPreview, MoleculeCreateResult } from "./types";
 import type {
   ApiErrorBody,
+  AtomReference,
   CameraState,
   Contact,
   CoordinateTransform,
@@ -350,10 +351,10 @@ export const projectApi = {
       }),
     }),
   createMeasurement: (
-    project: Project,
+    project: Pick<Project, "id" | "revision">,
     name: string,
     kind: MeasurementKind,
-    atomReferences: Selection["atoms"],
+    atomReferences: readonly AtomReference[],
   ) =>
     request<Project>(`/api/v1/projects/${project.id}/measurements`, {
       method: "POST",

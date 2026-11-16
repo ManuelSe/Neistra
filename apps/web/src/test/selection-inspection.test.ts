@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import type { AtomReference, NormalizedStructure, SelectionMode } from "../api/types";
-import { atomInspection, inspectSelectionGeometry, inspectionOrderMatches } from "../selection/inspection";
+import { atomInspection, inspectMeasurementDraft, inspectSelectionGeometry, inspectionOrderMatches } from "../selection/inspection";
 import { canonicalSelection, emptySelection } from "../selection/selection";
 import { useSelectionStore } from "../store/selection";
 import { componentHierarchy, proteinStructure } from "./molecular-fixtures";
@@ -14,6 +14,13 @@ function geometryStructure(points: [number, number, number][]): NormalizedStruct
 }
 
 describe("qualified transient selection geometry", () => {
+  it("keeps an incomplete deliberate kind and numbered gaps instead of falling back to a smaller geometry", () => {
+    const structures = new Map([["entry", geometryStructure([[1, 0, 0], [0, 0, 0], [0, 1, 0], [0, 1, 1]])]]);
+    expect(inspectMeasurementDraft("angle", [...refs(1, 2), null], structures)).toMatchObject({ kind: "angle", status: "unavailable", reason: "Angle: choose target 3 (2/3)." });
+    expect(inspectMeasurementDraft("dihedral", [...refs(1, 2, 3), null], structures)).toMatchObject({ kind: "dihedral", status: "unavailable" });
+    expect(inspectMeasurementDraft("angle", [refs(1)[0], null, refs(3)[0]], structures)).toMatchObject({ reason: "Angle: choose target 2 (2/3)." });
+    expect(inspectMeasurementDraft("dihedral", refs(1, 2, 3, 4), structures)).toMatchObject({ status: "ready", value: -90 });
+  });
   it("gives analytic order-independent distance, including valid coincident atoms", () => {
     const structures = new Map([["entry", geometryStructure([[0, 0, 0], [1, 2, 2]])]]);
     expect(inspectSelectionGeometry(refs(2, 1), null, structures)).toMatchObject({ status: "ready", kind: "distance", value: 3 });

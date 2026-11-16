@@ -218,3 +218,14 @@ describe("viewer information strip", () => {
     expect(screen.getByRole("button", { name: "Atom details" })).toBeDisabled();
   });
 });
+
+it("shows deliberate angle progress beside independent hover without reusing selected-atom distance", () => {
+  const state = props([1, 2]);
+  const view = render(<ViewerInformationStrip {...state} hover={atom(3)}
+    measurementBasis={{ kind: "angle", slots: [atom(1), atom(2), null] }} />);
+  expect(screen.getByTestId("viewer-selection-geometry")).toHaveTextContent("Angle: choose target 3 (2/3).");
+  expect(screen.getByTestId("viewer-atom-information")).toHaveTextContent("CA");
+  expect(screen.queryByRole("button", { name: "Inspect measurement targets" })).toBeNull();
+  view.rerender(<ViewerInformationStrip {...state} hover={atom(3)} />);
+  expect(screen.getByTestId("viewer-selection-geometry")).toHaveTextContent("Distance 1.00 Å");
+});

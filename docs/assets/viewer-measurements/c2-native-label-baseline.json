@@ -1,0 +1,24 @@
+{
+  "archive": "c2-native-label-baseline.zip",
+  "files": 662,
+  "archive_bytes": 3168559,
+  "archive_sha256": "81425c2b96a506d0dbeb46b988c220ad992ba756b0fb7c3019455fdff8ad2249",
+  "all_member_hashes_and_crc_verified": true,
+  "scope": "Twelve frozen native performance contexts, all correctness controls pass; consequential inherited rendering bottleneck",
+  "source_identities": 613,
+  "baseline": "4b8ae716f382d67efe0823c007a079a6a278ddce",
+  "native_candidate_sha256": "49104bdc68e84f345c8cfe7c2f39254e894ff9048f26206450478821769a7d7e",
+  "cases": 12,
+  "app_mounted": false,
+  "optimization_implemented": false,
+  "one_hundred_1stp_labels": {
+    "initial_seconds_median_baseline": 11.59,
+    "initial_seconds_median_candidate": 11.7,
+    "rename_seconds_median_baseline": 4.1,
+    "rename_seconds_median_candidate": 4.23,
+    "candidate_endpoint_mapping_milliseconds": 9.5
+  },
+  "resource_scope": "SwiftShader GPU-process observed RSS4567MiB and browser-lifetime high-water8671MiB; not GPU VRAM, operation peak or leak proof",
+  "limits": "Shared-host portable observations only; no strict-host performance certification or all-host guarantee",
+  "next": "Grouped public native geometry plus one owned full-text label representation; qualify science, lifecycle, appearance and before/after resources"
+}
