@@ -20,16 +20,26 @@ The published313,970,966-byte ZIP and sidecars match anonymous downloads; all511
 nested ZIPs/2,779manifest entries/870project files verify. The
 [publication receipt](assets/viewer-information/c6-publication.json) records remote
 readback. [Final reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
-and completed issue state are verified. Normal terminal documentation integration
-and owned156branch cleanup are the remaining delivery bookkeeping actions.
+and completed issue state are verified. Terminal documentation merged normally in
+[PR #169](https://github.com/ManuelSe/Neistra/pull/169), and owned156branch cleanup
+was verified. The annotated runtime tag remains unchanged.
 
-#157 is the next implementation milestone, from actual verified0.34runtimeab5e5fef
-on `feat/issue-157-viewer-measurements` in the owned program checkout. Its pre-code
-contract now specifies application-owned numbered drafts, a verified native-pick
-lease, shared truthful geometry, explicit ordered Promise Save, bounded management,
-and cancellable current-source close-contact reads. Independent theory/implementation
-planning supports conservative p∞ neighbor streaming with a declared stable norm;
-limits await measurement. No157 application implementation or final review is claimed.
+#157 is in C1 implementation on `feat/issue-157-viewer-measurements`, from verified
+master `4b8ae716` (runtime0.34plus terminal documentation). The bounded contact core,
+verified ephemeral child read, source-bound cancellable client transport and shared
+immutable geometry index are implemented locally. Invalid saved geometry is omitted
+from native drawing while durable records remain recoverable. The deliberate draft,
+native pick lease and compact management workflow are still pending.
+
+The [C1a checkpoint](assets/viewer-measurements/c1-contact-checkpoint.json) passes
+274Python/zero skips, all1,040frontend tests/110suites, repository Ruff,222-file mypy,
+web lint/types/build and the retained native measurement/contact workflow with zero
+retries. Twenty-seven contact lifecycle cases cover cancellation/failure/recovery.
+Theory/performance support D-168 measured limits; architecture independently verifies
+73transport/51affected component cases after the failed-cache P2 correction. These
+are scoped checkpoint checks, not either complete release gate or final all-seven
+implementation approval. The implementation specialist authored core/tests; final
+scientific implementation review needs a fresh nonauthor.
 
 Independent158 preparation remains local68b1a868:2,674Python/zero skips,
 1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
@@ -37,11 +47,11 @@ failures/timeouts remain preserved, deadlines unchanged; its final integration,
 versions, actual predecessor readers and release gates remain pending. Retain the
 nonblocking small-screen heading observation for integration review.
 
-Next: integrate this documentation/planning checkpoint normally, verify156cleanup,
-measure157contact budgets and implement its coherent vertical slice. No source,
-schema, dependency or version changes occur in this checkpoint. Original master,
-unrelated worktrees and locally retained diagnostics remain preserved. One program
-Goal stays active through all eight required children and parent closeout.
+Next: implement the application-owned numbered draft, verified native lease and
+compact tool from the passing C1a checkpoint. No
+schema, dependency or version change yet. Original master, unrelated worktrees and
+retained diagnostics remain preserved. One program Goal stays active through all
+eight required children and parent closeout.
 
 
 ### Previous completed milestone — issue #152

@@ -3,6 +3,7 @@ import type {
   MeasurementKind,
   NormalizedStructure,
 } from "../api/types";
+import { structureInspectionIndex } from "../structures/inspectionIndex";
 
 type Point = [number, number, number];
 
@@ -57,21 +58,39 @@ export function measurePoints(kind: MeasurementKind, points: Point[]): number {
   );
 }
 
+/** Current-source qualification shared by deliberate, quick and saved geometry. */
+export function measurementCoordinates(
+  references: readonly AtomReference[],
+  structures: ReadonlyMap<string, NormalizedStructure>,
+): { status: "ready"; points: Point[] } | { status: "unavailable"; reason: string } {
+  const keys = references.map(reference => JSON.stringify([reference.structure_id, reference.atom_id]));
+  if (new Set(keys).size !== references.length) return { status: "unavailable", reason: "Choose distinct atom targets." };
+  const points: Point[] = [];
+  for (const reference of references) {
+    const structure = structures.get(reference.structure_id);
+    if (!structure) return { status: "unavailable", reason: "Current atom coordinates are not loaded." };
+    const index = structureInspectionIndex(structure);
+    const atom = index.atoms.get(reference.atom_id);
+    if (!atom) return { status: "unavailable", reason: "A selected atom is no longer available." };
+    if (index.missingCoordinates) return { status: "unavailable", reason: "Source coordinates are missing." };
+    if (atom.coordinates.length !== 3 || !atom.coordinates.every(Number.isFinite)) {
+      return { status: "unavailable", reason: "Atom coordinates are not finite 3D points." };
+    }
+    points.push(atom.coordinates);
+  }
+  return { status: "ready", points };
+}
+
 export function measurementValue(
   kind: MeasurementKind,
-  references: AtomReference[],
-  structures: Map<string, NormalizedStructure>,
+  references: readonly AtomReference[],
+  structures: ReadonlyMap<string, NormalizedStructure>,
 ): number | null {
-  const points = references.map((reference) => {
-    const atom = structures
-      .get(reference.structure_id)
-      ?.atoms.find((candidate) => candidate.id === reference.atom_id);
-    return atom?.coordinates;
-  });
-  if (points.some((point) => point === undefined)
-    || references.some(reference => structures.get(reference.structure_id)?.warnings.some(warning => warning.code === "missing_coordinates"))) return null;
+  if (references.length !== { distance: 2, angle: 3, dihedral: 4 }[kind]) return null;
+  const coordinates = measurementCoordinates(references, structures);
+  if (coordinates.status !== "ready") return null;
   try {
-    return measurePoints(kind, points as Point[]);
+    return measurePoints(kind, coordinates.points);
   } catch {
     return null;
   }

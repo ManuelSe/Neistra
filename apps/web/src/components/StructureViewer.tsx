@@ -678,7 +678,8 @@ export function StructureViewer({
     () =>
       new Map(
         structureQueries.flatMap((query, index) =>
-          isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
+          !query.isError && !query.isPlaceholderData
+            && isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
             ? [[query.data.entry_id, query.data.structure] as const] : [],
         ),
       ),
@@ -687,23 +688,24 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    const measurements = interactionPaused ? [] : project.measurements.map((measurement) => {
+    const measurements = inspectionPaused ? [] : project.measurements.flatMap((measurement) => {
       const value = measurementValue(
         measurement.kind,
         measurement.atom_references,
         normalizedStructures,
       );
-      return {
+      // Preserve the durable record but never install unavailable native geometry.
+      return measurement.visible && value !== null ? [{
         ...measurement,
         label: `${measurement.name}: ${formatMeasurement(measurement.kind, value)}`,
-      };
+      }] : [];
     });
     void viewerRef.current?.setMeasurements(measurements).catch((error: unknown) => {
       setViewerError(
         error instanceof Error ? error.message : "Measurements could not be displayed.",
       );
     });
-  }, [normalizedStructures, project.measurements, syncKey, viewerReady, interactionPaused]);
+  }, [normalizedStructures, project.measurements, syncKey, viewerReady, inspectionPaused]);
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending || sceneLoading;

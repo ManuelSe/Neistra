@@ -525,7 +525,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       new Map(
         structureQueries.flatMap((query, index) => {
           const entry = project?.entries.find(item => item.id === relevantIds[index]);
-          return isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
+          return !query.isError && !query.isPlaceholderData
+            && isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
             ? [[query.data.entry_id, query.data.structure] as const] : [];
         }),
       ),

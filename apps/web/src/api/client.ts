@@ -412,17 +412,20 @@ export const projectApi = {
       { method: "DELETE" },
     ),
   contacts: (
-    project: Project,
+    project: Pick<Project, "id">,
     entryId: string,
     cutoff: number,
     minimumDistance: number,
+    options?: { expectedArtifactId?: string; signal?: AbortSignal },
   ) =>
     request<Contact[]>(`/api/v1/projects/${project.id}/contacts`, {
       method: "POST",
+      signal: options?.signal,
       body: JSON.stringify({
         entry_id: entryId,
         cutoff,
         minimum_distance: minimumDistance,
+        expected_artifact_id: options?.expectedArtifactId,
       }),
     }),
 };

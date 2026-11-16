@@ -1,11 +1,11 @@
 import type {
   AtomReference,
   MeasurementKind,
-  MolecularAtom,
   MolecularResidue,
   NormalizedStructure,
 } from "../api/types";
-import { measurePoints } from "../measurements/geometry";
+import { measurementCoordinates, measurePoints } from "../measurements/geometry";
+import { structureInspectionIndex as inspectionIndex } from "../structures/inspectionIndex";
 import { residuePosition } from "./gestures";
 
 export interface AtomInspection {
@@ -34,34 +34,7 @@ export interface SelectionGeometry {
   targets: AtomReference[];
 }
 
-interface InspectionIndex {
-  atoms: ReadonlyMap<number, MolecularAtom>;
-  residues: ReadonlyMap<number, MolecularResidue>;
-  chains: ReadonlyMap<number, NormalizedStructure["chains"][number]>;
-  missingCoordinates: boolean;
-}
-
-const indexes = new WeakMap<NormalizedStructure, InspectionIndex>();
 const referenceKey = (reference: AtomReference) => JSON.stringify([reference.structure_id, reference.atom_id]);
-
-function inspectionIndex(structure: NormalizedStructure): InspectionIndex {
-  const cached = indexes.get(structure);
-  if (cached) return cached;
-  // Source facts accompany real normalized payloads; older frontend DTOs omit
-  // their optional shape. The warning remains the established missing-data signal.
-  const source = (structure as NormalizedStructure & {
-    source?: { facts?: Readonly<Record<string, unknown>> };
-  }).source;
-  const index = {
-    atoms: new Map(structure.atoms.map(atom => [atom.id, atom])),
-    residues: new Map(structure.residues.map(residue => [residue.id, residue])),
-    chains: new Map(structure.chains.map(chain => [chain.id, chain])),
-    missingCoordinates: structure.warnings.some(warning => warning.code === "missing_coordinates")
-      || source?.facts?.missing_coordinates === true,
-  };
-  indexes.set(structure, index);
-  return index;
-}
 
 /** Membership qualification does not assign an order to a canonical set. */
 export function inspectionOrderMatches(
@@ -148,28 +121,15 @@ export function inspectSelectionGeometry(
   if (!kind) return { status: "summary", targets: [] };
   const targets = atoms.map(reference => ({ ...reference }));
   if (paused) return { status: "unavailable", kind, targets, reason: "Geometry unavailable during preview." };
-  if (new Set(atoms.map(referenceKey)).size !== atoms.length) {
-    return { status: "unavailable", kind, targets, reason: "Choose distinct atom targets." };
-  }
-  const points = new Map<string, [number, number, number]>();
-  for (const reference of atoms) {
-    const structure = structures.get(reference.structure_id);
-    if (!structure) return { status: "unavailable", kind, targets, reason: "Current atom coordinates are not loaded." };
-    const index = inspectionIndex(structure);
-    const atom = index.atoms.get(reference.atom_id);
-    if (!atom) return { status: "unavailable", kind, targets, reason: "A selected atom is no longer available." };
-    if (index.missingCoordinates) return { status: "unavailable", kind, targets, reason: "Source coordinates are missing." };
-    if (atom.coordinates.length !== 3 || !atom.coordinates.every(Number.isFinite)) {
-      return { status: "unavailable", kind, targets, reason: "Atom coordinates are not finite 3D points." };
-    }
-    points.set(referenceKey(reference), atom.coordinates);
-  }
+  const coordinates = measurementCoordinates(atoms, structures);
+  if (coordinates.status !== "ready") return { ...coordinates, kind, targets };
   const ordered = inspectionOrderMatches(atoms, order) ? order.map(reference => ({ ...reference })) : null;
   if (kind !== "distance" && !ordered) {
     return { status: "ordering_required", kind, targets, reason: "Order targets to define the angle vertex or signed torsion." };
   }
   const resolvedTargets = ordered ?? targets;
   try {
+    const points = new Map(atoms.map((reference, index) => [referenceKey(reference), coordinates.points[index]]));
     const value = measurePoints(kind, resolvedTargets.map(reference => points.get(referenceKey(reference))!));
     return { status: "ready", kind, value, targets: resolvedTargets };
   } catch {

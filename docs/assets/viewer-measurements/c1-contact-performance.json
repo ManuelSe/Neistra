@@ -1,0 +1,26 @@
+{
+  "scope": "Scoped C1 primitive and actual API measurements, not final feature/release qualification",
+  "path": "c1-contact-performance.zip",
+  "bytes": 21858280,
+  "sha256": "73eace940213c11e6b0351e734924a45870c6fc6623d1692a6b6b268d2ac9756",
+  "entries": 861,
+  "uncompressed_bytes": 257792805,
+  "verification": "Every included source/output matched exact performance publication whitelist; ZIP CRC and complete member hashes verified",
+  "exclusions": [
+    "api-store-* directories: regenerate with api-setup.py and frozen normalized fixtures; avoids SQLite/artifact-store copies",
+    "baseline/tests/fixtures copies: exact tracked source paths/hashes in baseline-receipt.json; reconstruct from publishedcommit4b8ae716f382d67efe0823c007a079a6a278ddce",
+    "fixtures generatednormalized/synthetic files: reconstruct using api-prepare-fixed-fixtures.py, prepare_transport_fixtures.py and prepare_large_normalized.py; exact hashes in per-run receipts and large-normalized-fixture.json",
+    "__pycache__ bytecode and API local full-filesystem manifest (which inventories intentionally excluded stores)."
+  ],
+  "reproduction": [
+    "Reconstruct baseline/ from gitarchive4b8 selected paths in baseline-receipt.json; frozen baseline/packages source also included.",
+    "Generate fresh fixed synthetic fixtures with api-prepare-fixed-fixtures.py OUTPUT; populate fixtures/ using matching receipt hashes, then prepare normalized transport and near64MiB variants using included scripts.",
+    "API snapshot contains209frozen workingtree source/config files; run api-setup.py for1stp/1aon/sparse64, then api-run.py with locked interpreter/dependencies.",
+    "Scripts record original local interpreter path; recreate matching locked environment or adjust only interpreter path on another host. Original commands/environments/raw outputs remain explicit."
+  ],
+  "notes": [
+    "Initial12 memory-confounded API operations, correctedfresh12 and smoke remain distinguished by filenames/receipts.",
+    "Policy not universal safety/latency guarantee, strict-host certification or address-space qualification.",
+    "Original primitive and API full-filesystem manifests reference local files intentionally omitted by this publication whitelist; do not claim excluded stores/fixtures are packaged."
+  ]
+}

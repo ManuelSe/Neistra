@@ -301,3 +301,41 @@ while exact external GUI defaults/correction/Save semantics were not established
 Selection-preserving drafts are an original application adaptation. All identifying
 reference research remains outside repository artifacts. No planning verdict is
 final implementation approval or a claim that157already works.
+
+### C1a — Bounded contact read and current saved geometry checkpoint
+
+Implemented the accepted pure streamed core, strict immutable transport, typed
+incremental child producer and ephemeral API coordinator, optional expected-source/
+AbortSignal client contract, shared immutable geometry index and saved native
+geometry qualification. Captures use minimal short-lived SQL sessions; cleanup
+owns threads, process and staging through repeated cancellation/shutdown. Errors
+remain typed whole-operation outcomes. Failed cached queries, missing-coordinate
+source facts and previews suppress native measurement drawings; durable records
+remain available for recovery. The legacy readout uses the same current-source
+qualification. No dependency, migration, durable schema or version change.
+
+D-168 records measured limits and the opaque verified-response boundary. The
+[performance packet](../assets/viewer-measurements/c1-contact-performance.json)
+retains117primitive runs and both twelve-operation API matrices; the first matrix's
+memory baseline confound is disclosed. Theory and performance independently PASS
+the narrow policy; architecture PASSes transport/ownership after its stale-cache P2
+finding was corrected and independently checked. These are intermediate assessments.
+The scientific implementation agent authored core/tests and cannot be the independent
+final scientific implementation reviewer for this feature.
+
+[Focused checkpoint evidence](../assets/viewer-measurements/c1-contact-checkpoint.json):
+274Python/zero skips, all1,040frontend tests in110suites, repository Ruff, mypy222
+source files, web lint/types/build and one retained desktop native workflow with
+zero retries. Source maps remain unchanged during each focused run. Existing edit
+execution/attempt regressions and viewer-state integration are included. Expanded
+27contact lifecycle cases include actual owned-thread cancellation, opened-file read
+settlement, repeated cancellation, shutdown/disconnect callback, invalid IPC/output,
+start failure, fail-closed cleanup and corrupt metadata/source refusal. A socket
+transport disconnect is not claimed by the callback test. Full final gate remains.
+
+Diagnostics and stopped checks remain distinguished from passing evidence. Fresh
+web3 corrected new-test async-act lint errors after web2 stopped; earlier fixture/
+harness mistakes were corrected without production deadline/skip/retry changes.
+The deliberately ordered draft, verified native lease, explicit Promise Save,
+bounded manager and current-result contact UI remain the next coherent slice.
+No157application push/PR/release/closeout or final implementation approval yet.

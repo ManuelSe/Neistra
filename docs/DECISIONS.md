@@ -7809,3 +7809,59 @@ Scientific primary implementation references:
 [stable norm](https://docs.python.org/3.12/library/math.html#math.hypot).
 Independent theory controls support72configurations/699queries; these are planning
 probes, not implementation approval or formal verification of every library build.
+
+## D-168 — Measured contact admission and opaque verified responses
+
+Date:2026-11-16. Implements D-167's contact-read contract within child157; this is
+an implementation checkpoint decision, not complete feature or release approval.
+
+Retain100,000input atoms,64MiB immutable normalized source,2,000,000raw returned
+neighbors,250,000retained results and64MiB encoded response. Admit source/atom
+metadata before the child loads coordinates; validate actual canonical atom count
+and source size/SHA again in the child. All raw returned neighbors are charged
+before exclusions. An individual list is bounded by admittedN; internal traversal
+is bounded operationally by a terminable computation, not by that visit counter.
+Serialize each validated typed row and array delimiter only after byte admission;
+any refusal discards the whole operation. Preserve successful list DTO shape and
+optional source binding for existing callers. Minimum0 remains a valid API/core
+setting; no new contact family, chemistry assumption or scientific threshold.
+
+Use15seconds for the computation lifetime and a polled1GiB child-RSS threshold;
+retain admission through owned-thread settlement, termination/reaping and temporary
+file removal, including repeated cancellation and shutdown. These are operational
+policies, not all-host latency guarantees, an instantaneous hard allocation ceiling,
+or a1GiB address-space limit. Measured virtual mappings approach1.94GiB. A2second
+termination grace precedes kill/reap. Cleanup failure closes admission rather than
+allowing additional work over retained resources. No persistent job/artifact/history
+or molecular edit is created by this read.
+
+The parent captures minimal metadata columns in a short owned session. The fixed
+trusted child validates every finite, sorted, unique stable-reference row and
+writes bounded JSON to an owned file. Strict operation/project/entry/artifact/policy
+completion metadata, size and SHA qualify opaque response bytes after the child
+finishes; the parent does not allocate a second whole Pydantic/JSON model. SHA alone
+is not a claim of schema validation. A fresh metadata capture rejects changed or
+deleted sources before success. Shared verified-file reads open one regular file,
+fstat its descriptor and read at most declared size+1; settle any owned read thread
+before removing its directory. Input aliases within the managed store retain their
+existing compatibility; output aliases and outside paths are refused.
+
+Evidence: [source-bound performance packet](assets/viewer-measurements/c1-contact-performance.json)
+retains117primitive processes (111complete results/six intended whole refusals),
+the original twelve API measurements with their disclosed SQL-LOB baseline confound,
+and twelve fresh corrected ASGI requests: nine complete200responses/three expected
+413refusals. Three repetitions per case, fresh processes with warm filesystem cache.
+The58,870-site1AON3Å case returns128,466pairs/24,810,069bytes in2.858–2.962seconds;
+a near64MiB100,000-site sparse source completes in1.708–1.983seconds. Maximum child
+RSS591.84MiB and APIparent response-phase peak216.61MiB support the chosen defaults
+on the measured host; client JSON decoding is measured separately. All source/DB/
+artifact identities and cleanup witnesses pass. Admitted ceilings do not certify
+every metadata/bond shape or cutoff. Dense1AON10Å explicitly refuses capacity.
+
+Theory and performance specialists independently assessed this narrow policy and
+its scientific interpretation; architecture assessed ownership and transport. This
+does not substitute for remaining lifecycle tests, native tool implementation,
+all-seven final same-candidate assessments or either complete release gate. D148
+portable/strict-host distinction remains. Existing immutable endpoint inspection
+indexes now serve saved and quick geometry; failed current queries, missing source
+facts and every preview must suppress saved native geometry while retaining records.
