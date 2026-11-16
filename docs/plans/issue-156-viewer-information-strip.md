@@ -110,3 +110,33 @@ Candidate3at5abd9978again passed fullPython2,344/frontend1,023, lint/types/build
 The syntheticXYgesture fixture now seeds a reproducible face-on camera through the public session-camera interface BEFOREcamera invariants. It no longer inherits installation orientation/FOV and overzooms a short chain into the toolbar. Explicit space-filling atom targets make this gesture-only fixture sampleable on the quarter-resolution native pick raster; independent ball-and-stick hierarchy/editing coverage remains unchanged. Every target is independently confirmed by exactcanonical native ID within the existing4CSSpixel oracle AND actualcanvas hit-testing, then receives a trusted input. Exactselection/ranges/anchors/camera/revision/zero-read-write assertions are unchanged.
 
 [Focused observations](../assets/viewer-information/c4-gesture-oracles.json) retain the first14pass/8fail framing diagnostic and final16pass/zero failure/flake/retry/exclusion result acrossdesktop/mobile. No productioncodechanged. A fresh complete35step candidate4 is required; neither failed fullrun nor focused checks are pooled into a pass. All-seven final assessments must cover that finalcandidate and its completedgate.
+
+### C3 diagnostic and correction — unobscured fixed native drag path
+
+Candidate4 at `22e8c948` passed the full Python/frontend/tooling stages and466 native
+cases before its mobile movement-focus case stopped at a hit-test assertion,
+before mouse-down. It had 74 actual existing skips; 23 remaining cases were not run.
+The trace shows Space already selected camera mode and retained canvas focus.
+The fixed fractional sample (329.6, 573.6) CSS px was 0.4 px inside the open movement
+panel's 330 px right edge. This establishes an input-oracle occlusion, not a product
+focus defect. All 25,270 raw native files, including incomplete trace staging, and a
+553,357,711-byte ZIP remain preserved locally; every filesystem member hash/size and
+outer CRC verify. The failed case, full manifest, browser report and lossless gate
+logs are tracked. The forensic archive is not a recursively qualified release
+package and is not claimed published.
+
+The drag helper prefers the existing point, then searches a fixed bounded grid for
+an unobscured path. Start and all eight unchanged displacement steps must lie
+inside the viewer with 4 px margin and hit the exact required native owner with 2 px
+clearance. It rechecks immediately before trusted input. Panel state, viewport,
+mouse button, displacement, event steps, deadlines and every focus/camera/coordinate/
+history/network assertion remain unchanged. No production source changed.
+
+[Focused evidence](../assets/viewer-information/c4-native-drag-path.json) covers the
+entire affected file and all warning/workspace tail files in both projects:
+49 passes/one existing desktop touch exclusion, zero failures/flakes/retries. All 54
+paths pass; 53 use the original point and only the formerly failing mobile gesture
+uses (379.04, 638.8). Independent explorer trace assessment and performance review
+agree with the measured cause and find no consequential weakening. The fresh
+candidate5recipe repeats all 35 commands; no partial full-run results are pooled.
+Final same-candidate seven-role review and all publication stages remain pending.

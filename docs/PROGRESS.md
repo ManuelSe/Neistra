@@ -2,13 +2,33 @@
 
 ## Current milestone
 
-Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) — **delivery in progress**, exactly required children #156–#163. The [parent contract](plans/issue-11-ligand-information.md) owns scope, dependencies, shared contracts and the program ledger. Plans are **Authorized within agreed scope; not individually reviewed**. One durable program Goal remains active through verified release and parent closeout.
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active through
+verified release and closeout for exactly #156–#163. The parent and child plans are
+Authorized within agreed scope; not individually reviewed. The original master
+checkout and all exclusions remain preserved.
 
-Completed: C0 planning commit `248807ec` verified on the remote planning branch; owner-confirmed takeover of the existing isolated checkout. Child #156 now has canonical atom feedback, separately ordered transient geometry and accessible selected-atom details. Preliminary specialist review prompted hidden-query lifetime, target-disambiguation and measured hover-work corrections; their regressions pass. All other children remain planned, unimplemented and open.
+#156 implements the passive atom/ordered-geometry strip and accessible details.
+All five versions are prepared as 0.34.0; schema/dependencies remain unchanged.
+Candidate4 passed full 2,344 Python/zero skips, 1,023 frontend and tooling, then stopped
+after 466 native passes at a fixed drag sample hidden by an open movement panel.
+All raw diagnostics are retained. A bounded native-path oracle correction passes
+49 focused cases with one existing touch exclusion and zero failures/flakes/retries;
+all focus/camera/molecular/history/network assertions remain. The fresh candidate5
+will repeat the complete 35-command gate before final seven-role review and normal
+publication. No complete final-version gate or application publication is claimed.
 
-Verification: initial web lint/types and full 1,019-case frontend suite pass; corrected 99-case focused checks, lint/types/build and native desktop/touch/themes/actual-zoom/narrow qualification pass (13 passes/three existing hover exclusions, no failures/retries). Release evidence tooling passes 74 integrity tests and uses actual tagged v0.33.0 source. Earlier missing-browser, fixture, locator and layout diagnostic runs are retained separately. No complete final-version gate, final seven-role approval, implementation push, PR or new release is claimed.
+Independent #158 preparation is recorded in a separate local worktree at checkpoint
+`a4190bdf`: 2,639 Python/zero skips, 1,030 frontend/108 suites, eight final native workflows,
+source-bound reader diagnostics and scoped scientific/recovery/resource corrections.
+Its implementation is unpushed and must integrate verified #156/#157 master before
+final release-version gates and all-seven review. Dependent later features remain
+unimplemented; their source-based planning refinements add no runtime claims.
 
-Known limits: preview geometry is explicitly unavailable; no new durable schema or Python science change in #156. Future strict descriptor construction must qualify explicit-H/isotope facts and instance connectivity; fallback adapters cannot establish those facts. Excluded work remains outside this program. Blockers: no external blocker identified; final candidate/release qualification remains pending. Next: checkpoint #156, complete its final-version candidate gate and same-candidate review, then normal merge/exact-master qualification/release before #157.
+Known limits: preview geometry is explicitly unavailable; no new durable schema is
+introduced by #156. Blockers: no owner scope decision required. Next: freeze and
+qualify candidate5, obtain final same-candidate assessments, then protected merge,
+exact-master qualification and verified release before #157. One program Goal stays
+active until every required child and parent closeout is verified.
 
 ### Previous completed milestone — issue #152
 
