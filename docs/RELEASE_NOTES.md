@@ -3,6 +3,8 @@
 ## 0.33.0 — Targeted molecular interaction inspection
 
 Compatible minor for the [issue #152 contract](plans/issue-152-interaction-inspection.md).
+Released as stable/latest [v0.33.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0) through PR #166 at exact qualified
+runtime `d8636064263f6221c402665da52a4a1738570845`.
 
 - Choose All visible, an explicit assigned ligand instance, or a captured selection.
   Inter/Intra remains independent; selecting contact participants does not retarget
@@ -46,14 +48,16 @@ local checkpoints from the two mandatory complete release gates, actual precedin
 readers, final seven-role specialist review and verified publication receipts.
 Agent review does not replace required human/GitHub approvals.
 
-**Candidate verification.** All 35 fresh sequential commands pass: 2,306 Python/zero
-skips, 980 frontend/105 suites, 14 supervisor and 479 browser passes/75 exact preceding
-exclusions across 554 cases, with zero failures/flakes/retries/new exclusions.
-All 876 current and 847 actual preceding source identities and lossless logs verify.
-Actual tagged 0.32.0 readers retain/reexport 15 new-state projects/24 transitions
-through both archive suffixes and validate stale/corruption refusals. The separate
-exact-merged gate and verified publication remain pending.
-[Candidate evidence](assets/interaction-inspection/c4-candidate2-summary.json).
+**Released verification.** Both clean candidate and fresh exact merged runtime pass
+all 35 sequential commands: 2,306 Python/zero skips, 980 frontend/105 suites,
+14 supervisor and 479 browser passes/75 exact preceding exclusions across 554 cases.
+Zero failures/flakes/retries/new exclusions. All 876 current/847 actual preceding
+source identities and lossless logs verify. Actual tagged readers retain/reexport
+15 new-state projects/24 transitions and validate corruption/stale guards. All seven
+specialist roles PASS the same reviewed head; its complete tree equals the runtime.
+Annotated tag, stable/latest release, notes, asset digests and anonymous main/sidecar
+downloads verify. [Delivery report](assets/interaction-inspection/c5-delivery-report.md)
+and [publication receipt](assets/interaction-inspection/c5-publication.json).
 
 ## 0.32.0 — Structure editor reliability
 

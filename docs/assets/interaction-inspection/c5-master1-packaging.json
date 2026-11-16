@@ -1,0 +1,66 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "application_version": "0.33.0",
+  "archives": [
+    {
+      "bytes": 75927375,
+      "file": "c5-master1-qualified-01.zip",
+      "outer_manifest_entries": 1083,
+      "path": "/datadisk/dev/neistra-worktrees/issue-152/docs/assets/interaction-inspection/c5-master1-qualified-01.zip",
+      "sha256": "13fcac2b253c3fdb50e1b2bc43a15828e74c3f3147b26834e141744431c42eb8",
+      "verification_counts": {
+        "evidence_manifest_entries": 1083,
+        "project_archive_files": 435,
+        "zip_archives": 226
+      }
+    }
+  ],
+  "browser_native_files": 660,
+  "kind": "gate packages",
+  "label": "c5-master1",
+  "not_published_by_this_script": true,
+  "packager_sha256": "9ea150187c6dc7666e52943fd013e0026ff7f8dee68c51854fb2bf85d66abda3",
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "qualified_commit": "d8636064263f6221c402665da52a4a1738570845",
+  "reader_workspace_exclusions": {
+    "files": [],
+    "reason": "Only bytecode and named interpreter/tool caches are excluded. All owned synthetic live databases, history, artifact stores, specimens, reports and logs are retained."
+  },
+  "retained_reader_workspace_files": 350,
+  "scientific_native_files": 7,
+  "source_digest": "59086d55d0aac72d48cc8162093d07e446563443ca2b6771176da3834054e065",
+  "summary": {
+    "actual_reader_audit": "c5-master1-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.33.0",
+    "branch": "",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 554,
+    "browser_inventory_sha256": "c58c7583e9edd937484a5929a3ffb046dcfb3d89fe64201df868ed744541ad3a",
+    "browser_passed": 479,
+    "clean_start": true,
+    "commit": "d8636064263f6221c402665da52a4a1738570845",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 35,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 6000.908,
+    "exclusion_baseline": "docs/assets/structure-editor-reliability/c7-master2-browser.json.gz",
+    "exclusion_baseline_sha256": "801d44c63e6302c50ca0bcf257f19baad98a4688263930fe6b74ad35cbaf6624",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 980,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.32.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 847,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 2306,
+    "python_skips": 0,
+    "source_count": 876,
+    "source_digest": "59086d55d0aac72d48cc8162093d07e446563443ca2b6771176da3834054e065",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 6004.0
+  }
+}

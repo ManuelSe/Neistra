@@ -1,0 +1,12 @@
+{
+  "file": "/tmp/neistra152-release/neistra-v0.33.0-qualification.zip",
+  "bytes": 225085821,
+  "sha256": "e68d449d7b2c4fe539a74faa6142ee5401a346b4f0c8537e72c651ab460411f2",
+  "recursive_payloads_scanned": {
+    "zip": 464,
+    "gzip": 84,
+    "text": 2405
+  },
+  "restricted_identifying_term_hits": [],
+  "observed_utc": "2026-11-16T02:44:05Z"
+}
