@@ -1,5 +1,19 @@
 # Neistra Release Notes
 
+## 0.34.0 — Viewer atom information and ordered quick geometry
+
+Compatible additive minor for [child #156](plans/issue-156-viewer-information-strip.md) within the [eight-child program](plans/issue-11-ligand-information.md). Publication remains pending verification.
+
+- A compact viewer strip shows known atom, residue and chain identity alongside the selected geometry. Atom details remain available with keyboard/touch access, including exact identity for repeated labels.
+- Two selected atoms show distance; three/four use actual ordered picks or an explicit target order for angle/signed torsion. Quick readings create no saved measurement.
+- Missing, degenerate, noncurrent and preview geometry stays explicitly unavailable. Hover retirement follows current source/renderer ownership without moving the camera or changing selection.
+- Atom feedback avoids repeated whole-scene derivation; hidden detail/geometry reads retire with their consumers while retaining shared reads. Narrow header actions scroll internally to preserve viewer containment and accessible focus.
+
+No dependency, durable schema, migration or scientific-model change; head0015 and existing project/archive/history/original-file contracts remain. The general inspector remains until the program's final integration child. Dedicated measurement management, durable ligand designation, live properties/profiles/radar/filtering and inspector retirement belong to the remaining required children. Interaction diagram, superposition relocation and metadata redesign remain excluded.
+
+[Checkpoint evidence](assets/viewer-information/README.md) distinguishes focused passes and diagnostics from the pending complete candidate/exact-master gates and final specialist review. Portable correctness and work bounds do not establish strict-host timing or experimental coordinate quality.
+
+
 ## 0.33.0 — Targeted molecular interaction inspection
 
 Compatible minor for the [issue #152 contract](plans/issue-152-interaction-inspection.md).
