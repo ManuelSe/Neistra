@@ -1,23 +1,32 @@
 # Interaction inspection qualification
 
-Issue #152's clean candidate b73305f7 passes all 35 fresh release commands.
-[Verified summary](c4-candidate2-summary.json) records 2,306 Python/zero skips,
-980 frontend, 14 supervisor and 479 browser passes with 75 exact preceding exclusions
-across 554 cases; zero failures/flakes/retries/new exclusions. All 876 current and 847
-actual preceding source identities and lossless logs verify. Actual tagged readers
-pass both directions/suffixes, including 15 new-state projects/24 transitions.
+Issue #152 is released as stable/latest [v0.33.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0) through PR #166 at
+exact runtime `d8636064263f6221c402665da52a4a1738570845`. The annotated runtime tag remains fixed.
+[Delivery report](c5-delivery-report.md), [publication receipt](c5-publication.json),
+[seven-role runtime review](c5-final-specialist-review.json) and
+[anonymous readback](c5-anonymous-readback.json) retain scope and verified facts.
 
-The [verified package](c4-candidate2-packaging.json) retains 660 browser-native,
-seven scientific-native and 350 complete reader-workspace files. Its 75,898,562-byte
-archive has 1,083 manifest entries and 226 checked ZIP archives, including the outer
-archive. Candidate1 remains a
-failed diagnostic with its strict-version correction preserved. Checkpoints and
-failed attempts are distinct from complete qualification.
+| Complete gate | Qualified commit | Fresh commands | Python | Frontend | Browser |
+| --- | --- | --- | --- | --- | --- |
+| [Candidate](c4-candidate2-summary.json) | `b73305f7` | 35 | 2,306 / zero skips | 980 | 479 passes / 75 exact preceding exclusions |
+| [Exact merged runtime](c5-master1-summary.json) | `d8636064` | 35 | 2,306 / zero skips | 980 | 479 passes / 75 exact preceding exclusions |
 
-Final evidence-head specialist reconfirmation and the separate exact-merged gate
-remain pending; no PR, merge, runtime tag, release or anonymous readback is claimed.
-Existing evidence is immutable. The procedure below uses a fresh example label;
-never regenerate an existing run or overwrite its outputs.
+Both gates also pass 14 supervisor tests and execute all 554 inventoried browser
+cases, with zero failures/flakes/retries/new exclusions. All 876 current/847 actual
+preceding source identities and lossless logs verify. Actual readers cover both
+directions/suffixes and retain 15 new-state projects/24 transitions. Each verified
+package preserves 660 browser-native, seven scientific-native and 350 complete
+reader-workspace files, with 1,083 manifest entries and 226 checked ZIP archives
+including its outer archive. [Candidate package](c4-candidate2-packaging.json) and
+[merged package](c5-master1-packaging.json) remain distinct from checkpoint/failed
+attempts. Candidate1 is a preserved failed diagnostic.
+
+The public main asset and both sidecars pass anonymous download verification.
+Main asset: 225,085,821 bytes; SHA-256 `e68d449d7b2c4fe539a74faa6142ee5401a346b4f0c8537e72c651ab460411f2`; all CRCs/internal manifests valid.
+The [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092) records terminal documentation integration and
+owned-cleanup readback. Agent assessments are not human approval. Existing evidence
+is immutable; the procedure below uses a fresh example label and must never
+overwrite an existing run.
 
 ## Full release gate
 

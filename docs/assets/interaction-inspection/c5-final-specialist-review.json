@@ -1,0 +1,148 @@
+{
+  "candidate": "362418653f0b3984be63345e5c93973006daba45",
+  "comparison_base": "0f228589d5148947100ed8e06a5c4029d563759b",
+  "qualified_source_commit": "b73305f775e9f17e8b6e05948ca06e9cdcc7d454",
+  "assessment_record_kind": "Primary-recorded summaries of received specialist agent reports; not human approval.",
+  "complete": true,
+  "assessments": {
+    "scientific_theory": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_theory_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected the complete three-file correction after full feature and final evidence review.",
+        "Reconfirmed exact units, participant identity, uncertainty, display accounting and drawing disclosures.",
+        "Previous independently verified 876 source identities and completed gate remain applicable."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented."
+      ]
+    },
+    "scientific_implementation": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_implementation_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected the complete three-file correction; no source, tests or evidence changed.",
+        "All 876 source hashes still match the passing candidate gate.",
+        "Carries forward independent 35 log hashes, 847 preceding hashes, reader phases and native scientific evidence verification."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented."
+      ]
+    },
+    "software_architecture": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_architecture_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected the complete correction and confirmed the archive-count finding is resolved.",
+        "Verified clean state and all 876 qualified source hashes.",
+        "Carries forward independent complete source/log/reader/archive/660-native-file verification."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented."
+      ],
+      "resolved_findings": [
+        "Documentation now correctly counts 226 ZIP archives including the outer archive and 354 preflight manifest entries."
+      ]
+    },
+    "performance": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_performance_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected all 64 intervening files and final three-file correction.",
+        "Independently verified 876 source hashes, all 35 lossless logs, exact 479/75 browser identities with zero retries and 1083 package payload hashes.",
+        "Checked all 660 retained browser files and unchanged future-recipe policy; prior measured equivalence/work reductions transfer without strict-host or throughput claims."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented."
+      ]
+    },
+    "ux_design": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_ux_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected every intervening changed/new file and corrected documentation.",
+        "Independently verified all 876 source hashes, 35 successful commands/log hashes and exact qualification/exclusion totals.",
+        "Viewed current screenshots for captured targets, uncertainty, collapsed controls, failure recovery and both themes at actual 200% zoom; all 10 new native cases pass."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented."
+      ],
+      "optional_suggestions": [
+        {
+          "suggestion": "Captured-selection entry-name tooltip.",
+          "disposition": "Remains deferred; no accepted outcome is missing and no scope expansion is required."
+        }
+      ]
+    },
+    "modeling_reference": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_reference_review",
+      "scope": "Complete intended feature against comparison base, prior complete review plus all intervening files/new files, final qualification and last documentation correction.",
+      "reported_checks": [
+        "Inspected complete intervening inventory, documentation, reader evidence and future recipe.",
+        "Independently verified 876 source hashes, 35 log hashes, exact browser results, package size/SHA/CRC and all 1083 manifest hashes.",
+        "Parsed 59 structured/compressed artifacts and assessed all 10 fresh interaction workflows against the documented workflow direction."
+      ],
+      "consequential_findings": [],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true,
+      "limitations": [
+        "Exact merged qualification and publication remain pending.",
+        "Portable and scientific/display limitations remain as documented.",
+        "Documented workflow evidence supports the direction; latest interface details are partly inaccessible, so exact parity and universal optimality are not claimed."
+      ]
+    },
+    "ui_design": {
+      "candidate": "362418653f0b3984be63345e5c93973006daba45",
+      "verdict": "PASS",
+      "agent": "/root/interaction_ui_review",
+      "scope": "Complete feature, all intervening evidence and four documentation updates, followed by the complete final three-file precision correction.",
+      "reported_checks": [
+        "Verified correction against archive/preflight receipts.",
+        "Carries forward all 876 source hash checks, 35 lossless logs, all 10 new cases and 50 screenshot-manifest/original matches.",
+        "Fresh visual inspection covers bounded layouts, dark-theme actual 200% zoom, retained targets, Focus feedback, contact selection and recovery."
+      ],
+      "consequential_findings": [],
+      "limitations": [
+        "Exact merged qualification/publication remain pending.",
+        "Specialist visual review is not a hands-on screen-reader study."
+      ],
+      "read_only": true,
+      "agent_review_is_not_human_approval": true
+    }
+  },
+  "latest_correction": "Three documentation files clarify that 226 counts all ZIP archives including the outer archive, and 354 denotes manifest entries. No qualifying source or evidence bytes changed.",
+  "all_seven_same_head": true,
+  "recorded_utc": "2026-11-16T00:47:34Z"
+}

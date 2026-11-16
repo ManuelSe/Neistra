@@ -1,0 +1,128 @@
+{
+  "version": "0.33.0",
+  "runtime": "d8636064263f6221c402665da52a4a1738570845",
+  "reviewed_feature_head": "362418653f0b3984be63345e5c93973006daba45",
+  "feature_pr": 166,
+  "tag_verification": {
+    "tag": "v0.33.0",
+    "tag_object": "4bb78f11f20c63ce8e77459259d4862a8944b9c1",
+    "annotated": true,
+    "dereferenced_runtime": "d8636064263f6221c402665da52a4a1738570845",
+    "remote_refs": {
+      "refs/tags/v0.33.0": "4bb78f11f20c63ce8e77459259d4862a8944b9c1",
+      "refs/tags/v0.33.0^{}": "d8636064263f6221c402665da52a4a1738570845"
+    },
+    "annotation": {
+      "node_id": "TA_kwDOTqyhK9oAKDRiYjc4ZjExZjIwYzYzY2U4ZTc3NDU5MjU5ZDQ4NjJhODk0NGI5YzE",
+      "sha": "4bb78f11f20c63ce8e77459259d4862a8944b9c1",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/4bb78f11f20c63ce8e77459259d4862a8944b9c1",
+      "tagger": {
+        "name": "Manuel Sellner",
+        "email": "manuel@sellner.ch",
+        "date": "2026-11-16T02:45:18Z"
+      },
+      "object": {
+        "sha": "d8636064263f6221c402665da52a4a1738570845",
+        "type": "commit",
+        "url": "https://api.github.com/repos/ManuelSe/Neistra/git/commits/d8636064263f6221c402665da52a4a1738570845"
+      },
+      "tag": "v0.33.0",
+      "message": "Neistra v0.33.0 \u2014 Targeted molecular interaction inspection\n\nQualified runtime: d8636064263f6221c402665da52a4a1738570845\nReviewed feature head: 362418653f0b3984be63345e5c93973006daba45\nMerged through PR #166 with identical complete trees.\n\nBoth fresh 35-step candidate and exact-merged gates pass, including actual\npreceding readers. All seven specialist agent roles PASS the reviewed head.\nCompatible minor; no dependency, persisted-schema or migration change; head 0015.\n",
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "verified_utc": "2026-11-16T02:46:13Z",
+    "immutable_runtime_tag": true
+  },
+  "release_publication": {
+    "release_id": 446551962,
+    "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0",
+    "tag": "v0.33.0",
+    "runtime": "d8636064263f6221c402665da52a4a1738570845",
+    "stable": true,
+    "latest": true,
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-16T02:46:53Z",
+    "notes_sha256": "64294b47612c13246dca5b3c616c51b916637a40342f4bc11a80a67720e7165e",
+    "asset_readbacks": [
+      {
+        "id": 753196932,
+        "name": "neistra-v0.33.0-qualification.zip",
+        "size": 225085821,
+        "digest": "sha256:e68d449d7b2c4fe539a74faa6142ee5401a346b4f0c8537e72c651ab460411f2",
+        "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip",
+        "state": "uploaded"
+      },
+      {
+        "id": 753196930,
+        "name": "neistra-v0.33.0-qualification.zip.package.json",
+        "size": 1183,
+        "digest": "sha256:081898eb8f7987f4e457d0aa4d0e99fbdbe4444a294ae8c99fb2b37dcaacf156",
+        "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip.package.json",
+        "state": "uploaded"
+      },
+      {
+        "id": 753196933,
+        "name": "neistra-v0.33.0-qualification.zip.sha256",
+        "size": 100,
+        "digest": "sha256:6a8e02174264b4d46bc8aa1b4b6ce49341e3fcb8d3b5c1fe76480a7249e55ca8",
+        "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip.sha256",
+        "state": "uploaded"
+      }
+    ],
+    "observed_utc": "2026-11-16T02:47:45Z"
+  },
+  "anonymous_asset_readback": {
+    "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+    "anonymous_request_without_authorization_header": true,
+    "bytes": 225085821,
+    "downloaded_path": "/tmp/neistra152-public/neistra-v0.33.0-qualification.zip",
+    "http_status": 200,
+    "matches_local_release_asset": true,
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip",
+    "qualified_master": "d8636064263f6221c402665da52a4a1738570845",
+    "sha256": "e68d449d7b2c4fe539a74faa6142ee5401a346b4f0c8537e72c651ab460411f2",
+    "verification_counts": {
+      "evidence_manifest_entries": 2750,
+      "project_archive_files": 870,
+      "zip_archives": 464
+    }
+  },
+  "anonymous_sidecar_readbacks": [
+    {
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip.package.json",
+      "http_status": 200,
+      "anonymous_request_without_authorization_header": true,
+      "bytes": 1183,
+      "sha256": "081898eb8f7987f4e457d0aa4d0e99fbdbe4444a294ae8c99fb2b37dcaacf156",
+      "matches_local": true
+    },
+    {
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.33.0/neistra-v0.33.0-qualification.zip.sha256",
+      "http_status": 200,
+      "anonymous_request_without_authorization_header": true,
+      "bytes": 100,
+      "sha256": "6a8e02174264b4d46bc8aa1b4b6ce49341e3fcb8d3b5c1fe76480a7249e55ca8",
+      "matches_local": true
+    }
+  ],
+  "all_five_versions": "0.33.0",
+  "migration_head": "0015",
+  "dependency_or_persisted_schema_change": false,
+  "all_seven_same_head_pass": true,
+  "agent_review_is_not_human_approval": true,
+  "external_review_status": "Request verified; no external review received through publication readback.",
+  "issue152_state": "closed",
+  "issue153_state": "open",
+  "terminal_documentation_and_owned_cleanup": "Pending; to be verified through the final issue reply without moving the runtime tag.",
+  "observed_utc": "2026-11-16T02:53:05Z",
+  "final_issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092",
+  "final_issue_reply_id": 6905989092,
+  "initial_final_issue_reply_body_sha256": "f5f5e3993ecac210d0d09ca44a8ea388d99d9d86f8da26c33d663c73fbbff51a"
+}

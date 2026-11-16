@@ -2,43 +2,41 @@
 
 ## Current milestone
 
-Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) — **C4 complete candidate
-qualification PASS; C5 final review and protected delivery pending**. The
-[feature contract](plans/issue-152-interaction-inspection.md) is **Authorized within
-agreed scope; not individually reviewed**. Work remains isolated on
-`feat/issue-152-interaction-inspection`.
+Issue [#152](https://github.com/ManuelSe/Neistra/issues/152) is released as stable/latest
+[v0.33.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.33.0) through [PR #166](https://github.com/ManuelSe/Neistra/pull/166).
+Exact qualified runtime: `d8636064263f6221c402665da52a4a1738570845`. The annotated runtime tag stays fixed.
+[Delivery report](assets/interaction-inspection/c5-delivery-report.md) and the
+[authorized contract](plans/issue-152-interaction-inspection.md) retain scope/evidence.
 
-Completed: explicit target-to-inspection workflow, compact session controls,
-truthful installed counts, known warning-site identities and native lifecycle
-corrections. Measured warm camera/panel filtering and full serialization are removed;
-atomic conservative drawing admission retains inspection and cached recovery.
+Completed: explicit targets and independent scopes, bounded exact contact inspection,
+truthful installed counts, direct known-site warnings, compact retained visibility/
+appearance, native lifecycle corrections, measured semantic memoization and atomic
+conservative drawing admission with cached recovery.
 
-The clean candidate `b73305f775e9f17e8b6e05948ca06e9cdcc7d454` passes all **35 fresh
-sequential commands**: **2,306 Python/zero skips, 980 frontend/105 suites,
-14 supervisor, 479 browser passes/75 exact preceding exclusions across 554 cases**.
-Zero failures, flakes, retries or new exclusions. All 876 current and 847 actual
-preceding source identities and lossless log hashes verify. Actual tagged 0.32.0
-readers pass both directions/suffixes, including 15 new-state projects/24 transitions,
-retained history, reverse reexports and corruption/stale-publication controls.
-[Summary](assets/interaction-inspection/c4-candidate2-summary.json) and
-[packaging receipt](assets/interaction-inspection/c4-candidate2-packaging.json) retain
-all 660 browser-native, seven scientific-native and 350 complete reader-workspace
-files. The verified 75,898,562-byte archive has 1,083 manifest entries and 226 checked
-ZIP archives, including the outer archive. Failed candidate1 remains a separate diagnostic; its obsolete strict producer
-pin was corrected while retaining every historical case and adding 0.32.0 coverage.
+Both clean candidate and fresh exact-merged gates pass all **35 sequential commands**:
+**2,306 Python/zero skips, 980 frontend/105 suites, 14 supervisor, 479 browser passes/
+75 exact preceding exclusions across 554 cases**, zero failures/flakes/retries/new
+exclusions. All 876 current/847 actual preceding identities and lossless log hashes
+verify. Actual readers retain/reexport 15 new-state projects/24 transitions across
+both suffixes. Each complete package preserves 660 browser-native, seven scientific-
+native and 350 complete reader-workspace files. All seven specialists PASS the same
+reviewed feature head; its complete tree equals the merged runtime. No human or
+external review result is claimed. [Merged summary](assets/interaction-inspection/c5-master1-summary.json).
 
-All five versions agree on compatible minor 0.33.0. Dependencies, persisted schemas
-and migration head 0015 are unchanged. [C3 evidence](assets/interaction-inspection/c3-checkpoint.json)
-preserves exact ordinary/dense geometry equivalence and bounded synthetic work;
-no causal latency speedup, strict-host, ceiling-sized native throughput or heap claim.
+All five versions agree on compatible minor 0.33.0; no dependency, persisted-schema
+or migration change, head 0015. Annotated tag, stable/latest release, notes, server
+asset digests and anonymous main/sidecar downloads verify. Main asset: 225,085,821 bytes,
+SHA-256 `e68d449d7b2c4fe539a74faa6142ee5401a346b4f0c8537e72c651ab460411f2`; all CRCs/internal manifests pass.
+[Publication receipt](assets/interaction-inspection/c5-publication.json).
 
-All seven specialists PASS the qualified source candidate. The generated evidence/
-documentation head still requires explicit same-head reconfirmation before application
-push. Only planning C0 is remotely pushed; no application PR, merge, tag or release
-is claimed. The independent 2D child #153 stays open. Next: commit verified evidence,
-renew all seven assessments, perform protected delivery, then run the separate fresh
-35-step exact-merged gate before tagging/release. Preserve all other checkouts,
-processes, ports and stores, including retained #147 resources.
+Known limits remain: conservative fixed geometry and explicit H, session-only
+choices, independent drawing admission and portable performance evidence. Optional
+canvas text stays deferred; precise information is available in the inspector.
+The independent 2D child #153 stays open. Broader #11/#52/#128 remain independent. No essential outcome is deferred.
+
+Normal terminal documentation integration and owned-cleanup readback are tracked in
+the [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092). Preserve all other sessions and retained #147
+resources. This receipt does not authorize unrelated implementation work.
 
 ### Previous completed milestone — issue #147
 
@@ -3382,11 +3380,10 @@ Results:
 
 ## Blockers
 
-None requiring owner input for issue #152. Final same-head assessment, protected
-remote delivery and exact-merged qualification remain incomplete requirements.
+None for released issue #152. Terminal documentation integration and owned-cleanup
+readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092); preserve other sessions.
 
 ## Next action
 
-Commit the verified candidate evidence, obtain all seven same-head reconfirmations,
-then complete protected merge, fresh exact-merged qualification, immutable annotated
-release, closeout and owned cleanup. Preserve all other sessions and #153's scope.
+Use the final #152 reply for terminal integration/cleanup readback. New application
+work requires its own scoped issue/contract; deferred work remains separate.
