@@ -1578,7 +1578,7 @@ feature merge; this documentation-only closeout records the remote evidence.
   Cartoon, Reset, multi-entry atomic commands, and existing hierarchy selection.
 - Classified every significant issue #7 requirement; deferred advanced
   presentation and presets, reused existing related issues, and rejected copied
-  Maestro design, a duplicate Ribbon value, and a duplicate Molecule granularity.
+  reference interface design, a duplicate Ribbon value, and a duplicate Molecule granularity.
 - Selected a backward-compatible minor release from v0.3.0 to v0.4.0 based on
   additive user-visible, viewer-settings, command, API, migration, scene, and
   archive behavior without a molecular, project-state, archive-major, or
@@ -3399,3 +3399,5 @@ Use the final #152 reply for terminal integration/cleanup readback. New applicat
 work requires its own scoped issue/contract; deferred work remains separate.
 
 Issue156 qualification update: candidate2 stopped at an unaccepted native residue pick after144passes; no full-gate pass. Stronger exact native-pixel oracle passes all4desktop/mobile theme cases with unchanged selection assertions. Failed logs/trace/complete diagnostic inventory are retained; fresh candidate3 and final all-seven same-candidate assessments remain next. Independent158 remains preparation only.
+
+Issue156 candidate3 stopped after180nativepasses when a synthetic fixture target lay beneath the toolbar. Public-camera deterministicframing and exact unoccluded nativepixels now pass16gesturecases acrossdesktop/mobile with all outcomeassertions retained. Full candidate4 and final all-seven reconfirmation remain required; no publication/closeout. Independent158has a local initialverticalcheckpointd283ea9b, still awaitingserialintegration/furtherqualification.
