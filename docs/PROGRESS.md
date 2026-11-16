@@ -13,9 +13,13 @@ Candidate4 passed full 2,344 Python/zero skips, 1,023 frontend and tooling, then
 after 466 native passes at a fixed drag sample hidden by an open movement panel.
 All raw diagnostics are retained. A bounded native-path oracle correction passes
 49 focused cases with one existing touch exclusion and zero failures/flakes/retries;
-all focus/camera/molecular/history/network assertions remain. The fresh candidate5
-will repeat the complete 35-command gate before final seven-role review and normal
-publication. No complete final-version gate or application publication is claimed.
+all focus/camera/molecular/history/network assertions remain. Candidate5 was
+intentionally interrupted after 126 native passes to investigate a specialist
+finding, subsequently withdrawn after tracing the documented active-coordinate
+projection and final renderer override. No product defect was established and no
+application source changed. All diagnostics remain retained; fresh candidate6
+repeats the complete 35-command gate. No complete final-version gate or application
+publication is claimed.
 
 Independent #158 preparation is recorded in a separate local worktree at checkpoint
 `a4190bdf`: 2,639 Python/zero skips, 1,030 frontend/108 suites, eight final native workflows,
@@ -26,7 +30,7 @@ unimplemented; their source-based planning refinements add no runtime claims.
 
 Known limits: preview geometry is explicitly unavailable; no new durable schema is
 introduced by #156. Blockers: no owner scope decision required. Next: freeze and
-qualify candidate5, obtain final same-candidate assessments, then protected merge,
+qualify candidate6, obtain final same-candidate assessments, then protected merge,
 exact-master qualification and verified release before #157. One program Goal stays
 active until every required child and parent closeout is verified.
 

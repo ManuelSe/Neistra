@@ -140,3 +140,34 @@ uses (379.04, 638.8). Independent explorer trace assessment and performance revi
 agree with the measured cause and find no consequential weakening. The fresh
 candidate5recipe repeats all 35 commands; no partial full-run results are pooled.
 Final same-candidate seven-role review and all publication stages remain pending.
+
+### C3 interrupted diagnostic — withdrawn coordinate finding
+
+Candidate5 at `f382d3aa` passed Python 2,344/zero skips, frontend 1,023 and all
+preceding tooling. The primary agent intentionally interrupted its native step
+after a premature specialist finding inferred the final displayed coordinates
+from an intermediate SDF. The complete record has 126 native passes, three actual
+existing skips, one interruption, zero unexpected failures/flakes/retries and 434
+not-run cases. Browser exit 130 and complete=false remain explicit; no partial
+result is qualification.
+
+Independent source tracing withdrew the finding. NORMALIZED_SCHEMA defines atom
+coordinates as the active-conformer projection, and the final native renderer
+overrides parsed-file coordinates with that same projection. Supported import,
+edit, transform and reader fixtures maintain it. The constructed counterexample
+contradicted this documented semantic invariant despite parser acceptance; it did
+not establish an actual native mismatch. No application correction was justified
+or made. General invariant-validation hardening is outside this viewer slice.
+
+All 107 native files and their verified 20,803,445-byte forensic ZIP remain in the
+owned ignored evidence directory. The complete member/hash manifest, interrupted
+case, browser report and lossless gate logs are tracked. Current 885 and preceding
+870 source identities stayed unchanged. Scientific implementation independently
+passed 29 focused cases and 1,152 deterministic frontend/backend geometry checks
+(maximum absolute difference 1.75e-13, tolerance 1e-10); architecture and UX each
+passed 99 focused cases and retracted the unsupported finding after direct source
+inspection. These are scoped assessments, not final readiness or a complete gate.
+
+Fresh candidate6 repeats all 35 commands from a clean committed state with the
+same application sources. Final seven-role approval, normal merge, fresh exact
+merged qualification and verified publication remain required.

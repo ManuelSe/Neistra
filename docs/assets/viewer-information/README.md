@@ -9,3 +9,11 @@ The packager retains lossless logs, exact source hashes, every native output and
 Candidate2 is failed diagnostic evidence, not release qualification. Its native step had144passes,4actual exclusions,415not-run tests and one failure. `c4-candidate2-failed-case.zip` retains the complete failing case; `c4-candidate2-native-diagnostic-manifest.json.gz` inventories and hashes the22,556retained native files and local diagnostic ZIP. The raw tree/926,627,852byte ZIP are retained under owned ignored `.issue-11-evidence`, not remotely published. Focused unchanged reproduction2/0 and stronger exact-pixel oracle4/0 are separate reports; neither replaces the fresh fullgate.
 
 Candidate3is failed diagnostic evidence:180nativepasses,4actual exclusions,379not-run and one toolbar-intercepted fixture target. Its30,145nativefiles and1,312,352,975byte diagnostic ZIP remain locally retained in `.issue-11-evidence`; fullmanifest/failedcase/losslesslogs are tracked. `c4-gesture-oracles.json`/ZIPretain focused correction evidence including first14/8diagnostics and final16/0; no completegate pass is claimed.
+
+Candidate5 is intentionally interrupted diagnostic evidence: 126 native passes,
+three actual existing skips, one interruption and 434 not-run cases, with no
+unexpected failure. A premature coordinate finding was withdrawn after tracing the
+documented projection contract and final native override; no application source
+changed. Its complete 107-file native tree and checked forensic ZIP remain locally
+retained. The manifest, interrupted case and lossless logs are tracked. Candidate6
+must repeat the complete gate; partial runs and scoped assessments are not pooled.
