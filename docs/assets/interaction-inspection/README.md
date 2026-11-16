@@ -1,8 +1,22 @@
 # Interaction inspection qualification
 
-Issue #152's source-bound tools prepare fresh candidate and exact-merged-commit
-qualification. This directory currently contains tooling, not completed release
-evidence. Historical observations elsewhere do not qualify the new implementation.
+Issue #152's clean candidate b73305f7 passes all 35 fresh release commands.
+[Verified summary](c4-candidate2-summary.json) records 2,306 Python/zero skips,
+980 frontend, 14 supervisor and 479 browser passes with 75 exact preceding exclusions
+across 554 cases; zero failures/flakes/retries/new exclusions. All 876 current and 847
+actual preceding source identities and lossless logs verify. Actual tagged readers
+pass both directions/suffixes, including 15 new-state projects/24 transitions.
+
+The [verified package](c4-candidate2-packaging.json) retains 660 browser-native,
+seven scientific-native and 350 complete reader-workspace files. Its 75,898,562-byte
+archive has 1,083 manifest entries and 226 checked nested ZIPs. Candidate1 remains a
+failed diagnostic with its strict-version correction preserved. Checkpoints and
+failed attempts are distinct from complete qualification.
+
+Final evidence-head specialist reconfirmation and the separate exact-merged gate
+remain pending; no PR, merge, runtime tag, release or anonymous readback is claimed.
+Existing evidence is immutable. The procedure below uses a fresh example label;
+never regenerate an existing run or overwrite its outputs.
 
 ## Full release gate
 
@@ -27,16 +41,16 @@ module paths and hashes, the expected receipt, and exact preceding-writer versio
 From the owned issue worktree, after final version preparation:
 
 ```bash
-.venv/bin/python docs/assets/interaction-inspection/release-recipe.py.txt c4-candidate1
+.venv/bin/python docs/assets/interaction-inspection/release-recipe.py.txt fresh-label
 ```
 
 Inspect and commit that new recipe before running the clean candidate gate:
 
 ```bash
 .venv/bin/python docs/assets/interaction-inspection/qualification.py.txt \
-  docs/assets/interaction-inspection/c4-candidate1-recipe.json
+  docs/assets/interaction-inspection/fresh-label-recipe.json
 .venv/bin/python docs/assets/interaction-inspection/qualification-summary.py.txt \
-  c4-candidate1
+  fresh-label
 ```
 
 Use a new label for every diagnostic or retry and for exact merged qualification.
@@ -77,7 +91,7 @@ run using a fresh label. Preserve its external workspace until verification:
 
 ```bash
 .venv/bin/python docs/assets/interaction-inspection/release-evidence.py.txt gate \
-  --root "$PWD" --label c4-candidate1 \
+  --root "$PWD" --label fresh-label \
   --output-dir "$PWD/docs/assets/interaction-inspection"
 ```
 
@@ -106,13 +120,14 @@ assessments, build the external public asset from both completed gate packages:
   --reviews /tmp/neistra152-final-reviews.json \
   --premerge-audit /tmp/neistra152-premerge-audit.json \
   --merge-receipt /tmp/neistra152-merge-verification.json \
-  --candidate-package docs/assets/interaction-inspection/c4-candidate1-packaging.json \
+  --candidate-package docs/assets/interaction-inspection/c4-candidate2-packaging.json \
   --master-package docs/assets/interaction-inspection/c5-master1-packaging.json \
   --output /tmp/neistra152-release/neistra-v0.33.0-qualification.zip
 ```
 
-The review receipt names `candidate` and all seven `assessments`, each with that
-candidate and PASS or justified NOT_APPLICABLE. The premerge receipt binds `head`,
+The review receipt names `candidate` and a role-keyed `assessments` object. Its
+seven keys are the exact specialist role identifiers; every value has that same
+`candidate` and PASS or justified NOT_APPLICABLE. The premerge receipt binds `head`,
 `pr`, `base`, `all_seven_same_head`, and `review_receipt_sha256`. The merge receipt
 binds `reviewed_feature_head`, the same `pr`/`comparison_base`, `merge_commit`,
 `merged`, `reachable_on_remote_master`, and

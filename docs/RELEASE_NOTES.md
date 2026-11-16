@@ -46,6 +46,15 @@ local checkpoints from the two mandatory complete release gates, actual precedin
 readers, final seven-role specialist review and verified publication receipts.
 Agent review does not replace required human/GitHub approvals.
 
+**Candidate verification.** All 35 fresh sequential commands pass: 2,306 Python/zero
+skips, 980 frontend/105 suites, 14 supervisor and 479 browser passes/75 exact preceding
+exclusions across 554 cases, with zero failures/flakes/retries/new exclusions.
+All 876 current and 847 actual preceding source identities and lossless logs verify.
+Actual tagged 0.32.0 readers retain/reexport 15 new-state projects/24 transitions
+through both archive suffixes and validate stale/corruption refusals. The separate
+exact-merged gate and verified publication remain pending.
+[Candidate evidence](assets/interaction-inspection/c4-candidate2-summary.json).
+
 ## 0.32.0 — Structure editor reliability
 
 Compatible minor for the [issue #147 contract](plans/issue-147-structure-editor-reliability.md).
