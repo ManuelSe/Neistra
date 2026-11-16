@@ -56,10 +56,16 @@ failures/timeouts remain preserved, deadlines unchanged; its final integration,
 versions, actual predecessor readers and release gates remain pending. Retain the
 nonblocking small-screen heading observation for integration review.
 
-Next: prepare all five0.35versions and final source-bound0.34readers, retain all35
-baseline gate commands plus seven new measurement-reader commands (42fresh commands
-per candidate and exact merged master), then obtain all-seven final same-candidate
-assessments before application push and normal release. Schema/dependencies remain
+C3 preparation now sets all five sources to0.35.0; dependency pins/schema/head0015
+are unchanged. Remote master4b8ae716 and annotated0.34runtimeab5e5fef verify;
+proposed0.35tag/release were absent at preflight. All50focused final-version archive/
+ordered persistence cases pass. Six new qualification helpers pass scoped architecture
+review after correcting the release-plan path; recipe retains all35baseline commands
+and adds seven new-state reader commands. No complete42-command gate is claimed yet.
+
+Next: commit C3 preparation, run the fresh complete42-command candidate gate and
+independent source/log/reader/exclusion/recursive-package audit, then obtain all-seven
+final same-candidate assessments before application push and normal release. Schema/dependencies remain
 unchanged. Preserve other worktrees and one active Goal through all eight releases
 and parent closeout.
 

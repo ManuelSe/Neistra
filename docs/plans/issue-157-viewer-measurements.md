@@ -479,3 +479,27 @@ C2 is a local passing checkpoint; all five versions remain0.34.0. No schema,
 migration or dependency change. Next C3: version preparation, actual final-version
 preceding-reader evidence, all42fresh gate commands; then same-candidate final
 specialist review, normal protected delivery and exact merged qualification.
+
+### C3 preparation — final version and complete qualification recipe
+
+[Preparation receipt](../assets/viewer-measurements/c3-preparation.json): all five
+authoritative versions0.35.0, unchanged dependency pins/head0015/schema2; actual
+remote0.34annotated object7aacc228→ab5e5fef and master4b8ae716 verify. Proposed0.35
+release/tag were absent at this preflight; publication must recheck collisions.
+Fifty focused final-version archive/ordered persistence cases pass. The archive
+version fixture now covers actual preceding0.34as well as existing supported versions.
+
+All six source-bound qualification helpers are adapted to the actual0.34predecessor
+and new output family. The42-command recipe preserves all35baseline labels in order,
+adds seven ordered-measurement phases and extends independent provenance/content/
+negative-control/suffix auditing. Exact existing75exclusions come from the verified
+0.34C5report at terminal master4b8ae716. Both old/new helper families enter the source
+inventory:926current/885preceding sources. Recursive packaging now retains all six
+rich/connectivity/measurement stores as well as the existing complete editing
+workspace. Owned child session isolation records actual exits without changing
+checks/deadlines/retries. Scoped architecture review passes after the copied feature-
+plan path was corrected and independently probed. Original helpers remain unchanged.
+
+This is preparation only. Commit the candidate cleanly, then run all42fresh commands,
+independent summary and complete recursive packaging. Final all-seven current-candidate
+review, protected delivery, exact-merged qualification and publication remain pending.
