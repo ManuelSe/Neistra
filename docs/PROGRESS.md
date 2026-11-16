@@ -9,36 +9,41 @@ checkout and all exclusions remain preserved.
 
 #156 implements the passive atom/ordered-geometry strip and accessible details.
 All five versions are prepared as 0.34.0; schema/dependencies remain unchanged.
-Candidate4 passed full 2,344 Python/zero skips, 1,023 frontend and tooling, then stopped
-after 466 native passes at a fixed drag sample hidden by an open movement panel.
-All raw diagnostics are retained. A bounded native-path oracle correction passes
-49 focused cases with one existing touch exclusion and zero failures/flakes/retries;
-all focus/camera/molecular/history/network assertions remain. Candidate5 was
-intentionally interrupted after 126 native passes to investigate a specialist
-finding, subsequently withdrawn after tracing the documented active-coordinate
-projection and final renderer override. No product defect was established and no
-application source changed for that investigation. Candidate6 subsequently stopped
-at a real legacy atom-draft race after 172 native passes: editable X=4 was overwritten
-by late current-source initialization before submission. Its complete diagnostics
-remain retained. Atomic target initialization now gates the Atoms fields and retains
-same-owner edits. All 1,028 frontend cases and three focused native workflows pass
-with three unchanged exclusions; the exact journey coordinates remain asserted.
-Fresh candidate7 repeats all 35 commands. No complete final-version gate or
-application publication is claimed.
+Failed/interrupted complete-gate attempts remain separately preserved. Candidate6
+exposed a real late-projection atom-draft overwrite; atomic current-target readiness
+and same-owner draft retention correct it without changing exact native inputs.
+Candidate7 passed 2,344 Python/zero skips, 1,028 frontend and tooling, then stopped
+after 65 native passes at a full-canvas color false positive. Its 11,967 raw native
+files and checked forensic ZIP remain retained. Pre-analysis paired background
+masks now isolate actual interaction pixels across the entire canvas, retaining
+channel/count thresholds, native geometry, camera/size guards and deadlines.
+Two focused attempts each pass desktop/mobile lifecycle cases without retries.
 
-Independent #158 preparation is recorded in a separate local worktree at checkpoint
-`c62feb37`: fresh 2,664 Python tests and 1,033 frontend cases after additional strict
-query/water/visit corrections. Earlier native/reader evidence remains source-bound;
-current image-download/decode recovery and native requalification remain pending.
-Its implementation is unpushed and must integrate verified #156/#157 master before
-final release-version gates and all-seven review. Dependent later features remain
-unimplemented; their source-based planning refinements add no runtime claims.
+Independent performance review found one retired scene retained by the hover-source
+lookup. Clearing that disposable lookup immediately releases all 100,000 retired
+atoms in the measured probe; warm work remains zero full atom maps/requests/syncs.
+All 1,029 frontend cases, lint/types/build and three native hover workflows pass
+with three exact existing mobile exclusions. Scoped source assessments do not
+replace final same-candidate approval. Fresh candidate8's complete 35-step recipe
+is prepared; qualification, normal merge, exact-master checks and release remain.
+
+Independent #158 preparation stays in its separate local worktree at c62feb37 plus
+uncommitted recovery/count corrections. Exact-instance image failure/retry now has
+polite status feedback and source/attempt guards. All 1,041 frontend cases and the
+desktop/mobile image-recovery workflows pass; scoped UX/theory assessments pass.
+A fresh full Python attempt has 2,671 passes and three worker-error cases returning
+the existing 0.3-second timeout. The same 34-case file passes in isolation; both
+results are retained, deadlines unchanged, full requalification pending. Earlier
+2,664/eight-native/reader results remain bound to their original sources. No current
+complete Python or release gate is claimed for the recovery changes.
 
 Known limits: preview geometry is explicitly unavailable; no new durable schema is
 introduced by #156. Blockers: no owner scope decision required. Next: freeze and
-qualify candidate7, obtain final same-candidate assessments, then protected merge,
-exact-master qualification and verified release before #157. One program Goal stays
-active until every required child and parent closeout is verified.
+qualify candidate8 with final same-candidate assessments, then protected merge,
+exact-master qualification and verified release before #157. #158 must integrate
+verified #156/#157 master before final versions/gates. One program Goal stays active
+until every required child and parent closeout is verified. No application push,
+PR, release or child closeout is claimed.
 
 ### Previous completed milestone — issue #152
 

@@ -203,3 +203,42 @@ failure/flake/retry. Reference research, architecture consultation and independe
 trace assessment informed an original readiness safeguard; no external GUI parity
 is asserted. Fresh candidate7 repeats the complete 35-command gate. Final
 same-candidate assessments and all publication stages remain pending.
+
+### C3 correction — interaction pixel ownership and retired hover sources
+
+Candidate7 at `307ad34a` passed its first 15 commands, including 2,344 Python/zero
+skips and 1,028 frontend cases. Native execution stopped with 65 passes, two exact
+existing skips, one failed pixel assertion and 496 not-run cases. The renderer had
+zero installed interaction records; the full-canvas cyan count was 11 against a
+maximum of 10. All 11,967 native files and the checked 500,850,050-byte forensic ZIP
+remain locally retained. Its complete manifest, failed case, report and lossless
+logs are tracked; no partial run is qualification.
+
+Independent actual-camera diagnostics reproduce those same 11 pixels before any
+interaction analysis. Pointer exit leaves them unchanged. Two consecutive equal
+full-canvas masks establish shown/hidden hydrogen backgrounds of 9/11 pixels;
+actual overlay pixels outside those backgrounds are 35 shown and zero hidden.
+The [scoped correction](../assets/viewer-information/c4-pixel-background.json) freezes
+both backgrounds before analysis, waits for actual canonical H visibility, asserts
+camera/dimensions and restored-background equality, and retains the original color
+predicate, >10/<=10 marker limits, native geometry/install checks and deadlines.
+Both focused attempts pass the desktop/mobile lifecycle cases with zero failures,
+flakes, retries or exclusions. Synthetic diagnostic stores remain locally retained;
+live databases are excluded from the checked archive. No product correction was
+inferred from the false-positive color count.
+
+Independent performance review additionally proved the hover lookup retained one
+previous scene after completed empty-source sync: 100,000 retired atoms remained
+strongly referenced until another hover or disposal. The
+[retirement correction](../assets/viewer-information/c4-hover-retirement.json)
+clears only that disposable lookup when hover ownership retires. An actual awaited
+empty-scene regression and independent 100,000-atom probe now retain zero retired
+atoms. Twenty warm targets still perform zero full atom maps/requests/viewer syncs;
+1,000 identical samples retain deduplication. These are work/reference counts,
+not heap-byte or strict-host timing measurements.
+
+All 1,029 frontend cases/108 suites, web lint/types/build and 74 focused cases pass.
+Three native hover workflows pass with the same three mobile fine-pointer
+exclusions. New candidate8 must repeat every complete-gate command from its clean
+committed state. All seven final committed-candidate assessments, normal merge,
+fresh exact-merged qualification and publication remain required.

@@ -1539,6 +1539,7 @@ export class MolstarEngine implements MolecularViewer {
 
   private clearHover(): void {
     this.publishAtomHover(null);
+    this.hoverSources = undefined;
     this.hoverTarget = null;
     this.hoverNativeLoci = null;
     this.hoverCamera = null;

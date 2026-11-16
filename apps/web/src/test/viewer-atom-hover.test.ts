@@ -15,6 +15,7 @@ interface Probe {
   generation: number;
   coordinatePreviews: Map<string, unknown>;
   interactionSourceError: string | undefined;
+  hoverSources?: { sources: ViewerStructure[]; byEntry: Map<string, ViewerStructure> };
   updateAtomHover(loci: Loci): void;
   clearHover(): void;
 }
@@ -74,5 +75,16 @@ it("binds fresh feedback to exact immutable source and native generation after s
   expect(current.source).toBe(source); expect(current.source.normalized).not.toBe(old.source.normalized);
   expect(current.sceneGeneration).toBe(old.sceneGeneration + 1);
   expect(old.source.artifactId).toBe("artifact-1");
+  h.engine.dispose();
+});
+
+it("releases the source lookup when the scene retires without requiring another hover", async () => {
+  const h = setup();
+  h.probe.updateAtomHover(h.loci([0]));
+  expect(h.probe.hoverSources?.byEntry.get(h.source.entryId)).toBe(h.source);
+  await h.engine.syncStructures([]);
+  expect(h.engine.getAtomHover()).toBeNull();
+  expect(h.probe.structures).toEqual([]);
+  expect(h.probe.hoverSources).toBeUndefined();
   h.engine.dispose();
 });

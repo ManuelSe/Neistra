@@ -7734,3 +7734,19 @@ manual drafts across equivalent refetch objects, and keep missing targets explic
 No/multiple selection marks its owner without reseeding absolute-add inputs.
 Existing projection qualification, explicit command publication and other editing
 guards remain authoritative. Preserve exact native input/assertion requirements.
+
+### D-165 qualification clarification — pixel ownership and cache retirement
+
+A full-canvas color count also sees unrelated molecular and camera-axis edge
+pixels. Qualify interaction drawing against frozen pre-analysis full-canvas masks
+for each actual H-visibility state, requiring stable masks, identical camera/size
+and restored-background equality. Count actual later cyan coordinates absent from
+the matching mask; never subtract scalar totals or crop away potential residuals.
+Keep native installation/geometry checks, channel thresholds, count bounds and
+existing timeouts. Preserve failed evidence separately from complete qualification.
+
+The native hover source lookup is disposable scene-owned state. Clearing feedback
+must release its cached source array/map as well: an independent 100,000-atom
+probe showed one retired scene held until disposal. Retire the lookup immediately;
+rebuild only O(entries) membership on the next actual atom hover. Preserve warmed
+per-atom work and deduplication, with no canonical molecular mutation.

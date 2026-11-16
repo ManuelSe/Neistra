@@ -25,3 +25,19 @@ and the checked forensic ZIP remain locally retained; its full manifest, failed
 case and logs are tracked. `c4-atom-draft.json`/ZIP preserve the readiness correction,
 layout-phase regressions and unchanged exact-coordinate journey. No complete gate
 pass is claimed; candidate7 repeats all commands.
+
+Candidate7 is failed diagnostic evidence: 65 native passes, two actual existing
+skips, one color-predicate failure and 496 not-run cases. All 11,967 raw native
+files and the 500,850,050-byte forensic ZIP remain locally retained; full manifest,
+failed case and lossless logs are tracked. Native records were already uninstalled;
+independent same-camera evidence proves the 11 residual cyan pixels were background.
+`c4-pixel-background.json`/ZIP retain the paired full-canvas ownership correction,
+all diagnostic attempts and two passing desktop/mobile runs. No pixel channel,
+marker count, deadline, retry or exclusion requirement was relaxed.
+
+`c4-hover-retirement.json`/ZIP retain the subsequent measured source-cache finding
+and correction: 100,000 retired atoms held before, zero after completed empty-scene
+sync. Warm work/deduplication, all 1,029 frontend cases and native hover lifecycle
+checks pass; three unchanged mobile fine-pointer exclusions remain explicit.
+Candidate8's full 35-command recipe is prepared; no complete gate or publication
+is implied by these focused checks or scoped source assessments.

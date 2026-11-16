@@ -1,0 +1,45 @@
+{
+  "archive": {
+    "bytes": 567644,
+    "file": "c4-hover-retirement.zip",
+    "outer_manifest_entries": 33,
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-hover-retirement.zip",
+    "sha256": "42a70feab8094b82192d61f3b02fe98b05e3c7ab707b4be213c4895d1b385788",
+    "verification_counts": {
+      "evidence_manifest_entries": 33,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "checks": {
+    "focused_frontend": 74,
+    "frontend_suites": 108,
+    "full_frontend": 1029,
+    "independent_corrected_work_and_lifecycle": 13,
+    "lint_types_build": "PASS",
+    "native_exact_existing_mobile_hover_exclusions": 3,
+    "native_passed": 3,
+    "retired_atoms_after": 0,
+    "retired_atoms_before": 100000,
+    "same_atom_dedup_samples": 1000,
+    "unexpected_flaky_retries": 0,
+    "warm_full_atom_maps_requests_syncs": 0,
+    "warm_targets": 20
+  },
+  "correction": "Release hoverSources in clearHover. Rebuild only an entry lookup on the next actual hover. Preserve canonical state, current generation guards and warm dedup.",
+  "finding": "After completed empty-scene sync and null hover feedback, the source lookup held one previous scene until another hover or disposal. Independent probe retained 100000 retired canonical atoms; this was one scene, not accumulating history.",
+  "head_before_correction": "307ad34a1b61f9044dd7ba0df43b892f3cc87699",
+  "limits": "Source-retention counts are not heap-byte measurements or strict-host timing. Final same-candidate reviews and fresh complete candidate/exact-merged gates remain required. Reproduction TypeScript sources are included; their linked node_modules is excluded and immutable qualification dependency sources stay in the complete release evidence.",
+  "release_qualification": false,
+  "scope": "Scoped hover-source retirement correction; not full release qualification",
+  "source": {
+    "apps/web/src/test/viewer-atom-hover.test.ts": {
+      "bytes": 5186,
+      "sha256": "858046d740400ba3e85dad74e230b955a2e4cdacca3a6b66011498f97adc94a1"
+    },
+    "apps/web/src/viewer/MolstarEngine.ts": {
+      "bytes": 106364,
+      "sha256": "5f10d0e365cbce397f8068d4d50f81c67c602f90c28eb30846f9d2da3e84dec7"
+    }
+  }
+}
