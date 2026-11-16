@@ -2,16 +2,41 @@
 
 ## 0.34.0 — Viewer atom information and ordered quick geometry
 
-Compatible additive minor for [child #156](plans/issue-156-viewer-information-strip.md) within the [eight-child program](plans/issue-11-ligand-information.md). Publication remains pending verification.
+Released as stable/latest [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0)
+through [PR #168](https://github.com/ManuelSe/Neistra/pull/168), at exact qualified
+runtime `ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a`; annotated tag `7aacc228`.
 
-- A compact viewer strip shows known atom, residue and chain identity alongside the selected geometry. Atom details remain available with keyboard/touch access, including exact identity for repeated labels.
-- Two selected atoms show distance; three/four use actual ordered picks or an explicit target order for angle/signed torsion. Quick readings create no saved measurement.
-- Missing, degenerate, noncurrent and preview geometry stays explicitly unavailable. Hover retirement follows current source/renderer ownership without moving the camera or changing selection.
-- Atom feedback avoids repeated whole-scene derivation; hidden detail/geometry reads retire with their consumers while retaining shared reads. Narrow header actions scroll internally to preserve viewer containment and accessible focus.
+- A compact strip keeps known atom/residue/chain identity beside automatic geometry;
+  keyboard/touch details distinguish repeated labels and explicit target ordering.
+- Two atoms show distance; three/four use justified pick order or numbered targets
+  for angle/signed torsion. Quick readouts create no saved measurement.
+- Missing, degenerate, noncurrent and preview geometry stays unavailable. Hover
+  preserves camera, canonical selection and designation, retiring with its source.
+- Atomic atom-field readiness preserves manual coordinates during late projection;
+  bounded query consumers and hover-source retirement release obsolete resources.
 
-No dependency, durable schema, migration or scientific-model change; head0015 and existing project/archive/history/original-file contracts remain. The general inspector remains until the program's final integration child. Dedicated measurement management, durable ligand designation, live properties/profiles/radar/filtering and inspector retirement belong to the remaining required children. Interaction diagram, superposition relocation and metadata redesign remain excluded.
+Compatible minor; all five versions agree. No dependency, persisted schema or
+migration change; head0015 and existing project/archive/history/original-upload
+contracts remain. Older-reader retention does not qualify future new-job execution,
+portable archive Undo or fresh Apply eligibility. The general inspector remains;
+#157–#163 own the remaining program. Diagram153,superposition164,metadata165 and
+other parent exclusions remain separate. Cartesian geometry implies no periodic
+correction, alignment or energetic interpretation. Portable correctness/work
+counts do not establish strict-host/presented-frame latency or experimental quality.
 
-[Checkpoint evidence](assets/viewer-information/README.md) distinguishes focused passes and diagnostics from the pending complete candidate/exact-master gates and final specialist review. Portable correctness and work bounds do not establish strict-host timing or experimental coordinate quality.
+Both complete35-command gates pass:2,344Python/zero skips,1,029frontend,
+14supervisor,489native/75exact existing exclusions; zero failures/flakes/retries/new
+exclusions. All885current/870actual0.33identities/logs and both-direction/suffix
+reader phases verify, including15editing projects/24transitions. All seven agent
+assessments cover the same reviewed tree; they are not human approval. Historical
+failed/interrupted attempts and candidate outer143 are separately disclosed.
+Exact-master qualifier/summary/packaging and enclosing session each exit0.
+
+The313,970,966-byte qualificationZIP/sidecars pass anonymous SHA-256/CRC/internal
+verification:511nested ZIPs,2,779manifest entries,870project files. See
+[publication receipt](assets/viewer-information/c6-publication.json) and
+[verified closeout](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297).
+The runtime tag remains immutable during terminal documentation and cleanup.
 
 
 ## 0.33.0 — Targeted molecular interaction inspection

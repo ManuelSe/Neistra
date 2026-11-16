@@ -1,0 +1,10 @@
+{
+  "qualified_runtime": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+  "raw_files": 666,
+  "every_raw_file_matches_qualified_archive": true,
+  "archive": "c5-master1-qualified-01.zip",
+  "archive_prefix": "native/browser/",
+  "retained_owned_ignored_directory": ".issue-11-evidence/c5-master1-native",
+  "post_packet_retention_receipt": true,
+  "reason": "Preserve every raw native output and commit the independently verified complete packet without duplicating extracted files."
+}

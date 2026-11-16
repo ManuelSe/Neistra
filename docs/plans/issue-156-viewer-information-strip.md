@@ -281,3 +281,39 @@ The tracked `c5-master1-recipe.json` prepares a fresh isolated exact-merged gate
 it has not executed. Normal PR/review/merge, fresh exact-master qualification,
 verified annotated stable release/assets, issue reply/closure and safe cleanup
 remain required. Parent #11 stays open through all required children.
+
+### C4 — verified release and explicit child closeout
+
+Normal history-preserving [PR168](https://github.com/ManuelSe/Neistra/pull/168)
+merges reviewed20cf198b at actual runtimeab5e5fef; complete trees match. Fresh
+protection/ruleset/check/review/thread audit found no configured required remote
+approval/check or unresolved conversation. The code-review request returned no
+review. No protection was changed or bypassed; agent reviews are not human approval.
+
+All seven final same-candidate verdicts PASS: theory111analytic/rigid-frame+6invalid
+and26frontend; implementation34focused+verified1,152differential; architecture
+complete implementation/67-path reconciliation/57newpackaged artifacts; performance
+85tests/100katom retirement0/warm20zero work/1,000dedup; UI89unaffected tests/six
+responsive-theme captures; UXindependent1,029frontend/sixactual captures; reference
+primary workflow research/40unaffected tests/final source-log-reader reconfirmation.
+Consequential corrections cover atomic draft readiness, observer retirement,
+truthful labels, native input/pixel oracles and retired hover-source ownership.
+
+Fresh exact-master all35commands pass:2,344Python/zero skips,1,029frontend,
+14supervisor,489native/75exact existing exclusions,zero failures/flakes/retries/new
+exclusions. All885current/870actual0.33sources and logs verify, both reader directions
+and suffixes including15editing projects/24transitions. Independent qualifier,
+summary,packager and enclosing session each exit0. Candidate outer143 remains
+separate with unestablished cause and all35actualchild exits0.
+
+Annotated7aacc228→ab5e5fef and stable/latest
+[v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0) release447469775,
+full notes and every original asset match remote readback. Anonymous download of
+313,970,966bytes matches SHAe51f2b0f0dd4c3f42abf38a268fc00dd3e7f49658d62ce32296ff2991197f1d6;
+all511ZIPs/2,779manifest entries/870project files and sidecars verify. The
+[publication receipt](../assets/viewer-information/c6-publication.json) preserves
+facts; [one final reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
+and completed156closure are remotely verified. Parent11remains open and Goalactive.
+Terminal documentation integration and owned156branch cleanup remain to be verified
+and appended through the terminal receipt/issue reply. This bookkeeping does not
+change the runtime tag or start another release. Next application milestone157.

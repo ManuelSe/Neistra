@@ -7750,3 +7750,62 @@ must release its cached source array/map as well: an independent 100,000-atom
 probe showed one retired scene held until disposal. Retire the lookup immediately;
 rebuild only O(entries) membership on the next actual atom hover. Preserve warmed
 per-atom work and deduplication, with no canonical molecular mutation.
+
+## D-167 — Deliberate measurement ownership and complete bounded contact reads
+
+Date:2026-11-16. Authorized refinement of child157 under the finite parent11program,
+after verified156release; wording not individually reviewed. No implementation is
+claimed by this planning record. Existing durable ordered measurement refs/commands
+remain; keep the acquisition draft transient and application-owned above responsive
+remounts. A temporary verified native atom-pick lease consumes events before ordinary
+selection clearing/expansion while preserving canonical selection/order/anchor and
+ordinary picking state. Capture installed source generation PLUS operation/artifact,
+project epoch and draft owner. Return Promise Save with explicit ordered refs,
+synchronous duplicate rejection and session-owned late completion/focus/feedback.
+Share exact-kind, current finite complete geometry qualification across strip,
+draft, saved values and actual native installation; invalid records remain recoverable
+without drawing invalid geometry. Every preview retires affected values/markers.
+
+Retain close-contact inspection through a current-input ephemeral child read, not a
+persistent job. Capture immutable descriptors in a short owned session, verify size/
+SHA in the child, bound result serialization before whole-payload allocation, recheck
+current artifact before success, and retain admission through repeated-cancel-safe
+termination/reaping/cleanup. Preserve successful list shape and optional expected
+artifact compatibility. Stale/busy/capacity/geometry/timeout/unexpected errors remain
+distinct. Client owner guards cover responses AND row actions, including A→B→A.
+
+Global pair materialization grows quadratically before minimum/bond exclusions.
+Count-only preflight agrees empirically on288small cases but does not establish a
+universal floating-point allocation guard; old tree membership and np.linalg.norm
+reported distance differ near boundaries in both directions. Use single-point
+nonperiodic p∞ exact cube queries with eps0/oneworker, input-N-bounded lists and
+j>i. Define reported distance from the same rounded differences as
+max(hypot(dx,dy,dz),absdx,absdy,absdz). This makes d≤cutoff imply cube inclusion;
+pinned component-gap/max pruning supports the conservative search under normal
+IEEE arithmetic/library contract. Filter with the same inclusive reported predicate
+and every recorded bond. This explicitly refines last-bit/near-threshold numerical
+behavior while preserving Euclidean Å meaning. No alignment/PBC/energy interpretation.
+
+Charge all raw neighbors before exclusions; bound actual input, cumulative returned
+work, retained results, serialized bytes and terminable lifetime. Returned-neighbor
+counts do not bound internal tree traversal. Any limit or numerical-extent failure
+refuses the whole operation, never partial/empty success. Extreme finite±1e308spans
+can exceed the tree's numerical range; report that honestly. Validate source missingness,
+active finite N×3 geometry before even zero/one-site empty success. Sparse ascending
+IDs are supported; unsorted arrays already fail the canonical model validator.
+
+Select numerical budgets only after ordinary-protein/complex and sparse/dense
+measurements; existing tiny /contacts tests do not justify tiny new capacity.
+Qualify memory/work/request/cancellation limits under D148; strict-host latency
+remains opt-in. Cap manager DOM at50summary rows/oneexpanded record; hidden source
+observers are incremental4draft+4expanded, preserving independent156/legacy consumers.
+Reuse immutable endpoint indexes and measure native label mapping before optimizing.
+
+Scientific primary implementation references:
+[query contract](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.cKDTree.query_ball_point.html),
+[pinned cube traversal](https://raw.githubusercontent.com/scipy/scipy/v1.18.0/scipy/spatial/ckdtree/src/query_ball_point.cxx),
+[component-distance implementation](https://raw.githubusercontent.com/scipy/scipy/v1.18.0/scipy/spatial/ckdtree/src/distance_base.h),
+[extent tracker](https://raw.githubusercontent.com/scipy/scipy/v1.18.0/scipy/spatial/ckdtree/src/rectangle.h),
+[stable norm](https://docs.python.org/3.12/library/math.html#math.hypot).
+Independent theory controls support72configurations/699queries; these are planning
+probes, not implementation approval or formal verification of every library build.

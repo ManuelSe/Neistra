@@ -74,3 +74,230 @@ Proposed PR title: `feat(viewer): deliberate viewer measurement tools and persis
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+## C0 refinement at the verified prerequisite
+
+Prerequisite156 is explicitly closed after remotely verified stable/latestv0.34.0,
+annotated7aacc228→`ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a`, PR168 and anonymous
+asset readback. This is the actual implementation base, not the original62623a16
+intake observation. The owned program worktree is reused on
+`feat/issue-157-viewer-measurements`; unrelated master/147/158 checkouts remain
+untouched. Retained156diagnostics stay in owned ignored evidence. This checkpoint
+records156terminal evidence and157pre-code contracts only; no157application code,
+version/dependency/schema changes, runtime results or final implementation approval.
+Owner standing authorization remains unchanged; wording not individually reviewed.
+
+### Draft, active basis and command ownership
+
+One application-owned draft above responsive remounts owns kind, numbered target
+slots, active correction slot, name, generation, acquisition and Save state. Start
+empty. Use selection is explicit: symmetric distance needs no directional order;
+three/four atoms require justified inspection order or explicit numbered entry.
+Remove leaves a gap; correction replaces exactly its chosen slot; changing kind
+starts an empty draft. Never compact or substitute missing endpoints.
+
+One discriminated basis supplies strip, numbered markers and Save: Measurement
+targets while acquiring, Selected atoms otherwise. Only exact chosen-kind
+cardinality produces its geometry; partial angle/torsion must not become distance
+or angle. Preserve canonical selection, inspectionOrder and range anchor. Reuse
+pure geometry and current-source qualification; known locked targets remain
+inspectable without reveal/unlock. Cross-entry geometry assumes a shared meaningful
+Cartesian frame; no implicit alignment, periodic correction or energetic meaning.
+
+Save accepts explicit ordered references and returns a Promise through the existing
+revision-checked command/API. Synchronously reject duplicate submission. Capture
+project/epoch/revision, source artifacts, draft generation and request owner before
+await. Failed Save retains name/targets; late completion updates only its own
+monotonic project cache and may clear fields/focus/feedback only for its owning
+session. Close during Save cannot promise rollback. Closing/reopening owns a new
+session; responsive remount alone does not. Use quiet generic command feedback and
+own session-scoped feedback; project-ID-only notices do not establish A→B→A intent.
+Route the old inspector creator through the same controller/order rules until163.
+
+### Verified native atom-pick lease
+
+Add one narrow ephemeral viewer lease, owned by the application draft. It derives
+effective atom granularity while preserving the ordinary picking store and every
+canonical selection/order/anchor. Consume primary hit, empty, invalid and expanded
+paths BEFORE Engine pending-selection clear/ordinary publication; downstream App
+interception alone is too late. Acceptance failure must not fall through. Guard
+native selection bindings while retaining their marking provider; keep camera and
+trackball gestures. Clear double-click bookkeeping on lease acquisition/retirement.
+
+Use exact raw singleton atomic-locus qualification, never grouped/bond normalization.
+Require installed bound-generation equality, successful current source operation,
+artifact/normalized/settings identity, membership and application project epoch plus
+draft generation. Generation alone misses same-generation coordinate operations.
+Store minimal references/fingerprints in the draft, not retired full scene objects.
+Lazy adapter acquisition/release must be synchronous-owner checked and idempotent;
+an old release cannot remove a replacement lease.
+
+Release before explicit ordinary-mode actions, including choosing the already-active
+mode; a value-change-only store listener misses that intent. Retire before another
+editor/tool, movement, project/viewer/source replacement, every preview and close.
+Use one complete preview predicate (coordinate, model and placement included) for
+strip, markers, Save, saved labels and contacts; interactionPaused alone is weaker.
+Retire synchronously at engine/source boundaries as well as React lifecycle hooks.
+Preserve slots while their source is paused; do not silently substitute targets.
+
+Nested Escape closes target/order chooser before cancelling acquisition. Empty
+clicks preserve both draft and canonical state. DOM double-click follows two primary
+clicks: suppress expansion, reject a repeated target, and qualify that the initial
+atomic click may fill one slot. Do not promise zero target contribution without
+an explicit deferred-recognition design. The pinned native empty-selection branch
+is conditional on a default-false mode; it was not reproduced as an active defect.
+
+### Compact accessible presentation
+
+One Ruler launcher opens a nonmodal Measurements panel, clamped to the visual
+viewport with internal scrolling and exposed canvas. Use labelled kind controls,
+numbered target buttons, Use selection/Reset, name and Save. Keep target2/angle
+vertex and torsion order explicit. A bounded inline chooser supports keyboard/touch
+without a huge native option list. Keep44px touch targets, owner-aware focus return,
+and nested Escape. Saved measurements and Close contacts are secondary disclosures;
+rows have compact summaries, immediate visibility and one expanded action area.
+
+Essential chosen-kind/incomplete readout text stays readable at320px/actual200%;
+do not hide it behind ellipsis. Hover identity remains independent. Use one concise
+polite status surface; complex provenance/method explanations stay in accessible
+secondary details. Qualify both themes, long duplicate names, four targets,
+loading/error/preview states and actual keyboard/touch/native focus recovery.
+
+### Shared geometry and bounded management
+
+Share warning PLUS source-fact missing-coordinate qualification, current complete
+finite active projections, exact kind cardinality and degeneracy rules across
+quick/draft/saved readouts and actual native installation. Failed cached queries
+are unavailable. An Unavailable label must not still install invalid native
+geometry. Preserve invalid durable records for recovery; omit their unqualified
+native drawings. Do not alter canonical coordinates or choose an unsupported frame.
+
+Keep at most50mounted summary rows and one expanded record; qualify1000saved
+measurements. Preserve create/rename/visibility/Select participants/Focus/Delete,
+ordered cross-entry refs, exact Undo/Redo/reload and archive behavior. Select does
+not reveal or unlock; Focus requires currently drawable participants. Read hidden
+sources only for active drafts and the one expanded record: at mostfour draft
+plusfour expanded observers. These are incremental tool-owned limits; legacy
+inspector and156quick/detail consumers remain independent. Release local observers
+without globally cancelling shared consumers. Native labels use currently drawable
+sources and must not fetch hidden structures only to draw canvas labels.
+
+Existing linear endpoint scans do199,999atom predicates for one tail distance in
+100katoms and3,999,980for20records. Reuse immutable indexes: cold scan once, warm
+at mostfour endpoint lookups. Measure10/100visible native labels before optimizing
+loci/label rebuilding. Preserve156warm-hover work, deduplication and scene retirement.
+No strict-host or heap/GPU-byte claim follows from reference/work counts.
+
+### Complete bounded close-contact reads
+
+Keep Close contacts secondary with an explicit valid entry, preferring a deliberately
+inspected valid target rather than the first entry. All artifact-backed entry types,
+including hidden proteins/complexes, remain eligible. Preserve the Euclidean Å
+atom-center profile: all recorded bonds excluded regardless of order/inference,
+inclusive minimum≤distance≤cutoff, default UI minimum0.5/cutoff2/maximum10Å. Core/API
+configurable minimum0 remains valid; introduce no new global minimum or chemistry
+heuristic. No PBC, detector-family expansion or severity/energy inference.
+
+Validate query settings, missing-coordinate warnings and source facts, actual active
+frame, exact float64(N,3) shape and finite components before even zero/one-site empty
+returns. Preserve valid sparse ascending IDs via row mapping. Nonmonotonic atom arrays
+are already invalid model inputs; do not implement a speculative ID-order fix.
+
+Use the independently assessed conservative single-point cKDTree cube stream:
+immutable float64 coordinates, p=infinity, eps0, one worker, no periodic box, j>i.
+For the same rounded coordinate differences declare
+`d=max(math.hypot(dx,dy,dz),abs(dx),abs(dy),abs(dz))` and apply the SAME reported
+minimum≤d≤cutoff predicate. By construction d≤cutoff implies cube inclusion. Pinned
+source inspection supports component-gap/max pruning and inclusive leaf acceptance
+under normal IEEE arithmetic/library contract; this is not formal proof of every
+build. It avoids heuristic radius inflation and global pair materialization.
+
+Admit actual N before coordinate/tree allocation; each point query returns at mostN
+indices. Charge ALL raw returned neighbors before self/reverse/bond/minimum filters.
+This bounds returned-neighbor work, not internal tree traversal; a terminable child
+deadline separately bounds lifetime. Bound retained results before append, and
+serialized response bytes incrementally before materializing a complete JSON value.
+Any capacity, numerical-range or timeout failure discards the whole operation;
+never return truncated/empty partial success. Finite extreme spans around±1e308
+can overflow tree tracking: report explicit numerical unavailability or separately
+bounded complete fallback. Do not call unsupported numerical extent invalid chemistry.
+
+Do not use global query_pairs or count_neighbors as the sole allocation guard.
+Current pinned implementations agree on288tiny count controls, but that does not
+supply a cross-operation floating-point allocation guarantee. Old KD-tree membership
+and reported np.linalg.norm disagree in both directions near ULP boundaries. The
+stable-hypot stream explicitly refines last-bit distances/near-threshold membership
+while retaining the Euclidean Å model; document and test this refinement.
+
+Numeric input/source-byte/raw-work/result/response/time/memory budgets are NOT yet
+selected. Measure before adopting defaults: existing3-site qualification, actual
+1STP1001sites, fixed sparse/ordinary-density/coincident scaling, complete outputs,
+raw candidates, phase/total time, peakRSS, JSON bytes and cancellation/reaping.
+Current large-scene/interaction benchmarks are not demonstrated /contacts capacity;
+tiny old tests do not justify tiny limits that exclude ordinary proteins/complexes.
+No global NxN/triu allocation. Strict latency is opt-in D148; correctness, capacity,
+request/work/memory/lifecycle controls remain mandatory.
+
+### Read coordinator and current-result ownership
+
+Use a narrow ephemeral spawned-child coordinator: one active request, no queue;
+plain immutable input descriptor, operation-owned session closed before waiting,
+child size/SHA verification and bounded completion metadata plus verified owned
+response file. Do not export hierarchy/viewer data merely to compute contacts.
+The general structure loader's pointer check is not cryptographic byte verification;
+reuse explicit immutable-file transport without broadly rewriting unrelated loaders.
+Publish no persistent job/artifact/history and do not dirty molecular/project state.
+Recheck project/entry/current artifact before complete success. Keep admission until
+termination/reaping/cleanup completes, including repeated cancellation and shutdown.
+Thread offload alone is not termination of scientific work.
+
+Preserve successful list shape; add optional expected_artifact_id and AbortSignal.
+Use typed distinctions: stale409,busy429,capacity413,geometry/numerical422,timeout504,
+unexpected500; cancellation retires the owning operation. Bind request, results and
+row actions to project/epoch/entry/artifact/settings/request generation/open owner/
+preview validity. Collapse, source/settings/entry/project changes and A→B→A visits
+retire both result and action ownership synchronously. Abort and discard stale work.
+
+### Coherent implementation and acceptance checkpoints
+
+C1a: measure/choose contact budgets with science/architecture agreement; implement
+pure bounded core and verified cancellable API read while preserving the existing
+successful UI/API path. Significant independent scientific/API failure controls.
+C1b: application-owned numbered draft, verified native lease, shared geometry,
+explicit ordered Promise Save and compact viewer launcher/panel as a working slice.
+C2: complete paged management/contact disclosure and current-result guards, retained
+inspector bridge, comprehensive keyboard/touch/native/history/archive qualification.
+C3/C4: provisional0.35.0 with all five versions, actual tagged0.34source/readers,
+complete fresh candidate and exact-merged gates, all-seven final same-candidate
+assessment/corrections, normal protected process and verified release/child closeout.
+
+Required independent controls: analytic2/3/4values/order/sign and partial-kind refusal;
+selection/order/anchor invariance; remove/replace/reset/unknown refs; locked/hidden
+choices; empty/double/expanded native events and stale installed-source operations;
+held/failed/double Save, close/reopen/A→B→A/late feedback; all previews and cancellation;
+shared quick/draft/saved/native parity; missing/nonfinite zero/one contacts; min0
+coincident/sparse IDs/activeframe7/allbond variants; exact/adjacent-float boundaries
+including documented A/B discrepancies against the NEW declared predicate; extreme
+numerical refusal; exact/one-over budgets and dense excluded-neighbor charging;
+health responsiveness, concurrentbusy, disconnect/timeout/failure/repeatedcancel
+reaping; corrupt/stale inputs; source/settings/collapse retirement of row actions;
+1000saved rows/observer/endpointwork bounds; both themes,320px,actual100/200%zoom,
+focus/Escape recovery; actual reload/cross-entry ordered refs/both archive suffixes.
+
+Existing durable measurement schema/commands already preserve ordered refs. Add
+new-current-authoring reader fixtures for explicit non-sorted cross-entry targets,
+name/visibility and retained live-store Undo/Redo under actual0.34/0.35 producers/
+readers in both directions/suffixes. Archive history remains its existing limited
+contract, not a promise of portable Undo or future job authoring. No schema or
+migration change is expected; revalidate actual code/data before claiming that.
+
+Independent planning evidence: all seven relevant roles assessed the workflow;
+updated theory and scientific implementation endorse the bounded streaming method
+subject to implementation/limits qualification. Tiny theory probes cover15supported
+core controls and72configurations/699single-point queries; count comparisons288.
+Performance inspected actual call sites and the existing3-site qualified workload;
+reference research supports temporary sequential picking/persistent measurements,
+while exact external GUI defaults/correction/Save semantics were not established.
+Selection-preserving drafts are an original application adaptation. All identifying
+reference research remains outside repository artifacts. No planning verdict is
+final implementation approval or a claim that157already works.

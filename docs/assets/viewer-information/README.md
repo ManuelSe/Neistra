@@ -55,3 +55,20 @@ unestablished; `c4-candidate8-transport.json` separately preserves this diagnost
 and the independent architecture contract assessment. It postdates the packet
 and must accompany it as supplemental release evidence. All-seven final-head
 reconfirmation, normal merge and fresh exact-master qualification remain pending.
+
+Exact-master `ab5e5fef` completes every35-command gate step. The independent wrapper
+records qualifier0,summary0,packager0 and the enclosing tool session exits0.
+`c5-master1-summary.json` verifies the same885-source digest,870preceding sources,
+2,344Python/1,029frontend/14supervisor/489native with75exact existing exclusions.
+`c5-master1-qualified-01.zip` is82,905,324bytes,SHA-256
+8e28142ea65e0f7c149f2728101500a9ac828bc03713a0e251662d649596b6f4;
+226ZIPs/1,089manifest entries/435project files verify. Every666native browser files
+matches the packet and remains retained under owned ignored evidence after the
+recorded move. The post-packet retention receipt is tracked separately.
+
+`c6-publication.json`/checksum record remotely verified annotated/runtime/release
+identity and anonymous download of the313,970,966-byte final qualificationasset,
+SHA-256 e51f2b0f0dd4c3f42abf38a268fc00dd3e7f49658d62ce32296ff2991197f1d6.
+All511nestedZIPs/2,779manifest entries/870project files and both original sidecars
+verify. The publicationreceipt/checksum are also anonymously verified releaseassets.
+Later issue/documentation/cleanup receipts do not move the runtime tag.

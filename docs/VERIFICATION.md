@@ -2045,3 +2045,32 @@ confirms no missing required check. No zero original outer exit is claimed.
 Seven-role final-head reconfirmation, normal protected merge, fresh exact-merged
 full qualification and verified publication remain required. Portable correctness
 only; no strict reference-host performance or human approval is claimed.
+
+## Issue #156 exact released master and publication
+
+Exact merged `ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a` completes all35 sequential
+commands from a clean start, independently verified and packaged. Counts match the
+complete candidate:2,344Python/zero skips,1,029frontend,14supervisor,
+489native/75exact previous exclusions,zero failures/flakes/retries/new exclusions.
+All885current/870actual0.33identities and lossless logs verify; actual readers run
+both directions/suffixes with15editing projects/24retained transitions. Source
+digest b523757604b123dee5bfb79e33c0fe39092a238d03b8cfc2083dfd67d129cf80 is identical.
+[Exact summary](assets/viewer-information/c5-master1-summary.json) and
+[packet receipt](assets/viewer-information/c5-master1-packaging.json) retain complete
+source/native/reader evidence. Qualifier/summary/packager and enclosing session0.
+
+All seven final agent assessments cover20cf198b; the complete reviewed/released
+trees match. [Publication receipt](assets/viewer-information/c6-publication.json)
+verifies annotated7aacc228→ab5e5fef,stable/latest release/full notes and anonymous
+313,970,966-byte asset/sidecars:511ZIPs,2,779manifest entries,870project files.
+The separately disclosed candidate outer143 remains unestablished; all actual
+qualified children passed. [Child reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
+and explicit completed closure are remotely verified. Parent11remains open.
+
+This terminal evidence and157planning checkpoint changes documentation only.
+All885qualified implementation/test/tool/dependency identities remain unchanged;
+reuse the verified full candidate/exact-runtime gates for that unchanged source.
+Verify the documentation diff, JSON/packet/receipt integrity and unchanged source
+identities through its normal PR process. It creates no new runtime release or
+retag loop. Source implementation for157 still needs its own complete candidate
+and exact-merged gates plus all-seven final same-candidate assessments.
