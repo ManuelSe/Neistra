@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { AtomReference, MeasurementKind, NormalizedStructure } from "../api/types";
 import type { ProjectCommandContext } from "../coordinates/projectCommand";
-import { MeasurementSession, type MeasurementContext, type MeasurementSave } from "../measurements/session";
+import { MeasurementSession, type MeasurementContext, type MeasurementSave, type MeasurementSaveCompletion } from "../measurements/session";
 import { molecularEntry, molecularProject, proteinStructure } from "./molecular-fixtures";
 
 const refs = (...ids: number[]): AtomReference[] => ids.map(atom_id => ({ structure_id: "entry", atom_id }));
@@ -10,7 +10,7 @@ function deferred<T>() {
   const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; });
   return { promise, resolve, reject };
 }
-function fixture(create?: (capture: MeasurementSave, context: ProjectCommandContext) => Promise<void>) {
+function fixture(create?: (capture: MeasurementSave, context: ProjectCommandContext) => Promise<MeasurementSaveCompletion>) {
   const structure = proteinStructure();
   const points: [number, number, number][] = [[1, 0, 0], [0, 0, 0], [0, 1, 0], [0, 1, 1]];
   structure.atoms = points.map((coordinates, i) => ({ ...structure.atoms[0], id: i + 1, source_index: i, coordinates }));
@@ -19,7 +19,7 @@ function fixture(create?: (capture: MeasurementSave, context: ProjectCommandCont
   let context: MeasurementContext = { project, activeProjectId: project.id, selectionProjectId: project.id,
     projectEpoch: 4, paused: false, busy: false };
   const structures = new Map<string, NormalizedStructure>([["entry", structure]]);
-  const send = vi.fn(create ?? (() => Promise.resolve()));
+  const send = vi.fn(create ?? (() => Promise.resolve<MeasurementSaveCompletion>("current")));
   const session = new MeasurementSession({ context: () => context, structures: () => structures, create: send });
   return { session, send, project, structures, context: () => context,
     patch: (patch: Partial<MeasurementContext>) => { context = { ...context, ...patch }; } };
@@ -120,7 +120,7 @@ describe("application-owned ordered measurement draft", () => {
 
 describe("owned asynchronous measurement save", () => {
   it("captures explicit ordered refs/revision and blocks duplicate Save synchronously", async () => {
-    const held = deferred<void>(); const f = fixture(() => held.promise); complete(f, "angle");
+    const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f, "angle");
     f.session.useSelection(refs(3, 1, 2));
     const first = f.session.save(); expect(await f.session.save()).toBe(false);
     expect(f.send).toHaveBeenCalledOnce();
@@ -129,16 +129,16 @@ describe("owned asynchronous measurement save", () => {
     f.patch({ busy: true }); expect(() => owner.assertDispatchable()).not.toThrow();
     f.patch({ project: { ...f.project, revision: f.project.revision + 1 } });
     expect(owner.ownsFeedback()).toBe(true); // Own successful cache advancement is not stale intent.
-    held.resolve(); expect(await first).toBe(true);
+    held.resolve("current"); expect(await first).toBe(true);
     expect(f.session.snapshot()).toMatchObject({ name: "", slots: [null, null, null], saving: false, notice: "Saved Reference." });
   });
 
   it("retains name/targets after failed Save, allows retry, and refuses incomplete/invalid geometry", async () => {
-    const held = deferred<void>(); const f = fixture(() => held.promise); complete(f);
+    const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f);
     const saved = f.session.save(); held.reject(new Error("Revision conflict"));
     expect(await saved).toBe(false);
     expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: refs(1, 2), saving: false, notice: "Revision conflict" });
-    f.send.mockResolvedValue(); expect(await f.session.save()).toBe(true);
+    f.send.mockResolvedValue("current"); expect(await f.session.save()).toBe(true);
     f.session.setName("Incomplete"); expect(await f.session.save()).toBe(false);
     f.session.useSelection(refs(1, 2));
     f.structures.clear(); expect(await f.session.save()).toBe(false);
@@ -146,7 +146,7 @@ describe("owned asynchronous measurement save", () => {
   });
 
   it.each(["visit", "close", "source", "preview", "revision"] as const)("rejects dispatch after a held %s change and leaves newer UI untouched", async change => {
-    const held = deferred<void>(); const f = fixture(() => held.promise); complete(f);
+    const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f);
     const saved = f.session.save(), [capture, owner] = f.send.mock.calls[0];
     if (change === "visit") {
       f.patch({ activeProjectId: "other" }); f.session.guardContext();
@@ -159,53 +159,53 @@ describe("owned asynchronous measurement save", () => {
     expect(() => owner.assertDispatchable()).toThrow(/inputs changed/);
     if (change === "visit" || change === "close") f.session.setName("New draft");
     const before = f.session.snapshot();
-    held.resolve(); await saved;
+    held.resolve("current"); await saved;
     expect(capture.references).toEqual(refs(1, 2));
     if (change === "visit" || change === "close") expect(f.session.snapshot()).toBe(before);
     else if (change !== "revision") expect(f.session.snapshot().slots).toEqual(refs(1, 2));
   });
 
   it("retires A→B→A at navigation before a selection-project effect changes its epoch", async () => {
-    const held = deferred<void>(); const f = fixture(() => held.promise); complete(f);
+    const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f);
     const saved = f.session.save(), epoch = f.context().projectEpoch;
     f.patch({ activeProjectId: "B" }); f.session.guardContext();
     expect(f.session.snapshot().open).toBe(false);
     f.patch({ activeProjectId: f.project.id }); f.session.open(); f.session.setName("Later visit");
     expect(f.context().projectEpoch).toBe(epoch);
-    const newer = f.session.snapshot(); held.resolve(); await saved;
+    const newer = f.session.snapshot(); held.resolve("current"); await saved;
     expect(f.session.snapshot()).toBe(newer);
   });
 });
 
 it("keeps a pending Save owner when only native acquisition is stopped", async () => {
-  const held = deferred<void>(); const f = fixture(() => held.promise); complete(f);
+  const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f);
   const saved = f.session.save(), owner = f.send.mock.calls[0][1];
   f.session.cancelAcquisition();
   expect(f.session.snapshot().acquiring).toBe(false);
   expect(owner.ownsFeedback()).toBe(true);
-  held.resolve(); await saved;
+  held.resolve("current"); await saved;
   expect(f.session.snapshot()).toMatchObject({ name: "", notice: "Saved Reference.", saving: false });
 });
 
 it("never resurrects a pending Save owner after a preview starts and ends while picking is stopped", async () => {
-  const held = deferred<void>(); const f = fixture(() => held.promise); complete(f);
+  const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f);
   f.session.cancelAcquisition();
   const saved = f.session.save(), owner = f.send.mock.calls[0][1];
   f.patch({ paused: true }); f.session.guardContext();
   expect(owner.ownsFeedback()).toBe(false);
   f.patch({ paused: false }); f.session.guardContext();
   expect(owner.ownsFeedback()).toBe(false);
-  const before = f.session.snapshot(); held.resolve(); await saved;
+  const before = f.session.snapshot(); held.resolve("current"); await saved;
   expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: before.slots, notice: before.notice, saving: false });
 });
 
 it("never resurrects pending Save ownership after source replacement and restoration with picking stopped", async () => {
-  const held = deferred<void>(); const f = fixture(() => held.promise); complete(f); f.session.cancelAcquisition();
+  const held = deferred<MeasurementSaveCompletion>(); const f = fixture(() => held.promise); complete(f); f.session.cancelAcquisition();
   const saved = f.session.save(), owner = f.send.mock.calls[0][1];
   f.patch({ project: { ...f.project, entries: [{ ...f.project.entries[0], current_artifact_id: "different" }] } });
   f.session.guardContext(); expect(owner.ownsFeedback()).toBe(false);
   f.patch({ project: f.project }); f.session.guardContext(); expect(owner.ownsFeedback()).toBe(false);
-  held.resolve(); await saved;
+  held.resolve("current"); await saved;
   expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: refs(1, 2), saving: false });
 });
 
@@ -218,4 +218,14 @@ it("keeps the named draft and acquisition owner above compact/review presentatio
   const generation = f.session.snapshot().generation;
   f.session.reviewTargets();
   expect(f.session.snapshot()).toMatchObject({ minimized: false, name: "Touch reference", slots: refs(1, 2, 3), generation });
+});
+
+
+it("retains a draft when an accepted server Save has already been superseded by newer project state", async () => {
+  const held = deferred<MeasurementSaveCompletion>(), f = fixture(() => held.promise); complete(f);
+  const saving = f.session.save();
+  held.resolve("superseded");
+  expect(await saving).toBe(false);
+  expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: refs(1, 2), saving: false,
+    notice: "The project changed while Save was finishing. Check Saved measurements." });
 });

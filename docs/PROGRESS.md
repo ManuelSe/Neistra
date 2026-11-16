@@ -24,22 +24,31 @@ and completed issue state are verified. Terminal documentation merged normally i
 [PR #169](https://github.com/ManuelSe/Neistra/pull/169), and owned156branch cleanup
 was verified. The annotated runtime tag remains unchanged.
 
-#157 has coherent local C1a/C1b checkpoints on
-`feat/issue-157-viewer-measurements` from verified master4b8ae716. Bounded verified
-contact reads, application-owned numbered drafts, selection-preserving native pick
-leases, scoped Promise Save and compact saved/contact management are implemented.
-The [C1b packet](assets/viewer-measurements/c1b-measurement-checkpoint.json) passes
-all1,134frontend tests/116suites, lint/types/build, and five real native workflows
-across mouse/touch and both themes. One exact legacy exclusion remains, no retries
-or new exclusions. Source maps313/316 remain unchanged. Native child0 and independent
-completion verifier0 are distinct from enclosing tool143, cause unestablished.
-C1a274Python/zero-skip evidence remains unaffected; no Python changed in C1b.
+#157 has passing local C1a/C1b/C2 checkpoints on
+`feat/issue-157-viewer-measurements` from verified master4b8ae716. Deliberate drafts,
+selection-preserving native acquisition, scoped Save, bounded management and contact
+reads are implemented. The [C2 packet](assets/viewer-measurements/c2-measurement-checkpoint.json)
+passes1,173frontend tests/118suites plus lint/types/build;13native workflows and four
+additional320px/actual100/200%zoom/keyboard/axe workflows pass in separate focused
+runs over unchanged application source. One exact existing exclusion remains, no
+retries/new exclusions; both native children/enclosing runners exit0. All earlier918
+sources remain exact within the920-source final map; the two added test files have
+their own passing checks.29API/persistence cases include real TCP disconnect/reaping.
 
-Scoped architecture/UX correction reviews pass; final all-seven feature review
-remains pending. Fresh nonauthor final scientific implementation and UI reviewers
-are required. The [native baseline](assets/viewer-measurements/c2-native-label-baseline.json)
-measures an inherited100-label install around11.7s and rename4.2s; a bounded shared
-label/native-geometry correction is next. No157application push/PR/release/closeout.
+Actual tagged0.34new-state reader preflight passes both directions/suffixes, exact
+ordered cross-entry targets/full names/visibility/originals and Undo/Redo content
+with legitimately advancing modification time;885tagged sources verify. This is
+development0.34evidence, not final0.35compatibility. Scoped architecture/theory/
+performance assessments pass; final all-seven feature approval remains pending.
+
+The [independent native correction](assets/viewer-measurements/c2-native-label-performance.json)
+retains all1,000records with three grouped geometry representations and one text
+layer. On the measured shared host,100protein labels install at0.918smedian versus
+11.591sbaseline; rename0.536s versus4.103s. All318frozen/live web sources match.
+Straight-angle arc/sector warnings remain explicitly disclosed; numerical labels
+are valid. No strict-host/all-host or every-GPU-attribute claim. Diagnostics remain
+separate. No157application push/PR/release/closeout; nonauthor final scientific
+implementation and UI reviewers are required.
 
 Independent158 preparation remains local68b1a868:2,674Python/zero skips,
 1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
@@ -47,11 +56,12 @@ failures/timeouts remain preserved, deadlines unchanged; its final integration,
 versions, actual predecessor readers and release gates remain pending. Retain the
 nonblocking small-screen heading observation for integration review.
 
-Next: implement/measure the reviewed C2 native batching correction, then qualify
-held operations, preview recovery, history/reload/archives and actual preceding
-readers. All five versions remain0.34.0; no schema/dependency change. Both complete
-release gates and all-seven final same-candidate assessments remain. Preserve other
-worktrees and one active Goal through all eight releases and parent closeout.
+Next: prepare all five0.35versions and final source-bound0.34readers, retain all35
+baseline gate commands plus seven new measurement-reader commands (42fresh commands
+per candidate and exact merged master), then obtain all-seven final same-candidate
+assessments before application push and normal release. Schema/dependencies remain
+unchanged. Preserve other worktrees and one active Goal through all eight releases
+and parent closeout.
 
 
 ### Previous completed milestone — issue #152

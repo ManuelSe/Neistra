@@ -16,6 +16,7 @@ import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisp
 import { defaultInteractionAppearance, interactionHasDisplayGeometry, normalizeInteractionAppearance } from "../interactions/styles";
 import { interactionRecordKey } from "../interactions/presentation";
 import { createInteractionRepresentation } from "./interactionGeometry";
+import { SavedMeasurementBatch, savedMeasurementData } from "./savedMeasurementGeometry";
 import { InteractionGeometryLimitError, preflightInteractionGeometry } from "./interactionGeometryBudget";
 import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
@@ -102,6 +103,8 @@ interface LoadedStructure {
   structureRef: string;
   baseCoordinates: Map<number, Point3D>;
 }
+
+interface MeasurementSourceOwner { generation: number; operation: number }
 
 interface SurfaceBinding {
   controller: AbortController;
@@ -220,7 +223,11 @@ export class MolstarEngine implements MolecularViewer {
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private sceneFrameSubscription: { unsubscribe(): void } | undefined;
   private restoreCameraReset: (() => void) | undefined;
+  // Installed record IDs; saved representations are canvas-owned, not state cells.
   private measurementRefs: string[] = [];
+  private savedMeasurementBatch: SavedMeasurementBatch | undefined;
+  private stagedMeasurementBatches = new Set<SavedMeasurementBatch>();
+  private measurementEpoch = 0;
   private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
   private pocketPreviewEntries = new Set<string>();
@@ -694,9 +701,11 @@ export class MolstarEngine implements MolecularViewer {
       && this.interactionSourceGeneration === this.generation && !this.interactionSourceError
       && this.interactionSourceCompleted === this.interactionSourceOperation
       ? surfaceSyncChanges(this.surfaceSyncSnapshot, snapshot) : undefined;
-    if (changes === undefined || changes.length || structures.some((source, index) => source.artifactId !== this.structures[index]?.artifactId)) {
+    const artifactChanged = structures.some((source, index) => source.artifactId !== this.structures[index]?.artifactId);
+    if (changes === undefined || changes.length || artifactChanged) {
       this.retireMeasurementAcquisition("source");
     }
+    if (changes === undefined || artifactChanged) this.retireSavedMeasurements();
     this.pruneSurfacePreviews(structures);
     this.surfaceSyncSnapshot = snapshot;
     this.surfaceDefinitions = new Map(snapshot.entries.flatMap(entry => [...entry.surfaces].map(([surfaceId, state]) =>
@@ -711,7 +720,11 @@ export class MolstarEngine implements MolecularViewer {
           this.surfaces.remove(identity.entryId, binding.channel, identity.surfaceId);
         }
       }
-      return Promise.all(changes.map(identity => this.scheduleSurfaceUpdate(identity))).then(() => undefined);
+      return Promise.all(changes.map(identity => this.scheduleSurfaceUpdate(identity))).then(async () => {
+        if (!artifactChanged) return;
+        this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyMeasurements());
+        await this.syncQueue;
+      });
     }
     this.clearHover();
     this.doubleClicks.clear();
@@ -732,6 +745,7 @@ export class MolstarEngine implements MolecularViewer {
       if (!plugin || generation !== this.generation) return;
       const current = () => !this.disposed && this.plugin === plugin && generation === this.generation;
       let sourceInstalled = false;
+      let publishMeasurements: void | (() => void) = undefined;
       this.rebuilding = true;
       try {
         await plugin.clear();
@@ -752,22 +766,26 @@ export class MolstarEngine implements MolecularViewer {
         }
         this.applySelection();
         if (!current()) return;
-        await this.applyMeasurements();
-        if (!current()) return;
         await this.applyModelPreview();
         if (!current()) return;
+        publishMeasurements = await this.applyMeasurements({ generation, operation: sourceOperation });
+        if (!current()) { publishMeasurements?.(); return; }
         this.commitScene();
-        if (!current()) return;
+        if (!current()) { publishMeasurements?.(); return; }
         this.boundGeneration = generation;
         this.interactionSourceGeneration = generation;
         this.interactionSourceError = undefined;
         this.completeInteractionSourceUpdate(sourceOperation);
+        publishMeasurements?.();
         sourceInstalled = true;
+        if (!current()) return;
         await this.applyInteractions();
       } catch (error: unknown) {
         if (!sourceInstalled) this.failInteractionSourceUpdate(sourceOperation, generation, plugin, error);
         throw error;
       } finally {
+        // Also release a prepared off-canvas batch if scene finalization throws.
+        publishMeasurements?.();
         this.rebuilding = false;
       }
     });
@@ -822,6 +840,8 @@ export class MolstarEngine implements MolecularViewer {
           if (!moleculeChanged && !seedChanged) {
             this.completeInteractionSourceUpdate(sourceOperation);
             sourceCompleted = true;
+            await this.applyMeasurements();
+            if (!current()) return;
             await this.applyInteractions();
             return;
           }
@@ -858,6 +878,10 @@ export class MolstarEngine implements MolecularViewer {
             this.previewTargetIds.delete(patch.entry_id);
           }
           if (mode === "commit") for (const item of dependents) await this.prepareSurface(item.entryId, item.surfaceId);
+          if (!current()) return;
+          this.completeInteractionSourceUpdate(sourceOperation);
+          sourceCompleted = true;
+          await this.applyMeasurements();
           return;
         }
         if (
@@ -909,6 +933,10 @@ export class MolstarEngine implements MolecularViewer {
           await this.prepareSurfaces(patch.entry_id);
           for (const item of dependents) if (item.entryId !== patch.entry_id) await this.prepareSurface(item.entryId, item.surfaceId);
         }
+        if (!current()) return;
+        this.completeInteractionSourceUpdate(sourceOperation);
+        sourceCompleted = true;
+        await this.applyMeasurements();
       } catch (error: unknown) {
         if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
         throw error;
@@ -955,6 +983,8 @@ export class MolstarEngine implements MolecularViewer {
         if (!current()) return;
         this.completeInteractionSourceUpdate(sourceOperation);
         sourceCompleted = true;
+        await this.applyMeasurements();
+        if (!current()) return;
         await this.applyInteractions();
       } catch (error: unknown) {
         if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
@@ -981,6 +1011,7 @@ export class MolstarEngine implements MolecularViewer {
     // Rebuilding those same objects would restore the camera and repeat the cycle.
     if (JSON.stringify(measurements) === JSON.stringify(this.measurements)) return this.syncQueue;
     this.measurements = measurements;
+    this.retireSavedMeasurements();
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       await this.applyMeasurements();
       this.commitScene();
@@ -989,11 +1020,17 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
-    if (this.modelPreview !== preview) this.retireMeasurementAcquisition("preview");
-    if (this.modelPreview !== preview) this.clearHover();
+    const changed = this.modelPreview !== preview;
+    if (changed) {
+      this.retireMeasurementAcquisition("preview"); this.clearHover();
+      this.retireSavedMeasurements();
+    }
     this.modelPreview = preview;
     if (!preview) this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
-    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyModelPreview());
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
+      await this.applyModelPreview();
+      if (changed && !this.modelPreview) await this.applyMeasurements();
+    });
     return this.syncQueue;
   }
 
@@ -1044,6 +1081,7 @@ export class MolstarEngine implements MolecularViewer {
 
   private beginInteractionSourceUpdate(status: "pending" | "paused"): number {
     this.retireMeasurementAcquisition(status === "paused" ? "preview" : "source");
+    this.retireSavedMeasurements();
     const operation = ++this.interactionSourceOperation;
     this.invalidateInteractionDisplay(status);
     return operation;
@@ -1056,6 +1094,7 @@ export class MolstarEngine implements MolecularViewer {
   private failInteractionSourceUpdate(operation: number, generation: number, plugin: PluginUIContext, error: unknown): void {
     if (this.disposed || this.plugin !== plugin || this.generation !== generation) return;
     this.interactionSourceGeneration = -1;
+    this.retireSavedMeasurements();
     const reason = error instanceof Error ? ` ${error.message}` : "";
     this.interactionSourceError = `Molecular display unavailable. Reload the workspace to retry.${reason}`;
     this.completeInteractionSourceUpdate(operation);
@@ -1627,6 +1666,7 @@ export class MolstarEngine implements MolecularViewer {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    this.retireSavedMeasurements();
     this.retireMeasurementAcquisition("disposed");
     this.invalidateInteractionDisplay("pending");
     this.interactionDisplayListeners.clear();
@@ -1791,7 +1831,7 @@ export class MolstarEngine implements MolecularViewer {
     }
     this.indexModels(loaded.entryId, refreshed, loaded.atomIds);
     this.applySelection();
-    await this.applyMeasurements();
+    // Saved geometry is installed only after the owning source operation completes.
     this.commitScene();
   }
 
@@ -2159,44 +2199,56 @@ export class MolstarEngine implements MolecularViewer {
     return combined;
   }
 
-  private async applyMeasurements(): Promise<void> {
-    const plugin = this.plugin;
-    if (!plugin) return;
-    if (this.measurementRefs.length) {
-      const update = plugin.state.data.build();
-      for (const ref of this.measurementRefs) update.delete(ref);
-      await update.commit();
-      this.measurementRefs = [];
-    }
-    for (const measurement of this.measurements.filter((item) => item.visible)) {
-      const locis = measurement.atom_references.map((reference) =>
-        this.lociFor([reference]),
-      );
-      if (locis.some((loci) => loci === null)) continue;
-      const valid = locis as StructureElement.Loci[];
-      const options = { customText: measurement.label };
-      const result =
-        measurement.kind === "distance"
-          ? await plugin.managers.structure.measurement.addDistance(
-              valid[0],
-              valid[1],
-              options,
-            )
-          : measurement.kind === "angle"
-            ? await plugin.managers.structure.measurement.addAngle(
-                valid[0],
-                valid[1],
-                valid[2],
-                options,
-              )
-            : await plugin.managers.structure.measurement.addDihedral(
-                valid[0],
-                valid[1],
-                valid[2],
-                valid[3],
-                options,
-              );
-      if (result) this.measurementRefs.push(result.selection.ref);
+  private retireSavedMeasurements(): void {
+    this.measurementEpoch++;
+    this.savedMeasurementBatch?.retire();
+    this.savedMeasurementBatch = undefined;
+    this.measurementRefs = [];
+    for (const batch of this.stagedMeasurementBatches) batch.retire();
+  }
+
+  private applyMeasurements(): Promise<void>;
+  private applyMeasurements(sourceOwner: MeasurementSourceOwner): Promise<void | (() => void)>;
+  private async applyMeasurements(sourceOwner?: MeasurementSourceOwner): Promise<void | (() => void)> {
+    const plugin = this.plugin, canvas = plugin?.canvas3d;
+    const epoch = this.measurementEpoch, generation = this.generation;
+    const operation = this.interactionSourceOperation;
+    const current = (completed: boolean) => !this.disposed && this.plugin === plugin && this.plugin?.canvas3d === canvas
+      && epoch === this.measurementEpoch && generation === this.generation && operation === this.interactionSourceOperation
+      && (!completed && sourceOwner?.generation === generation && sourceOwner.operation === operation
+        || this.boundGeneration === generation && this.interactionSourceGeneration === generation
+          && this.interactionSourceCompleted === operation && !this.interactionSourceError)
+      && !this.modelPreview && !this.coordinatePreviews.size && !this.interactionPreviewEntries.size
+      && !this.pocketPreviewEntries.size;
+    if (!plugin || !canvas || !current(false)) return;
+    const data = savedMeasurementData(this.measurements, reference => this.lociFor([reference]));
+    if (!data.records.length) return;
+    const batch = new SavedMeasurementBatch(data, { webgl: canvas.webgl, ...plugin.representation.structure.themes });
+    this.stagedMeasurementBatches.add(batch);
+    let deferredPublication = false;
+    let publicationSettled = false;
+    const publish = () => {
+      if (publicationSettled) return;
+      publicationSettled = true;
+      try {
+        if (!current(true)) { batch.retire(); return; }
+        this.savedMeasurementBatch?.retire();
+        if (!batch.attach(canvas)) return;
+        if (!current(true)) { batch.retire(); return; }
+        this.savedMeasurementBatch = batch;
+        this.measurementRefs = data.records.map(record => record.id);
+      } catch (error: unknown) { batch.retire(); throw error; }
+      finally { this.stagedMeasurementBatches.delete(batch); }
+    };
+    try {
+      if (!await batch.prepare(() => current(false)) || !current(false)) { batch.retire(); return; }
+      if (sourceOwner) { deferredPublication = true; return publish; }
+      publish();
+    } catch (error: unknown) {
+      batch.retire();
+      if (current(false)) throw error;
+    } finally {
+      if (!deferredPublication) this.stagedMeasurementBatches.delete(batch);
     }
   }
 

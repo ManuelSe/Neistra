@@ -40,7 +40,7 @@ function setup() {
       const current = query.getQueryData<Project>(["project", project.id])?.entries.find(entry => entry.id === reference.structure_id);
       const source = query.getQueryData<StructureProjection>(structureQueryKey(project.id, reference.structure_id, current?.current_artifact_id));
       return source ? [[reference.structure_id, source.structure] as const] : [];
-    })), create: () => Promise.resolve(),
+    })), create: () => Promise.resolve("current"),
   });
   session.open(); const select = vi.fn();
   const content = (current: Project) => <QueryClientProvider client={query}><Tooltip.Provider>

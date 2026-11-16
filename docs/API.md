@@ -1136,3 +1136,36 @@ verified missing facts only in its calculation copy; canonical metadata is uncha
 Apply treats the preserved original pointer/hash as additional dependencies. Absent
 recovery is omitted from historical capture serialization. Full attestations remain
 in job parameters/reports, while compact molecular application annotations omit them.
+
+
+## Measurements and close contacts
+
+Measurement creation takes `expected_revision`, a nonblank name (up to120characters),
+`kind` (`distance`, `angle`, `dihedral`) and ordered `atom_references`. Each reference
+contains an entry `structure_id` and canonical positive `atom_id`. References may
+cross entries, including hidden/locked entries. Exact2/3/4target order is retained;
+target2 is the angle vertex. Creation, rename/visibility and deletion use existing
+reversible project commands and revision conflict handling. Drafts and acquisition
+leases are transient application state. No durable measurement schema changed.
+
+`POST /api/v1/projects/{project_id}/contacts` accepts `entry_id`, optional
+`expected_artifact_id`, `cutoff` (default2, greater than0 and at most10Å), and
+`minimum_distance` (default0.5Å, at least0 and less than cutoff). Success retains
+the existing JSON list of `{atom_1, atom_2, distance}` records, sorted by canonical
+IDs. All recorded bonded pairs are excluded. The minimum remains inclusive and0
+is supported; results are geometric within-entry Cartesian proximity.
+
+A source-bound read captures immutable input and verifies it again after computation.
+One ephemeral child is admitted at a time, with no queue: busy429, changed source409,
+capacity413, unsupported/invalid geometry422, deadline504, unavailable/startup503,
+and unexpected execution500. Existing missing project/entry404 responses remain.
+Disconnect/cancellation retires computation and staging. This read creates no
+persistent job, artifact, project command or edit history.
+
+Admission ceilings are100,000atoms,64MiB normalized source,2,000,000raw returned
+neighbors,250,000results and64MiB response. Excluded neighbors still consume raw
+candidate work. Computation has a15second deadline and polled1GiB child-RSS threshold;
+these are operational controls rather than all-host timing or instantaneous memory
+bounds. A refusal discards the entire result. Cleanup retains admission until owned
+reads/child termination and staging removal settle; cleanup failure closes admission.
+See D-167/D-168 and [measurement workflow](MEASUREMENTS.md).

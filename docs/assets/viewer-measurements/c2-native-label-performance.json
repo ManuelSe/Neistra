@@ -1,0 +1,40 @@
+{
+  "scope": "Independent scoped D170 performance correction; App not mounted, final feature/release gates pending",
+  "archive": "c2-native-label-performance.zip",
+  "files": 702,
+  "archive_bytes": 3833291,
+  "archive_sha256": "495fd013ffa8898e92c6b0e9fa8a2d32cc37f5cbb37c5df7561a8b2b62a6bb57",
+  "all_crc_and_member_hashes_verified": true,
+  "whitelist_sha256": "a2c6a98e6825ab2fdc7cc5c80acd3fb2f208b18ab8c368326f0705a848a8d890",
+  "final_receipt_sha256": "bb14609f46582cd2fa926867ff97a11fd777158898dcf21ae6641ad3623a2df3",
+  "frozen_and_live_web_source_identities_unchanged": 318,
+  "contexts": 12,
+  "main_exit": 0,
+  "scoped_verdict": "PASS",
+  "protein100_median_seconds": {
+    "install_before": 11.591,
+    "install_after": 0.9176,
+    "rename_before": 4.103,
+    "rename_after": 0.5358
+  },
+  "native_resources": {
+    "saved_geometry_representations": 3,
+    "saved_text_render_objects": 1,
+    "full1000_records_and_glyph_groups_preserved": true,
+    "font_image_bytes": 43092660,
+    "observed_saved_handles_destroyed_detached": 256,
+    "settled_staged_owners": 0
+  },
+  "degenerate_plane_warnings": 4,
+  "warning_disposition": "Retained raw native warnings; theory accepts nonunique0/180arc/sector-plane presentation limitation. Values, complete labels and anchors remain valid. Position/center attributes checked, not every possibleGPUattribute.",
+  "cleanup": "Main runner0; owned Vite intentionally SIGTERM143 only after completion. All16observed owned browserPIDs gone; ports5441/5443free.",
+  "limits": [
+    "Separate shared-host before/after runs, no strict-host or universal speedup claim.",
+    "1000-record context is one functional/capacity case, not repeated scaling evidence; lower latency cannot imply inverse scaling.",
+    "100ms sampled process RSS can miss instantaneous peaks; SwiftShader driver RSS is CPU-backed process memory, notGPUVRAM.",
+    "First nominal cycle installation was identical no-op; cycles2/3 reinstall, all3clear phases verified.",
+    "Dense long labels can overlap/be occluded; no claim all1000readable simultaneously.",
+    "Private harness type annotations after execution are verified runtime-byte-identical under both compilers; executed scripts retained.",
+    "FullApp/current-source/history/archives/both full release gates and all7finalsame-candidate assessments remain separate."
+  ]
+}

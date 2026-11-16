@@ -41,10 +41,12 @@ export interface MeasurementSave {
   readonly artifacts: readonly string[];
 }
 
+export type MeasurementSaveCompletion = "current" | "superseded";
+
 export interface MeasurementPorts {
   context(): MeasurementContext;
   structures(references: readonly AtomReference[]): ReadonlyMap<string, NormalizedStructure>;
-  create(capture: MeasurementSave, context: ProjectCommandContext): Promise<void>;
+  create(capture: MeasurementSave, context: ProjectCommandContext): Promise<MeasurementSaveCompletion>;
 }
 
 function empty(session = 0, generation = 0, kind: MeasurementKind = "distance"): MeasurementDraft {
@@ -245,7 +247,11 @@ export class MeasurementSession {
     this.pending = capture; // Synchronous duplicate guard before the first await.
     this.patch({ saving: true, notice: null });
     try {
-      await this.ports.create(capture, { assertDispatchable: () => this.assertDispatchable(capture), ownsFeedback: () => this.owns(capture) });
+      const completion = await this.ports.create(capture, { assertDispatchable: () => this.assertDispatchable(capture), ownsFeedback: () => this.owns(capture) });
+      if (completion === "superseded") {
+        if (this.owns(capture)) this.patch({ notice: "The project changed while Save was finishing. Check Saved measurements." });
+        return false;
+      }
       if (this.owns(capture)) {
         const slots = Array<null>(measurementTargetCount[this.state.kind]).fill(null);
         this.patch({ slots: Object.freeze(slots), artifacts: Object.freeze([...slots]), name: "", activeSlot: 0,

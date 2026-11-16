@@ -7967,3 +7967,36 @@ baselines. Qualify actual appearance and retain draft markers, structure labels,
 selection, camera and immutable originals. Thousand-record manager DOM/observer
 qualification remains separate. Scientific implementation author cannot supply
 independent final review; all seven final assessments remain required.
+
+## D-171 — Measurement acknowledgements and first-load recovery
+
+Date:2026-11-17. Child157 C2 correction to D-169; no durable/API schema change.
+
+Generic command feedback already ignored acknowledgements older than the monotonic
+project cache. Independent actual-App probes showed two later continuations could
+still announce an obsolete rename or clear a saved draft. Return a typed
+`current | superseded` completion from the measurement creation port. A superseded
+Save retains fields and directs its current owner to check Saved measurements;
+a retired owner remains inert. Saved rename/delete continuations independently
+compare their returned revision with their own project cache before success text.
+Dispatch/source/visit/preview guards and monotonic cache admission remain in force.
+
+Classify recovery once on the first loaded state of each project during an App
+mount, including an initially clean state. A late acknowledgement can then update
+its own cache without being misclassified as startup recovery after A→B→A. A fresh
+App still announces genuinely persisted dirty state. Independent architecture
+assessment passes the corrected actual-App/session probes; this is scoped review,
+not final feature approval.
+
+Ordered persistence qualification compares all record content while recognizing
+that Undo/Redo is a new command and legitimately advances modification timestamps.
+IDs, creation dates, full names, visibility and ordered cross-entry references
+restore exactly; modification time remains monotonic. Both archive suffixes retain
+current-state data and their established history omission. The new wrapper selects
+actual implementation modules before Python starts and verifies their provenance.
+Development0.34↔actual tagged0.34preflight does not substitute for final0.35readers.
+
+A physical loopback TCP disconnect test now closes a real held request, observes
+child reaping and staging removal, then verifies renewed admission through another
+actual HTTP request. It preserves project/artifact state. This supplements the
+previous callback-level cancellation controls without relabelling that evidence.

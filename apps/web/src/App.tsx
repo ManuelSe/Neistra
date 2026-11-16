@@ -164,6 +164,7 @@ export default function App() {
   const [groupDialog, setGroupDialog] = useState<GroupDialogRequest | null>(null);
   const [notice, setNotice] = useState<ApplicationNoticeValue | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
+  const recoveryClassifiedProjects = useRef(new Set<string>());
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [selectionColorMode, setSelectionColorMode] =
     useState<SelectionColorMode>("carbon");
@@ -292,10 +293,12 @@ export default function App() {
   }, [activeProjectId, projectsQuery.data, setActiveProjectId]);
 
   useEffect(() => {
-    if (project?.has_uncheckpointed_changes && !editedThisSession) {
+    if (!project || recoveryClassifiedProjects.current.has(project.id)) return;
+    recoveryClassifiedProjects.current.add(project.id);
+    if (project.has_uncheckpointed_changes && !editedThisSession) {
       setNotice(current => current ?? { kind: "success", text: "Recovered locally stored changes." });
     }
-  }, [editedThisSession, project?.has_uncheckpointed_changes, project?.id]);
+  }, [editedThisSession, project]);
 
   const updateProjectCache = (next: Project) => {
     const previous = queryClient.getQueryData<Project>(["project", next.id]);
@@ -522,8 +525,10 @@ export default function App() {
       }));
     },
     create: async (capture, context) => {
-      await commandMutation.mutateAsync(captureProjectCommand(capture.project.id,
+      const next = await commandMutation.mutateAsync(captureProjectCommand(capture.project.id,
         () => projectApi.createMeasurement(capture.project, capture.name, capture.kind, capture.references), "quiet", context));
+      const current = queryClient.getQueryData<Project>(["project", next.id]);
+      return current && current.revision > next.revision ? "superseded" : "current";
     },
   };
   useLayoutEffect(() => {
@@ -1100,8 +1105,9 @@ export default function App() {
       },
     };
     try {
-      await commandMutation.mutateAsync(captureProjectCommand(captured.id, () => operation(captured), "quiet", context));
-      if (ownsFeedback()) measurementSession.notify(message, scope.session);
+      const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id, () => operation(captured), "quiet", context));
+      const current = queryClient.getQueryData<Project>(["project", captured.id]);
+      if (ownsFeedback() && (!current || current.revision <= next.revision)) measurementSession.notify(message, scope.session);
     } catch (error) {
       if (ownsFeedback()) measurementSession.notify(errorMessage(error), scope.session);
       throw error;

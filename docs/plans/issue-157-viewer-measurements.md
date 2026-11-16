@@ -399,3 +399,83 @@ held lifecycle failure cases, constant resource counts, no-op and repeated cycle
 No new caps, reduced quality, omitted valid records, dependencies or schema changes.
 Then complete current contact/preview/held Save/history/reload/both-suffix reader
 acceptance. Full versions/gates and final seven-role review remain C3/C4 work.
+
+### C2 evidence in progress — native batching and recovery
+
+D-170 implementation passes104focused adapter/Engine/regression cases and the
+complete frontend lint/types/1,173tests in118suites/build. Fresh native2 executes
+all14focused cases:13passes plus one exact existing mobile inspector exclusion,
+zero automatic retries/new exclusions. It includes both-theme mouse/touch picks,
+hidden/locked cross-entry chooser, failure/retry, held Save close/reopen, Undo/Redo,
+reload and original-byte invariance. Both actual child and enclosing runner exit0.
+The first focused native run stopped during unexpected document navigation; Vite
+reconnect was observed, cause unestablished. Its raw trace/log remain separate.
+
+D-171 closes three independently reproduced late-feedback leaks. Scoped architecture
+assessment passes31affected cases; root focused39frontend cases and29API/persistence/
+physical-disconnect cases pass. The latter includes27retained contact lifecycle
+controls, one actual loopback TCP disconnect and one ordered persistence case.
+The actual tagged0.34source extraction verifies885identities. Its seven-command
+new-state preflight passes both producer/reader directions, both archive suffixes,
+full names/visibility/ordered targets and live Undo/Redo;403current Python identities
+remain unchanged. A subsequent test-only TCP addition has its own404-source map.
+This is development-version evidence; final0.35compatibility remains mandatory.
+
+Independent native after measurements retain every full label, ordered actual loci
+and copied anchor at10/100/1000records with at most three geometry representations
+and one text representation. Theory accepts the observed0/180degree native sector
+warnings as a disclosed presentation limitation: numerical values and labels remain
+valid, and the raw warnings stay retained. Finite position/center attribute checks
+are not a claim about every GPU attribute. Full performance receipt/packaging and
+full-App320px/actual browser zoom/focus checks are being finalized before C2 commit.
+
+### C3 gate extension for newly authored measurement state
+
+Keep all35baseline release-gate commands and append the seven source-bound ordered
+measurement producer/reader commands (two directions, fresh migrations, final0.35
+versus actual tagged0.34). Both candidate and exact merged master therefore execute
+42fresh sequential commands. The extension adds the required new-state evidence;
+no existing check is removed, pooled from a partial gate, skipped, retried or given
+a weaker deadline. Extend independent log/source/module/suffix/content audit and
+recursive release packaging to cover the new family. Final all-seven assessments
+must cover the same final candidate, with fresh nonauthor scientific implementation
+and UI reviewers. Version, protection, publication and parent boundaries stand.
+
+### C2 — Qualified native resources and recovery checkpoint
+
+The [complete focused packet](../assets/viewer-measurements/c2-measurement-checkpoint.json)
+retains124files with member hashes/ZIP CRCs:1173frontend/118suites and web lint/types/
+build pass;13native workflows plus four additional actual320px/100–200%browser-zoom
+cases pass with keyboard focus/Escape recovery, real native picks, zero axe
+violations and unchanged canonical selection/project state. One exact existing
+mobile inspector exclusion remains; no new exclusions/retries. Both final focused
+native child/enclosing exits0. Common918sources remain exact; only the new physical
+TCP and accessibility test files extend the final map to920, with their own passing
+checks.29API/persistence cases and the seven-command development reader preflight
+pass. Original stopped runs, traces and precise test-harness corrections remain
+separate; no partial focused evidence is described as a complete release gate.
+
+The [after performance packet](../assets/viewer-measurements/c2-native-label-performance.json)
+retains702files, all hashes/CRCs verified. Twelve actual native contexts preserve
+full IDs/ordered loci/text/glyph anchors across10/100/1000records, using three
+geometry representations and one text representation. All256observed saved handles
+are destroyed/detached and staged owners settle to0. Protein100median install is
+0.9176s and rename0.5358s versus11.591s/4.103sbaseline, separate shared-host runs.
+No-op work remains0. The1000case is functional capacity evidence, not repeated
+scaling evidence; lower timing cannot imply inverse scaling. Sampled process RSS
+is not instantaneous GPU VRAM. Four native degenerate-plane warnings stay retained
+with theory's accepted arc/sector limitation and precise checked-attribute scope.
+
+All318frozen/live performance source identities verify. Main measurement runner0;
+its owned Vite receives intentionalSIGTERM143 only after completion, with all16
+observed browser PIDs gone and owned ports free. This is distinct from earlier
+unexplained enclosing143 diagnostics. User workflow/API/architecture/scientific
+limits are documented. D-171 records typed acknowledgement/recovery corrections.
+Scoped architecture, theory and performance PASS their respective assessments;
+scientific implementation authoring is not an independent review. All-seven final
+feature assessment remains C4, with fresh nonauthor scientific/UI reviewers.
+
+C2 is a local passing checkpoint; all five versions remain0.34.0. No schema,
+migration or dependency change. Next C3: version preparation, actual final-version
+preceding-reader evidence, all42fresh gate commands; then same-candidate final
+specialist review, normal protected delivery and exact merged qualification.

@@ -21,7 +21,7 @@ function setup(preferred: string | null = null) {
   const session = new MeasurementSession({
     context: (): MeasurementContext => ({ project: query.getQueryData<Project>(["project", project.id]), activeProjectId: useWorkspaceStore.getState().activeProjectId,
       selectionProjectId: useSelectionStore.getState().projectId, projectEpoch: useSelectionStore.getState().projectEpoch, paused, busy: false }),
-    structures: () => new Map([["entry", proteinStructure()]]), create: () => Promise.resolve(),
+    structures: () => new Map([["entry", proteinStructure()]]), create: () => Promise.resolve("current"),
   });
   session.open(); const select = vi.fn();
   const view = render(<QueryClientProvider client={query}><MeasurementContacts project={project} session={session} preferredEntryId={preferred} paused={false} onSelect={select} /></QueryClientProvider>);
