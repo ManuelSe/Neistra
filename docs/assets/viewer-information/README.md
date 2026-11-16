@@ -17,3 +17,11 @@ documented projection contract and final native override; no application source
 changed. Its complete 107-file native tree and checked forensic ZIP remain locally
 retained. The manifest, interrupted case and lossless logs are tracked. Candidate6
 must repeat the complete gate; partial runs and scoped assessments are not pooled.
+
+Candidate6 is failed diagnostic evidence: 172 native passes, four actual existing
+skips, one failed journey and 387 not-run cases. The trace establishes a late current
+atom initialization overwriting an already edited X value. All 28,019 native files
+and the checked forensic ZIP remain locally retained; its full manifest, failed
+case and logs are tracked. `c4-atom-draft.json`/ZIP preserve the readiness correction,
+layout-phase regressions and unchanged exact-coordinate journey. No complete gate
+pass is claimed; candidate7 repeats all commands.

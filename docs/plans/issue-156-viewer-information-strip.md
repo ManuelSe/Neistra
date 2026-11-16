@@ -171,3 +171,35 @@ inspection. These are scoped assessments, not final readiness or a complete gate
 Fresh candidate6 repeats all 35 commands from a clean committed state with the
 same application sources. Final seven-role approval, normal merge, fresh exact
 merged qualification and verified publication remain required.
+
+### C3 correction — current atom draft initialization
+
+Candidate6 at `37c3e040` passed its Python/frontend/tooling steps and 172 native cases
+before the release journey failed; four actual existing skips and 387 not-run cases
+remain distinct. The trace proves X was successfully filled with 4 while the atom
+fields were enabled during Loading. The later current projection initialized the
+selected atom, overwriting X before Y was filled. The submitted API coordinates and
+stored atom were already `[0.4124306555560202, 1, 0]`. This is a product draft-loss
+race, not a missed input or backend rewrite. The exact `[4, 1, 0]` assertion remains.
+
+All 28,019 raw native files and the checked 1,225,233,062-byte forensic ZIP remain
+locally preserved. The full member manifest, failed case, browser report and
+lossless logs are tracked. The global maximum-failure stop notice is not a second
+test defect. These are diagnostics, not complete qualification.
+
+The atom form now commits its target owner and element/charge/XYZ together. Fields
+remain disabled until the current projection and target are initialized. A new
+object for the same immutable owner cannot overwrite manual input; changed targets
+and A→pending-B→A visits reinitialize. Missing singleton targets remain unavailable.
+Absolute Add with no/multiple selection, unknown charge, busy/locked guards and
+other editing sections retain their existing contracts. No loader or schema change.
+
+[Scoped evidence](../assets/viewer-information/c4-atom-draft.json) retains four
+initial component failures/four controls and the final eight passes, including a
+layout-phase observation before passive initialization. All 1,028 frontend cases,
+types/lint/build and the unchanged desktop release journey plus desktop/mobile
+editing workflows pass: three native passes/three existing exclusions, no
+failure/flake/retry. Reference research, architecture consultation and independent
+trace assessment informed an original readiness safeguard; no external GUI parity
+is asserted. Fresh candidate7 repeats the complete 35-command gate. Final
+same-candidate assessments and all publication stages remain pending.

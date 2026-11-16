@@ -7721,3 +7721,16 @@ Keep atom-hover subscription/render state in a narrow viewer-information child. 
 Selected details own one bounded hidden-source observer only while the disclosure and chosen subject remain current. The pinned query library misses teardown when an observer array only loses its trailing items. Use four fixed quick-inspection slots with unique disabled empty-entry identities, plus one ordinary detail query, retaining existing immutable source keys and cancellation. Release local observers without globally cancelling shared consumers. Test4→1→0, disclosure close, selection retirement, held cancellation, shared consumers and later retired artifact changes. No dependency patch or broader observer refactor is included.
 
 Secondary target choices expose canonical atom IDs and known alternate sites; duplicate entry names gain exact entry identity. Passive strip copy stays compact. Below400px, overflowing header actions scroll inside their own bounded area with focus-outline padding, preventing keyboard focus from shifting the whole viewer outside the viewport. Actual browser zoom uses the fractional visual viewport for containment; integer window dimensions can truncate half a CSS pixel.
+
+### D-165 clarification — atomic atom-field readiness
+
+The complete release journey exposed editable XYZ fields before their current
+selected-atom initialization. A traced late projection overwrote an accepted X=4
+before submission. Keep element, charge, coordinates and initialized owner in one
+atomic local draft. Owner visits include project, chosen editor entry, immutable
+artifact and single target; returning through a missing source is a new visit.
+Gate the Atoms fieldset until current initialization commits, preserve same-owner
+manual drafts across equivalent refetch objects, and keep missing targets explicit.
+No/multiple selection marks its owner without reseeding absolute-add inputs.
+Existing projection qualification, explicit command publication and other editing
+guards remain authoritative. Preserve exact native input/assertion requirements.

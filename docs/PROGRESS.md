@@ -17,20 +17,26 @@ all focus/camera/molecular/history/network assertions remain. Candidate5 was
 intentionally interrupted after 126 native passes to investigate a specialist
 finding, subsequently withdrawn after tracing the documented active-coordinate
 projection and final renderer override. No product defect was established and no
-application source changed. All diagnostics remain retained; fresh candidate6
-repeats the complete 35-command gate. No complete final-version gate or application
-publication is claimed.
+application source changed for that investigation. Candidate6 subsequently stopped
+at a real legacy atom-draft race after 172 native passes: editable X=4 was overwritten
+by late current-source initialization before submission. Its complete diagnostics
+remain retained. Atomic target initialization now gates the Atoms fields and retains
+same-owner edits. All 1,028 frontend cases and three focused native workflows pass
+with three unchanged exclusions; the exact journey coordinates remain asserted.
+Fresh candidate7 repeats all 35 commands. No complete final-version gate or
+application publication is claimed.
 
 Independent #158 preparation is recorded in a separate local worktree at checkpoint
-`a4190bdf`: 2,639 Python/zero skips, 1,030 frontend/108 suites, eight final native workflows,
-source-bound reader diagnostics and scoped scientific/recovery/resource corrections.
+`c62feb37`: fresh 2,664 Python tests and 1,033 frontend cases after additional strict
+query/water/visit corrections. Earlier native/reader evidence remains source-bound;
+current image-download/decode recovery and native requalification remain pending.
 Its implementation is unpushed and must integrate verified #156/#157 master before
 final release-version gates and all-seven review. Dependent later features remain
 unimplemented; their source-based planning refinements add no runtime claims.
 
 Known limits: preview geometry is explicitly unavailable; no new durable schema is
 introduced by #156. Blockers: no owner scope decision required. Next: freeze and
-qualify candidate6, obtain final same-candidate assessments, then protected merge,
+qualify candidate7, obtain final same-candidate assessments, then protected merge,
 exact-master qualification and verified release before #157. One program Goal stays
 active until every required child and parent closeout is verified.
 
