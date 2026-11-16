@@ -18,9 +18,9 @@ ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "docs/assets/interaction-inspection/release-evidence.py.txt"
 
 
-@pytest.fixture(scope="module")
-def tools() -> dict[str, Any]:
-    return runpy.run_path(str(SCRIPT))
+@pytest.fixture(scope="module", params=["interaction-inspection", "ligand-designation"])
+def tools(request: pytest.FixtureRequest) -> dict[str, Any]:
+    return runpy.run_path(str(ROOT / "docs/assets" / request.param / "release-evidence.py.txt"))
 
 
 def zipped(items: dict[str, bytes], manifest: Any = None) -> bytes:
@@ -69,6 +69,19 @@ def test_recursively_verifies_gzip_logs_and_nested_portable_archives(tools: dict
         "evidence_manifest_entries": 1,
         "project_archive_files": 1,
     }
+
+
+def test_ligand_evidence_checks_schema_three_portable_file_integrity() -> None:
+    tools = runpy.run_path(str(ROOT / "docs/assets/ligand-designation/release-evidence.py.txt"))
+    data = b"preserved original and designation source"
+    manifest = {"schema_version": 3, "files": [{
+        "path": "original.mol", "size": len(data), "sha256": tools["sha"](data),
+    }]}
+    result = tools["verify_layers"](zipped({"original.mol": data}, manifest), "current.zip")
+    assert result["project_archive_files"] == 1
+    manifest["files"][0]["sha256"] = "0" * 64
+    with pytest.raises(AssertionError):
+        tools["verify_layers"](zipped({"original.mol": data}, manifest), "corrupted-current.zip")
 
 
 @pytest.mark.parametrize("variant", ["changed", "missing", "unexpected", "wrong-size", "bad-hash"])
@@ -205,11 +218,11 @@ def source_snapshot(tools: dict[str, Any], tmp_path: Path) -> tuple[Path, dict[s
         check=True,
         capture_output=True,
     )
-    destination = source / "docs/assets/interaction-inspection"
+    destination = source / tools["ASSETS"]
     destination.mkdir(parents=True)
     for name in tools["TOOL_NAMES"]:
         (destination / name).write_bytes(
-            (ROOT / "docs/assets/interaction-inspection" / name).read_bytes()
+            (ROOT / tools["ASSETS"] / name).read_bytes()
         )
     application = source / "apps/qualified.py"
     application.parent.mkdir()
@@ -238,7 +251,7 @@ def test_source_inventory_uses_explicit_root_and_allows_generated_document_evide
     tools: dict[str, Any], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     source, snapshot = source_snapshot(tools, tmp_path)
-    document = source / "docs/assets/interaction-inspection/unit-summary.json"
+    document = source / tools["ASSETS"] / "unit-summary.json"
     document.write_text('{"scope": "source-guard unit observation only"}\n')
     outside = tmp_path / "outside"
     outside.mkdir()

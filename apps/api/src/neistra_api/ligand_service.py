@@ -93,7 +93,7 @@ class LigandService:
 
         def metadata(candidate: LigandCandidateV1) -> LigandCandidateV1:
             if context is None or not candidate.selectable or not candidate.potential_ligand:
-                return candidate
+                return candidate.model_copy(update={"formal_charge": None})
             chemistry = context.qualify(candidate.atom_ids)
             return candidate.model_copy(update={
                 "chemistry_status": chemistry.status,
@@ -102,7 +102,7 @@ class LigandService:
                 "formula": chemistry.formula,
                 "molecular_weight": chemistry.molecular_weight,
                 "formal_charge": chemistry.formal_charge if chemistry.status == "qualified"
-                else candidate.formal_charge,
+                else None,
             })
 
         # Presentation ranking never changes eligibility or automatic assignment.

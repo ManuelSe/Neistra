@@ -63,7 +63,7 @@ No new dependency or broader acquisition/CCD/preparation/interaction diagram/met
 
 ## Verification and release plan
 
-Provisional additive stable **0.36.0** from preceding serial release, rechecked for actual compatibility/collisions at preparation. Update all five parent-listed authoritative version sources together; no C0 version changes. Exact migration/schema head depends on this child and previous delivered units, recorded before code and tested, never assumed from initial0015.
+Provisional pre-1.0 minor **0.36.0** from the preceding serial release, rechecked for actual compatibility/collisions at preparation. The serialization contract is breaking: project/checkpoint/archive schema 3 and migration 0016 deliberately refuse older readers rather than discard designation state. Keep the breaking-change commit/release notice explicit; this is not an additive compatibility claim. Update all five parent-listed authoritative version sources together; no C0 version changes. Exact migration/schema head depends on this child and previous delivered units, recorded before code and tested, never assumed from initial0015.
 
 Use complete current release gate and actual preceding source-bound producer/readers rather than historical case counts. Include this child's new state and existing rich/connectivity/editing families. Portable timing is not strict-host certification. Seven specialist assessments supplement tests/self-review and do not replace GitHub-required human approvals. Publish qualificationZIP plus checksum/package sidecars per existing verified convention and anonymously verify all hashes/CRC. Immutable tag targets exact qualified merged master; terminal receipts use assets/issue reply or normal documentation PR without moving tag.
 
@@ -119,3 +119,62 @@ Native1used an incorrect image CSS locator; native2exposed a real developmentStr
 Independent ASGI work measurements:12card metadata shares one preparation/originalparse;12warm drawings perform zero inventory/qualification/layout and verify36current/original/output payloads. Busy slots stillserve cache hits; coordinate rebind reuses content with zero layout; binding rotation and simultaneous admission at capacity preserve data and bounds. Timing remains diagnostic.1,024content/512KiBoutput/128MiBconservative aggregate limits retain all admitted drawing artifacts; no unbounded row-eviction or broadGC. Imported assessment revision remains historical provenance, never a comparison to the new project's currentrevision.
 
 No final feature, all-seven same-candidate approval, push, PR, release or closeout is claimed. Current development versions remain unchanged pending actual preceding156/157integration; complete gates and tagged-reader checks must use the real predecessor then.
+
+### C2 pre-code qualification refinement — explicit schema boundary
+
+Existing rich/current-connectivity/editing qualification assumed mutual schema2read/write. Preserve every positive scientific/state fixture and deep negative oracle, but qualify the accepted schema3fence explicitly. In isolated actual-source processes: current produces rich/current-connectivity/editing/designation states; the actual predecessor refuses copied current live stores (unknown0016and missingoldroot table) and both current archive suffixes without row/artifact mutation, while independently producing its original positive states; current migrates those predecessor stores0015→0016, checks all preceding fields plus exact new defaults, reexports/imports both suffixes, and reopens its original states unchanged. Refusal and retention counts/phase labels/heads are separate evidence, never replacement zeros under old labels.
+
+New editing/designation qualification retains three actual-source phases (`produce-current`, `refuse-current-produce-previous`, `read-previous-reopen-current`) and all existing15editing cases/24transitions, corruption/stale/allocator controls and six deep-oracle negative controls; add exact designation/remapping assertions. Version-specific recipe/summary/packaging must validate this explicit protocol. Diagnostic work may use the verified0.33source; final qualification binds the actual released predecessor after156/157integration.
+
+### C2 verified independent checkpoint — lineage, recovery and actual-source diagnostics
+
+[Checkpoint evidence](../assets/ligand-designation/c2-checkpoint.json) records a fresh
+**2,639-pass Python run, zero skips**, with all **928** selected source identities
+unchanged. All **1,030 frontend tests/108 suites**, web lint/types/build, global Ruff,
+API/core/plugin types and seven reader-helper type checks pass. Five development
+versions remain 0.33.0; dependencies and historical migrations are unchanged, with
+project/archive3, viewer2 and head0016. Production bootstrap/license audit passes.
+These development checks are separate from final release-version qualification.
+
+Final native attempt6 passes eight desktop/mobile/theme workflows with zero
+failures/flakes/retries/skips. It includes real instance choice and bond-split stale
+recovery, actual100%/200% browser zoom,320px containment/Axe, original bytes, exact
+focus/cancellation and unchanged persisted state after review. Both native attempts
+5/6 and all earlier accessibility attempts remain available.
+
+Scientific correction preserves immutable original lineage across label/chemical
+edits and anchored additions/deletions, with known split/merge guards. Present
+scheme contradictions, null semantics, multiple waters, raw macrolide/unknown
+classes, implicit-H ions and legacy original recovery have independent regressions.
+Original bytes/presence are part of inventory identity. Unqualified molecular charge
+is withheld. Scoped theory, implementation and architecture assessments resolve
+those findings; final all-seven integrated-candidate assessment remains pending.
+
+Recovery warnings identify unavailable originals and stale sources. Failed current
+input checks retire cached cards/images and Use eligibility; a matching successful
+recheck can restore a draft. Context-visit feedback cannot return after choice,
+Undo/Clear or A→B→A. Scoped UI/UX assessments and41component cases cover the final
+correction. Shared exception aliases retain one implementation across both package
+namespaces.
+
+A measured per-row optional-column allocation was quadratic: at1,000scheme rows,
+4,000,000discarded list slots become zero, and1,000missing-coordinate fallback
+allocations become one. Four work-count regressions and independent before/after
+probes preserve mapping semantics and linear-pattern/cluster bounds. The qualified
+25-ethanol ASGI workload again uses one preparation/original parse for12metadata
+cards;12warm drawings do zero inventory/chemistry/layout work and verify36payloads.
+These are workload-specific portable observations, not strict-host timing claims.
+
+Fresh actual v0.33 source diagnostics pass all15explicit reader commands after the
+corrections: rich/connectivity safe refusals, independent old-authoring, current
+migration/reopen, and editing/designation three-phase checks. All owned stores,
+artifacts, original specimens, commands and raw observations are retained. The
+initial broad/full failures, missing native-tool environment attempt and version
+command missing its module path are retained diagnostics; none is pooled into a
+passing gate. Historical schema fixtures, missing aliases and the stale schema2
+assertion were corrected before the fresh complete2,639case run.
+
+This is a passing local checkpoint, not finished feature delivery or readiness to
+push. Final integration still waits for verified156/157master and the real released
+predecessor, consistent final versions, both complete35-command gates and all-seven
+same-candidate review before protected publication/closeout.

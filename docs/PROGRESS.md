@@ -2,13 +2,38 @@
 
 ## Current milestone
 
-Parent#11required156–163program remains active through verified release and closeout. Independent158pre-code preparation uses this isolatedworktree fromC0248807ec;156implementation/versioncandidate qualification continues in the originalprogramworktree. Publication order and finite dependencies/exclusions are unchanged.
+Parent #11 and required children #156–#163 remain active through verified releases
+and parent closeout. #156's candidate4 stopped near the end of its mobile suite:
+466 passes, one fixed drag sample occluded by an open movement-panel border, and
+23 remaining cases not reached. All diagnostics are retained; a bounded native-path
+fixture correction and focused tail coverage precede the next complete gate.
 
-Implemented in the independent158worktree: exact candidate inventory/source qualification; first-class durable designation; conservative disposable2Dchemistry; schema3/0016older-reader fence; exact molecular/history/duplicate/archive reconciliation; controlled legacy-default enrichment preserving all200retained history/redo records; bounded depiction admission/cache; compact inspected-entry chooser with explicitUse/Clear. This is an initial vertical checkpoint, not finished delivery. No application push/PR/release/closure.
+Independent #158 preparation has a verified local C2 checkpoint after initial
+`d283ea9b`: **2,639 Python/zero skips with all 928 source identities unchanged;
+1,030 frontend/108 suites; eight final native workflows**, global lint/types/build,
+reader-helper types and development-version/production audits. Actual 320px and
+100%/200% zoom include real stale-choice recovery warnings, Axe and focus checks.
+[Checkpoint](assets/ligand-designation/c2-checkpoint.json) retains failed attempts,
+raw observations and current-source reader stores separately from final evidence.
 
-Verification:217focused domain/API/scientific cases,133historical migration cases,14finaldesignation cases,1,011frontend cases/108suites, Ruff, API/coremypy227, web lint/types/build pass. Native3passes4desktop/mobiletheme workflows with zero failures/flakes/retries; failed locator/StrictMode attempts remain diagnostics in [checkpoint evidence](assets/ligand-designation/c12-checkpoint.json). Ordinary large-chunk build warnings remain.
+Current #158 source diagnostics pass 15 commands against actual released v0.33
+source: older-reader safe refusal, independently old-authored retention/migration
+and current reopening. They are not final qualification against the later released
+predecessor. Scientific lineage/ion/scheme, recovery feedback, legacy aliases and
+measured allocation findings are corrected. The C2 feature branch is not ready to
+push: final integration, versions, both full gates and all seven final assessments
+remain required. No program application push, PR, release or child closure is claimed.
 
-Known limits: source-qualified chemistry only; candidate extraH/layout cap does not bound original parse/index work. Depiction aggregate accounting conservatively counts sharedcontent references. Assessment revision is historical provenance after archive import, never current-input freshness. Blockers: none requiring owner scope changes. Next: actual100/200zoom and fuller native lifecycle/negative cases, actualtaggedreader refusal and complete158gates/reviews; integrate verified preceding156/157master before publication.156remains frozen in its own candidate3release gate; finite program dependencies/exclusions are unchanged.
+Read-only research refines #159/#160's future contracts: descriptor options and H
+normalization, source-qualified named optional profiles and installation-preference/
+derived-cache ownership. These dependent features remain unimplemented. Publication
+order, dependency graph, exclusions and the original master checkout are preserved.
+
+Known limits: source-qualified chemistry only; original parse/index work stays
+upload-bound; cache work counts are workload-specific. Imported assessment revision
+is historical provenance. Blockers: none requiring an owner scope decision. Next:
+commit the passing local checkpoint, complete #156 qualification/review/release,
+then continue the serial program and integrate the actual prerequisites for #158.
 
 ### Previous completed milestone — issue #152
 

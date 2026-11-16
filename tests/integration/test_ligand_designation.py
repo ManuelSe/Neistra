@@ -157,6 +157,45 @@ def test_current_artifact_is_required_for_candidate_reads_and_clear(
     assert client.get(f"/api/v1/projects/{project['id']}").json() == project
 
 
+def test_unavailable_chemistry_does_not_publish_observed_atom_charge_as_molecular_charge(
+    client: ApiClient, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import neistra_api.ligand_service as module
+    from neistra_core.ligands.chemistry import QualifiedLigandChemistry
+
+    project = imported(client)
+    qualified = candidates(client, project)["candidates"][0]
+    assert qualified["chemistry_status"] == "qualified"
+    assert qualified["formal_charge"] == 0
+
+    class UnavailableChemistry:
+        def qualify(self, _atom_ids: list[int]) -> QualifiedLigandChemistry:
+            return QualifiedLigandChemistry("unavailable", reason="unknown_valence")
+
+    monkeypatch.setattr(
+        module, "prepare_chemistry", lambda *_args, **_kwargs: UnavailableChemistry(),
+    )
+    unavailable = candidates(client, project)
+    assert unavailable["candidates"][0]["chemistry_status"] == "unavailable"
+    assert unavailable["candidates"][0]["formal_charge"] is None
+    assert unavailable["designated_candidate"]["formal_charge"] is None
+    assert client.get(f"/api/v1/projects/{project['id']}").json() == project
+
+
+def test_ineligible_card_does_not_expose_an_unqualified_molecular_charge(client: ApiClient) -> None:
+    project = client.post("/api/v1/projects", json={"name": "Ion exclusion"}).json()
+    imported_response = client.post(
+        f"/api/v1/projects/{project['id']}/imports",
+        data={"expected_revision": project["revision"], "generate_3d": "false"},
+        files=[("files", ("ion.smi", b"[Na+] sodium\n", "chemical/x-daylight-smiles"))],
+    )
+    assert imported_response.status_code == 201, imported_response.text
+    project = client.get(f"/api/v1/projects/{project['id']}").json()
+    card = candidates(client, project)["candidates"][0]
+    assert card["boundary_status"] == "ineligible"
+    assert card["formal_charge"] is None
+
+
 @pytest.mark.parametrize("first_replay", ["undo", "redo"])
 @pytest.mark.parametrize("intent", ["resolved", "cleared", "unresolved"])
 def test_legacy_molecular_history_materializes_both_intent_snapshots_once(

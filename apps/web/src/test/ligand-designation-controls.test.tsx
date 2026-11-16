@@ -5,6 +5,7 @@ import { act, cleanup, render, screen, waitFor, within } from "@testing-library/
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Entry } from "../api/types";
+import { ApiError } from "../api/client";
 import { LigandDesignationControls } from "../components/LigandDesignationControls";
 import { ligandApi } from "../ligands/api";
 import type { LigandApi, LigandCandidate, LigandCandidatesRead, LigandDepictionRead } from "../ligands/types";
@@ -15,6 +16,13 @@ const candidatesMock = vi.fn<LigandApi["candidates"]>();
 const depictionMock = vi.fn<LigandApi["depiction"]>();
 afterEach(() => { cleanup(); clients.splice(0).forEach(client => client.clear()); vi.restoreAllMocks(); });
 const entry = () => molecularEntry("entry-a", "Complex", "complex");
+function resolvedEntry() {
+  const owner = entry();
+  owner.ligand_designation = { ...owner.ligand_designation, status: "resolved", atom_ids: [11, 12],
+    instance_id: "intent-a", origin: "manual", selected_at: "2026-11-16T00:00:00Z",
+    source_artifact_id: owner.current_artifact_id };
+  return owner;
+}
 function candidate(id: number): LigandCandidate {
   return { candidate_key: `candidate-${id}`, atom_ids: [id * 10 + 1, id * 10 + 2],
     residue_ids: [id], component_ids: [`component-${id}`], label: "ATP", locations: [{
@@ -69,6 +77,263 @@ beforeEach(() => {
 });
 
 describe("entry-owned ligand designation controls", () => {
+  it.each(["stale", "unresolved"] as const)("explains an unverifiable original for a %s choice without a background duplicate announcement", async status => {
+    const user = userEvent.setup();
+    const owner = status === "stale" ? resolvedEntry() : entry();
+    owner.ligand_designation = { ...owner.ligand_designation, status,
+      reason_code: "original_ligand_source_unavailable" };
+    candidatesMock.mockRejectedValue(new ApiError(409, "artifact_integrity_error", "Internal artifact details"));
+    const { container, props } = setup(owner);
+    const message = "The original file could not be verified. Reimport the structure, then choose the new entry.";
+    expect(screen.getByRole("status")).toHaveTextContent(message);
+    expect(candidatesMock).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: status === "stale" ? "Change" : "Choose" }));
+    const dialog = screen.getByRole("dialog");
+    expect(await within(dialog).findByRole("alert")).toHaveTextContent(message);
+    expect(screen.getAllByRole("alert")).toHaveLength(1);
+    expect(container.querySelector(".ligand-designation-controls > .ligand-candidate-warning"))
+      .not.toHaveAttribute("role");
+    expect(screen.queryByText("Internal artifact details")).not.toBeInTheDocument();
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it("explains a changed instance while keeping review and Clear available", async () => {
+    const user = userEvent.setup();
+    const owner = resolvedEntry();
+    owner.ligand_designation = { ...owner.ligand_designation, status: "stale",
+      reason_code: "designated_instance_split_or_ambiguous" };
+    setup(owner);
+    const message = "The structure changed and this ligand choice needs review. Choose an instance again or clear the choice.";
+    expect(screen.getByRole("status")).toHaveTextContent(message);
+    expect(screen.getByRole("button", { name: "Clear" })).toBeEnabled();
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    expect(await screen.findAllByRole("radio")).toHaveLength(2);
+    expect(within(screen.getByRole("dialog")).getByText(message)).toBeVisible();
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeDisabled();
+  });
+
+  it("explains an unresolved boundary without exposing a machine reason as ordinary copy", () => {
+    const owner = entry();
+    owner.ligand_designation.reason_code = "molecular_boundary_not_qualified";
+    setup(owner);
+    expect(screen.getByRole("status")).toHaveTextContent("A complete ligand instance could not be established.");
+    expect(screen.queryByText("molecular_boundary_not_qualified")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Leave unassigned" })).toBeEnabled();
+  });
+
+  it("retires a resolved summary's cached metadata after a failed recheck while retaining durable intent", async () => {
+    const owner = resolvedEntry();
+    const { client, props } = setup(owner);
+    await screen.findByText("ATP");
+    expect(screen.getByText("ATP 601 · chain A")).toBeVisible();
+    const chooser = screen.getByRole("combobox", { name: "Entry" });
+    chooser.focus();
+    candidatesMock.mockRejectedValue(new ApiError(409, "artifact_integrity_error", "Internal artifact details"));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const cached = client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false });
+    expect(cached?.state.status).toBe("error");
+    expect(cached?.state.data).toBeDefined();
+    await waitFor(() => expect(screen.queryByText("ATP")).not.toBeInTheDocument());
+    expect(screen.queryByText("ATP 601 · chain A")).not.toBeInTheDocument();
+    expect(screen.getByText("Ligand designated")).toBeVisible();
+    expect(screen.getByRole("status")).toHaveTextContent("A molecular file could not be verified. Reimport the structure, then choose the new entry.");
+    expect(chooser).toHaveFocus();
+    expect(owner.ligand_designation.status).toBe("resolved");
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it.each(["summary", "choices"])("gives reload guidance for a %s source conflict and retires it when current artifact context arrives", async surface => {
+    const user = userEvent.setup();
+    const owner = resolvedEntry();
+    const { client, props, update } = setup(owner);
+    await screen.findByText("ATP");
+    if (surface === "choices") {
+      await user.click(screen.getByRole("button", { name: "Change" }));
+      await screen.findAllByRole("img");
+      await user.click(screen.getAllByRole("radio")[1]);
+    }
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "structure_artifact_conflict", "Old molecular input"));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const message = "The structure input changed. Reload the page, then review the ligand choice for the current structure.";
+    expect(await screen.findByRole(surface === "choices" ? "alert" : "status")).toHaveTextContent(message);
+    expect(screen.queryByText("Ligand instances could not be loaded. Try again.")).not.toBeInTheDocument();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    if (surface === "choices") {
+      expect(screen.getByRole("button", { name: "Use ligand" })).toBeDisabled();
+      await user.click(screen.getByRole("button", { name: "Cancel" }));
+    }
+    const chooser = screen.getByRole("combobox", { name: "Entry" });
+    chooser.focus();
+    const current = { ...owner, current_artifact_id: "current-artifact-after-reload",
+      ligand_designation: { ...owner.ligand_designation, source_artifact_id: "current-artifact-after-reload" } };
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [current] } });
+    expect(screen.queryByText(message)).not.toBeInTheDocument();
+    expect(chooser).toHaveFocus();
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    const dialog = screen.getByRole("dialog");
+    const radios = await within(dialog).findAllByRole("radio");
+    expect(within(dialog).queryByRole("alert")).not.toBeInTheDocument();
+    radios.forEach(radio => expect(radio).not.toBeChecked());
+    await within(dialog).findAllByRole("img");
+    await user.click(radios[0]);
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeEnabled();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+    expect(candidatesMock).toHaveBeenLastCalledWith("project-1", current, 0, expect.any(AbortSignal));
+  });
+
+  it.each(["new choice", "Undo", "Clear"])("retires an earlier failed Use after same-artifact %s without reviving it on return", async transition => {
+    const user = userEvent.setup();
+    const owner = resolvedEntry();
+    const onDesignate = vi.fn().mockRejectedValue(new Error("Failed choice from the earlier context"));
+    const { props, update } = setup(owner, { onDesignate });
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    await user.click((await screen.findAllByRole("radio"))[1]);
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("Failed choice from the earlier context");
+    expect(screen.getAllByRole("radio")[1]).toBeChecked();
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(screen.getByRole("alert")).toHaveTextContent("Failed choice from the earlier context");
+    const chooser = screen.getByRole("combobox", { name: "Entry" });
+    chooser.focus();
+    const changed = { ...owner, ligand_designation: transition === "new choice"
+      ? { ...owner.ligand_designation, instance_id: "new-choice-intent", atom_ids: [21, 22] }
+      : { ...entry().ligand_designation, source_artifact_id: owner.current_artifact_id,
+        status: transition === "Undo" ? "selection_required" as const : "cleared" as const } };
+    expect(changed.current_artifact_id).toBe(owner.current_artifact_id);
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [changed] } });
+    expect(screen.queryByText("Failed choice from the earlier context")).not.toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(chooser).toHaveFocus();
+    update(props);
+    expect(screen.queryByText("Failed choice from the earlier context")).not.toBeInTheDocument();
+    expect(chooser).toHaveFocus();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(onDesignate).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps current source-conflict guidance ahead of an older stale-choice reason after closing choices", async () => {
+    const user = userEvent.setup();
+    const owner = resolvedEntry();
+    owner.ligand_designation = { ...owner.ligand_designation, status: "stale",
+      reason_code: "designated_instance_split_or_ambiguous" };
+    candidatesMock.mockRejectedValue(new ApiError(409, "structure_artifact_conflict", "Old molecular input"));
+    const { props } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    const message = "The structure input changed. Reload the page, then review the ligand choice for the current structure.";
+    expect(await screen.findByRole("alert")).toHaveTextContent(message);
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(screen.getByRole("status")).toHaveTextContent(message);
+    expect(screen.getByRole("button", { name: "Change" })).toHaveFocus();
+    expect(screen.getByText("Ligand choice needs review")).toBeVisible();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it("ignores a late failed Use after same-artifact designation A→B→A without reopening or moving focus", async () => {
+    const user = userEvent.setup();
+    const owner = resolvedEntry();
+    const held = deferred<void>();
+    const onDesignate = vi.fn(() => held.promise);
+    const { props, update } = setup(owner, { onDesignate });
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    await user.click((await screen.findAllByRole("radio"))[1]);
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
+    const chooser = screen.getByRole("combobox", { name: "Entry" });
+    chooser.focus();
+    const changed = { ...owner, ligand_designation: { ...owner.ligand_designation, instance_id: "intervening-choice" } };
+    update({ ...props, project: { ...props.project, entries: [changed] } });
+    update(props);
+    await act(async () => {
+      held.reject(new Error("Late failure from an earlier designation visit"));
+      await Promise.resolve();
+    });
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByText("Late failure from an earlier designation visit")).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(chooser).toHaveFocus();
+    expect(onDesignate).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["same input", "changed input", "no longer selectable"])("retires cached cards on a failed recheck and recovers the draft only for a matching selectable %s", async recovery => {
+    const user = userEvent.setup();
+    const owner = entry();
+    const { client, props } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const dialog = screen.getByRole("dialog");
+    await user.click((await within(dialog).findAllByRole("radio"))[1]);
+    await within(dialog).findAllByRole("img");
+    const cancel = within(dialog).getByRole("button", { name: "Cancel" });
+    cancel.focus();
+    candidatesMock.mockRejectedValueOnce(new ApiError(0, "network_error", "The local API could not be reached."));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const cached = client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false });
+    expect(cached?.state.status).toBe("error");
+    expect(cached?.state.data).toBeDefined();
+    expect(await within(dialog).findByRole("alert")).toHaveTextContent("Ligand instances could not be loaded. Try again.");
+    expect(within(dialog).queryByRole("radio")).not.toBeInTheDocument();
+    expect(within(dialog).queryByRole("img")).not.toBeInTheDocument();
+    expect(within(dialog).queryByText("C1H2")).not.toBeInTheDocument();
+    expect(within(dialog).queryByText("C2H2")).not.toBeInTheDocument();
+    expect(within(dialog).getByText("Choice awaits an input check")).toBeVisible();
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    expect(cancel).toHaveFocus();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+    candidatesMock.mockImplementation((_project, current, offset) => Promise.resolve({
+      ...inventory(current, offset),
+      ...(recovery === "changed input" ? { input_hash: "different-current-input" }
+        : recovery === "no longer selectable" ? { selectable_candidate_keys: ["candidate-1"] } : {}),
+    }));
+    await user.click(within(dialog).getByRole("button", { name: "Try again" }));
+    const radios = await within(dialog).findAllByRole("radio");
+    expect(radios[1]).toHaveProperty("checked", recovery === "same input");
+    expect(within(dialog).getByRole("button", { name: "Use ligand" }))
+      .toHaveProperty("disabled", recovery !== "same input");
+    if (recovery !== "same input") {
+      expect(within(dialog).getByText("Choose a current instance")).toBeVisible();
+      expect(props.onDesignate).not.toHaveBeenCalled();
+    } else {
+      await user.click(within(dialog).getByRole("button", { name: "Use ligand" }));
+      expect(props.onDesignate).toHaveBeenCalledWith(owner, "candidate-2", "exact-inventory-hash");
+    }
+  });
+
+  it.each(["project", "entry", "artifact", "designation"])("ignores a late failed summary across %s A→B→A and preserves current focus", async change => {
+    const owner = resolvedEntry();
+    const held = deferred<LigandCandidatesRead>();
+    let signal: AbortSignal | undefined;
+    candidatesMock.mockImplementation((projectId, current, offset) => Promise.resolve({
+      ...inventory(current, offset), project_id: projectId,
+    })).mockImplementationOnce((_project, _owner, _offset, pendingSignal) => {
+      signal = pendingSignal; return held.promise;
+    });
+    const { props, update } = setup(owner);
+    await waitFor(() => expect(signal).toBeDefined());
+    const other = { ...owner, ligand_designation: { ...owner.ligand_designation } };
+    const project = { ...props.project, entries: [other] };
+    if (change === "project") project.id = "project-other";
+    else if (change === "entry") other.id = "entry-other";
+    else if (change === "artifact") other.current_artifact_id = "artifact-other";
+    else other.ligand_designation.instance_id = "intent-other";
+    update({ ...props, project, entryId: other.id });
+    await screen.findByText("ATP");
+    update(props);
+    await screen.findByText("ATP");
+    expect(signal?.aborted).toBe(true);
+    const chooser = screen.getByRole("combobox", { name: "Entry" });
+    chooser.focus();
+    await act(async () => {
+      held.reject(new ApiError(409, "artifact_integrity_error", "Retired source failure"));
+      await Promise.resolve();
+    });
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.getByText("ATP")).toBeVisible();
+    expect(chooser).toHaveFocus();
+    expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
   it("requests and paints qualified depictions through StrictMode lifecycle replay", async () => {
     const user = userEvent.setup();
     setup(entry(), {}, true);

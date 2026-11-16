@@ -715,7 +715,33 @@ def test_invalid_artifact_metadata_distinguishes_canonical_input_from_optional_o
     )
     if original:
         assert response.status_code == 200, response.text
-        assert response.json()["project"]["revision"] == project["revision"] + 1
+        updated = response.json()["project"]
+        assert updated["revision"] == project["revision"] + 1
+        before_entry = next(e for e in baseline["entries"] if e["id"] == entry_id)
+        after_entry = next(e for e in updated["entries"] if e["id"] == entry_id)
+        designation = after_entry["ligand_designation"]
+        assert designation["status"] == "stale"
+        assert designation["instance_id"] == before_entry["ligand_designation"]["instance_id"]
+        assert designation["reason_code"] == "original_ligand_source_unavailable"
+        assert designation["source_artifact_id"] == after_entry["current_artifact_id"]
+        candidates_url = f"/api/v1/projects/{project['id']}/entries/{entry_id}/ligand-candidates"
+        rejected = client.get(candidates_url, params={
+            "expected_artifact_id": after_entry["current_artifact_id"],
+        })
+        assert rejected.status_code == 409
+        assert rejected.json()["detail"]["code"] == "artifact_integrity_error"
+        undone = client.post(f"/api/v1/projects/{project['id']}/history/undo", json={
+            "expected_revision": updated["revision"],
+        })
+        assert undone.status_code == 200, undone.text
+        assert undone.json()["entries"][0]["ligand_designation"] == (
+            before_entry["ligand_designation"]
+        )
+        redone = client.post(f"/api/v1/projects/{project['id']}/history/redo", json={
+            "expected_revision": undone.json()["revision"],
+        })
+        assert redone.status_code == 200, redone.text
+        assert redone.json()["entries"][0]["ligand_designation"] == designation
     else:
         assert response.status_code == 422
         assert "restore or reimport" in response.json()["detail"]["message"]

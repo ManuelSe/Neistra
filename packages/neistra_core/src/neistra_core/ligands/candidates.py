@@ -8,7 +8,6 @@ from collections import defaultdict
 from typing import Any
 
 from neistra_core.components import ION_ELEMENTS, POLYMER_CATEGORIES, derive_component_hierarchy
-from neistra_core.hydrogen_protection import protection_facts
 from neistra_core.ligands.chemistry import PreparedLigandChemistry, prepare_chemistry
 from neistra_core.ligands.models import (
     RESOLVER_VERSION,
@@ -16,7 +15,12 @@ from neistra_core.ligands.models import (
     LigandInventoryV1,
     LigandLocationV1,
 )
-from neistra_core.ligands.source_evidence import qualified_mmcif_residues
+from neistra_core.ligands.source_evidence import (
+    KNOWN_ENTITY_TYPES,
+    SOURCE_EVIDENCE_KEY,
+    assess_mmcif_source,
+    known_covalent_bond_ids,
+)
 from neistra_core.molecular import NormalizedStructureV1
 
 _SMALL_FORMATS = {"mol", "sdf", "mol2", "smiles", "smi"}
@@ -58,6 +62,9 @@ def resolve_candidates(
         {
             "resolver": RESOLVER_VERSION,
             "format": format_name,
+            "original_sha256": hashlib.sha256(original_bytes).hexdigest()
+            if original_bytes is not None
+            else None,
             "atoms": [
                 a.model_dump(exclude={"coordinates", "name", "occupancy", "b_factor"})
                 for a in structure.atoms
@@ -86,7 +93,8 @@ def resolve_candidates(
     else:
         for atom_id in atoms:
             groups[membership[atom_id] or f"unassigned:{atom_id}"].append(atom_id)
-    qualified_residues = qualified_mmcif_residues(structure, original_bytes)
+    source_inventory = assess_mmcif_source(structure, original_bytes)
+    qualified_residues = source_inventory.nonpolymer_residues
     atom_group = {atom_id: key for key, ids in groups.items() for atom_id in ids}
     crossing = {
         atom_group[endpoint]
@@ -97,40 +105,9 @@ def resolve_candidates(
     # Deliberately authored H-parent edges establish current membership even
     # though their placement/chemistry remains disclosed as inferred. This is
     # distinct from distance-inferred whole-molecule connectivity.
-    authored_hydrogens = {
-        atom_id
-        for inference in structure.inferences
-        if inference.code
-        in {
-            "hydrogens_added",
-            "model_hydrogen_placement",
-            "model_hydrogen_reconciliation",
-        }
-        for atom_id in inference.atom_ids
-        if atom_id in atoms and atoms[atom_id].element == "H"
-    }
-    try:
-        facts = protection_facts(structure)
-    except ValueError:
-        facts = {}
-    degrees: dict[int, int] = defaultdict(int)
-    for bond in structure.bonds:
-        degrees[bond.atom_1_id] += 1
-        degrees[bond.atom_2_id] += 1
+    known_edges = known_covalent_bond_ids(structure)
     authored_h_bonds = {
-        bond.id
-        for bond in structure.bonds
-        if bond.inferred
-        and bond.order == 1.0
-        and not bond.aromatic
-        and any(
-            atom_id in authored_hydrogens
-            and degrees[atom_id] == 1
-            and atom_id in facts
-            and facts[atom_id].matches(atoms[atom_id])
-            and facts[atom_id].ordinary
-            for atom_id in (bond.atom_1_id, bond.atom_2_id)
-        )
+        bond.id for bond in structure.bonds if bond.inferred and bond.id in known_edges
     }
     inferred_groups = {
         atom_group[bond.atom_1_id]
@@ -152,12 +129,26 @@ def resolve_candidates(
         original_nonpolymer = bool(residue_ids) and all(
             residue_id in qualified_residues for residue_id in residue_ids
         )
-        polymer = not original_nonpolymer and (
-            bool(categories & POLYMER_CATEGORIES)
-            or any(residues[residue_id].component_type == "polymer" for residue_id in residue_ids)
+        source_kinds = {
+            source_inventory.residues[identity][2]
+            for identity in residue_ids
+            if identity in source_inventory.residues
+        }
+        polymer = "polymer" in source_kinds or (
+            not source_kinds
+            and not original_nonpolymer
+            and (
+                bool(categories & POLYMER_CATEGORIES)
+                or any(
+                    residues[residue_id].component_type == "polymer" for residue_id in residue_ids
+                )
+            )
         )
-        branched = any(
-            residues[residue_id].source_entity_type == "branched" for residue_id in residue_ids
+        branched = "branched" in source_kinds or (
+            not source_kinds
+            and any(
+                residues[residue_id].source_entity_type == "branched" for residue_id in residue_ids
+            )
         )
         locations = [
             LigandLocationV1(
@@ -178,14 +169,22 @@ def resolve_candidates(
         reasons: list[str] = []
         status = "qualified" if format_name in _SMALL_FORMATS else "source_instance"
         potential = not polymer
-        if polymer:
+        if any(a.alternate_location for a in group_atoms):
+            status, reasons = "unsupported", ["alternate_sites_unresolved"]
+        elif source_inventory.status == "unsupported":
+            status, reasons, potential = (
+                "unsupported",
+                [source_inventory.reason or "original_mmcif_inventory_inconsistent"],
+                True,
+            )
+        elif source_kinds - KNOWN_ENTITY_TYPES:
+            status, reasons, potential = "unsupported", ["source_entity_type_unsupported"], True
+        elif polymer:
             status, reasons = "unsupported", ["polymer_boundary_unsupported"]
         elif branched:
             status, reasons = "unsupported", ["branched_boundary_unsupported"]
         elif group_key in crossing:
             status, reasons = "unsupported", ["cross_boundary_link_unqualified"]
-        elif any(a.alternate_location for a in group_atoms):
-            status, reasons = "unsupported", ["alternate_sites_unresolved"]
         elif format_name in _SMALL_FORMATS:
             if group_key in inferred_groups:
                 status, reasons = "unsupported", ["connectivity_inferred"]
@@ -210,7 +209,7 @@ def resolve_candidates(
             is_water = chemistry.formula == "H2O" and chemistry.formal_charge == 0
             if chemistry.status != "qualified" and status == "qualified":
                 status, reasons = "source_instance", ["water_identity_unresolved"]
-        is_ion = (
+        known_source_ion = (
             len(ids) == 1
             and group_atoms[0].element.upper() in ION_ELEMENTS
             and (
@@ -218,6 +217,22 @@ def resolve_candidates(
                 or (format_name in _MACRO_FORMATS and categories == {"ion"})
             )
         )
+        is_ion = False
+        if len(ids) == 1 and (known_source_ion or group_atoms[0].formal_charge not in {None, 0}):
+            if prepared_chemistry is None:
+                prepared_chemistry = prepare_chemistry(structure, original_bytes=original_bytes)
+            chemistry = prepared_chemistry.qualify(ids)
+            if chemistry.status == "qualified":
+                molecule = chemistry.molecule
+                physical_atoms = molecule.GetNumAtoms() + sum(
+                    atom.GetNumExplicitHs() + atom.GetNumImplicitHs()
+                    for atom in molecule.GetAtoms()
+                )
+                is_ion = physical_atoms == 1 and chemistry.formal_charge not in {None, 0}
+            else:
+                is_ion = known_source_ion
+                if not is_ion and status == "qualified":
+                    status, reasons = "source_instance", ["monoatomic_ion_identity_unresolved"]
         if is_water or is_ion:
             status, reasons, potential = (
                 "ineligible",
@@ -242,6 +257,13 @@ def resolve_candidates(
                     if status == "qualified"
                     else "normalized_source_instance"
                 ]
+                + (
+                    ["original_mmcif_receipt_recovered"]
+                    if status == "qualified"
+                    and format_name in {"mmcif", "cif"}
+                    and SOURCE_EVIDENCE_KEY not in structure.source.facts
+                    else []
+                )
                 + (["authored_hydrogen_connectivity"] if group_key in authored_h_groups else []),
                 heavy_atom_count=sum(a.element not in {"H", "D"} for a in group_atoms),
                 formal_charge=sum(

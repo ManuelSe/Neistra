@@ -7727,3 +7727,67 @@ Existing checkpoint version markers do not protect older direct writers: actual-
 Automatic legacy designation completion is idempotent system enrichment, separate from undoable user intent commands. A locked revisioned POST changes only exact unresolved migrated defaults and records source/resolver/assessment provenance; preserve all existing history/checkpoint/redo records. Capture legacy creation and molecular snapshots before replay so repeated Undo/Redo restores exact intent. Import automatic assignment remains inside its entry-create command; manual choice and Clear remain reversible. Do not grow the200command budget or discard redo merely by opening a project.
 
 Bound retained depiction content by count, individual/aggregate bytes and atomic admission, preserving existing content at capacity. Source-binding metadata may rotate; content rows are retained so eviction cannot create unbounded orphan drawings. Refuse new drawing publication explicitly before any artifact write when capacity is exhausted. No broad artifact deletion or change to original uploads is authorized.
+
+## D-166 — Source lineage, scientific qualification and recoverable failures
+
+Date: 2026-11-16. Applies to the authorized #158 slice within parent #11.
+
+Molecular instance lineage is separate from current chemistry qualification.
+Verify raw mmCIF source tables and any present nonpolymer scheme against the
+preserved original. Reconstruct original canonical/source-index/residue/chain
+bindings from that original; editable labels, element and bond values do not
+replace those identities. An absent legacy receipt may be recovered by exact
+original proof with explicit provenance; a present contradictory receipt must
+fail closed. Bind the original digest or its absence into inventory identity.
+
+Known-covalent new clusters must belong to one anchored original instance and its
+canonical residue/chain partition. Keep valid polymer ownership nonpotential.
+Ambiguous ownership and undeclared or inconsistent raw classes stay unsupported
+potential inputs, suppressing automatic selection of another candidate. Before/
+after known-connectivity checks retire intent after a proven split or merge;
+missing source bonds do not become guessed connectivity. Water and monoatomic-ion
+exclusions use qualified physical composition where needed, preserving implicit-H
+multiatom ions. Molecular formula, mass and charge remain unavailable without
+qualified chemistry; an observed atom-charge sum is not a qualified card value.
+
+Failure of an optional original-file integrity check during a valid canonical
+edit retires the designation assessment to stale/unresolved with its current
+source and recovery reason. It does not block unrelated valid canonical editing.
+Preserve assigned intent and exact Undo/Redo snapshots. Canonical-input integrity
+failures still block publication; explicit candidate/depiction reads still reject
+unverified artifacts. Shared exception types live outside publication services to
+avoid a service import cycle and retain historical import aliases.
+
+Recovery feedback belongs to a captured context visit, including same-artifact
+choice changes and A→B→A. Known failed input checks retire cached composition and
+drawings and block Use until a successful matching-input recheck. They never clear
+intent or rewrite history. Explain original-file failures and source conflicts in
+compact warnings; reimport creates a new entry, so guidance must say to choose that
+new entry. Clear, cancellation, focus and the existing import flow remain intact.
+
+The schema3 fence needs an explicit qualification protocol: actual older-source
+refusal of current live stores and both archive suffixes without mutation,
+independently older-authored positive fixtures migrated forward with exact new
+defaults, and reopening current editing/designation state. Preserve all positive
+fixtures, corruption/stale/allocator controls, full synthetic reader stores and raw
+observations. Diagnostic v0.33 source checks are not final qualification against
+the later released predecessor. Do not mislabel safe-refusal results as successful
+older-writer retention.
+
+Measured optional-column fallback allocation was quadratic despite bounded lookup
+patterns. Resolve missing coordinate columns once and avoid eager row-sized
+scheme defaults. Independent work counters show 4,000,000 discarded slots at 1,000
+scheme rows become zero, without changing mapping semantics. Keep workload-specific
+cache observations and portable correctness separate from strict-host latency
+claims; do not expand this correction into unrelated optimization.
+
+### D-166 future descriptor/profile qualification refinement
+
+Before #159/#160 implementation, pin descriptor options, disposable hydrogen
+normalization and source-domain facts. Independent toolkit probes demonstrate
+explicit-H-sensitive Strict rotor counts and includeSandP-sensitive TPSA. Required
+and feasible named optional profile variants use exact sourced operators and
+explicit calculator adaptations. The optional lead-library range uses a disclosed
+conservative charged-graph domain gate; it must not neutralize input, pretend to
+classify permanent charge, or require new pKa jobs. Source research refines the
+child plans; it does not claim those dependent features are implemented.

@@ -83,7 +83,7 @@ All seven specialists independently assess each complete intended application ca
 
 ## Versions, publication and issue-closing strategy
 
-Serial additive releases provisionally0.34.0(#156),0.35.0(#157),0.36.0(#158),0.37.0(#159),0.38.0(#160),0.39.0(#161),0.40.0(#162),0.41.0(#163). Recheck collisions/base and actual compatibility per unit; ordinary compatible advancement is delegated. Data evolution must be explicit and no silent reader loss; update all authoritative versions in each PR: pyproject.toml,root editable version uv.lock,apps/web/package.json,apps/api/src/neistra_api/main.py,archive_service.py APPLICATION_VERSION. No C0 version edits.
+Serial releases provisionally0.34.0(#156),0.35.0(#157),0.36.0(#158),0.37.0(#159),0.38.0(#160),0.39.0(#161),0.40.0(#162),0.41.0(#163). Recheck collisions/base and actual compatibility per unit; ordinary compatible advancement is delegated. Data evolution must be explicit and no silent reader loss; update all authoritative versions in each PR: pyproject.toml,root editable version uv.lock,apps/web/package.json,apps/api/src/neistra_api/main.py,archive_service.py APPLICATION_VERSION. No C0 version edits.
 
 PR titles use Conventional Commits and normal history-preserving merge commits to master. Use `Refs #<child>` and `Refs #11`, no closing keywords: keep each child open through its verified release, then post one complete reply and explicitly close it. Parent remains open until all eight delivered and final integration release qualified. Request available code-review integration; do not claim a request produced a review. No forced/admin bypass or auto-delete before publication.
 
@@ -93,9 +93,9 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 
 | Child | Plan/prerequisites | Stage | Branch/base/candidate | PR/merge/release/reply/cleanup | Blocker / next action |
 | --- | --- | --- | --- | --- | --- |
-| #156 | [Contract](issue-156-viewer-information-strip.md); None | Planned, unimplemented | planned `feat/issue-156-viewer-information-strip`; base recheck pending | None | Implement in dependency order after C0 |
+| #156 | [Contract](issue-156-viewer-information-strip.md); None | Implemented; candidate4 stopped at a measured native-test occlusion | `feat/issue-156-viewer-information-strip`; comparison base62623a16; frozen22e8c948 | No application push/PR/release/closeout | Verify bounded native-path correction and remaining cases, run fresh complete gate, then same-candidate all-seven review and normal publication |
 | #157 | [Contract](issue-157-viewer-measurements.md); #156 | Planned, unimplemented | planned `feat/issue-157-viewer-measurements`; base recheck pending | None | Implement in dependency order after C0 |
-| #158 | [Contract](issue-158-durable-ligand-designation.md); None | Planned, unimplemented | planned `feat/issue-158-durable-ligand-designation`; base recheck pending | None | Implement in dependency order after C0 |
+| #158 | [Contract](issue-158-durable-ligand-designation.md); None | Verified local C2 checkpoint; final integration/publication pending | `feat/issue-158-durable-ligand-designation`; C0248807ec then initiald283ea9b; C2 source identities in its checkpoint record; isolated worktree | No application push/PR/release/closeout | C2:2639Python/1030frontend/8native; actual0.33source diagnostics pass; integrate verified preceding156/157 releases before final qualification |
 | #159 | [Contract](issue-159-live-ligand-properties.md); #158 | Planned, unimplemented | planned `feat/issue-159-live-ligand-properties`; base recheck pending | None | Implement in dependency order after C0 |
 | #160 | [Contract](issue-160-physicochemical-profiles.md); #159 | Planned, unimplemented | planned `feat/issue-160-physicochemical-profiles`; base recheck pending | None | Implement in dependency order after C0 |
 | #161 | [Contract](issue-161-ligand-information-sidebar.md); #158, #159, #160 | Planned, unimplemented | planned `feat/issue-161-ligand-information-sidebar`; base recheck pending | None | Implement in dependency order after C0 |

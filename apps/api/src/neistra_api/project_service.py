@@ -14,6 +14,7 @@ from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
+from neistra_api.artifact_errors import ArtifactIntegrityError, ArtifactNotFoundError
 from neistra_api.models import (
     CommandRecord,
     EntryGroup,
@@ -338,8 +339,19 @@ class ProjectService:
                 source_artifact_id=artifact_id, reason_code="molecular_source_loader_unavailable",
             ).model_dump(mode="json")
         after = self.load_structure(artifact_id)
+        try:
+            original = self._original_bytes(entry.original_artifact_id)
+        except (ArtifactIntegrityError, ArtifactNotFoundError):
+            # An optional original cannot prevent a valid canonical edit. Retire
+            # the scientific assessment without reading or trusting its bytes.
+            unavailable = designation.model_copy(update={
+                "status": "stale" if designation.status == "resolved" else "unresolved",
+                "source_artifact_id": artifact_id,
+                "reason_code": "original_ligand_source_unavailable",
+            })
+            return self._assessed_designation(unavailable, revision).model_dump(mode="json")
         inventory = resolve_candidates(
-            after, original_bytes=self._original_bytes(entry.original_artifact_id),
+            after, original_bytes=original,
         )
         if not entry.current_artifact_id:
             return self._assessed_designation(

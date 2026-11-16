@@ -756,3 +756,53 @@ The compact H display control independently reuses selection styling's exact-H
 appearance command, effective All/Polar/Mixed state and inheritance reset. It only
 affects existing graph-targeted H preferences; master visibility, isolation and
 explicit hiding remain separate. It does not create H or change molecular chemistry.
+
+## Exact ligand designation and disposable depictions (#158)
+
+A designation records one complete observed instance within one entry, with stable
+intent, canonical atom membership, origin and assessed source. Instance identity
+and chemical interpretation are separate qualifications. Complete observed source
+membership can remain selectable when formula, molecular weight, charge or 2D
+chemistry is unavailable. Those molecular values require strict qualification;
+observed atom-charge sums are not shown as qualified molecular charge.
+
+Small-molecule candidates follow qualified connected fragments. Macromolecular
+source instances follow the observed hierarchy. Automatic mmCIF recognition
+requires verified original entity/asymmetry/atom mappings and consistency with a
+present nonpolymer scheme. Exact legacy originals can recover missing receipts;
+contradictory retained evidence cannot establish eligibility. Water and true
+monoatomic ions are excluded; implicit-H multiatom ions remain distinct molecules.
+Unresolved alternatives, cross-boundary links, branched units and unsupported raw
+classes disclose their uncertainty and suppress automatic choice. Missing bonds
+never establish a collection of guessed molecules. Multiple candidates require a
+deliberate instance choice.
+
+Editable labels and chemical properties do not replace canonical source lineage.
+Unambiguous anchored additions/removals can preserve intent. Known splits, merges,
+lost anchors or ambiguous ownership mark it stale while retaining its former
+identity and recovery reason. Clear persists independently of automatic recognition.
+Undo/Redo restores recorded intent, including original provenance. Assessment
+revision after archive import is historical provenance; current immutable source
+identity governs freshness.
+
+Depiction uses a disposable qualified molecule. The original upload and canonical
+coordinates, charges, H, stereo and graph are preserved. Strict current graph facts
+or exact unchanged-original recovery support composition and layout; unknown
+chemistry remains unavailable. No protonation, neutralization, desalting, capping or
+preparation is performed by choosing or drawing a ligand. Changed chemistry
+previews expose composition and 2D as unavailable until committed inputs qualify.
+
+Candidate layout is limited to 1,024 atoms, each SVG to 512 KiB, and retained content
+to 1,024 records/128 MiB with conservative shared-reference accounting. At capacity,
+existing matching content remains usable and new publication is explicitly declined.
+Source bindings may rotate within 4,096 records. Original parsing/indexing remains
+subject to upload bounds; the layout cap does not bound whole-original work. These
+are local retained-depiction bounds, not limits on unrelated project uploads.
+
+Unverified canonical inputs block publication. A valid canonical edit can proceed
+when an optional original fails verification, while its designation becomes stale
+or unresolved with a recovery reason. Original/candidate/depiction verification
+failures are surfaced; cached failed inputs cannot be submitted as verified choices.
+An unavailable or failed depiction does not invalidate an independently exact
+selectable instance. Derived SVG corruption is refused without changing molecular
+sources; restoring valid output bytes is distinct from requalifying an original.

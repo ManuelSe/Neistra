@@ -1,9 +1,10 @@
-"""Qualify unchanged schema-2 surfaces against an actual tagged API/core reader.
+"""Qualify surfaces against the schema of an actual selected API/core reader.
 
 Run this harness from the current checkout with reader API/core/plugin paths on
 PYTHONPATH. --reader-root verifies the actual implementation is the tagged tree,
 not the candidate with an altered version string. Use only fresh disposable data.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -16,6 +17,7 @@ import molweave_api.main
 import molweave_core
 from molweave_api.archive_service import APPLICATION_VERSION
 from molweave_api.main import create_app
+from molweave_api.schemas import ProjectRead
 from molweave_api.settings import Settings
 
 from tests.integration.test_archive_roundtrip import build_rich_project, import_archive
@@ -27,23 +29,40 @@ def surface_project(client: ApiClient) -> dict[str, Any]:
     project = build_rich_project(client)
     receptor = next(e for e in project["entries"] if e["source_format"] == "pdb")
     ligand = next(e for e in project["entries"] if e["source_format"] == "mol")
-    response = client.post(f"/api/v1/projects/{project['id']}/surfaces", json={
-        "expected_revision": project["revision"], "surfaces": [
-            {"entry_id": receptor["id"], "source": {"kind": "entry"}, "name": "Receptor"},
-            {"entry_id": receptor["id"], "source": {"kind": "fragment", "atom_ids": [1, 2]},
-             "name": "Fragment"},
-            {"entry_id": receptor["id"], "name": "Pocket", "source": {
-                "kind": "pocket", "radius": 5,
-                "seed_atom_references": [{"structure_id": ligand["id"], "atom_id": 1}],
-            }},
-        ],
-    })
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/surfaces",
+        json={
+            "expected_revision": project["revision"],
+            "surfaces": [
+                {"entry_id": receptor["id"], "source": {"kind": "entry"}, "name": "Receptor"},
+                {
+                    "entry_id": receptor["id"],
+                    "source": {"kind": "fragment", "atom_ids": [1, 2]},
+                    "name": "Fragment",
+                },
+                {
+                    "entry_id": receptor["id"],
+                    "name": "Pocket",
+                    "source": {
+                        "kind": "pocket",
+                        "radius": 5,
+                        "seed_atom_references": [{"structure_id": ligand["id"], "atom_id": 1}],
+                    },
+                },
+            ],
+        },
+    )
     assert response.status_code == 200, response.text
     project = response.json()
-    response = client.post(f"/api/v1/projects/{project['id']}/scenes", json={
-        "expected_revision": project["revision"], "name": "Surface navigation baseline",
-        "camera": project["scenes"][0]["camera"], "selection": project["scenes"][0]["selection"],
-    })
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/scenes",
+        json={
+            "expected_revision": project["revision"],
+            "name": "Surface navigation baseline",
+            "camera": project["scenes"][0]["camera"],
+            "selection": project["scenes"][0]["selection"],
+        },
+    )
     assert response.status_code == 201, response.text
     return dict(response.json())
 
@@ -52,7 +71,16 @@ def qualify_surfaces(client: ApiClient, data_dir: Path, expected_reader: str) ->
     expected = json.loads((data_dir / "reader-expectations.json").read_text())
     path = f"/api/v1/projects/{expected['project']['id']}"
     before = client.get(path).json()
-    assert before["schema_version"] == 2
+    assert before["schema_version"] == ProjectRead.model_fields["schema_version"].default
+    baseline = data_dir / "portable-live-projects.json"
+    if baseline.exists():
+        retained = json.loads(baseline.read_text())[before["id"]]
+        if ProjectRead.model_fields["schema_version"].default == 3:
+            from tests.support.project_document_compatibility import expected_project
+
+            assert before == expected_project(retained)
+        else:
+            assert before == retained
     assert before["scenes"] == expected["project"]["scenes"]
     for entry in before["entries"]:
         original = next(e for e in expected["project"]["entries"] if e["id"] == entry["id"])
@@ -65,8 +93,10 @@ def qualify_surfaces(client: ApiClient, data_dir: Path, expected_reader: str) ->
         original = next(e for e in before["entries"] if e["id"] == entry["id"])
         assert entry["viewer_settings"] == original["viewer_settings"]
     restored = import_archive(client, (data_dir / "moved.molweave.zip").read_bytes())["project"]
-    mapping = {e["id"]: next(n["id"] for n in restored["entries"] if n["name"] == e["name"])
-               for e in before["entries"]}
+    mapping = {
+        e["id"]: next(n["id"] for n in restored["entries"] if n["name"] == e["name"])
+        for e in before["entries"]
+    }
     for entry in restored["entries"]:
         original = next(e for e in before["entries"] if mapping[e["id"]] == entry["id"])
         settings = deepcopy(original["viewer_settings"])
@@ -76,8 +106,12 @@ def qualify_surfaces(client: ApiClient, data_dir: Path, expected_reader: str) ->
                     reference["structure_id"] = mapping[reference["structure_id"]]
         assert entry["viewer_settings"] == settings
     assert len(restored["scenes"]) == len(before["scenes"])
-    result.update(surface_objects_exact=True, scenes_exact=True,
-                  archive_surface_seed_remapping=True, surface_objects=3)
+    result.update(
+        surface_objects_exact=True,
+        scenes_exact=True,
+        archive_surface_seed_remapping=True,
+        surface_objects=3,
+    )
     return result
 
 
@@ -94,14 +128,21 @@ def main() -> None:
         assert Path(molweave_api.main.__file__).resolve().is_relative_to(args.reader_root.resolve())
         assert Path(molweave_core.__file__).resolve().is_relative_to(args.reader_root.resolve())
     data_dir = args.data_dir.resolve()
-    client = ApiClient(create_app(Settings(data_dir=data_dir,
-        database_url=f"sqlite:///{data_dir / 'molweave.db'}")))
+    client = ApiClient(
+        create_app(
+            Settings(data_dir=data_dir, database_url=f"sqlite:///{data_dir / 'molweave.db'}")
+        )
+    )
     try:
-        result = (produce(client, data_dir, surface_project(client)) if args.mode == "produce"
-                  else qualify_surfaces(client, data_dir, args.expected_reader))
+        result = (
+            produce(client, data_dir, surface_project(client))
+            if args.mode == "produce"
+            else qualify_surfaces(client, data_dir, args.expected_reader)
+        )
         result.update(
-            api_module=molweave_api.main.__file__, core_module=molweave_core.__file__,
-            application_version=APPLICATION_VERSION
+            api_module=molweave_api.main.__file__,
+            core_module=molweave_core.__file__,
+            application_version=APPLICATION_VERSION,
         )
         args.evidence.write_text(json.dumps(result, indent=2) + "\n")
         print(json.dumps(result, indent=2))

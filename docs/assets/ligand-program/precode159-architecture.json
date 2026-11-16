@@ -1,0 +1,18 @@
+{
+  "archive": {
+    "bytes": 24073,
+    "file": "precode159-architecture.zip",
+    "outer_manifest_entries": 11,
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-program/precode159-architecture.zip",
+    "sha256": "8099b4529bf42aadefe298cf2db43d6e016dfac53d500d7c9fcdf49046b39c79",
+    "verification_counts": {
+      "evidence_manifest_entries": 11,
+      "project_archive_files": 11,
+      "zip_archives": 5
+    }
+  },
+  "excluded_caches": [],
+  "limitation": "Repeat actual preceding-reader qualification after the prerequisite release exists.",
+  "retained_files": 11,
+  "scope": "Read-only architecture planning probes against the current #158 candidate; no #159 implementation or released-0.36 qualification"
+}

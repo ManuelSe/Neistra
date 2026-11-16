@@ -23,6 +23,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
+from neistra_api.artifact_errors import ArtifactIntegrityError as ArtifactIntegrityError
+from neistra_api.artifact_errors import ArtifactNotFoundError as ArtifactNotFoundError
 from neistra_api.models import Artifact, Project, StructureEntry
 from neistra_api.project_service import (
     EntryNotFoundError,
@@ -52,14 +54,6 @@ class ImportLimitError(ValueError):
         self.code = code
         self.message = message
         self.filename = filename
-
-
-class ArtifactNotFoundError(LookupError):
-    pass
-
-
-class ArtifactIntegrityError(LookupError):
-    pass
 
 
 class StructureUnavailableError(LookupError):

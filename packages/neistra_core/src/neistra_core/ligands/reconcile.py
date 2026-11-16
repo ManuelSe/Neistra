@@ -7,6 +7,7 @@ from typing import Literal
 from uuid import uuid4
 
 from neistra_core.ligands.models import LigandDesignationV1, LigandInventoryV1
+from neistra_core.ligands.source_evidence import known_covalent_bond_ids
 from neistra_core.molecular import NormalizedStructureV1
 
 
@@ -65,6 +66,23 @@ def initial_designation(
     )
 
 
+def _connected_members(structure: NormalizedStructureV1, members: set[int]) -> dict[int, int]:
+    parents = {identity: identity for identity in members}
+
+    def root(identity: int) -> int:
+        while parents[identity] != identity:
+            parents[identity] = parents[parents[identity]]
+            identity = parents[identity]
+        return identity
+
+    known = known_covalent_bond_ids(structure)
+    for bond in structure.bonds:
+        if bond.id in known and bond.atom_1_id in members and bond.atom_2_id in members:
+            first, second = root(bond.atom_1_id), root(bond.atom_2_id)
+            parents[max(first, second)] = min(first, second)
+    return {identity: root(identity) for identity in members}
+
+
 def reconcile_designation(
     designation: LigandDesignationV1,
     before: NormalizedStructureV1,
@@ -109,6 +127,16 @@ def reconcile_designation(
         return stale("designated_instance_split_or_ambiguous")
     if (current & before_ids) - previous:
         return stale("designated_instance_merged")
+    before_components = _connected_members(before, previous)
+    after_components = _connected_members(after, current)
+    anchors = {after_components[identity] for identity in remaining}
+    if any(after_components[identity] not in anchors for identity in current - before_ids):
+        return stale("designated_instance_new_members_unanchored")
+    survivors: dict[int, set[int]] = {}
+    for identity in remaining:
+        survivors.setdefault(before_components[identity], set()).add(after_components[identity])
+    if any(len(components) != 1 for components in survivors.values()):
+        return stale("designated_instance_split_or_ambiguous")
     return designation.model_copy(
         update={
             "source_artifact_id": source_artifact_id,
