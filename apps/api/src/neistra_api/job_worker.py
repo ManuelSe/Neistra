@@ -192,6 +192,10 @@ def _execute_child(
         connection, Path(work_directory), Path(cache_directory) if cache_directory else None
     )
     try:
+        if job_type == "ligand.properties":
+            # No private calculation starts before its exact process group is durably owned.
+            if not connection.poll(5) or connection.recv() != ("coordinator_ready",):
+                raise JobCancelled("Descriptor coordinator ownership was not confirmed")
         # Bound native thread pools before registry imports initialize NumPy/BLAS.
         os.environ["OPENBLAS_NUM_THREADS"] = "1"
         os.environ["OMP_NUM_THREADS"] = "1"
@@ -223,6 +227,14 @@ def _execute_child(
         )
         with redirect_stdout(stdout), redirect_stderr(stderr):
             result = registered.plugin.execute(job_type, validated, inputs, context)
+            if job_type == "ligand.properties":
+                import json
+
+                if (
+                    result.artifacts
+                    or len(json.dumps(result.values, allow_nan=False).encode()) > 1024 * 1024
+                ):
+                    raise ValueError("Descriptor result exceeds its bounded content contract")
         stdout.flush()
         stderr.flush()
         connection.send(("result", result))
@@ -267,19 +279,83 @@ class JobWorker:
         self.session_factory = session_factory
         self.registry = registry
         self.worker_id = worker_id
+        self.property_metrics: dict[str, Any] = {}
+        self._property_streak = 0
+        self._active_property_streak = 0
 
     def recover_abandoned(self) -> int:
         from neistra_api.job_service import JobService
 
         with self.session_factory() as session:
-            return JobService(session, self.settings, self.registry).recover_abandoned()
+            from neistra_api.ligand_property_process import recover_property_processes
+
+            recover_property_processes(session)
+            count = JobService(session, self.settings, self.registry).recover_abandoned()
+            from neistra_api.ligand_property_service import LigandPropertyService
+
+            LigandPropertyService(session, self.settings).prune_executions()
+            session.commit()
+            from neistra_api.ligand_property_cache import LigandPropertyCache, PropertyCacheError
+
+            if session.bind is not None and session.bind.dialect.name == "sqlite":
+                session.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            try:
+                LigandPropertyCache(session, self.settings.data_dir).cleanup_orphans()
+                session.commit()
+            except PropertyCacheError as error:
+                import logging
+
+                session.rollback()
+                logging.getLogger(__name__).warning(
+                    "Descriptor cache recovery unavailable: %s", error
+                )
+            return count
 
     def run_once(self) -> bool:
         from neistra_api.job_service import JobService
 
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
-            job = service.claim_next(self.worker_id)
+            from neistra_api.ligand_property_cache import PropertyCacheError
+            from neistra_api.ligand_property_service import LigandPropertyService
+
+            try:
+                properties = LigandPropertyService(session, self.settings)
+            except PropertyCacheError:
+                properties = None
+            job = None
+            if self._property_streak >= 4:
+                job = service.claim_next(self.worker_id)
+                if job is not None:
+                    self._property_streak = 0
+            if job is None and properties is not None:
+                try:
+                    self.registry.get("ligand.properties")
+                    implementation_enabled = True
+                except KeyError:
+                    implementation_enabled = False
+                try:
+                    derived = properties.materialize(
+                        self.worker_id,
+                        prefer_bulk=self._active_property_streak >= 4,
+                        implementation_enabled=implementation_enabled,
+                    )
+                except PropertyCacheError as error:
+                    session.rollback()
+                    properties.fail_live_demands(str(error))
+                    derived = True
+                self.property_metrics = dict(properties.last_metrics)
+                if derived is True or (derived is not None and derived is not False):
+                    self._property_streak += 1
+                    self._active_property_streak = (
+                        0 if self._active_property_streak >= 4 else self._active_property_streak + 1
+                    )
+                    if derived is True:
+                        return True
+                    job = derived
+            if job is None:
+                job = service.claim_next(self.worker_id)
+                self._property_streak = 0
             if job is None:
                 return False
             if (
@@ -312,6 +388,15 @@ class JobWorker:
         service: JobService,
         job: Job,
     ) -> tuple[ChildInput, ...]:
+        from neistra_api.ligand_property_service import LigandPropertyService, private_execution
+
+        if job.purpose == "ligand_properties":
+            if private_execution(session, job) is None:
+                raise ValueError("Derived execution has no private ownership")
+            properties = LigandPropertyService(session, self.settings)
+            inputs = properties.execution_inputs(job)
+            self.property_metrics["input_materialization"] = dict(properties.last_metrics)
+            return inputs
         artifact_service: ArtifactService = service.artifacts
         loaded: list[ChildInput] = []
         for item in sorted(job.inputs, key=lambda value: value.ordinal):
@@ -393,6 +478,18 @@ class JobWorker:
                     if message[0] == "process_group":
                         if message[1] == process.pid:
                             process_group = int(message[1])
+                            if job.purpose == "ligand_properties":
+                                from neistra_api.ligand_property_process import record_process
+
+                                try:
+                                    with self.session_factory() as session:
+                                        record_process(session, job.id, process_group)
+                                except ValueError:
+                                    stop_tree()
+                                    process.join(timeout=2)
+                                    terminal_received = True
+                                    break
+                                parent.send(("coordinator_ready",))
                         continue
                     terminal_received = self._handle_message(job.id, message)
                     if terminal_received:
@@ -414,8 +511,23 @@ class JobWorker:
                         terminal_received = True
                         break
                 with self.session_factory() as session:
-                    persisted = JobService(session, self.settings, self.registry).get(job.id)
+                    from neistra_api.job_service import JobNotFoundError
+                    from neistra_api.ligand_property_service import LigandPropertyService
+
+                    try:
+                        persisted = JobService(session, self.settings, self.registry).get(
+                            job.id, include_derived=True
+                        )
+                    except JobNotFoundError:
+                        stop_tree()
+                        process.join(timeout=2)
+                        terminal_received = True
+                        break
                     cancel_requested = persisted.cancellation_requested
+                    if persisted.purpose == "ligand_properties":
+                        cancel_requested |= not LigandPropertyService(
+                            session, self.settings
+                        ).execution_live(persisted)
                 if cancel_requested and cancel_sent_at is None:
                     try:
                         parent.send(("cancel",))
@@ -459,6 +571,10 @@ class JobWorker:
             process.join(timeout=2)
             parent.close()
             shutil.rmtree(work_directory, ignore_errors=True)
+            with self.session_factory() as session:
+                from neistra_api.ligand_property_service import LigandPropertyService
+
+                LigandPropertyService(session, self.settings).reaped(job.id)
 
     def _handle_message(self, job_id: str, message: tuple[Any, ...]) -> bool:
         from neistra_api.job_service import JobService
@@ -466,6 +582,14 @@ class JobWorker:
         kind = message[0]
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
+            from neistra_api.job_service import JobNotFoundError
+
+            try:
+                persisted = service.get(job_id, include_derived=True)
+            except JobNotFoundError:
+                return True
+            if persisted.status != "running":
+                return True
             if kind == "progress":
                 service.progress(job_id, float(message[1]), str(message[2]))
                 return False

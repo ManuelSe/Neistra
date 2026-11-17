@@ -9,7 +9,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   Project,
@@ -487,6 +487,14 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     | "details"
   >(props.movement?.state.capture ? "transform" : "selection");
   const automaticallyOpenedDetails = useRef(false);
+  const scrollOwner = useRef<HTMLDivElement>(null);
+  const tabList = useRef<HTMLDivElement>(null);
+  const [taskScrollRequest, requestTaskScroll] = useState(0);
+  useLayoutEffect(() => {
+    if (!taskScrollRequest || !scrollOwner.current || !tabList.current) return;
+    const owner = scrollOwner.current;
+    owner.scrollTop = Math.max(0, owner.scrollTop + tabList.current.getBoundingClientRect().top - owner.getBoundingClientRect().top);
+  }, [taskScrollRequest]);
   const projectId = project?.id;
   const entryCount = project?.entries.length;
   useEffect(() => {
@@ -562,95 +570,99 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           </IconButton>
         ) : null}
       </div>
-      {ligandControls}
-      <div
-        className="inspector-tabs"
-        role="tablist"
-        aria-label="Inspector views"
-        onKeyDown={activateTabFromKeyboard}
-      >
-        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"] as const).map((item) => (
-          <button
-            type="button"
-            role="tab"
-            id={`${tabId}-${item}`}
-            aria-controls={`${tabId}-panel`}
-            aria-selected={tab === item}
-            tabIndex={tab === item ? 0 : -1}
-            key={item}
-            onClick={() => {
-              if (item !== tab) props.onInspectorTaskChange?.();
-              automaticallyOpenedDetails.current = false;
-              setTab(item);
-            }}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-      <div className="inspector-body" id={`${tabId}-panel`} role="tabpanel"
-        aria-labelledby={`${tabId}-${tab}`} tabIndex={0}>
-        {tab === "selection" ? (
-          <SelectionPanel
-            {...props}
-            structures={structures}
-            busy={props.busy || !!props.selectionBusy}
-          />
-        ) : tab === "inspect" ? (
-          <InspectPanel project={project} selection={selection} structures={structures} />
-        ) : tab === "measurements" && project ? (
-          props.onOpenMeasurements ? <button type="button" className="secondary-button" onClick={props.onOpenMeasurements}>
-            <Ruler size={17} aria-hidden="true" />Open measurements
-          </button> : <MeasurementsPanel
-            project={project}
-            selection={selection}
-            structures={structures}
-            busy={props.busy}
-            onCreate={props.onCreateMeasurement ?? (() => undefined)}
-            onUpdate={props.onUpdateMeasurement ?? (() => undefined)}
-            onDelete={props.onDeleteMeasurement ?? (() => undefined)}
-            onSelectContact={(next) => props.onApplySelection(next, "replace")}
-          />
-        ) : tab === "transform" && project ? (
-          <TransformPanel
-            project={project}
-            selection={selection}
-            busy={props.busy}
-            movement={props.movement}
-            onPreview={
-              props.onPreviewTransform ?? (() => Promise.resolve())
-            }
-            onClearPreview={props.onClearTransformPreview ?? (() => undefined)}
-            onTransform={props.onTransform ?? (() => Promise.resolve())}
-            onSuperpose={props.onSuperpose ?? (() => Promise.resolve(null))}
-          />
-        ) : tab === "ligand" && project ? (
-          <LigandEditorPanel key={project.id}
-            project={project}
-            selection={selection}
-            structures={structures}
-            busy={props.busy}
-            onEdit={
-              props.onLigandEdit ??
-              (() => Promise.reject(new Error("Ligand editing is unavailable.")))
-            }
-            onMove={props.onTransform ?? (() => Promise.resolve())}
-          />
-        ) : tab === "protein" && project ? (
-          <ProteinEditorPanel
-            project={project}
-            selection={selection}
-            structures={structures}
-            busy={props.busy}
-            onEdit={
-              props.onProteinEdit ??
-              (() => Promise.reject(new Error("Protein editing is unavailable.")))
-            }
-            onMove={props.onTransform ?? (() => Promise.resolve())}
-          />
-        ) : (
-          <DetailsPanel project={project} busy={props.busy} onApply={props.onApply} />
-        )}
+      <div className="inspector-scroll" ref={scrollOwner} data-inspector-visit={JSON.stringify([project?.id ?? "", tab, taskScrollRequest])}>
+        {ligandControls}
+        <div
+          ref={tabList}
+          className="inspector-tabs"
+          role="tablist"
+          aria-label="Inspector views"
+          onKeyDown={activateTabFromKeyboard}
+        >
+          {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"] as const).map((item) => (
+            <button
+              type="button"
+              role="tab"
+              id={`${tabId}-${item}`}
+              aria-controls={`${tabId}-panel`}
+              aria-selected={tab === item}
+              tabIndex={tab === item ? 0 : -1}
+              key={item}
+              onClick={() => {
+                if (item !== tab) props.onInspectorTaskChange?.();
+                automaticallyOpenedDetails.current = false;
+                setTab(item);
+                requestTaskScroll(value => value + 1);
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <div className="inspector-body" id={`${tabId}-panel`} role="tabpanel"
+          aria-labelledby={`${tabId}-${tab}`} tabIndex={0}>
+          {tab === "selection" ? (
+            <SelectionPanel
+              {...props}
+              structures={structures}
+              busy={props.busy || !!props.selectionBusy}
+            />
+          ) : tab === "inspect" ? (
+            <InspectPanel project={project} selection={selection} structures={structures} />
+          ) : tab === "measurements" && project ? (
+            props.onOpenMeasurements ? <button type="button" className="secondary-button" onClick={props.onOpenMeasurements}>
+              <Ruler size={17} aria-hidden="true" />Open measurements
+            </button> : <MeasurementsPanel
+              project={project}
+              selection={selection}
+              structures={structures}
+              busy={props.busy}
+              onCreate={props.onCreateMeasurement ?? (() => undefined)}
+              onUpdate={props.onUpdateMeasurement ?? (() => undefined)}
+              onDelete={props.onDeleteMeasurement ?? (() => undefined)}
+              onSelectContact={(next) => props.onApplySelection(next, "replace")}
+            />
+          ) : tab === "transform" && project ? (
+            <TransformPanel
+              project={project}
+              selection={selection}
+              busy={props.busy}
+              movement={props.movement}
+              onPreview={
+                props.onPreviewTransform ?? (() => Promise.resolve())
+              }
+              onClearPreview={props.onClearTransformPreview ?? (() => undefined)}
+              onTransform={props.onTransform ?? (() => Promise.resolve())}
+              onSuperpose={props.onSuperpose ?? (() => Promise.resolve(null))}
+            />
+          ) : tab === "ligand" && project ? (
+            <LigandEditorPanel key={project.id}
+              project={project}
+              selection={selection}
+              structures={structures}
+              busy={props.busy}
+              onEdit={
+                props.onLigandEdit ??
+                (() => Promise.reject(new Error("Ligand editing is unavailable.")))
+              }
+              onMove={props.onTransform ?? (() => Promise.resolve())}
+            />
+          ) : tab === "protein" && project ? (
+            <ProteinEditorPanel
+              project={project}
+              selection={selection}
+              structures={structures}
+              busy={props.busy}
+              onEdit={
+                props.onProteinEdit ??
+                (() => Promise.reject(new Error("Protein editing is unavailable.")))
+              }
+              onMove={props.onTransform ?? (() => Promise.resolve())}
+            />
+          ) : (
+            <DetailsPanel project={project} busy={props.busy} onApply={props.onApply} />
+          )}
+        </div>
       </div>
     </section>
   );

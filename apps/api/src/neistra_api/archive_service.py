@@ -27,6 +27,7 @@ from neistra_api.import_export import (
     safe_display_filename,
     safe_filename_stem,
 )
+from neistra_api.ligand_property_service import is_owned_property_job
 from neistra_api.models import (
     EntryGroup,
     Job,
@@ -671,6 +672,7 @@ class ProjectArchiveService:
                 modified_at=job.modified_at,
             )
             for job in sorted(project.jobs, key=lambda item: item.id)
+            if not is_owned_property_job(self.session, job)
         ]
         manifest = ProjectManifestV3(
             application_version=APPLICATION_VERSION,

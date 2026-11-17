@@ -944,11 +944,6 @@ input[type="radio"] {
   outline-offset: -3px;
 }
 
-.inspector-body {
-  height: calc(100% - 92px);
-  overflow: auto;
-}
-
 .selection-panel {
   padding: 10px;
 }
@@ -2437,16 +2432,26 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   display: flex;
   flex-direction: column;
   container-type: inline-size;
+  min-height: 0;
+  overflow: clip;
 }
 
 .project-inspector .panel-header {
   flex-shrink: 0;
 }
 
-.project-inspector .inspector-body {
-  flex: 1;
+.project-inspector .inspector-scroll {
+  flex: 1 1 0;
   min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.project-inspector .inspector-body {
+  min-width: 0;
   height: auto;
+  overflow: visible;
 }
 
 .project-browser {

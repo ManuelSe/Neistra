@@ -1,0 +1,1256 @@
+{
+  "axes": [
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "hbd",
+      "domain": [
+        0.0,
+        10.0
+      ],
+      "id": "hbd",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "hba",
+      "domain": [
+        0.0,
+        20.0
+      ],
+      "id": "hba",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "tpsa",
+      "domain": [
+        0.0,
+        250.0
+      ],
+      "id": "tpsa",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "finite"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "molecular_weight",
+      "domain": [
+        0.0,
+        1000.0
+      ],
+      "id": "molecular_weight",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "finite"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "heavy_atom_count",
+      "domain": [
+        0.0,
+        100.0
+      ],
+      "id": "heavy_atom_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "heteroatom_count",
+      "domain": [
+        0.0,
+        50.0
+      ],
+      "id": "heteroatom_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "carbon_count",
+      "domain": [
+        0.0,
+        100.0
+      ],
+      "id": "carbon_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "formal_charge",
+      "domain": [
+        -5.0,
+        5.0
+      ],
+      "id": "formal_charge",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "safe_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "calculated_logp",
+      "domain": [
+        -2.0,
+        10.0
+      ],
+      "id": "calculated_logp",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "finite"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "molar_refractivity",
+      "domain": [
+        0.0,
+        250.0
+      ],
+      "id": "molar_refractivity",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "finite"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "rotatable_bond_count",
+      "domain": [
+        0.0,
+        20.0
+      ],
+      "id": "rotatable_bond_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "ring_count",
+      "domain": [
+        0.0,
+        10.0
+      ],
+      "id": "ring_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "aromatic_ring_count",
+      "domain": [
+        0.0,
+        10.0
+      ],
+      "id": "aromatic_ring_count",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "nonnegative_integer"
+    },
+    {
+      "clipping": "mark_and_clip",
+      "descriptor_id": "fraction_sp3",
+      "domain": [
+        0.0,
+        1.0
+      ],
+      "id": "fraction_sp3",
+      "missing": "leave_missing",
+      "normalization": "linear",
+      "numeric_rule": "fraction_0_1"
+    }
+  ],
+  "constraints": [
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-le-500",
+      "limit": 500,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-le-5",
+      "limit": 5,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hbd",
+      "id": "hbd-le-5",
+      "limit": 5,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hba",
+      "id": "hba-le-10",
+      "limit": 10,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-lt-300",
+      "limit": 300,
+      "operator": "lt"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-le-3",
+      "limit": 3,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hbd",
+      "id": "hbd-le-3",
+      "limit": 3,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hba",
+      "id": "hba-le-3",
+      "limit": 3,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "rotatable_bond_count",
+      "id": "rotors-le-10",
+      "limit": 10,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "tpsa",
+      "id": "tpsa-le-140",
+      "limit": 140,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-le-1000",
+      "limit": 1000,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-ge-minus2",
+      "limit": -2,
+      "operator": "ge"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-le-10",
+      "limit": 10,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hbd",
+      "id": "hbd-le-6",
+      "limit": 6,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "hba",
+      "id": "hba-le-15",
+      "limit": 15,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "tpsa",
+      "id": "tpsa-le-250",
+      "limit": 250,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "rotatable_bond_count",
+      "id": "rotors-le-20",
+      "limit": 20,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-lt-400",
+      "limit": 400,
+      "operator": "lt"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-lt-4",
+      "limit": 4,
+      "operator": "lt"
+    },
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-ge-100",
+      "limit": 100,
+      "operator": "ge"
+    },
+    {
+      "descriptor_id": "molecular_weight",
+      "id": "mw-le-350",
+      "limit": 350,
+      "operator": "le"
+    },
+    {
+      "descriptor_id": "calculated_logp",
+      "id": "logp-ge-1",
+      "limit": 1,
+      "operator": "ge"
+    }
+  ],
+  "descriptor_method": {
+    "implementation_version": "ligand-properties-v1",
+    "library_version": "2026.03.4",
+    "policy_version": "strict-current-graph-terminal-h-cip-v2"
+  },
+  "descriptors": [
+    {
+      "category": "composition",
+      "depends_on": "qualified_graph",
+      "description": "Average atomic-weight molecular mass.",
+      "id": "molecular_weight",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.Descriptors.MolWt",
+      "name": "Molecular weight",
+      "order": 0,
+      "plot_domain": [
+        0.0,
+        1000.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": "g/mol",
+      "value_type": "float"
+    },
+    {
+      "category": "composition",
+      "depends_on": "observed_elements",
+      "description": "Designated atoms with atomic number above 1.",
+      "id": "heavy_atom_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "observed atomic number > 1",
+      "name": "Heavy atoms",
+      "order": 1,
+      "plot_domain": [
+        0.0,
+        100.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "composition",
+      "depends_on": "observed_elements",
+      "description": "Designated atoms other than hydrogen or carbon.",
+      "id": "heteroatom_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "observed atomic number not in {1,6}",
+      "name": "Heteroatoms",
+      "order": 2,
+      "plot_domain": [
+        0.0,
+        50.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "composition",
+      "depends_on": "observed_elements",
+      "description": "Designated atoms with atomic number 6.",
+      "id": "carbon_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "observed atomic number == 6",
+      "name": "Carbon atoms",
+      "order": 3,
+      "plot_domain": [
+        0.0,
+        100.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "composition",
+      "depends_on": "qualified_atomic_charge",
+      "description": "Sum of fully qualified atomic formal charges.",
+      "id": "formal_charge",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "qualified atomic formal-charge sum",
+      "name": "Formal charge",
+      "order": 4,
+      "plot_domain": [
+        -5.0,
+        5.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": "e",
+      "value_type": "integer"
+    },
+    {
+      "category": "polarity",
+      "depends_on": "qualified_graph",
+      "description": "RDKit donor definition; not CalcLipinskiHBD.",
+      "id": "hbd",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.rdMolDescriptors.CalcNumHBD",
+      "name": "Hydrogen bond donors",
+      "order": 5,
+      "plot_domain": [
+        0.0,
+        10.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "polarity",
+      "depends_on": "qualified_graph",
+      "description": "RDKit acceptor definition; not CalcLipinskiHBA.",
+      "id": "hba",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.rdMolDescriptors.CalcNumHBA",
+      "name": "Hydrogen bond acceptors",
+      "order": 6,
+      "plot_domain": [
+        0.0,
+        20.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "polarity",
+      "depends_on": "qualified_graph",
+      "description": "Fragment-based polar surface area; sulfur/phosphorus terms excluded.",
+      "id": "tpsa",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcTPSA(includeSandP=False)",
+      "name": "Topological polar surface area",
+      "order": 7,
+      "plot_domain": [
+        0.0,
+        250.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": "Å²",
+      "value_type": "float"
+    },
+    {
+      "category": "lipophilicity",
+      "depends_on": "qualified_graph",
+      "description": "Wildman-Crippen calculated partition estimate.",
+      "id": "calculated_logp",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcCrippenDescriptors(includeHs=True)[0]",
+      "name": "Calculated logP",
+      "order": 8,
+      "plot_domain": [
+        -2.0,
+        10.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "float"
+    },
+    {
+      "category": "lipophilicity",
+      "depends_on": "qualified_graph",
+      "description": "Wildman-Crippen molar refractivity.",
+      "id": "molar_refractivity",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcCrippenDescriptors(includeHs=True)[1]",
+      "name": "Molar refractivity",
+      "order": 9,
+      "plot_domain": [
+        0.0,
+        250.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": "cm³/mol",
+      "value_type": "float"
+    },
+    {
+      "category": "flexibility",
+      "depends_on": "qualified_graph",
+      "description": "RDKit Strict rotatable-bond definition.",
+      "id": "rotatable_bond_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcNumRotatableBonds(Strict)",
+      "name": "Rotatable bonds",
+      "order": 10,
+      "plot_domain": [
+        0.0,
+        20.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "flexibility",
+      "depends_on": "qualified_graph",
+      "description": "RDKit perceived rings; not the graph cycle rank.",
+      "id": "ring_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcNumRings",
+      "name": "Rings",
+      "order": 11,
+      "plot_domain": [
+        0.0,
+        10.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "flexibility",
+      "depends_on": "qualified_graph",
+      "description": "Aromatic rings in the pinned perceived set.",
+      "id": "aromatic_ring_count",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcNumAromaticRings",
+      "name": "Aromatic rings",
+      "order": 12,
+      "plot_domain": [
+        0.0,
+        10.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "integer"
+    },
+    {
+      "category": "flexibility",
+      "depends_on": "qualified_graph",
+      "description": "sp³ carbons / all carbons; requires carbon.",
+      "id": "fraction_sp3",
+      "implementation_version": "ligand-properties-v1",
+      "library_version": "2026.03.4",
+      "method": "RDKit.CalcFractionCSP3; carbon_count > 0",
+      "name": "Fraction sp³ carbon",
+      "order": 13,
+      "plot_domain": [
+        0.0,
+        1.0
+      ],
+      "policy_version": "strict-current-graph-terminal-h-cip-v2",
+      "unit": null,
+      "value_type": "float"
+    }
+  ],
+  "limitations": [
+    "Threshold adaptations are descriptive criteria, not experimental, permeability, CNS exposure, clinical-success or binding-affinity predictions.",
+    "Exact unrounded values and strict/inclusive operators determine compliance. Display rounding, radar clipping and polygon area do not change it or supply a validated score.",
+    "Missing, invalid, stale or unsupported inputs remain distinct from zero and from failure. No protonation, tautomer, stereochemistry or salt composition is silently changed."
+  ],
+  "profiles": [
+    {
+      "adaptations": [
+        "Application all-four conjunction; this is not an absorption or clinical-success prediction.",
+        "Uses average molecular weight, CalcNumHBD/CalcNumHBA and hydrogen-inclusive Crippen logP. The source's alternative MlogP≤4.15 is not this descriptor mapping."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "mw-le-500",
+        "logp-le-5",
+        "hbd-le-5",
+        "hba-le-10"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": true,
+            "value": 500
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hbd",
+          "maximum": {
+            "inclusive": true,
+            "value": 5
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hba",
+          "maximum": {
+            "inclusive": true,
+            "value": 10
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": true,
+            "value": 5
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "ro5-v1",
+      "description": "All four named physicochemical limits must hold.",
+      "id": "ro5",
+      "missing_inputs": [],
+      "name": "Ro5 — all four",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "hbd",
+        "hba",
+        "calculated_logp"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "lipinski-1997"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Molecular-weight limit is strictly below300; logP/donor/acceptor limits are inclusive.",
+        "No additional TPSA or rotor condition is included. Uses the pinned descriptor mappings."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "mw-lt-300",
+        "logp-le-3",
+        "hbd-le-3",
+        "hba-le-3"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": false,
+            "value": 300
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hbd",
+          "maximum": {
+            "inclusive": true,
+            "value": 3
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hba",
+          "maximum": {
+            "inclusive": true,
+            "value": 3
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": true,
+            "value": 3
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "ro3-v1",
+      "description": "Core fragment-library size, partition and hydrogen-bond criteria.",
+      "id": "ro3",
+      "missing_inputs": [],
+      "name": "Ro3 — core",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "hbd",
+        "hba",
+        "calculated_logp"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "congreve-2003"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Uses Strict toolkit rotors, which also exclude esters; the original definition excludes amide rotation. Uses atom-based TPSA with sulfur/phosphorus terms excluded.",
+        "The paper's HBD+HBA≤12 alternative is not an extra condition."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "rotors-le-10",
+        "tpsa-le-140"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "tpsa",
+          "maximum": {
+            "inclusive": true,
+            "value": 140
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "maximum": {
+            "inclusive": true,
+            "value": 10
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "veber-v1",
+      "description": "Both flexibility and polar surface area limits.",
+      "id": "veber",
+      "missing_inputs": [],
+      "name": "Veber — toolkit adaptation",
+      "required_descriptor_ids": [
+        "tpsa",
+        "rotatable_bond_count"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "veber-2002"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Application composite references existing profiles and constraints without new limits."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [
+        "ro5",
+        "veber"
+      ],
+      "constraint_ids": [],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": true,
+            "value": 500
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hbd",
+          "maximum": {
+            "inclusive": true,
+            "value": 5
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hba",
+          "maximum": {
+            "inclusive": true,
+            "value": 10
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "tpsa",
+          "maximum": {
+            "inclusive": true,
+            "value": 140
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": true,
+            "value": 5
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "maximum": {
+            "inclusive": true,
+            "value": 10
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "ro5-veber-v1",
+      "description": "Shared conjunction of Ro5 and Veber definitions.",
+      "id": "ro5-veber",
+      "missing_inputs": [],
+      "name": "Ro5 + Veber",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "hbd",
+        "hba",
+        "tpsa",
+        "calculated_logp",
+        "rotatable_bond_count"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "lipinski-1997",
+        "veber-2002"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Inclusive outer limits map to the pinned toolkit, rather than the source's calculator.",
+        "The source cohort had MW>500; no lower-MW condition is invented. Membership is not a universal bRo5, oral-availability or druggability definition."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "mw-le-1000",
+        "logp-ge-minus2",
+        "logp-le-10",
+        "hbd-le-6",
+        "hba-le-15",
+        "tpsa-le-250",
+        "rotors-le-20"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": true,
+            "value": 1000
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hbd",
+          "maximum": {
+            "inclusive": true,
+            "value": 6
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "hba",
+          "maximum": {
+            "inclusive": true,
+            "value": 15
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "tpsa",
+          "maximum": {
+            "inclusive": true,
+            "value": 250
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": true,
+            "value": 10
+          },
+          "minimum": {
+            "inclusive": true,
+            "value": -2
+          }
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "maximum": {
+            "inclusive": true,
+            "value": 20
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "doak-outer-envelope-v1",
+      "description": "Approximate observed physicochemical envelope.",
+      "id": "doak-outer-envelope",
+      "missing_inputs": [],
+      "name": "Doak — outer envelope",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "hbd",
+        "hba",
+        "tpsa",
+        "calculated_logp",
+        "rotatable_bond_count"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "doak-2014"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Both MW<400 and calculated logP<4 are strict. This omits the source's broader ionization-dependent ADMET analysis and is not its complete method."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "mw-lt-400",
+        "logp-lt-4"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": false,
+            "value": 400
+          },
+          "minimum": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": false,
+            "value": 4
+          },
+          "minimum": null
+        }
+      ],
+      "definition_version": "gleeson-4-400-v1",
+      "description": "Two-property strict 4/400 adaptation.",
+      "id": "gleeson-4-400",
+      "missing_inputs": [],
+      "name": "Gleeson — 4/400",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "calculated_logp"
+      ],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "gleeson-2008"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "Closed ranges are an explicit application endpoint convention.",
+        "Applicable only when the same qualified input proves no formally charged atoms; net chargezero is insufficient. This also excludes charge-separated neutral graphs, including nitro representations. No neutralization or pKa inference is performed."
+      ],
+      "availability": "available",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [
+        "mw-ge-100",
+        "mw-le-350",
+        "logp-ge-1",
+        "logp-le-3"
+      ],
+      "default_filter_ranges": [
+        {
+          "descriptor_id": "molecular_weight",
+          "maximum": {
+            "inclusive": true,
+            "value": 350
+          },
+          "minimum": {
+            "inclusive": true,
+            "value": 100
+          }
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "maximum": {
+            "inclusive": true,
+            "value": 3
+          },
+          "minimum": {
+            "inclusive": true,
+            "value": 1
+          }
+        }
+      ],
+      "definition_version": "teague-lead-range-v1",
+      "description": "Named molecular-weight and partition ranges.",
+      "id": "teague-lead-range",
+      "missing_inputs": [],
+      "name": "Teague — lead-library range",
+      "required_descriptor_ids": [
+        "molecular_weight",
+        "calculated_logp"
+      ],
+      "source_domain": "no_formally_charged_atoms",
+      "source_ids": [
+        "teague-1999"
+      ],
+      "unavailable_reason": null
+    },
+    {
+      "adaptations": [
+        "No binary threshold substitute, partial total or zero-filled score is supplied."
+      ],
+      "availability": "unavailable",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [],
+      "default_filter_ranges": [],
+      "definition_version": "cns-mpo-unavailable-v1",
+      "description": "Original continuous desirability method requires unavailable descriptor inputs.",
+      "id": "cns-mpo",
+      "missing_inputs": [
+        "logd_ph_7_4",
+        "most_basic_pka"
+      ],
+      "name": "CNS MPO — unavailable",
+      "required_descriptor_ids": [],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "wager-2010"
+      ],
+      "unavailable_reason": "Required logD at pH7.4 and most-basic pKa are not calculated."
+    },
+    {
+      "adaptations": [
+        "Full text was inaccessible. No limits from a differently attributed method are substituted."
+      ],
+      "availability": "unavailable",
+      "axis_ids": [
+        "hbd",
+        "hba",
+        "tpsa",
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "component_ids": [],
+      "constraint_ids": [],
+      "default_filter_ranges": [],
+      "definition_version": "scaffold-som-unavailable-v1",
+      "description": "Scaffold clustering and pharmacophore/SOM method is not a threshold preset.",
+      "id": "scaffold-som",
+      "missing_inputs": [
+        "reproducible_scaffold_som_method"
+      ],
+      "name": "Scaffold/SOM method — unavailable",
+      "required_descriptor_ids": [],
+      "source_domain": "qualified_representation",
+      "source_ids": [
+        "lee-schneider-2001"
+      ],
+      "unavailable_reason": "The verified source did not establish a reproducible threshold preset."
+    }
+  ],
+  "registry_version": "ligand-profiles-v1",
+  "schema_version": 1,
+  "sources": [
+    {
+      "doi": "10.1016/S0169-409X(96)00423-1",
+      "id": "lipinski-1997",
+      "scope": "Size, partition estimate and hydrogen-bond counts. The application uses an explicit all-four conjunction rather than a validated absorption prediction.",
+      "title": "Ro5 source: Lipinski et al. (1997)",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0169409X96004231"
+    },
+    {
+      "doi": "10.1016/S1359-6446(03)02831-9",
+      "id": "congreve-2003",
+      "scope": "Core fragment-library criteria; author clarification DOI10.1038/nrd3926-c1. Additional polar-surface-area and rotor proposals are not part of this core variant.",
+      "title": "Core Ro3 source: Congreve et al. (2003), with author clarification",
+      "url": "https://doi.org/10.1016/S1359-6446(03)02831-9"
+    },
+    {
+      "doi": "10.1021/jm020017n",
+      "id": "veber-2002",
+      "scope": "Rotatable bonds and atom-based polar surface area. The paper's donor-plus-acceptor alternative is not an additional condition in this adaptation.",
+      "title": "Polar surface area and flexibility source: Veber et al. (2002)",
+      "url": "https://doi.org/10.1021/jm020017n"
+    },
+    {
+      "doi": "10.1016/j.chembiol.2014.08.013",
+      "id": "doak-2014",
+      "scope": "Approximate observed envelope in a source cohort with molecular weight above500. The cohort description is not an extra lower-weight threshold or a universal bRo5 definition.",
+      "title": "Observed outer-envelope source: Doak et al. (2014)",
+      "url": "https://doi.org/10.1016/j.chembiol.2014.08.013"
+    },
+    {
+      "doi": "10.1021/jm701122q",
+      "id": "gleeson-2008",
+      "scope": "A named two-property strict-limit adaptation, not the complete original ionization-dependent ADMET analysis.",
+      "title": "4/400 source: Gleeson (2008), section2.6",
+      "url": "https://doi.org/10.1021/jm701122q"
+    },
+    {
+      "doi": "10.1002/(SICI)1521-3773(19991216)38:24<3743::AID-ANIE3743>3.0.CO;2-U",
+      "id": "teague-1999",
+      "scope": "The source specifies ranges without endpoint operators. Closed endpoints and the conservative uncharged-representation domain are explicit application conventions.",
+      "title": "Lead-library range source: Teague et al. (1999)",
+      "url": "https://www.researchgate.net/publication/12665941_The_Design_of_Leadlike_Combinatorial_Libraries"
+    },
+    {
+      "doi": "10.1021/cn100008c",
+      "id": "wager-2010",
+      "scope": "Six equally weighted continuous desirability terms, total 0-6; requires logD7.4 and most-basic pKa. Binary thresholds or zero-filled missing terms do not reproduce it.",
+      "title": "Continuous CNS MPO source: Wager et al. (2010)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3368654/"
+    },
+    {
+      "doi": "10.1021/cc000097l",
+      "id": "lee-schneider-2001",
+      "scope": "Verified abstract describes scaffold clustering and pharmacophore assessment using a self-organizing map. A reproducible threshold preset was not established; full text was inaccessible. This is distinct from DOI10.1021/jm015507e.",
+      "title": "Scaffold/SOM method source: Lee and Schneider (2001)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11350252/"
+    }
+  ]
+}

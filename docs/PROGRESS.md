@@ -2,6 +2,63 @@
 
 ## Current milestone
 
+Parent #11 remains active through verified releases for required #156–#163 and
+parent closeout. #156/#157 are delivered; #158 freshcandidate9 full qualification
+is running. #160 has a verified local profile vertical slice awaiting actual
+released #159 integration, full qualification and final publication review.
+
+## Completed work
+
+#160 provides seven sourced/versioned profiles and two explicitly unavailable
+methods through one registry, a shared typed evaluator and read-only metadata API.
+App-owned profile demand reuses current descriptors, cancellation and uncertainty.
+Current methods/provenance remain inspectable with all display categories disabled.
+A bounded presentation anchor preserves focused legacy task position while expanded
+profile/property results change height, retaining explicit navigation authority.
+
+## Verification performed
+
+Domain47Python/220TypeScript cases and both scoped scientific assessments pass.
+Current profile/domain/API plus copied prerequisite lifecycle tests pass78cases,
+Ruff, owned format and mypy280, actual23929exit0 with553source/fixture hashes fixed.
+The copied D-188 correction is from unreleased159C1f6e847b8; subsequent formatting
+preserves the entire Python AST. Earlier format-failed proof remains retained.
+Frontend400focused/1,649global cases, lint/types/build pass, actual9640exit0;
+all359web sources and original15domain/13provisional pins remain fixed.
+Fresh native7 passes18cases, zero failure/skip/flake/retry, actual69297exit0;
+all1,074selected hashes remain fixed, digestee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e.
+It covers both themes/runner profiles, actual100%/200% desktop zoom,320px access,
+profile-only demand, Cancel/Retry, hidden-inspector edits, real preview Cancel/Apply/
+exactUndoRedo and held metadata recovery across an edit. Eight zoom scenarios and
+24full compositor captures show≤0.4375px task movement. Independent architecture,
+UI and UX corrective assessments PASS on this same bounded correction.
+
+## Known limitations
+
+These are local preparation checks, not all-seven whole-feature readiness or a
+complete release gate. The13pins/49borrowed runtime paths, private migration0017
+and preparation version0.36 must be reconciled against actual verified159master;
+provisional160release remains0.38. All failed native attempts/stores are preserved.
+Performance, compatibility readers, final versions, full candidate/exact-master
+checks and normal protected delivery remain required. No implementation push/release.
+
+## Blockers
+
+No external blocker. Delivered prerequisites and complete final qualification
+remain mandatory before publication; independent preparation does not satisfy them.
+
+## Next action
+
+The coherent local checkpoint has source-bound evidence (C2ZIP33,134,745bytes,
+821outer payloads/15recursive ZIPs); original C1 is unchanged. Reconcile actual
+delivered prerequisites, then complete full gates/all-seven final
+review, protected merge, exact-commit release verification and child closeout.
+
+## Historical progress before isolated #160 preparation
+
+
+## Current milestone
+
 Parent #11 remains active for required #156–#163 through verified releases and
 parent closeout. #156/#157 are delivered in0.34.0/0.35.0. #158 has passing native
 oracle corrections and local forensic verification; full qualification/push/release

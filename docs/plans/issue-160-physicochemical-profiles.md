@@ -152,3 +152,279 @@ unreleased preparation dependencies. No159delivery or160implementation pass is i
 Integrate actual verified159deliverymaster and replace/reconcile those copies before
 final160gates/PR, preserving the parent's serial release dependencies. No version bump
 or milestone completion is claimed by this planning refinement.
+
+
+Domain handoff contract before implementation: Python exports schema-version1 registry
+with registry/variant versions, descriptor method identity, shared typed lt/le/ge
+constraints, source citations/adaptations, explicit unavailable reasons, composite
+DAG references and the optional no-formally-charged-atoms fact. Validate uniqueness,
+references, coverage, derived exact default-filter intersections and deterministic
+14-axis metadata copied from159definitions. No numeric runtime Python evaluator.
+
+The single TypeScript evaluator accepts a captured current-owner authority view,
+not a raw report: project/exact source/original artifact/owner epoch/status, trusted
+159session binding and descriptor registry, with an isCurrent guard before and after
+work. Root's later adapter obtains target/epoch independently from App ownership and
+binding solely through session.view(target); no expected input hash is self-certified
+from a report. Emit source/binding/input/registry/variant/method/epoch identity with
+results. Pending matching partial values may retain known violations; stale/preview/
+mismatched inputs withhold all incompatible values. Domain-unavailable precedes
+numeric compliance; positive pass requires complete current applicable inputs.
+
+Method-justified value validation preserves finite negative logP and other values
+outside plot ranges; integer counts must be safe nonnegative integers and fraction
+sp3 stays in[0,1]. Additional claimed scientific bounds require method evidence.
+Exact/adjacent-float and independent source-based offline boundary fixtures test all
+constraints, composites, malformed data, versions, ownership retirement and optional
+source domains. Author-scoped checks do not establish independent final review.
+
+
+A narrow input-consistency invariant follows directly from the defined charge fact:
+if contains_formally_charged_atoms is strictlyfalse and an included ready formal_charge
+is nonzero, the report contradicts itself and is unqualified. Do not infer the converse:
+net chargezero with a true charge-presence fact is valid, including zwitterionic or
+charge-separated representations; unknown remains unknown. This check applies only
+when that descriptor is present/ready and adds no formal-charge demand, charge
+perception, neutralization or pKa method. Malformed-input controls cover both sides;
+independent scientific assessment of the completed domain remains required.
+
+
+Independent scientific review of the first frozen domain reproduces aP2: a report
+with model_status=unavailable but ready qualified_graph outcomes yields positive
+compliance for all seven profiles and plots its molecular weight. Before correction,
+retain the45Python/193TypeScript author proof as prior-candidate evidence. Add a narrow
+dependency-consistency check: unavailable model preparation cannot supply ready
+qualified_graph outcomes. Reject that internally contradictory report or consistently
+withhold its invalid outcomes; no positive profile may use them. Preserve valid
+observed_elements and qualified_atomic_charge partial values and add no descriptor
+demand. Test the malformed all-profile positive case and a valid unavailable-model
+report with independently known counts/charge. Requalify affected sources and obtain
+independent scientific reassessment; no domain acceptance or full feature is claimed.
+
+
+Independent implementation review finds a separate narrow identity boundaryP2:
+validSource accepts atom IDzero although normalized Atom.id and designation membership
+require positive IDs. A direct production-engine probe with matching source/binding
+[0] yields a positive result. Require every canonical membership ID>=1, retaining
+safe-integer/order/uniqueness/size checks; reject matching malformed source and binding
+rather than publishing their identity. Add a zero-ID negative and valid-positive
+regression without changing chemistry, thresholds or descriptor demands. Preserve the
+47Python/212TypeScript prior candidate proof and obtain both affected implementation
+reassessment and explicit theory reconfirmation of the final corrected domain.
+
+
+### Pre-code API and actual-owner integration refinement
+
+Independent architecture consultation accepts GET/api/v1/ligand-profiles/registry
+returning the authoritative core ProfileRegistry through FastAPI's typed response.
+It is installation-independent read-only metadata: no project/session writes,
+migration or additional evaluator. The browser parses unknown JSON with the existing
+registry validator and exposes query failure/retry without trusting stale metadata.
+
+Use one existing159property owner/session/consumer. Profile dependencies augment saved
+category demands in the SAME normalized helper called by useProperties AND synchronous
+App owner ports/propertyInputKey; preserve descriptor-registry order and deduplicate.
+Preference-based rows remain preference-based. Effective target.descriptorIds controls
+shared Updating/Cancel/Retry even when all category checkboxes are off; never save the
+augmented union into installation preferences or imply that no work is requested.
+
+A narrow profile authority adapter captures exact source/original/project and epoch
+from PropertyTarget/PropertyInputOwner, and binding only from session.view(target).
+Its independent isCurrent guard checks captured owner plus successful matching registry
+version before/after evaluation. Preview/stale/configuration failure withholds bindings;
+no raw-report-derived authority, expected hash, second consumer/cache or job type.
+Actual adapter and demand controls must cover partial coverage, late A/B, source changes,
+preview/Cancel ABA, hidden presenter and method/registry failure.
+
+Early UI and UX consultations accept one controlled native Profile select, initially
+No profile, within existing Properties. App retains choice across responsive remounts
+and entry switches; unknown/removed choices remain explicitly unavailable rather than
+silently choosing another profile. Keep unavailable definitions selectable with their
+reason. One concise qualified status and collapsed Criteria and sources disclosure
+reuse exact registry/evaluator names, values, operators, limits, units, versions and
+citations. Preserve known violations with an incomplete-input note; missing is not zero
+or failure. No radar/sidebar/filter rewrite until161/162. No result-driven focus/scroll
+or selector remount. Use existing44px controls, wrapped narrow labels and one polite
+status announcement. A same-effective-coverage profile change must not clear explicit
+cancellation, issue Retry or create another descriptor consumer/job.
+
+Preparation must leave frozen159sources untouched. Before integrating its App controls,
+use a coherent root-approved159source snapshot with complete hashes, labelled unreleased
+preparation. Reconcile all thirteen domain pins and further borrowed sources against
+actual verified159master before final gates/review/PR. Domain47Python/220TypeScript
+handoff4 has independent theory and implementation PASS; neither establishes actual
+API/owner/UI behavior or delivery of the prerequisite.
+
+
+Dependency-demand continuity during registry recovery: keep at most one last successfully
+validated plan for the same selected profile ID while profile metadata reloads or fails.
+This is scheduling metadata only, never authority to evaluate stale definitions; withhold
+profile results on registry failure/mismatch and preserve independently qualified159values.
+Normalize retained IDs against the actual descriptor catalog and bind the plan to its
+profile/registry/method provenance. A different/unknown/unavailable selected variant does
+not inherit another variant's requirements. Recovery with unchanged effective demand must
+preserve explicit cancellation and consumer identity; no implicit Retry or preference
+write follows a transient metadata error. Test held failure/recovery against actual owner
+and session. This bounded continuity refinement changes no scientific criterion.
+
+
+Independent UI assessment of the first twelve-file integration candidate finds a
+current-input disclosure gap: all display categories off plus a selected profile
+still requests descriptors, but Methods and limits is guarded by display rows and
+therefore hides actual report provenance/model qualification. Registry citations
+are not a substitute for current-input warnings, including inferred bonds/atomic
+fields. Preserve the initial328focused/1,632global proof as prior-candidate evidence.
+Keep the existing single disclosure available for effective descriptor demand and
+show its effective method definitions plus currently owned report qualification,
+without adding displayed category rows, changing preferences, duplicating numerical
+rules or requesting extra work. Test actual profile-only report provenance and its
+immediate retirement on source/preview change. A small existing-token substitution
+also corrects an undefined control surface color. Independently reassess affected
+UI and scientific/ownership evidence and obtain explicit other-role reconfirmations.
+
+The separate suspected hidden sighted-status issue is disproved by the actual
+LigandProperties markup: normal property status remains visibly rendered. Its new
+single combined live announcer deliberately includes profile context. Native inherited
+status expectations may adopt explicit exact new combinations while preserving all
+current-value, cancellation, retirement and recovery assertions; do not loosen them
+arbitrarily. Default No profile repetition is a nonblocking presentation suggestion.
+
+
+### Local frontend and actual native preparation checkpoint
+
+The corrected twelve-file frontend candidate passes329focused cases/seven suites,
+1,633global cases/129suites, lint, types and build, actual26385exit0. Its frozen
+source map is899ba1d2554ce35e22910341d10bde7dc134dacfc9ceee9f59da584c913129b7.
+Independent scoped architecture, UI and UX reassessments accept current-input
+Methods/provenance with profile-only demand and immediate warning retirement.
+Domain15 and thirteen provisional159pins remain fixed; this is not finalall-seven
+feature readiness or proof that the prerequisite has released.
+
+Actual native2 passes8cases in both themes and desktop/mobile, zero failures/skips/
+flakes/retries, actual78987exit0 with all1,070selected sources fixed. It proves
+all-categories-off exact profile demand, Cancel/equal-coverage profile switching/
+explicit Retry, current unrounded criteria/sources, installation preferences,
+original bytes and unchanged project history for calculation. Real chemistry edits
+schedule before the hidden inspector reopens, preserve selector identity/focus,
+retire former values and restore exact Undo/Redo inputs. Native1's prior4passes
+physically reside under an explicitly recorded historical159evidence prefix inside
+this160tree; retain rather than move that closed record.
+
+Next native controls exercise the existing real bond proposal through preview,
+Cancel, Apply and exact Undo/Redo, explicitly unavailable committed values during
+preview. A real profile-registry response held across a chemistry edit must preserve
+independent property calculation and assess only current input on recovery. Actual
+browser zoom qualification uses the existing extension at verified100%/200%, both
+themes, full compositor capture, keyboard/44px controls and retained legacy tasks.
+These additions change tests only; scientific methods, runtime contracts and bounds
+remain unchanged. Preserve every failed attempt separately; do not loosen assertions.
+
+
+### Native reading-position correction contract
+
+Fresh combinednative3 fails its first real desktop100% light access case: current
+expanded results move the same focused legacy query108.4375px, while focus, full
+visibility/hit and scrollTop1675 remain unchanged. Actual43214exit1;17cases do not
+run, all1,071selected sources fixed. UI and UX independently confirm the accepted
+reading-position defect; no assertion/timing tolerance change is justified.
+Implement D-190's bounded presentation precommit anchor only, preserving scientific
+warnings/content, component identities, user task/scroll authority and existing
+single-owner layout. Independent architecture consultation accepts the method before
+implementation. Keep runtime correction2 and failed native3 sources/trace/store as
+prior-candidate evidence; renew focused/global frontend checks, actual complete18
+native cases and affected independent assessments before claiming correction verified.
+
+Focusednative4 separately passes4then fails an incorrect preview oracle after the
+test deliberately closes the editor (which cancels placement), leaving11unexecuted,
+actual31297exit1. Independent architecture trace confirms the lifecycle and no
+production freshness defect. The test now keeps the actual Apply-enabled proposal
+open while inspecting; the mobile sheet can open/close without changing that draft.
+Freshnative5 passesall16main cases/zero failures/skips/flakes/retries, actual97537
+exit0 and all1,071sources fixed: both themes, desktop/mobile, profile-only demand,
+Cancel/Retry, actual edit/UndoRedo, real chemical preview Cancel/Apply/UndoRedo and a
+held actual metadata response across a real chemistry edit. This scoped pass is not
+combined18-case access qualification; all failed attempts remain separately retained.
+
+
+Provisional prerequisite snapshot reconciliation after159localC1f6e847b8: all49
+borrowed runtime paths remain byte-identical except job_worker.py, whose verified
+D-188 correction counts productive warm/cache-failure turns in the existing fairness
+budgets. Copy that exact verified source and its29-case lifecycle regression into
+this preparation tree, preserving the earlier snapshot and complete before/after
+hashes. This fixes an already established prerequisite defect without changing
+bounds, methods, profile behavior or the thirteen domain pins. Run those29cases
+alongside current profile/domain/API checks and static verification. The source is
+still explicitly UNRELEASED preparation; actual released159master reconciliation
+remains mandatory before final160qualification. Do not blindly overwrite160profile
+or presentation integration when replacing borrowed sources.
+
+
+### Corrected accessible vertical workflow — actual closed proof
+
+D-190's four-file presentation correction passes400focused cases/14suites,
+1,649global cases/130suites, lint, typing and build, actual9640exit0 with359web
+sources fixed. Independent architecture and UI each execute all16new controls;
+UX inspects the complete controls/source/evidence. Scope guards preserve the same
+focused task across local publications while yielding to deliberate project/entry/
+task changes, changed focus/DOM/owner and latest user scrolling. Native full/partial
+anchoring uses only the residual offset; no scientific ownership or scheduling change.
+
+Freshcombinednative6 proves its first real reading-position path but then fails a
+new unsupported query-draft persistence expectation after deliberate tab switching:
+actual15366exit1,1failed/17unexecuted,1,074sources fixed. Independent UX comparison
+proves SelectionPanel's local default/empty state and conditional unmount are byte-
+identical across158/159/160; the existing159test never claims post-remount retention.
+Keep every held-READY sameDOM/focus/hit/≤1px, firstApply/selected1 and keyboard-tab
+assertion. The native-only correction explicitly checks the established default/
+empty state after deliberate return, then reselects atom_reference/refills/applies
+again. Original427b036b source and failed trace/store remain retained; current oracle
+isdb41bf3f06baeca085aa043ef71c9420d07aceb868838e83ea1dd889124d0673.
+
+Freshcombinednative7 completesall18cases, zero failure/skip/flake/retry/browser
+errors, actual69297exit0. All1,074selected sources remain fixed with digest
+`ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e`.
+Eight actual desktop100%/200% scenarios span both themes and configured runner
+profiles; all24CDPcaptures are full1440×861compositors. Task movement is−0.4375CSSpx
+at100% and+0.0546875at200%, same DOM/focus and hit testing retained. Both themes and
+mobile/desktop also exercise profile-only dependencies, cancellation/equal-coverage
+choices/Retry, current criteria/provenance, automatic edits before Inspector reopening,
+real active preview unavailable→Cancel/Apply/exactUndoRedo and real registry response
+held across a chemistry edit. Original files and installation preferences remain
+protected by actual assertions. Architecture/UI/UX independently read back the
+closed source/report/receipt/geometry evidence and return scopedPASS; UI/UX inspect
+representative compositor images. This is not all-seven whole-feature final approval.
+
+Current prerequisite-worker/profile/API verification separately completes78Python
+cases, Ruff, owned format and mypy280, actual23929exit0,553source/fixture hashes
+fixed. Earlier86376 passes78/Ruff then fails the added format check; mypy does not
+run there. Canonical formatting changes only whitespace in the two copied files;
+complete Python AST equality is recorded and current checks are fresh.
+The original exact159copy and all before/after source/proof snapshots remain retained.
+Actual released159master/tag integration, final versions/performance/compatibility/
+full candidate and exact-master checks, all-seven same-final-candidate assessment,
+protected merge/publication/closeout remain mandatory.
+
+
+### Source-bound local checkpoint evidence
+
+The [C2checkpoint](../assets/ligand-profiles/c2-checkpoint.json) and
+[complete evidence packet](../assets/ligand-profiles/c2-evidence.zip) bind all1,074
+selected sources, copy all80changed/new source paths versus the planning head and
+retain every seven-run diagnostic/store family. ZIP33,134,745bytes has SHA256
+`1adc0c7a79a4fabcdf68cc0b970045540045518c36d190f4efbd49c97abf1929`.
+All821outer payloads,15recursive ZIPs/947manifest entries,80current source copies,
+seven owned stores and24decoded compositor captures are verified. Exact metadata
+preserves60owned symlinks without active archive links. The original344,899-byte
+C1domain packet remains byte-identical. Neutral naming and path checks pass.
+
+Original packaging session52162completion is unavailable after resume; do not
+invent an enclosingexit. Its closed result/log and first erroneous CSS/compositor
+packager attempt remain retained. Fresh directly observed readbacks31005exit0 and
+a further exact-union readback verify the artifact; root independently repeats
+recursiveCRC/SHA/source/C1 checks, actualexit0. This is local artifact verification,
+not a substitute for a complete release-gate enclosing result.
+
+The checkpoint is a verified LOCAL preparation state only. It is not a pushed
+application implementation, final all-seven readiness, delivered prerequisite,
+complete performance/compatibility qualification or release. Serial actual159
+integration and all final delivery requirements above remain mandatory.

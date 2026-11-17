@@ -239,6 +239,23 @@ class ArtifactService:
             raise ArtifactIntegrityError("The stored artifact failed its integrity check")
         return payload
 
+    def read_bounded_verified_bytes(self, artifact_id: str, max_bytes: int) -> bytes:
+        """Verify immutable content while bounding the actual read, including file growth."""
+        if type(max_bytes) is not int or max_bytes < 1:
+            raise ValueError("A positive artifact byte limit is required")
+        artifact = self.get(artifact_id)
+        if not 0 <= artifact.size <= max_bytes:
+            raise ArtifactIntegrityError("The artifact exceeds the supported input byte budget")
+        try:
+            payload = self.store.read_bytes_bounded(artifact.relative_path, max_bytes)
+        except (OSError, ValueError) as error:
+            raise ArtifactIntegrityError(
+                "The bounded artifact is unavailable or oversized"
+            ) from error
+        if len(payload) != artifact.size or hashlib.sha256(payload).hexdigest() != artifact.sha256:
+            raise ArtifactIntegrityError("The stored artifact failed its bounded integrity check")
+        return payload
+
     def load_normalized(self, artifact_id: str) -> NormalizedStructureV1:
         artifact = self.get(artifact_id)
         if artifact.media_type != NORMALIZED_MEDIA_TYPE:

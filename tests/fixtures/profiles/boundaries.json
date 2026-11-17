@@ -1,0 +1,4970 @@
+{
+  "base_values": {
+    "aromatic_ring_count": 1,
+    "calculated_logp": 2,
+    "carbon_count": 14,
+    "formal_charge": 0,
+    "fraction_sp3": 0.5,
+    "hba": 2,
+    "hbd": 1,
+    "heavy_atom_count": 18,
+    "heteroatom_count": 4,
+    "molar_refractivity": 70,
+    "molecular_weight": 250,
+    "ring_count": 1,
+    "rotatable_bond_count": 2,
+    "tpsa": 60
+  },
+  "basis": "Independent accepted publication/adaptation limits; IEEE754 adjacent values, integer limit±1. No production evaluator supplies an expected outcome.",
+  "format_version": 1,
+  "operator_controls": [
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "lt",
+      "value": 299.99999999999994
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "lt",
+      "value": 300.0
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "lt",
+      "value": 300.00000000000006
+    },
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "le",
+      "value": 299.99999999999994
+    },
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "le",
+      "value": 300.0
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "le",
+      "value": 300.00000000000006
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "gt",
+      "value": 299.99999999999994
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "gt",
+      "value": 300.0
+    },
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "gt",
+      "value": 300.00000000000006
+    },
+    {
+      "expected": "fail",
+      "limit": 300,
+      "operator": "ge",
+      "value": 299.99999999999994
+    },
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "ge",
+      "value": 300.0
+    },
+    {
+      "expected": "pass",
+      "limit": 300,
+      "operator": "ge",
+      "value": 300.00000000000006
+    }
+  ],
+  "references": {
+    "doak-outer-envelope": [
+      [
+        "molecular_weight",
+        "le",
+        1000
+      ],
+      [
+        "calculated_logp",
+        "ge",
+        -2
+      ],
+      [
+        "calculated_logp",
+        "le",
+        10
+      ],
+      [
+        "hbd",
+        "le",
+        6
+      ],
+      [
+        "hba",
+        "le",
+        15
+      ],
+      [
+        "tpsa",
+        "le",
+        250
+      ],
+      [
+        "rotatable_bond_count",
+        "le",
+        20
+      ]
+    ],
+    "gleeson-4-400": [
+      [
+        "molecular_weight",
+        "lt",
+        400
+      ],
+      [
+        "calculated_logp",
+        "lt",
+        4
+      ]
+    ],
+    "ro3": [
+      [
+        "molecular_weight",
+        "lt",
+        300
+      ],
+      [
+        "calculated_logp",
+        "le",
+        3
+      ],
+      [
+        "hbd",
+        "le",
+        3
+      ],
+      [
+        "hba",
+        "le",
+        3
+      ]
+    ],
+    "ro5": [
+      [
+        "molecular_weight",
+        "le",
+        500
+      ],
+      [
+        "calculated_logp",
+        "le",
+        5
+      ],
+      [
+        "hbd",
+        "le",
+        5
+      ],
+      [
+        "hba",
+        "le",
+        10
+      ]
+    ],
+    "ro5-veber": [
+      [
+        "molecular_weight",
+        "le",
+        500
+      ],
+      [
+        "calculated_logp",
+        "le",
+        5
+      ],
+      [
+        "hbd",
+        "le",
+        5
+      ],
+      [
+        "hba",
+        "le",
+        10
+      ],
+      [
+        "rotatable_bond_count",
+        "le",
+        10
+      ],
+      [
+        "tpsa",
+        "le",
+        140
+      ]
+    ],
+    "teague-lead-range": [
+      [
+        "molecular_weight",
+        "ge",
+        100
+      ],
+      [
+        "molecular_weight",
+        "le",
+        350
+      ],
+      [
+        "calculated_logp",
+        "ge",
+        1
+      ],
+      [
+        "calculated_logp",
+        "le",
+        3
+      ]
+    ],
+    "veber": [
+      [
+        "rotatable_bond_count",
+        "le",
+        10
+      ],
+      [
+        "tpsa",
+        "le",
+        140
+      ]
+    ]
+  },
+  "samples": [
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:molecular_weight:le:500:below",
+      "profile_id": "ro5",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 499.99999999999994,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:molecular_weight:le:500:exact",
+      "profile_id": "ro5",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 500.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:molecular_weight:le:500:above",
+      "profile_id": "ro5",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 500.00000000000006,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:calculated_logp:le:5:below",
+      "profile_id": "ro5",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 4.999999999999999,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:calculated_logp:le:5:exact",
+      "profile_id": "ro5",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 5.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:calculated_logp:le:5:above",
+      "profile_id": "ro5",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 5.000000000000001,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:hbd:le:5:below",
+      "profile_id": "ro5",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 4,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:hbd:le:5:exact",
+      "profile_id": "ro5",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 5,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:hbd:le:5:above",
+      "profile_id": "ro5",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 6,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:hba:le:10:below",
+      "profile_id": "ro5",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 9,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5:hba:le:10:exact",
+      "profile_id": "ro5",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 10,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "ro5:hba:le:10:above",
+      "profile_id": "ro5",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 11,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:molecular_weight:lt:300:below",
+      "profile_id": "ro3",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 299.99999999999994,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:molecular_weight:lt:300:exact",
+      "profile_id": "ro3",
+      "relation": "exact",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 300.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:molecular_weight:lt:300:above",
+      "profile_id": "ro3",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 300.00000000000006,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:calculated_logp:le:3:below",
+      "profile_id": "ro3",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2.9999999999999996,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:calculated_logp:le:3:exact",
+      "profile_id": "ro3",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 3.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:calculated_logp:le:3:above",
+      "profile_id": "ro3",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 3.0000000000000004,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:hbd:le:3:below",
+      "profile_id": "ro3",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 2,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:hbd:le:3:exact",
+      "profile_id": "ro3",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 3,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:hbd:le:3:above",
+      "profile_id": "ro3",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 4,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:hba:le:3:below",
+      "profile_id": "ro3",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro3:hba:le:3:exact",
+      "profile_id": "ro3",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 3,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 300,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 3,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "ro3:hba:le:3:above",
+      "profile_id": "ro3",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 4,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "veber:rotatable_bond_count:le:10:below",
+      "profile_id": "veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 9,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "veber:rotatable_bond_count:le:10:exact",
+      "profile_id": "veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 10,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "veber:rotatable_bond_count:le:10:above",
+      "profile_id": "veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 11,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "veber:tpsa:le:140:below",
+      "profile_id": "veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 139.99999999999997
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "veber:tpsa:le:140:exact",
+      "profile_id": "veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 140.0
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "veber:tpsa:le:140:above",
+      "profile_id": "veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 140.00000000000003
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:molecular_weight:le:500:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 499.99999999999994,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:molecular_weight:le:500:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 500.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:molecular_weight:le:500:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 500.00000000000006,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:calculated_logp:le:5:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 4.999999999999999,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:calculated_logp:le:5:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 5.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:calculated_logp:le:5:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 5.000000000000001,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hbd:le:5:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 4,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hbd:le:5:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 5,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hbd:le:5:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 6,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hba:le:10:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 9,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hba:le:10:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 10,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:hba:le:10:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 11,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:rotatable_bond_count:le:10:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 9,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:rotatable_bond_count:le:10:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 10,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:rotatable_bond_count:le:10:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 11,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:tpsa:le:140:below",
+      "profile_id": "ro5-veber",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 139.99999999999997
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "ro5-veber:tpsa:le:140:exact",
+      "profile_id": "ro5-veber",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 140.0
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 500,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 5,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 140,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "ro5-veber:tpsa:le:140:above",
+      "profile_id": "ro5-veber",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 140.00000000000003
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:molecular_weight:le:1000:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 999.9999999999999,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:molecular_weight:le:1000:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 1000.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:molecular_weight:le:1000:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 1000.0000000000001,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:ge:-2:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": -2.0000000000000004,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:ge:-2:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": -2.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:ge:-2:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": -1.9999999999999998,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:le:10:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 9.999999999999998,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:le:10:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 10.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:calculated_logp:le:10:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 10.000000000000002,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hbd:le:6:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 5,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hbd:le:6:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 6,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hbd:le:6:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 7,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hbd"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hba:le:15:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 14,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hba:le:15:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 15,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:hba:le:15:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 16,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "hba"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:tpsa:le:250:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 249.99999999999997
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:tpsa:le:250:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 250.0
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:tpsa:le:250:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 250.00000000000003
+      },
+      "varied_descriptor": "tpsa"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:rotatable_bond_count:le:20:below",
+      "profile_id": "doak-outer-envelope",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 19,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "doak-outer-envelope:rotatable_bond_count:le:20:exact",
+      "profile_id": "doak-outer-envelope",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 20,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 1000,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": -2,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 10,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hbd",
+          "limit": 6,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "hba",
+          "limit": 15,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "tpsa",
+          "limit": 250,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "limit": 20,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "doak-outer-envelope:rotatable_bond_count:le:20:above",
+      "profile_id": "doak-outer-envelope",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 21,
+        "tpsa": 60
+      },
+      "varied_descriptor": "rotatable_bond_count"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "pass"
+        }
+      ],
+      "id": "gleeson-4-400:molecular_weight:lt:400:below",
+      "profile_id": "gleeson-4-400",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 399.99999999999994,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "pass"
+        }
+      ],
+      "id": "gleeson-4-400:molecular_weight:lt:400:exact",
+      "profile_id": "gleeson-4-400",
+      "relation": "exact",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 400.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "pass"
+        }
+      ],
+      "id": "gleeson-4-400:molecular_weight:lt:400:above",
+      "profile_id": "gleeson-4-400",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 400.00000000000006,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "pass"
+        }
+      ],
+      "id": "gleeson-4-400:calculated_logp:lt:4:below",
+      "profile_id": "gleeson-4-400",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 3.9999999999999996,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "fail"
+        }
+      ],
+      "id": "gleeson-4-400:calculated_logp:lt:4:exact",
+      "profile_id": "gleeson-4-400",
+      "relation": "exact",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 4.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 400,
+          "operator": "lt",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 4,
+          "operator": "lt",
+          "status": "fail"
+        }
+      ],
+      "id": "gleeson-4-400:calculated_logp:lt:4:above",
+      "profile_id": "gleeson-4-400",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 4.000000000000001,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:ge:100:below",
+      "profile_id": "teague-lead-range",
+      "relation": "below",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 99.99999999999999,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:ge:100:exact",
+      "profile_id": "teague-lead-range",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 100.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:ge:100:above",
+      "profile_id": "teague-lead-range",
+      "relation": "above",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 100.00000000000001,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:le:350:below",
+      "profile_id": "teague-lead-range",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 349.99999999999994,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:le:350:exact",
+      "profile_id": "teague-lead-range",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 350.0,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:molecular_weight:le:350:above",
+      "profile_id": "teague-lead-range",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 350.00000000000006,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "molecular_weight"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "fail"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:ge:1:below",
+      "profile_id": "teague-lead-range",
+      "relation": "below",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 0.9999999999999999,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:ge:1:exact",
+      "profile_id": "teague-lead-range",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 1.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:ge:1:above",
+      "profile_id": "teague-lead-range",
+      "relation": "above",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 1.0000000000000002,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:le:3:below",
+      "profile_id": "teague-lead-range",
+      "relation": "below",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2.9999999999999996,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "pass"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:le:3:exact",
+      "profile_id": "teague-lead-range",
+      "relation": "exact",
+      "status": "pass",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 3.0,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    },
+    {
+      "criteria": [
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 100,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "molecular_weight",
+          "limit": 350,
+          "operator": "le",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 1,
+          "operator": "ge",
+          "status": "pass"
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "limit": 3,
+          "operator": "le",
+          "status": "fail"
+        }
+      ],
+      "id": "teague-lead-range:calculated_logp:le:3:above",
+      "profile_id": "teague-lead-range",
+      "relation": "above",
+      "status": "fail",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 3.0000000000000004,
+        "carbon_count": 14,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 18,
+        "heteroatom_count": 4,
+        "molar_refractivity": 70,
+        "molecular_weight": 250,
+        "ring_count": 1,
+        "rotatable_bond_count": 2,
+        "tpsa": 60
+      },
+      "varied_descriptor": "calculated_logp"
+    }
+  ]
+}

@@ -8547,3 +8547,41 @@ Isolated domain preparation pins exact frozen unreleased #159 kernel and fronten
 type sources with private hashes. These copies are not a delivered prerequisite.
 Integrate actual verified #159 delivery master and reconcile every copied source
 before final #160 qualification, review or publication. Publication remains serial.
+
+
+## D-190 — Preserve the focused inspector task across derived-content layout changes
+
+Actual160native3 retains the same focused, hittable query input but moves it upward
+108.4375CSSpx when expanded profile criteria and property methods replace pending
+reasons with current report content. Its inner scrollTop remains1675. Independent
+UI and UX trace assessments confirm a reading-position regression, independently
+reproduced after settled animation frames; do not relax the existing≤1px oracle.
+
+Keep all scientific warnings, natural-height disclosures, control identity and the
+single existing inspector scroll owner. A small presentation boundary INSIDE the
+functional Properties renderer receives each session-driven content publication.
+React's documented getSnapshotBeforeUpdate captures the actual focused legacy
+control and its owner-relative offset immediately before DOM publication; the
+matching componentDidUpdate compensates only that same inner owner for a residual
+offset change. A wrapper only above the subscribing component cannot observe its
+local rerenders; ordinary layout-effect cleanup is not a reliable pre-mutation
+snapshot. See https://react.dev/reference/react/Component#getSnapshotBeforeUpdate.
+
+Independent architecture consultation accepts this bounded precommit approach.
+Guard current connected control/focus, unchanged section/nearest scroll owner,
+semantic project/entry/task visit and explicit task-navigation token. The token is
+presentation metadata, never scientific state or a React remount key. Deliberate
+scrolling and navigation remain authoritative; capture the latest actual position
+at publication and do not override a changed owner/task in the commit. No focus(),
+scrollIntoView, window scrolling, observer, animation-frame loop, restored controls,
+new scrollbox, height cap, suppressed warning or descriptor scheduling change.
+Qualify positive/negative guard cases, actual source retirement and warning updates,
+explicit scrolling, both themes, narrow layouts and verified100%/200% browser zoom.
+
+The separate native4 preview failure is a test-oracle mistake: closing the editor
+legitimately cancels placement. Trace shows properties resume before the test's
+same-entry select. Keep the actual editor/proposal open while inspecting; mobile
+Inspector opening preserves the editor/workspace. Corrected actual native5 passes
+all16main cases in both themes and desktop/mobile, actual97537exit0 with1,071source
+hashes fixed, including preview Cancel/Apply/exactUndoRedo and metadata recovery.
+This does not pool into the still-failed access qualification or authorize readiness.
