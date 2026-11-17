@@ -2,11 +2,12 @@
 
 ## Status and identity
 
-- Status: **Authorized within agreed scope; not individually reviewed**.
+- Status: **Released in v0.35.0 and explicitly closed**; terminal documentation and owned-cleanup readback are reconciled in the canonical final reply.
+- Plan authorization: **Authorized within agreed scope; not individually reviewed**.
 - Repository: `ManuelSe/Neistra`; [child #157](https://github.com/ManuelSe/Neistra/issues/157), required by [parent #11](https://github.com/ManuelSe/Neistra/issues/11).
 - Parent contract: [finite program, shared contracts and release gates](issue-11-ligand-information.md); it owns exclusions, dependency graph, shared state/API/scientific identity and program ledger. Do not duplicate or weaken those contracts here.
 - Authorization: owner's 2026-11-16 explicit plan-and-deliver invocation for parent11 and all eight required children; includes normal checkpoints/push/PR/review/protectedmerge/verifiedrelease/reply/ownedcleanup without another finished-plan approval. No claim of individually reviewed wording.
-- Native prerequisites: #156. Current child open with no comments. No delivered behavior assumed.
+- Native prerequisite: #156. At intake the child was open with no comments; no delivered behavior was assumed.
 - Base observed during parent intake: `62623a169f4e27da259c40ba1e74b1935b7c7775`; revalidate fresh master before this child implementation.
 - Branch: `feat/issue-157-viewer-measurements` in the owned program checkout. First156 branches from parentC0; later units from verified preceding delivery master. Parent Goal remains active throughout.
 
@@ -790,3 +791,78 @@ arguments. Include current3d9348forensic index/inventories, exclude all26raw for
 payload parts from the primary ZIP, then publish/verify every indexed part separately.
 Actual anonymous verification and server readback are mandatory before child reply/
 closure. No157application push, PR, release or closeout is claimed at this checkpoint.
+
+
+### C4–C6 — Final specialist approval, normal merge and verified release
+
+All seven final specialist agent verdicts PASS exact `c06c724868e16b60ad219c231a73d8ad0ec0931c`
+against master4b8ae716 after inspecting the complete implementation/new files and
+actual completed qualification. No consequential finding remains. Final role/primary
+self-review receipts are included in the release bundle. These are agent assessments,
+not human approvals; the requested remote review returned none at merge.
+
+[PR #170](https://github.com/ManuelSe/Neistra/pull/170) merged normally to
+`7542d1a19e80afe166d965c6321cda60839e4e5b`, with complete tree identical to that reviewed
+candidate. Actual remote reviews/check runs/statuses were absent, no protection or
+ruleset was configured, and all review-thread pages were empty. No admin/force or
+settings override occurred. The original user checkout remains preserved.
+
+The exact merged commit independently completes all42fresh sequential commands.
+[Summary](../assets/viewer-measurements/c5-master1-summary.json),
+[reader audit](../assets/viewer-measurements/c5-master1-reader-audit.json) and
+[execution receipt](../assets/viewer-measurements/c5-master1-execution.json) verify
+2545Python/zero skips,1187frontend/118suites,14supervisor,505native passes/75exact old
+exclusions across580cases/80files, zero failures/flakes/retries/new exclusions. All
+931current/885actual0.34source identities and all lossless logs remain exact. Actual
+rich/connectivity/ordered-measurement producer/readers pass both directions/suffixes;
+15editing projects/24transitions retain complete live stores/history/artifacts.
+Qualification, independent summary, recursive packaging and observed enclosing session
+96113each exit0. No candidate check substitutes for this exact-runtime gate.
+
+Two master parts are83428654bytes/SHA
+`db0a9d0a7f43a326b8728fe5665a3b049360cabce06e54e1bc02a2375f604d5a`
+and239424bytes/SHA
+`a8e5485d7da916188fc8d06a4e64b6639309a8b4dd883dd686db830d573eb56b`.
+They recursively verify371ZIPs/1297manifest entries/875project files, retaining670
+browser-native/seven scientific-native/540reader-workspace files. All670raw native
+files/93153439bytes match the exact disjoint package-manifest union before relocation
+to a unique owned retention folder. An already existing156folder caused the initial
+guard to refuse overwrite; its contents stay untouched.
+
+Stable/latest [v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0),
+release448369963, targets this qualified merged runtime. The immutable annotated tag
+object `81963d29c8d65d446747ef60d88eee2e53672175` dereferences to it and is verified
+remotely. All five version sources agree at0.35.0; dependency pins, migration head0015
+and schema2 remain unchanged. Live Undo/Redo is retained; archives preserve their
+existing snapshots and omit portable Undo history.
+
+The primary325299981-byte qualification ZIP/SHA
+`81dc7b42a094321848a34f4b80aaf9a1f0d9ec93e0e34b32bbcb45b096bb0ff8`
+and both sidecars pass full anonymousHTTP200 downloads with no Authorization header.
+Recursive verification checks1142ZIPs/6822manifest entries/2649project files. Both
+complete gates/readers/logs/source proofs, C1b JSON/ZIP, final reviews/merge receipts,
+tracked verifier9c22/index3d9348/all3inventories and exact-master enclosing proof are
+physically included; none of the26forensic payload filenames appears recursively.
+
+All26additional forensic assets pass actual anonymous full-byte SHA/CRC/manifest
+verification and exact three-run inventory unions:47506files/4624058988raw bytes,
+2065220371asset bytes. Both verifier children and observed enclosing session92936exit0.
+Failed attempts remain failed; local checks are never relabelled public availability.
+Independent architecture audits pass actual master evidence, assembled primary and
+actual publication, including a fresh anonymous C6receipt download.
+
+[Publication evidence](../assets/viewer-measurements/c6-publication.json) is the exact
+33015-byte published receipt, SHA
+`c9b624fa2df9d0d348e56fddd93b9575a961f1dd501993a131c5067a42452d1f`,
+asset758416109. Its own server/anonymous verification and final note readback are
+[recorded separately](../assets/viewer-measurements/c6-publication-verification.json)
+to avoid self-reference. Final notes explicitly distinguish archive snapshots from
+live-store history and keep scientific/performance limits.
+
+The [canonical final reply](https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610)
+is remotely verified and child157explicitly closed as completed at2026-11-17T09:31:45Z.
+Parent11remains open for158–163. This normal terminal documentation integration does
+not move the runtime tag or create another release. Final owned-branch cleanup and
+its delivery-receipt readback are reconciled into that same canonical reply; no
+premature cleanup claim is made here. Next program application work is158integration
+against the actual0.35release and current terminal master.

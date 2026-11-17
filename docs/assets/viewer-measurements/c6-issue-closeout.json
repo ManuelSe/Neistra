@@ -1,0 +1,16 @@
+{
+  "issue": 157,
+  "comment_id": 6944161610,
+  "url": "https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610",
+  "body_sha256": "af943f82cc95d6a7c5d4cf2ae14b0452e689bccc3075ca5199b7381ee73b2647",
+  "reply_remotely_verified": true,
+  "created_at": "2026-11-17T09:31:43Z",
+  "publication_receipt_sha256": "c9b624fa2df9d0d348e56fddd93b9575a961f1dd501993a131c5067a42452d1f",
+  "release_id": 448369963,
+  "scope": "Canonicalreleasecloseoutreply; terminaldocumentation/ownedcleanuppending",
+  "issue_state": "closed",
+  "state_reason": "completed",
+  "closed_at": "2026-11-17T09:31:45Z",
+  "parent_open": true,
+  "verified_utc": "2026-11-17T09:31:48.017693+00:00"
+}

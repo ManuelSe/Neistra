@@ -8121,3 +8121,12 @@ The additional candidate6failure inventory brings the forensic index to26parts,
 complete-gate attempt from its later passing focused correction. Index3d9348 binds
 all current identities; old25payloads/two prior run rows remain unchanged. Actual
 anonymous verification of all26parts remains required after stable publication.
+
+
+D-174 publication readback: both complete42-command gates qualify actual0.35code;
+primary ZIP/sidecars and all26forensic parts pass full anonymous verification with
+all exact unions. C6publication evidence and its separately verified self identity
+preserve observed stage facts without rewriting historical pending receipts or the
+runtime tag. Normal terminal documentation may integrate evidence after release;
+post-integration branch-cleanup readback belongs in the delivery asset/canonical
+issue reply rather than another runtime release or recursive receipt commit.

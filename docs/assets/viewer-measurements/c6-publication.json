@@ -1,0 +1,737 @@
+{
+  "scope": "Verified published v0.35.0 payload assets; canonical issue closeout, terminal docs and owned cleanup follow",
+  "repository": "ManuelSe/Neistra",
+  "issue": 157,
+  "parent": 11,
+  "observed_utc": "2026-11-17T09:25:20.220897+00:00",
+  "release": {
+    "scope": "Actualstablepublishedrelease with allpayloadassetsserver-and-anonymousverified",
+    "id": 448369963,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0",
+    "tag": "v0.35.0",
+    "published_at": "2026-11-17T09:08:04Z",
+    "draft": false,
+    "prerelease": false,
+    "latest_release_verified": true,
+    "runtime": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+    "tag_object": "81963d29c8d65d446747ef60d88eee2e53672175",
+    "assets_server_verified": 29,
+    "total_bytes": 2390521709,
+    "actual_readback_sha256": "f9347feb908c5b968874229a9f45c5b7b3aee86350b41b49909e3f3d557d3b56",
+    "anonymous_download_verified": true,
+    "observed_utc": "2026-11-17T09:08:06.581041+00:00",
+    "verification_completed_utc": "2026-11-17T09:25:20.220897+00:00",
+    "server_readback_observed_utc": "2026-11-17T09:08:06.581041+00:00"
+  },
+  "annotated_tag": {
+    "version": "0.35.0",
+    "annotated_tag": "v0.35.0",
+    "tag_object": "81963d29c8d65d446747ef60d88eee2e53672175",
+    "runtime": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+    "local_type": "tag",
+    "remote_annotation_and_dereference_verified": true,
+    "annotation": "object 7542d1a19e80afe166d965c6321cda60839e4e5b\ntype commit\ntag v0.35.0\ntagger Manuel Sellner <manuel@sellner.ch> 1794905929 +0100\n\nNeistra v0.35.0: ordered viewer measurements and bounded contact inspection\n\nQualified merged runtime 7542d1a19e80afe166d965c6321cda60839e4e5b.\nReviewed feature candidate c06c724868e16b60ad219c231a73d8ad0ec0931c; complete trees identical.\nBoth fresh42-command gates and all seven specialist assessments pass.\n"
+  },
+  "qualification": {
+    "candidate": {
+      "commit": "df1ed1bb4ee5ad2430933b203be60f185b2bd48c",
+      "application_version": "0.35.0",
+      "branch": "feat/issue-157-viewer-measurements",
+      "clean_start": true,
+      "complete_steps": 42,
+      "source_count": 931,
+      "source_inventory_unchanged": true,
+      "source_digest": "fd1abdbe79b7e23c11c98c6a0cf6fa2a317eaf9c5c646b496e46d77a81685ae8",
+      "sources_unchanged": true,
+      "all_lossless_log_hashes_valid": true,
+      "python": 2545,
+      "python_skips": 0,
+      "frontend": 1187,
+      "supervisor": 14,
+      "browser_passed": 505,
+      "browser_exclusions": 75,
+      "browser_inventory_count": 580,
+      "browser_inventory_sha256": "c8d98e55d99d56c5d8a31bad2d3cbac91751939215bcdccde5c0a87ef799bd97",
+      "complete_browser_inventory_executed": true,
+      "exclusion_baseline": "docs/assets/viewer-information/c5-master1-browser.json.gz",
+      "exclusion_baseline_sha256": "b3125f57181e29dcbbc26e20d5a8090fe685dd8dee4c6ec7c3239bfcf16d9389",
+      "existing_exclusion_identities_unchanged": true,
+      "new_exclusions": 0,
+      "failures_flakes_retries": 0,
+      "profile": "portable correctness; no strict reference-host timing claim",
+      "preceding_reader": "actual v0.34.0; separate producer/reader processes both directions and both archive suffixes",
+      "preceding_source_identities_verified": 885,
+      "actual_reader_audit": "c3-candidate7-reader-audit.json",
+      "current_canonical_unapplied_proposal_retained": true,
+      "duration_seconds": 6424.566,
+      "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+      "wall_seconds": 6428.0
+    },
+    "exact_merged_master": {
+      "commit": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+      "application_version": "0.35.0",
+      "branch": "",
+      "clean_start": true,
+      "complete_steps": 42,
+      "source_count": 931,
+      "source_inventory_unchanged": true,
+      "source_digest": "fd1abdbe79b7e23c11c98c6a0cf6fa2a317eaf9c5c646b496e46d77a81685ae8",
+      "sources_unchanged": true,
+      "all_lossless_log_hashes_valid": true,
+      "python": 2545,
+      "python_skips": 0,
+      "frontend": 1187,
+      "supervisor": 14,
+      "browser_passed": 505,
+      "browser_exclusions": 75,
+      "browser_inventory_count": 580,
+      "browser_inventory_sha256": "abc33c38cfdb17769abb58e44b22abdfab393a1c34bc64314221ba725d6e1102",
+      "complete_browser_inventory_executed": true,
+      "exclusion_baseline": "docs/assets/viewer-information/c5-master1-browser.json.gz",
+      "exclusion_baseline_sha256": "b3125f57181e29dcbbc26e20d5a8090fe685dd8dee4c6ec7c3239bfcf16d9389",
+      "existing_exclusion_identities_unchanged": true,
+      "new_exclusions": 0,
+      "failures_flakes_retries": 0,
+      "profile": "portable correctness; no strict reference-host timing claim",
+      "preceding_reader": "actual v0.34.0; separate producer/reader processes both directions and both archive suffixes",
+      "preceding_source_identities_verified": 885,
+      "actual_reader_audit": "c5-master1-reader-audit.json",
+      "current_canonical_unapplied_proposal_retained": true,
+      "duration_seconds": 6385.679,
+      "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+      "wall_seconds": 6388.0
+    },
+    "reviewed_candidate": "c06c724868e16b60ad219c231a73d8ad0ec0931c",
+    "complete_reviewed_and_runtime_trees_identical": true,
+    "all7_final_specialist_agent_verdicts": {
+      "scientific_theory": "PASS",
+      "scientific_implementation": "PASS",
+      "software_architecture": "PASS",
+      "performance": "PASS",
+      "ui_design": "PASS",
+      "ux_design": "PASS",
+      "modeling_reference": "PASS"
+    },
+    "agent_review_is_not_human_approval": true,
+    "primary_self_review": "PASS",
+    "candidate_and_master_qualification_summary_packaging_enclosing_exits": 0
+  },
+  "primary_asset_server": {
+    "id": 758345380,
+    "name": "neistra-v0.35.0-qualification.zip",
+    "size": 325299981,
+    "digest": "sha256:81dc7b42a094321848a34f4b80aaf9a1f0d9ec93e0e34b32bbcb45b096bb0ff8",
+    "state": "uploaded",
+    "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-qualification.zip"
+  },
+  "primary_anonymous_verification": {
+    "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+    "anonymous_request_without_authorization_header": true,
+    "bytes": 325299981,
+    "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/downloads-primary-1/neistra-v0.35.0-qualification.zip",
+    "http_status": 200,
+    "matches_local_release_asset": true,
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-qualification.zip",
+    "qualified_master": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+    "sha256": "81dc7b42a094321848a34f4b80aaf9a1f0d9ec93e0e34b32bbcb45b096bb0ff8",
+    "verification_counts": {
+      "evidence_manifest_entries": 6822,
+      "project_archive_files": 2649,
+      "zip_archives": 1142
+    }
+  },
+  "sidecars_anonymous_verification": {
+    "complete": true,
+    "assets": [
+      {
+        "name": "neistra-v0.35.0-qualification.zip.sha256",
+        "asset_id": 758345384,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-qualification.zip.sha256",
+        "bytes": 100,
+        "sha256": "f7351a9ca4466ce5f4c2637307a6a8feb6d60cde7d5d0f9a5c41af84fb70dc47",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "matches_local_qualified_bytes": true
+      },
+      {
+        "name": "neistra-v0.35.0-qualification.zip.package.json",
+        "asset_id": 758345387,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-qualification.zip.package.json",
+        "bytes": 1257,
+        "sha256": "f3a4b7a6e5a083ecebe7e7e824aaa3769888b4bee5aa68565feb4c28bca10839",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "matches_local_qualified_bytes": true
+      }
+    ]
+  },
+  "forensic_anonymous_verification": {
+    "scope": "Indexed failed-run forensic asset verification only; no full-gate qualification claim",
+    "mode": "anonymous",
+    "index_sha256": "3d9348bd94d6d863f6039b64a3dc0ab6bd7c2f4a6ea778db8352865d91fd7c4a",
+    "verifier_sha256": "9c22cdbd6f018d8a2df8ec85d25207b9c3221b7c5576dda2683f474cd369835a",
+    "qualified_helper_sha256": "0fe9807a37d9d66218f8422e5397ae2934ae3b5af4627c76d4b38de3e9630d57",
+    "assets": [
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-01.zip",
+        "asset_id": 758345393,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68",
+        "bytes": 83579431,
+        "sha256": "de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2869,
+          "project_archive_files": 0
+        },
+        "seconds": 59.3073003719328
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-02.zip",
+        "asset_id": 758345386,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40",
+        "bytes": 83623670,
+        "sha256": "1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1972,
+          "project_archive_files": 0
+        },
+        "seconds": 97.89574885903858
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-03.zip",
+        "asset_id": 758345437,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a",
+        "bytes": 83654761,
+        "sha256": "f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1873,
+          "project_archive_files": 0
+        },
+        "seconds": 48.739466444938444
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-04.zip",
+        "asset_id": 758345447,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d",
+        "bytes": 83666650,
+        "sha256": "e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1805,
+          "project_archive_files": 0
+        },
+        "seconds": 25.516137358965352
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-05.zip",
+        "asset_id": 758347032,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205",
+        "bytes": 83627802,
+        "sha256": "d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1915,
+          "project_archive_files": 0
+        },
+        "seconds": 29.56204801995773
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-06.zip",
+        "asset_id": 758347153,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446",
+        "bytes": 82383056,
+        "sha256": "2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446",
+        "recursive_verification": {
+          "zip_archives": 4,
+          "evidence_manifest_entries": 1467,
+          "project_archive_files": 0
+        },
+        "seconds": 27.94464238290675
+      },
+      {
+        "run": "c3-candidate4",
+        "asset_name": "c3-legacy-workflow-diagnostic-07.zip",
+        "asset_id": 758347877,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-legacy-workflow-diagnostic-07.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20",
+        "bytes": 4173860,
+        "sha256": "861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20",
+        "recursive_verification": {
+          "zip_archives": 3,
+          "evidence_manifest_entries": 110,
+          "project_archive_files": 4
+        },
+        "seconds": 3.247001435025595
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-01.zip",
+        "asset_id": 758347931,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e64945404d8646f758909d7d650916b67b7987fb52faf0bf95ad9962b93ec71e",
+        "bytes": 83767422,
+        "sha256": "e64945404d8646f758909d7d650916b67b7987fb52faf0bf95ad9962b93ec71e",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 369,
+          "project_archive_files": 0
+        },
+        "seconds": 32.82395174505655
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-02.zip",
+        "asset_id": 758347966,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:b4d0fd7c840fc4c17b93b19b0f8014de8f6c36f8c16df2a698fdcfce71ee765c",
+        "bytes": 76301694,
+        "sha256": "b4d0fd7c840fc4c17b93b19b0f8014de8f6c36f8c16df2a698fdcfce71ee765c",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 461,
+          "project_archive_files": 0
+        },
+        "seconds": 31.7292169110151
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-03.zip",
+        "asset_id": 758348110,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:c8bdb1f0b227901da92c6ef1f4dae60c6c628120e1ebf8164f26ba13e8e72c29",
+        "bytes": 83346922,
+        "sha256": "c8bdb1f0b227901da92c6ef1f4dae60c6c628120e1ebf8164f26ba13e8e72c29",
+        "recursive_verification": {
+          "zip_archives": 2,
+          "evidence_manifest_entries": 5621,
+          "project_archive_files": 2
+        },
+        "seconds": 31.18891942501068
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-04.zip",
+        "asset_id": 758348177,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:daf6faf870dc63505639ececf7b2d3b3e8c26e2e4dfb143fd27e5a9c42c8a217",
+        "bytes": 83669430,
+        "sha256": "daf6faf870dc63505639ececf7b2d3b3e8c26e2e4dfb143fd27e5a9c42c8a217",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1828,
+          "project_archive_files": 0
+        },
+        "seconds": 30.263876107055694
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-05.zip",
+        "asset_id": 758349024,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:6310edeb66994f0582202969eb5426675c89d85e919a59bc71e1cef0aed4ddc9",
+        "bytes": 83622961,
+        "sha256": "6310edeb66994f0582202969eb5426675c89d85e919a59bc71e1cef0aed4ddc9",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1974,
+          "project_archive_files": 0
+        },
+        "seconds": 30.43192329700105
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-06.zip",
+        "asset_id": 758349072,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:52f84075962d63e24e26effaaa0be2af52a9a927e06011459cd1c67686c951d3",
+        "bytes": 83634433,
+        "sha256": "52f84075962d63e24e26effaaa0be2af52a9a927e06011459cd1c67686c951d3",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1975,
+          "project_archive_files": 0
+        },
+        "seconds": 31.862143806065433
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-07.zip",
+        "asset_id": 758349278,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-07.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:0502488a642a027c0baea222eed1425481c24aca0beebcc742b0643712beaccb",
+        "bytes": 83642344,
+        "sha256": "0502488a642a027c0baea222eed1425481c24aca0beebcc742b0643712beaccb",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1806,
+          "project_archive_files": 0
+        },
+        "seconds": 29.670970640028827
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-08.zip",
+        "asset_id": 758349304,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-08.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:86e480d120273f60ef3baf886c0f2068fb494e4d64c90cc1c00cd0d2d68f047b",
+        "bytes": 83645840,
+        "sha256": "86e480d120273f60ef3baf886c0f2068fb494e4d64c90cc1c00cd0d2d68f047b",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1898,
+          "project_archive_files": 0
+        },
+        "seconds": 29.84575565403793
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-09.zip",
+        "asset_id": 758350381,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-09.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:53e27bd19dba86a0e9cd1ea1a218dd388912f3791aa3c77141b765b1765903df",
+        "bytes": 83620779,
+        "sha256": "53e27bd19dba86a0e9cd1ea1a218dd388912f3791aa3c77141b765b1765903df",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2022,
+          "project_archive_files": 0
+        },
+        "seconds": 28.23000587709248
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-10.zip",
+        "asset_id": 758350466,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-10.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:c62534e7f19d41ae2d428c2132cddbcc52cd4aaebcd65ac06323c907c678f094",
+        "bytes": 83660671,
+        "sha256": "c62534e7f19d41ae2d428c2132cddbcc52cd4aaebcd65ac06323c907c678f094",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1955,
+          "project_archive_files": 0
+        },
+        "seconds": 33.286272366996855
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-11.zip",
+        "asset_id": 758350559,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-11.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:06e1deebd0bc7b76e7c29d8829aee414b60da798e64f246249d33e36d533a3a0",
+        "bytes": 83663542,
+        "sha256": "06e1deebd0bc7b76e7c29d8829aee414b60da798e64f246249d33e36d533a3a0",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1889,
+          "project_archive_files": 0
+        },
+        "seconds": 27.892011978081428
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-12.zip",
+        "asset_id": 758350614,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-12.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:bd8b4507b648d114ace5151b5ab9891b1c57af6dc75b5ead9a155b8e00cb447f",
+        "bytes": 83667505,
+        "sha256": "bd8b4507b648d114ace5151b5ab9891b1c57af6dc75b5ead9a155b8e00cb447f",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1885,
+          "project_archive_files": 0
+        },
+        "seconds": 31.165515540051274
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-13.zip",
+        "asset_id": 758351723,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-13.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:0b4f4bb525e9d0b63539553b919f14b0b13afecd3166f05e00c44248deda8ad9",
+        "bytes": 83605267,
+        "sha256": "0b4f4bb525e9d0b63539553b919f14b0b13afecd3166f05e00c44248deda8ad9",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1944,
+          "project_archive_files": 0
+        },
+        "seconds": 30.218029298004694
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-14.zip",
+        "asset_id": 758352044,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-14.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:41e6c3787436b2e85144c2a9a6c3de6bfd9d8ea33c80255717683f72c54bb253",
+        "bytes": 83641295,
+        "sha256": "41e6c3787436b2e85144c2a9a6c3de6bfd9d8ea33c80255717683f72c54bb253",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1746,
+          "project_archive_files": 0
+        },
+        "seconds": 30.094869910972193
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-15.zip",
+        "asset_id": 758352097,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-15.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:a100cd48b8e311986b6966986d68db9d38cc20d6254786959ae8e7a65a124417",
+        "bytes": 83609033,
+        "sha256": "a100cd48b8e311986b6966986d68db9d38cc20d6254786959ae8e7a65a124417",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2052,
+          "project_archive_files": 0
+        },
+        "seconds": 32.688867249991745
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-16.zip",
+        "asset_id": 758352100,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-16.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:fe0fdbbe5678b16b809870dbaefa59ed79233d2953cb5386cc5d9b0fdf584ec1",
+        "bytes": 83653458,
+        "sha256": "fe0fdbbe5678b16b809870dbaefa59ed79233d2953cb5386cc5d9b0fdf584ec1",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1824,
+          "project_archive_files": 0
+        },
+        "seconds": 36.03996105398983
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-17.zip",
+        "asset_id": 758352342,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-17.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:2d043420467ff87f05128a3351ca1ccf3ebae18537c165b6d8b94f3f43aa9cf6",
+        "bytes": 83638431,
+        "sha256": "2d043420467ff87f05128a3351ca1ccf3ebae18537c165b6d8b94f3f43aa9cf6",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1868,
+          "project_archive_files": 0
+        },
+        "seconds": 31.787204572930932
+      },
+      {
+        "run": "c3-candidate5",
+        "asset_name": "c3-native-oracle-diagnostic-18.zip",
+        "asset_id": 758352864,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-native-oracle-diagnostic-18.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:a312486bba5a67c93bec381ecb7d820fc7f657e9871619f5ec1d50603105d361",
+        "bytes": 66848687,
+        "sha256": "a312486bba5a67c93bec381ecb7d820fc7f657e9871619f5ec1d50603105d361",
+        "recursive_verification": {
+          "zip_archives": 40,
+          "evidence_manifest_entries": 1252,
+          "project_archive_files": 6
+        },
+        "seconds": 22.953897655010223
+      },
+      {
+        "run": "c3-candidate6",
+        "asset_name": "c3-mobile-framing-diagnostic-01.zip",
+        "asset_id": 758353498,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/c3-mobile-framing-diagnostic-01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:488dd9e6ee7642897e92850247d1ba2dacd867d85d8952f3d9430ab6265e95db",
+        "bytes": 79271427,
+        "sha256": "488dd9e6ee7642897e92850247d1ba2dacd867d85d8952f3d9430ab6265e95db",
+        "recursive_verification": {
+          "zip_archives": 42,
+          "evidence_manifest_entries": 1126,
+          "project_archive_files": 6
+        },
+        "seconds": 33.512964634923264
+      }
+    ],
+    "runs": [
+      {
+        "label": "c3-candidate4",
+        "exact_manifest_union": true,
+        "files": 12011,
+        "raw_bytes": 999269415,
+        "inventory_uncompressed_sha256": "214c477a5074fd9d1d84a6dadbeead1ddd7a8625b4def5f5710a944edf467696"
+      },
+      {
+        "label": "c3-candidate5",
+        "exact_manifest_union": true,
+        "files": 34369,
+        "raw_bytes": 3311278738,
+        "inventory_uncompressed_sha256": "2125bbaca459c2f09129241551ca9105e7eec9d76f01a94477e4ff48e1cb55ff"
+      },
+      {
+        "label": "c3-candidate6",
+        "exact_manifest_union": true,
+        "files": 1126,
+        "raw_bytes": 313510835,
+        "inventory_uncompressed_sha256": "9e12602dc8358b870f431c202b77a4a5a7448087d11fd39f5f5bedc3da49b49a"
+      }
+    ],
+    "complete": true,
+    "all_indexed_assets_verified": true,
+    "asset_count": 26,
+    "failed_runs_remain_unqualified": true
+  },
+  "forensic_totals": {
+    "parts": 26,
+    "asset_bytes": 2065220371,
+    "raw_files": 47506,
+    "raw_bytes": 4624058988,
+    "all_exact_unions_verified": true,
+    "all_raw_failed_runs_remain_unqualified": true,
+    "parts_are_additional_assets_not_duplicated_in_primary": true
+  },
+  "anonymous_execution": {
+    "phases": [
+      {
+        "phase": "primary",
+        "command": [
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/release-evidence.py.txt",
+          "download",
+          "--url",
+          "https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-qualification.zip",
+          "--receipt",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/neistra-v0.35.0-qualification.zip.package.json",
+          "--output",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/downloads-primary-1/neistra-v0.35.0-qualification.zip"
+        ],
+        "actual_exit": 0,
+        "pid": 3171121,
+        "log": ".issue-11-evidence/release-v0.35.0/anonymous-primary-1.log",
+        "log_sha256": "0871f4237bc5566612e7b2792d3a5b7b5bfe0a136af8008959f2130d87572baf"
+      },
+      {
+        "phase": "forensics",
+        "command": [
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tools/verify_measurement_forensics.py",
+          "--mode",
+          "anonymous",
+          "--remote-assets",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/actual-published-release.json",
+          "--downloads",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/downloads-forensics-1",
+          "--output",
+          "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.issue-11-evidence/release-v0.35.0/anonymous-forensics-1.json"
+        ],
+        "actual_exit": 0,
+        "pid": 3171122,
+        "log": ".issue-11-evidence/release-v0.35.0/anonymous-forensics-1.log",
+        "log_sha256": "1317236a3b44376dcf16f76c586a4b577fc203df308201804d496f3083e234ec"
+      }
+    ],
+    "complete": true,
+    "enclosing": {
+      "scope": "Actual unified anonymous execution completion observed through write_stdin",
+      "session_id": 92936,
+      "actual_exit_code": 0,
+      "batch_receipt_sha256": "15d1f640be0a563ae17c91e1a051db61339cf1042a5034d9b2d82aeeb67c4dde",
+      "observed_utc": "2026-11-17T09:25:19.468671+00:00"
+    }
+  },
+  "payload_asset_count_at_verification": 29,
+  "all_payload_assets_server_digests_and_full_anonymous_downloads_verified": true,
+  "canonical_actual_release_readback_sha256": "f9347feb908c5b968874229a9f45c5b7b3aee86350b41b49909e3f3d557d3b56",
+  "self_receipt_upload_and_anonymous_readback_recorded_separately": true,
+  "remaining": "Upload/verifythisreceipt,finalizereleasenotes,canonical157reply/closure,terminaldocsnormalmerge/ownedcleanup/deliveryreceipt; parentGoalactivefor158\u2013163"
+}
