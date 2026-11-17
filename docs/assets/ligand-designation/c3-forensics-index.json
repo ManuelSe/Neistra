@@ -1125,8 +1125,195 @@
         }
       ],
       "local_exact_union_and_recursive_verification": true
+    },
+    {
+      "label": "c4-candidate9",
+      "failed_candidate": "f024e5e208988227181630f6c60331e81c3b2b0e",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 1005,
+      "source_digest": "25fd41ef26d6af357c2a463a24ccd2b5087db4d6f9f6b5b1e6152860d35ea20f",
+      "source_unchanged": true,
+      "preceding_source_count": 931,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/ligand-designation/c4-candidate9-recipe.json",
+        "sha256": "9cb4d5f298ea03c4f113caebc2d8a33e9ebec893afeb38bc975d90699a38287a"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/ligand-designation/c4-candidate9-uv.log.gz",
+          "uncompressed_sha256": "2979d70d6fb41dd603fdcb9139bdd94b8d784b952e2164f3ccc61a16a11f1b4b"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/ligand-designation/c4-candidate9-pnpm.log.gz",
+          "uncompressed_sha256": "9b4da6cbe0b142a10588fa31dc96df85f6729fd9fd685d908b7daeae5cf3c5a2"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/ligand-designation/c4-candidate9-migration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/ligand-designation/c4-candidate9-downgrade.log.gz",
+          "uncompressed_sha256": "752981f0568a358167ce4522baf105e669a03845cd51417948dbb3afba0a1034"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/ligand-designation/c4-candidate9-remigration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/ligand-designation/c4-candidate9-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/ligand-designation/c4-candidate9-mypy.log.gz",
+          "uncompressed_sha256": "96a18ececf4b151b9885583436b5bdfaedad3581843143601d87a09e3be99668"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/ligand-designation/c4-candidate9-reader-tool-types.log.gz",
+          "uncompressed_sha256": "157a09cfcdfdfb5977479c5a1c08345149263a3e990a2ec976ef28aaeec9cae6"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/ligand-designation/c4-candidate9-python.log.gz",
+          "uncompressed_sha256": "7a012b9aa149caefdadaabffc67774f51bf9c7d5ce81fd7eeb021fe69e45ea28"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/ligand-designation/c4-candidate9-lint.log.gz",
+          "uncompressed_sha256": "c5a0c11d3bbc98d7352b4a467815d1570ac7ef529981a2f9d712735a591ca0ad"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/ligand-designation/c4-candidate9-types.log.gz",
+          "uncompressed_sha256": "420d179ce3827a04a45e7f563f320f522fcc3aedec5f8664adfcf8b284f38ef5"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/ligand-designation/c4-candidate9-web.log.gz",
+          "uncompressed_sha256": "7d4aa07786dfdd6f451fad3a3c48218383cdccedc070680d2338666f5f30b05f"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/ligand-designation/c4-candidate9-supervisor.log.gz",
+          "uncompressed_sha256": "a9cab28dd7e0b3e483c3a4d6b5379ef14cfaae3a1d9b2c8c6d7ef413a8183c6b"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/ligand-designation/c4-candidate9-build.log.gz",
+          "uncompressed_sha256": "44a729b443fe2b6a54ddcce7d38300809ba1035a0535cbef5f1352c85c594897"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/ligand-designation/c4-candidate9-browser-inventory.log.gz",
+          "uncompressed_sha256": "16720dffda9153f451904424cb1e69f5e79d340045950d6d2d60b6dc76881856"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/ligand-designation/c4-candidate9-browser.log.gz",
+          "uncompressed_sha256": "52af38400ef125ed65dc33d07d5a360201c4c81fc9c3dc96a763c0ffb71c858d"
+        }
+      ],
+      "files": 21607,
+      "raw_bytes": 975663537,
+      "extraction_root": "forensics/c4-candidate9",
+      "inventory": {
+        "path": "docs/assets/ligand-designation/c3-forensics-inventory-c4-candidate9.json.gz",
+        "bytes": 975560,
+        "sha256": "d47b34606230ca4c1ffb0c26a4ff1c91c8cff13c5240bc83a9d53ec6d0471b9e",
+        "uncompressed_sha256": "c0288cf4c19da0161275438c360e8d661e28813379ff439b9ee85cb7dfad35a7"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-candidate9-native-failure-part01.zip",
+          "bytes": 81998911,
+          "sha256": "279c48cd1fca20797e23fe754e5ab64eb0e31e6130567e0dcf3d442aefcae99c",
+          "manifest_entries": 5392,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 5392,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "c3-candidate9-native-failure-part02.zip",
+          "bytes": 81298276,
+          "sha256": "f943be54f2dcd2305783be33e04465c76d8f7051f7b08aab1428f78684890860",
+          "manifest_entries": 3878,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 3878,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "c3-candidate9-native-failure-part03.zip",
+          "bytes": 81372953,
+          "sha256": "82ffaad365a06a9d9df1f0c32e6cb00ce144eab02d628828dfc65f5976d417d5",
+          "manifest_entries": 3996,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 3996,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "c3-candidate9-native-failure-part04.zip",
+          "bytes": 81290368,
+          "sha256": "4e4abc3bb7a14c3449202c7e303a6c1e0d870d9fdb8684b08bf4c6ecb8b9f206",
+          "manifest_entries": 3767,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 3767,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "c3-candidate9-native-failure-part05.zip",
+          "bytes": 80747156,
+          "sha256": "30b2f44d26da5dd63405458185f4f64a2972e5a492e8b46ebc895944356052a4",
+          "manifest_entries": 2531,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2531,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "c3-candidate9-native-failure-part06.zip",
+          "bytes": 66629029,
+          "sha256": "c9feddb7ec6ba47deb430297e5edb7fcaf7f25bea078a875e6c6395e8e4b7c64",
+          "manifest_entries": 2043,
+          "recursive_verification": {
+            "zip_archives": 68,
+            "evidence_manifest_entries": 2048,
+            "project_archive_files": 18
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true
     }
   ],
-  "asset_count": 44,
-  "total_asset_bytes": 3353195176
+  "asset_count": 50,
+  "total_asset_bytes": 3826531869
 }

@@ -750,3 +750,59 @@ its ACK-order CHANGES_REQUIRED finding is not erased. Final1,005source digest is
 actual preceding931source identities remain fixed. No raw C8forensic part is nested
 into this correction packet. Freshcandidate9 still repeats all42commands, summary,
 recursive packaging and actual enclosing readback before final readiness.
+
+
+### Candidate9 mobile initial-focus oracle and complete forensic retention
+
+Freshcandidate9 atf024e5e208988227181630f6c60331e81c3b2b0e passes all15pre-browser
+phases:3,040Python/zero skips,1,310frontend/122suites,14supervisor, frozen installs,
+migrations, static checks/build and602-case inventory. Native stops after438passes,
+one failure,56encountered historical exclusions and107unexecuted cases, actual
+86433exit1. The raw report counts163skipped including unexecuted cases; do not
+mislabel all163 as historical exclusions. All1,005current/931actual preceding source
+hashes remain fixed. Summary and complete packaging do not run; no gate pooling.
+
+The mobile release-hardening test expects Selection to be the first focused control.
+Independent UI/UX read the actual trace/accessibility snapshot and PNG: Entry is
+active, Choose an entry retained, Selection still selected. The App opening/closing/
+first-enabled-control policy is byte-identical across current, historicalC9, baseb038
+and actualv0.35. New durable-ligand context deliberately precedes the task tabs.
+No production focus change is justified. Update only the native expectation to the
+exact enabled/focused/empty Entry selector and add real Tab→Selection. Retain explicit
+Selection focus, ArrowRight→Inspect focus/aria-selected, Escape closure/launcher focus,
+tooltip dismissal, all geometry and deadlines. Read-only audit finds no second native
+initial-Selection-focus assumption; explicit focus/click/containment cases remain valid.
+
+The [focused correction checkpoint](../assets/ligand-designation/c3-mobile-focus-checkpoint.json)
+and [source/store evidence](../assets/ligand-designation/c3-mobile-focus-correction.zip)
+retain actual91833exit0:5passes, one unchanged historical mobile-performance
+exclusion, zero failures/flakes/retries. The full existing release-hardening file
+runs across both profiles; no retry/deadline/workload changes. All1,005current and
+931preceding sources remain fixed. Only release-hardening.spec.ts differs from
+failedC9; six lines are inserted and no old assertion is removed. The entire
+mobile-excluded desktop performance test body stays byte-identical. ZIP595,290bytes
+has SHA2565250718373f4c7de8ea5dc217c09c9c024232c08114d62579502d311ce6a6124;
+32payloads pass recursiveCRC/SHA and root source-map readback. Current1,005source
+digest isf014f32d0671a3a229dae723a79d6935fec1231cb38d06bf03113dd6b50a630d.
+
+C9's six new raw partitions retain21,607canonical files/975,663,537raw bytes,
+including all1,005historicalGit blobs, old931source proof, complete native/store/
+log/recipe/wrapper and closed diagnosis. The index now binds50assets totaling
+3,826,531,869bytes, SHA256c5777a87ba18f088ac56f22f75b68862a2f7ed916a0870237c5b2fcf1a6ac063.
+Prior44parts/five run records/inventories/verification1–4 remain byte-identical.
+The tracked full50verifier passes actual58424exit0; raw readback73537exit0.
+Authorized relocation preserves19,841native files/687,122,124bytes filewise at a
+unique private retained path, actual50393exit0; all/tmp and other originals remain.
+Verification5ZIP10,654,282bytes hasSHA25662c16705fff6971c21bc70aee631a2de471164ebc2d0ee34998808b2387cc54b;
+its packaging89882 and finalreadback86315 both exit0. Neutral naming scans74nested
+ZIPs/5,247text payloads without flags. These are local retention proofs, not public
+availability. D-174 requires full anonymous verification of all50supplemental
+assets before child closeout; never rebundle those raw parts into the mainZIP.
+
+Freshcandidate10recipe is committed before execution. Its42commands exactly match
+C9 after replacing only label/workspace/evidence paths; no policy/bounds/version/
+exclusion changes. RecipeSHA2569f16294a9d9f01b4a21e186e184c3a5022213971cd2d11546fe8362356b620dc.
+Require a fresh clean all42run, independent summary, recursive packaging and actual
+enclosing0. Then prepare actual-master recipe before final metadata/all-seven
+same-candidate readiness, normal protected delivery, fresh actualM42qualification
+and immutable annotation/publication. Parent Goal remains active for all eight.
