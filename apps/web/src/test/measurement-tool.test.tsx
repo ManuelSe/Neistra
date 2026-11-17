@@ -18,7 +18,7 @@ function props(): MeasurementToolProps {
     selection: canonicalSelection([]), inspectionOrder: null, paused: false, busy: false,
     value: null, unavailableReason: null, onClose: vi.fn(), onCancelAcquisition: vi.fn(), onKind: vi.fn(),
     onActiveSlot: vi.fn(), onRemove: vi.fn(), onChooseTarget: vi.fn(), onUseSelection: vi.fn(), onName: vi.fn(),
-    onReset: vi.fn(), onSave: vi.fn(), measurements: [], savedValues: new Map(), expandedId: null,
+    onReset: vi.fn(), onSave: vi.fn(), measurements: [], savedValues: new Map(), expandedInspection: null, expandedId: null,
     onExpand: vi.fn(), onUpdate: vi.fn(), onDelete: vi.fn(), onSelectParticipants: vi.fn(),
     onFocusParticipants: vi.fn(), canFocus: () => false, onLoadEntry: vi.fn(() => Promise.resolve()),
     contactsOpen: false, onContactsOpenChange: vi.fn(), contactsContent: <span>Current close contacts</span>,
@@ -268,6 +268,83 @@ describe("controlled measurement tool", () => {
     await user.clear(name); await user.type(name, "Renamed reference");
     await user.click(screen.getByRole("button", { name: "Save name" }));
     expect(state.onUpdate).toHaveBeenCalledExactlyOnceWith(state.measurements[0], "Renamed reference", true);
+  });
+
+  it("explains an expanded undefined saved angle and preserves edits and ordered targets when geometry returns", async () => {
+    const state = props(), user = userEvent.setup();
+    const measurement: Measurement = { ...saved(0, "Ordered angle"), kind: "angle", atom_references: [atom(3), atom(1), atom(2)] };
+    const references = structuredClone(measurement.atom_references);
+    const reason = "Measurement geometry is undefined or outside numerical limits.";
+    state.measurements = [measurement]; state.expandedId = measurement.id;
+    state.expandedInspection = { status: "unavailable", kind: "angle", targets: references, reason };
+    const view = render(<MeasurementTool {...state} />);
+    expect(screen.queryByText(reason)).not.toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Saved measurements 1" }));
+    const actions = screen.getByRole("group", { name: "Actions for Ordered angle" });
+    expect(within(actions).getByText(reason)).toBeVisible();
+    expect(screen.getByText("Angle · Unavailable")).toBeVisible();
+    expect(screen.getAllByRole("status")).toHaveLength(1);
+    expect(within(actions).getByRole("button", { name: "Delete measurement Ordered angle" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Hide Ordered angle" })).toBeEnabled();
+    const name = within(actions).getByLabelText("Name for Ordered angle");
+    await user.clear(name); await user.type(name, "Retained rename");
+    await user.click(within(actions).getByRole("button", { name: "Select participants" }));
+    expect(state.onSelectParticipants).toHaveBeenCalledExactlyOnceWith(measurement);
+    expect(measurement.atom_references).toEqual(references);
+
+    state.savedValues = new Map([[measurement.id, 90]]);
+    state.expandedInspection = { status: "ready", kind: "angle", targets: references, value: 90 };
+    view.rerender(<MeasurementTool {...state} />);
+    expect(screen.queryByText(reason)).not.toBeInTheDocument();
+    expect(screen.getByText("Angle · 90.0°")).toBeVisible();
+    expect(name).toHaveValue("Retained rename");
+    await user.click(within(actions).getByRole("button", { name: "Save name" }));
+    expect(state.onUpdate).toHaveBeenCalledExactlyOnceWith(measurement, "Retained rename", true);
+    expect(measurement.atom_references).toEqual(references);
+    expect(screen.getAllByRole("status")).toHaveLength(1);
+  });
+
+  it.each([
+    "Loading current target information…",
+    "Target atom information could not be loaded. Close and reopen this record to retry.",
+  ])("shows the current saved source explanation only in expanded controls: %s", async reason => {
+    const state = props(), user = userEvent.setup(), measurement = saved(0);
+    state.measurements = [measurement]; state.expandedId = measurement.id;
+    state.expandedInspection = { status: "unavailable", kind: measurement.kind, targets: measurement.atom_references, reason };
+    const view = render(<MeasurementTool {...state} />);
+    await user.click(screen.getByRole("button", { name: "Saved measurements 1" }));
+    const actions = screen.getByRole("group", { name: "Actions for Measurement 0" });
+    expect(within(actions).getByText(reason)).toBeVisible();
+    expect(within(actions).getByLabelText("Name for Measurement 0")).toBeEnabled();
+    expect(within(actions).getByRole("button", { name: "Select participants" })).toBeEnabled();
+    expect(screen.getAllByRole("status")).toHaveLength(1);
+    state.expandedId = null; state.expandedInspection = null;
+    view.rerender(<MeasurementTool {...state} />);
+    expect(screen.queryByText(reason)).not.toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "Actions for Measurement 0" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Inspect measurement Measurement 0" })).toBeVisible();
+  });
+
+  it("shows a saved preview pause instead of stale source feedback and clears it on current ready geometry", async () => {
+    const state = props(), user = userEvent.setup(), measurement = saved(0);
+    state.measurements = [measurement]; state.expandedId = measurement.id;
+    state.savedValues = new Map([[measurement.id, 3]]);
+    state.expandedInspection = { status: "unavailable", kind: measurement.kind, targets: measurement.atom_references,
+      reason: "Retired source failure." };
+    state.paused = true;
+    const view = render(<MeasurementTool {...state} />);
+    await user.click(screen.getByRole("button", { name: "Saved measurements 1" }));
+    const actions = screen.getByRole("group", { name: "Actions for Measurement 0" });
+    expect(within(actions).getByText("Geometry unavailable during preview.")).toBeVisible();
+    expect(screen.queryByText("Retired source failure.")).not.toBeInTheDocument();
+    expect(within(actions).getByRole("button", { name: "Select participants" })).toBeDisabled();
+    expect(screen.getAllByRole("status")).toHaveLength(1);
+    state.paused = false;
+    state.expandedInspection = { status: "ready", kind: measurement.kind, targets: measurement.atom_references, value: 3 };
+    view.rerender(<MeasurementTool {...state} />);
+    expect(screen.queryByText("Geometry unavailable during preview.")).not.toBeInTheDocument();
+    expect(screen.getByText("Distance · 3.00 Å")).toBeVisible();
+    expect(within(actions).getByRole("button", { name: "Select participants" })).toBeEnabled();
   });
 
   it("leaves outside focus and ordinary canvas controls available without dismissing or returning focus", async () => {

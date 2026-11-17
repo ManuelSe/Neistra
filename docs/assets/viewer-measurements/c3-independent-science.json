@@ -1,0 +1,18 @@
+{
+  "scope": "Fresh nonauthor scientific implementation pre-gate complete feature review; finalsamecandidate/full42pending",
+  "archive": "c3-independent-science.zip",
+  "files": 5,
+  "archive_bytes": 5772,
+  "archive_sha256": "c4440c3fda7e84169d7539950b448ca2d404ebf64a64d07b4b86167622d6c28c",
+  "independent_python_passed": 205,
+  "independent_frontend_passed": 144,
+  "frontend_suites": 9,
+  "all_pairs_queries": 432,
+  "compared_distances": 8408,
+  "adjacent_float_cases": 17,
+  "accepted_schema_basis_refusals": 18,
+  "sources_unchanged": true,
+  "native_packet_payloads_verified": 702,
+  "verdict": "PASS pre-gate complete feature; not release readiness",
+  "limitations": "Frontend144 pass evidence is actualtooloutput without separately captured filelog; exactfull42gateandfinalcandidateconfirmationstillrequired; existingnativearcwarnings/portablelimits retained"
+}

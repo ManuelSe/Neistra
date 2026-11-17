@@ -1,10 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
-import type { ComponentProps } from "react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { useSyncExternalStore, type ComponentProps } from "react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import App from "../App";
 import { projectApi, workspacePresentationApi } from "../api/client";
-import type { Measurement, Project } from "../api/types";
+import type { Contact, CoordinateTransform, Measurement, Project } from "../api/types";
+import { MeasurementContacts } from "../components/MeasurementContacts";
+import type { ProjectInspector } from "../components/ProjectInspector";
 import type { WorkspaceCanvas } from "../components/WorkspaceCanvas";
 import type { MeasurementSession } from "../measurements/session";
 import { useSelectionStore } from "../store/selection";
@@ -14,20 +16,27 @@ import { useMinimizationStore } from "../minimization/store";
 import { structureQueryKey } from "../structures/query";
 import { molecularEntry, molecularProject, proteinProjection } from "./molecular-fixtures";
 
-const seen = vi.hoisted(() => ({ session: null as MeasurementSession | null, props: null as ComponentProps<typeof WorkspaceCanvas> | null }));
+const seen = vi.hoisted(() => ({ session: null as MeasurementSession | null, props: null as ComponentProps<typeof WorkspaceCanvas> | null, inspector: null as ComponentProps<typeof ProjectInspector> | null, renderContacts: false, contactSelect: vi.fn() }));
 vi.mock("../components/WorkspaceCanvas", () => ({
-  WorkspaceCanvas: (props: ComponentProps<typeof WorkspaceCanvas>) => { seen.session = props.measurementSession ?? null; seen.props = props; return null; },
+  WorkspaceCanvas: (props: ComponentProps<typeof WorkspaceCanvas>) => {
+    seen.session = props.measurementSession ?? null; seen.props = props;
+    const session = props.measurementSession!;
+    const draft = useSyncExternalStore(session.subscribe, session.snapshot);
+    return seen.renderContacts && props.project && draft.open
+      ? <MeasurementContacts key={draft.session} project={props.project} session={session} preferredEntryId="protein" paused={false} onSelect={seen.contactSelect} /> : null;
+  },
 }));
-vi.mock("../components/ProjectInspector", () => ({ ProjectInspector: () => null }));
+vi.mock("../components/ProjectInspector", () => ({ ProjectInspector: (props: ComponentProps<typeof ProjectInspector>) => { seen.inspector = props; return null; } }));
 vi.mock("../components/LowerPanel", () => ({ LowerPanel: () => null }));
 
-beforeEach(() => { localStorage.clear(); vi.restoreAllMocks(); seen.session = null; seen.props = null;
+beforeEach(() => { localStorage.clear(); vi.restoreAllMocks(); seen.session = null; seen.props = null; seen.inspector = null; seen.renderContacts = false; seen.contactSelect.mockClear();
   useSelectionStore.getState().setProject(null); useEditingStore.getState().setProject(null); useMinimizationStore.getState().setProject(null);
   vi.spyOn(workspacePresentationApi, "read").mockResolvedValue({ schema_version: 1, revision: 0, camera: null, updated_at: null });
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
-async function setup(dirty = true, measurements: Measurement[] = []) {
+async function setup(dirty = true, measurements: Measurement[] = [], contacts = false) {
+  seen.renderContacts = contacts;
   const project = molecularProject([molecularEntry("protein", "Protein", "protein")]);
   project.has_uncheckpointed_changes = dirty;
   project.measurements = measurements;
@@ -174,4 +183,78 @@ it("does not announce an older saved-record rename after the cached record has c
   });
   expect(f.query.getQueryData(["project", f.project.id])).toEqual(newer);
   expect(f.session.snapshot().notice).not.toBe("Updated Renamed.");
+});
+
+
+it("synchronously retires a held Save across numerical preview entry and Cancel before React renders", async () => {
+  const f = await setup(false), inspector = seen.inspector!;
+  let finish!: (next: Project) => void;
+  vi.spyOn(projectApi, "createMeasurement").mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+  const preview = inspector.onPreviewTransform!, clear = inspector.onClearTransformPreview!;
+  let saved!: Promise<boolean>;
+  act(() => { saved = f.session.save(); });
+  await waitFor(() => expect(finish).toBeDefined());
+  const generation = f.session.snapshot().generation;
+  const transform: CoordinateTransform = { entry_id: "protein", scope: "structure",
+    selection: useSelectionStore.getState().selection, translation: [1, 0, 0],
+    rotation_degrees: [0, 0, 0], pivot_mode: "custom", pivot: [0, 0, 0] };
+  await act(async () => {
+    inspector.onInspectorTaskChange?.();
+    await preview(transform);
+    expect(f.session.inspectionAvailable()).toBe(false);
+    expect(f.session.snapshot().generation).toBeGreaterThan(generation);
+    clear();
+    expect(f.session.inspectionAvailable()).toBe(true);
+    finish({ ...f.project, revision: f.project.revision + 1 });
+    await saved;
+  });
+  expect(f.session.snapshot()).toMatchObject({ name: "Owned distance", acquiring: false, saving: false,
+    slots: [1, 2].map(atom_id => ({ structure_id: "protein", atom_id })) });
+  expect(f.session.snapshot().notice).not.toBe("Saved Owned distance.");
+});
+
+it.each(["success", "failure"] as const)("keeps competing editor intent after a held Save %s", async outcome => {
+  const f = await setup(false);
+  let finish!: (next: Project) => void, fail!: (error: Error) => void;
+  vi.spyOn(projectApi, "createMeasurement").mockImplementation(() => new Promise((resolve, reject) => { finish = resolve; fail = reject; }));
+  let saved!: Promise<boolean>;
+  act(() => { saved = f.session.save(); });
+  await waitFor(() => expect(finish).toBeDefined());
+  act(() => { useEditingStore.getState().setOpen(true); });
+  expect(f.session.snapshot().acquiring).toBe(false);
+  await act(async () => {
+    if (outcome === "success") finish({ ...f.project, revision: f.project.revision + 1 });
+    else fail(new Error("Save failed"));
+    await saved;
+  });
+  expect(useEditingStore.getState().open).toBe(true);
+  expect(f.session.snapshot()).toMatchObject({ acquiring: false, activeSlot: null, saving: false,
+    name: outcome === "success" ? "" : "Owned distance",
+    notice: outcome === "success" ? "Saved Owned distance." : "Save failed" });
+});
+
+
+it.each(["result", "pending"] as const)("synchronously retires a contact %s through numerical preview entry and Cancel", async phase => {
+  const f = await setup(false, [], true), inspector = seen.inspector!;
+  const rows: Contact[] = [{ atom_1: { structure_id: "protein", atom_id: 1 }, atom_2: { structure_id: "protein", atom_id: 2 }, distance: 1.4 }];
+  let finish!: (value: Contact[]) => void;
+  const pending = new Promise<Contact[]>(resolve => { finish = resolve; });
+  const api = vi.spyOn(projectApi, "contacts").mockReturnValue(phase === "result" ? Promise.resolve(rows) : pending);
+  await act(async () => { fireEvent.click(screen.getByRole("button", { name: "Find contacts" })); await Promise.resolve(); });
+  await waitFor(() => expect(api).toHaveBeenCalledOnce());
+  const row = phase === "result" ? await screen.findByRole("button", { name: "Atoms 1–2 1.40 Å" }) : null;
+  const transform: CoordinateTransform = { entry_id: "protein", scope: "structure",
+    selection: useSelectionStore.getState().selection, translation: [1, 0, 0],
+    rotation_degrees: [0, 0, 0], pivot_mode: "custom", pivot: [0, 0, 0] };
+  await act(async () => {
+    inspector.onInspectorTaskChange?.();
+    await inspector.onPreviewTransform!(transform);
+    expect(f.session.inspectionAvailable()).toBe(false);
+    inspector.onClearTransformPreview!();
+    if (row) fireEvent.click(row);
+    else { finish(rows); await pending; }
+  });
+  expect(api.mock.calls[0][4]?.signal?.aborted).toBe(true);
+  expect(seen.contactSelect).not.toHaveBeenCalled();
+  expect(screen.queryByRole("button", { name: "Atoms 1–2 1.40 Å" })).toBeNull();
 });

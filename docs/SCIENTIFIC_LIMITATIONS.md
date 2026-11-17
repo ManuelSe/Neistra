@@ -763,8 +763,9 @@ explicit hiding remain separate. It does not create H or change molecular chemis
 Distance, angle and signed torsion use explicit ordered canonical participants and
 current complete finite coordinates in the existing Cartesian frame. Source facts
 that indicate missing coordinates make geometry unavailable even when placeholder
-numbers exist. The active conformer supplies coordinates. Cross-entry geometry
-assumes entries share a meaningful frame; no alignment, periodic boundary, symmetry
+numbers exist. Viewer and shared measurements use canonical atom coordinates;
+contact reads additionally require exact agreement with the active conformer.
+Cross-entry geometry assumes entries share a meaningful frame; no alignment, periodic boundary, symmetry
 image, preparation or energy calculation is performed.
 
 Distinct coincident atoms have distance0. Nonzero collinear angle legs give0/180°;
@@ -791,7 +792,10 @@ and inclusive comparisons. A single-point infinity-norm tree query is a candidat
 superset; the predicate determines final membership. All recorded bonds exclude
 pairs regardless of order certainty. Missing/nonfinite geometry rejects the whole
 operation, including zero/one-site inputs. Finite extreme coordinates can exceed
-the index's numerical range and are refused explicitly.
+the index's numerical range and are refused explicitly. Active conformer and
+canonical atom coordinates must agree exactly, including nondefault active frames;
+a disagreement refuses the complete read rather than guessing which frame to use.
+No alignment, tolerance or source-coordinate rewrite repairs that ambiguity.
 
 The viewer uses minimum0.5Å, default cutoff2Å and maximum cutoff10Å; API/core
 minimum0 retains coincident nonbonded pairs. Proximity alone does not establish a

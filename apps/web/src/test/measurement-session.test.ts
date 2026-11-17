@@ -184,7 +184,7 @@ it("keeps a pending Save owner when only native acquisition is stopped", async (
   expect(f.session.snapshot().acquiring).toBe(false);
   expect(owner.ownsFeedback()).toBe(true);
   held.resolve("current"); await saved;
-  expect(f.session.snapshot()).toMatchObject({ name: "", notice: "Saved Reference.", saving: false });
+  expect(f.session.snapshot()).toMatchObject({ name: "", notice: "Saved Reference.", saving: false, acquiring: false, activeSlot: null });
 });
 
 it("never resurrects a pending Save owner after a preview starts and ends while picking is stopped", async () => {
@@ -228,4 +228,14 @@ it("retains a draft when an accepted server Save has already been superseded by 
   expect(await saving).toBe(false);
   expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: refs(1, 2), saving: false,
     notice: "The project changed while Save was finishing. Check Saved measurements." });
+});
+
+
+it("retains a stopped acquisition intent and draft after a held failed Save", async () => {
+  const held = deferred<MeasurementSaveCompletion>(), f = fixture(() => held.promise); complete(f);
+  const saving = f.session.save(); f.session.cancelAcquisition();
+  held.reject(new Error("Retry Save"));
+  expect(await saving).toBe(false);
+  expect(f.session.snapshot()).toMatchObject({ name: "Reference", slots: refs(1, 2), acquiring: false,
+    activeSlot: null, saving: false, notice: "Retry Save" });
 });

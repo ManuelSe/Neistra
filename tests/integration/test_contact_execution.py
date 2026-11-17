@@ -14,8 +14,11 @@ from neistra_api import contact_service as execution
 from neistra_api import edit_execution_data as transport
 from neistra_api.contact_execution_data import ContactPolicy
 from neistra_api.contact_service import ContactReadCoordinator, ContactReadError
+from neistra_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
 from neistra_api.models import Artifact, StructureEntry
 from neistra_api.schemas import ContactQuery
+from neistra_core.artifacts import LocalArtifactStore
+from neistra_core.molecular import NormalizedStructureV1
 
 from tests.integration.test_viewer_state import import_ligand
 from tests.support.api_client import ApiClient
@@ -654,4 +657,54 @@ def test_operational_refusal_is_explicit_and_does_not_edit_project(
         == {"timeout": 504, "memory": 413, "source": 422, "stale": 409}[failure]
     )
     assert client.get(f"/api/v1/projects/{project['id']}").json() == persisted_before
+    assert not list(service.settings.data_dir.glob("contact-read-*"))
+
+
+def test_conflicting_coordinate_basis_returns_geometry_reason_without_mutation(
+    client: ApiClient,
+) -> None:
+    project = import_ligand(client)
+    service = coordinator(client)
+    entry = project["entries"][0]
+    path = f"/api/v1/projects/{project['id']}"
+    original_path = f"{path}/entries/{entry['id']}/original"
+    original = client.get(original_path).content
+    with service.factory() as session:
+        artifacts = ArtifactService(session, LocalArtifactStore(service.settings.data_dir))
+        _, payload = artifacts.read(entry["current_artifact_id"])
+        data = NormalizedStructureV1.from_bytes(payload).model_dump()
+        data["atoms"][0]["coordinates"] = (9.0, 0.0, 0.0)
+        # Publish a legitimate immutable canonical payload: its hash/size are valid,
+        # and the schema itself does not require atom/active-frame agreement.
+        conflicting = NormalizedStructureV1.model_validate(data)
+        published = artifacts.publish(
+            conflicting.to_bytes(), "conflicting-basis.normalized.json", NORMALIZED_MEDIA_TYPE
+        )
+        row = session.get(StructureEntry, entry["id"])
+        assert row is not None
+        row.current_artifact_id = published.id
+        session.commit()
+    persisted_before = client.get(path).json()
+    before_files = canonical_files(service)
+    with service.factory() as session:
+        before_artifacts = [
+            (artifact.id, artifact.sha256, artifact.size, artifact.relative_path)
+            for artifact in session.query(Artifact).order_by(Artifact.id)
+        ]
+    response = client.post(
+        f"{path}/contacts", json=query_for(persisted_before).model_dump()
+    )
+    assert response.status_code == 422, response.text
+    assert response.json()["detail"] == {
+        "code": "contacts_geometry",
+        "message": "Current atom coordinates and active conformer disagree",
+    }
+    assert client.get(path).json() == persisted_before
+    assert canonical_files(service) == before_files
+    assert client.get(original_path).content == original
+    with service.factory() as session:
+        assert [
+            (artifact.id, artifact.sha256, artifact.size, artifact.relative_path)
+            for artifact in session.query(Artifact).order_by(Artifact.id)
+        ] == before_artifacts
     assert not list(service.settings.data_dir.glob("contact-read-*"))

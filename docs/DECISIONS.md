@@ -8000,3 +8000,59 @@ A physical loopback TCP disconnect test now closes a real held request, observes
 child reaping and staging removal, then verifies renewed admission through another
 actual HTTP request. It preserves project/artifact state. This supplements the
 previous callback-level cancellation controls without relabelling that evidence.
+
+## D-172 — Synchronous preview retirement and recoverable saved explanations
+
+Date:2026-11-17. Child157 C3 review corrections; no scientific method, durable
+schema, migration or dependency change.
+
+Numerical preview entry now updates its application-owned ref and guards the
+measurement session before publishing React state. Entering and cancelling within
+one batched turn therefore still retires the previous Save/contact owner. Rendered
+preview state remains the viewer projection; synchronous command qualification
+reads the ref. A completed Save also preserves the current stopped acquisition
+intent, including when editing opened during its request. Successful current Save
+can clear fields and report success without unexpectedly acquiring the pointer.
+
+The single expanded saved record receives the existing typed SelectionGeometry
+result from its bounded current-source observers. Its value and explanation share
+that result. Preview and missing/loading/failed source states take precedence over
+undefined geometry; ordered references and draft rename text remain retained.
+Compact summary values retain their existing interface. No new scientific math,
+durable fields, source observers or background jobs are introduced.
+
+A failed refetch can retain a complete cached projection whose normal stale time
+is infinite. The measurement tool locally makes errored source queries stale so
+closing/reopening actually retries, including cached-data failures. Successful
+immutable projections keep their existing lifetime, and global source policy is
+unchanged. This supports the stated recovery instruction without displaying failed
+cached coordinates as current. Missing participants remain recoverable definitions;
+restoring valid current coordinates restores the original measurement value/label.
+
+Both stopped C3 gate attempts retain partial logs and their explicit intentional
+SIGTERM receipts. Neither is a completed gate or a source of pooled passing checks.
+All42commands must run fresh after corrections; all seven final specialist verdicts
+and exact merged qualification remain required before delivery.
+
+## D-173 — Refuse conflicting contact coordinate bases
+
+Date:2026-11-17. Child157 complete scientific-theory review identified an accepted
+normalized payload whose canonical atom coordinates differ from its active
+conformer. The viewer and shared measurement geometry use the atom coordinates;
+close-contact search uses the active conformer. Existing adapters normally keep
+these aligned, but the normalized schema does not enforce equality.
+
+Before searching, qualify both current bases as finite N×3 coordinates and require
+exact numeric agreement, allowing ordinary signed-zero equality. Refuse the entire
+read with an explicit geometry reason if they disagree, including singleton input;
+never silently choose a conformer, rewrite source coordinates, align, add a tolerance
+or return contacts from an ambiguous basis. A consistent nondefault active conformer
+remains supported even when an inactive conformer differs. Empty complete structures
+retain their existing empty result. This is request qualification, not a new method,
+durable schema restriction, migration or mutation of original artifacts.
+
+Acceptance includes each-axis disagreement, finite-active/nonfinite-atom input,
+singleton refusal before the empty shortcut, consistent active-ID7 behavior, and
+API422 with explicit reason and unchanged project/artifact state. Run affected
+scientific/API validation, independent theory/implementation/performance reassessment,
+and fresh complete release gates before claiming completion.

@@ -178,6 +178,60 @@ def test_sparse_ids_use_the_actual_active_frame_without_changing_source() -> Non
     assert source.to_bytes() == snapshot
 
 
+@pytest.mark.parametrize("count", [1, 2])
+@pytest.mark.parametrize("axis", [0, 1, 2])
+def test_disagreeing_atom_coordinate_basis_refuses_even_singletons(count: int, axis: int) -> None:
+    source = molecular_input([(0.0, 0.0, 0.0), (0.0, 0.0, 3.0)][:count])
+    point = list(source.atoms[-1].coordinates)
+    point[axis] = math.nextafter(point[axis], math.inf)
+    atoms = [*source.atoms[:-1], source.atoms[-1].model_copy(update={"coordinates": tuple(point)})]
+    # This disagreement passes the canonical schema and can occur in retained data.
+    source = NormalizedStructureV1.model_validate(source.model_dump() | {"atoms": atoms})
+    snapshot = source.to_bytes()
+    with pytest.raises(
+        ContactGeometryError, match="atom coordinates and active conformer disagree"
+    ):
+        close_contacts(source, 4.0)
+    assert source.to_bytes() == snapshot
+
+
+@pytest.mark.parametrize("value", [float("nan"), float("inf"), -float("inf")])
+def test_finite_active_frame_does_not_qualify_nonfinite_atom_coordinates(value: float) -> None:
+    source = molecular_input([(0, 0, 0)])
+    atom = source.atoms[0].model_copy(update={"coordinates": (value, 0, 0)})
+    source = source.model_copy(update={"atoms": [atom]})
+    snapshot = source.to_bytes()
+    with pytest.raises(
+        ContactGeometryError, match="Atom coordinates must be finite float64 3D points"
+    ):
+        close_contacts(source, 2.0)
+    assert source.to_bytes() == snapshot
+
+
+@pytest.mark.parametrize("point", [(0, 0), (0, 0, 0, 0)])
+def test_atom_coordinate_shape_is_qualified_before_singleton_empty_result(
+    point: tuple[int, ...],
+) -> None:
+    source = molecular_input([(0, 0, 0)])
+    atom = source.atoms[0].model_copy(update={"coordinates": point})
+    source = source.model_copy(update={"atoms": [atom]})
+    with pytest.raises(
+        ContactGeometryError, match="Atom coordinates must be finite float64 3D points"
+    ):
+        close_contacts(source, 2.0)
+
+
+def test_coordinate_basis_agreement_allows_signed_zero_without_mutation() -> None:
+    source = molecular_input([(0.0, -0.0, 0.0), (0.0, 0.0, 3.0)], ids=[2, 17])
+    frame = source.conformers[0].model_copy(
+        update={"coordinates": [(-0.0, 0.0, -0.0), (-0.0, -0.0, 3.0)]}
+    )
+    source = source.model_copy(update={"conformers": [frame]})
+    snapshot = source.to_bytes()
+    assert contact_rows(close_contacts(source, 3.0)) == [(2, 17, 3.0)]
+    assert source.to_bytes() == snapshot
+
+
 @pytest.mark.parametrize("count", [0, 1])
 @pytest.mark.parametrize("missing_fact", [False, True], ids=["warning", "source-fact"])
 def test_missing_small_inputs_are_unavailable_not_empty(count: int, missing_fact: bool) -> None:

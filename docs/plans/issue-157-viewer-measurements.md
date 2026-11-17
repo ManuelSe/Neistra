@@ -535,3 +535,64 @@ require final candidate/full42reconfirmation; no all-seven final approval yet.
 Commit the coherent correction and new candidate2recipe cleanly, then execute all42
 commands afresh with unchanged deadlines/retries/exclusions, independent summary and
 complete packaging. Candidate1remains intentionally interrupted historical evidence.
+
+
+### C3 second corrective checkpoint — preview ownership and saved recovery
+
+Candidate2 `62736324` completed eight commands before the primary intentionally
+stopped its isolated Python group for a reproduced same-turn numerical preview
+retirement defect. Python and wrapper143 have that explicit cause; partial source
+maps/logs remain retained and no completed gate is claimed. D-172 records the
+synchronous App preview guard, preserved stopped acquisition after Save, and one
+expanded typed shared geometry result with source-specific explanations.
+
+The local measurement-query error lifetime permits actual close/reopen retry even
+when failed refetch retained complete cached data. Successful source caching and
+four draft plus four expanded observer limits remain unchanged. Focused66tests
+pass, covering actual App Save/contact ownership, stopped acquisition, unavailable
+geometry/committed-source restoration, preview precedence, missing targets, and
+both fresh/cached error recovery. Fresh complete frontend/native verification and
+independent correction assessments are in progress; no final approval claim.
+
+Retain both stopped runs, generate a fresh candidate3recipe only after consequential
+findings are resolved, and run all42commands from step1. Then independent complete
+packaging and all-seven same-candidate approval precede push, normal protected merge,
+exact-master fresh42 and verified0.35publication/child closeout. Parent Goal stays
+active through all eight required children and integrated parent closeout.
+
+
+[Recovery correction packet](../assets/viewer-measurements/c3-recovery-correction.json)
+retains61files, ZIP1,312,127bytes/SHA256
+`76d352d4b57e421e5572268e9989fe191931908a34943092b7bbdba5815108d5`.
+Fresh lint/types/1187frontend/118suites/build and17native passes/one exact existing
+mobile exclusion pass, zero retries, child/enclosing0,920source identities unchanged.
+Actual desktop/touch Move→undefined angle→Undo restores shared value and full native
+label without changing original bytes. Independent architecture/UX/UI correction
+assessments pass; complete performance review passes with stated measured limits.
+These are pre-gate assessments, not final same-candidate approval.
+
+Complete scientific-theory assessment identified one further P2: an otherwise valid
+normalized payload may disagree between atom and active-conformer coordinates.
+D-173 records the accepted smallest fail-closed contact qualification before code.
+A bounded scientific implementation assignment owns core qualification and scientific/
+API422/no-mutation controls. Independent theory/scientific implementation/performance
+reassessment and full42qualification must follow. No global schema normalization,
+coordinate rewrite, tolerance or new chemistry is authorized by this correction.
+
+
+D-173 [author correction evidence](../assets/viewer-measurements/c3-contact-basis-correction.json)
+passes184focusedPython/zero skips, Ruff and authoritative productionmypy222; all
+10archivedpayloads/hashes/CRCs verify. Initial red control, formatting errors and
+non-authoritative broad-test typing diagnostics remain retained. Post-test changes
+are documented line wrapping and equivalent float-literal fixture spelling.
+Independent theory reassessment passes131cases and resolves its sole P2; overview
+wording now distinguishes atom coordinates from the additional active-frame guard.
+Fresh nonauthor [scientific implementation assessment](../assets/viewer-measurements/c3-independent-science.json)
+passes205Python/144frontend plus432exhaustive contact queries/8408distances,
+17adjacent-float cases and18accepted-schema basis refusals. Source identities and
+702native evidence payloads verify. No consequential scientific finding remains.
+
+The fresh candidate3recipe contains42commands, preserving every baseline check and
+all seven additional ordered-reader steps. Commit it with this passing corrective
+checkpoint before qualification. Allseven final same-candidate reconfirmations,
+independent full-gate audit/packaging and later exact-master fresh42 remain pending.

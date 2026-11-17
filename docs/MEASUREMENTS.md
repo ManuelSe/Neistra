@@ -38,5 +38,6 @@ and result actions. Capacity failure reports the complete search as unavailable.
 
 Geometry uses the current complete finite Cartesian coordinates. The tool does
 not align separate structures or apply periodic images. Contact proximity is a
-geometric screen; see [scientific limits](SCIENTIFIC_LIMITATIONS.md#measurements-and-close-contacts)
+geometric screen. Conflicting stored coordinate frames are unavailable with a
+reason; no frame is silently substituted. See [scientific limits](SCIENTIFIC_LIMITATIONS.md#measurements-and-close-contacts)
 and the [API contract](API.md#measurements-and-close-contacts).

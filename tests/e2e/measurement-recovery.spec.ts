@@ -80,3 +80,83 @@ for (const theme of ["light", "dark"] as const) test(`measurement chooser, faile
   await expect(tool.getByRole("button", { name: "Inspect measurement Cross-entry retained distance", exact: true })).toBeVisible();
   for (const [index, entry] of project.entries.entries()) expect(await (await request.get(`${path}/entries/${entry.id}/original`)).body()).toEqual(originals[index]);
 });
+
+
+test("explains saved undefined geometry after committed movement and restores it with Undo", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  let project = await prepareInformationProject(page, request, "Saved geometry recovery");
+  const entry = project.entries[0], path = `/api/v1/projects/${project.id}`;
+  const references = [1, 2, 3].map(atom_id => ({ structure_id: entry.id, atom_id }));
+  const original = await (await request.get(`${path}/entries/${entry.id}/original`)).body();
+  const created = await request.post(`${path}/measurements`, { data: {
+    expected_revision: project.revision, name: "Existing angle", kind: "angle", atom_references: references,
+  } });
+  expect(created.status()).toBe(201); project = await created.json();
+  const measurement = project.measurements[0];
+  await page.reload();
+  const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
+  const activate = async (button: import("@playwright/test").Locator) => info.project.name === "mobile-chromium" ? button.tap() : button.click();
+  const open = async () => {
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
+    if (!await tool.isVisible()) await activate(page.getByRole("button", { name: "Measurements", exact: true }));
+    const saved = tool.getByRole("button", { name: "Saved measurements 1", exact: true });
+    if (await saved.getAttribute("aria-expanded") !== "true") await activate(saved);
+    const summary = tool.getByRole("button", { name: "Inspect measurement Existing angle", exact: true });
+    if (await summary.getAttribute("aria-expanded") !== "true") await activate(summary);
+    return summary;
+  };
+  const native = () => page.evaluate(async () => {
+    const engine = window.interactionEngines.at(-1)! as unknown as {
+      syncQueue: Promise<void>;
+      savedMeasurementBatch?: { data: { records: { id: string }[] };
+        labels: { getAllLoci(): { kind: string; shape?: { sourceData: { infos: { label: string }[] } } }[];
+          renderObjects: { type: string; state: { visible: boolean }; values: { drawCount: { ref: { value: number } } } }[] } };
+    };
+    await engine.syncQueue;
+    await new Promise<void>(resolveFrame => requestAnimationFrame(() => requestAnimationFrame(() => resolveFrame())));
+    await engine.syncQueue;
+    const batch = engine.savedMeasurementBatch;
+    return { ids: batch?.data.records.map(record => record.id) ?? [],
+      labels: batch?.labels.getAllLoci().flatMap(loci => loci.shape?.sourceData.infos.map(item => item.label) ?? []) ?? [],
+      glyphDrawCount: batch?.labels.renderObjects.filter(object => object.type === "text" && object.state.visible)
+        .reduce((sum, object) => sum + object.values.drawCount.ref.value, 0) ?? 0 };
+  });
+  const observations = [];
+  for (const theme of ["light", "dark"] as const) {
+    const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
+    if (await toggle.count()) await activate(toggle);
+    const initialSummary = await open();
+    await expect(initialSummary).toContainText("90.0°");
+    await expect.poll(async () => (await native()).ids).toEqual([measurement.id]);
+    const before = await native(); expect(before.glyphDrawCount).toBeGreaterThan(0);
+    expect(before.labels.some(label => label.includes("Existing angle") && label.includes("90.0°"))).toBe(true);
+    project = await (await request.get(path)).json();
+    const moved = await request.post(`${path}/entries/${entry.id}/transform`, { data: {
+      expected_revision: project.revision, entry_id: entry.id, scope: "selection",
+      selection: { schema_version: 1, atoms: [references[0]], granularity: "atom", source: "inspector" },
+      translation: [-3, 0, 0], rotation_degrees: [0, 0, 0], pivot_mode: "custom", pivot: [0, 0, 0],
+    } });
+    expect(moved.status(), await moved.text()).toBe(200);
+    await page.reload();
+    const summary = await open();
+    await expect(summary).toContainText("Unavailable");
+    const actions = tool.getByRole("group", { name: "Actions for Existing angle", exact: true });
+    const reason = "Measurement geometry is undefined or outside numerical limits.";
+    await expect(actions.getByText(reason, { exact: true })).toBeVisible();
+    await expect(actions.getByRole("button", { name: "Select participants", exact: true })).toBeEnabled();
+    const unavailable = await native(); expect(unavailable.ids).toEqual([]); expect(unavailable.glyphDrawCount).toBe(0);
+    expect((await (await request.get(path)).json() as Project).measurements[0].atom_references).toEqual(references);
+    await activate(page.getByRole("button", { name: /^Undo:/ }));
+    await expect(summary).toContainText("90.0°");
+    await expect(actions.getByText(reason, { exact: true })).toBeHidden();
+    await expect.poll(async () => (await native()).ids).toEqual([measurement.id]);
+    const restored = await native(); expect(restored.glyphDrawCount).toBeGreaterThan(0);
+    expect(restored.labels.some(label => label.includes("Existing angle") && label.includes("90.0°"))).toBe(true);
+    const current: Project = await (await request.get(path)).json();
+    expect(current.measurements[0].atom_references).toEqual(references);
+    expect(await (await request.get(`${path}/entries/${entry.id}/original`)).body()).toEqual(original);
+    observations.push({ theme, before, unavailable, restored });
+    await activate(tool.getByRole("button", { name: "Close measurements", exact: true }));
+  }
+  await info.attach("saved-angle-current-source-recovery", { body: JSON.stringify({ references, observations }), contentType: "application/json" });
+});

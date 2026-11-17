@@ -1153,7 +1153,9 @@ leases are transient application state. No durable measurement schema changed.
 `minimum_distance` (default0.5Å, at least0 and less than cutoff). Success retains
 the existing JSON list of `{atom_1, atom_2, distance}` records, sorted by distance and then canonical
 atom IDs. All recorded bonded pairs are excluded. The minimum remains inclusive and0
-is supported; results are geometric within-entry Cartesian proximity.
+is supported; results are geometric within-entry Cartesian proximity. Active conformer
+and canonical atom coordinates must agree exactly; conflicting or nonfinite bases
+refuse the whole read with422 rather than return a value inconsistent with the viewer.
 
 A source-bound read captures immutable input and verifies it again after computation.
 One ephemeral child is admitted at a time, with no queue: busy429, changed source409,

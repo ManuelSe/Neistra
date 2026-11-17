@@ -1,4 +1,4 @@
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQueries, useQueryClient, type Query } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ComponentProps } from "react";
 import type { AtomReference, Measurement, Project, StructureProjection } from "../api/types";
 import type { MeasurementSession } from "../measurements/session";
@@ -12,6 +12,15 @@ import type { ViewerMeasurementTarget } from "../viewer/MolecularViewer";
 import { MeasurementTool } from "./MeasurementTool";
 import { MeasurementContacts } from "./MeasurementContacts";
 import { ViewerInspection } from "./ViewerInspection";
+
+function measurementStructureOptions(projectId: string, entryId: string, artifactId: string | null | undefined) {
+  const options = structureQueryOptions(projectId, entryId, artifactId);
+  return { ...options, staleTime: (source: Query<StructureProjection, Error, StructureProjection, ReturnType<typeof structureQueryKey>>) => {
+    if (source.state.status === "error") return 0;
+    const lifetime = options.staleTime;
+    return typeof lifetime === "function" ? lifetime(source) : lifetime ?? 0;
+  } };
+}
 
 type InspectionProps = ComponentProps<typeof ViewerInspection>;
 export interface ViewerMeasurementsProps {
@@ -58,13 +67,13 @@ export function ViewerMeasurements({ session, project, inspection, sceneAvailabl
   // unique slots release the actual source observers on shrink and close.
   const draftQueries = useQueries({ queries: Array.from({ length: 4 }, (_, slot) => {
     const entry = draftEntries[slot];
-    return entry ? structureQueryOptions(project.id, entry.id, entry.current_artifact_id)
-      : structureQueryOptions(project.id, "", `measurement-draft-unused-${slot}`);
+    return entry ? measurementStructureOptions(project.id, entry.id, entry.current_artifact_id)
+      : measurementStructureOptions(project.id, "", `measurement-draft-unused-${slot}`);
   }) });
   const expandedQueries = useQueries({ queries: Array.from({ length: 4 }, (_, slot) => {
     const entry = expandedEntries[slot];
-    return entry ? structureQueryOptions(project.id, entry.id, entry.current_artifact_id)
-      : structureQueryOptions(project.id, "", `measurement-expanded-unused-${slot}`);
+    return entry ? measurementStructureOptions(project.id, entry.id, entry.current_artifact_id)
+      : measurementStructureOptions(project.id, "", `measurement-expanded-unused-${slot}`);
   }) });
   const structures = new Map(inspection.structures);
   for (const [sources, queries] of [[draftEntries, draftQueries], [expandedEntries, expandedQueries]] as const) {
@@ -149,14 +158,31 @@ export function ViewerMeasurements({ session, project, inspection, sceneAvailabl
   }, [viewer, sceneAvailable, inspection.paused, inspection.sources]);
   const canFocus = (measurement: Measurement) => !inspection.paused && measurementValue(measurement.kind, measurement.atom_references, structures) !== null
     && measurement.atom_references.every(ref => drawable.has(JSON.stringify([ref.structure_id, ref.atom_id])));
+  let expandedInspection = scopedExpanded
+    ? inspectMeasurementDraft(scopedExpanded.kind, scopedExpanded.atom_references, structures, inspection.paused) : null;
+  if (scopedExpanded && expandedInspection?.status !== "ready" && !inspection.paused) {
+    const missingEntries = scopedExpanded.atom_references.some(ref => !entries.has(ref.structure_id));
+    const missingArtifact = scopedExpanded.atom_references.some(ref => !entries.get(ref.structure_id)?.current_artifact_id);
+    const missingSources = [...new Set(scopedExpanded.atom_references.filter(ref => !structures.has(ref.structure_id)).map(ref => ref.structure_id))];
+    const states = missingSources.map(id => query.getQueryState<StructureProjection>(structureQueryKey(project.id, id, entries.get(id)?.current_artifact_id)));
+    const reason = missingEntries ? "A target structure is no longer available."
+      : missingArtifact ? "A target structure has no current atom information."
+        : states.some(state => state?.fetchStatus === "fetching" || state?.status === "pending") ? "Loading current target atom information…"
+          : states.some(state => state?.status === "error") ? "Target atom information could not be loaded. Close and reopen this record to retry."
+            : missingSources.length ? "Current target atom information is unavailable." : null;
+    if (reason) expandedInspection = { status: "unavailable", kind: scopedExpanded.kind,
+      targets: scopedExpanded.atom_references.map(reference => ({ ...reference })), reason };
+  }
   const savedValues = new Map(project.measurements.map(measurement => [measurement.id, inspection.paused ? null : measurementValue(measurement.kind, measurement.atom_references, structures)]));
+  if (scopedExpanded && expandedInspection) savedValues.set(scopedExpanded.id,
+    expandedInspection.status === "ready" ? expandedInspection.value ?? null : null);
   const chooserChanged = useCallback((id: string | null) => { if (session.ownsSession(scope)) updateChooser({ session: scope, id }); }, [scope, session]);
   const preferredEntryId = useNavigationStore(state => state.projectId === project.id ? state.inspectedEntryId : null);
   const load = async (id: string) => {
     const context = latest.current.project;
     const entry = context.entries.find(entry => entry.id === id);
     if (!session.ownsSession(scope) || !entry?.current_artifact_id) throw new Error("This entry has no current molecular artifact.");
-    await query.fetchQuery(structureQueryOptions(context.id, id, entry.current_artifact_id));
+    await query.fetchQuery(measurementStructureOptions(context.id, id, entry.current_artifact_id));
     if (!session.ownsSession(scope) || latest.current.project.entries.find(item => item.id === id)?.current_artifact_id !== entry.current_artifact_id) throw new Error("The target changed. Choose its current atoms.");
   };
   return <>
@@ -181,7 +207,7 @@ export function ViewerMeasurements({ session, project, inspection, sceneAvailabl
         session.pickInViewer();
       }}
       onReviewTargets={() => { if (session.ownsSession(scope)) session.reviewTargets(); }}
-      measurements={project.measurements} savedValues={savedValues} expandedId={scopedExpanded?.id ?? null} onExpand={setExpandedId}
+      measurements={project.measurements} savedValues={savedValues} expandedInspection={expandedInspection} expandedId={scopedExpanded?.id ?? null} onExpand={setExpandedId}
       onUpdate={(measurement, name, visible) => { if (session.ownsSession(scope)) void onUpdate(measurement, name, visible).catch(() => undefined); }}
       onDelete={measurement => { if (session.ownsSession(scope)) void onDelete(measurement).catch(() => undefined); }}
       onSelectParticipants={measurement => {

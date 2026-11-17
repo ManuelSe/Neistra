@@ -3,7 +3,7 @@ import { Check, ChevronLeft, ChevronRight, CircleStop, Eye, EyeOff, Focus, ListO
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { AtomReference, Entry, Measurement, MeasurementKind, NormalizedStructure, Selection } from "../api/types";
 import { formatMeasurement } from "../measurements/geometry";
-import { atomInspection, inspectionOrderMatches } from "../selection/inspection";
+import { atomInspection, inspectionOrderMatches, type SelectionGeometry } from "../selection/inspection";
 import "./measurement-tool.css";
 
 export interface MeasurementToolDraft {
@@ -43,6 +43,7 @@ export interface MeasurementToolProps {
   onReviewTargets?: () => void;
   measurements: readonly Measurement[];
   savedValues: ReadonlyMap<string, number | null>;
+  expandedInspection: SelectionGeometry | null;
   expandedId: string | null;
   onExpand: (id: string | null) => void;
   onUpdate: (measurement: Measurement, name: string, visible: boolean) => void;
@@ -409,7 +410,11 @@ function SavedMeasurementActions(props: MeasurementToolProps & { measurement: Me
   const { measurement, label } = props;
   const [draft, setDraft] = useState({ baseline: measurement.name, name: measurement.name });
   const name = draft.baseline === measurement.name ? draft.name : measurement.name;
+  const inspection = props.expandedInspection;
+  const unavailableReason = props.paused ? "Geometry unavailable during preview."
+    : inspection && inspection.status !== "ready" ? inspection.reason : undefined;
   return <div className="measurement-saved-actions" role="group" aria-label={`Actions for ${label}`}>
+    {unavailableReason ? <p className="measurement-secondary">{unavailableReason}</p> : null}
     <label>Name<input aria-label={`Name for ${label}`} value={name} maxLength={120} disabled={props.busy || props.draft.saving || props.paused}
       onChange={event => setDraft({ baseline: measurement.name, name: event.target.value })} /></label>
     <button type="button" disabled={props.busy || props.draft.saving || props.paused || !name.trim() || name.trim() === measurement.name}

@@ -254,8 +254,9 @@ export class MeasurementSession {
       }
       if (this.owns(capture)) {
         const slots = Array<null>(measurementTargetCount[this.state.kind]).fill(null);
-        this.patch({ slots: Object.freeze(slots), artifacts: Object.freeze([...slots]), name: "", activeSlot: 0,
-          acquiring: true, generation: this.state.generation + 1, notice: `Saved ${capture.name}.` });
+        this.patch({ slots: Object.freeze(slots), artifacts: Object.freeze([...slots]), name: "",
+          activeSlot: this.state.acquiring ? 0 : null,
+          generation: this.state.generation + 1, notice: `Saved ${capture.name}.` });
       }
       return true;
     } catch (error) {

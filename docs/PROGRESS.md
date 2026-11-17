@@ -73,11 +73,29 @@ cases pass with zero exclusions/retries; scoped nonauthor UI reassessment passes
 Nonauthor scientific implementation independently passes172Python/121frontend and
 1440numerical probes; final current-candidate reconfirmation remains required.
 
-Next: commit the measured UI correction and fresh candidate2recipe, then restart
-all42commands from step1. Independently audit/package the completed gate and obtain
-all-seven final same-candidate assessments before application push and normal release. Schema/dependencies remain
-unchanged. Preserve other worktrees and one active Goal through all eight releases
-and parent closeout.
+C3 candidate2 also completed eight commands and was intentionally stopped during
+Python for independently reproduced same-turn numerical preview ownership. D-172
+records synchronous retirement, preserving stopped acquisition after Save, and a
+shared typed explanation for the one expanded saved record. Source errors have
+local close/reopen retry, including retained cached-data failures. Focused66cases
+pass. The [recovery correction packet](assets/viewer-measurements/c3-recovery-correction.json)
+retains fresh lint/types/1187frontend/118suites/build and17native passes plus one
+exact existing exclusion, zero retries, child/enclosing0 and920unchanged sources.
+Actual desktop/touch Move→undefined angle→Undo restores value/full native label.
+Independent architecture/UX/UI correction assessments pass. Complete theory review
+identified conflicting atom/active-conformer contact bases; D-173fail-closed
+qualification passes184focusedPython/zero skips, Ruff and productionmypy222.
+Independent theory reassessment passes131cases; fresh nonauthor scientific
+implementation passes205Python/144frontend plus432exhaustive contact comparisons
+and18ambiguous-basis refusal probes. No consequential scientific finding remains.
+The bounded correction retains original failed controls/typing diagnostics. Both intentional partial gates retain diagnostics and are never
+pooled into a complete result.
+
+Next: finish correction validation and consequential-review fixes, commit a fresh
+candidate3recipe, then execute all42commands from step1. Independently audit/package
+and obtain all-seven final same-candidate assessments before application push and
+normal release. Schema/dependencies remain unchanged. Preserve other worktrees and
+one active Goal through all eight releases and parent closeout.
 
 
 ### Previous completed milestone — issue #152

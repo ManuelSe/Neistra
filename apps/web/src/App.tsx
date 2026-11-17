@@ -168,13 +168,10 @@ export default function App() {
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [selectionColorMode, setSelectionColorMode] =
     useState<SelectionColorMode>("carbon");
-  const [coordinatePreview, setCoordinatePreview] =
+  const [coordinatePreview, setCoordinatePreviewState] =
     useState<CoordinatePatch | null>(null);
+  const coordinatePreviewRef = useRef<CoordinatePatch | null>(null);
   const numericalPreviewGeneration = useRef(0);
-  const clearCoordinatePreview = useCallback(() => {
-    numericalPreviewGeneration.current++;
-    setCoordinatePreview(null);
-  }, []);
   const {
     selection,
     pickingGranularity,
@@ -233,6 +230,16 @@ export default function App() {
     structures: references => measurementPorts.current!.structures(references),
     create: (capture, context) => measurementPorts.current!.create(capture, context),
   }));
+  const setCoordinatePreview = useCallback((next: CoordinatePatch | null) => {
+    coordinatePreviewRef.current = next;
+    // Retire measurement owners before React can batch preview entry and Cancel.
+    measurementSession.guardContext();
+    setCoordinatePreviewState(next);
+  }, [measurementSession]);
+  const clearCoordinatePreview = useCallback(() => {
+    numericalPreviewGeneration.current++;
+    setCoordinatePreview(null);
+  }, [setCoordinatePreview]);
   const surfaceSession = useMemo(() => createSurfaceManagerSession(activeProjectId ?? ""), [activeProjectId]);
   const previousSurfaceSession = useRef(surfaceSession);
   useEffect(() => {
@@ -506,7 +513,7 @@ export default function App() {
         activeProjectId: active, selectionProjectId: selectionState.projectId, projectEpoch: selectionState.projectEpoch,
         paused: measurementPreviewPaused({
           movement: Boolean(move.capture?.project.id === active && move.phase !== "idle"),
-          coordinates: Boolean(coordinatePreview),
+          coordinates: Boolean(coordinatePreviewRef.current),
           placement: Boolean(edit.projectId === active && edit.open && edit.placement),
           minimization: Boolean(minimize.projectId === active && (minimize.preview || minimize.applying)),
         }),
