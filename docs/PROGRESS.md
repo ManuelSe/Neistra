@@ -3,6 +3,82 @@
 ## Current milestone
 
 Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active for exactly
+#156–#163 through verified release and parent closeout. The required dependency order
+and exclusions remain unchanged. Plans are Authorized within agreed scope; not
+individually reviewed.
+
+#156 is delivered in [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0),
+with verified terminal integration and owned cleanup recorded in its canonical reply.
+#157 is released and explicitly closed in
+[v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0) through
+[PR #170](https://github.com/ManuelSe/Neistra/pull/170). Runtime `7542d1a1` has the complete
+reviewed `c06c7248` tree; annotated tag `81963d29` remains immutable. The
+[canonical reply](https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610)
+owns terminal documentation and final cleanup/delivery-receipt readback.
+
+## Completed work
+
+Dedicated viewer distance/angle/signed-torsion acquisition and explicit named Save,
+selection-preserving picking, bounded saved management, current unavailable reasons
+and recovery, retained close contacts and grouped full-text native annotations are
+implemented and released. Original files and existing molecular/history contracts
+remain authoritative. The old inspector measurement tab remains a bridge until #163.
+
+The primary 325,299,981-byte ZIP / SHA `81dc7b42…`, both sidecars and all 26 additional forensic
+assets pass server and full anonymous verification. Exact inventories preserve 47,506
+forensic files / 4,624,058,988 raw bytes; failed attempts stay failed. The published 33,015-byte
+C6 receipt / SHA `c9b624fa…` is itself anonymously verified. Current evidence is linked in
+[publication](assets/viewer-measurements/c6-publication.json) and
+[separate readback](assets/viewer-measurements/c6-publication-verification.json).
+
+## Verification performed
+
+Both fresh complete 42-command candidate/exact-merged gates pass: 2,545 Python / zero skips,
+1,187 frontend / 118 suites, 14 supervisor, 505 native / 75 exact old exclusions across 580 cases /
+80 files, zero failures/flakes/retries/new exclusions. All 931 current / 885 actual 0.34 source
+identities, all lossless logs and actual reader provenance verify both directions
+and archive suffixes, including ordered measurements and 15 editing projects / 24 retained
+transitions. Each qualification/independent-summary/package/enclosing exit is 0.
+The primary recursively verifies 1,142 ZIPs / 6,822 manifest entries / 2,649 project files.
+All seven final specialist agent verdicts cover exact `c06c7248`; actual runtime tree is
+identical. These supplement primary self-review and actual remote requirements,
+without claiming human approval. Runtime/publication evidence audits also pass.
+
+## Known limitations
+
+Geometry is Cartesian with no automatic alignment, periodic images or energetic
+interpretation. Dense labels can overlap; degenerate native arcs may warn/collapse
+while valid values/full labels remain. Portable checks do not certify every host,
+physical device, GPU-memory peak or strict reference-host latency. Live Undo/Redo
+is qualified; archives continue to omit portable history. Dependencies, migration
+head 0015 and existing schema 2 remain unchanged for #157.
+
+Independent #158 preparation remains local `68b1a868`: 2,674 Python / zero skips, 1,041 frontend,
+ten native recovery cases over 930 frozen sources. That older local checkpoint does
+not qualify integration with released #156/#157, 0.36 versions, 0016/schema 3, actual 0.35
+readers or final publication. Keep its narrow-heading observation for UI integration.
+Later #159–#163 remain planned and unimplemented; excluded work stays separate.
+
+## Blockers
+
+No external blocker. Terminal #157 documentation integration and owned branch cleanup
+readback precede serial #158 delivery. Preserve the original user checkout and all
+owned raw evidence.
+
+## Next action
+
+Complete normal terminal #157 documentation review/merge and owned cleanup, reconcile
+its delivery receipt into the canonical reply, then integrate #158 with actual 0.35 and
+current master. Preserve synchronous preview/project/command ownership, all 42 baseline
+checks plus #158 new-state phases, actual preceding-reader contracts and all-seven final
+review before its push/release. Keep one active parent Goal through all eight releases
+and final parent closeout.
+
+## Historical #11 and #157 checkpoint record
+
+### Current milestone
+
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active for exactly
 #156–#163 through verified release and parent closeout. Plans remain Authorized
 within agreed scope; not individually reviewed. Dependencies and exclusions stand.
 
@@ -144,7 +220,7 @@ exact unions, with47506files/4624058988raw bytes retained. Old25payloads are unc
 Independent architecture passes the extension/currentindex/parts/source/log proofs;
 no full gate pass.
 
-## Current blockers and next action
+### Current blockers and next action
 
 No external blocker. The clean candidate7 `df1ed1bb` now passes all42fresh sequential
 commands:2545Python/zero skips,1187frontend/118suites,14supervisor and505native passes
@@ -166,6 +242,7 @@ can start clean. Next: final all-seven same-candidate confirmation, normal prote
 PR/merge, fresh exact-merged42, annotated0.35release and primary/26forensic-asset
 anonymous verification, then explicit child closeout/owned cleanup. Parent Goal stays
 active for158–163 and final integration/closeout. Schema/dependencies remain unchanged.
+
 
 
 ## Historical progress

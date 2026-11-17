@@ -1,0 +1,36 @@
+{
+  "scope": "Qualified exactmaster native relocation after full ZIP/hash/CRC/exactmanifestunion verification",
+  "runtime": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+  "original": "docs/assets/viewer-measurements/c5-master1-native",
+  "retained": ".issue-11-evidence/issue157-c5-master1-native",
+  "files": 670,
+  "bytes": 93153439,
+  "qualified_archives": [
+    {
+      "bytes": 83428654,
+      "file": "c5-master1-qualified-01.zip",
+      "outer_manifest_entries": 1242,
+      "sha256": "db0a9d0a7f43a326b8728fe5665a3b049360cabce06e54e1bc02a2375f604d5a",
+      "verification_counts": {
+        "evidence_manifest_entries": 1242,
+        "project_archive_files": 807,
+        "zip_archives": 359
+      }
+    },
+    {
+      "bytes": 239424,
+      "file": "c5-master1-qualified-02.zip",
+      "outer_manifest_entries": 55,
+      "sha256": "a8e5485d7da916188fc8d06a4e64b6639309a8b4dd883dd686db830d573eb56b",
+      "verification_counts": {
+        "evidence_manifest_entries": 55,
+        "project_archive_files": 68,
+        "zip_archives": 12
+      }
+    }
+  ],
+  "raw_owned_run_retained": "/tmp/neistra157-c5-master1",
+  "no_evidence_discarded": true,
+  "prior_issue156_retention_unchanged": ".issue-11-evidence/c5-master1-native",
+  "guarded_collision": "Initialsharedlabelretentionpathalreadyexisted; assertionrefusedoverwritebeforerelocation. Currentrunusesissue157-specificpath."
+}
