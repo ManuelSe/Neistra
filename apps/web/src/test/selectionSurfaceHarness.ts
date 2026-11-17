@@ -1,9 +1,11 @@
 /** Test-only renderer harness; never imported by the application entry point. */
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
+import type { LabelData } from "molstar/lib/mol-repr/shape/loci/label";
 import { StructureElement, Structure } from "molstar/lib/mol-model/structure";
 import { SortedArray } from "molstar/lib/mol-data/int";
 import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/element-symbol";
 import { MolstarEngine } from "../viewer/MolstarEngine";
+import type { SavedMeasurementBatch } from "../viewer/savedMeasurementGeometry";
 import type { ViewerStructure, ViewerSelectionEvent } from "../viewer/MolecularViewer";
 import { SurfaceCalculator } from "../viewer/surface/client";
 import { SelectionSurfaceProvider, surfaceInput, surfaceDisplayGeometry, attachSurfaceGeometry } from "../viewer/surface/visual";
@@ -84,7 +86,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   const engine = new MolstarEngine();
   await engine.mount(container);
   const internal = engine as unknown as {
-    plugin: PluginUIContext; syncQueue: Promise<void>; measurementRefs: string[]; labelRefs: string[]; pendingSelection: ViewerSelectionEvent["atoms"];
+    plugin: PluginUIContext; syncQueue: Promise<void>; savedMeasurementBatch?: SavedMeasurementBatch; measurementRefs: string[]; labelRefs: string[]; pendingSelection: ViewerSelectionEvent["atoms"];
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     surfaceBindings: Map<string, { representationRef?: string; installedGeometry?: SurfaceGeometry }>; surfaceRefs: Map<string, string>;
     surfaces: { statuses(): SurfaceStatus[];
@@ -100,9 +102,29 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
     await internal.syncQueue;
   };
   const sync = async (sources: ViewerStructure[]) => { await engine.syncStructures(sources); await wait(); };
+  const nativeMeasurements = () => {
+    const batch = internal.savedMeasurementBatch;
+    if (!batch) return [];
+    const shape = batch.labels.getAllLoci().flatMap(loci => loci.kind === "shape-loci" ? [loci.shape] : [])
+      .find(candidate => candidate.geometry.kind === "text");
+    if (!shape || shape.geometry.kind !== "text") throw new Error("Installed saved measurements lack native text geometry.");
+    const text = shape.geometry, source = shape.sourceData as LabelData;
+    const visible = batch.labels.renderObjects.some(object => object.type === "text" && object.state.visible
+      && object.values.drawCount.ref.value > 0);
+    return batch.data.records.map(record => {
+      const group = batch.data.groups.labels.indexOf(record.id);
+      if (group < 0 || source.infos[group]?.label !== record.label) throw new Error("Native measurement label identity differs.");
+      let glyphVertices = 0;
+      for (let vertex = 0; vertex < text.charCount * 4; vertex++) {
+        if (text.groupBuffer.ref.value[vertex] === group) glyphVertices++;
+      }
+      return { id: record.id, label: source.infos[group].label ?? "", nativeShapeId: shape.id,
+        textDrawCount: visible ? glyphVertices / 4 * 6 : 0 };
+    });
+  };
   const inspect = () => ({ statuses: internal.surfaces.statuses(),
     meshes: [...internal.surfaceBindings].filter(([, binding]) => binding.representationRef && binding.installedGeometry).map(([key]) => key),
-    components: internal.surfaceRefs.size, measurements: [...internal.measurementRefs],
+    components: internal.surfaceRefs.size, measurements: nativeMeasurements(),
     workers: { ...workers }, camera: engine.getCamera(),
     threshold: internal.plugin.canvas3d?.props.renderer.pickingAlphaThreshold,
     geometry: [...internal.surfaces.requests].map(([id, r]) => ({ id, atomIds: r.geometry ? [...r.geometry.atomIds] : [],

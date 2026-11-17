@@ -43,5 +43,7 @@
     }
   ],
   "raw_owned_run_store": "/tmp/neistra157-c3-candidate4 remains retained, allfilesalsoarchived",
-  "reason": "FailedPlaywright ephemeralrecordings retained in verified multipart forensicarchives; keep raw files outoftrackedtree and strict successful-gatepackager, preserve allobservations."
+  "reason": "FailedPlaywright ephemeralrecordings retained in verified multipart forensicarchives; keep raw files outoftrackedtree and strict successful-gatepackager, preserve allobservations.",
+  "archive_repository_directory": "docs/assets/viewer-measurements/forensics",
+  "part_payloads_unchanged_on_relocation": true
 }

@@ -648,3 +648,60 @@ matching every byte count/hash against the archive; nothing is deleted.
 Commit the coherent correction and fresh candidate5recipe, then execute all42
 commands from step1 without borrowing partial checks. Final all-seven same-candidate
 assessment and normal protected delivery/exact-master fresh42/release remain pending.
+
+
+### C3 actual native annotation oracle and bounded forensic publication
+
+Candidate5 `33eff055` passes full2545Python/zero skips,1187frontend/118suites,
+14supervisor and lint/types/build. Native stops after208passes/five executed old
+exclusions at one stale harness assertion;366cases did not run. The report's371
+skipped includes unexecuted cases. Both930current/885preceding maps remain unchanged,
+wrapper1; no complete42pass. Earlier corrected movement and full release journeys
+pass in this actual run.
+
+The surface harness still treated semantic measurement IDs as replaceable native
+resource references. Only the test harness and its native test change: inspect
+actual installed text shapes, full LabelData and per-record visible glyph groups;
+use genuine shape identity for no-op comparison. All four old assertions remain,
+with four additional full-label/glyph assertions. No renderer or algorithm change.
+Fresh wholeweb lint/types/1187tests/118suites/build and four actual native fixture/
+profile cases pass, zero skips/retries,930unchanged sources, child/enclosing0.
+Independent performance assessment passes this exact correction and a broader audit
+of remaining renderer oracles; no further stale assumption is found.
+
+D-174 records the independently assessed packaging refinement before publication.
+All failed raw data stays retained: indexed sub80MiB forensic parts become additional
+release assets, each locally and anonymously verified before child closeout. The
+primary ZIP remains self-contained for both passing complete gates and their reader/
+log/source evidence, while including the forensic index and canonical inventories.
+No evidence is discarded, no failure becomes a qualification pass, and no private
+staging path substitutes for verified public availability. Exact union/byte/hash/
+recursive-CRC verification, collision-safe resume and a separate publication receipt
+are required. No application schema/version/dependency change.
+
+Complete and independently assess the actual index/parts, commit the passing test
+correction/evidence and a fresh candidate6recipe, then run all42commands from step1.
+Final all-seven same-candidate review, normal protected merge, exact-master fresh42,
+primary and forensic asset verification, child closeout and parent program remain.
+
+
+D-174 actual local [verification packet](../assets/viewer-measurements/c3-forensics-verification.json)
+passes all25parts and exact disjoint inventories:46380files/4310548153rawbytes,
+1985948944part bytes, each finalized archive below80MiB. Existing C4parts move with
+unchanged bytes/hashes under `forensics/`; eighteen C5parts remain in owned private
+staging for their additional release assets. Every raw source remains retained.
+Independent architecture verifies actual index/tool/parts, both failed source maps,
+recipes/all32lossless logs and main-helper selection; its ten negative controls
+reject corruptions with no network. The primary author runs nine controls and full
+local25part verification. Simulated remote metadata is explicitly not a public
+availability claim.
+
+The typed tracked `tools/verify_measurement_forensics.py` passes Ruff/mypy and records
+its own and qualified-helper provenance. Existing source selection automatically
+includes this tool, so fresh candidate/exact-master inventories become931; no gate
+helper or command is removed/changed. The preceding tagged source remains885.
+The primary release bundle must include this exact tool (existing supplemental
+argument), index and canonical inventories, and exclude the separate forensic payload
+parts. Actual anonymous-mode verification of all public parts is a later mandatory
+publication gate; the local receipt cannot replace it. All final specialist verdicts
+and source/gate verification remain pending before push.

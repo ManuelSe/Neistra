@@ -113,11 +113,27 @@ child/enclosing0 and independent UX assessment pass. All failed raw traces/store
 are retained in seven verified [diagnostic parts](assets/viewer-measurements/c3-legacy-workflow-correction.json);
 only verified raw outputs move into owned ignored evidence.
 
-Next: commit the passing test correction and fresh candidate5recipe, then execute
-all42commands from step1. Independently audit/package and obtain all-seven final
-same-candidate assessments before application push and normal release. Schema/
-dependencies remain unchanged. Preserve other worktrees and one active Goal through
-all eight releases and parent closeout.
+Candidate5 `33eff055` again passes2545Python/zero skips,1187frontend and14supervisor.
+Native stops after208passes/five executed existing exclusions at a test harness that
+still expected native-resource changes from semantic measurement IDs;366cases did
+not run. Actual installed text/shape/glyph inspection now replaces that obsolete
+oracle. All four old assertions remain, with four stronger text/glyph checks. Fresh
+lint/types/1187frontend/build/four actual native cases pass; independent performance
+assessment and broader oracle audit pass. No renderer/algorithm change.
+
+D-174 keeps the primary qualification ZIP self-contained for both complete passing
+gates and their readers/logs/source proofs. Large failure forensics become additional
+release assets indexed by immutable SHA/counts/provenance. Local and independent
+architecture verification pass all25parts/46380files/4310548153rawbytes, exact inventory
+unions and recursive CRCs; no data is discarded. The tracked typed verifier passes
+Ruff/mypy and corruption controls; it adds one qualifying tools/source (next931).
+Actual anonymous verification of every part remains mandatory after publication.
+
+Next: commit the passing native-oracle/forensic checkpoint and fresh candidate6recipe,
+then execute all42commands from step1. Independently audit/package and obtain all-
+seven final same-candidate assessments before application push and normal release.
+Schema/dependencies remain unchanged. Preserve one active Goal through all eight
+releases and parent closeout.
 
 
 ### Previous completed milestone — issue #152

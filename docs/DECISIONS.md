@@ -8056,3 +8056,58 @@ singleton refusal before the empty shortcut, consistent active-ID7 behavior, and
 API422 with explicit reason and unchanged project/artifact state. Run affected
 scientific/API validation, independent theory/implementation/performance reassessment,
 and fresh complete release gates before claiming completion.
+
+## D-174 — Separate verified qualification and failure-forensic assets
+
+Date:2026-11-17. Child157 release-evidence refinement; no application, scientific,
+durable-project, migration, dependency or version change. Independent architecture
+assessment passes this design; actual part verification/publication remains required.
+
+The primary qualification ZIP and its checksum/package sidecars retain both complete
+fresh gates, all reader workspaces, lossless logs and source proofs. Failed runs
+remain failed. Large raw failure recordings/stores are preserved separately in
+bounded forensic ZIP parts, rather than duplicating them inside the primary ZIP or
+adding more large payloads to Git. Existing committed C4 parts retain identical
+bytes/hashes under `docs/assets/viewer-measurements/forensics/`; subsequent large
+parts stay in owned ignored staging until their release upload. Raw originals stay
+retained in owned evidence after verified relocation.
+
+A tracked format-versioned index binds release version, failed candidate/run/source
+identities, recipe/log references, failure status, canonical inventory digests and
+each part's unique asset name, ordinal, finalized byte size, SHA-256 and recursive
+verification counts. Per-run inventories identify every relative path, size and
+hash. Their exact union must equal the part manifests, with no missing, duplicated
+or additional files, before relocation or publication. All ephemeral traces,
+scientific observations and owned stores are included. Finalized parts must remain
+below80MiB; an oversized single member requires explicit lossless handling rather
+than omission or truncation.
+
+The primary bundle includes the immutable index/inventories and points to the
+additional release assets. Inspect its assembled member list to prevent accidental
+rebundling. Later upload IDs, URLs, server digests and anonymous-download receipts
+are separate publication facts, not changes to the immutable index. Private local
+upload paths remain in owned staging metadata. A same-name remote asset is reusable
+only after its identity matches the index; do not overwrite a different payload.
+Keep fresh staging/atomic finalization and preserve incomplete attempts on recovery.
+
+After exact merged qualification, publish the indexed parts with the same release.
+Verify every part locally and through a full anonymous download, including SHA-256,
+recursive ZIP CRC/manifests and cross-part inventory completeness, before child
+closeout. Record the batch verifier's provenance and actual exits. The existing
+primary downloader alone does not establish forensic-part availability. The parent
+Goal remains active until all required units and final integrated closeout pass.
+
+This layout respects independently documented hosting bounds: each release asset
+must be smaller than2GiB, with up to1000assets per release; a Git push has its own
+2GiB bound. See [release limits](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+and [push limits](https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit),
+checked2026-11-17. No history rewrite, force push or repository setting change.
+
+
+D-174 implementation evidence: the tracked typed verifier lives in
+`tools/verify_measurement_forensics.py`, automatically inside the existing
+qualifying source prefix. No gate helper/command is removed or weakened; the
+next inventory gains this one source. Local25part verification, Ruff/mypy and
+explicit corruption controls pass. Independent architecture verifies the actual
+parts/index/tool/provenance and main-package selection. Public availability is
+still a later obligation, not established by these local checks.

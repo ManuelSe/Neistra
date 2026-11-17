@@ -3,7 +3,7 @@
   "archives": [
     {
       "file": "c3-legacy-workflow-diagnostic-01.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-01.zip",
       "bytes": 83579431,
       "sha256": "de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68",
       "outer_manifest_entries": 2869,
@@ -11,11 +11,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 2869,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-01.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-02.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-02.zip",
       "bytes": 83623670,
       "sha256": "1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40",
       "outer_manifest_entries": 1972,
@@ -23,11 +24,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1972,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-02.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-03.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-03.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-03.zip",
       "bytes": 83654761,
       "sha256": "f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a",
       "outer_manifest_entries": 1873,
@@ -35,11 +37,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1873,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-03.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-04.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-04.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-04.zip",
       "bytes": 83666650,
       "sha256": "e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d",
       "outer_manifest_entries": 1805,
@@ -47,11 +50,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1805,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-04.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-05.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-05.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-05.zip",
       "bytes": 83627802,
       "sha256": "d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205",
       "outer_manifest_entries": 1915,
@@ -59,11 +63,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1915,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-05.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-06.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-06.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-06.zip",
       "bytes": 82383056,
       "sha256": "2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446",
       "outer_manifest_entries": 1467,
@@ -71,11 +76,12 @@
         "zip_archives": 4,
         "evidence_manifest_entries": 1467,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-06.zip"
     },
     {
       "file": "c3-legacy-workflow-diagnostic-07.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-07.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-07.zip",
       "bytes": 4173860,
       "sha256": "861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20",
       "outer_manifest_entries": 110,
@@ -83,7 +89,8 @@
         "zip_archives": 3,
         "evidence_manifest_entries": 110,
         "project_archive_files": 4
-      }
+      },
+      "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-07.zip"
     }
   ],
   "files": 12011,

@@ -1,0 +1,28 @@
+{
+  "scope": "Local D174forensic verification checkpoint, not public availability or fullgateapproval",
+  "archive": "c3-forensics-verification.zip",
+  "files": 15,
+  "archive_bytes": 25869,
+  "archive_sha256": "f62d54695ff09e5ef3007970f8be50b482f247330cbad49a49846227694b0921",
+  "index_sha256": "73473b623cd37635aabb165d61191d44c111cba14a899e66596076685de508f8",
+  "verifier_sha256": "9c22cdbd6f018d8a2df8ec85d25207b9c3221b7c5576dda2683f474cd369835a",
+  "local_parts_verified": 25,
+  "canonical_files": 46380,
+  "raw_bytes": 4310548153,
+  "part_bytes": 1985948944,
+  "all_recursive_crcs_and_exact_disjoint_inventory_unions": true,
+  "ruff": "PASS",
+  "mypy": "PASS1file",
+  "primary_corruption_controls": 9,
+  "independent_architecture_corruption_controls": 10,
+  "network_requests_in_controls": 0,
+  "independent_architecture": "PASS exactcurrentindex/verifier/25parts/provenancelinks/32logs/mainc3selection; actualpublicavailabilitystillpending",
+  "new_source": "tools/verify_measurement_forensics.py automaticallyincludedbyexistingqualifiertools/prefix; nextfullsource931/old885. Existing12gatehelpers and42commands unchanged.",
+  "required_post_merge": [
+    "Fresh completeexactmaster42",
+    "AssembledprimaryZIPcontainsexactindex/inventories/verifierandbothfullgates; no rawforensicpartrebundling",
+    "Publishall25indexedparts, matchingserveridentityreadback",
+    "Runtrackedverifieractualanonymousmode onfullpublicbodydownloads; verifyallhashes/recursiveCRCs/exactunions, retainprovenance/exitsandbatchreceipt",
+    "Onlythenexplicit157reply/closure/ownedcleanup; parentGoalall8active"
+  ]
+}

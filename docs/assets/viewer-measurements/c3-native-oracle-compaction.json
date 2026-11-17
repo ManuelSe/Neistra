@@ -1,0 +1,10 @@
+{
+  "scope": "Lossless failedcandidate5 rawoutput relocation after exactcanonicalinventory/partunion andrecursiveverification",
+  "original": "docs/assets/viewer-measurements/c3-candidate5-native",
+  "retained": ".issue-11-evidence/c3-candidate5-native",
+  "files": 33729,
+  "bytes": 3135762808,
+  "all_bytes_and_hashes_verified": true,
+  "raw_owned_run": "/tmp/neistra157-c3-candidate5 retained; allfilesalsoindexed",
+  "forensic_index": "docs/assets/viewer-measurements/c3-forensics-index.json"
+}
