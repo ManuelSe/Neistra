@@ -1,0 +1,165 @@
+{
+  "scope": "D195focused source-failure fence checkpoint only, not allsevenfinal/native/full42qualification/release/readiness",
+  "repository": "ManuelSe/Neistra",
+  "issue": 158,
+  "parent": 11,
+  "base": "246efa69f493d14a55fb7d21dc82ff978832c836",
+  "source_count": 1006,
+  "source_digest": "d85bdd80f0c706349052b8bdcfcb57dcd5d4c328c0358246176b594e9b7fefa9",
+  "corrected_source_identities": {
+    "apps/web/src/components/LigandDesignationControls.tsx": "9bfec3ed1694d17a36fb6ea4b34ea71e54f95515ab6979bd1c3e56afd88957fd",
+    "apps/web/src/ligands/inventoryQualification.ts": "83871bbc2c3cb13837994e24422e0650f689944c38bd79ac46d406e459745c7a",
+    "apps/web/src/test/ligand-designation-controls.test.tsx": "4ab985295085657148074a39194d6891c6054a05bce4847afa765c9b48b4fa49"
+  },
+  "original75test_bytes_preserved": true,
+  "changes": "A QueryClient-scoped inventory qualification owner increments a failure generation before synchronously cancelling exact-source older checks. Presenter unmount/remount, manual cache writes and earlier-start successes cannot clear the fence. Only a genuinely fresh matching response can recover. No science, result-value cache, schema, policy, admission or version change.",
+  "author": {
+    "actual_session": 67403,
+    "actual_exit": 0,
+    "focused_tests": 80,
+    "lint": "PASS",
+    "types": "PASS",
+    "installed_query_semantics_controls": 8,
+    "semantics_controls_scope": "Author prototype exercises installed QueryClient event/cancellation semantics; not a replacement for direct production-owner controls."
+  },
+  "independent_architecture": {
+    "verdict": "PASS",
+    "assessment_sha256": "49b7872a7a66f28602b50568e24aa496b84fb3aabd7ab2e12ab40e91297729cc",
+    "fresh_same_sequence_acceptance": 1,
+    "permanent_regressions": 5,
+    "additional_direct_production_owner_controls": 6,
+    "original_diagnostic_expected_wait_timeout_retained": true,
+    "scope": "Frozen earliest158three-source correction only; not allsevenfinal or propagation approval"
+  },
+  "root_complete_web": {
+    "tests": 1315,
+    "files": 122,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "all_child_wait_exits": 0,
+    "receipt_complete": true,
+    "all1006sources_fixed": true,
+    "original_enclosing_tool_exit": null,
+    "fresh_root_artifact_readback_exit": 0
+  },
+  "observation_limits": {
+    "scope": "Observation provenance and retained limits; never substitute internal child waits for unavailable execution-tool completion",
+    "author_67403": {
+      "actual_exit": 0,
+      "source": "earliest-handoff.json records author observed enclosing result"
+    },
+    "independent_architecture": {
+      "same_sequence_acceptance_2037": 0,
+      "permanent_regressions_88204": 0,
+      "additional_owner_controls_chunk": "0f73c7",
+      "additional_owner_controls_exit": 0,
+      "original_diagnostic_80240": 1,
+      "original_diagnostic_scope": "It waits for erroneous revived radios; corrected source withholds them and this old diagnostic wait times out. Kept separate from direct acceptance/freshrecovery PASS."
+    },
+    "complete_web": {
+      "steps": [
+        "lint",
+        "types",
+        "1315tests122files",
+        "build"
+      ],
+      "all_child_wait_exits": 0,
+      "receipt_complete": true,
+      "unavailable_original_tool_handles": [
+        4521,
+        48522
+      ],
+      "phase_to_handle_mapping_not_supplied": true,
+      "original_enclosing_tool_exit": null,
+      "original_enclosing_tool_observation_available": false
+    },
+    "corrected_local_forensic_cli": {
+      "asset_count": 52,
+      "receipt_complete": true,
+      "unavailable_original_tool_handles": [
+        4521,
+        48522
+      ],
+      "phase_to_handle_mapping_not_supplied": true,
+      "original_enclosing_tool_exit": null,
+      "original_enclosing_tool_observation_available": false,
+      "not_rerun": true
+    },
+    "failed_cli_setup": {
+      "root_reported_argparse_exit": 2,
+      "log": "root-independent-cli.log",
+      "reason": "Missing required --plan; corrected invocation and complete52asset receipt retained separately"
+    },
+    "fresh_root_artifact_readback": {
+      "root_observed_tool_chunk": "54bb7e",
+      "root_observed_exit": 0,
+      "receipt": "root-independent-artifact-readback.json",
+      "scope": "Fresh local artifact/source readback, not rerun of native/full qualification or original completion observation"
+    },
+    "additional_six_control_raw_scope": "Independent source-bound assessment and JSON receipt retained; no additional script or full console log was persisted for these six controls. Five permanent controls likewise have independent recorded execution and author full80rawlog rather than an invented separate rawlog.",
+    "dynamic_root_docs_not_snapshotted": true
+  },
+  "forensic_reference_ids": {
+    "docs/assets/ligand-designation/c3-forensics-index.json": {
+      "bytes": 60216,
+      "sha256": "259199793772e9a10f3ed148a976d64cf5eacbea61f660fe262b0787c95f9ff3"
+    },
+    "docs/assets/ligand-designation/c3-forensics-verification6.json": {
+      "bytes": 106917,
+      "sha256": "acce2e9f170b27503f70983fc7b84b571245d5a1f6e78ba1494fd433c014597c"
+    },
+    "docs/assets/ligand-designation/c3-forensics-verification6.zip": {
+      "bytes": 11874678,
+      "sha256": "e4b5cb53fad6aa25ace2b4c67998cd49633e6ce34608411b79e10e6574549e57"
+    },
+    "docs/assets/ligand-designation/c3-forensics-inventory-c4-candidate10.json.gz": {
+      "bytes": 153443,
+      "sha256": "26b3be95d8d9f636e42f49556795f9ea6830cb5f204d1c22edb8b7bd45847f39"
+    },
+    ".issue-11-evidence/forensics/c10-extension/historical-source-provenance.json": {
+      "bytes": 234414,
+      "sha256": "eb1831def02ddd8c4621c5b7daa0a7d045d10d700939bb31ce101cf154bbe33a"
+    },
+    ".issue-11-evidence/forensics/c10-extension/captured-library-licenses.json": {
+      "bytes": 3601,
+      "sha256": "b460dfae2e2627a01f9f36fd7878eaad154b840b0e88fef4cd9d9378ed61963d"
+    }
+  },
+  "all_original_evidence_retained": {
+    "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-inventory-source-barrier-author": {
+      "files": 19,
+      "bytes": 150746,
+      "exact_all_regular_files": true,
+      "links": 0
+    },
+    "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-architecture-held-source-probe1": {
+      "files": 10,
+      "bytes": 219199,
+      "exact_all_regular_files": true,
+      "links": 0
+    },
+    "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-source-barrier-web1": {
+      "files": 5,
+      "bytes": 266841,
+      "exact_all_regular_files": true,
+      "links": 0
+    }
+  },
+  "required_next": [
+    "Root coherent source checkpoint and independently reconciled C11/C5fresh recipes",
+    "Propagate exact corrective owner/source semantics to downstream children with their own reviews/validation",
+    "Allsevenfinalsamecandidate, fresh complete candidate42step and exactmaster42step qualification/summary/package with observedexit0",
+    "Normal protectedreview/merge and verifiedpublication of main/sidecars/ALL52forensic assets beforecloseout"
+  ],
+  "archive": "c3-source-barrier-correction.zip",
+  "archive_bytes": 508525,
+  "archive_sha256": "c8fa0fa6fd9e7b4cd030425b6cbf09441acac5e1c1c9e48041ed331ee7c36f6a",
+  "outer_manifest_entries": 49,
+  "recursive_verification": {
+    "zip_archives": 4,
+    "evidence_manifest_entries": 49,
+    "project_archive_files": 0
+  },
+  "observed_utc": "2026-11-17T23:25:35.921565+00:00"
+}

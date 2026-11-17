@@ -1312,8 +1312,156 @@
         }
       ],
       "local_exact_union_and_recursive_verification": true
+    },
+    {
+      "label": "c4-candidate10",
+      "failed_candidate": "246efa69f493d14a55fb7d21dc82ff978832c836",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "termination": {
+        "kind": "interrupted",
+        "exit_code": 130,
+        "signal": "root-requested SIGINT",
+        "reason": "Independently reproduced consequential source-failure race; correction required",
+        "actual_root_tool_session": 70976
+      },
+      "source_count": 1005,
+      "source_digest": "f014f32d0671a3a229dae723a79d6935fec1231cb38d06bf03113dd6b50a630d",
+      "source_unchanged": true,
+      "preceding_source_count": 931,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/ligand-designation/c4-candidate10-recipe.json",
+        "sha256": "9f16294a9d9f01b4a21e186e184c3a5022213971cd2d11546fe8362356b620dc"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/ligand-designation/c4-candidate10-uv.log.gz",
+          "uncompressed_sha256": "33748a4022e4d7ebe47b8dd5be6e2d4780179c7e03309c47a6c2cdf46677b3cb"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/ligand-designation/c4-candidate10-pnpm.log.gz",
+          "uncompressed_sha256": "544d8e0d11e476489f528731e5b8904c757aae3d381868fdabb6e89d4201d9b3"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/ligand-designation/c4-candidate10-migration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/ligand-designation/c4-candidate10-downgrade.log.gz",
+          "uncompressed_sha256": "752981f0568a358167ce4522baf105e669a03845cd51417948dbb3afba0a1034"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/ligand-designation/c4-candidate10-remigration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/ligand-designation/c4-candidate10-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/ligand-designation/c4-candidate10-mypy.log.gz",
+          "uncompressed_sha256": "96a18ececf4b151b9885583436b5bdfaedad3581843143601d87a09e3be99668"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/ligand-designation/c4-candidate10-reader-tool-types.log.gz",
+          "uncompressed_sha256": "157a09cfcdfdfb5977479c5a1c08345149263a3e990a2ec976ef28aaeec9cae6"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/ligand-designation/c4-candidate10-python.log.gz",
+          "uncompressed_sha256": "50a322b54cf34c5c51b7407b5c12b0e10e832a3259d6363e451fe0129d15b0aa"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/ligand-designation/c4-candidate10-lint.log.gz",
+          "uncompressed_sha256": "c5a0c11d3bbc98d7352b4a467815d1570ac7ef529981a2f9d712735a591ca0ad"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/ligand-designation/c4-candidate10-types.log.gz",
+          "uncompressed_sha256": "420d179ce3827a04a45e7f563f320f522fcc3aedec5f8664adfcf8b284f38ef5"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/ligand-designation/c4-candidate10-web.log.gz",
+          "uncompressed_sha256": "0be6dca6fa37e76b73021d851abb40dc87b7855c367c12b35efd7a2231a7a158"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/ligand-designation/c4-candidate10-supervisor.log.gz",
+          "uncompressed_sha256": "0e13d1e969cc7ba9be5c63c154a6f01295a09c69880fa76040a147cb9bc53668"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/ligand-designation/c4-candidate10-build.log.gz",
+          "uncompressed_sha256": "800a32e45cc78bfb11b868e8c0b5f56f39f095b643e7cf8f536e03700dbe4a14"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/ligand-designation/c4-candidate10-browser-inventory.log.gz",
+          "uncompressed_sha256": "acf92e55349bdb21b300daa1ac2fff0c90ffa8cd1715c6f7a3366d36c136b36b"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/ligand-designation/c4-candidate10-browser.log.gz",
+          "uncompressed_sha256": "f242a382b797286babbe076148eff9748b41414a75d25a2f1621de5ba9d47aa0"
+        }
+      ],
+      "browser_outcomes": {
+        "passed": 293,
+        "interrupted": 1,
+        "not_run": 299,
+        "encountered_historical_exclusion": 9
+      },
+      "files": 3025,
+      "raw_bytes": 353456865,
+      "extraction_root": "forensics/c4-candidate10",
+      "inventory": {
+        "path": "docs/assets/ligand-designation/c3-forensics-inventory-c4-candidate10.json.gz",
+        "bytes": 153443,
+        "sha256": "26b3be95d8d9f636e42f49556795f9ea6830cb5f204d1c22edb8b7bd45847f39",
+        "uncompressed_sha256": "70e30ebd51e952cedbf8ec0b6994327da966b23a3739dd68d70259381337a48a"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-candidate10-native-interrupted-part01.zip",
+          "bytes": 80547474,
+          "sha256": "df5764eebcb86525cdb52ab9af35197e3eef5fd66f35800ab67f578db6aeba44",
+          "manifest_entries": 2868,
+          "recursive_verification": {
+            "zip_archives": 51,
+            "evidence_manifest_entries": 2873,
+            "project_archive_files": 26
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "c3-candidate10-native-interrupted-part02.zip",
+          "bytes": 7406662,
+          "sha256": "6a1f974ca3e830e8664688b626f3244d82d3d378ba0736e37027efafb70499fe",
+          "manifest_entries": 157,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 157,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true
     }
   ],
-  "asset_count": 50,
-  "total_asset_bytes": 3826531869
+  "asset_count": 52,
+  "total_asset_bytes": 3914486005
 }

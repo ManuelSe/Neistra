@@ -806,3 +806,55 @@ Require a fresh clean all42run, independent summary, recursive packaging and act
 enclosing0. Then prepare actual-master recipe before final metadata/all-seven
 same-candidate readiness, normal protected delivery, fresh actualM42qualification
 and immutable annotation/publication. Parent Goal remains active for all eight.
+
+
+### D-195 correction — C10 explicitly interrupted, source-failure race
+
+Independent actual component probe49521exited1 and demonstrates older held page-zero
+success reviving12cached cards/formula after a newer page12integrity failure, without
+a fresh check. The same hook is byte-identical in159/160;161newowner also reproduces.
+Root explicitly interrupted C10 via its unique positively owned Playwright CLI.
+Actual enclosing70976exit130, never a functional-test failure/timeout or passing
+gate. All15pre-browser phases PASS (3040Python/1310web/14supervisor plus static/build/
+migrations/inventory), browser293PASS/0unexpected/0flake; its309skipped count includes
+unexecuted mobile cases and must not be described as historical exclusions. All1005
+current and931preceding sources remain fixed. Summary/recursive packaging did not
+execute. Complete raw outputs/store remain retained; owned ports8250/8251/5413are
+unused and no owned process remains. Evidence under.issue-11-evidence/issue158-c10-
+source-race-interruption includes actual interruption/cleanup and independent probe.
+
+D-195 records the recovery contract before correction. Freeze and independently
+review the smallest installed-query-proved fix, preserve all failed/interrupted
+forensics, propagate exact policy to later children, then run a fresh complete
+candidate gate. No implementation push, verified release or all-seven readiness
+is established by C10 partial progress.
+
+
+### D-195 locally qualified correction and fresh candidate11 preparation
+
+The frozen correction changes exactly Controls, one typed inventory-qualification
+module and five appended unit cases. All original75test bytes remain an exact
+prefix. Author actual67403exit0 passes scoped lint/types/80cases; independent
+architecture actual2037fresh acceptance,88204five regressions and six installed-
+query controls pass. The unchanged defect-seeking diagnostic now times out waiting
+for forbidden radios; retain it separately rather than calling it a product failure.
+
+Combined web lint/types/1,315cases122files/build have complete childwait0 receipts
+and1,006source equality. Original4521/48522tool handles were unavailable after
+continuation; no original outer exit is fabricated. Primary fresh54bb7eexit0
+independently reads the closed sources/artifacts. This is focused checkpoint proof,
+not the required new42command candidate or exact-master qualification.
+
+Forensics now contain52assets/3,914,486,005bytes across seven historical runs.
+C10 is293PASS/9historical/1interrupted/299notrun, rootSIGINT130,0unexpected/flake.
+Verification6 ZIP is11,874,678bytes SHAe4b5cb53fad6aa25ace2b4c67998cd49633e6ce34608411b79e10e6574549e57;
+indexSHA259199793772e9a10f3ed148a976d64cf5eacbea61f660fe262b0787c95f9ff3.
+Every earlier50part identity is unchanged, originals retained and local exact unions
+verified. Stale50asset publication preparation cannot qualify the52asset endpoint.
+
+Candidate11 and exact-master1 recipes preserve all42commands/arguments/bounds,
+changing only owned labels/output paths from candidate10. Both require clean start.
+Run candidate11 only after this passing checkpoint is committed; exact-master1 is
+reserved for the actual later protected merge commit. Final all-seven assessments,
+normal reviews/checks/protection, actualM42gate, immutable tag/release/full public
+asset readback and issue closeout remain mandatory. No implementation push yet.

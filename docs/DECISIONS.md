@@ -8553,3 +8553,39 @@ observed terminal state for the same job against a nonterminal acknowledgement,
 including across the targeted query-cancellation barrier; qualify cancelled,
 completed and failed outcomes. Keep normal acknowledged payload updates for live
 jobs and avoid a generic revision protocol or additional server commands.
+
+
+## D-195 — A source failure retires earlier inventory checks across presenters
+
+Independent installed-query/component controls reveal a consequential source-failure
+race in158candidate246efa and the identical159/160controls, plus161's new shared
+owner: an older successful page-zero response held in transport can arrive after a
+newer page integrity failure and restore cached cards/composition/image without a
+new source check. Preserve the independent failed controls and interrupted158C10;
+passing earlier checks or a later presenter change do not qualify this behavior.
+
+A known failure must synchronously withhold the exact-source inventory across its
+header, chooser, pages and responsive visits. Only a genuine matching check begun
+after that failure may restore qualification. Late arrival time and manual cache
+writes do not establish requalification. Retain failure knowledge through presenter
+unmounts; do not reconstruct recovery from success timestamps changed manually.
+A bounded start/failure-generation barrier or verified cancellation of all earlier
+in-flight exact-source checks may implement this contract. Choose through actual
+installed-query probes before code, then retain permanent negative/recovery tests.
+Keep unrelated project/entry/artifact work independent, one shared qualification
+object and existing two-active/24-queued drawing admission. No scientific value
+cache, chemistry method, predictor, schema, source-file mutation or new dependency.
+
+The161header additionally requires its resolved designation's non-null source
+artifact to equal the authoritative current entry artifact. Agreement between two
+stale designation copies is insufficient. Preserve exact instance/membership and
+distinct inventory/chemistry/descriptor hashes; candidate key is not a durable
+instance ID. Missing/unqualified facts remain withheld with recovery.
+
+Correct earliest158first and propagate the qualified policy through159/160/161.
+Verify held earlier-page responses, source failure, close/reopen and responsive
+unmount, manual writes, genuine fresh Retry, another failure during Retry, shared
+pages, source/project changes and unaffected independent consumers. Keep all old
+scientific assertions, workloads, timing bounds and warnings. Run appropriate fresh
+candidate/full gates and same-candidate seven-role reviews; this correction is not
+permission to pool partial runs or claim a release before exact-master qualification.

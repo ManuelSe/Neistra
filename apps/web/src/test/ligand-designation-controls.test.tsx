@@ -1253,3 +1253,108 @@ describe("entry-owned ligand designation controls", () => {
   });
 
 });
+
+describe("source failures retire earlier inventory checks", () => {
+  it("does not revive cards through an older summary or earlier-start nonmanual publication after a newer page fails", async () => {
+    const owner = resolvedEntry();
+    candidatesMock.mockImplementation((_project, item, offset) => offset === 12
+      ? Promise.reject(new ApiError(409, "artifact_integrity_error", "Newer source failure")) : Promise.resolve(inventory(item, offset, 13)));
+    const app = setup(owner); await screen.findByText("ATP 601 · chain A");
+    const older = deferred<LigandCandidatesRead>(); candidatesMock.mockReturnValueOnce(older.promise);
+    let oldCheck!: Promise<void>;
+    act(() => { oldCheck = app.client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    await waitFor(() => expect(candidatesMock).toHaveBeenCalledTimes(2));
+    await userEvent.click(screen.getByRole("button", { name: "Change" }));
+    let dialog = screen.getByRole("dialog"); await within(dialog).findAllByRole("radio");
+    await userEvent.click(within(dialog).getByRole("button", { name: "Next ligand page" })); await within(dialog).findByRole("alert");
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    await userEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+    const summaryQuery = app.client.getQueryCache().findAll({ queryKey: ["ligand-candidates"] }).find(query => query.queryKey[9] === 0)!;
+    await act(async () => { older.resolve(inventory(owner, 0, 13)); await oldCheck; });
+    // The installed public Query API publishes nonmanual results too; without a
+    // post-failure fetch start, that success must not establish source authority.
+    act(() => { summaryQuery.setData(inventory(owner, 0, 13)); });
+    const fresh = deferred<LigandCandidatesRead>(); candidatesMock.mockReturnValueOnce(fresh.promise);
+    const checks = candidatesMock.mock.calls.length;
+    await userEvent.click(screen.getByRole("button", { name: "Change" })); dialog = screen.getByRole("dialog");
+    await waitFor(() => expect(candidatesMock).toHaveBeenCalledTimes(checks + 1));
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0); expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(dialog).queryByText("C1H2")).toBeNull(); expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    await act(async () => { fresh.resolve(inventory(owner, 0, 13)); await fresh.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(12); expect(within(dialog).getByText("C1H2")).toBeVisible();
+  });
+
+  it("retains a source failure through presenter unmount and manual cache success until an actual new check", async () => {
+    const owner = resolvedEntry(), app = setup(owner); await screen.findByText("ATP 601 · chain A");
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Known failed source"));
+    await act(async () => { await app.client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const key = app.client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false })!.queryKey;
+    app.unmount(); app.client.setQueryData(key, inventory(owner));
+    const fresh = deferred<LigandCandidatesRead>(); candidatesMock.mockReturnValueOnce(fresh.promise);
+    render(<QueryClientProvider client={app.client}><Tooltip.Provider><LigandDesignationControls {...app.props} /></Tooltip.Provider></QueryClientProvider>);
+    expect(screen.queryByText("ATP 601 · chain A")).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: "Change" })); const dialog = screen.getByRole("dialog");
+    act(() => { app.client.setQueryData(key, inventory(owner)); });
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0); expect(within(dialog).queryByText("C1H2")).toBeNull();
+    await act(async () => { fresh.resolve(inventory(owner)); await fresh.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2);
+  });
+
+  it("retires a pending Retry when another same-source page fails, then accepts only a newer Retry", async () => {
+    const owner = resolvedEntry(); candidatesMock.mockImplementation((_project, item, offset) => Promise.resolve(inventory(item, offset, 13)));
+    const app = setup(owner); await screen.findByText("ATP 601 · chain A");
+    await userEvent.click(screen.getByRole("button", { name: "Change" })); const dialog = screen.getByRole("dialog");
+    await within(dialog).findAllByRole("radio"); candidatesMock.mockRejectedValueOnce(new Error("First source failure"));
+    await userEvent.click(within(dialog).getByRole("button", { name: "Next ligand page" })); await within(dialog).findByRole("alert");
+    const firstRetry = deferred<LigandCandidatesRead>(); candidatesMock.mockReturnValueOnce(firstRetry.promise);
+    const checks = candidatesMock.mock.calls.length;
+    await userEvent.click(within(dialog).getByRole("button", { name: "Try again" })); await waitFor(() => expect(candidatesMock).toHaveBeenCalledTimes(checks + 1));
+    const summary = app.client.getQueryCache().findAll({ queryKey: ["ligand-candidates"] }).find(query => query.queryKey[9] === 0)!;
+    candidatesMock.mockRejectedValueOnce(new Error("Second source failure"));
+    await act(async () => { await app.client.refetchQueries({ queryKey: summary.queryKey, exact: true }); });
+    await act(async () => { firstRetry.resolve(inventory(owner, 12, 13)); await firstRetry.promise; });
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0); expect(within(dialog).queryByText("C13H2")).toBeNull();
+    const fresh = deferred<LigandCandidatesRead>(); candidatesMock.mockReturnValueOnce(fresh.promise);
+    await userEvent.click(within(dialog).getByRole("button", { name: "Try again" }));
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    await act(async () => { fresh.resolve(inventory(owner, 12, 13)); await fresh.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(1); expect(within(dialog).getByText("C13H2")).toBeVisible();
+  });
+
+  it("cancels only exact-source checks while unrelated project, entry, current and original inputs remain active", async () => {
+    const { getLigandInventoryOwner, inventorySourceKey } = await import("../ligands/inventoryQualification");
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } }); clients.push(client);
+    const owner = getLigandInventoryOwner(client), item = resolvedEntry(), project = molecularProject([item]);
+    const key = (entry: Entry, projectId = project.id, offset = 0) => ["ligand-candidates", "ligand-instance-v3", projectId, entry.id,
+      entry.current_artifact_id, entry.original_artifact_id, "ligand-exact-representation-v2", "ligand-occurrence-v1", "designation", offset, 12];
+    const pending = deferred<LigandCandidatesRead>(), signals: AbortSignal[] = [];
+    client.setQueryData(key(item), inventory(item));
+    const original = client.fetchQuery({ queryKey: key(item), queryFn: ({ signal }) => { signals.push(signal); return pending.promise; } });
+    const others = [{ item, projectId: "project-other" }, { item: { ...item, id: "entry-other" }, projectId: project.id },
+      { item: { ...item, current_artifact_id: "current-other" }, projectId: project.id },
+      { item: { ...item, original_artifact_id: "original-other" }, projectId: project.id }].map(value => ({ ...value, pending: deferred<LigandCandidatesRead>() }));
+    const otherWork = others.map(value => client.fetchQuery({ queryKey: key(value.item, value.projectId),
+      queryFn: ({ signal }) => { signals.push(signal); return value.pending.promise; } }));
+    await expect(client.fetchQuery({ queryKey: key(item, project.id, 12), queryFn: () => Promise.reject(new Error("Exact source failed")) })).rejects.toThrow();
+    expect(signals[0].aborted).toBe(true); expect(signals.slice(1).every(signal => !signal.aborted)).toBe(true);
+    pending.resolve(inventory(item)); await original;
+    expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(true);
+    for (const other of others) { const data = inventory(other.item); data.project_id = other.projectId; other.pending.resolve(data); }
+    await Promise.all(otherWork); expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(true);
+    await client.fetchQuery({ queryKey: key(item), staleTime: 0, queryFn: () => Promise.resolve(inventory(item)) });
+    expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(false);
+  });
+
+  it("does not infer recovery from a manual success hiding cached error history before owner creation", async () => {
+    const { LigandInventoryOwner, inventorySourceKey } = await import("../ligands/inventoryQualification");
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } }); clients.push(client);
+    const item = resolvedEntry(), project = molecularProject([item]), key = ["ligand-candidates", "ligand-instance-v3", project.id, item.id,
+      item.current_artifact_id, item.original_artifact_id, "ligand-exact-representation-v2", "ligand-occurrence-v1", "designation", 0, 12];
+    await expect(client.fetchQuery({ queryKey: key, queryFn: () => Promise.reject(new Error("Known source failure")) })).rejects.toThrow();
+    client.setQueryData(key, inventory(item)); const owner = new LigandInventoryOwner(client); owner.activate();
+    expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(true);
+    await client.fetchQuery({ queryKey: key, staleTime: 0, queryFn: () => Promise.resolve(inventory(item)) });
+    expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(false);
+    owner.deactivate(); owner.activate(); expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(false); owner.deactivate();
+  });
+});
