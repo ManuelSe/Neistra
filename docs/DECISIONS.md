@@ -8474,3 +8474,35 @@ flakes, retries or skips; all1,003sources stay unchanged, actual enclosing59094e
 The unrelated frontend/build proof is reused only after verifying the sole changed
 source is the new native oracle. All failed/full partial attempts remain separate.
 Complete fresh gates and final same-candidate all-seven assessment remain mandatory.
+
+
+## D-177 — Isolate pytest fixture stores from qualification databases
+
+Date:2026-11-17. Freshcandidate3 at ac4786d1 completes2,844Python cases but fails132
+historical migration cases; all failures belong to one migration module. Actual
+source maps remain1,003current/931preceding unchanged and the enclosing exit is1.
+The Python step injected the qualification database through canonical NEISTRA
+settings. Those correctly override the migration fixture's legacy temporary-store
+aliases, so Alembic targeted the qualification store while the fixture opened its
+untouched temporary store. The captured precedence warnings and missing database
+errors establish this path. Production precedence and migration behavior are correct.
+
+The pytest phase must inherit only the runner's sanitized module/tool settings,
+without a per-step shared database binding. Existing per-step removal of all five
+canonical/legacy/database aliases remains; dedicated Alembic, versions, CLI and
+actual-reader phases keep their explicit isolated stores. Preserve all42commands,
+reader directions, migration logic, historical assertions, exclusions and deadlines.
+
+A real unchanged migration case fails with the injected settings and passes with
+them sanitized; all133historical migration cases then pass unchanged. A recipe
+regression fails before correction and passes afterward, including a real child
+under hostile inherited aliases. All17recipe cases, scopedRuff and syntax checks
+pass. Only the generator and its existing environment-guard test change. Earlier
+application/native evidence remains valid for byte-identical application sources;
+no partial Python totals are pooled into qualification. A freshcandidate4 must run
+the complete gate. Retain all failed candidate3 logs, actual stores and provenance.
+
+The evidence ZIP retains every real pytest-workspace payload. Internal `*current`
+convenience links are recorded with validated within-owner targets rather than
+archived or followed as filesystem links. Original workspaces/links stay intact;
+generic release packaging continues to reject arbitrary symlinks.

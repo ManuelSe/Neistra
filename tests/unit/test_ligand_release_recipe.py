@@ -216,10 +216,37 @@ def test_recipe_retains_all_tool_typechecks_native_inventory_and_environment_gua
     assert recipe["environment"]["NEISTRA_MINIMIZATION_EVIDENCE_DIR"] == str(workspace / "native")
     assert recipe["environment"]["NEISTRA_AMBERTOOLS_PREFIX"]
     assert recipe["environment"]["NEISTRA_PERFORMANCE"] == "0"
-    assert set(recipe["unset_environment"]) == {
+    database_keys = {
         "NEISTRA_DATA_DIR", "NEISTRA_DATABASE_URL", "MOLWEAVE_DATA_DIR",
         "MOLWEAVE_DATABASE_URL", "DATABASE_URL",
     }
+    assert set(recipe["unset_environment"]) == database_keys
+    assert database_keys.isdisjoint(recipe["environment"])
+    assert database_keys.isdisjoint(steps["python"].get("environment", {}))
+    # Exercise a real child with the runner's effective environment: pytest
+    # fixtures own their stores even if the invoking shell has all DB aliases.
+    inherited = {**os.environ, **{key: "unrelated-qualification-store" for key in database_keys}}
+    inherited["NEISTRA_RECIPE_TEST_SENTINEL"] = "retained"
+    sanitized = {key: value for key, value in inherited.items()
+                 if key not in recipe["unset_environment"]}
+    python_environment = {**sanitized, **recipe["environment"],
+                          **steps["python"].get("environment", {})}
+    observed = json.loads(subprocess.check_output([
+        sys.executable, "-c",
+        "import json, os, sys; print(json.dumps({key: os.environ.get(key) "
+        "for key in sys.argv[1:]}))",
+        *sorted(database_keys), "NEISTRA_RECIPE_TEST_SENTINEL",
+    ], env=python_environment, text=True))
+    assert all(observed[key] is None for key in database_keys)
+    assert observed["NEISTRA_RECIPE_TEST_SENTINEL"] == "retained"
+    # Dedicated migration and utility probes keep their explicit owned store;
+    # the reader-family test above independently checks every reader binding.
+    for name in ("migration", "downgrade", "remigration", "versions", "legacy-cli"):
+        environment = steps[name]["environment"]
+        assert environment["NEISTRA_DATA_DIR"] == environment["MOLWEAVE_DATA_DIR"] \
+            == str(workspace / "database")
+        assert environment["NEISTRA_DATABASE_URL"] == environment["MOLWEAVE_DATABASE_URL"] \
+            == f"sqlite:///{workspace}/database/molweave.db"
 
 
 def test_preparation_copies_the_current_specimen_and_migrates_only_the_fresh_old_store(

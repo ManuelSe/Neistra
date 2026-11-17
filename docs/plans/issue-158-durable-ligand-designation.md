@@ -457,3 +457,36 @@ Next persist the corrective checkpoint and freshcandidate3recipe, inspect the co
 intervening diff and obtain all-seven code reconfirmations. Then run all42commands
 fresh, independent summary/recursive packaging/actualenclosing, final evidence commit
 and all-seven final same-candidate assessments before normal protected delivery.
+
+
+### Candidate3 natural failure and isolated pytest correction
+
+All seven complete-feature CODE assessments pass the same ac4786d1. Its fresh
+42-command attempt fails naturally at Python:2,844pass/132fail, all failures in
+unchanged historical migration tests; actual enclosing71290exit1 and all1,003current/
+931old source identities remain unchanged. No complete gate or pooled pass is claimed.
+
+D-177 records the directly reproduced configuration conflict. The pytest step's
+canonical database settings correctly override fixture-local legacy aliases, sending
+Alembic to a different store. Remove only the shared database binding from pytest;
+the runner's five-alias sanitization and all dedicated migration/reader bindings
+remain. Production behavior, migration files, historical tests/assertions,42commands,
+reader coverage, exclusions and deadlines are unchanged. The generator and its
+environment-guard unit test are the only selected-source changes.
+
+A real unchanged case reproduces failure with injected settings and success without
+them; actual enclosing23682exit0. All133historical migration cases then pass, enclosing
+23430exit0. All17recipe tests/Ruff/syntax checks pass, including the real hostile-env
+child regression. Architecture independently approves the implemented boundary.
+[Source-bound environment evidence](../assets/ligand-designation/c3-qualification-environment-checkpoint.json)
+binds a2,707,610-byte ZIP/SHA
+`d3b5fdb6efce697e0e24a798aee2757b0e9f99ec1cb14c4298337ec6bff8fb87`,
+191manifest entries and complete designated synthetic stores. Internal pytest aliases
+are recorded only after within-owner validation; actual payloads and original links
+are preserved. Generic archive symlink refusal remains unchanged.
+
+Current1,003source digest is
+`5fcfdf29e02d2855ad726078b554a831d30d0096dd2c26970d244b87b6e2e415`.
+Unchanged application/science/frontend/native evidence is explicitly reusable; a
+fresh cleancandidate4 must still complete all42commands/summary/recursive packaging/
+actualenclosing before final evidence and all-seven same-candidate readiness review.

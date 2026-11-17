@@ -47,7 +47,13 @@ new native comparison preserves all date digits and every other project field.
 
 ## Blockers
 
-No external blocker or unresolved consequential code finding. Candidate1 was
+No external blocker or unresolved consequential application finding. Candidate3
+completed2,844Python passes/132migration failures because the pytest phase injected
+canonical database settings over fixture-local legacy settings. D-177 and the
+[environment correction](assets/ligand-designation/c3-qualification-environment-checkpoint.json)
+record the direct fail/pass reproduction, unchanged133-case migration pass and
+17recipe cases. Only verification tooling changes; candidate3 remains failed.
+Candidate1 was
 intentionally stopped for the missing occurrence count; candidate2 for confirmed
 header clipping. Both retain eight passes, partialPython and explicitly caused
 actual enclosing143. The new native oracle's inaccessible-background and UTC-suffix
@@ -55,13 +61,13 @@ failures are independently diagnosed and retained; fresh corrected26cases pass.
 
 ## Next action
 
-Commit the passing correction and freshcandidate3recipe; obtain explicit same-code
-reconfirmation after the intervening diff, then run the complete fresh42commands,
-independent summary, recursive packaging and actual enclosing readback. Prepare the
-exact-master recipe before the final metadata/evidence commit and all-seven final
-same-candidate assessments. Normal PR/review/merge, fresh exact-merged42gate,
-verified0.36publication, child closeout and owned cleanup follow. Continue159→160→
-161→162→163 and final parent closeout under the same active Goal.
+Commit the passing qualification-environment correction and freshcandidate4recipe;
+obtain explicit code reconfirmation for the intervening verification-only diff, then
+run the complete fresh42commands, independent summary, recursive packaging and actual
+enclosing readback. Prepare the exact-master recipe before the final evidence commit
+and all-seven final same-candidate assessments. Normal PR/review/merge, fresh
+exact-merged42gate, verified0.36publication, child closeout and owned cleanup follow.
+Continue159→160→161→162→163 and final parent closeout under the same active Goal.
 
 ## Historical #158 preparation
 

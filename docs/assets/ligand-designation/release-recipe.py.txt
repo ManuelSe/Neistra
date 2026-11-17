@@ -101,7 +101,7 @@ add(
         "--follow-imports=silent",
     ],
 )
-add("python", [uv, "run", "pytest"], database)
+add("python", [uv, "run", "pytest"])
 for label, command in (("lint", "lint"), ("types", "typecheck"), ("web", "test")):
     add(label, ["corepack", "pnpm", "--dir", "apps/web", command])
 add("supervisor", ["corepack", "pnpm", "test:dev"])
