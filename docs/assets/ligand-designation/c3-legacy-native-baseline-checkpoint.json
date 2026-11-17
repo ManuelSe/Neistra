@@ -1015,7 +1015,7 @@
   "checked_archives": [
     {
       "file": "c3-legacy-native-baseline-correction-part01.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c3-legacy-native-baseline-correction-part01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part01.zip",
       "bytes": 82819897,
       "sha256": "564cfda8dbcbc395c10887f59a104fd96106eed27c0ccdd81ede80542a98f709",
       "outer_manifest_entries": 2518,
@@ -1023,11 +1023,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 2518,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part01.zip"
     },
     {
       "file": "c3-legacy-native-baseline-correction-part02.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c3-legacy-native-baseline-correction-part02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part02.zip",
       "bytes": 82535944,
       "sha256": "4171875c0b5b90457542450c04b67575127a452c0a0824a0b4844d1e077b8cd1",
       "outer_manifest_entries": 1883,
@@ -1035,11 +1036,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1883,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part02.zip"
     },
     {
       "file": "c3-legacy-native-baseline-correction-part03.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c3-legacy-native-baseline-correction-part03.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part03.zip",
       "bytes": 82588461,
       "sha256": "9d2e69bb3410e89a9fc7d86b8e37d2331b211a04022606b558820ddd650c3c88",
       "outer_manifest_entries": 1934,
@@ -1047,11 +1049,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1934,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part03.zip"
     },
     {
       "file": "c3-legacy-native-baseline-correction-part04.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c3-legacy-native-baseline-correction-part04.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part04.zip",
       "bytes": 82531288,
       "sha256": "00b22e172deb5e684734f2855436b3bd201891b1112fee1296bcb2b345415565",
       "outer_manifest_entries": 1810,
@@ -1059,11 +1062,12 @@
         "zip_archives": 1,
         "evidence_manifest_entries": 1810,
         "project_archive_files": 0
-      }
+      },
+      "repository_path": "docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part04.zip"
     },
     {
       "file": "c3-legacy-native-baseline-correction-part05.zip",
-      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c3-legacy-native-baseline-correction-part05.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part05.zip",
       "bytes": 50182769,
       "sha256": "4bc1edfd739c387d48eb6defbdf67015b598c06c807f60a5e91615f933420cb8",
       "outer_manifest_entries": 821,
@@ -1071,10 +1075,11 @@
         "zip_archives": 10,
         "evidence_manifest_entries": 821,
         "project_archive_files": 4
-      }
+      },
+      "repository_path": "docs/assets/ligand-designation/forensics/c3-legacy-native-baseline-correction-part05.zip"
     }
   ],
-  "archive_partition_policy": "EachindependentZIPhascompleteownmanifest/CRC; disjointunionretainsallrawfailedandcorrectedfiles; under95MiB each",
+  "archive_partition_policy": "Each independent ZIP has its own manifest and recursive CRC verification. Exact disjoint raw union; each existing unchanged part is below80MiB and is a supplemental release asset, not nested in the primary packet.",
   "retained_workspaces": {
     "issue158-candidate4-failure": {
       "files": 11,
@@ -1168,5 +1173,7 @@
     "candidate_test_sha256": "f6b748efe21ef2b6c141a5371f58fba69b4deadab169aa1c3daeaa59dfd26968",
     "reviewer_corrected_prior_dirty_assumption": true,
     "all_three_source_versions_logs_source_maps_receipts_verified": true
-  }
+  },
+  "supplemental_forensic_index": "docs/assets/ligand-designation/c3-forensics-index.json",
+  "part_payloads_unchanged_on_relocation": true
 }

@@ -552,3 +552,46 @@ native files differ fromcd6715d3; all1,001other selected sources stay unchanged.
 Other archive cases use current-producer roundtrips, current UI command ownership or
 wording/invalid/cancelled input rather than the stale explicit revision pattern.
 This audit does not replace the still-required fresh complete602-case native run.
+
+
+### Native locator correction and supplemental forensic retention
+
+Freshcandidate5 at5d34a29b completes all pre-browser phases but fails the global
+Receptor text locator after157native passes/three encountered historical exclusions;
+441cases do not run. Actual97110exit1,1,003current/931preceding source identities
+unchanged. New Entry options make the old unscoped name ambiguous. An independent
+98-file/125-text-locator audit confirms the scoped browser-row corrections and
+selection Clear ownership; no production change is justified.
+
+Before-runs reproduce both strict locator failures. Scoped selectors preserve all
+rename/duplicate/group/lock/hide/isolate/delete/Undo/Redo/save/reload assertions. A
+later old fractional canvas click misses actual atom centers. Use the established
+read-only native projection harness and a trusted unobstructed canvas click; assert
+exact canonical viewer structure_id/atom_id as well as1atom summary, then retain all
+palette/color/camera/held-command/project-durability assertions. A first added event
+assertion uses the wrong field name and fails despite a correct atom2pick; retain it.
+Corrected fresh after3 passes11cases, zero failure/flake/retry, three unchanged
+historical exclusions, actual73803exit0. All1,005selected sources remain frozen and
+strictnativeTS passes. Scoped architecture independently verifies and approves.
+[Checkpoint](../assets/ligand-designation/c3-native-locator-checkpoint.json) binds
+18,310,542-byte ZIP/SHAe054230a…009f,49manifest entries, both actual owned stores and
+all failed/corrected source versions. No new exclusion, retry or deadline is added.
+
+Reuse D-174's supplemental forensic release-asset contract. Move five existing C4
+parts unchanged into forensics/; preserve C5 failed native/store evidence in13private
+parts. All18parts are below80MiB,1,405,381,190bytes total. Exact disjoint inventories
+cover8,966C4 and23,781C5payloads, with recursive CRC/SHA and historical recipe/gate/
+source/log identity verification. The specialized tracked verifier and64offline
+corruption controls pass Ruff/mypy and independent scoped architecture review.
+[Expected index](../assets/ligand-designation/c3-forensics-index.json) and the small
+[source/control ZIP](../assets/ligand-designation/c3-forensics-verification.json)
+enter the primary packet; raw parts are supplemental, not nested again. All owned
+stores remain and raw C5native relocation is verified filewise. Actual server IDs,
+full anonymous bodies/hashes/recursive CRCs/exact unions are mandatory after release
+and before child closeout. Local checks make no public-availability claim.
+
+The only four selected-source changes from5d34 are two existing native oracles plus
+the new verifier and its tests; application/science/API/frontend/migrations stay
+unchanged. Fresh cleancandidate6 must still complete all42commands, summary, packaging
+and actual enclosing readback. Final all-seven assessment covers the complete final
+candidate before push; exact merged-master qualification remains separately required.

@@ -5,6 +5,12 @@ interface CreatedProject {
   name: string;
 }
 
+function entryRow(page: Page, name: string) {
+  return page.locator(".entry-row").filter({
+    has: page.getByRole("button", { name: `Actions for ${name}`, exact: true }),
+  });
+}
+
 function uniqueName(prefix: string, testInfo: TestInfo): string {
   return `${prefix} ${testInfo.project.name} ${Date.now()}`;
 }
@@ -160,18 +166,18 @@ test("entry commands are durable and reversible through the workspace", async ({
   await openProject(page, projectName);
   await expect(page.getByText("2 structures", { exact: true })).toBeVisible();
 
-  const alphaRow = page.locator(".entry-row").filter({ hasText: "Alpha" }).first();
+  const alphaRow = entryRow(page, "Alpha");
   await alphaRow.getByRole("button", { name: "Actions for Alpha" }).click();
   await page.getByRole("menuitem", { name: "Rename" }).click();
   const renameDialog = page.getByRole("dialog", { name: "Rename structure" });
   await renameDialog.getByLabel("Name").fill("Receptor");
   await renameDialog.getByRole("button", { name: "Apply" }).click();
-  await expect(page.getByText("Receptor", { exact: true })).toBeVisible();
+  await expect(entryRow(page, "Receptor").getByText("Receptor", { exact: true })).toBeVisible();
 
-  const receptorRow = page.locator(".entry-row").filter({ hasText: "Receptor" }).first();
+  const receptorRow = entryRow(page, "Receptor");
   await receptorRow.getByRole("button", { name: "Actions for Receptor" }).click();
   await page.getByRole("menuitem", { name: "Duplicate" }).click();
-  await expect(page.getByText("Receptor copy", { exact: true })).toBeVisible();
+  await expect(entryRow(page, "Receptor copy").getByText("Receptor copy", { exact: true })).toBeVisible();
 
   await receptorRow.getByRole("button", { name: "Actions for Receptor" }).click();
   await page.getByRole("menuitem", { name: "Add to new group" }).click();
@@ -185,36 +191,32 @@ test("entry commands are durable and reversible through the workspace", async ({
   await receptorRow.getByRole("button", { name: "Hide Receptor" }).click();
   await expect(receptorRow.getByRole("button", { name: "Show Receptor" })).toBeVisible();
 
-  const copyRow = page.locator(".entry-row").filter({ hasText: "Receptor copy" });
+  const copyRow = entryRow(page, "Receptor copy");
   await copyRow.getByRole("button", { name: "Actions for Receptor copy" }).click();
   await page.getByRole("menuitem", { name: "Isolate" }).click();
   await expect(copyRow.getByRole("button", { name: "Hide Receptor copy" })).toBeVisible();
 
-  const betaRow = page.locator(".entry-row").filter({ hasText: "Beta" });
+  const betaRow = entryRow(page, "Beta");
   await betaRow.getByRole("button", { name: "Actions for Beta" }).click();
   await page.getByRole("menuitem", { name: "Delete" }).click();
   const deleteDialog = page.getByRole("dialog", { name: "Delete structure" });
   await deleteDialog.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByText("2 structures", { exact: true })).toBeVisible();
-  await expect(page.getByText("Beta", { exact: true })).toBeHidden();
+  await expect(entryRow(page, "Beta").getByText("Beta", { exact: true })).toBeHidden();
 
   await page.getByRole("button", { name: /^Undo:/ }).click();
-  await expect(page.getByText("Beta", { exact: true })).toBeVisible();
+  await expect(entryRow(page, "Beta").getByText("Beta", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: /^Redo:/ }).click();
-  await expect(page.getByText("Beta", { exact: true })).toBeHidden();
+  await expect(entryRow(page, "Beta").getByText("Beta", { exact: true })).toBeHidden();
 
   await page.getByRole("button", { name: "Save checkpoint" }).click();
   await expect(page.getByText("Checkpoint saved", { exact: true })).toBeVisible();
   await page.reload();
 
   await expect(page.getByText("Inputs", { exact: true })).toBeVisible();
-  await expect(page.getByText("Receptor copy", { exact: true })).toBeVisible();
-  await expect(page.getByText("Beta", { exact: true })).toBeHidden();
+  await expect(entryRow(page, "Receptor copy").getByText("Receptor copy", { exact: true })).toBeVisible();
+  await expect(entryRow(page, "Beta").getByText("Beta", { exact: true })).toBeHidden();
   await expect(
-    page
-      .locator(".entry-row")
-      .filter({ hasText: "Receptor" })
-      .first()
-      .getByRole("button", { name: "Unlock Receptor" }),
+    entryRow(page, "Receptor").getByRole("button", { name: "Unlock Receptor" }),
   ).toBeVisible();
 });
