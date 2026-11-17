@@ -618,3 +618,33 @@ and no science or application workflow changes. The source inventory becomes930 
 Generate and commit fresh candidate4recipe, then run all42commands from step1.
 Earlier partial checks are never pooled. Final all-seven same-candidate assessment,
 normal protected delivery, exact-master fresh42 and verified release remain pending.
+
+
+### C3 existing workflow tests follow the relocated measurement tool
+
+Candidate4 `9e914a7c` passes full2545Python/zero skips,1187frontend/118suites,
+14supervisor and lint/types/build. The browser command stops at one old inspector
+DOM assertion after77passes/two executed existing exclusions;500cases never ran.
+Its report's502skipped includes those unexecuted cases, not502accepted exclusions.
+All930current/885preceding identities remain unchanged; wrapper exits1, no full pass.
+
+The trace confirms the approved inspector bridge is present. Only two E2Efiles
+change: movement reads the real Saved summary using the same distance recomputed
+from reloaded canonical coordinates; the full release journey imports selection,
+confirms angle/torsion order, names/Saves once, verifies exact persisted targets,
+then closes the tool. Every surrounding prior assertion, timeout, retry and mobile
+exclusion remains unchanged. Independent UX compares the exact5271-byte diff and
+PASSes semantic equivalence. Fresh native3passes/one exact existing exclusion cover
+both-profile movement and the entire desktop release journey, child/enclosing0,
+all930source identities unchanged. No production change.
+
+[Diagnostic packet](../assets/viewer-measurements/c3-legacy-workflow-correction.json)
+retains12011files/999269415rawbytes in seven sub80MiBparts, all recursive CRCs and
+manifests verified. This includes every failed ephemeral recording/resource, focused
+correction, lossless log, trace and owned run store. A separate verified compaction
+receipt records11827raw native files relocated to owned ignored evidence after
+matching every byte count/hash against the archive; nothing is deleted.
+
+Commit the coherent correction and fresh candidate5recipe, then execute all42
+commands from step1 without borrowing partial checks. Final all-seven same-candidate
+assessment and normal protected delivery/exact-master fresh42/release remain pending.

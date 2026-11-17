@@ -99,11 +99,25 @@ checks, whole Ruff and configured productionmypy226 pass; raw failed-gate eviden
 is retained in the [correction packet](assets/viewer-measurements/c3-namespace-correction.json).
 
 Scoped architecture reassessment passes the exact alias template, module identity,
-pickle and all eight compatibility checks. Next: commit fresh candidate4recipe, then
-execute all42commands from step1. Independently audit/package
-and obtain all-seven final same-candidate assessments before application push and
-normal release. Schema/dependencies remain unchanged. Preserve other worktrees and
-one active Goal through all eight releases and parent closeout.
+pickle and all eight compatibility checks. Candidate4 `9e914a7c` then passes full
+2545Python/zero skips,1187frontend/118suites,14supervisor and lint/types/build.
+Native stops after77passes/two executed existing exclusions at one assertion of
+retired inspector measurement DOM;500cases did not run. This is a failed gate,
+not a new exclusion set. Both source maps remain unchanged.
+
+Two test-only migrations now use the real inspector bridge and App-owned manager.
+The same computed coordinate distance/history/no-op/reload assertions remain;
+release creation confirms order and named Save, adding exact persisted references.
+Fresh native3passes/one exact existing mobile journey exclusion,930unchanged sources,
+child/enclosing0 and independent UX assessment pass. All failed raw traces/stores
+are retained in seven verified [diagnostic parts](assets/viewer-measurements/c3-legacy-workflow-correction.json);
+only verified raw outputs move into owned ignored evidence.
+
+Next: commit the passing test correction and fresh candidate5recipe, then execute
+all42commands from step1. Independently audit/package and obtain all-seven final
+same-candidate assessments before application push and normal release. Schema/
+dependencies remain unchanged. Preserve other worktrees and one active Goal through
+all eight releases and parent closeout.
 
 
 ### Previous completed milestone — issue #152

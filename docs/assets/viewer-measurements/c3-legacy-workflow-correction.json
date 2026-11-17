@@ -1,0 +1,128 @@
+{
+  "scope": "Test-only migration of existing movement and release journeys to approved App-owned measurement tool; all failed candidate4 diagnostics retained, not fullgatePASS",
+  "archives": [
+    {
+      "file": "c3-legacy-workflow-diagnostic-01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-01.zip",
+      "bytes": 83579431,
+      "sha256": "de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68",
+      "outer_manifest_entries": 2869,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 2869,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-02.zip",
+      "bytes": 83623670,
+      "sha256": "1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40",
+      "outer_manifest_entries": 1972,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1972,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-03.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-03.zip",
+      "bytes": 83654761,
+      "sha256": "f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a",
+      "outer_manifest_entries": 1873,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1873,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-04.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-04.zip",
+      "bytes": 83666650,
+      "sha256": "e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d",
+      "outer_manifest_entries": 1805,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1805,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-05.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-05.zip",
+      "bytes": 83627802,
+      "sha256": "d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205",
+      "outer_manifest_entries": 1915,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1915,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-06.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-06.zip",
+      "bytes": 82383056,
+      "sha256": "2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446",
+      "outer_manifest_entries": 1467,
+      "verification_counts": {
+        "zip_archives": 4,
+        "evidence_manifest_entries": 1467,
+        "project_archive_files": 0
+      }
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-07.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-measurements/c3-legacy-workflow-diagnostic-07.zip",
+      "bytes": 4173860,
+      "sha256": "861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20",
+      "outer_manifest_entries": 110,
+      "verification_counts": {
+        "zip_archives": 3,
+        "evidence_manifest_entries": 110,
+        "project_archive_files": 4
+      }
+    }
+  ],
+  "files": 12011,
+  "raw_bytes": 999269415,
+  "all_recursive_crcs_and_manifests_verified": true,
+  "focused": {
+    "native_passed": 3,
+    "exact_existing_mobile_journey_exclusion": 1,
+    "retries": 0,
+    "sources_unchanged": 930,
+    "child_and_enclosing_exit": 0,
+    "coverage": "Actualmovement/noop/history/preview/reload/current-distancebothprofiles plusentiredesktopreleasejourney; explicitnamedSave/orderedrefs verifiedthroughAPI"
+  },
+  "failed_candidate4": {
+    "candidate": "9e914a7c2f8ebdd91ad737921ae96f2589510146",
+    "python_passed": 2545,
+    "python_skipped": 0,
+    "frontend_passed": 1187,
+    "frontend_suites": 118,
+    "supervisor_passed": 14,
+    "lint_types_build": "PASS",
+    "native_passed": 77,
+    "native_failed": 1,
+    "executed_existing_exclusions": 2,
+    "did_not_run": 500,
+    "report_skipped_includes_unexecuted": 502,
+    "runner_error": "Testingstoppedearlyafter1maximumallowedfailure; notanadditionalproductfailure",
+    "reason": "Retired.measurement-row inspectorDOM; traceconfirmsexistingOpenmeasurementsbridge; samecomputedexpectedvalue0.96Angstromnotreachedbecauseelementabsent",
+    "wrapper_exit": 1,
+    "source930_and_predecessor885_unchanged": true,
+    "complete_gate": false,
+    "partial_checks_not_pooled": true
+  },
+  "changes": [
+    "OnlytwoE2Efiles; no productsourcechange.",
+    "Realinspectorbridge\u2192tool\u2192Saved assertionsreplace retiredDOM.",
+    "Releasehelper explicitkind/UseSelection/ordered3-4confirmation/name/Saveonce/Saved/APIexactrefs/Close; allotherjourneyassertionsretained.",
+    "No deadline/retry/exclusion changes."
+  ],
+  "next": "Commitcoherenttestfix/evidence+freshcandidate5recipe; restartALL42fromstep1thenfinal7/normalPRmerge/exactmaster42/release157close; parentGoalactive",
+  "independent_ux": "PASS actual2testdiff5271Bsha1609e665..., allotherassertions unchanged, 930sourceauditonlyintended2testdelta, focused3PASS1existingexclusion"
+}
