@@ -1,0 +1,75 @@
+{
+  "scope": "Test-only explicit fixture framing and verified trusted native pick; not complete release qualification",
+  "comparison_base": "9cdccd6715ec24a03ecc7b4abf66378104d1c9a2",
+  "changed_source": "tests/e2e/direct-molecular-modeling.spec.ts",
+  "test_diff": {
+    "bytes": 1319,
+    "sha256": "2017b2225f13e553a45ad3d904339f7c01253cd4e40517a28b8960b38e79ade9"
+  },
+  "failed_candidate6": {
+    "complete": false,
+    "wrapper_exit": 1,
+    "completed_commands": 15,
+    "failed_step": "browser",
+    "python_passed": 2545,
+    "python_skipped": 0,
+    "frontend_passed": 1187,
+    "frontend_suites": 118,
+    "supervisor_passed": 14,
+    "native_passed": 299,
+    "native_failed": 1,
+    "executed_existing_exclusions": 23,
+    "did_not_run": 257,
+    "report_skipped_includes_unexecuted": 280,
+    "current_source_count": 931,
+    "preceding_source_count": 885,
+    "both_source_maps_unchanged": true,
+    "reason": "NativeatomprojectedbelowMinimizeselectiontoolbarwithretainedtighteditingcamera; DOMinterceptionpreventednativedispatch",
+    "partial_checks_not_pooled": true
+  },
+  "correction": {
+    "application_source_changed": false,
+    "action": "ExistingpublicFitallvisiblebeforefreshpickobserver; explicitDOMtargetclearancebeforeoriginaltrustedclickandexactoxygenIDassertion",
+    "preserved": "Allmolecular/bond/identity/selectionassertions;120sdeadline;zero retries;existingexclusionpolicy"
+  },
+  "focused": {
+    "lint_exit": 0,
+    "types_exit": 0,
+    "native_exit": 0,
+    "enclosing_exit": 0,
+    "native_passed": 12,
+    "native_failed": 0,
+    "native_exclusions": 0,
+    "retries": 0,
+    "source_count": 931,
+    "sources_unchanged": true,
+    "coverage": "Completedirectmolecularmodelingfilebothdesktopandtouchprofiles,includingsameO3pick,exactUndoRedo,unknownchemistry,creation/lateproposals/identityallocation"
+  },
+  "independent_ux": "PASS exactdiff931sources3logs/all12cases/actualmobileO3screenshot; scopedonly",
+  "independent_performance_audit": "Nosecondconfirmedocclusion; otherrawpicksalreadyframeorintentionallycapturefixedcamera. NonblockingsurfaceDOMguardhardeningdeferred; noobserveddefect",
+  "packet": {
+    "file": "c3-mobile-framing-correction.zip",
+    "bytes": 51131,
+    "sha256": "ce86dd9dcb4d95db66dc718d682d475ef4ab1086e8bcf296dd42ee4be61eb66c",
+    "outer_manifest_entries": 6,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 6,
+      "project_archive_files": 0
+    }
+  },
+  "forensics": {
+    "index": "c3-forensics-index.json",
+    "index_sha256": "3d9348bd94d6d863f6039b64a3dc0ab6bd7c2f4a6ea778db8352865d91fd7c4a",
+    "parts": 26,
+    "asset_bytes": 2065220371,
+    "raw_files": 47506,
+    "raw_bytes": 4624058988,
+    "new_candidate6_raw_files": 1126,
+    "new_candidate6_raw_bytes": 313510835,
+    "local_current_verifier_exit": 0,
+    "public_download_verified": false,
+    "required": "Actualpublishedreleaseanonymousverificationofeveryindexedpartbeforechildclose; nofullgatePASS"
+  },
+  "next": "Commitcoherentcorrection/evidence/freshcandidate7recipe;all42freshthenindependentsummary/recursivepackaging,final7samecandidate/normalPRmerge/exactmaster42/releaseallassets/verifiedchildcloseout; parentGoalremainsactive"
+}

@@ -593,8 +593,151 @@
           "not_a_complete_release_gate": true
         }
       ]
+    },
+    {
+      "label": "c3-candidate6",
+      "failed_candidate": "9cdccd6715ec24a03ecc7b4abf66378104d1c9a2",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 931,
+      "source_digest": "423db99b8cbea14c8246439bcccefcd0be839a07e919e7a4f03f2d79f54f3ea3",
+      "source_unchanged": true,
+      "preceding_source_count": 885,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/viewer-measurements/c3-candidate6-recipe.json",
+        "sha256": "dd5d6639c4bc40250c34254e05e7bc9dc742f49cb42c335455be7931b5181b9f"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-uv.log.gz",
+          "uncompressed_sha256": "2979d70d6fb41dd603fdcb9139bdd94b8d784b952e2164f3ccc61a16a11f1b4b"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-pnpm.log.gz",
+          "uncompressed_sha256": "5eda2c2c32b69749eb772579a578406ae0ddcdca8e9fc84c05909abd467ce0dd"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-migration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-downgrade.log.gz",
+          "uncompressed_sha256": "9e913deede2e1da2dbfa2180da8f06a1d9de79e621969fa8e04e32d93fab4651"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-remigration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-mypy.log.gz",
+          "uncompressed_sha256": "116aaf30601a7e507610dbc5463ea6bb22c6b68d4dfaa190f7a397a375d85360"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-reader-tool-types.log.gz",
+          "uncompressed_sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-python.log.gz",
+          "uncompressed_sha256": "8671623f18e83aa9a64723fff723e2bda8d71784f0b19ceaa9fe89cc8321b5df"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-lint.log.gz",
+          "uncompressed_sha256": "43c721287c8f4315b65d6d42248a0ebb71784c9422add8adeb6572183e293d19"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-types.log.gz",
+          "uncompressed_sha256": "61b169105a461e400e447bee2094ee2b3897f5dd3feda18c7cab3e28af72e391"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-web.log.gz",
+          "uncompressed_sha256": "63b0e762abe8fd2661590566caecb45c0db30319474bc87e5a7d6cbec6bebb01"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-supervisor.log.gz",
+          "uncompressed_sha256": "658ebe300fe658e080a8dcdfad4029637eb872e90f7d749a0a51670d17b9b81e"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-build.log.gz",
+          "uncompressed_sha256": "2b351fa8074e6156501c4288d7df4bce70dfa9444f937524b4fd1b4969bceaca"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-browser-inventory.log.gz",
+          "uncompressed_sha256": "7086409c42ac9dd97d7c0c8528023bf84cb6457ecee2ac4a54ea295de1900634"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-browser.log.gz",
+          "uncompressed_sha256": "e7477bf99a9336b38d5d013f953f35295a8666cab20e9ee1754f8f2a4f018133"
+        }
+      ],
+      "files": 1126,
+      "raw_bytes": 313510835,
+      "extraction_root": "forensics/c3-candidate6",
+      "inventory": {
+        "path": "docs/assets/viewer-measurements/c3-forensics-inventory-c3-candidate6.json.gz",
+        "bytes": 53633,
+        "sha256": "baab01f64b7dd6d7d3f47496c2dfd8d35d20b9f3c65d492ba702a71ff487bd30",
+        "uncompressed_sha256": "9e12602dc8358b870f431c202b77a4a5a7448087d11fd39f5f5bedc3da49b49a"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-mobile-framing-diagnostic-01.zip",
+          "bytes": 79271427,
+          "sha256": "488dd9e6ee7642897e92850247d1ba2dacd867d85d8952f3d9430ab6265e95db",
+          "manifest_entries": 1126,
+          "recursive_verification": {
+            "zip_archives": 42,
+            "evidence_manifest_entries": 1126,
+            "project_archive_files": 6
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "included_scopes": [
+        {
+          "kind": "failed_complete-gate_attempt",
+          "candidate": "9cdccd6715ec24a03ecc7b4abf66378104d1c9a2",
+          "source_digest": "423db99b8cbea14c8246439bcccefcd0be839a07e919e7a4f03f2d79f54f3ea3",
+          "qualification_complete": false
+        },
+        {
+          "kind": "subsequent_focused_correction",
+          "source_count": 931,
+          "source_digest": "fd1abdbe79b7e23c11c98c6a0cf6fa2a317eaf9c5c646b496e46d77a81685ae8",
+          "evidence_member": "focused/results.json",
+          "all_focused_step_exits": [
+            0,
+            0,
+            0
+          ],
+          "sources_unchanged": true,
+          "not_a_complete_release_gate": true
+        }
+      ]
     }
   ],
-  "asset_count": 25,
-  "total_asset_bytes": 1985948944
+  "asset_count": 26,
+  "total_asset_bytes": 2065220371
 }

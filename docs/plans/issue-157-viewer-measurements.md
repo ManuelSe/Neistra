@@ -705,3 +705,39 @@ argument), index and canonical inventories, and exclude the separate forensic pa
 parts. Actual anonymous-mode verification of all public parts is a later mandatory
 publication gate; the local receipt cannot replace it. All final specialist verdicts
 and source/gate verification remain pending before push.
+
+
+### C3 explicit framing for the incomplete aromatic draft fixture
+
+Candidate6 `9cdccd67` stops normally with wrapper1 after15commands pass and the
+browser step fails. Full2545Python/zero skips,1187frontend/118suites,14supervisor
+and lint/types/build pass; native299pass,one failure,23executed existing exclusions
+and257did not run. Reported280skipped includes those unexecuted cases. Both931current
+and885preceding source maps remain unchanged. No complete42gate or pooled pass.
+
+The mobile aromatic-draft test retains a tightly zoomed editing camera and projects
+its oxygen beneath the Minimize selection button. The actual trace identifies that
+DOM interception. Explicit existing Fit all visible before observation restores
+fixture framing; a new DOM hit check requires the projected pixel to reach the
+canvas before the original trusted click and exact atom-event assertion. Original
+molecular, bond, identity and selection assertions,120sdeadline,retries and exclusion
+policy remain unchanged. Independent UX diagnosis supports this bounded test-only
+correction; broader performance test audit finds no second confirmed occlusion.
+[Focused validation](../assets/viewer-measurements/c3-mobile-framing-correction.json)
+passes lint/types and12native cases across both profiles, zero exclusions/retries,
+931unchanged sources and child/enclosing0. The six-file51131-byte packet verifies
+SHAce86dd9dcb4d95db66dc718d682d475ef4ab1086e8bcf296dd42ee4be61eb66c.
+Independent UX passes the exact diff, all source/log identities and actual mobile
+O3 screenshot. The D-174 extension preserves all1126candidate6/focused/operational files and
+313510835raw bytes in one additional79271427-byte part. The old25part bytes and
+two existing run rows remain unchanged. All26parts/47506files/4624058988raw bytes
+verify locally with actual exit0, including recursive CRCs and exact disjoint unions.
+Explicit included scopes distinguish failed931-source qualification from subsequent
+passing931-source focused correction. The current index is
+`3d9348bd94d6d863f6039b64a3dc0ab6bd7c2f4a6ea778db8352865d91fd7c4a`;
+[verification2](../assets/viewer-measurements/c3-mobile-forensics-verification2.json)
+binds it. Actual anonymous verification remains mandatory after publication.
+Independent architecture assessment passes the actual new part, old identities,
+source/recipe/all16logs, scoped digests, current26part receipt and package selection.
+No consequential finding remains in this bounded correction/evidence scope.
+Fresh all42candidate7 and final all-seven review remain mandatory before push.

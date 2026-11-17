@@ -1,0 +1,22 @@
+{
+  "scope": "Current local D17426part verification after explicitfailed/focusedscopemetadata; nofullgate/publicavailabilityclaim",
+  "packet": {
+    "file": "c3-mobile-forensics-verification2.zip",
+    "bytes": 62271,
+    "sha256": "0b07cf85ac7fb82d7c8e472717bafe56727543381531778f5c6c19f1dfb9c87a",
+    "outer_manifest_entries": 3,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 3,
+      "project_archive_files": 0
+    }
+  },
+  "index_sha256": "3d9348bd94d6d863f6039b64a3dc0ab6bd7c2f4a6ea778db8352865d91fd7c4a",
+  "actual_verifier_exit": 0,
+  "all26parts_verified": true,
+  "raw_files": 47506,
+  "raw_bytes": 4624058988,
+  "old25payloads_and_two_run_rows_unchanged": true,
+  "public_download_verified": false,
+  "independent_architecture": "PASS actualnewpart/old25identities/twooldrunrows/source/recipe16logs/scopes/current26receipt/package-selection; scopedonly"
+}

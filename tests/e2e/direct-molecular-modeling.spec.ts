@@ -41,9 +41,14 @@ test("breaks an aromatic bond and keeps the incomplete draft visible and pickabl
   expect(after.atoms).toEqual(before.atoms);
   expect(after.bonds).toEqual(before.bonds.filter(b => b.id !== bond.id));
   await panel.getByRole("button", { name: "Close molecular editor" }).click();
+  await frameFixture(page);
   await observe(page);
   const atom = before.atoms.find(a => a.element === "O")!;
   const point = await page.evaluate(p => window.editingPicks.point(p), atom.coordinates);
+  expect(await page.locator(".molstar-host canvas").first().evaluate((canvas, point) => {
+    const box = canvas.getBoundingClientRect();
+    return document.elementFromPoint(box.left + point.x, box.top + point.y) === canvas;
+  }, point)).toBe(true);
   await page.locator(".molstar-host canvas").first().click({ position: point });
   await expect.poll(() => page.evaluate(() => window.editingPicks.events.flatMap(e => e.selection?.atoms ?? []).map(a => a.atom_id))).toContain(atom.id);
   await page.screenshot({ path: info.outputPath("incomplete-aromatic-draft.png") });

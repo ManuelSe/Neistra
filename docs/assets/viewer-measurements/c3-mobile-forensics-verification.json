@@ -1,0 +1,24 @@
+{
+  "scope": "Local failedcandidate6 forensic extension only; not public availability or passing application qualification",
+  "packet": {
+    "file": "c3-mobile-forensics-verification.zip",
+    "bytes": 67770,
+    "sha256": "5f74a12d468185e1b66b5e9c050cbb9efe99ce020098cbc5395de7fe4fec80b8",
+    "outer_manifest_entries": 5,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 5,
+      "project_archive_files": 0
+    }
+  },
+  "index_sha256": "c1a75e16db939bf7435f0ccd5791f88e62e81a89ba2e3e491aa894500fd921a8",
+  "current_local_verifier_exit": 0,
+  "all26parts_verified": true,
+  "old25payload_identities_and_two_run_rows_unchanged": true,
+  "parts": 26,
+  "asset_bytes": 2065220371,
+  "raw_files": 47506,
+  "raw_bytes": 4624058988,
+  "public_download_verified": false,
+  "required": "Realpublishedreleaseanonymousverificationofallindexedpartsbeforechildcloseout"
+}

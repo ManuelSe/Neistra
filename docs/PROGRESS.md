@@ -129,12 +129,31 @@ unions and recursive CRCs; no data is discarded. The tracked typed verifier pass
 Ruff/mypy and corruption controls; it adds one qualifying tools/source (next931).
 Actual anonymous verification of every part remains mandatory after publication.
 
-Next: commit the passing native-oracle/forensic checkpoint and fresh candidate6recipe,
-then execute all42commands from step1. Independently audit/package and obtain all-
-seven final same-candidate assessments before application push and normal release.
-Schema/dependencies remain unchanged. Preserve one active Goal through all eight
-releases and parent closeout.
+Candidate6 `9cdccd67` completed the same Python/frontend/supervisor checks, then
+stopped after299native passes: the mobile incomplete-aromatic-draft test projected
+an oxygen below a toolbar button while retaining its tightly zoomed editing camera.
+There were23executed existing exclusions and257unexecuted cases, not280 accepted
+exclusions. Wrapper exit1;931current/885preceding source maps remain unchanged.
+The test now explicitly fits the fixture and checks DOM clearance before the same
+trusted click and exact oxygen-selection assertion. [Focused validation](assets/viewer-measurements/c3-mobile-framing-correction.json)
+passes lint/types and all12native cases across both profiles, zero exclusions/retries,
+931unchanged sources, child/enclosing0. Independent UX assessment passes the exact
+correction, full source/log identities and actual mobile O3 screenshot. The additional
+D-174part preserves all1126new raw files; local verification passes all26parts and
+exact unions, with47506files/4624058988raw bytes retained. Old25payloads are unchanged.
+Independent architecture passes the extension/currentindex/parts/source/log proofs;
+no full gate pass.
 
+## Current blockers and next action
+
+No external blocker. Finish focused native correction and forensic verification,
+then commit a fresh candidate7recipe and run all42commands from step1. Independently
+audit/package and obtain all-seven final same-candidate assessments before application
+push and normal release. Schema/dependencies remain unchanged. Preserve one active
+Goal through all eight releases and parent closeout.
+
+
+## Historical progress
 
 ### Previous completed milestone — issue #152
 
@@ -3514,12 +3533,12 @@ Results:
   receptor/ligand preparation, pose scoring, and scientific ranking remain
   outside v0.1 core and require a separately installed allowlisted plugin.
 
-## Blockers
+### Historical blockers — issue #152
 
 None for released issue #152. Terminal documentation integration and owned-cleanup
 readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092); preserve other sessions.
 
-## Next action
+### Historical next action — issue #152
 
 Use the final #152 reply for terminal integration/cleanup readback. New application
 work requires its own scoped issue/contract; deferred work remains separate.
