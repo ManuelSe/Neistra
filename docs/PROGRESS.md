@@ -146,11 +146,26 @@ no full gate pass.
 
 ## Current blockers and next action
 
-No external blocker. Finish focused native correction and forensic verification,
-then commit a fresh candidate7recipe and run all42commands from step1. Independently
-audit/package and obtain all-seven final same-candidate assessments before application
-push and normal release. Schema/dependencies remain unchanged. Preserve one active
-Goal through all eight releases and parent closeout.
+No external blocker. The clean candidate7 `df1ed1bb` now passes all42fresh sequential
+commands:2545Python/zero skips,1187frontend/118suites,14supervisor and505native passes
+across580cases/80files,75exact preceding exclusion identities unchanged, zero failures,
+flakes,retries or new exclusions. All931current/885actual0.34source identities and
+lossless log hashes verify. Actual rich/connectivity/ordered-measurement readers pass
+both directions and archive suffixes;15editing projects/24transitions and full history
+stores remain retained. [Independent summary](assets/viewer-measurements/c3-candidate7-summary.json)
+and [packaging](assets/viewer-measurements/c3-candidate7-packaging.json) pass, with each
+child and the enclosing runner exiting0. Two verified ZIPs preserve670native-browser,
+seven scientific-native and540reader-workspace files; raw originals remain retained.
+
+All seven complete-feature code reassessments pass for `df1ed1bb`, including126fresh
+architecture tests and eight independent namespace/bootstrap tests. Prior unchanged
+scientific/UI/UX/performance evidence remains explicitly scoped. Final evidence-commit
+reconfirmation remains required before application push; no157PR/merge/release/closeout.
+The future exact-master42recipe is prepared in this candidate so merged qualification
+can start clean. Next: final all-seven same-candidate confirmation, normal protected
+PR/merge, fresh exact-merged42, annotated0.35release and primary/26forensic-asset
+anonymous verification, then explicit child closeout/owned cleanup. Parent Goal stays
+active for158–163 and final integration/closeout. Schema/dependencies remain unchanged.
 
 
 ## Historical progress

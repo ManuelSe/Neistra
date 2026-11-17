@@ -8111,3 +8111,13 @@ next inventory gains this one source. Local25part verification, Ruff/mypy and
 explicit corruption controls pass. Independent architecture verifies the actual
 parts/index/tool/provenance and main-package selection. Public availability is
 still a later obligation, not established by these local checks.
+
+
+D-174 final candidate evidence: candidate7 completes42fresh commands with931current/
+885actual0.34source identities intact. Independent summary and recursive packaging
+verify both qualified parts and all reader workspaces; failures remain distinct.
+The additional candidate6failure inventory brings the forensic index to26parts,
+47506files/4624058988raw bytes. Explicit scope metadata distinguishes the failed
+complete-gate attempt from its later passing focused correction. Index3d9348 binds
+all current identities; old25payloads/two prior run rows remain unchanged. Actual
+anonymous verification of all26parts remains required after stable publication.

@@ -741,3 +741,52 @@ Independent architecture assessment passes the actual new part, old identities,
 source/recipe/all16logs, scoped digests, current26part receipt and package selection.
 No consequential finding remains in this bounded correction/evidence scope.
 Fresh all42candidate7 and final all-seven review remain mandatory before push.
+
+
+### C3 complete qualified candidate7 and final evidence preparation
+
+Clean candidate `df1ed1bb4ee5ad2430933b203be60f185b2bd48c` completes all42fresh sequential
+commands, preserving all35predecessor checks plus seven ordered-measurement phases.
+[Independent summary](../assets/viewer-measurements/c3-candidate7-summary.json):2545Python,
+zero skips;1187frontend/118suites;14supervisor;505native passes across580cases/80files.
+All75preceding exclusion identities match actual0.34evidence; zero failures,flakes,
+retries or new exclusions. All931current/885actual-tagged source identities and every
+lossless-log hash verify. Versions agree at0.35.0, migration head0015/schema2 unchanged.
+Portable correctness remains distinct from strict reference-host performance.
+
+Actual0.35/0.34producers/readers verify rich, connectivity and ordered-measurement
+state in both directions and both archive suffixes. Ordered cross-entry references,
+full names, visibility and originals retain their accepted semantics. Fifteen editing
+projects/24transitions pass actual old-writer retention/reexport and current re-read;
+complete live stores/history/artifacts remain available. No partial failed-run checks
+are borrowed. Earlier failures and their distinct diagnostics remain preserved.
+
+[Recursive packaging](../assets/viewer-measurements/c3-candidate7-packaging.json)
+verifies two ZIPs:83419843bytes/SHA775363c48da21a923e64916a77641d7ac3502bbde9169f8b2d225a0a7ab13d4f,
+and274191bytes/SHAe55b5d28f6f468910d259e3da2da9eaf3588fa8c714c9c8ef1c862534555d586.
+They retain670browser-native files,seven scientific-native files,540reader-workspace
+files and all gate/log/source/reader evidence, with371recursive ZIPs/1297manifest
+entries/875project files verified. Raw native files move into owned ignored evidence
+only after exact disjoint ZIP-manifest equality for every byte/hash; originals and
+all owned reader stores remain retained. Qualification, independent summary, packaging
+and enclosing runner each exit0; [execution packet](../assets/viewer-measurements/c3-candidate7-execution.json)
+binds the actual receipts and complete changed-file review inventory.
+
+All seven complete-feature CODE reassessments pass for `df1ed1bb` against actual
+master4b8ae716, including new files and all intervening corrections. Architecture
+independently passes126tests across9suites and verifies236changed identities plus
+931current/885preceding source hashes; scientific implementation passes eight fresh
+namespace/bootstrap tests and module/pickle identity controls. Unchanged scientific,
+UI, UX and measured-performance evidence retains explicit prior scope. These are
+specialist agent assessments, not human approvals. The final evidence-commit candidate
+still needs explicit all-seven reconfirmation before application push.
+
+The exact-master `c5-master1-recipe.json` is generated before this final evidence
+commit, preserving42commands and the actual0.34reader identity. After ordinary
+protected merge, qualify its actual merged commit fresh; do not tag before success.
+The primary release ZIP remains self-contained for both complete gates/readers/logs.
+Include C1b JSON/ZIP and the tracked forensic verifier through explicit supplemental
+arguments. Include current3d9348forensic index/inventories, exclude all26raw forensic
+payload parts from the primary ZIP, then publish/verify every indexed part separately.
+Actual anonymous verification and server readback are mandatory before child reply/
+closure. No157application push, PR, release or closeout is claimed at this checkpoint.
