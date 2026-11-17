@@ -8585,3 +8585,69 @@ Inspector opening preserves the editor/workspace. Corrected actual native5 passe
 all16main cases in both themes and desktop/mobile, actual97537exit0 with1,071source
 hashes fixed, including preview Cancel/Apply/exactUndoRedo and metadata recovery.
 This does not pool into the still-failed access qualification or authorize readiness.
+
+
+## D-193 — Compose ligand information from existing qualified producers
+
+Issue161 preparation starts from committed, explicitly UNRELEASED160C2 98ed1000.
+This is an independent implementation preparation basis, not a delivered dependency.
+Before final161gates/PR, reconcile every inherited source against actual released
+158/159/160master/tag history. Keep versions/schema unchanged during C0; no new
+scientific cache, predictor, evaluator, scheduler or durable schema is justified.
+
+Use the existing deliberate inspected-entry owner and one App property session/
+input owner/profile selection above responsive presenters. Resolve the ID against
+current project entries during render; deletion withholds immediately and clears
+without fallback. Selection, visibility, measurement and filter membership do not
+retarget inspection. Preserve hidden/filtered entries in the all-entry chooser.
+
+Extract/share the existing candidate source qualification, query/depiction options,
+response gates, queue and recovery as necessary. A single source-scoped qualification
+object feeds header and chooser; manual cache writes cannot recover a known source
+failure. Keep source identity separate from designation metadata and retain failure
+knowledge through responsive/chooser remounts. Use designated_candidate directly,
+matching current resolved designation and exact canonical membership; durable instance
+identity need not equal candidate key. Inventory, depiction-chemistry and descriptor
+input hashes are different contracts. Each independent result must match its own
+qualified producer and the same intended entry/source, without requiring all outputs
+to finish together. No new mutation or viewer-owned molecular truth.
+
+For profile comparison, call the shared axis selector, then project unique required
+descriptor IDs in registry axis order. Require exactly one display axis per required
+ID; otherwise report explicit missing-axis definition, never silently omit a criterion.
+The chart and equivalent table share those exact rows, actual values, units, domains,
+clipping and availability reasons; all relevant shared constraints/operators remain
+accessible. This adds no descriptor demand and does not rewrite category preferences.
+No profile remains initial with a comparison prompt. Two axes use spokes/points/open
+line; close a molecular polygon only for at least three fully qualified axes. Missing
+values remain gaps, true zero remains numeric, and clipping retains actual numbers.
+Plot domains are display scales; no threshold polygon, area score or inferred quality.
+
+Use the current right panel, resize/collapse/mobile shell, one persistent header and
+one scroll body. Make Ligand information the primary view and retain Inspector tools
+one explicit action away until163; do not stack a complete dynamic sidebar above
+legacy tasks. Keep deliberate view state above responsive remounts. Explicit native
+drivers may enter retained tools before using their controls; preserve every retained
+domain assertion, deadline and exclusion rather than inventing hidden compatibility UI
+or globally intercepting selectors. Initial focus must identify the current task;
+closing returns to the actual launcher. Keep visible controls44px where required.
+
+One presentation boundary observes all independently updating identity/depiction/
+property/profile/radar publications. Avoid nested competing D-190 compensation.
+Preserve connected focus/control identity and reading position while yielding to
+explicit entry/view/profile/task/disclosure navigation. Include source-failure,
+partial data and local-publication tests; do not rely on a parent-only wrapper that
+misses independently subscribed child updates. Preview is a presentation overlay;
+committed data remain available to future162filters. Cancel restores only matching
+committed data; Apply retires incompatible results synchronously.
+
+The future153diagram contract is nullable and complex-only, with explicit exact
+ligand/protein inputs, source/artifact/revision and optional generator/version/artifact.
+Infer no protein from proximity, current selection or transient interaction target;
+create no endpoint/artifact/generation action. Advanced sources/methods/provenance/
+limits stay secondary while material warnings and recovery remain discoverable.
+
+Reference, scientific-theory, architecture, UI and UX consultations support this
+bounded original composition; they are planning guidance, not implementation approval.
+All seven final same-candidate assessments, measured bounds, full gates, protected
+merge and public release/closeout remain mandatory.

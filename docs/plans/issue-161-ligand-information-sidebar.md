@@ -123,3 +123,67 @@ reading position through collapse/remount, both themes, keyboard/touch, 320px an
 actual browser zoom. Reference research supports coordinated data views and scoped
 depiction controls; this combined exact-identity sidebar and automatic freshness
 are original application guarantees, not a claim of an identical external GUI.
+
+
+### Concrete C0 refinement — original qualified sidebar, 2026-11-17
+
+The owned local branch isfeat/issue-161-ligand-information-sidebar in
+/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar, initially from
+UNRELEASED160C2 98ed100023bc2cbbf9d23a0f00f9f808f9f1f7fa. The entire1,074-source
+baseline matches that committed checkpoint. This explicitly authorized parent-program
+preparation does not establish any delivered prerequisite. Actual released158/159/160
+source/tag integration and all inherited-source reconciliation precede final161gates/PR.
+Provisional0.39 remains a later release choice; C0 changes no version, schema or code.
+
+Early independent reference/theory/architecture/UI/UX consultations and focused source
+inspection identify the exact bounded contracts recorded in D-193. Public reference
+material supports coordinated depiction/property views and scoped display options;
+it does not establish an identical combined sidebar, radar or automatic freshness
+contract. This application remains an original composition. Identifying references
+remain in the conversation, not repository artifacts. Scientific implementation and
+performance involvement continue through the accepted implementation and evidence.
+
+C1 touches a minimal shared candidate-context/depiction extraction, pure presentation
+basis and projected radar/table rows. Reuse sourceKey(project/entry/current/original),
+designationKey, currentInventory, inventoryOptions and the same InventoryQualification
+failure fence. Preserve source-key lifetime, nonmanual-success recovery and cached-
+error withholding; one qualification object must feed header and existing chooser.
+Use offset-zero designated_candidate directly, exact current canonical membership and
+current designation visit, without confusing candidate key with durable instance.
+Reuse two-active/24-queued drawing admission and exact source/policy/chemistry/artifact/
+load-token recovery. Independently qualified formula/charge/depiction may appear before
+properties, but never from a different source. True charge zero is not missing.
+
+Radar and table project existing profileAxisValues onto unique required descriptors
+in registry order, with exactly one axis per ID or explicit missing-definition state.
+No new union/demand/cache or criteria evaluator. No profile initially prompts for an
+explicit choice. Two-axis Veber/Gleeson/Teague are open comparisons; fully qualified
+three-or-more axes may close. Partial data keep points/contiguous segments without
+bridging gaps or substituting zero. Preserve actual values, low/high clipping, units,
+plot domains, all exact shared operators/ranges and availability reasons. Configured
+property rows stay independently controlled by installation category preferences.
+
+C2 composes one persistent panel header/body with primary Ligand information and
+secondary Inspector tools reachable in one explicit action until163. Keep view state
+through collapse/responsive hiding; retain legacy task state and actions where
+applicable. Default new-view and actual launcher/focus behavior require direct native
+coverage. Update retained native drivers explicitly for deliberate tools access, not
+with hidden controls or selector interception. Preserve domain/chemical/history/
+original-file assertions, deadlines and historical exclusion identities. One common
+publication-aware D-190 boundary covers all independently updating regions without
+nested compensation or missed local updates; explicit navigation remains authoritative.
+
+Add meaningful unit/component/native controls for exact designated context, repeated
+instances, duplicate names, deleted/hidden/filtered inspection, source failures/manual
+cache writes/remounts, mixed/reordered/partial results and held A→B→A. Test two-axis
+and incomplete plots, missing-definition guards, true zero, clipping, chart/table
+identity, all-category-off profile demand and unavailable methods. Real preview
+Cancel/Apply/UndoRedo, collapsed automatic work, original bytes/preferences/history,
+keyboard/touch/320px/shortview/real100–200zoom and legacy task recovery are mandatory.
+Record active/cold work, network/cache/DOM/resource bounds under existing D148; no
+strict-host claim without that policy's evidence. Keep the153contract nullable and
+truthful, and all parent exclusions intact.
+
+C0 verification is documentation scope plus unchanged source/version/globalPLAN/
+PRODUCT_SPEC and neutral naming. Persist this authorized refinement before code;
+standing delivery authority continues without a separate finished-plan approval.

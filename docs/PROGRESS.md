@@ -2,6 +2,47 @@
 
 ## Current milestone
 
+Parent #11 remains active for exactly #156–#163 through verified releases/closeout.
+#156/#157 are delivered; #158 candidate10 full qualification is running separately.
+#159 and #160 are local preparation checkpoints. #161 now has a concrete authorized
+sidebar contract on an isolated branch from unreleased160C2; implementation has not
+started and actual delivered prerequisites remain mandatory before final gates.
+
+## Completed work
+
+Recorded D-193 and the concrete source-qualified context, depiction, profile-axis
+projection/table, retained-tools navigation and nullable future diagram boundaries.
+No new scientific owner, evaluator, predictor, cache or durable schema is proposed.
+Early reference/theory/architecture/UI/UX consultations are complete.
+
+## Verification performed
+
+Documentation-only C0 refinement preserves the entire1,074-source committed160C2
+baseline and all versions/schema/globalPLAN/PRODUCT_SPEC. No implementation test or
+release is claimed for161. Earlier160proof remains a separate local checkpoint.
+
+## Known limitations
+
+Preparation starts from unreleased98ed1000. Reconcile actual158/159/160releasedmaster
+and tags before final161qualification. Scientific implementation/performance review,
+new component/native controls, all seven final assessments and complete release gates
+remain required. No new diagram generation, preparation, filters or old-tool removal.
+
+## Blockers
+
+No external blocker. Prerequisite delivery and final qualification remain binding.
+
+## Next action
+
+Implement one coherent typed context/sidebar vertical slice under the authorized
+contract, preserving shared producer ownership and retained user workflows. Verify
+focused checkpoints before final serial integration and protected publication.
+
+## Earlier local160 preparation history
+
+
+## Current milestone
+
 Parent #11 remains active through verified releases for required #156–#163 and
 parent closeout. #156/#157 are delivered; #158 freshcandidate9 full qualification
 is running. #160 has a verified local profile vertical slice awaiting actual
