@@ -2,6 +2,43 @@
 
 ## Current milestone
 
+Parent #11 remains active through all eight required children and verified parent
+closeout. #156/#157 are delivered. #158 is running a fresh complete candidate gate
+in its separate frozen worktree; this branch prepares required #159 independently.
+Initial base cd6715d3 is a #158 candidate, not a released0.36 qualification claim.
+
+## Completed work
+
+Existing authorized #159 plan is reused. Scientific and reference consultations
+refine descriptor kernel identity, explicit options/H policy, partial errors and
+independent acceptance. D178 records the scientific/current-binding separation.
+Architecture's concrete worker/capture/cache lifecycle is under assessment.
+
+## Verification performed
+
+Read-only current issue/plan/source inspection and actual specialist consultation.
+No #159 application implementation, runtime tests or release claims yet.
+
+## Known limitations
+
+#158 must finish verified release and terminal integration before final #159 gates.
+Keep original uploads, scientific uncertainty, parent exclusions and serial order.
+
+## Blockers
+
+No external blocker. API/worker implementation awaits concrete lifecycle refinement.
+
+## Next action
+
+Implement the scoped scientific kernel with independent domain tests; finish early
+architecture/UX consultation before cross-layer worker/workflow changes. Record
+measured batch/cache bounds and preserve full release/reader/specialist gates.
+
+## Historical progress before isolated #159 preparation
+
+
+## Current milestone
+
 Parent #11 remains active for exactly #156–#163 through verified releases and parent
 closeout. #156 and #157 are fully delivered in v0.34.0/v0.35.0, including terminal
 [PR #174](https://github.com/ManuelSe/Neistra/pull/174), child closeout and owned cleanup.

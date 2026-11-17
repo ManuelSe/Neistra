@@ -8506,3 +8506,42 @@ The evidence ZIP retains every real pytest-workspace payload. Internal `*current
 convenience links are recorded with validated within-owner targets rather than
 archived or followed as filesystem links. Original workspaces/links stay intact;
 generic release packaging continues to reject arbitrary symlinks.
+
+
+## D-178 — Separate descriptor scientific identity from current source binding
+
+Date:2026-11-17. Required #159 preparation retains the approved descriptor catalog
+and strict normalized-source interpretation. A dedicated disposable descriptor
+kernel owns ordinary-terminal-H normalization, explicit toolkit method/options and
+independent value/error outcomes. Preserve unsupported isotope/radical/nonterminal-H
+and stereo facts; return unavailable model outputs while retaining independently
+known counts/charge. Carbon-free fractionsp3 is undefined and unavailable.
+
+Descriptor content identity covers qualified graph/H/stereo/protection/inference
+semantics plus implementation/options/library, excluding coordinates/display data.
+The depiction hash alone is insufficient. Separate freshly proved current entry,
+instance, membership and immutable-source bindings from reusable scientific content.
+This enables coordinate-only reuse without stale publication. Preview/current
+retirement, original preservation, unknown-not-zero, serial release and actual
+preceding-reader qualification remain mandatory. The detailed method conventions
+and independent oracles are recorded in #159's authorized plan before code.
+
+
+## D-179 — Keep automatic descriptor execution privately owned
+
+Date:2026-11-17. #159 reuses the existing allowlisted spawned job worker with
+server-owned purpose and private0017 execution/source captures. Derived executions
+have no ordinary JobInput/JobResultArtifact relationships and never update user
+entry job links/results or project history/dirty state. Parameters/provenance alone
+cannot confer ownership. Imports default to ordinary purpose and have no private
+association. Positively associated cache work is excluded from current archives/
+ordinary job projections; actual predecessor tests must prove harmless empty-input
+unknown-plugin shells survive older-writer deletion/archive operations.
+
+A dedicated descriptor cache root permits narrow digest-verified corruption repair
+and bounded cleanup without touching originals/shared user artifacts. Scientific
+content and current bindings remain separate; publication rechecks current ownership
+under existing project locking. Latest consumer demands materialize only the next
+bounded batch, with measured active/user/bulk fairness and shared cancellation.
+Project/archive3 remains: canonical input/designation reconstruct derived state;
+installation preferences do not travel in archives and nondefault downgrade refuses.

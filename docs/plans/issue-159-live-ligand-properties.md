@@ -160,3 +160,161 @@ restore, atomic source binding, A/B/C races and shared-consumer cancellation. Re
 all parent resource, freshness and 1,000-entry active-priority requirements. New
 modules must preserve the repository's canonical/legacy single-implementation
 alias contract.
+
+
+### C1 concrete scientific contract — descriptor kernel before implementation
+
+Preparatory ownership: `feat/issue-159-live-ligand-properties`, isolated worktree
+`/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties`, initially branches
+from #158 candidate cd6715d3. #158 is still qualifying; this is not released0.36
+reader evidence. Integrate the verified preceding delivery master before final gates.
+The parent permits independent preparation while retaining serial publication.
+
+A preimplementation scientific assessment confirms the existing method scope.
+Implement a separate `neistra_core.ligand_properties` kernel and canonical/legacy
+single-implementation aliases. Reuse the strict prepared chemistry boundary on
+immutable normalized/original input, then copy for descriptor-specific preparation.
+Do not change the designation/depiction implementation or use its ordinary SMILES
+hash alone as descriptor authority. A typed content report owns independent finite
+numeric values or structured errors, descriptor coverage, implementation/library/
+policy identity and qualified charge facts. API current source/instance ownership
+remains separate from scientific content identity.
+
+Explicit conventions:
+
+- Average molecular weight uses MolWt in g/mol. Heavy/carbon/hetero counts use
+  established designated members and known elements; charge requires qualified
+  atomic charges. Known independent counts can survive unsupported model chemistry.
+- Use CalcNumHBD/CalcNumHBA, CalcTPSA(includeSandP=False), Wildman–Crippen logP/MR
+  with hydrogen inclusion explicit, strict rotor options, pinned perceived total/
+  aromatic-ring definitions and CalcFractionCSP3. Carbon-free fractionsp3 is
+  unavailable (`no_carbon_atoms`), not an invented fractional zero.
+- Remove only ordinary terminal neutral H on a disposable copy, retaining total
+  hydrogen inventory, heavy graph, charge and supported stereo invariants. Never
+  strip isotopic, hydride, bridging or unsupported stereo-defining H silently.
+  Initially unavailable model domains may include isotope/radical, enhanced or
+  nonstandard stereo, query/dummy, unqualified aromaticity, coordination and
+  nonterminal-H semantics; preserve separately established counts/charge.
+- The scientific digest covers qualified representation, H/isotope/radical/stereo
+  semantics, relevant protection/inference facts and fixed policy/options/library.
+  Exclude coordinates/display metadata. Coordinate reuse requires a fresh current
+  binding proof. A charge-presence fact is true for proved nonzero atomic charge,
+  false only when all relevant charges are proved zero, otherwise unknown.
+
+Independent scientific acceptance includes ethanol (3heavy/2carbon/1hetero,
+HBD/HBA1/1, strictrotors0, TPSA20.23, charge0, fractionsp3=1), ordinary-H equivalence
+for ethanol/pyrrole/amides/stereocenters, source-bound foscarnic TPSA94.83, rings and
+rotor adversaries, carbon-free input, isotope/radical/unknown-H and zwitterionic
+cases, coordinate/atom-order invariance, changed qualification/policy invalidation,
+forced per-descriptor failure and nonfinite rejection. Numerical tolerances must
+be justified independently; originals/canonical data remain byte-identical.
+
+Reference consultation supports grouped readable properties, persistent options,
+default restoration and compact job progress. Installation preference ownership,
+effective dependency union and automatic same-transition freshness are accepted
+original design requirements; no unverified external GUI equivalence is claimed.
+The full sidebar/profiles/radar remain later children. Architecture's concrete
+capture/artifact/demand lifecycle refinement remains pending before API/worker
+implementation; no application readiness or completed verification is claimed.
+
+
+### C1 concrete architecture contract — privately owned derived execution
+
+Preimplementation architecture assessment selects a narrow seam in the existing
+allowlisted spawned worker; no second queue platform. Add migration0017 for
+installation preferences (independent revision/default restore), bounded derived
+content, current entry/instance bindings, consumer demand and private execution/
+source capture. Keep project/archive3 and existing physical project root. Prefer
+foreign-key ownership where safe; interrupted child captures remain until reaped.
+
+Cache executions create **no ordinary JobInput or JobResultArtifact records**.
+A server-controlled job purpose defaults to ordinary/user in the database, including
+older-writer inserts. Private execution/capture association is the sole authority
+for derived execution/cleanup/publication; type/parameters/provenance markers alone
+confer none. Parameters contain only an opaque execution ID. A checked worker
+loader constructs existing immutable ChildInput values from verified captures and
+retains the existing spawn/resource/cancellation machinery. Public ordinary submit
+cannot invoke the internal descriptor capture path. Derived submission/completion
+never modifies entry links/results, project revision/dirty/checkpoints or history.
+
+Current archives and ordinary job/result projections exclude positively owned
+cache executions. The preceding writer enumerates all project jobs, but permits
+unknown-plugin shells with empty ordinary inputs/results: deletion then cannot
+leave an invalid ordinary entry relationship. This is a source-based design
+inference until the actual released preceding writer executes deletion/export/
+import/reexport in both suffixes. Import creates ordinary-purpose jobs with fresh
+IDs and no private association; forged or historical markers must never authorize
+execution, cache publication or cleanup. Older-writer ordinary inserts retain their
+server default. Retain queued-equivalent/running/completed/cancelled/restart and
+entry/project-deletion probes, with child teardown and original/user output proof.
+
+Use an exclusively owned descriptor-cache root built on LocalArtifactStore,
+separate from global original/user artifact storage. Verify digest/size/path before
+read or publication. Corrupt derived content may be quarantined/replaced only within
+this owned root with bounded retention; shared originals and user artifacts are
+never repair/delete targets. Descriptor content and current binding are separate.
+Completion validates the report and rechecks authoritative source/designation/
+membership/demand generation under existing project-publication locking before
+atomic binding. Obsolete work may retain reusable keyed content but cannot publish
+as current. Missing/deleted ownership retires work, never reconstructs it from
+captured parameters. Prune only positively associated cache executions/events/
+captures after reaping; failures/capacity/recovery remain explicit.
+
+Maintain latest bounded consumer demand rather than a job per entry. Materialize
+and claim only the next small coalesced batch at worker scheduling boundaries;
+never leave a bulk FIFO for an older worker. Active priority, ordinary-job fairness,
+bulk fairness, lease/retry/retention and batch limits require focused real-worker
+measurements before qualification. Batch8 and aggregate200 remain proposals, not
+passing capacity evidence. Public current-input projections and preference/consumer
+updates use typed bounded aggregate contracts. A consumer release cannot cancel
+another consumer's useful demand.
+
+Early UX consultation scopes cancellation to one named current-input consumer.
+Retain a same-input cancellation latch through rerenders/refetch/hide/reopen;
+explicit Retry or a genuinely relevant new input may clear it. Do not promise that
+shared work stops globally. Keep a compact property readout/options at the existing
+ligand region; full sidebar/profile/radar remains later scope. Final concrete UX
+assessment precedes frontend integration.
+
+
+### C2 concrete workflow contract — compact readout and session ownership
+
+Preimplementation UX assessment selects a compact Properties section beneath the
+existing inspected-entry ligand controls, using the current inspector slot. Keep
+exact-instance identity above readable grouped values/units, one aggregate status,
+Property options and secondary Methods and limits. Do not construct later sidebar,
+profile/radar or filter controls here. Material qualification warnings remain visible
+through a concise warning indicator; unsupported values show Unavailable with reason,
+independent successful counts stay available, and transient failures may offer Retry.
+
+Options are an accessible draft dialog: explain installation-wide ownership, group
+category choices, Restore defaults updates the draft, Save atomically persists the
+independent preference revision, Cancel preserves saved choices. Effective descriptor
+demand unions real consumers' requirements without rewriting saved category choices;
+show actual dependency explanations only when such a consumer exists. Preserve
+focus through value updates; return options focus, keep header/Close/footer visible,
+scroll only the dialog body, support coarse-pointer targets and actual200%zoom.
+Use one polite transition status rather than per-value announcements.
+
+An App-owned session/controller survives property component unmount/reopen and owns
+current input/request generations, shared consumer leases and cancellation latches.
+The target is the inspected entry's durable designation, never ordinary selection,
+visibility, camera or a viewer ID. Incompatible project/entry/designation/membership/
+source/settings changes retire old numbers synchronously; matching results alone
+can be shown as current. Changed previews show labelled Preview unavailable; Cancel
+restores matching committed state and Apply requalifies actual current source.
+Late A/B data cannot replace C, including ABA navigation and Undo/Redo.
+
+Cancel update releases this consumer's demand and retains cancellation for that
+exact request through rerenders/refetch/close/reopen: show Update cancelled and Retry.
+Explicit Retry or a genuinely relevant new input permits automatic work; incidental
+hover/camera does not. Other useful consumers remain, so do not promise globally
+stopping shared work. Normal closing releases the visible demand without creating
+an explicit-cancellation latch; reopening resumes automatic current-input behavior.
+No unsupported-chemistry Retry loop or polling-triggered cancellation loop is allowed.
+
+Acceptance adds held A/B/C, preview Cancel/Apply, source/designation/project changes,
+Undo/Redo, cancellation through reopening/polling, shared-consumer retention, options
+conflicts/failure/default restore, partial values and project/history invariance.
+Readout/settings must work in both themes, keyboard/touch/narrow/actualzoom with
+accessible recovery and stable focus. Full release/reader/performance gates remain.
