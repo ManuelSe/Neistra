@@ -1,8 +1,8 @@
 # Development And Troubleshooting
 
-Status: Neistra development guide; current Alembic head is 0015, project/viewer/
-archive schemas are 2, and normalized/selection schemas remain 1. See
-[upgrade instructions](#upgrading-the-shared-camera-preference-0015). Earlier issue upgrade
+Status: Neistra development guide; current Alembic head is 0016, project/archive schemas
+are 3, viewer schema is 2, and normalized/selection schemas remain 1. See
+[upgrade instructions](#upgrading-exact-ligand-designation-0016). Earlier issue upgrade
 sections are historical; configuration names and process commands are retained.
 
 The private JavaScript packages are `neistra` and `@neistra/web`. Workspace
@@ -718,6 +718,35 @@ no downgrade/data stripping; reload the frontend to restore the old notice lifet
 The [approved plan](plans/issue-56-viewer-notification-timeout.md) and its evidence
 log govern release blockers and verification.
 
+
+## Upgrading exact ligand designation (0016)
+
+Stop API and worker processes, back up the complete managed directory (database
+and all artifacts), then run `.venv/bin/uv run alembic upgrade head` using the
+matching application environment. Deploy the matching client and API together.
+Migration 0016 renames the root project table to `project_documents_v3`, introduces
+entry-owned designation and bounded depiction-cache tables, and upgrades checkpoint
+and retained entry snapshots. It preserves uploaded bytes and existing command
+positions/redo branches. Project and archive schemas advance to 3; viewer remains
+2 and normalized/selection/component schemas remain 1.
+
+This is an explicit serialization boundary: actual 0.35 code cannot safely author
+schema-3 state. Do not run it against the upgraded live store. Schema-1/2 archives
+remain validated import inputs to the new application; schema-3 exports require a
+schema-3 reader. Archives are current-state snapshots and omit portable Undo history.
+
+`alembic downgrade 0015` validates every retained live/checkpoint/history designation
+before mutation. It refuses any nondefault intent, including Clear and automatic
+assessment, or any retained ligand command. Clearing a choice does not restore the
+untouched unresolved default. Use the complete pre-upgrade backup for rollback when
+the guard refuses; do not delete designation fields or history. Default-only
+roundtrip is supported. Further downgrade retains earlier surface/camera guards.
+
+Opening a migrated project may perform one bounded revision-locked recognition of
+unresolved legacy entries. This records an assessed baseline while preserving
+existing user history/redo; manual Use/Clear remains undoable. After recognition,
+the store may no longer satisfy default-only downgrade conditions. Depictions are
+derived disposable drawings; their absence or failure does not erase exact intent.
 
 ## Upgrading the shared camera preference (0015)
 

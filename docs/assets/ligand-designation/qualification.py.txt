@@ -26,7 +26,10 @@ CONFIGS = {
 }
 TOOL_DIRECTORY = "docs/assets/ligand-designation/"
 TOOLS = {
-    TOOL_DIRECTORY + name
+    directory + name
+    for directory in (
+        "docs/assets/viewer-information/", "docs/assets/viewer-measurements/", TOOL_DIRECTORY,
+    )
     for name in (
         "qualification.py.txt",
         "release-recipe.py.txt",
@@ -157,6 +160,7 @@ def main():
             env=environment,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
+            start_new_session=True,
         )
         chunks = []
         for line in proc.stdout:
@@ -172,6 +176,8 @@ def main():
             {
                 **step,
                 "exit_code": code,
+                "isolated_child_pid": proc.pid,
+                "isolated_session_requested": True,
                 "seconds": round(time.monotonic() - started, 3),
                 "log": str(log.relative_to(root)),
                 "log_sha256": digest(content),

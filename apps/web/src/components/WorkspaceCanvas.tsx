@@ -1,4 +1,5 @@
 import type { SurfaceManagerSession } from "../surfaces/surfaceManagerSession";
+import type { MeasurementSession } from "../measurements/session";
 import type { WorkspacePresentationController } from "../workspacePresentation/controller";
 import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
@@ -10,6 +11,7 @@ import type {
   AtomReference,
   CoordinatePatch,
   Project,
+  Measurement,
   Scene,
   Selection,
   SelectionColorMode,
@@ -30,6 +32,9 @@ import { editAttemptBlocksWrites } from "../editing/attempt";
 import type { MolecularEditingBindings, MolecularEditingPorts } from "../editing/ports";
 
 interface WorkspaceCanvasProps extends MolecularEditingPorts {
+  measurementSession?: MeasurementSession;
+  onUpdateMeasurement?: (measurement: Measurement, name: string, visible: boolean) => Promise<void>;
+  onDeleteMeasurement?: (measurement: Measurement) => Promise<void>;
   project: Project | undefined;
   theme: Theme;
   selection: Selection;
@@ -69,6 +74,9 @@ interface WorkspaceCanvasProps extends MolecularEditingPorts {
 }
 
 export function WorkspaceCanvas({
+  measurementSession,
+  onUpdateMeasurement,
+  onDeleteMeasurement,
   project,
   theme,
   selection,
@@ -152,6 +160,9 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          measurementSession={measurementSession}
+          onUpdateMeasurement={onUpdateMeasurement}
+          onDeleteMeasurement={onDeleteMeasurement}
           cameraPresentation={cameraPresentation}
           {...editingPorts}
           key={project.id}

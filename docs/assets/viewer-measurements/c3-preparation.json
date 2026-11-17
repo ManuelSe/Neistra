@@ -1,0 +1,48 @@
+{
+  "scope": "C3 version and stronger-gate preparation; not completed gate/final implementation approval",
+  "observed_utc": "2026-11-16T23:17:10.471649+00:00",
+  "comparison_base": "4b8ae716f382d67efe0823c007a079a6a278ddce",
+  "current_version": "0.35.0",
+  "five_version_sources_sha256": {
+    "pyproject.toml": "75ee1ef3b9fa004dd71ff0ea18b28722dd11282ce2f51b90e6f42ba437a1b184",
+    "uv.lock": "6fb93fc52c2280918228100705cd0e7601cd3ed59870140d8309212f50bed78b",
+    "apps/web/package.json": "a83e71b4548f9d435c868f0a247f5761b89d164d5c0ff8080756c6b87deec8af",
+    "apps/api/src/neistra_api/main.py": "45a32c02eb442189cf05c5dc0703e44a5002a11fb4eb0abcdf644e1b6e6af1bb",
+    "apps/api/src/neistra_api/archive_service.py": "500c27f96354e163d1ad2f3ab2e031112b47ba11fd2c5461b8e49b07da43a7ce"
+  },
+  "version_audit_observed_exit": 0,
+  "dependency_pins_unchanged": true,
+  "migration_head": "0015",
+  "new_migration": null,
+  "project_archive_viewer_schema": 2,
+  "remote_observed_master": "4b8ae716f382d67efe0823c007a079a6a278ddce",
+  "preceding_tag": "v0.34.0",
+  "preceding_annotated_object": "7aacc228b425dd0e8f3c593cb119bb3e869bd361",
+  "preceding_runtime": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+  "previous_sources_verified": 885,
+  "proposed_tag_and_release_absent": "v0.35.0 returned404 for each at preflight; recheck beforepublication",
+  "focused_final_version_archive_tests": {
+    "passed": 50,
+    "exit": 0,
+    "scope": "archive roundtrip plus ordered measurement persistence; observed tool transcript, no separatelycapturedlosslessfilelog; fresh full gate retains complete Python output"
+  },
+  "recipe": {
+    "name": "c3-candidate1-recipe.json",
+    "sha256": "1b7cb42536d89ca8f474c1a4dfa30370477c71ade43f1fca3e4fcc72dea363f3",
+    "fresh_sequential_commands": 42,
+    "all35baseline_labels_retained_in_order": true,
+    "new_ordered_measurement_commands": 7,
+    "source_count": 926,
+    "no_retry_skip_deadline_relaxation": true
+  },
+  "tools_sha256": {
+    "qualification.py.txt": "53695102b8444b31c68e336b8a2991be812d47186ef7a27431be7d0259f7a183",
+    "release-recipe.py.txt": "20cf30a2515591ce377e7a7d0df626ccd78b71796c652f1f17bd6981736a65e5",
+    "versions.py.txt": "b5d4f26bb0aec8c4a98bc7365aafa8e23872892e2b62da71bfcee5d092b332ec",
+    "production-audit.py.txt": "c1fd5d64b6431f0223b79b0d7d0db7e906fff8e5a60619bbc8d340b144c39d1f",
+    "qualification-summary.py.txt": "e6eb1a5a06b2a51b5039d5e76f9623bfdb7890932dc377663de718ae63c84430",
+    "release-evidence.py.txt": "0fe9807a37d9d66218f8422e5397ae2934ae3b5af4627c76d4b38de3e9630d57"
+  },
+  "independent_architecture_review": "PASS scoped six-helper review after nonexistent planpath corrected; actualadd() probe success, allsixcompile, source/reader/exclusion/recursivepackaging policies inspected; not final wholefeatureapproval",
+  "pending": "Clean committed candidate; fresh complete42 gate/summary/recursivepackaging; all7finalsamecandidate beforepush; normaldelivery and exactmergedfresh42 beforetag/release/closeout"
+}

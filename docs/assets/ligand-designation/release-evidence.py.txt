@@ -290,7 +290,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
     assert gate["complete"] and gate["source_unchanged"] and gate["preceding_source_unchanged"]
     assert not gate["initial_status"]
     assert summary["commit"] == gate["commit"]
-    assert summary["complete_steps"] == len(gate["steps"]) == len(recipe["steps"]) == 35
+    assert summary["complete_steps"] == len(gate["steps"]) == len(recipe["steps"]) == 42
     assert all(step["exit_code"] == 0 for step in gate["steps"])
     assert (
         summary["failures_flakes_retries"]
@@ -341,6 +341,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
     for name in (
         "rebranding_reader_qualification.py",
         "current_connectivity_reader_qualification.py",
+        "measurement_reader_qualification.py",
         "navigation_reader_qualification.py",
         "project_document_compatibility.py",
         "schema_boundary_refusal.py",
@@ -358,7 +359,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
     assert reader_audit["protocol"] == "schema-boundary-v1"
     assert set(reader_audit["directions"]) == {
         f"{family}-{phase}"
-        for family in ("rich", "connectivity")
+        for family in ("rich", "connectivity", "measurements")
         for phase in (
             "current-produce",
             "previous-refuse-current",
@@ -391,7 +392,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
     reader_count, reader_excluded = add_reader_workspace(items, reader_work)
     assert reader_count > 0
     retained_families = {}
-    for family in ("rich", "connectivity"):
+    for family in ("rich", "connectivity", "measurements"):
         for phase, flag in (
             ("current-produce", "--data-dir"),
             ("previous-produce", "--data-dir"),
@@ -417,7 +418,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
         "browser_native_files": browser_count,
         "scientific_native_files": native_count,
         "retained_reader_workspace_files": reader_count,
-        "retained_rich_connectivity_workspaces": retained_families,
+        "retained_rich_connectivity_measurement_workspaces": retained_families,
         "reader_workspace_exclusions": {
             "files": reader_excluded,
             "reason": (

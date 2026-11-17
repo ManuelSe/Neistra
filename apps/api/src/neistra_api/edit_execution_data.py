@@ -47,14 +47,27 @@ class EditOutput(BaseModel):
     normalized: FileDescriptor | None = None
 
 
+def _read_sized_regular_file(path: Path, size: int, message: str) -> bytes:
+    flags = os.O_RDONLY | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_NOFOLLOW", 0)
+    descriptor = os.open(path, flags)
+    try:
+        info = os.fstat(descriptor)
+        if not stat.S_ISREG(info.st_mode) or info.st_size != size:
+            raise ValueError(message)
+        with os.fdopen(descriptor, "rb", closefd=False) as stream:
+            # Bound the same opened regular file, including concurrent growth.
+            return stream.read(size + 1)
+    finally:
+        os.close(descriptor)
+
+
 def read_verified_file(root: Path, descriptor: FileDescriptor) -> bytes:
     path = root / descriptor.filename
     if path.is_symlink() or path.resolve().parent != root.resolve():
         raise ValueError("Editing output is outside its owned operation directory")
-    info = path.stat()
-    if not stat.S_ISREG(info.st_mode) or info.st_size != descriptor.size:
-        raise ValueError("Editing output size or file type does not match its descriptor")
-    data = path.read_bytes()
+    data = _read_sized_regular_file(
+        path, descriptor.size, "Editing output size or file type does not match its descriptor"
+    )
     if len(data) != descriptor.size or hashlib.sha256(data).hexdigest() != descriptor.sha256:
         raise ValueError("Editing output failed integrity checks")
     return data
@@ -64,10 +77,7 @@ def read_immutable_input(root: Path, identity: ImmutableEditInput) -> bytes:
     path = (root / identity.relative_path).resolve()
     if Path(identity.relative_path).is_absolute() or not path.is_relative_to(root.resolve()):
         raise ValueError("Editing input is outside the managed artifact store")
-    info = path.stat()
-    if not stat.S_ISREG(info.st_mode) or info.st_size != identity.size:
-        raise ValueError("Editing source size or file type changed")
-    data = path.read_bytes()
+    data = _read_sized_regular_file(path, identity.size, "Editing source size or file type changed")
     if len(data) != identity.size or hashlib.sha256(data).hexdigest() != identity.sha256:
         raise ValueError("Editing source failed integrity checks")
     return data

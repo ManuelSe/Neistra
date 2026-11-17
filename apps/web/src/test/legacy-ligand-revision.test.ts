@@ -39,4 +39,13 @@ describe("legacy default revision reconciliation", () => {
     expect(input.resolve).toHaveBeenCalledOnce();
     expect(input.accept).not.toHaveBeenCalled();
   });
+  it("rechecks after publishing a conflict reread before admitting the sole retry", async () => {
+    const input = ports();
+    input.resolve.mockRejectedValueOnce(conflict());
+    input.accept.mockImplementationOnce(() => { input.current.mockReturnValue(false); });
+    await expect(completeLegacyLigands(molecularProject(), ["entry-a"], input)).rejects.toThrow("context changed");
+    expect(input.accept).toHaveBeenCalledOnce();
+    expect(input.resolve).toHaveBeenCalledOnce();
+  });
+
 });

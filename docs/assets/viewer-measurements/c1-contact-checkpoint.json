@@ -1,0 +1,51 @@
+{
+  "scope": "Focused coherent C1a core/API and current saved geometry checkpoint; not whole157implementation approval or release gate",
+  "comparison_base": "4b8ae716f382d67efe0823c007a079a6a278ddce",
+  "versions": "All five sources remain0.34.0 during development; no schema/migration/dependency change",
+  "files": 45,
+  "archive_bytes": 85846,
+  "archive_sha256": "edffcb6f982ecce7ce4a6db9337662ea325c260328962b9548ec38c168fb350b",
+  "python": {
+    "passed": 274,
+    "skipped": 0,
+    "source_identities_unchanged": 214,
+    "ruff": "PASS entire repository",
+    "mypy": "PASS 222sourcefiles",
+    "receipt": "checkpoint/issue157-c1-python1/results.json"
+  },
+  "frontend": {
+    "passed": 1040,
+    "suites": 110,
+    "source_identities_unchanged": 300,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "receipt": "checkpoint/issue157-c1-web3/results.json"
+  },
+  "native": {
+    "passed": 1,
+    "retries": 0,
+    "project": "chromium",
+    "file": "tests/e2e/measurements.spec.ts",
+    "receipt": "checkpoint/issue157-c1-native1/result.json",
+    "scope": "Retained complete native measurement/contact workflow before two failed-query guard corrections; those corrections independently pass51 component cases; normal successful native path unchanged. Full final gates remain required."
+  },
+  "specialists": {
+    "scientific_theory": "PASS narrow measured policy/method reconciliation; no tests run",
+    "performance": "PASS primitive117 and correctedactualAPI12operations; report/receipts in separateperformanceZIP; includes first12confounded measurements",
+    "software_architecture": "PASS intermediate API/transport; corrected failed-cache P2 and independently verified73transport+51frontend cases",
+    "scientific_implementation": "Implementation author of core/tests, not independent final assessment; fresh nonauthor required for final review",
+    "other_roles": "Prior all7 planning assessments remain planning only. Full seven-role final implementation review remains pending."
+  },
+  "limits": [
+    "Sampled RSS threshold is not hard instantaneous allocation/AS bound;15seconds not all-host latency guarantee.",
+    "Read disconnect callback control is not a liveTCPsocket test.",
+    "No deliberate picker/controller/newmanager/contact-result owner integration implemented by this checkpoint.",
+    "Final allseven assessments, allfive0.35versions, actual0.34readerqualification, both35commandreleasegates and publication remain pending."
+  ],
+  "diagnostics": [
+    "Original19APItest run had5 false comparisons: import timestamp Z versus SQLite persisted readback; fixed full persistedGET comparisons, final274 includes current27lifecycle cases. Prior diagnostic receipt retained; original tool transcript is not claimed as an independently captured lossless log.",
+    "New shared-geometry test initially assumed1.4Angstrom fixture; corrected to explicit analytic3Angstrom coordinates. New native-installation harness initially omitted second atom fields, corrected complete3atom fixture; new legacy harness omitted TooltipProvider, corrected provider. Original tool transcript remains session evidence, not reconstructed lossless file logs.",
+    "Web2 stopped at3require-await lint errors in new test act callbacks; corrected syncact, fresh wholeWeb3 passes all4commands. Web1passing historical evidence separately retained."
+  ]
+}

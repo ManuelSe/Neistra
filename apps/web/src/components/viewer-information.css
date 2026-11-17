@@ -1,0 +1,64 @@
+.viewer-information-strip {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+  color: var(--text);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-xs);
+  pointer-events: none;
+}
+.viewer-info-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-width: 0; }
+.viewer-info-identity, .viewer-info-geometry { display: flex; align-items: center; gap: 5px; min-width: 0; min-height: 32px; padding: 0 5px 0 9px; }
+.viewer-info-identity { border-right: 1px solid var(--border); }
+.viewer-info-geometry { justify-content: flex-end; }
+.viewer-info-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.viewer-info-identity .viewer-info-text { color: var(--text-soft); flex: 1; }
+.viewer-info-geometry .viewer-info-text { font-variant-numeric: tabular-nums; }
+.viewer-info-action {
+  display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 4px;
+  min-width: 30px; min-height: 30px; padding: 4px; border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: var(--text); font: inherit; pointer-events: auto; cursor: pointer;
+}
+.viewer-info-action:hover:not(:disabled), .viewer-info-action[aria-expanded="true"] { color: var(--accent-strong); background: var(--accent-soft); }
+.viewer-info-action:disabled, .viewer-info-use-order:disabled { opacity: .55; cursor: default; }
+.viewer-info-action:focus-visible, .viewer-info-dialog select:focus-visible, .viewer-info-use-order:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.dialog-content.viewer-info-dialog {
+  position: fixed; left: var(--viewer-info-left, 8px); top: auto; bottom: var(--viewer-info-bottom, 8px);
+  width: min(400px, calc(100vw - 16px)); max-width: calc(100vw - 16px);
+  max-height: max(1px, calc(100dvh - var(--viewer-info-bottom, 8px) - 8px)); padding: 10px 12px; overflow: auto; overscroll-behavior: contain;
+  transform: none; animation: fade-in 120ms ease-out; pointer-events: auto;
+}
+.viewer-info-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.viewer-info-dialog-heading h2 { margin: 0; font-size: var(--text-md); }
+.viewer-info-secondary { color: var(--text-soft); font-size: var(--text-xs); line-height: 1.5; overflow-wrap: anywhere; margin: 8px 0; }
+.viewer-info-atom-chooser, .viewer-info-order-controls > label { display: grid; gap: 4px; min-width: 0; font-size: var(--text-xs); }
+.viewer-info-dialog select { width: 100%; min-width: 0; min-height: 34px; font-size: var(--text-xs); }
+.viewer-info-properties { display: grid; gap: 7px; margin: 12px 0 2px; font-size: var(--text-xs); }
+.viewer-info-properties > div { display: grid; grid-template-columns: minmax(0, 110px) minmax(0, 1fr); gap: 8px; }
+.viewer-info-properties dt { color: var(--text-soft); }
+.viewer-info-properties dd { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.viewer-info-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 5px; font-size: var(--text-xs); }
+.viewer-info-current-targets { margin: 10px 0; padding-left: 22px; font-size: var(--text-xs); line-height: 1.6; }
+.viewer-info-current-targets li { overflow-wrap: anywhere; padding-left: 3px; }
+.viewer-info-order-controls { display: grid; gap: 8px; }
+.viewer-info-use-order { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 34px; padding: 5px 9px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font-size: var(--text-xs); cursor: pointer; }
+@container (max-width: 560px) {
+  .viewer-info-body { grid-template-columns: minmax(0, 1fr); }
+  .viewer-info-identity { border-right: 0; }
+  .viewer-info-geometry { justify-content: space-between; border-top: 1px solid var(--border); }
+}
+@media (any-pointer: coarse), (max-width: 840px) {
+  .viewer-info-action { min-width: 44px; min-height: 44px; }
+  .viewer-info-dialog select, .viewer-info-use-order { min-height: 44px; }
+}
+
+/* Deliberate-kind progress remains readable at narrow and enlarged viewports. */
+.viewer-information-strip.has-measurement-basis .viewer-info-geometry .viewer-info-text {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+}
+.viewer-info-basis { color: var(--text-muted); font-size: 11px; flex: 0 0 auto; }

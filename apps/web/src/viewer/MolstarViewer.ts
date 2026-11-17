@@ -15,6 +15,9 @@ import type {
   MolecularViewer,
   MovementInteraction,
   ViewerSelectionEvent,
+  ViewerAtomHover,
+  AtomPickLeaseRequest,
+  ViewerMeasurementTarget,
   ViewerStructure,
   ViewerMeasurement,
 } from "./MolecularViewer";
@@ -35,7 +38,12 @@ class LazyMolstarViewer implements MolecularViewer {
   private selection: AtomReference[] = [];
   private pickingGranularity: SelectionGranularity = "atom";
   private movementInteraction: MovementInteraction = "inactive";
+  private atomPickLease: { request: AtomPickLeaseRequest; release?: () => void } | undefined;
+  private pendingMeasurementTargets: readonly ViewerMeasurementTarget[] = [];
+  private modelPreview: MolecularProposalGeometry | null = null;
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
+  private atomHoverListeners = new Set<(event: ViewerAtomHover | null) => void>();
+  private atomHoverBindings = new Map<(event: ViewerAtomHover | null) => void, () => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private sessionCameraListeners = new Set<(camera: SessionCamera) => void>();
   private sessionCameraBindings = new Map<(camera: SessionCamera) => void, () => void>();
@@ -81,9 +89,15 @@ class LazyMolstarViewer implements MolecularViewer {
       ),
     );
     this.mounted = true;
+    if (this.atomPickLease) this.bindAtomPickLease(this.atomPickLease, engine);
+    const measurementTargets = this.pendingMeasurementTargets;
+    this.pendingMeasurementTargets = [];
+    if (measurementTargets.length) await engine.setMeasurementTargets?.(measurementTargets);
+    if (this.disposed || this.engine !== engine) return;
     for (const listener of this.sessionCameraListeners) {
       this.sessionCameraBindings.set(listener, engine.subscribeSessionCamera(listener));
     }
+    for (const listener of this.atomHoverListeners) this.bindAtomHover(listener, engine);
     for (const listener of this.drawableListeners) this.drawableBindings.set(listener, engine.subscribeDrawable(listener));
     for (const listener of this.interactionListeners) this.bindInteractionDisplay(listener, engine);
     if (this.pendingInteractions) await engine.setInteractions(this.pendingInteractions.records, this.pendingInteractions.options);
@@ -114,10 +128,12 @@ class LazyMolstarViewer implements MolecularViewer {
     patch: CoordinatePatch,
     mode: "preview" | "commit",
   ): Promise<void> {
+    this.retireAtomPickLease("source"); this.pendingMeasurementTargets = [];
     return this.engine?.applyCoordinatePatch(patch, mode) ?? Promise.resolve();
   }
 
   clearCoordinatePreview(entryId: string): Promise<void> {
+    this.retireAtomPickLease("preview"); this.pendingMeasurementTargets = [];
     return this.engine?.clearCoordinatePreview(entryId) ?? Promise.resolve();
   }
 
@@ -126,6 +142,8 @@ class LazyMolstarViewer implements MolecularViewer {
   }
 
   setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
+    if (this.modelPreview !== preview) { this.retireAtomPickLease("preview"); this.pendingMeasurementTargets = []; }
+    this.modelPreview = preview;
     return this.engine?.setModelPreview?.(preview) ?? Promise.resolve();
   }
 
@@ -135,8 +153,59 @@ class LazyMolstarViewer implements MolecularViewer {
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {
+    if (this.pickingGranularity !== granularity) this.retireAtomPickLease("picking-mode");
     this.pickingGranularity = granularity;
     this.engine?.setPickingGranularity(granularity);
+  }
+
+  acquireAtomPickLease(request: AtomPickLeaseRequest): () => void {
+    if (!request.isCurrent()) return () => {};
+    if (this.disposed) { request.onRetire("disposed"); return () => {}; }
+    this.retireAtomPickLease("replaced");
+    if (this.atomPickLease) { request.onRetire("replaced"); return () => {}; }
+    if (!request.isCurrent()) return () => {};
+    const lease = { request };
+    this.atomPickLease = lease;
+    if (this.mounted && this.engine) this.bindAtomPickLease(lease, this.engine);
+    return () => { if (this.atomPickLease === lease) this.retireAtomPickLease(); };
+  }
+
+  private retireAtomPickLease(reason?: string): void {
+    const lease = this.atomPickLease;
+    if (!lease) return;
+    this.atomPickLease = undefined;
+    this.pendingMeasurementTargets = [];
+    lease.release?.();
+    if (reason) lease.request.onRetire(reason);
+  }
+
+  private bindAtomPickLease(lease: { request: AtomPickLeaseRequest; release?: () => void }, engine: MolecularViewer): void {
+    if (this.atomPickLease !== lease || this.disposed || !lease.request.isCurrent()) {
+      if (this.atomPickLease === lease) this.retireAtomPickLease("stale");
+      return;
+    }
+    if (!engine.acquireAtomPickLease) { this.retireAtomPickLease("unsupported"); return; }
+    const isCurrent = () => !this.disposed && this.mounted && this.engine === engine
+      && this.atomPickLease === lease && lease.request.isCurrent();
+    const release = engine.acquireAtomPickLease({ owner: lease.request.owner, isCurrent,
+      onPick: event => { if (isCurrent()) lease.request.onPick(event); },
+      onRetire: reason => {
+        if (this.atomPickLease === lease && this.engine === engine) this.retireAtomPickLease(reason);
+      },
+    });
+    if (this.atomPickLease === lease) lease.release = release;
+    else release();
+  }
+
+  setMeasurementTargets(targets: readonly ViewerMeasurementTarget[]): Promise<void> {
+    if (this.disposed) return Promise.resolve();
+    if (targets.length > 4 || targets.some(target => !Number.isInteger(target.index) || target.index < 1 || target.index > 4)
+      || new Set(targets.map(target => target.index)).size !== targets.length) return Promise.reject(new Error("Measurement targets require at most four distinct numbered slots."));
+    const copied = targets.map(target => ({ ...target, reference: { ...target.reference } }));
+    if (!this.mounted || !this.engine) { this.pendingMeasurementTargets = copied; return Promise.resolve(); }
+    this.pendingMeasurementTargets = [];
+    if (!this.engine.setMeasurementTargets) return targets.length ? Promise.reject(new Error("Measurement target markers are unavailable.")) : Promise.resolve();
+    return this.engine.setMeasurementTargets(copied);
   }
 
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
@@ -224,6 +293,7 @@ class LazyMolstarViewer implements MolecularViewer {
   }
 
   setMovementMode(interaction: MovementInteraction): void {
+    if (this.movementInteraction !== interaction) { this.retireAtomPickLease("movement"); this.pendingMeasurementTargets = []; }
     this.movementInteraction = interaction;
     this.engine?.setMovementMode(interaction);
   }
@@ -254,6 +324,29 @@ class LazyMolstarViewer implements MolecularViewer {
     return () => {
       this.cameraListeners.delete(listener);
       engineUnsubscribe?.();
+    };
+  }
+
+  private bindAtomHover(listener: (event: ViewerAtomHover | null) => void, engine: MolecularViewer): void {
+    const release = engine.subscribeAtomHover?.(event => {
+      if (!this.disposed && this.mounted && this.engine === engine && this.atomHoverListeners.has(listener)
+        && (!engine.getAtomHover || engine.getAtomHover() === event)) listener(event);
+    });
+    if (release) this.atomHoverBindings.set(listener, release);
+  }
+
+  getAtomHover(): ViewerAtomHover | null {
+    return this.disposed || !this.mounted ? null : this.engine?.getAtomHover?.() ?? null;
+  }
+
+  subscribeAtomHover(listener: (event: ViewerAtomHover | null) => void): () => void {
+    if (this.disposed) { listener(null); return () => {}; }
+    this.atomHoverListeners.add(listener);
+    if (this.mounted && this.engine) this.bindAtomHover(listener, this.engine);
+    else listener(null);
+    return () => {
+      this.atomHoverListeners.delete(listener);
+      this.atomHoverBindings.get(listener)?.(); this.atomHoverBindings.delete(listener);
     };
   }
 
@@ -292,7 +385,12 @@ class LazyMolstarViewer implements MolecularViewer {
 
   dispose(): void {
     this.disposed = true;
+    this.retireAtomPickLease("disposed"); this.pendingMeasurementTargets = [];
     this.mounted = false;
+    for (const release of this.atomHoverBindings.values()) release();
+    this.atomHoverBindings.clear();
+    for (const listener of this.atomHoverListeners) listener(null);
+    this.atomHoverListeners.clear();
     this.pendingSurfacePreviews.clear();
     this.pendingInteractions = undefined;
     this.interactionState = { ...this.interactionState, status: "pending", installedRecordKeys: [],

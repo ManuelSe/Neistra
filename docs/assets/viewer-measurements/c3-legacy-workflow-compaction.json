@@ -1,0 +1,49 @@
+{
+  "scope": "Verified lossless owned failed-run raw-output relocation; no deletion or source change",
+  "original": "docs/assets/viewer-measurements/c3-candidate4-native",
+  "retained": ".issue-11-evidence/c3-candidate4-native",
+  "files": 11827,
+  "bytes": 905110843,
+  "every_original_byte_count_and_sha256_matches_archived_manifest": true,
+  "diagnostic_parts": [
+    {
+      "file": "c3-legacy-workflow-diagnostic-01.zip",
+      "bytes": 83579431,
+      "sha256": "de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-02.zip",
+      "bytes": 83623670,
+      "sha256": "1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-03.zip",
+      "bytes": 83654761,
+      "sha256": "f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-04.zip",
+      "bytes": 83666650,
+      "sha256": "e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-05.zip",
+      "bytes": 83627802,
+      "sha256": "d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-06.zip",
+      "bytes": 82383056,
+      "sha256": "2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446"
+    },
+    {
+      "file": "c3-legacy-workflow-diagnostic-07.zip",
+      "bytes": 4173860,
+      "sha256": "861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20"
+    }
+  ],
+  "raw_owned_run_store": "/tmp/neistra157-c3-candidate4 remains retained, allfilesalsoarchived",
+  "reason": "FailedPlaywright ephemeralrecordings retained in verified multipart forensicarchives; keep raw files outoftrackedtree and strict successful-gatepackager, preserve allobservations.",
+  "archive_repository_directory": "docs/assets/viewer-measurements/forensics",
+  "part_payloads_unchanged_on_relocation": true
+}

@@ -1,3 +1,7 @@
+import { ViewerInspection } from "./ViewerInspection";
+import { ViewerMeasurements } from "./ViewerMeasurements";
+import { measurementPreviewPaused } from "../measurements/preview";
+import type { MeasurementSession } from "../measurements/session";
 import { captureHydrogenTarget } from "../selection/hydrogenAction";
 import { canonicalSelection } from "../selection/selection";
 import { useSelectionStore } from "../store/selection";
@@ -21,16 +25,17 @@ import type { WorkspacePresentationController } from "../workspacePresentation/c
 import type { InitialFitTicket } from "../workspacePresentation/types";
 import { useEditingStore } from "../store/editing";
 import type { ExpandSelection } from "../selection/expansion";
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type ComponentProps } from "react";
 import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   CameraState,
   AtomReference,
   CoordinatePatch,
   Project,
+  Measurement,
   Scene,
   SelectionRepresentationStyle,
   SelectionRepresentationChannel,
@@ -61,6 +66,7 @@ import { surfaceKey } from "../viewer/surface/protocol";
 import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
 import { MovementOverlay, MovementControls } from "./MovementOverlay";
+
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 import { movementPreview, movementUnavailableReason } from "../coordinates/interactiveTransform";
 import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
@@ -76,6 +82,9 @@ const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
 };
 
 interface StructureViewerProps extends MolecularEditingPorts {
+  measurementSession?: MeasurementSession;
+  onUpdateMeasurement?: (measurement: Measurement, name: string, visible: boolean) => Promise<void>;
+  onDeleteMeasurement?: (measurement: Measurement) => Promise<void>;
   project: Project;
   theme: Theme;
   selection: Selection;
@@ -112,6 +121,9 @@ interface StructureViewerProps extends MolecularEditingPorts {
 }
 
 export function StructureViewer({
+  measurementSession,
+  onUpdateMeasurement,
+  onDeleteMeasurement,
   project,
   theme,
   selection,
@@ -150,6 +162,10 @@ export function StructureViewer({
   onRecoverResidue,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
+  const measurementsOpen = useSyncExternalStore(
+    useCallback(listener => measurementSession?.subscribe(listener) ?? (() => {}), [measurementSession]),
+    useCallback(() => measurementSession?.snapshot().open ?? false, [measurementSession]),
+  );
   const queryClient = useQueryClient();
   const presentation = usePresentation();
   const sequenceDisplay = useWorkspaceStore(state => state.sequenceDisplay);
@@ -206,6 +222,7 @@ export function StructureViewer({
   const [surfaceCreation, setSurfaceCreation] = useState<SurfaceCreationRequest>();
   const nextSurfaceCreation = useRef(0);
   const openSurfaces = () => {
+    measurementSession?.cancelAcquisition("Atom picking stopped for surfaces.");
     if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
     setSurfaceCreation(undefined);
     useMinimizationStore.getState().dismiss();
@@ -221,11 +238,18 @@ export function StructureViewer({
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [presentationError, setPresentationError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
+  const [inspectionEntry, setInspectionEntry] = useState<{ projectId: string; entryId: string } | null>(null);
+  const inspectionOrder = useSelectionStore(state => state.projectId === project.id ? state.inspectionOrder : null);
+  const inspectionContext = useRef({ project, selection });
+  inspectionContext.current = { project, selection };
+  const inspectEntry = useCallback((entryId: string | null) => {
+    setInspectionEntry(entryId === null ? null : { projectId: project.id, entryId });
+  }, [project.id]);
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
   const [interactionProjectId, setInteractionProjectId] = useState<string | null>(null);
-  const openMinimization = () => { useEditingStore.getState().setOpen(false); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); };
+  const openMinimization = () => { measurementSession?.cancelAcquisition("Atom picking stopped for minimization."); useEditingStore.getState().setOpen(false); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); };
   useEffect(() => { if (minimizationPreview.open) useEditingStore.getState().setOpen(false); }, [minimizationPreview.open]);
   const minimizationUnavailable = movementActive ? "Finish movement before minimizing selection" : coordinatePreview ? "Finish coordinate preview before minimizing" : busy ? "Finish the current change before minimizing" : !selection.atoms.length ? "Select atoms before minimizing" : null;
   useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
@@ -251,6 +275,24 @@ export function StructureViewer({
       placeholderData: (previous: StructureProjection | undefined) => previous?.entry_id === entry.id ? previous : undefined,
     })),
   });
+
+  // Quick geometry loads at most four selected sources. Atom details may lazily
+  // request one additional selected entry; hover never initiates a request.
+  const inspectionEntries = useMemo(() => {
+    const needed = new Set(selection.atoms.length <= 4 ? selection.atoms.map(atom => atom.structure_id) : []);
+    return project.entries.filter(entry => !entry.visible && needed.has(entry.id));
+  }, [selection.atoms, project.entries]);
+  // Keep four observer slots: the pinned query observer does not release a
+  // removed trailing query. Disabled unique slots retire its actual source key.
+  const inspectionQueries = useQueries({ queries: Array.from({ length: 4 }, (_, slot) => {
+    const entry = inspectionEntries[slot];
+    return entry ? structureQueryOptions(project.id, entry.id, entry.current_artifact_id)
+      : structureQueryOptions(project.id, "", `inspection-unused-${slot}`);
+  }) });
+  const detailEntry = inspectionEntry?.projectId === project.id
+    && selection.atoms.some(atom => atom.structure_id === inspectionEntry.entryId)
+    ? project.entries.find(entry => entry.id === inspectionEntry.entryId && !entry.visible) : undefined;
+  const detailQuery = useQuery(structureQueryOptions(project.id, detailEntry?.id ?? "", detailEntry?.current_artifact_id));
 
   const hiddenSeedEntries = useMemo(() => {
     const needed = new Set(visibleEntries.flatMap((entry) =>
@@ -372,6 +414,7 @@ export function StructureViewer({
           ? [
               {
                 entryId: visibleEntries[index].id,
+                artifactId: query.data.artifact_id,
                 pockets: Object.fromEntries(visibleEntries[index].viewer_settings.surface_objects.flatMap(surface => {
                   const resolved = pockets.get(surfaceKey(visibleEntries[index].id, "pocket", surface.id));
                   return surface.source.kind === "pocket" && resolved ? [[surface.id, resolved]] : [];
@@ -400,6 +443,21 @@ export function StructureViewer({
       ),
     [structureQueries, visibleEntries, pockets],
   );
+  const inspectionStructures = new Map([
+    ...visibleEntries.flatMap((entry, index) => {
+      const query = structureQueries[index];
+      return !query.isError && !query.isPlaceholderData
+        && isCompleteProjection(query.data, entry.id, entry.current_artifact_id)
+        ? [[entry.id, query.data.structure] as const] : [];
+    }),
+    ...inspectionEntries.flatMap((entry, index) => {
+      const query = inspectionQueries[index];
+      return !query.isError && isCompleteProjection(query.data, entry.id, entry.current_artifact_id)
+        ? [[entry.id, query.data.structure] as const] : [];
+    }),
+    ...(detailEntry && !detailQuery.isError && isCompleteProjection(detailQuery.data, detailEntry.id, detailEntry.current_artifact_id)
+      ? [[detailEntry.id, detailQuery.data.structure] as const] : []),
+  ]);
   const sequenceRows = viewerStructures.flatMap(source => {
     const position = visibleEntries.findIndex(entry => entry.id === source.entryId);
     const entry = visibleEntries[position];
@@ -528,6 +586,10 @@ export function StructureViewer({
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
     && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, placement.action)
     ? placement.result : null;
+  const inspectionPaused = measurementPreviewPaused({ movement: movementActive, coordinates: Boolean(coordinatePreview),
+    placement: Boolean(modelPreview) || Boolean(editOpen && placement),
+    minimization: minimizationPreview.state.projectId === project.id
+      && (minimizationPreview.state.preview || minimizationPreview.state.applying) });
   useEffect(() => {
     if (!viewerReady) return;
     const operation = viewerRef.current?.setModelPreview?.(modelPreview);
@@ -606,7 +668,8 @@ export function StructureViewer({
     () =>
       new Map(
         structureQueries.flatMap((query, index) =>
-          isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
+          !query.isError && !query.isPlaceholderData
+            && isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id)
             ? [[query.data.entry_id, query.data.structure] as const] : [],
         ),
       ),
@@ -615,23 +678,24 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    const measurements = interactionPaused ? [] : project.measurements.map((measurement) => {
+    const measurements = inspectionPaused ? [] : project.measurements.flatMap((measurement) => {
       const value = measurementValue(
         measurement.kind,
         measurement.atom_references,
         normalizedStructures,
       );
-      return {
+      // Preserve the durable record but never install unavailable native geometry.
+      return measurement.visible && value !== null ? [{
         ...measurement,
         label: `${measurement.name}: ${formatMeasurement(measurement.kind, value)}`,
-      };
+      }] : [];
     });
     void viewerRef.current?.setMeasurements(measurements).catch((error: unknown) => {
       setViewerError(
         error instanceof Error ? error.message : "Measurements could not be displayed.",
       );
     });
-  }, [normalizedStructures, project.measurements, syncKey, viewerReady, interactionPaused]);
+  }, [normalizedStructures, project.measurements, syncKey, viewerReady, inspectionPaused]);
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending || sceneLoading;
@@ -676,6 +740,7 @@ export function StructureViewer({
   }, [project.entries]);
 
   const openStyleDialog = () => {
+    measurementSession?.cancelAcquisition("Atom picking stopped for styling.");
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
     useEditingStore.getState().setOpen(false);
@@ -709,6 +774,19 @@ export function StructureViewer({
       .finally(() => { if (current) { setStyleEligibilityBusy(false); setStyleLoadedContext(styleContext); } });
     return () => { current = false; };
   }, [styleDialogOpen, styleContext]);
+
+  const inspectionProps: ComponentProps<typeof ViewerInspection> = {
+    projectId: project.id, viewer: viewerRef.current, sources: viewerStructures,
+    selection, order: inspectionOrder, structures: inspectionStructures, entries: project.entries, paused: inspectionPaused,
+    onOrder: targets => { useSelectionStore.getState().setInspectionOrder(targets); }, onInspectEntry: inspectEntry,
+    onLoadEntry: async entryId => {
+      const context = inspectionContext.current;
+      if (context.project.id !== project.id || !context.selection.atoms.some(atom => atom.structure_id === entryId)) return;
+      const entry = context.project.entries.find(item => item.id === entryId);
+      if (!entry?.current_artifact_id) throw new Error("This entry has no current molecular artifact.");
+      await queryClient.fetchQuery(structureQueryOptions(project.id, entry.id, entry.current_artifact_id));
+    },
+  };
 
   return (
     <div className="sequence-workspace" ref={sequenceWorkspace}>
@@ -784,6 +862,7 @@ export function StructureViewer({
           ) : null}
           <ViewerToolbar
             onPresentation={presentation ? () => {
+              measurementSession?.cancelAcquisition("Atom picking stopped for presentation.");
               const error = presentation.open();
               setPresentationError(error);
             } : undefined}
@@ -794,10 +873,18 @@ export function StructureViewer({
             interactionsDescription={interactions.launcherDescription}
             interactionsStatus={interactions.panel.status}
             onInteractionVisibilityChange={interactions.panel.onShowChange}
-            onInteractions={() => { useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
+            onInteractions={() => { measurementSession?.cancelAcquisition("Atom picking stopped for interactions."); useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
-            onPickingGranularity={onPickingGranularity}
+            onPickingGranularity={granularity => { measurementSession?.cancelAcquisition(); onPickingGranularity(granularity); }}
+            measurementsOpen={measurementsOpen}
+            onMeasurements={measurementSession ? () => {
+              if (measurementsOpen) measurementSession.close();
+              else {
+                useEditingStore.getState().setOpen(false); useMinimizationStore.getState().dismiss();
+                setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); measurementSession.open();
+              }
+            } : undefined}
             fitAllUnavailableReason={movementActive ? "Finish movement before focusing the view" : viewerUnavailableReason}
             focusSelectionUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusSelectionUnavailableReason}
             focusLigandsUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusLigandsUnavailableReason}
@@ -817,6 +904,7 @@ export function StructureViewer({
               : minimization?.startReason() ?? viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
           {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
             onOpen={() => {
+              measurementSession?.cancelAcquisition("Atom picking stopped for editing.");
               const reason = minimization?.startReason();
               if (reason && !(editAttempt && editAttemptBlocksWrites(editAttempt))) { setViewerError(reason); return false; }
               if (!reason) useMinimizationStore.getState().dismiss();
@@ -951,6 +1039,12 @@ export function StructureViewer({
         </div>
       ) : null}
     </div>
+    {measurementSession && onUpdateMeasurement && onDeleteMeasurement ? <ViewerMeasurements key={project.id}
+      session={measurementSession} project={project} inspection={inspectionProps} sceneAvailable={!loading && !viewerError}
+      busy={busy} onUpdate={onUpdateMeasurement} onDelete={onDeleteMeasurement}
+      onSelect={references => onViewerSelection(canonicalSelection(references, "atom", "inspector"), "replace")}
+      onReturnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLButtonElement>('[aria-label="Measurements"]')?.focus({ preventScroll: true })} />
+      : <ViewerInspection key={project.id} {...inspectionProps} />}
     <SequenceViewer projectId={project.id} rows={sequenceRows} selection={selection}
       loading={structureQueries.some((query, index) => query.isPending || query.isPlaceholderData
         || !isCompleteProjection(query.data, visibleEntries[index].id, visibleEntries[index].current_artifact_id))}

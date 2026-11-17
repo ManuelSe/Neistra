@@ -1,0 +1,66 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "application_version": "0.34.0",
+  "archives": [
+    {
+      "bytes": 82905324,
+      "file": "c5-master1-qualified-01.zip",
+      "outer_manifest_entries": 1089,
+      "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c5-master1-qualified-01.zip",
+      "sha256": "8e28142ea65e0f7c149f2728101500a9ac828bc03713a0e251662d649596b6f4",
+      "verification_counts": {
+        "evidence_manifest_entries": 1089,
+        "project_archive_files": 435,
+        "zip_archives": 226
+      }
+    }
+  ],
+  "browser_native_files": 666,
+  "kind": "gate packages",
+  "label": "c5-master1",
+  "not_published_by_this_script": true,
+  "packager_sha256": "4fa42046da9b0cb75277cbe5efa799c9799aaeece1761eeed049767638cdc4c3",
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "qualified_commit": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+  "reader_workspace_exclusions": {
+    "files": [],
+    "reason": "Only bytecode and named interpreter/tool caches are excluded. All owned synthetic live databases, history, artifact stores, specimens, reports and logs are retained."
+  },
+  "retained_reader_workspace_files": 350,
+  "scientific_native_files": 7,
+  "source_digest": "b523757604b123dee5bfb79e33c0fe39092a238d03b8cfc2083dfd67d129cf80",
+  "summary": {
+    "actual_reader_audit": "c5-master1-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.34.0",
+    "branch": "",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 564,
+    "browser_inventory_sha256": "35affa2a153eeecc0f05a0ce0159e028203437c88dcd7753613db05c6714bb3a",
+    "browser_passed": 489,
+    "clean_start": true,
+    "commit": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 35,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 6178.258,
+    "exclusion_baseline": "docs/assets/interaction-inspection/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "b037069a8b1b84ed6516916d82dda63b19efe96a2660f2c94de41dc0e482fe72",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 1029,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.33.0; separate producer/reader processes both directions and both archive suffixes",
+    "preceding_source_identities_verified": 870,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 2344,
+    "python_skips": 0,
+    "source_count": 885,
+    "source_digest": "b523757604b123dee5bfb79e33c0fe39092a238d03b8cfc2083dfd67d129cf80",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 6180.0
+  }
+}

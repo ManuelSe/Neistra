@@ -438,7 +438,7 @@ describe("entry-owned ligand designation controls", () => {
       expect(props.onDesignate).not.toHaveBeenCalled();
     } else {
       await user.click(within(dialog).getByRole("button", { name: "Use ligand" }));
-      expect(props.onDesignate).toHaveBeenCalledWith(owner, "candidate-2", "exact-inventory-hash");
+      expect(props.onDesignate).toHaveBeenCalledWith(owner, "candidate-2", "exact-inventory-hash", expect.any(Function));
     }
   });
 
@@ -519,7 +519,7 @@ describe("entry-owned ligand designation controls", () => {
     await user.click(within(dialog).getByRole("button", { name: "Use ligand" }));
     expect(await within(dialog).findByRole("alert")).toHaveTextContent("Revision conflict");
     expect(within(dialog).getAllByRole("radio")[1]).toBeChecked();
-    expect(onDesignate).toHaveBeenLastCalledWith(owner, "candidate-2", "exact-inventory-hash");
+    expect(onDesignate).toHaveBeenLastCalledWith(owner, "candidate-2", "exact-inventory-hash", expect.any(Function));
     await user.click(within(dialog).getByRole("button", { name: "Use ligand" }));
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
     expect(onDesignate).toHaveBeenCalledTimes(2);
@@ -556,7 +556,7 @@ describe("entry-owned ligand designation controls", () => {
     await user.keyboard("{Escape}");
     update({ ...props, pausedReason: null });
     await user.click(screen.getByRole("button", { name: "Leave unassigned" }));
-    expect(props.onDesignate).toHaveBeenCalledWith(owner, null, undefined);
+    expect(props.onDesignate).toHaveBeenCalledWith(owner, null, undefined, expect.any(Function));
   });
 
   it("changes only inspection through the explicit chooser and includes hidden duplicate names", async () => {
@@ -701,7 +701,7 @@ describe("entry-owned ligand designation controls", () => {
     screen.getByRole("button", { name: "Use ligand" }).focus();
     await user.keyboard("{Enter}");
     expect(props.onDesignate).toHaveBeenCalledWith(expect.objectContaining({ id: "entry-a" }),
-      "candidate-2", "exact-inventory-hash");
+      "candidate-2", "exact-inventory-hash", expect.any(Function));
   });
 
   it("keeps a capacity refusal accessible alongside selectable metadata", async () => {

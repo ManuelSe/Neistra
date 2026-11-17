@@ -1,0 +1,38 @@
+{
+  "scope": "Focused gesture input-oracle qualification only; no fullgate pass",
+  "evidence": {
+    "file": "c4-gesture-oracles.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-gesture-oracles.zip",
+    "bytes": 24452392,
+    "sha256": "2b7a85901eb85631fb86767e10424e7f8741fa83a64478b3fd38030ae12ebe5d",
+    "outer_manifest_entries": 45,
+    "verification_counts": {
+      "zip_archives": 9,
+      "evidence_manifest_entries": 45,
+      "project_archive_files": 0
+    }
+  },
+  "framing1": {
+    "startTime": "2026-11-16T09:53:50.722Z",
+    "duration": 219010.719,
+    "expected": 14,
+    "skipped": 0,
+    "unexpected": 8,
+    "flaky": 0
+  },
+  "framing2": {
+    "startTime": "2026-11-16T10:01:07.633Z",
+    "duration": 145858.005,
+    "expected": 16,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "preserved_assertions": [
+    "trusted native clicks",
+    "complete exact canonical selection/ranges/anchors",
+    "unchanged camera after gestures",
+    "unchanged molecular revision/no unrelated reads or writes"
+  ],
+  "source_change": "Deterministic public camera before gesture invariants; explicit visible atom representation for synthetic gesture fixture, exact native raster IDs and unoccluded target assertion. Production code unchanged."
+}

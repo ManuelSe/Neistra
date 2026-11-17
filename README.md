@@ -197,12 +197,15 @@ the current granularity/modifiers; shell-only pixels act as empty space. Choose
 See the [surface workflow](docs/SURFACES.md).
 
 Back up the complete managed database and artifacts before upgrading. Migration
-**0015** adds only the installation camera preference; downgrade to 0014 removes
-that preference while preserving project/history/artifact data. Existing
-project/viewer/archive schemas remain **2**, and validated schema-1 archives still
-import. Earlier 0014 downgrade guards still refuse retained surface objects or
-empty ordinary representation sets; use the complete pre-upgrade backup when
-reverting further. Upgrade client and server together.
+**0016** adds exact entry-owned ligand designation and advances project/archive
+schemas to **3**; viewer schema remains **2**. Older clients and servers cannot
+read or write the new project store or schema-3 archives. Upgrade them together;
+validated schema-1/2 archives still import. Downgrade to 0015 is permitted only
+when every live, checkpoint and retained history designation is the untouched
+unresolved default. Explicit choice, automatic recognition, Clear and retained
+ligand commands can prevent downgrade. Restore the complete pre-upgrade backup
+when reverting instead of stripping user intent. Earlier surface downgrade guards
+remain in force. See the [0016 upgrade guide](docs/DEVELOPMENT.md#upgrading-exact-ligand-designation-0016).
 Atomic hiding does not change entry-based Visible export.
 Current UI exports use `.neistra.zip`; legacy `.molweave.zip` archives, Python
 imports, `MOLWEAVE_*` settings and existing stores remain supported. See [release notes](docs/RELEASE_NOTES.md) and
@@ -337,7 +340,8 @@ authoritative. Mol* renders generated projections and is never a project save
 format or molecular state store.
 
 See [architecture](docs/ARCHITECTURE.md), [development and troubleshooting](docs/DEVELOPMENT.md),
-[HTTP API](docs/API.md), [project/archive schema](docs/PROJECT_SCHEMA.md),
+[HTTP API](docs/API.md), [measurements](docs/MEASUREMENTS.md),
+[project/archive schema](docs/PROJECT_SCHEMA.md),
 [normalized molecular schema](docs/NORMALIZED_SCHEMA.md), [format matrix](docs/FORMAT_MATRIX.md),
 [plugin guide](docs/PLUGIN_GUIDE.md), [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md),
 [fixture provenance](docs/FIXTURES.md), [accessibility](docs/ACCESSIBILITY.md),

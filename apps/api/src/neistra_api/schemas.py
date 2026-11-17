@@ -1275,6 +1275,7 @@ class ProteinEditRead(BaseModel):
 
 class ContactQuery(BaseModel):
     entry_id: str
+    expected_artifact_id: str | None = Field(default=None, min_length=1, max_length=128)
     cutoff: float = Field(default=2.0, gt=0, le=10)
     minimum_distance: float = Field(default=0.5, ge=0, lt=10)
 

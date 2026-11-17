@@ -32,7 +32,7 @@ assert set(state["unset_environment"]) == {
     "MOLWEAVE_DATABASE_URL",
     "DATABASE_URL",
 }
-assert len(state["steps"]) == len(recipe["steps"]) == 35
+assert len(state["steps"]) == len(recipe["steps"]) == 42
 assert digest(recipe_path.read_bytes()) == state["recipe_sha256"]
 assert digest((out / "qualification.py.txt").read_bytes()) == state["runner_sha256"]
 assert helpers["current_identities"](root) == state["source_before"] == state["source_after"]
@@ -117,6 +117,7 @@ def check_tool(receipt, path):
 for family, filename in (
     ("rich", "rebranding_reader_qualification.py"),
     ("connectivity", "current_connectivity_reader_qualification.py"),
+    ("measurements", "measurement_reader_qualification.py"),
 ):
     wrapper = root / "tests/support" / filename
     for suffix, mode, implementation, version, before, after in (
@@ -149,7 +150,7 @@ for family, filename in (
             path = Path(filename)
             assert path.is_relative_to(implementation), (name, module, path)
             assert digest(path.read_bytes()) == identities[str(path.relative_to(implementation))]
-        if family == "connectivity":
+        if family in {"connectivity", "measurements"}:
             check_tool(
                 evidence["common_wrapper"],
                 root / "tests/support/rebranding_reader_qualification.py",
@@ -159,7 +160,7 @@ for family, filename in (
             check_tool(evidence["refusal_helper"], refusal_helper)
             contracts["store_refusal"](evidence["store_refusal"], operations=True)
             contracts["archive_refusal"](
-                evidence["archive_refusal"], pairs=1 if family == "rich" else 6
+                evidence["archive_refusal"], pairs=6 if family == "connectivity" else 1
             )
         elif family == "rich":
             assert evidence["api_module"] == str(
@@ -194,7 +195,7 @@ for family, filename in (
                 }
             if mode == "read":
                 assert all(evidence[check] is True for check in rich_checks)
-        else:
+        elif family == "connectivity":
             assert evidence["module_paths"] == {
                 module: str(implementation / relative)
                 for module, relative in connectivity_modules.items()
@@ -220,6 +221,11 @@ for family, filename in (
                 )
             assert "--expect-current-connectivity" in command
             assert evidence["historical_apply_refused"] is None
+        else:
+            contracts["ordered_measurements"](
+                evidence, mode=mode, schema_boundary=suffix == "current-read-previous",
+            )
+            assert "--expect-ordered-measurements" in command
         reader_audit["directions"][name] = {
             "version": version,
             "implementation_root": str(implementation),
@@ -359,8 +365,8 @@ assert not browser.get("errors"), browser.get("errors")
 assert browser["stats"]["unexpected"] == browser["stats"]["flaky"] == 0
 assert all(r["retries"] == 0 and r["status"] in {"passed", "skipped"} for r in records)
 skips = {r["identity"] for r in records if r["status"] == "skipped"}
-baseline_path = root / "docs/assets/interaction-inspection/c5-master1-browser.json.gz"
-baseline_commit = "62623a169f4e27da259c40ba1e74b1935b7c7775"
+baseline_path = root / "docs/assets/viewer-measurements/c5-master1-browser.json.gz"
+baseline_commit = "b038e4e6cdb30cf4a296ca4dcd218a7ab5ced881"
 baseline_bytes = subprocess.check_output(
     ["git", "show", f"{baseline_commit}:{baseline_path.relative_to(root)}"]
 )
@@ -371,11 +377,12 @@ baseline_summary = json.loads(
         [
             "git",
             "show",
-            f"{baseline_commit}:docs/assets/interaction-inspection/c5-master1-summary.json",
+            f"{baseline_commit}:docs/assets/viewer-measurements/c5-master1-summary.json",
         ]
     )
 )
-assert baseline_summary["commit"] == "d8636064263f6221c402665da52a4a1738570845"
+assert baseline_summary["commit"] == old_commit
+assert baseline_summary["application_version"] == previous_version
 assert not baseline_browser.get("errors")
 assert baseline_browser["stats"]["unexpected"] == baseline_browser["stats"]["flaky"] == 0
 baseline_records = []
@@ -395,7 +402,7 @@ summary = {
     "application_version": current_version,
     "branch": state["branch"],
     "clean_start": True,
-    "complete_steps": 35,
+    "complete_steps": 42,
     "source_count": len(state["source_before"]),
     "source_inventory_unchanged": True,
     "source_digest": digest(json.dumps(state["source_before"], sort_keys=True).encode()),

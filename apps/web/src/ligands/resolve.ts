@@ -23,6 +23,7 @@ export async function completeLegacyLigands(project: Project, entryIds: string[]
     guard();
     if (current.id !== project.id) throw new Error("Ligand recognition returned a different project.");
     ports.accept(current);
+    guard();
     return ports.resolve(current, entryIds);
   }
 }

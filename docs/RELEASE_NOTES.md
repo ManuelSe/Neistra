@@ -1,5 +1,108 @@
 # Neistra Release Notes
 
+## 0.36.0 — Exact ligand designation (in preparation)
+
+Child #158 is integrating with released 0.35.0; no 0.36 release or final integrated
+qualification is claimed yet. Exact per-entry instance choice, automatic qualified
+single-candidate recognition, persistent Clear, reversible intent and bounded cached
+2D candidate cards are the accepted scope. Unknown chemistry remains unavailable.
+
+Serialization compatibility changes: migration 0016 introduces the physical
+`project_documents_v3` boundary and project/archive schema3, with viewer2 unchanged.
+Deploy matching client/server versions. Actual older code must refuse current stores
+and archives without mutation; current code retains validated schema1/2 imports.
+Default-only downgrade is guarded across live/checkpoint/history state. Automatic
+recognition and Clear can prevent downgrade; complete pre-upgrade backups provide
+rollback. Original files and existing measurement/history content remain preserved.
+
+All five authoritative versions are 0.36.0 with unchanged dependency pins. Final
+candidate/exact-merged gates must retain all 42 predecessor responsibilities,
+including actual ordered-measurement readers, plus new designation/schema-boundary
+qualification. All seven final same-candidate assessments remain required.
+
+
+## 0.35.0 — Deliberate viewer measurements
+
+Published as [v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0)
+through PR #170 at `7542d1a1`; terminal documentation PR #174 preserves its runtime
+tag. Both fresh 42-command gates, all seven final specialist assessments, complete
+primary/sidecar/forensic anonymous verification and child closeout pass. Earlier
+pre-release observations below remain scoped historical evidence.
+
+- The viewer ruler creates explicit numbered distance, angle and signed torsion
+  drafts. Compact picking, correction and keyboard/touch recovery preserve ordinary
+  molecular selection; Save creates the named project record.
+- Saved measurements retain ordered cross-entry participants, rename/visibility,
+  focus/selection, deletion, Undo/Redo, reload and archive semantics. Secondary close
+  contacts keep explicit current-source result actions and whole-search refusals.
+- Shared native geometry/text resources preserve full names and values at1,000
+  qualified records. On the measured host,100protein labels install at0.918smedian
+  versus11.591sbaseline; rename0.536s versus4.103s. Separate shared-host measurements
+  do not establish strict-host or universal latency guarantees.
+- Superseded/retired Save and management acknowledgements preserve newer cache/UI
+  state. Contact cancellation owns child/thread/staging cleanup through physical
+  disconnect, and source changes retire old actions.
+
+Additive minor release. All five authoritative versions are0.35.0; dependency pins,
+head0015 and existing project/archive/viewer schema2 remain unchanged. Original
+uploads are preserved. Preview geometry pauses. Collinear0/180degree values/labels
+remain valid while native arcs/sectors can collapse and emit retained rendering
+warnings. Dense labels can overlap; installed geometry does not promise unoccluded
+pixels. Contacts remain bounded within-entry Cartesian proximity, with explicit
+capacity/deadline/refusal behavior rather than partial results.
+
+Focused C2:1,173frontend/118suites,13native plus fouractualzoom/320px/keyboard/axe
+workflows, one exact existing exclusion and29API/persistence cases pass. Actual
+0.34development new-state preflight and native resource evidence are separate from
+the pending final-version gates. The full gate retains all35existing commands and
+adds seven ordered-measurement reader phases,42fresh sequential commands per final
+candidate and exact merged master. Final evidence will replace this pending status.
+
+The general inspector bridge and advanced/scientific editing remain. Parent #11
+and children #158–#163 continue separately after this release. Diagram153,
+superposition164,metadata165 and the other parent exclusions remain separate.
+See [measurement workflow](MEASUREMENTS.md), [limits](SCIENTIFIC_LIMITATIONS.md#measurements-and-close-contacts)
+and [checkpoint evidence](assets/viewer-measurements/c2-measurement-checkpoint.json).
+
+## 0.34.0 — Viewer atom information and ordered quick geometry
+
+Released as stable/latest [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0)
+through [PR #168](https://github.com/ManuelSe/Neistra/pull/168), at exact qualified
+runtime `ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a`; annotated tag `7aacc228`.
+
+- A compact strip keeps known atom/residue/chain identity beside automatic geometry;
+  keyboard/touch details distinguish repeated labels and explicit target ordering.
+- Two atoms show distance; three/four use justified pick order or numbered targets
+  for angle/signed torsion. Quick readouts create no saved measurement.
+- Missing, degenerate, noncurrent and preview geometry stays unavailable. Hover
+  preserves camera, canonical selection and designation, retiring with its source.
+- Atomic atom-field readiness preserves manual coordinates during late projection;
+  bounded query consumers and hover-source retirement release obsolete resources.
+
+Compatible minor; all five versions agree. No dependency, persisted schema or
+migration change; head0015 and existing project/archive/history/original-upload
+contracts remain. Older-reader retention does not qualify future new-job execution,
+portable archive Undo or fresh Apply eligibility. The general inspector remains;
+#157–#163 own the remaining program. Diagram153,superposition164,metadata165 and
+other parent exclusions remain separate. Cartesian geometry implies no periodic
+correction, alignment or energetic interpretation. Portable correctness/work
+counts do not establish strict-host/presented-frame latency or experimental quality.
+
+Both complete35-command gates pass:2,344Python/zero skips,1,029frontend,
+14supervisor,489native/75exact existing exclusions; zero failures/flakes/retries/new
+exclusions. All885current/870actual0.33identities/logs and both-direction/suffix
+reader phases verify, including15editing projects/24transitions. All seven agent
+assessments cover the same reviewed tree; they are not human approval. Historical
+failed/interrupted attempts and candidate outer143 are separately disclosed.
+Exact-master qualifier/summary/packaging and enclosing session each exit0.
+
+The313,970,966-byte qualificationZIP/sidecars pass anonymous SHA-256/CRC/internal
+verification:511nested ZIPs,2,779manifest entries,870project files. See
+[publication receipt](assets/viewer-information/c6-publication.json) and
+[verified closeout](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297).
+The runtime tag remains immutable during terminal documentation and cleanup.
+
+
 ## 0.33.0 — Targeted molecular interaction inspection
 
 Compatible minor for the [issue #152 contract](plans/issue-152-interaction-inspection.md).

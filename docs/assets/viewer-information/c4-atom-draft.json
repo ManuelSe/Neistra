@@ -1,0 +1,69 @@
+{
+  "all_seven_final_gate_passed": false,
+  "archive": {
+    "bytes": 29195,
+    "file": "c4-atom-draft.zip",
+    "outer_manifest_entries": 14,
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-atom-draft.zip",
+    "sha256": "1f17f48412a57b15790a2360d9e8c2a04efb61ba9dc45d3fe9ffa55a72625278",
+    "verification_counts": {
+      "evidence_manifest_entries": 14,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "checks": {
+    "corrected_component_passed": 8,
+    "frontend_suites": 108,
+    "full_frontend_passed": 1028,
+    "initial_component_failed": 4,
+    "initial_component_passed": 4,
+    "native_existing_skips": 3,
+    "native_failures_flakes_retries": 0,
+    "native_passed": 3,
+    "types_lint_build": "PASS"
+  },
+  "correction": "One atomic field draft and owner visit; disable Atoms until current initialization commits, retain edited same-owner values, retire changed targets including A-to-pending-B-to-A, preserve absolute Add and unknown charge.",
+  "failure": {
+    "actual_existing_skips": 4,
+    "actual_new_atom_coordinates": [
+      0.4124306555560202,
+      1,
+      0
+    ],
+    "candidate": "c4-candidate6",
+    "expected_new_atom_coordinates": [
+      4,
+      1,
+      0
+    ],
+    "failed": 1,
+    "not_run": 387,
+    "passed": 172,
+    "test_assertion_and_native_inputs_unchanged": true,
+    "trace_evidence": "X fill succeeded at 4 while fields were enabled during Loading. Current projection arrived and seeded the selected atom before Y fill. Submitted API coordinates already contained the reset X; backend preserved that request."
+  },
+  "head_before_correction": "37c3e040b9620f668418cee178059e99d9b50797",
+  "next": "Fresh complete candidate7 gate, final same-candidate seven-role review, normal merge and exact-merged qualification before publication.",
+  "reference_research": "Documented snapshot/publication, input disabling and explicit Apply concepts inform an original readiness safeguard; exact external async field behavior was not publicly established. Identifying sources remain outside repository artifacts.",
+  "release_qualification": false,
+  "scope": "Scoped current-atom draft correction; not complete release qualification",
+  "source": {
+    "apps/web/src/components/LigandEditorPanel.tsx": {
+      "bytes": 18163,
+      "sha256": "e451837b1cb668dc921c639f6e3e35279b59f402ae181a037a53def0a844028d"
+    },
+    "apps/web/src/test/ligand-editor.test.tsx": {
+      "bytes": 10996,
+      "sha256": "5b44f52f8544afa89c20716c8aff293b9805cec384e47dd2e50edd69775c7f42"
+    },
+    "tests/e2e/ligand-editing.spec.ts": {
+      "bytes": 14592,
+      "sha256": "6adb3f4351b2f1031e094afe579902774639a50ef8b39948802e1ac53e794a38"
+    },
+    "tests/e2e/release-journey.spec.ts": {
+      "bytes": 18770,
+      "sha256": "b5c4929032c31858cc862ccefaaacd750ec21963b552729840cf622ee4fcb080"
+    }
+  }
+}

@@ -37,12 +37,37 @@ export const native = (page: Page, options: { allowQueueError?: boolean } = {}) 
   const { inspectInteractions } = await import("/src/test/interactionHarness.ts");
   return inspectInteractions(window.interactionEngines.at(-1)!, options);
 }, options);
-export const cyanPixels = (page: Page) => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
+export interface CyanPixelMask { width: number; height: number; indices: number[] }
+export const cyanPixelMask = (page: Page) => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
   const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
   if (!gl) throw new Error("WebGL required");
   gl.finish(); const pixels = new Uint8Array(canvas.width * canvas.height * 4);
   gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-  let count = 0;
-  for (let i = 0; i < pixels.length; i += 4) if (pixels[i] < 90 && pixels[i + 1] > 100 && pixels[i + 2] > 120) count++;
-  return count;
+  const indices: number[] = [];
+  for (let i = 0; i < pixels.length; i += 4) if (pixels[i] < 90 && pixels[i + 1] > 100 && pixels[i + 2] > 120) indices.push(i / 4);
+  return { width: canvas.width, height: canvas.height, indices };
 });
+export const cyanPixels = async (page: Page) => (await cyanPixelMask(page)).indices.length;
+
+/** Freeze unrelated molecular/axis pixels before installing any interaction. */
+export async function settledCyanBackground(page: Page): Promise<CyanPixelMask> {
+  let previous: CyanPixelMask | undefined;
+  let settled: CyanPixelMask | undefined;
+  await expect.poll(async () => {
+    const current = await cyanPixelMask(page);
+    const equal = previous?.width === current.width && previous.height === current.height
+      && previous.indices.length === current.indices.length
+      && previous.indices.every((index, i) => index === current.indices[i]);
+    if (equal) settled = current;
+    previous = current;
+    return equal;
+  }).toBe(true);
+  return settled!;
+}
+
+export async function cyanPixelsOutsideBackground(page: Page, background: CyanPixelMask): Promise<number> {
+  const current = await cyanPixelMask(page);
+  expect([current.width, current.height]).toEqual([background.width, background.height]);
+  const baseline = new Set(background.indices);
+  return current.indices.filter(index => !baseline.has(index)).length;
+}

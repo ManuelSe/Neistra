@@ -61,7 +61,7 @@ from neistra_api.viewer_state import (
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 3
-APPLICATION_VERSION = "0.33.0"
+APPLICATION_VERSION = "0.36.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(

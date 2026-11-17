@@ -1,0 +1,59 @@
+{
+  "archive": "c1b-measurement-checkpoint.zip",
+  "files": 116,
+  "archive_bytes": 16492286,
+  "archive_sha256": "b51bac7d748e72054bc266659e9661f71f505c2a096d738dee198a7a250c732c",
+  "all_member_hashes_and_crc_verified": true,
+  "scope": "Application-owned deliberate measurement workflow and native acquisition, focused checkpoint only",
+  "comparison_base": "4b8ae716f382d67efe0823c007a079a6a278ddce",
+  "frontend": {
+    "passed": 1134,
+    "suites": 116,
+    "commands_exit": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "source_count": 313,
+    "source_unchanged": true,
+    "receipt": "checkpoint/issue157-c1b-web3/results.json"
+  },
+  "native": {
+    "passed": 5,
+    "existing_exclusions": 1,
+    "new_exclusions": 0,
+    "retries": 0,
+    "flakes": 0,
+    "child_exit": 0,
+    "source_count": 316,
+    "source_unchanged": true,
+    "enclosing_tool_exit": 143,
+    "cause": "Unestablished; tool reports143 after completed child0 receipt. Separate independent completion verifier exits0; do not conflate exits.",
+    "receipt": "checkpoint/issue157-c1b-native4/result.json",
+    "independent_receipt": "checkpoint/issue157-c1b-independent-completion.json"
+  },
+  "python": "No Python changes since C1a; unaffected 274-pass/zero-skip focused evidence retained, not rerun here",
+  "presentation": "20 controlled component cases and eight isolated browser presentation cases including actual200% zoom; separate from real native acquisition tests",
+  "scoped_reviews": {
+    "software_architecture": "PASS after Save ownership, fixed observer slots and synchronous disclosure/request retirement corrections; scoped only",
+    "ux_design": "PASS after compact canvas access, chooser rejection feedback and synchronous compact disclosure retirement corrections; scoped only"
+  },
+  "final_review_authorship": "Scientific implementation and UI authors require fresh nonauthor independent final reviewers",
+  "known_limitations": [
+    "Measured inherited 100-label native rendering bottleneck remains C2 work; baseline packet retained.",
+    "C2 integrated history/archive/held-operation and performance qualification remains pending.",
+    "No schema, migration, dependency or version change; all five versions remain0.34.0.",
+    "No final all-seven implementation assessment, complete release gate, application push, PR, release or closeout."
+  ],
+  "diagnostics": [
+    "Web1 stopped at new-test unsafe matcher lint error; corrected and fresh Web2/Web3 each pass their complete four commands. Web3 covers final C1b candidate.",
+    "Native1 contact selector failure retained; Native3 mobile preseed failure retained. Consistent ordinary mouse preseed corrected harness; actual measurement mobile picks remain real touch. Native4 passes all four theme/device acquisition cases plus existing desktop workflow with unchanged deadlines/retries/exclusion."
+  ],
+  "post_validation_whitespace_only": {
+    "file": "apps/web/src/components/ViewerInspection.tsx",
+    "before_sha256": "9c003db582b284e67d164f45502d74034f6633033c2d5fa9e87ffd6a1a101878",
+    "after_sha256": "8bb94ad127e5e78cea6eb7c983d482b62d5ce168196be9d56d8e0e878ece5dee",
+    "change": "Remove extra blank EOF line found by staged new-file whitespace check; no executable or rendered text changes. Focused source maps describe pre-whitespace bytes; evidence is not relabelled."
+  }
+}

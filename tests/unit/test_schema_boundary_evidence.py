@@ -11,6 +11,7 @@ from tests.support.schema_boundary_evidence import (
     archive_refusal,
     editing_boundary,
     editing_controls,
+    ordered_measurements,
     store_refusal,
 )
 
@@ -248,3 +249,70 @@ def test_boundary_requires_exactly_the_three_authorized_phases() -> None:
     report["unqualified-extra-phase"] = {"protocol": "schema-boundary-v1"}
     with pytest.raises(AssertionError):
         editing_boundary(report)
+
+
+def ordered_receipt(*, mode: str, migrated: bool = False) -> dict[str, Any]:
+    controls = ["ordered_targets", "visibility", "full_name"]
+    base: dict[str, Any] = {"exact_migrated_designation_defaults": migrated}
+    if mode == "produce":
+        return {**base, "ordered_cross_entry_records": 3, "archive_sha256": "a" * 64,
+                "negative_controls_rejected": controls}
+    return {
+        **base, "live_store_all_records_exact": True,
+        "last_update_undo_redo_content_exact_modified_time_monotonic": True,
+        "archive_history_contract": "Current-state snapshots omit live command history",
+        "both_suffixes_import_and_reexport": [
+            {"origin": origin, "suffix": suffix, "http": 201,
+             "all_records_order_names_visibility_sources_exact": True,
+             "negative_controls_rejected": controls.copy()}
+            for origin in ("producer", "reader") for suffix in ("neistra", "molweave")
+        ],
+    }
+
+
+@pytest.mark.parametrize(
+    ("mode", "migrated"), [("produce", False), ("read", False), ("read", True)],
+)
+def test_ordered_measurement_proof_accepts_full_retention_separately_from_refusal(
+    mode: str, migrated: bool,
+) -> None:
+    report = ordered_receipt(mode=mode, migrated=migrated)
+    original = deepcopy(report)
+    ordered_measurements(report, mode=mode, schema_boundary=migrated)
+    assert report == original
+
+
+@pytest.mark.parametrize(("path", "value"), [
+    (("live_store_all_records_exact",), False),
+    (("last_update_undo_redo_content_exact_modified_time_monotonic",), False),
+    (("exact_migrated_designation_defaults",), False),
+    (("archive_history_contract",), "portable undo retained"),
+    (("both_suffixes_import_and_reexport", 0, "http"), 422),
+    (("both_suffixes_import_and_reexport", 0,
+      "all_records_order_names_visibility_sources_exact"), False),
+    (("both_suffixes_import_and_reexport", 0, "negative_controls_rejected"), ["visibility"] * 3),
+    (("both_suffixes_import_and_reexport", 1, "suffix"), "neistra"),
+    (("both_suffixes_import_and_reexport", 3, "origin"), "producer"),
+])
+def test_ordered_measurement_proof_rejects_loss_refusal_and_repeated_suffixes(
+    path: tuple[Any, ...], value: Any,
+) -> None:
+    report = changed(ordered_receipt(mode="read", migrated=True), path, value)
+    with pytest.raises(AssertionError):
+        ordered_measurements(report, mode="read", schema_boundary=True)
+
+
+def test_ordered_measurements_require_producer_controls_and_every_reader_suffix() -> None:
+    for field, value in [("ordered_cross_entry_records", 2),
+                         ("negative_controls_rejected", ["ordered_targets"] * 3),
+                         ("archive_sha256", "truncated")]:
+        report = ordered_receipt(mode="produce")
+        report[field] = value
+        with pytest.raises(AssertionError):
+            ordered_measurements(report, mode="produce", schema_boundary=False)
+    report = ordered_receipt(mode="read")
+    report["both_suffixes_import_and_reexport"].pop()
+    with pytest.raises(AssertionError):
+        ordered_measurements(report, mode="read", schema_boundary=False)
+    with pytest.raises(AssertionError):
+        ordered_measurements(ordered_receipt(mode="read"), mode="refuse", schema_boundary=False)

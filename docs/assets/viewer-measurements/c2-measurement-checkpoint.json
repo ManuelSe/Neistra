@@ -1,0 +1,107 @@
+{
+  "scope": "Coherent C2 checkpoint, not final all-seven feature approval or either complete release gate",
+  "archive": "c2-measurement-checkpoint.zip",
+  "files": 124,
+  "archive_bytes": 10504311,
+  "archive_sha256": "69c76b679fcf65dad743623dc7250fdcfa951e0867ec7e0d26d85bd2adb50a6a",
+  "all_crc_and_member_hashes_verified": true,
+  "source_reconciliation": {
+    "scope": "Focused C2 common-source reconciliation; no final qualification",
+    "final_source_count": 920,
+    "all918earlier_sources_remain_exact": true,
+    "added_after_frontend_native_run": [
+      "tests/integration/test_contact_socket_disconnect.py",
+      "tests/e2e/measurement-accessibility.spec.ts"
+    ],
+    "added_files_have_own_passing_focused_gates": true,
+    "accessibility_child_exit": 0,
+    "accessibility_enclosing_tool_exit": 0,
+    "accessibility_native_cases": 4,
+    "actual_browser_zoom_factors": [
+      1,
+      2
+    ],
+    "width320_both_device_profiles": true,
+    "both_themes": true,
+    "axe_violations": 0,
+    "original_project_and_canonical_selection_unchanged": true,
+    "owned_ports_free": {
+      "8260": true,
+      "8261": true,
+      "5415": true,
+      "5441": true,
+      "5443": true
+    }
+  },
+  "frontend": {
+    "passed": 1173,
+    "suites": 118,
+    "lint": 0,
+    "types": 0,
+    "build": 0,
+    "receipt": "checkpoint/issue157-c2-integrated1/results.json"
+  },
+  "native": {
+    "main_workflows_passed": 13,
+    "main_existing_exclusions": 1,
+    "new_exclusions": 0,
+    "automatic_retries": 0,
+    "accessibility_workflows_passed": 4,
+    "scope": "Separate complete focused runs over unchanged common application source, not a pooled complete release gate",
+    "main_receipt": "checkpoint/issue157-c2-native2/results.json",
+    "accessibility_receipt": "checkpoint/issue157-c2-accessibility3/results.json",
+    "child_and_enclosing_exits": [
+      0,
+      0
+    ]
+  },
+  "python": {
+    "focused_passed": 29,
+    "skipped": 0,
+    "source_count": 404,
+    "scope": "27retained contact lifecycle+onephysicalTCPdisconnect+oneordered persistence case",
+    "ruff": 0,
+    "reader_tool_mypy": 0,
+    "receipt": "checkpoint/issue157-c2-python1/results.json"
+  },
+  "reader_preflight": {
+    "actual_previous_tag": "v0.34.0",
+    "runtime": "ab5e5fef67c487fa481f4fa3fd054ff15fdf7b7a",
+    "previous_sources_verified": 885,
+    "development_version": "0.34.0",
+    "scope": "Both source-bound directions and both suffixes, full new orderedcrossentry measurement content, UndoRedo withmonotonicmodifiedtimestamps, originals; not final0.35compatibility",
+    "all_seven_commands_exit": 0,
+    "current_python_sources_unchanged": 403,
+    "receipt": "checkpoint/issue157-c2-measurement-readers1/results.json"
+  },
+  "native_author_validation": {
+    "passed": 104,
+    "new": 34,
+    "lint": 0,
+    "types": 0,
+    "receipt": "native-author/receipt.json"
+  },
+  "independent_scoped_reviews": {
+    "software_architecture": "PASS three reproduced actualApp latefeedback corrections,31tests; not finalfeatureapproval",
+    "scientific_theory": "PASS D170 actualedge/signed/rigidpresentation with explicitretainednativearcwarnings; not completefeatureapproval",
+    "performance": "PASS 12actualnativecontexts/1000fullrecords/onefonttexture, separatelypackaged c2-native-label-performance.json"
+  },
+  "compatibility": "No schema/migration/dependency/version change; all five authoritative versions remain0.34.0",
+  "diagnostics": [
+    "integrated1 native firstcase stopped during unexpectednavigation; Vite reconnect observed, causeunestablished. Logs/trace retained; freshnative2 all14cases complete with unchangedapplication/deadlines/retries.",
+    "accessibility1 newfixture expected incompletepartialtext, actualcorrectprogress1/2; correctedexactassertion. accessibility2 used nativecameraobserver retired by responsivezoomremount; correctedtest-only currentengineobserver with explicitdisposal. Freshaccessibility3 all4cases pass with unchangedapplication/deadlines/retries.",
+    "Early orderedfixture history comparisons treated modificationtimestamp as restoredcontent; currentUndoRedo legitimatelyadvancestimestamp. Correctedindependentcontent+monotonictimeoracle. Originalfailure output remains sessiontranscript, not an independentlycapturedlosslessfilelog."
+  ],
+  "pending": [
+    "C3 allfive0.35versions, actual0.34finalnewstate readers and full fresh42-commandcandidate gate",
+    "Allsevenfinalsame-candidate specialistassessments, withfreshnonauthor scientificimplementation andUIreviewers",
+    "Normal PR/review/protectedmerge, fresh exactmerged42-commandgate, annotatedrelease/anonymousassets/childcloseout/ownedcleanup",
+    "Parent remainsopen/Goalactive throughall8children andfinalintegratedcloseout"
+  ],
+  "post_validation_whitespace_only": {
+    "file": "tests/integration/test_contact_socket_disconnect.py",
+    "before_sha256": "bb6af58f83a71c6d90d35c93463e680f64375c748a69cf8bb467b02b8f5a1729",
+    "after_sha256": "d54395ee0fe568a94bcb474e5c6b8addc126bcf2f6df274521581c5082812ac7",
+    "change": "Remove extra blank EOF line found by staged new-file whitespace check; no executable content change. Focused source maps remain the pre-whitespace bytes, not relabelled."
+  }
+}

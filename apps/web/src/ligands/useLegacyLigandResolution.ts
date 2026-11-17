@@ -6,6 +6,8 @@ export interface LegacyResolutionPorts {
   activeProjectId: string | null;
   priorityEntryId: string | null;
   blocked: boolean;
+  openEpoch?: number;
+  captureErrorOwner?: () => (() => boolean);
   resolve: (project: Project, entryIds: string[]) => Promise<Project>;
   onError: (projectId: string, error: unknown) => void;
 }
@@ -14,14 +16,15 @@ export interface LegacyResolutionPorts {
 export function useLegacyLigandResolution(ports: LegacyResolutionPorts): void {
   const current = useRef(ports);
   current.current = ports;
-  const work = useRef<{ projectId: string | null; visit: number; captured: boolean; queue: string[]; running: boolean }>({
+  const work = useRef<{ projectId: string | null; openEpoch?: number; visit: number; captured: boolean; queue: string[]; running: boolean }>({
     projectId: null, visit: 0, captured: false, queue: [], running: false,
   });
   const [tick, resume] = useReducer((value: number) => value + 1, 0);
   useEffect(() => {
     const state = work.current;
     const input = current.current;
-    if (state.projectId !== input.activeProjectId) {
+    if (state.projectId !== input.activeProjectId || state.openEpoch !== input.openEpoch) {
+      state.openEpoch = input.openEpoch;
       state.projectId = input.activeProjectId;
       state.visit += 1;
       state.captured = false;
@@ -45,14 +48,15 @@ export function useLegacyLigandResolution(ports: LegacyResolutionPorts): void {
     // not reseed this epoch or repeatedly invoke an expensive unsupported input.
     const owner = project.id;
     const visit = state.visit;
+    const ownsError = input.captureErrorOwner?.() ?? (() => true);
     state.running = true;
     void input.resolve(project, batch).catch(error => {
-      if (state.visit === visit && state.projectId === owner && current.current.activeProjectId === owner) {
+      if (ownsError() && state.visit === visit && state.projectId === owner && current.current.activeProjectId === owner) {
         current.current.onError(owner, error);
       }
     }).finally(() => {
       state.running = false;
       resume();
     });
-  }, [ports.project, ports.activeProjectId, ports.priorityEntryId, ports.blocked, tick]);
+  }, [ports.project, ports.activeProjectId, ports.priorityEntryId, ports.blocked, ports.openEpoch, tick]);
 }

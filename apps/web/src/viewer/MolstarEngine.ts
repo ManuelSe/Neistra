@@ -3,6 +3,10 @@ import { resolvePickingTarget, type PickingTarget } from "./pickingTargets";
 import { applicationHoverBehaviors, markMolecularHover } from "./hover";
 import { PluginStateObject } from "molstar/lib/mol-plugin-state/objects";
 import { ButtonsType } from "molstar/lib/mol-util/input/input-observer";
+import { PluginBehaviors } from "molstar/lib/mol-plugin/behavior";
+import { DefaultSelectLociBindings } from "molstar/lib/mol-plugin/behavior/dynamic/representation";
+import type { PluginSpec } from "molstar/lib/mol-plugin/spec";
+import type { InteractivityManager } from "molstar/lib/mol-plugin-state/manager/interactivity";
 import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
@@ -12,6 +16,7 @@ import { INTERACTION_KINDS, type InteractionDisplayOptions, type InteractionDisp
 import { defaultInteractionAppearance, interactionHasDisplayGeometry, normalizeInteractionAppearance } from "../interactions/styles";
 import { interactionRecordKey } from "../interactions/presentation";
 import { createInteractionRepresentation } from "./interactionGeometry";
+import { SavedMeasurementBatch, savedMeasurementData } from "./savedMeasurementGeometry";
 import { InteractionGeometryLimitError, preflightInteractionGeometry } from "./interactionGeometryBudget";
 import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
@@ -56,6 +61,10 @@ import type {
   MolecularViewer,
   MovementInteraction,
   ViewerSelectionEvent,
+  ViewerAtomHover,
+  ViewerAtomPick,
+  AtomPickLeaseRequest,
+  ViewerMeasurementTarget,
   ViewerStructure,
   ViewerMeasurement,
   PresentationPointer,
@@ -94,6 +103,8 @@ interface LoadedStructure {
   structureRef: string;
   baseCoordinates: Map<number, Point3D>;
 }
+
+interface MeasurementSourceOwner { generation: number; operation: number }
 
 interface SurfaceBinding {
   controller: AbortController;
@@ -173,6 +184,12 @@ export class MolstarEngine implements MolecularViewer {
   private generation = 0;
   private boundGeneration = 0;
   private pickingGranularity: SelectionGranularity = "atom";
+  private atomPickLease: { request: AtomPickLeaseRequest; generation: number; operation: number } | undefined;
+  private consumedAtomPickDispatch = 0;
+  private atomPickDispatchSerial = 0;
+  private measurementTargets: readonly ViewerMeasurementTarget[] = [];
+  private measurementTargetEpoch = 0;
+  private measurementTargetRefs = new Map<string, { setState(state: { visible: boolean; pickable: boolean }): void }>();
   private pendingSelection: AtomReference[] = [];
   private loaded = new Map<string, LoadedStructure>();
   private models = new Map<Model, { entryId: string; atomIds: number[] }>();
@@ -198,12 +215,19 @@ export class MolstarEngine implements MolecularViewer {
   private hoverSubscription: { unsubscribe(): void } | undefined;
   private stopHoverMarking: (() => void) | undefined;
   private hoverTarget: PickingTarget | null = null;
+  private atomHover: ViewerAtomHover | null = null;
+  private atomHoverListeners = new Set<(event: ViewerAtomHover | null) => void>();
+  private hoverSources: { sources: ViewerStructure[]; byEntry: Map<string, ViewerStructure> } | undefined;
   private hoverNativeLoci: Loci | null = null;
   private hoverCamera: CameraState | null = null;
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private sceneFrameSubscription: { unsubscribe(): void } | undefined;
   private restoreCameraReset: (() => void) | undefined;
+  // Installed record IDs; saved representations are canvas-owned, not state cells.
   private measurementRefs: string[] = [];
+  private savedMeasurementBatch: SavedMeasurementBatch | undefined;
+  private stagedMeasurementBatches = new Set<SavedMeasurementBatch>();
+  private measurementEpoch = 0;
   private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
   private pocketPreviewEntries = new Set<string>();
@@ -248,7 +272,7 @@ export class MolstarEngine implements MolecularViewer {
     const defaultSpec = DefaultPluginUISpec();
     const mounted = await mountViewerPlugin(target, {
       ...defaultSpec,
-      behaviors: applicationHoverBehaviors(withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive")),
+      behaviors: this.atomPickBehaviors(applicationHoverBehaviors(withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive"))),
       canvas3d: {
         ...defaultSpec.canvas3d,
         camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
@@ -348,16 +372,7 @@ export class MolstarEngine implements MolecularViewer {
       event.stopImmediatePropagation();
     };
     const blur = () => { this.clearHover(); this.doubleClicks.clear(); this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
-    const doubleClick = (event: MouseEvent) => {
-      if (!(event.target instanceof HTMLCanvasElement) || this.boundGeneration !== this.generation
-        || this.rebuilding || this.movementInteraction !== "inactive" || this.pickingGranularity !== "atom"
-        || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) {
-        this.doubleClicks.clear(); return;
-      }
-      const expanded = this.doubleClicks.take();
-      if (expanded) this.emit({ atoms: expanded.selection.atoms, granularity: expanded.selection.granularity,
-        mode: "replace", pick: { atoms: expanded.pick, kind: "double", shift: false } });
-    };
+    const doubleClick = (event: MouseEvent) => this.handleDoubleClick(event);
     const resetGesture = () => { this.clearHover(); this.doubleClicks.clear(); };
     const leave = () => this.clearHover();
     const dragSubscription = plugin.canvas3d.input.drag.subscribe(resetGesture);
@@ -406,8 +421,12 @@ export class MolstarEngine implements MolecularViewer {
         || this.surfaceVisuals.isManaged(current.repr) || Loci.isEmpty(current.loci)) {
         this.clearHover(); return;
       }
-      const nativeLoci = this.pickingGranularity === "residue" ? null : Loci.normalize(current.loci,
-        this.pickingGranularity === "atom" ? "element" : this.pickingGranularity, true);
+      // Raw atom feedback is independent of the expanded highlighting target.
+      // It must update within a chain without rematerializing chain membership.
+      this.updateAtomHover(current.loci);
+      const granularity = this.effectivePickingGranularity;
+      const nativeLoci = granularity === "residue" ? null : Loci.normalize(current.loci,
+        granularity === "atom" ? "element" : granularity, true);
       // Compare native membership before materializing canonical reference sets
       // for repeated Atom/Chain/Structure hits. Residues use indexed app targets.
       if (nativeLoci && this.hoverNativeLoci && Loci.areEqual(nativeLoci, this.hoverNativeLoci)) return;
@@ -421,38 +440,7 @@ export class MolstarEngine implements MolecularViewer {
       this.hoverCamera = this.getCamera();
       highlightManager.highlightOnly({ loci }, false);
     });
-    this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
-      ({ current, button, modifiers }) => {
-        if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) { this.doubleClicks.clear(); return; }
-        const mode = selectionModeForModifiers(modifiers);
-        if (this.surfaceHitIgnored(current.repr)) {
-          this.doubleClicks.clear(); return;
-        }
-        if (Loci.isEmpty(current.loci)) {
-          this.doubleClicks.clear();
-          if (shouldClearSelectionForEmptyPick(mode)) {
-            this.pendingSelection = [];
-            this.emit({
-              atoms: [],
-              granularity: this.pickingGranularity,
-              mode: "replace",
-            });
-          }
-          return;
-        }
-        const references = this.pickingTarget(current.loci).atoms;
-        if (!references.length) { this.doubleClicks.clear(); return; }
-        const pickedAtoms = this.referencesFromLoci(current.loci);
-        this.doubleClicks.record(mode === "replace" && this.pickingGranularity === "atom"
-          ? doubleClickExpansion(pickedAtoms, this.structures) : null);
-        this.emit({
-          atoms: references,
-          granularity: this.pickingGranularity,
-          mode,
-          pick: { atoms: pickedAtoms, kind: "single", shift: modifiers.shift },
-        });
-      },
-    );
+    this.clickSubscription = plugin.behaviors.interaction.click.subscribe(event => this.handleClick(event));
     let gestureCamera = JSON.stringify(plugin.canvas3d.camera.getSnapshot());
     let publishedCamera: CameraState | null = null;
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
@@ -483,6 +471,221 @@ export class MolstarEngine implements MolecularViewer {
     this.sceneFrameSubscription = plugin.canvas3d.commited.subscribe(() => this.observeCameraFrame());
   }
 
+  private handleDoubleClick(event: MouseEvent): void {
+    if (this.atomPickLease) { this.doubleClicks.clear(); return; }
+    if (!(event.target instanceof HTMLCanvasElement) || this.boundGeneration !== this.generation
+      || this.rebuilding || this.movementInteraction !== "inactive" || this.pickingGranularity !== "atom"
+      || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) {
+      this.doubleClicks.clear(); return;
+    }
+    const expanded = this.doubleClicks.take();
+    if (expanded) this.emit({ atoms: expanded.selection.atoms, granularity: expanded.selection.granularity,
+      mode: "replace", pick: { atoms: expanded.pick, kind: "double", shift: false } });
+  }
+
+  private handleClick({ current, button, modifiers }: InteractivityManager.ClickEvent): void {
+    if (isPrimarySelectionActivation(button) && this.consumeAtomPick(current)) return;
+    if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) { this.doubleClicks.clear(); return; }
+    const mode = selectionModeForModifiers(modifiers);
+    if (this.surfaceHitIgnored(current.repr)) {
+      this.doubleClicks.clear(); return;
+    }
+    if (Loci.isEmpty(current.loci)) {
+      this.doubleClicks.clear();
+      if (shouldClearSelectionForEmptyPick(mode)) {
+        this.pendingSelection = [];
+        this.emit({
+          atoms: [],
+          granularity: this.pickingGranularity,
+          mode: "replace",
+        });
+      }
+      return;
+    }
+    const references = this.pickingTarget(current.loci).atoms;
+    if (!references.length) { this.doubleClicks.clear(); return; }
+    const pickedAtoms = this.referencesFromLoci(current.loci);
+    this.doubleClicks.record(mode === "replace" && this.pickingGranularity === "atom"
+      ? doubleClickExpansion(pickedAtoms, this.structures) : null);
+    this.emit({
+      atoms: references,
+      granularity: this.pickingGranularity,
+      mode,
+      pick: { atoms: pickedAtoms, kind: "single", shift: modifiers.shift },
+    });
+  }
+
+  private get effectivePickingGranularity(): SelectionGranularity {
+    return this.atomPickLease ? "atom" : this.pickingGranularity;
+  }
+
+  private atomPickBehaviors(behaviors: PluginSpec.Behavior[]): PluginSpec.Behavior[] {
+    return behaviors.map(behavior => {
+      if (behavior.transformer !== PluginBehaviors.Representation.SelectLoci) return behavior;
+      const existing: unknown = behavior.defaultParams;
+      const defaults = existing && typeof existing === "object" ? existing : {};
+      const supplied = (defaults as { bindings?: Partial<typeof DefaultSelectLociBindings> }).bindings;
+      const selectionBindings = { ...DefaultSelectLociBindings, ...supplied };
+      const bindings = Object.fromEntries(Object.entries(selectionBindings).map(([key, binding]) => [key, {
+        action: binding.action, description: binding.description,
+        // The pinned PD.Value retains these objects; guard the actual event,
+        // retaining the selection marking provider and all navigation bindings.
+        get triggers() { return guarded() ? [] : binding.triggers; },
+      }]));
+      const guarded = () => this.atomPickLease !== undefined || this.consumedAtomPickDispatch !== 0;
+      return { ...behavior, defaultParams: { ...defaults, bindings } };
+    });
+  }
+
+  acquireAtomPickLease(request: AtomPickLeaseRequest): () => void {
+    if (!request.isCurrent()) return () => {};
+    if (this.disposed || !this.plugin) {
+      request.onRetire(this.disposed ? "disposed" : "not-ready"); return () => {};
+    }
+    this.retireAtomPickLease("replaced");
+    if (this.atomPickLease) { request.onRetire("replaced"); return () => {}; }
+    if (!request.isCurrent()) return () => {};
+    const lease = { request, generation: this.generation, operation: this.interactionSourceOperation };
+    this.atomPickLease = lease;
+    this.doubleClicks.clear(); this.clearHover();
+    return () => {
+      if (this.atomPickLease !== lease) return;
+      this.atomPickLease = undefined;
+      this.doubleClicks.clear(); this.clearHover();
+    };
+  }
+
+  private retireAtomPickLease(reason: string): void {
+    const lease = this.atomPickLease;
+    if (!lease) return;
+    this.atomPickLease = undefined;
+    this.doubleClicks.clear(); this.clearHover();
+    lease.request.onRetire(reason);
+  }
+
+  private sourceReadyForAtomPicking(): boolean {
+    return !this.disposed && Boolean(this.plugin) && !this.plugin?.isBusy && !this.rebuilding
+      && this.boundGeneration === this.generation && this.interactionSourceGeneration === this.generation
+      && !this.interactionSourceError && this.interactionSourceCompleted === this.interactionSourceOperation
+      && this.movementInteraction === "inactive" && !this.modelPreview && !this.coordinatePreviews.size
+      && !this.interactionPreviewEntries.size;
+  }
+
+  private drawableReference(reference: AtomReference, source: ViewerStructure): boolean {
+    return source.entryId === reference.structure_id
+      && source.normalized.atoms.some(atom => atom.id === reference.atom_id)
+      && (this.renderedAtomReferences.get(source.entryId)?.some(atom => atom.atom_id === reference.atom_id) ?? false);
+  }
+
+  private rawAtomPick(loci: Loci): ViewerAtomPick | null {
+    if (!this.sourceReadyForAtomPicking() || !StructureElement.Loci.is(loci) || loci.elements.length !== 1) return null;
+    const element = loci.elements[0];
+    if (!Unit.isAtomic(element.unit) || OrderedSet.size(element.indices) !== 1) return null;
+    const mapping = this.models.get(element.unit.model);
+    const unitIndex = OrderedSet.getAt(element.indices, 0);
+    const sourceIndex = element.unit.model.atomicHierarchy.atomSourceIndex.value(element.unit.elements[unitIndex]);
+    const atomId = mapping?.atomIds[sourceIndex];
+    if (!mapping || atomId === undefined) return null;
+    const source = this.structures.find(item => item.entryId === mapping.entryId);
+    const reference = { structure_id: mapping.entryId, atom_id: atomId };
+    if (!source?.artifactId || source.atomIds[sourceIndex] !== atomId || !this.drawableReference(reference, source)) return null;
+    return { reference, source, sceneGeneration: this.generation, sourceOperation: this.interactionSourceOperation };
+  }
+
+  private consumeAtomPick(current: InteractivityManager.ClickEvent["current"]): boolean {
+    const lease = this.atomPickLease;
+    if (!lease) return false;
+    // Keep later native subscribers blocked for this same synchronous dispatch,
+    // even if rejecting the pick retires its lease before their turn.
+    const dispatch = ++this.atomPickDispatchSerial;
+    this.consumedAtomPickDispatch = dispatch;
+    queueMicrotask(() => { if (this.consumedAtomPickDispatch === dispatch) this.consumedAtomPickDispatch = 0; });
+    this.doubleClicks.clear();
+    if (!lease.request.isCurrent() || lease.generation !== this.generation || lease.operation !== this.interactionSourceOperation) {
+      this.retireAtomPickLease("stale"); return true;
+    }
+    if (this.surfaceHitIgnored(current.repr)) return true;
+    const event = this.rawAtomPick(current.loci);
+    if (event && this.atomPickLease === lease && lease.request.isCurrent()) lease.request.onPick(event);
+    return true;
+  }
+
+  setMeasurementTargets(targets: readonly ViewerMeasurementTarget[]): Promise<void> {
+    if (targets.length > 4 || targets.some(target => !Number.isInteger(target.index) || target.index < 1 || target.index > 4)
+      || new Set(targets.map(target => target.index)).size !== targets.length) return Promise.reject(new Error("Measurement targets require at most four distinct numbered slots."));
+    const qualified = this.sourceReadyForAtomPicking() ? targets.filter(target => {
+      const source = this.structures.find(item => item.entryId === target.reference.structure_id);
+      return source?.artifactId && source.artifactId === target.source.artifactId && source.normalized === target.source.normalized
+        && source.settings === target.source.settings && this.drawableReference(target.reference, source);
+    }) : [];
+    if (qualified.length === this.measurementTargets.length && qualified.every((target, index) => {
+      const old = this.measurementTargets[index];
+      return old.index === target.index && old.reference.structure_id === target.reference.structure_id
+        && old.reference.atom_id === target.reference.atom_id && old.source.artifactId === target.source.artifactId
+        && old.source.normalized === target.source.normalized && old.source.settings === target.source.settings;
+    })) return this.syncQueue;
+    this.retireMeasurementTargets();
+    this.measurementTargets = qualified.map(target => ({ ...target, reference: { ...target.reference } }));
+    const epoch = this.measurementTargetEpoch;
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyMeasurementTargets(epoch));
+    return this.syncQueue;
+  }
+
+  private retireMeasurementTargets(): void {
+    this.measurementTargetEpoch++;
+    this.measurementTargets = [];
+    const refs = [...this.measurementTargetRefs.keys()];
+    for (const representation of this.measurementTargetRefs.values()) representation.setState({ visible: false, pickable: false });
+    this.measurementTargetRefs.clear();
+    if (refs.length) this.plugin?.canvas3d?.requestDraw();
+    if (!refs.length || this.disposed) return;
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.removeMeasurementTargetRefs(refs));
+  }
+
+  private async removeMeasurementTargetRefs(refs: readonly string[]): Promise<void> {
+    const plugin = this.plugin;
+    if (!plugin || this.disposed) return;
+    const present = refs.filter(ref => plugin.state.data.cells.has(ref));
+    if (!present.length) return;
+    const update = plugin.state.data.build();
+    for (const ref of present) update.delete(ref);
+    await update.commit();
+  }
+
+  private async applyMeasurementTargets(epoch: number): Promise<void> {
+    const plugin = this.plugin;
+    const generation = this.generation, operation = this.interactionSourceOperation;
+    const current = () => this.plugin === plugin && epoch === this.measurementTargetEpoch
+      && generation === this.generation && operation === this.interactionSourceOperation && this.sourceReadyForAtomPicking();
+    if (!plugin || !current()) return;
+    for (const target of this.measurementTargets) {
+      if (!current()) return;
+      const source = this.structures.find(item => item.entryId === target.reference.structure_id);
+      if (!source || source.artifactId !== target.source.artifactId || source.normalized !== target.source.normalized
+        || source.settings !== target.source.settings || !this.drawableReference(target.reference, source)) continue;
+      const loci = this.lociFor([target.reference]);
+      if (!loci) continue;
+      const result = await plugin.managers.structure.measurement.addLabel(loci, { visualParams: { customText: String(target.index) } });
+      if (!result) continue;
+      const representation = result.representation.obj?.data.repr;
+      if (!current()) {
+        representation?.setState({ visible: false, pickable: false });
+        if (!this.disposed && this.plugin === plugin) plugin.canvas3d?.requestDraw();
+        await this.removeMeasurementTargetRefs([result.selection.ref]);
+        return;
+      }
+      if (!representation) { await this.removeMeasurementTargetRefs([result.selection.ref]); continue; }
+      representation.setState({ pickable: false });
+      this.measurementTargetRefs.set(result.selection.ref, representation);
+    }
+    plugin.canvas3d?.requestDraw();
+  }
+
+  private retireMeasurementAcquisition(reason: string): void {
+    this.retireMeasurementTargets();
+    this.retireAtomPickLease(reason);
+  }
+
   setBackgroundColor(cssColor: string): void {
     this.backgroundColor = cssColor;
     if (this.modelPreview) void this.setModelPreview(this.modelPreview).catch(() => undefined);
@@ -498,6 +701,11 @@ export class MolstarEngine implements MolecularViewer {
       && this.interactionSourceGeneration === this.generation && !this.interactionSourceError
       && this.interactionSourceCompleted === this.interactionSourceOperation
       ? surfaceSyncChanges(this.surfaceSyncSnapshot, snapshot) : undefined;
+    const artifactChanged = structures.some((source, index) => source.artifactId !== this.structures[index]?.artifactId);
+    if (changes === undefined || changes.length || artifactChanged) {
+      this.retireMeasurementAcquisition("source");
+    }
+    if (changes === undefined || artifactChanged) this.retireSavedMeasurements();
     this.pruneSurfacePreviews(structures);
     this.surfaceSyncSnapshot = snapshot;
     this.surfaceDefinitions = new Map(snapshot.entries.flatMap(entry => [...entry.surfaces].map(([surfaceId, state]) =>
@@ -512,7 +720,11 @@ export class MolstarEngine implements MolecularViewer {
           this.surfaces.remove(identity.entryId, binding.channel, identity.surfaceId);
         }
       }
-      return Promise.all(changes.map(identity => this.scheduleSurfaceUpdate(identity))).then(() => undefined);
+      return Promise.all(changes.map(identity => this.scheduleSurfaceUpdate(identity))).then(async () => {
+        if (!artifactChanged) return;
+        this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyMeasurements());
+        await this.syncQueue;
+      });
     }
     this.clearHover();
     this.doubleClicks.clear();
@@ -533,6 +745,7 @@ export class MolstarEngine implements MolecularViewer {
       if (!plugin || generation !== this.generation) return;
       const current = () => !this.disposed && this.plugin === plugin && generation === this.generation;
       let sourceInstalled = false;
+      let publishMeasurements: void | (() => void) = undefined;
       this.rebuilding = true;
       try {
         await plugin.clear();
@@ -553,22 +766,26 @@ export class MolstarEngine implements MolecularViewer {
         }
         this.applySelection();
         if (!current()) return;
-        await this.applyMeasurements();
-        if (!current()) return;
         await this.applyModelPreview();
         if (!current()) return;
+        publishMeasurements = await this.applyMeasurements({ generation, operation: sourceOperation });
+        if (!current()) { publishMeasurements?.(); return; }
         this.commitScene();
-        if (!current()) return;
+        if (!current()) { publishMeasurements?.(); return; }
         this.boundGeneration = generation;
         this.interactionSourceGeneration = generation;
         this.interactionSourceError = undefined;
         this.completeInteractionSourceUpdate(sourceOperation);
+        publishMeasurements?.();
         sourceInstalled = true;
+        if (!current()) return;
         await this.applyInteractions();
       } catch (error: unknown) {
         if (!sourceInstalled) this.failInteractionSourceUpdate(sourceOperation, generation, plugin, error);
         throw error;
       } finally {
+        // Also release a prepared off-canvas batch if scene finalization throws.
+        publishMeasurements?.();
         this.rebuilding = false;
       }
     });
@@ -576,13 +793,13 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   replaceStructure(structure: ViewerStructure): Promise<void> {
-    this.structures = this.structures.map((current) =>
+    const structures = this.structures.map((current) =>
       current.entryId === structure.entryId ? structure : current,
     );
-    if (!this.structures.some((current) => current.entryId === structure.entryId)) {
-      this.structures.push(structure);
+    if (!structures.some((current) => current.entryId === structure.entryId)) {
+      structures.push(structure);
     }
-    return this.syncStructures(this.structures);
+    return this.syncStructures(structures);
   }
 
   setSelection(atoms: AtomReference[]): void {
@@ -623,6 +840,8 @@ export class MolstarEngine implements MolecularViewer {
           if (!moleculeChanged && !seedChanged) {
             this.completeInteractionSourceUpdate(sourceOperation);
             sourceCompleted = true;
+            await this.applyMeasurements();
+            if (!current()) return;
             await this.applyInteractions();
             return;
           }
@@ -659,6 +878,10 @@ export class MolstarEngine implements MolecularViewer {
             this.previewTargetIds.delete(patch.entry_id);
           }
           if (mode === "commit") for (const item of dependents) await this.prepareSurface(item.entryId, item.surfaceId);
+          if (!current()) return;
+          this.completeInteractionSourceUpdate(sourceOperation);
+          sourceCompleted = true;
+          await this.applyMeasurements();
           return;
         }
         if (
@@ -710,6 +933,10 @@ export class MolstarEngine implements MolecularViewer {
           await this.prepareSurfaces(patch.entry_id);
           for (const item of dependents) if (item.entryId !== patch.entry_id) await this.prepareSurface(item.entryId, item.surfaceId);
         }
+        if (!current()) return;
+        this.completeInteractionSourceUpdate(sourceOperation);
+        sourceCompleted = true;
+        await this.applyMeasurements();
       } catch (error: unknown) {
         if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
         throw error;
@@ -756,6 +983,8 @@ export class MolstarEngine implements MolecularViewer {
         if (!current()) return;
         this.completeInteractionSourceUpdate(sourceOperation);
         sourceCompleted = true;
+        await this.applyMeasurements();
+        if (!current()) return;
         await this.applyInteractions();
       } catch (error: unknown) {
         if (!sourceCompleted) this.failInteractionSourceUpdate(sourceOperation, sourceGeneration, plugin, error);
@@ -773,7 +1002,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {
-    if (this.pickingGranularity !== granularity) { this.clearHover(); this.doubleClicks.clear(); }
+    if (this.pickingGranularity !== granularity) { this.retireMeasurementAcquisition("picking-mode"); this.clearHover(); this.doubleClicks.clear(); }
     this.pickingGranularity = granularity;
   }
 
@@ -782,6 +1011,7 @@ export class MolstarEngine implements MolecularViewer {
     // Rebuilding those same objects would restore the camera and repeat the cycle.
     if (JSON.stringify(measurements) === JSON.stringify(this.measurements)) return this.syncQueue;
     this.measurements = measurements;
+    this.retireSavedMeasurements();
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       await this.applyMeasurements();
       this.commitScene();
@@ -790,9 +1020,17 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
+    const changed = this.modelPreview !== preview;
+    if (changed) {
+      this.retireMeasurementAcquisition("preview"); this.clearHover();
+      this.retireSavedMeasurements();
+    }
     this.modelPreview = preview;
     if (!preview) this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
-    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyModelPreview());
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
+      await this.applyModelPreview();
+      if (changed && !this.modelPreview) await this.applyMeasurements();
+    });
     return this.syncQueue;
   }
 
@@ -842,6 +1080,8 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   private beginInteractionSourceUpdate(status: "pending" | "paused"): number {
+    this.retireMeasurementAcquisition(status === "paused" ? "preview" : "source");
+    this.retireSavedMeasurements();
     const operation = ++this.interactionSourceOperation;
     this.invalidateInteractionDisplay(status);
     return operation;
@@ -854,6 +1094,7 @@ export class MolstarEngine implements MolecularViewer {
   private failInteractionSourceUpdate(operation: number, generation: number, plugin: PluginUIContext, error: unknown): void {
     if (this.disposed || this.plugin !== plugin || this.generation !== generation) return;
     this.interactionSourceGeneration = -1;
+    this.retireSavedMeasurements();
     const reason = error instanceof Error ? ` ${error.message}` : "";
     this.interactionSourceError = `Molecular display unavailable. Reload the workspace to retry.${reason}`;
     this.completeInteractionSourceUpdate(operation);
@@ -1028,6 +1269,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setMovementMode(interaction: MovementInteraction): void {
+    if (interaction !== this.movementInteraction) this.retireMeasurementAcquisition("movement");
     this.clearHover();
     this.doubleClicks.clear();
     const canvas = this.plugin?.canvas3d;
@@ -1147,6 +1389,15 @@ export class MolstarEngine implements MolecularViewer {
     const camera = this.getCamera();
     if (camera) listener(camera);
     return () => this.cameraListeners.delete(listener);
+  }
+
+  getAtomHover(): ViewerAtomHover | null { return this.disposed ? null : this.atomHover; }
+
+  subscribeAtomHover(listener: (event: ViewerAtomHover | null) => void): () => void {
+    if (this.disposed) { listener(null); return () => {}; }
+    this.atomHoverListeners.add(listener);
+    listener(this.atomHover);
+    return () => { this.atomHoverListeners.delete(listener); };
   }
 
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void {
@@ -1415,10 +1666,13 @@ export class MolstarEngine implements MolecularViewer {
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
+    this.retireSavedMeasurements();
+    this.retireMeasurementAcquisition("disposed");
     this.invalidateInteractionDisplay("pending");
     this.interactionDisplayListeners.clear();
     this.interactionPreviewEntries.clear();
     this.clearHover();
+    this.atomHoverListeners.clear(); this.hoverSources = undefined;
     this.hoverSubscription?.unsubscribe();
     this.hoverSubscription = undefined;
     this.stopHoverMarking?.();
@@ -1481,13 +1735,47 @@ export class MolstarEngine implements MolecularViewer {
 
   private pickingTarget(loci: Loci): PickingTarget {
     const pick = this.referencesFromLoci(loci);
-    return resolvePickingTarget(pick, this.pickingGranularity, this.structures, (atoms, mode) => {
+    return resolvePickingTarget(pick, this.effectivePickingGranularity, this.structures, (atoms, mode) => {
       const input = atoms === pick ? loci : this.lociFor(atoms);
       return input ? this.referencesFromLoci(Loci.normalize(input, mode === "atom" ? "element" : mode, true)) : [];
     });
   }
 
+  private updateAtomHover(loci: Loci): void {
+    if (this.modelPreview || this.coordinatePreviews.size || this.interactionPreviewEntries.size
+      || this.interactionSourceError || this.interactionSourceCompleted !== this.interactionSourceOperation
+      || !StructureElement.Loci.is(loci)) { this.publishAtomHover(null); return; }
+    // A residue/bond/group locus has no unique raw atom. Never invent a first atom.
+    if (loci.elements.length !== 1 || !Unit.isAtomic(loci.elements[0].unit)
+      || OrderedSet.size(loci.elements[0].indices) !== 1) { this.publishAtomHover(null); return; }
+    const element = loci.elements[0];
+    const mapping = this.models.get(element.unit.model);
+    const unitIndex = OrderedSet.getAt(element.indices, 0);
+    const sourceIndex = element.unit.model.atomicHierarchy.atomSourceIndex.value(element.unit.elements[unitIndex]);
+    const atomId = mapping?.atomIds[sourceIndex];
+    if (!mapping || atomId === undefined) { this.publishAtomHover(null); return; }
+    if (this.hoverSources?.sources !== this.structures) this.hoverSources = {
+      sources: this.structures, byEntry: new Map(this.structures.map(source => [source.entryId, source])),
+    };
+    const source = this.hoverSources.byEntry.get(mapping.entryId);
+    if (!source) { this.publishAtomHover(null); return; }
+    this.publishAtomHover({ reference: { structure_id: mapping.entryId, atom_id: atomId },
+      source, sceneGeneration: this.generation });
+  }
+
+  private publishAtomHover(event: ViewerAtomHover | null): void {
+    const previous = this.atomHover;
+    if (previous === event || previous && event && previous.reference.structure_id === event.reference.structure_id
+      && previous.reference.atom_id === event.reference.atom_id && previous.source.normalized === event.source.normalized
+      && previous.source.artifactId === event.source.artifactId && previous.source.settings === event.source.settings
+      && previous.sceneGeneration === event.sceneGeneration) return;
+    this.atomHover = event;
+    for (const listener of this.atomHoverListeners) listener(event);
+  }
+
   private clearHover(): void {
+    this.publishAtomHover(null);
+    this.hoverSources = undefined;
     this.hoverTarget = null;
     this.hoverNativeLoci = null;
     this.hoverCamera = null;
@@ -1543,7 +1831,7 @@ export class MolstarEngine implements MolecularViewer {
     }
     this.indexModels(loaded.entryId, refreshed, loaded.atomIds);
     this.applySelection();
-    await this.applyMeasurements();
+    // Saved geometry is installed only after the owning source operation completes.
     this.commitScene();
   }
 
@@ -1911,44 +2199,56 @@ export class MolstarEngine implements MolecularViewer {
     return combined;
   }
 
-  private async applyMeasurements(): Promise<void> {
-    const plugin = this.plugin;
-    if (!plugin) return;
-    if (this.measurementRefs.length) {
-      const update = plugin.state.data.build();
-      for (const ref of this.measurementRefs) update.delete(ref);
-      await update.commit();
-      this.measurementRefs = [];
-    }
-    for (const measurement of this.measurements.filter((item) => item.visible)) {
-      const locis = measurement.atom_references.map((reference) =>
-        this.lociFor([reference]),
-      );
-      if (locis.some((loci) => loci === null)) continue;
-      const valid = locis as StructureElement.Loci[];
-      const options = { customText: measurement.label };
-      const result =
-        measurement.kind === "distance"
-          ? await plugin.managers.structure.measurement.addDistance(
-              valid[0],
-              valid[1],
-              options,
-            )
-          : measurement.kind === "angle"
-            ? await plugin.managers.structure.measurement.addAngle(
-                valid[0],
-                valid[1],
-                valid[2],
-                options,
-              )
-            : await plugin.managers.structure.measurement.addDihedral(
-                valid[0],
-                valid[1],
-                valid[2],
-                valid[3],
-                options,
-              );
-      if (result) this.measurementRefs.push(result.selection.ref);
+  private retireSavedMeasurements(): void {
+    this.measurementEpoch++;
+    this.savedMeasurementBatch?.retire();
+    this.savedMeasurementBatch = undefined;
+    this.measurementRefs = [];
+    for (const batch of this.stagedMeasurementBatches) batch.retire();
+  }
+
+  private applyMeasurements(): Promise<void>;
+  private applyMeasurements(sourceOwner: MeasurementSourceOwner): Promise<void | (() => void)>;
+  private async applyMeasurements(sourceOwner?: MeasurementSourceOwner): Promise<void | (() => void)> {
+    const plugin = this.plugin, canvas = plugin?.canvas3d;
+    const epoch = this.measurementEpoch, generation = this.generation;
+    const operation = this.interactionSourceOperation;
+    const current = (completed: boolean) => !this.disposed && this.plugin === plugin && this.plugin?.canvas3d === canvas
+      && epoch === this.measurementEpoch && generation === this.generation && operation === this.interactionSourceOperation
+      && (!completed && sourceOwner?.generation === generation && sourceOwner.operation === operation
+        || this.boundGeneration === generation && this.interactionSourceGeneration === generation
+          && this.interactionSourceCompleted === operation && !this.interactionSourceError)
+      && !this.modelPreview && !this.coordinatePreviews.size && !this.interactionPreviewEntries.size
+      && !this.pocketPreviewEntries.size;
+    if (!plugin || !canvas || !current(false)) return;
+    const data = savedMeasurementData(this.measurements, reference => this.lociFor([reference]));
+    if (!data.records.length) return;
+    const batch = new SavedMeasurementBatch(data, { webgl: canvas.webgl, ...plugin.representation.structure.themes });
+    this.stagedMeasurementBatches.add(batch);
+    let deferredPublication = false;
+    let publicationSettled = false;
+    const publish = () => {
+      if (publicationSettled) return;
+      publicationSettled = true;
+      try {
+        if (!current(true)) { batch.retire(); return; }
+        this.savedMeasurementBatch?.retire();
+        if (!batch.attach(canvas)) return;
+        if (!current(true)) { batch.retire(); return; }
+        this.savedMeasurementBatch = batch;
+        this.measurementRefs = data.records.map(record => record.id);
+      } catch (error: unknown) { batch.retire(); throw error; }
+      finally { this.stagedMeasurementBatches.delete(batch); }
+    };
+    try {
+      if (!await batch.prepare(() => current(false)) || !current(false)) { batch.retire(); return; }
+      if (sourceOwner) { deferredPublication = true; return publish; }
+      publish();
+    } catch (error: unknown) {
+      batch.retire();
+      if (current(false)) throw error;
+    } finally {
+      if (!deferredPublication) this.stagedMeasurementBatches.delete(batch);
     }
   }
 

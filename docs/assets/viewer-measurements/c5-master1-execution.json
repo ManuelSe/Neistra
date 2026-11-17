@@ -1,0 +1,26 @@
+{
+  "scope": "Actualexactmergedruntimequalification/summary/package/enclosingcompletions; no publicationclaim",
+  "runtime": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+  "reviewed_candidate": "c06c724868e16b60ad219c231a73d8ad0ec0931c",
+  "complete_trees_identical": true,
+  "all42_fresh_pass": true,
+  "source931_old885_unchanged": true,
+  "qualification_exit": 0,
+  "summary_exit": 0,
+  "packaging_exit": 0,
+  "actual_enclosing_exit": 0,
+  "session_id": 96113,
+  "packet": {
+    "file": "c5-master1-execution.zip",
+    "bytes": 33336,
+    "sha256": "0604e4907ff8a85cb9963e417fb1abf7dcdb4508143528130e3b393f4d921978",
+    "outer_manifest_entries": 6,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 6,
+      "project_archive_files": 0
+    }
+  },
+  "tag_release_anonymous_verification_pending": true,
+  "primary_bundle_already_contains_all_underlying_wrapper_enclosing_logs_and_run_script": true
+}

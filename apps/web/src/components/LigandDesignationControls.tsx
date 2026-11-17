@@ -15,7 +15,9 @@ interface LigandDesignationControlsProps {
   onInspectEntry: (id: string) => void;
   pausedReason: string | null;
   busy: boolean;
-  onDesignate: (entry: Entry, candidateKey: string | null, inputHash?: string) => Promise<void>;
+  onOpenChoices?: () => void;
+  ownsContext?: () => boolean;
+  onDesignate: (entry: Entry, candidateKey: string | null, inputHash?: string, ownsAttempt?: () => boolean) => Promise<void | "current" | "superseded">;
 }
 
 const PAGE_SIZE = 12;
@@ -156,7 +158,7 @@ export function LigandDesignationControls(props: LigandDesignationControlsProps)
   </section>;
 }
 
-function EntryDesignation({ project, entry, pausedReason, busy, onDesignate }: LigandDesignationControlsProps & { entry: Entry }) {
+function EntryDesignation({ project, entry, pausedReason, busy, onDesignate, onOpenChoices, ownsContext }: LigandDesignationControlsProps & { entry: Entry }) {
   const designation = entry.ligand_designation;
   const context = `${sourceKey(project, entry)}:${designationKey(entry)}`;
   // Returning to the same durable choice is a new visit, not a restoration of
@@ -165,6 +167,13 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate }: L
   if (mutationContext.current.context !== context) mutationContext.current = { context };
   const visit = mutationContext.current;
   const [open, setOpen] = useState(false);
+  const openRef = useRef(false);
+  const chooserVisit = useRef({});
+  const changeOpen = (next: boolean) => {
+    if (openRef.current !== next) chooserVisit.current = {};
+    openRef.current = next;
+    setOpen(next);
+  };
   const [pending, setPending] = useState(false);
   const [failure, setFailure] = useState<{ visit: typeof visit; message: string } | null>(null);
   const error = failure?.visit === visit ? failure.message : null;
@@ -188,14 +197,22 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate }: L
   const recovery = summary.isError ? inventoryFailure(summary.error, entry) : designationRecovery(entry);
   const perform = async (candidateKey: string | null, inputHash?: string) => {
     if (submitting.current || mutationContext.current !== visit || current.current.context !== context
-      || current.current.pausedReason || current.current.busy) return;
+      || current.current.pausedReason || current.current.busy || (ownsContext && !ownsContext())) return;
+    const chooserOwner = chooserVisit.current;
+    const ownsAttempt = () => mounted.current && chooserVisit.current === chooserOwner
+      && current.current.source === source && (!ownsContext || ownsContext());
     submitting.current = true;
     setPending(true); setFailure(null);
     try {
-      await onDesignate(entry, candidateKey, inputHash);
-      if (mounted.current && mutationContext.current === visit && current.current.source === source) setOpen(false);
+      const outcome = await onDesignate(entry, candidateKey, inputHash, ownsAttempt);
+      if (!ownsAttempt()) return;
+      if (outcome === "superseded") {
+        if (mutationContext.current === visit) setFailure({ visit,
+          message: "The project changed while saving. Review the current ligand choice." });
+      } else if (outcome === "current" || mutationContext.current === visit) changeOpen(false);
     } catch (error) {
-      if (mounted.current && mutationContext.current === visit && current.current.context === context) {
+      if (mounted.current && mutationContext.current === visit && current.current.context === context
+        && ownsAttempt()) {
         setFailure({ visit, message: error instanceof Error ? error.message : "The ligand choice could not be saved. Try again." });
         throw error;
       }
@@ -208,7 +225,7 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate }: L
     <div className="ligand-designation-summary"><span className="ligand-designation-current" title={designated ? locationLabel(designated) : text}>
       <strong>{text}</strong>{designation.status === "resolved" && designated ? <span>{locationLabel(designated)}</span> : null}
     </span><button ref={trigger} type="button" className="secondary-button" aria-haspopup="dialog" aria-expanded={open}
-      onClick={() => { setFailure(null); setOpen(true); }}>{designation.status === "resolved" || designation.status === "stale" ? "Change" : "Choose"}</button>
+      onClick={() => { onOpenChoices?.(); setFailure(null); changeOpen(true); }}>{designation.status === "resolved" || designation.status === "stale" ? "Change" : "Choose"}</button>
       <button type="button" className="ligand-designation-clear" disabled={Boolean(blocked) || designation.status === "cleared"}
         title={blocked ?? "Leave this entry without a ligand of interest"}
         onClick={() => { trigger.current?.focus({ preventScroll: true }); void perform(null).catch(() => undefined); }}>
@@ -219,7 +236,7 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate }: L
     {pausedReason ? <p className="ligand-designation-notice">Preview: ligand composition and 2D unavailable. {pausedReason}</p> : null}
     {pending ? <p className="ligand-designation-notice" role={open ? undefined : "status"}>Saving ligand choice…</p> : null}
     {error ? <p className="ligand-designation-error" role={open ? undefined : "alert"}>{error}</p> : null}
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={changeOpen}>
       {open ? <CandidateDialog key={context} project={project} entry={entry} pausedReason={pausedReason}
         busy={busy || pending} pending={pending} error={error} onUse={perform}
         returnFocus={() => trigger.current?.focus({ preventScroll: true })} /> : null}

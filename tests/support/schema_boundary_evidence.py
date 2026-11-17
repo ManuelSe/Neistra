@@ -118,3 +118,33 @@ def editing_boundary(reports: dict[str, dict[str, Any]]) -> None:
         "reexport_reimports": 40, "retained_designation_cases": 5,
         "retained_editing_cases": 15,
     }
+
+
+def ordered_measurements(
+    report: dict[str, Any], *, mode: str, schema_boundary: bool,
+) -> None:
+    """Require the ordered-state oracle independently of schema refusal receipts."""
+    assert mode in {"produce", "read"}
+    controls = {"ordered_targets", "visibility", "full_name"}
+    assert report["exact_migrated_designation_defaults"] is schema_boundary
+    if mode == "produce":
+        assert schema_boundary is False
+        assert report["ordered_cross_entry_records"] == 3
+        assert len(report["archive_sha256"]) == 64
+        assert set(report["negative_controls_rejected"]) == controls
+        assert len(report["negative_controls_rejected"]) == 3
+        return
+    assert report["live_store_all_records_exact"] is True
+    assert report["last_update_undo_redo_content_exact_modified_time_monotonic"] is True
+    assert report["archive_history_contract"] == "Current-state snapshots omit live command history"
+    rows = report["both_suffixes_import_and_reexport"]
+    assert len(rows) == 4
+    assert {(row["origin"], row["suffix"]) for row in rows} == {
+        (origin, suffix) for origin in ("producer", "reader")
+        for suffix in ("neistra", "molweave")
+    }
+    for row in rows:
+        assert row["http"] == 201
+        assert row["all_records_order_names_visibility_sources_exact"] is True
+        assert set(row["negative_controls_rejected"]) == controls
+        assert len(row["negative_controls_rejected"]) == 3

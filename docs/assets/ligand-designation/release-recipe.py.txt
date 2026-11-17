@@ -91,6 +91,7 @@ add(
                 "structure_editing_reader_qualification.py",
                 "rebranding_reader_qualification.py",
                 "current_connectivity_reader_qualification.py",
+                "measurement_reader_qualification.py",
                 "navigation_reader_qualification.py",
                 "project_document_compatibility.py",
                 "schema_boundary_refusal.py",
@@ -136,13 +137,18 @@ add("legacy-cli", [uv, "run", "pytest", "tests/unit/test_namespace_compatibility
 for family, name in (
     ("rich", "rebranding_reader_qualification.py"),
     ("connectivity", "current_connectivity_reader_qualification.py"),
+    ("measurements", "measurement_reader_qualification.py"),
 ):
     wrapper = str(root / "tests/support" / name)
     current_data = run / f"{family}-current"
     previous_data = run / f"{family}-previous"
     refusal_data = run / f"{family}-refusal"
     current_env, previous_env = environment(root, current_data), environment(old, previous_data)
-    flag = "--expect-new-names" if family == "rich" else "--expect-current-connectivity"
+    flag = {
+        "rich": "--expect-new-names",
+        "connectivity": "--expect-current-connectivity",
+        "measurements": "--expect-ordered-measurements",
+    }[family]
 
     def command(mode, implementation, data, suffix, *, wrapper=wrapper, family=family, flag=flag):
         return [
@@ -248,7 +254,7 @@ add(
     ],
 )
 add("diff", ["git", "diff", "--check"])
-assert len(steps) == 35
+assert len(steps) == 42
 recipe = {
     "label": args.label,
     "application_version": args.current_version,

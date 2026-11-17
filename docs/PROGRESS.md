@@ -2,6 +2,70 @@
 
 ## Current milestone
 
+Parent #11 remains active for required #156–#163 through verified release and parent
+closeout. #156 and #157 are fully delivered in v0.34.0 and v0.35.0. #157 terminal
+[PR #174](https://github.com/ManuelSe/Neistra/pull/174) merged at `b038e4e6`, with all
+931 qualified sources unchanged. Both owned #157 branches are deleted and their
+absence verified. The immutable runtime tag remains on `7542d1a1`. The verified
+[delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-delivery.json)
+and canonical issue reply record the complete endpoint; parent #11 stays open.
+
+## Completed work
+
+#158 has its local prepared `68b1a868` checkpoint: exact durable instance designation,
+conservative eligibility, reversible choice/Clear, retained source lineage and bounded
+cached 2D candidate cards. Its historical 2,674 Python / 1,041 frontend / ten native
+results qualify only those prepared bytes. The current integration merges actual
+terminal master `b038e4e6`; shared lifecycle and compatibility corrections are underway.
+
+## Verification performed
+
+#157 candidate and exact-runtime 42-command gates and all seven final application
+assessments remain valid for its immutable release. Terminal documentation passed
+all seven documentation assessments, source-identity and evidence checks. C7 delivery
+receipt/checksum pass full anonymous HTTP200 byte/hash verification. Initial #158
+focused API/science validation has 551 passes and 45 stale version-assertion failures;
+after correcting the release assertion, all 50 affected archive tests pass. These
+remain separate focused runs. Independent theory finds scientific source methods
+unchanged and passes 107 combined cases. Global Ruff and API/core/plugin typing
+(245 source files) pass; all five 0.36 versions, unchanged dependencies/migrations
+and explicit new head/schema identities verify. Frontend120focused cases and
+lint/types pass. The subsequent Escape correction passes158cases/nine suites and
+lint/types. Reader focused tests and seven actual0.35commands pass; scoped
+architecture and UX assessments pass. A fresh18-case native run passes both profiles,
+themes, actual zoom/320px, image recovery, exact designation and ordered measurement
+acquisition. All994source identities remain unchanged; build, native child and actual
+enclosing session77449exit0. The reproduced mobile draft-loss defect is corrected;
+all earlier failed traces and the separate test-oracle/navigation observations stay
+retained. [C3 evidence](assets/ligand-designation/c3-checkpoint.json) binds the checked
+13-ZIP/159-manifest/32-project-file packet and full owned synthetic stores. Complete
+integrated release qualification/final review remain pending; no ready-to-push claim
+is made.
+
+## Known limitations
+
+Preserve existing scientific/performance limitations, original uploads, complete
+measurement behavior and explicit parent exclusions. #158 introduces 0016 / project
+and archive schema3 / viewer2, requiring actual v0.35 reader refusal and forward
+retention qualification. Its earlier local checks do not establish that compatibility.
+
+## Blockers
+
+No external blocker. Resolve shared integration and synchronous ownership before
+qualification; preserve failed diagnostics and existing deadlines/exclusions.
+
+## Next action
+
+Commit the passing C3 integration and run the clean fresh42-command candidate gate,
+independent summary and recursive packaging against actual0.35. Preserve new schema3
+refusal/forward-retention phases, all preceding ordered measurements and all five
+0.36versions. Obtain all seven final same-candidate assessments before implementation push.
+Deliver #158, then #159→#160→#161→#162→#163 and final integrated parent closeout.
+
+## Historical #158 preparation
+
+### Current milestone
+
 Parent #11 and required children #156–#163 remain active through verified releases
 and parent closeout. #156's clean committed candidate8 runs at b46222d2 with all885
 qualifying source identities frozen. All seven specialists reconfirm source PASS
@@ -30,6 +94,256 @@ readers, both complete release gates and all-seven same-candidate assessment.
 No application push, PR, release or child closeout is claimed. Original master,
 dependency order and exclusions remain preserved. No owner scope decision is
 currently required; dependent later application features remain unimplemented.
+
+
+## Historical #157 terminal documentation checkpoint
+
+### Current milestone
+
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active for exactly
+#156–#163 through verified release and parent closeout. The required dependency order
+and exclusions remain unchanged. Plans are Authorized within agreed scope; not
+individually reviewed.
+
+#156 is delivered in [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0),
+with verified terminal integration and owned cleanup recorded in its canonical reply.
+#157 is released and explicitly closed in
+[v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0) through
+[PR #170](https://github.com/ManuelSe/Neistra/pull/170). Runtime `7542d1a1` has the complete
+reviewed `c06c7248` tree; annotated tag `81963d29` remains immutable. The
+[canonical reply](https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610)
+owns terminal documentation and final cleanup/delivery-receipt readback.
+
+### Completed work
+
+Dedicated viewer distance/angle/signed-torsion acquisition and explicit named Save,
+selection-preserving picking, bounded saved management, current unavailable reasons
+and recovery, retained close contacts and grouped full-text native annotations are
+implemented and released. Original files and existing molecular/history contracts
+remain authoritative. The old inspector measurement tab remains a bridge until #163.
+
+The primary 325,299,981-byte ZIP / SHA `81dc7b42…`, both sidecars and all 26 additional forensic
+assets pass server and full anonymous verification. Exact inventories preserve 47,506
+forensic files / 4,624,058,988 raw bytes; failed attempts stay failed. The published 33,015-byte
+C6 receipt / SHA `c9b624fa…` is itself anonymously verified. Current evidence is linked in
+[publication](assets/viewer-measurements/c6-publication.json) and
+[separate readback](assets/viewer-measurements/c6-publication-verification.json).
+
+### Verification performed
+
+Both fresh complete 42-command candidate/exact-merged gates pass: 2,545 Python / zero skips,
+1,187 frontend / 118 suites, 14 supervisor, 505 native / 75 exact old exclusions across 580 cases /
+80 files, zero failures/flakes/retries/new exclusions. All 931 current / 885 actual 0.34 source
+identities, all lossless logs and actual reader provenance verify both directions
+and archive suffixes, including ordered measurements and 15 editing projects / 24 retained
+transitions. Each qualification/independent-summary/package/enclosing exit is 0.
+The primary recursively verifies 1,142 ZIPs / 6,822 manifest entries / 2,649 project files.
+All seven final specialist agent verdicts cover exact `c06c7248`; actual runtime tree is
+identical. These supplement primary self-review and actual remote requirements,
+without claiming human approval. Runtime/publication evidence audits also pass.
+
+### Known limitations
+
+Geometry is Cartesian with no automatic alignment, periodic images or energetic
+interpretation. Dense labels can overlap; degenerate native arcs may warn/collapse
+while valid values/full labels remain. Portable checks do not certify every host,
+physical device, GPU-memory peak or strict reference-host latency. Live Undo/Redo
+is qualified; archives continue to omit portable history. Dependencies, migration
+head 0015 and existing schema 2 remain unchanged for #157.
+
+Independent #158 preparation remains local `68b1a868`: 2,674 Python / zero skips, 1,041 frontend,
+ten native recovery cases over 930 frozen sources. That older local checkpoint does
+not qualify integration with released #156/#157, 0.36 versions, 0016/schema 3, actual 0.35
+readers or final publication. Keep its narrow-heading observation for UI integration.
+Later #159–#163 remain planned and unimplemented; excluded work stays separate.
+
+### Blockers
+
+No external blocker. Terminal #157 documentation integration and owned branch cleanup
+readback precede serial #158 delivery. Preserve the original user checkout and all
+owned raw evidence.
+
+### Next action
+
+Complete normal terminal #157 documentation review/merge and owned cleanup, reconcile
+its delivery receipt into the canonical reply, then integrate #158 with actual 0.35 and
+current master. Preserve synchronous preview/project/command ownership, all 42 baseline
+checks plus #158 new-state phases, actual preceding-reader contracts and all-seven final
+review before its push/release. Keep one active parent Goal through all eight releases
+and final parent closeout.
+
+### Historical #11 and #157 checkpoint record
+
+#### Current milestone
+
+Parent [#11](https://github.com/ManuelSe/Neistra/issues/11) remains active for exactly
+#156–#163 through verified release and parent closeout. Plans remain Authorized
+within agreed scope; not individually reviewed. Dependencies and exclusions stand.
+
+#156 is released and explicitly closed: [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0),
+[PR #168](https://github.com/ManuelSe/Neistra/pull/168), runtime `ab5e5fef`, annotated
+tag `7aacc228`. Both fresh complete35-command gates pass:2,344Python/zero skips,
+1,029frontend,14supervisor,489native/75exact existing exclusions; zero failures,
+flakes,retries or new exclusions. All885current/870actual0.33source identities,
+lossless logs and reader phases verify. All seven final specialist agent verdicts
+cover reviewed20cf198b; the complete released tree is identical. Exact-master
+qualifier, independent summary and packaging exits are each0; enclosing session0.
+The separately disclosed candidate outer143 remains historical, cause unestablished.
+
+The published313,970,966-byte ZIP and sidecars match anonymous downloads; all511
+nested ZIPs/2,779manifest entries/870project files verify. The
+[publication receipt](assets/viewer-information/c6-publication.json) records remote
+readback. [Final reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
+and completed issue state are verified. Terminal documentation merged normally in
+[PR #169](https://github.com/ManuelSe/Neistra/pull/169), and owned156branch cleanup
+was verified. The annotated runtime tag remains unchanged.
+
+#157 has passing local C1a/C1b/C2 checkpoints on
+`feat/issue-157-viewer-measurements` from verified master4b8ae716. Deliberate drafts,
+selection-preserving native acquisition, scoped Save, bounded management and contact
+reads are implemented. The [C2 packet](assets/viewer-measurements/c2-measurement-checkpoint.json)
+passes1,173frontend tests/118suites plus lint/types/build;13native workflows and four
+additional320px/actual100/200%zoom/keyboard/axe workflows pass in separate focused
+runs over unchanged application source. One exact existing exclusion remains, no
+retries/new exclusions; both native children/enclosing runners exit0. All earlier918
+sources remain exact within the920-source final map; the two added test files have
+their own passing checks.29API/persistence cases include real TCP disconnect/reaping.
+
+Actual tagged0.34new-state reader preflight passes both directions/suffixes, exact
+ordered cross-entry targets/full names/visibility/originals and Undo/Redo content
+with legitimately advancing modification time;885tagged sources verify. This is
+development0.34evidence, not final0.35compatibility. Scoped architecture/theory/
+performance assessments pass; final all-seven feature approval remains pending.
+
+The [independent native correction](assets/viewer-measurements/c2-native-label-performance.json)
+retains all1,000records with three grouped geometry representations and one text
+layer. On the measured shared host,100protein labels install at0.918smedian versus
+11.591sbaseline; rename0.536s versus4.103s. All318frozen/live web sources match.
+Straight-angle arc/sector warnings remain explicitly disclosed; numerical labels
+are valid. No strict-host/all-host or every-GPU-attribute claim. Diagnostics remain
+separate. No157application push/PR/release/closeout; nonauthor final scientific
+implementation and UI reviewers are required.
+
+Independent158 preparation remains local68b1a868:2,674Python/zero skips,
+1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
+failures/timeouts remain preserved, deadlines unchanged; its final integration,
+versions, actual predecessor readers and release gates remain pending. Retain the
+nonblocking small-screen heading observation for integration review.
+
+C3 preparation now sets all five sources to0.35.0; dependency pins/schema/head0015
+are unchanged. Remote master4b8ae716 and annotated0.34runtimeab5e5fef verify;
+proposed0.35tag/release were absent at preflight. All50focused final-version archive/
+ordered persistence cases pass. Six new qualification helpers pass scoped architecture
+review after correcting the release-plan path; recipe retains all35baseline commands
+and adds seven new-state reader commands. No complete42-command gate is claimed yet.
+
+C3 candidate1fc5c757c was intentionally stopped during Python after eight completed
+checks when independent UI review measured undersized new controls. Its source maps,
+lossless partial logs and explicitSIGTERM receipt remain retained; no complete gate
+pass is claimed. The [correction](assets/viewer-measurements/c3-ui-correction.json)
+sets ruler/pagers44×44 and contact rows at least44px in either CSS order. Fresh
+lint/types/all1173frontend/build and six actual-App narrow/zoom/contact-pagination
+cases pass with zero exclusions/retries; scoped nonauthor UI reassessment passes.
+Nonauthor scientific implementation independently passes172Python/121frontend and
+1440numerical probes; final current-candidate reconfirmation remains required.
+
+C3 candidate2 also completed eight commands and was intentionally stopped during
+Python for independently reproduced same-turn numerical preview ownership. D-172
+records synchronous retirement, preserving stopped acquisition after Save, and a
+shared typed explanation for the one expanded saved record. Source errors have
+local close/reopen retry, including retained cached-data failures. Focused66cases
+pass. The [recovery correction packet](assets/viewer-measurements/c3-recovery-correction.json)
+retains fresh lint/types/1187frontend/118suites/build and17native passes plus one
+exact existing exclusion, zero retries, child/enclosing0 and920unchanged sources.
+Actual desktop/touch Move→undefined angle→Undo restores value/full native label.
+Independent architecture/UX/UI correction assessments pass. Complete theory review
+identified conflicting atom/active-conformer contact bases; D-173fail-closed
+qualification passes184focusedPython/zero skips, Ruff and productionmypy222.
+Independent theory reassessment passes131cases; fresh nonauthor scientific
+implementation passes205Python/144frontend plus432exhaustive contact comparisons
+and18ambiguous-basis refusal probes. No consequential scientific finding remains.
+The bounded correction retains original failed controls/typing diagnostics. Both intentional partial gates retain diagnostics and are never
+pooled into a complete result.
+
+Candidate3 `742dae0d` passed eight commands; full Python returned2543passes and
+two failures for missing historical aliases of the new API modules. Both source
+maps remain unchanged. Four aliases now follow the existing single-implementation
+compatibility pattern. All eight isolated legacy import-order/source-root/worker
+checks, whole Ruff and configured productionmypy226 pass; raw failed-gate evidence
+is retained in the [correction packet](assets/viewer-measurements/c3-namespace-correction.json).
+
+Scoped architecture reassessment passes the exact alias template, module identity,
+pickle and all eight compatibility checks. Candidate4 `9e914a7c` then passes full
+2545Python/zero skips,1187frontend/118suites,14supervisor and lint/types/build.
+Native stops after77passes/two executed existing exclusions at one assertion of
+retired inspector measurement DOM;500cases did not run. This is a failed gate,
+not a new exclusion set. Both source maps remain unchanged.
+
+Two test-only migrations now use the real inspector bridge and App-owned manager.
+The same computed coordinate distance/history/no-op/reload assertions remain;
+release creation confirms order and named Save, adding exact persisted references.
+Fresh native3passes/one exact existing mobile journey exclusion,930unchanged sources,
+child/enclosing0 and independent UX assessment pass. All failed raw traces/stores
+are retained in seven verified [diagnostic parts](assets/viewer-measurements/c3-legacy-workflow-correction.json);
+only verified raw outputs move into owned ignored evidence.
+
+Candidate5 `33eff055` again passes2545Python/zero skips,1187frontend and14supervisor.
+Native stops after208passes/five executed existing exclusions at a test harness that
+still expected native-resource changes from semantic measurement IDs;366cases did
+not run. Actual installed text/shape/glyph inspection now replaces that obsolete
+oracle. All four old assertions remain, with four stronger text/glyph checks. Fresh
+lint/types/1187frontend/build/four actual native cases pass; independent performance
+assessment and broader oracle audit pass. No renderer/algorithm change.
+
+D-174 keeps the primary qualification ZIP self-contained for both complete passing
+gates and their readers/logs/source proofs. Large failure forensics become additional
+release assets indexed by immutable SHA/counts/provenance. Local and independent
+architecture verification pass all25parts/46380files/4310548153rawbytes, exact inventory
+unions and recursive CRCs; no data is discarded. The tracked typed verifier passes
+Ruff/mypy and corruption controls; it adds one qualifying tools/source (next931).
+Actual anonymous verification of every part remains mandatory after publication.
+
+Candidate6 `9cdccd67` completed the same Python/frontend/supervisor checks, then
+stopped after299native passes: the mobile incomplete-aromatic-draft test projected
+an oxygen below a toolbar button while retaining its tightly zoomed editing camera.
+There were23executed existing exclusions and257unexecuted cases, not280 accepted
+exclusions. Wrapper exit1;931current/885preceding source maps remain unchanged.
+The test now explicitly fits the fixture and checks DOM clearance before the same
+trusted click and exact oxygen-selection assertion. [Focused validation](assets/viewer-measurements/c3-mobile-framing-correction.json)
+passes lint/types and all12native cases across both profiles, zero exclusions/retries,
+931unchanged sources, child/enclosing0. Independent UX assessment passes the exact
+correction, full source/log identities and actual mobile O3 screenshot. The additional
+D-174part preserves all1126new raw files; local verification passes all26parts and
+exact unions, with47506files/4624058988raw bytes retained. Old25payloads are unchanged.
+Independent architecture passes the extension/currentindex/parts/source/log proofs;
+no full gate pass.
+
+#### Current blockers and next action
+
+No external blocker. The clean candidate7 `df1ed1bb` now passes all42fresh sequential
+commands:2545Python/zero skips,1187frontend/118suites,14supervisor and505native passes
+across580cases/80files,75exact preceding exclusion identities unchanged, zero failures,
+flakes,retries or new exclusions. All931current/885actual0.34source identities and
+lossless log hashes verify. Actual rich/connectivity/ordered-measurement readers pass
+both directions and archive suffixes;15editing projects/24transitions and full history
+stores remain retained. [Independent summary](assets/viewer-measurements/c3-candidate7-summary.json)
+and [packaging](assets/viewer-measurements/c3-candidate7-packaging.json) pass, with each
+child and the enclosing runner exiting0. Two verified ZIPs preserve670native-browser,
+seven scientific-native and540reader-workspace files; raw originals remain retained.
+
+All seven complete-feature code reassessments pass for `df1ed1bb`, including126fresh
+architecture tests and eight independent namespace/bootstrap tests. Prior unchanged
+scientific/UI/UX/performance evidence remains explicitly scoped. Final evidence-commit
+reconfirmation remains required before application push; no157PR/merge/release/closeout.
+The future exact-master42recipe is prepared in this candidate so merged qualification
+can start clean. Next: final all-seven same-candidate confirmation, normal protected
+PR/merge, fresh exact-merged42, annotated0.35release and primary/26forensic-asset
+anonymous verification, then explicit child closeout/owned cleanup. Parent Goal stays
+active for158–163 and final integration/closeout. Schema/dependencies remain unchanged.
+
+
+
+## Historical progress
 
 ### Previous completed milestone — issue #152
 
@@ -3409,12 +3723,16 @@ Results:
   receptor/ligand preparation, pose scoring, and scientific ranking remain
   outside v0.1 core and require a separately installed allowlisted plugin.
 
-## Blockers
+### Historical blockers — issue #152
 
 None for released issue #152. Terminal documentation integration and owned-cleanup
 readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092); preserve other sessions.
 
-## Next action
+### Historical next action — issue #152
 
 Use the final #152 reply for terminal integration/cleanup readback. New application
 work requires its own scoped issue/contract; deferred work remains separate.
+
+Issue156 qualification update: candidate2 stopped at an unaccepted native residue pick after144passes; no full-gate pass. Stronger exact native-pixel oracle passes all4desktop/mobile theme cases with unchanged selection assertions. Failed logs/trace/complete diagnostic inventory are retained; fresh candidate3 and final all-seven same-candidate assessments remain next. Independent158 remains preparation only.
+
+Issue156 candidate3 stopped after180nativepasses when a synthetic fixture target lay beneath the toolbar. Public-camera deterministicframing and exact unoccluded nativepixels now pass16gesturecases acrossdesktop/mobile with all outcomeassertions retained. Full candidate4 and final all-seven reconfirmation remain required; no publication/closeout. Independent158has a local initialverticalcheckpointd283ea9b, still awaitingserialintegration/furtherqualification.

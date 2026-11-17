@@ -308,9 +308,43 @@ that marker is transient client state, not part of this response or archive data
 Deploy matching client/server versions for the required response identity.
 
 The projection is read-only. Neistra exposes no component rename,
-reclassification, individual-style, individual-visibility, ligand-designation,
-or subset-export endpoint. `/api/v1` remains the transport prefix; project/archive
-schema 2 and current Alembic head 0015 remain unchanged by projection identity.
+reclassification, individual-style, individual-visibility or subset-export endpoint.
+Exact ligand designation has its own entry-owned command below; projection reads do
+not designate a ligand. `/api/v1` remains the transport prefix. Current project/archive
+schema is 3, viewer schema is 2 and Alembic head is 0016.
+
+## Exact ligand designation
+
+Each `EntryRead.ligand_designation` is a typed `LigandDesignationV1`: status
+`unresolved | selection_required | not_applicable | cleared | resolved | stale`,
+assessed source artifact, durable instance UUID, complete canonical atom membership,
+automatic/manual origin and assessment provenance. Candidate keys identify current
+inventory choices; they are separate from durable instance UUIDs. Navigation, atom
+selection, camera and visibility never author this field.
+
+| Route under `/api/v1` | Contract |
+| --- | --- |
+| `GET /projects/{project}/entries/{entry}/ligand-candidates` | Current-source-qualified bounded inventory page (`offset`, `limit`, maximum 48; UI pages use 12), exact location/membership, qualified composition or unavailable reasons, provenance and warnings. |
+| `PUT /projects/{project}/entries/{entry}/ligand-designation` | Revision-locked Use or Clear: `expected_revision`, `expected_artifact_id`, and either `candidate_key` with `expected_input_hash`, or `clear: true`. Ordinary reversible project command. |
+| `POST /projects/{project}/ligand-designations/resolve` | Revision-locked controlled legacy assessment of distinct `entry_ids` (maximum 200). Preserves existing command/redo positions and completes only untouched unresolved migrated defaults. |
+| `GET /projects/{project}/entries/{entry}/ligand-candidates/{candidate}/depiction` | Current-source-qualified disposable 2D result: `ready`, `unavailable` or `busy`, with reason and qualified composition/provenance. Ready output references a verified immutable SVG artifact. |
+
+Exactly one fully qualified eligible candidate with no unresolved potentially eligible
+boundary permits automatic designation. Multiple candidates require explicit choice;
+water/true monoatomic ions are excluded under the documented policy. Uncertain
+chemistry does not fabricate formula, charge or mass. Known element identities can
+qualify heavy-site counts independently; unknown is null and known zero remains zero.
+Missing or ambiguous designated membership becomes stale with recovery guidance,
+without silently choosing another instance. Clear persists and suppresses reassignment.
+
+Candidate pages and drawings are read-only to molecular content; choosing a ligand
+does not prepare it. Cache bindings include exact source and implementation policy;
+coordinate-only reuse requires matching qualified chemical input. Drawing admission
+retains at most 1,024 content records / 128 MiB, 4,096 source bindings, 512 KiB per
+SVG, and 1,024 admitted layout atoms. Capacity returns an explicit unavailable/busy
+result rather than inventing a drawing. Originals remain immutable. See
+[scientific limits](SCIENTIFIC_LIMITATIONS.md#exact-ligand-designation-and-disposable-depictions-158)
+and [migration/rollback](DEVELOPMENT.md#upgrading-exact-ligand-designation-0016).
 
 ## Selection Contract
 
@@ -1136,3 +1170,38 @@ verified missing facts only in its calculation copy; canonical metadata is uncha
 Apply treats the preserved original pointer/hash as additional dependencies. Absent
 recovery is omitted from historical capture serialization. Full attestations remain
 in job parameters/reports, while compact molecular application annotations omit them.
+
+
+## Measurements and close contacts
+
+Measurement creation takes `expected_revision`, a nonblank name (up to120characters),
+`kind` (`distance`, `angle`, `dihedral`) and ordered `atom_references`. Each reference
+contains an entry `structure_id` and canonical positive `atom_id`. References may
+cross entries, including hidden/locked entries. Exact2/3/4target order is retained;
+target2 is the angle vertex. Creation, rename/visibility and deletion use existing
+reversible project commands and revision conflict handling. Drafts and acquisition
+leases are transient application state. No durable measurement schema changed.
+
+`POST /api/v1/projects/{project_id}/contacts` accepts `entry_id`, optional
+`expected_artifact_id`, `cutoff` (default2, greater than0 and at most10Å), and
+`minimum_distance` (default0.5Å, at least0 and less than cutoff). Success retains
+the existing JSON list of `{atom_1, atom_2, distance}` records, sorted by distance and then canonical
+atom IDs. All recorded bonded pairs are excluded. The minimum remains inclusive and0
+is supported; results are geometric within-entry Cartesian proximity. Active conformer
+and canonical atom coordinates must agree exactly; conflicting or nonfinite bases
+refuse the whole read with422 rather than return a value inconsistent with the viewer.
+
+A source-bound read captures immutable input and verifies it again after computation.
+One ephemeral child is admitted at a time, with no queue: busy429, changed source409,
+capacity413, unsupported/invalid geometry422, deadline504, unavailable/startup503,
+and unexpected execution500. Existing missing project/entry404 responses remain.
+Disconnect/cancellation retires computation and staging. This read creates no
+persistent job, artifact, project command or edit history.
+
+Admission ceilings are100,000atoms,64MiB normalized source,2,000,000raw returned
+neighbors,250,000results and64MiB response. Excluded neighbors still consume raw
+candidate work. Computation has a15second deadline and polled1GiB child-RSS threshold;
+these are operational controls rather than all-host timing or instantaneous memory
+bounds. A refusal discards the entire result. Cleanup retains admission until owned
+reads/child termination and staging removal settle; cleanup failure closes admission.
+See D-167/D-168 and [measurement workflow](MEASUREMENTS.md).

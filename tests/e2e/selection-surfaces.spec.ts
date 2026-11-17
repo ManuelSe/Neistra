@@ -284,8 +284,12 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         return { first, repeated, changed, cleared: h.inspect().measurements };
       });
       expect(measurementState.first).toHaveLength(1);
+      expect(measurementState.first[0]).toMatchObject({ id: "surface-distance", label: "Distance" });
+      expect(measurementState.first[0].textDrawCount).toBeGreaterThan(0);
       expect(measurementState.repeated).toEqual(measurementState.first);
       expect(measurementState.changed).not.toEqual(measurementState.first);
+      expect(measurementState.changed[0]).toMatchObject({ id: "surface-distance", label: "Changed label" });
+      expect(measurementState.changed[0].textDrawCount).toBeGreaterThan(0);
       expect(measurementState.cleared).toEqual([]);
       const recolored = await page.evaluate(async () => {
         const h = window.productionSurface, geometry = h.geometry(h.source.entryId), camera = h.engine.getCamera();

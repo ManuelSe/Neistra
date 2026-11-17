@@ -37,14 +37,15 @@ async function setup(page: Page, request: Parameters<typeof prepare>[1]) {
   const response = await request.put(`/api/v1/projects/${project.id}/entries/${entry.id}/viewer-settings`, {
     data: { expected_revision: project.revision, settings: { ...entry.viewer_settings,
       components: { ...entry.viewer_settings.components, hydrogens: false },
-      representations: [{ id: "selection-test", style: "ball-and-stick", color_by: "element", custom_color: "#3b82f6", opacity: 1 }] } },
+      representations: [{ id: "selection-test", style: "space-filling", color_by: "element", custom_color: "#3b82f6", opacity: 1 }] } },
   });
   expect(response.ok()).toBe(true); project = await response.json() as Project;
   const projection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json() as StructureProjection;
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
-  // Frame the authored ball-and-stick scene, including the short second chain
-  // that has no default cartoon geometry.
+  // Use visible space-filling atom targets for the gesture-only fixture,
+  // including the short second chain that has no default cartoon geometry.
+  // Ball-and-stick native picks remain covered by the hierarchy/editing suites.
   await frameFixture(page);
   await observe(page);
   await page.evaluate(async entryId => {
@@ -52,9 +53,11 @@ async function setup(page: Page, request: Parameters<typeof prepare>[1]) {
     const { settleSelectionScene } = await import(/* @vite-ignore */ path);
     await settleSelectionScene(window.interactionEngines.at(-1)!, { structure_id: entryId, atom_id: 2 });
   }, entry.id);
-  // The docked sequence reduces the canvas height. Explicit camera zoom keeps
-  // this intentionally tiny fixture pickable; all gesture/camera assertions remain.
-  await zoomForPicking(page);
+  // This authored XY fixture needs a reproducible face-on camera. Installation
+  // presentation can retain an earlier test's orientation/FOV; fitting and
+  // zooming that pose can place chain B behind the floating viewer toolbar.
+  // Seed only the public camera before capturing gesture invariants.
+  await frameForPicking(page);
   return { project, entry, projection };
 }
 
@@ -63,13 +66,31 @@ const selection = (page: Page): Promise<AtomReference[]> => page.evaluate(async 
   const { useSelectionStore } = await import(/* @vite-ignore */ path);
   return useSelectionStore.getState().selection.atoms;
 });
-async function point(page: Page, coordinates: [number, number, number]) {
-  return page.evaluate(xyz => window.editingPicks.point(xyz), coordinates);
+async function point(page: Page, projection: StructureProjection, atomId: number) {
+  const observed = await page.evaluate(async target => {
+    const path = "/src/test/selectionGestureHarness.ts";
+    const { settleSelectionScene, atomPickPixel } = await import(/* @vite-ignore */ path);
+    const engine = window.interactionEngines.at(-1)!;
+    await settleSelectionScene(engine, target.reference);
+    const projected = window.editingPicks.point(target.coordinates);
+    const pixel = atomPickPixel(engine, projected, target.reference);
+    const canvas = document.querySelector<HTMLCanvasElement>(".molstar-host canvas")!;
+    const box = canvas.getBoundingClientRect();
+    const hit = document.elementFromPoint(box.left + pixel.x, box.top + pixel.y);
+    if (hit !== canvas) throw new Error(`Confirmed atom pixel is occluded by ${hit?.outerHTML.slice(0, 180)}`);
+    return { pixel, projected, reference: target.reference, camera: engine.getSessionCamera() };
+  }, { reference: { structure_id: projection.entry_id, atom_id: atomId },
+    coordinates: projection.structure.atoms.find(atom => atom.id === atomId)!.coordinates });
+  await test.info().attach(`confirmed-gesture-atom-${atomId}`, {
+    contentType: "application/json", body: JSON.stringify(observed),
+  });
+  return observed.pixel;
 }
-async function zoomForPicking(page: Page) {
-  await page.getByRole("button", { name: "Open viewer controls", exact: true }).click();
-  await page.locator(".viewer-controls").getByRole("button", { name: "Zoom in", exact: true }).click();
-  await page.getByRole("button", { name: "Close viewer controls", exact: true }).click();
+async function frameForPicking(page: Page) {
+  await page.evaluate(() => {
+    window.interactionEngines.at(-1)!.setSessionCamera({ mode: "orthographic", fov: Math.PI / 4,
+      position: [0, 0, 80], target: [0, 0, 0], up: [0, 1, 0], radius: 30 });
+  });
   await page.evaluate(() => window.editingPicks.settled());
 }
 const refs = (entryId: string, ids: number[]) => ids.map(atom_id => ({ structure_id: entryId, atom_id }));
@@ -84,7 +105,7 @@ for (const theme of ["light", "dark"] as const) test(`expands native protein and
   const canvas = page.locator(".molstar-host canvas").first();
   for (const atomId of [2, 20, 22]) {
     const atom = projection.structure.atoms.find(a => a.id === atomId)!;
-    const position = await point(page, atom.coordinates);
+    const position = await point(page, projection, atom.id);
     await canvas.click({ position });
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, [atomId]));
     if (atomId === 2) await page.evaluate(async () => {
@@ -105,9 +126,9 @@ for (const theme of ["light", "dark"] as const) test(`expands native protein and
     const expected = projection.structure.atoms.filter(a => a.residue_id === atom.residue_id).map(a => a.id);
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, expected));
     expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
-    await canvas.click({ position, modifiers: ["Control"] });
+    await canvas.click({ position: await point(page, projection, atomId), modifiers: ["Control"] });
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, expected.filter(id => id !== atomId)));
-    await canvas.click({ position, modifiers: ["Meta"] });
+    await canvas.click({ position: await point(page, projection, atomId), modifiers: ["Meta"] });
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, expected));
   }
   expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision);
@@ -151,7 +172,7 @@ test("adds inclusive forward/reverse residue ranges from a fixed anchor while re
   await pickMode(page, "residue", info.project.name === "mobile-chromium");
   const canvas = page.locator(".molstar-host canvas").first();
   const click = async (id: number, modifiers: ("Control" | "Shift")[] = []) => canvas.click({
-    position: await point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates), modifiers,
+    position: await point(page, projection, id), modifiers,
   });
   await click(20);
   await click(6, ["Control"]);
@@ -172,7 +193,7 @@ test("extends Atom-mode residue double-clicks and preserves anchors across respo
   test.setTimeout(90000);
   const { entry, projection } = await setup(page, request);
   const canvas = page.locator(".molstar-host canvas").first();
-  const position = async (id: number) => point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
+  const position = async (id: number) => point(page, projection, id);
   await canvas.dblclick({ position: await position(2) });
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, [1, 2, 3, 4]));
   await canvas.click({ position: await position(10), modifiers: ["Shift"] });
@@ -193,7 +214,7 @@ test("extends Atom-mode residue double-clicks and preserves anchors across respo
   // Retaining the old camera on a narrower aspect ratio can crop the endpoint.
   // Explicit fitting is camera-only and must also retain the application anchor.
   await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
-  await zoomForPicking(page);
+  await frameForPicking(page);
   expect(await anchor(page)).toEqual(captured);
   const endpoint = await page.evaluate(async expected => {
     const path = "/src/test/selectionGestureHarness.ts";
@@ -211,7 +232,7 @@ test("keeps modified double-clicks ordinary and toggles partially selected resid
   test.setTimeout(90000);
   const { entry, projection } = await setup(page, request);
   const canvas = page.locator(".molstar-host canvas").first();
-  const position = async (id: number) => point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
+  const position = async (id: number) => point(page, projection, id);
   await canvas.click({ position: await position(2) });
   for (const modifier of ["Control", "Meta", "Shift"] as const) {
     await canvas.dblclick({ position: await position(2), modifiers: [modifier] });
@@ -231,8 +252,8 @@ test("persists native gesture references as an ordinary named selection and relo
   test.setTimeout(90000);
   const { project, entry, projection } = await setup(page, request);
   const canvas = page.locator(".molstar-host canvas").first();
-  await canvas.dblclick({ position: await point(page, projection.structure.atoms.find(atom => atom.id === 2)!.coordinates) });
-  await canvas.click({ position: await point(page, projection.structure.atoms.find(atom => atom.id === 14)!.coordinates), modifiers: ["Shift"] });
+  await canvas.dblclick({ position: await point(page, projection, 2) });
+  await canvas.click({ position: await point(page, projection, 14), modifiers: ["Shift"] });
   const expected = refs(entry.id, Array.from({ length: 16 }, (_, i) => i + 1));
   await expect.poll(() => selection(page)).toEqual(expected);
   const mobile = info.project.name === "mobile-chromium";
@@ -270,7 +291,7 @@ test("shares fixed residue starts between native picks and Sequence with partial
   });
   const camera = await page.evaluate(() => window.editingPicks.camera());
   const canvas = page.locator(".molstar-host canvas").first();
-  const position = async (id: number) => point(page, projection.structure.atoms.find(a => a.id === id)!.coordinates);
+  const position = async (id: number) => point(page, projection, id);
   await canvas.click({ position: await position(6) });
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, [6]));
   const openSequence = async () => {

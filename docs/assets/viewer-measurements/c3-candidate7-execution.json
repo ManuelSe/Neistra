@@ -1,0 +1,24 @@
+{
+  "scope": "Actual candidate7 enclosing phases and complete seven-role CODE reassessment; finalmetadata-candidate reconfirmation pending",
+  "candidate": "df1ed1bb4ee5ad2430933b203be60f185b2bd48c",
+  "packet": {
+    "file": "c3-candidate7-execution.zip",
+    "bytes": 210820,
+    "sha256": "80ab12bd7b5900ddc37206df5465c277af5c35ab3a556c05aa21bc0753c7f587",
+    "outer_manifest_entries": 10,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 10,
+      "project_archive_files": 0
+    }
+  },
+  "qualification_exit": 0,
+  "independent_summary_exit": 0,
+  "recursive_packaging_exit": 0,
+  "enclosing_session_exit": 0,
+  "complete42": true,
+  "all_seven_code_assessments_pass": true,
+  "final_same_evidence_commit_reconfirmation_required": true,
+  "application_push": false,
+  "normal_merge_exact_master42_publication_closeout_pending": true
+}

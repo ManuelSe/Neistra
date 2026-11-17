@@ -274,3 +274,69 @@ This coherent local correction is prepared for its checkpoint commit.
 It must later integrate verified #156/#157 master, actual predecessor readers and
 final versions before complete candidate/exact-merged gates and final all-seven
 review. No implementation push, PR, release or closeout is claimed.
+
+
+### C3 integration — actual released predecessor and guarded ownership
+
+2026-11-17: #156 and #157 are fully delivered. Merge actual terminal master
+`b038e4e6` into prepared local `68b1a868`, preserving both accepted decision and
+limitation histories. Preceding runtime is actual tagged v0.35.0 `7542d1a1`, with
+931 qualified sources. #157 terminal PR174, owned cleanup, anonymously verified
+C7 delivery receipt and canonical reply complete its endpoint; parent Goal stays active.
+
+All five working versions advance to 0.36.0. D-175 records consulted synchronous
+ligand ownership, captured preflight/dispatch and separate feedback authority, while
+retaining released measurement guards. Isolated frontend and reader-helper owners
+have disjoint edit scopes; primary owns API, version and documentation integration.
+No new scientific method or dependency is introduced. Retain all42 predecessor
+check responsibilities and add new-state schema3/0016 qualification against actual
+0.35; the earlier35-command recipes and local C2 results are historical only.
+
+This in-progress merge is uncommitted and unqualified. Resolve semantic ownership,
+run meaningful focused regressions, inspect integrated changes, then commit a passing
+checkpoint before fresh full release gates and all-seven final review. No application
+push, PR, 0.36 tag/release or #158 closeout is claimed.
+
+
+C3 focused integration status: frontend handoff passes120cases/seven suites
+(including22actual-App), full lint/types and frozen eight-file hashes; independent
+UX also passes22actual-App with unchanged hashes. Reader integration passes105
+focused and112packaging tests plus seven actual0.35ordered-reader commands; scoped
+architecture independently verifies91cases, all931predecessor identities, reports
+and packaging. Carry forward released child-session isolation/receipts unchanged;
+architecture reconfirms that exact three-line runner delta. These are focused
+assessments, not final feature approval or a pooled release gate.
+
+The first four-case combined native run fails, with all994source identities stable.
+One preparation evaluation loses its navigation context (cause unestablished);
+one desktop assertion used incompatible visible-text/DOM whitespace (corrected to
+an exact three-target array with explicit atom order); both mobile cases expose
+real Inspector Escape also closing Measurements and clearing its draft. D-175
+records the consulted bounded recovery fix. All receipts/traces remain retained;
+no deadline, retry, exclusion or previous assertion is relaxed. Freeze corrected
+sources and run fresh native qualification before the passing merge checkpoint.
+
+
+### C3 passing actual integration checkpoint
+
+[Source-bound record](../assets/ligand-designation/c3-checkpoint.json) and checked
+16,037,854-byte packet/SHA `fbfcd30e65b0e0e089da19c312aa78576777bf4a93129a8e49ff6f6834e7b760`
+retain13recursive ZIPs/159manifest entries/32project files, all failed/native/corrective
+logs and complete owned synthetic stores. Current994source digest is
+`3c9f4353725e437cefbd2764ce0a6fcab75df0d5059bcca60f7c5d0f2e7f611e`.
+
+After the admitted lifecycle and Escape corrections,158focused frontend cases/nine
+suites, full lint/types and independent scoped UX assessment pass. The fresh18native
+cases pass both profiles/themes, actual zoom/320px/image recovery, exact repeated
+ligand choice and retained ordered measurement acquisition. All994sources remain
+unchanged; build/native child and actual enclosing session77449each exit0. The initial
+failures remain separate evidence; no navigation cause is inferred from this pass.
+
+Architecture reconfirms the42responsibilities/actual931-source predecessor and exact
+runner isolation carry-forward; theory preserves the accepted methods. Five0.36
+versions, dependencies, fifteen historical migrations, new head0016/projectarchive3/
+viewer2 and original bytes qualify their focused checks. This coherent release
+preparation integrates actual terminal masterb038e4e6. Next commit this checkpoint,
+then run clean fresh `c4-candidate1` qualification/independent summary/recursive
+packaging. All-seven final same-candidate assessment, normal protected delivery and
+fresh exact-master gate remain mandatory; no push/release/closeout is claimed yet.

@@ -22,7 +22,7 @@ interface ProjectRead {
   revision: number;
   checkpoint_revision: number;
   entries: ProjectEntry[];
-  measurements: { kind: string }[];
+  measurements: { name: string; kind: string; atom_references: { structure_id: string; atom_id: number }[] }[];
 }
 
 interface StructureRead {
@@ -74,6 +74,8 @@ async function selectAtomReferences(
 
 async function createMeasurement(
   page: Page,
+  request: APIRequestContext,
+  projectId: string,
   entryId: string,
   atomIds: number[],
   kind: "distance" | "angle" | "dihedral",
@@ -83,13 +85,28 @@ async function createMeasurement(
     atomIds.map((atomId) => ({ entryId, atomId })),
   );
   await page.getByRole("tab", { name: "measurements" }).click();
-  await page.getByPlaceholder("Measurement name").fill(`Release ${kind}`);
-  await page.getByRole("button", { name: kind, exact: true }).click();
-  await expect(
-    page.locator(".measurement-row").filter({
-      has: page.getByLabel(`Name for Release ${kind}`),
-    }),
-  ).toBeVisible();
+  await page.getByRole("button", { name: "Open measurements", exact: true }).click();
+  const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
+  await expect(tool).toBeVisible();
+  await tool.getByRole("button", { name: kind === "dihedral" ? "Torsion" : kind === "angle" ? "Angle" : "Distance", exact: true }).click();
+  await tool.getByRole("button", { name: "Use selection", exact: true }).click();
+  if (atomIds.length > 2) {
+    const order = tool.getByRole("region", { name: "Confirm measurement order", exact: true });
+    await expect(order).toBeVisible();
+    for (const [index, atomId] of atomIds.entries()) await order.getByLabel(new RegExp(`^Ordered target ${index + 1}`))
+      .selectOption(JSON.stringify([entryId, atomId]));
+    await order.getByRole("button", { name: "Use target order", exact: true }).click();
+  }
+  await tool.getByLabel("Measurement name", { exact: true }).fill(`Release ${kind}`);
+  await expect(tool.getByRole("button", { name: "Save measurement", exact: true })).toBeEnabled();
+  await tool.getByRole("button", { name: "Save measurement", exact: true }).click();
+  await expect(tool.getByLabel("Measurement name", { exact: true })).toHaveValue("");
+  await tool.getByRole("button", { name: /^Saved measurements/ }).click();
+  await expect(tool.getByRole("button", { name: `Inspect measurement Release ${kind}`, exact: true })).toBeVisible();
+  const stored = (await currentProject(request, projectId)).measurements.find(measurement => measurement.name === `Release ${kind}`);
+  expect(stored?.atom_references).toEqual(atomIds.map(atom_id => ({ structure_id: entryId, atom_id })));
+  await tool.getByRole("button", { name: "Close measurements", exact: true }).click();
+  await expect(tool).toBeHidden();
 }
 
 async function expectNonblankCanvas(page: Page): Promise<void> {
@@ -238,9 +255,9 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await pickVisibleStructure(page);
   await expect(page.locator(".selection-meta")).toContainText("from viewer");
 
-  await createMeasurement(page, protein!.id, [1, 2], "distance");
-  await createMeasurement(page, protein!.id, [1, 2, 3], "angle");
-  await createMeasurement(page, protein!.id, [1, 2, 3, 4], "dihedral");
+  await createMeasurement(page, request, project!.id, protein!.id, [1, 2], "distance");
+  await createMeasurement(page, request, project!.id, protein!.id, [1, 2, 3], "angle");
+  await createMeasurement(page, request, project!.id, protein!.id, [1, 2, 3, 4], "dihedral");
   state = await currentProject(request, project!.id);
   expect(state.measurements.map((measurement) => measurement.kind).sort()).toEqual([
     "angle",

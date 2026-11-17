@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import runpy
 import shutil
 import subprocess
 import sys
@@ -118,14 +119,14 @@ def test_recipe_uses_the_selected_annotated_tag_commit_and_all_complete_gate_ste
         "uv", "pnpm", "migration", "downgrade", "remigration", "ruff", "mypy",
         "reader-tool-types", "python", "lint", "types", "web", "supervisor", "build",
         "browser-inventory", "browser", "versions", "production", "legacy-cli",
-        *[f"{family}-{phase}" for family in ("rich", "connectivity") for phase in (
+        *[f"{family}-{phase}" for family in ("rich", "connectivity", "measurements") for phase in (
             "current-migration", "current-produce", "previous-migration-and-copy",
             "previous-refuse-current", "previous-produce", "current-read-previous",
             "current-reopen",
         )],
         "editing-readers", "diff",
     ]
-    assert len(labels) == len(set(labels)) == 35
+    assert len(labels) == len(set(labels)) == 42
     assert workspace.is_dir()
 
 
@@ -141,6 +142,7 @@ def test_schema_boundary_commands_keep_actual_old_processes_separate_from_curren
         ("rich", "rebranding_reader_qualification.py", "--expect-new-names"),
         ("connectivity", "current_connectivity_reader_qualification.py",
          "--expect-current-connectivity"),
+        ("measurements", "measurement_reader_qualification.py", "--expect-ordered-measurements"),
     ):
         current, previous, refused = (workspace / f"{family}-{suffix}"
                                       for suffix in ("current", "previous", "refusal"))
@@ -201,7 +203,8 @@ def test_recipe_retains_all_tool_typechecks_native_inventory_and_environment_gua
     tools = steps["reader-tool-types"]["command"]
     assert {Path(path).name for path in tools if path.endswith(".py")} == {
         "structure_editing_reader_qualification.py", "rebranding_reader_qualification.py",
-        "current_connectivity_reader_qualification.py", "navigation_reader_qualification.py",
+        "current_connectivity_reader_qualification.py", "measurement_reader_qualification.py",
+        "navigation_reader_qualification.py",
         "project_document_compatibility.py", "schema_boundary_refusal.py",
         "schema_boundary_evidence.py",
     }
@@ -321,3 +324,31 @@ def test_missing_extracted_source_or_receipt_is_not_silently_accepted(
     assert result.returncode != 0
     assert not workspace.exists()
     assert not (root / "docs/assets/ligand-designation" / f"{label}-recipe.json").exists()
+
+
+def test_source_inventory_freezes_both_released_viewer_tool_families_and_new_ligand_tools(
+    synthetic_repository: tuple[Path, Path, Path], monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    root, _old, _receipt = synthetic_repository
+    directories = ("viewer-information", "viewer-measurements", "ligand-designation")
+    names = ("qualification.py.txt", "release-recipe.py.txt", "versions.py.txt",
+             "production-audit.py.txt", "qualification-summary.py.txt", "release-evidence.py.txt")
+    expected = set()
+    for directory in directories:
+        for name in names:
+            relative = f"docs/assets/{directory}/{name}"
+            target = root / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(f"Synthetic source identity: {directory}/{name}\n")
+            expected.add(relative)
+    git(root, "add", "docs/assets")
+    git(root, "-c", "user.name=Recipe unit", "-c", "user.email=recipe@example.invalid",
+        "commit", "-q", "-m", "test: source inventory scopes")
+    helpers = runpy.run_path(str(SCRIPT.with_name("qualification.py.txt")))
+    monkeypatch.chdir(root)
+    tagged = helpers["tagged_identities"]("HEAD")
+    assert set(tagged) == expected
+    assert helpers["current_identities"](root) == tagged
+    target = root / "docs/assets/viewer-measurements/qualification-summary.py.txt"
+    target.write_text("Changed prior qualification oracle\n")
+    assert helpers["current_identities"](root) != tagged

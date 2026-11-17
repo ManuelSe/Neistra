@@ -1,0 +1,12 @@
+{
+  "scope": "Lossless failed candidate6 raw output relocation after exact canonical inventory/part union and recursive verification",
+  "original": "docs/assets/viewer-measurements/c3-candidate6-native",
+  "retained": ".issue-11-evidence/c3-candidate6-native",
+  "files": 433,
+  "bytes": 54244342,
+  "all_bytes_and_hashes_verified": true,
+  "raw_owned_run": "/tmp/neistra157-c3-candidate6 retained; all files also indexed",
+  "forensic_index": "docs/assets/viewer-measurements/c3-forensics-index.json",
+  "inventory": "docs/assets/viewer-measurements/c3-forensics-inventory-c3-candidate6.json.gz",
+  "failed_gate_remains_unqualified": true
+}

@@ -10,16 +10,17 @@ import shutil
 import signal
 import tempfile
 import time
-from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal, cast
+from typing import Literal, cast
 
 from fastapi import Request
 from neistra_core.molecular import NormalizedStructureV1
 from sqlalchemy import event
 from sqlalchemy.orm import Session, sessionmaker
 
+from neistra_api.async_work import offload_owned_work as _off_loop
+from neistra_api.async_work import settle_owned_task as _settle
 from neistra_api.edit_artifacts import StagedArtifact
 from neistra_api.edit_attempts import (
     ApplyKind,
@@ -61,30 +62,6 @@ class LoadedEdit:
     publication: PreparedPublication | None
     staged: StagedArtifact | None
     preview_json: bytes | None
-
-
-async def _settle[T](task: asyncio.Task[T]) -> T:
-    """Finish owned cleanup even if its caller receives another cancellation."""
-    while not task.done():
-        try:
-            await asyncio.shield(task)
-        except asyncio.CancelledError:
-            continue
-    return task.result()
-
-
-async def _off_loop[T](function: Callable[..., T], *args: Any) -> T:
-    task = asyncio.create_task(asyncio.to_thread(function, *args))
-    try:
-        return await asyncio.shield(task)
-    except asyncio.CancelledError:
-        # A cancelled await does not stop a thread. Do not remove its stage or
-        # release admission while it still owns a session/file/large result.
-        try:
-            await _settle(task)
-        except Exception:
-            pass
-        raise
 
 
 class EditExecutionController:
@@ -494,9 +471,7 @@ class EditExecutionController:
         payload: ModelEditCreate | SelectionEditCreate,
     ) -> EditAttempt:
         try:
-            record, created = self.attempts.reserve(
-                attempt_id, project_id, entry_id, kind, payload
-            )
+            record, created = self.attempts.reserve(attempt_id, project_id, entry_id, kind, payload)
         except EditAttemptReservationError as error:
             raise EditExecutionError(error.status, error.code, str(error)) from error
         if not created and (record.digest is None or self.attempt_fingerprinting):

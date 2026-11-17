@@ -1,0 +1,34 @@
+{
+  "scope": "Qualified candidate7 raw native relocation only after exact ZIP manifest/byte/hash/recursive validation",
+  "candidate": "df1ed1bb4ee5ad2430933b203be60f185b2bd48c",
+  "original": "docs/assets/viewer-measurements/c3-candidate7-native",
+  "retained": ".issue-11-evidence/c3-candidate7-native",
+  "files": 670,
+  "bytes": 93169325,
+  "qualified_archives": [
+    {
+      "bytes": 83419843,
+      "file": "c3-candidate7-qualified-01.zip",
+      "outer_manifest_entries": 1236,
+      "sha256": "775363c48da21a923e64916a77641d7ac3502bbde9169f8b2d225a0a7ab13d4f",
+      "verification_counts": {
+        "evidence_manifest_entries": 1236,
+        "project_archive_files": 789,
+        "zip_archives": 354
+      }
+    },
+    {
+      "bytes": 274191,
+      "file": "c3-candidate7-qualified-02.zip",
+      "outer_manifest_entries": 61,
+      "sha256": "e55b5d28f6f468910d259e3da2da9eaf3588fa8c714c9c8ef1c862534555d586",
+      "verification_counts": {
+        "evidence_manifest_entries": 61,
+        "project_archive_files": 86,
+        "zip_archives": 17
+      }
+    }
+  ],
+  "raw_owned_run_retained": "/tmp/neistra157-c3-candidate7",
+  "no_evidence_discarded": true
+}

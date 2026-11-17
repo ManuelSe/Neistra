@@ -820,3 +820,28 @@ late camera application. Molecular scene-command outcomes remain independent.
 Migration 0015 adds only the installation singleton, with atomic expected-revision
 writes. Downgrade drops that preference and leaves project/history/artifacts intact.
 See D-154 and the issue #140 contract for scope and verification.
+
+
+### Viewer measurement owners (issue #157)
+
+D-169 owns the transient numbered draft above responsive viewer remounts. Its
+native singleton lease, immutable source fences and separate nonpickable markers
+preserve canonical selection. Scoped Promise commands capture project/revision,
+visit/session/generation and ordered participants. A typed current/superseded Save
+completion fences the continuation as well as generic mutation feedback. First-load
+recovery classification prevents later acknowledgements from masquerading as startup
+recovery. Fixed query observer slots bound hidden draft/expanded source subscriptions.
+
+D-170 replaces per-record saved measurement state transforms with up to three public
+native geometry representations and one full-text label representation. Engine owns
+installed/staged direct-canvas batches outside plugin state, retires them explicitly,
+and publishes only after successful current-source completion. Off-canvas tasks
+settle before final destruction; obsolete tasks cannot restore a retired batch.
+Durable measurements, scientific values and immutable normalized artifacts remain
+application owned. Draft markers and ordinary structure labels keep separate owners.
+
+D-168 contact reads use one owned ephemeral child and bounded verified response bytes.
+Short metadata sessions and settled off-loop file reads avoid retaining a whole SQL
+project document during computation. Source, policy and completion receipts qualify
+publication; cancellation/cleanup retains admission ownership. No persistent job or
+molecular edit is introduced by the contact read.

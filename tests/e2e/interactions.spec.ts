@@ -4,7 +4,7 @@ import { writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import type { Project, NormalizedStructure } from "../../apps/web/src/api/types";
-import { frameFixture, prepare, native, cyanPixels } from "./support/interactions";
+import { frameFixture, prepare, native, cyanPixelsOutsideBackground, settledCyanBackground } from "./support/interactions";
 
 test("compact interaction control analyzes once and filters cached scopes", async ({ page, request }, info) => {
   test.setTimeout(90_000);
@@ -46,6 +46,28 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   test.setTimeout(150_000);
   const project = await prepare(page, request, ["tests/fixtures/interactions/hydrogen_pair.mol"], "Interaction lifecycle");
   await frameFixture(page);
+  // The molecule and camera axes also contain cyan edge pixels. Capture each
+  // visibility state's settled full-canvas background before any analysis, then
+  // test newly drawn pixels rather than treating unrelated objects as markers.
+  await expect.poll(async () => (await native(page)).records.length).toBe(0);
+  const hydrogenDrawn = () => page.evaluate(entryId => window.interactionEngines.at(-1)!
+    .getRenderedAtomReferences().some(atom => atom.structure_id === entryId && atom.atom_id === 2), project.entries[0].id);
+  await expect.poll(hydrogenDrawn).toBe(true);
+  const shownBackground = await settledCyanBackground(page);
+  const pixelCamera = (await native(page)).camera;
+  await page.getByRole("button", { name: "Open viewer controls" }).click();
+  const hydrogens = page.getByRole("checkbox", { name: "Show hydrogens", exact: true });
+  await hydrogens.click(); await expect(hydrogens).not.toBeChecked();
+  await expect.poll(hydrogenDrawn).toBe(false);
+  await native(page);
+  const hiddenBackground = await settledCyanBackground(page);
+  expect((await native(page)).camera).toEqual(pixelCamera);
+  await hydrogens.click(); await expect(hydrogens).toBeChecked();
+  await expect.poll(hydrogenDrawn).toBe(true);
+  await page.getByRole("button", { name: "Close viewer controls" }).click();
+  await native(page);
+  expect(await settledCyanBackground(page)).toEqual(shownBackground);
+  expect((await native(page)).camera).toEqual(pixelCamera);
   let analyses = 0, structureGets = 0;
   page.on("request", outgoing => { if (outgoing.url().endsWith("/interactions")) analyses++; if (/\/entries\/[^/]+\/structure$/.test(new URL(outgoing.url()).pathname)) structureGets++; });
   const launcher = page.getByRole("button", { name: "Interactions", exact: true });
@@ -55,22 +77,25 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   await expect(panel.getByRole("status")).toContainText("1 detected", { timeout: 20_000 });
   await expect.poll(async () => (await native(page)).records.length).toBe(1);
   const geometry = await native(page);
+  expect(geometry.camera).toEqual(pixelCamera);
   expect(geometry.records[0].endpoints).toEqual([[1, 0, 0], [2.8, 0, 0]]);
   expect(geometry.objects[0].starts.slice(0, 3)).toEqual([1, 0, 0]);
   expect(geometry.objects.every(object => !object.pickable && object.drawCount > 0)).toBe(true);
   await panel.getByRole("button", { name: "Close interactions" }).click();
-  await expect.poll(() => cyanPixels(page)).toBeGreaterThan(10);
-  const pixels = await cyanPixels(page);
+  await expect.poll(() => cyanPixelsOutsideBackground(page, shownBackground)).toBeGreaterThan(10);
+  const pixels = await cyanPixelsOutsideBackground(page, shownBackground);
   await page.screenshot({ path: info.outputPath("explicit-h-overlay.png") });
   await page.getByRole("button", { name: "Open viewer controls" }).click();
   await page.getByRole("checkbox", { name: "Show hydrogens", exact: true }).click();
   await expect(page.getByRole("checkbox", { name: "Show hydrogens", exact: true })).not.toBeChecked();
   await expect.poll(async () => (await native(page)).records.length).toBe(0);
-  await expect.poll(() => cyanPixels(page)).toBeLessThanOrEqual(10);
+  expect((await native(page)).camera).toEqual(pixelCamera);
+  await expect.poll(() => cyanPixelsOutsideBackground(page, hiddenBackground)).toBeLessThanOrEqual(10);
   await page.getByRole("checkbox", { name: "Show hydrogens", exact: true }).click();
   await expect(page.getByRole("checkbox", { name: "Show hydrogens", exact: true })).toBeChecked();
   await page.getByRole("button", { name: "Close viewer controls" }).click();
-  await expect.poll(() => cyanPixels(page)).toBeGreaterThan(10);
+  await expect.poll(() => cyanPixelsOutsideBackground(page, shownBackground)).toBeGreaterThan(10);
+  expect((await native(page)).camera).toEqual(pixelCamera);
   expect(analyses).toBe(1); expect(structureGets).toBe(0);
   const mobile = info.project.name === "mobile-chromium";
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
@@ -109,7 +134,8 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   await expect.poll(() => analyses, { timeout: 20_000 }).toBe(4);
   await expect.poll(async () => (await native(page)).records[0]?.endpoints).toEqual(movedEndpoints);
   await expect.poll(async () => (await native(page)).objects[0]?.starts.slice(0, 3)).toEqual(movedEndpoints[0].map(Math.fround));
-  writeFileSync(info.outputPath("interaction-lifecycle.json"), JSON.stringify({ project: info.project.name, pixels, geometry, analyses, structureGets }, null, 2));
+  writeFileSync(info.outputPath("interaction-lifecycle.json"), JSON.stringify({ project: info.project.name, pixels,
+    shownBackground, hiddenBackground, geometry, analyses, structureGets }, null, 2));
 });
 
 test("shows busy failures, retries, and keeps the compact panel accessible in both themes", async ({ page, request }, info) => {

@@ -1,0 +1,589 @@
+{
+  "label": "c4-candidate1",
+  "application_version": "0.34.0",
+  "require_clean": true,
+  "unset_environment": [
+    "NEISTRA_DATA_DIR",
+    "NEISTRA_DATABASE_URL",
+    "MOLWEAVE_DATA_DIR",
+    "MOLWEAVE_DATABASE_URL",
+    "DATABASE_URL"
+  ],
+  "preceding_reader": {
+    "tag": "v0.33.0",
+    "version": "0.33.0",
+    "commit": "d8636064263f6221c402665da52a4a1738570845",
+    "root": "/tmp/neistra156-reader-0330"
+  },
+  "environment": {
+    "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_QUALIFICATION_VERSION": "0.34.0",
+    "NEISTRA_E2E_API_PORT": "8240",
+    "NEISTRA_E2E_WORKER_PORT": "8241",
+    "NEISTRA_E2E_WEB_PORT": "5403",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-browser.json",
+    "NEISTRA_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra156-c4-candidate1/native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ]
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/database",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      }
+    },
+    {
+      "label": "downgrade",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "alembic",
+        "downgrade",
+        "base"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/database",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      }
+    },
+    {
+      "label": "remigration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/database",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      }
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ]
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/neistra_core",
+        "packages/neistra_demo_plugin"
+      ]
+    },
+    {
+      "label": "reader-tool-types",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "mypy",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/structure_editing_reader_qualification.py",
+        "--follow-imports=silent"
+      ]
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/database"
+      }
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser-inventory",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--list",
+        "--reporter=json"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra156-c4-candidate1/e2e",
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-browser-inventory.json"
+      }
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-native"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra156-c4-candidate1/e2e"
+      }
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/versions.py.txt"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/database",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      }
+    },
+    {
+      "label": "production",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/production-audit.py.txt"
+      ]
+    },
+    {
+      "label": "legacy-cli",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/unit/test_namespace_compatibility.py"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/database"
+      }
+    },
+    {
+      "label": "rich-forward-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "rich-forward-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/rich-forward",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+        "--expected-version",
+        "0.34.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-rich-forward-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "rich-forward-read",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/rich-forward",
+        "--implementation-root",
+        "/tmp/neistra156-reader-0330",
+        "--expected-version",
+        "0.33.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-rich-forward-read.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-forward/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "rich-reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "rich-reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "--implementation-root",
+        "/tmp/neistra156-reader-0330",
+        "--expected-version",
+        "0.33.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-rich-reverse-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "rich-reverse-reader-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "rich-reverse-read",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+        "--expected-version",
+        "0.34.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-rich-reverse-read.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/rich-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/rich-reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "connectivity-forward-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "connectivity-forward-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+        "--expected-version",
+        "0.34.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-connectivity-forward-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "connectivity-forward-read",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "--implementation-root",
+        "/tmp/neistra156-reader-0330",
+        "--expected-version",
+        "0.33.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-connectivity-forward-read.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-forward",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-forward/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "connectivity-reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "connectivity-reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "--implementation-root",
+        "/tmp/neistra156-reader-0330",
+        "--expected-version",
+        "0.33.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-connectivity-reverse-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "PYTHONPATH": "/tmp/neistra156-reader-0330/apps/api/src:/tmp/neistra156-reader-0330/packages/neistra_core/src:/tmp/neistra156-reader-0330/packages/neistra_demo_plugin/src:/tmp/neistra156-reader-0330"
+      },
+      "cwd": "/tmp/neistra156-reader-0330"
+    },
+    {
+      "label": "connectivity-reverse-reader-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "connectivity-reverse-read",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+        "--expected-version",
+        "0.34.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-candidate1-connectivity-reverse-read.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "NEISTRA_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra156-c4-candidate1/connectivity-reverse",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra156-c4-candidate1/connectivity-reverse/molweave.db",
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/apps/api/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information"
+    },
+    {
+      "label": "editing-readers",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/support/structure_editing_reader_qualification.py",
+        "run",
+        "--current-root",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information",
+        "--previous-root",
+        "/tmp/neistra156-reader-0330",
+        "--previous-receipt",
+        "/tmp/neistra156-reader-0330-source.json",
+        "--python",
+        "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/.venv/bin/python",
+        "--workspace",
+        "/tmp/neistra156-c4-candidate1/editing-readers",
+        "--current-version",
+        "0.34.0",
+        "--previous-version",
+        "0.33.0",
+        "--previous-tag",
+        "v0.33.0",
+        "--previous-commit",
+        "d8636064263f6221c402665da52a4a1738570845"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

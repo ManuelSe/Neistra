@@ -1,0 +1,331 @@
+{
+  "application_comparison_base": "22e8c948ee7ea1f82ccc700ad3937be756031bca",
+  "application_source_diff_empty": true,
+  "archive": {
+    "bytes": 3891291,
+    "file": "c4-native-drag-path.zip",
+    "outer_manifest_entries": 51,
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-native-drag-path.zip",
+    "sha256": "036f3888d16c556ff1195c087a233ce84747c2efb1ff591aa927a78d41b6f75d",
+    "verification_counts": {
+      "evidence_manifest_entries": 51,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "check_log_limitations": "Passing ESLint and strict-helper tsc logs are empty; exit zero independently reported. Initial temporary TS source was overwritten only to replace the failed symlink import with the physical pinned package path; its original import remains in the retained diagnostic log.",
+  "check_logs_archive": {
+    "bytes": 3197,
+    "file": "c4-native-drag-path-checks.zip",
+    "outer_manifest_entries": 5,
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-native-drag-path-checks.zip",
+    "sha256": "6c4f16cc64aedf20aaec8480c3c048ea96edc2b7efd2364864ba6079c85f0d36",
+    "verification_counts": {
+      "evidence_manifest_entries": 5,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "checks": {
+    "diff_check": true,
+    "focused_typescript_recommended_eslint": true,
+    "strict_changed_helper_typecheck": true
+  },
+  "every_selected_path_has_nine_native_samples": true,
+  "existing_skips": [
+    {
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts"
+    }
+  ],
+  "fallback_observations": [
+    {
+      "attempts": [
+        {
+          "samples": [
+            {
+              "hit": {
+                "className": "dialog-content movement-panel",
+                "label": null,
+                "role": "dialog",
+                "tag": "DIV",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 329.6,
+              "y": 573.6
+            },
+            {
+              "hit": {
+                "className": "movement-panel-body",
+                "label": null,
+                "role": null,
+                "tag": "DIV",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 325.225,
+              "y": 576.1
+            },
+            {
+              "hit": {
+                "className": "movement-panel-body",
+                "label": null,
+                "role": null,
+                "tag": "DIV",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 320.85,
+              "y": 578.6
+            },
+            {
+              "hit": {
+                "className": "movement-panel-body",
+                "label": null,
+                "role": null,
+                "tag": "DIV",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 316.475,
+              "y": 581.1
+            },
+            {
+              "hit": {
+                "className": "movement-panel-body",
+                "label": null,
+                "role": null,
+                "tag": "DIV",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 312.1,
+              "y": 583.6
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": false,
+              "x": 307.725,
+              "y": 586.1
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 303.35,
+              "y": 588.6
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 298.975,
+              "y": 591.1
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 294.6,
+              "y": 593.6
+            }
+          ],
+          "x": 329.6,
+          "y": 573.6
+        },
+        {
+          "samples": [
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 379.04,
+              "y": 638.8000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 374.665,
+              "y": 641.3000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 370.29,
+              "y": 643.8000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 365.915,
+              "y": 646.3000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 361.54,
+              "y": 648.8000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 357.165,
+              "y": 651.3000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 352.79,
+              "y": 653.8000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 348.415,
+              "y": 656.3000000000001
+            },
+            {
+              "hit": {
+                "className": null,
+                "label": null,
+                "role": null,
+                "tag": "CANVAS",
+                "testId": null
+              },
+              "inside": true,
+              "native": true,
+              "x": 344.04,
+              "y": 658.8000000000001
+            }
+          ],
+          "x": 379.04,
+          "y": 638.8000000000001
+        }
+      ],
+      "box": {
+        "height": 652,
+        "width": 412,
+        "x": 0,
+        "y": 52
+      },
+      "clearance": 2,
+      "file": "viewer-transform-toolbar.spec.ts",
+      "margin": 4,
+      "movement": {
+        "camera": true,
+        "dx": -35,
+        "dy": 20
+      },
+      "project": "mobile-chromium",
+      "selected": {
+        "x": 379.04,
+        "y": 638.8000000000001
+      },
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus"
+    }
+  ],
+  "fallback_paths": 1,
+  "fixed_native_paths": 54,
+  "initial_typecheck_configuration_diagnostic": "Absolute symlink import could not resolve Playwright exports; physical pinned package path passed.",
+  "not_a_complete_release_gate": true,
+  "report_sha256": "526fbea18a2627a301f35bf9f86b04206fa293ffeb0288f1b24d197c49c2b82a",
+  "scope": "Focused native oracle correction, not a complete release gate",
+  "source": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/tests/e2e/viewer-transform-toolbar.spec.ts",
+  "source_sha256": "4edff195da3be2be6c2350a51da9c788c0b25a3cbc12b958e564e888ac7fd19b",
+  "stats": {
+    "duration": 465161.388,
+    "expected": 49,
+    "flaky": 0,
+    "skipped": 1,
+    "startTime": "2026-11-16T11:59:22.526Z",
+    "unexpected": 0
+  },
+  "zero_retries": true
+}

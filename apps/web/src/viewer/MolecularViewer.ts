@@ -30,12 +30,40 @@ export interface ResolvedPocket {
 export interface ViewerStructure {
   pockets?: Readonly<Record<string, ResolvedPocket>>;
   entryId: string;
+  artifactId?: string;
   label: string;
   projection: StructureProjection["viewer"];
   atomIds: number[];
   normalized: NormalizedStructure;
   hierarchy: ComponentHierarchy;
   settings: ViewerSettings;
+}
+
+export interface ViewerAtomHover {
+  reference: AtomReference;
+  source: ViewerStructure;
+  sceneGeneration: number;
+}
+
+export interface ViewerAtomPick {
+  reference: AtomReference;
+  source: ViewerStructure;
+  sceneGeneration: number;
+  sourceOperation: number;
+}
+
+export interface AtomPickLeaseRequest {
+  owner: object;
+  isCurrent(): boolean;
+  onPick(event: ViewerAtomPick): void;
+  onRetire(reason: string): void;
+}
+
+export interface ViewerMeasurementTarget {
+  reference: AtomReference;
+  /** One-based draft slot (1–4); gaps retain their target roles. */
+  index: number;
+  source: ViewerStructure;
 }
 
 export interface ViewerSelectionEvent {
@@ -73,6 +101,8 @@ export interface MolecularViewer {
   setModelPreview?: (preview: MolecularProposalGeometry | null) => Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
+  acquireAtomPickLease?(request: AtomPickLeaseRequest): () => void;
+  setMeasurementTargets?(targets: readonly ViewerMeasurementTarget[]): Promise<void>;
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;
   setInteractions(interactions: InteractionRecord[], options?: InteractionDisplayOptions): Promise<void>;
   subscribeInteractionDisplay?(listener: (state: InteractionDisplayState) => void): () => void;
@@ -94,6 +124,8 @@ export interface MolecularViewer {
   focusAtoms(atoms: AtomReference[]): void;
   fitVisible(): void;
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
+  getAtomHover?(): ViewerAtomHover | null;
+  subscribeAtomHover?(listener: (event: ViewerAtomHover | null) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
   previewSurfaceAppearance(identity: SurfaceIdentity, appearance: SurfaceAppearance | null): Promise<void>;

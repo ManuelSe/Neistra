@@ -1,0 +1,74 @@
+{
+  "application_source_changed": false,
+  "archive": {
+    "bytes": 6179517,
+    "file": "c4-pixel-background.zip",
+    "outer_manifest_entries": 43,
+    "path": "/datadisk/dev/neistra-worktrees/issue-11-ligand-information/docs/assets/viewer-information/c4-pixel-background.zip",
+    "sha256": "e59da354cb8f5a145a65d8df2db8bd246898077031247a871eaadf5313281268",
+    "verification_counts": {
+      "evidence_manifest_entries": 43,
+      "project_archive_files": 0,
+      "zip_archives": 2
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "flaky": 0,
+      "passed": 2,
+      "retries": 0,
+      "scope": "Attempt1 initial paired masks; attempt2 additionally waits for actual canonical H visibility before freezing backgrounds.",
+      "skipped": 0,
+      "unexpected": 0
+    },
+    {
+      "attempt": 2,
+      "flaky": 0,
+      "passed": 2,
+      "retries": 0,
+      "scope": "Attempt1 initial paired masks; attempt2 additionally waits for actual canonical H visibility before freezing backgrounds.",
+      "skipped": 0,
+      "unexpected": 0
+    }
+  ],
+  "correction": "Freeze two consecutive coordinate-equal full-canvas cyan masks for each actual hydrogen visibility state before any analysis. Count later cyan pixel coordinates absent from the matching background, with exact size and camera guards. No scalar subtraction or segment crop. Preserve native geometry/install checks, channel predicate, positive >10 and negative <=10 bounds, existing deadlines, exclusions and zero retries.",
+  "diagnostic_store": "Synthetic original diagnostic database/artifacts remain locally retained under /tmp/neistra156-c7-pixel-diagnostic1/data; live database files are deliberately excluded from the checked archive.",
+  "failed_candidate": "c4-candidate7",
+  "failure": {
+    "actual_existing_skips": 2,
+    "installed_records": 0,
+    "interaction_installed": false,
+    "maximum": 10,
+    "native_passed": 65,
+    "not_run": 496,
+    "unexpected": 1,
+    "whole_canvas_cyan": 11
+  },
+  "head_before_correction": "307ad34a1b61f9044dd7ba0df43b892f3cc87699",
+  "independent_diagnostic": {
+    "camera_and_dimensions_unchanged": true,
+    "fullcanvas_height": 423,
+    "fullcanvas_width": 709,
+    "hidden_background_pixels": 11,
+    "hidden_pixels_outside_hidden_background": 0,
+    "marker_pixels_outside_shown_background": 35,
+    "pointer_exit_did_not_change_background": true,
+    "settled_receipt_sha256": "ced1eafabe6c2cb79ee7f248b51d90b07e6ac91e145e219ef87533af9a403e17",
+    "shown_background_pixels": 9,
+    "shown_total_pixels": 44
+  },
+  "next": "Fresh complete candidate8, all-seven final same-candidate review, normal merge and exact-merged complete qualification before release.",
+  "release_qualification": false,
+  "scope": "Scoped interaction pixel ownership correction and diagnostics; not a complete release gate",
+  "source": {
+    "tests/e2e/interactions.spec.ts": {
+      "bytes": 15741,
+      "sha256": "b917cef23532abfb876ba859b650e54a54adc8904f1e5d224f29d7f5838d74eb"
+    },
+    "tests/e2e/support/interactions.ts": {
+      "bytes": 4731,
+      "sha256": "c44ed2fb782526d586bcc7717cc4296f14d9bf50b1acb5e88e569fadc22fc399"
+    }
+  }
+}

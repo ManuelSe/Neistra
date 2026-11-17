@@ -1,0 +1,23 @@
+{
+  "scope": "D173 exact finite coordinate-basis contact qualification; author evidence, independent reassessment/full42 pending",
+  "archive": "c3-contact-basis-correction.zip",
+  "archive_bytes": 7231,
+  "archive_sha256": "bf4654abb7a05e0a0ff222d69125c655a3fd83943a031488dd6b39eb78edd7b0",
+  "files": 10,
+  "member_hashes_and_crcs_verified": true,
+  "source_hashes": {
+    "packages/neistra_core/src/neistra_core/contacts.py": "6fe7e5312a1f88b213637c610fa3f445763488c79a064ecec8023bda1664b081",
+    "tests/scientific/test_contact_streaming.py": "60e3b0884ce06f7eaf69e471e22943e803fa95f99da986be6e334e36a8d58f33",
+    "tests/integration/test_contact_execution.py": "f3d188f4eb9591aaf659f1d6c86f0c3f9488a54041b072e486819bd9bd72ee90"
+  },
+  "focused_python_passed": 184,
+  "focused_python_skipped": 0,
+  "authoritative_production_mypy_passed_files": 222,
+  "ruff": "PASS",
+  "new_test_typing": "PASS extracted exact5functions withfollow-imports=silent; notclaim entireoldtestfiles typeclean",
+  "retained_diagnostics": "Pre-fix redcontrol,initialRufflineerrors,directtesttyping21errorsretained. Newfixtureinferencecorrected;20oldtesterrorsoutsideauthoritativeproductiontypescope remainunchanged.",
+  "post_focused_delta": "Only line wrapping in three new pytest.raises statements and an equivalent float-literal fixture spelling after passing focused184 suite; no production behavior/assertion changes. Original Ruff and direct broad-test typing failures preserved.",
+  "guard": "FiniteNx3atomcoordinates mustexactlymatchactiveframe, signedzeroequal; whole422contacts_geometryonconflict; singletoncheckbeforeemptyreturn; no source mutation/frameguess/tolerance.",
+  "compatibility": "No schema/migration/pins/versionchange beyond alreadyprepared0.35; existingacceptedconsistentnondefaultactiveframes andcompletezero-sites retained",
+  "next": "Independenttheory/scientificimplementation/performanceinspectactualguard; freshcandidate3all42, final7samecandidate,normaldelivery/exactmaster42/release/close157; parentGoalactive"
+}

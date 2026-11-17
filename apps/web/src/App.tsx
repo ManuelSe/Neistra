@@ -1,8 +1,11 @@
+import { LigandIntentOwner, type LigandOwnerContext } from "./ligands/ownership";
 import { completeLegacyLigands } from "./ligands/resolve";
 import { LigandDesignationControls } from "./components/LigandDesignationControls";
 import { ligandApi } from "./ligands/api";
 import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
 import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
+import { MeasurementSession, type MeasurementPorts } from "./measurements/session";
+import { measurementPreviewPaused } from "./measurements/preview";
 import { createSurfaceManagerSession } from "./surfaces/surfaceManagerSession";
 import { createdSurfaceIdentities } from "./surfaces/createdSurfaces";
 import { seedCoordinateProjections } from "./coordinates/cache";
@@ -48,7 +51,6 @@ import type {
   Selection,
   SelectionEditAction,
   Measurement,
-  MeasurementKind,
   ProteinEdit,
   Project,
   ProjectListItem,
@@ -167,16 +169,16 @@ export default function App() {
   const [groupDialog, setGroupDialog] = useState<GroupDialogRequest | null>(null);
   const [notice, setNotice] = useState<ApplicationNoticeValue | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
+  const recoveryClassifiedProjects = useRef(new Set<string>());
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [selectionColorMode, setSelectionColorMode] =
     useState<SelectionColorMode>("carbon");
-  const [coordinatePreview, setCoordinatePreview] =
+  const [coordinatePreview, setCoordinatePreviewState] =
     useState<CoordinatePatch | null>(null);
+  const coordinatePreviewRef = useRef<CoordinatePatch | null>(null);
   const numericalPreviewGeneration = useRef(0);
-  const clearCoordinatePreview = useCallback(() => {
-    numericalPreviewGeneration.current++;
-    setCoordinatePreview(null);
-  }, []);
+  const ligandOwnerPorts = useRef<(() => LigandOwnerContext) | null>(null);
+  const [ligandOwner] = useState(() => new LigandIntentOwner(() => ligandOwnerPorts.current!()));
   const {
     selection,
     pickingGranularity,
@@ -229,6 +231,23 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+  const measurementPorts = useRef<MeasurementPorts | null>(null);
+  const [measurementSession] = useState(() => new MeasurementSession({
+    context: () => measurementPorts.current!.context(),
+    structures: references => measurementPorts.current!.structures(references),
+    create: (capture, context) => measurementPorts.current!.create(capture, context),
+  }));
+  const setCoordinatePreview = useCallback((next: CoordinatePatch | null) => {
+    if (next !== coordinatePreviewRef.current) ligandOwner.retire();
+    coordinatePreviewRef.current = next;
+    // Retire measurement owners before React can batch preview entry and Cancel.
+    measurementSession.guardContext();
+    setCoordinatePreviewState(next);
+  }, [measurementSession, ligandOwner]);
+  const clearCoordinatePreview = useCallback(() => {
+    numericalPreviewGeneration.current++;
+    setCoordinatePreview(null);
+  }, [setCoordinatePreview]);
   const surfaceSession = useMemo(() => createSurfaceManagerSession(activeProjectId ?? ""), [activeProjectId]);
   const previousSurfaceSession = useRef(surfaceSession);
   useEffect(() => {
@@ -289,10 +308,12 @@ export default function App() {
   }, [activeProjectId, projectsQuery.data, setActiveProjectId]);
 
   useEffect(() => {
-    if (project?.has_uncheckpointed_changes && !editedThisSession) {
+    if (!project || recoveryClassifiedProjects.current.has(project.id)) return;
+    recoveryClassifiedProjects.current.add(project.id);
+    if (project.has_uncheckpointed_changes && !editedThisSession) {
       setNotice(current => current ?? { kind: "success", text: "Recovered locally stored changes." });
     }
-  }, [editedThisSession, project?.has_uncheckpointed_changes, project?.id]);
+  }, [editedThisSession, project]);
 
   const updateProjectCache = (next: Project) => {
     const previous = queryClient.getQueryData<Project>(["project", next.id]);
@@ -427,6 +448,7 @@ export default function App() {
   const commandMutation = useMutation({
     mutationFn: (command: ProjectCommand) => dispatchProjectCommand(command, assertPublicationWritable),
     onMutate: (command: ProjectCommand) => {
+      command.context?.assertDispatchable();
       assertPublicationWritable(command.projectId);
       if (command.projectId === useWorkspaceStore.getState().activeProjectId) {
         if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
@@ -439,8 +461,10 @@ export default function App() {
     },
     onSuccess: (next, command) => {
       const previous = queryClient.getQueryData<Project>(["project", next.id]);
-      const warnings = previous ? surfacePruningWarnings(previous, next) : [];
+      const superseded = previous !== undefined && previous.revision > next.revision;
+      const warnings = previous && !superseded ? surfacePruningWarnings(previous, next) : [];
       updateProjectCache(next);
+      if (superseded || (command.context && !command.context.ownsFeedback())) return;
       if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
       setEditedThisSession(true);
       if (command.feedback !== "quiet" || warnings.length) setNotice({ kind: "success", text: ["Change stored locally.", ...warnings].join(" "), lifetime: warnings.length ? "persistent" : "transient" });
@@ -449,6 +473,7 @@ export default function App() {
       if (error instanceof ApiError && error.code === "revision_conflict") {
         void queryClient.invalidateQueries({ queryKey: ["project", command.projectId] });
       }
+      if (command.context && !command.context.ownsFeedback()) return;
       if (useWorkspaceStore.getState().activeProjectId !== command.projectId || command.feedback === "quiet") return;
       setNotice({ kind: "error", text: errorMessage(error) });
     },
@@ -490,48 +515,135 @@ export default function App() {
   const ligandPausedReason = coordinatePreview || ligandEditingPreview || ligandMinimizationPreview
     || movement.state.phase !== "idle" ? "Preview — values unavailable. Finish the current preview to change the ligand choice."
     : publicationBlocked || editBlocked ? "Reconcile the pending molecular change before choosing a ligand." : null;
-  const ligandGuard = useRef({ projectId: activeProjectId, paused: ligandPausedReason, busy });
-  ligandGuard.current = { projectId: activeProjectId, paused: ligandPausedReason, busy };
+  ligandOwnerPorts.current = () => {
+    const active = useWorkspaceStore.getState().activeProjectId;
+    const navigation = useNavigationStore.getState(), edit = useEditingStore.getState();
+    const minimize = useMinimizationStore.getState(), move = movementSession.snapshot();
+    return { activeProjectId: active, project: queryClient.getQueryData<Project>(["project", active]),
+      inspectedEntryId: navigation.projectId === active ? navigation.inspectedEntryId : null,
+      blocked: edit.pending || minimize.applying,
+      paused: Boolean(coordinatePreviewRef.current)
+        || Boolean(edit.projectId === active && (edit.placement?.result || edit.rotationDraft))
+        || Boolean(minimize.projectId === active && (minimize.preview || minimize.applying))
+        || Boolean(move.capture?.project.id === active && move.phase !== "idle")
+        || publication.snapshot(active ?? "").phase !== "idle"
+        || editAttemptBlocksWrites(editAttempts.snapshot(active ?? "")),
+    };
+  };
+  useSyncExternalStore(ligandOwner.subscribe, ligandOwner.snapshot);
+  useLayoutEffect(() => {
+    const guard = ligandOwner.observe;
+    ligandOwner.activate();
+    guard();
+    const release = [useWorkspaceStore.subscribe(guard), useNavigationStore.subscribe(guard),
+      useEditingStore.subscribe(guard), useMinimizationStore.subscribe(guard), movementSession.subscribe(guard),
+      publication.subscribe(guard), editAttempts.subscribe(guard),
+      queryClient.getQueryCache().subscribe(event => {
+        const key = event.query.queryKey as readonly unknown[];
+        if (key[0] === "project") guard();
+      })];
+    return () => { for (const stop of release) stop(); ligandOwner.deactivate(); };
+  }, [ligandOwner, movementSession, publication, editAttempts, queryClient]);
+  const ligandViewOwner = ligandOwner.capture(true);
   useLegacyLigandResolution({
-    project, activeProjectId, priorityEntryId: ligandEntryId,
+    project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
     blocked: busy || !!ligandPausedReason,
-    resolve: (captured, entryIds) => completeLegacyLigands(captured, entryIds, {
-      current: id => useWorkspaceStore.getState().activeProjectId === id && !ligandGuard.current.paused,
-      resolve: (source, ids) => commandMutation.mutateAsync(captureProjectCommand(source.id, () => {
-        if (useWorkspaceStore.getState().activeProjectId !== source.id || ligandGuard.current.paused) {
-          throw new ApiError(409, "ligand_context_changed", "Ligand recognition paused after the context changed.");
-        }
-        return ligandApi.resolve(source.id, source.revision, ids);
-      }, "quiet")),
-      read: projectApi.get,
-      accept: updateProjectCache,
-    }),
+    captureErrorOwner: () => ligandOwner.capture(false).ownsFeedback,
+    resolve: (captured, entryIds) => {
+      const owner = ligandOwner.capture(false);
+      return completeLegacyLigands(captured, entryIds, {
+        current: () => owner.ownsFeedback(),
+        resolve: (source, ids) => {
+          const context = { ownsFeedback: owner.ownsFeedback,
+            assertDispatchable: () => owner.assertDispatchable(source, ids) };
+          context.assertDispatchable();
+          return commandMutation.mutateAsync(captureProjectCommand(source.id,
+            () => ligandApi.resolve(source.id, source.revision, ids), "quiet", context));
+        },
+        read: projectApi.get,
+        accept: updateProjectCache,
+      });
+    },
     onError: (owner, error) => {
       if (owner === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
   const ligandControls = project ? <LigandDesignationControls project={project} entryId={ligandEntryId}
     onInspectEntry={id => useNavigationStore.getState().inspect(project.id, id)}
+    onOpenChoices={() => measurementSession.cancelAcquisition("Atom picking stopped for ligand choice.")}
+    ownsContext={ligandViewOwner.ownsFeedback}
     pausedReason={ligandPausedReason} busy={busy}
-    onDesignate={async (entry, candidateKey, inputHash) => {
-      const owner = project.id;
-      const captured = queryClient.getQueryData<Project>(["project", owner]);
-      const latest = captured?.entries.find(item => item.id === entry.id);
-      if (useWorkspaceStore.getState().activeProjectId !== owner || ligandGuard.current.paused
-        || ligandGuard.current.busy || captured?.revision !== project.revision
-        || latest?.current_artifact_id !== entry.current_artifact_id) {
-        throw new ApiError(409, "ligand_context_changed", "The ligand context changed. Inspect the current candidate before choosing it.");
-      }
-      await commandMutation.mutateAsync(captureProjectCommand(owner, () => {
-        if (ligandGuard.current.paused || useWorkspaceStore.getState().activeProjectId !== owner) {
-          throw new ApiError(409, "ligand_context_changed", "The ligand context changed before the choice was submitted.");
-        }
-        return ligandApi.designate(owner, entry.id, {
+    onDesignate={async (entry, candidateKey, inputHash, ownsAttempt) => {
+      const captured = project;
+      const context = { ownsFeedback: () => ligandViewOwner.ownsFeedback() && (!ownsAttempt || ownsAttempt()),
+        assertDispatchable: () => {
+          if (ownsAttempt && !ownsAttempt()) throw new ApiError(409, "ligand_context_changed", "The ligand choice was closed. Review the current choice before saving.");
+          ligandViewOwner.assertDispatchable(captured, [entry.id]);
+        } };
+      context.assertDispatchable();
+      if (busy) throw new ApiError(409, "ligand_context_changed", "Another change is being saved.");
+      const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id,
+        () => ligandApi.designate(captured.id, entry.id, {
           expected_revision: captured.revision, expected_artifact_id: entry.current_artifact_id,
           ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
-        });
-      }));
+        }), undefined, context));
+      const current = queryClient.getQueryData<Project>(["project", captured.id]);
+      return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
     }} /> : null;
+
+  measurementPorts.current = {
+    context: () => {
+      const active = useWorkspaceStore.getState().activeProjectId;
+      const selectionState = useSelectionStore.getState();
+      const edit = useEditingStore.getState(), minimize = useMinimizationStore.getState();
+      const move = movementSession.snapshot();
+      return {
+        project: queryClient.getQueryData<Project>(["project", active]),
+        activeProjectId: active, selectionProjectId: selectionState.projectId, projectEpoch: selectionState.projectEpoch,
+        paused: measurementPreviewPaused({
+          movement: Boolean(move.capture?.project.id === active && move.phase !== "idle"),
+          coordinates: Boolean(coordinatePreviewRef.current),
+          placement: Boolean(edit.projectId === active && edit.open && edit.placement),
+          minimization: Boolean(minimize.projectId === active && (minimize.preview || minimize.applying)),
+        }),
+        busy,
+      };
+    },
+    structures: references => {
+      const active = useWorkspaceStore.getState().activeProjectId;
+      const current = queryClient.getQueryData<Project>(["project", active]);
+      return new Map([...new Set(references.map(ref => ref.structure_id))].flatMap(id => {
+        const entry = current?.entries.find(entry => entry.id === id);
+        const key = structureQueryKey(active ?? "", id, entry?.current_artifact_id);
+        const query = queryClient.getQueryState<StructureProjection>(key);
+        return query?.status === "success" && isCompleteProjection(query.data, id, entry?.current_artifact_id)
+          ? [[id, query.data.structure] as const] : [];
+      }));
+    },
+    create: async (capture, context) => {
+      const next = await commandMutation.mutateAsync(captureProjectCommand(capture.project.id,
+        () => projectApi.createMeasurement(capture.project, capture.name, capture.kind, capture.references), "quiet", context));
+      const current = queryClient.getQueryData<Project>(["project", next.id]);
+      return current && current.revision > next.revision ? "superseded" : "current";
+    },
+  };
+  useLayoutEffect(() => {
+    const guard = () => measurementSession.guardContext();
+    const release = [useWorkspaceStore.subscribe(guard), useSelectionStore.subscribe(guard),
+      useEditingStore.subscribe(() => {
+        if (useEditingStore.getState().open) measurementSession.cancelAcquisition("Atom picking stopped for editing.");
+        guard();
+      }), useMinimizationStore.subscribe(guard), movementSession.subscribe(() => {
+        if (movementSession.snapshot().phase !== "idle") measurementSession.cancelAcquisition("Atom picking stopped for movement.");
+        guard();
+      }),
+      queryClient.getQueryCache().subscribe(event => {
+        const key = event.query.queryKey as readonly unknown[];
+        if (key[0] === "project") guard();
+      })];
+    return () => { for (const stop of release) stop(); measurementSession.close(); };
+  }, [measurementSession, movementSession, queryClient]);
+  useLayoutEffect(() => { measurementSession.guardContext(); }, [measurementSession, project, activeProjectId, coordinatePreview, busy]);
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -712,13 +824,14 @@ export default function App() {
   const inspectorSelectionProps = {
     movement,
     onInspectorTaskChange: () => {
+      measurementSession.cancelAcquisition();
       if (movementSession.snapshot().phase === "active" || movementSession.snapshot().phase === "loading") movementSession.cancel("Move selection was discarded after changing inspector tasks.");
     },
     selection,
     pickingGranularity,
     selectionBusy,
     onApplySelection: applySelection,
-    onPickingGranularity: setPickingGranularity,
+    onPickingGranularity: (granularity: SelectionGranularity) => { measurementSession.cancelAcquisition(); setPickingGranularity(granularity); },
     onClearSelection: clearSelection,
     onExpandSelection: (granularity: SelectionGranularity) => {
       void runSelectionOperation(async () => {
@@ -793,15 +906,9 @@ export default function App() {
         );
       }
     },
-    onCreateMeasurement: (
-      name: string,
-      kind: MeasurementKind,
-    ) => {
-      if (project) {
-        projectMutation.mutate(() =>
-          projectApi.createMeasurement(project, name, kind, selection.atoms),
-        );
-      }
+    onOpenMeasurements: () => {
+      useEditingStore.getState().setOpen(false); useMinimizationStore.getState().dismiss();
+      measurementSession.open();
     },
     onUpdateMeasurement: (
       measurement: Measurement,
@@ -1078,7 +1185,37 @@ export default function App() {
     } catch (error) { editAttempts.reviewFailed(owner, recoveryOwner, errorMessage(error)); }
   };
   const projects = projectsQuery.data ?? [];
+  const measurementCommand = async (measurement: Measurement, operation: (captured: Project) => Promise<Project>, message: string) => {
+    const captured = measurementPorts.current!.context().project;
+    const scope = measurementSession.snapshot();
+    const ownsFeedback = () => measurementSession.ownsSession(scope.session)
+      && measurementSession.snapshot().generation === scope.generation && measurementSession.inspectionAvailable();
+    if (!captured || !ownsFeedback()) throw new Error("Open the current measurement tool before changing measurements.");
+    const context = {
+      ownsFeedback,
+      assertDispatchable: () => {
+        const current = measurementPorts.current!.context().project;
+        if (!ownsFeedback() || current?.revision !== captured.revision || !current.measurements.some(item => item.id === measurement.id)) {
+          throw new Error("The measurement changed. Review its current record.");
+        }
+      },
+    };
+    try {
+      const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id, () => operation(captured), "quiet", context));
+      const current = queryClient.getQueryData<Project>(["project", captured.id]);
+      if (ownsFeedback() && (!current || current.revision <= next.revision)) measurementSession.notify(message, scope.session);
+    } catch (error) {
+      if (ownsFeedback()) measurementSession.notify(errorMessage(error), scope.session);
+      throw error;
+    }
+  };
+
   const viewerActions = {
+    measurementSession,
+    onUpdateMeasurement: (measurement: Measurement, name: string, visible: boolean) => measurementCommand(measurement,
+      captured => projectApi.updateMeasurement(captured, measurement.id, name, visible), `Updated ${name}.`),
+    onDeleteMeasurement: (measurement: Measurement) => measurementCommand(measurement,
+      captured => projectApi.deleteMeasurement(captured, measurement.id), `Deleted ${measurement.name}.`),
     onGeometry: async (kind: "move" | "quick" | "advanced", capture: SelectionTargetCapture) => {
       assertSelectionTargetCurrent(capture, selectionTargetContext());
       assertPublicationWritable(capture.projectId);
@@ -1342,7 +1479,7 @@ export default function App() {
                 theme={theme}
                 selection={selection}
                 pickingGranularity={pickingGranularity}
-                onPickingGranularity={setPickingGranularity}
+                onPickingGranularity={granularity => { measurementSession.cancelAcquisition(); setPickingGranularity(granularity); }}
                 onViewerSelection={applyViewerSelection}
                 onSelectResidue={applyResidueSelection}
                 loading={projectQuery.isLoading}
@@ -1375,7 +1512,12 @@ export default function App() {
                           : "History and jobs panel"
                     }
                     onKeyDown={(event) => {
-                      if (event.key === "Escape") closeMobilePanel();
+                      if (event.key === "Escape" && event.target instanceof Element
+                        && event.target.closest('[role="dialog"]') === event.currentTarget) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        closeMobilePanel();
+                      }
                     }}
                   >
                     {mobilePanel === "projects" ? (
@@ -1485,7 +1627,7 @@ export default function App() {
                       theme={theme}
                       selection={selection}
                       pickingGranularity={pickingGranularity}
-                      onPickingGranularity={setPickingGranularity}
+                      onPickingGranularity={granularity => { measurementSession.cancelAcquisition(); setPickingGranularity(granularity); }}
                       onViewerSelection={applyViewerSelection}
                       onSelectResidue={applyResidueSelection}
                       loading={projectQuery.isLoading}

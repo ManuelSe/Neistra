@@ -16,11 +16,16 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "docs/assets/interaction-inspection/release-evidence.py.txt"
+VIEWER_SCRIPT = ROOT / "docs/assets/viewer-information/release-evidence.py.txt"
 
 
-@pytest.fixture(scope="module", params=["interaction-inspection", "ligand-designation"])
+@pytest.fixture(
+    scope="module",
+    params=[SCRIPT, VIEWER_SCRIPT, ROOT / "docs/assets/ligand-designation/release-evidence.py.txt"],
+    ids=["interaction", "viewer-information", "ligand-designation"],
+)
 def tools(request: pytest.FixtureRequest) -> dict[str, Any]:
-    return runpy.run_path(str(ROOT / "docs/assets" / request.param / "release-evidence.py.txt"))
+    return runpy.run_path(str(request.param))
 
 
 def zipped(items: dict[str, bytes], manifest: Any = None) -> bytes:

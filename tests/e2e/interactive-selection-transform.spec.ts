@@ -541,7 +541,12 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   const distance = Math.hypot(...after.structure.atoms[0].coordinates.map((v, i) => v - after.structure.atoms[1].coordinates[i]));
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "measurements", exact: true }).click();
-  await expect(page.locator(".measurement-row").filter({ has: page.getByLabel("Name for Movement reference") })).toContainText(`${distance.toFixed(2)} Å`);
+  await page.getByRole("button", { name: "Open measurements", exact: true }).click();
+  const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
+  await expect(tool).toBeVisible();
+  await tool.getByRole("button", { name: /^Saved measurements/ }).click();
+  const saved = tool.getByRole("button", { name: "Inspect measurement Movement reference", exact: true });
+  await expect(saved).toContainText(`${distance.toFixed(2)} Å`);
   await expect(page.locator(".viewer-error")).toBeHidden();
 });
 
