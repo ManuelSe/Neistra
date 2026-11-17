@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import time
+from dataclasses import dataclass
 from threading import BoundedSemaphore, Lock
 
 from neistra_core.artifacts import LocalArtifactStore
@@ -11,6 +13,7 @@ from neistra_core.ligands.candidates import resolve_candidates
 from neistra_core.ligands.chemistry import (
     CHEMISTRY_POLICY,
     DEPICTION_POLICY,
+    PreparedLigandChemistry,
     depict_qualified,
     depiction_cache_key,
     prepare_chemistry,
@@ -21,13 +24,22 @@ from neistra_core.ligands.models import (
     LigandDesignationV1,
     LigandInventoryV1,
 )
+from neistra_core.ligands.occurrences import (
+    OCCURRENCE_POLICY,
+    OccurrenceCount,
+    OccurrenceIndex,
+    OccurrenceLimits,
+    build_occurrence_index,
+)
 from neistra_core.ligands.reconcile import clear_designation, initial_designation, select_candidate
+from neistra_core.ligands.source_evidence import MmcifSourceInventory, assess_mmcif_source
 from neistra_core.molecular import NormalizedStructureV1
 from rdkit import rdBase
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 from neistra_api.import_export import ArtifactService, StructureArtifactConflictError
+from neistra_api.ligand_occurrence_cache import OccurrenceCacheKey, OccurrenceSummaryCache
 from neistra_api.ligand_schemas import (
     LigandCandidatesRead,
     LigandDepictionRead,
@@ -51,6 +63,18 @@ MAX_CONTENT_CACHE = 1024
 MAX_SOURCE_BINDINGS = 4096
 MAX_DEPICTION_BYTES = 512 * 1024
 MAX_RETAINED_DEPICTION_BYTES = 128 * 1024 * 1024
+OCCURRENCE_LIMITS = OccurrenceLimits(max_candidates=1024, max_total_atoms=8192)
+OCCURRENCE_BUDGET_SECONDS = 2.0
+_OCCURRENCE_CACHE = OccurrenceSummaryCache(_DEPICTION_WORK)
+
+
+@dataclass(frozen=True, slots=True)
+class _LigandInputs:
+    structure: NormalizedStructureV1 | None
+    original: bytes | None
+    inventory: LigandInventoryV1
+    source_inventory: MmcifSourceInventory | None
+    chemistry: PreparedLigandChemistry | None
 
 
 class LigandService:
@@ -71,15 +95,53 @@ class LigandService:
     def _inputs(
         self, entry: StructureEntry,
     ) -> tuple[NormalizedStructureV1 | None, bytes | None, LigandInventoryV1]:
+        inputs = self._load_inputs(entry)
+        return inputs.structure, inputs.original, inputs.inventory
+
+    def _load_inputs(self, entry: StructureEntry, *, with_chemistry: bool = False) -> _LigandInputs:
         if entry.current_artifact_id is None:
-            return None, None, LigandInventoryV1(
-                input_hash=hashlib.sha256(b"no-current-ligand-input").hexdigest(), candidates=[],
-                warnings=["no_current_structure"],
+            return _LigandInputs(
+                None, None, LigandInventoryV1(
+                    input_hash=hashlib.sha256(b"no-current-ligand-input").hexdigest(),
+                    candidates=[],
+                    warnings=["no_current_structure"],
+                ), None, None,
             )
         structure = self.artifacts.load_normalized(entry.current_artifact_id)
         original = self.artifacts.read_verified_bytes(entry.original_artifact_id) \
             if entry.original_artifact_id else None
-        return structure, original, resolve_candidates(structure, original_bytes=original)
+        source = assess_mmcif_source(structure, original)
+        chemistry = (
+            prepare_chemistry(structure, original_bytes=original) if with_chemistry else None
+        )
+        inventory = resolve_candidates(
+            structure, original_bytes=original, source_inventory=source,
+            prepared_chemistry=chemistry,
+        )
+        return _LigandInputs(structure, original, inventory, source, chemistry)
+
+    def _occurrences(self, inputs: _LigandInputs) -> OccurrenceIndex | None:
+        structure, context = inputs.structure, inputs.chemistry
+        if structure is None or context is None or not any(
+            candidate.potential_ligand and candidate.boundary_status != "ineligible"
+            for candidate in inputs.inventory.candidates
+        ):
+            return None
+        key = OccurrenceCacheKey(
+            str(self.artifacts.store.root), inputs.inventory.input_hash,
+            structure.source.format.lower(), structure.source.record_index,
+            inputs.inventory.resolver_version, CHEMISTRY_POLICY, OCCURRENCE_POLICY,
+            rdBase.rdkitVersion, OCCURRENCE_LIMITS.max_candidates,
+            OCCURRENCE_LIMITS.max_total_atoms, OCCURRENCE_LIMITS.max_candidate_atoms,
+        )
+        return _OCCURRENCE_CACHE.get_or_build(
+            key, frozenset(candidate.candidate_key for candidate in inputs.inventory.candidates),
+            lambda: build_occurrence_index(
+                structure, inputs.inventory, context, limits=OCCURRENCE_LIMITS,
+                source_inventory=inputs.source_inventory,
+                deadline=time.monotonic() + OCCURRENCE_BUDGET_SECONDS,
+            ),
+        )
 
     def candidates(
         self, project_id: str, entry_id: str, expected_artifact_id: str | None,
@@ -88,10 +150,22 @@ class LigandService:
         if offset < 0 or not 1 <= limit <= 48:
             raise InvalidProjectOperationError("Use a bounded ligand candidate page")
         entry = self._entry(project_id, entry_id, expected_artifact_id)
-        structure, original, inventory = self._inputs(entry)
-        context = prepare_chemistry(structure, original_bytes=original) if structure else None
+        inputs = self._load_inputs(entry, with_chemistry=True)
+        inventory, context = inputs.inventory, inputs.chemistry
+        occurrences = self._occurrences(inputs)
 
         def metadata(candidate: LigandCandidateV1) -> LigandCandidateV1:
+            count = (
+                OccurrenceCount(None, None, "occurrence_not_applicable")
+                if not candidate.potential_ligand or candidate.boundary_status == "ineligible"
+                else occurrences.for_candidate(candidate.candidate_key) if occurrences is not None
+                else OccurrenceCount(None, None, "occurrence_work_busy")
+            )
+            candidate = candidate.model_copy(update={
+                "occurrence_count": count.count,
+                "occurrence_basis": count.basis,
+                "occurrence_reason": count.reason,
+            })
             if context is None or not candidate.selectable or not candidate.potential_ligand:
                 return candidate.model_copy(update={"formal_charge": None})
             chemistry = context.qualify(candidate.atom_ids)
@@ -240,7 +314,8 @@ class LigandService:
         if not _DEPICTION_WORK.acquire(blocking=False):
             return LigandDepictionRead(**common, status="busy", reason="depiction_work_busy")
         try:
-            structure, original, inventory = self._inputs(entry)
+            inputs = self._load_inputs(entry, with_chemistry=True)
+            structure, inventory = inputs.structure, inputs.inventory
             candidate = next((candidate for candidate in inventory.candidates
                               if candidate.candidate_key == candidate_key), None)
             if structure is None or candidate is None or not candidate.selectable \
@@ -248,9 +323,8 @@ class LigandService:
                 return LigandDepictionRead(
                     **common, status="unavailable", reason="candidate_boundary_not_selectable",
                 )
-            chemistry = prepare_chemistry(structure, original_bytes=original).qualify(
-                candidate.atom_ids,
-            )
+            assert inputs.chemistry is not None
+            chemistry = inputs.chemistry.qualify(candidate.atom_ids)
             if chemistry.status != "qualified" or not chemistry.input_hash:
                 return LigandDepictionRead(**common, status="unavailable", reason=chemistry.reason)
             content_key = depiction_cache_key(chemistry.input_hash)

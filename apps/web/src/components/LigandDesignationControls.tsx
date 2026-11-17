@@ -24,6 +24,7 @@ const PAGE_SIZE = 12;
 const POLICY = "ligand-instance-v3";
 const CHEMISTRY_POLICY = "ligand-exact-representation-v2";
 const DRAWING_POLICY = "ligand-2d-v1";
+const OCCURRENCE_POLICY = "ligand-occurrence-v1";
 const abortError = () => new DOMException("The depiction request was cancelled", "AbortError");
 
 // Keep visible-page requests within the backend's two-drawing admission limit.
@@ -75,12 +76,17 @@ function designationKey(entry: Entry) {
   return JSON.stringify([value.status, value.instance_id, value.origin, value.selected_at,
     value.resolver_version, value.assessed_at, value.assessed_revision]);
 }
+function transientOccurrenceCounts(data: LigandCandidatesRead | undefined): boolean {
+  return data?.candidates.some(candidate => candidate.occurrence_count === null
+    && (candidate.occurrence_reason === "occurrence_work_busy" || candidate.occurrence_reason === "occurrence_work_limit")) ?? false;
+}
+
 function inventoryOptions(project: Project, entry: Entry, offset: number) {
   return {
     queryKey: ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
-      entry.original_artifact_id, CHEMISTRY_POLICY, designationKey(entry), offset, PAGE_SIZE],
+      entry.original_artifact_id, CHEMISTRY_POLICY, OCCURRENCE_POLICY, designationKey(entry), offset, PAGE_SIZE],
     queryFn: ({ signal }: { signal: AbortSignal }) => ligandApi.candidates(project.id, entry, offset, signal),
-    staleTime: Infinity,
+    staleTime: (query: { state: { data: LigandCandidatesRead | undefined } }) => transientOccurrenceCounts(query.state.data) ? 0 : Infinity,
     gcTime: 60_000,
     retry: false,
   };
@@ -108,6 +114,35 @@ function readableReason(reason: string | null | undefined) {
     candidate_boundary_not_selectable: "A complete selectable molecule boundary is unavailable.",
   };
   return reason ? labels[reason] ?? reason.replaceAll("_", " ") : "A reliable 2D depiction is unavailable.";
+}
+
+function occurrenceReadout(candidate: LigandCandidate): { text: string; detail: string } {
+  const count = candidate.occurrence_count;
+  if (count !== null && Number.isSafeInteger(count) && count > 0) {
+    if (candidate.occurrence_basis === "qualified_representation_v1") {
+      return { text: `${count} matching representation${count === 1 ? "" : "s"} in this entry`,
+        detail: "Counted across this entry using the same qualified molecular representation." };
+    }
+    if (candidate.occurrence_basis === "verified_source_entity_v1") {
+      return { text: `${count} source instance${count === 1 ? "" : "s"} in this entry`,
+        detail: "Counted across this entry using the same verified source entity." };
+    }
+  }
+  const reasons: Record<string, string> = {
+    occurrence_inventory_incomplete: "The complete entry inventory is unavailable.",
+    occurrence_boundary_not_qualified: "A complete molecule boundary could not be qualified for this count.",
+    occurrence_representation_unsupported: "The available molecular representation cannot support this count.",
+    occurrence_capacity: "This entry exceeds the supported occurrence-count bounds.",
+    occurrence_work_busy: "Other molecular work prevented this occurrence count.",
+    occurrence_work_limit: "The occurrence count reached its work limit. Retry counts to try again.",
+    occurrence_candidate_limit: "This entry exceeds the supported candidate-count bounds.",
+    occurrence_atom_limit: "This entry exceeds the supported atom-count bounds.",
+    occurrence_not_applicable: "An occurrence count is not applicable to this instance.",
+    occurrence_representation_incomplete: "The molecular representation is incomplete for this count.",
+    occurrence_source_identity_unavailable: "A verified source identity is unavailable for this count.",
+  };
+  return { text: "Occurrence count unavailable", detail: reasons[candidate.occurrence_reason ?? ""]
+    ?? "An entry-wide occurrence count could not be qualified for this instance." };
 }
 
 const originalRecovery = "The original file could not be verified. Reimport the structure, then choose the new entry.";
@@ -238,20 +273,28 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate, onO
     {error ? <p className="ligand-designation-error" role={open ? undefined : "alert"}>{error}</p> : null}
     <Dialog.Root open={open} onOpenChange={changeOpen}>
       {open ? <CandidateDialog key={context} project={project} entry={entry} pausedReason={pausedReason}
-        busy={busy || pending} pending={pending} error={error} onUse={perform}
+        busy={busy || pending} pending={pending} error={error} onUse={perform} ownsContext={ownsContext}
         returnFocus={() => trigger.current?.focus({ preventScroll: true })} /> : null}
     </Dialog.Root>
   </>;
 }
 
-function CandidateDialog({ project, entry, pausedReason, busy, pending, error, onUse, returnFocus }: {
+function CandidateDialog({ project, entry, pausedReason, busy, pending, error, onUse, returnFocus, ownsContext }: {
   project: Project; entry: Entry; pausedReason: string | null; busy: boolean; pending: boolean;
   error: string | null; onUse: (key: string, hash: string) => Promise<void>; returnFocus: () => void;
+  ownsContext?: () => boolean;
 }) {
   const groupId = useId();
   const [offset, setOffset] = useState(0);
   const [chosen, setChosen] = useState<{ key: string; label: string; hash: string } | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
+  const retryButton = useRef<HTMLButtonElement>(null);
+  const pageContext = (page: number) => JSON.stringify([sourceKey(project, entry), page, Boolean(pausedReason)]);
+  const visitRef = useRef({ context: pageContext(offset) });
+  if (visitRef.current.context !== pageContext(offset)) visitRef.current = { context: pageContext(offset) };
+  const visit = visitRef.current;
+  const retrying = useRef<{ visit: typeof visit } | null>(null);
+  const [countNotice, setCountNotice] = useState<{ visit: typeof visit; text: string } | null>(null);
   const client = useQueryClient();
   const options = inventoryOptions(project, entry, offset);
   const query = useQuery(options);
@@ -296,9 +339,46 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
     heading.current?.focus({ preventScroll: true });
     await onUse(currentChosen.key, currentChosen.hash).catch(() => undefined);
   };
+  const ownsVisit = (owner: typeof visit, contextOwner: typeof ownsContext) => active.current
+    && visitRef.current === owner && !current.current.pausedReason && (!contextOwner || contextOwner());
+  const retryCounts = async () => {
+    const latest = current.current;
+    if (!ownsVisit(visit, ownsContext) || latest.busy || !transientOccurrenceCounts(latest.inventory)
+      || retrying.current?.visit === visit || client.getQueryState(options.queryKey)?.fetchStatus === "fetching") return;
+    const attempt = { visit };
+    retrying.current = attempt;
+    const requester = retryButton.current;
+    const requestedFocus = document.activeElement === requester;
+    setCountNotice(null);
+    try {
+      const result = await query.refetch({ cancelRefetch: false });
+      if (!ownsVisit(visit, ownsContext)) return;
+      const checked = result.isError ? undefined : currentInventory(result.data, project, entry);
+      setCountNotice({ visit, text: !checked ? "Occurrence counts could not be checked."
+        : transientOccurrenceCounts(checked) ? "Occurrence counts remain unavailable. Retry counts to try again."
+          : checked.candidates.some(candidate => candidate.occurrence_count !== null)
+            ? "Occurrence counts updated." : "Occurrence counts are unavailable. See instance details." });
+      if (requestedFocus && !transientOccurrenceCounts(checked)) requestAnimationFrame(() => {
+        if (!ownsVisit(visit, ownsContext) || (requester?.isConnected && !requester.disabled)) return;
+        const dialog = heading.current?.closest(".ligand-candidate-dialog");
+        // The modal focus trap may replace a removed button with its container.
+        // Deliberate focus on another control must remain untouched.
+        if (document.activeElement !== requester && document.activeElement !== document.body
+          && document.activeElement !== dialog) return;
+        const selected = dialog?.querySelector<HTMLInputElement>('input[type="radio"]:checked:not(:disabled)');
+        (selected ?? heading.current)?.focus({ preventScroll: true });
+      });
+    } finally {
+      if (retrying.current === attempt) retrying.current = null;
+    }
+  };
   const changePage = (next: number) => {
+    const owner = { context: pageContext(next) };
+    visitRef.current = owner;
     setOffset(next);
-    requestAnimationFrame(() => heading.current?.focus({ preventScroll: true }));
+    requestAnimationFrame(() => {
+      if (ownsVisit(owner, ownsContext)) heading.current?.focus({ preventScroll: true });
+    });
   };
   return <Dialog.Portal><Dialog.Overlay className="dialog-overlay" /><Dialog.Content className="dialog-content ligand-candidate-dialog"
     onOpenAutoFocus={event => { event.preventDefault(); heading.current?.focus(); }}
@@ -328,6 +408,7 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
           const isCurrent = entry.ligand_designation.status === "resolved"
             && candidate.atom_ids.length === entry.ligand_designation.atom_ids.length
             && candidate.atom_ids.every((id, i) => id === entry.ligand_designation.atom_ids[i]);
+          const occurrence = occurrenceReadout(candidate);
           const drawing = drawings[index];
           const response = drawing.data;
           const currentDrawing = !pausedReason && response?.entry_id === entry.id
@@ -357,6 +438,7 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
                 {candidate.heavy_atom_count === null ? `${candidate.atom_ids.length} atom sites` : `${candidate.heavy_atom_count} heavy atoms`}
                 {candidate.formal_charge !== null ? ` · charge ${candidate.formal_charge > 0 ? "+" : ""}${candidate.formal_charge}` : ""}
               </>}</span>
+              <span className="ligand-candidate-facts">{pausedReason ? "Occurrence count unavailable during preview" : occurrence.text}</span>
             </label>
             <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
               {recovery.announcement ? `${recovery.announcement} ${label}.` : ""}
@@ -378,6 +460,7 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
               <dt>Source</dt><dd>{entry.original_filename ?? entry.source_format ?? "Not recorded"}</dd>
               <dt>Atoms</dt><dd>{candidate.atom_ids.slice(0, 48).join(", ")}{candidate.atom_ids.length > 48 ? ` … (${candidate.atom_ids.length} total)` : ""}</dd>
               <dt>Provenance</dt><dd>{candidate.provenance.map(readableReason).join("; ") || "Not recorded"}</dd>
+              <dt>Occurrence count</dt><dd>{pausedReason ? "Unavailable during preview." : occurrence.detail}</dd>
               {!pausedReason && candidate.chemistry_status !== "qualified" ? <><dt>Chemistry</dt><dd>{readableReason(candidate.chemistry_reason)}</dd></> : null}
               {!pausedReason && currentDrawing?.reason ? <><dt>2D</dt><dd>{readableReason(currentDrawing.reason)}</dd></> : null}
               {candidate.reason_codes.length ? <><dt>Warnings</dt><dd>{candidate.reason_codes.map(readableReason).join("; ")}</dd></> : null}
@@ -391,6 +474,13 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
       <span>{pages ? `Page ${Math.floor(offset / PAGE_SIZE) + 1} of ${pages}` : "No pages"}</span>
       <IconButton label="Next ligand page" disabled={!inventory || offset + PAGE_SIZE >= inventory.total || busy} onClick={() => changePage(offset + PAGE_SIZE)}><ChevronRight size={17} aria-hidden="true" /></IconButton>
     </div>
+      {!pausedReason && transientOccurrenceCounts(inventory) ? <div className="ligand-candidate-pagination">
+        <button ref={retryButton} type="button" className="ligand-candidate-retry" disabled={query.isFetching || busy}
+          onClick={() => { void retryCounts(); }}><RotateCw size={14} aria-hidden="true" /> Retry counts</button>
+      </div> : null}
+      <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {!pausedReason && !query.isError && countNotice?.visit === visit ? countNotice.text : ""}
+      </span>
       {currentChosen ? <p className="ligand-candidate-draft" title={currentChosen.label}>Chosen: {currentChosen.label}</p>
         : <p className="ligand-candidate-draft">{chosen ? inventory ? "Choose a current instance" : "Choice awaits an input check" : "No new choice selected"}</p>}
       {error ? <p className="ligand-designation-error" role="alert">{error}</p> : null}

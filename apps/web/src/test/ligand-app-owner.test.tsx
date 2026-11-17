@@ -65,7 +65,8 @@ function inventory(project: Project): LigandCandidatesRead {
     candidates: [{ candidate_key: "candidate", atom_ids: [1, 2], residue_ids: [1], component_ids: ["LIG"],
       label: "Exact instance", locations: [], boundary_status: "qualified", potential_ligand: true,
       reason_codes: [], provenance: [], heavy_atom_count: 2, formal_charge: 0, formula: "C2H6",
-      molecular_weight: 30, chemistry_status: "qualified", chemistry_reason: null, chemical_input_hash: "chemistry" }] };
+      molecular_weight: 30, chemistry_status: "qualified", chemistry_reason: null, chemical_input_hash: "chemistry",
+      occurrence_count: null, occurrence_basis: null, occurrence_reason: "occurrence_count_not_qualified" }] };
 }
 async function setup(legacy = false, strict = false) {
   const entry = molecularEntry("protein", "Entry", "protein");
@@ -407,4 +408,30 @@ it("consumes ligand-modal and compact-inspector Escape separately while retainin
   expect(within(tool).getByLabelText("Measurement name")).toHaveValue("Retained ordered angle");
   expect(session.snapshot().slots).toEqual([3, 1, 2].map(atom_id => ({ structure_id: f.entry.id, atom_id })));
   expect(useSelectionStore.getState().selection).toBe(selection);
+});
+
+
+it.each(["project ABA", "batched preview Cancel"] as const)("retires occurrence retry feedback through %s using the App owner", async transition => {
+  const f = await setup(), user = userEvent.setup(), first = inventory(f.project);
+  first.candidates[0].occurrence_reason = "occurrence_work_busy";
+  const candidates = vi.spyOn(ligandApi, "candidates").mockResolvedValue(first);
+  await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findByRole("radio");
+  const held = deferred<LigandCandidatesRead>();
+  candidates.mockReturnValueOnce(held.promise);
+  await user.click(screen.getByRole("button", { name: "Retry counts" }));
+  const heading = screen.getByRole("heading", { name: "Choose ligand of interest" });
+  if (transition === "project ABA") act(() => leaveAndReturn(f.other, f.project));
+  else {
+    const inspector = seen.inspector!;
+    const transform: CoordinateTransform = { entry_id: f.entry.id, scope: "structure", selection: useSelectionStore.getState().selection,
+      translation: [1, 0, 0], rotation_degrees: [0, 0, 0], pivot_mode: "custom", pivot: [0, 0, 0] };
+    await act(async () => { await inspector.onPreviewTransform!(transform); inspector.onClearTransformPreview!(); });
+  }
+  heading.focus();
+  const known = inventory(f.project);
+  known.candidates[0] = { ...known.candidates[0], occurrence_count: 2,
+    occurrence_basis: "qualified_representation_v1", occurrence_reason: null };
+  await act(async () => { held.resolve(known); await held.promise; });
+  expect(heading).toHaveFocus();
+  expect(screen.queryByText("Occurrence counts updated.")).not.toBeInTheDocument();
 });

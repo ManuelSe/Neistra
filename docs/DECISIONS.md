@@ -8323,3 +8323,98 @@ Escapes preserve the stopped named ordered draft and canonical selection; origin
 and persisted designation remain unchanged by cancellation. All994source hashes stay
 fixed; build, child and observed enclosing exit0. C3's checked packet retains failed
 and passing evidence separately. Final full gates and all-seven review still follow.
+
+
+## D-176 — Qualified entry-wide occurrence counts outside durable intent
+
+Date: 2026-11-17. Full review of #158 found that an instance ordinal and pagination
+do not meet the accepted occurrence-count requirement. Independent UX, theory and
+architecture confirmed the gap. Intentionally stop candidate1 before further gates;
+its eight passes, partial Python log, explicit SIGTERM cause and observed enclosing
+143 remain failed/partial evidence. All994current/931actual0.35sources were unchanged.
+No passing segment substitutes for the next complete fresh candidate gate.
+
+Expose nullable `occurrence_count`, explicit `occurrence_basis` and structured
+`occurrence_reason` on derived candidate metadata. These never enter designation
+intent, commands, project/history/archive state or renderer ownership. Individual
+instances remain independently selectable; counts do not change automatic eligibility.
+Count within the complete current entry, never across entries, visible pages,
+conformers or symmetry/assembly expansion. Unknown is not zero or an assumed one.
+
+The `qualified_representation_v1` basis uses strictly qualified graph representations.
+On a disposable copy, clear original atom maps and conformers, then use canonical
+isomeric CXSMILES with explicit H/bond notation and radical extension. Qualified
+total attached H is preserved: equivalent bracket/implicit notation does not create
+different identities. Keep explicit H graph nodes, isotope, charge, radicals and
+supported stereo; add/remove no H and perform no neutralization, tautomerization or
+desalting. Enhanced/nonordinary stereo, structural groups, query/dummy and unsupported
+bond semantics remain unavailable. Names, atom/source IDs, coordinates, formula,
+mass, depiction bytes and the existing identity-bearing chemical input hash are not
+equivalence keys. A proposed H-bookkeeping map encoding was rejected before adoption.
+
+The `verified_source_entity_v1` basis counts complete current occurrences assigned
+to the same verified immutable source entity. It is source identity, not current
+chemical equality, including after chemical edits. Require existing source mapping
+qualification; preserve its limitations, including unsupported multiple nonpolymer
+residues within one asymmetry. The counting helper adds no further asymmetry-only
+uniqueness rule. Never infer entity identity from mutable residue labels. Unknown
+potential instances invalidate complete chemical totals; independently proved source
+counts may remain known. No partial chemical totals or unlabelled lower bounds.
+
+Share one verified source assessment and one prepared chemistry context through
+inventory resolution, count construction and visible metadata, including water/ion
+classification. The existing resolver accepts optional prepared inputs; default
+callers retain their prior behavior. A separate count-policy key leaves membership,
+chemical-input and depiction policies unchanged.
+
+Retain only finalized immutable summaries in a bounded process-local LRU. Verify
+normalized/original inputs before lookup. The key includes resolved managed store,
+complete inventory identity, source format/record index, resolver/chemistry/count
+policies, toolkit and resource settings. Record index is required because recovery
+consumes it separately from the inventory digest. Matching coordinate-only inputs
+may reuse counts. Retain no native molecules, preparation contexts or builder
+closures. No database migration, artifact deletion or persistent job is introduced.
+
+Cold counting shares the existing two depiction work slots, without a work queue;
+same-key misses are single-flight. Cache hits need no work slot. Cleanup releases
+admission and in-flight ownership on every exit. Retention is bounded by exact
+encoded key/value bytes, not a claim of Python heap or RSS limits. Oversized summaries
+may serve their current valid response without retention. Deterministic input-limit
+results may be retained; transient busy/time refusals are not permanently cached.
+Current provisional admission is1,024potential instances/8,192candidate sites/1,024
+sites per candidate, a cooperatively polled2second counting budget, and64summaries/
+256KiBper summary/8MiBencoded retention. Final prototype/API measurements must qualify
+these defaults before adoption; polling is not a hard per-library-call deadline.
+
+Cards show the server-declared entry scope and basis, or concise unavailability with
+a secondary reason. Preview and failed input checks retire counts. Count/depiction
+failure does not disable an independently exact selectable instance. One page-level
+Retry counts action uses the existing metadata refetch, with synchronous duplicate
+admission and captured context/page/source/preview feedback/focus. Transient results
+retry on reopen; stable immutable metadata retains its lifetime. No polling loop or
+implied background queue. Preserve current focus/choice/depiction and retire old
+A→B→A continuations. Actual native recovery, performance adoption and final complete
+gates/all-seven assessment still follow the focused corrections.
+
+
+D-176 measured adoption: retain the proposed 1,024-instance / 8,192-site /
+1,024-site-per-candidate admission, cooperative two-second budget and 64-entry /
+256-KiB-per-entry / 8-MiB encoded cache bounds. The frozen eight production files
+pass 24 fresh core samples, 18 actual ASGI samples, six additional verified-source
+samples and retention/admission probes. On this portable host, 1,000 repeated
+three-site instances take 0.599–0.608 seconds in the count index and 0.747–0.753
+seconds in cold API reads; 1,000 varied six-site instances take 1.345–1.379 and
+1.557–1.572 seconds respectively. Verified source totals of 1,000 require no
+chemical signatures. Warm pages rebuild neither index nor signatures, but still
+perform existing source preparation and visible metadata qualification.
+
+Candidate/site excess refuses before chemical qualification; the 58,870-site
+complex explicitly reports its atom limit. Cache hits work while both slots are
+occupied; misses start no builder. The retention probe ends at 62 summaries /
+8,346,192 encoded bytes, approximately 17.1 MB of recursively counted Python
+objects and zero retained native molecules. An initial process high-water reading
+of approximately 956 MiB did not reproduce in a separately sampled fresh child
+(approximately 139 MiB); both observations remain retained and the cause is
+unestablished. No Python-heap/RSS ceiling, every-host latency, TCP/browser timing
+or hard per-library-call deadline is inferred. This is scoped policy evidence;
+complete release gates and all-seven final review remain required.

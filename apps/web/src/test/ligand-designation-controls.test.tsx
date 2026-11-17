@@ -32,7 +32,8 @@ function candidate(id: number): LigandCandidate {
     }], boundary_status: "qualified", potential_ligand: true, reason_codes: [],
     provenance: ["source_connectivity"], heavy_atom_count: 2, formal_charge: -1,
     formula: `C${id}H2`, molecular_weight: 42 + id, chemistry_status: "qualified",
-    chemistry_reason: null, chemical_input_hash: `chemical-${id}` };
+    chemistry_reason: null, chemical_input_hash: `chemical-${id}`,
+    occurrence_count: null, occurrence_basis: null, occurrence_reason: "occurrence_count_not_qualified" };
 }
 function inventory(owner: Entry, offset = 0, count = 2): LigandCandidatesRead {
   const all = Array.from({ length: count }, (_, index) => candidate(index + 1));
@@ -77,6 +78,275 @@ beforeEach(() => {
 });
 
 describe("entry-owned ligand designation controls", () => {
+  it("shows server-qualified occurrence counts and bases without equating same-label cards", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates[0] = { ...page.candidates[0], occurrence_count: 7,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null };
+    page.candidates[1] = { ...page.candidates[1], occurrence_count: 2,
+      occurrence_basis: "verified_source_entity_v1", occurrence_reason: null,
+      chemical_input_hash: page.candidates[0].chemical_input_hash };
+    candidatesMock.mockResolvedValue(page);
+    const { props } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const radios = await screen.findAllByRole("radio");
+    expect(radios).toHaveLength(2);
+    expect(radios[0]).toHaveAccessibleName("ATP · ATP 601 · chain A · instance 1");
+    expect(radios[1]).toHaveAccessibleName("ATP · ATP 601A · chain B · instance 2");
+    expect(within(radios[0].closest("article")!).getByText("7 matching representations in this entry")).toBeVisible();
+    expect(within(radios[1].closest("article")!).getByText("2 source instances in this entry")).toBeVisible();
+    await user.click(radios[1]);
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(props.onDesignate).toHaveBeenCalledWith(owner, "candidate-2", "exact-inventory-hash", expect.any(Function));
+  });
+
+  it("retains complete server occurrence counts across candidate page boundaries", async () => {
+    const user = userEvent.setup();
+    candidatesMock.mockImplementation((_project, owner, offset) => {
+      const page = inventory(owner, offset, 13);
+      page.candidates = page.candidates.map(item => item.candidate_key === "candidate-1" || item.candidate_key === "candidate-13"
+        ? { ...item, occurrence_count: 2, occurrence_basis: "qualified_representation_v1", occurrence_reason: null } : item);
+      return Promise.resolve(page);
+    });
+    const { props } = setup();
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("2 matching representations in this entry")).toBeVisible();
+    expect(screen.getAllByRole("radio")).toHaveLength(12);
+    await user.click(screen.getByRole("button", { name: "Next ligand page" }));
+    const radio = await screen.findByRole("radio", { name: /instance 13$/ });
+    expect(screen.getAllByRole("radio")).toHaveLength(1);
+    expect(screen.getByText("2 matching representations in this entry")).toBeVisible();
+    await user.click(radio);
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(props.onDesignate).toHaveBeenCalledWith(expect.anything(), "candidate-13", "exact-inventory-hash", expect.any(Function));
+  });
+
+  it("keeps exact choice usable when both occurrence count and depiction are unavailable", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates = [page.candidates[0]];
+    page.total = 1; page.selectable_candidate_keys = ["candidate-1"];
+    page.candidates[0] = { ...page.candidates[0], occurrence_count: null,
+      occurrence_basis: null, occurrence_reason: "occurrence_count_not_qualified",
+      chemistry_status: "unavailable", chemistry_reason: "chemical_representation_not_qualified",
+      formula: null, molecular_weight: null, formal_charge: null, chemical_input_hash: null };
+    candidatesMock.mockResolvedValue(page);
+    depictionMock.mockRejectedValue(new Error("Image transport failed"));
+    const { props } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const radio = await screen.findByRole("radio");
+    const card = radio.closest("article")!;
+    expect(within(card).getByText("Occurrence count unavailable")).toBeVisible();
+    expect(await within(card).findByText("2D could not be loaded")).toBeVisible();
+    expect(radio).toBeEnabled();
+    await user.click(within(card).getByText("Instance details"));
+    expect(within(card).getByText("An entry-wide occurrence count could not be qualified for this instance.")).toBeVisible();
+    await user.click(radio); await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(props.onDesignate).toHaveBeenCalledWith(owner, "candidate-1", "exact-inventory-hash", expect.any(Function));
+  });
+
+  it("retires known occurrence counts during preview and failed current input checks", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates[0] = { ...page.candidates[0], occurrence_count: 3,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null };
+    candidatesMock.mockResolvedValue(page);
+    const { props, update, client } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("3 matching representations in this entry")).toBeVisible();
+    update({ ...props, pausedReason: "Finish preview first." });
+    expect(screen.queryByText("3 matching representations in this entry")).not.toBeInTheDocument();
+    expect(screen.getAllByText("Occurrence count unavailable during preview")).toHaveLength(2);
+    update(props);
+    expect(await screen.findByText("3 matching representations in this entry")).toBeVisible();
+    candidatesMock.mockRejectedValue(new ApiError(409, "artifact_integrity_error", "Source failed"));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    await waitFor(() => expect(screen.queryByText("3 matching representations in this entry")).not.toBeInTheDocument());
+    expect(screen.queryAllByRole("radio")).toHaveLength(0);
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeDisabled();
+  });
+
+  it("does not reuse a constructed candidate cache key from before occurrence qualification", async () => {
+    const user = userEvent.setup(), owner = entry(), fresh = inventory(owner), old = inventory(owner);
+    fresh.candidates[0] = { ...fresh.candidates[0], occurrence_count: 5,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null };
+    candidatesMock.mockResolvedValue(fresh);
+    const { client } = setup(owner);
+    const value = owner.ligand_designation;
+    const designation = JSON.stringify([value.status, value.instance_id, value.origin, value.selected_at,
+      value.resolver_version, value.assessed_at, value.assessed_revision]);
+    // A constructed historical-key control, not an actual old producer run.
+    client.setQueryData(["ligand-candidates", "ligand-instance-v3", "project-1", owner.id,
+      owner.current_artifact_id, owner.original_artifact_id, "ligand-exact-representation-v2", designation, 0, 12], old);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("5 matching representations in this entry")).toBeVisible();
+    expect(candidatesMock).toHaveBeenCalledOnce();
+    expect(client.getQueryCache().findAll({ queryKey: ["ligand-candidates"] })).toHaveLength(2);
+  });
+
+  it("keeps a declared singular occurrence visible after a depiction transport failure", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates = [{ ...page.candidates[0], occurrence_count: 1,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null }];
+    page.total = 1; page.selectable_candidate_keys = ["candidate-1"];
+    candidatesMock.mockResolvedValue(page); depictionMock.mockRejectedValue(new Error("Drawing unavailable"));
+    setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("2D could not be loaded")).toBeVisible();
+    expect(screen.getByText("1 matching representation in this entry")).toBeVisible();
+    expect(screen.getByRole("radio")).toBeEnabled();
+    await user.click(screen.getByRole("radio"));
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeEnabled();
+  });
+
+  it("withholds an unqualified count and gives a generic secondary reason for an unknown code", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates = [{ ...page.candidates[0], occurrence_count: 1, occurrence_basis: null,
+      occurrence_reason: "future_internal_occurrence_policy" }];
+    page.total = 1; page.selectable_candidate_keys = ["candidate-1"];
+    candidatesMock.mockResolvedValue(page); setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("Occurrence count unavailable")).toBeVisible();
+    expect(screen.queryByText("1 matching representation in this entry")).not.toBeInTheDocument();
+    expect(screen.queryByText("1 source instance in this entry")).not.toBeInTheDocument();
+    await user.click(screen.getByText("Instance details"));
+    expect(screen.getByText("An entry-wide occurrence count could not be qualified for this instance.")).toBeVisible();
+    expect(screen.queryByText("future_internal_occurrence_policy")).not.toBeInTheDocument();
+    expect(screen.getByRole("radio")).toBeEnabled();
+  });
+
+  it("keeps a busy occurrence count unavailable without implying a scheduled calculation", async () => {
+    const user = userEvent.setup(), owner = entry(), page = inventory(owner);
+    page.candidates = [{ ...page.candidates[0], occurrence_count: null, occurrence_basis: null,
+      occurrence_reason: "occurrence_work_busy" }];
+    page.total = 1; page.selectable_candidate_keys = ["candidate-1"];
+    candidatesMock.mockResolvedValue(page); setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("Occurrence count unavailable")).toBeVisible();
+    await user.click(screen.getByText("Instance details"));
+    expect(screen.getByText("Other molecular work prevented this occurrence count.")).toBeVisible();
+    expect(screen.getByRole("radio")).toBeEnabled();
+  });
+
+  it.each(["occurrence_work_busy", "occurrence_work_limit"])("retries %s once on the current page without changing the chosen instance or drawing", async reason => {
+    const user = userEvent.setup(), owner = entry();
+    const page = (offset: number, ready = false) => {
+      const value = inventory(owner, offset, 13);
+      value.candidates = value.candidates.map(item => ({ ...item, occurrence_count: ready ? 2 : null,
+        occurrence_basis: ready ? "qualified_representation_v1" : null, occurrence_reason: ready ? null : reason }));
+      return value;
+    };
+    candidatesMock.mockImplementation((_project, _entry, offset) => Promise.resolve(page(offset)));
+    const { client, props } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    await screen.findAllByRole("radio");
+    await user.click(screen.getByRole("button", { name: "Next ligand page" }));
+    const radio = await screen.findByRole("radio", { name: /instance 13$/ });
+    await user.click(radio);
+    await waitFor(() => expect(client.isFetching()).toBe(0));
+    const held = deferred<LigandCandidatesRead>();
+    candidatesMock.mockReturnValueOnce(held.promise);
+    const before = candidatesMock.mock.calls.length, drawings = depictionMock.mock.calls.length;
+    const retry = screen.getByRole("button", { name: "Retry counts" });
+    retry.focus();
+    act(() => { fireEvent.click(retry); fireEvent.click(retry); });
+    await waitFor(() => expect(candidatesMock).toHaveBeenCalledTimes(before + 1));
+    expect(retry).toBeDisabled(); expect(radio).toBeChecked(); expect(radio).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeEnabled();
+    expect(screen.getByText("Page 2 of 2")).toBeVisible();
+    await act(async () => { held.resolve(page(12, true)); await held.promise; });
+    await waitFor(() => expect(screen.queryByRole("button", { name: "Retry counts" })).toBeNull());
+    expect(screen.getByText("2 matching representations in this entry")).toBeVisible();
+    expect(radio).toBeChecked(); await waitFor(() => expect(radio).toHaveFocus());
+    expect(screen.getByText("Page 2 of 2")).toBeVisible();
+    expect(depictionMock).toHaveBeenCalledTimes(drawings);
+    expect(candidatesMock).toHaveBeenCalledTimes(before + 1); expect(props.onDesignate).not.toHaveBeenCalled();
+  });
+
+  it.each(["occurrence_work_busy", "occurrence_work_limit", "occurrence_representation_incomplete"])("reopens %s with only transient count metadata becoming stale", async reason => {
+    const user = userEvent.setup(), owner = entry(), first = inventory(owner);
+    first.candidates = first.candidates.map(item => ({ ...item, occurrence_count: null, occurrence_basis: null, occurrence_reason: reason }));
+    const known = inventory(owner);
+    known.candidates = known.candidates.map(item => ({ ...item, occurrence_count: 2,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null }));
+    candidatesMock.mockResolvedValue(first); setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    expect(candidatesMock).toHaveBeenCalledOnce();
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    candidatesMock.mockResolvedValue(known);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    if (reason === "occurrence_representation_incomplete") {
+      expect(candidatesMock).toHaveBeenCalledOnce();
+      expect(screen.getAllByText("Occurrence count unavailable")).toHaveLength(2);
+      expect(screen.queryByRole("button", { name: "Retry counts" })).toBeNull();
+    } else {
+      await waitFor(() => expect(candidatesMock).toHaveBeenCalledTimes(2));
+      expect(await screen.findAllByText("2 matching representations in this entry")).toHaveLength(2);
+    }
+  });
+
+  it("does not steal focus moved elsewhere while an occurrence retry completes", async () => {
+    const user = userEvent.setup(), owner = entry(), first = inventory(owner), held = deferred<LigandCandidatesRead>();
+    first.candidates.forEach(item => { item.occurrence_reason = "occurrence_work_busy"; });
+    candidatesMock.mockResolvedValue(first); setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    candidatesMock.mockReturnValueOnce(held.promise);
+    await user.click(screen.getByRole("button", { name: "Retry counts" }));
+    const cancel = screen.getByRole("button", { name: "Cancel" }); cancel.focus();
+    const known = inventory(owner); known.candidates.forEach(item => {
+      item.occurrence_count = 2; item.occurrence_basis = "qualified_representation_v1"; item.occurrence_reason = null;
+    });
+    await act(async () => { held.resolve(known); await held.promise; });
+    await waitFor(() => expect(screen.queryByRole("button", { name: "Retry counts" })).toBeNull());
+    expect(cancel).toHaveFocus();
+  });
+
+  it.each(["preview", "source", "page"])("retires occurrence retry feedback and focus across a %s visit", async transition => {
+    const user = userEvent.setup(), owner = entry(), held = deferred<LigandCandidatesRead>();
+    const busyPage = (source: Entry, offset: number) => {
+      const value = inventory(source, offset, 25);
+      value.candidates.forEach(item => { item.occurrence_reason = "occurrence_work_busy"; });
+      return value;
+    };
+    candidatesMock.mockImplementation((_project, source, offset) => Promise.resolve(busyPage(source, offset)));
+    const { props, update } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    candidatesMock.mockReturnValueOnce(held.promise);
+    await user.click(screen.getByRole("button", { name: "Retry counts" }));
+    if (transition === "preview") {
+      update({ ...props, pausedReason: "Changed chemistry preview" }); update(props);
+    } else if (transition === "source") {
+      const next = { ...owner, current_artifact_id: "replacement-source" };
+      update({ ...props, project: { ...props.project, entries: [next] } });
+      await user.click(screen.getByRole("button", { name: "Choose" }));
+    } else await user.click(screen.getByRole("button", { name: "Next ligand page" }));
+    const heading = screen.getByRole("heading", { name: "Choose ligand of interest" }); heading.focus();
+    const known = inventory(owner); known.candidates.forEach(item => {
+      item.occurrence_count = 2; item.occurrence_basis = "qualified_representation_v1"; item.occurrence_reason = null;
+    });
+    await act(async () => { held.resolve(known); await held.promise; });
+    expect(heading).toHaveFocus();
+    expect(screen.queryByText("Occurrence counts updated.")).not.toBeInTheDocument();
+    if (transition === "source" || transition === "page") {
+      expect(screen.queryByText("2 matching representations in this entry")).not.toBeInTheDocument();
+    }
+  });
+
+  it("retires cached known counts after a failed retry without publishing a success notice", async () => {
+    const user = userEvent.setup(), owner = entry(), first = inventory(owner), held = deferred<LigandCandidatesRead>();
+    first.candidates[0] = { ...first.candidates[0], occurrence_count: 3,
+      occurrence_basis: "qualified_representation_v1", occurrence_reason: null };
+    first.candidates[1].occurrence_reason = "occurrence_work_busy";
+    candidatesMock.mockResolvedValue(first); setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(await screen.findByText("3 matching representations in this entry")).toBeVisible();
+    candidatesMock.mockReturnValueOnce(held.promise);
+    await user.click(screen.getByRole("button", { name: "Retry counts" }));
+    await act(async () => { held.reject(new ApiError(409, "artifact_integrity_error", "Invalid current input")); await held.promise.catch(() => undefined); });
+    await waitFor(() => expect(screen.queryByText("3 matching representations in this entry")).not.toBeInTheDocument());
+    expect(screen.queryAllByRole("radio")).toHaveLength(0);
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    expect(screen.queryByText("Occurrence counts updated.")).not.toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent("could not be verified");
+  });
+
   it("recovers an image download failure with a fresh same-artifact request and preserves the choice", async () => {
     const user = userEvent.setup();
     const { props } = setup();

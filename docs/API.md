@@ -337,6 +337,28 @@ qualify heavy-site counts independently; unknown is null and known zero remains 
 Missing or ambiguous designated membership becomes stale with recovery guidance,
 without silently choosing another instance. Clear persists and suppresses reassignment.
 
+Each candidate also exposes derived `occurrence_count` (positive integer or null),
+`occurrence_basis` and `occurrence_reason`. A known count has exactly one basis and
+no reason: `qualified_representation_v1` counts matching strictly qualified graph
+representations across the complete current entry; `verified_source_entity_v1`
+counts complete instances of one verified original source entity. Source identity
+does not assert current chemical equality. An unavailable count has no basis and an
+explicit reason, never zero or a guessed one. Page size, instance ordinals, other
+entries and symmetry expansion do not contribute to a total. Unknown potential
+matches prevent exact chemical totals; independently verified source totals may
+remain available. Counts never change designation eligibility or persisted state.
+
+Counting shares the two drawing work slots, with single-flight same-input admission
+and no queue. A miss can return `occurrence_work_busy`; an admitted counting batch
+uses a cooperative two-second budget. Input limits are 1,024 potential instances,
+8,192 candidate sites and 1,024 sites per candidate. The process-local immutable
+summary cache retains at most 64 entries, 256 KiB per entry and 8 MiB of encoded
+key/value bytes; these are not Python-heap or process-memory limits. Cache hits
+still verify current normalized and original inputs. Busy/time refusals are not
+retained. One page-level Retry counts action refetches metadata without changing
+the exact choice, drawings, canonical selection or project revision. These limits
+do not bound existing whole-original preparation or interrupt a library call.
+
 Candidate pages and drawings are read-only to molecular content; choosing a ligand
 does not prepare it. Cache bindings include exact source and implementation policy;
 coordinate-only reuse requires matching qualified chemical input. Drawing admission

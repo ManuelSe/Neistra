@@ -340,3 +340,62 @@ preparation integrates actual terminal masterb038e4e6. Next commit this checkpoi
 then run clean fresh `c4-candidate1` qualification/independent summary/recursive
 packaging. All-seven final same-candidate assessment, normal protected delivery and
 fresh exact-master gate remain mandatory; no push/release/closeout is claimed yet.
+
+
+### C4 required occurrence-count correction
+
+Full-diff review confirms an essential gap: Instance N and page totals are not
+occurrence counts. Candidate1is intentionally stopped at Python before any source
+edit; actual enclosing56591exit143 is explicitly attributed to the owned SIGTERM.
+Eight earlier checks pass, partial logs/source proof remain intact, and994current/
+931actualpreceding sources stay unchanged. This is not a complete gate.
+
+D-176 refines the accepted count requirement without adding grouping UI or changing
+eligibility/intent. Use entry-wide qualified representations or verified source
+entity counts with explicit basis; unknown potential matches make chemical totals
+unavailable. Existing input hashes retain their identity role. Preserve total
+attached-H semantics, explicit H graph nodes, isotopes/charge/radicals/stereo; unsupported
+semantics are unavailable. Source eligibility stays within its existing boundaries.
+
+The science handoff passes182cases with independent theory rerun/probes. New cache/
+API plus retained query/drawing checks pass38cases; independent architecture passes
+16cache/API cases. Frontend manual recovery passes178cases/nine suites and full
+lint/types, with independent scoped UX assessment. A separate21-fresh-process baseline
+supports shared preparation; final prototype/API/cache measurements are underway.
+These scoped results do not establish a final feature or replace either full gate.
+
+Next qualify final bounded policy and actual counts/Retry across native themes,
+320px/zoom and exact choices; retain all failed evidence. Commit the passing correction
+and use a fresh `c4-candidate2` full42-command recipe, independent summary, recursive
+packaging and actual enclosing readback. All-seven final same-candidate assessment
+precedes push; exact merged qualification/release/closeout remains mandatory.
+
+
+### C4 occurrence correction: passing integrated checkpoint
+
+The measured D-176 policy is adopted without changing the proposed bounds. Frozen
+production files pass 24 fresh core samples, 18 ASGI samples, six verified-source
+samples and cache/admission probes; retained native molecules are zero. Encoded
+cache limits are not Python-heap/RSS ceilings. The initial nonreproduced process
+high-water observation remains disclosed with its separate repeat, without a
+causal claim. API documentation and scientific limitations describe these bounds.
+
+Integrated verification passes global Ruff, API/core/plugin typing (249 files),
+263 focused Python tests, all 1,295 frontend tests / 122 suites, 14 supervisor
+tests, frontend lint/types and build. Fresh native qualification passes 22 cases
+with zero failures, flakes, retries or skips on both profiles/themes, actual zoom,
+320px layouts and Axe. Count Retry performs one metadata read, preserves exact
+choice/focus and restores actual server totals; Cancel preserves original bytes,
+canonical selection and the complete project. Existing ordered measurement
+acquisition and stopped draft retention pass alongside these cases. All 1,002
+source identities remain unchanged, digest
+`7a151a3b6173508cceade1d1fb4d66913429831959bda9c2d16d0cfa43aec72c`.
+Native child and actual enclosing session28053 both exit0.
+
+The [correction record](../assets/ligand-designation/c3-occurrence-correction-checkpoint.json)
+binds its recursively checked packet, all focused and performance logs, owned
+synthetic stores and the deliberately stopped candidate1 evidence. These remain
+focused checks; no final feature, push readiness or release approval is claimed.
+Next commit the coherent correction and fresh `c4-candidate2` recipe, then run all
+42 commands, independent summary, recursive packaging and actual enclosing readback.
+All-seven final same-candidate assessment and exact merged qualification remain.

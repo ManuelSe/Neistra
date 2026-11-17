@@ -16,7 +16,9 @@ and canonical issue reply record the complete endpoint; parent #11 stays open.
 conservative eligibility, reversible choice/Clear, retained source lineage and bounded
 cached 2D candidate cards. Its historical 2,674 Python / 1,041 frontend / ten native
 results qualify only those prepared bytes. The current integration merges actual
-terminal master `b038e4e6`; shared lifecycle and compatibility corrections are underway.
+terminal master `b038e4e6`; shared lifecycle and compatibility corrections pass their focused integration checks.
+The required derived occurrence count and manual Retry counts correction is now
+implemented with explicit entry scope, evidence basis and unavailable reasons.
 
 ## Verification performed
 
@@ -51,16 +53,23 @@ retention qualification. Its earlier local checks do not establish that compatib
 
 ## Blockers
 
-No external blocker. Resolve shared integration and synchronous ownership before
-qualification; preserve failed diagnostics and existing deadlines/exclusions.
+No external blocker. Full review found the required occurrence count missing from
+instance ordinals. Candidate1was intentionally stopped at Python (eight passes,
+partial log/enclosing143 with explicit cause,994current/931old sources unchanged).
+D-176 records the count correction; no partial checks are pooled into a full pass.
 
 ## Next action
 
-Commit the passing C3 integration and run the clean fresh42-command candidate gate,
-independent summary and recursive packaging against actual0.35. Preserve new schema3
-refusal/forward-retention phases, all preceding ordered measurements and all five
-0.36versions. Obtain all seven final same-candidate assessments before implementation push.
-Deliver #158, then #159→#160→#161→#162→#163 and final integrated parent closeout.
+The bounded count correction passes integrated263Python, all1,295frontend/122suites,
+Ruff/mypy249files/lint/types/build/supervisor14 and fresh22native cases with zero
+failures/flakes/retries/skips. All1,002sources stay unchanged; actual enclosing28053
+exit0. Scoped scientific, architecture, UX and UI reviews pass; measured D-176 bounds
+are adopted with explicit encoded-memory and cooperative-deadline limitations.
+Commit the passing correction and run a fresh complete `c4-candidate2`42-command
+gate, independent summary and recursive packaging. Obtain all seven final same-candidate
+assessments before implementation push. Deliver #158, then #159→#160→#161→#162→#163
+and final integrated parent closeout. All prior diagnostics and original files remain
+preserved; this correction adds no durable schema, migration or dependency change.
 
 ## Historical #158 preparation
 

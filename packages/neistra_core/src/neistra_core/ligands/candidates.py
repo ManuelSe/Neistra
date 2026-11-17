@@ -20,6 +20,7 @@ from neistra_core.ligands.models import (
 from neistra_core.ligands.source_evidence import (
     KNOWN_ENTITY_TYPES,
     SOURCE_EVIDENCE_KEY,
+    MmcifSourceInventory,
     assess_mmcif_source,
     known_covalent_bond_ids,
 )
@@ -65,6 +66,8 @@ def resolve_candidates(
     structure: NormalizedStructureV1,
     *,
     original_bytes: bytes | None = None,
+    source_inventory: MmcifSourceInventory | None = None,
+    prepared_chemistry: PreparedLigandChemistry | None = None,
 ) -> LigandInventoryV1:
     atoms = {atom.id: atom for atom in structure.atoms}
     residues = {residue.id: residue for residue in structure.residues}
@@ -121,7 +124,9 @@ def resolve_candidates(
     else:
         for atom_id in atoms:
             groups[membership[atom_id] or f"unassigned:{atom_id}"].append(atom_id)
-    source_inventory = assess_mmcif_source(structure, original_bytes)
+    source_inventory = source_inventory if source_inventory is not None else assess_mmcif_source(
+        structure, original_bytes,
+    )
     qualified_residues = source_inventory.nonpolymer_residues
     atom_group = {atom_id: key for key, ids in groups.items() for atom_id in ids}
     crossing = {
@@ -146,7 +151,6 @@ def resolve_candidates(
         atom_group[bond.atom_1_id] for bond in structure.bonds if bond.id in authored_h_bonds
     }
     candidates = []
-    prepared_chemistry: PreparedLigandChemistry | None = None
     for group_key, ids in groups.items():
         ids.sort()
         group_atoms = [atoms[atom_id] for atom_id in ids]

@@ -849,6 +849,27 @@ PDB/mmCIF water membership may remain source-assigned when H/charge facts are
 incomplete, without inventing qualified chemistry. Historical water labels cannot
 exclude proved current nonwater or override raw nonpolymer ownership by name.
 
+Occurrence counts describe the complete current entry. Qualified representation
+counts use canonical isomeric graph representations, retaining isotope, charge,
+radicals, supported stereochemistry, explicit H graph nodes and qualified total
+attached H. They do not normalize protonation, tautomers, salts or explicit H
+nodes. Original atom maps, identifiers, coordinates and display labels are not
+chemical equivalence keys. Unsupported query, dummy, enhanced/nonordinary stereo,
+structural-group or bond semantics make a chemical total unavailable. Unknown
+potential instances prevent partial totals from being presented as exact.
+Independently verified original source-entity counts describe source identity,
+including after edits; their label does not assert chemical equality. Existing
+source qualification limits remain, including multiple nonpolymer residues within
+one asymmetry. Counts add no preparation, designation or persistent molecular state.
+
+Counting admits at most 1,024 potential instances / 8,192 candidate sites / 1,024
+sites per candidate, with a cooperatively polled two-second batch budget. Refused
+or busy counts remain explicitly unavailable while exact instance choice can
+remain usable. The 64-entry / 256-KiB-per-entry / 8-MiB cache limits measure encoded
+summary bytes, not Python heap or process RSS. Warm reads avoid rebuilding the
+count index but retain existing source checks and preparation. Portable workload
+measurements do not establish universal latency or a hard interruptible deadline.
+
 Candidate layout is limited to 1,024 atoms, each SVG to 512 KiB, and retained content
 to 1,024 records/128 MiB with conservative shared-reference accounting. At capacity,
 existing matching content remains usable and new publication is explicitly declined.

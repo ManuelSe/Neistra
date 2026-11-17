@@ -32,6 +32,7 @@ for (const theme of ["light", "dark"] as const) test(`chooses exact repeated lig
   const dialog = page.getByRole("dialog", { name: "Choose ligand of interest", exact: true });
   const radios = dialog.getByRole("radio");
   await expect(radios).toHaveCount(2);
+  await expect(dialog.getByText("2 matching representations in this entry", { exact: true })).toHaveCount(2);
   expect(await radios.nth(0).getAttribute("aria-label")).not.toBe(await radios.nth(1).getAttribute("aria-label"));
   await expect(dialog.getByRole("button", { name: "Use ligand", exact: true })).toBeDisabled();
   await radios.nth(0).focus();

@@ -80,6 +80,11 @@ class LigandCandidateV1(BaseModel):
     chemistry_status: Literal["qualified", "unavailable"] = "unavailable"
     chemistry_reason: str | None = "chemical_representation_not_qualified"
     chemical_input_hash: str | None = None
+    occurrence_count: int | None = Field(default=None, ge=1, strict=True)
+    occurrence_basis: Literal[
+        "qualified_representation_v1", "verified_source_entity_v1"
+    ] | None = None
+    occurrence_reason: str | None = "occurrence_count_not_qualified"
 
     @model_validator(mode="after")
     def validate_membership(self) -> LigandCandidateV1:
@@ -87,6 +92,11 @@ class LigandCandidateV1(BaseModel):
             raise ValueError("Candidate membership must be complete, unique and sorted")
         if any(i < 1 for i in self.atom_ids):
             raise ValueError("Candidate atom IDs must be positive")
+        if self.occurrence_count is None:
+            if self.occurrence_basis is not None or not self.occurrence_reason:
+                raise ValueError("Unavailable occurrence count requires a reason and no basis")
+        elif self.occurrence_basis is None or self.occurrence_reason is not None:
+            raise ValueError("Known occurrence count requires its qualified basis and no reason")
         return self
 
     @property

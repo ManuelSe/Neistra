@@ -41,6 +41,9 @@ export interface LigandCandidate {
   chemistry_status: "qualified" | "unavailable";
   chemistry_reason: string | null;
   chemical_input_hash: string | null;
+  occurrence_count: number | null;
+  occurrence_basis: "qualified_representation_v1" | "verified_source_entity_v1" | null;
+  occurrence_reason: string | null;
 }
 export interface LigandCandidatesRead {
   project_id: string;
