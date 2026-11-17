@@ -52,6 +52,10 @@ for (const theme of ["light", "dark"] as const) test(`retries unavailable occurr
   const availableHeight = await page.evaluate(() => visualViewport?.height ?? innerHeight);
   expect(busyFooter!.y).toBeGreaterThanOrEqual(0);
   expect(busyFooter!.y + busyFooter!.height).toBeLessThanOrEqual(availableHeight);
+  expect(await dialog.evaluate(element => element.scrollTop)).toBe(0);
+  const busyHeader = await dialog.locator(".ligand-candidate-header").boundingBox();
+  const busyPanel = await dialog.boundingBox();
+  expect(busyHeader!.y).toBeGreaterThanOrEqual(busyPanel!.y);
   const previousCalls = metadataCalls;
   unavailable = false;
   if (info.project.name === "mobile-chromium") await retry.tap();
@@ -64,13 +68,17 @@ for (const theme of ["light", "dark"] as const) test(`retries unavailable occurr
   const bounds = await dialog.evaluate(element => {
     const panel = element.getBoundingClientRect();
     const footer = element.querySelector(".ligand-candidate-footer")!.getBoundingClientRect();
+    const header = element.querySelector(".ligand-candidate-header")!.getBoundingClientRect();
     return { left: panel.left, right: panel.right, top: panel.top, bottom: panel.bottom,
-      footerBottom: footer.bottom, width: innerWidth, height: innerHeight };
+      footerBottom: footer.bottom, headerTop: header.top, outerScrollTop: element.scrollTop,
+      width: innerWidth, height: innerHeight };
   });
   expect(bounds.left).toBeGreaterThanOrEqual(0); expect(bounds.top).toBeGreaterThanOrEqual(0);
   expect(bounds.right).toBeLessThanOrEqual(bounds.width);
   expect(bounds.bottom).toBeLessThanOrEqual(bounds.height);
   expect(bounds.footerBottom).toBeLessThanOrEqual(bounds.height);
+  expect(bounds.headerTop).toBeGreaterThanOrEqual(bounds.top);
+  expect(bounds.outerScrollTop).toBe(0);
   expect((await new AxeBuilder({ page }).include(".ligand-candidate-dialog")
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
   await page.keyboard.press("Escape");

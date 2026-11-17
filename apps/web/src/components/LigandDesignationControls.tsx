@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Hexagon, LoaderCircle, RotateCw, X } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ApiError } from "../api/client";
 import type { Entry, Project } from "../api/types";
 import { ligandApi } from "../ligands/api";
@@ -81,12 +81,14 @@ function transientOccurrenceCounts(data: LigandCandidatesRead | undefined): bool
     && (candidate.occurrence_reason === "occurrence_work_busy" || candidate.occurrence_reason === "occurrence_work_limit")) ?? false;
 }
 
-function inventoryOptions(project: Project, entry: Entry, offset: number) {
+interface InventoryQualification { blocked: boolean; error: unknown }
+
+function inventoryOptions(project: Project, entry: Entry, offset: number, qualification?: InventoryQualification) {
   return {
     queryKey: ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
       entry.original_artifact_id, CHEMISTRY_POLICY, OCCURRENCE_POLICY, designationKey(entry), offset, PAGE_SIZE],
     queryFn: ({ signal }: { signal: AbortSignal }) => ligandApi.candidates(project.id, entry, offset, signal),
-    staleTime: (query: { state: { data: LigandCandidatesRead | undefined } }) => transientOccurrenceCounts(query.state.data) ? 0 : Infinity,
+    staleTime: (query: { state: { data: LigandCandidatesRead | undefined } }) => qualification?.blocked || transientOccurrenceCounts(query.state.data) ? 0 : Infinity,
     gcTime: 60_000,
     retry: false,
   };
@@ -95,6 +97,42 @@ function currentInventory(data: LigandCandidatesRead | undefined, project: Proje
   return data?.project_id === project.id && data.entry_id === entry.id
     && data.artifact_id === entry.current_artifact_id && data.resolver_version === POLICY ? data : undefined;
 }
+/** Keep known source failures across designation keys and chooser open visits. */
+function useInventoryQualification(project: Project, entry: Entry): InventoryQualification {
+  const client = useQueryClient();
+  const matches = useMemo(() => {
+    const prefix = ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
+      entry.original_artifact_id, CHEMISTRY_POLICY, OCCURRENCE_POLICY];
+    return (key: readonly unknown[]) => prefix.every((part, index) => key[index] === part);
+  }, [project.id, entry.id, entry.current_artifact_id, entry.original_artifact_id]);
+  const [qualification] = useState<InventoryQualification>(() => {
+    let failedAt = 0, succeededAt = 0, error: unknown;
+    for (const query of client.getQueryCache().getAll()) {
+      if (!matches(query.queryKey)) continue;
+      if (query.state.status === "error" && query.state.errorUpdatedAt >= failedAt) {
+        failedAt = query.state.errorUpdatedAt; error = query.state.error;
+      }
+      if (query.state.status === "success"
+        && currentInventory(query.state.data as LigandCandidatesRead | undefined, project, entry)) {
+        succeededAt = Math.max(succeededAt, query.state.dataUpdatedAt);
+      }
+    }
+    return { blocked: failedAt > 0 && failedAt >= succeededAt, error };
+  });
+  const [, refresh] = useState(0);
+  useLayoutEffect(() => client.getQueryCache().subscribe(event => {
+    if (event.type !== "updated" || !matches(event.query.queryKey as readonly unknown[])) return;
+    if (event.action.type === "error") {
+      qualification.blocked = true; qualification.error = event.action.error;
+      refresh(value => value + 1);
+    } else if (event.action.type === "success" && !event.action.manual
+      && currentInventory(event.query.state.data as LigandCandidatesRead | undefined, project, entry)) {
+      if (qualification.blocked) { qualification.blocked = false; qualification.error = undefined; refresh(value => value + 1); }
+    }
+  }), [client, project, entry, qualification, matches]);
+  return qualification;
+}
+
 function locationLabel(candidate: LigandCandidate) {
   return candidate.locations.map(location => {
     const number = location.author_number === null ? `residue ${location.residue_id}`
@@ -219,8 +257,9 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate, onO
   const current = useRef({ context, source, pausedReason, busy });
   current.current = { context, source, pausedReason, busy };
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
-  const summary = useQuery({ ...inventoryOptions(project, entry, 0), enabled: designation.status === "resolved" });
-  const inventory = summary.isError ? undefined : currentInventory(summary.data, project, entry);
+  const qualification = useInventoryQualification(project, entry);
+  const summary = useQuery({ ...inventoryOptions(project, entry, 0, qualification), enabled: designation.status === "resolved" });
+  const inventory = summary.isError || qualification.blocked ? undefined : currentInventory(summary.data, project, entry);
   const designated = inventory?.designated_candidate;
   const text = designation.status === "resolved" ? designated?.label ?? "Ligand designated"
     : designation.status === "cleared" ? "Left unassigned"
@@ -229,7 +268,7 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate, onO
           : designation.status === "not_applicable" ? "No eligible ligand"
             : "Ligand not assessed";
   const blocked = pausedReason ?? (busy || pending ? "Another change is being saved." : null);
-  const recovery = summary.isError ? inventoryFailure(summary.error, entry) : designationRecovery(entry);
+  const recovery = summary.isError || qualification.blocked ? inventoryFailure(summary.error ?? qualification.error, entry) : designationRecovery(entry);
   const perform = async (candidateKey: string | null, inputHash?: string) => {
     if (submitting.current || mutationContext.current !== visit || current.current.context !== context
       || current.current.pausedReason || current.current.busy || (ownsContext && !ownsContext())) return;
@@ -272,35 +311,45 @@ function EntryDesignation({ project, entry, pausedReason, busy, onDesignate, onO
     {pending ? <p className="ligand-designation-notice" role={open ? undefined : "status"}>Saving ligand choice…</p> : null}
     {error ? <p className="ligand-designation-error" role={open ? undefined : "alert"}>{error}</p> : null}
     <Dialog.Root open={open} onOpenChange={changeOpen}>
-      {open ? <CandidateDialog key={context} project={project} entry={entry} pausedReason={pausedReason}
-        busy={busy || pending} pending={pending} error={error} onUse={perform} ownsContext={ownsContext}
+      {open ? <CandidateDialog project={project} entry={entry} pausedReason={pausedReason}
+        busy={busy || pending} pending={pending} error={error} onUse={perform} ownsContext={ownsContext} qualification={qualification}
         returnFocus={() => trigger.current?.focus({ preventScroll: true })} /> : null}
     </Dialog.Root>
   </>;
 }
 
-function CandidateDialog({ project, entry, pausedReason, busy, pending, error, onUse, returnFocus, ownsContext }: {
+function CandidateDialog({ project, entry, pausedReason, busy, pending, error, onUse, returnFocus, ownsContext, qualification }: {
   project: Project; entry: Entry; pausedReason: string | null; busy: boolean; pending: boolean;
   error: string | null; onUse: (key: string, hash: string) => Promise<void>; returnFocus: () => void;
-  ownsContext?: () => boolean;
+  ownsContext?: () => boolean; qualification: InventoryQualification;
 }) {
   const groupId = useId();
   const [offset, setOffset] = useState(0);
   const [chosen, setChosen] = useState<{ key: string; label: string; hash: string } | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const retryButton = useRef<HTMLButtonElement>(null);
-  const pageContext = (page: number) => JSON.stringify([sourceKey(project, entry), page, Boolean(pausedReason)]);
+  const pageContext = (page: number) => JSON.stringify([sourceKey(project, entry), designationKey(entry), page, Boolean(pausedReason)]);
   const visitRef = useRef({ context: pageContext(offset) });
   if (visitRef.current.context !== pageContext(offset)) visitRef.current = { context: pageContext(offset) };
   const visit = visitRef.current;
   const retrying = useRef<{ visit: typeof visit } | null>(null);
   const [countNotice, setCountNotice] = useState<{ visit: typeof visit; text: string } | null>(null);
   const client = useQueryClient();
-  const options = inventoryOptions(project, entry, offset);
-  const query = useQuery(options);
+  const options = inventoryOptions(project, entry, offset, qualification);
+  const observedKey = useRef(options.queryKey);
+  const previousState = client.getQueryState<LigandCandidatesRead>(observedKey.current);
+  if (previousState?.status === "error") { qualification.blocked = true; qualification.error = previousState.error; }
+  observedKey.current = options.queryKey;
+  const query = useQuery({ ...options,
+    // A durable choice changes the response's designation fields, not its source
+    // inventory. Keep verified rows mounted while checking the new query key.
+    // Retained data from a failed check must never become a placeholder.
+    placeholderData: (previous, previousQuery) => !qualification.blocked && previousQuery?.state.status === "success"
+      && previous?.offset === offset && currentInventory(previous, project, entry) ? previous : undefined,
+  });
   // A failed recheck leaves cached data in the query. It no longer qualifies
   // composition, depictions or a commit until a current check succeeds.
-  const inventory = query.isError ? undefined : currentInventory(query.data, project, entry);
+  const inventory = query.isError || qualification.blocked ? undefined : currentInventory(query.data, project, entry);
   const candidates = inventory?.candidates ?? [];
   const selectable = new Set(inventory?.selectable_candidate_keys ?? []);
   const active = useRef(true);
@@ -327,12 +376,12 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
   const pages = inventory ? Math.ceil(inventory.total / PAGE_SIZE) : 0;
   const currentChosen = chosen && inventory && chosen.hash === inventory.input_hash
     && selectable.has(chosen.key) ? chosen : null;
-  const recovery = query.isError ? inventoryFailure(query.error, entry) : designationRecovery(entry);
+  const recovery = query.isError || qualification.blocked ? inventoryFailure(query.error ?? qualification.error, entry) : designationRecovery(entry);
   const use = async () => {
     const latest = current.current;
     const state = client.getQueryState<LigandCandidatesRead>(options.queryKey);
     const checked = state?.status === "success" ? currentInventory(state.data, project, entry) : undefined;
-    if (!active.current || !currentChosen || latest.pausedReason || latest.busy
+    if (!active.current || !currentChosen || qualification.blocked || query.isPlaceholderData || latest.pausedReason || latest.busy
       || latest.entry.id !== entry.id || latest.entry.current_artifact_id !== entry.current_artifact_id
       || latest.project.id !== project.id || latest.inventory?.input_hash !== currentChosen.hash
       || checked?.input_hash !== currentChosen.hash || !checked.selectable_candidate_keys.includes(currentChosen.key)) return;
@@ -396,9 +445,10 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
     <div className="ligand-candidate-body" aria-busy={query.isFetching}>
       {pausedReason ? <p className="ligand-candidate-warning">Preview: composition and 2D unavailable. Choices describe the committed entry. {pausedReason}</p> : null}
       {query.isPending ? <p className="ligand-candidate-loading" role="status"><LoaderCircle size={17} aria-hidden="true" /> Loading ligand instances…</p> : null}
-      {recovery ? <div className="ligand-candidate-warning" role={query.isError ? "alert" : undefined}><p>{recovery}</p>
-        {query.isError ? <button type="button" className="secondary-button" onClick={() => { void query.refetch({ cancelRefetch: false }); }}>Try again</button> : null}</div> : null}
-      {!query.isError && query.data && !inventory ? <p className="ligand-candidate-warning" role="alert">The ligand information no longer matches this entry. Close and reopen choices.</p> : null}
+      {query.isPlaceholderData ? <p className="ligand-candidate-loading" role="status"><LoaderCircle size={17} aria-hidden="true" /> Checking current choices…</p> : null}
+      {recovery ? <div className="ligand-candidate-warning" role={query.isError || qualification.blocked ? "alert" : undefined}><p>{recovery}</p>
+        {query.isError || qualification.blocked ? <button type="button" className="secondary-button" onClick={() => { void query.refetch({ cancelRefetch: false }); }}>Try again</button> : null}</div> : null}
+      {!query.isError && !qualification.blocked && query.data && !inventory ? <p className="ligand-candidate-warning" role="alert">The ligand information no longer matches this entry. Close and reopen choices.</p> : null}
       {inventory && !inventory.total ? <p>No eligible ligand instances were found.</p> : null}
       {inventory?.warnings.length ? <details className="ligand-candidate-information"><summary>Input warnings ({inventory.warnings.length})</summary>
         <ul>{inventory.warnings.map((warning, i) => <li key={i}>{readableReason(warning)}</li>)}</ul></details> : null}
@@ -479,14 +529,14 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
           onClick={() => { void retryCounts(); }}><RotateCw size={14} aria-hidden="true" /> Retry counts</button>
       </div> : null}
       <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-        {!pausedReason && !query.isError && countNotice?.visit === visit ? countNotice.text : ""}
+        {!pausedReason && !query.isError && !qualification.blocked && countNotice?.visit === visit ? countNotice.text : ""}
       </span>
       {currentChosen ? <p className="ligand-candidate-draft" title={currentChosen.label}>Chosen: {currentChosen.label}</p>
         : <p className="ligand-candidate-draft">{chosen ? inventory ? "Choose a current instance" : "Choice awaits an input check" : "No new choice selected"}</p>}
       {error ? <p className="ligand-designation-error" role="alert">{error}</p> : null}
       {pending ? <p role="status">Saving ligand choice…</p> : null}
       <div className="ligand-candidate-actions"><Dialog.Close asChild><button type="button" className="secondary-button">{pending ? "Close" : "Cancel"}</button></Dialog.Close>
-        <button type="button" className="primary-button" disabled={!currentChosen || busy || Boolean(pausedReason)} onClick={() => { void use(); }}>Use ligand</button></div>
+        <button type="button" className="primary-button" disabled={!currentChosen || query.isPlaceholderData || busy || Boolean(pausedReason)} onClick={() => { void use(); }}>Use ligand</button></div>
     </footer>
   </Dialog.Content></Dialog.Portal>;
 }

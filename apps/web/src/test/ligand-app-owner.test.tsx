@@ -435,3 +435,57 @@ it.each(["project ABA", "batched preview Cancel"] as const)("retires occurrence 
   expect(heading).toHaveFocus();
   expect(screen.queryByText("Occurrence counts updated.")).not.toBeInTheDocument();
 });
+
+
+function changedDesignationAck(project: Project, status: "resolved" | "cleared"): Project {
+  const revision = project.revision + 1, timestamp = "2026-11-17T22:30:00Z";
+  const entries = project.entries.map(entry => {
+    const ligand_designation: typeof entry.ligand_designation = {
+      schema_version: 1, status, source_artifact_id: entry.current_artifact_id,
+      instance_id: status === "resolved" ? "2ddacbe4-e795-41e6-8946-eef6a5a11769" : null,
+      atom_ids: status === "resolved" ? [1, 2] : [], origin: status === "resolved" ? "manual" : null,
+      selected_at: status === "resolved" ? timestamp : null, reason_code: null,
+      resolver_version: "ligand-instance-v3", assessed_at: timestamp, assessed_revision: revision,
+    };
+    return { ...entry, ligand_designation, dirty: true, modified_at: timestamp };
+  });
+  return { ...project, revision, entries, has_uncheckpointed_changes: true, modified_at: timestamp,
+    history: { ...project.history, can_undo: true, can_redo: false,
+      undo_description: status === "resolved" ? "Choose ligand" : "Clear ligand choice", redo_description: null,
+      retained_commands: project.history.retained_commands + 1 } };
+}
+
+it.each(["Use", "Clear"] as const)("keeps the replacement chooser DOM, radio and focused footer after a valid changed %s acknowledgement", async action => {
+  const f = await setup(), user = userEvent.setup(), held = deferred<Project>(), checked = deferred<LigandCandidatesRead>();
+  const designate = vi.spyOn(ligandApi, "designate").mockReturnValue(held.promise);
+  const candidates = vi.spyOn(ligandApi, "candidates").mockResolvedValue(inventory(f.project));
+  if (action === "Use") {
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    await user.click(await screen.findByRole("radio"));
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    await waitFor(() => expect(designate).toHaveBeenCalledOnce());
+    await user.click(screen.getByRole("button", { name: "Close" }));
+  } else {
+    await user.click(screen.getByRole("button", { name: "Leave unassigned" }));
+    await waitFor(() => expect(designate).toHaveBeenCalledOnce());
+  }
+  await user.click(screen.getByRole("button", { name: "Choose" }));
+  const replacement = screen.getByRole("dialog"), radio = await within(replacement).findByRole("radio");
+  const footer = within(replacement).getByRole("button", { name: "Close" }); footer.focus();
+  const ack = changedDesignationAck(f.project, action === "Use" ? "resolved" : "cleared");
+  candidates.mockReturnValue(checked.promise);
+  await act(async () => { held.resolve(ack); await held.promise; });
+  await waitFor(() => expect(f.query.getQueryData(["project", f.project.id])).toEqual(ack));
+  expect(screen.getByRole("dialog")).toBe(replacement);
+  expect(footer).toHaveFocus(); expect(footer.isConnected).toBe(true);
+  expect(within(replacement).getByRole("button", { name: "Cancel" })).toBe(footer);
+  expect(within(replacement).getByRole("radio")).toBe(radio);
+  expect(within(replacement).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+  const current = inventory(ack);
+  if (action === "Use") current.designated_candidate = current.candidates[0];
+  await act(async () => { checked.resolve(current); await checked.promise; });
+  await waitFor(() => expect(within(replacement).getByRole("radio")).toBe(radio));
+  expect(footer).toHaveFocus(); expect(screen.getByRole("dialog")).toBe(replacement);
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(ack);
+  expect(screen.queryByText("Change stored locally.")).toBeNull();
+});

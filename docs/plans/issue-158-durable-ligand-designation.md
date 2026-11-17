@@ -399,3 +399,61 @@ focused checks; no final feature, push readiness or release approval is claimed.
 Next commit the coherent correction and fresh `c4-candidate2` recipe, then run all
 42 commands, independent summary, recursive packaging and actual enclosing readback.
 All-seven final same-candidate assessment and exact merged qualification remain.
+
+
+### Complete-review correction cycle after candidate2
+
+All seven specialists assessed the complete intended feature at12da8638 against
+actual terminal masterb038e4e6. Theory, scientific implementation, performance and
+reference code assessments pass within their evidence scope. Architecture, UI and UX
+require the two D-175 corrections: actual 133px outer scrolling clips header/Close,
+and a schema-valid retired changed ACK remounts a replacement chooser. Candidate2
+was deliberately stopped at Python after eight passes, with all1,002current/931old
+sources unchanged; actual enclosing26838exit143 and all raw partial evidence remain.
+
+The stronger header oracle fails on both actual profiles before production edits.
+The bounded CSS correction passes both cases/enclosing74302exit0 without relaxing
+existing containment, Axe, focus, cancellation or immutable-state assertions. Root
+owns CSS/native/docs; the existing frontend implementer owns only controls and the
+two focused test files for the ACK fix. Preserve legitimate cache acceptance, shared
+source-verification failures, page/draft/focus and separately retired async owners.
+
+Add actual held server Use/Clear ACK native cases in both themes/profiles. Complete
+passing focused/integrated/native checks and all affected specialist reassessments
+before a clean freshcandidate3. Final all-seven same-candidate approval still waits
+for complete qualification/evidence; no implementation push or release is claimed.
+
+
+### Passing complete-review corrective checkpoint
+
+[Correction record](../assets/ligand-designation/c3-complete-review-corrections-checkpoint.json)
+binds a34,118,052-byte archive/SHA
+`77fb0855818b5e0b4d32f07022df04bbb7626228f9884e8914aab56a6d3fb8a8`,
+11recursiveZIPs/261manifest entries and complete designated owned stores. The source
+map has1,003identities/digest
+`2cd722d392c081a412824a9efe2e620ed9403c85db41942f099f21361d666cc5`.
+
+Stable chooser ownership, shared-query qualified placeholders and the source-owned
+failure fence pass187cases/nine suites, full web types/lint and enclosing31288exit0.
+Actual schema-valid changed Use/Clear ACKs preserve cache acceptance, DOM/radio/page/
+draft and deliberate focus. Held metadata cannot authorize Use; failed inputs cannot
+return through the SDK's last-defined-data history. Original App/MeasurementTool
+hashes remain unchanged. Independent architecture/UI/UX scoped reassessments pass.
+
+All1,304frontend cases/122suites and build pass. Native4 retains22passes/four new
+background-role oracle failures, diagnosed from actual aria-hidden root plus Change
+button snapshots. Native5 retains22passes/four precise UTC-suffix comparison failures
+after the focus assertions pass. No application code changes to address these test
+oracles. The narrow canonicalization retains all timestamp digits and every other
+field. Four targeted real server Use/Clear cases then pass, followed by one fresh
+26-case run with zero failures/flakes/retries/skips and all1,003sources unchanged;
+actual enclosing59094exit0. It includes both themes/profiles/actualzoom/320px/Axe,
+header/Close/zero-outer-scroll invariants, image/count recovery and ordered measurements.
+Frontend/build proof is explicitly reused after a single-native-test-only delta.
+
+This is a passing focused correction, not complete42qualification or readiness to
+push. Preserve both intentionally stopped full attempts and every failed probe.
+Next persist the corrective checkpoint and freshcandidate3recipe, inspect the complete
+intervening diff and obtain all-seven code reconfirmations. Then run all42commands
+fresh, independent summary/recursive packaging/actualenclosing, final evidence commit
+and all-seven final same-candidate assessments before normal protected delivery.

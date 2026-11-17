@@ -11,12 +11,12 @@
 .ligand-designation-clear:disabled { opacity: .55; cursor: default; }
 .ligand-designation-empty, .ligand-designation-notice { color: var(--text-soft); line-height: 1.4; margin: 6px 0 0; }
 .ligand-designation-error { color: var(--danger); font-size: var(--text-sm); margin: 6px 0; overflow-wrap: anywhere; }
-.dialog-content.ligand-candidate-dialog { display: flex; flex-direction: column; width: min(720px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow: hidden; }
+.dialog-content.ligand-candidate-dialog { display: flex; flex-direction: column; width: min(720px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow: clip; }
 .ligand-candidate-header { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
 .ligand-candidate-header h2 { font-size: var(--text-lg); margin: 0; }
 .ligand-candidate-header p { margin: 4px 0 0; color: var(--text-soft); font-size: var(--text-sm); overflow-wrap: anywhere; }
 .ligand-candidate-header h2:focus { outline: none; }
-.ligand-candidate-body { min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 12px; }
+.ligand-candidate-body { position: relative; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 12px; }
 .ligand-candidate-loading { display: flex; gap: 8px; align-items: center; font-size: var(--text-sm); }
 .ligand-candidate-fieldset { min-width: 0; margin: 0; border: 0; padding: 0; }
 .ligand-candidate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }

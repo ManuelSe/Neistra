@@ -206,7 +206,9 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   Remaining uncertainty is exposed as `unclassified` with warnings.
 - `ligand` means a putative non-polymer or cofactor component. It does not mean
   ligand of interest, validated binder, active compound, substrate, inhibitor,
-  or docking input. Neistra does not rank or designate detected ligands.
+  or docking input. Component classification itself does not rank or designate
+  ligands. The separate [exact designation contract](#exact-ligand-designation-and-disposable-depictions-158)
+  qualifies complete instances and persists deliberate or eligible single-instance intent.
 - `solvent` means a recognized buffer, crystallization agent, or other additive
   fallback. It is not a claim about biological solvent relevance.
 - PDB/PDBx connectivity can be incomplete. Source residue/entity boundaries
@@ -218,9 +220,10 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   supports them. Every atom remains accessible even when no narrow class is
   justified.
 - Durable user labels and classification corrections, per-component styling or
-  persisted visibility, ligand-of-interest state, and arbitrary component
-  extraction/export are not implemented. The latter requires explicit
-  boundary-bond and file-format semantics.
+  persisted visibility, and arbitrary component extraction/export are not
+  implemented by component classification. Extraction requires explicit
+  boundary-bond and file-format semantics. Exact ligand-of-interest state is
+  provided independently under the designation contract above.
 
 - No normalized conversion is assumed lossless. Export warnings enumerate known
   coordinate, conformer, hierarchy, metadata, connectivity, charge, and stereo

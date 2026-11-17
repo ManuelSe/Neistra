@@ -347,6 +347,180 @@ describe("entry-owned ligand designation controls", () => {
     expect(screen.getByRole("alert")).toHaveTextContent("could not be verified");
   });
 
+  it("preserves a chosen page and radio through a durable-only change while requiring its new input check", async () => {
+    const user = userEvent.setup(), owner = entry(), checked = deferred<LigandCandidatesRead>();
+    candidatesMock.mockImplementation((_project, source, offset) => Promise.resolve(inventory(source, offset, 13)));
+    const { props, update } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    await user.click(screen.getByRole("button", { name: "Next ligand page" }));
+    const radio = await screen.findByRole("radio", { name: /instance 13$/ }); await user.click(radio);
+    const dialog = screen.getByRole("dialog"), cancel = within(dialog).getByRole("button", { name: "Cancel" }); cancel.focus();
+    const changed = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+      source_artifact_id: owner.current_artifact_id } };
+    candidatesMock.mockReturnValueOnce(checked.promise);
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [changed] } });
+    expect(screen.getByRole("dialog")).toBe(dialog); expect(cancel).toHaveFocus();
+    expect(screen.getByText("Page 2 of 2")).toBeVisible();
+    expect(screen.getByRole("radio", { name: /instance 13$/ })).toBe(radio); expect(radio).toBeChecked();
+    expect(screen.getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    fireEvent.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(props.onDesignate).not.toHaveBeenCalled();
+    await act(async () => { checked.resolve(inventory(changed, 12, 13)); await checked.promise; });
+    await waitFor(() => expect(screen.getByRole("button", { name: "Use ligand" })).toBeEnabled());
+    expect(cancel).toHaveFocus(); expect(screen.getByRole("radio", { name: /instance 13$/ })).toBe(radio);
+    await user.click(screen.getByRole("button", { name: "Use ligand" }));
+    expect(props.onDesignate).toHaveBeenCalledWith(changed, "candidate-13", "exact-inventory-hash", expect.any(Function));
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("does not resurrect retained failed inventory as a placeholder after a durable-only change", async () => {
+    const user = userEvent.setup(), owner = entry(), checked = deferred<LigandCandidatesRead>();
+    const { props, update, client } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    await screen.findAllByRole("img");
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Invalid source"));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const failed = client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false });
+    expect(failed?.state.status).toBe("error"); expect(failed?.state.data).toBeDefined();
+    const dialog = screen.getByRole("dialog"), cancel = within(dialog).getByRole("button", { name: "Cancel" }); cancel.focus();
+    const changed = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+      source_artifact_id: owner.current_artifact_id } };
+    candidatesMock.mockReturnValueOnce(checked.promise);
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [changed] } });
+    expect(screen.getByRole("dialog")).toBe(dialog); expect(cancel).toHaveFocus();
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(dialog).queryByText("C1H2")).toBeNull();
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    await act(async () => { checked.resolve(inventory(changed)); await checked.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2); expect(cancel).toHaveFocus();
+  });
+
+  it("does not use an earlier successful inventory after an intervening no-data source failure", async () => {
+    const user = userEvent.setup(), owner = entry(), checked = deferred<LigandCandidatesRead>();
+    const { props, update, client } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("img");
+    const dialog = screen.getByRole("dialog");
+    const cleared = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+      source_artifact_id: owner.current_artifact_id } };
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Invalid source at the next designation"));
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [cleared] } });
+    await within(dialog).findByRole("alert");
+    const queries = client.getQueryCache().findAll({ queryKey: ["ligand-candidates"] });
+    expect(queries.some(query => query.state.status === "success" && query.state.data !== undefined)).toBe(true);
+    expect(queries.some(query => query.state.status === "error" && query.state.data === undefined)).toBe(true);
+    const reassessed = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "selection_required" as const,
+      resolver_version: "ligand-instance-v3", assessed_at: "2026-11-17T22:40:00Z", assessed_revision: props.project.revision + 2 } };
+    candidatesMock.mockReturnValueOnce(checked.promise);
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 2, entries: [reassessed] } });
+    expect(screen.getByRole("dialog")).toBe(dialog);
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(dialog).queryByText("C1H2")).toBeNull();
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    await act(async () => { checked.resolve(inventory(reassessed)); await checked.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2);
+  });
+
+  it("keeps a source failure fenced through designation restore, chooser reopen and manual cache data", async () => {
+    const user = userEvent.setup(), owner = entry(), firstWait = deferred<LigandCandidatesRead>();
+    const { props, update, client } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("img");
+    const originalKey = client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false })!.queryKey;
+    const cleared = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+      source_artifact_id: owner.current_artifact_id } };
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Source qualification failed"));
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [cleared] } });
+    await within(screen.getByRole("dialog")).findByRole("alert");
+    candidatesMock.mockReturnValueOnce(firstWait.promise); update(props);
+    await waitFor(() => expect(client.getQueryState(originalKey)?.fetchStatus).toBe("fetching"));
+    expect(within(screen.getByRole("dialog")).queryAllByRole("radio")).toHaveLength(0);
+    const reads = candidatesMock.mock.calls.length;
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    expect(candidatesMock).toHaveBeenCalledTimes(reads);
+    const dialog = screen.getByRole("dialog");
+    await waitFor(() => expect(client.getQueryState(originalKey)?.fetchStatus).toBe("fetching"));
+    act(() => { client.setQueryData(originalKey, inventory(owner)); });
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    // The summary's independent observer retains this real same-source read
+    // through chooser close/reopen; its successful completion may recover it.
+    await act(async () => { firstWait.resolve(inventory(owner)); await firstWait.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2);
+    expect(within(dialog).getByText("C1H2")).toBeVisible();
+  });
+
+  it("carries cached source failure into a replacement source owner until its actual check succeeds", async () => {
+    const user = userEvent.setup(), owner = entry(), checked = deferred<LigandCandidatesRead>();
+    const { props, update, client, unmount } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("img");
+    const cleared = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+      source_artifact_id: owner.current_artifact_id } };
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Known failed source"));
+    update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [cleared] } });
+    await within(screen.getByRole("dialog")).findByRole("alert");
+    unmount();
+    candidatesMock.mockReturnValueOnce(checked.promise);
+    render(<QueryClientProvider client={client}><Tooltip.Provider>
+      <LigandDesignationControls {...props} project={{ ...props.project, revision: props.project.revision + 2 }} />
+    </Tooltip.Provider></QueryClientProvider>);
+    await user.click(screen.getByRole("button", { name: "Choose" }));
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0);
+    expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(dialog).getByRole("button", { name: "Use ligand" })).toBeDisabled();
+    await act(async () => { checked.resolve(inventory(owner)); await checked.promise; });
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2);
+  });
+
+  it("shares same-source summary and dialog qualification failures and successful recovery", async () => {
+    const user = userEvent.setup(), owner = resolvedEntry();
+    const { client, container } = setup(owner);
+    await screen.findByText("ATP");
+    const summary = container.querySelector<HTMLElement>(".ligand-designation-current")!;
+    await user.click(screen.getByRole("button", { name: "Change" }));
+    const dialog = screen.getByRole("dialog"); await within(dialog).findAllByRole("img");
+    expect(client.getQueryCache().findAll({ queryKey: ["ligand-candidates"] })).toHaveLength(1);
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, "artifact_integrity_error", "Invalid current source"));
+    await act(async () => { await client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    await within(dialog).findByRole("alert");
+    expect(within(dialog).queryAllByRole("radio")).toHaveLength(0); expect(within(dialog).queryAllByRole("img")).toHaveLength(0);
+    expect(within(summary).queryByText("ATP 601 · chain A")).toBeNull(); expect(within(summary).getByText("Ligand designated")).toBeVisible();
+    candidatesMock.mockResolvedValue(inventory(owner));
+    await user.click(within(dialog).getByRole("button", { name: "Try again" }));
+    expect(await within(dialog).findAllByRole("radio")).toHaveLength(2);
+    expect(within(summary).getByText("ATP 601 · chain A")).toBeVisible();
+  });
+
+  it("retires an old count retry across designation ABA without remounting the current chooser", async () => {
+    const user = userEvent.setup(), owner = entry(), held = deferred<LigandCandidatesRead>();
+    const busyPage = inventory(owner); busyPage.candidates.forEach(item => { item.occurrence_reason = "occurrence_work_busy"; });
+    candidatesMock.mockResolvedValue(busyPage);
+    const { props, update, client } = setup(owner);
+    await user.click(screen.getByRole("button", { name: "Choose" })); await screen.findAllByRole("radio");
+    const dialog = screen.getByRole("dialog"), cancel = within(dialog).getByRole("button", { name: "Cancel" });
+    const query = client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false })!;
+    const independent = new QueryObserver<LigandCandidatesRead>(client, { queryKey: query.queryKey,
+      queryFn: ({ signal }) => ligandApi.candidates("project-1", owner, 0, signal), staleTime: Infinity });
+    const release = independent.subscribe(() => undefined);
+    try {
+      candidatesMock.mockReturnValueOnce(held.promise);
+      await user.click(within(dialog).getByRole("button", { name: "Retry counts" }));
+      const changed = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "cleared" as const,
+        source_artifact_id: owner.current_artifact_id } };
+      update({ ...props, project: { ...props.project, revision: props.project.revision + 1, entries: [changed] } }); update(props);
+      expect(screen.getByRole("dialog")).toBe(dialog); cancel.focus();
+      const known = inventory(owner); known.candidates.forEach(item => {
+        item.occurrence_count = 2; item.occurrence_basis = "qualified_representation_v1"; item.occurrence_reason = null;
+      });
+      await act(async () => { held.resolve(known); await held.promise; });
+      expect(cancel).toHaveFocus(); expect(screen.getByRole("dialog")).toBe(dialog);
+      expect(screen.queryByText("Occurrence counts updated.")).toBeNull();
+    } finally { release(); }
+  });
+
   it("recovers an image download failure with a fresh same-artifact request and preserves the choice", async () => {
     const user = userEvent.setup();
     const { props } = setup();

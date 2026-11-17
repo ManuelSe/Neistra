@@ -8418,3 +8418,59 @@ of approximately 956 MiB did not reproduce in a separately sampled fresh child
 unestablished. No Python-heap/RSS ceiling, every-host latency, TCP/browser timing
 or hard per-library-call deadline is inferred. This is scoped policy evidence;
 complete release gates and all-seven final review remain required.
+
+
+D-175 additional complete-review findings (2026-11-17): candidate2 was intentionally
+stopped during Python, before any source edit, after eight passing steps. Independent
+UI review and primary inspection found the narrow dialog header/Close clipped away
+in a previously passing screenshot. A stronger actual-app native oracle reproduces
+the failure on both profiles: outer scrollTop133, header top−124 versus panel top8.
+The prior oracle checked only panel/footer bounds. Make the modal frame non-scrollable
+with `overflow: clip` and contain absolute accessibility content within the relatively
+positioned scrolling body. Both focused native cases then pass, including header/Close
+containment and zero outer scroll. This establishes the actual outer scrolling symptom
+and correction; the isolated accessibility-content probe is supporting structural
+evidence, not a claim that every application focus event was individually traced.
+
+Architecture independently reproduced another P2 using a schema-valid changed Clear
+acknowledgement with actual dirty flags and timestamps: the correct monotonic project
+cache update remounts a newly opened chooser through its designation-dependent React
+key, replacing deliberate footer focus with the heading. The earlier revision-only
+held acknowledgements did not exercise this path. Preserve the chooser mount for its
+explicit source/open visit while keeping designation-sensitive async ownership. Retain
+the shared designation-aware metadata query and failure channel; same-source/same-page
+previous data may bridge a designation refetch only when its previous query succeeded.
+Known failed inputs must not be resurrected from retained data. Use stays disabled
+until the actual new-key check succeeds. Keep page/draft/focus where inputs remain
+qualified, retire old Retry/RAF feedback on designation changes, and accept legitimate
+ACKs into their project cache. Changed Use/Clear and held-refetch/error-recovery
+regressions plus fresh integrated/native qualification follow before candidate3.
+
+All partial candidate2 logs, intentional signal/owned-process evidence and actual
+enclosing26838exit143 remain preserved. No partial pass is pooled into a future gate.
+
+
+D-175 correction readback: the pinned query observer retains its last query with
+defined data. A successful A followed by a no-data failed B can otherwise supply A
+as a placeholder for pending C. The source owner now retains a local qualification
+fence across designation keys and chooser close/reopen. Matching errors withhold
+cached/placeholder metadata; matching actual nonmanual successful reads restore it.
+Keep shared query consumers and permit a real read retained by the summary to recover
+across dialog visits. The failed assertion that demanded continued refusal after such
+a genuine post-failure read was corrected as a test oracle, with raw attempts retained.
+No global registry, scientific policy, migration or App/MeasurementTool change is added.
+
+Final focused checks pass187cases/nine suites, full lint/types and enclosing31288exit0.
+Full frontend1304/122suites and build pass. Two new native-test oracle errors were
+diagnosed directly: the modal intentionally aria-hides the background root despite
+the legitimate Change button being present, and SQLite readback omits the UTC suffix
+on newly UTC-written modified_at fields. Observe the existing background DOM without
+interacting with inert controls; normalize only the optional trailingZ on those UTC
+fields, retaining all six fractional digits and every other project value. Preserve
+all active-modal focus/DOM/radio, cancellation, revision and original-byte assertions.
+After four targeted actual-server ACK cases pass, a fresh26-case native run passes
+all profiles/themes/zoom/narrow/Axe/recovery/measurement checks with zero failures,
+flakes, retries or skips; all1,003sources stay unchanged, actual enclosing59094exit0.
+The unrelated frontend/build proof is reused only after verifying the sole changed
+source is the new native oracle. All failed/full partial attempts remain separate.
+Complete fresh gates and final same-candidate all-seven assessment remain mandatory.

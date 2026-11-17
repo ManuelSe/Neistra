@@ -2,74 +2,66 @@
 
 ## Current milestone
 
-Parent #11 remains active for required #156–#163 through verified release and parent
-closeout. #156 and #157 are fully delivered in v0.34.0 and v0.35.0. #157 terminal
-[PR #174](https://github.com/ManuelSe/Neistra/pull/174) merged at `b038e4e6`, with all
-931 qualified sources unchanged. Both owned #157 branches are deleted and their
-absence verified. The immutable runtime tag remains on `7542d1a1`. The verified
-[delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-delivery.json)
-and canonical issue reply record the complete endpoint; parent #11 stays open.
+Parent #11 remains active for exactly #156–#163 through verified releases and parent
+closeout. #156 and #157 are fully delivered in v0.34.0/v0.35.0, including terminal
+[PR #174](https://github.com/ManuelSe/Neistra/pull/174), child closeout and owned cleanup.
+The immutable v0.35 runtime remains7542d1a1; actual terminal master isb038e4e6.
 
 ## Completed work
 
-#158 has its local prepared `68b1a868` checkpoint: exact durable instance designation,
-conservative eligibility, reversible choice/Clear, retained source lineage and bounded
-cached 2D candidate cards. Its historical 2,674 Python / 1,041 frontend / ten native
-results qualify only those prepared bytes. The current integration merges actual
-terminal master `b038e4e6`; shared lifecycle and compatibility corrections pass their focused integration checks.
-The required derived occurrence count and manual Retry counts correction is now
-implemented with explicit entry scope, evidence basis and unavailable reasons.
+#158 integrates that master with exact durable per-entry ligand intent, qualified
+singleton recognition, explicit repeated-instance choice/Clear, reversible lineage,
+bounded disposable2D cards and entry-wide qualified occurrence counts. Complete
+review corrections preserve header/Close visibility, replacement chooser focus and
+known source-failure retirement across metadata history. These are local passing
+checkpoints; no implementation push,0.36 release or child closeout is claimed.
 
 ## Verification performed
 
-#157 candidate and exact-runtime 42-command gates and all seven final application
-assessments remain valid for its immutable release. Terminal documentation passed
-all seven documentation assessments, source-identity and evidence checks. C7 delivery
-receipt/checksum pass full anonymous HTTP200 byte/hash verification. Initial #158
-focused API/science validation has 551 passes and 45 stale version-assertion failures;
-after correcting the release assertion, all 50 affected archive tests pass. These
-remain separate focused runs. Independent theory finds scientific source methods
-unchanged and passes 107 combined cases. Global Ruff and API/core/plugin typing
-(245 source files) pass; all five 0.36 versions, unchanged dependencies/migrations
-and explicit new head/schema identities verify. Frontend120focused cases and
-lint/types pass. The subsequent Escape correction passes158cases/nine suites and
-lint/types. Reader focused tests and seven actual0.35commands pass; scoped
-architecture and UX assessments pass. A fresh18-case native run passes both profiles,
-themes, actual zoom/320px, image recovery, exact designation and ordered measurement
-acquisition. All994source identities remain unchanged; build, native child and actual
-enclosing session77449exit0. The reproduced mobile draft-loss defect is corrected;
-all earlier failed traces and the separate test-oracle/navigation observations stay
-retained. [C3 evidence](assets/ligand-designation/c3-checkpoint.json) binds the checked
-13-ZIP/159-manifest/32-project-file packet and full owned synthetic stores. Complete
-integrated release qualification/final review remain pending; no ready-to-push claim
-is made.
+The [count checkpoint](assets/ligand-designation/c3-occurrence-correction-checkpoint.json)
+records263focusedPython, globalRuff/mypy249files and scientific/API measurements;
+those unchanged scientific sources retain their scoped evidence. Current correction
+checks pass187frontend cases/nine suites, full lint/types and actual enclosing31288exit0.
+All1,304frontend tests/122suites and build pass. A fresh26-case native run passes both
+profiles/themes, actual zoom,320px/header/Close/Axe, image/count recovery, real held
+Use/Clear ACKs, exact selection/cancellation and retained ordered measurement drafts.
+Zero failures/flakes/retries/skips; all1,003sources remain fixed, digest
+`2cd722d392c081a412824a9efe2e620ed9403c85db41942f099f21361d666cc5`;
+actual enclosing59094exit0. Frontend/build evidence is reused after an explicitly
+proved native-test-only oracle correction. No partial full gates are pooled.
+
+The [complete-review correction record](assets/ligand-designation/c3-complete-review-corrections-checkpoint.json)
+binds a recursively checked34,118,052-byte packet/SHA77fb0855… with261manifest entries,
+11ZIPs, owned stores and all failed/corrective traces. All seven assessed the complete
+feature; scientific/reference/performance code assessments pass, and architecture,
+UI and UX independently resolve the two reproduced P2s for the corrective scope.
+Final all-seven approval must cover the final evidence candidate after complete gates.
 
 ## Known limitations
 
-Preserve existing scientific/performance limitations, original uploads, complete
-measurement behavior and explicit parent exclusions. #158 introduces 0016 / project
-and archive schema3 / viewer2, requiring actual v0.35 reader refusal and forward
-retention qualification. Its earlier local checks do not establish that compatibility.
+Originals, source uncertainty, current scientific/performance limitations and parent
+exclusions remain. Head0016/projectarchive3/viewer2 requires actual0.35safe refusal
+and forward retention qualification. Count budgets are cooperative; encoded cache
+bounds are not heap/RSS ceilings. SQLite UTC timestamp suffix normalization in the
+new native comparison preserves all date digits and every other project field.
 
 ## Blockers
 
-No external blocker. Full review found the required occurrence count missing from
-instance ordinals. Candidate1was intentionally stopped at Python (eight passes,
-partial log/enclosing143 with explicit cause,994current/931old sources unchanged).
-D-176 records the count correction; no partial checks are pooled into a full pass.
+No external blocker or unresolved consequential code finding. Candidate1 was
+intentionally stopped for the missing occurrence count; candidate2 for confirmed
+header clipping. Both retain eight passes, partialPython and explicitly caused
+actual enclosing143. The new native oracle's inaccessible-background and UTC-suffix
+failures are independently diagnosed and retained; fresh corrected26cases pass.
 
 ## Next action
 
-The bounded count correction passes integrated263Python, all1,295frontend/122suites,
-Ruff/mypy249files/lint/types/build/supervisor14 and fresh22native cases with zero
-failures/flakes/retries/skips. All1,002sources stay unchanged; actual enclosing28053
-exit0. Scoped scientific, architecture, UX and UI reviews pass; measured D-176 bounds
-are adopted with explicit encoded-memory and cooperative-deadline limitations.
-Commit the passing correction and run a fresh complete `c4-candidate2`42-command
-gate, independent summary and recursive packaging. Obtain all seven final same-candidate
-assessments before implementation push. Deliver #158, then #159→#160→#161→#162→#163
-and final integrated parent closeout. All prior diagnostics and original files remain
-preserved; this correction adds no durable schema, migration or dependency change.
+Commit the passing correction and freshcandidate3recipe; obtain explicit same-code
+reconfirmation after the intervening diff, then run the complete fresh42commands,
+independent summary, recursive packaging and actual enclosing readback. Prepare the
+exact-master recipe before the final metadata/evidence commit and all-seven final
+same-candidate assessments. Normal PR/review/merge, fresh exact-merged42gate,
+verified0.36publication, child closeout and owned cleanup follow. Continue159→160→
+161→162→163 and final parent closeout under the same active Goal.
 
 ## Historical #158 preparation
 

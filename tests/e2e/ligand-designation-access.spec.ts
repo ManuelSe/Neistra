@@ -118,15 +118,27 @@ async function bounds(page: Page, panel: Locator) {
     const box = element.getBoundingClientRect();
     const footer = element.querySelector(".ligand-candidate-footer")!.getBoundingClientRect();
     const body = element.querySelector(".ligand-candidate-body")!.getBoundingClientRect();
+    const header = element.querySelector(".ligand-candidate-header")!.getBoundingClientRect();
+    const close = element.querySelector('.ligand-candidate-header button')!.getBoundingClientRect();
     return { panel: { left: box.left, top: box.top, right: box.right, bottom: box.bottom },
       footer: { top: footer.top, bottom: footer.bottom }, bodyHeight: body.height,
+      header: { top: header.top, bottom: header.bottom },
+      close: { top: close.top, bottom: close.bottom }, outerScrollTop: element.scrollTop,
       width: visualViewport?.width ?? innerWidth, height: visualViewport?.height ?? innerHeight,
       overflow: document.documentElement.scrollWidth > innerWidth };
+  });
+  await test.info().attach("ligand-dialog-scroll-bounds", {
+    body: JSON.stringify(observed), contentType: "application/json",
   });
   expect(observed.panel.left).toBeGreaterThanOrEqual(0);
   expect(observed.panel.top).toBeGreaterThanOrEqual(0);
   expect(observed.panel.right).toBeLessThanOrEqual(observed.width);
   expect(observed.panel.bottom).toBeLessThanOrEqual(observed.height);
+  expect(observed.header.top).toBeGreaterThanOrEqual(observed.panel.top);
+  expect(observed.header.bottom).toBeLessThanOrEqual(observed.panel.bottom);
+  expect(observed.close.top).toBeGreaterThanOrEqual(observed.panel.top);
+  expect(observed.close.bottom).toBeLessThanOrEqual(observed.header.bottom);
+  expect(observed.outerScrollTop).toBe(0);
   expect(observed.footer.top).toBeGreaterThanOrEqual(observed.panel.top);
   expect(observed.footer.bottom).toBeLessThanOrEqual(observed.panel.bottom);
   expect(observed.bodyHeight).toBeGreaterThan(0);
