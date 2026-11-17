@@ -1,0 +1,111 @@
+{
+  "scope": "Fifth failed-run forensic retention extension and full local readback; not application qualification or public availability",
+  "archive": "c3-forensics-verification4.zip",
+  "files": 58,
+  "archive_bytes": 436310,
+  "archive_sha256": "c4521db1e5543fe25bbcacb58b3bb72b9e33b5d5518b76d43b98db2b184ad10d",
+  "recursive_verification": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 58,
+    "project_archive_files": 0
+  },
+  "index_sha256": "d22bb6089dba8063d2283b75b8ad9c474a506df5901cef9e6c75e4a7c65ae06e",
+  "previous_index_sha256": "b825b161ec887a26ed03ad6b0eece48a1a11572a2ecd41c76a6a1d011d60352e",
+  "previous_four_runs_unchanged": true,
+  "previous43parts_and_inventories_unchanged": true,
+  "previous_verification1through3_json_and_zips_unchanged": true,
+  "local_all_parts_verified": 44,
+  "local_new_parts_verified": 1,
+  "new_run": {
+    "label": "c4-candidate8",
+    "failed_candidate": "0beff59082133ae8c3d717471a8c2dcbb328f026",
+    "qualification_complete": false,
+    "files": 120,
+    "raw_bytes": 11281927,
+    "source_count": 1005,
+    "source_digest": "a320f57aa335f4d08587c7c3ea330d94ca7e6e51ce17c3b169cb77623efe1637"
+  },
+  "total_asset_bytes": 3353195176,
+  "total_canonical_files": 77506,
+  "total_raw_bytes": 7155100911,
+  "all_parts_below80MiB": true,
+  "installed_query_source_license_included": true,
+  "unpublished_first_draft_and_first_local_readback_retained_privately": true,
+  "exact_disjoint_unions_and_recursive_crcs": true,
+  "source_control_reference": {
+    "scope": "Byte-identical source/control evidence reused; no repeated or invented control run",
+    "historical_verification_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.json",
+      "bytes": 2437,
+      "sha256": "874c955f571546b674d58ba168c9bb104c50c4fc64f57cf465343da53af25557"
+    },
+    "historical_verification_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.zip",
+      "bytes": 5628004,
+      "sha256": "6c275f5949c7a0e79276bcf7eb1f5c0eeb79f16b467d38b2f81dc2242adaf63a"
+    },
+    "previous_extension_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification2.json",
+      "bytes": 3638,
+      "sha256": "0b3facbd7682393fbe7c09a73eb01bc717e656fe5b033ed9a5668b1f9b4debdc"
+    },
+    "previous_extension_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification2.zip",
+      "bytes": 2057196,
+      "sha256": "3c6324d7b7ead0823dcfc4a6c6a173ca8db107aa895ccb0e84f4e637d7308272"
+    },
+    "previous_third_run_extension_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification3.json",
+      "bytes": 4452,
+      "sha256": "2544fafc3d5878e73a89dcccab36916fa6b15c3239b832502352ee07cf8ea67d"
+    },
+    "previous_third_run_extension_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification3.zip",
+      "bytes": 6050719,
+      "sha256": "995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577"
+    },
+    "offline_controls": 64,
+    "real_network_requests": 0,
+    "source_identities": {
+      "tools/verify_ligand_forensics.py": {
+        "bytes": 14388,
+        "sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0"
+      },
+      "tests/unit/test_ligand_forensic_verifier.py": {
+        "bytes": 21216,
+        "sha256": "a4d2f7aa2d06c51a6e455271a48c5c09e79003440e9f7dab1ce36fb46cf89275"
+      }
+    },
+    "all_sources_unchanged": true
+  },
+  "failed_gate_readback": {
+    "scope": "Historical failed C8 readback; actual enclosing39005exit1 is root-reported observation, gate/report hashes independently validated here; not a passing qualification",
+    "root_reported_actual_session": 39005,
+    "root_reported_actual_exit": 1,
+    "candidate": "0beff59082133ae8c3d717471a8c2dcbb328f026",
+    "first15steps_passed": true,
+    "last_step": "browser",
+    "last_step_exit": 1,
+    "native_passed": 17,
+    "native_failed": 1,
+    "encountered_historical_skips": 0,
+    "not_run": 584,
+    "source_count": 1005,
+    "preceding_source_count": 931,
+    "source_maps_unchanged": true,
+    "preceding_source_maps_unchanged": true,
+    "gate_sha256": "aca3b12c98ce9b34d3bb27f477c4f2c41c25599f5e8f4019791b03d937a37f9a",
+    "browser_sha256": "fbbe46ce7a3699c45bc9347f33210ad5362f542f691d6c384b3431a24ff0ca58"
+  },
+  "observed_failure": "The C8 HTTP trace records queued, running and completed job states, while the expected running DOM state was not observed by the failing native case. The exact job transition audit is retained; exclusive causality is not established.",
+  "independent_diagnosis": "An independent experiment with the actual installed query client, actual historical jobs component and exact C8 HTTP DTOs demonstrates a reachable invalidation/publication starvation defect. Event/refetch coalescing preserves publication in the controlled experiment. This establishes a logical P2 issue, not an exclusive explanation for the C8 failure.",
+  "focused_proof": "Independent closed experiment: actual72486exit0, two cases, exact source and proof-file hashes retained. Earlier private setup/output-path corrections remain distinct evidence. Root permanent regression and production corrections and their new probes are excluded and require separate evidence.",
+  "retention": "All owned stores/raw originals retained; C8 native tree relocated only after exact archive union verification and complete before/after file hashes; no deletion.",
+  "required_next": [
+    "Independent review of extended forensic contract and integrated final candidate",
+    "Fresh complete C9 all42, independent summary, recursive packaging and actual enclosing readback; no pooled passing segments",
+    "Normal final review/PR/merge and complete exact-master gate",
+    "Publish all indexed supplemental assets only with verified release and run full anonymous tracked-verifier readback before child closeout"
+  ],
+  "observed_utc": "2026-11-17T19:03:03.347612+00:00"
+}

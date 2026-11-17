@@ -3,46 +3,47 @@
 ## Current milestone
 
 Parent #11 remains active for required #156–#163 through verified releases and
-parent closeout. #156/#157 are delivered in0.34.0/0.35.0. #158 full qualification,
-final review and release remain pending. #159/#160 prepare in separate owned
-worktrees; final integration and publication follow the serial dependency order.
+parent closeout. #156/#157 are delivered in0.34.0/0.35.0. #158 fresh qualification,
+final review and release remain pending. #159/#160 prepare in separate owned trees;
+actual prerequisite integration and final publication follow dependency order.
 
 ## Completed work
 
-#158 provides exact durable ligand intent, conservative candidates, reversible
-lineage, bounded cached2D cards and qualified entry-wide occurrence counts. Its
-reviewed application/scientific/API/frontend/migration sources remain unchanged.
-Legacy native fixtures explicitly distinguish their first durable assessment
-from subsequent calculation, preview, Apply and Undo/Redo operations.
+#158 implements exact durable ligand intent, conservative candidates, reversible
+lineage, bounded cached2D cards and qualified entry-wide occurrence counts. Existing
+legacy native fixtures now verify first durable assessment before calculation.
+The current recovery correction coalesces job progress refreshes and protects a
+confirmed cancellation from older in-flight list responses and nonterminal acknowledgements.
 
 ## Verification performed
 
-All seven complete-feature CODE assessments pass b41fa747; this is not final
-readiness. Freshcandidate7 passes3,040Python/zero skips,1,304frontend/122suites,
-14supervisor, frozen installs, migration roundtrip, lint/types and build. Native
-stops after207passes, one failure, four encountered historical exclusions and
-390unexecuted cases; actual92826exit1. All1,005current/931preceding source identities
-remain fixed. Summary and complete packaging did not run; no partial gates pool.
+Freshcandidate8 at0beff590 passes3,040Python/zero skips,1,304frontend/122suites,
+14supervisor and all pre-browser phases, then fails after17native passes/one failure/
+584unexecuted cases; actual39005exit1. All1,005current/931preceding source identities
+remain unchanged. No summary or complete packaging ran; no partial gates are pooled.
 
-The failure expects the legacy archive's pre-opening revision after its deliberate
-first assessment. Trace evidence establishes that resolve advances revision before
-minimization submission; calculation preserves molecular bytes and that revision.
-The shared fixture now validates each actual resolver batch, exact revision chain,
-original/structure bytes, unrelated fields, history, designation and dirty transition
-before returning its assessed baseline. All calculation/Apply/Undo/Redo assertions
-remain unchanged. Before two failures reproduce; afterward both cases pass. All
-helper consumers pass17cases with one unchanged historical mobile zoom exclusion,
-zero failures/flakes/retries, actual native-child exit0 and frozen1,005source maps.
-A fresh retained-evidence readback passes; the original execution-session completion
-result was unavailable on resume. Strict changed-helper TypeScript passes actual
-48114exit0. Independent scoped architecture approves this correction.
+Trace evidence shows the correct five-second demonstration job running in HTTP
+responses while the UI retains the previous failed job until completion. An
+independent actual-component/QueryClient experiment reproduces logical refresh
+starvation under repeated progress notifications. Permanent list/events regressions
+each fail before correction with five requests instead of one. Coalescing publishes
+running/log state. A separate negative control proves an old list response can undo
+confirmed cancellation; a targeted publication barrier prevents that stale update.
+No native duration, deadline, retry or exclusion changes.
 
-The [forensic index](assets/ligand-designation/c3-forensics-index.json) now preserves
-43supplemental parts across four failed native gates. All43pass the tracked local
-verifier, actual41979exit0. The first24parts and verification1/2 remain unchanged;
-[verification3](assets/ligand-designation/c3-forensics-verification3.json) binds
-candidate7 and closed diagnosis/probes. Owned stores remain retained. Local proof
-is not public availability or a successful complete gate.
+Final focused frontend checks pass11job tests,1,310web tests/122suites, lint/types and
+build, actual97335exit0 with all1,005sources fixed. Final unchanged native lifecycle
+passes desktop and mobile, with two unchanged historical profile exclusions and no
+failure/flake/retry, actual75251exit0. Earlier failed focused attempts remain separate;
+one cancellation request reaches the server after the job already completed and
+correctly receives409. All owned stores and source/evidence versions are retained.
+
+The [forensic index](assets/ligand-designation/c3-forensics-index.json) preserves44
+supplemental parts across five failed native gates. All44pass the tracked verifier,
+actual63025exit0. Prior43parts and verification1–3 remain unchanged;
+[verification4](assets/ligand-designation/c3-forensics-verification4.json) binds the
+closed candidate8 diagnostics, historical sources and installed-library license.
+Local retention is not public availability or successful full qualification.
 
 ## Known limitations
 
@@ -52,13 +53,13 @@ Portable timing is not strict-host or physical-device qualification.
 
 ## Blockers
 
-No external blocker or established consequential application defect. Candidate7 is
-failed evidence. Fresh complete qualification, final same-candidate all-seven review,
-protected delivery and actual public release verification remain required.
+No external blocker. Candidate8 remains failed evidence. Fresh complete qualification,
+updated specialist assessment of the recovery correction, final same-candidate all-seven
+readiness, protected delivery and public release verification remain required.
 
 ## Next action
 
-Commit the passing shared-fixture correction, retained evidence and freshcandidate8
-recipe. Run all42commands, independent summary, recursive packaging and actual
-enclosing readback. Prepare exact-master recipe before final evidence/all-seven
-readiness; verify all supplemental public assets before child closeout.
+Finish the correction packet/reassessment and commit a coherent passing checkpoint
+with the freshcandidate9recipe. Run all42commands, independent summary, recursive
+packaging and actual enclosing readback. Prepare exact-master recipe before final
+evidence/all-seven readiness; verify every public asset before child closeout.

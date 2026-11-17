@@ -682,3 +682,71 @@ binds4,817,942-byte ZIP/SHA5184e34ad04d9f0598c5b2546cf806ed75c4c24e47876d93488c0
 only the helper differs from the prior1,005-source candidate. Other source and
 actual931-source reader identities remain fixed. This passing focused checkpoint
 is not a complete release gate or final readiness approval.
+
+
+### Candidate8 inherited job-progress publication correction
+
+Freshcandidate8 at0beff590 passes3,040Python/zero skips,1,304frontend/122suites,
+14supervisor and every pre-browser phase; native stops after17passes/one failure/
+584unexecuted cases, actual39005exit1. All1,005current/931preceding source identities
+remain unchanged. No independent summary or complete packaging ran.
+
+D-189 records an inherited JobsPanel refresh-starvation defect independently
+reproduced with the actual component and installed QueryClient. Preserve the full
+failed native/store/log/source record in the next append-only forensic extension.
+Correct only progress refresh coalescing and meaningful regressions, retaining all
+native job-duration/deadline/cancellation assertions. This is required recovery of
+the existing workflow, not new job scope. Focused component/native checks, all affected
+frontend gates, independent reassessment and a separately fresh complete gate remain
+mandatory; neither the failed full gate nor a focused pass is final readiness.
+
+
+The bounded progress correction also preserves acknowledged cancellation: an exact
+held-response regression fails when an old running list overwrites terminal cancelled
+state. Cancel success now retires that older list refresh for the returned job's own
+project before publishing its acknowledged state in the same cache. Final focused
+frontend verification passes8jobs tests/1,307web tests122suites/lint/types/build,
+actual75792exit0 with all1,005selected sources fixed. Earlier test-only compiler/lint
+fixture errors remain retained. The final unchanged native file passes both intended
+profile cases with two unchanged historical cross-profile exclusions, actual8862exit0;
+all durations, deadlines and canonical workflow assertions remain. A prior focused
+run legitimately returns409 when its cancellation reaches the server after completion;
+its raw trace/store remains separate and contributes no pooled passes.
+
+D-174 retention now covers five failed runs/44parts,3,353,195,176asset bytes and
+77,506files/7,155,100,911raw bytes. All44pass full tracked local verification,
+actual63025exit0. IndexSHAd22bb6089dba8063d2283b75b8ad9c474a506df5901cef9e6c75e4a7c65ae06e;
+verification4 ZIP436,310bytes/SHA c4521db1e5543fe25bbcacb58b3bb72b9e33b5d5518b76d43b98db2b184ad10d.
+Earlier43assets/four run records/inventories/verification1–3 remain unchanged. Exact
+historical source bodies and their installed-library license accompany the closed
+independent proof. All owned stores remain; no public-availability claim yet.
+
+Fresh clean candidate9 must repeat all42commands, independent summary, recursive
+packaging and actual enclosing exit. New recovery implementation/evidence needs
+updated scoped assessment and final same-candidate all-seven review before push.
+Separately fresh exact merged-master qualification and public verification remain
+mandatory before immutable annotation, release and child closeout.
+
+
+Independent reassessment finds and reproduces an additional ACK-order edge: an older
+legitimate running+cancellation_requested acknowledgement arrives after a newer
+terminal GET and restores running. Three permanent negative controls reproduce
+cancelled/completed/failed regressions. The correction retains terminal same-job
+state observed before the targeted query barrier or afterward, while normal live
+acknowledgements still publish. Final checks pass11job cases/1,310frontend122suites,
+lint/types/build, actual97335exit0, plus the unchanged native lifecycle2passes/two
+historical profile exclusions, actual75251exit0. All1,005selected sources stay fixed.
+Independent architecture's three retained ACK/project controls pass50523exit0 and
+its [scoped correction proof](../assets/ligand-designation/c3-jobs-progress-checkpoint.json)
+records PASS. This remains separate from final all-seven readiness.
+
+The final correction ZIP is8,057,278bytes,
+SHAb13e284fa4d95bfcaf07a9de38a42827747b094c7f94a62a9f5a83c61a0fc1a7,
+with120manifest payloads/two recursiveZIPs, every exact prior77payload retained,
+all four native stores and original/verified reconstructed source versions. The
+unpublished eight-test first draft remains private as prior-candidate evidence;
+its ACK-order CHANGES_REQUIRED finding is not erased. Final1,005source digest is
+25fd41ef26d6af357c2a463a24ccd2b5087db4d6f9f6b5b1e6152860d35ea20f;
+actual preceding931source identities remain fixed. No raw C8forensic part is nested
+into this correction packet. Freshcandidate9 still repeats all42commands, summary,
+recursive packaging and actual enclosing readback before final readiness.

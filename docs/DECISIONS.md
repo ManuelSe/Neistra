@@ -8506,3 +8506,50 @@ The evidence ZIP retains every real pytest-workspace payload. Internal `*current
 convenience links are recorded with validated within-owner targets rather than
 archived or followed as filesystem links. Original workspaces/links stay intact;
 generic release packaging continues to reject arbitrary symlinks.
+
+
+## D-189 — Coalesce job progress refreshes without discarding in-flight state
+
+Date:2026-11-17. Fresh158candidate8 passes every pre-browser phase but fails the
+existing demonstration-job running/cancel lifecycle. The correct100step/50ms job
+runs5.23seconds; HTTP lists report it running during the assertion while decoded
+DOM snapshots retain the previous failed job until completion. JobsPanel and API
+client are unchanged from the accepted base. Exact exclusive native causation is
+not established by that trace alone.
+
+Independent actual-component/installed-QueryClient proof reproduces a reachable
+refresh starvation defect: repeated WebSocket invalidations logically cancel four
+held successful running responses, leaving five list requests and no running DOM.
+A counterfactual coalescing control publishes running state through one request.
+The query functions do not consume AbortSignal, so HTTP200 does not prove cache
+publication. Permanent held-list and held-events regressions each fail before the
+correction with five requests instead of one.
+
+Pass cancelRefetch:false to both progress-notification invalidations. Allow an
+existing list/event refresh to finish; preserve polling fallback, explicit Retry,
+project/job query ownership, selected detail tab/focus, cancellation confirmation
+and terminal/error handling. No control, job duration, retry or deadline changes.
+Qualify current running/log publication during held progress events, retained
+cancellation behavior, project transitions and the unchanged actual native lifecycle.
+The reference assessment supports responsive status/progress and deliberate cancel;
+it prescribes no particular query implementation or new workflow.
+
+
+D-189 cancellation publication refinement: a separate controlled regression proves
+that an already held pre-cancel list response can restore running after the API has
+confirmed terminal cancellation. Coalescing ordinary progress must not weaken a
+successful explicit intent. On cancel success, logically cancel the older list
+refresh for the returned job's own project before publishing the acknowledged job
+into that same cache. Retain the exact stale-response negative control and normal
+error/confirmation behavior. This is a query publication barrier, not an additional
+server cancellation or a changed job lifecycle.
+
+
+D-189 acknowledgement ordering refinement: the running-job cancel API can acknowledge
+running with cancellation_requested=true. Independent actual-component proof shows
+that this older acknowledgement can arrive after a GET has already published a
+terminal cancelled result, then regress cache/DOM to running. Preserve already
+observed terminal state for the same job against a nonterminal acknowledgement,
+including across the targeted query-cancellation barrier; qualify cancelled,
+completed and failed outcomes. Keep normal acknowledged payload updates for live
+jobs and avoid a generic revision protocol or additional server commands.
