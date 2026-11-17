@@ -8545,3 +8545,237 @@ under existing project locking. Latest consumer demands materialize only the nex
 bounded batch, with measured active/user/bulk fairness and shared cancellation.
 Project/archive3 remains: canonical input/designation reconstruct derived state;
 installation preferences do not travel in archives and nondefault downgrade refuses.
+
+
+D179 refinement during #159 implementation: server-issued consumer IDs close the
+late-update/pruned-tombstone gap. Unknown/pruned IDs cannot recreate demand via
+PUT; bounded sequence records enforce release-before-update ordering. Allocation
+shares current-source/generation ownership and must not restart cancelled input.
+Use one bounded reallocation on owner expiry, with explicit failure afterward;
+retain independent immediate-replay and post-pruning negative controls.
+
+
+## D-180 — Bind descriptor evidence jointly to stereochemical sites
+
+Date:2026-11-17. Independent #159 review reproduces tetrahedral/E–Z inference-site
+collisions when a global stereochemical signature is separate from boolean-stereo
+evidence topology. Use exact validated native/current mapping and fresh absolute
+R/S/r/s/E/Z labels jointly in the evidence graph, with bounded CIP assignment,
+neighbor-frame validation and fail-closed incomplete labels. Preserve case-sensitive
+pseudoasymmetry and supported-domain distinctions; a bookkeeping graph never enters
+chemical interpretation/calculation. Policycip-v2 retires the prior local candidate
+identity. Retain independent placement/renumbering/symmetry and refusal controls;
+initial passing tests do not override the actual counterexamples.
+
+
+## D-181 — Control descriptor preparation and qualify coordinate reuse
+
+Date:2026-11-17. All strict descriptor preparation/CIP/canonicalization belongs in
+the existing resource-controlled child, once. A separate conservative raw-input
+fingerprint may omit only validated coordinate arrays for the current graph-only
+catalog, retaining every other source/semantic field, membership/original identity
+and fixed method identity. It is a proof lookup, not scientific content identity.
+A bounded index can reference only the fingerprint/report association sealed inside
+the verified exclusively owned child-produced cache envelope. Missing/corrupt proof
+requires requalification; fresh current binding remains mandatory. Parent source
+reads/JSON work are genuinely bounded and separately measured.
+
+Consumer ordering sequence differs from semantic execution generation: unchanged
+same-sequence heartbeat renews only lease; priority-only changes preserve generation,
+failures and fairness age; semantic changes, Retry and release/resume retire captured
+authority. Identical higher-sequence payload explicitly means Retry. Keep canonical
+entry/coverage order and shared-subset publication, with independent stale-work tests.
+
+
+## D-182 — Own active property work above remountable presentation
+
+Date:2026-11-17. A property-specific App owner observes exact inspected scientific
+input/method and preview/navigation epochs synchronously. Equal DTOs, names,
+visibility, unrelated sources and project revisions do not retire it. Keep the
+connection above the presenter and preserve ABA/StrictMode/true-unmount fences.
+A single active-target consumer persists when the inspector closes: the parent's
+required automatic refresh must not depend on reopening it after a mobile edit.
+Project/target retirement and explicit cancellation retain their scoped teardown;
+no duplicate invisible work owner is added. This supersedes the earlier pane-close
+release suggestion within #159's planning refinement.
+
+Pending preference saves use Close, with truthful continuing-save feedback; Cancel
+remains for an unsubmitted draft. Captured visit ownership prevents late save
+acknowledgements from closing, refocusing or resetting a replacement options visit.
+
+
+## D-183 — Verify current source authority and retain bounded alias proofs
+
+Date:2026-11-17. Independent architecture review finds that a previously installed
+binding cannot establish current authority from source IDs/key and a readable
+scientific report alone. Every foreground current-result read must verify bounded
+current/original bytes, exact stored source/key and fresh conservative raw-input
+fingerprint membership in that report's sealed envelope. Per-operation memoization
+may share verified artifact reads and JSON/proof work; no native chemistry runs in
+the coordinator. A proof locator is a scheduling/reuse index, not authority.
+Child publication likewise verifies exact source/proof association for each binding
+under the existing project lock and generation/source compare-and-set contract.
+
+Rolling truncation of per-report alias proofs can revoke still-current bindings
+and provoke repeated qualification for nonscientific aliases. Replace the provisional
+32-proof rolling policy with admission of at most1,024 proofs, still subject to the
+existing128KiB envelope and16MiB aggregate encoded bounds. This is a finite upper
+limit, not a measured promise that1,024 fit. Refuse a new request explicitly before
+mutating existing proofs when capacity is exhausted. Pin live-demand content against
+capacity eviction with bounded lease/release ownership; integrity invalidation and
+repair remain possible. No hot recalculation loop or deletion of valid old proof.
+
+Worker metadata may prioritize which bounded batch of pending/active sources to
+verify; it must never publish ready results or install bindings from scheduling
+hints. Foreground reads always verify, so auditing every covered bulk source on
+every worker tick is unnecessary. Preserve fairness and explicit bounded-I/O failure.
+Actual33-alias progress, small-cap refusal, pinned-full, tampered binding/report and
+missing/corrupt original/current source regressions precede acceptance. Independent
+architecture reassessment and actual large-workload qualification remain required.
+
+
+## D-184 — Qualify private derived state with the actual preceding schema-3 writer
+
+Date:2026-11-17. Independent architecture consultation defines #159's additive
+compatibility boundary before reader-tool implementation. Migration0017 introduces
+private derived execution/cache/preferences; project/archive schema remains3. The
+actual released0.36 predecessor must be qualified, never a source-emulating adapter.
+Its Alembic refusal of unknown0017 is distinct from successful compatible API/archive
+reads and writes. Current readers must migrate predecessor0016 and reconstruct
+private derived state without changing originals or ordinary user job/output data.
+
+Add a standard-library coordinator with produce-current, old-write and reopen-current
+actor phases in separately owned stores. Each actor binds real version/head, module
+locations/hashes and actual tagged source receipt. Pending-without-execution,
+claimed-but-not-started, genuinely started, completed, cancelled and interrupted
+states have precise process facts: a persisted running row alone is not a live child.
+Never copy a live PID/start-token/process-group identity into another store and invoke
+recovery there. Live restart/deletion uses one explicitly owned execution store and
+positive identity checks. Retain SQL/file snapshots and every actual test store.
+
+Actual predecessor actions cover read/save, ordinary job creation, entry deletion/
+Undo, project deletion where supported, and export/import/reexport with both suffixes.
+Empty-input unknown-plugin shells may survive; private relationships must never
+become ordinary artifact references. Label actual-old ORM probes accurately when no
+public endpoint exists. Current reopen verifies exact canonical/history/original/
+user-output retention, preference ownership, stale binding retirement, archive-ID
+remapping/reconstruction and restart/reaping. Forged markers or imported execution
+IDs never confer private execution/publication/cleanup authority. Imported nonterminal
+history remains failed history rather than a restored executable process.
+
+Preserve every existing rich/connectivity/editing/ordered-measurement responsibility.
+Explicitly replace prior schema3-versus2 archive-refusal labels with shared-schema3
+positive compatibility and separate unknown-migration refusal. One additional
+coordinator command makes the proposed complete gate43commands; summary/source
+inventory/typechecking/recursive packaging must require all three actor reports and
+retained stores. Tool preparation does not establish preceding qualification: resolve
+and verify the real0.36tag and source receipt only after #158 release.
+
+
+## D-185 — Commit cache references before retiring valid owned files
+
+Date:2026-11-17. During D-183 correction, source review finds that unlinking valid
+cache victims before SQL commit can leave rolled-back rows pointing to deleted
+bytes after a later admission failure. Plan capacity/victims before mutation.
+Create valid owned files and install references inside the existing store-wide
+SQLite BEGIN IMMEDIATE publication lock. Queue replaced/pruned valid paths locally;
+commit successful publication before any retirement, then reacquire that writer
+lock, requery exact references and unlink only still-unreferenced owned candidates.
+Rollback discards retirement intent and preserves old valid bytes. Newly created
+unreferenced blobs may await bounded startup cleanup rather than unsafe rollback
+unlinking. The contract relies on serialization, not a single-publisher assumption.
+
+API corruption repair/unlink must also serialize and recheck: a stale bad read
+cannot unlink a newly repaired file. Cleanup failure after a successful publication
+must not convert that success into failed demand/job state; retain a bounded owned
+orphan for recovery. No session-global hooks, new table or generic GC framework.
+Independent architecture consultation accepts this narrow lifecycle correction;
+rollback/admission/re-adoption/stale-repair/postcommit-cleanup regressions and
+independent implementation reassessment remain required. Originals/user artifacts
+remain outside the descriptor cache's ownership and cleanup authority.
+
+
+## D-187 — Fence binding retirement and cached coverage by current authority
+
+Date:2026-11-17. Independent architecture review of backend correction2 reproduces
+late source A failure deleting an already-published B binding: retirement deletes by
+entry ID alone. Conditional retirement must compare the actually observed binding/
+source stamp, protecting replacement and ABA rebindings. Before delayed worker
+failure publication, refresh authoritative source and captured consumer generations
+under the existing publication lock. Retired ownership cannot delete bindings or
+attach failures to replacement demand. A stale foreground read may report its own
+failure without invalidating newer authority. Apply the same CAS to invalid-binding
+cleanup. Held A→B and A→B→A failures must preserve newer binding/value/failure state.
+The original warm-byte verification and sealed-association correction remains valid;
+its146passing checks and exact source receipts stay retained as historical evidence.
+
+Independent UX review also reproduces coverage-sensitive caching resurrecting known
+bad source data. Cache all14values, request a two-descriptor subset, hold/reject its
+read with a source conflict, then restore the original mask: exact-request-only
+failure keys expose the older14-value report again before successful requalification.
+Even without failure, narrowing coverage initially hides valid existing values.
+
+Keep request/generation identity coverage-sensitive, but reuse scientific values and
+fence source qualification by exact project/entry/current+original source/instance/
+membership/implementation/policy/library. Immediately show matching cached requested
+values; only missing coverage remains pending. A source failure fences every coverage
+variant of that input until an actual successful current read requalifies it.
+Cancellation precedence, ABA/preview/StrictMode ownership and finite retention remain;
+fence eviction cannot expose older retained values. No source hash is self-certified
+from report values. Add held full→subset, subset→superset partial, failed-mask change,
+successful recovery and mismatched identity/method regressions. Renew affected focused
+and full frontend validation plus independent review before first159native workflow.
+D-186 is reserved by isolated160planning; this decision keeps the shared ID unique.
+
+
+D-187 implementation refinement: independent architecture accepts a non-null private
+binding incarnation UUID in unpublished0017 and its model. Mint a fresh nonce on each
+actual installation/replacement; idempotent verification leaves it unchanged. Capture
+entry/source-key/input-hash/incarnation immutably before verification; observed-absent
+bindings grant no deletion authority. Conditional SQL retirement checks that complete
+stamp and affected rows, never recapturing the latest binding as old authority.
+Retain initially captured owner generations, serialized source/failure rechecks and
+D-185 transaction/file ordering; reuse an existing writer transaction without nested
+BEGIN, intermediate commits or rollback to acquire locks. No public binding key,
+scientific digest/policy, project/archive format or version change follows. Use fresh
+owned test stores; preserve historical unpublished0017 stores unchanged. Controls
+cover equal-timestamp Retry/ABA, absent→present, invalid cleanup, rollback incarnation
+and already-held writer transactions, preserving newer binding and failure maps.
+
+
+D-187 source-contract assessment: independent architecture traces every supported
+original-artifact producer and public update whitelist. An original pointer is
+established/restored with its entry identity; duplication/archive/job-result paths
+create new identities, and supported edits replace only current artifacts. No public
+same-entry original replacement is established. The frontend still isolates its
+observed original exactly and the backend verifies original bytes in its source key/
+proof. Therefore no additional original-ID echo/precondition is required by current
+supported behavior. A future command permitting same-entry original replacement must
+extend conditional property-source ownership before relying on this immutability.
+Forged SQL/history is not described as an existing replacement endpoint.
+
+
+## D-188 — Count productive coordinator turns in job fairness
+
+Date:2026-11-17. Independent performance and architecture review identifies a
+consequential scheduler gap: materialize() returning True represents actual warm
+binding or failure progress, yet JobWorker returns before incrementing either
+fairness counter. An isolated exact-production-method probe retains5warm turns
+with ordinary claim only on6, and143warm turns with claim only on144; both counters
+remainzero. This is branch proof, not a1000-source runtime measurement.
+
+Count every productive derived turn, boolean progress or returned child job, in
+both existing streaks before returning. Preserve False/None as no-work and retain
+the existing ordinary opportunity after four productive derived turns and existing
+active/bulk fairness policy. Qualify actual warm aliases with an ordinary queued
+job, mixed warm/cold and cache-failure progress; preserve the existing cold-child
+fairness test. Work-order evidence must count coordinator turns, including warm
+progress, rather than infer fairness solely from spawned-child counts. No new job
+type, scientific method, scheduling deadline or timing target is introduced.
+
+The performance harness must prove exact new-source App READY before mobile
+presentation reopening. Separate command/ACK-to-network-ready and deliberate
+open-to-cached-DOM timing. Hidden-at-start DOM retirement is unobserved, never a
+measured zero; retain raw visibility facts and observable desktop/immediate-owner
+controls. Active-priority evidence must establish accepted exact-source overlap
+and bounded actual scheduling order, not only an optional wall-time threshold.

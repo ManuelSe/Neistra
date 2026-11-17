@@ -318,3 +318,333 @@ Undo/Redo, cancellation through reopening/polling, shared-consumer retention, op
 conflicts/failure/default restore, partial values and project/history invariance.
 Readout/settings must work in both themes, keyboard/touch/narrow/actualzoom with
 accessible recovery and stable focus. Full release/reader/performance gates remain.
+
+
+### C1 consumer allocation refinement — fence replay after bounded pruning
+
+Integration review identifies a real ordering boundary: release2 may arrive before
+held update1. Retaining a last-sequence tombstone rejects the immediate replay, but
+pruning bounded tombstones must not permit that old update to recreate demand.
+Use server-issued consumer IDs: POST the project consumer collection once to obtain
+an owner ID/sequence0/expiry; PUT requires an existing issued record and never
+recreates unknown or pruned owners. DELETE is idempotent; update/release sequence
+remains monotonic. Allocation is per valid App/project owner, not per descriptor or
+edit, and cheap reads may run in parallel. Expired owners have bounded reallocation
+recovery, never an unbounded409/retry loop.
+
+Frontend ownership checks also cover allocation: a late allocation after source/
+project retirement or explicit Cancel cannot issue demand. Release unused tokens
+best effort. Reallocation never clears the same-input explicit-cancellation latch.
+Test DELETE2-before-PUT1 and replay after token pruning independently, plus late
+allocation/cancel and normal Retry with a new generation. Resource/lease/tombstone
+limits remain explicit proposals until measured; no unbounded retained fence or
+separate session platform is introduced.
+
+
+### C1 scientific review correction — joint stereochemical evidence identity
+
+The first scientific kernel passes68focused cases but independent theory finds a
+realP2: a separate global stereochemical signature plus independently canonicalized
+boolean-stereo evidence topology can associate an inference flag with the wrong
+stereochemical site. Reproduced tetrahedral and E/Z placement counterexamples retain
+identical old digests despite independently distinct stereochemical site coloring.
+Preserve old source snapshots, negative probes and failed regressions. The scoped
+implementation verdict is CHANGES_REQUIRED until independent reassessment; those
+68passes are not proof against the newly established counterexample.
+
+The accepted bounded correction proves exact native/current atom and bond mapping
+and stereo neighbor frames, clears stale native labels, freshly assigns absolute
+case-sensitiveR/S/r/s andE/Z under100,000CIPiterations, and encodes those labels in
+the same site-associated evidence graph. Never use raw index-relative chiral tags
+as canonical site labels. Preserve unsupported enhanced/nonstandard domains; missing
+mapped labels or assignment limits fail closed. Conservative unavailable fallback
+retains the full available ordered frame/evidence and cannot assert false site
+interchangeability. It is never a descriptor calculation molecule.
+
+Policy advances to `strict-current-graph-terminal-h-cip-v2`, retiring old local
+candidate bindings. Descriptor methods/units remain. Acceptance includes both actual
+counterexamples,2,880renumbering probes, genuinely automorphic coalescence, source-bound
+pseudoasymmetricr/s, stale/missing labels, odd neighbor-frame permutations, iteration
+refusal and original-byte preservation. Author reports83focused passes for the
+correction; frozen receipt and independent reassessment remain pending.
+
+Early performance consultation separately identifies duplicated native preparation
+in the coordinator and calculation child, plus heartbeat sequence invalidation.
+Move all strict native preparation/CIP/canonicalization under the existing controlled
+child. A conservative exact noncoordinate raw-input proof may reference only content
+previously qualified by that child, never replace scientific identity. Concrete sealed
+proof/index and renewal semantics require architecture assessment before integration;
+source reads/JSON parsing remain separately bounded and measured. No latency/capacity
+qualification or speedup is claimed.
+
+
+### C1 controlled preparation and sealed coordinate proof
+
+Early performance review exposes actual duplicated strict preparation in the worker
+coordinator and spawned plugin. Architecture accepts a narrow correction: coordinator
+uses verified bounded bytes/JSON only; all strict native preparation/CIP/canonicalization
+and descriptor calculation run once under existing controlled child resources. Source
+reads/JSON/fingerprinting outside the child remain separately bounded and measured;
+never describe them as covered by child wall/CPU/RSS limits.
+
+For the current graph-only catalog, scientific assessment permits a separately versioned
+conservative raw-input fingerprint that removes only atoms[].coordinates and
+conformers[].coordinates after validating finite triples/counts. Retain every other
+field, including IDs/order, active conformer, source, inference/protection, exact
+membership, original digest/size and fixed implementation/library/policy. It is not
+the scientific digest. Child independently recomputes it before strict preparation.
+
+A sixth bounded0017 proof index may locate qualified content only when the fingerprint
+and validated scientific report are associated inside the same digest/size-verified
+owned cache envelope. Index substitution cannot confer proof. Bound index rows,
+fingerprints/envelope, envelope/IPC bytes and coverage merges; eviction/missing proof
+means child requalification. Recheck current source/designation/membership/demand
+before binding. Warm coordinate-only reuse creates no descriptor job only after that
+fresh exact proof. Actual bounded reads use cap+1, not a size check followed by an
+unbounded read. Preserve original/global user artifact ownership.
+
+Separate network sequence from internal semantic generation. Same sequence with
+identical canonical payload renews lease; same sequence with differing payload is a
+conflict. Higher sequence with priority-only change preserves generation, failures
+and fairness age. Higher sequence with otherwise identical payload means explicit
+Retry; input/coverage change or release/resume advances generation. Canonicalize entry
+sets and descriptor coverage. Captured publication/failure checks generation plus
+current exact source/coverage, so a heartbeat cannot invalidate useful work or let
+retired completion overwrite a later Retry. Shared consumers retain subset coverage.
+
+Acceptance includes parent native-preparation prohibition, exactly-once child prepare,
+coordinate zero-new-job reuse, malformed coordinate/noncoordinate/original/method
+invalidation, sealed-index substitution/eviction/merge bounds, held work spanning a
+heartbeat/priority/Retry/release/ABA and disjoint shared coverage. Final implementation,
+performance and actual old-reader qualification remain pending.
+
+
+### C2 property-specific App ownership correction
+
+Independent early UX review reproduces aP2: equal cloned/renamed/visibility project
+DTOs recreate component object dependencies, causing cleanup/release/new demand for
+an unchanged scientific target. D181 would treat that higher identical request as
+Retry. A related broad designation-command owner observes all project entries, so
+an unrelated source edit can retire a property's guard and strand pending work.
+Retain those actual probes; the frontend scope is CHANGES_REQUIRED until corrected
+and independently reassessed.
+
+Architecture selects a separate App-owned property context and connection above the
+remountable presenter. Compare only active project/inspected entry, its exact current/
+original source, designation status/instance/membership, method identity/coverage and
+accepted preview/reconciliation predicates. Exclude DTO identity, project revision,
+unrelated entries, names, visibility and appearance. Observe relevant authoritative
+stores/cache synchronously with a monotonic epoch; preserve batched ABA/preview and
+StrictMode/true-unmount retirement. Update numerical-preview refs and observe before
+React publication. The connection keys semantic input plus ownership epoch; rendering
+or responsive presentation remount must not imply Retry.
+
+The parent's nonnegotiable automatic-refresh outcome clarifies one earlier UX
+proposal: keep the single active-inspected-ligand App consumer across inspector hide,
+editor presentation and responsive remount, so a relevant edit schedules without
+requiring sidebar reopening. Closing a presenter alone does not cancel that automatic
+work. Project/target retirement, true App unmount and explicit Cancel release its
+demand. No duplicate hidden consumer is added; empty/invalid target creates no work.
+This explicitly supersedes the earlier suggestion that ordinary pane close releases
+this active automatic consumer. Preserve cancellation through reopening and latest
+input recovery; incidental camera/appearance/other-entry edits create no new work.
+
+A second UX finding concerns options: before submission Cancel discards the draft;
+a submitted Save may persist after closing, so while it is pending the action is
+Close, with concise continuing-save feedback. Old acknowledgements update monotonic
+saved preferences but cannot close/refocus/reset a replacement dialog/draft. Qualify
+held-save/Close/reopen/lateACK in component and actual native tests. Keep existing
+preference conflict recovery and partial-current-value behavior.
+
+
+### Backend authority correction before integrated qualification
+
+D-183 refines the accepted derived-cache contract after independent architecture
+review: every ready read and installed binding requires fresh bounded byte/proof
+verification, not only matching IDs or the fingerprint lookup index. Keep existing
+encoded limits and preserve sealed alias proofs under finite admission rather than
+rolling truncation. Live-demand content cannot be evicted into a recalculation loop;
+new capacity refusal is explicit and scoped to the request. Worker metadata remains
+only a bounded scheduling hint. These are correction contracts, not passing results.
+The backend author owns meaningful tamper/missing-source/33-alias/capacity regressions;
+root retains actual native/performance/integrated gates and final all-seven review.
+
+
+### Actual predecessor qualification contract
+
+D-184 defines the concrete three-actor private-derived-state qualification before
+new tools are implemented. Keep project/archive3; separately prove actual0.36API/
+archive compatibility and unknown0017Alembic refusal. Preserve all current reader
+families and add one owned coordinator command (proposed43-step full gate). All
+three actor reports bind actual source/module identities and deep retained-state/
+file checks; no fabricated live-process claims or acting on copied live identities.
+Prepare six issue-specific helpers under assets/ligand-properties and focused
+contract controls. Real predecessor execution waits for the actual0.36release;
+current source candidates and static controls do not establish released compatibility.
+
+
+D-185 adds the concrete rollback-safe owned-file lifecycle required by D-183's
+capacity admission. SQL reference publication and valid-file creation are serialized;
+valid victim unlinking follows commit and exact-reference recheck under the same
+store-wide writer lock. Corruption repair obeys that boundary too. Postcommit cleanup
+failure retains an owned orphan without reversing successful scientific publication.
+This correction requires focused fault/race controls before backend handoff.
+
+
+### Review correction: retirement CAS and coverage-independent source fencing
+
+D-187 records two independently reproducedP2s before further implementation. Backend
+retirement/invalid-binding cleanup must compare observed binding/source identity and
+revalidate delayed owner generations under the publication lock, including A→B→A.
+Frontend request keys remain coverage-sensitive while matching scientific reuse and
+known-source failure fences span coverage masks for the same exact base input.
+Only actual successful current qualification clears a source fence; changing a mask
+cannot resurrect values. Retain earlier146backend/104focused+1369frontend results as
+prior-candidate evidence, then run affected regressions/fullfrontend checks and obtain
+independent reassessment before firstactual159native run. No milestone completion,
+version bump or release-ready claim is made by this correction contract.
+
+
+Reader-tool review identifies a coverage correction before actual predecessor use:
+old-writer archive roundtrip must occur while the descriptor target remains deleted,
+not only after Undo restoration. Use a retained anchor entry for ordinary user-job
+inputs/outputs so this isolates private execution rather than a pre-existing ordinary
+job dangling-input seam. Export/import/reexport both suffixes before Undo, retain the
+restoration checks, and require explicit post-deletion evidence in summary/negative
+controls. The earlier64offline passes remain prior-tool-candidate evidence, not an
+actual predecessor pass. Current backend/frontend application sources are unaffected.
+
+The first22-case native run passes four320px/held-acknowledgement cases, then fails an
+immediate actual-zoom modal geometry sample;17cases do not run, actual80550exit1 and
+all1,062sources stay unchanged. Independent UI trace/isolated-browser assessment
+reproduces866.683px bottom during the inherited140ms entrance animation versus853px
+once finished (861px viewport). Keep production styles; await real modal animation
+completion before the same geometry/Axe assertions. Keep1px allowance, deadlines,
+real zoom, retries and exclusions unchanged. Retain failed raw trace/store/enclosing
+proof and require a fresh complete22-case run.
+
+
+### Native layout correction before C2 acceptance
+
+Native2 passes seven cases including actual100%/200% zoom, cancellation and golden
+properties, then cannot click Apply query in the real edit flow. Actual85545exit1;
+14cases do not run. All1,053focused runtime/test sources remain unchanged; nine
+unexecuted reader-tool drafts are explicitly excluded while their separate author
+works. No native case, deadline, retry or assertion is excluded or weakened.
+
+Independent UI and UX assessments confirm a real high-priority regression: fixed
+ligand/property/tabs consume the inspector height while its remaining flex body
+collapses tozero. A locator change or forced click would conceal it. Introduce ONE
+content scroll owner below the existing persistent inspector header. Place ligand
+context, all14properties/methods, tabs and natural-height active tab panel inside it;
+remove the competing tabpanel scrollbar/height constraint. Keep outerframe clipping
+non-scrollable so focused controls cannot displace the header. Use scoped component/
+styles changes, preserving all existing actions/state/tab semantics and App-owned
+scientific work. No arbitrary property height cap or mandatory collapse.
+
+Deliberate pointer/keyboard tab activation, including the already-selected tab,
+brings that task into view inside this owner. Property completions or warning/method
+updates do not automatically change focus or reading position. Qualify trusted query/
+Apply, actual edit→automatic properties→Undo/Redo, asynchronous values while a legacy
+control is focused, expanded methods, lower tools,320px/shortviews/both themes and real
+200% zoom. Renew affected component/global frontend validation and the complete native
+workflow run; earlier119/1384passes remain prior-layout-candidate evidence.
+
+
+### Productive-turn fairness and performance-oracle correction
+
+Full integration Python/static checkpoint passes3,234tests/zero skips, Ruff and
+mypy274 with all1,062selected source identities fixed, actual96589exit0. A separate
+native7 run remains failed at a mobile test-helper control absent from mobile
+markup; before changing production, keep both evidence scopes distinct.
+
+Independent performance/architecture assessment confirms D-188's warm-progress
+fairness defect and identifies performance-harness gaps: cold exact-source READY
+must precede mobile reopening; hidden-at-start DOM is not a retirement timing;
+accepted-source overlap/priority and ordinary fairness need hard work-order proof
+including warm coordinator turns. Correct within existing bounds, preserve failed
+sources and tests, independently reassess and complete actual measurements later.
+Actual released158master integration and full43-step candidate/exact-master gates
+remain separately mandatory; no local preparation proves the prerequisite delivered.
+
+
+Qualification-only work-order observation uses a bounded test harness wrapper around
+actual production worker/service method calls and invokes the exact worker.main
+lifecycle/health/recovery/run_forever. Default worker startup remains unchanged.
+Record actual productive turn kind, counters, active/bulk choice, selected/bound exact
+source/generation and ordinary claims without additional coordinator source reads,
+chemistry or scheduling pauses. Keep trace bytes/records explicitly bounded, fail
+on incompleteness, and disclose observation overhead in portable timing. No durable
+production trace/table/API or alternate scheduler is introduced. Active priority is
+assessed after actual accepted exact-source demand, allowing the already claimed turn
+and at most one bulk-fairness turn; ordinary fairness counts productive warm turns.
+
+
+### First real API performance invocation — compare persisted checkpoints
+
+The first exploratory invocation fails before measurement because its external
+command lacks the API import path; retain it and invoke with explicit repository
+module paths. The corrected invocation reaches real cold calculation and zero-child
+coordinate reuse, then fails an overbroad POST-response-versus-GET equality oracle.
+Independent replay captures every actual response without substitutions and proves
+only three differences: project/entry modified_at retain identical six-digit UTC
+instants with POST's literalZ omitted by GET; structure_patches is one command-only
+coordinate patch versus GET's empty list. The project_read factory documents this
+transport projection; no production mutation defect is established.
+
+Before warm reads/demands, capture the actual persisted GET after the coordinate
+command. Validate the command acknowledgement against it allowing ONLY those two
+literal timestamp-suffix differences and the known command-only patch. Validate
+that patch's entry/artifact/membership/coordinates against the canonical structure.
+Then compare the entire after-warm GET exactly with the persisted baseline, retaining
+revision/history/molecular/source/original invariants. Preserve command/baseline/patch/
+canonical/after snapshots before assertions. Negative controls reject any altered
+timestamp digits, history/revision/artifact or additional omitted field. Baseline
+observation/patch verification is outside the measured warm operation and remains
+explicit in request evidence. No generic date/field stripping or scientific change.
+The exploratory run remains incomplete and is not final performance qualification.
+
+
+### Local C1 vertical checkpoint and source-bound evidence
+
+The [C1checkpoint](../assets/ligand-properties/c1-checkpoint.json) binds all1,062
+current selected source hashes, digest9367e4d04cc2f4a9cd80822b24f088c5f22d4ffc0e33cec937b9db57db234268,
+and copies all73changed/new source paths against the planning head. The complete
+37,202,926-byte [evidence packet](../assets/ligand-properties/c1-evidence.zip) has
+SHA256f25634d34eb5de3c3fc280291074e3a3375cb74faea517722ef0196f8202b0fe.
+It retains2,356outer payloads,110recursive ZIPs,2,382manifest entries,398project
+archive files, all eight native output/store sets and earlier corrections/failures.
+Every payload hash/recursive CRC is verified. Exact metadata preserves142pytest
+convenience links and four deliberate security fixtures without active ZIP symlinks.
+Neutral naming/path checks pass; root independently verifies current source copies,
+outer manifest/hash/CRC and source stability. Actual packaging49926exit0.
+
+Evidence scopes remain explicit:83kernel cases;158backend cases before the separate
+29-case productive-turn correction;133focused/1,387global frontend cases;3,234prior
+full Python cases, never summed with later cases;26actual native cases/zero skips,
+failures, flakes or retries, actual71526exit0. Native source scope is1,060with exactly
+two unexecuted performance drafts excluded; subsequent default-preserving optional
+trace config/recipe/unit changes are identified. Prior77offline reader cases have
+raw proof. Current78combined and11recipe tool executions are recorded as direct
+root observations without fabricated raw receipts. Actual released0.36reader actors
+and full43-step qualification have not run for this child.
+
+The corrected API probe5 completes actual five unique API/coordinator processes,
+each with a distinct controlled real scientific child. Coordinate edits change the
+source artifact, preserve qualified scientific input hashes and produce zero new
+calculation children; entire persisted project GETs remain exact. The observed
+1,001-atom complex explicitly reports unqualified chemistry/formal-charge uncertainty
+while retaining independent available counts. All729selected API measurement-source
+hashes match before, after and current. Actual inner command receipts recordexit0;
+outer32820completion is directly root-observed, not a fabricated machine receipt.
+Independent nonauthor performance assessment accepts functional evidence. Concurrent
+158native workload remains disclosed; timings are exploratory portable observations,
+not final browser/capacity/reference-host qualification. One earlier single-process
+smoke and all three earlier invocation/oracle failures remain separately retained.
+
+This is a coherent passing LOCAL checkpoint, not final all-seven implementation
+readiness, a pushed application branch or delivered prerequisite. Actual traced
+worker/native eight-case performance execution, four1,000-entry workloads, current
+full43candidate and exact-master qualification, actual released158integration,
+versions, final all-seven assessment, protected PR/merge and verified publication/
+closeout remain mandatory. Keep the one parent Goal active through all eight children.

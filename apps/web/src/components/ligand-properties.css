@@ -1,0 +1,48 @@
+.ligand-properties { flex: 0 0 auto; min-width: 0; padding: 8px 10px; border-bottom: 1px solid var(--border); background: var(--surface); font-size: var(--text-xs); }
+.ligand-properties-heading { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 28px; }
+.ligand-properties-heading .icon-button { width: 28px; height: 28px; }
+.ligand-properties-status-row { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin: 2px 0 5px; }
+.ligand-properties-status { flex: 1 1 auto; min-width: 0; margin: 0; line-height: 1.45; color: var(--text-soft); }
+.ligand-properties-status.warning { color: var(--warning); }
+.ligand-properties-status-row > .spin { flex: 0 0 auto; animation: movement-spin 1s linear infinite; }
+.ligand-properties-action { display: inline-flex; align-items: center; gap: 4px; min-height: 28px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 6px; color: var(--text); background: var(--surface); font: inherit; cursor: pointer; }
+.ligand-properties-group h3 { margin: 8px 0 3px; font-size: var(--text-xs); color: var(--text-soft); font-weight: 600; }
+.ligand-properties-group dl { margin: 0; }
+.ligand-properties-group dl > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ligand-properties-group dl > div:last-child { border-bottom: 0; }
+.ligand-properties-group dt { min-width: 0; overflow-wrap: anywhere; }
+.ligand-properties-group dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ligand-properties-group dd[data-unavailable="true"], .ligand-properties-unit { color: var(--text-soft); }
+.ligand-property-methods { margin-top: 6px; font-size: var(--text-xs); line-height: 1.45; overflow-wrap: anywhere; }
+.ligand-property-methods summary { min-height: 32px; cursor: pointer; align-content: center; }
+.ligand-property-methods p { margin: 5px 0; }
+.ligand-property-methods dl { margin: 6px 0; }
+.ligand-property-methods dl > div { margin: 6px 0; }
+.ligand-property-methods dt { font-weight: 600; }
+.ligand-property-methods dd { margin: 2px 0 0; color: var(--text-soft); }
+.ligand-property-method, .ligand-property-reason { display: block; }
+.ligand-property-reason { color: var(--warning); }
+.dialog-content.ligand-property-options { display: flex; flex-direction: column; width: min(560px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow: clip; }
+.ligand-property-options-header { display: flex; flex: 0 0 auto; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); }
+.ligand-property-options-header h2 { margin: 0; font-size: var(--text-lg); }
+.ligand-property-options-header p { margin: 5px 0 0; color: var(--text-soft); font-size: var(--text-sm); }
+.ligand-property-options-body { position: relative; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 12px; }
+.ligand-property-options-body fieldset { margin: 0 0 12px; min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 4px 10px 9px; }
+.ligand-property-options-body legend { padding: 0 4px; font-size: var(--text-sm); font-weight: 600; }
+.ligand-property-options-body legend label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; cursor: pointer; }
+.ligand-property-options-body input { accent-color: var(--accent); width: 17px; height: 17px; margin: 0; }
+.ligand-property-options-body dl { margin: 0; font-size: var(--text-xs); }
+.ligand-property-options-body dl > div { margin-top: 8px; }
+.ligand-property-options-body dt { font-weight: 600; }
+.ligand-property-options-body dd { margin: 2px 0 0; color: var(--text-soft); line-height: 1.45; overflow-wrap: anywhere; }
+.ligand-property-options-footer { flex: 0 0 auto; padding: 10px 12px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.ligand-property-options-footer > div { display: flex; gap: 8px; margin-left: auto; }
+.ligand-property-options-footer button { min-height: 36px; font-size: var(--text-sm); }
+.ligand-properties-error { flex: 1 0 100%; margin: 0; color: var(--danger); overflow-wrap: anywhere; font-size: var(--text-sm); }
+.ligand-properties-saving { flex: 1 0 100%; margin: 0; color: var(--text-soft); font-size: var(--text-sm); line-height: 1.45; }
+.ligand-properties-action:focus-visible, .ligand-property-methods summary:focus-visible, .ligand-property-options input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (any-pointer: coarse), (max-width: 840px) {
+  .ligand-properties-heading .icon-button, .ligand-property-options-header .icon-button { width: 44px; height: 44px; }
+  .ligand-properties-action, .ligand-property-options-footer button, .ligand-property-options-body legend label, .ligand-property-methods summary { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .ligand-properties-status-row > .spin { animation: none; } }

@@ -2,37 +2,70 @@
 
 ## Current milestone
 
-Parent #11 remains active through all eight required children and verified parent
-closeout. #156/#157 are delivered. #158 is running a fresh complete candidate gate
-in its separate frozen worktree; this branch prepares required #159 independently.
-Initial base cd6715d3 is a #158 candidate, not a released0.36 qualification claim.
+Parent #11 remains active for exactly #156–#163 through verified releases and
+parent closeout. #156/#157 are delivered. #158's freshcandidate9 is qualifying in
+its separate tree. #159 is a working local vertical slice awaiting actual released
+#158 integration, measured performance and final serial qualification/publication.
+#160 prepares independently from explicitly pinned unreleased sources.
 
 ## Completed work
 
-Existing authorized #159 plan is reused. Scientific and reference consultations
-refine descriptor kernel identity, explicit options/H policy, partial errors and
-independent acceptance. D178 records the scientific/current-binding separation.
-Architecture's concrete worker/capture/cache lifecycle is under assessment.
+#159 provides fourteen strict versioned descriptors, installation display options,
+automatic App-owned current-input updates and bounded privately owned scientific
+execution/cache/consumer lifecycle. Source verification, original identity, coverage,
+cancellation and late-response guards preserve current representation and uncertainty.
+D178–D185/D187/D188 record methods, ownership and productive-turn scheduling fairness.
+The descriptor/persistence/scientific kernel and user interface are implemented locally.
 
 ## Verification performed
 
-Read-only current issue/plan/source inspection and actual specialist consultation.
-No #159 application implementation, runtime tests or release claims yet.
+Scientific kernel83cases and independent theory assessment pass. Corrected backend
+lifecycle/source/cache/CAS proof passes158cases, Ruff/mypy274 and scoped architecture.
+Full Python/static integration checkpoint passes3,234tests/zero skips/Ruff/mypy274,
+actual96589exit0. A subsequent real41-alias regression reproduces warm-turn starvation;
+the correction counts all productive turns. All29lifecycle cases, including real warm,
+existing cold and controlled mixed/cache-failure bounds, pass actual31942exit0.
+These scopes remain distinct; no invented combined full-suite result.
+
+Frontend133focused/1,387global tests/lint/types/build pass with its16sources fixed.
+The fresh native correctness run passes26cases, zero failure/skip/flake/retry,
+actual71526exit0. All1,060runtime/config/other selected source hashes remain fixed;
+two explicitly unexecuted performance-harness paths are excluded while authored.
+It proves both themes,320px/options, real100%/200% desktop zoom in both runner profiles,
+held save/Cancel, automatic edit requests before reopening and exact Undo/Redo.
+Independent UI inspection confirms full compositor captures and the shared scrolling
+layout. Failed native attempts and all owned stores remain separate and retained.
+
+The corrected qualification harness passes35offline controls and independent
+method/code assessment. Exploratory actual API probe5 completes five distinct
+API/coordinator processes with real calculation children and a1,001-atom complex.
+All729source hashes remain fixed; coordinate reuse produces zero new children and
+entire persisted project GETs remain exact. Independent nonauthor performance
+assessment accepts these functional facts. Concurrent158native activity is disclosed;
+recorded timing is exploratory, not final browser/capacity/timing approval.
+Earlier invocation/transport-oracle failures and raw stores remain retained. Qualification-only work-order tracing is optional
+in normal startup and mandatory in the owned native gate; it adds no production schema.
 
 ## Known limitations
 
-#158 must finish verified release and terminal integration before final #159 gates.
-Keep original uploads, scientific uncertainty, parent exclusions and serial order.
+Actual verified #158 master and annotated0.36source must replace the provisional
+base before final #159 gates. Version remains preparation0.36; proposed release0.37
+requires all five version sources together. Private migration0017/projectarchive3/
+viewer2 needs actual preceding writer/refusal/forward qualification. Timing remains
+portable observations until actual measured evidence; no strict-host/GPU/device claim.
 
 ## Blockers
 
-No external blocker. API/worker implementation awaits concrete lifecycle refinement.
+No external blocker. Actual native performance, current-candidate integration/full
+release gates, all-seven same-final-candidate assessment, protected merge and verified
+publication/closeout remain required. No implementation push or release is claimed.
 
 ## Next action
 
-Implement the scoped scientific kernel with independent domain tests; finish early
-architecture/UX consultation before cross-layer worker/workflow changes. Record
-measured batch/cache bounds and preserve full release/reader/specialist gates.
+The coherent local C1checkpoint has bound source/evidence; no push or readiness is
+claimed. Complete actual native1,000-entry work-order/resource/latency qualification, reconcile
+released #158, prepare versions and run all43candidate and exact-master steps. Preserve
+all parent exclusions and keep the whole-program Goal active through final parent closeout.
 
 ## Historical progress before isolated #159 preparation
 

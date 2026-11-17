@@ -288,6 +288,8 @@ class Job(Base):
         DateTime(timezone=True), default=utc_now, onupdate=utc_now
     )
 
+    purpose: Mapped[str] = mapped_column(String(24), default="user", server_default="user")
+
     project: Mapped[Project] = relationship(back_populates="jobs")
     inputs: Mapped[list[JobInput]] = relationship(
         back_populates="job", cascade="all, delete-orphan"
@@ -351,3 +353,75 @@ class JobEvent(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
     job: Mapped[Job] = relationship(back_populates="events")
+
+class LigandPropertyPreferences(Base):
+    __tablename__ = "ligand_property_preferences"
+    __table_args__ = (CheckConstraint("id = 1"), CheckConstraint("revision >= 1"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    revision: Mapped[int] = mapped_column(Integer)
+    enabled_categories: Mapped[list[str]] = mapped_column(JSON)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandPropertyContent(Base):
+    __tablename__ = "ligand_property_content"
+    input_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    sha256: Mapped[str] = mapped_column(String(64))
+    size: Mapped[int] = mapped_column(Integer)
+    relative_path: Mapped[str] = mapped_column(String(128))
+    coverage: Mapped[list[str]] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    used_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandPropertyBinding(Base):
+    __tablename__ = "ligand_property_bindings"
+    entry_id: Mapped[str] = mapped_column(
+        ForeignKey("structure_entries.id", ondelete="CASCADE"), primary_key=True
+    )
+    incarnation: Mapped[str] = mapped_column(String(36))
+    source_key: Mapped[str] = mapped_column(String(64), index=True)
+    input_hash: Mapped[str] = mapped_column(
+        ForeignKey("ligand_property_content.input_hash", ondelete="CASCADE")
+    )
+    source: Mapped[dict[str, Any]] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandPropertyConsumer(Base):
+    __tablename__ = "ligand_property_consumers"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("project_documents_v3.id", ondelete="CASCADE"), index=True
+    )
+    sequence: Mapped[int] = mapped_column(Integer)
+    generation: Mapped[int] = mapped_column(Integer, default=0)
+    entries_json: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
+    descriptor_ids: Mapped[list[str]] = mapped_column(JSON)
+    active_entry_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    released: Mapped[bool] = mapped_column(Boolean, default=False)
+    failures: Mapped[dict[str, str]] = mapped_column(JSON, default=dict)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandPropertyExecution(Base):
+    __tablename__ = "ligand_property_executions"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    job_id: Mapped[str] = mapped_column(String(36), unique=True)
+    project_id: Mapped[str] = mapped_column(String(36), index=True)
+    captures: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
+    reaped: Mapped[bool] = mapped_column(Boolean, default=False)
+    child_pid: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    child_start_token: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    group_confirmed: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class LigandPropertyProof(Base):
+    __tablename__ = "ligand_property_proofs"
+    fingerprint: Mapped[str] = mapped_column(String(64), primary_key=True)
+    input_hash: Mapped[str] = mapped_column(
+        ForeignKey("ligand_property_content.input_hash", ondelete="CASCADE"), index=True
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)

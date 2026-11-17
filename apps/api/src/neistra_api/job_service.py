@@ -23,6 +23,7 @@ from neistra_api.models import (
     JobEvent,
     JobInput,
     JobResultArtifact,
+    LigandPropertyExecution,
     Project,
     StructureEntry,
 )
@@ -79,6 +80,10 @@ class JobService:
         *,
         minimization_capture: bool = False,
     ) -> Job:
+        if job_type == "ligand.properties":
+            raise InvalidJobOperationError(
+                "Ligand properties use the current-input consumer endpoint"
+            )
         if (
             job_type in {"coordinates.minimize", "coordinates.quick_minimize"}
             and not minimization_capture
@@ -203,7 +208,7 @@ class JobService:
             entry.job_links = [*entry.job_links, job.id]
         self.append_event(job, "state", "Job queued", {"status": "queued"})
         self.session.commit()
-        return self.get(job.id)
+        return self.get(job.id, include_derived=True)
 
     def list_project(self, project_id: str) -> list[Job]:
         if self.session.get(Project, project_id) is None:
@@ -211,19 +216,23 @@ class JobService:
         return list(
             self.session.scalars(
                 self._job_query()
-                .where(Job.project_id == project_id)
+                .where(Job.project_id == project_id, self.ordinary_job_filter())
                 .order_by(Job.created_at.desc())
             ).all()
         )
 
-    def get(self, job_id: str) -> Job:
+    def get(self, job_id: str, *, include_derived: bool = False) -> Job:
         job = self.session.scalar(self._job_query().where(Job.id == job_id))
         if job is None:
             raise JobNotFoundError(job_id)
+        if not include_derived:
+            from neistra_api.ligand_property_service import is_owned_property_job
+            if is_owned_property_job(self.session, job):
+                raise JobNotFoundError(job_id)
         return job
 
     def events(self, job_id: str, after_sequence: int = 0) -> list[JobEvent]:
-        self._job(job_id)
+        self.get(job_id)
         return list(
             self.session.scalars(
                 select(JobEvent)
@@ -236,7 +245,7 @@ class JobService:
         )
 
     def cancel(self, job_id: str) -> Job:
-        job = self._job(job_id)
+        job = self.get(job_id)
         if job.status in TERMINAL_STATUSES:
             raise JobConflictError(f"Job is already {job.status}")
         job.cancellation_requested = True
@@ -248,11 +257,12 @@ class JobService:
         else:
             self.append_event(job, "cancellation", "Cancellation requested")
         self.session.commit()
-        return self.get(job.id)
+        return self.get(job.id, include_derived=True)
 
     def claim_next(self, worker_id: str) -> Job | None:
         candidate_id = self.session.scalar(
-            select(Job.id).where(Job.status == "queued").order_by(Job.created_at).limit(1)
+            select(Job.id).where(Job.status == "queued", Job.purpose == "user")
+            .order_by(Job.created_at).limit(1)
         )
         if candidate_id is None:
             return None
@@ -275,11 +285,15 @@ class JobService:
         job = self._job(candidate_id)
         self.append_event(job, "state", "Job started", {"status": "running"})
         self.session.commit()
-        return self.get(candidate_id)
+        return self.get(candidate_id, include_derived=True)
 
     def recover_abandoned(self) -> int:
         jobs = list(self.session.scalars(select(Job).where(Job.status == "running")).all())
         for job in jobs:
+            from neistra_api.ligand_property_service import LigandPropertyService
+            LigandPropertyService(self.session, self.settings).fail_execution(
+                job, "Worker stopped before the property calculation completed"
+            )
             job.status = "failed"
             job.status_message = "Worker stopped before the job completed"
             job.error = {
@@ -317,6 +331,14 @@ class JobService:
         message: str,
     ) -> Job:
         job = self._running(job_id)
+        from neistra_api.ligand_property_service import LigandPropertyService, is_owned_property_job
+        if is_owned_property_job(self.session, job):
+            if artifacts:
+                raise InvalidJobOperationError(
+                    "Derived properties cannot publish ordinary artifacts"
+                )
+            LigandPropertyService(self.session, self.settings).complete(job, values)
+            return self.get(job_id, include_derived=True)
         registered = self.registry.get(job.job_type)
         definitions = {item.role: item for item in registered.definition.result_roles}
         policy = registered.definition.resources
@@ -364,30 +386,34 @@ class JobService:
         job.completed_at = utc_now()
         self.append_event(job, "state", job.status_message, {"status": "completed"})
         self.session.commit()
-        return self.get(job.id)
+        return self.get(job.id, include_derived=True)
 
     def fail(self, job_id: str, code: str, message: str) -> Job:
         job = self._job(job_id)
         if job.status in TERMINAL_STATUSES:
-            return self.get(job.id)
+            return self.get(job.id, include_derived=True)
+        from neistra_api.ligand_property_service import LigandPropertyService
+        LigandPropertyService(self.session, self.settings).fail_execution(job, message)
         job.status = "failed"
         job.status_message = message[:500]
         job.error = {"code": code, "message": message}
         job.completed_at = utc_now()
         self.append_event(job, "state", job.status_message, {"status": "failed"})
         self.session.commit()
-        return self.get(job.id)
+        return self.get(job.id, include_derived=True)
 
     def cancelled(self, job_id: str, message: str = "Job cancelled") -> Job:
         job = self._job(job_id)
         if job.status in TERMINAL_STATUSES:
-            return self.get(job.id)
+            return self.get(job.id, include_derived=True)
+        from neistra_api.ligand_property_service import LigandPropertyService
+        LigandPropertyService(self.session, self.settings).fail_execution(job, message)
         job.status = "cancelled"
         job.status_message = message[:500]
         job.completed_at = utc_now()
         self.append_event(job, "state", job.status_message, {"status": "cancelled"})
         self.session.commit()
-        return self.get(job.id)
+        return self.get(job.id, include_derived=True)
 
     def import_result(
         self,
@@ -487,6 +513,12 @@ class JobService:
         )
         self.session.add(event)
         return event
+
+    @staticmethod
+    def ordinary_job_filter() -> Any:
+        return ~Job.id.in_(select(LigandPropertyExecution.job_id).join(
+            Job, Job.id == LigandPropertyExecution.job_id
+        ).where(Job.purpose == "ligand_properties", Job.job_type == "ligand.properties"))
 
     @staticmethod
     def _job_query() -> Select[tuple[Job]]:

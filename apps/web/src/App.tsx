@@ -1,6 +1,12 @@
 import { LigandIntentOwner, type LigandOwnerContext } from "./ligands/ownership";
 import { completeLegacyLigands } from "./ligands/resolve";
 import { LigandDesignationControls } from "./components/LigandDesignationControls";
+import { LigandProperties } from "./components/LigandProperties";
+import { LigandPropertySession } from "./ligandProperties/session";
+import { PropertyInputOwner, type PropertyOwnerContext } from "./ligandProperties/ownership";
+import { PROPERTY_PREFERENCES_KEY, PROPERTY_REGISTRY_KEY, propertyInputKey } from "./ligandProperties/context";
+import { useLigandProperties } from "./ligandProperties/useProperties";
+import type { DescriptorRegistry, PropertyPreferences } from "./ligandProperties/types";
 import { ligandApi } from "./ligands/api";
 import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
 import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
@@ -179,6 +185,10 @@ export default function App() {
   const numericalPreviewGeneration = useRef(0);
   const ligandOwnerPorts = useRef<(() => LigandOwnerContext) | null>(null);
   const [ligandOwner] = useState(() => new LigandIntentOwner(() => ligandOwnerPorts.current!()));
+  const propertyOwnerPorts = useRef<(() => PropertyOwnerContext) | null>(null);
+  const [propertyOwner] = useState(() => new PropertyInputOwner(() => propertyOwnerPorts.current!()));
+  const [propertySession] = useState(() => new LigandPropertySession(target => propertyOwner.capture(target)));
+  useEffect(() => { propertySession.activate(); return () => propertySession.deactivate(); }, [propertySession]);
   const {
     selection,
     pickingGranularity,
@@ -240,10 +250,11 @@ export default function App() {
   const setCoordinatePreview = useCallback((next: CoordinatePatch | null) => {
     if (next !== coordinatePreviewRef.current) ligandOwner.retire();
     coordinatePreviewRef.current = next;
+    propertyOwner.observe();
     // Retire measurement owners before React can batch preview entry and Cancel.
     measurementSession.guardContext();
     setCoordinatePreviewState(next);
-  }, [measurementSession, ligandOwner]);
+  }, [measurementSession, ligandOwner, propertyOwner]);
   const clearCoordinatePreview = useCallback(() => {
     numericalPreviewGeneration.current++;
     setCoordinatePreview(null);
@@ -545,6 +556,40 @@ export default function App() {
     return () => { for (const stop of release) stop(); ligandOwner.deactivate(); };
   }, [ligandOwner, movementSession, publication, editAttempts, queryClient]);
   const ligandViewOwner = ligandOwner.capture(true);
+  propertyOwnerPorts.current = () => {
+    const active = useWorkspaceStore.getState().activeProjectId;
+    const current = queryClient.getQueryData<Project>(["project", active]);
+    const navigation = useNavigationStore.getState(), edit = useEditingStore.getState();
+    const minimize = useMinimizationStore.getState(), move = movementSession.snapshot();
+    const inspected = navigation.projectId === active ? navigation.inspectedEntryId : null;
+    const entry = current?.entries.find(item => item.id === inspected);
+    const registry = queryClient.getQueryState<DescriptorRegistry>(PROPERTY_REGISTRY_KEY);
+    const preferences = queryClient.getQueryState<PropertyPreferences>(PROPERTY_PREFERENCES_KEY);
+    return { activeProjectId: active, inspectedEntryId: inspected,
+      inputKey: propertyInputKey(active, entry, registry?.status === "success" ? registry.data : undefined,
+        preferences?.status === "success" ? preferences.data : undefined),
+      paused: Boolean(coordinatePreviewRef.current)
+        || Boolean(edit.projectId === active && (edit.placement?.result || edit.rotationDraft))
+        || Boolean(minimize.projectId === active && (minimize.preview || minimize.applying))
+        || Boolean(move.capture?.project.id === active && move.phase !== "idle")
+        || publication.snapshot(active ?? "").phase !== "idle"
+        || editAttemptBlocksWrites(editAttempts.snapshot(active ?? "")),
+    };
+  };
+  useLayoutEffect(() => {
+    const guard = propertyOwner.observe;
+    propertyOwner.activate(); guard();
+    const release = [useWorkspaceStore.subscribe(guard), useNavigationStore.subscribe(guard),
+      useEditingStore.subscribe(guard), useMinimizationStore.subscribe(guard), movementSession.subscribe(guard),
+      publication.subscribe(guard), editAttempts.subscribe(guard),
+      queryClient.getQueryCache().subscribe(event => {
+        const key = event.query.queryKey as readonly unknown[];
+        if (event.type === "updated" && key[0] === "project") guard();
+      })];
+    return () => { for (const stop of release) stop(); propertyOwner.deactivate(); };
+  }, [propertyOwner, movementSession, publication, editAttempts, queryClient]);
+  const propertyState = useLigandProperties({ project, entryId: ligandEntryId, pausedReason: ligandPausedReason,
+    session: propertySession, owner: propertyOwner });
   useLegacyLigandResolution({
     project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
     blocked: busy || !!ligandPausedReason,
@@ -568,7 +613,7 @@ export default function App() {
       if (owner === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
-  const ligandControls = project ? <LigandDesignationControls project={project} entryId={ligandEntryId}
+  const ligandControls = project ? <><LigandDesignationControls project={project} entryId={ligandEntryId}
     onInspectEntry={id => useNavigationStore.getState().inspect(project.id, id)}
     onOpenChoices={() => measurementSession.cancelAcquisition("Atom picking stopped for ligand choice.")}
     ownsContext={ligandViewOwner.ownsFeedback}
@@ -589,7 +634,7 @@ export default function App() {
         }), undefined, context));
       const current = queryClient.getQueryData<Project>(["project", captured.id]);
       return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
-    }} /> : null;
+    }} /><LigandProperties state={propertyState} session={propertySession} /></> : null;
 
   measurementPorts.current = {
     context: () => {
