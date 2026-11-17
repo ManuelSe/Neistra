@@ -1,0 +1,14 @@
+{
+  "scope": "Lossless relocation of complete failedcandidate4 nativeoutput after verified forensicZIPpartition",
+  "original": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate4-native",
+  "retained": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate4-native-retained",
+  "files": 8763,
+  "bytes": 680871602,
+  "manifest_sha256": "0e4717f21123e47e4df5463099a94e4f9fb570c63d82860c52f2765247da9955",
+  "archive_manifest_prefix": "failed-candidate4/tracked/c4-candidate4-native/",
+  "archive_partition_record": "c3-legacy-native-baseline-checkpoint.json",
+  "original_and_retained_hashes_verified": true,
+  "payloads_deleted": false,
+  "complete_qualification_claim": false,
+  "observed_utc": "2026-11-17T14:23:07.305607+00:00"
+}

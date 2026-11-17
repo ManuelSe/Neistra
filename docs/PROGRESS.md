@@ -2,72 +2,64 @@
 
 ## Current milestone
 
-Parent #11 remains active for exactly #156–#163 through verified releases and parent
-closeout. #156 and #157 are fully delivered in v0.34.0/v0.35.0, including terminal
-[PR #174](https://github.com/ManuelSe/Neistra/pull/174), child closeout and owned cleanup.
-The immutable v0.35 runtime remains7542d1a1; actual terminal master isb038e4e6.
+Parent #11 remains active for required #156–#163 through verified releases and
+parent closeout. #156/#157 are fully delivered in0.34.0/0.35.0. #158 has a passing
+test-oracle correction; implementation push/0.36release/child closeout remain pending.
+#159 is independently preparing in its isolated worktree with serial publication.
 
 ## Completed work
 
-#158 integrates that master with exact durable per-entry ligand intent, qualified
-singleton recognition, explicit repeated-instance choice/Clear, reversible lineage,
-bounded disposable2D cards and entry-wide qualified occurrence counts. Complete
-review corrections preserve header/Close visibility, replacement chooser focus and
-known source-failure retirement across metadata history. These are local passing
-checkpoints; no implementation push,0.36 release or child closeout is claimed.
+#158 provides exact durable per-entry ligand intent, conservative candidate policy,
+reversible lineage, bounded cached2D cards and qualified entry-wide occurrence counts.
+Reviewed application corrections retain chooser focus, accessible header/Close/footer
+and known-source failure retirement. Qualification environment isolation is fixed.
+The latest native correction separately establishes first legacy assessment before
+checking that subsequent native picking/editor actions do not mutate the project.
 
 ## Verification performed
 
-The [count checkpoint](assets/ligand-designation/c3-occurrence-correction-checkpoint.json)
-records263focusedPython, globalRuff/mypy249files and scientific/API measurements;
-those unchanged scientific sources retain their scoped evidence. Current correction
-checks pass187frontend cases/nine suites, full lint/types and actual enclosing31288exit0.
-All1,304frontend tests/122suites and build pass. A fresh26-case native run passes both
-profiles/themes, actual zoom,320px/header/Close/Axe, image/count recovery, real held
-Use/Clear ACKs, exact selection/cancellation and retained ordered measurement drafts.
-Zero failures/flakes/retries/skips; all1,003sources remain fixed, digest
-`2cd722d392c081a412824a9efe2e620ed9403c85db41942f099f21361d666cc5`;
-actual enclosing59094exit0. Frontend/build evidence is reused after an explicitly
-proved native-test-only oracle correction. No partial full gates are pooled.
+Freshcandidate4 passes2,976Python,1,304frontend/122suites,14supervisor, installs,
+migrationroundtrip, lint/types and build. It then fails one old native baseline after
+53passes/two encountered historical exclusions;546cases did not run. Enclosing73200
+exit1 and1,003current/931preceding sources unchanged. No partial full gates are pooled.
 
-The [complete-review correction record](assets/ligand-designation/c3-complete-review-corrections-checkpoint.json)
-binds a recursively checked34,118,052-byte packet/SHA77fb0855… with261manifest entries,
-11ZIPs, owned stores and all failed/corrective traces. All seven assessed the complete
-feature; scientific/reference/performance code assessments pass, and architecture,
-UI and UX independently resolve the two reproduced P2s for the corrective scope.
-Final all-seven approval must cover the final evidence candidate after complete gates.
+The first hydrogen-membership correction reproduces both baseline failures,
+a first added dirty-state assertion fails both, and corrected after2 passes both
+profiles with no skip/flake/retry (actual5043exit0). It proves exact one-time legacy
+assessment, unchanged history/source/molecules, expected new-intent dirty state and
+then full post-assessment project/original-byte invariance. Scoped architecture PASS.
+A subsequent legacy-fixture audit reproduces a second stale explicit revision in
+the prepared-complex test (two failures), then corrects only its assessment baseline.
+Both profiles pass and a fresh combined four-case run passes with zero fail/flake/
+retry/skip, actual47963exit0. Scoped architecture approves both corrections. Only
+two existing native sources change;1,001others remain fixed, digest14af75c7…200b43.
+The [checkpoint](assets/ligand-designation/c3-legacy-native-baseline-checkpoint.json)
+preserves failed/full/focused raw evidence, owned stores and exact test versions;
+the [prepared-fixture checkpoint](assets/ligand-designation/c3-prepared-legacy-baseline-checkpoint.json)
+binds the follow-up audit and fresh combined pass.
+Earlier count/UI/environment checkpoints remain valid for byte-identical production.
 
 ## Known limitations
 
-Originals, source uncertainty, current scientific/performance limitations and parent
-exclusions remain. Head0016/projectarchive3/viewer2 requires actual0.35safe refusal
-and forward retention qualification. Count budgets are cooperative; encoded cache
-bounds are not heap/RSS ceilings. SQLite UTC timestamp suffix normalization in the
-new native comparison preserves all date digits and every other project field.
+Originals, scientific uncertainty, cooperative work limits and encoded cache bounds
+remain. Head0016/projectarchive3/viewer2 requires actual0.35safe-refusal/forward tests.
+Portable timing is not strict-host or physical-device qualification.
 
 ## Blockers
 
-No external blocker or unresolved consequential application finding. Candidate3
-completed2,844Python passes/132migration failures because the pytest phase injected
-canonical database settings over fixture-local legacy settings. D-177 and the
-[environment correction](assets/ligand-designation/c3-qualification-environment-checkpoint.json)
-record the direct fail/pass reproduction, unchanged133-case migration pass and
-17recipe cases. Only verification tooling changes; candidate3 remains failed.
-Candidate1 was
-intentionally stopped for the missing occurrence count; candidate2 for confirmed
-header clipping. Both retain eight passes, partialPython and explicitly caused
-actual enclosing143. The new native oracle's inaccessible-background and UTC-suffix
-failures are independently diagnosed and retained; fresh corrected26cases pass.
+No external blocker or unresolved consequential application finding. Candidate4 is
+failed evidence; first-opening controlled assessment legitimately increments revision
+and marks new intent dirty without adding a history command. The corrected native
+baseline retains all original assertions and explicitly verifies that transition.
+All earlier failed/stopped attempts remain separately retained.
 
 ## Next action
 
-Commit the passing qualification-environment correction and freshcandidate4recipe;
-obtain explicit code reconfirmation for the intervening verification-only diff, then
-run the complete fresh42commands, independent summary, recursive packaging and actual
-enclosing readback. Prepare the exact-master recipe before the final evidence commit
-and all-seven final same-candidate assessments. Normal PR/review/merge, fresh
-exact-merged42gate, verified0.36publication, child closeout and owned cleanup follow.
-Continue159→160→161→162→163 and final parent closeout under the same active Goal.
+Commit both passing native corrections/evidence and freshcandidate5recipe, then run all42
+commands, independent summary, recursive packaging and actual enclosing readback.
+Prepare exact-master recipe before final metadata/all-seven same-candidate approval.
+Normal protected PR/merge, fresh actual-merged gate, publication/childcloseout/cleanup
+follow; continue159→160→161→162→163 and final parent closeout under the same Goal.
 
 ## Historical #158 preparation
 

@@ -490,3 +490,65 @@ Current1,003source digest is
 Unchanged application/science/frontend/native evidence is explicitly reusable; a
 fresh cleancandidate4 must still complete all42commands/summary/recursive packaging/
 actualenclosing before final evidence and all-seven same-candidate readiness review.
+
+
+### C3 native legacy-assessment baseline correction
+
+Freshcandidate4 atcd6715d3 passes2,976Python/zero skips,1,304frontend/122suites,
+14supervisor, frozeninstalls/migrationroundtrip/lint/types/build. Native stops after
+53passes, two encountered historical exclusions and one failure;546cases do not run.
+Actualenclosing73200exit1; all1,003current/931preceding sources remain unchanged.
+This is failed qualification, not pooled evidence for any later complete gate.
+
+The existing orphan-H native fixture imports a historical archive with untouched
+unresolved ligand intent. Opening the project deliberately completes its first
+controlled assessment: HTTP200, revision1→2, automatic complete20-atom membership,
+source and assessed revision, with the original single history command retained.
+The old test compared its final read-only revision against the pre-opening value.
+Read-only owned-store/trace inspection and scoped architecture assessment confirm
+this accepted lifecycle; no production regression or method change is established.
+
+Only `tests/e2e/hydrogen-membership.spec.ts` changes. It proves the initial unassessed
+state and exact one-time assessment separately, then captures the complete assessed
+project before native picking/editor checks. Designation and modification timestamps
+change legitimately; computed entry dirty changesfalse→true because designation now
+differs from the untouched checkpoint. Assert that explicitly, compare every other
+entry field, exact history, canonical structure/hierarchy/source and complete intent.
+Retain the original component/orphan-H/native-picking/editability assertions and add
+exact final complete-project and original-byte invariance against that baseline.
+
+Isolated before1 reproduces both profile failures (actual75909exit1). A first added
+transition assertion incorrectly required dirty to stayfalse and fails both profiles
+(actual72016exit1); retain it as oracle-development evidence. Corrected after2 passes
+both profiles, zero skips/flakes/retries, actual5043exit0 and all1,003sources unchanged.
+Scoped architecture independently approves the corrected source and acknowledges the
+earlier dirty assumption. Every application/science/API/frontend/migration/helper
+source remains byte-identical. No deadlines, exclusions or product requirements move.
+
+The [checkpoint](../assets/ligand-designation/c3-legacy-native-baseline-checkpoint.json)
+retains full failed candidate4 logs/native frames, all exact test versions, focused
+traces/receipts and every owned synthetic store. Independent manifest-bearing ZIP
+parts remain below normal file limits. Incomplete browser artifacts are explicit
+failed-run forensics; the generic finished-gate packager still rejects them. The
+private original monolithic forensic copy is preserved too. Freshcandidate5 must
+start clean and repeat all42commands, summary, packaging and actual enclosing readback.
+Final all-seven assessment covers the final evidence candidate before any push.
+
+
+The subsequent static audit examines all six native archive-import files before
+another full run. A second historical fixture captures a styled pre-opening revision
+for an explicit preparation API call. Actual before1 traces show assessment2→3 then
+that stale call2→409; both profiles fail (actual18952exit1). Capture the post-assessment
+revision only after proving exact+1, unchanged history/source/other entry fields and
+`selection_required` with no chosen instance. Keep all six-H/native-picking/camera/
+one-affected-reload assertions. Corrected after1 passes both (actual83091exit0).
+A fresh combined run passes all four cases, zero fail/flake/retry/skip, all1,003sources
+fixed, actual47963exit0. Scoped architecture independently approves both corrections.
+
+The [second checkpoint](../assets/ligand-designation/c3-prepared-legacy-baseline-checkpoint.json)
+binds a4,355,973-byte ZIP/SHA262d0003… with48manifest entries, threeZIPs and all owned
+stores/trace/HTTP proof. Final source digest is14af75c7…200b43. Only the two existing
+native files differ fromcd6715d3; all1,001other selected sources stay unchanged.
+Other archive cases use current-producer roundtrips, current UI command ownership or
+wording/invalid/cancelled input rather than the stale explicit revision pattern.
+This audit does not replace the still-required fresh complete602-case native run.
