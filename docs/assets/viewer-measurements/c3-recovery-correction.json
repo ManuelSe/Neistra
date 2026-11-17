@@ -1,0 +1,52 @@
+{
+  "scope": "Focused preview/acquisition/saved-reason corrections and intentionally stopped second candidate; not full release qualification",
+  "archive": "c3-recovery-correction.zip",
+  "files": 61,
+  "archive_bytes": 1312127,
+  "archive_sha256": "76d352d4b57e421e5572268e9989fe191931908a34943092b7bbdba5815108d5",
+  "all_member_hashes_and_crcs_verified": true,
+  "candidate_base": "62736324ba04b5b0bd2f5e6d91b97b0d49ecc5dc",
+  "corrections": [
+    "Synchronous numericalpreviewref retires oldSave/contact ownership before Reactpublication, including preview+Cancel same turn.",
+    "Save preserves stopped acquisition while retaining proper current-owner success/failure.",
+    "One expanded SelectionGeometry supplies samevalue/reason, source/previewprecedence, retainedorderedtargets/rename, boundedobservers.",
+    "LocalerrorstaleTime0 enables actualclose/reopenretry withfresh or retainedcacheddata errors."
+  ],
+  "focused": {
+    "lint": 0,
+    "types": 0,
+    "frontend": 1187,
+    "suites": 118,
+    "build": 0,
+    "native_passed": 17,
+    "native_cases": 18,
+    "exact_existing_exclusions": 1,
+    "retries": 0,
+    "sources": 920,
+    "sources_unchanged": true,
+    "child_and_enclosing_exits": 0,
+    "coverage": "Bothprofiles/themes,320/actual100-200%browserzoom/nativepicks/keyboard/realpagedcontacts44px/SavefailureandheldClose/actualcommittedangleMoveUnavailable+UndoValueAndFullNativeLabelRestoration/originalbytes"
+  },
+  "pre_gate_review": {
+    "architecture": "PASS scoped correction, independent66cases",
+    "ux": "PASS completefeature pre-gate, independent85cases",
+    "ui": "PASS completefeature pre-gate, freshnonauthorindependent52cases"
+  },
+  "diagnostics": [
+    "Focusedrunner1 lint0/types1 due3testonlyunsupportedTestingLibraryexactoptions; removedoptionswithoutchangingnameexactness. Alllogsretained.",
+    "Earlier66focusedtestsPASS beforetypingcorrection; actualAppcontactfixture initiallymountedbeforeSessionopen, fixedmocktomatchrealparentopenlifecycle. Initialtestfailuresremainconversationdiagnostics,notcapturedlosslessfilelogs."
+  ],
+  "stopped_candidate2": {
+    "completed_commands": 8,
+    "python_exit": 143,
+    "wrapper_exit": 143,
+    "cause": "ExplicitRootSIGTERM exactverifiedownedPythonprocessgroup forreproducednumericalpreviewownerP2",
+    "complete_gate": false,
+    "partial_checks_not_reused": true
+  },
+  "limits": [
+    "Thisfocused920sourceidentitymap predates D173contactbasisqualification. Latercorechangesneedtheirownchecks; fullcandidate926map andall42freshcommandsremainmandatory.",
+    "Controlledpresenter8statesareisolatedUIevidence; actualAppnativecoverageisseparate."
+  ],
+  "next": "CompleteD173contactbasisrefusal/independentcorrectionchecks; commitcoherentcandidate3andfresh42recipe, fullgate/audit/package/final7, normalPR/merge/exactmaster42/release/157closeout; parentGoalactive."
+}

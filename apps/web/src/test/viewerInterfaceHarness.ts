@@ -6,9 +6,11 @@ import { PluginCommands } from "molstar/lib/mol-plugin/commands";
 import { Task } from "molstar/lib/mol-task";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
+import type { SavedMeasurementBatch } from "../viewer/savedMeasurementGeometry";
+import type { LabelData } from "molstar/lib/mol-repr/shape/loci/label";
 
 function native(engine: MolstarEngine) {
-  return engine as unknown as { plugin: PluginUIContext | undefined; syncQueue: Promise<void>; structures: ViewerStructure[] };
+  return engine as unknown as { plugin: PluginUIContext | undefined; syncQueue: Promise<void>; structures: ViewerStructure[]; savedMeasurementBatch?: SavedMeasurementBatch };
 }
 
 export async function inspectViewerAnnotations(engine: MolstarEngine) {
@@ -23,7 +25,7 @@ export async function inspectViewerAnnotations(engine: MolstarEngine) {
     ["dihedral", StateTransforms.Representation.StructureSelectionsDihedral3D],
     ["label", StateTransforms.Representation.StructureSelectionsLabel3D],
   ] as const;
-  return [...plugin.state.data.cells.values()].flatMap(cell => {
+  const annotations = [...plugin.state.data.cells.values()].flatMap(cell => {
     const kind = kinds.find(([, transformer]) => cell.transform.transformer === transformer)?.[0];
     if (!kind || !PluginStateObject.Shape.Representation3D.is(cell.obj)) return [];
     const params = cell.transform.params as { customText?: string };
@@ -31,6 +33,26 @@ export async function inspectViewerAnnotations(engine: MolstarEngine) {
       .filter(object => object.type === "text" && object.state.visible)
       .reduce((sum, object) => sum + object.values.drawCount.ref.value, 0) }];
   });
+  const batch = context.savedMeasurementBatch;
+  if (batch) {
+    const shape = batch.labels.getAllLoci().flatMap(loci => loci.kind === "shape-loci" ? [loci.shape] : [])
+      .find(candidate => candidate.geometry.kind === "text");
+    if (!shape || shape.geometry.kind !== "text") throw new Error("Installed saved labels lack native text geometry.");
+    const text = shape.geometry, source = shape.sourceData as LabelData;
+    const visible = batch.labels.renderObjects.some(object => object.type === "text" && object.state.visible
+      && object.values.drawCount.ref.value > 0);
+    for (const record of batch.data.records) {
+      const group = batch.data.groups.labels.indexOf(record.id);
+      if (group < 0 || source.infos[group]?.label !== record.label) throw new Error("Native saved label identity differs.");
+      let glyphVertices = 0;
+      for (let vertex = 0; vertex < text.charCount * 4; vertex++) {
+        if (text.groupBuffer.ref.value[vertex] === group) glyphVertices++;
+      }
+      annotations.push({ kind: record.kind, text: source.infos[group].label ?? "",
+        textDrawCount: visible ? glyphVertices / 4 * 6 : 0 });
+    }
+  }
+  return annotations;
 }
 
 export async function rebuildViewerAppearance(engine: MolstarEngine) {

@@ -1,0 +1,282 @@
+{
+  "scope": "Test-only native annotation oracle correction and ALL failed candidate5 raw diagnostics; not fullgatePASS",
+  "files": 34369,
+  "raw_bytes": 3311278738,
+  "all_recursive_crcs_and_manifests_verified": true,
+  "focused": {
+    "frontend": 1187,
+    "suites": 118,
+    "lint": 0,
+    "types": 0,
+    "build": 0,
+    "native_passed": 4,
+    "exclusions": 0,
+    "retries": 0,
+    "sources_unchanged": 930,
+    "child_and_enclosing_exit": 0,
+    "coverage": "ActualnativefullLabelData/textShapeidentity/per-recordvisibleglyphs across two production surface fixtures\u00d7desktop/touch; originalno-op/rename/clear/surface/coordinate/history assertionsretained"
+  },
+  "failed_candidate5": {
+    "candidate": "33eff05530991a1100db5f8916532f28f09c2b0f",
+    "python_passed": 2545,
+    "python_skipped": 0,
+    "frontend_passed": 1187,
+    "supervisor_passed": 14,
+    "lint_types_build": "PASS",
+    "native_passed": 208,
+    "native_failed": 1,
+    "executed_existing_exclusions": 5,
+    "did_not_run": 366,
+    "report_skipped_includes_unexecuted": 371,
+    "runner_error": "Testingstoppedaftermaximum1allowedfailure; notadditionalproducterror",
+    "reason": "StaleharnessmeasuredsemanticrecordIDsasifnativecomponentUUIDs; test-onlyoraclecorrectedtoactualnativelabelshape/fulltext/glyphgroups",
+    "wrapper_exit": 1,
+    "source930_old885_unchanged": true,
+    "complete_gate": false,
+    "partial_checks_not_pooled": true
+  },
+  "changes": [
+    "OnlyselectionSurfaceHarness.ts+selection-surfaces.spec.ts; no applicationrendererchange.",
+    "All4originalassertions retained plus4actualfulltext/visibleglyphassertions.",
+    "No fabricatedcounter, skippedassertion, deadline/retry/exclusionchange."
+  ],
+  "independent_performance": "PASS actual2filediff930sourceaudit5rawloghashes/4nativecases plus broaderremainingstaleoracleaudit; Engine3febb/adapter019658unchanged",
+  "publication": "Additional release assets indexed byc3-forensics-index.json; privatepathsheldseparately. No remote publication asserted atthischeckpoint.",
+  "next": "Preserveallraws; scopedrelease-evidencestrategyreview/decision; commitcoherenttestfix+metadataandfreshcandidate6recipe; ALL42fresh/final7/normalPRmerge/exactmaster42/releaseallassets/157close; parentGoalactive",
+  "archives": [
+    {
+      "ordinal": 1,
+      "asset_name": "c3-native-oracle-diagnostic-01.zip",
+      "bytes": 83767422,
+      "sha256": "e64945404d8646f758909d7d650916b67b7987fb52faf0bf95ad9962b93ec71e",
+      "manifest_entries": 369,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 369,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 2,
+      "asset_name": "c3-native-oracle-diagnostic-02.zip",
+      "bytes": 76301694,
+      "sha256": "b4d0fd7c840fc4c17b93b19b0f8014de8f6c36f8c16df2a698fdcfce71ee765c",
+      "manifest_entries": 461,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 461,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 3,
+      "asset_name": "c3-native-oracle-diagnostic-03.zip",
+      "bytes": 83346922,
+      "sha256": "c8bdb1f0b227901da92c6ef1f4dae60c6c628120e1ebf8164f26ba13e8e72c29",
+      "manifest_entries": 5621,
+      "recursive_verification": {
+        "zip_archives": 2,
+        "evidence_manifest_entries": 5621,
+        "project_archive_files": 2
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 4,
+      "asset_name": "c3-native-oracle-diagnostic-04.zip",
+      "bytes": 83669430,
+      "sha256": "daf6faf870dc63505639ececf7b2d3b3e8c26e2e4dfb143fd27e5a9c42c8a217",
+      "manifest_entries": 1828,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1828,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 5,
+      "asset_name": "c3-native-oracle-diagnostic-05.zip",
+      "bytes": 83622961,
+      "sha256": "6310edeb66994f0582202969eb5426675c89d85e919a59bc71e1cef0aed4ddc9",
+      "manifest_entries": 1974,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1974,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 6,
+      "asset_name": "c3-native-oracle-diagnostic-06.zip",
+      "bytes": 83634433,
+      "sha256": "52f84075962d63e24e26effaaa0be2af52a9a927e06011459cd1c67686c951d3",
+      "manifest_entries": 1975,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1975,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 7,
+      "asset_name": "c3-native-oracle-diagnostic-07.zip",
+      "bytes": 83642344,
+      "sha256": "0502488a642a027c0baea222eed1425481c24aca0beebcc742b0643712beaccb",
+      "manifest_entries": 1806,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1806,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 8,
+      "asset_name": "c3-native-oracle-diagnostic-08.zip",
+      "bytes": 83645840,
+      "sha256": "86e480d120273f60ef3baf886c0f2068fb494e4d64c90cc1c00cd0d2d68f047b",
+      "manifest_entries": 1898,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1898,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 9,
+      "asset_name": "c3-native-oracle-diagnostic-09.zip",
+      "bytes": 83620779,
+      "sha256": "53e27bd19dba86a0e9cd1ea1a218dd388912f3791aa3c77141b765b1765903df",
+      "manifest_entries": 2022,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 2022,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 10,
+      "asset_name": "c3-native-oracle-diagnostic-10.zip",
+      "bytes": 83660671,
+      "sha256": "c62534e7f19d41ae2d428c2132cddbcc52cd4aaebcd65ac06323c907c678f094",
+      "manifest_entries": 1955,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1955,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 11,
+      "asset_name": "c3-native-oracle-diagnostic-11.zip",
+      "bytes": 83663542,
+      "sha256": "06e1deebd0bc7b76e7c29d8829aee414b60da798e64f246249d33e36d533a3a0",
+      "manifest_entries": 1889,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1889,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 12,
+      "asset_name": "c3-native-oracle-diagnostic-12.zip",
+      "bytes": 83667505,
+      "sha256": "bd8b4507b648d114ace5151b5ab9891b1c57af6dc75b5ead9a155b8e00cb447f",
+      "manifest_entries": 1885,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1885,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 13,
+      "asset_name": "c3-native-oracle-diagnostic-13.zip",
+      "bytes": 83605267,
+      "sha256": "0b4f4bb525e9d0b63539553b919f14b0b13afecd3166f05e00c44248deda8ad9",
+      "manifest_entries": 1944,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1944,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 14,
+      "asset_name": "c3-native-oracle-diagnostic-14.zip",
+      "bytes": 83641295,
+      "sha256": "41e6c3787436b2e85144c2a9a6c3de6bfd9d8ea33c80255717683f72c54bb253",
+      "manifest_entries": 1746,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1746,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 15,
+      "asset_name": "c3-native-oracle-diagnostic-15.zip",
+      "bytes": 83609033,
+      "sha256": "a100cd48b8e311986b6966986d68db9d38cc20d6254786959ae8e7a65a124417",
+      "manifest_entries": 2052,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 2052,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 16,
+      "asset_name": "c3-native-oracle-diagnostic-16.zip",
+      "bytes": 83653458,
+      "sha256": "fe0fdbbe5678b16b809870dbaefa59ed79233d2953cb5386cc5d9b0fdf584ec1",
+      "manifest_entries": 1824,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1824,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 17,
+      "asset_name": "c3-native-oracle-diagnostic-17.zip",
+      "bytes": 83638431,
+      "sha256": "2d043420467ff87f05128a3351ca1ccf3ebae18537c165b6d8b94f3f43aa9cf6",
+      "manifest_entries": 1868,
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1868,
+        "project_archive_files": 0
+      },
+      "repository_path": null
+    },
+    {
+      "ordinal": 18,
+      "asset_name": "c3-native-oracle-diagnostic-18.zip",
+      "bytes": 66848687,
+      "sha256": "a312486bba5a67c93bec381ecb7d820fc7f657e9871619f5ec1d50603105d361",
+      "manifest_entries": 1252,
+      "recursive_verification": {
+        "zip_archives": 40,
+        "evidence_manifest_entries": 1252,
+        "project_archive_files": 6
+      },
+      "repository_path": null
+    }
+  ]
+}

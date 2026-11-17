@@ -756,3 +756,50 @@ The compact H display control independently reuses selection styling's exact-H
 appearance command, effective All/Polar/Mixed state and inheritance reset. It only
 affects existing graph-targeted H preferences; master visibility, isolation and
 explicit hiding remain separate. It does not create H or change molecular chemistry.
+
+
+## Measurements and close contacts
+
+Distance, angle and signed torsion use explicit ordered canonical participants and
+current complete finite coordinates in the existing Cartesian frame. Source facts
+that indicate missing coordinates make geometry unavailable even when placeholder
+numbers exist. Viewer and shared measurements use canonical atom coordinates;
+contact reads additionally require exact agreement with the active conformer.
+Cross-entry geometry assumes entries share a meaningful frame; no alignment, periodic boundary, symmetry
+image, preparation or energy calculation is performed.
+
+Distinct coincident atoms have distance0. Nonzero collinear angle legs give0/180°;
+a zero angle leg or collinear torsion plane has unavailable geometry. Partial angle
+or torsion targets never produce a smaller-kind readout. Every coordinate/model/
+placement/minimization preview pauses saved and draft geometry. Invalid saved
+references remain recoverable records, with their native drawing omitted.
+
+Native saved geometry retains ordered loci in grouped public representations, with
+one full-text layer. Display anchors use current native atom centers: distance
+midpoint, angle vertex, torsion central-bond midpoint. These anchors change text
+placement only. Names, units and signed values remain application formatted; an
+installed label can still overlap or be occluded. Radius-dependent text scaling is
+disabled; font quality is retained. Exactly collinear0/180° angles have no unique
+arc plane: the native sector/arc can collapse and emit a non-invertible-matrix
+warning while the numerical angle, full label and vertex anchor remain valid.
+These warnings are retained. Coincident distance0 can have a label without a
+nonzero-length line. Native qualification checks finite position/center attributes;
+it does not establish every possible GPU attribute on every host.
+
+Close contacts are sorted within-entry nonbonded pairs with inclusive minimum and
+cutoff. The declared float64 predicate uses `max(math.hypot(dx,dy,dz), max(abs(delta)))`
+and inclusive comparisons. A single-point infinity-norm tree query is a candidate
+superset; the predicate determines final membership. All recorded bonds exclude
+pairs regardless of order certainty. Missing/nonfinite geometry rejects the whole
+operation, including zero/one-site inputs. Finite extreme coordinates can exceed
+the index's numerical range and are refused explicitly. Active conformer and
+canonical atom coordinates must agree exactly, including nondefault active frames;
+a disagreement refuses the complete read rather than guessing which frame to use.
+No alignment, tolerance or source-coordinate rewrite repairs that ambiguity.
+
+The viewer uses minimum0.5Å, default cutoff2Å and maximum cutoff10Å; API/core
+minimum0 retains coincident nonbonded pairs. Proximity alone does not establish a
+chemical clash, bond, interaction energy or new interaction family. Capacity,
+response-size, deadline and sampled resident-memory refusals discard the entire
+search. These limits qualify the measured portable workload rather than every
+admitted source shape or all-host latency. See [API limits](API.md#measurements-and-close-contacts).

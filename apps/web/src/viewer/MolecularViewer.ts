@@ -45,6 +45,27 @@ export interface ViewerAtomHover {
   sceneGeneration: number;
 }
 
+export interface ViewerAtomPick {
+  reference: AtomReference;
+  source: ViewerStructure;
+  sceneGeneration: number;
+  sourceOperation: number;
+}
+
+export interface AtomPickLeaseRequest {
+  owner: object;
+  isCurrent(): boolean;
+  onPick(event: ViewerAtomPick): void;
+  onRetire(reason: string): void;
+}
+
+export interface ViewerMeasurementTarget {
+  reference: AtomReference;
+  /** One-based draft slot (1–4); gaps retain their target roles. */
+  index: number;
+  source: ViewerStructure;
+}
+
 export interface ViewerSelectionEvent {
   atoms: AtomReference[];
   granularity: SelectionGranularity;
@@ -80,6 +101,8 @@ export interface MolecularViewer {
   setModelPreview?: (preview: MolecularProposalGeometry | null) => Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
+  acquireAtomPickLease?(request: AtomPickLeaseRequest): () => void;
+  setMeasurementTargets?(targets: readonly ViewerMeasurementTarget[]): Promise<void>;
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;
   setInteractions(interactions: InteractionRecord[], options?: InteractionDisplayOptions): Promise<void>;
   subscribeInteractionDisplay?(listener: (state: InteractionDisplayState) => void): () => void;

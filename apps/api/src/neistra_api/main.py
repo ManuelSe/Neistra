@@ -27,7 +27,6 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from neistra_core.adapters import AdapterError
-from neistra_core.contacts import close_contacts
 from neistra_core.export_policy import (
     ExportFilters,
     ExportInput,
@@ -49,6 +48,7 @@ from neistra_api.archive_service import (
     build_project_archive,
     read_project_archive,
 )
+from neistra_api.contact_service import ContactReadCoordinator, ContactReadError
 from neistra_api.coordinate_service import CoordinateService
 from neistra_api.database import Base, create_database_engine, create_session_factory
 from neistra_api.edit_execution import EditExecutionController, EditExecutionError
@@ -502,12 +502,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         if app_settings.auto_create_schema:
             Base.metadata.create_all(engine)
-        yield
-        engine.dispose()
+        try:
+            yield
+        finally:
+            try:
+                await app.state.contact_reads.close()
+            finally:
+                engine.dispose()
 
     app = FastAPI(
         title="Neistra API",
-        version="0.34.0",
+        version="0.35.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -517,6 +522,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.session_factory = factory
     app.state.job_registry = job_registry
     app.state.edit_execution = EditExecutionController(factory, app_settings)
+    app.state.contact_reads = ContactReadCoordinator(factory, app_settings)
     app.state.cancelled_imports = {}
     app.state.cancelled_exports = {}
     app.add_middleware(
@@ -1189,29 +1195,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def contacts(
         project_id: str,
         payload: ContactQuery,
-        session: Session = Depends(session_dependency),
-    ) -> list[ContactRead]:
-        structure = _call(
-            lambda: ImportExportService(session, app_settings).structure(
-                project_id, payload.entry_id
+        request: Request,
+    ) -> Response:
+        try:
+            data = await app.state.contact_reads.analyze(
+                project_id, payload, request.is_disconnected
             )
-        ).structure
-        return [
-            ContactRead(
-                atom_1={
-                    "structure_id": payload.entry_id,
-                    "atom_id": contact.atom_1_id,
-                },
-                atom_2={
-                    "structure_id": payload.entry_id,
-                    "atom_id": contact.atom_2_id,
-                },
-                distance=contact.distance,
-            )
-            for contact in close_contacts(
-                structure, payload.cutoff, minimum_distance=payload.minimum_distance
-            )
-        ]
+        except ContactReadError as error:
+            raise _error(error.status, error.code, str(error)) from error
+        # The fixed child producer validates each row before bounded encoding.
+        # These integrity-checked opaque bytes preserve the documented list DTO.
+        return Response(content=data, media_type="application/json")
 
     @router.post("/projects/{project_id}/selection-transform", response_model=ProjectRead)
     async def transform_selection(
@@ -1246,19 +1240,23 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     @router.post(
-        "/projects/{project_id}/molecules", response_model=MoleculeCreateRead, status_code=201,
+        "/projects/{project_id}/molecules",
+        response_model=MoleculeCreateRead,
+        status_code=201,
     )
     async def create_molecule(
-        project_id: str, payload: MoleculeCreate,
+        project_id: str,
+        payload: MoleculeCreate,
         session: Session = Depends(session_dependency),
     ) -> MoleculeCreateRead:
-        return _call(lambda: ModelEditService(session, app_settings).create_molecule(
-            project_id, payload,
-        ))
+        return _call(
+            lambda: ModelEditService(session, app_settings).create_molecule(
+                project_id,
+                payload,
+            )
+        )
 
-    @router.get(
-        "/projects/{project_id}/edit-attempts/{attempt_id}", response_model=EditAttemptRead
-    )
+    @router.get("/projects/{project_id}/edit-attempts/{attempt_id}", response_model=EditAttemptRead)
     async def read_edit_attempt(
         project_id: str, attempt_id: UUID, response: Response
     ) -> EditAttemptRead:

@@ -337,7 +337,8 @@ authoritative. Mol* renders generated projections and is never a project save
 format or molecular state store.
 
 See [architecture](docs/ARCHITECTURE.md), [development and troubleshooting](docs/DEVELOPMENT.md),
-[HTTP API](docs/API.md), [project/archive schema](docs/PROJECT_SCHEMA.md),
+[HTTP API](docs/API.md), [measurements](docs/MEASUREMENTS.md),
+[project/archive schema](docs/PROJECT_SCHEMA.md),
 [normalized molecular schema](docs/NORMALIZED_SCHEMA.md), [format matrix](docs/FORMAT_MATRIX.md),
 [plugin guide](docs/PLUGIN_GUIDE.md), [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md),
 [fixture provenance](docs/FIXTURES.md), [accessibility](docs/ACCESSIBILITY.md),

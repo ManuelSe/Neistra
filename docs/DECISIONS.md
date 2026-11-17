@@ -7809,3 +7809,315 @@ Scientific primary implementation references:
 [stable norm](https://docs.python.org/3.12/library/math.html#math.hypot).
 Independent theory controls support72configurations/699queries; these are planning
 probes, not implementation approval or formal verification of every library build.
+
+## D-168 — Measured contact admission and opaque verified responses
+
+Date:2026-11-16. Implements D-167's contact-read contract within child157; this is
+an implementation checkpoint decision, not complete feature or release approval.
+
+Retain100,000input atoms,64MiB immutable normalized source,2,000,000raw returned
+neighbors,250,000retained results and64MiB encoded response. Admit source/atom
+metadata before the child loads coordinates; validate actual canonical atom count
+and source size/SHA again in the child. All raw returned neighbors are charged
+before exclusions. An individual list is bounded by admittedN; internal traversal
+is bounded operationally by a terminable computation, not by that visit counter.
+Serialize each validated typed row and array delimiter only after byte admission;
+any refusal discards the whole operation. Preserve successful list DTO shape and
+optional source binding for existing callers. Minimum0 remains a valid API/core
+setting; no new contact family, chemistry assumption or scientific threshold.
+
+Use15seconds for the computation lifetime and a polled1GiB child-RSS threshold;
+retain admission through owned-thread settlement, termination/reaping and temporary
+file removal, including repeated cancellation and shutdown. These are operational
+policies, not all-host latency guarantees, an instantaneous hard allocation ceiling,
+or a1GiB address-space limit. Measured virtual mappings approach1.94GiB. A2second
+termination grace precedes kill/reap. Cleanup failure closes admission rather than
+allowing additional work over retained resources. No persistent job/artifact/history
+or molecular edit is created by this read.
+
+The parent captures minimal metadata columns in a short owned session. The fixed
+trusted child validates every finite, sorted, unique stable-reference row and
+writes bounded JSON to an owned file. Strict operation/project/entry/artifact/policy
+completion metadata, size and SHA qualify opaque response bytes after the child
+finishes; the parent does not allocate a second whole Pydantic/JSON model. SHA alone
+is not a claim of schema validation. A fresh metadata capture rejects changed or
+deleted sources before success. Shared verified-file reads open one regular file,
+fstat its descriptor and read at most declared size+1; settle any owned read thread
+before removing its directory. Input aliases within the managed store retain their
+existing compatibility; output aliases and outside paths are refused.
+
+Evidence: [source-bound performance packet](assets/viewer-measurements/c1-contact-performance.json)
+retains117primitive processes (111complete results/six intended whole refusals),
+the original twelve API measurements with their disclosed SQL-LOB baseline confound,
+and twelve fresh corrected ASGI requests: nine complete200responses/three expected
+413refusals. Three repetitions per case, fresh processes with warm filesystem cache.
+The58,870-site1AON3Å case returns128,466pairs/24,810,069bytes in2.858–2.962seconds;
+a near64MiB100,000-site sparse source completes in1.708–1.983seconds. Maximum child
+RSS591.84MiB and APIparent response-phase peak216.61MiB support the chosen defaults
+on the measured host; client JSON decoding is measured separately. All source/DB/
+artifact identities and cleanup witnesses pass. Admitted ceilings do not certify
+every metadata/bond shape or cutoff. Dense1AON10Å explicitly refuses capacity.
+
+Theory and performance specialists independently assessed this narrow policy and
+its scientific interpretation; architecture assessed ownership and transport. This
+does not substitute for remaining lifecycle tests, native tool implementation,
+all-seven final same-candidate assessments or either complete release gate. D148
+portable/strict-host distinction remains. Existing immutable endpoint inspection
+indexes now serve saved and quick geometry; failed current queries, missing source
+facts and every preview must suppress saved native geometry while retaining records.
+
+
+## D-169 — Transient measurement ownership and bounded disclosures
+
+Date:2026-11-16. Child157 C1b checkpoint; no durable schema/version change.
+
+Own the numbered measurement draft above responsive viewer remounts. Native atom
+acquisition is an explicit disposable lease: consume its primary picks before
+ordinary selection effects, verify raw singleton identity against the current
+source, and preserve canonical selection, inspection order and ordinary picking
+mode. Kind changes empty the draft; removing a target leaves its numbered gap.
+Explicit selection import confirms three/four-target order. Compact picking keeps
+fields and exposes the canvas; Review returns to the retained draft. Native marker
+labels are nonpickable and independently owned from saved measurements.
+
+Promise Save captures project/revision/visit epoch, session/generation, exact
+ordered references and artifacts. Synchronous admission prevents double dispatch.
+A failed current Save retains fields; late acknowledgements can update only their
+own monotonic project cache, without taking over another session's feedback.
+Stopping acquisition does not retire an already admitted Save. Source change or
+preview entry retires its UI owner even when acquisition has stopped; restoring
+an old source or leaving a preview cannot revive it. Closing is not rollback.
+
+Use four fixed disabled-capable source observer slots per draft and expanded
+record. Variable-length query arrays retained trailing observers in the pinned
+library; shrinking the number of calls did not establish bounded subscriptions.
+Chooser correction substitutes the active draft slot, preserving independent
+inspection consumers. At most50saved summary rows and one expansion are mounted.
+Current source facts and every preview qualify geometry independently of hover.
+
+Contact disclosure owns an AbortSignal, request and current-result actions.
+Collapse, compact picking, project/source/preview retirement synchronously abort
+before publishing the new disclosure state. Retained Find callbacks also reject
+an already aborted disclosure before admitting work. A→B→A cannot revive a request
+or row action. Explicit entry choice includes hidden/locked entries; selection
+remains a separate deliberate result action. Existing contacts remain read-only.
+
+Focused [checkpoint evidence](assets/viewer-measurements/c1b-measurement-checkpoint.json)
+passes1,134frontend cases/116suites plus lint/types/build and five real native
+workflows, with one unchanged legacy mobile exclusion and no retries/new exclusions.
+Native child exits0; its enclosing tool reports143 after completion, cause
+unestablished. Separate independent log/source completion verification exits0.
+Scoped architecture/UX assessments pass after correcting concrete ownership,
+observer and canvas-access findings. They do not constitute final seven-role
+approval. The [native baseline](assets/viewer-measurements/c2-native-label-baseline.json)
+records inherited100-label latency/resource costs requiring measured C2 correction.
+
+
+## D-170 — Bounded native measurement batches with one full-text layer
+
+Date:2026-11-16. Child157 C2 design refinement within accepted scope; authorized
+through the standing program delivery instruction. Architecture and theory PASS
+this proposed direction; implementation and performance approval remain pending.
+
+The source-bound [baseline](assets/viewer-measurements/c2-native-label-baseline.json)
+justifies correcting per-record native representation/text resources. Use a small
+typed adapter over the pinned public distance/angle/dihedral APIs: at most three
+kind-grouped geometry representations with their text visual disabled, and one
+LabelRepresentation containing every qualified visible record. Keep full Root
+formatted labels in each infos[].label, global customText empty, existing font
+quality and explicit record-ID/group maps. Equal names/targets never deduplicate
+records. No measurement cap, truncation, font quality reduction, schema, dependency
+or global font-cache patch. Native geometry still consumes ordered current loci;
+application data remains authoritative. A CPU font-cache fix alone would leave
+one large GPU font texture per text renderable and is insufficient.
+
+Each label uses its own DataLoci and copied finite point anchor from the SAME
+current single-atom native sphere centers used by its geometry. Distance anchors
+at midpoint(A,B), angle at vertexB, torsion at midpoint(B,C), with overflow-safe
+midpoint calculation. These are display positions only. Radius-dependent label
+scaling is disabled. Valid coincident distance and0/180degree angles stay labelled
+when the native arc plane degenerates. Full signed values/units/order remain Root
+formatted. Anchor placement is a deliberate presentation adaptation; do not claim
+pixel-identical per-kind text depth, arc placement or occlusion.
+
+Engine owns installed and staged batches, fenced by plugin identity, measurement
+epoch, scene generation and source-operation identity. Build replacement native
+representations off canvas, check current ownership after each await, then attach
+the complete batch without awaits between attachments. Failure/retirement discards
+all staged objects. Direct canvas representations are outside plugin measurement
+state: explicitly hide/remove/destroy installed and staged resources on source
+replacement, preview, source failure, empty scene and disposal. A late completion
+must destroy its own obsolete batch. Draft target markers retain a separate owner.
+
+Source sync currently calls applyMeasurements before completing its generation/
+source operation; coordinate paths also update measurements. Integrate installation
+at a successfully completed source boundary or stage explicitly for that owning
+operation. An atom-pick readiness check at the old call site would incorrectly
+reject legitimate installation. Preserve current-source/finite/source-fact/preview
+qualification and existing no-op avoidance. Avoid incremental in-place updates
+until measurements justify their additional stale-update complexity.
+
+Acceptance: mixed kinds/ordered refs, signed±90degree torsions, zero distance,
+0/180degree angles, rigid-frame anchor covariance, full/duplicate/long names,
+rename/hide/delete/reorder, moved/deleted participants, preview cancellation and
+held stale completion. Verify exactly one saved-label text representation and
+constant bounded native representation count at10/100records; measure initial,
+rename, identical no-op and retirement/restoration cycles including resource
+baselines. Qualify actual appearance and retain draft markers, structure labels,
+selection, camera and immutable originals. Thousand-record manager DOM/observer
+qualification remains separate. Scientific implementation author cannot supply
+independent final review; all seven final assessments remain required.
+
+## D-171 — Measurement acknowledgements and first-load recovery
+
+Date:2026-11-17. Child157 C2 correction to D-169; no durable/API schema change.
+
+Generic command feedback already ignored acknowledgements older than the monotonic
+project cache. Independent actual-App probes showed two later continuations could
+still announce an obsolete rename or clear a saved draft. Return a typed
+`current | superseded` completion from the measurement creation port. A superseded
+Save retains fields and directs its current owner to check Saved measurements;
+a retired owner remains inert. Saved rename/delete continuations independently
+compare their returned revision with their own project cache before success text.
+Dispatch/source/visit/preview guards and monotonic cache admission remain in force.
+
+Classify recovery once on the first loaded state of each project during an App
+mount, including an initially clean state. A late acknowledgement can then update
+its own cache without being misclassified as startup recovery after A→B→A. A fresh
+App still announces genuinely persisted dirty state. Independent architecture
+assessment passes the corrected actual-App/session probes; this is scoped review,
+not final feature approval.
+
+Ordered persistence qualification compares all record content while recognizing
+that Undo/Redo is a new command and legitimately advances modification timestamps.
+IDs, creation dates, full names, visibility and ordered cross-entry references
+restore exactly; modification time remains monotonic. Both archive suffixes retain
+current-state data and their established history omission. The new wrapper selects
+actual implementation modules before Python starts and verifies their provenance.
+Development0.34↔actual tagged0.34preflight does not substitute for final0.35readers.
+
+A physical loopback TCP disconnect test now closes a real held request, observes
+child reaping and staging removal, then verifies renewed admission through another
+actual HTTP request. It preserves project/artifact state. This supplements the
+previous callback-level cancellation controls without relabelling that evidence.
+
+## D-172 — Synchronous preview retirement and recoverable saved explanations
+
+Date:2026-11-17. Child157 C3 review corrections; no scientific method, durable
+schema, migration or dependency change.
+
+Numerical preview entry now updates its application-owned ref and guards the
+measurement session before publishing React state. Entering and cancelling within
+one batched turn therefore still retires the previous Save/contact owner. Rendered
+preview state remains the viewer projection; synchronous command qualification
+reads the ref. A completed Save also preserves the current stopped acquisition
+intent, including when editing opened during its request. Successful current Save
+can clear fields and report success without unexpectedly acquiring the pointer.
+
+The single expanded saved record receives the existing typed SelectionGeometry
+result from its bounded current-source observers. Its value and explanation share
+that result. Preview and missing/loading/failed source states take precedence over
+undefined geometry; ordered references and draft rename text remain retained.
+Compact summary values retain their existing interface. No new scientific math,
+durable fields, source observers or background jobs are introduced.
+
+A failed refetch can retain a complete cached projection whose normal stale time
+is infinite. The measurement tool locally makes errored source queries stale so
+closing/reopening actually retries, including cached-data failures. Successful
+immutable projections keep their existing lifetime, and global source policy is
+unchanged. This supports the stated recovery instruction without displaying failed
+cached coordinates as current. Missing participants remain recoverable definitions;
+restoring valid current coordinates restores the original measurement value/label.
+
+Both stopped C3 gate attempts retain partial logs and their explicit intentional
+SIGTERM receipts. Neither is a completed gate or a source of pooled passing checks.
+All42commands must run fresh after corrections; all seven final specialist verdicts
+and exact merged qualification remain required before delivery.
+
+## D-173 — Refuse conflicting contact coordinate bases
+
+Date:2026-11-17. Child157 complete scientific-theory review identified an accepted
+normalized payload whose canonical atom coordinates differ from its active
+conformer. The viewer and shared measurement geometry use the atom coordinates;
+close-contact search uses the active conformer. Existing adapters normally keep
+these aligned, but the normalized schema does not enforce equality.
+
+Before searching, qualify both current bases as finite N×3 coordinates and require
+exact numeric agreement, allowing ordinary signed-zero equality. Refuse the entire
+read with an explicit geometry reason if they disagree, including singleton input;
+never silently choose a conformer, rewrite source coordinates, align, add a tolerance
+or return contacts from an ambiguous basis. A consistent nondefault active conformer
+remains supported even when an inactive conformer differs. Empty complete structures
+retain their existing empty result. This is request qualification, not a new method,
+durable schema restriction, migration or mutation of original artifacts.
+
+Acceptance includes each-axis disagreement, finite-active/nonfinite-atom input,
+singleton refusal before the empty shortcut, consistent active-ID7 behavior, and
+API422 with explicit reason and unchanged project/artifact state. Run affected
+scientific/API validation, independent theory/implementation/performance reassessment,
+and fresh complete release gates before claiming completion.
+
+## D-174 — Separate verified qualification and failure-forensic assets
+
+Date:2026-11-17. Child157 release-evidence refinement; no application, scientific,
+durable-project, migration, dependency or version change. Independent architecture
+assessment passes this design; actual part verification/publication remains required.
+
+The primary qualification ZIP and its checksum/package sidecars retain both complete
+fresh gates, all reader workspaces, lossless logs and source proofs. Failed runs
+remain failed. Large raw failure recordings/stores are preserved separately in
+bounded forensic ZIP parts, rather than duplicating them inside the primary ZIP or
+adding more large payloads to Git. Existing committed C4 parts retain identical
+bytes/hashes under `docs/assets/viewer-measurements/forensics/`; subsequent large
+parts stay in owned ignored staging until their release upload. Raw originals stay
+retained in owned evidence after verified relocation.
+
+A tracked format-versioned index binds release version, failed candidate/run/source
+identities, recipe/log references, failure status, canonical inventory digests and
+each part's unique asset name, ordinal, finalized byte size, SHA-256 and recursive
+verification counts. Per-run inventories identify every relative path, size and
+hash. Their exact union must equal the part manifests, with no missing, duplicated
+or additional files, before relocation or publication. All ephemeral traces,
+scientific observations and owned stores are included. Finalized parts must remain
+below80MiB; an oversized single member requires explicit lossless handling rather
+than omission or truncation.
+
+The primary bundle includes the immutable index/inventories and points to the
+additional release assets. Inspect its assembled member list to prevent accidental
+rebundling. Later upload IDs, URLs, server digests and anonymous-download receipts
+are separate publication facts, not changes to the immutable index. Private local
+upload paths remain in owned staging metadata. A same-name remote asset is reusable
+only after its identity matches the index; do not overwrite a different payload.
+Keep fresh staging/atomic finalization and preserve incomplete attempts on recovery.
+
+After exact merged qualification, publish the indexed parts with the same release.
+Verify every part locally and through a full anonymous download, including SHA-256,
+recursive ZIP CRC/manifests and cross-part inventory completeness, before child
+closeout. Record the batch verifier's provenance and actual exits. The existing
+primary downloader alone does not establish forensic-part availability. The parent
+Goal remains active until all required units and final integrated closeout pass.
+
+This layout respects independently documented hosting bounds: each release asset
+must be smaller than2GiB, with up to1000assets per release; a Git push has its own
+2GiB bound. See [release limits](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+and [push limits](https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit),
+checked2026-11-17. No history rewrite, force push or repository setting change.
+
+
+D-174 implementation evidence: the tracked typed verifier lives in
+`tools/verify_measurement_forensics.py`, automatically inside the existing
+qualifying source prefix. No gate helper/command is removed or weakened; the
+next inventory gains this one source. Local25part verification, Ruff/mypy and
+explicit corruption controls pass. Independent architecture verifies the actual
+parts/index/tool/provenance and main-package selection. Public availability is
+still a later obligation, not established by these local checks.
+
+
+D-174 final candidate evidence: candidate7 completes42fresh commands with931current/
+885actual0.34source identities intact. Independent summary and recursive packaging
+verify both qualified parts and all reader workspaces; failures remain distinct.
+The additional candidate6failure inventory brings the forensic index to26parts,
+47506files/4624058988raw bytes. Explicit scope metadata distinguishes the failed
+complete-gate attempt from its later passing focused correction. Index3d9348 binds
+all current identities; old25payloads/two prior run rows remain unchanged. Actual
+anonymous verification of all26parts remains required after stable publication.

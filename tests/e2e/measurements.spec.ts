@@ -88,106 +88,91 @@ async function selectAtoms(
 }
 
 test("creates and manages reference measurements with synchronized inspection", async ({
-  page,
-  request,
+  page, request,
 }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "Full inspector workflow is desktop-only.");
   test.setTimeout(120_000);
   const { project, entryId, atoms } = await setup(page, request, testInfo);
-  await selectAtoms(page, entryId, atoms.slice(0, 2).map((atom) => atom.id));
-  await page.getByRole("tab", { name: "measurements" }).click();
-  await page.getByPlaceholder("Measurement name").fill("Carbon distance");
-  await page.getByRole("button", { name: "distance", exact: true }).click();
-  const distance = Math.hypot(
-    ...atoms[1].coordinates.map(
-      (value, index) => value - atoms[0].coordinates[index],
-    ),
-  );
-  const distanceRow = page.locator(".measurement-row").filter({
-    has: page.getByLabel("Name for Carbon distance"),
-  });
-  await expect(distanceRow).toContainText(`${distance.toFixed(2)} Å`);
-
-  await selectAtoms(page, entryId, atoms.slice(0, 3).map((atom) => atom.id));
-  await page.getByRole("tab", { name: "measurements" }).click();
-  await page.getByPlaceholder("Measurement name").fill("Bond angle");
-  await page.getByRole("button", { name: "angle", exact: true }).click();
-  await expect(
-    page.locator(".measurement-row").filter({
-      has: page.getByLabel("Name for Bond angle"),
-    }),
-  ).toContainText(/°/);
-
-  await selectAtoms(page, entryId, atoms.slice(0, 4).map((atom) => atom.id));
-  await page.getByRole("tab", { name: "measurements" }).click();
-  await page.getByPlaceholder("Measurement name").fill("Torsion");
-  await page.getByRole("button", { name: "dihedral", exact: true }).click();
-  await expect(
-    page.locator(".measurement-row").filter({
-      has: page.getByLabel("Name for Torsion"),
-    }),
-  ).toContainText(/°/);
+  const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
+  const saved = () => tool.getByRole("list", { name: "Saved measurements", exact: true });
+  const row = (name: string) => saved().locator(".measurement-saved-row").filter({ has: page.getByRole("button", { name: `Inspect measurement ${name}`, exact: true }) });
+  const open = async () => {
+    await page.getByRole("button", { name: "Measurements", exact: true }).click();
+    await expect(tool).toBeVisible();
+  };
+  const close = async () => { await tool.getByRole("button", { name: "Close measurements", exact: true }).click(); await expect(tool).toBeHidden(); };
+  const showSaved = async () => { await tool.getByRole("button", { name: /^Saved measurements/ }).click(); await expect(saved()).toBeVisible(); };
+  const create = async (name: string, kind: "distance" | "angle" | "dihedral", count: number) => {
+    if (await tool.isVisible()) await close();
+    const ids = atoms.slice(0, count).map(atom => atom.id);
+    await selectAtoms(page, entryId, ids);
+    // The inspector is a bridge to the same App-owned tool, with no second creator.
+    await page.getByRole("tab", { name: "measurements" }).click();
+    await page.getByRole("button", { name: "Open measurements", exact: true }).click();
+    await expect(tool).toBeVisible();
+    await tool.getByRole("button", { name: kind === "dihedral" ? "Torsion" : kind === "angle" ? "Angle" : "Distance", exact: true }).click();
+    await tool.getByRole("button", { name: "Use selection", exact: true }).click();
+    if (count > 2) {
+      const order = tool.getByRole("region", { name: "Confirm measurement order" });
+      await expect(order).toBeVisible();
+      for (let i = 0; i < count; i++) await order.getByLabel(new RegExp(`^Ordered target ${i + 1}`)).selectOption(JSON.stringify([entryId, ids[i]]));
+      await order.getByRole("button", { name: "Use target order", exact: true }).click();
+    }
+    await tool.getByLabel("Measurement name", { exact: true }).fill(name);
+    await tool.getByRole("button", { name: "Save measurement", exact: true }).click();
+    await expect(tool.getByLabel("Measurement name", { exact: true })).toHaveValue("");
+    const state = (await (await request.get(`/api/v1/projects/${project.id}`)).json()) as ProjectRead;
+    expect(state.measurements.find(item => item.name === name)?.atom_references).toEqual(ids.map(atom_id => ({ structure_id: entryId, atom_id })));
+    await showSaved();
+  };
+  await create("Carbon distance", "distance", 2);
+  const distance = Math.hypot(...atoms[1].coordinates.map((value, i) => value - atoms[0].coordinates[i]));
+  await expect(row("Carbon distance")).toContainText(`${distance.toFixed(2)} Å`);
+  await create("Bond angle", "angle", 3);
+  await expect(row("Bond angle")).toContainText(/°/);
+  await create("Torsion", "dihedral", 4);
+  await expect(row("Torsion")).toContainText(/°/);
   await expect(page.locator(".property-table tbody tr")).toHaveCount(4);
 
-  await distanceRow
-    .getByRole("textbox", { name: "Name for Carbon distance", exact: true })
-    .fill("C-C reference");
-  await distanceRow.getByRole("button", {
-    name: "Save name for Carbon distance",
-  }).click();
-  const renamed = page.locator(".measurement-row").filter({
-    has: page.getByLabel("Name for C-C reference"),
-  });
-  await renamed.getByRole("button", { name: "Hide C-C reference" }).click();
-  let state = (await (
-    await request.get(`/api/v1/projects/${project.id}`)
-  ).json()) as ProjectRead;
-  expect(state.measurements.find((item) => item.name === "C-C reference")?.visible).toBe(
-    false,
-  );
-  await renamed.getByRole("button", { name: "Show C-C reference" }).click();
+  await row("Carbon distance").getByRole("button", { name: "Inspect measurement Carbon distance", exact: true }).click();
+  await row("Carbon distance").getByLabel("Name for Carbon distance", { exact: true }).fill("C-C reference");
+  await row("Carbon distance").getByRole("button", { name: "Save name", exact: true }).click();
+  await expect(row("C-C reference")).toBeVisible();
+  await row("C-C reference").getByRole("button", { name: "Hide C-C reference", exact: true }).click();
+  let state = (await (await request.get(`/api/v1/projects/${project.id}`)).json()) as ProjectRead;
+  expect(state.measurements.find(item => item.name === "C-C reference")?.visible).toBe(false);
+  await row("C-C reference").getByRole("button", { name: "Show C-C reference", exact: true }).click();
 
   await page.reload();
-  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", {
-    timeout: 20_000,
-  });
-  await page.getByRole("tab", { name: "measurements" }).click();
-  await expect(
-    page.locator(".measurement-row").filter({
-      has: page.getByLabel("Name for C-C reference"),
-    }),
-  ).toContainText(`${distance.toFixed(2)} Å`);
-
+  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", { timeout: 20_000 });
+  await open(); await showSaved();
+  await expect(row("C-C reference")).toContainText(`${distance.toFixed(2)} Å`);
+  await close();
   await selectAtoms(page, entryId, [atoms[0].id]);
   await page.getByRole("tab", { name: "inspect" }).click();
   await expect(page.locator(".inspect-panel")).toContainText("Full name");
   await expect(page.locator(".inspect-panel")).toContainText(atoms[0].element);
   await expect(page.locator(".inspect-panel")).toContainText("Coordinates");
-  await page.getByRole("tab", { name: "measurements" }).click();
-  await expect(
-    page.getByRole("button", { name: "distance", exact: true }),
-  ).toBeDisabled();
-
-  await page.getByLabel("Cutoff (Å)").fill("0");
-  await page.getByRole("button", { name: "Find contacts" }).click();
-  await expect(page.locator(".inline-error")).toBeVisible();
-  await page.getByLabel("Cutoff (Å)").fill("3");
-  await page.getByRole("button", { name: "Find contacts" }).click();
-  await expect(page.locator(".contact-results button").first()).toBeVisible();
-  await page.locator(".contact-results button").first().click();
+  await open();
+  // Kinds are deliberate choices; an insufficient selection cannot be adopted/saved.
+  await expect(tool.getByRole("button", { name: "Use selection", exact: true })).toBeDisabled();
+  await expect(tool.getByRole("button", { name: "Save measurement", exact: true })).toBeDisabled();
+  await tool.getByRole("button", { name: "Close contacts", exact: true }).click();
+  const contacts = tool.getByRole("region", { name: "Close contacts", exact: true });
+  const contactEntry = project.entries.find(entry => entry.id !== entryId)!;
+  await contacts.getByRole("combobox", { name: "Structure", exact: true }).selectOption(contactEntry.id);
+  await contacts.getByLabel("Cutoff (Å)").fill("0");
+  await contacts.getByRole("button", { name: "Find contacts", exact: true }).click();
+  await expect(contacts.locator(".inline-error")).toBeVisible();
+  await contacts.getByLabel("Cutoff (Å)").fill("3");
+  await contacts.getByRole("button", { name: "Find contacts", exact: true }).click();
+  await expect(contacts.locator(".contact-results button").first()).toBeVisible();
+  await contacts.locator(".contact-results button").first().click();
   await expect(page.locator(".viewer-status")).toContainText("/ 2 selected");
-
-  state = (await (
-    await request.get(`/api/v1/projects/${project.id}`)
-  ).json()) as ProjectRead;
-  expect(state.measurements.map((item) => item.kind).sort()).toEqual([
-    "angle",
-    "dihedral",
-    "distance",
-  ]);
-  const torsion = page.locator(".measurement-row").filter({
-    has: page.getByLabel("Name for Torsion"),
-  });
-  await torsion.getByRole("button", { name: "Delete measurement Torsion" }).click();
-  await expect(torsion).toBeHidden();
+  state = (await (await request.get(`/api/v1/projects/${project.id}`)).json()) as ProjectRead;
+  expect(state.measurements.map(item => item.kind).sort()).toEqual(["angle", "dihedral", "distance"]);
+  await showSaved();
+  await row("Torsion").getByRole("button", { name: "Inspect measurement Torsion", exact: true }).click();
+  await row("Torsion").getByRole("button", { name: "Delete measurement Torsion", exact: true }).click();
+  await expect(row("Torsion")).toBeHidden();
 });

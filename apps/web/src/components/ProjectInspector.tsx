@@ -5,6 +5,7 @@ import {
   FilePenLine,
   LoaderCircle,
   Save,
+  Ruler,
   Trash2,
   X,
 } from "lucide-react";
@@ -66,6 +67,7 @@ interface ProjectInspectorProps {
   onLoadSelection: (saved: SavedSelection) => void;
   onDeleteSelection: (saved: SavedSelection) => void;
   onCreateMeasurement?: (name: string, kind: MeasurementKind) => void;
+  onOpenMeasurements?: () => void;
   onUpdateMeasurement?: (
     measurement: Measurement,
     name: string,
@@ -525,7 +527,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       new Map(
         structureQueries.flatMap((query, index) => {
           const entry = project?.entries.find(item => item.id === relevantIds[index]);
-          return isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
+          return !query.isError && !query.isPlaceholderData
+            && isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
             ? [[query.data.entry_id, query.data.structure] as const] : [];
         }),
       ),
@@ -594,7 +597,9 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         ) : tab === "inspect" ? (
           <InspectPanel project={project} selection={selection} structures={structures} />
         ) : tab === "measurements" && project ? (
-          <MeasurementsPanel
+          props.onOpenMeasurements ? <button type="button" className="secondary-button" onClick={props.onOpenMeasurements}>
+            <Ruler size={17} aria-hidden="true" />Open measurements
+          </button> : <MeasurementsPanel
             project={project}
             selection={selection}
             structures={structures}

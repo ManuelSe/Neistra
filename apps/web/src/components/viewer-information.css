@@ -53,3 +53,12 @@
   .viewer-info-action { min-width: 44px; min-height: 44px; }
   .viewer-info-dialog select, .viewer-info-use-order { min-height: 44px; }
 }
+
+/* Deliberate-kind progress remains readable at narrow and enlarged viewports. */
+.viewer-information-strip.has-measurement-basis .viewer-info-geometry .viewer-info-text {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+}
+.viewer-info-basis { color: var(--text-muted); font-size: 11px; flex: 0 0 auto; }

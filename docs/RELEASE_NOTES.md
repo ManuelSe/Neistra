@@ -1,5 +1,47 @@
 # Neistra Release Notes
 
+
+## 0.35.0 — Deliberate viewer measurements
+
+In preparation for child #157; not published. Full final-version candidate and
+exact-merged qualification, seven final specialist assessments and release readback
+remain pending.
+
+- The viewer ruler creates explicit numbered distance, angle and signed torsion
+  drafts. Compact picking, correction and keyboard/touch recovery preserve ordinary
+  molecular selection; Save creates the named project record.
+- Saved measurements retain ordered cross-entry participants, rename/visibility,
+  focus/selection, deletion, Undo/Redo, reload and archive semantics. Secondary close
+  contacts keep explicit current-source result actions and whole-search refusals.
+- Shared native geometry/text resources preserve full names and values at1,000
+  qualified records. On the measured host,100protein labels install at0.918smedian
+  versus11.591sbaseline; rename0.536s versus4.103s. Separate shared-host measurements
+  do not establish strict-host or universal latency guarantees.
+- Superseded/retired Save and management acknowledgements preserve newer cache/UI
+  state. Contact cancellation owns child/thread/staging cleanup through physical
+  disconnect, and source changes retire old actions.
+
+Additive minor release. All five authoritative versions are0.35.0; dependency pins,
+head0015 and existing project/archive/viewer schema2 remain unchanged. Original
+uploads are preserved. Preview geometry pauses. Collinear0/180degree values/labels
+remain valid while native arcs/sectors can collapse and emit retained rendering
+warnings. Dense labels can overlap; installed geometry does not promise unoccluded
+pixels. Contacts remain bounded within-entry Cartesian proximity, with explicit
+capacity/deadline/refusal behavior rather than partial results.
+
+Focused C2:1,173frontend/118suites,13native plus fouractualzoom/320px/keyboard/axe
+workflows, one exact existing exclusion and29API/persistence cases pass. Actual
+0.34development new-state preflight and native resource evidence are separate from
+the pending final-version gates. The full gate retains all35existing commands and
+adds seven ordered-measurement reader phases,42fresh sequential commands per final
+candidate and exact merged master. Final evidence will replace this pending status.
+
+The general inspector bridge and advanced/scientific editing remain. Parent #11
+and children #158–#163 continue separately after this release. Diagram153,
+superposition164,metadata165 and the other parent exclusions remain separate.
+See [measurement workflow](MEASUREMENTS.md), [limits](SCIENTIFIC_LIMITATIONS.md#measurements-and-close-contacts)
+and [checkpoint evidence](assets/viewer-measurements/c2-measurement-checkpoint.json).
+
 ## 0.34.0 — Viewer atom information and ordered quick geometry
 
 Released as stable/latest [v0.34.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.34.0)

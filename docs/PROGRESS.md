@@ -20,16 +20,35 @@ The published313,970,966-byte ZIP and sidecars match anonymous downloads; all511
 nested ZIPs/2,779manifest entries/870project files verify. The
 [publication receipt](assets/viewer-information/c6-publication.json) records remote
 readback. [Final reply](https://github.com/ManuelSe/Neistra/issues/156#issuecomment-6926458297)
-and completed issue state are verified. Normal terminal documentation integration
-and owned156branch cleanup are the remaining delivery bookkeeping actions.
+and completed issue state are verified. Terminal documentation merged normally in
+[PR #169](https://github.com/ManuelSe/Neistra/pull/169), and owned156branch cleanup
+was verified. The annotated runtime tag remains unchanged.
 
-#157 is the next implementation milestone, from actual verified0.34runtimeab5e5fef
-on `feat/issue-157-viewer-measurements` in the owned program checkout. Its pre-code
-contract now specifies application-owned numbered drafts, a verified native-pick
-lease, shared truthful geometry, explicit ordered Promise Save, bounded management,
-and cancellable current-source close-contact reads. Independent theory/implementation
-planning supports conservative p∞ neighbor streaming with a declared stable norm;
-limits await measurement. No157 application implementation or final review is claimed.
+#157 has passing local C1a/C1b/C2 checkpoints on
+`feat/issue-157-viewer-measurements` from verified master4b8ae716. Deliberate drafts,
+selection-preserving native acquisition, scoped Save, bounded management and contact
+reads are implemented. The [C2 packet](assets/viewer-measurements/c2-measurement-checkpoint.json)
+passes1,173frontend tests/118suites plus lint/types/build;13native workflows and four
+additional320px/actual100/200%zoom/keyboard/axe workflows pass in separate focused
+runs over unchanged application source. One exact existing exclusion remains, no
+retries/new exclusions; both native children/enclosing runners exit0. All earlier918
+sources remain exact within the920-source final map; the two added test files have
+their own passing checks.29API/persistence cases include real TCP disconnect/reaping.
+
+Actual tagged0.34new-state reader preflight passes both directions/suffixes, exact
+ordered cross-entry targets/full names/visibility/originals and Undo/Redo content
+with legitimately advancing modification time;885tagged sources verify. This is
+development0.34evidence, not final0.35compatibility. Scoped architecture/theory/
+performance assessments pass; final all-seven feature approval remains pending.
+
+The [independent native correction](assets/viewer-measurements/c2-native-label-performance.json)
+retains all1,000records with three grouped geometry representations and one text
+layer. On the measured shared host,100protein labels install at0.918smedian versus
+11.591sbaseline; rename0.536s versus4.103s. All318frozen/live web sources match.
+Straight-angle arc/sector warnings remain explicitly disclosed; numerical labels
+are valid. No strict-host/all-host or every-GPU-attribute claim. Diagnostics remain
+separate. No157application push/PR/release/closeout; nonauthor final scientific
+implementation and UI reviewers are required.
 
 Independent158 preparation remains local68b1a868:2,674Python/zero skips,
 1,041frontend/ten native recovery cases pass on its frozen930-file map. Earlier
@@ -37,12 +56,119 @@ failures/timeouts remain preserved, deadlines unchanged; its final integration,
 versions, actual predecessor readers and release gates remain pending. Retain the
 nonblocking small-screen heading observation for integration review.
 
-Next: integrate this documentation/planning checkpoint normally, verify156cleanup,
-measure157contact budgets and implement its coherent vertical slice. No source,
-schema, dependency or version changes occur in this checkpoint. Original master,
-unrelated worktrees and locally retained diagnostics remain preserved. One program
-Goal stays active through all eight required children and parent closeout.
+C3 preparation now sets all five sources to0.35.0; dependency pins/schema/head0015
+are unchanged. Remote master4b8ae716 and annotated0.34runtimeab5e5fef verify;
+proposed0.35tag/release were absent at preflight. All50focused final-version archive/
+ordered persistence cases pass. Six new qualification helpers pass scoped architecture
+review after correcting the release-plan path; recipe retains all35baseline commands
+and adds seven new-state reader commands. No complete42-command gate is claimed yet.
 
+C3 candidate1fc5c757c was intentionally stopped during Python after eight completed
+checks when independent UI review measured undersized new controls. Its source maps,
+lossless partial logs and explicitSIGTERM receipt remain retained; no complete gate
+pass is claimed. The [correction](assets/viewer-measurements/c3-ui-correction.json)
+sets ruler/pagers44×44 and contact rows at least44px in either CSS order. Fresh
+lint/types/all1173frontend/build and six actual-App narrow/zoom/contact-pagination
+cases pass with zero exclusions/retries; scoped nonauthor UI reassessment passes.
+Nonauthor scientific implementation independently passes172Python/121frontend and
+1440numerical probes; final current-candidate reconfirmation remains required.
+
+C3 candidate2 also completed eight commands and was intentionally stopped during
+Python for independently reproduced same-turn numerical preview ownership. D-172
+records synchronous retirement, preserving stopped acquisition after Save, and a
+shared typed explanation for the one expanded saved record. Source errors have
+local close/reopen retry, including retained cached-data failures. Focused66cases
+pass. The [recovery correction packet](assets/viewer-measurements/c3-recovery-correction.json)
+retains fresh lint/types/1187frontend/118suites/build and17native passes plus one
+exact existing exclusion, zero retries, child/enclosing0 and920unchanged sources.
+Actual desktop/touch Move→undefined angle→Undo restores value/full native label.
+Independent architecture/UX/UI correction assessments pass. Complete theory review
+identified conflicting atom/active-conformer contact bases; D-173fail-closed
+qualification passes184focusedPython/zero skips, Ruff and productionmypy222.
+Independent theory reassessment passes131cases; fresh nonauthor scientific
+implementation passes205Python/144frontend plus432exhaustive contact comparisons
+and18ambiguous-basis refusal probes. No consequential scientific finding remains.
+The bounded correction retains original failed controls/typing diagnostics. Both intentional partial gates retain diagnostics and are never
+pooled into a complete result.
+
+Candidate3 `742dae0d` passed eight commands; full Python returned2543passes and
+two failures for missing historical aliases of the new API modules. Both source
+maps remain unchanged. Four aliases now follow the existing single-implementation
+compatibility pattern. All eight isolated legacy import-order/source-root/worker
+checks, whole Ruff and configured productionmypy226 pass; raw failed-gate evidence
+is retained in the [correction packet](assets/viewer-measurements/c3-namespace-correction.json).
+
+Scoped architecture reassessment passes the exact alias template, module identity,
+pickle and all eight compatibility checks. Candidate4 `9e914a7c` then passes full
+2545Python/zero skips,1187frontend/118suites,14supervisor and lint/types/build.
+Native stops after77passes/two executed existing exclusions at one assertion of
+retired inspector measurement DOM;500cases did not run. This is a failed gate,
+not a new exclusion set. Both source maps remain unchanged.
+
+Two test-only migrations now use the real inspector bridge and App-owned manager.
+The same computed coordinate distance/history/no-op/reload assertions remain;
+release creation confirms order and named Save, adding exact persisted references.
+Fresh native3passes/one exact existing mobile journey exclusion,930unchanged sources,
+child/enclosing0 and independent UX assessment pass. All failed raw traces/stores
+are retained in seven verified [diagnostic parts](assets/viewer-measurements/c3-legacy-workflow-correction.json);
+only verified raw outputs move into owned ignored evidence.
+
+Candidate5 `33eff055` again passes2545Python/zero skips,1187frontend and14supervisor.
+Native stops after208passes/five executed existing exclusions at a test harness that
+still expected native-resource changes from semantic measurement IDs;366cases did
+not run. Actual installed text/shape/glyph inspection now replaces that obsolete
+oracle. All four old assertions remain, with four stronger text/glyph checks. Fresh
+lint/types/1187frontend/build/four actual native cases pass; independent performance
+assessment and broader oracle audit pass. No renderer/algorithm change.
+
+D-174 keeps the primary qualification ZIP self-contained for both complete passing
+gates and their readers/logs/source proofs. Large failure forensics become additional
+release assets indexed by immutable SHA/counts/provenance. Local and independent
+architecture verification pass all25parts/46380files/4310548153rawbytes, exact inventory
+unions and recursive CRCs; no data is discarded. The tracked typed verifier passes
+Ruff/mypy and corruption controls; it adds one qualifying tools/source (next931).
+Actual anonymous verification of every part remains mandatory after publication.
+
+Candidate6 `9cdccd67` completed the same Python/frontend/supervisor checks, then
+stopped after299native passes: the mobile incomplete-aromatic-draft test projected
+an oxygen below a toolbar button while retaining its tightly zoomed editing camera.
+There were23executed existing exclusions and257unexecuted cases, not280 accepted
+exclusions. Wrapper exit1;931current/885preceding source maps remain unchanged.
+The test now explicitly fits the fixture and checks DOM clearance before the same
+trusted click and exact oxygen-selection assertion. [Focused validation](assets/viewer-measurements/c3-mobile-framing-correction.json)
+passes lint/types and all12native cases across both profiles, zero exclusions/retries,
+931unchanged sources, child/enclosing0. Independent UX assessment passes the exact
+correction, full source/log identities and actual mobile O3 screenshot. The additional
+D-174part preserves all1126new raw files; local verification passes all26parts and
+exact unions, with47506files/4624058988raw bytes retained. Old25payloads are unchanged.
+Independent architecture passes the extension/currentindex/parts/source/log proofs;
+no full gate pass.
+
+## Current blockers and next action
+
+No external blocker. The clean candidate7 `df1ed1bb` now passes all42fresh sequential
+commands:2545Python/zero skips,1187frontend/118suites,14supervisor and505native passes
+across580cases/80files,75exact preceding exclusion identities unchanged, zero failures,
+flakes,retries or new exclusions. All931current/885actual0.34source identities and
+lossless log hashes verify. Actual rich/connectivity/ordered-measurement readers pass
+both directions and archive suffixes;15editing projects/24transitions and full history
+stores remain retained. [Independent summary](assets/viewer-measurements/c3-candidate7-summary.json)
+and [packaging](assets/viewer-measurements/c3-candidate7-packaging.json) pass, with each
+child and the enclosing runner exiting0. Two verified ZIPs preserve670native-browser,
+seven scientific-native and540reader-workspace files; raw originals remain retained.
+
+All seven complete-feature code reassessments pass for `df1ed1bb`, including126fresh
+architecture tests and eight independent namespace/bootstrap tests. Prior unchanged
+scientific/UI/UX/performance evidence remains explicitly scoped. Final evidence-commit
+reconfirmation remains required before application push; no157PR/merge/release/closeout.
+The future exact-master42recipe is prepared in this candidate so merged qualification
+can start clean. Next: final all-seven same-candidate confirmation, normal protected
+PR/merge, fresh exact-merged42, annotated0.35release and primary/26forensic-asset
+anonymous verification, then explicit child closeout/owned cleanup. Parent Goal stays
+active for158–163 and final integration/closeout. Schema/dependencies remain unchanged.
+
+
+## Historical progress
 
 ### Previous completed milestone — issue #152
 
@@ -3422,12 +3548,12 @@ Results:
   receptor/ligand preparation, pose scoring, and scientific ranking remain
   outside v0.1 core and require a separately installed allowlisted plugin.
 
-## Blockers
+### Historical blockers — issue #152
 
 None for released issue #152. Terminal documentation integration and owned-cleanup
 readback are tracked in its [final issue reply](https://github.com/ManuelSe/Neistra/issues/152#issuecomment-6905989092); preserve other sessions.
 
-## Next action
+### Historical next action — issue #152
 
 Use the final #152 reply for terminal integration/cleanup readback. New application
 work requires its own scoped issue/contract; deferred work remains separate.

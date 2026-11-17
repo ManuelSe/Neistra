@@ -301,3 +301,492 @@ while exact external GUI defaults/correction/Save semantics were not established
 Selection-preserving drafts are an original application adaptation. All identifying
 reference research remains outside repository artifacts. No planning verdict is
 final implementation approval or a claim that157already works.
+
+### C1a — Bounded contact read and current saved geometry checkpoint
+
+Implemented the accepted pure streamed core, strict immutable transport, typed
+incremental child producer and ephemeral API coordinator, optional expected-source/
+AbortSignal client contract, shared immutable geometry index and saved native
+geometry qualification. Captures use minimal short-lived SQL sessions; cleanup
+owns threads, process and staging through repeated cancellation/shutdown. Errors
+remain typed whole-operation outcomes. Failed cached queries, missing-coordinate
+source facts and previews suppress native measurement drawings; durable records
+remain available for recovery. The legacy readout uses the same current-source
+qualification. No dependency, migration, durable schema or version change.
+
+D-168 records measured limits and the opaque verified-response boundary. The
+[performance packet](../assets/viewer-measurements/c1-contact-performance.json)
+retains117primitive runs and both twelve-operation API matrices; the first matrix's
+memory baseline confound is disclosed. Theory and performance independently PASS
+the narrow policy; architecture PASSes transport/ownership after its stale-cache P2
+finding was corrected and independently checked. These are intermediate assessments.
+The scientific implementation agent authored core/tests and cannot be the independent
+final scientific implementation reviewer for this feature.
+
+[Focused checkpoint evidence](../assets/viewer-measurements/c1-contact-checkpoint.json):
+274Python/zero skips, all1,040frontend tests in110suites, repository Ruff, mypy222
+source files, web lint/types/build and one retained desktop native workflow with
+zero retries. Source maps remain unchanged during each focused run. Existing edit
+execution/attempt regressions and viewer-state integration are included. Expanded
+27contact lifecycle cases include actual owned-thread cancellation, opened-file read
+settlement, repeated cancellation, shutdown/disconnect callback, invalid IPC/output,
+start failure, fail-closed cleanup and corrupt metadata/source refusal. A socket
+transport disconnect is not claimed by the callback test. Full final gate remains.
+
+Diagnostics and stopped checks remain distinguished from passing evidence. Fresh
+web3 corrected new-test async-act lint errors after web2 stopped; earlier fixture/
+harness mistakes were corrected without production deadline/skip/retry changes.
+The deliberately ordered draft, verified native lease, explicit Promise Save,
+bounded manager and current-result contact UI remain the next coherent slice.
+No157application push/PR/release/closeout or final implementation approval yet.
+
+### C1b — Deliberate draft, native acquisition and compact management checkpoint
+
+Implemented D-169: application-owned numbered draft and explicit selection order,
+source-qualified native singleton lease and nonpickable numbered markers, exact
+kind-aware information-strip basis independent of hover, scoped Promise Save,
+compact picking/review, bounded chooser/saved manager, and explicit current-source
+contact disclosure. The legacy inspector now bridges to this tool while retaining
+its remaining advanced/scientific workflows. Original files, canonical selection,
+ordinary picking mode and camera ownership remain intact.
+
+The [checkpoint packet](../assets/viewer-measurements/c1b-measurement-checkpoint.json)
+preserves116lossless evidence files, including stopped/failed diagnostic runs.
+Fresh web3 passes lint/types/all1,134tests in116suites/build,313source identities
+unchanged. Native4 passes five actual browser workflows: distance/angle/torsion
+management plus trusted acquisition in both themes using mouse and real touch.
+One exact pre-existing mobile inspector exclusion remains; no new exclusions,
+flakes or retries. All316native source identities remain unchanged. The completed
+Playwright child exits0; the enclosing tool reports143 after that receipt, cause
+unestablished. A separate independent verifier exits0 after checking raw logs,
+source maps and passed last-run metadata. No enclosing0 is claimed.
+
+No Python source changed after the C1a274-pass/zero-skip checkpoint; its unaffected
+focused evidence is reused. Native lease author checks include55scoped cases;
+controlled tool checks include20cases and eight isolated presentation browser
+cases with actual200% zoom. These are distinguished from integrated native tests.
+Architecture and UX independently pass their scoped correction cycle. Scientific
+implementation and UI authors require fresh nonauthor final reviewers.
+
+The [twelve-context native baseline](../assets/viewer-measurements/c2-native-label-baseline.json)
+shows100saved1STP labels take11.59/11.70s baseline/candidate median initial install
+and4.10/4.23s one-name update. Endpoint mapping is only8.8/9.5ms. Per-label text
+atlases/renderable resources and representation rebuilding warrant C2 correction;
+this is inherited behavior, not evidence for an ID-index optimization. All names,
+geometry, selection, camera and source-retirement controls passed. Reported GPU
+process RSS is neither VRAM nor operation peak/leak proof. No optimization is yet
+implemented. Versions stay0.34.0; dependencies/schema/migrations unchanged.
+
+Next: persist the reviewed grouped-native-geometry/shared-label design, implement
+and measure it, then complete C2 held-operation/preview/history/archive qualification.
+C3 versions/actual0.34readers, both full35-command gates and final all-seven same-
+candidate review remain required before application push and normal release.
+
+### C2 refinement before implementation — native rendering resources
+
+D-170 records the bounded response to the measured100-label bottleneck. Implement
+one typed public-native geometry/label adapter, with up to three geometry batches
+and one complete full-text layer, explicit current-source lifecycle ownership and
+finite display anchors. The scientific method, durable data and all formatted
+names/values remain unchanged. Angle labels use vertexB and torsion labels the
+central-bond midpoint; qualify these presentation positions rather than claim
+pixel parity. Architecture and theory independently support the proposed contract;
+no implementation or speedup is yet claimed. Retain every baseline/failed run.
+
+Before calling C2 complete, require independent before/after native measurements
+with exact identity/full-text/analytic/selection/camera/original-source controls,
+held lifecycle failure cases, constant resource counts, no-op and repeated cycles.
+No new caps, reduced quality, omitted valid records, dependencies or schema changes.
+Then complete current contact/preview/held Save/history/reload/both-suffix reader
+acceptance. Full versions/gates and final seven-role review remain C3/C4 work.
+
+### C2 evidence in progress — native batching and recovery
+
+D-170 implementation passes104focused adapter/Engine/regression cases and the
+complete frontend lint/types/1,173tests in118suites/build. Fresh native2 executes
+all14focused cases:13passes plus one exact existing mobile inspector exclusion,
+zero automatic retries/new exclusions. It includes both-theme mouse/touch picks,
+hidden/locked cross-entry chooser, failure/retry, held Save close/reopen, Undo/Redo,
+reload and original-byte invariance. Both actual child and enclosing runner exit0.
+The first focused native run stopped during unexpected document navigation; Vite
+reconnect was observed, cause unestablished. Its raw trace/log remain separate.
+
+D-171 closes three independently reproduced late-feedback leaks. Scoped architecture
+assessment passes31affected cases; root focused39frontend cases and29API/persistence/
+physical-disconnect cases pass. The latter includes27retained contact lifecycle
+controls, one actual loopback TCP disconnect and one ordered persistence case.
+The actual tagged0.34source extraction verifies885identities. Its seven-command
+new-state preflight passes both producer/reader directions, both archive suffixes,
+full names/visibility/ordered targets and live Undo/Redo;403current Python identities
+remain unchanged. A subsequent test-only TCP addition has its own404-source map.
+This is development-version evidence; final0.35compatibility remains mandatory.
+
+Independent native after measurements retain every full label, ordered actual loci
+and copied anchor at10/100/1000records with at most three geometry representations
+and one text representation. Theory accepts the observed0/180degree native sector
+warnings as a disclosed presentation limitation: numerical values and labels remain
+valid, and the raw warnings stay retained. Finite position/center attribute checks
+are not a claim about every GPU attribute. Full performance receipt/packaging and
+full-App320px/actual browser zoom/focus checks are being finalized before C2 commit.
+
+### C3 gate extension for newly authored measurement state
+
+Keep all35baseline release-gate commands and append the seven source-bound ordered
+measurement producer/reader commands (two directions, fresh migrations, final0.35
+versus actual tagged0.34). Both candidate and exact merged master therefore execute
+42fresh sequential commands. The extension adds the required new-state evidence;
+no existing check is removed, pooled from a partial gate, skipped, retried or given
+a weaker deadline. Extend independent log/source/module/suffix/content audit and
+recursive release packaging to cover the new family. Final all-seven assessments
+must cover the same final candidate, with fresh nonauthor scientific implementation
+and UI reviewers. Version, protection, publication and parent boundaries stand.
+
+### C2 — Qualified native resources and recovery checkpoint
+
+The [complete focused packet](../assets/viewer-measurements/c2-measurement-checkpoint.json)
+retains124files with member hashes/ZIP CRCs:1173frontend/118suites and web lint/types/
+build pass;13native workflows plus four additional actual320px/100–200%browser-zoom
+cases pass with keyboard focus/Escape recovery, real native picks, zero axe
+violations and unchanged canonical selection/project state. One exact existing
+mobile inspector exclusion remains; no new exclusions/retries. Both final focused
+native child/enclosing exits0. Common918sources remain exact; only the new physical
+TCP and accessibility test files extend the final map to920, with their own passing
+checks.29API/persistence cases and the seven-command development reader preflight
+pass. Original stopped runs, traces and precise test-harness corrections remain
+separate; no partial focused evidence is described as a complete release gate.
+
+The [after performance packet](../assets/viewer-measurements/c2-native-label-performance.json)
+retains702files, all hashes/CRCs verified. Twelve actual native contexts preserve
+full IDs/ordered loci/text/glyph anchors across10/100/1000records, using three
+geometry representations and one text representation. All256observed saved handles
+are destroyed/detached and staged owners settle to0. Protein100median install is
+0.9176s and rename0.5358s versus11.591s/4.103sbaseline, separate shared-host runs.
+No-op work remains0. The1000case is functional capacity evidence, not repeated
+scaling evidence; lower timing cannot imply inverse scaling. Sampled process RSS
+is not instantaneous GPU VRAM. Four native degenerate-plane warnings stay retained
+with theory's accepted arc/sector limitation and precise checked-attribute scope.
+
+All318frozen/live performance source identities verify. Main measurement runner0;
+its owned Vite receives intentionalSIGTERM143 only after completion, with all16
+observed browser PIDs gone and owned ports free. This is distinct from earlier
+unexplained enclosing143 diagnostics. User workflow/API/architecture/scientific
+limits are documented. D-171 records typed acknowledgement/recovery corrections.
+Scoped architecture, theory and performance PASS their respective assessments;
+scientific implementation authoring is not an independent review. All-seven final
+feature assessment remains C4, with fresh nonauthor scientific/UI reviewers.
+
+C2 is a local passing checkpoint; all five versions remain0.34.0. No schema,
+migration or dependency change. Next C3: version preparation, actual final-version
+preceding-reader evidence, all42fresh gate commands; then same-candidate final
+specialist review, normal protected delivery and exact merged qualification.
+
+### C3 preparation — final version and complete qualification recipe
+
+[Preparation receipt](../assets/viewer-measurements/c3-preparation.json): all five
+authoritative versions0.35.0, unchanged dependency pins/head0015/schema2; actual
+remote0.34annotated object7aacc228→ab5e5fef and master4b8ae716 verify. Proposed0.35
+release/tag were absent at this preflight; publication must recheck collisions.
+Fifty focused final-version archive/ordered persistence cases pass. The archive
+version fixture now covers actual preceding0.34as well as existing supported versions.
+
+All six source-bound qualification helpers are adapted to the actual0.34predecessor
+and new output family. The42-command recipe preserves all35baseline labels in order,
+adds seven ordered-measurement phases and extends independent provenance/content/
+negative-control/suffix auditing. Exact existing75exclusions come from the verified
+0.34C5report at terminal master4b8ae716. Both old/new helper families enter the source
+inventory:926current/885preceding sources. Recursive packaging now retains all six
+rich/connectivity/measurement stores as well as the existing complete editing
+workspace. Owned child session isolation records actual exits without changing
+checks/deadlines/retries. Scoped architecture review passes after the copied feature-
+plan path was corrected and independently probed. Original helpers remain unchanged.
+
+This is preparation only. Commit the candidate cleanly, then run all42fresh commands,
+independent summary and complete recursive packaging. Final all-seven current-candidate
+review, protected delivery, exact-merged qualification and publication remain pending.
+
+### C3 corrective checkpoint — explicit44px controls before complete-gate restart
+
+Candidate1fc5c757c completed eight commands, then the primary intentionally stopped
+its isolated Python command group withSIGTERM after independent UI measurements
+found the new ruler28×26 and contact pagers37×44 below the approved44px target
+contract. Contact rows also depended on stylesheet order (29/44px). Partial source/
+log receipts remain truthful, Python/wrapper exit143 has this explicit cause, and
+no partial check is pooled into a completed gate. No owned run-environment process
+remained after stop. Original recipe, logs and owned run data are retained in the
+[correction packet](../assets/viewer-measurements/c3-ui-correction.json).
+
+The primary applied a Measurements-specific44px launcher modifier, shared44px pager
+icon class and stronger scoped result-row min-height. No inherited unrelated toolbar
+control or scientific method changes. Independent probes verify both stylesheet
+orders;33component/workspace checks pass. Fresh whole web lint/types/1173tests in
+118suites/build pass, then six actual-App native cases verify ruler/pager/row targets,
+real1STPcontact pagination, native picking and keyboard recovery at320px, both themes,
+desktop/touch and actual100/200%browser zoom. No exclusions/retries; child/enclosing0,
+all920focused source identities unchanged. The additional six release helpers retain
+their separate audited hashes; the full-gate inventory is926.
+
+Fresh nonauthor scientific implementation review independently passes172Python,
+121frontend and1440exhaustive numerical queries, verifies702native packet members,
+and finds no consequential method/transport/native defect. Its minor API wording
+finding is corrected: contact order is distance first, then canonical-ID tie-break.
+Scoped UI review now PASSes the corrected actual-App evidence. Both roles explicitly
+require final candidate/full42reconfirmation; no all-seven final approval yet.
+
+Commit the coherent correction and new candidate2recipe cleanly, then execute all42
+commands afresh with unchanged deadlines/retries/exclusions, independent summary and
+complete packaging. Candidate1remains intentionally interrupted historical evidence.
+
+
+### C3 second corrective checkpoint — preview ownership and saved recovery
+
+Candidate2 `62736324` completed eight commands before the primary intentionally
+stopped its isolated Python group for a reproduced same-turn numerical preview
+retirement defect. Python and wrapper143 have that explicit cause; partial source
+maps/logs remain retained and no completed gate is claimed. D-172 records the
+synchronous App preview guard, preserved stopped acquisition after Save, and one
+expanded typed shared geometry result with source-specific explanations.
+
+The local measurement-query error lifetime permits actual close/reopen retry even
+when failed refetch retained complete cached data. Successful source caching and
+four draft plus four expanded observer limits remain unchanged. Focused66tests
+pass, covering actual App Save/contact ownership, stopped acquisition, unavailable
+geometry/committed-source restoration, preview precedence, missing targets, and
+both fresh/cached error recovery. Fresh complete frontend/native verification and
+independent correction assessments are in progress; no final approval claim.
+
+Retain both stopped runs, generate a fresh candidate3recipe only after consequential
+findings are resolved, and run all42commands from step1. Then independent complete
+packaging and all-seven same-candidate approval precede push, normal protected merge,
+exact-master fresh42 and verified0.35publication/child closeout. Parent Goal stays
+active through all eight required children and integrated parent closeout.
+
+
+[Recovery correction packet](../assets/viewer-measurements/c3-recovery-correction.json)
+retains61files, ZIP1,312,127bytes/SHA256
+`76d352d4b57e421e5572268e9989fe191931908a34943092b7bbdba5815108d5`.
+Fresh lint/types/1187frontend/118suites/build and17native passes/one exact existing
+mobile exclusion pass, zero retries, child/enclosing0,920source identities unchanged.
+Actual desktop/touch Move→undefined angle→Undo restores shared value and full native
+label without changing original bytes. Independent architecture/UX/UI correction
+assessments pass; complete performance review passes with stated measured limits.
+These are pre-gate assessments, not final same-candidate approval.
+
+Complete scientific-theory assessment identified one further P2: an otherwise valid
+normalized payload may disagree between atom and active-conformer coordinates.
+D-173 records the accepted smallest fail-closed contact qualification before code.
+A bounded scientific implementation assignment owns core qualification and scientific/
+API422/no-mutation controls. Independent theory/scientific implementation/performance
+reassessment and full42qualification must follow. No global schema normalization,
+coordinate rewrite, tolerance or new chemistry is authorized by this correction.
+
+
+D-173 [author correction evidence](../assets/viewer-measurements/c3-contact-basis-correction.json)
+passes184focusedPython/zero skips, Ruff and authoritative productionmypy222; all
+10archivedpayloads/hashes/CRCs verify. Initial red control, formatting errors and
+non-authoritative broad-test typing diagnostics remain retained. Post-test changes
+are documented line wrapping and equivalent float-literal fixture spelling.
+Independent theory reassessment passes131cases and resolves its sole P2; overview
+wording now distinguishes atom coordinates from the additional active-frame guard.
+Fresh nonauthor [scientific implementation assessment](../assets/viewer-measurements/c3-independent-science.json)
+passes205Python/144frontend plus432exhaustive contact queries/8408distances,
+17adjacent-float cases and18accepted-schema basis refusals. Source identities and
+702native evidence payloads verify. No consequential scientific finding remains.
+
+The fresh candidate3recipe contains42commands, preserving every baseline check and
+all seven additional ordered-reader steps. Commit it with this passing corrective
+checkpoint before qualification. Allseven final same-candidate reconfirmations,
+independent full-gate audit/packaging and later exact-master fresh42 remain pending.
+
+
+### C3 namespace correction after the first completed Python gate
+
+Candidate3 `742dae0d` completed all Python cases:2543passed/two failed/zero skips,
+with the two existing import-order tests exposing missing historical aliases for
+new API leaves. The eight preceding gate commands passed, both926current/885old
+source maps remained unchanged, and Python/wrapper exited1. No complete gate pass.
+
+Four small aliases for contact service, execution data/worker and shared async work
+now use the existing importlib/sys.modules identity pattern; there is no second
+implementation/state owner. All eight isolated historical import-order/source-root/
+worker-bootstrap/CLI checks pass, whole-repository Ruff and configured production
+mypy226 pass. [Evidence](../assets/viewer-measurements/c3-namespace-correction.json)
+retains the complete failed log, wrapper receipt and owned run data with CRCs and
+member hashes. Independent architecture reassessment passes all eight compatibility
+checks plus exact-template/module-identity/pickle probes; no consequential finding
+and no science or application workflow changes. The source inventory becomes930 with these aliases.
+
+Generate and commit fresh candidate4recipe, then run all42commands from step1.
+Earlier partial checks are never pooled. Final all-seven same-candidate assessment,
+normal protected delivery, exact-master fresh42 and verified release remain pending.
+
+
+### C3 existing workflow tests follow the relocated measurement tool
+
+Candidate4 `9e914a7c` passes full2545Python/zero skips,1187frontend/118suites,
+14supervisor and lint/types/build. The browser command stops at one old inspector
+DOM assertion after77passes/two executed existing exclusions;500cases never ran.
+Its report's502skipped includes those unexecuted cases, not502accepted exclusions.
+All930current/885preceding identities remain unchanged; wrapper exits1, no full pass.
+
+The trace confirms the approved inspector bridge is present. Only two E2Efiles
+change: movement reads the real Saved summary using the same distance recomputed
+from reloaded canonical coordinates; the full release journey imports selection,
+confirms angle/torsion order, names/Saves once, verifies exact persisted targets,
+then closes the tool. Every surrounding prior assertion, timeout, retry and mobile
+exclusion remains unchanged. Independent UX compares the exact5271-byte diff and
+PASSes semantic equivalence. Fresh native3passes/one exact existing exclusion cover
+both-profile movement and the entire desktop release journey, child/enclosing0,
+all930source identities unchanged. No production change.
+
+[Diagnostic packet](../assets/viewer-measurements/c3-legacy-workflow-correction.json)
+retains12011files/999269415rawbytes in seven sub80MiBparts, all recursive CRCs and
+manifests verified. This includes every failed ephemeral recording/resource, focused
+correction, lossless log, trace and owned run store. A separate verified compaction
+receipt records11827raw native files relocated to owned ignored evidence after
+matching every byte count/hash against the archive; nothing is deleted.
+
+Commit the coherent correction and fresh candidate5recipe, then execute all42
+commands from step1 without borrowing partial checks. Final all-seven same-candidate
+assessment and normal protected delivery/exact-master fresh42/release remain pending.
+
+
+### C3 actual native annotation oracle and bounded forensic publication
+
+Candidate5 `33eff055` passes full2545Python/zero skips,1187frontend/118suites,
+14supervisor and lint/types/build. Native stops after208passes/five executed old
+exclusions at one stale harness assertion;366cases did not run. The report's371
+skipped includes unexecuted cases. Both930current/885preceding maps remain unchanged,
+wrapper1; no complete42pass. Earlier corrected movement and full release journeys
+pass in this actual run.
+
+The surface harness still treated semantic measurement IDs as replaceable native
+resource references. Only the test harness and its native test change: inspect
+actual installed text shapes, full LabelData and per-record visible glyph groups;
+use genuine shape identity for no-op comparison. All four old assertions remain,
+with four additional full-label/glyph assertions. No renderer or algorithm change.
+Fresh wholeweb lint/types/1187tests/118suites/build and four actual native fixture/
+profile cases pass, zero skips/retries,930unchanged sources, child/enclosing0.
+Independent performance assessment passes this exact correction and a broader audit
+of remaining renderer oracles; no further stale assumption is found.
+
+D-174 records the independently assessed packaging refinement before publication.
+All failed raw data stays retained: indexed sub80MiB forensic parts become additional
+release assets, each locally and anonymously verified before child closeout. The
+primary ZIP remains self-contained for both passing complete gates and their reader/
+log/source evidence, while including the forensic index and canonical inventories.
+No evidence is discarded, no failure becomes a qualification pass, and no private
+staging path substitutes for verified public availability. Exact union/byte/hash/
+recursive-CRC verification, collision-safe resume and a separate publication receipt
+are required. No application schema/version/dependency change.
+
+Complete and independently assess the actual index/parts, commit the passing test
+correction/evidence and a fresh candidate6recipe, then run all42commands from step1.
+Final all-seven same-candidate review, normal protected merge, exact-master fresh42,
+primary and forensic asset verification, child closeout and parent program remain.
+
+
+D-174 actual local [verification packet](../assets/viewer-measurements/c3-forensics-verification.json)
+passes all25parts and exact disjoint inventories:46380files/4310548153rawbytes,
+1985948944part bytes, each finalized archive below80MiB. Existing C4parts move with
+unchanged bytes/hashes under `forensics/`; eighteen C5parts remain in owned private
+staging for their additional release assets. Every raw source remains retained.
+Independent architecture verifies actual index/tool/parts, both failed source maps,
+recipes/all32lossless logs and main-helper selection; its ten negative controls
+reject corruptions with no network. The primary author runs nine controls and full
+local25part verification. Simulated remote metadata is explicitly not a public
+availability claim.
+
+The typed tracked `tools/verify_measurement_forensics.py` passes Ruff/mypy and records
+its own and qualified-helper provenance. Existing source selection automatically
+includes this tool, so fresh candidate/exact-master inventories become931; no gate
+helper or command is removed/changed. The preceding tagged source remains885.
+The primary release bundle must include this exact tool (existing supplemental
+argument), index and canonical inventories, and exclude the separate forensic payload
+parts. Actual anonymous-mode verification of all public parts is a later mandatory
+publication gate; the local receipt cannot replace it. All final specialist verdicts
+and source/gate verification remain pending before push.
+
+
+### C3 explicit framing for the incomplete aromatic draft fixture
+
+Candidate6 `9cdccd67` stops normally with wrapper1 after15commands pass and the
+browser step fails. Full2545Python/zero skips,1187frontend/118suites,14supervisor
+and lint/types/build pass; native299pass,one failure,23executed existing exclusions
+and257did not run. Reported280skipped includes those unexecuted cases. Both931current
+and885preceding source maps remain unchanged. No complete42gate or pooled pass.
+
+The mobile aromatic-draft test retains a tightly zoomed editing camera and projects
+its oxygen beneath the Minimize selection button. The actual trace identifies that
+DOM interception. Explicit existing Fit all visible before observation restores
+fixture framing; a new DOM hit check requires the projected pixel to reach the
+canvas before the original trusted click and exact atom-event assertion. Original
+molecular, bond, identity and selection assertions,120sdeadline,retries and exclusion
+policy remain unchanged. Independent UX diagnosis supports this bounded test-only
+correction; broader performance test audit finds no second confirmed occlusion.
+[Focused validation](../assets/viewer-measurements/c3-mobile-framing-correction.json)
+passes lint/types and12native cases across both profiles, zero exclusions/retries,
+931unchanged sources and child/enclosing0. The six-file51131-byte packet verifies
+SHAce86dd9dcb4d95db66dc718d682d475ef4ab1086e8bcf296dd42ee4be61eb66c.
+Independent UX passes the exact diff, all source/log identities and actual mobile
+O3 screenshot. The D-174 extension preserves all1126candidate6/focused/operational files and
+313510835raw bytes in one additional79271427-byte part. The old25part bytes and
+two existing run rows remain unchanged. All26parts/47506files/4624058988raw bytes
+verify locally with actual exit0, including recursive CRCs and exact disjoint unions.
+Explicit included scopes distinguish failed931-source qualification from subsequent
+passing931-source focused correction. The current index is
+`3d9348bd94d6d863f6039b64a3dc0ab6bd7c2f4a6ea778db8352865d91fd7c4a`;
+[verification2](../assets/viewer-measurements/c3-mobile-forensics-verification2.json)
+binds it. Actual anonymous verification remains mandatory after publication.
+Independent architecture assessment passes the actual new part, old identities,
+source/recipe/all16logs, scoped digests, current26part receipt and package selection.
+No consequential finding remains in this bounded correction/evidence scope.
+Fresh all42candidate7 and final all-seven review remain mandatory before push.
+
+
+### C3 complete qualified candidate7 and final evidence preparation
+
+Clean candidate `df1ed1bb4ee5ad2430933b203be60f185b2bd48c` completes all42fresh sequential
+commands, preserving all35predecessor checks plus seven ordered-measurement phases.
+[Independent summary](../assets/viewer-measurements/c3-candidate7-summary.json):2545Python,
+zero skips;1187frontend/118suites;14supervisor;505native passes across580cases/80files.
+All75preceding exclusion identities match actual0.34evidence; zero failures,flakes,
+retries or new exclusions. All931current/885actual-tagged source identities and every
+lossless-log hash verify. Versions agree at0.35.0, migration head0015/schema2 unchanged.
+Portable correctness remains distinct from strict reference-host performance.
+
+Actual0.35/0.34producers/readers verify rich, connectivity and ordered-measurement
+state in both directions and both archive suffixes. Ordered cross-entry references,
+full names, visibility and originals retain their accepted semantics. Fifteen editing
+projects/24transitions pass actual old-writer retention/reexport and current re-read;
+complete live stores/history/artifacts remain available. No partial failed-run checks
+are borrowed. Earlier failures and their distinct diagnostics remain preserved.
+
+[Recursive packaging](../assets/viewer-measurements/c3-candidate7-packaging.json)
+verifies two ZIPs:83419843bytes/SHA775363c48da21a923e64916a77641d7ac3502bbde9169f8b2d225a0a7ab13d4f,
+and274191bytes/SHAe55b5d28f6f468910d259e3da2da9eaf3588fa8c714c9c8ef1c862534555d586.
+They retain670browser-native files,seven scientific-native files,540reader-workspace
+files and all gate/log/source/reader evidence, with371recursive ZIPs/1297manifest
+entries/875project files verified. Raw native files move into owned ignored evidence
+only after exact disjoint ZIP-manifest equality for every byte/hash; originals and
+all owned reader stores remain retained. Qualification, independent summary, packaging
+and enclosing runner each exit0; [execution packet](../assets/viewer-measurements/c3-candidate7-execution.json)
+binds the actual receipts and complete changed-file review inventory.
+
+All seven complete-feature CODE reassessments pass for `df1ed1bb` against actual
+master4b8ae716, including new files and all intervening corrections. Architecture
+independently passes126tests across9suites and verifies236changed identities plus
+931current/885preceding source hashes; scientific implementation passes eight fresh
+namespace/bootstrap tests and module/pickle identity controls. Unchanged scientific,
+UI, UX and measured-performance evidence retains explicit prior scope. These are
+specialist agent assessments, not human approvals. The final evidence-commit candidate
+still needs explicit all-seven reconfirmation before application push.
+
+The exact-master `c5-master1-recipe.json` is generated before this final evidence
+commit, preserving42commands and the actual0.34reader identity. After ordinary
+protected merge, qualify its actual merged commit fresh; do not tag before success.
+The primary release ZIP remains self-contained for both complete gates/readers/logs.
+Include C1b JSON/ZIP and the tracked forensic verifier through explicit supplemental
+arguments. Include current3d9348forensic index/inventories, exclude all26raw forensic
+payload parts from the primary ZIP, then publish/verify every indexed part separately.
+Actual anonymous verification and server readback are mandatory before child reply/
+closure. No157application push, PR, release or closeout is claimed at this checkpoint.

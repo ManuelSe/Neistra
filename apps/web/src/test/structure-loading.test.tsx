@@ -25,6 +25,7 @@ import type {
   MolecularViewer,
   ViewerStructure,
   ViewerAtomHover,
+  ViewerMeasurement,
 } from "../viewer/MolecularViewer";
 import { componentHierarchy, viewerSettings } from "./molecular-fixtures";
 import type { SessionCamera } from "../workspacePresentation/types";
@@ -255,7 +256,9 @@ class FakeViewer implements MolecularViewer {
     this.granularities.push(granularity);
   }
 
-  setMeasurements(): Promise<void> {
+  measurements: ViewerMeasurement[][] = [];
+  setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
+    this.measurements.push(measurements);
     return Promise.resolve();
   }
 
@@ -1676,4 +1679,41 @@ it.each(["current", "selection", "artifact", "project epoch"] as const)("uses co
   else expect(send).not.toHaveBeenCalled();
   expect(toggle).toHaveFocus();
   view.unmount(); queryClient.clear(); useSelectionStore.getState().setProject(null); useEditingStore.getState().setProject(null);
+});
+
+it("retires actual saved measurement drawings on failed cached rechecks and recovers without removing records", async () => {
+  const current = project(), source = projection("protein"), fake = new FakeViewer(), createViewer = () => fake;
+  source.structure.atoms[0] = { ...source.structure.atoms[0], coordinates: [0, 0, 0] };
+  source.structure.atoms[1] = { ...source.structure.atoms[0], id: 2, source_index: 1, coordinates: [0, 0, 3] };
+  source.structure.atoms[2] = { ...source.structure.atoms[0], id: 3, source_index: 2, coordinates: [0, 1, 0] };
+  source.hierarchy = componentHierarchy(source.structure);
+  current.measurements = [{ id: "distance", name: "Retained distance", kind: "distance", visible: true,
+    warnings: [], created_at: current.created_at, modified_at: current.modified_at,
+    atom_references: [1, 2].map(atom_id => ({ structure_id: "protein", atom_id })) }];
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const key = structureQueryKey(current.id, "protein", "current-protein");
+  client.setQueryData(key, source);
+  const fetch = vi.spyOn(globalThis, "fetch").mockRejectedValue(new Error("Recheck unavailable"));
+  const props: StructureViewerProps = { project: current, theme: "light", selection: emptySelection,
+    pickingGranularity: "atom", onViewerSelection: vi.fn(), createViewer };
+  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(client) });
+  await waitFor(() => expect(fake.measurements.at(-1)).toMatchObject([{ id: "distance", label: "Retained distance: 3.00 Å" }]));
+  expect(fetch).not.toHaveBeenCalled();
+  await act(async () => { await client.refetchQueries({ queryKey: key, exact: true }); });
+  expect(client.getQueryState(key)?.status).toBe("error");
+  expect(client.getQueryData(key)).toBe(source);
+  await waitFor(() => expect(fake.measurements.at(-1)).toEqual([]));
+  expect(current.measurements).toHaveLength(1);
+  act(() => { client.setQueryData(key, { ...source }); });
+  await waitFor(() => expect(fake.measurements.at(-1)).toHaveLength(1));
+  view.rerender(<StructureViewer {...props} coordinatePreview={{ entry_id: "protein", artifact_id: "current-protein",
+    atom_ids: [1], coordinates: [[10, 0, 0]] }} />);
+  await waitFor(() => expect(fake.measurements.at(-1)).toEqual([]));
+  view.rerender(<StructureViewer {...props} />);
+  await waitFor(() => expect(fake.measurements.at(-1)).toHaveLength(1));
+  const missing = structuredClone(source);
+  Object.assign(missing.structure, { source: { facts: { missing_coordinates: true } } });
+  act(() => { client.setQueryData(key, missing); });
+  await waitFor(() => expect(fake.measurements.at(-1)).toEqual([]));
+  expect(current.measurements[0].atom_references).toEqual([1, 2].map(atom_id => ({ structure_id: "protein", atom_id })));
 });

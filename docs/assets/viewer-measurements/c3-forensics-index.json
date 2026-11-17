@@ -1,0 +1,743 @@
+{
+  "format_version": 1,
+  "scope": "Immutable expected failed-run forensic asset identities; verification does not qualify a failed gate",
+  "repository": "ManuelSe/Neistra",
+  "issue": 157,
+  "parent": 11,
+  "release_version": "0.35.0",
+  "publication_contract": "Primary qualification ZIP+sidecars retain both complete passing gates/readers/logs/source proofs. These additional forensic assets must all be locally and anonymously verified before issue closeout. Laterpublicationreceipt holds actual IDs/URLs/status.",
+  "extraction_policy": "Each run has its own indexed extraction_root. Never merge different runs into one folder; equal focused/ member names in distinct runs are separate evidence. Within each run part manifests must form an exact disjoint union matching its canonical inventory.",
+  "part_max_bytes_exclusive": 83886080,
+  "runs": [
+    {
+      "label": "c3-candidate4",
+      "failed_candidate": "9e914a7c2f8ebdd91ad737921ae96f2589510146",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 930,
+      "source_digest": "78bf0090e8af8806c04999ecd15ab7dc46dfdcdf257a132e144d8d9d4c82a90d",
+      "source_unchanged": true,
+      "preceding_source_count": 885,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/viewer-measurements/c3-candidate4-recipe.json",
+        "sha256": "0cde200ab6c13ba8aeb6b9e5fe81d2f5a1a16b94a0aad8be0794a3bef4177381"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-uv.log.gz",
+          "uncompressed_sha256": "0fa155eff2ab1397ef9d1a88775f451a081a88397a542cdfd97f943dc630050f"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-pnpm.log.gz",
+          "uncompressed_sha256": "fba33735494f855140f52724b22581ad95c096b3a488c9f101de9b78cbd3621b"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-migration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-downgrade.log.gz",
+          "uncompressed_sha256": "9e913deede2e1da2dbfa2180da8f06a1d9de79e621969fa8e04e32d93fab4651"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-remigration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-mypy.log.gz",
+          "uncompressed_sha256": "116aaf30601a7e507610dbc5463ea6bb22c6b68d4dfaa190f7a397a375d85360"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-reader-tool-types.log.gz",
+          "uncompressed_sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-python.log.gz",
+          "uncompressed_sha256": "1329f1b36952a9ce1527327a3456dff14b7a1248c87007169998e42e67d70995"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-lint.log.gz",
+          "uncompressed_sha256": "43c721287c8f4315b65d6d42248a0ebb71784c9422add8adeb6572183e293d19"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-types.log.gz",
+          "uncompressed_sha256": "61b169105a461e400e447bee2094ee2b3897f5dd3feda18c7cab3e28af72e391"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-web.log.gz",
+          "uncompressed_sha256": "e91f99cb035ce436efb643c56634137044155ac8d718273727995b2cd0e683ce"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-supervisor.log.gz",
+          "uncompressed_sha256": "579b89c32a629fb0876333e0b54b9e05fa9fb0b6c7c5ee55c0e69916684bb461"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-build.log.gz",
+          "uncompressed_sha256": "02e3af7b070f69c0f91fc1a84771b1f017c2391765351c93b6d2406b2eaf9464"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-browser-inventory.log.gz",
+          "uncompressed_sha256": "5eb0cc2f3a493b2c04da3c803153e4cf1eb82c57fe7ad22df65101c731689fee"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/viewer-measurements/c3-candidate4-browser.log.gz",
+          "uncompressed_sha256": "02ab75d4b61c690d65b7ec8887a994030bb96fdd16ac556622a2e340ce5c4fdb"
+        }
+      ],
+      "files": 12011,
+      "raw_bytes": 999269415,
+      "extraction_root": "forensics/c3-candidate4",
+      "inventory": {
+        "path": "docs/assets/viewer-measurements/c3-forensics-inventory-c3-candidate4.json.gz",
+        "bytes": 552896,
+        "sha256": "f9b3a5452a59523c61012ec6fc99af87402e8e780351be981d90ea1f9bc11823",
+        "uncompressed_sha256": "214c477a5074fd9d1d84a6dadbeead1ddd7a8625b4def5f5710a944edf467696"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-legacy-workflow-diagnostic-01.zip",
+          "bytes": 83579431,
+          "sha256": "de0237e183cefd7743e2dc120cf81f3a2a49d895f5a0fdb7c049315609b9ed68",
+          "manifest_entries": 2869,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2869,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-01.zip"
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "c3-legacy-workflow-diagnostic-02.zip",
+          "bytes": 83623670,
+          "sha256": "1df9d0774b666bfa8e522889aa054be97eca19249d1ae8312acff96c3934bf40",
+          "manifest_entries": 1972,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1972,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-02.zip"
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "c3-legacy-workflow-diagnostic-03.zip",
+          "bytes": 83654761,
+          "sha256": "f192487cfcc3e1e6639849ed411cc83275d25602c6b8790767ba8412d91b7a4a",
+          "manifest_entries": 1873,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1873,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-03.zip"
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "c3-legacy-workflow-diagnostic-04.zip",
+          "bytes": 83666650,
+          "sha256": "e4fc05044a78aafddddc3eef7cdf469511bac3c71f43f5660f768442f63d362d",
+          "manifest_entries": 1805,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1805,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-04.zip"
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "c3-legacy-workflow-diagnostic-05.zip",
+          "bytes": 83627802,
+          "sha256": "d57e2b72e7e00370d0a4d2db9f831af7444b983d5d99e733bdf70b19ef72f205",
+          "manifest_entries": 1915,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1915,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-05.zip"
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "c3-legacy-workflow-diagnostic-06.zip",
+          "bytes": 82383056,
+          "sha256": "2c0c359268fd0a19f72b7e67a62495eed63ac62579607bf87a7f352751e8b446",
+          "manifest_entries": 1467,
+          "recursive_verification": {
+            "zip_archives": 4,
+            "evidence_manifest_entries": 1467,
+            "project_archive_files": 0
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-06.zip"
+        },
+        {
+          "ordinal": 7,
+          "asset_name": "c3-legacy-workflow-diagnostic-07.zip",
+          "bytes": 4173860,
+          "sha256": "861ce3f2062493dc250d5dab4748d136d75622af3949c9a2658509f4a8369e20",
+          "manifest_entries": 110,
+          "recursive_verification": {
+            "zip_archives": 3,
+            "evidence_manifest_entries": 110,
+            "project_archive_files": 4
+          },
+          "repository_path": "docs/assets/viewer-measurements/forensics/c3-legacy-workflow-diagnostic-07.zip"
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "included_scopes": [
+        {
+          "kind": "failed_complete-gate_attempt",
+          "candidate": "9e914a7c2f8ebdd91ad737921ae96f2589510146",
+          "source_digest": "78bf0090e8af8806c04999ecd15ab7dc46dfdcdf257a132e144d8d9d4c82a90d",
+          "qualification_complete": false
+        },
+        {
+          "kind": "subsequent_focused_correction",
+          "source_count": 930,
+          "source_digest": "d2674c5810a90c9d83525da944c28e6f601d8738a960bf29e61c836e8052677f",
+          "evidence_member": "focused/results.json",
+          "all_focused_step_exits": [
+            0
+          ],
+          "sources_unchanged": true,
+          "not_a_complete_release_gate": true
+        }
+      ]
+    },
+    {
+      "label": "c3-candidate5",
+      "failed_candidate": "33eff05530991a1100db5f8916532f28f09c2b0f",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 930,
+      "source_digest": "d2674c5810a90c9d83525da944c28e6f601d8738a960bf29e61c836e8052677f",
+      "source_unchanged": true,
+      "preceding_source_count": 885,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/viewer-measurements/c3-candidate5-recipe.json",
+        "sha256": "2bc672ae5a871593363b98ccd7caf115899c4b1cc077d489b2f85e6ab4a691c5"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-uv.log.gz",
+          "uncompressed_sha256": "36ab56323dee7252eeb9245cb06dde20eba1ff1a11325659545bc068de84da5c"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-pnpm.log.gz",
+          "uncompressed_sha256": "846aa565f9d17bb8881a534f740024ff0803e45ec766b08aabe16abcf6cdf84e"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-migration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-downgrade.log.gz",
+          "uncompressed_sha256": "9e913deede2e1da2dbfa2180da8f06a1d9de79e621969fa8e04e32d93fab4651"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-remigration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-mypy.log.gz",
+          "uncompressed_sha256": "116aaf30601a7e507610dbc5463ea6bb22c6b68d4dfaa190f7a397a375d85360"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-reader-tool-types.log.gz",
+          "uncompressed_sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-python.log.gz",
+          "uncompressed_sha256": "c43e15360e34772a7d55d43ef3aa5e68ab9d9b82dcd9ae5551bd5f9e2ac0c30c"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-lint.log.gz",
+          "uncompressed_sha256": "43c721287c8f4315b65d6d42248a0ebb71784c9422add8adeb6572183e293d19"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-types.log.gz",
+          "uncompressed_sha256": "61b169105a461e400e447bee2094ee2b3897f5dd3feda18c7cab3e28af72e391"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-web.log.gz",
+          "uncompressed_sha256": "4b487f174676883926cf553f3eae669ee52eb4bfedbacd71e9974147ff00a692"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-supervisor.log.gz",
+          "uncompressed_sha256": "9fc1f21d4204326cb1792d0559b8910e455243e7078978e5e78dedb8903c45ac"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-build.log.gz",
+          "uncompressed_sha256": "b0390420dcd3eabd487fdca24e5306752affdd80da94ec335d4bf09b047809d4"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-browser-inventory.log.gz",
+          "uncompressed_sha256": "7abf56c0b07720e4784840a7eb7bbb59091e196e7f3c0f6f73751b92b34cc0f0"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/viewer-measurements/c3-candidate5-browser.log.gz",
+          "uncompressed_sha256": "9fbe58e4c9b893db111bdb38413f02e13ea25c4dd3e8e1724547bf50df0c2129"
+        }
+      ],
+      "files": 34369,
+      "raw_bytes": 3311278738,
+      "extraction_root": "forensics/c3-candidate5",
+      "inventory": {
+        "path": "docs/assets/viewer-measurements/c3-forensics-inventory-c3-candidate5.json.gz",
+        "bytes": 1612077,
+        "sha256": "5c10a08b7e61bb0c3186516e7a28adf745be9f1ebaa6c99b8c330a9d8d95571c",
+        "uncompressed_sha256": "2125bbaca459c2f09129241551ca9105e7eec9d76f01a94477e4ff48e1cb55ff"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-native-oracle-diagnostic-01.zip",
+          "bytes": 83767422,
+          "sha256": "e64945404d8646f758909d7d650916b67b7987fb52faf0bf95ad9962b93ec71e",
+          "manifest_entries": 369,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 369,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "c3-native-oracle-diagnostic-02.zip",
+          "bytes": 76301694,
+          "sha256": "b4d0fd7c840fc4c17b93b19b0f8014de8f6c36f8c16df2a698fdcfce71ee765c",
+          "manifest_entries": 461,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 461,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "c3-native-oracle-diagnostic-03.zip",
+          "bytes": 83346922,
+          "sha256": "c8bdb1f0b227901da92c6ef1f4dae60c6c628120e1ebf8164f26ba13e8e72c29",
+          "manifest_entries": 5621,
+          "recursive_verification": {
+            "zip_archives": 2,
+            "evidence_manifest_entries": 5621,
+            "project_archive_files": 2
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "c3-native-oracle-diagnostic-04.zip",
+          "bytes": 83669430,
+          "sha256": "daf6faf870dc63505639ececf7b2d3b3e8c26e2e4dfb143fd27e5a9c42c8a217",
+          "manifest_entries": 1828,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1828,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "c3-native-oracle-diagnostic-05.zip",
+          "bytes": 83622961,
+          "sha256": "6310edeb66994f0582202969eb5426675c89d85e919a59bc71e1cef0aed4ddc9",
+          "manifest_entries": 1974,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1974,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "c3-native-oracle-diagnostic-06.zip",
+          "bytes": 83634433,
+          "sha256": "52f84075962d63e24e26effaaa0be2af52a9a927e06011459cd1c67686c951d3",
+          "manifest_entries": 1975,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1975,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 7,
+          "asset_name": "c3-native-oracle-diagnostic-07.zip",
+          "bytes": 83642344,
+          "sha256": "0502488a642a027c0baea222eed1425481c24aca0beebcc742b0643712beaccb",
+          "manifest_entries": 1806,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1806,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 8,
+          "asset_name": "c3-native-oracle-diagnostic-08.zip",
+          "bytes": 83645840,
+          "sha256": "86e480d120273f60ef3baf886c0f2068fb494e4d64c90cc1c00cd0d2d68f047b",
+          "manifest_entries": 1898,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1898,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 9,
+          "asset_name": "c3-native-oracle-diagnostic-09.zip",
+          "bytes": 83620779,
+          "sha256": "53e27bd19dba86a0e9cd1ea1a218dd388912f3791aa3c77141b765b1765903df",
+          "manifest_entries": 2022,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2022,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 10,
+          "asset_name": "c3-native-oracle-diagnostic-10.zip",
+          "bytes": 83660671,
+          "sha256": "c62534e7f19d41ae2d428c2132cddbcc52cd4aaebcd65ac06323c907c678f094",
+          "manifest_entries": 1955,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1955,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 11,
+          "asset_name": "c3-native-oracle-diagnostic-11.zip",
+          "bytes": 83663542,
+          "sha256": "06e1deebd0bc7b76e7c29d8829aee414b60da798e64f246249d33e36d533a3a0",
+          "manifest_entries": 1889,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1889,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 12,
+          "asset_name": "c3-native-oracle-diagnostic-12.zip",
+          "bytes": 83667505,
+          "sha256": "bd8b4507b648d114ace5151b5ab9891b1c57af6dc75b5ead9a155b8e00cb447f",
+          "manifest_entries": 1885,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1885,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 13,
+          "asset_name": "c3-native-oracle-diagnostic-13.zip",
+          "bytes": 83605267,
+          "sha256": "0b4f4bb525e9d0b63539553b919f14b0b13afecd3166f05e00c44248deda8ad9",
+          "manifest_entries": 1944,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1944,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 14,
+          "asset_name": "c3-native-oracle-diagnostic-14.zip",
+          "bytes": 83641295,
+          "sha256": "41e6c3787436b2e85144c2a9a6c3de6bfd9d8ea33c80255717683f72c54bb253",
+          "manifest_entries": 1746,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1746,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 15,
+          "asset_name": "c3-native-oracle-diagnostic-15.zip",
+          "bytes": 83609033,
+          "sha256": "a100cd48b8e311986b6966986d68db9d38cc20d6254786959ae8e7a65a124417",
+          "manifest_entries": 2052,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2052,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 16,
+          "asset_name": "c3-native-oracle-diagnostic-16.zip",
+          "bytes": 83653458,
+          "sha256": "fe0fdbbe5678b16b809870dbaefa59ed79233d2953cb5386cc5d9b0fdf584ec1",
+          "manifest_entries": 1824,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1824,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 17,
+          "asset_name": "c3-native-oracle-diagnostic-17.zip",
+          "bytes": 83638431,
+          "sha256": "2d043420467ff87f05128a3351ca1ccf3ebae18537c165b6d8b94f3f43aa9cf6",
+          "manifest_entries": 1868,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1868,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 18,
+          "asset_name": "c3-native-oracle-diagnostic-18.zip",
+          "bytes": 66848687,
+          "sha256": "a312486bba5a67c93bec381ecb7d820fc7f657e9871619f5ec1d50603105d361",
+          "manifest_entries": 1252,
+          "recursive_verification": {
+            "zip_archives": 40,
+            "evidence_manifest_entries": 1252,
+            "project_archive_files": 6
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "included_scopes": [
+        {
+          "kind": "failed_complete-gate_attempt",
+          "candidate": "33eff05530991a1100db5f8916532f28f09c2b0f",
+          "source_digest": "d2674c5810a90c9d83525da944c28e6f601d8738a960bf29e61c836e8052677f",
+          "qualification_complete": false
+        },
+        {
+          "kind": "subsequent_focused_correction",
+          "source_count": 930,
+          "source_digest": "d2b8648548c33c419c8d991c5152e9158c1d13c7325e3c6a5d601188fe2a6c91",
+          "evidence_member": "focused/results.json",
+          "all_focused_step_exits": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sources_unchanged": true,
+          "not_a_complete_release_gate": true
+        }
+      ]
+    },
+    {
+      "label": "c3-candidate6",
+      "failed_candidate": "9cdccd6715ec24a03ecc7b4abf66378104d1c9a2",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 931,
+      "source_digest": "423db99b8cbea14c8246439bcccefcd0be839a07e919e7a4f03f2d79f54f3ea3",
+      "source_unchanged": true,
+      "preceding_source_count": 885,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/viewer-measurements/c3-candidate6-recipe.json",
+        "sha256": "dd5d6639c4bc40250c34254e05e7bc9dc742f49cb42c335455be7931b5181b9f"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-uv.log.gz",
+          "uncompressed_sha256": "2979d70d6fb41dd603fdcb9139bdd94b8d784b952e2164f3ccc61a16a11f1b4b"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-pnpm.log.gz",
+          "uncompressed_sha256": "5eda2c2c32b69749eb772579a578406ae0ddcdca8e9fc84c05909abd467ce0dd"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-migration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-downgrade.log.gz",
+          "uncompressed_sha256": "9e913deede2e1da2dbfa2180da8f06a1d9de79e621969fa8e04e32d93fab4651"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-remigration.log.gz",
+          "uncompressed_sha256": "4051858abe8eda45655735b5fc20404053d4a2b284ae7f2a4e2d270caeb4af17"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-mypy.log.gz",
+          "uncompressed_sha256": "116aaf30601a7e507610dbc5463ea6bb22c6b68d4dfaa190f7a397a375d85360"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-reader-tool-types.log.gz",
+          "uncompressed_sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-python.log.gz",
+          "uncompressed_sha256": "8671623f18e83aa9a64723fff723e2bda8d71784f0b19ceaa9fe89cc8321b5df"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-lint.log.gz",
+          "uncompressed_sha256": "43c721287c8f4315b65d6d42248a0ebb71784c9422add8adeb6572183e293d19"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-types.log.gz",
+          "uncompressed_sha256": "61b169105a461e400e447bee2094ee2b3897f5dd3feda18c7cab3e28af72e391"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-web.log.gz",
+          "uncompressed_sha256": "63b0e762abe8fd2661590566caecb45c0db30319474bc87e5a7d6cbec6bebb01"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-supervisor.log.gz",
+          "uncompressed_sha256": "658ebe300fe658e080a8dcdfad4029637eb872e90f7d749a0a51670d17b9b81e"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-build.log.gz",
+          "uncompressed_sha256": "2b351fa8074e6156501c4288d7df4bce70dfa9444f937524b4fd1b4969bceaca"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-browser-inventory.log.gz",
+          "uncompressed_sha256": "7086409c42ac9dd97d7c0c8528023bf84cb6457ecee2ac4a54ea295de1900634"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/viewer-measurements/c3-candidate6-browser.log.gz",
+          "uncompressed_sha256": "e7477bf99a9336b38d5d013f953f35295a8666cab20e9ee1754f8f2a4f018133"
+        }
+      ],
+      "files": 1126,
+      "raw_bytes": 313510835,
+      "extraction_root": "forensics/c3-candidate6",
+      "inventory": {
+        "path": "docs/assets/viewer-measurements/c3-forensics-inventory-c3-candidate6.json.gz",
+        "bytes": 53633,
+        "sha256": "baab01f64b7dd6d7d3f47496c2dfd8d35d20b9f3c65d492ba702a71ff487bd30",
+        "uncompressed_sha256": "9e12602dc8358b870f431c202b77a4a5a7448087d11fd39f5f5bedc3da49b49a"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-mobile-framing-diagnostic-01.zip",
+          "bytes": 79271427,
+          "sha256": "488dd9e6ee7642897e92850247d1ba2dacd867d85d8952f3d9430ab6265e95db",
+          "manifest_entries": 1126,
+          "recursive_verification": {
+            "zip_archives": 42,
+            "evidence_manifest_entries": 1126,
+            "project_archive_files": 6
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "included_scopes": [
+        {
+          "kind": "failed_complete-gate_attempt",
+          "candidate": "9cdccd6715ec24a03ecc7b4abf66378104d1c9a2",
+          "source_digest": "423db99b8cbea14c8246439bcccefcd0be839a07e919e7a4f03f2d79f54f3ea3",
+          "qualification_complete": false
+        },
+        {
+          "kind": "subsequent_focused_correction",
+          "source_count": 931,
+          "source_digest": "fd1abdbe79b7e23c11c98c6a0cf6fa2a317eaf9c5c646b496e46d77a81685ae8",
+          "evidence_member": "focused/results.json",
+          "all_focused_step_exits": [
+            0,
+            0,
+            0
+          ],
+          "sources_unchanged": true,
+          "not_a_complete_release_gate": true
+        }
+      ]
+    }
+  ],
+  "asset_count": 26,
+  "total_asset_bytes": 2065220371
+}

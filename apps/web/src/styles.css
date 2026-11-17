@@ -2213,6 +2213,13 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   cursor: pointer;
 }
 
+.viewer-action-button.viewer-measurements-action {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+}
+
 .viewer-action-button:hover:not([aria-disabled="true"]) {
   color: var(--accent-strong);
   background: var(--accent-soft);
