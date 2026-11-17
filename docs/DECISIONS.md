@@ -8506,3 +8506,44 @@ The evidence ZIP retains every real pytest-workspace payload. Internal `*current
 convenience links are recorded with validated within-owner targets rather than
 archived or followed as filesystem links. Original workspaces/links stay intact;
 generic release packaging continues to reject arbitrary symlinks.
+
+
+## D-186 — Share sourced profiles through one synchronous evaluation engine
+
+Date:2026-11-17. Before #160 implementation, theory confirms the already accepted
+seven source-qualified adaptations and two investigated unavailable variants.
+Reference research supports explicit named criteria, operators and mismatch details;
+a compact selector/status and expandable criteria/details in the existing property
+region is the chosen original workflow. Full sidebar, radar rendering and entry
+filter UI remain #161/#162. No arbitrary expression editor or additional science job.
+
+Independent architecture consultation selects one production TypeScript generic
+evaluator and a versioned Python registry/API. Python validates data references,
+composite DAGs and descriptor mappings, and may provide independent offline boundary
+fixtures; there is no present server consumer requiring a duplicate runtime numeric
+evaluator. Thresholds live once in the shared registry, never in component literals.
+Composites reference shared constraints/profiles. Required descriptor dependencies
+augment #159 consumer demand without mutating saved category preferences. Selection
+is transient; no new project schema, cache, job platform or migration is introduced.
+
+Only a #159 current-binding-qualified owner view may supply current evaluations:
+exact source/binding/scientific-input/method/library/policy and owner epoch must match.
+A generic DescriptorReport or expected_hash copied from that report establishes no
+publication authority. Retired/preview/mismatched inputs withhold incompatible values
+synchronously. Preserve current partial violations separately from missing/pending/
+error and require every required qualified input for a positive overall result.
+Teague's operational charge-presence fact must be strictlyfalse; source-domain
+unavailability precedes numerical compliance, even with net chargezero.
+
+Use unrounded exact operators and limits, no epsilon. Scientific numeric validation
+is distinct from plotting domains: valid out-of-radar-range values remain values,
+with genuine threshold outcomes. Ordered polarity/size/lipophilicity/flexibility axes,
+normalization, clipping and missing-axis policy are shared display metadata rather
+than evaluation changes or a polygon score. Exact/adjacent float boundaries,
+integer±1, malformed/nonfinite/boolean values, stale/version mismatches, partial
+coverage, composites, domain refusal and dependency ownership require tests.
+
+Isolated domain preparation pins exact frozen unreleased #159 kernel and frontend
+type sources with private hashes. These copies are not a delivered prerequisite.
+Integrate actual verified #159 delivery master and reconcile every copied source
+before final #160 qualification, review or publication. Publication remains serial.

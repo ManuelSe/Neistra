@@ -131,3 +131,24 @@ source-domain unavailable states and missing/error/stale distinctions. Never
 round before evaluation or shift boundaries with a tolerance. Positive overall
 compliance requires every required current input to be available and passing;
 radar clipping and display rounding do not change evaluation.
+
+
+### C1 concrete contract before implementation
+
+D-186 records theory/reference/architecture consultation before domain code. Use one
+production TypeScript generic evaluator with the versioned Python registry/API;
+Python validates definitions/composite references and provides independent boundary
+fixtures rather than a second runtime numerical engine. Keep all accepted thresholds,
+source adaptations and optional availability decisions unchanged. Exact current-owner
+binding authority, partial/missing/domain semantics and descriptor dependency demand
+remain explicit. The compact named-profile/status/criteria/details workflow will use
+the existing property region; later sidebar/radar/filter rendering remains excluded
+from this delivery unit. No arbitrary expressions, new jobs or durable schema.
+
+Preparation worktree: `/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles`,
+branch `feat/issue-160-physicochemical-profiles`, baseb41fa747 (unreleased158checkpoint).
+Thirteen exact frozen #159 kernel/tests/frontend-type files are pinned privately as
+unreleased preparation dependencies. No159delivery or160implementation pass is implied.
+Integrate actual verified159deliverymaster and replace/reconcile those copies before
+final160gates/PR, preserving the parent's serial release dependencies. No version bump
+or milestone completion is claimed by this planning refinement.
