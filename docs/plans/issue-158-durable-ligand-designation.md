@@ -595,3 +595,37 @@ the new verifier and its tests; application/science/API/frontend/migrations stay
 unchanged. Fresh cleancandidate6 must still complete all42commands, summary, packaging
 and actual enclosing readback. Final all-seven assessment covers the complete final
 candidate before push; exact merged-master qualification remains separately required.
+
+
+### Candidate6 transport interruption and unchanged-source recovery
+
+All seven complete-feature CODE reconfirmations pass exactb41fa747 againstb038e4e6;
+no consequential source finding remains. Freshcandidate6 passes3,040Python/zero skips,
+1,304frontend/122suites,14supervisor, all pre-browser install/migration/static/build
+phases, then fails native with65passes, one failure, two encountered historical
+exclusions and534unexecuted cases. Actual62395exit1;1,005current/931preceding source
+identities remain unchanged. Independent summary/complete packaging did not run.
+
+The failing interaction test reaches its native observer check after module-loading
+failure. Trace evidence records98ERR_NETWORK_CHANGED requests/console errors; the
+instrumented MolstarEngine response is HTTP200 with the expected wrapper, while
+dependent modules fail. The UI explicitly shows its dynamic-import error and disables
+unavailable native actions; canonical visible/loaded counts are separate structure
+data. A fresh unchanged-source8-case interaction probe passes both profiles with zero
+failures/skips/flakes/retries, actual80161exit0 and all1,005source identities fixed.
+Independent performance diagnosis supports a module-transport interruption, establishes
+no underlying host/network cause and finds no evidence warranting application changes.
+This does not prove that every intermittent application defect is impossible.
+
+Preserve the failed full run, all raw native/owned store payloads, lossless logs,
+source/recipe/gate identities and exact probe/enclosing receipts as an append-only
+extension of D-174's supplemental index. Existing two run records,18parts, inventories
+and first source/control ZIP remain byte-identical; version2 verification binds the
+new finalized index and candidate6 payloads. Do not rebundle raw forensic parts into
+the primary packet or count this local verification as public download availability.
+
+Fresh cleancandidate7 must repeat every42commands, independent summary, recursive
+packaging and actual enclosing exit. Application/harness sources, retries, deadlines,
+exclusions and acceptance remain unchanged; no failed partial gate contributes pooled
+passes. Final evidence-head all-seven readiness and separately fresh exact-merged
+qualification remain mandatory before release/closeout.
