@@ -596,3 +596,25 @@ The fresh candidate3recipe contains42commands, preserving every baseline check a
 all seven additional ordered-reader steps. Commit it with this passing corrective
 checkpoint before qualification. Allseven final same-candidate reconfirmations,
 independent full-gate audit/packaging and later exact-master fresh42 remain pending.
+
+
+### C3 namespace correction after the first completed Python gate
+
+Candidate3 `742dae0d` completed all Python cases:2543passed/two failed/zero skips,
+with the two existing import-order tests exposing missing historical aliases for
+new API leaves. The eight preceding gate commands passed, both926current/885old
+source maps remained unchanged, and Python/wrapper exited1. No complete gate pass.
+
+Four small aliases for contact service, execution data/worker and shared async work
+now use the existing importlib/sys.modules identity pattern; there is no second
+implementation/state owner. All eight isolated historical import-order/source-root/
+worker-bootstrap/CLI checks pass, whole-repository Ruff and configured production
+mypy226 pass. [Evidence](../assets/viewer-measurements/c3-namespace-correction.json)
+retains the complete failed log, wrapper receipt and owned run data with CRCs and
+member hashes. Independent architecture reassessment passes all eight compatibility
+checks plus exact-template/module-identity/pickle probes; no consequential finding
+and no science or application workflow changes. The source inventory becomes930 with these aliases.
+
+Generate and commit fresh candidate4recipe, then run all42commands from step1.
+Earlier partial checks are never pooled. Final all-seven same-candidate assessment,
+normal protected delivery, exact-master fresh42 and verified release remain pending.

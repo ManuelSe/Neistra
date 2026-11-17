@@ -1,0 +1,38 @@
+{
+  "scope": "Four missing historical API module identity aliases; existing compatibility pattern, no second implementation",
+  "archive": "c3-namespace-correction.zip",
+  "files": 25,
+  "archive_bytes": 265298,
+  "archive_sha256": "3e6d47fae5bb6c1bf691de56bbb5f4cd1fbd8bc91fdbf1caf9141c50d3767375",
+  "member_hashes_and_crcs_verified": true,
+  "aliases": {
+    "apps/api/src/molweave_api/contact_service.py": "cd13bf0ddb761bae85a21af317ebbe9f0aaadce8a5df9be3457da4c9ad5962da",
+    "apps/api/src/molweave_api/contact_execution_worker.py": "eb6eadc5b4a8f6a3a09c562e3a4951160c1cd728d82a6fc8c1000989dbac5e88",
+    "apps/api/src/molweave_api/contact_execution_data.py": "a58cfc7adc5c063731a7c1f7dafab7d05656b77a457ba9f8f79eb89d1bd649b6",
+    "apps/api/src/molweave_api/async_work.py": "7fde0ecaf73d1f7defb85ec22da4dfd81df054fad089e68c152e7dd18d1e047d"
+  },
+  "focused": {
+    "namespace_cases_passed": 8,
+    "skips": 0,
+    "ruff": "PASS whole repository",
+    "mypy": "PASS configured production scope226files",
+    "child_and_enclosing_exit": 0
+  },
+  "failed_candidate3": {
+    "candidate": "742dae0d7a5ead73a257d07b7289881fc7664b2e",
+    "python_passed": 2543,
+    "python_failed": 2,
+    "python_skipped": 0,
+    "failed_cases": "test_all_legacy_leaf_modules_share_identity True/False",
+    "reason": "Missing historical aliases for four newly introduced API leaves; firstfailurecontact_service; aliasaudit identifies contact_execution_worker/contact_execution_data/async_work aswell.",
+    "completed_preceding_commands": 8,
+    "python_exit": 1,
+    "wrapper_exit": 1,
+    "source926_and_predecessor885_unchanged": true,
+    "complete_gate": false,
+    "partial_checks_not_pooled": true
+  },
+  "compatibility": "Allfouraliases follow existing importlib/sys.modules identity withTYPE_CHECKING canonicalstar; no method/state/schema/pins/versionchange.",
+  "next": "Commitfreshcandidate4recipe+coherentfocusedfix/evidence; restartALL42fromstep1thenfinal7/normalPRmerge/exactmaster42/release157close; parentGoalactive",
+  "independent_architecture": "PASS scoped actual4aliases: independent8namespacecases/exacttemplate/moduleidentity/pickle/importcreatesnochildren/diffcheck"
+}

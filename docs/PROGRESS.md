@@ -91,8 +91,16 @@ and18ambiguous-basis refusal probes. No consequential scientific finding remains
 The bounded correction retains original failed controls/typing diagnostics. Both intentional partial gates retain diagnostics and are never
 pooled into a complete result.
 
-Next: finish correction validation and consequential-review fixes, commit a fresh
-candidate3recipe, then execute all42commands from step1. Independently audit/package
+Candidate3 `742dae0d` passed eight commands; full Python returned2543passes and
+two failures for missing historical aliases of the new API modules. Both source
+maps remain unchanged. Four aliases now follow the existing single-implementation
+compatibility pattern. All eight isolated legacy import-order/source-root/worker
+checks, whole Ruff and configured productionmypy226 pass; raw failed-gate evidence
+is retained in the [correction packet](assets/viewer-measurements/c3-namespace-correction.json).
+
+Scoped architecture reassessment passes the exact alias template, module identity,
+pickle and all eight compatibility checks. Next: commit fresh candidate4recipe, then
+execute all42commands from step1. Independently audit/package
 and obtain all-seven final same-candidate assessments before application push and
 normal release. Schema/dependencies remain unchanged. Preserve other worktrees and
 one active Goal through all eight releases and parent closeout.
