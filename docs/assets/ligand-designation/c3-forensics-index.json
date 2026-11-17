@@ -647,8 +647,364 @@
         }
       ],
       "local_exact_union_and_recursive_verification": true
+    },
+    {
+      "label": "c4-candidate7",
+      "failed_candidate": "5b4dd06b1f0a4eb7582b814553b261369598f752",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 1005,
+      "source_digest": "7e5a38ae9f3f7ec564cfe4637f1faf9458b2841e45bf17f9ec820def016b6f43",
+      "source_unchanged": true,
+      "preceding_source_count": 931,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/ligand-designation/c4-candidate7-recipe.json",
+        "sha256": "be1bcb4a72bae6dc76d0d872f8feec95c2508fd08f1403fe02737b2e3dbf3397"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/ligand-designation/c4-candidate7-uv.log.gz",
+          "uncompressed_sha256": "2979d70d6fb41dd603fdcb9139bdd94b8d784b952e2164f3ccc61a16a11f1b4b"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/ligand-designation/c4-candidate7-pnpm.log.gz",
+          "uncompressed_sha256": "750520b81dda14c3036d8b62855af474ff0aed09f967ea6c39d1fa9fc0badd65"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/ligand-designation/c4-candidate7-migration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/ligand-designation/c4-candidate7-downgrade.log.gz",
+          "uncompressed_sha256": "752981f0568a358167ce4522baf105e669a03845cd51417948dbb3afba0a1034"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/ligand-designation/c4-candidate7-remigration.log.gz",
+          "uncompressed_sha256": "5ddc3c23ac02a7352a768c150e9092537aa42a850ee3c95ca8391e42ae545aea"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/ligand-designation/c4-candidate7-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/ligand-designation/c4-candidate7-mypy.log.gz",
+          "uncompressed_sha256": "96a18ececf4b151b9885583436b5bdfaedad3581843143601d87a09e3be99668"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/ligand-designation/c4-candidate7-reader-tool-types.log.gz",
+          "uncompressed_sha256": "157a09cfcdfdfb5977479c5a1c08345149263a3e990a2ec976ef28aaeec9cae6"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/ligand-designation/c4-candidate7-python.log.gz",
+          "uncompressed_sha256": "6f4f671ccc8198629099a6dff148ec11ba1014a6482f304c45c3e2a78db694db"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/ligand-designation/c4-candidate7-lint.log.gz",
+          "uncompressed_sha256": "c5a0c11d3bbc98d7352b4a467815d1570ac7ef529981a2f9d712735a591ca0ad"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/ligand-designation/c4-candidate7-types.log.gz",
+          "uncompressed_sha256": "420d179ce3827a04a45e7f563f320f522fcc3aedec5f8664adfcf8b284f38ef5"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/ligand-designation/c4-candidate7-web.log.gz",
+          "uncompressed_sha256": "5c6c1d0dd00d8b15f3e5cf444c16b6d81a3627aab56605b9c781a27389eac970"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/ligand-designation/c4-candidate7-supervisor.log.gz",
+          "uncompressed_sha256": "c0c67c1b358baccde0d3696901a829724c46555e7229ec3bf08230aaf699fdbd"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/ligand-designation/c4-candidate7-build.log.gz",
+          "uncompressed_sha256": "e43e0dbdbdf9cac5daa960d05b4933f48758f465f99504b372e7cc93014f0e8f"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/ligand-designation/c4-candidate7-browser-inventory.log.gz",
+          "uncompressed_sha256": "16720dffda9153f451904424cb1e69f5e79d340045950d6d2d60b6dc76881856"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/ligand-designation/c4-candidate7-browser.log.gz",
+          "uncompressed_sha256": "3a20d1a7a6c900e1e00f71b51386c0d4e9de0c4d01084b666fc696bb603202ee"
+        }
+      ],
+      "files": 34012,
+      "raw_bytes": 3389473487,
+      "extraction_root": "forensics/c4-candidate7",
+      "inventory": {
+        "path": "docs/assets/ligand-designation/c3-forensics-inventory-c4-candidate7.json.gz",
+        "bytes": 1602144,
+        "sha256": "f85c750283b8a2cbf81793856e72052ec7dbc16d94f598fa30a23d8b4f42387b",
+        "uncompressed_sha256": "766af5d370b17b6be3d54ffacc67904a440b2404d4656a36a6f9738e4ecf03ef"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "c3-candidate7-native-failure-part01.zip",
+          "bytes": 79394826,
+          "sha256": "5005646b95350d7437d6dc78b96a23675135d251881001709b109e1288871183",
+          "manifest_entries": 324,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 324,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "c3-candidate7-native-failure-part02.zip",
+          "bytes": 72620532,
+          "sha256": "ffccd2f48ed2ec0eb02c05bb3bcb062b06346f6b9f682709cc41d23634a4a27b",
+          "manifest_entries": 462,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 462,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "c3-candidate7-native-failure-part03.zip",
+          "bytes": 80887643,
+          "sha256": "b5047b29cfb04359380fe7432bb40b6a7788d2a1188db27dee80810163b77046",
+          "manifest_entries": 2784,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2784,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "c3-candidate7-native-failure-part04.zip",
+          "bytes": 81487245,
+          "sha256": "e4862f5581d0c1e6c3c210f46a1a93f9f37487f2ed24004d9af83f0d6ebb2e3c",
+          "manifest_entries": 4194,
+          "recursive_verification": {
+            "zip_archives": 2,
+            "evidence_manifest_entries": 4194,
+            "project_archive_files": 2
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "c3-candidate7-native-failure-part05.zip",
+          "bytes": 80447336,
+          "sha256": "8a97b6edf15b09a40464f422a472d131e32354aeccb0a45a6e1f3c2dbafce354",
+          "manifest_entries": 1796,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1796,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "c3-candidate7-native-failure-part06.zip",
+          "bytes": 80423893,
+          "sha256": "8fa4065878146b35dc0049df22dccf0814372b6804ff0cfd035c2c522200e000",
+          "manifest_entries": 1784,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1784,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 7,
+          "asset_name": "c3-candidate7-native-failure-part07.zip",
+          "bytes": 80397883,
+          "sha256": "7b47de30290f4966cad2865bd79486ec4bf9a3fa4eaec45c218973bf7e069759",
+          "manifest_entries": 1704,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1704,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 8,
+          "asset_name": "c3-candidate7-native-failure-part08.zip",
+          "bytes": 80428695,
+          "sha256": "e47b476460379df301b5d243696150763e68ab7a56df5cf9d38dbc2e00da8d12",
+          "manifest_entries": 1772,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1772,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 9,
+          "asset_name": "c3-candidate7-native-failure-part09.zip",
+          "bytes": 80488283,
+          "sha256": "d5fdd2eacbcdcdb6a92bcafebcd47288ebafef7f3537e168cd3ea1becc68cdd6",
+          "manifest_entries": 1967,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1967,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 10,
+          "asset_name": "c3-candidate7-native-failure-part10.zip",
+          "bytes": 80483136,
+          "sha256": "b61bbf2312c97e941b41bb7691b3a4dccd3d47f772d21d5928b0f45b2333c82a",
+          "manifest_entries": 1859,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1859,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 11,
+          "asset_name": "c3-candidate7-native-failure-part11.zip",
+          "bytes": 80476381,
+          "sha256": "e4130bf1a62048e0d2e018d5c5564f1a776f1d6250b2912d20c7e8a109bb064b",
+          "manifest_entries": 1903,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1903,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 12,
+          "asset_name": "c3-candidate7-native-failure-part12.zip",
+          "bytes": 80513534,
+          "sha256": "1989131639fc91749759f28b12299c96bb34b87ee81e0f2dbe79f3912be14211",
+          "manifest_entries": 1922,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1922,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 13,
+          "asset_name": "c3-candidate7-native-failure-part13.zip",
+          "bytes": 80451144,
+          "sha256": "4ae772bbb4a663cf9dcd52e9a028f39ce5cdd46114fb479f6349a460796d4cdb",
+          "manifest_entries": 1878,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1878,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 14,
+          "asset_name": "c3-candidate7-native-failure-part14.zip",
+          "bytes": 80488762,
+          "sha256": "55e770a8be220049b02d013eb4809706371657ad92d86a0c363f66d3c37b2dea",
+          "manifest_entries": 1903,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1903,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 15,
+          "asset_name": "c3-candidate7-native-failure-part15.zip",
+          "bytes": 80422849,
+          "sha256": "64b69120b34bc33f80d5332e9b254d8a6432015cebf0f3d57b55353762be2469",
+          "manifest_entries": 1828,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1828,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 16,
+          "asset_name": "c3-candidate7-native-failure-part16.zip",
+          "bytes": 80374132,
+          "sha256": "ce254b2d67168e5a91d02510d993e7f59eee14f295adfccd14c9305f5c612a5a",
+          "manifest_entries": 1657,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1657,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 17,
+          "asset_name": "c3-candidate7-native-failure-part17.zip",
+          "bytes": 80435671,
+          "sha256": "e56cdb8b89d7e6a726beb3ea19d28ac4cc1464b27bf2d8a4fb88bb1d6eb98861",
+          "manifest_entries": 1823,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1823,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 18,
+          "asset_name": "c3-candidate7-native-failure-part18.zip",
+          "bytes": 80414613,
+          "sha256": "4e02ebe882f776f8e5120a34c59e11a619558de42c0b56847f43cd1bb56015b5",
+          "manifest_entries": 1692,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1692,
+            "project_archive_files": 0
+          },
+          "repository_path": null
+        },
+        {
+          "ordinal": 19,
+          "asset_name": "c3-candidate7-native-failure-part19.zip",
+          "bytes": 49637845,
+          "sha256": "045390d3238a9d88f80cdf524f4c3bf81a2beb55bc8268c974d612359bfa2f00",
+          "manifest_entries": 760,
+          "recursive_verification": {
+            "zip_archives": 41,
+            "evidence_manifest_entries": 760,
+            "project_archive_files": 6
+          },
+          "repository_path": null
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true
     }
   ],
-  "asset_count": 24,
-  "total_asset_bytes": 1853796641
+  "asset_count": 43,
+  "total_asset_bytes": 3344071044
 }

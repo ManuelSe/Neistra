@@ -629,3 +629,56 @@ packaging and actual enclosing exit. Application/harness sources, retries, deadl
 exclusions and acceptance remain unchanged; no failed partial gate contributes pooled
 passes. Final evidence-head all-seven readiness and separately fresh exact-merged
 qualification remain mandatory before release/closeout.
+
+
+### Candidate7 legacy minimization baseline correction
+
+Freshcandidate7 at5b4dd06b passes3,040Python/zero skips,1,304frontend/122suites,
+14supervisor and all pre-browser phases, then fails after207native passes/one failure/
+four encountered historical exclusions/390unexecuted cases. Actual92826exit1;
+1,005current/931actual preceding sources remain unchanged. No summary or complete
+packaging ran. Preserve this failed run independently; no partial passes pool.
+
+Independent trace analysis locates a successful first legacy-archive assessment
+before minimization submission: revision1 becomes2 and the job captures2. Original
+and structure bytes are identical; no calculation mutation defect is established.
+The shared minimization fixture now observes actual resolver responses, verifies
+each contiguous mutating batch and exactly one assessment per entry, checks canonical
+membership/provenance/dirty transition plus exact immutable bytes/unrelated fields/
+history, and returns that assessed baseline. It handles actual one- and two-entry
+batching rather than assuming every fixture receives one universal increment.
+Existing calculation, preview, nonselected-coordinate, Apply+1 and Undo/Redo assertions
+remain unchanged; no retry, timeout or exclusion changes.
+
+Before1 reproduces two failures; after1 passes both profiles. The closed all-consumer
+run passes17cases, one unchanged historical mobile zoom exclusion, zero failures/
+flakes/retries and actual native childexit0 with all1,005sources fixed. Its original
+execution-session completion result was unavailable after resume; a fresh readback
+independently verifies retained receipt/log/report hashes and current source identity,
+without claiming a new native execution. Strict changed-helper TypeScript passes
+actual48114exit0 using actual Vite mapping, installed Node types and the existing
+browser-test globals. Earlier misconfigured ad-hoc compiler failures stay retained.
+Scoped independent architecture returns PASS for exact helper57d75c0d…f081.
+
+D-174 supplemental retention extends append-only to four failed runs/43parts,
+3,344,071,044asset bytes and77,386files/7,143,818,984raw bytes. All43parts pass the
+tracked local verifier, actual41979exit0. Prior three run records/24parts/inventories/
+verification1/2 remain unchanged. Verification3 ZIP is6,050,719bytes,
+SHA995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577.
+Candidate7 raw native relocation is filewise verified; all owned stores remain.
+The separate correction packet retains the complete closed consumer run/store and
+exact helper/config/source proofs. No public availability is claimed before release.
+
+Fresh clean candidate8 repeats all42commands, independent summary, recursive packaging
+and actual enclosing exit. Final all-seven readiness covers the complete final
+candidate after evidence; fresh exact merged-master qualification remains separately
+mandatory before immutable annotation, publication and child closeout.
+
+The [shared-fixture correction checkpoint](../assets/ligand-designation/c3-minimization-baseline-checkpoint.json)
+binds4,817,942-byte ZIP/SHA5184e34ad04d9f0598c5b2546cf806ed75c4c24e47876d93488c0b62fbcc6dc7,
+301manifest entries/15recursively checked ZIPs, the complete249file consumer store,
+27consumer output files and exact previous/current helper/config proofs. Current
+1,005source digest isa320f57aa335f4d08587c7c3ea330d94ca7e6e51ce17c3b169cb77623efe1637;
+only the helper differs from the prior1,005-source candidate. Other source and
+actual931-source reader identities remain fixed. This passing focused checkpoint
+is not a complete release gate or final readiness approval.
