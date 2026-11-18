@@ -1,3 +1,4 @@
+import { unresolvedLigandDesignation } from "../ligands/types";
 import type { SurfaceObject, SurfaceSource, SurfaceAppearance } from "../api/types";
 import type {
   ComponentCategory,
@@ -111,6 +112,7 @@ export function molecularEntry(
   return {
     id,
     group_id: groupId,
+    ligand_designation: unresolvedLigandDesignation(),
     name,
     description: null,
     structure_type: structureType,
@@ -138,7 +140,7 @@ export function molecularEntry(
 
 export function molecularProject(entries?: Entry[]): Project {
   return {
-    schema_version: 2,
+    schema_version: 3,
     id: "project-1",
     name: "Selection project",
     description: null,

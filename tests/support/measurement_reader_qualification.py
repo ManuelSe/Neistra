@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import runpy
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
@@ -27,6 +28,11 @@ from tests.support.rebranding_reader_qualification import (
 from tests.support.transform_reader_qualification import original_hash, structure
 
 JsonObject = dict[str, Any]
+
+
+def boundary_tools() -> dict[str, Any]:
+    """Current qualification oracles, with actual selected API/core imports."""
+    return runpy.run_path(str(Path(__file__).with_name("rebranding_reader_qualification.py")))
 
 
 def ordered_project(client: ApiClient) -> tuple[JsonObject, list[JsonObject]]:
@@ -169,7 +175,7 @@ def assert_history_records(actual: list[JsonObject], expected: list[JsonObject])
 
 def read_ordered(client: ApiClient, data: Path) -> JsonObject:
     expected = json.loads((data / "ordered-expectations.json").read_text())
-    original = expected["project"]
+    original = boundary_tools()["selected_expected_project"](expected["project"])
     path = f"/api/v1/projects/{original['id']}"
     project = client.get(path).json()
     assert project == original
@@ -185,6 +191,8 @@ def read_ordered(client: ApiClient, data: Path) -> JsonObject:
     assert response.status_code == 200, response.text
     project = response.json()
     assert_history_records(project["measurements"], original["measurements"])
+    for actual, baseline in zip(project["entries"], original["entries"], strict=True):
+        assert actual.get("ligand_designation") == baseline.get("ligand_designation")
     response = client.post(f"{path}/save", json={"expected_revision": project["revision"]})
     assert response.status_code == 200, response.text
     assert response.json()["has_uncheckpointed_changes"] is False
@@ -233,15 +241,42 @@ def read_ordered(client: ApiClient, data: Path) -> JsonObject:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=["produce", "read"])
+    parser.add_argument("mode", choices=["produce", "read", "refuse"])
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--implementation-root", type=Path, required=True)
     parser.add_argument("--expected-version", required=True)
     parser.add_argument("--evidence", type=Path, required=True)
+    parser.add_argument("--schema-boundary", action="store_true")
+    parser.add_argument("--refusal-data", type=Path)
+    parser.add_argument("--archives-dir", type=Path)
+    parser.add_argument("--expect-ordered-measurements", action="store_true")
     args = parser.parse_args()
     implementation, data = args.implementation_root.resolve(), args.data_dir.resolve()
     assert APPLICATION_VERSION == args.expected_version
     module_provenance(implementation)
+    common = boundary_tools()
+    common_path = Path(__file__).with_name("rebranding_reader_qualification.py")
+    tool_identity = {"path": str(common_path),
+                     "sha256": hashlib.sha256(common_path.read_bytes()).hexdigest()}
+    if args.mode == "refuse":
+        assert args.refusal_data is not None and args.archives_dir is not None
+        archive_root = args.archives_dir.resolve()
+        specimen = json.loads((archive_root / "ordered-expectations.json").read_text())
+        result = common["boundary_refuse"](
+            implementation, args.refusal_data.resolve(), data, specimen["project"],
+            [archive_root / "ordered.neistra.zip"],
+        )
+        result.update(
+            mode="refuse", application_version=APPLICATION_VERSION,
+            implementation_root=str(implementation),
+            imported_module_provenance=module_provenance(implementation),
+            wrapper_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            common_wrapper=tool_identity,
+        )
+        args.evidence.write_text(json.dumps(result, indent=2) + "\n")
+        print(json.dumps(result, indent=2))
+        return
+    before_heads = common["boundary_prepare_read"](implementation, data, args.schema_boundary)
     app = create_app(Settings(data_dir=data, database_url=f"sqlite:///{data / 'molweave.db'}"))
     assert app.version == args.expected_version
     client = ApiClient(app)
@@ -250,8 +285,14 @@ def main() -> None:
             produce_ordered(client, data) if args.mode == "produce" else read_ordered(client, data)
         )
         result.update(
+            application_version=APPLICATION_VERSION, mode=args.mode,
+            protocol="schema-boundary-v1" if args.schema_boundary else "retention-v1",
+            database_heads_before=before_heads, database_heads=common["boundary_heads"](data),
+            wrapper_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             implementation_root=str(implementation),
             imported_module_provenance=module_provenance(implementation),
+            common_wrapper=tool_identity,
+            exact_migrated_designation_defaults=args.schema_boundary,
         )
         args.evidence.write_text(json.dumps(result, indent=2) + "\n")
         print(json.dumps(result, indent=2))

@@ -242,6 +242,44 @@ describe("controlled measurement tool", () => {
     await waitFor(() => expect(state.onReturnFocus).toHaveBeenCalledOnce());
   });
 
+  it.each([true, false])("leaves Escape to another focused dialog without changing measurement acquisition=%s", acquiring => {
+    const state = props();
+    state.draft = { ...state.draft, acquiring, name: "Retained draft", slots: [atom(2), atom(1)] };
+    const consumed = vi.fn();
+    render(<><aside role="dialog" aria-label="Inspector panel" onKeyDown={event => {
+      if (event.key === "Escape") { consumed(); event.preventDefault(); event.stopPropagation(); }
+    }}><button type="button">Choose ligand</button></aside><MeasurementTool {...state} /></>);
+    const trigger = screen.getByRole("button", { name: "Choose ligand" });
+    trigger.focus();
+    const captured = vi.fn((event: KeyboardEvent) => {
+      // This native document-capture listener runs before React's drawer bubble
+      // handler. Radix dismissal must already have been prevented here.
+      expect(event.defaultPrevented).toBe(true);
+      expect(consumed).not.toHaveBeenCalled();
+    });
+    document.addEventListener("keydown", captured, true);
+    try {
+      act(() => { trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })); });
+    } finally { document.removeEventListener("keydown", captured, true); }
+    expect(captured).toHaveBeenCalledOnce(); expect(consumed).toHaveBeenCalledOnce();
+    expect(state.onClose).not.toHaveBeenCalled(); expect(state.onCancelAcquisition).not.toHaveBeenCalled();
+    expect(screen.getByLabelText("Measurement name")).toHaveValue("Retained draft");
+    expect(state.draft.slots).toEqual([atom(2), atom(1)]);
+  });
+
+  it("keeps canvas Escape stopping acquisition before closing the measurement tool", async () => {
+    const state = props(), user = userEvent.setup();
+    const view = render(<><button type="button">Canvas action</button><MeasurementTool {...state} /></>);
+    screen.getByRole("button", { name: "Canvas action" }).focus();
+    await user.keyboard("{Escape}");
+    expect(state.onCancelAcquisition).toHaveBeenCalledOnce(); expect(state.onClose).not.toHaveBeenCalled();
+    state.draft = { ...state.draft, acquiring: false };
+    view.rerender(<><button type="button">Canvas action</button><MeasurementTool {...state} /></>);
+    screen.getByRole("button", { name: "Canvas action" }).focus();
+    await user.keyboard("{Escape}");
+    expect(state.onCancelAcquisition).toHaveBeenCalledOnce(); expect(state.onClose).toHaveBeenCalledOnce();
+  });
+
   it("keeps preview values unavailable, preserves the controlled name and leaves Close available", () => {
     const state = props();
     state.draft = { ...state.draft, slots: [atom(1), atom(2)], name: "Retained" };

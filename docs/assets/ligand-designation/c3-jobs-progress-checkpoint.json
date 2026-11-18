@@ -1,0 +1,116 @@
+{
+  "scope": "Terminal-ACK-corrected jobs progress checkpoint; focused validation and scoped architecture review only, not all-seven readiness or full release qualification",
+  "decision": "D189",
+  "current_source_identities": {
+    "apps/web/src/components/JobsPanel.tsx": "88f32f413de045414e381c404924cb96d6b65be58bb9a7b7de5c0c5ef3ab6f0d",
+    "apps/web/src/test/jobs.test.tsx": "05ee8183221f43c85214c2159a624ba69a56742fd5c3e1d1ae4c5a83bd4f49e7"
+  },
+  "current_source_count": 1005,
+  "current_source_digest": "25fd41ef26d6af357c2a463a24ccd2b5087db4d6f9f6b5b1e6152860d35ea20f",
+  "preceding_source_count": 931,
+  "current_and_preceding_sources_unchanged": true,
+  "correction": "Coalesce both event-driven list/event refreshes with cancelRefetch:false; cancel the old returned-project list refresh before publishing cancellation ACK, while preserving any already observed terminal cancelled/completed/failed result against an older nonterminal ACK, including cache cancellation rollback.",
+  "prior_candidate": {
+    "source_identities": {
+      "apps/web/src/components/JobsPanel.tsx": "b8347f42e62782225e8f78e7871daf4719917400bbda77fb0b6c54221cb29831",
+      "apps/web/src/test/jobs.test.tsx": "8e6bc22aa172753792e99065982d18975923928475719c6256a7bb0dd0929165"
+    },
+    "focused_frontend_passed": 8,
+    "full_web_passed": 1307,
+    "native_passed": 2,
+    "historical_native_exclusions": 2,
+    "status": "CHANGES_REQUIRED after independent ACK-order reproduction; earlier passing checks do not establish final approval",
+    "immutable_private_archive_sha256": "b90838bdb60fae382d5240b6127954020f39146f7322e56956173782a86b6850",
+    "immutable_private_checkpoint_sha256": "f0e9ec592249eedbcef1d79063c7b08fe344b9fbc70a608dc55113efd4394210",
+    "all_original_payloads_retained_directly": true,
+    "original_payload_count": 77,
+    "renamed_metadata": {
+      "source-proof.json": "prior-candidate/source-proof.json",
+      "correction-context.json": "prior-candidate/correction-context.json",
+      "operations/packager.py": "operations/prior-candidate-packager.py"
+    },
+    "no_prior_zip_nested": true
+  },
+  "new_negative_control": {
+    "root_observed_session": 82198,
+    "root_observed_exit": 1,
+    "failed_terminal_cases": 3,
+    "other_cases_filtered_not_release_exclusions": true,
+    "scenario": "A newer GET publishes cancelled/completed/failed before an older legitimate running+cancellation_requested cancellation ACK; prior implementation regresses terminal state."
+  },
+  "final_frontend": {
+    "actual_enclosing": {
+      "scope": "Actualrootfocusedfrontendcompletion observed; notfullgate",
+      "actual_session": 97335,
+      "actual_exit": 0,
+      "focused_jobs": 11,
+      "full_web_tests": 1310,
+      "full_web_suites": 122,
+      "receipt_sha256": "8c5d4030ad8543d427f3ebc968e8c2ce1e00ec168cd8fe4ea4b528e7faeb36ae"
+    },
+    "focused_passed": 11,
+    "full_web_passed": 1310,
+    "web_suites": 122,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "source_maps_unchanged": true
+  },
+  "final_native": {
+    "actual_enclosing": {
+      "scope": "Actualrootfinalfocusednativecompletion observed; notfullreleasegate",
+      "actual_session": 75251,
+      "actual_exit": 0,
+      "passed": 2,
+      "unchanged_historical_profile_exclusions": 2,
+      "unexpected_flakes_retries": 0,
+      "source_count": 1005,
+      "receipt_sha256": "4f846f34881260abb65863d46abdd0ccc900a5d3584197ccf03de01c6610879c"
+    },
+    "passed": 2,
+    "unchanged_historical_exclusions": 2,
+    "failed": 0,
+    "flaky": 0,
+    "retries": 0,
+    "source_maps_unchanged": true,
+    "original_native_test_parameters_deadlines_retries_unchanged": true
+  },
+  "independent_scoped_architecture": {
+    "verdict": "PASS",
+    "receipt_sha256": "6395decc04d805cda1e83ce8f0caabac0ad903cc879fb7edbc5b0e941fe596bb",
+    "source_identities": {
+      "apps/web/src/components/JobsPanel.tsx": "88f32f413de045414e381c404924cb96d6b65be58bb9a7b7de5c0c5ef3ab6f0d",
+      "apps/web/src/test/jobs.test.tsx": "05ee8183221f43c85214c2159a624ba69a56742fd5c3e1d1ae4c5a83bd4f49e7"
+    },
+    "actual_probe_session": 50523,
+    "actual_probe_exit": 0,
+    "independent_cases": 3,
+    "scope": "Changed jobs progress and cancellation publication only; excludes final complete feature/readiness gate"
+  },
+  "all_prior_source_reconstructions_exact_hash_bound": true,
+  "prior_attempts_retained": "All earlier source versions, failed frontend/native checks, complete three earlier native stores and incomplete candidate finding remain direct payloads. Historical final-labelled source filenames refer to that prior candidate; current bodies are terminal-ack-final filenames.",
+  "new_retained": {
+    "issue158-jobs-ack-before1": 2,
+    "issue158-jobs-progress-frontend-after5": 7,
+    "issue158-jobs-progress-native-after4": 5,
+    "neistra158-jobs-progress-native-after4": 7
+  },
+  "no_raw_c8_native_or_supplemental_forensic_parts_rebundled": true,
+  "all_focused_passes_remain_distinct_from_complete_gate": true,
+  "required_next": [
+    "Fresh complete C9all42, independent summary, recursive packaging and actual enclosing readback; no pooled partial gates",
+    "Final integrated same-candidate all-seven specialist assessment and normal protected PR/merge",
+    "Fresh exact-master qualification, remotely verified release assets and anonymous supplemental forensic readback before child closeout/program continuation"
+  ],
+  "archive": "c3-jobs-progress-correction.zip",
+  "archive_bytes": 8057278,
+  "archive_sha256": "b13e284fa4d95bfcaf07a9de38a42827747b094c7f94a62a9f5a83c61a0fc1a7",
+  "outer_manifest_entries": 120,
+  "recursive_verification": {
+    "zip_archives": 2,
+    "evidence_manifest_entries": 120,
+    "project_archive_files": 0
+  },
+  "all_payload_hashes_recursive_crcs_and_old_payload_retention_verified": true,
+  "observed_utc": "2026-11-17T19:30:57.762149+00:00"
+}

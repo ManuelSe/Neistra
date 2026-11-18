@@ -18,7 +18,7 @@ Sourced reproducible profiles and shared evaluation. Deliver this coherent slice
 | --- | --- | --- | --- |
 | Required sourced profiles | Essential | Versioned Ro5 all-four conjunction MW≤500,cLogP≤5,HBD≤5,HBA≤10; original coreRo3 MW<300,cLogP≤3,HBD/HBA≤3; Veber TPSA adaptation strictRB≤10 AND TPSA≤140Å²; Ro5+Veber explicit shared conjunction. Toolkit adaptations inspectable. | Parent exclusions apply; no new delivery scope |
 | Registry and results | Essential | IDs,names,description,citationDOI,source,version,required descriptors,operators,constraints,default filter ranges and ordered radar axes/domains. Actual unrounded values/limits/individual outcomes and qualified overall status; pending/error/stale/missing distinct from fail and zero. | Parent exclusions apply; no new delivery scope |
-| Optional profiles investigated | Essential | bRo5 omitted as no universal agreed threshold; CNSMPO unavailable(pKa/logD7.4 absent); lead-like and GSK4/400 unavailable until exact primary thresholds/operators/mapping qualified; Roche-derived scaffold statistics not invented thresholds. Reasons and verified sources inspectable; no arbitrary expressions. | Parent exclusions apply; no new delivery scope |
+| Optional profiles investigated | Essential | Deliver the explicitly named sourced Doak outer-envelope, Teague lead-library range and Gleeson 4/400 adaptations qualified below. CNS MPO remains unavailable without required pKa/logD7.4; the scaffold/SOM method remains unavailable as a threshold preset. Expose source domains, exact operators and toolkit adaptations; no universal bRo5 or ADMET claim and no arbitrary expressions. | Parent exclusions apply; no new delivery scope |
 | Shared freshness and plotting | Essential | Use159 current-input identity and dependency settings; automatic immediate retirement/reevaluation. HBD/HBA/TPSA, size,logP/MR,flexibility/rings/sp3 adjacent deterministic axes. Explicit normalization/clipping/missing axes; equivalent table. No experimental,clinical,CNS,affinity or polygon-score claims. | Parent exclusions apply; no new delivery scope |
 
 ## Milestones and independently verifiable checkpoints
@@ -74,3 +74,60 @@ Proposed PR title: `feat(ligand): sourced reproducible profiles and shared evalu
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+### Pre-code scientific refinement — sourced optional variants and explicit mappings
+
+Independent theory review verified primary papers and the pinned toolkit. This
+refines the optional-investigation row before implementation: a blanket omission
+of all bRo5, lead-library and 4/400 variants is not supported by the evidence.
+Authorization and dependencies remain unchanged; this is planning, not delivered
+profile behavior.
+
+| Registry variant | Exact constraints on unrounded qualified values | Source and adaptation |
+| --- | --- | --- |
+| Ro5 — all four | MW ≤500; calculated logP ≤5; HBD ≤5; HBA ≤10 | [Original paper, DOI 10.1016/S0169-409X(96)00423-1](https://www.sciencedirect.com/science/article/pii/S0169409X96004231). The all-four conjunction is the accepted application definition. Its Crippen mapping is not the paper's alternative MlogP ≤4.15. |
+| Ro3 — core | MW <300; calculated logP ≤3; HBD ≤3; HBA ≤3 | Original DOI 10.1016/S1359-6446(03)02831-9; [authors' clarification, DOI 10.1038/nrd3926-c1](https://www.nature.com/articles/nrd3926-c1). No additional TPSA or rotor constraint belongs to this core variant. |
+| Veber — toolkit adaptation | Strict rotatable bonds ≤10 AND TPSA ≤140 Å² | [Primary paper, DOI 10.1021/jm020017n](https://elearning.uniroma1.it/pluginfile.php/728447/mod_folder/content/0/Lezioni_2018-2019/00ae.Veber.pdf). Original PSA is already Ertl atom-based. Its HBD+HBA ≤12 alternative is not an extra condition. Toolkit Strict rotors also exclude esters, unlike the original amide-exclusion definition. |
+| Ro5 + Veber | Shared conjunction of those registry definitions | Application composite; reference the existing constraints rather than duplicate thresholds. |
+| Doak 2014 — outer-envelope adaptation | MW ≤1000; −2 ≤ calculated logP ≤10; HBD ≤6; HBA ≤15; TPSA ≤250 Å²; rotatable bonds ≤20 | [Primary paper, DOI 10.1016/j.chembiol.2014.08.013](https://researchmgt.monash.edu/ws/portalfiles/portal/254240443/16720092_oa.pdf). These inclusive limits describe an approximate observed envelope. Record that the source cohort had MW >500 and used different descriptor software. Numeric membership is not a universal definition of bRo5, oral availability or druggability. Do not invent a lower-MW constraint from the cohort description. |
+| Gleeson 2008 — 4/400 adaptation | MW <400 AND calculated logP <4 | [Primary paper, §2.6, DOI 10.1021/jm701122q](https://bme-cmcl.weebly.com/uploads/1/0/5/9/105950437/2008_gleeson_j.med.chem___theo_admet-rules-thumb.pdf). Both operators are strict. This is a named two-property adaptation, not the complete original ionization-dependent ADMET analysis. |
+| Teague 1999 — lead-library range adaptation | 100 ≤ MW ≤350 AND 1 ≤ calculated logP ≤3 | [Author-uploaded primary paper](https://www.researchgate.net/publication/12665941_The_Design_of_Leadlike_Combinatorial_Libraries), DOI `10.1002/(SICI)1521-3773(19991216)38:24<3743::AID-ANIE3743>3.0.CO;2-U`. The source gives ranges without endpoint operators; closed intervals are an explicit application convention. Do not substitute later 250–350/3.5/7-rotor variants. |
+
+Use #159's average molecular weight, `CalcNumHBD`, `CalcNumHBA`, Wildman–Crippen
+logP with H contributions, `CalcTPSA(includeSandP=False)` and
+`CalcNumRotatableBonds(..., Strict)`. Pin those options and the library/policy
+version in the shared descriptor identity. These are reproducible threshold
+adaptations, not claims to reproduce the original calculators. The pinned toolkit
+has separate approximate “Lipinski” counts; do not substitute them silently.
+[Counting/rotor implementation](https://raw.githubusercontent.com/rdkit/rdkit/Release_2026_03_4/Code/GraphMol/Descriptors/Lipinski.cpp),
+[TPSA implementation](https://raw.githubusercontent.com/rdkit/rdkit/Release_2026_03_4/Code/GraphMol/Descriptors/MolSurf.h).
+
+The optional Teague adaptation has an explicitly conservative operational domain:
+the qualified selected graph contains no formally charged atoms. Otherwise return
+`source_profile_charged_representation_unsupported`; unknown qualification facts
+also mean unavailable. Net charge alone is insufficient for zwitterions. This is
+not a permanent-charge classifier or a published additional threshold; it also
+excludes charge-separated neutral representations such as nitro groups. Obtain
+`contains_formally_charged_atoms` from #159's existing strict input pass and bind it
+to the same input digest. Keep #159's qualified method-labelled Crippen estimate
+available. Do not neutralize the molecule or add pKa calculation, requests or jobs.
+Required profile adaptations do not inherit this optional-only domain restriction.
+
+Two investigated variants remain unavailable with inspectable reasons:
+
+- [CNS MPO, DOI 10.1021/cn100008c](https://pmc.ncbi.nlm.nih.gov/articles/PMC3368654/)
+  requires logD at pH 7.4 and most-basic pKa, absent from #159. Its six continuous,
+  equally weighted desirability terms produce a 0–6 score; binary thresholds or
+  zeros for missing terms would not reproduce it.
+- [Lee–Schneider, DOI 10.1021/cc000097l](https://pubmed.ncbi.nlm.nih.gov/11350252/)
+  uses scaffold clustering and pharmacophore assessment with a self-organizing
+  map. The verified abstract does not establish a reproducible threshold preset;
+  full text was inaccessible. Do not relabel the distinct Muegge–Heald–Brittelli
+  method, DOI 10.1021/jm015507e, as this variant.
+
+Acceptance includes exact and adjacent representable float limits, integer
+limit±1, each constraint failing independently, shared-composite consistency,
+source-domain unavailable states and missing/error/stale distinctions. Never
+round before evaluation or shift boundaries with a tolerance. Positive overall
+compliance requires every required current input to be available and passing;
+radar clipping and display rounding do not change evaluation.

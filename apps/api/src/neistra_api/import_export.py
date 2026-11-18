@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import re
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -22,6 +23,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
+from neistra_api.artifact_errors import ArtifactIntegrityError as ArtifactIntegrityError
+from neistra_api.artifact_errors import ArtifactNotFoundError as ArtifactNotFoundError
 from neistra_api.models import Artifact, Project, StructureEntry
 from neistra_api.project_service import (
     EntryNotFoundError,
@@ -51,10 +54,6 @@ class ImportLimitError(ValueError):
         self.code = code
         self.message = message
         self.filename = filename
-
-
-class ArtifactNotFoundError(LookupError):
-    pass
 
 
 class StructureUnavailableError(LookupError):
@@ -228,6 +227,29 @@ class ArtifactService:
         artifact = self.get(artifact_id)
         return artifact, self.store.read_bytes(artifact.relative_path)
 
+    def read_verified_bytes(self, artifact_id: str) -> bytes:
+        artifact = self.get(artifact_id)
+        try:
+            payload = self.store.read_bytes(artifact.relative_path)
+        except OSError as error:
+            raise ArtifactIntegrityError(
+                "The stored artifact is unavailable or unreadable"
+            ) from error
+        if len(payload) != artifact.size or hashlib.sha256(payload).hexdigest() != artifact.sha256:
+            raise ArtifactIntegrityError("The stored artifact failed its integrity check")
+        return payload
+
+    def load_normalized(self, artifact_id: str) -> NormalizedStructureV1:
+        artifact = self.get(artifact_id)
+        if artifact.media_type != NORMALIZED_MEDIA_TYPE:
+            raise StructureArtifactConflictError(
+                "This artifact is not a canonical molecular source"
+            )
+        try:
+            return NormalizedStructureV1.from_bytes(self.read_verified_bytes(artifact_id))
+        except ValueError as error:
+            raise ArtifactIntegrityError("The canonical molecular source is invalid") from error
+
     @staticmethod
     def response(artifact: Artifact, *, filename: str | None = None) -> ArtifactRead:
         download_filename = safe_display_filename(filename or artifact.filename)
@@ -359,7 +381,11 @@ class ImportExportService:
                     }
                 )
                 warnings.extend(structure.warnings)
-        project_read = ProjectService(self.session).import_entries(
+        project_read = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).import_entries(
             project_id,
             expected_revision,
             entry_states,

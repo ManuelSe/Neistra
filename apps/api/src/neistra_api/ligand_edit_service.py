@@ -75,7 +75,11 @@ class LigandEditService:
         if entry.current_artifact_id is None:
             raise StructureUnavailableError(entry.id)
         after_values = self._summary(result.structure)
-        project = ProjectService(self.session).record_molecular_change(
+        project = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_molecular_change(
             project_id,
             payload.expected_revision,
             payload.operation,

@@ -7714,6 +7714,142 @@ Durable designation uses exact canonical membership/origin and an explicit clear
 
 Keep the existing inspector until final163; audit and relocate every retained selection/measurement/contact/editing capability.163 expressly supersedes only saved-selection UI and standalone numerical-transform controls, preserving data/services/history. Update product specification then; do not rewrite historical global plan. Full scientific/current release gates, all-seven same-candidate specialist agent assessments, remote protections/reviews and exact merged qualification remain binding. Parent closure and Goalcompletion require all eight delivered plus final integration/release/closeout evidence.
 
+### D-165 independent158preparation — durable intent and explicit old-reader refusal
+
+Prepare independent158in an isolated branch/worktree while156long qualification remains frozen; publish/integrate in the agreed serial order with every final gate intact. No required dependency or exclusion changes.
+
+Choose first-class typed entry-owned designation with a stable intent UUID plus complete canonical membership/current assessed source; keep candidate keys, chemistry hashes and ordinary navigation separate. Source-qualified original mappings govern automatic inventory resolution; guessed connectivity/metadata cannot establish it. Exact selectable membership does not imply reliable depiction chemistry.
+
+Existing checkpoint version markers do not protect older direct writers: actual-source disposable probes demonstrated loss of unknown checkpoint state on oldsave.0016will rename the root project table to an explicit versioned physical name and move project/checkpoint/archive state to3, preserving historical validators. This provides a real old-reader refusal boundary before export/reconstruction; downgrade refuses any nondefault designation across current/checkpoint/history state. The child contract defines tests before accepting this migration. No live store or historical migration is changed by planning.
+
+### D-165 legacy default completion and depiction admission
+
+Automatic legacy designation completion is idempotent system enrichment, separate from undoable user intent commands. A locked revisioned POST changes only exact unresolved migrated defaults and records source/resolver/assessment provenance; preserve all existing history/checkpoint/redo records. Capture legacy creation and molecular snapshots before replay so repeated Undo/Redo restores exact intent. Import automatic assignment remains inside its entry-create command; manual choice and Clear remain reversible. Do not grow the200command budget or discard redo merely by opening a project.
+
+Bound retained depiction content by count, individual/aggregate bytes and atomic admission, preserving existing content at capacity. Source-binding metadata may rotate; content rows are retained so eviction cannot create unbounded orphan drawings. Refuse new drawing publication explicitly before any artifact write when capacity is exhausted. No broad artifact deletion or change to original uploads is authorized.
+
+## D-166 — Source lineage, scientific qualification and recoverable failures
+
+Date: 2026-11-16. Applies to the authorized #158 slice within parent #11.
+
+Molecular instance lineage is separate from current chemistry qualification.
+Verify raw mmCIF source tables and any present nonpolymer scheme against the
+preserved original. Reconstruct original canonical/source-index/residue/chain
+bindings from that original; editable labels, element and bond values do not
+replace those identities. An absent legacy receipt may be recovered by exact
+original proof with explicit provenance; a present contradictory receipt must
+fail closed. Bind the original digest or its absence into inventory identity.
+
+Known-covalent new clusters must belong to one anchored original instance and its
+canonical residue/chain partition. Keep valid polymer ownership nonpotential.
+Ambiguous ownership and undeclared or inconsistent raw classes stay unsupported
+potential inputs, suppressing automatic selection of another candidate. Before/
+after known-connectivity checks retire intent after a proven split or merge;
+missing source bonds do not become guessed connectivity. Water and monoatomic-ion
+exclusions use qualified physical composition where needed, preserving implicit-H
+multiatom ions. Molecular formula, mass and charge remain unavailable without
+qualified chemistry; an observed atom-charge sum is not a qualified card value.
+
+Failure of an optional original-file integrity check during a valid canonical
+edit retires the designation assessment to stale/unresolved with its current
+source and recovery reason. It does not block unrelated valid canonical editing.
+Preserve assigned intent and exact Undo/Redo snapshots. Canonical-input integrity
+failures still block publication; explicit candidate/depiction reads still reject
+unverified artifacts. Shared exception types live outside publication services to
+avoid a service import cycle and retain historical import aliases.
+
+Recovery feedback belongs to a captured context visit, including same-artifact
+choice changes and A→B→A. Known failed input checks retire cached composition and
+drawings and block Use until a successful matching-input recheck. They never clear
+intent or rewrite history. Explain original-file failures and source conflicts in
+compact warnings; reimport creates a new entry, so guidance must say to choose that
+new entry. Clear, cancellation, focus and the existing import flow remain intact.
+
+The schema3 fence needs an explicit qualification protocol: actual older-source
+refusal of current live stores and both archive suffixes without mutation,
+independently older-authored positive fixtures migrated forward with exact new
+defaults, and reopening current editing/designation state. Preserve all positive
+fixtures, corruption/stale/allocator controls, full synthetic reader stores and raw
+observations. Diagnostic v0.33 source checks are not final qualification against
+the later released predecessor. Do not mislabel safe-refusal results as successful
+older-writer retention.
+
+Measured optional-column fallback allocation was quadratic despite bounded lookup
+patterns. Resolve missing coordinate columns once and avoid eager row-sized
+scheme defaults. Independent work counters show 4,000,000 discarded slots at 1,000
+scheme rows become zero, without changing mapping semantics. Keep workload-specific
+cache observations and portable correctness separate from strict-host latency
+claims; do not expand this correction into unrelated optimization.
+
+### D-166 future descriptor/profile qualification refinement
+
+Before #159/#160 implementation, pin descriptor options, disposable hydrogen
+normalization and source-domain facts. Independent toolkit probes demonstrate
+explicit-H-sensitive Strict rotor counts and includeSandP-sensitive TPSA. Required
+and feasible named optional profile variants use exact sourced operators and
+explicit calculator adaptations. The optional lead-library range uses a disclosed
+conservative charged-graph domain gate; it must not neutralize input, pretend to
+classify permanent charge, or require new pKa jobs. Source research refines the
+child plans; it does not claim those dependent features are implemented.
+
+### D-166 future sidebar/filter ownership clarification
+
+Read-only pre-code assessments refine #161/#162 without changing dependencies or
+claiming implementation. One exact current basis joins independently completing
+composition, depiction and analysis outputs; producer-specific inventory/graph
+hashes are not interchangeable. Sidebar preview unavailability is a presentation
+overlay and must not invalidate the committed aggregate data used by filters.
+Deliberately inspected entries remain accessible when filtered out; never retarget
+the first matching row.
+
+Own name/property/type/sort state above responsive browser mounts and keep filtering
+a reversible projection. Qualified preset application includes source-domain
+conditions and exact operators, not numeric ranges alone. Manual numeric changes
+retain a visible domain until explicitly removed. Count known failures as excluded,
+otherwise terminal unavailability before pending work, with disjoint counts over
+all entries. Scoped resets preserve independent type/sort and molecular state.
+The child plans record these decisions and required tests; proposed aggregate
+page sizes still require measurement against delivered #159/#160 before adoption.
+
+### D-166 corrective source audit — representation, water and visit ownership
+
+Independent complete-source review found reachable exact-original query/dummy
+qualification, isotope-water exclusions, historical water-label overrides and an
+old-visit legacy-resolution error. Apply one concrete-molecule guard after either
+recovery or reconstruction, before input hashing, composition or depiction. Keep
+exact selectable membership independent and preserve source-proven isotope,
+radical, stereo and H semantics.
+
+Qualified water uses atomic-number composition and full H accounting with zero
+formal charge; isotope information is retained. A compatible established PDB/mmCIF
+water boundary can remain source-assigned without qualified molecular values.
+Verified current nonwater wins over historical classification, while raw nonpolymer
+ownership defeats name-only water heuristics. Preserve conservative unresolved
+states and existing unsupported reasons; no global classification override is added.
+
+Advance resolver/chemistry and matching client keys to v2 so previous derived
+bindings cannot bypass corrected qualification. Drawing policy and database/schema
+remain unchanged. Preserve explicit intent, original bytes and retained cache rows;
+do not add broad garbage collection or a live-state migration for pre-release keys.
+Legacy completion captures its open visit for error feedback, preserving global
+serialization, bounded priority batches and final scheduling after retired requests.
+
+### D-166 clarification — independent nuclear counts and image recovery
+
+Known canonical element identities qualify heavy-site counts independently of
+molecular bond/charge chemistry. Any undefined/dummy element makes the complete
+count unavailable, preserving null versus known zero. Explicit D/T counting aliases
+are hydrogen only and never rewrite source isotope facts. Retire previous derived
+inventory keys through resolver/client v3; keep chemistry v2 and drawing v1.
+
+Depiction metadata success does not establish successful image download/decoding.
+Own recovery by exact source visit and image attempt; use a fresh same-artifact URL
+and remount for Retry, leaving metadata, choice and canonical state intact. A polite
+per-instance status reports failure and requested retry outcome only for the actual
+current attempt. Old/failed loads cannot claim recovery, and initial successes stay
+silent. Distinct-molecule native controls establish independent URLs; repeated exact
+occurrences intentionally share an artifact/browser request.
+
 ### D-165 C1 clarification — local inspection ownership and truthful target choices
 
 Keep atom-hover subscription/render state in a narrow viewer-information child. A loaded100,000-atom component probe confirmed that pointer publications in the parent invalidate query-result-array memoization and repeat full-source derivation; the corrected component performs no full-source mapping or network read over20distinct warm targets. This is measured work reduction, not a strict-host latency claim. Source/artifact/settings/renderer qualification remains synchronous in the child.
@@ -8130,3 +8266,435 @@ preserve observed stage facts without rewriting historical pending receipts or t
 runtime tag. Normal terminal documentation may integrate evidence after release;
 post-integration branch-cleanup readback belongs in the delivery asset/canonical
 issue reply rather than another runtime release or recursive receipt commit.
+
+
+## D-175 — Integrate durable ligand ownership with released measurement guards
+
+Date: 2026-11-17. Child #158 integration against actual terminal master `b038e4e6`
+and preceding released runtime `7542d1a1` / v0.35.0, after verified #157 closeout.
+This preserves the authorized scope, scientific methods and existing source facts.
+
+Keep D-165/D-166 alongside D-167–D-174; neither branch supersedes the other's
+accepted decisions. Retain the synchronous numerical-preview ref, measurement
+session, native batch/contact lifecycle, generic captured command context and
+monotonic per-project cache. Ligand choice and quiet legacy recognition need their
+own monotonically retired visit/preview/source authority. Render-only pause state
+and an effect-updated selection epoch cannot establish retirement across same-turn
+preview entry/Cancel or workspace A→B→A. Consulted architecture before integrating.
+
+Capture exact current project/revision, visit, entry/current/original source and
+candidate/input identity. Qualify before asynchronous mutation preflight effects and
+again at dispatch; extend guards through legacy conflict reread and its sole retry.
+Separate dispatch admission from completion feedback so a request's own busy/revision
+change does not reject valid success. Late acknowledgements may update only their
+own monotonic cache; retired/superseded UI continuations cannot close another chooser,
+move focus or announce success/error. Opening the chooser stops measurement picking
+while retaining its draft and ordinary canonical selection.
+
+Use actual 0.35 sources for compatibility, retain all 42 predecessor responsibilities
+including seven ordered-measurement phases, then add meaningful schema3/designation
+checks. Safe refusal is distinct from old-writer retention. Preserve every existing
+scientific/history/archive oracle, failed attempt, deadline and exclusion. All five
+versions advance to 0.36.0, with explicit 0016/project/archive3 serialization and
+default-only rollback notices; dependencies remain pinned. Current integration is
+not a qualified candidate or readiness claim. Focused and complete fresh gates and
+all-seven final same-candidate assessments must follow.
+
+
+D-175 integrated native recovery correction: first Escape closes ligand choices
+and restores its launcher. On narrow layouts a second Escape belongs to the
+focused Inspector drawer and must preserve the stopped measurement draft. The
+initial combined native run exposed both handlers acting on that event, which
+closed Measurements and cleared its targets/name. The pinned dismissal listener
+runs during document capture, so drawer bubble propagation alone is insufficient.
+Measurements must prevent its own default dismissal, then defer Stop/Close when
+the Escape target belongs to another dialog. The focused drawer consumes its own
+close. Keep existing tool/canvas and nested measurement chooser recovery intact.
+Independent UX assessment establishes this acceptance; implementation and fresh
+native qualification follow. The failed traces remain distinct from the root's
+corrected desktop whitespace oracle and unattributed preparation navigation event.
+
+
+D-175 correction verification: ownership/StrictMode scoped checks pass120cases;
+Escape correction passes158cases/nine suites, full frontend lint/types and independent
+UX reassessment. A fresh18-case native run passes both profiles/themes, real zoom,
+320px/image recovery, exact ligand choice and ordered measurement acquisition. Both
+Escapes preserve the stopped named ordered draft and canonical selection; originals
+and persisted designation remain unchanged by cancellation. All994source hashes stay
+fixed; build, child and observed enclosing exit0. C3's checked packet retains failed
+and passing evidence separately. Final full gates and all-seven review still follow.
+
+
+## D-176 — Qualified entry-wide occurrence counts outside durable intent
+
+Date: 2026-11-17. Full review of #158 found that an instance ordinal and pagination
+do not meet the accepted occurrence-count requirement. Independent UX, theory and
+architecture confirmed the gap. Intentionally stop candidate1 before further gates;
+its eight passes, partial Python log, explicit SIGTERM cause and observed enclosing
+143 remain failed/partial evidence. All994current/931actual0.35sources were unchanged.
+No passing segment substitutes for the next complete fresh candidate gate.
+
+Expose nullable `occurrence_count`, explicit `occurrence_basis` and structured
+`occurrence_reason` on derived candidate metadata. These never enter designation
+intent, commands, project/history/archive state or renderer ownership. Individual
+instances remain independently selectable; counts do not change automatic eligibility.
+Count within the complete current entry, never across entries, visible pages,
+conformers or symmetry/assembly expansion. Unknown is not zero or an assumed one.
+
+The `qualified_representation_v1` basis uses strictly qualified graph representations.
+On a disposable copy, clear original atom maps and conformers, then use canonical
+isomeric CXSMILES with explicit H/bond notation and radical extension. Qualified
+total attached H is preserved: equivalent bracket/implicit notation does not create
+different identities. Keep explicit H graph nodes, isotope, charge, radicals and
+supported stereo; add/remove no H and perform no neutralization, tautomerization or
+desalting. Enhanced/nonordinary stereo, structural groups, query/dummy and unsupported
+bond semantics remain unavailable. Names, atom/source IDs, coordinates, formula,
+mass, depiction bytes and the existing identity-bearing chemical input hash are not
+equivalence keys. A proposed H-bookkeeping map encoding was rejected before adoption.
+
+The `verified_source_entity_v1` basis counts complete current occurrences assigned
+to the same verified immutable source entity. It is source identity, not current
+chemical equality, including after chemical edits. Require existing source mapping
+qualification; preserve its limitations, including unsupported multiple nonpolymer
+residues within one asymmetry. The counting helper adds no further asymmetry-only
+uniqueness rule. Never infer entity identity from mutable residue labels. Unknown
+potential instances invalidate complete chemical totals; independently proved source
+counts may remain known. No partial chemical totals or unlabelled lower bounds.
+
+Share one verified source assessment and one prepared chemistry context through
+inventory resolution, count construction and visible metadata, including water/ion
+classification. The existing resolver accepts optional prepared inputs; default
+callers retain their prior behavior. A separate count-policy key leaves membership,
+chemical-input and depiction policies unchanged.
+
+Retain only finalized immutable summaries in a bounded process-local LRU. Verify
+normalized/original inputs before lookup. The key includes resolved managed store,
+complete inventory identity, source format/record index, resolver/chemistry/count
+policies, toolkit and resource settings. Record index is required because recovery
+consumes it separately from the inventory digest. Matching coordinate-only inputs
+may reuse counts. Retain no native molecules, preparation contexts or builder
+closures. No database migration, artifact deletion or persistent job is introduced.
+
+Cold counting shares the existing two depiction work slots, without a work queue;
+same-key misses are single-flight. Cache hits need no work slot. Cleanup releases
+admission and in-flight ownership on every exit. Retention is bounded by exact
+encoded key/value bytes, not a claim of Python heap or RSS limits. Oversized summaries
+may serve their current valid response without retention. Deterministic input-limit
+results may be retained; transient busy/time refusals are not permanently cached.
+Current provisional admission is1,024potential instances/8,192candidate sites/1,024
+sites per candidate, a cooperatively polled2second counting budget, and64summaries/
+256KiBper summary/8MiBencoded retention. Final prototype/API measurements must qualify
+these defaults before adoption; polling is not a hard per-library-call deadline.
+
+Cards show the server-declared entry scope and basis, or concise unavailability with
+a secondary reason. Preview and failed input checks retire counts. Count/depiction
+failure does not disable an independently exact selectable instance. One page-level
+Retry counts action uses the existing metadata refetch, with synchronous duplicate
+admission and captured context/page/source/preview feedback/focus. Transient results
+retry on reopen; stable immutable metadata retains its lifetime. No polling loop or
+implied background queue. Preserve current focus/choice/depiction and retire old
+A→B→A continuations. Actual native recovery, performance adoption and final complete
+gates/all-seven assessment still follow the focused corrections.
+
+
+D-176 measured adoption: retain the proposed 1,024-instance / 8,192-site /
+1,024-site-per-candidate admission, cooperative two-second budget and 64-entry /
+256-KiB-per-entry / 8-MiB encoded cache bounds. The frozen eight production files
+pass 24 fresh core samples, 18 actual ASGI samples, six additional verified-source
+samples and retention/admission probes. On this portable host, 1,000 repeated
+three-site instances take 0.599–0.608 seconds in the count index and 0.747–0.753
+seconds in cold API reads; 1,000 varied six-site instances take 1.345–1.379 and
+1.557–1.572 seconds respectively. Verified source totals of 1,000 require no
+chemical signatures. Warm pages rebuild neither index nor signatures, but still
+perform existing source preparation and visible metadata qualification.
+
+Candidate/site excess refuses before chemical qualification; the 58,870-site
+complex explicitly reports its atom limit. Cache hits work while both slots are
+occupied; misses start no builder. The retention probe ends at 62 summaries /
+8,346,192 encoded bytes, approximately 17.1 MB of recursively counted Python
+objects and zero retained native molecules. An initial process high-water reading
+of approximately 956 MiB did not reproduce in a separately sampled fresh child
+(approximately 139 MiB); both observations remain retained and the cause is
+unestablished. No Python-heap/RSS ceiling, every-host latency, TCP/browser timing
+or hard per-library-call deadline is inferred. This is scoped policy evidence;
+complete release gates and all-seven final review remain required.
+
+
+D-175 additional complete-review findings (2026-11-17): candidate2 was intentionally
+stopped during Python, before any source edit, after eight passing steps. Independent
+UI review and primary inspection found the narrow dialog header/Close clipped away
+in a previously passing screenshot. A stronger actual-app native oracle reproduces
+the failure on both profiles: outer scrollTop133, header top−124 versus panel top8.
+The prior oracle checked only panel/footer bounds. Make the modal frame non-scrollable
+with `overflow: clip` and contain absolute accessibility content within the relatively
+positioned scrolling body. Both focused native cases then pass, including header/Close
+containment and zero outer scroll. This establishes the actual outer scrolling symptom
+and correction; the isolated accessibility-content probe is supporting structural
+evidence, not a claim that every application focus event was individually traced.
+
+Architecture independently reproduced another P2 using a schema-valid changed Clear
+acknowledgement with actual dirty flags and timestamps: the correct monotonic project
+cache update remounts a newly opened chooser through its designation-dependent React
+key, replacing deliberate footer focus with the heading. The earlier revision-only
+held acknowledgements did not exercise this path. Preserve the chooser mount for its
+explicit source/open visit while keeping designation-sensitive async ownership. Retain
+the shared designation-aware metadata query and failure channel; same-source/same-page
+previous data may bridge a designation refetch only when its previous query succeeded.
+Known failed inputs must not be resurrected from retained data. Use stays disabled
+until the actual new-key check succeeds. Keep page/draft/focus where inputs remain
+qualified, retire old Retry/RAF feedback on designation changes, and accept legitimate
+ACKs into their project cache. Changed Use/Clear and held-refetch/error-recovery
+regressions plus fresh integrated/native qualification follow before candidate3.
+
+All partial candidate2 logs, intentional signal/owned-process evidence and actual
+enclosing26838exit143 remain preserved. No partial pass is pooled into a future gate.
+
+
+D-175 correction readback: the pinned query observer retains its last query with
+defined data. A successful A followed by a no-data failed B can otherwise supply A
+as a placeholder for pending C. The source owner now retains a local qualification
+fence across designation keys and chooser close/reopen. Matching errors withhold
+cached/placeholder metadata; matching actual nonmanual successful reads restore it.
+Keep shared query consumers and permit a real read retained by the summary to recover
+across dialog visits. The failed assertion that demanded continued refusal after such
+a genuine post-failure read was corrected as a test oracle, with raw attempts retained.
+No global registry, scientific policy, migration or App/MeasurementTool change is added.
+
+Final focused checks pass187cases/nine suites, full lint/types and enclosing31288exit0.
+Full frontend1304/122suites and build pass. Two new native-test oracle errors were
+diagnosed directly: the modal intentionally aria-hides the background root despite
+the legitimate Change button being present, and SQLite readback omits the UTC suffix
+on newly UTC-written modified_at fields. Observe the existing background DOM without
+interacting with inert controls; normalize only the optional trailingZ on those UTC
+fields, retaining all six fractional digits and every other project value. Preserve
+all active-modal focus/DOM/radio, cancellation, revision and original-byte assertions.
+After four targeted actual-server ACK cases pass, a fresh26-case native run passes
+all profiles/themes/zoom/narrow/Axe/recovery/measurement checks with zero failures,
+flakes, retries or skips; all1,003sources stay unchanged, actual enclosing59094exit0.
+The unrelated frontend/build proof is reused only after verifying the sole changed
+source is the new native oracle. All failed/full partial attempts remain separate.
+Complete fresh gates and final same-candidate all-seven assessment remain mandatory.
+
+
+## D-177 — Isolate pytest fixture stores from qualification databases
+
+Date:2026-11-17. Freshcandidate3 at ac4786d1 completes2,844Python cases but fails132
+historical migration cases; all failures belong to one migration module. Actual
+source maps remain1,003current/931preceding unchanged and the enclosing exit is1.
+The Python step injected the qualification database through canonical NEISTRA
+settings. Those correctly override the migration fixture's legacy temporary-store
+aliases, so Alembic targeted the qualification store while the fixture opened its
+untouched temporary store. The captured precedence warnings and missing database
+errors establish this path. Production precedence and migration behavior are correct.
+
+The pytest phase must inherit only the runner's sanitized module/tool settings,
+without a per-step shared database binding. Existing per-step removal of all five
+canonical/legacy/database aliases remains; dedicated Alembic, versions, CLI and
+actual-reader phases keep their explicit isolated stores. Preserve all42commands,
+reader directions, migration logic, historical assertions, exclusions and deadlines.
+
+A real unchanged migration case fails with the injected settings and passes with
+them sanitized; all133historical migration cases then pass unchanged. A recipe
+regression fails before correction and passes afterward, including a real child
+under hostile inherited aliases. All17recipe cases, scopedRuff and syntax checks
+pass. Only the generator and its existing environment-guard test change. Earlier
+application/native evidence remains valid for byte-identical application sources;
+no partial Python totals are pooled into qualification. A freshcandidate4 must run
+the complete gate. Retain all failed candidate3 logs, actual stores and provenance.
+
+The evidence ZIP retains every real pytest-workspace payload. Internal `*current`
+convenience links are recorded with validated within-owner targets rather than
+archived or followed as filesystem links. Original workspaces/links stay intact;
+generic release packaging continues to reject arbitrary symlinks.
+
+
+## D-189 — Coalesce job progress refreshes without discarding in-flight state
+
+Date:2026-11-17. Fresh158candidate8 passes every pre-browser phase but fails the
+existing demonstration-job running/cancel lifecycle. The correct100step/50ms job
+runs5.23seconds; HTTP lists report it running during the assertion while decoded
+DOM snapshots retain the previous failed job until completion. JobsPanel and API
+client are unchanged from the accepted base. Exact exclusive native causation is
+not established by that trace alone.
+
+Independent actual-component/installed-QueryClient proof reproduces a reachable
+refresh starvation defect: repeated WebSocket invalidations logically cancel four
+held successful running responses, leaving five list requests and no running DOM.
+A counterfactual coalescing control publishes running state through one request.
+The query functions do not consume AbortSignal, so HTTP200 does not prove cache
+publication. Permanent held-list and held-events regressions each fail before the
+correction with five requests instead of one.
+
+Pass cancelRefetch:false to both progress-notification invalidations. Allow an
+existing list/event refresh to finish; preserve polling fallback, explicit Retry,
+project/job query ownership, selected detail tab/focus, cancellation confirmation
+and terminal/error handling. No control, job duration, retry or deadline changes.
+Qualify current running/log publication during held progress events, retained
+cancellation behavior, project transitions and the unchanged actual native lifecycle.
+The reference assessment supports responsive status/progress and deliberate cancel;
+it prescribes no particular query implementation or new workflow.
+
+
+D-189 cancellation publication refinement: a separate controlled regression proves
+that an already held pre-cancel list response can restore running after the API has
+confirmed terminal cancellation. Coalescing ordinary progress must not weaken a
+successful explicit intent. On cancel success, logically cancel the older list
+refresh for the returned job's own project before publishing the acknowledged job
+into that same cache. Retain the exact stale-response negative control and normal
+error/confirmation behavior. This is a query publication barrier, not an additional
+server cancellation or a changed job lifecycle.
+
+
+D-189 acknowledgement ordering refinement: the running-job cancel API can acknowledge
+running with cancellation_requested=true. Independent actual-component proof shows
+that this older acknowledgement can arrive after a GET has already published a
+terminal cancelled result, then regress cache/DOM to running. Preserve already
+observed terminal state for the same job against a nonterminal acknowledgement,
+including across the targeted query-cancellation barrier; qualify cancelled,
+completed and failed outcomes. Keep normal acknowledged payload updates for live
+jobs and avoid a generic revision protocol or additional server commands.
+
+
+## D-195 — A source failure retires earlier inventory checks across presenters
+
+Independent installed-query/component controls reveal a consequential source-failure
+race in158candidate246efa and the identical159/160controls, plus161's new shared
+owner: an older successful page-zero response held in transport can arrive after a
+newer page integrity failure and restore cached cards/composition/image without a
+new source check. Preserve the independent failed controls and interrupted158C10;
+passing earlier checks or a later presenter change do not qualify this behavior.
+
+A known failure must synchronously withhold the exact-source inventory across its
+header, chooser, pages and responsive visits. Only a genuine matching check begun
+after that failure may restore qualification. Late arrival time and manual cache
+writes do not establish requalification. Retain failure knowledge through presenter
+unmounts; do not reconstruct recovery from success timestamps changed manually.
+A bounded start/failure-generation barrier or verified cancellation of all earlier
+in-flight exact-source checks may implement this contract. Choose through actual
+installed-query probes before code, then retain permanent negative/recovery tests.
+Keep unrelated project/entry/artifact work independent, one shared qualification
+object and existing two-active/24-queued drawing admission. No scientific value
+cache, chemistry method, predictor, schema, source-file mutation or new dependency.
+
+The161header additionally requires its resolved designation's non-null source
+artifact to equal the authoritative current entry artifact. Agreement between two
+stale designation copies is insufficient. Preserve exact instance/membership and
+distinct inventory/chemistry/descriptor hashes; candidate key is not a durable
+instance ID. Missing/unqualified facts remain withheld with recovery.
+
+Correct earliest158first and propagate the qualified policy through159/160/161.
+Verify held earlier-page responses, source failure, close/reopen and responsive
+unmount, manual writes, genuine fresh Retry, another failure during Retry, shared
+pages, source/project changes and unaffected independent consumers. Keep all old
+scientific assertions, workloads, timing bounds and warnings. Run appropriate fresh
+candidate/full gates and same-candidate seven-role reviews; this correction is not
+permission to pool partial runs or claim a release before exact-master qualification.
+
+
+## D-197 — Bound inventory failure facts with conservative requalification
+
+Independent installed-query controls of D-195 show that 1,000 failed sources,
+with or without genuine recovery before query removal, leave 1,000 retained
+owner records after all queries are gone. Unrecovered records also retain full
+error objects. The module-lifetime QueryClient outlives presenters, so query
+collection alone cannot bound this separate map. Candidate11 is explicitly
+interrupted for this confirmed resource defect; its partial checks are not a
+complete qualification and remain retained independently.
+
+Keep at most128 source qualification records and64KiB of source-key UTF-8 bytes.
+These are local metadata-retention limits, not limits on entries, molecule size,
+candidate eligibility or chemistry work. On eviction, retain one sticky owner-
+lifetime fact that an unknown source requires a genuine check. An absent source
+must then remain blocked until a matching successful request qualifies it; manual
+cache writes and old responses cannot admit or qualify records. Retained unrelated
+records keep their qualification, and eviction never cancels unrelated work.
+
+Allocate a fresh opaque token for each admitted source record and each subsequent
+failure. At actual query-fetch start, retain only that token in a weak query map.
+Only matching nonmanual success with the still-current token may recover a record.
+Eviction/recreation and deactivate/reactivate must never reset token authority.
+Keep cancellation scoped to the exact project/entry/current/original source, after
+installing the new failure token. Preserve weak historical-error acknowledgements
+so successful recovery is not undone by reactivation or manual cache publications.
+
+Retain only fixed recovery classifications: source conflict, artifact unavailable
+or integrity failure, and retry required. Full response errors, warnings, reports,
+stack traces and cause graphs remain with existing query/API owners. Preserve the
+presenter's specific current/original-file recovery wording. Use one QueryClient-
+owned instance across application/presenter remounts; a new owner for an existing
+client would lose conservative forgetting. An oversized source key is declined
+conservatively rather than stored beyond the byte budget.
+
+This introduces no scientific cache, method, request retry loop, resource/deadline
+relaxation or schema change. The bounded tradeoff is an occasional genuine check
+after qualification metadata is evicted. Verify thousands of failed/recovered/
+removed sources against both bounds, absent original error references, manual
+writes after eviction, old success across recreation, failure during Retry,
+reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
+independent architecture/performance reassessment before the next full candidate
+qualification, then all seven same-candidate assessments and the complete gates.
+
+
+## D-198 — Qualify ligand source failures across read and write producers
+
+Independent actual application controls reproduce a source-qualification defect:
+Use can report a molecular integrity or missing-artifact failure while cached
+composition/drawing remain visible and Use stays enabled. The corresponding159
+path also retains numerical authority. This violates D-166/D-195 even though the
+failed operation leaves durable intent unchanged. The old1007-source candidate,
+all raw controls and its active C12 qualification remain untouched. An isolated
+fix/issue-158-source-producer-qualification tree owns this correction under the
+same approved158plan; it is not a separate release or permission to push early.
+
+Audit the closed four-producer ligand-service boundary: candidates and depiction
+use their query owners; designate and legacy resolve report failure inside their
+actual captured API operation, before generic command/toast/helper feedback gates.
+Expose a bounded explicit canonical-owner source-failure entry point, reusing the
+existing barrier, cancellation and notification path. Preserve128records/64KiB,
+weak request-start guards and current-only successful candidate requalification.
+Depiction success never qualifies candidate facts.159's numerical bridge consumes
+these facts separately; it still requires a fresh property READ for recovery.
+
+Known current/original molecular reads carry optional typed source_verification
+and source_identity={project_id,entry_id,current_artifact_id,original_artifact_id},
+captured as primitives before the actual read. Preserve existing HTTP status/code/
+message. Include normalized-source StructureArtifactConflict failures as well as
+integrity/missing-artifact failures. Derived SVG reads remain untagged. The _entry
+expected-current mismatch receives a typed current tag without inventing an old-
+current/new-original tuple. Its single-target operation can use its own captured
+four-field input. A later expected_input_hash mismatch is semantic rejection, stays
+untagged and does not invalidate independent scientific facts.
+
+The client distinguishes absent, valid and invalid supplied identity; malformed
+provided provenance cannot become absent fallback authority. Batch resolve accepts
+only proof matching its captured project, requested member and all four immutable
+source fields, even for a one-entry batch. Never invalidate every batch input.
+Single-target operations use the captured exact source and valid producer evidence.
+Delayed source facts apply independently of UI feedback ownership to matching
+cached source only; a different source B remains untouched. Returning to the same
+immutable A requires verification after the latest observed failure. Clear/no-op
+fabricates no read proof; successful assignment/clear follows existing identity/
+history. Transport, revision/context errors, semantic candidate rejection and
+untagged derived drawing errors do not become molecular-source failures.
+
+Architecture and scientific implementation assessed this boundary before code.
+Verify actual158composition/drawing/Use retirement, actual159numerical/captured-
+authority retirement, exact batch isolation, API provenance validation, held reads,
+closed/switched contexts, Clear/semantic/transport/derived positives, bounded
+retention and successful current candidate recheck. Preserve all failed proofs.
+Complete focused/static/web checks and all-seven same-final-candidate assessments;
+then run a fresh full158candidate/exact-master gate before publication. C12's
+unchanged automated results are historical, not approval of the known defect.
+
+
+D-198 single-Use compatibility clarification: inspection of the designation write,
+entry.ligand patch application, history trimming and project DTO construction finds
+no artifact reads outside the captured target's _inputs. Therefore legacy untagged
+artifact_integrity_error409/artifact_not_found404 on the actual single-target Use
+API promise are valid source evidence for that captured input. Enable this narrow
+fallback only when selecting a candidate. Clear has no input read and gains no such
+fallback; batch resolution always requires full typed exact identity. Untagged
+structure_artifact_conflict remains ambiguous with candidate-hash rejection and
+cannot grant mutation authority. A supplied malformed or mismatching identity
+always prevents fallback. This preserves the original source-failure regression
+while retaining explicit producer and immutable-source ownership.

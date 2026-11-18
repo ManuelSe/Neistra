@@ -168,7 +168,11 @@ class ModelEditService(SelectionEditService):
             "current_artifact_id": artifact.id,
             "created_at": datetime.now(UTC).isoformat(),
         }
-        project = ProjectService(self.session).create_molecule(
+        project = ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).create_molecule(
             project_id, payload.expected_revision, state
         )
         return MoleculeCreateRead(

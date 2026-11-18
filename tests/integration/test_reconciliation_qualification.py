@@ -6,6 +6,7 @@ from neistra_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
 from neistra_api.models import StructureEntry
 from neistra_core.artifacts import LocalArtifactStore
 from neistra_core.hydrogen_protection import protection_facts
+from neistra_core.ligands.models import LigandDesignationV1
 from neistra_core.molecular import NormalizedStructureV1
 
 from tests.integration.test_archive_roundtrip import import_archive
@@ -118,6 +119,7 @@ def test_old_import_recovers_protection_from_original_only_on_publication(
         )
         row = session.get(StructureEntry, entry["id"])
         row.current_artifact_id = artifact.id
+        row.ligand_designation = LigandDesignationV1().model_dump(mode="json")
         session.commit()
     project = client.get(path).json()
     counters = allocation_counters(client, project)

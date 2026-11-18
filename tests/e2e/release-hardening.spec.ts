@@ -115,6 +115,12 @@ test("supports keyboard focus and bounded responsive controls", async ({
     const drawer = page.getByRole("dialog", { name: "Inspector panel" });
     await expect(drawer).toBeVisible();
     const selectionTab = drawer.getByRole("tab", { name: "selection" });
+    const entryChoice = drawer.getByRole("region", { name: "Ligand of interest", exact: true })
+      .getByRole("combobox", { name: "Entry", exact: true });
+    await expect(entryChoice).toBeEnabled();
+    await expect(entryChoice).toBeFocused();
+    await expect(entryChoice).toHaveValue("");
+    await page.keyboard.press("Tab");
     await expect(selectionTab).toBeFocused();
     await selectionTab.focus();
     await page.keyboard.press("ArrowRight");

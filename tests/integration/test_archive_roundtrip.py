@@ -305,18 +305,18 @@ def test_legacy_archive_defaults_selection_appearance(client: ApiClient) -> None
         "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0", "0.16.0", "0.17.0",
         "0.18.0", "0.19.0", "0.20.0", "0.21.0", "0.22.0", "0.22.1", "0.23.0", "0.24.0", "0.24.1",
         "0.25.0", "0.26.0", "0.26.1", "0.26.2", "0.27.0", "0.28.0", "0.28.1", "0.29.0", "0.30.0",
-        "0.31.0", "0.32.0", "0.33.0", "0.34.0",
+        "0.31.0", "0.32.0", "0.33.0", "0.34.0", "0.35.0",
     ],
 )
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,
 ) -> None:
-    assert APPLICATION_VERSION == "0.35.0"
+    assert APPLICATION_VERSION == "0.36.0"
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")
-    assert first["manifest_schema_version"] == 2
+    assert first["manifest_schema_version"] == 3
     assert first["source_revision"] == source["revision"]
     assert first["artifact"]["filename"] == "Portable_study.molweave.zip"
     assert first["artifact"]["sha256"] == second["artifact"]["sha256"]

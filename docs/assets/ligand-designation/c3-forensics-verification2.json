@@ -1,0 +1,70 @@
+{
+  "scope": "Third failed-run forensic retention extension and full local readback; not application qualification or public availability",
+  "archive": "c3-forensics-verification2.zip",
+  "files": 45,
+  "archive_bytes": 2057196,
+  "archive_sha256": "3c6324d7b7ead0823dcfc4a6c6a173ca8db107aa895ccb0e84f4e637d7308272",
+  "recursive_verification": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 45,
+    "project_archive_files": 0
+  },
+  "index_sha256": "1da56de565c1db85295a32c96e0cec47c5c8e768250f4d6e0195f68509588593",
+  "previous_index_sha256": "c707af73a25fe466a05e1a0a0bcf9456fdcb49b03b7b3af5c87805f2d2a7b12d",
+  "previous_two_runs_unchanged": true,
+  "previous18parts_and_inventories_unchanged": true,
+  "previous_verification_json_and_zip_unchanged": true,
+  "local_all_parts_verified": 24,
+  "local_new_parts_verified": 6,
+  "new_run": {
+    "label": "c4-candidate6",
+    "failed_candidate": "b41fa747e6e75201b466bca0a1232566236a6d13",
+    "qualification_complete": false,
+    "files": 10627,
+    "raw_bytes": 895783948,
+    "source_count": 1005,
+    "source_digest": "7e5a38ae9f3f7ec564cfe4637f1faf9458b2841e45bf17f9ec820def016b6f43"
+  },
+  "total_asset_bytes": 1853796641,
+  "total_canonical_files": 43374,
+  "total_raw_bytes": 3754345497,
+  "all_parts_below80MiB": true,
+  "exact_disjoint_unions_and_recursive_crcs": true,
+  "source_control_reference": {
+    "scope": "Byte-identical source/control evidence reused; no repeated or invented control run",
+    "historical_verification_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.json",
+      "bytes": 2437,
+      "sha256": "874c955f571546b674d58ba168c9bb104c50c4fc64f57cf465343da53af25557"
+    },
+    "historical_verification_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.zip",
+      "bytes": 5628004,
+      "sha256": "6c275f5949c7a0e79276bcf7eb1f5c0eeb79f16b467d38b2f81dc2242adaf63a"
+    },
+    "offline_controls": 64,
+    "real_network_requests": 0,
+    "source_identities": {
+      "tools/verify_ligand_forensics.py": {
+        "bytes": 14388,
+        "sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0"
+      },
+      "tests/unit/test_ligand_forensic_verifier.py": {
+        "bytes": 21216,
+        "sha256": "a4d2f7aa2d06c51a6e455271a48c5c09e79003440e9f7dab1ce36fb46cf89275"
+      }
+    },
+    "all_sources_unchanged": true
+  },
+  "observed_failure": "Dependent dynamic-module requests failed with ERR_NETWORK_CHANGED; the expected instrumentation response was fulfilled. Underlying host cause remains unknown.",
+  "independent_diagnosis": "Scoped read-only performance verdict PASS: no consequential application correction established; does not qualify the failed gate.",
+  "unchanged_probe": "Eight actual native cases pass both profiles with zero failures, skips, retries or flakes and unchanged1005sources. This is a scoped diagnostic probe, not pooled full-gate evidence.",
+  "retention": "All owned stores/raw originals retained; C6 native tree relocated only after exact archive union verification and complete before/after file hashes; no deletion.",
+  "required_next": [
+    "Independent review of extended forensic contract and integrated final candidate",
+    "Fresh complete C7 all42, independent summary, recursive packaging and actual enclosing readback; no pooled passing segments",
+    "Normal final review/PR/merge and complete exact-master gate",
+    "Publish all indexed supplemental assets only with verified release and run full anonymous tracked-verifier readback before child closeout"
+  ],
+  "observed_utc": "2026-11-17T16:42:08.328290+00:00"
+}

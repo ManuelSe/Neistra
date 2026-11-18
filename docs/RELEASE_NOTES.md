@@ -1,11 +1,33 @@
 # Neistra Release Notes
 
+## 0.36.0 — Exact ligand designation (in preparation)
+
+Child #158 is integrating with released 0.35.0; no 0.36 release or final integrated
+qualification is claimed yet. Exact per-entry instance choice, automatic qualified
+single-candidate recognition, persistent Clear, reversible intent and bounded cached
+2D candidate cards are the accepted scope. Unknown chemistry remains unavailable.
+
+Serialization compatibility changes: migration 0016 introduces the physical
+`project_documents_v3` boundary and project/archive schema3, with viewer2 unchanged.
+Deploy matching client/server versions. Actual older code must refuse current stores
+and archives without mutation; current code retains validated schema1/2 imports.
+Default-only downgrade is guarded across live/checkpoint/history state. Automatic
+recognition and Clear can prevent downgrade; complete pre-upgrade backups provide
+rollback. Original files and existing measurement/history content remain preserved.
+
+All five authoritative versions are 0.36.0 with unchanged dependency pins. Final
+candidate/exact-merged gates must retain all 42 predecessor responsibilities,
+including actual ordered-measurement readers, plus new designation/schema-boundary
+qualification. All seven final same-candidate assessments remain required.
+
 
 ## 0.35.0 — Deliberate viewer measurements
 
-In preparation for child #157; not published. Full final-version candidate and
-exact-merged qualification, seven final specialist assessments and release readback
-remain pending.
+Published as [v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0)
+through PR #170 at `7542d1a1`; terminal documentation PR #174 preserves its runtime
+tag. Both fresh 42-command gates, all seven final specialist assessments, complete
+primary/sidecar/forensic anonymous verification and child closeout pass. Earlier
+pre-release observations below remain scoped historical evidence.
 
 - The viewer ruler creates explicit numbered distance, angle and signed torsion
   drafts. Compact picking, correction and keyboard/touch recovery preserve ordinary

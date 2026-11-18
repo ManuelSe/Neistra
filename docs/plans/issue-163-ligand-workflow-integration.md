@@ -75,3 +75,48 @@ Proposed PR title: `feat(ligand): retire general inspector and qualify complete 
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+### Pre-code capability audit — retained operations and explicit UI deferrals
+
+Read-only architecture assessment of `a4190bdf` inventories the existing inspector;
+repeat against the integrated predecessor before implementation. Current parent
+scope was read back authenticated and still expressly defers #164/#165 relocation
+while preserving their services, APIs, history and data. Neither is a hidden runtime
+prerequisite or permission to invent a new destination.
+
+| Current capability/source | Treatment before retirement |
+| --- | --- |
+| Selection panel: clear/invert, atom/residue/chain/structure modes and expansion, replace/add/subtract, predicates and spatial atom/residue queries | One compact secondary selection surface; preserve full-project and hidden-entry semantics. Load required sources only for the explicit operation, bounded and cancellable. |
+| Saved-selection creation/load/delete | Remove UI only, as expressly authorized. Preserve models, APIs, persisted selections, reconciliation, commands and both archive suffixes. |
+| Atom/residue/chain inspection | Use #156; audit supplemental residue atom counts and chain entity/residue/atom counts before deleting the old panel. |
+| Measurement management and close contacts | Use the single #157 controller and guarded viewer tool. |
+| Interactive movement | Keep its existing viewer home and behavior. |
+| Generic numerical translation/rotation | Remove standalone widgets in TransformPanel and both legacy editing panels; preserve services and historical commands. Molecular atom-add XYZ and scientific bond-rotation parameters are separate retained functions. |
+| Ligand editing | Keep compact Edit and preserve missing absolute-coordinate atom creation, explicit bond selection/operations, whole/selected H removal, explicit movable-atom bond rotation and auto/MMFF/UFF cleanup options in secondary editing controls. |
+| Protein editing | Preserve residue/chain/water/ion deletion, chain rename, residue renumbering and whole/selected-residue H addition/removal with placement-pH settings, alongside existing mutation/atom editing. |
+| Protein superposition | Defer UI to #164; retain underlying service/API/history/data. No Jobs or viewer relocation is implied. |
+| Existing project name/description form | Defer UI to #165 and preserve metadata/update API/history. The current Projects dialog creates/switches projects and does not supply an existing-project metadata editor; document this temporary UI absence precisely. |
+| Appearance, surfaces, sequence, minimization, interactions and entry actions | Retain their independent current homes and ownership. |
+
+Source inventory: ProjectInspector's Inspect/Details/Selection tabs and callbacks,
+MeasurementsPanel, TransformPanel, LigandEditorPanel, ProteinEditorPanel,
+MolecularEditPanel and App publication callbacks. Modern qualified rotation,
+automatic hydrogen maintenance and quick minimization are not automatically
+equivalent to the older scope/options. Preserve access or establish and record
+scientific equivalence before replacing a retained capability.
+
+Rehomed edits must capture project/epoch/revision/artifact and exact targets.
+The older callback paths lack some newer completion guards; do not carry late
+selection/focus retargeting into a new surface. Read-only inspection remains
+available for locked inputs; chemistry/coordinate mutation retains its current
+lock and warning behavior.
+
+Acceptance must exercise every retained operation through its actual desktop/mobile
+home, with cancellation, warnings, Undo/Redo and reload. Preserve metadata, saved
+selections, measurements and historical transform/superposition semantics through
+both archive suffixes. Replace obsolete launcher tests with meaningful destination
+or API/history oracles for explicit UI deferrals; do not introduce skips. Audit
+mobile launchers, panel labels, collapse/resize preferences, keyboard focus and
+recovery destinations. Update current PRODUCT_SPEC and append decisions explicitly;
+leave the historical global plan intact. This is a planning audit, not delivered
+replacement UI or implementation qualification.

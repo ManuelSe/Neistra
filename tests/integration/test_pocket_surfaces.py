@@ -380,6 +380,8 @@ def test_archive_remaps_all_exported_paths_and_validates_atomically(client: ApiC
                 )
                 if mode == "legacy":
                     for entry in manifest["entries"]:
+                        entry.pop("ligand_designation")
+                        entry.pop("designation_source_file")
                         entry["viewer_settings"].pop("surface_objects")
                         entry["viewer_settings"].pop("schema_version")
                     for state in manifest["scenes"][0]["entry_states"]:

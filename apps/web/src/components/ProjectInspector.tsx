@@ -9,7 +9,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { isCompleteProjection, structureQueryOptions } from "../structures/query";
 import type {
   Project,
@@ -42,6 +42,7 @@ import { activateTabFromKeyboard } from "./tabKeyboard";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 interface ProjectInspectorProps {
+  ligandControls?: ReactNode;
   project: Project | undefined;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
@@ -475,7 +476,7 @@ function SelectionPanel({
 
 export function ProjectInspector(props: ProjectInspectorProps) {
   const tabId = useId();
-  const { project, selection, onCollapse } = props;
+  const { project, selection, onCollapse, ligandControls } = props;
   const [tab, setTab] = useState<
     | "selection"
     | "inspect"
@@ -561,6 +562,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           </IconButton>
         ) : null}
       </div>
+      {ligandControls}
       <div
         className="inspector-tabs"
         role="tablist"

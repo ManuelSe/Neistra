@@ -226,7 +226,7 @@ describe("export dialog", () => {
         download_url:
           "/api/v1/artifacts/artifact-1?filename=selection-project.neistra.zip",
       },
-      manifest_schema_version: 2,
+      manifest_schema_version: 3,
       source_revision: 2,
     };
     const archiveSpy = vi.spyOn(molecularApi, "exportArchive").mockReturnValue({

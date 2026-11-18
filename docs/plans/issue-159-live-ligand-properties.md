@@ -77,3 +77,86 @@ Proposed PR title: `feat(ligand): versioned descriptors with automatic current-i
 | Stage/candidate | Changes/decisions | Evidence | Limitations / next action |
 | --- | --- | --- | --- |
 | Intake; base62623a16 | Child body/native membership/prerequisites and parent authority reconciled | Authenticated2026-11-16 reads; parent scope snapshot | Planned only; no implementation test/review/PR/release. Begin in dependency order. |
+
+
+### Pre-code scientific evidence — hydrogen representation and toolkit options
+
+Independent pinned RDKit 2026.03.4 probes found ethanol Strict rotors 0 for CCO
+but 1 after explicit H addition without normalization. Implement the already
+required documented disposable H-normalization policy before calculation, with
+ordinary implicit/explicit-H equivalence fixtures. Preserve isotope, charge,
+radical and nonterminal-H facts; unsupported transformations return a structured
+reason rather than silently dropping them. Do not reuse #158's depiction molecule
+without this descriptor-specific qualification. Canonical molecules and originals
+remain unchanged.
+
+Pin `CalcNumHBD`, `CalcNumHBA`, Wildman–Crippen logP/MR options,
+`CalcNumRotatableBonds(..., Strict)` and `CalcTPSA(includeSandP=False)` explicitly
+in descriptor implementation identity. A source-bound neutral foscarnic acid (phosphonoformic acid) probe,
+SMILES `OC(=O)P(=O)(O)O`, formula CH3O5P and formal charge 0, changes TPSA
+94.83→104.64 Å² when includeSandP flips, so that option cannot be an implicit
+library default. [Counting/rotor source](https://raw.githubusercontent.com/rdkit/rdkit/Release_2026_03_4/Code/GraphMol/Descriptors/Lipinski.cpp),
+[TPSA source](https://raw.githubusercontent.com/rdkit/rdkit/Release_2026_03_4/Code/GraphMol/Descriptors/MolSurf.h).
+
+During the existing strict graph-input pass, also retain a qualified
+`contains_formally_charged_atoms` fact bound to the input digest. #160 uses it for
+one conservative optional source-domain gate. It is not a pKa/permanent-charge
+classifier or an additional calculated descriptor; do not add a molecular read,
+request or job for it. Unknown facts remain unknown, including when net charge
+is zero. The shared descriptor result still reports its qualified calculated
+values independently of profile-domain availability. See #160's sourced refinement.
+
+### Pre-code architecture refinement — preference ownership and derived state
+
+Use installation-owned category/display/computation-demand preferences with their
+own revision and Restore defaults, shared across projects. Scientific calculation
+policy remains fixed and versioned. Profile/filter dependencies augment effective
+requirements without silently rewriting saved preferences. This is the qualified
+preferences option already allowed by this plan, not project-owned scientific
+settings. Present that ownership explicitly to users.
+
+Persist derived values/errors and current source bindings in bounded additive
+cache/demand tables, proposed migration 0017. Keep project/archive schema 3 and the
+existing physical project root when this ownership contract is confirmed against
+the actual preceding release. An archive preserves canonical inputs/designation;
+derived bindings are reconstructed by fresh strict proof after remapping/import,
+never from captured historical report IDs. Installation preferences do not travel
+as project settings. Downgrade must refuse loss of nondefault preferences; derived
+cache may be dropped and recalculated. Project-owned scientific options or primary
+analysis records would instead require a new explicit serialization/old-writer
+contract before implementation.
+
+[Candidate-only planning probes](../assets/ligand-program/precode159-architecture.json)
+against the current #158 tree establish why this distinction
+matters: save/export leaves separate tables intact in the live database, but a
+schema3 archive omits them. Unknown-plugin report bytes survive import/reexport,
+and typed input entry references remap; nested parameters/report/metadata and
+provenance references remain historical captured-origin data. They cannot become
+current descriptor authority. Repeat the tests against actual released 0.36 source
+before final qualification; current probes are not a released-predecessor claim.
+
+Reuse the existing allowlisted job worker through a narrow derived-cache lifecycle
+seam. Ordinary submission/completion currently grows entry job links/generated
+results and can dirty checkpoints, so automatic descriptor work must avoid those
+user-state effects. Keep bounded latest demands and materialize only the next
+small coalesced batch, inspecting active-ligand priority and bulk fairness. A batch
+of at most eight ligands and aggregate reads of 200 entries are proposals to
+measure, not qualified limits. Do not enqueue a long FIFO of bulk jobs ahead of
+active edits or build a separate queue platform.
+
+Bound cache-owned terminal jobs/artifacts and retire deleted inputs while
+preserving user jobs/outputs. A diagnostic generic job retains its deleted input
+entry ID and makes archive export fail until Undo; automatic cache work must not
+multiply that condition. Cache-only cleanup must also cover restart and older
+writer changes. Corrupt derived-artifact recovery requires narrowly owned
+invalidation/republication: the immutable content store does not overwrite an
+existing destination with the same hash. Preserve originals and shared/user
+outputs; do not add broad garbage collection. Qualify failed recovery and capacity
+states truthfully rather than repeat an ineffective recalculation.
+
+Acceptance adds project-dirty/history invariance for automatic work, deletion/Undo,
+corruption recovery, archive reconstruction, restart, preference conflicts/default
+restore, atomic source binding, A/B/C races and shared-consumer cancellation. Retain
+all parent resource, freshness and 1,000-entry active-priority requirements. New
+modules must preserve the repository's canonical/legacy single-implementation
+alias contract.

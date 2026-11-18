@@ -14,6 +14,8 @@ from typing import Any, Literal
 from uuid import UUID
 
 from neistra_core.artifacts import LocalArtifactStore
+from neistra_core.ligands.candidates import resolve_candidates
+from neistra_core.ligands.models import LigandDesignationV1
 from neistra_core.molecular import MolecularWarning, NormalizedStructureV1, StructureType
 from neistra_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -58,8 +60,8 @@ from neistra_api.viewer_state import (
 )
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
-ARCHIVE_SCHEMA_VERSION = 2
-APPLICATION_VERSION = "0.35.0"
+ARCHIVE_SCHEMA_VERSION = 3
+APPLICATION_VERSION = "0.36.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
@@ -167,6 +169,11 @@ class ManifestEntry(ManifestModel):
         if self.atom_ids and self.next_atom_id <= max(self.atom_ids):
             raise ValueError("Next atom ID must exceed retained atom IDs")
         return self
+
+
+class ManifestEntryV3(ManifestEntry):
+    ligand_designation: LigandDesignationV1
+    designation_source_file: str | None
 
 
 class ManifestGroup(ManifestModel):
@@ -316,6 +323,34 @@ class ProjectManifestV2(ManifestModel):
         return value
 
 
+class ProjectManifestV3(ManifestModel):
+    schema_version: Literal[3] = 3
+    application_version: str = Field(min_length=5, max_length=64)
+    source_project_id: str
+    source_revision: int = Field(ge=0)
+    source_checkpoint_revision: int = Field(ge=0)
+    name: str = Field(min_length=1, max_length=120)
+    description: str | None = Field(default=None, max_length=2000)
+    created_at: datetime
+    modified_at: datetime
+    entries: list[ManifestEntryV3]
+    groups: list[ManifestGroup]
+    saved_selections: list[ManifestSavedSelection]
+    measurements: list[ManifestMeasurement]
+    scenes: list[ManifestScene]
+    jobs: list[ManifestJobSummary] = Field(default_factory=list)
+    files: list[ManifestFile]
+
+    _project_uuid = field_validator("source_project_id")(_validate_uuid)
+
+    @field_validator("application_version")
+    @classmethod
+    def valid_application_version(cls, value: str) -> str:
+        if _APPLICATION_VERSION_PATTERN.fullmatch(value) is None:
+            raise ValueError("Application version must be a semantic version")
+        return value
+
+
 def _upgrade_legacy_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     """Validate the original surface contracts before converting documented settings paths."""
     converted = deepcopy(manifest)
@@ -346,15 +381,25 @@ def _upgrade_legacy_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
     return converted
 
 
+def _upgrade_v2_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
+    # Historical validators must reject malformed/unknown V2 data before upgrade.
+    converted = ProjectManifestV2.model_validate(manifest).model_dump(mode="json")
+    for entry in converted["entries"]:
+        entry["ligand_designation"] = LigandDesignationV1().model_dump(mode="json")
+        entry["designation_source_file"] = None
+    converted["schema_version"] = 3
+    return converted
+
+
 @dataclass(frozen=True, slots=True)
 class ArchiveBuildInput:
-    manifest: ProjectManifestV2
+    manifest: ProjectManifestV3
     contents: dict[str, bytes]
 
 
 @dataclass(frozen=True, slots=True)
 class PreparedArchive:
-    manifest: ProjectManifestV2
+    manifest: ProjectManifestV3
     contents: dict[str, bytes]
 
 
@@ -454,7 +499,7 @@ def read_project_archive(data: bytes, limits: ArchiveLimits) -> PreparedArchive:
                 "Archive manifest must be a JSON object.",
             )
         schema_version = raw_manifest.get("schema_version")
-        if type(schema_version) is not int or schema_version not in {1, ARCHIVE_SCHEMA_VERSION}:
+        if type(schema_version) is not int or schema_version not in {1, 2, ARCHIVE_SCHEMA_VERSION}:
             raise ArchiveValidationError(
                 "unsupported_archive_schema",
                 f"Archive schema {schema_version!r} is not supported.",
@@ -462,7 +507,9 @@ def read_project_archive(data: bytes, limits: ArchiveLimits) -> PreparedArchive:
         try:
             if schema_version == 1:
                 raw_manifest = _upgrade_legacy_manifest(raw_manifest)
-            manifest = ProjectManifestV2.model_validate(raw_manifest)
+            if raw_manifest.get("schema_version") == 2:
+                raw_manifest = _upgrade_v2_manifest(raw_manifest)
+            manifest = ProjectManifestV3.model_validate(raw_manifest)
         except (ValueError, TypeError, KeyError, AttributeError) as error:
             raise ArchiveValidationError(
                 "invalid_archive_manifest",
@@ -540,7 +587,7 @@ class ProjectArchiveService:
             return path
 
         entries = [
-            ManifestEntry(
+            ManifestEntryV3(
                 id=entry.id,
                 group_id=entry.group_id,
                 name=entry.name,
@@ -561,6 +608,10 @@ class ProjectArchiveService:
                 visible=entry.visible,
                 locked=entry.locked,
                 user_metadata=deepcopy(entry.user_metadata),
+                ligand_designation=LigandDesignationV1.model_validate(entry.ligand_designation),
+                designation_source_file=archive_artifact(
+                    entry.ligand_designation.get("source_artifact_id")
+                ),
                 job_links=deepcopy(entry.job_links),
                 generated_results=deepcopy(entry.generated_results),
                 original_file=archive_artifact(entry.original_artifact_id),
@@ -621,7 +672,7 @@ class ProjectArchiveService:
             )
             for job in sorted(project.jobs, key=lambda item: item.id)
         ]
-        manifest = ProjectManifestV2(
+        manifest = ProjectManifestV3(
             application_version=APPLICATION_VERSION,
             source_project_id=project.id,
             source_revision=project.revision,
@@ -771,6 +822,13 @@ class ProjectArchiveService:
                     if entry.current_file is not None
                     else None
                 )
+                designation = entry.ligand_designation.model_dump(mode="json")
+                if designation["instance_id"] is not None:
+                    designation["instance_id"] = str(uuid7())
+                designation["source_artifact_id"] = (
+                    published_by_path[entry.designation_source_file].id
+                    if entry.designation_source_file is not None else None
+                )
                 self.session.add(
                     StructureEntry(
                         id=entry_ids[entry.id],
@@ -798,6 +856,7 @@ class ProjectArchiveService:
                         visible=entry.visible,
                         locked=entry.locked,
                         user_metadata=deepcopy(entry.user_metadata),
+                        ligand_designation=designation,
                         job_links=[job_ids[item] for item in entry.job_links],
                         generated_results=[result_ids[item] for item in entry.generated_results],
                         original_artifact_id=original.id if original else None,
@@ -1040,7 +1099,7 @@ def _validate_member(info: zipfile.ZipInfo, limits: ArchiveLimits) -> None:
 
 
 def _validate_manifest_relationships(
-    manifest: ProjectManifestV2,
+    manifest: ProjectManifestV3,
     contents: dict[str, bytes],
 ) -> None:
     _require_unique("entry", [item.id for item in manifest.entries])
@@ -1076,7 +1135,7 @@ def _validate_manifest_relationships(
                 "invalid_archive_relationship",
                 f"Entry {entry.id} references an unknown group.",
             )
-        for path in (entry.original_file, entry.current_file):
+        for path in (entry.original_file, entry.current_file, entry.designation_source_file):
             if path is not None and path not in file_paths:
                 raise ArchiveValidationError(
                     "invalid_archive_relationship",
@@ -1190,6 +1249,35 @@ def _validate_manifest_relationships(
             "Archive manifest declares an artifact that no project entry references.",
         )
     _ordered_groups(manifest.groups)
+    for entry in manifest.entries:
+        designation = entry.ligand_designation
+        source_file = entry.designation_source_file
+        if bool(designation.source_artifact_id) != bool(source_file):
+            raise ArchiveValidationError(
+                "invalid_ligand_source", "Ligand source identity/file declarations differ.",
+            )
+        if source_file is not None and source_file != entry.current_file:
+            raise ArchiveValidationError(
+                "invalid_ligand_source", "Ligand designation must describe the current artifact.",
+            )
+        if designation.status == "resolved":
+            ligand_structure = structures_by_entry.get(entry.id)
+            if ligand_structure is None:
+                raise ArchiveValidationError(
+                    "invalid_ligand_membership", "Resolved ligand has no current structure.",
+                )
+            inventory = resolve_candidates(
+                ligand_structure,
+                original_bytes=contents.get(entry.original_file) if entry.original_file else None,
+            )
+            if not any(candidate.selectable and candidate.potential_ligand
+                       and candidate.atom_ids == designation.atom_ids
+                       for candidate in inventory.candidates):
+                raise ArchiveValidationError(
+                    "invalid_ligand_membership",
+                    "Resolved ligand does not match a complete current instance.",
+                )
+
     atom_ids_by_entry = {item.id: set(item.atom_ids) for item in manifest.entries}
     for entry in manifest.entries:
         _validate_selection_assignments(

@@ -27,6 +27,7 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from neistra_core.adapters import AdapterError
+from neistra_core.artifacts import LocalArtifactStore
 from neistra_core.export_policy import (
     ExportFilters,
     ExportInput,
@@ -53,7 +54,9 @@ from neistra_api.coordinate_service import CoordinateService
 from neistra_api.database import Base, create_database_engine, create_session_factory
 from neistra_api.edit_execution import EditExecutionController, EditExecutionError
 from neistra_api.import_export import (
+    ArtifactIntegrityError,
     ArtifactNotFoundError,
+    ArtifactService,
     ImportExportService,
     ImportLimitError,
     LossAcknowledgementRequiredError,
@@ -73,6 +76,13 @@ from neistra_api.job_service import (
     JobService,
 )
 from neistra_api.ligand_edit_service import LigandEditService
+from neistra_api.ligand_schemas import (
+    LigandCandidatesRead,
+    LigandDepictionRead,
+    LigandDesignationCreate,
+    LigandResolveCreate,
+)
+from neistra_api.ligand_service import LigandService, LigandSourceVerificationError
 from neistra_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCapabilities,
@@ -474,8 +484,13 @@ async def _session(factory: sessionmaker[Session]) -> AsyncIterator[Session]:
         yield session
 
 
-def _service(session: Session) -> ProjectService:
-    return ProjectService(session)
+def _service(session: Session, settings: Settings) -> ProjectService:
+    artifacts = ArtifactService(session, LocalArtifactStore(settings.data_dir))
+    return ProjectService(
+        session,
+        load_structure=artifacts.load_normalized,
+        load_original_bytes=artifacts.read_verified_bytes,
+    )
 
 
 def _download_response(artifact: ArtifactRead, data: bytes) -> Response:
@@ -512,7 +527,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Neistra API",
-        version="0.35.0",
+        version="0.36.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -597,19 +612,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def list_projects(
         session: Session = Depends(session_dependency),
     ) -> list[ProjectListItem]:
-        return _service(session).list_projects()
+        return _service(session, app_settings).list_projects()
 
     @router.post("/projects", response_model=ProjectRead, status_code=status.HTTP_201_CREATED)
     async def create_project(
         payload: ProjectCreate, session: Session = Depends(session_dependency)
     ) -> ProjectRead:
-        return _service(session).create_project(payload.name, payload.description)
+        return _service(session, app_settings).create_project(payload.name, payload.description)
 
     @router.get("/projects/{project_id}", response_model=ProjectRead)
     async def get_project(
         project_id: str, session: Session = Depends(session_dependency)
     ) -> ProjectRead:
-        return _call(lambda: _service(session).get_project(project_id))
+        return _call(lambda: _service(session, app_settings).get_project(project_id))
 
     @router.post(
         "/projects/{project_id}/jobs",
@@ -799,7 +814,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_project(
+            lambda: _service(session, app_settings).update_project(
                 project_id,
                 payload.expected_revision,
                 payload.name,
@@ -813,7 +828,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         payload: RevisionRequest,
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
-        return _call(lambda: _service(session).save(project_id, payload.expected_revision))
+        return _call(
+            lambda: _service(session, app_settings).save(project_id, payload.expected_revision)
+        )
 
     @router.post("/projects/{project_id}/history/undo", response_model=ProjectRead)
     async def undo(
@@ -821,7 +838,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         payload: RevisionRequest,
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
-        return _call(lambda: _service(session).undo(project_id, payload.expected_revision))
+        return _call(
+            lambda: _service(session, app_settings).undo(project_id, payload.expected_revision)
+        )
 
     @router.post("/projects/{project_id}/history/redo", response_model=ProjectRead)
     async def redo(
@@ -829,7 +848,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         payload: RevisionRequest,
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
-        return _call(lambda: _service(session).redo(project_id, payload.expected_revision))
+        return _call(
+            lambda: _service(session, app_settings).redo(project_id, payload.expected_revision)
+        )
 
     @router.patch("/projects/{project_id}/entries/{entry_id}", response_model=ProjectRead)
     async def update_entry(
@@ -839,7 +860,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_entry(
+            lambda: _service(session, app_settings).update_entry(
                 project_id,
                 entry_id,
                 payload.expected_revision,
@@ -859,7 +880,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).duplicate_entry(
+            lambda: _service(session, app_settings).duplicate_entry(
                 project_id, entry_id, payload.expected_revision
             )
         )
@@ -872,7 +893,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).set_entry_value(
+            lambda: _service(session, app_settings).set_entry_value(
                 project_id, entry_id, payload.expected_revision, "visible", payload.value
             )
         )
@@ -885,7 +906,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).set_entry_value(
+            lambda: _service(session, app_settings).set_entry_value(
                 project_id, entry_id, payload.expected_revision, "locked", payload.value
             )
         )
@@ -898,7 +919,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).isolate_entry(project_id, entry_id, payload.expected_revision)
+            lambda: _service(session, app_settings).isolate_entry(
+                project_id, entry_id, payload.expected_revision
+            )
         )
 
     @router.put(
@@ -912,7 +935,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_viewer_settings(
+            lambda: _service(session, app_settings).update_viewer_settings(
                 project_id,
                 entry_id,
                 payload.expected_revision,
@@ -977,7 +1000,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).remove_surface_object(
+            lambda: _service(session, app_settings).remove_surface_object(
                 project_id, entry_id, surface_id, payload.expected_revision
             )
         )
@@ -989,7 +1012,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_selection_atom_visibility(project_id, payload)
+            lambda: _service(session, app_settings).update_selection_atom_visibility(
+                project_id, payload
+            )
         )
 
     @router.post("/projects/{project_id}/selection-appearance", response_model=ProjectRead)
@@ -1012,7 +1037,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).delete_entry(project_id, entry_id, expected_revision)
+            lambda: _service(session, app_settings).delete_entry(
+                project_id, entry_id, expected_revision
+            )
         )
 
     @router.post("/projects/{project_id}/groups", response_model=ProjectRead)
@@ -1022,7 +1049,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).create_group(
+            lambda: _service(session, app_settings).create_group(
                 project_id,
                 payload.expected_revision,
                 payload.name,
@@ -1038,7 +1065,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_group_membership(
+            lambda: _service(session, app_settings).update_group_membership(
                 project_id,
                 payload.expected_revision,
                 payload.entry_ids,
@@ -1058,7 +1085,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).create_saved_selection(
+            lambda: _service(session, app_settings).create_saved_selection(
                 project_id,
                 payload.expected_revision,
                 payload.name,
@@ -1077,7 +1104,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).delete_saved_selection(
+            lambda: _service(session, app_settings).delete_saved_selection(
                 project_id,
                 selection_id,
                 expected_revision,
@@ -1095,7 +1122,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).create_measurement(
+            lambda: _service(session, app_settings).create_measurement(
                 project_id,
                 payload.expected_revision,
                 payload.name,
@@ -1115,7 +1142,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).update_measurement(
+            lambda: _service(session, app_settings).update_measurement(
                 project_id,
                 measurement_id,
                 payload.expected_revision,
@@ -1135,7 +1162,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).delete_measurement(
+            lambda: _service(session, app_settings).delete_measurement(
                 project_id, measurement_id, expected_revision
             )
         )
@@ -1151,7 +1178,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).create_scene(
+            lambda: _service(session, app_settings).create_scene(
                 project_id,
                 payload.expected_revision,
                 payload.name,
@@ -1171,7 +1198,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).apply_scene(project_id, scene_id, payload.expected_revision)
+            lambda: _service(session, app_settings).apply_scene(
+                project_id, scene_id, payload.expected_revision
+            )
         )
 
     @router.delete(
@@ -1185,8 +1214,65 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).delete_scene(project_id, scene_id, expected_revision)
+            lambda: _service(session, app_settings).delete_scene(
+                project_id, scene_id, expected_revision
+            )
         )
+
+    @router.get(
+        "/projects/{project_id}/entries/{entry_id}/ligand-candidates",
+        response_model=LigandCandidatesRead,
+    )
+    def ligand_candidates(
+        project_id: str,
+        entry_id: str,
+        expected_artifact_id: str | None = None,
+        offset: int = 0,
+        limit: int = 12,
+        session: Session = Depends(session_dependency),
+    ) -> LigandCandidatesRead:
+        return _call(lambda: LigandService(session, app_settings).candidates(
+            project_id, entry_id, expected_artifact_id, offset=offset, limit=limit,
+        ))
+
+    @router.put(
+        "/projects/{project_id}/entries/{entry_id}/ligand-designation",
+        response_model=ProjectRead,
+    )
+    def designate_ligand(
+        project_id: str,
+        entry_id: str,
+        payload: LigandDesignationCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(lambda: LigandService(session, app_settings).designate(
+            project_id, entry_id, payload,
+        ))
+
+    @router.post(
+        "/projects/{project_id}/ligand-designations/resolve", response_model=ProjectRead,
+    )
+    def resolve_ligands(
+        project_id: str,
+        payload: LigandResolveCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(lambda: LigandService(session, app_settings).resolve(project_id, payload))
+
+    @router.get(
+        "/projects/{project_id}/entries/{entry_id}/ligand-candidates/{candidate_key}/depiction",
+        response_model=LigandDepictionRead,
+    )
+    def ligand_depiction(
+        project_id: str,
+        entry_id: str,
+        candidate_key: str,
+        expected_artifact_id: str | None = None,
+        session: Session = Depends(session_dependency),
+    ) -> LigandDepictionRead:
+        return _call(lambda: LigandService(session, app_settings).depiction(
+            project_id, entry_id, candidate_key, expected_artifact_id,
+        ))
 
     @router.post(
         "/projects/{project_id}/contacts",
@@ -1747,7 +1833,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             session: Session = Depends(session_dependency),
         ) -> dict[str, str]:
             entry = _call(
-                lambda: _service(session).seed_entry(
+                lambda: _service(session, app_settings).seed_entry(
                     project_id, payload.name, payload.structure_type
                 )
             )
@@ -1817,6 +1903,16 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
                 "reports": [report.model_dump(mode="json") for report in error.reports],
             },
         ) from error
+    except LigandSourceVerificationError as error:
+        detail: dict[str, object] = {"code": error.code, "message": str(error),
+                                     "source_verification": error.source}
+        if error.identity is not None:
+            detail["source_identity"] = error.identity.detail()
+        raise HTTPException(
+            status_code=404 if error.code == "artifact_not_found" else 409, detail=detail,
+        ) from error
+    except ArtifactIntegrityError as error:
+        raise _error(409, "artifact_integrity_error", str(error)) from error
     except ArtifactNotFoundError as error:
         raise _error(404, "artifact_not_found", f"Artifact {error} was not found") from error
     except StructureUnavailableError as error:

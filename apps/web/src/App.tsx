@@ -1,3 +1,9 @@
+import { LigandIntentOwner, type LigandOwnerContext } from "./ligands/ownership";
+import { captureArtifactSource, getLigandInventoryOwner, ligandOperationSourceFailure } from "./ligands/inventoryQualification";
+import { completeLegacyLigands } from "./ligands/resolve";
+import { LigandDesignationControls } from "./components/LigandDesignationControls";
+import { ligandApi } from "./ligands/api";
+import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
 import { hydrogenAppearanceCommand } from "./selection/hydrogenAction";
 import { MeasurementSession, type MeasurementPorts } from "./measurements/session";
 import { measurementPreviewPaused } from "./measurements/preview";
@@ -127,6 +133,7 @@ export default function App() {
     };
   }, [cameraPresentation]);
   const queryClient = useQueryClient();
+  const ligandInventoryOwner = getLigandInventoryOwner(queryClient);
   const compact = useMediaQuery("(max-width: 840px)");
   const {
     theme,
@@ -172,6 +179,8 @@ export default function App() {
     useState<CoordinatePatch | null>(null);
   const coordinatePreviewRef = useRef<CoordinatePatch | null>(null);
   const numericalPreviewGeneration = useRef(0);
+  const ligandOwnerPorts = useRef<(() => LigandOwnerContext) | null>(null);
+  const [ligandOwner] = useState(() => new LigandIntentOwner(() => ligandOwnerPorts.current!()));
   const {
     selection,
     pickingGranularity,
@@ -231,11 +240,12 @@ export default function App() {
     create: (capture, context) => measurementPorts.current!.create(capture, context),
   }));
   const setCoordinatePreview = useCallback((next: CoordinatePatch | null) => {
+    if (next !== coordinatePreviewRef.current) ligandOwner.retire();
     coordinatePreviewRef.current = next;
     // Retire measurement owners before React can batch preview entry and Cancel.
     measurementSession.guardContext();
     setCoordinatePreviewState(next);
-  }, [measurementSession]);
+  }, [measurementSession, ligandOwner]);
   const clearCoordinatePreview = useCallback(() => {
     numericalPreviewGeneration.current++;
     setCoordinatePreview(null);
@@ -501,6 +511,105 @@ export default function App() {
   const editBlocked = editAttemptBlocksWrites(editAttempt);
   const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying || publicationBlocked || editBlocked;
   const readBusy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || (minimizationApplying && !publicationBlocked);
+  const ligandEntryId = useNavigationStore(state => state.projectId === activeProjectId ? state.inspectedEntryId : null);
+  const ligandEditingPreview = useEditingStore(state => !!state.placement?.result || !!state.rotationDraft);
+  const ligandMinimizationPreview = useMinimizationStore(state => state.preview);
+  const ligandPausedReason = coordinatePreview || ligandEditingPreview || ligandMinimizationPreview
+    || movement.state.phase !== "idle" ? "Preview — values unavailable. Finish the current preview to change the ligand choice."
+    : publicationBlocked || editBlocked ? "Reconcile the pending molecular change before choosing a ligand." : null;
+  ligandOwnerPorts.current = () => {
+    const active = useWorkspaceStore.getState().activeProjectId;
+    const navigation = useNavigationStore.getState(), edit = useEditingStore.getState();
+    const minimize = useMinimizationStore.getState(), move = movementSession.snapshot();
+    return { activeProjectId: active, project: queryClient.getQueryData<Project>(["project", active]),
+      inspectedEntryId: navigation.projectId === active ? navigation.inspectedEntryId : null,
+      blocked: edit.pending || minimize.applying,
+      paused: Boolean(coordinatePreviewRef.current)
+        || Boolean(edit.projectId === active && (edit.placement?.result || edit.rotationDraft))
+        || Boolean(minimize.projectId === active && (minimize.preview || minimize.applying))
+        || Boolean(move.capture?.project.id === active && move.phase !== "idle")
+        || publication.snapshot(active ?? "").phase !== "idle"
+        || editAttemptBlocksWrites(editAttempts.snapshot(active ?? "")),
+    };
+  };
+  useSyncExternalStore(ligandOwner.subscribe, ligandOwner.snapshot);
+  useLayoutEffect(() => {
+    const guard = ligandOwner.observe;
+    ligandOwner.activate();
+    guard();
+    const release = [useWorkspaceStore.subscribe(guard), useNavigationStore.subscribe(guard),
+      useEditingStore.subscribe(guard), useMinimizationStore.subscribe(guard), movementSession.subscribe(guard),
+      publication.subscribe(guard), editAttempts.subscribe(guard),
+      queryClient.getQueryCache().subscribe(event => {
+        const key = event.query.queryKey as readonly unknown[];
+        if (key[0] === "project") guard();
+      })];
+    return () => { for (const stop of release) stop(); ligandOwner.deactivate(); };
+  }, [ligandOwner, movementSession, publication, editAttempts, queryClient]);
+  const ligandViewOwner = ligandOwner.capture(true);
+  useLegacyLigandResolution({
+    project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
+    blocked: busy || !!ligandPausedReason,
+    captureErrorOwner: () => ligandOwner.capture(false).ownsFeedback,
+    resolve: (captured, entryIds) => {
+      const owner = ligandOwner.capture(false);
+      return completeLegacyLigands(captured, entryIds, {
+        current: () => owner.ownsFeedback(),
+        resolve: (source, ids) => {
+          const projectId = source.id, revision = source.revision, requestedIds = [...ids];
+          const sources = source.entries.filter(entry => requestedIds.includes(entry.id)).map(entry => captureArtifactSource(projectId, entry));
+          const context = { ownsFeedback: owner.ownsFeedback,
+            assertDispatchable: () => owner.assertDispatchable(source, ids) };
+          context.assertDispatchable();
+          return commandMutation.mutateAsync(captureProjectCommand(source.id,
+            async () => {
+              try { return await ligandApi.resolve(projectId, revision, requestedIds); }
+              catch (error) {
+                const proof = ligandOperationSourceFailure(error, sources, "resolve");
+                if (proof) ligandInventoryOwner.recordSourceFailure(proof);
+                throw error;
+              }
+            }, "quiet", context));
+        },
+        read: projectApi.get,
+        accept: updateProjectCache,
+      });
+    },
+    onError: (owner, error) => {
+      if (owner === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: "error", text: errorMessage(error) });
+    },
+  });
+  const ligandControls = project ? <LigandDesignationControls project={project} entryId={ligandEntryId}
+    onInspectEntry={id => useNavigationStore.getState().inspect(project.id, id)}
+    onOpenChoices={() => measurementSession.cancelAcquisition("Atom picking stopped for ligand choice.")}
+    ownsContext={ligandViewOwner.ownsFeedback}
+    pausedReason={ligandPausedReason} busy={busy}
+    onDesignate={async (entry, candidateKey, inputHash, ownsAttempt) => {
+      const captured = project;
+      const source = captureArtifactSource(captured.id, entry), revision = captured.revision;
+      const context = { ownsFeedback: () => ligandViewOwner.ownsFeedback() && (!ownsAttempt || ownsAttempt()),
+        assertDispatchable: () => {
+          if (ownsAttempt && !ownsAttempt()) throw new ApiError(409, "ligand_context_changed", "The ligand choice was closed. Review the current choice before saving.");
+          ligandViewOwner.assertDispatchable(captured, [entry.id]);
+        } };
+      context.assertDispatchable();
+      if (busy) throw new ApiError(409, "ligand_context_changed", "Another change is being saved.");
+      const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id,
+        async () => {
+          try {
+            return await ligandApi.designate(source.projectId, source.entryId, {
+              expected_revision: revision, expected_artifact_id: source.currentArtifactId,
+              ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
+            });
+          } catch (error) {
+            const proof = ligandOperationSourceFailure(error, [source], candidateKey ? "use" : "clear");
+            if (proof) ligandInventoryOwner.recordSourceFailure(proof);
+            throw error;
+          }
+        }, undefined, context));
+      const current = queryClient.getQueryData<Project>(["project", captured.id]);
+      return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
+    }} /> : null;
 
   measurementPorts.current = {
     context: () => {
@@ -1423,7 +1532,12 @@ export default function App() {
                           : "History and jobs panel"
                     }
                     onKeyDown={(event) => {
-                      if (event.key === "Escape") closeMobilePanel();
+                      if (event.key === "Escape" && event.target instanceof Element
+                        && event.target.closest('[role="dialog"]') === event.currentTarget) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        closeMobilePanel();
+                      }
                     }}
                   >
                     {mobilePanel === "projects" ? (
@@ -1440,6 +1554,7 @@ export default function App() {
                       />
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
+                        ligandControls={ligandControls}
                         project={project}
                         busy={busy}
                         {...inspectorSelectionProps}
@@ -1621,6 +1736,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectInspector
+                        ligandControls={ligandControls}
                     project={project}
                     busy={busy}
                     {...inspectorSelectionProps}

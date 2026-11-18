@@ -1,0 +1,1765 @@
+{
+  "scope": "Eighth retained incomplete run: explicit SIGINT-interrupted C11 resource-retention forensic extension and full local readback; no native assertionfailure, timeout, completequalification or publicavailability claim",
+  "archive": "c3-forensics-verification7.zip",
+  "archive_bytes": 5382043,
+  "archive_sha256": "7f7d842f01d2f92f22b33f3abdde5299299531a83fd0768669c88651fa1357ce",
+  "files": 68,
+  "recursive_verification": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 68,
+    "project_archive_files": 0
+  },
+  "index_sha256": "8efff69745bb1a8acedc384a1a67f5e88d283aa6b6adbfa8fb15d11d2c0e31f8",
+  "previous_index_sha256": "259199793772e9a10f3ed148a976d64cf5eacbea61f660fe262b0787c95f9ff3",
+  "previous_seven_runs_unchanged": true,
+  "previous52parts_and_inventories_unchanged": true,
+  "previous_verification1through6_json_and_zip_unchanged": true,
+  "local_all_parts_verified": 53,
+  "local_new_parts_verified": 1,
+  "new_run": {
+    "label": "c4-candidate11",
+    "failed_candidate": "c56e4c37b6d726a2c3a67d2a069e520065b043ed",
+    "qualification_complete": false,
+    "termination": {
+      "kind": "interrupted",
+      "exit_code": 130,
+      "signal": "root-requested SIGINT",
+      "reason": "Independently reproduced consequential obsolete barrier/error retention; correction required",
+      "actual_root_tool_session": 4339
+    },
+    "source_count": 1006,
+    "source_digest": "d85bdd80f0c706349052b8bdcfcb57dcd5d4c328c0358246176b594e9b7fefa9",
+    "preceding_source_count": 931,
+    "browser_outcomes": {
+      "passed": 231,
+      "not_run": 365,
+      "historical_exclusion": 5,
+      "interrupted": 1
+    },
+    "files": 2964,
+    "raw_bytes": 289141361
+  },
+  "total_asset_bytes": 3992767149,
+  "total_canonical_files": 105102,
+  "total_raw_bytes": 8773362674,
+  "all_parts_below80MiB": true,
+  "exact_disjoint_unions_and_recursive_crcs": true,
+  "source_control_reference": {
+    "scope": "Original64offline control evidence reused with exact unchanged verifier/test sources; no new64execution claimed",
+    "offline_controls": 64,
+    "real_network_requests": 0,
+    "source_identities": {
+      "tools/verify_ligand_forensics.py": {
+        "bytes": 14388,
+        "sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0"
+      },
+      "tests/unit/test_ligand_forensic_verifier.py": {
+        "bytes": 21216,
+        "sha256": "a4d2f7aa2d06c51a6e455271a48c5c09e79003440e9f7dab1ce36fb46cf89275"
+      }
+    },
+    "all_sources_unchanged": true,
+    "historical_verification_snapshots": {
+      "c3-forensics-verification.json": {
+        "bytes": 2437,
+        "sha256": "874c955f571546b674d58ba168c9bb104c50c4fc64f57cf465343da53af25557"
+      },
+      "c3-forensics-verification.zip": {
+        "bytes": 5628004,
+        "sha256": "6c275f5949c7a0e79276bcf7eb1f5c0eeb79f16b467d38b2f81dc2242adaf63a"
+      },
+      "c3-forensics-verification2.json": {
+        "bytes": 3638,
+        "sha256": "0b3facbd7682393fbe7c09a73eb01bc717e656fe5b033ed9a5668b1f9b4debdc"
+      },
+      "c3-forensics-verification2.zip": {
+        "bytes": 2057196,
+        "sha256": "3c6324d7b7ead0823dcfc4a6c6a173ca8db107aa895ccb0e84f4e637d7308272"
+      },
+      "c3-forensics-verification3.json": {
+        "bytes": 4452,
+        "sha256": "2544fafc3d5878e73a89dcccab36916fa6b15c3239b832502352ee07cf8ea67d"
+      },
+      "c3-forensics-verification3.zip": {
+        "bytes": 6050719,
+        "sha256": "995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577"
+      },
+      "c3-forensics-verification4.json": {
+        "bytes": 5968,
+        "sha256": "28cbc04a31a6d3097785ebf6f85bf1fe9ecae5be1f0d64735c084fc53efe7f21"
+      },
+      "c3-forensics-verification4.zip": {
+        "bytes": 436310,
+        "sha256": "c4521db1e5543fe25bbcacb58b3bb72b9e33b5d5518b76d43b98db2b184ad10d"
+      },
+      "c3-forensics-verification5.json": {
+        "bytes": 4475417,
+        "sha256": "67e11fe4f9028b42d9f8404b822e20ccc6e567492aa94f3c72ecc35b482ea0ba"
+      },
+      "c3-forensics-verification5.zip": {
+        "bytes": 10654282,
+        "sha256": "62c16705fff6971c21bc70aee631a2de471164ebc2d0ee34998808b2387cc54b"
+      },
+      "c3-forensics-verification6.json": {
+        "bytes": 106917,
+        "sha256": "acce2e9f170b27503f70983fc7b84b571245d5a1f6e78ba1494fd433c014597c"
+      },
+      "c3-forensics-verification6.zip": {
+        "bytes": 11874678,
+        "sha256": "e4b5cb53fad6aa25ace2b4c67998cd49633e6ce34608411b79e10e6574549e57"
+      }
+    }
+  },
+  "all1006historical_current_and931old_source_bodies_retained": true,
+  "actual_interruption_and_cleanup": {
+    "scope": "Actual explicitly interrupted qualification and retained closed browser classification; not full gate or functional browser failure",
+    "candidate": "c56e4c37b6d726a2c3a67d2a069e520065b043ed",
+    "actual_root_tool_session": 4339,
+    "actual_root_tool_chunk": "776aae",
+    "actual_enclosing_exit": 130,
+    "requested_signal": "SIGINT",
+    "pre_browser_steps_passed": 15,
+    "python_passed": 3040,
+    "web_passed": 1315,
+    "supervisor_passed": 14,
+    "browser_inventory": 602,
+    "browser_counts": {
+      "passed": 231,
+      "not_run": 365,
+      "historical_exclusion": 5,
+      "interrupted": 1
+    },
+    "profiles": {
+      "chromium": {
+        "passed": 231,
+        "historical_exclusion": 5,
+        "interrupted": 1,
+        "not_run": 64
+      },
+      "mobile-chromium": {
+        "not_run": 301
+      }
+    },
+    "report_stats": {
+      "startTime": "2026-11-17T23:47:08.107Z",
+      "duration": 2546490.7090000003,
+      "expected": 231,
+      "skipped": 371,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "query_owner_retention_defect_is_cause_for_interruption": true,
+    "original_current_and_preceding_sources_fixed": [
+      1006,
+      931
+    ],
+    "owned_marker_processes": [],
+    "ports_connect_ex": {
+      "8250": 111,
+      "8251": 111,
+      "5413": 111
+    },
+    "summary_and_package_not_run": true,
+    "observed_utc": "2026-11-18T00:30:52.400897+00:00"
+  },
+  "browser_classification": {
+    "counts": {
+      "passed": 231,
+      "not_run": 365,
+      "historical_exclusion": 5,
+      "interrupted": 1
+    },
+    "profiles": {
+      "chromium": {
+        "passed": 231,
+        "historical_exclusion": 5,
+        "interrupted": 1,
+        "not_run": 64
+      },
+      "mobile-chromium": {
+        "not_run": 301
+      }
+    },
+    "report_skipped371_means_5historical_1interrupted_365notrun": true,
+    "retries": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "resource_retention_observation": {
+    "scope": "Preserved independent and root installed-query deterministic retention observations, not full qualification or heap/RSS measurements",
+    "root_actual_tool_chunk": "ceece7",
+    "root_actual_exit": 0,
+    "root_command": [
+      "node",
+      ".issue-11-evidence/issue158-owner-retention/independent-original-control.cjs"
+    ],
+    "reviewer_actual_tool_chunk": "127ae9",
+    "reviewer_actual_exit": 0,
+    "reviewer_observation_source": "Specialist report of completed synchronous exec_command; no original on-disk script or raw log was created then",
+    "reviewer_observation_utc": null,
+    "root_observation_persisted_utc": "2026-11-18T00:33:54.386624+00:00",
+    "executed_source_sha256": "83871bbc2c3cb13837994e24422e0650f689944c38bd79ac46d406e459745c7a",
+    "executed_script": {
+      "path": ".issue-11-evidence/issue158-owner-retention/independent-original-control.cjs",
+      "bytes": 2611,
+      "sha256": "c71ba3e094b4c9268fcb7fa274961eca0dc35d192e5ca040a71ffa60c17aeb0b"
+    },
+    "observed_output": {
+      "path": ".issue-11-evidence/issue158-owner-retention/root-observed-output.json",
+      "sha256": "4da57664aeeb5a76b32a3133d03c24446ba8c086f1abf138fbc1e1151968c440"
+    },
+    "warning": "Execution-time library byte identities were not recorded; later library hashes are packaging-time provenance only",
+    "initial_review_loader_setup_failed_before_control": "Missing esbuild; successful control uses installed TypeScript transpileModule",
+    "counts_verified_by_actual_execution": true
+  },
+  "resource_retention_output": {
+    "scope": "Deterministic read-only installed-query retention/cardinality control; counts/string bytes only, no timing/heap/RSS claim",
+    "sourceSha256": "83871bbc2c3cb13837994e24422e0650f689944c38bd79ac46d406e459745c7a",
+    "results": [
+      {
+        "sources": 1000,
+        "genuineRecovery": false,
+        "queriesAfterRemoval": 0,
+        "presenterLifetimeDeactivateReactivateUnchanged": true,
+        "manualWriteAfterRemovalStillBlocked": true,
+        "barriers": 1000,
+        "blocked": 1000,
+        "keyUtf8Bytes": 56560,
+        "retainedErrorMessageUtf8Bytes": 21000,
+        "errorObjects": 1000
+      },
+      {
+        "sources": 1000,
+        "genuineRecovery": true,
+        "queriesAfterRemoval": 0,
+        "presenterLifetimeDeactivateReactivateUnchanged": true,
+        "manualWriteAfterRemovalStillBlocked": null,
+        "barriers": 1000,
+        "blocked": 0,
+        "keyUtf8Bytes": 56560,
+        "retainedErrorMessageUtf8Bytes": 0,
+        "errorObjects": 0
+      }
+    ]
+  },
+  "captured_library_licenses": {
+    "scope": "Installed implementation and exact licenses observed at packaging, not retrospectively claimed as execution-time body hashes; independent installed-query retention control is retained separately",
+    "files": {
+      "installed-query-reference/query-core/src/query.ts": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+query-core@5.87.1/node_modules/@tanstack/query-core/src/query.ts",
+        "bytes": 20129,
+        "sha256": "71e75b3f94576d406a99d9967af4734fa2f938683b74518ad61dd464c6671fdc"
+      },
+      "installed-query-reference/query-core/src/queryClient.ts": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+query-core@5.87.1/node_modules/@tanstack/query-core/src/queryClient.ts",
+        "bytes": 16756,
+        "sha256": "b354cd19e086d1429a81a0640c0968d6711bf05cb4e0f6fb1e8779064284f679"
+      },
+      "installed-query-reference/query-core/src/queryObserver.ts": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+query-core@5.87.1/node_modules/@tanstack/query-core/src/queryObserver.ts",
+        "bytes": 23713,
+        "sha256": "e4b4339d0a30acf09da4943bc85f926b1080340254fce4a18e7e59b624399896"
+      },
+      "installed-query-reference/query-core/package.json": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+query-core@5.87.1/node_modules/@tanstack/query-core/package.json",
+        "bytes": 2416,
+        "sha256": "50bf20c8849eba357a9dc7bc0d6238702baa07c3b5736ba0beb79a6b8f7b01d8"
+      },
+      "installed-query-reference/query-core/LICENSE": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+query-core@5.87.1/node_modules/@tanstack/query-core/LICENSE",
+        "bytes": 1079,
+        "sha256": "a405ee70c632bb938acb7ac5f210e814409b3760ea9d2329d8ed8ffcfd11a0e7"
+      },
+      "installed-query-reference/react-query/src/useBaseQuery.ts": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+react-query@5.87.1_react@19.1.1/node_modules/@tanstack/react-query/src/useBaseQuery.ts",
+        "bytes": 5228,
+        "sha256": "3ce41cad77cd36db2b0dc4ec1c62d6161b8f001f9d221feac52533db98fedb74"
+      },
+      "installed-query-reference/react-query/src/useQuery.ts": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+react-query@5.87.1_react@19.1.1/node_modules/@tanstack/react-query/src/useQuery.ts",
+        "bytes": 1427,
+        "sha256": "6f8914bafaa6e7f90697eae61ce315850ffc4fd172f94ba8603fe37f91c79d2b"
+      },
+      "installed-query-reference/react-query/package.json": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+react-query@5.87.1_react@19.1.1/node_modules/@tanstack/react-query/package.json",
+        "bytes": 3179,
+        "sha256": "a16bc897dea6515e9514f4f35234ea1712be43f0fb7682967e95e80f27b7d4fe"
+      },
+      "installed-query-reference/react-query/LICENSE": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/node_modules/.pnpm/@tanstack+react-query@5.87.1_react@19.1.1/node_modules/@tanstack/react-query/LICENSE",
+        "bytes": 1079,
+        "sha256": "a405ee70c632bb938acb7ac5f210e814409b3760ea9d2329d8ed8ffcfd11a0e7"
+      }
+    },
+    "historical_lock_sha256": "2e5872f30e9f6584bc99a114902ea61d32d9ff818f14a01c4ff57d82e4d20762",
+    "current_lock_identical": true
+  },
+  "native_relocation": {
+    "scope": "Parent-authorized C11native relocation after complete53part verifier and fresh raw exactunion readback; no deletion",
+    "authorization": "Explicit bounded task permits owned native relocation after complete byte/hash proof only when needed for final clean candidate: untracked native output would violate require_clean. Logical paths retained, no/tmprelocation",
+    "logical_original": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate11-native",
+    "physical_retained": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate11-native-retained",
+    "canonical_member_prefix": "interrupted-candidate11/tracked/c4-candidate11-native/",
+    "files": 360,
+    "bytes": 49737377,
+    "filewise_sha_manifest_sha256": "a4b7f5c406595a117f14289f0a729b807d4bbef9cccded1d8fd8688ba69406d6",
+    "all_filewise_identities": {
+      ".last-run.json": {
+        "bytes": 50,
+        "sha256": "1a7281262a1426ac837fe9b61ce6b843b45093c204769011f34ad6eafcf2763d"
+      },
+      "selection-visibility-trace-a25a1-s-surfaces-and-measurements-chromium/visibility-polymer-pick.json": {
+        "bytes": 1390701,
+        "sha256": "68503304c1e615fd13262ec2c7420f63baedc5463ceb8e75693422fbe7dd93fd"
+      },
+      "selection-visibility-trace-a25a1-s-surfaces-and-measurements-chromium/visibility-channels.json": {
+        "bytes": 7165503,
+        "sha256": "545734bb2c56c4f8c8ed9133ce214eca5846558694b48fb3b82c5ab2eaa5d0ce"
+      },
+      "entry-surfaces-renders-a-1-528c8-nd-bounded-worker-resources-chromium/entry-100001-capacity.json": {
+        "bytes": 1464,
+        "sha256": "622dbb73d2b4024d0fb93d8703a89fec2ca71bdbf96e3a576cbc93dfeffcb8af"
+      },
+      "automatic-hydrogen-editing-7967d-ns-exact-history-and-source-chromium/single-h-sulfide-false.png": {
+        "bytes": 151400,
+        "sha256": "fa99c937b8ee62e4a420d1be6f732dc226ee29fb8e712d1f53ea64b88594c821"
+      },
+      "selection-appearance-integ-048c2-ble-and-accessible-in-light-chromium/selection-palette-light.png": {
+        "bytes": 166829,
+        "sha256": "4c55b992728a1abeda3a4b39b2015507205256f480068cb73c02e9eff9371d1c"
+      },
+      "molecular-editing-performs-24d73-undo-and-unchanged-original-chromium/c1-open-atom-editor.png": {
+        "bytes": 128901,
+        "sha256": "687836f7e461a71b3749fc5c9d8990f17028b45afab3826a89b6eede082c32fd"
+      },
+      "molecular-editing-performs-24d73-undo-and-unchanged-original-chromium/c1-atom-edit.png": {
+        "bytes": 105778,
+        "sha256": "57e0e3cc10c8ed24cde8f45540ab02d917580d0395513907d344ff840d040cac"
+      },
+      "minimization-live-renders--d6b46-n-Cancel-initial-and-repeat-chromium/live-native-timings.json": {
+        "bytes": 381,
+        "sha256": "169f60b47443d0df9e20b165b1fe787c54322cf51e9f6a77c269f5b34e660ee7"
+      },
+      "selection-appearance-expan-2d2af-ies-without-durable-changes-chromium/selection-palette-desktop.png": {
+        "bytes": 144059,
+        "sha256": "f24e74fd9df2138f316d97e83b2d7c199102a9910a855c221122fb2ab9c7d571"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-selection-appearance.png": {
+        "bytes": 154839,
+        "sha256": "1dadf48542a01eb3f9b31f8b6506376aa6b0f246b5a08d65d585d3b053f4df50"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-surface-opening.json": {
+        "bytes": 830,
+        "sha256": "b895fc558252d9cf68248119cfa01588c1929966cabf0b87a74280b7f0e03cd1"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-export.png": {
+        "bytes": 105914,
+        "sha256": "2ab14dcb3461424c1f232ba437cb5a73ee6857f28593ae1d316aafa57a012f7c"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-export.png": {
+        "bytes": 108866,
+        "sha256": "894eb05c61895592d9710bbcc6d074839dacd8d72ec8781e24e9de6b0956e7aa"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-pocket.png": {
+        "bytes": 120175,
+        "sha256": "96dad403a992ed2e3f9df75ab4d978d868ea5d342de9779bd6369d1174c70909"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-navigation.png": {
+        "bytes": 113017,
+        "sha256": "17c7dd2e073a3c2a592d3731de9e5eb432579b289e12b51a55a7261a66bfe080"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-surface-manager.png": {
+        "bytes": 110457,
+        "sha256": "0396c22c91710fa9fe0963c6da7b686c8de2996507b8ef95574d45ba16808d85"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-inspector.png": {
+        "bytes": 95456,
+        "sha256": "30e39f81f47e4e8ad5a20228a32b103dab30aeeb80afad4f62eb6bef527a9ae9"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-selection-appearance.png": {
+        "bytes": 151940,
+        "sha256": "516eb95a24bb322ded6304182db7dc7d1b2389529dfa3a5d6755d65fbfc4bb0d"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-export.png": {
+        "bytes": 112763,
+        "sha256": "2a4116bed0771f5afc777b9db74476c91aa0fe2edf28669644e69984471ca843"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-application-viewer.png": {
+        "bytes": 120242,
+        "sha256": "d42c1c5812a066c6a60b173640099ea6430b0071b37998db9bbfc722fa6477bf"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-interactions.png": {
+        "bytes": 125815,
+        "sha256": "80983570d681ae7a2f9f422e1d8ed70af512886ea723415799c1852195f535ae"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-group-membership.png": {
+        "bytes": 105550,
+        "sha256": "fe599c45e71aa0b2f9e437a3a08edc462632e73fca4d76dffe29cfa728f8e4a4"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-navigation.png": {
+        "bytes": 109343,
+        "sha256": "7e70a2ecf3bcc41170c092409ee5f43490955ee6432e026b9b5871fb51154164"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-inspector.png": {
+        "bytes": 101633,
+        "sha256": "cb9058c89d2d1d1e170ae04a7ea84a8761e32fdf872b670ec911162fcbfe3cf5"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-pocket.png": {
+        "bytes": 111294,
+        "sha256": "f7b4dff1f1f029857a95b463d00ba874c74247be2886ca9b2df1084725b1bf19"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-group-membership.png": {
+        "bytes": 96746,
+        "sha256": "6b981779c7c1771025869880db73aadde21c6681358e79d0db778e8511b81d2f"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-pocket.png": {
+        "bytes": 110473,
+        "sha256": "0b719d3f6962f85c71cf12e5d0cb429eea089e8ae1f0c97ee719e649c5fb6fea"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-interactive-movement.png": {
+        "bytes": 87093,
+        "sha256": "03a1b70efa96a0814e8078088c3832e5df3f3350fe8efadcafe76ce737c42e09"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-surface-manager.png": {
+        "bytes": 109708,
+        "sha256": "5ffa036cf9447bd2f8f79aebee19e723f74b44664a853469e27e1d9e325a467f"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-workspace.png": {
+        "bytes": 113208,
+        "sha256": "70e509c1376a8d8145ab8e7658f56d192dc48cd89f85d234987f019810b6f38b"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-navigation.png": {
+        "bytes": 68877,
+        "sha256": "20db0725bc43c3a7df6395132fb393b815c5830093b95f0ea2d8049c624c9213"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-surface-opening.json": {
+        "bytes": 827,
+        "sha256": "4015810b865a5181312ea9d34650cdf45cb3176335fa74be663dfade276e1982"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-workspace.png": {
+        "bytes": 85742,
+        "sha256": "f368e513659207d8f58ae87287617ce2394e203e4b73792ba4348046274e9087"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-group-membership.png": {
+        "bytes": 93464,
+        "sha256": "be4667ad53b5c4b83cf3f0476cb1aad1d3884f23b974c91101a4892f08f176cd"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-interactive-movement.png": {
+        "bytes": 90057,
+        "sha256": "f1d7bda54b08998d1d036701b277519e84087c62d81a9e2a4bad3887fa009798"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-inspector.png": {
+        "bytes": 96738,
+        "sha256": "7ccf93d19e62c104c71ccd80b4f8b7576364c31b111c82cb82686e693822c5f7"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-selection-appearance.png": {
+        "bytes": 138775,
+        "sha256": "7ed47d36010b10613fe9906a3c2321d798468e3b9408fe3d166ccca49bf2bfc4"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-surface-opening.json": {
+        "bytes": 830,
+        "sha256": "b895fc558252d9cf68248119cfa01588c1929966cabf0b87a74280b7f0e03cd1"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-surface-manager.png": {
+        "bytes": 116295,
+        "sha256": "3e9ddd0081621f13ca799c4b71b578641ed1faaec308d2ca56f11cc9e6ed36fc"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-application-viewer.png": {
+        "bytes": 78858,
+        "sha256": "7da64872f145644cb91d3b451e2b50077e011081d39448790a7f4504c607f3c0"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-interactive-movement.png": {
+        "bytes": 147757,
+        "sha256": "c5701564e64ae8c5546782a6822e96a3480b10037c6ded3c5fa34c5f589cb345"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-interactions.png": {
+        "bytes": 137692,
+        "sha256": "5c843de98194f9fa15207bb4bae9c7d21e6cd98db5d96787ac2561289c65ae7f"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-interactions.png": {
+        "bytes": 139601,
+        "sha256": "a0b65f05a62e0fcbc599d270c2a28e02b5db84426b8648cf58a10f2c689959e8"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-group-membership.png": {
+        "bytes": 99441,
+        "sha256": "3d368e47a99401e9aa21507fb2232189bca8c0ea108082869518d8b79f905693"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-navigation.png": {
+        "bytes": 65990,
+        "sha256": "bcfb6ebf1d0f72ef5da1009edc3c7bca3d0c02994c3e2b6d13a218373d2ae609"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-surface-opening.json": {
+        "bytes": 827,
+        "sha256": "4015810b865a5181312ea9d34650cdf45cb3176335fa74be663dfade276e1982"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-interactive-movement.png": {
+        "bytes": 153393,
+        "sha256": "0ffa2a1727f6bc98419b1c1f9e65d1b65e4a566229f901b4fb859591727e7f48"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-surface-manager.png": {
+        "bytes": 113449,
+        "sha256": "bed8c098eb6e9d651c323b470ef04f3f1ca4f2ef08d9c87f6fc184edd65fc10e"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-application-viewer.png": {
+        "bytes": 82038,
+        "sha256": "a94a3bb0b371794f9d389ad29481d52467159eaefc06a72560c4c972557de04f"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-selection-appearance.png": {
+        "bytes": 134179,
+        "sha256": "76831b82bd19c8193d4c4168318ed2624067667f38a2822b39f1a807b05ce49d"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-100-application-viewer.png": {
+        "bytes": 114333,
+        "sha256": "9729a5b3f7bed4bbc5669aeb216374590874e0a8003996e673bd2d7d363083fa"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-pocket.png": {
+        "bytes": 117118,
+        "sha256": "461554cfc8a40ba078da001cd198575c0c46e8e5633c7650b5206e7bcd01eaa7"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-inspector.png": {
+        "bytes": 101503,
+        "sha256": "f3eb16e3621d552e0983f136117911539b3842e5cb1d503bec974bc3154d80e7"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/dark-200-interactions.png": {
+        "bytes": 123048,
+        "sha256": "9af2ea11a945dc8f79534cb12a7e45038f56caee39c71b1f13f2be2f76024435"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-workspace.png": {
+        "bytes": 108959,
+        "sha256": "3dbf8711e7720665ec9f9f1e3cd86fe0a4042d6cf9845f7687d6b28e7f00bf79"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-200-workspace.png": {
+        "bytes": 88818,
+        "sha256": "9e3c9ce082451c444fb60d8748e8fdebd1de06b5f0da5ba62202f20572ebdc46"
+      },
+      "rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/light-100-export.png": {
+        "bytes": 114523,
+        "sha256": "57decf09b5ce6c285018c54db64f657da71da7f316927fa1882bae04f191a357"
+      },
+      "project-navigation-virtual-c5079-off-screen-rows-by-keyboard-chromium/virtual-components.png": {
+        "bytes": 112042,
+        "sha256": "a41992ae3464864504a58e7b039557a34d4021a37fe9c02db9619de727252ba6"
+      },
+      "project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/many-entries-light.png": {
+        "bytes": 118406,
+        "sha256": "800c4eb23adf686880f2020bf58930e3e0af1a565da0bb4ad22df4ed5b33dc5e"
+      },
+      "project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/many-entries-dark.png": {
+        "bytes": 118910,
+        "sha256": "c6ccc5504cc6859cc197fe9f15842850fa5d0c487fc0762ded525c5506453051"
+      },
+      "quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/quick-cold-performance.json": {
+        "bytes": 4157,
+        "sha256": "59a3fc5b3ee32e6616314bc2ca09b124fe687eca1addb2146b7ff676fc1ca2d8"
+      },
+      "quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/quick-repeat-performance.json": {
+        "bytes": 4159,
+        "sha256": "c08aa5fd49930ba01200e0d84bf0cb90ee8f6094c8ac9808777c0c4046b748b3"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-clash.png": {
+        "bytes": 113331,
+        "sha256": "09a8ffa8bc5d1ab88e23f3746b075ab748cc1f1ff4da280dcb7e7e3dbf9dc1c9"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-hydrophobic.png": {
+        "bytes": 114579,
+        "sha256": "d2e32c893b58f21f37ec3b478805f8320d4d7b4f85cb87c4e3790987a09b6dbe"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-hydrogen_bond.png": {
+        "bytes": 121484,
+        "sha256": "7c4068bd3f7de6b5ed3d0d3b39f688dc2e9f79b35ff42947632910ee27f8ef70"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-cation_pi.png": {
+        "bytes": 113215,
+        "sha256": "fa3b9234afd99295725d88b701fb41edbb7bfa1b2e8eb24f19348cde126de929"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-pi_pi.png": {
+        "bytes": 120962,
+        "sha256": "2be306acea6b45097bab3a62adc8c9b00b93009e29f1e6cd9eae5eb016421467"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-salt_bridge.png": {
+        "bytes": 121066,
+        "sha256": "870435d6c870c98907a6d10ecd8ab0664cf8274b915e892cfc64da9b017ffca2"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-hydrophobic.png": {
+        "bytes": 122299,
+        "sha256": "a09477338ba6a7292038422c395c00d81d402c7b16f736128bfcdcad4fc1705f"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-cation_pi.png": {
+        "bytes": 120932,
+        "sha256": "af330949b9e4ee768958ca68face7753ae6a0c79ed5d254bd52d93ff71723591"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/six-type-native.json": {
+        "bytes": 22410,
+        "sha256": "35f5d2a82e3393ea554931087ef3648bbc8c5eb6440ffa644fac8130e276ac94"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-salt_bridge.png": {
+        "bytes": 113347,
+        "sha256": "6cde04eab894946c3d021c1edcd96ac2dee43c194f7817fcf7d2ee840f7ed909"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-hydrogen_bond.png": {
+        "bytes": 120139,
+        "sha256": "f5fb4624d6f6b423317e18e60bfaa328452f6ef7762aed2d076d13b8e820b274"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-light-clash.png": {
+        "bytes": 121084,
+        "sha256": "41ebd8460837271372b006f4fc26562a6454b00560bb619fe7082082c9f6d376"
+      },
+      "interaction-corrections-re-bea82-her-with-independent-scopes-chromium/native-dark-pi_pi.png": {
+        "bytes": 113265,
+        "sha256": "63a909f091c79ec7308d28f518279cd7600f96b6fcf91b771641ea4e8ff770fd"
+      },
+      "molecular-editing-previews-fcd93-ted-H-with-illustrated-COOH-chromium/c2-fragment-editor.png": {
+        "bytes": 131213,
+        "sha256": "689a0ff2e6d84aa4f20772c8bcdde0eec6f70c22ee32348ab42ff3e583994e82"
+      },
+      "project-navigation-keeps-c-e600f-sion-selection-and-metadata-chromium/navigation.png": {
+        "bytes": 123158,
+        "sha256": "4fbd1775bf48d61fa4fae57d21217f888a4c9079716035154e69242da05da5f5"
+      },
+      "quick-minimization-perform-cdeb2-eview-within500ms-on-Cancel-chromium/quick-live-performance.json": {
+        "bytes": 417,
+        "sha256": "dabf6c6486baaaeccc0c3a35437833b361c1f0f1492d6c4ade1d23586f4b8f22"
+      },
+      "rebranding-surfaces-keeps--a538b-nd-legacy-user-copy-visible-chromium/dark-ambiguous-locked-fixture.png": {
+        "bytes": 101356,
+        "sha256": "f4511b9994314a095e316fe7d8ed9ba4acaffdc8661c1b223a525bee9a8c8941"
+      },
+      "rebranding-surfaces-keeps--a538b-nd-legacy-user-copy-visible-chromium/light-ambiguous-locked-fixture.png": {
+        "bytes": 102212,
+        "sha256": "536b4b5254a46f8b7209fbafac75fb4bbd45c8b2a7f31a713991ef3309a49243"
+      },
+      "rebranding-surfaces-keeps--a538b-nd-legacy-user-copy-visible-chromium/dark-component-provenance.png": {
+        "bytes": 139355,
+        "sha256": "f055a13b2d4205884c7876b1d7bd9da9750492f0bcefffd2b56524c826f2d5e0"
+      },
+      "rebranding-surfaces-keeps--a538b-nd-legacy-user-copy-visible-chromium/light-component-provenance.png": {
+        "bytes": 139594,
+        "sha256": "3c0d3a0c3179f65172c294ae7d6ad4c21381231a658a41b7fcc68b79ed2baafa"
+      },
+      "molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium/c3-accessible-editor.png": {
+        "bytes": 128076,
+        "sha256": "1bd43dbb1be0f11385e3af2ae10a34398ad0c37949d2a0fd5872dc9918e0cd61"
+      },
+      "interactive-transform-perf-ad651-measures-exact-cancellation-chromium/movement-performance.json": {
+        "bytes": 1044,
+        "sha256": "dc9fb2da0d27880deb4b99c4257e6b8ac81776e7c0b6d75ecd9c39b3f6ed72f9"
+      },
+      "direct-molecular-modeling--4b034--draft-visible-and-pickable-chromium/incomplete-aromatic-draft.png": {
+        "bytes": 123974,
+        "sha256": "0dd76f1759c38948ff7634aa9cf073b946f712d148952cb16bf8b99afa961ee1"
+      },
+      "interaction-budget-refuses-bd4cf-s-affordable-cached-markers-chromium/interaction-budget-recovered.png": {
+        "bytes": 139097,
+        "sha256": "7ceb53857f1921d956dc944a406e5289977f4de1b2e6b3a3ca64ca3395917c32"
+      },
+      "interaction-budget-refuses-bd4cf-s-affordable-cached-markers-chromium/interaction-geometry-budget.json": {
+        "bytes": 31913,
+        "sha256": "a6e591d701003b8a865406ac6e917e6abc104f4296b7bd2b00e7f20fd1cdede8"
+      },
+      "interaction-budget-refuses-bd4cf-s-affordable-cached-markers-chromium/interaction-budget-error.png": {
+        "bytes": 153695,
+        "sha256": "df02570168ede2b4ccb1b9c07dcf01143d6dfd74116cbe69598a2a1636e4c8c3"
+      },
+      "interactions-measures-boun-bc239-P-with-aligned-typed-ligand-chromium/interaction-performance.json": {
+        "bytes": 288,
+        "sha256": "ed1d6f050f412426ab34db484b3164f02230825c067111e20918ea9a24150ca4"
+      },
+      "interactions-measures-boun-bc239-P-with-aligned-typed-ligand-chromium/interaction-performance.png": {
+        "bytes": 142937,
+        "sha256": "8bf53c9ba426e827738056e011c1a6e23e0fc61476b21f0a1276074b9ee286be"
+      },
+      "minimization-controls-show-7fd72-ntext-and-effective-methods-chromium/light-expanded-model-methods.png": {
+        "bytes": 149746,
+        "sha256": "aeb05f4d2b903fca7cd60f84fe72408d1ec6681010b38a90f1c0b34887bdeca9"
+      },
+      "minimization-controls-show-7fd72-ntext-and-effective-methods-chromium/dark-expanded-model-methods.png": {
+        "bytes": 149468,
+        "sha256": "f02def9b70edfd6907592e7e725858070855267f4894a2da609fa533c252ec59"
+      },
+      "measurement-acquisition-de-dcdb4-er-and-residue-anchor-dark--chromium/deliberate-dark.png": {
+        "bytes": 121862,
+        "sha256": "78012fb14db54051df7eae9d28baf96325384829eb77ea55605318ab5e735d77"
+      },
+      "selection-gestures-expands-2321c-thout-camera-movement-dark--chromium/selection-gestures-dark.png": {
+        "bytes": 120484,
+        "sha256": "afc1c0559210037193d41fadc5b6dd8c90aef6a2b7ba621801d03df60ac3616d"
+      },
+      "ligand-designation-chooses-c0590-on-or-molecular-data-light--chromium/ligand-designation-light.png": {
+        "bytes": 108401,
+        "sha256": "1507f989d601965d06e8c2f02d79fa011f4f87a26fe4e56c096dc3dc6d1edb93"
+      },
+      "ligand-designation-chooses-bfbba-ion-or-molecular-data-dark--chromium/ligand-designation-dark.png": {
+        "bytes": 107187,
+        "sha256": "1520b073bf5a10e46ef96ad57c0121a4b29254fc6fc7543de75dbec34588afd7"
+      },
+      "pocket-surfaces-saves-pock-b5d90-restores-hidden-seed-inputs-chromium/light-pocket-workflow.png": {
+        "bytes": 146270,
+        "sha256": "fb7c45462e4ff4978b0252bf7e92d57fd8029399dfd08eb2d0d5bfb98e748687"
+      },
+      "pocket-surfaces-saves-pock-b5d90-restores-hidden-seed-inputs-chromium/pocket-creation-input.json": {
+        "bytes": 4470,
+        "sha256": "a22c2b3a09a206a35b84aefed1b8fd2085508f02d0689398d62c50a74e02cc40"
+      },
+      "pocket-surfaces-saves-pock-b5d90-restores-hidden-seed-inputs-chromium/dark-pocket-workflow.png": {
+        "bytes": 145239,
+        "sha256": "3ef2efbb2e96c311639d4deda93f822e018d60ffa451a038340778d5fb358abd"
+      },
+      "rebranding-uses-the-Neistr-9dc25-project-creation-and-import-chromium/workspace-light.png": {
+        "bytes": 133886,
+        "sha256": "fd250346cf8e4d240dce9cfe8c1b6359d201a8807c66203c80300d173b7de62e"
+      },
+      "rebranding-uses-the-Neistr-9dc25-project-creation-and-import-chromium/welcome-dark.png": {
+        "bytes": 88994,
+        "sha256": "465416496a4ad7d7d721145291c4e1d2913110d9916df6d1b2ec94bea1f8ca8e"
+      },
+      "rebranding-uses-the-Neistr-9dc25-project-creation-and-import-chromium/welcome-light.png": {
+        "bytes": 86845,
+        "sha256": "847c06c617e1be661206d432d2bd6632dee41ba22b7a768602d518d7f000c83f"
+      },
+      "rebranding-uses-the-Neistr-9dc25-project-creation-and-import-chromium/empty-project.png": {
+        "bytes": 98181,
+        "sha256": "e56a9dec550fe37a90ba691807c40070881000781e6deb18ab9613291ed9c3bb"
+      },
+      "rebranding-uses-the-Neistr-9dc25-project-creation-and-import-chromium/workspace-dark.png": {
+        "bytes": 130048,
+        "sha256": "da57a88b9cb2fb4deefccbe19ac248606f4c044cdba0efb687f6307e81007c77"
+      },
+      "minimization-live-renders--b6093-n-Cancel-initial-and-repeat-chromium/live-native-timings.json": {
+        "bytes": 362,
+        "sha256": "9bf49c6eaf28ea55303200491b6b17ad69f9d18f592e105288e208c81acb8465"
+      },
+      "protein-residue-hierarchy--ac905-nce-and-native-picks-light--chromium/residue-hierarchy-light.png": {
+        "bytes": 116912,
+        "sha256": "82d2b6d769494e02dbc238e31f78f484a96ba493098cbf2cda62c8d1469d2dda"
+      },
+      "compact-edit-workflows-ope-3067b--exact-fixed-atoms-and-Undo-chromium/compact-qualified-torsion.png": {
+        "bytes": 133959,
+        "sha256": "3b0a0c8919416c3f018078a4723bab060fb4329983d9b92b3033064917f43663"
+      },
+      "automatic-hydrogen-editing-9e1e0-ns-exact-history-and-source-chromium/single-h-ammonia-true.png": {
+        "bytes": 138267,
+        "sha256": "534dc550353ac57563719acdf5700cb7a361be3376f7f18a1edf60d733dcb350"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-100-molecular-edit.png": {
+        "bytes": 153023,
+        "sha256": "cc6d174fee6efa1a6cd27e972f161d1b2bd1b75266fe15dfef6e64544034b3c5"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-200-placement-inspection.png": {
+        "bytes": 114841,
+        "sha256": "bc46524e63e8e41df8720827b9a81499e6fb81a5d8ccfc1543bf881cc8e5196a"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/200-empty-edit-recovery.png": {
+        "bytes": 118013,
+        "sha256": "a90b2d2837a37cfce7a328cde0a2ffc24a2e724c2d7d8691f5b720a0d28a219c"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-200-molecular-edit.png": {
+        "bytes": 99922,
+        "sha256": "c6b2fab5fdde8d6426d6b4cbf270140bf936e549ca8b7899b52843aa6604c832"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-100-molecular-edit.png": {
+        "bytes": 145963,
+        "sha256": "fc23c9b6039216bd7704b76c8296cb99d93d9b6aaf8041091ac7b3011504ca69"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-100-placement-inspection.png": {
+        "bytes": 126959,
+        "sha256": "74da993d9cce269f62fb83c3c8dadad6e92182df2ac0188fa6b8a685f8b406d7"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-100-placement-inspection.png": {
+        "bytes": 119725,
+        "sha256": "d1915ee1e20ffdda6e67b5ffc55454d7defe3b144b19fe3de93fbfcf71361a72"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-200-molecular-edit.png": {
+        "bytes": 104946,
+        "sha256": "5674f06e39f1159aacedc24d9f0c056248bdc99399c3bcbefe251f740744d0b6"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/100-empty-edit-recovery.png": {
+        "bytes": 129316,
+        "sha256": "8582ba74298dc611dbf9f98bfc8d538fd7ea87d6ca70ffb59aff731c5ae435b8"
+      },
+      "rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-200-placement-inspection.png": {
+        "bytes": 110407,
+        "sha256": "7071f93d26931b841740a7c6fc6e96656f619a26a5fba68ad72c2889296e3a41"
+      },
+      "minimization-accessibility-89629-uch-at-320px-in-both-themes-chromium/light-320-minimization.png": {
+        "bytes": 49592,
+        "sha256": "1cc10c9c15ebe85f06d0e29a3bb4fc47a25964e920763736c0d83caf0dd3a67c"
+      },
+      "minimization-accessibility-89629-uch-at-320px-in-both-themes-chromium/dark-320-minimization.png": {
+        "bytes": 60828,
+        "sha256": "28e998a95e1ece96ef9f711da1bc537f0c9290ea69449cef79320dab64d652b5"
+      },
+      "selection-surfaces-qualifi-f4faa-rs-picking-and-cancellation-chromium/selection-surface.png": {
+        "bytes": 192659,
+        "sha256": "7139b75b66d4520114fcdb891aeba39f41aa68237082606ae1a6add68c4461cf"
+      },
+      "selection-surfaces-qualifi-f4faa-rs-picking-and-cancellation-chromium/surface-feasibility.json": {
+        "bytes": 638,
+        "sha256": "0d6b75a08e502717ecb8a55cdf8e9ecbdc5ed1cd7c0fd779bba93ca70e267cf9"
+      },
+      "bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium/dark-bond-tools.png": {
+        "bytes": 156625,
+        "sha256": "a8065e97558940c7b09cb5c2054c0d06d269e0b0f1622b7d54aaf23cd7ed21f3"
+      },
+      "bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium/light-bond-tools.png": {
+        "bytes": 157011,
+        "sha256": "3df49a41f20e33b2a605bb4ef95acb08511ecfa0d0b1631065732809ee1baad1"
+      },
+      "selection-minimization-min-8d5d5-review-and-atomic-Undo-Redo-chromium/minimization-separate.png": {
+        "bytes": 117296,
+        "sha256": "30a669279bca795c224001010e134fdd1f186ddfa0861cf466b5fd9ca08953aa"
+      },
+      "compact-edit-workflows-ret-b25b1-ut-completion-focus-changes-chromium/compact-applying.png": {
+        "bytes": 131762,
+        "sha256": "05aa4dc29fa1f2fa6b521058d8cc277d34917d4792246bde2fff721ef892ff2f"
+      },
+      "protein-residue-hierarchy--afe16--complete-off-screen-ranges-chromium/large-residue-hierarchy.png": {
+        "bytes": 107943,
+        "sha256": "5ce2131ee1df9b86008a7ddf61c47438a6218c508a0616e106cc61c380d4a538"
+      },
+      "quick-minimization-perform-15e48-ublication-for-an-18k-scene-chromium/quick-cold-performance.json": {
+        "bytes": 6130,
+        "sha256": "a0eec51a4a0542221fbee84eb9abcace8a6572b2537c4d108d3dc99ac1fcf7c2"
+      },
+      "quick-minimization-perform-15e48-ublication-for-an-18k-scene-chromium/quick-repeat-performance.json": {
+        "bytes": 5341,
+        "sha256": "c4d0ee241362223f6c150872b239b23d93596adf0d6d083a85690090b7465993"
+      },
+      "minimization-performance-b-0bf12-ion-and-native-preview-work-chromium/minimization-performance.json": {
+        "bytes": 362195,
+        "sha256": "9b7d115ce20646b87a2b5fa0350304fc05bd78cbd91c38a21b99f40893f2ed8a"
+      },
+      "selection-surfaces-qualifi-40745-cle-for-formats-ethanol-mol-chromium/production-surface.json": {
+        "bytes": 55909,
+        "sha256": "04da4d0850558ae817709a6bf623f14da8e795dddac25253665655ac2236e215"
+      },
+      "pocket-surfaces-qualifies--80a4f-polar-hydrogens-protein-pdb-chromium/pocket-native.json": {
+        "bytes": 1049,
+        "sha256": "cf6df7d27f6a0a1b64f0aa2efb1c2e7fec022572f70062939e1d469c09d46977"
+      },
+      "pocket-surfaces-qualifies--80a4f-polar-hydrogens-protein-pdb-chromium/pocket-native.png": {
+        "bytes": 32787,
+        "sha256": "81c791c08073dfa7a69866d1c7f92174fa8f794575973fe416dcf5a7f5004ccb"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/light-100-residue-navigation.png": {
+        "bytes": 174235,
+        "sha256": "fa64b383c6167b4eaf752dabd2a22cec62f8eed79370f3ceecf1c1cafdf696fb"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/light-200-protein-sequences.png": {
+        "bytes": 122909,
+        "sha256": "07f6145c22e5f19435f5c98fa92261dcae37d8d3c0c099f762c444177c337195"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/light-100-protein-sequences.png": {
+        "bytes": 173789,
+        "sha256": "1d627ef736797105843374fa1a1d72aa48d74d8ceb9554c792715850ff694acc"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/dark-100-protein-sequences.png": {
+        "bytes": 168776,
+        "sha256": "2eae3812d6fc10a83fa1bd9b041d98bcb0b239a88b6b7108f20bf7bbecc0a5c5"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/dark-200-protein-sequences.png": {
+        "bytes": 116015,
+        "sha256": "54ba7145a689550a34cb8a34227151dffa1ab2393668c66de232002eb7939aee"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/dark-200-residue-navigation.png": {
+        "bytes": 95915,
+        "sha256": "5f837c12e0a355daaedb30b6249b594ea611e7bfb182de62871274a0010fc2be"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/dark-100-residue-navigation.png": {
+        "bytes": 169237,
+        "sha256": "a0d3bd169e03034a059a83643b7bbce06dd7edb3fc55861fa0074deda7c1129a"
+      },
+      "rebranding-zoom-keeps-expa-a55e2-al-100-and-200-browser-zoom-chromium/light-200-residue-navigation.png": {
+        "bytes": 104253,
+        "sha256": "7268fc8894d5e44361550c582767ba30f7f14d91bc914e167573f9b12081d492"
+      },
+      "automatic-hydrogen-editing-1d2cc-ns-exact-history-and-source-chromium/single-h-water-false.png": {
+        "bytes": 141440,
+        "sha256": "26d5066b59ef543496a1fd924efd06adadbb0a01a7b87dd55e1313b233d28729"
+      },
+      "detached-presentation-capt-ad2ae-ter-and-coordinate-previews-chromium/native-annotations.png": {
+        "bytes": 43813,
+        "sha256": "cc26df4c8babb88180461dd02d9fb04fb0d94a4f1870fddd45456d48b6f78c99"
+      },
+      "quick-minimization-perform-78749-blication-for-a-1STP-pocket-chromium/quick-cold-performance.json": {
+        "bytes": 6130,
+        "sha256": "9ea7793bee22298072de41e7c5e6440160e68efe0689fc33d4ca81065ba3c5fd"
+      },
+      "quick-minimization-perform-78749-blication-for-a-1STP-pocket-chromium/quick-repeat-performance.json": {
+        "bytes": 5737,
+        "sha256": "8c480dcae5377346aaa38d66622d01cab07002eeda6099481a7c41b6eaf27b77"
+      },
+      "compact-edit-workflows-rev-e6ff1-after-explicit-continuation-chromium/compact-unknown-reviewed.png": {
+        "bytes": 158492,
+        "sha256": "d650162fa64b2ce4785c71914e407c5e4e278141004bd7fc9c220ae7962ef71c"
+      },
+      "selection-hydrogen-toggle--f72fd-story-and-persisted-display-chromium/hydrogen-dark-320.png": {
+        "bytes": 51884,
+        "sha256": "817f2a3cb2de46e460e64a4efd0f706bd694766e742f38a5b03dd92711d6c2d1"
+      },
+      "selection-hydrogen-toggle--f72fd-story-and-persisted-display-chromium/hydrogen-light-320.png": {
+        "bytes": 53286,
+        "sha256": "c23e911758b7c942dc8670aa282e4dd1646feb2ba68abbddf299de2449a95f91"
+      },
+      "sequence-viewer-stacks-vis-5b887-nd-restores-sequences-dark--chromium/sequences-dark.png": {
+        "bytes": 116861,
+        "sha256": "c8601514edcafc9c68f8ad72a52cbb3fc09e02e47ff9aba4e70edd8fbd83bc69"
+      },
+      "sequence-viewer-stacks-vis-f6b56-d-restores-sequences-light--chromium/sequences-light.png": {
+        "bytes": 118331,
+        "sha256": "3a60d1a5d444454afc2ee315364d592fd0314f8d5f202cf8d046699e8884c275"
+      },
+      "direct-molecular-modeling--bae71-ly-with-exact-Undo-and-Redo-chromium/canonical-bond-removal-redo.png": {
+        "bytes": 106213,
+        "sha256": "08cc6cb758a4786a0b35de71c9ce67403bbe16a9fe7f60d6b3a58720d4291d4d"
+      },
+      "interaction-inspection-cha-13c09-tions-from-the-closed-panel-chromium/interaction-appearance.png": {
+        "bytes": 119961,
+        "sha256": "172d17ea5f1dabc575f8518cde1b242b529f83a256dc07d8b6d0d2378cebdc27"
+      },
+      "interaction-inspection-cha-13c09-tions-from-the-closed-panel-chromium/interaction-appearance.json": {
+        "bytes": 23402,
+        "sha256": "cb1b8c45435714ce44b98c404ff15553c379f7270590bc5153d79ace06446f06"
+      },
+      "project-navigation-retains-510d8-xpanded-desktop-pane-height-chromium/minimum-pane.png": {
+        "bytes": 93521,
+        "sha256": "f4af9d033a3064755808b8a0bb29145c3f551873d3053e6ac3f0d0e8c65bedff"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-dark-cyclobutyl-zoom2.png": {
+        "bytes": 95587,
+        "sha256": "b367f3eb667f65b2e769e03e13c6feddc079b4a6606d856dfb60033d1382e26d"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-light-methyl-zoom2.png": {
+        "bytes": 91923,
+        "sha256": "a14e7e4665e07efc20dfe4138f067a365ff66b8257e032768165b65f54495e0a"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-light-cyclobutyl-zoom2.png": {
+        "bytes": 99631,
+        "sha256": "95f08701a21600012afec6f3fc016f4290e0cd4785f6c0d83dc8c9f1b2add39a"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-dark-methoxy-zoom2.png": {
+        "bytes": 90290,
+        "sha256": "1a604b4b5810a8a0c48e20cc6d1e37c879a7b3b4ad780dcffc87ca75fdafcfa9"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-dark-methyl-zoom2.png": {
+        "bytes": 87572,
+        "sha256": "00be900eac9ffaad160c49f19de49d4708171acde0f9e4ecade1f830f8ad6598"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-dark-phenyl-zoom2.png": {
+        "bytes": 93053,
+        "sha256": "af5205c2a96e06567145f0ea94eda1e64b695579c451fd4b7f29527486e4f02b"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-light-methoxy-zoom2.png": {
+        "bytes": 94493,
+        "sha256": "5457d97004a59d4f9b9267868691d2216158bd431dc4287e8e794e8a4796e022"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-fragments-light-phenyl-zoom2.png": {
+        "bytes": 97273,
+        "sha256": "4990ca86de21c74fd3fcf673a76fb5a371d82e91a8436d84aa389d825364b79c"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-atoms-dark.png": {
+        "bytes": 129404,
+        "sha256": "76d56881c11ed1dc87706f32192b2e391b555937a898ed183fbe28980e4a5df8"
+      },
+      "compact-edit-workflows-kee-b496c-iewport-zoom-in-both-themes-chromium/compact-atoms-light.png": {
+        "bytes": 131195,
+        "sha256": "f9bf228e41006edaa14f644e52988731fad3a99c623c7e3d915e2b5fc127e9de"
+      },
+      "selection-minimization-min-03180-review-and-atomic-Undo-Redo-chromium/minimization-pocket-ligand.png": {
+        "bytes": 118206,
+        "sha256": "19210270625116e501071acfa599315a16f8b3720821d96d25443e7da2ed7d43"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-api-failure.png": {
+        "bytes": 103090,
+        "sha256": "5da9e0d87185b5f1ba285f5ebe448e1f708e7db0e7da2a28cb99721cb5486e22"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-parse-failure.png": {
+        "bytes": 107038,
+        "sha256": "1a1d0c1469f966c604e708397049a9a78d500cdca6fad76285e6b9fa359e3a03"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-failed.png": {
+        "bytes": 112421,
+        "sha256": "17a842bd977212ce64dbe7c213362c45e28939591cded7872f2ff2402804c304"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-cancelled.png": {
+        "bytes": 112782,
+        "sha256": "72d9fa647e92337038bda647eadc9d6539d8b034a98cb6e8117fabe3d592ad01"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-blocked-export-loss.png": {
+        "bytes": 115616,
+        "sha256": "7d9939c17e31aadb9a30ff341cbb51837cd96bc9fedff16343c989b9908fd33a"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-cancel-confirmation.png": {
+        "bytes": 111112,
+        "sha256": "fc2b0ad1d9d4b8fa2ddc16315c07f31cfb0a39fe7f0ab601197380f32adc6142"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-results.png": {
+        "bytes": 109514,
+        "sha256": "9f00ea6036f672a5e82533fc9966233bb56b7ec3ba6a394af146937a7a0d1997"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-cancelled-logs.png": {
+        "bytes": 114809,
+        "sha256": "e34c734f72cdd156441da14eed6638b3a06c3237573c61b8a2f6fd20bbc26c15"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-export-ready-with-warnings.png": {
+        "bytes": 108188,
+        "sha256": "d280d5cc9fa63b9d4e6f87e8cf3a9d242a854f74253043a34fad0adbfcf048de"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-completed.png": {
+        "bytes": 102658,
+        "sha256": "348c3c623a204c9b5e0c9f453c938907ec0b2539f45fdcb6ec772fc90bc6327d"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-failed-logs.png": {
+        "bytes": 123517,
+        "sha256": "3f18dee543d96cf7c402a46a75be5773a89733ae5dd7b1264fe7ece58e3daac6"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-completed-logs.png": {
+        "bytes": 108951,
+        "sha256": "f7619cca21383761612e59eb3fcae51333cf0a7f6c044737abbb712cb3e0e1bf"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-job-running.png": {
+        "bytes": 112115,
+        "sha256": "857547a95395db9e50eccf767c9672b41af82e7d82300bffd56428e874838dfc"
+      },
+      "rebranding-surfaces-review-66547-very-and-job-states-in-dark-chromium/dark-api-recovered.png": {
+        "bytes": 97220,
+        "sha256": "d10d69f816ccb564058f4e2d0459ade93f93cd393492dee5e7837473a0ea982a"
+      },
+      "hydrogen-membership-keeps--93ddf-ng-an-unrelated-native-atom-chromium/orphan-h-enabled.png": {
+        "bytes": 128191,
+        "sha256": "8a8233667340d833377ad16c93926f79ce1fb60f34d657eea9335d7e75e99b26"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/dark-1-minimization.png": {
+        "bytes": 143619,
+        "sha256": "1b91df9e93cec93fd7d4c36c2d9628c186bbec950a91e26ee826ddd7c5e39841"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/light-2-minimization.png": {
+        "bytes": 129966,
+        "sha256": "17bdaa4e08a00eb6e02e898fca8bd4e96a13a3f0bd7c406a401f5d6279bc3c44"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/dark-1.5-minimization.png": {
+        "bytes": 163873,
+        "sha256": "a3997b18136ef7011d1d180ce46965a25439cd79aa68ffcebba20fbecc63d633"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/dark-1.25-minimization.png": {
+        "bytes": 157201,
+        "sha256": "81c0483d8b1d82a0dc0d4ac2ee1ec60574ed0dbe11d3637484c4d660e69137dc"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/dark-2-minimization.png": {
+        "bytes": 107982,
+        "sha256": "d7ed953557eca18018506fc8ac9a824b2b8b7f0d5793145a39b5093acc25a2cc"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/light-1.5-minimization.png": {
+        "bytes": 179440,
+        "sha256": "479f0b3d86d23a5ad4012f2470b666b475081893ea79aa0addb053ee578946c3"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/light-1.25-minimization.png": {
+        "bytes": 174699,
+        "sha256": "a563a7831be9c738e5bc08d0dafe454a856448d539285c857c0ec3f38fd3f661"
+      },
+      "minimization-accessibility-70a2e-actual-100\u2013200-browser-zoom-chromium/light-1-minimization.png": {
+        "bytes": 144969,
+        "sha256": "8940691fa3f93f435ca092c1a26e1e3a622ab0595cf6aa7d41e6a5970caf9fae"
+      },
+      "direct-molecular-modeling--cba48-atic-maintenance-cannot-run-chromium/unknown-chemistry-direct-fragment.png": {
+        "bytes": 130751,
+        "sha256": "889600417bbf17bd99084c5993c21cc4e77919e3df5fd182fa8ad0690e6f6b19"
+      },
+      "pocket-surfaces-qualifies--179b6-isplay-for-complex-1stp-pdb-chromium/pocket-native.json": {
+        "bytes": 17018,
+        "sha256": "c82a3cfe17cce8cc4a2e1c0d72102b9f656c5ff723c35b033078d8935c39ac51"
+      },
+      "pocket-surfaces-qualifies--179b6-isplay-for-complex-1stp-pdb-chromium/pocket-native.png": {
+        "bytes": 91220,
+        "sha256": "095d18037a6922500214e0c84d577056b50c400c3514131e7c07e2b05fee130c"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-job-parameters.png": {
+        "bytes": 103096,
+        "sha256": "fcae4995f49db059ac0044bf7a8d75ebe23eb7de111d012a50d3bca3fb33a720"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-project-chooser.png": {
+        "bytes": 128505,
+        "sha256": "55530086507cdf233da532316b64db11ed4c1121bf5ffab2278de6172a3be0ef"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-lower-properties.png": {
+        "bytes": 100771,
+        "sha256": "a0d8bd69ad7b17e13d3a81782617dc3970b608239efb985c8ce9f5580e05961e"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-archive-import.png": {
+        "bytes": 108285,
+        "sha256": "1181e70a91241fabb2630593f8a365388bb78ff9d81b80f89d071ab9a92c5e6b"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-selection-style.png": {
+        "bytes": 134267,
+        "sha256": "b6768dd77818c8fe7c536eeaaca9c167c489dda230a1866f2c47cd3d36ec38cf"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-export.png": {
+        "bytes": 109959,
+        "sha256": "f472acb41c1be7b20dfa13c36d8f13441845a85f6b0f921b5c46998e161ce8b6"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-rename.png": {
+        "bytes": 91372,
+        "sha256": "3da0dceca1727b772ab5de98c77b261caa1a88a38193aedde4e2e1f8b77da71e"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-job-parameters.png": {
+        "bytes": 111631,
+        "sha256": "0d8030ba9ad911ad00448cafcf489c58e1ff56f42f6af7c67d041e484eb666b0"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-archive-export.png": {
+        "bytes": 107012,
+        "sha256": "5c224dd6743a1c51548b4d28d7d130c0fbf47dbb34c15738d1f23c59e500f1f1"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-transform.png": {
+        "bytes": 101612,
+        "sha256": "b758efeba77d4ff70a0e2d0d223b5a6172a13bbb90eb91f869e1c94041a3b118"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-archive-compatibility.png": {
+        "bytes": 117100,
+        "sha256": "fcba86fe0ecf641e8ebbf269b30638badaaffb31c0368d931eb5bfb3ea4cc548"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-transform.png": {
+        "bytes": 107652,
+        "sha256": "d539fac473275e0315c984e2131ffe7b37bfbeb17f00602638e5cd3bc6f60259"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-protein.png": {
+        "bytes": 108630,
+        "sha256": "4bcab62fe30677168f98259cf7ce9ad33670ccec1a8213a75b2825a3c0ca9a63"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-rename.png": {
+        "bytes": 103917,
+        "sha256": "04b437126a63d8a4517ee3304c9546d8d5c155572f12c71dd7f8d87d163e4a3c"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-ligand.png": {
+        "bytes": 103075,
+        "sha256": "26d3c08d31a32059908d5ee7849c2325a459b3c3e245095f0521a76ac14d8db8"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-lower-properties.png": {
+        "bytes": 100478,
+        "sha256": "870e81034f54f09524a0b639a33dae24b596c6ce62f9f27a48cc7fca2599cd0c"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-archive-import.png": {
+        "bytes": 101173,
+        "sha256": "d59dcd2e915255c9a7db44cc98f27faf750e6a75820618b2ad04708987aff4e9"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-measurements.png": {
+        "bytes": 81702,
+        "sha256": "3b6413d2de844422e54af95af74b29839b2fd293dac7f4fac92ce10c6482a3e5"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-project-chooser.png": {
+        "bytes": 122438,
+        "sha256": "15337a408eb5264195f0e88804f1e5c25228e2264eee29a6e712d7b688cecb32"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-ligand.png": {
+        "bytes": 96844,
+        "sha256": "5107993662fbc9bbd41c3be93336f6a6b3a73c7f450a3c07768ad2f47da5321a"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-lower-jobs.png": {
+        "bytes": 95091,
+        "sha256": "beced1f842b30690231710fbc7d4141d73c451a64c7ee3be45a55fa0e59e7ce0"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-lower-history.png": {
+        "bytes": 96572,
+        "sha256": "cb61d5f8e2fd8da346b57c6420db12f051446fb8d1f8b431c814d933a6c6e9ce"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-archive-export.png": {
+        "bytes": 114123,
+        "sha256": "6b1d20b75d04c6b7a4e7169aa9cd6fa6fd593c15ad2ea46e345749f9c4b45431"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-hierarchy.png": {
+        "bytes": 100838,
+        "sha256": "886880bbdcd8410645d32176840936f1317d6014a970bcb3cd8194288afdcb76"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-workspace-sequence.png": {
+        "bytes": 94390,
+        "sha256": "49b79006188462b7c16279cfa485293d6c7f23333a6c71213390911639374d42"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-viewer-controls.png": {
+        "bytes": 116688,
+        "sha256": "4d6e86fb99f455b776e3fa09a86683077ed0e70dbd8a179cead92cb0289b256c"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-hierarchy.png": {
+        "bytes": 94501,
+        "sha256": "3e8b557bfadfcd33a5e1944534be06b66071ec92d4368c62653202754ccfaceb"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-details.png": {
+        "bytes": 96752,
+        "sha256": "c9d52ece4b2696da3722f155392b6a996f652bb6fcdc5390cc58f9e0cca48fad"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-inspect.png": {
+        "bytes": 98522,
+        "sha256": "65c03850ad4da96c8e19c529239c8e03652ca076b5dad1c20ea6fc812127dbec"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-selection.png": {
+        "bytes": 94411,
+        "sha256": "d3df798e379cb4cfab7523f99a954915d86776d467171030f8769de798fb40cb"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-measurements.png": {
+        "bytes": 87401,
+        "sha256": "f5243ac32f606c15f7f65080438fa16e0f866233d21434754a4e53d1e8a47bf2"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-application-viewer.png": {
+        "bytes": 94586,
+        "sha256": "7100b59ebe70d67a334a89976aa81ab2e42dc43f85792e47803c1567e78f57e1"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-viewer-controls.png": {
+        "bytes": 123192,
+        "sha256": "86650b212c3a4a9016253591103c1af76d04b785f4e5b04600bd266f45e0454b"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-structure-import.png": {
+        "bytes": 113410,
+        "sha256": "8e72e0750641a896e61c190d5adea804097ea2b82643ecafc85400e28684af8f"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-inspector-selection.png": {
+        "bytes": 100861,
+        "sha256": "764283148465e6a40297b41a5f8391f668b5290e0b2aa0bc623b82f425fb7e3c"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-lower-jobs.png": {
+        "bytes": 94270,
+        "sha256": "4d4f4cccffbc8a255e26f885fc359e48ddfb5f7862b4dbc55ed4925b0ce4d28f"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-selection-style.png": {
+        "bytes": 128205,
+        "sha256": "9a97421dfde761c645e609287992af74ab443ed8d83098a1692ada95ebfe8755"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-inspect.png": {
+        "bytes": 92879,
+        "sha256": "8ca67e812864a000b64b43fca1ef20d80826e14884faa1ee7ff73799fa08b414"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-export.png": {
+        "bytes": 103039,
+        "sha256": "b34f90dcc8a527fab9752c490ec7f0fe487fab1d9b95b036d2d2f8748a19738b"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-entry-menu.png": {
+        "bytes": 108232,
+        "sha256": "3870cac4b36a9b0a87eaa38c3b039dcc05515e7dac5da0685eb18fabfec8b984"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-details.png": {
+        "bytes": 90986,
+        "sha256": "b49d12fece55e60fdf67b7c0d2af9560f5118c075208bddbc3911f2b426992fa"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-entry-menu.png": {
+        "bytes": 114778,
+        "sha256": "66071d423a5594db543c41fc84bc54e8944b1c5e745426b590af151ca56db682"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-workspace-sequence.png": {
+        "bytes": 100836,
+        "sha256": "04345d42c8e23a1147261b3ba6188d8cb42219c2c8eb86eb2ddaef2c2a925681"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-application-viewer.png": {
+        "bytes": 98251,
+        "sha256": "051418c4443e5861f950dea0c6178c5dc01e179a387576a8dd8ba89431dcd426"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-structure-import.png": {
+        "bytes": 106646,
+        "sha256": "463d3f0ee1f4e9180014a30ccc0e395a953eb857d7d66d7f2babdb4a9175d997"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-inspector-protein.png": {
+        "bytes": 102693,
+        "sha256": "97b92968c5621ae6f17b87271ac0c1a20f3f23d833e1fa766ed6f05a9b80f9ce"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/light-lower-history.png": {
+        "bytes": 97130,
+        "sha256": "7417885cb9d66a7a20e6184b43418c391a435983ad4785af0e80d27133870c9d"
+      },
+      "rebranding-surfaces-review-57323-low-surfaces-in-both-themes-chromium/dark-archive-compatibility.png": {
+        "bytes": 110115,
+        "sha256": "25ba9da87e7a628ad9b88222f573dd11dc733852e199debd953afad2844dfd9b"
+      },
+      "bond-hydrogen-reconciliati-f073a-ication-and-cancels-cleanly-chromium/bond-h-preview.png": {
+        "bytes": 158839,
+        "sha256": "9125c4a67aa7d0f7fb9049904716c34292eddca217f4b13624b07859e404475c"
+      },
+      "detached-presentation-mirr-7aa35--only-and-reuses-its-window-chromium/native-presentation.png": {
+        "bytes": 13792,
+        "sha256": "a367f1689ad2aefd51d68baa4b3446d1d1ae65d72a9a6f12bfa9811f9e704664"
+      },
+      "selection-visibility-hidin-85ed1-t-native-bond-and-its-label-chromium/incident-bonds.json": {
+        "bytes": 48903,
+        "sha256": "7770fe2ae88f34fd05a263d42b71fcad8d0a48112b81419fe2f5d3d35147fda1"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-839.png": {
+        "bytes": 52409,
+        "sha256": "ebc0adc21722e4ed1be0fabec7a350c6b1d2b383aa33db60dec0244fd80b87bc"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-519.png": {
+        "bytes": 40011,
+        "sha256": "dfeffdd418d19f341cd722c886fcae5edc77e16257bca35cac078e2ba57c7b41"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-841.png": {
+        "bytes": 95229,
+        "sha256": "4a775fae8ec01482c013db9e8ac6f05d219101ba334ec770e4ba0a6c3504b68e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-360-details.png": {
+        "bytes": 31756,
+        "sha256": "76a2ed3f03cf14beed581d7af5557400d4225604f79478b219e6d61118c2f9ac"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-841-details.png": {
+        "bytes": 95229,
+        "sha256": "4a775fae8ec01482c013db9e8ac6f05d219101ba334ec770e4ba0a6c3504b68e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-520-selection.png": {
+        "bytes": 50025,
+        "sha256": "3a22f6ddf01bda986b92df6ecfe62bfd380979e89003f7d29b308c7dfe4115f8"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-839-selection.png": {
+        "bytes": 72281,
+        "sha256": "938886933f31d1a7cb3ff6a51c59137af00b7efad3dc557b45dce6be2b19db3c"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-519-selection.png": {
+        "bytes": 49835,
+        "sha256": "c374acbe6aa6cd8e5f09dc8aa6d52384b3eca2e71e5c59f265a3354cf38d755d"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-839-selection.png": {
+        "bytes": 70588,
+        "sha256": "de63ee20defcf4f401ee6d3f295b0a7527c3412d9e0870877647361bafb8c558"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-841-details.png": {
+        "bytes": 94125,
+        "sha256": "af1ca53930fb95e95c91cb02d6bc2ba90ad25fa625f39586bed80bce476b7664"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-840.png": {
+        "bytes": 53622,
+        "sha256": "05d98a9080143162dcf26d845556aac4c264da16ba4f5d60cf2f7583254adee3"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-519-selection.png": {
+        "bytes": 50006,
+        "sha256": "e3bee4ecb09db5788b96f49157d60cc70a4ffbf29e4069fa7e798925145ec007"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-519-details.png": {
+        "bytes": 38879,
+        "sha256": "0eabcbbf5a4acae35f1eeec695ae6fa7e5183701020688a6d9b0b10a1be0f796"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-840-details.png": {
+        "bytes": 60638,
+        "sha256": "59b7f03b4e6b19778c3ffec7edb31d74635d4240d6dfb0198c384254b9d1b043"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-520.png": {
+        "bytes": 41373,
+        "sha256": "020693c6b7427df9a5f308d132c808e7eb1b4987a69332726827e6812030496e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-840-selection.png": {
+        "bytes": 70598,
+        "sha256": "8c5b3804f7b0a73fcd6eac00fe0f79740fdd9ea7293497a463aca3515fe9b343"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-1440-details.png": {
+        "bytes": 103333,
+        "sha256": "d20911396ef7133ecd49be471379b18e09150277ff1cb52608382d8ef3f75c65"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-839-details.png": {
+        "bytes": 59249,
+        "sha256": "2ce7a184f32ef01781984d682e3a79832ec105b96989d445542c8a43e772581d"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-1440.png": {
+        "bytes": 103333,
+        "sha256": "d20911396ef7133ecd49be471379b18e09150277ff1cb52608382d8ef3f75c65"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-1440.png": {
+        "bytes": 102062,
+        "sha256": "49a12232e4810e6babe8b84e18c5556ea6788a42db51bf41c70e57a66c81341e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-520-details.png": {
+        "bytes": 39175,
+        "sha256": "008ce0f37018d8b7395be6d48a60ca591c76f979cc1ba58bd1ea7c4713d43b9e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-520-selection.png": {
+        "bytes": 49841,
+        "sha256": "ae47495663b00bf2213fe1ca4ab56f9641ecdbe660294d7e58aef13fbe4c3c99"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-840.png": {
+        "bytes": 52337,
+        "sha256": "701cd4c9bcb7699ee7c20432c5d5ac19aec4a8f6208edfaf7e00fcceddaf8a15"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-841.png": {
+        "bytes": 94125,
+        "sha256": "af1ca53930fb95e95c91cb02d6bc2ba90ad25fa625f39586bed80bce476b7664"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-521-details.png": {
+        "bytes": 36696,
+        "sha256": "e1315cb529edb522737fde1f90cd027078836c0dd0615689a481007798620871"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-360.png": {
+        "bytes": 33445,
+        "sha256": "49191c8840d874e133a9786dbb7b93a98a4d67ebe8009deac4aebd6e46b0472f"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-521-selection.png": {
+        "bytes": 47833,
+        "sha256": "0f038d606d15d0ff00d406e22101eebc1c2552e9e4912dcbbe1c31a892d08079"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-841-selection.png": {
+        "bytes": 102160,
+        "sha256": "74c4c781011e2f84c1244f14b2f81d7ee6328de99ed9fd354153dd789d6a75b3"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-360-selection.png": {
+        "bytes": 42230,
+        "sha256": "7a6ca11690a337e4008229856238ef1279f5b93cc5f8ee823d7acdc581fde16f"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-519.png": {
+        "bytes": 41334,
+        "sha256": "f1af84fdb164d487bd559cb1ae35636837c802ef62a2dd8938a7aac319f6fee3"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-839.png": {
+        "bytes": 53590,
+        "sha256": "f9ca10c40dd48bd597b73637a3d12d2c02a8789827a2d0c94bdc008554847efc"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-840-details.png": {
+        "bytes": 59230,
+        "sha256": "9012bd96a8be41656e0fc3f635ed0d5d1701be502be34d3f13143950f60341dd"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-521-selection.png": {
+        "bytes": 47456,
+        "sha256": "25daed03b4caeadda901b55495901ed758b1fa460647c85750cab8dd308f3536"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-360-details.png": {
+        "bytes": 31254,
+        "sha256": "8cde7ede253ee2d97bc57cb6cfc20637e9edf9238626c629531d1a40cec52242"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-1440-selection.png": {
+        "bytes": 113476,
+        "sha256": "2fba349724f325a0b1549b555d31f51e4f0c17b8d164f41560a2f92c70772ed5"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-841-selection.png": {
+        "bytes": 103119,
+        "sha256": "3beff0720331a01c50afc54f9d5f2091cbc5fd7be546a7d36511fdddecf0a04e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-1440-selection.png": {
+        "bytes": 114419,
+        "sha256": "c79bb7f5b2dd679cac0ad713a17554b735c3057ccb9adea174ac4f89f8083c33"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-520.png": {
+        "bytes": 40039,
+        "sha256": "d5fd920fdf82e787ea34d0168b85ddc34476dccc693ba5810622daecc2d1d0a8"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-1440-details.png": {
+        "bytes": 102062,
+        "sha256": "49a12232e4810e6babe8b84e18c5556ea6788a42db51bf41c70e57a66c81341e"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-520-details.png": {
+        "bytes": 38909,
+        "sha256": "40adf2dddef9485cb1ae99f3f8ca6122242eda7db03968b00b7e3b2d28d3eed6"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-839-details.png": {
+        "bytes": 60783,
+        "sha256": "561384bed06b456edca8f48e78551ce77fd03d28cab9e2219db38ee1966ce71f"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-360-selection.png": {
+        "bytes": 42077,
+        "sha256": "30a6b4144777ca79ee6483527f526d0d3ea8a5ae0437768aa8f573d784174a33"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-521.png": {
+        "bytes": 43660,
+        "sha256": "fce1df6b18a0976c45512273dde7fb6e56f931c77be581f52385a9c1f83a5ab5"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-360.png": {
+        "bytes": 32457,
+        "sha256": "4738b3b4289e101be1853ae4068d389a61ff7fa30398b4a8c3375172193c39eb"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-521.png": {
+        "bytes": 42713,
+        "sha256": "11537ec738f6ecf478ebdd143c39291e138eb3518d9dd642252e4c92c3eccb47"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-521-details.png": {
+        "bytes": 36675,
+        "sha256": "c87bb8df5aa498d9a28f711e93ea8bd6de94f880997273c6795258ec1e9188bc"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/light-840-selection.png": {
+        "bytes": 72124,
+        "sha256": "236d8ce6d4f71f8a15a877d921ed518ae7f5e30e1ce30c32818039cbf4e1d71c"
+      },
+      "rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/dark-519-details.png": {
+        "bytes": 39136,
+        "sha256": "f0323d2a04dc105078bad3534be356bdef14ad9e9305229400ea406990e44d15"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-running.png": {
+        "bytes": 113270,
+        "sha256": "ee07142ffbd300b9c96ca536e884035b51eff40738d8bd4bde1602eb7ebadcd4"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-failed.png": {
+        "bytes": 112962,
+        "sha256": "c666251766b8b993f3e6a59550242131461789679a2d1ba0219972da1be5b2c6"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-api-recovered.png": {
+        "bytes": 98463,
+        "sha256": "f58f403ed4e8606485bf68178220e7a8bd42dff8f59f8a62f140ed85ebbc8038"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-results.png": {
+        "bytes": 110686,
+        "sha256": "7dd606083cf457ed88491a94ae4d723b9ce1e6b5b2531dcfada730a367597fec"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-blocked-export-loss.png": {
+        "bytes": 121289,
+        "sha256": "b426648e805109faf5db7c700b6e4ff6709edd74ba3347f6df5c406976e79fa3"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-api-failure.png": {
+        "bytes": 104378,
+        "sha256": "8e4823c9965a60d9189981321cfd6e15574e99c3db70bc9c9e0f211315e639e4"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-failed-logs.png": {
+        "bytes": 124080,
+        "sha256": "b9324d5ece7f72f42ac7916cb73fe67c29db1513d71670620f72d3fba45a2410"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-cancelled-logs.png": {
+        "bytes": 116199,
+        "sha256": "b40663b413c47c5ac5fde1d02dd5dda93e1a3eee806cb4fff6901a1f900d23c2"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-cancel-confirmation.png": {
+        "bytes": 119137,
+        "sha256": "16ca9b29de7bdf0aaa9982d162c2d1d1283d18c36e5ff30ae6ffae410eda34f0"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-completed-logs.png": {
+        "bytes": 109692,
+        "sha256": "118a30c7e0ef566f5476da44aa52815c133de8401c85ec2e49c89c7b914c6a7e"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-parse-failure.png": {
+        "bytes": 114068,
+        "sha256": "cc1e4e5676d1d03f60e9d3043eb7f8768613450f86a60a36cfeb283039ef7e9e"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-export-ready-with-warnings.png": {
+        "bytes": 114301,
+        "sha256": "e55c795d1925696c1c297da4a9a687d2c2079d23cd6c6fc21efa1617e0012ed0"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-completed.png": {
+        "bytes": 103952,
+        "sha256": "01e57f163470607b902b8def8df6ee2e0a5acd174a293d9b7867ed5d33023e1f"
+      },
+      "rebranding-surfaces-review-ce729-ery-and-job-states-in-light-chromium/light-job-cancelled.png": {
+        "bytes": 113871,
+        "sha256": "9ffd709acb6e104fcb9e9a24b71fff79604b7b9d9b044cd4e184d678df10cd86"
+      },
+      "minimization-controls-rech-1072f-board-focus-at-320px-light--chromium/light-320-capability-controls.png": {
+        "bytes": 54250,
+        "sha256": "8cd62eb8d51254df31c569d4959e42881dfec2fc1241fc06307ace992c1c4452"
+      },
+      "selection-minimization-min-7603a-review-and-atomic-Undo-Redo-chromium/minimization-isolated-whole.png": {
+        "bytes": 112814,
+        "sha256": "ed4ae042752d503746fbb1fb29bc3297965ac47dad099e4310bc90ea1dfb724e"
+      },
+      "molecular-editing-mutates--1deae-ves-exact-backbone-and-undo-chromium/c3-residue-editor.png": {
+        "bytes": 140641,
+        "sha256": "7f3854aca6fa8c88a9b255c01d2281f76f7d8da19b0ce4b63e3e194aed1ed769"
+      },
+      "selection-visibility-compa-7a3e6-yles-and-cached-projections-chromium/dark-visibility.png": {
+        "bytes": 135554,
+        "sha256": "607f035d6afbbc0ad2d75204d02429f804a200d861c9103dabef3c6e50553ca2"
+      },
+      "selection-visibility-compa-7a3e6-yles-and-cached-projections-chromium/light-visibility.png": {
+        "bytes": 135824,
+        "sha256": "57d173a28258f5d87ae1d06db2809c59adec700f4e73280176bd56570bcadaa1"
+      },
+      "interactions-shows-busy-fa-36f4b-l-accessible-in-both-themes-chromium/interaction-panel-light.png": {
+        "bytes": 116852,
+        "sha256": "78a063f7ab0187b859d22b088601691749dd4f436fbba18c86390c0e85646b1b"
+      },
+      "interactions-shows-busy-fa-36f4b-l-accessible-in-both-themes-chromium/interaction-panel-dark.png": {
+        "bytes": 115678,
+        "sha256": "000a1064aebf11d34ea33c47630145d88955aefc2857f85257c9bc6f4355a3b7"
+      },
+      "direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/new-molecule-placement-preview.png": {
+        "bytes": 113969,
+        "sha256": "1fc321ec7f35a8e80fb3a31d21bf13470fff4ae7e12a974e7d8c2d0c5fe245a8"
+      },
+      "direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/empty-entry-rebuilt.png": {
+        "bytes": 128411,
+        "sha256": "dae99795068aae871cd9c373cde747c753df05ec4e86c0aeb159996379109426"
+      },
+      "interactive-transform-perf-c981b-measures-exact-cancellation-chromium/movement-performance.json": {
+        "bytes": 1002,
+        "sha256": "ee423c069db838b9b1c9a1195fe884f57ea263d5a14091f92fe72432e89c3333"
+      },
+      "pocket-surfaces-qualifies--c36a5-splay-for-surfaces-1aon-cif-chromium/pocket-native.json": {
+        "bytes": 1269665,
+        "sha256": "996e203fce5c786f06b0f3a8c27051a0c24ba880b2fae1fe8a086769e3c68503"
+      },
+      "pocket-surfaces-qualifies--c36a5-splay-for-surfaces-1aon-cif-chromium/pocket-native.png": {
+        "bytes": 30219,
+        "sha256": "7b754f727391bbf056a827397712d70a2a19b50432f5841d1c4f9c108ba2f454"
+      },
+      "interaction-inspection-cap-2d68c-inspected-contact-selection-chromium/targeted-contact-inspection.json": {
+        "bytes": 29894,
+        "sha256": "5d57a79970be4a2591386d5f4029a6255aa24c46eed49e9ec8e553472512117a"
+      },
+      "interaction-inspection-cap-2d68c-inspected-contact-selection-chromium/targeted-contact-inspection.png": {
+        "bytes": 144600,
+        "sha256": "fcb71c3f3a667a60090c47c857a69d29ea92ddd4d1c182b6b9441b8f40aa2158"
+      },
+      "editor-hydrogen-toggle-tog-3fdb9-ntained-accessible-controls-chromium/compact-hydrogen-320.png": {
+        "bytes": 46412,
+        "sha256": "757ee702a3802010cfbabbeb9e94af2c82d71bf21e4e0f45b9d7f66822cb572f"
+      },
+      "molecular-editing-keeps-a--02467--the-exact-artifact-on-Redo-chromium/immutable-edit-projection-redo.png": {
+        "bytes": 128951,
+        "sha256": "e33c5959b815737e98f85d3549ecc055c095425e5c420b9c03c4b33a999dc850"
+      },
+      "interaction-inspection-kee-d5ede-laiming-an-installed-marker-chromium/coincident-contact-endpoints.json": {
+        "bytes": 9501,
+        "sha256": "eac557d4a2de71cde17e0c1324a0e6432bc298f5a4c75cc909df7c912df2f955"
+      },
+      "modeling-toolbar-unifies-e-632c5-geometry-and-keyboard-setup-chromium/light-1280-molecular-tools.png": {
+        "bytes": 112679,
+        "sha256": "7aa79427ecd2d856bf0f57f9898277a7a8171662f4a4d0582e150c6715f84f0a"
+      },
+      "modeling-toolbar-unifies-e-632c5-geometry-and-keyboard-setup-chromium/dark-1280-molecular-tools.png": {
+        "bytes": 105386,
+        "sha256": "c5cc112f8deace72516b79292b6c68c8a8eb491e9fa75e0bbaad577ee3875ca7"
+      },
+      "modeling-toolbar-unifies-e-632c5-geometry-and-keyboard-setup-chromium/light-320-molecular-tools.png": {
+        "bytes": 30962,
+        "sha256": "16101a9d3143395d6a8085fe70ab86825cd04f16e130a49b207808a43f4241f2"
+      },
+      "modeling-toolbar-unifies-e-632c5-geometry-and-keyboard-setup-chromium/dark-320-molecular-tools.png": {
+        "bytes": 29309,
+        "sha256": "53dc57a147221480c91a48feceb3846098ee639a1415206d8044c1c1a11d5ab1"
+      },
+      "interactive-selection-tran-6c7e1-ccessibility-in-both-themes-chromium/movement-dark-cancel.png": {
+        "bytes": 111188,
+        "sha256": "122d19354ea921194826c91ce31acb17667655bce8ce96f45f2ee98dc08f01b1"
+      },
+      "interactive-selection-tran-6c7e1-ccessibility-in-both-themes-chromium/movement-light-cancel.png": {
+        "bytes": 111700,
+        "sha256": "79aa4fb15d6c959320558038e0673a10b77d8dfdf53d5de680a197c514b81bf9"
+      },
+      "entry-surfaces-whole-entry-d0fa9--complete-captured-fragment-chromium/combined-entry-surface.json": {
+        "bytes": 1356,
+        "sha256": "8467839cd2d2f187cbfe5542cc565cd283c29ec0c65514565104a3430d1803bd"
+      },
+      "selection-surfaces-qualifi-91c7a--polar-hydrogens-ligand-mol-chromium/production-surface.json": {
+        "bytes": 9213,
+        "sha256": "787a16e0eacb1f81a78aadd83da6302c5e03e72668d0e873bfe856a85d991840"
+      },
+      "compact-edit-workflows-rec-ba33a-ion-before-a-later-mutation-chromium/compact-atom-unknown-charge.png": {
+        "bytes": 135898,
+        "sha256": "a939e613e75bc3c759bec7ca0c37ef5a7d85953f4d8c7bee439c90ed8654bbb4"
+      },
+      "compact-edit-workflows-kee-3499c-overy-in-an-empty-workspace-chromium/compact-empty-project-unknown.png": {
+        "bytes": 110019,
+        "sha256": "ad5823b1edbc79eebc366283eb5e9b0798b9a466395455c2be350c9281bb5159"
+      },
+      "selection-gestures-expands-9520c-hout-camera-movement-light--chromium/selection-gestures-light.png": {
+        "bytes": 121301,
+        "sha256": "b82bc36caf4b9926c021ed46565ce194c4c583e86902c175c3f0c78749825f06"
+      },
+      "selection-appearance-integ-812de-able-and-accessible-in-dark-chromium/selection-palette-dark.png": {
+        "bytes": 143939,
+        "sha256": "c9ca3ab827a6eaf43998fb5fb7ccacac211954e57ec8a3e55886dbdd0b96f933"
+      },
+      "protein-residue-hierarchy--46918-ence-and-native-picks-dark--chromium/residue-hierarchy-dark.png": {
+        "bytes": 116774,
+        "sha256": "bc7dc610b07eb7debb08d28fc946d9b1e90b12651d667f43f67eda1bc6d7efbe"
+      },
+      "minimization-controls-rech-e0652-yboard-focus-at-320px-dark--chromium/dark-320-capability-controls.png": {
+        "bytes": 54764,
+        "sha256": "d159650fa9448c43c614211a12ed97def7f3d104acc64c37ae7aedf43eefac68"
+      },
+      "selection-gestures-shares--63678-uence-with-partial-coverage-chromium/shared-sequence-range.png": {
+        "bytes": 126728,
+        "sha256": "466557dd78184c46fc65f91cd9cf9a95f0b4a4cd5b9df8d2aca0291ace9a5e42"
+      },
+      "direct-modeling-accessibil-5c0ae-h-themes-and-narrow-layouts-chromium/light-unobstructed-placement.png": {
+        "bytes": 128436,
+        "sha256": "3c9a29a0fbeebefe491dc6cc3779ba46f30a071401bf92ed0828830f8a470aa1"
+      },
+      "direct-modeling-accessibil-5c0ae-h-themes-and-narrow-layouts-chromium/dark-unobstructed-placement.png": {
+        "bytes": 129071,
+        "sha256": "05b8fc3ca66040f81ae7f62651d2bbfea390c791aaeaca924cd97e77040b2617"
+      },
+      "compact-edit-workflows-kee-3233f-rately-new-preview-and-UUID-chromium/compact-rejected-apply.png": {
+        "bytes": 123456,
+        "sha256": "0ad1592fa5f3165367fb7d3c8eed0586805702a15d9548fe842400621f9b0059"
+      },
+      "selection-surfaces-qualifi-a087a-partial-fragment-boundaries-chromium/production-1stp-surface.json": {
+        "bytes": 17500,
+        "sha256": "578e2c82ded6b838cd01a6fa99fbf1c683c55501c784156f3075daa056917aa8"
+      },
+      "automatic-hydrogen-editing-44f89-ns-exact-history-and-source-chromium/single-h-ammonia-false.png": {
+        "bytes": 141194,
+        "sha256": "298bc1a8ccf6f134139ea3c9a4b4d89199f63b708a1a98fbba9b04692b510079"
+      },
+      "interaction-inspection-exp-848b7-sed-target-in-narrow-themes-chromium/interaction-uncertainty-layout.json": {
+        "bytes": 67308,
+        "sha256": "48f1a10ede096fd3cd990c566d1d965d00412a1dc9223107d629c231afe19b1d"
+      },
+      "interaction-inspection-exp-848b7-sed-target-in-narrow-themes-chromium/interaction-uncertainty-dark.png": {
+        "bytes": 160591,
+        "sha256": "d2259a3675ac4aaed42aa4d166e2197c89a356193194955ac7238d92d8657084"
+      },
+      "interaction-inspection-exp-848b7-sed-target-in-narrow-themes-chromium/interaction-collapsed-320.png": {
+        "bytes": 43738,
+        "sha256": "0159e3a296624098afc131ea3ad348c34c8a76aee9e08247a6e8c2835d47b3db"
+      },
+      "interaction-inspection-exp-848b7-sed-target-in-narrow-themes-chromium/interaction-uncertainty-light.png": {
+        "bytes": 159263,
+        "sha256": "eac7574c8e3bf08b1fb744365a1d0bf07d8c41934a14f77969351be54fd3caf3"
+      },
+      "measurement-acquisition-de-42410-r-and-residue-anchor-light--chromium/deliberate-light.png": {
+        "bytes": 121694,
+        "sha256": "a507e086657d3aafcc5fa4e743bf7675ad7c2a4c943855e59916fd58e2ca1176"
+      },
+      "interactions-qualifies-exp-dec8f--and-committed-invalidation-chromium/explicit-h-overlay.png": {
+        "bytes": 107597,
+        "sha256": "60f9f151dd471b620e9874a64b11db4a56cdce7664977383988428a5bc30c68d"
+      },
+      "interactions-qualifies-exp-dec8f--and-committed-invalidation-chromium/interaction-lifecycle.json": {
+        "bytes": 8297,
+        "sha256": "b22b2f47c771de799d808a69bda368364ff5352fad0019960be7d80020acc59b"
+      },
+      "pocket-surfaces-invalidate-f2ca5-r-preview-cancel-and-commit-chromium/pocket-coordinate-dependencies.json": {
+        "bytes": 468196,
+        "sha256": "f3f76f18d4a8840654b6fdf16cb18bff424f1b089e277dec956bbce0228a2396"
+      },
+      "selection-minimization-min-f0ff9-review-and-atomic-Undo-Redo-chromium/minimization-isolated.png": {
+        "bytes": 104750,
+        "sha256": "d08604ddd03fdefa969182c357679025bab37c30dcd2ccf706c718cfcab5feef"
+      },
+      "selection-minimization-min-73811-review-and-atomic-Undo-Redo-chromium/minimization-same-entry.png": {
+        "bytes": 110015,
+        "sha256": "b3b71b9cb358b05e9e76e2455fee5eb5200461653c2fdf9fd601b658dab8c66f"
+      },
+      "detached-presentation-work-ea07a-ts-ordinary-desktop-windows-chromium/light-pointer.png": {
+        "bytes": 60706,
+        "sha256": "12940ff70f725044761fe635c8dbb464ab2a57267efb40edccfffc445d43a123"
+      },
+      "detached-presentation-work-ea07a-ts-ordinary-desktop-windows-chromium/dark-pointer.png": {
+        "bytes": 53539,
+        "sha256": "ed70c45f1ffdf7bf597ffc089b25e2aaf2e518557bcb161956464cf8f6d9b712"
+      },
+      "minimization-performance-b-ad07c-ion-and-native-preview-work-chromium/minimization-performance.json": {
+        "bytes": 50533,
+        "sha256": "ff4decb3de698108f60465c26fe917803af05744943978a18192fecdde7546a5"
+      },
+      "selection-surfaces-adds-an-f55db-alette-with-reload-and-undo-chromium/selection-surface-workflow.png": {
+        "bytes": 96184,
+        "sha256": "a90a911683089f659aabf23f06eccb2ad86bd1094499125e976e86f59e3743be"
+      },
+      "selection-style-recovery-e-7b61e-ent-settings-through-reload-chromium/selection-channel-recovery.png": {
+        "bytes": 156904,
+        "sha256": "f0485ebc8c8dc92ad07cb97dbe4695dde65fbc9eeedffcdb46f22ea33e771e96"
+      },
+      "structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/test-failed-1.png": {
+        "bytes": 122119,
+        "sha256": "9b8b3b29a854842927f2132df7a8a0a31f6f7bde6adca2da38752ca1777e80c2"
+      },
+      "structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/error-context.md": {
+        "bytes": 19890,
+        "sha256": "4c0cd9cf0689e72057d9103c30fc38e9d327f8c512e275406c889d5507b1fd0e"
+      },
+      "structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/trace.zip": {
+        "bytes": 5067284,
+        "sha256": "4404cd0d87a2ed2d41910307c6737363e3cdff0482ca18402e6d2559ce2a2122"
+      }
+    },
+    "filewise_before_after_equal": true,
+    "all_tmp_and_other_raw_originals_preserved": true,
+    "payloads_deleted": false,
+    "qualification_complete": false,
+    "observed_utc": "2026-11-18T00:38:09.386253+00:00"
+  },
+  "observed_outcome": "Root explicitly sent SIGINT to the uniquely owned native CLI after independent and root deterministic controls measured obsolete owner barriers retained after query removal. Qualification wrapper4339actually exited130, rootchunk776aae. First15phases passed3040Python/1315web/14supervisor plus installs/migrations/static/build/inventory. Browser602cases classify231pass,5historical exclusions,1interrupted,365unrun. No summary/package ran.",
+  "independent_diagnosis": "For1000distinct source fail/remove operations the actual frozen83871bbc production owner retains1000barriers although zero queries remain:56560UTF8keybytes,1000errorobjects/21000UTF8messagebytes. Fail/genuine-recover/remove likewise leaves1000barriers/56560keybytes but zero errorobjects/messagebytes. Presenter deactivate/reactivate preserves cardinality; manual writes remain fenced for unrecovered sources. These are measured in-memory counts/stringbytes, not heap/RSS/timing/capacity measurements.",
+  "observation_limits": "Root directly reran the retained exact control ceece7exit0 and persisted output/source/script identities; prior reviewer127ae9exit0 is a specialist-reported execution whose original on-disk script/rawlog did not exist. No missing timestamp/log/body observation is invented. Installed library source/licenses are packaging-time identity snapshots, not execution-time byte hashes. Current corrective owner edits are excluded; historical1006source bodies come only from exactGitc56/gate map.",
+  "retention": "Every closed raw output/store/control/interruption receipt and1006+931historicalsource bodies is retained losslessly. Native relocation is conditional on clean future candidate needs, only after exact partition-union proof/full local verifier/fresh rawreadback and complete before/after SHA. Every/tmp and otherraw original remains; no deletion.",
+  "required_next": [
+    "Root completes bounded owner-retention correction with failure-fence/recovery invariants and scoped validation/reviews",
+    "Allsevenfinalsamecandidate assessments and complete fresh candidate42step gate/summary/package with observedexit0",
+    "Protectedreview/merge and fresh actualmaster qualification",
+    "Regenerate provisional/final publication bindings and publish ALLindexed supplemental parts with full anonymous body/CRC/exactunion/serverreadback beforechildcloseout"
+  ],
+  "observed_utc": "2026-11-18T00:38:44.812289+00:00"
+}

@@ -8,8 +8,9 @@ import pytest
 from alembic import command
 from alembic.config import Config
 from neistra_api.database import create_database_engine, create_session_factory
-from neistra_api.models import CommandRecord, Project, Scene, StructureEntry
 from sqlalchemy import select
+
+from tests.support.legacy_project_models import CommandRecord, Project, Scene, StructureEntry
 
 
 def legacy_viewer_settings() -> dict[str, Any]:
@@ -936,32 +937,19 @@ def test_0015_roundtrip_changes_only_installation_presentation(
     from neistra_api.settings import Settings
     from sqlalchemy import inspect
 
-    from tests.integration.test_archive_roundtrip import build_rich_project
     from tests.integration.test_workspace_presentation import CAMERA, other_tables, put
     from tests.support.api_client import ApiClient
+    from tests.support.legacy_project_fixture import restore_rich_v2_store
 
     config = migration_config(tmp_path, monkeypatch)
+    data_dir = tmp_path / "migration-data"
+    if populated:
+        restore_rich_v2_store(data_dir)
     command.upgrade(config, "0014")
     data_dir = tmp_path / "migration-data"
     settings = Settings(data_dir=data_dir, database_url=f"sqlite:///{data_dir / 'molweave.db'}")
     app = create_app(settings)
     client = ApiClient(app)
-    if populated:
-        project = build_rich_project(client)
-        project = client.post(
-            f"/api/v1/projects/{project['id']}/save",
-            json={"expected_revision": project["revision"]},
-        ).json()
-        # Retain a redo branch and checkpoint as well as live settings/scenes.
-        changed = client.patch(
-            f"/api/v1/projects/{project['id']}",
-            json={"expected_revision": project["revision"], "name": "Migration edit"},
-        ).json()
-        recovered = client.post(
-            f"/api/v1/projects/{project['id']}/history/undo",
-            json={"expected_revision": changed["revision"]},
-        ).json()
-        assert recovered["history"]["can_redo"]
 
     def snapshot() -> tuple[dict[str, Any], dict[str, bytes]]:
         rows: dict[str, Any] = other_tables(client)

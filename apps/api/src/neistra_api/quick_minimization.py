@@ -451,7 +451,11 @@ class QuickService:
                 "coverage": report.coverage,
             },
         }
-        return ProjectService(self.session).record_coordinate_change(
+        return ProjectService(
+            self.session,
+            load_structure=self.artifacts.load_normalized,
+            load_original_bytes=self.artifacts.read_verified_bytes,
+        ).record_coordinate_change(
             project_id,
             payload.expected_revision,
             QUICK_JOB,

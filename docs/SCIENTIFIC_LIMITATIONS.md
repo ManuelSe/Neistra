@@ -206,7 +206,9 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   Remaining uncertainty is exposed as `unclassified` with warnings.
 - `ligand` means a putative non-polymer or cofactor component. It does not mean
   ligand of interest, validated binder, active compound, substrate, inhibitor,
-  or docking input. Neistra does not rank or designate detected ligands.
+  or docking input. Component classification itself does not rank or designate
+  ligands. The separate [exact designation contract](#exact-ligand-designation-and-disposable-depictions-158)
+  qualifies complete instances and persists deliberate or eligible single-instance intent.
 - `solvent` means a recognized buffer, crystallization agent, or other additive
   fallback. It is not a claim about biological solvent relevance.
 - PDB/PDBx connectivity can be incomplete. Source residue/entity boundaries
@@ -218,9 +220,10 @@ extend template eligibility, automatically reconcile protein H or add Grow.
   supports them. Every atom remains accessible even when no narrow class is
   justified.
 - Durable user labels and classification corrections, per-component styling or
-  persisted visibility, ligand-of-interest state, and arbitrary component
-  extraction/export are not implemented. The latter requires explicit
-  boundary-bond and file-format semantics.
+  persisted visibility, and arbitrary component extraction/export are not
+  implemented by component classification. Extraction requires explicit
+  boundary-bond and file-format semantics. Exact ligand-of-interest state is
+  provided independently under the designation contract above.
 
 - No normalized conversion is assumed lossless. Export warnings enumerate known
   coordinate, conformer, hierarchy, metadata, connectivity, charge, and stereo
@@ -803,3 +806,84 @@ chemical clash, bond, interaction energy or new interaction family. Capacity,
 response-size, deadline and sampled resident-memory refusals discard the entire
 search. These limits qualify the measured portable workload rather than every
 admitted source shape or all-host latency. See [API limits](API.md#measurements-and-close-contacts).
+
+## Exact ligand designation and disposable depictions (#158)
+
+A designation records one complete observed instance within one entry, with stable
+intent, canonical atom membership, origin and assessed source. Instance identity
+and chemical interpretation are separate qualifications. Complete observed source
+membership can remain selectable when formula, molecular weight, charge or 2D
+chemistry is unavailable. Those molecular values require strict qualification;
+observed atom-charge sums are not shown as qualified molecular charge.
+
+Small-molecule candidates follow qualified connected fragments. Macromolecular
+source instances follow the observed hierarchy. Automatic mmCIF recognition
+requires verified original entity/asymmetry/atom mappings and consistency with a
+present nonpolymer scheme. Exact legacy originals can recover missing receipts;
+contradictory retained evidence cannot establish eligibility. Water and true
+monoatomic ions are excluded; implicit-H multiatom ions remain distinct molecules.
+Unresolved alternatives, cross-boundary links, branched units and unsupported raw
+classes disclose their uncertainty and suppress automatic choice. Missing bonds
+never establish a collection of guessed molecules. Multiple candidates require a
+deliberate instance choice.
+
+Editable labels and chemical properties do not replace canonical source lineage.
+Unambiguous anchored additions/removals can preserve intent. Known splits, merges,
+lost anchors or ambiguous ownership mark it stale while retaining its former
+identity and recovery reason. Clear persists independently of automatic recognition.
+Undo/Redo restores recorded intent, including original provenance. Assessment
+revision after archive import is historical provenance; current immutable source
+identity governs freshness.
+
+Depiction uses a disposable qualified molecule. The original upload and canonical
+coordinates, charges, H, stereo and graph are preserved. Strict current graph facts
+or exact unchanged-original recovery support composition and layout; unknown
+chemistry remains unavailable. No protonation, neutralization, desalting, capping or
+preparation is performed by choosing or drawing a ligand. Changed chemistry
+previews expose composition and 2D as unavailable until committed inputs qualify.
+
+Exact-original recovery does not qualify dummy atoms or atom/bond query predicates.
+Their complete candidate may remain selectable, but formula, mass, charge and
+depiction are unavailable with a reason. Qualified isotope, radical and stereo
+representations retain their source facts. Water identity uses qualified physical
+composition, including isotope-labelled H/O and complete H accounting; it does not
+compare isotope-explicit formula text with a single spelling. Compatible established
+PDB/mmCIF water membership may remain source-assigned when H/charge facts are
+incomplete, without inventing qualified chemistry. Historical water labels cannot
+exclude proved current nonwater or override raw nonpolymer ownership by name.
+
+Occurrence counts describe the complete current entry. Qualified representation
+counts use canonical isomeric graph representations, retaining isotope, charge,
+radicals, supported stereochemistry, explicit H graph nodes and qualified total
+attached H. They do not normalize protonation, tautomers, salts or explicit H
+nodes. Original atom maps, identifiers, coordinates and display labels are not
+chemical equivalence keys. Unsupported query, dummy, enhanced/nonordinary stereo,
+structural-group or bond semantics make a chemical total unavailable. Unknown
+potential instances prevent partial totals from being presented as exact.
+Independently verified original source-entity counts describe source identity,
+including after edits; their label does not assert chemical equality. Existing
+source qualification limits remain, including multiple nonpolymer residues within
+one asymmetry. Counts add no preparation, designation or persistent molecular state.
+
+Counting admits at most 1,024 potential instances / 8,192 candidate sites / 1,024
+sites per candidate, with a cooperatively polled two-second batch budget. Refused
+or busy counts remain explicitly unavailable while exact instance choice can
+remain usable. The 64-entry / 256-KiB-per-entry / 8-MiB cache limits measure encoded
+summary bytes, not Python heap or process RSS. Warm reads avoid rebuilding the
+count index but retain existing source checks and preparation. Portable workload
+measurements do not establish universal latency or a hard interruptible deadline.
+
+Candidate layout is limited to 1,024 atoms, each SVG to 512 KiB, and retained content
+to 1,024 records/128 MiB with conservative shared-reference accounting. At capacity,
+existing matching content remains usable and new publication is explicitly declined.
+Source bindings may rotate within 4,096 records. Original parsing/indexing remains
+subject to upload bounds; the layout cap does not bound whole-original work. These
+are local retained-depiction bounds, not limits on unrelated project uploads.
+
+Unverified canonical inputs block publication. A valid canonical edit can proceed
+when an optional original fails verification, while its designation becomes stale
+or unresolved with a recovery reason. Original/candidate/depiction verification
+failures are surfaced; cached failed inputs cannot be submitted as verified choices.
+An unavailable or failed depiction does not invalidate an independently exact
+selectable instance. Derived SVG corruption is refused without changing molecular
+sources; restoring valid output bytes is distinct from requalifying an original.

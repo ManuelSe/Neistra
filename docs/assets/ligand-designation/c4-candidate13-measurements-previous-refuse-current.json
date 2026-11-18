@@ -1,0 +1,5401 @@
+{
+  "protocol": "schema-boundary-v1",
+  "store_refusal": {
+    "operations": [
+      {
+        "operation": "migration",
+        "code": "unknown_revision_0016",
+        "reason": "Can't locate revision identified by '0016'",
+        "unchanged": true
+      },
+      {
+        "operation": "read",
+        "code": "missing_projects_table",
+        "reason": "(sqlite3.OperationalError) no such table: projects\n[SQL: SELECT projects.id AS projects_id, projects.name AS projects_name, projects.description AS projects_description, projects.revision AS projects_revision, projects.checkpoint_revision AS projects_checkpoint_revision, projects.checkpoint_state AS projects_checkpoint_state, projects.created_at AS projects_created_at, projects.modified_at AS projects_modified_at \nFROM projects \nWHERE projects.id = ?]\n[parameters: ('01a1ed5d-1d8d-7b73-a2a9-61434e6ec8ac',)]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+        "unchanged": true
+      },
+      {
+        "operation": "save",
+        "code": "missing_projects_table",
+        "reason": "(sqlite3.OperationalError) no such table: projects\n[SQL: SELECT projects.id AS projects_id, projects.name AS projects_name, projects.description AS projects_description, projects.revision AS projects_revision, projects.checkpoint_revision AS projects_checkpoint_revision, projects.checkpoint_state AS projects_checkpoint_state, projects.created_at AS projects_created_at, projects.modified_at AS projects_modified_at \nFROM projects \nWHERE projects.id = ?]\n[parameters: ('01a1ed5d-1d8d-7b73-a2a9-61434e6ec8ac',)]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+        "unchanged": true
+      },
+      {
+        "operation": "archive",
+        "code": "missing_projects_table",
+        "reason": "(sqlite3.OperationalError) no such table: projects\n[SQL: SELECT projects.id AS projects_id, projects.name AS projects_name, projects.description AS projects_description, projects.revision AS projects_revision, projects.checkpoint_revision AS projects_checkpoint_revision, projects.checkpoint_state AS projects_checkpoint_state, projects.created_at AS projects_created_at, projects.modified_at AS projects_modified_at \nFROM projects \nWHERE projects.id = ?]\n[parameters: ('01a1ed5d-1d8d-7b73-a2a9-61434e6ec8ac',)]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+        "unchanged": true
+      },
+      {
+        "operation": "undo",
+        "code": "missing_projects_table",
+        "reason": "(sqlite3.OperationalError) no such table: projects\n[SQL: SELECT projects.id AS projects_id, projects.name AS projects_name, projects.description AS projects_description, projects.revision AS projects_revision, projects.checkpoint_revision AS projects_checkpoint_revision, projects.checkpoint_state AS projects_checkpoint_state, projects.created_at AS projects_created_at, projects.modified_at AS projects_modified_at \nFROM projects \nWHERE projects.id = ?]\n[parameters: ('01a1ed5d-1d8d-7b73-a2a9-61434e6ec8ac',)]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+        "unchanged": true
+      },
+      {
+        "operation": "redo",
+        "code": "missing_projects_table",
+        "reason": "(sqlite3.OperationalError) no such table: projects\n[SQL: SELECT projects.id AS projects_id, projects.name AS projects_name, projects.description AS projects_description, projects.revision AS projects_revision, projects.checkpoint_revision AS projects_checkpoint_revision, projects.checkpoint_state AS projects_checkpoint_state, projects.created_at AS projects_created_at, projects.modified_at AS projects_modified_at \nFROM projects \nWHERE projects.id = ?]\n[parameters: ('01a1ed5d-1d8d-7b73-a2a9-61434e6ec8ac',)]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+        "unchanged": true
+      }
+    ],
+    "refusals": 6,
+    "before": {
+      "database": "molweave.db",
+      "tables": {
+        "alembic_version": {
+          "sql": "CREATE TABLE alembic_version (\n\tversion_num VARCHAR(32) NOT NULL, \n\tCONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)\n)",
+          "columns": [
+            [
+              0,
+              "version_num",
+              "VARCHAR(32)",
+              1,
+              null,
+              1
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "ee97b1da61ed041abf4ecce7fc450d16bdc898b6a823ed4a776b1c6a696595c0"
+        },
+        "artifacts": {
+          "sql": "CREATE TABLE artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tsha256 VARCHAR(64) NOT NULL, \n\tsize INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\trelative_path VARCHAR(512) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (sha256), \n\tUNIQUE (relative_path)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "relative_path",
+              "VARCHAR(512)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 5,
+          "rows_sha256": "6b91d7e0d3a5e5d9dccaddc078262b7d25a2275a28f0fbfb8983993afad42579"
+        },
+        "command_records": {
+          "sql": "CREATE TABLE command_records (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tposition INTEGER NOT NULL, \n\tcommand_type VARCHAR(80) NOT NULL, \n\tdescription VARCHAR(240) NOT NULL, \n\tforward_actions JSON NOT NULL, \n\tinverse_actions JSON NOT NULL, \n\taffected_entry_ids JSON NOT NULL, \n\tselection_snapshot JSON NOT NULL, \n\tis_applied BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, position), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "position",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "command_type",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "VARCHAR(240)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "forward_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "inverse_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "affected_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "selection_snapshot",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "is_applied",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 7,
+          "rows_sha256": "bbf2ce12acfd107df8117203c314032e7b932486014cf4b8d138f973b99a7541"
+        },
+        "entry_groups": {
+          "sql": "CREATE TABLE entry_groups (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tparent_id VARCHAR(36), \n\tname VARCHAR(120) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE, \n\tFOREIGN KEY(parent_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "parent_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_events": {
+          "sql": "CREATE TABLE job_events (\n\tid INTEGER NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tsequence INTEGER NOT NULL, \n\tkind VARCHAR(32) NOT NULL, \n\tstream VARCHAR(16), \n\tmessage TEXT NOT NULL, \n\tdata JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, sequence), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(32)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "stream",
+              "VARCHAR(16)",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "message",
+              "TEXT",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_inputs": {
+          "sql": "CREATE TABLE job_inputs (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tordinal INTEGER NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tentry_id VARCHAR(36) NOT NULL, \n\tentry_name VARCHAR(160) NOT NULL, \n\tstructure_type VARCHAR(24) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\tartifact_sha256 VARCHAR(64) NOT NULL, \n\tartifact_size INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, ordinal), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "ordinal",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "entry_name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "artifact_sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "artifact_size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_result_artifacts": {
+          "sql": "CREATE TABLE job_result_artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tmetadata_json JSON NOT NULL, \n\timportable_structure BOOLEAN NOT NULL, \n\timported_entry_ids JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "metadata_json",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "importable_structure",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "imported_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "jobs": {
+          "sql": "CREATE TABLE jobs (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tplugin_name VARCHAR(120) NOT NULL, \n\tjob_type VARCHAR(120) NOT NULL, \n\timplementation_version VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(16) NOT NULL, \n\tparameters JSON NOT NULL, \n\tprogress FLOAT NOT NULL, \n\tstatus_message VARCHAR(500) NOT NULL, \n\tresult_values JSON NOT NULL, \n\twarnings JSON NOT NULL, \n\terror JSON, \n\tprovenance JSON NOT NULL, \n\tcancellation_requested BOOLEAN NOT NULL, \n\tevent_sequence INTEGER NOT NULL, \n\tworker_id VARCHAR(120), \n\tcreated_at DATETIME NOT NULL, \n\tstarted_at DATETIME, \n\tcompleted_at DATETIME, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "plugin_name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "job_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "implementation_version",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "status",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "parameters",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "progress",
+              "FLOAT",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "status_message",
+              "VARCHAR(500)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "result_values",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "error",
+              "JSON",
+              0,
+              null,
+              0
+            ],
+            [
+              12,
+              "provenance",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "cancellation_requested",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "event_sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "worker_id",
+              "VARCHAR(120)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              17,
+              "started_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              18,
+              "completed_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              19,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ligand_depiction_bindings": {
+          "sql": "CREATE TABLE ligand_depiction_bindings (\n\trequest_key VARCHAR(64) NOT NULL, \n\tcache_key VARCHAR(64) NOT NULL, \n\tsummary JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (request_key), \n\tFOREIGN KEY(cache_key) REFERENCES ligand_depiction_cache (cache_key) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "request_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "cache_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "summary",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ligand_depiction_cache": {
+          "sql": "CREATE TABLE ligand_depiction_cache (\n\tcache_key VARCHAR(64) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\timplementation VARCHAR(80) NOT NULL, \n\tlibrary_version VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (cache_key), \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "cache_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "input_hash",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "implementation",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "library_version",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "measurements": {
+          "sql": "CREATE TABLE measurements (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tkind VARCHAR(16) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 3,
+          "rows_sha256": "b749ceeabb5d4b54e6aa77ba5bd8a0d373ba5cff24bb29917df9bce85b8dde00"
+        },
+        "project_documents_v3": {
+          "sql": "CREATE TABLE \"project_documents_v3\" (\n\tid VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tdescription TEXT, \n\trevision INTEGER NOT NULL, \n\tcheckpoint_revision INTEGER NOT NULL, \n\tcheckpoint_state JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "checkpoint_revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "checkpoint_state",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "5f1cdbf0acdc603289e25e292f3457565247871eae6e9e3665729ea642bc1eb4"
+        },
+        "saved_selections": {
+          "sql": "CREATE TABLE saved_selections (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tgranularity VARCHAR(16) NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "granularity",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "scenes": {
+          "sql": "CREATE TABLE scenes (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tcamera JSON NOT NULL, \n\tentry_states JSON NOT NULL, \n\tselection JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_states",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "selection",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "structure_entries": {
+          "sql": "CREATE TABLE \"structure_entries\" (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tgroup_id VARCHAR(36), \n\tname VARCHAR(160) NOT NULL, \n\tdescription TEXT, \n\tstructure_type VARCHAR(24) NOT NULL, \n\toriginal_filename VARCHAR(255), \n\tsource_format VARCHAR(32), \n\tnormalized_data JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\tlocked BOOLEAN NOT NULL, \n\tuser_metadata JSON NOT NULL, \n\tdirty BOOLEAN NOT NULL, \n\tjob_links JSON NOT NULL, \n\tgenerated_results JSON NOT NULL, \n\toriginal_artifact_id VARCHAR(36), \n\tcurrent_artifact_id VARCHAR(36), \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tatom_count INTEGER DEFAULT '0' NOT NULL, \n\tbond_count INTEGER DEFAULT '0' NOT NULL, \n\tresidue_count INTEGER DEFAULT '0' NOT NULL, \n\tconformer_count INTEGER DEFAULT '0' NOT NULL, \n\twarnings JSON DEFAULT '[]' NOT NULL, \n\tviewer_settings JSON NOT NULL, \n\tatom_ids JSON NOT NULL, \n\tnext_atom_id INTEGER NOT NULL, \n\tnext_bond_id INTEGER NOT NULL, ligand_designation JSON DEFAULT '{}' NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(original_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(current_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE, \n\tFOREIGN KEY(group_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "group_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "original_filename",
+              "VARCHAR(255)",
+              0,
+              null,
+              0
+            ],
+            [
+              7,
+              "source_format",
+              "VARCHAR(32)",
+              0,
+              null,
+              0
+            ],
+            [
+              8,
+              "normalized_data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "locked",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "user_metadata",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              12,
+              "dirty",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "job_links",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "generated_results",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "original_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "current_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              17,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              18,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              19,
+              "atom_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              20,
+              "bond_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              21,
+              "residue_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              22,
+              "conformer_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              23,
+              "warnings",
+              "JSON",
+              1,
+              "'[]'",
+              0
+            ],
+            [
+              24,
+              "viewer_settings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              25,
+              "atom_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              26,
+              "next_atom_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              27,
+              "next_bond_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              28,
+              "ligand_designation",
+              "JSON",
+              1,
+              "'{}'",
+              0
+            ]
+          ],
+          "rows": 2,
+          "rows_sha256": "45c66e8677e5f94dd6b4d6597262dd688c53da536f8dd08d10f59d8f493f451c"
+        },
+        "workspace_presentations": {
+          "sql": "CREATE TABLE workspace_presentations (\n\tid INTEGER NOT NULL, \n\tschema_version INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tcamera JSON NOT NULL, \n\tupdated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT ck_workspace_presentation_singleton CHECK (id = 1), \n\tCONSTRAINT ck_workspace_presentation_schema CHECK (schema_version = 1), \n\tCONSTRAINT ck_workspace_presentation_revision CHECK (revision >= 1)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "schema_version",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "updated_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "files": {
+        "artifacts/sha256/2d/2d441f36d17efafe6c2de790049c43d8f6b94132edb7dd3f2c637ecb3586f957": {
+          "bytes": 3138,
+          "sha256": "2d441f36d17efafe6c2de790049c43d8f6b94132edb7dd3f2c637ecb3586f957"
+        },
+        "artifacts/sha256/56/5611dc4c448e4f9eb064588c08b3c0ca8f1a1e5ceea381ef4d599e114665b13d": {
+          "bytes": 73,
+          "sha256": "5611dc4c448e4f9eb064588c08b3c0ca8f1a1e5ceea381ef4d599e114665b13d"
+        },
+        "artifacts/sha256/6f/6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9": {
+          "bytes": 14435,
+          "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9"
+        },
+        "artifacts/sha256/8d/8d53c4ce847b4f60af29db664f7b4b77332a983405b91f1133398c7e4af03fcb": {
+          "bytes": 3130,
+          "sha256": "8d53c4ce847b4f60af29db664f7b4b77332a983405b91f1133398c7e4af03fcb"
+        },
+        "artifacts/sha256/f6/f64e4e0198181e26689c10aaab7759b72a8b07ef5f8dd6db0b9f5c4777f30d59": {
+          "bytes": 69,
+          "sha256": "f64e4e0198181e26689c10aaab7759b72a8b07ef5f8dd6db0b9f5c4777f30d59"
+        },
+        "ordered-expectations.json": {
+          "bytes": 23345,
+          "sha256": "32c0a19ff0d54020ea1af29412646fe33e38dc16fb1a849eca95e4fc059c069e"
+        },
+        "ordered.neistra.zip": {
+          "bytes": 14435,
+          "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9"
+        }
+      },
+      "logical_sha256": "b8c6c2f57e85f1932208b34b72bad6c80e84ea229aff7d4774ad1e1c81b2b12b",
+      "files_sha256": "c3f7d4779e2b222db8d213e3cbae773cb9781287423154973d21ae644f533586"
+    },
+    "after": {
+      "database": "molweave.db",
+      "tables": {
+        "alembic_version": {
+          "sql": "CREATE TABLE alembic_version (\n\tversion_num VARCHAR(32) NOT NULL, \n\tCONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)\n)",
+          "columns": [
+            [
+              0,
+              "version_num",
+              "VARCHAR(32)",
+              1,
+              null,
+              1
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "ee97b1da61ed041abf4ecce7fc450d16bdc898b6a823ed4a776b1c6a696595c0"
+        },
+        "artifacts": {
+          "sql": "CREATE TABLE artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tsha256 VARCHAR(64) NOT NULL, \n\tsize INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\trelative_path VARCHAR(512) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (sha256), \n\tUNIQUE (relative_path)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "relative_path",
+              "VARCHAR(512)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 5,
+          "rows_sha256": "6b91d7e0d3a5e5d9dccaddc078262b7d25a2275a28f0fbfb8983993afad42579"
+        },
+        "command_records": {
+          "sql": "CREATE TABLE command_records (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tposition INTEGER NOT NULL, \n\tcommand_type VARCHAR(80) NOT NULL, \n\tdescription VARCHAR(240) NOT NULL, \n\tforward_actions JSON NOT NULL, \n\tinverse_actions JSON NOT NULL, \n\taffected_entry_ids JSON NOT NULL, \n\tselection_snapshot JSON NOT NULL, \n\tis_applied BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, position), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "position",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "command_type",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "VARCHAR(240)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "forward_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "inverse_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "affected_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "selection_snapshot",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "is_applied",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 7,
+          "rows_sha256": "bbf2ce12acfd107df8117203c314032e7b932486014cf4b8d138f973b99a7541"
+        },
+        "entry_groups": {
+          "sql": "CREATE TABLE entry_groups (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tparent_id VARCHAR(36), \n\tname VARCHAR(120) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE, \n\tFOREIGN KEY(parent_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "parent_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_events": {
+          "sql": "CREATE TABLE job_events (\n\tid INTEGER NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tsequence INTEGER NOT NULL, \n\tkind VARCHAR(32) NOT NULL, \n\tstream VARCHAR(16), \n\tmessage TEXT NOT NULL, \n\tdata JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, sequence), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(32)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "stream",
+              "VARCHAR(16)",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "message",
+              "TEXT",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_inputs": {
+          "sql": "CREATE TABLE job_inputs (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tordinal INTEGER NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tentry_id VARCHAR(36) NOT NULL, \n\tentry_name VARCHAR(160) NOT NULL, \n\tstructure_type VARCHAR(24) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\tartifact_sha256 VARCHAR(64) NOT NULL, \n\tartifact_size INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, ordinal), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "ordinal",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "entry_name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "artifact_sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "artifact_size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_result_artifacts": {
+          "sql": "CREATE TABLE job_result_artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tmetadata_json JSON NOT NULL, \n\timportable_structure BOOLEAN NOT NULL, \n\timported_entry_ids JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "metadata_json",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "importable_structure",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "imported_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "jobs": {
+          "sql": "CREATE TABLE jobs (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tplugin_name VARCHAR(120) NOT NULL, \n\tjob_type VARCHAR(120) NOT NULL, \n\timplementation_version VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(16) NOT NULL, \n\tparameters JSON NOT NULL, \n\tprogress FLOAT NOT NULL, \n\tstatus_message VARCHAR(500) NOT NULL, \n\tresult_values JSON NOT NULL, \n\twarnings JSON NOT NULL, \n\terror JSON, \n\tprovenance JSON NOT NULL, \n\tcancellation_requested BOOLEAN NOT NULL, \n\tevent_sequence INTEGER NOT NULL, \n\tworker_id VARCHAR(120), \n\tcreated_at DATETIME NOT NULL, \n\tstarted_at DATETIME, \n\tcompleted_at DATETIME, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "plugin_name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "job_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "implementation_version",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "status",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "parameters",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "progress",
+              "FLOAT",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "status_message",
+              "VARCHAR(500)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "result_values",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "error",
+              "JSON",
+              0,
+              null,
+              0
+            ],
+            [
+              12,
+              "provenance",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "cancellation_requested",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "event_sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "worker_id",
+              "VARCHAR(120)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              17,
+              "started_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              18,
+              "completed_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              19,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ligand_depiction_bindings": {
+          "sql": "CREATE TABLE ligand_depiction_bindings (\n\trequest_key VARCHAR(64) NOT NULL, \n\tcache_key VARCHAR(64) NOT NULL, \n\tsummary JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (request_key), \n\tFOREIGN KEY(cache_key) REFERENCES ligand_depiction_cache (cache_key) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "request_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "cache_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "summary",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ligand_depiction_cache": {
+          "sql": "CREATE TABLE ligand_depiction_cache (\n\tcache_key VARCHAR(64) NOT NULL, \n\tinput_hash VARCHAR(64) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\timplementation VARCHAR(80) NOT NULL, \n\tlibrary_version VARCHAR(80) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (cache_key), \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "cache_key",
+              "VARCHAR(64)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "input_hash",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "implementation",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "library_version",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "measurements": {
+          "sql": "CREATE TABLE measurements (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tkind VARCHAR(16) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 3,
+          "rows_sha256": "b749ceeabb5d4b54e6aa77ba5bd8a0d373ba5cff24bb29917df9bce85b8dde00"
+        },
+        "project_documents_v3": {
+          "sql": "CREATE TABLE \"project_documents_v3\" (\n\tid VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tdescription TEXT, \n\trevision INTEGER NOT NULL, \n\tcheckpoint_revision INTEGER NOT NULL, \n\tcheckpoint_state JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "checkpoint_revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "checkpoint_state",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "5f1cdbf0acdc603289e25e292f3457565247871eae6e9e3665729ea642bc1eb4"
+        },
+        "saved_selections": {
+          "sql": "CREATE TABLE saved_selections (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tgranularity VARCHAR(16) NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "granularity",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "scenes": {
+          "sql": "CREATE TABLE scenes (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tcamera JSON NOT NULL, \n\tentry_states JSON NOT NULL, \n\tselection JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_states",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "selection",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "structure_entries": {
+          "sql": "CREATE TABLE \"structure_entries\" (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tgroup_id VARCHAR(36), \n\tname VARCHAR(160) NOT NULL, \n\tdescription TEXT, \n\tstructure_type VARCHAR(24) NOT NULL, \n\toriginal_filename VARCHAR(255), \n\tsource_format VARCHAR(32), \n\tnormalized_data JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\tlocked BOOLEAN NOT NULL, \n\tuser_metadata JSON NOT NULL, \n\tdirty BOOLEAN NOT NULL, \n\tjob_links JSON NOT NULL, \n\tgenerated_results JSON NOT NULL, \n\toriginal_artifact_id VARCHAR(36), \n\tcurrent_artifact_id VARCHAR(36), \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tatom_count INTEGER DEFAULT '0' NOT NULL, \n\tbond_count INTEGER DEFAULT '0' NOT NULL, \n\tresidue_count INTEGER DEFAULT '0' NOT NULL, \n\tconformer_count INTEGER DEFAULT '0' NOT NULL, \n\twarnings JSON DEFAULT '[]' NOT NULL, \n\tviewer_settings JSON NOT NULL, \n\tatom_ids JSON NOT NULL, \n\tnext_atom_id INTEGER NOT NULL, \n\tnext_bond_id INTEGER NOT NULL, ligand_designation JSON DEFAULT '{}' NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(original_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(current_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(project_id) REFERENCES \"project_documents_v3\" (id) ON DELETE CASCADE, \n\tFOREIGN KEY(group_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "group_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "original_filename",
+              "VARCHAR(255)",
+              0,
+              null,
+              0
+            ],
+            [
+              7,
+              "source_format",
+              "VARCHAR(32)",
+              0,
+              null,
+              0
+            ],
+            [
+              8,
+              "normalized_data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "locked",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "user_metadata",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              12,
+              "dirty",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "job_links",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "generated_results",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "original_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "current_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              17,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              18,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              19,
+              "atom_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              20,
+              "bond_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              21,
+              "residue_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              22,
+              "conformer_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              23,
+              "warnings",
+              "JSON",
+              1,
+              "'[]'",
+              0
+            ],
+            [
+              24,
+              "viewer_settings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              25,
+              "atom_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              26,
+              "next_atom_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              27,
+              "next_bond_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              28,
+              "ligand_designation",
+              "JSON",
+              1,
+              "'{}'",
+              0
+            ]
+          ],
+          "rows": 2,
+          "rows_sha256": "45c66e8677e5f94dd6b4d6597262dd688c53da536f8dd08d10f59d8f493f451c"
+        },
+        "workspace_presentations": {
+          "sql": "CREATE TABLE workspace_presentations (\n\tid INTEGER NOT NULL, \n\tschema_version INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tcamera JSON NOT NULL, \n\tupdated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT ck_workspace_presentation_singleton CHECK (id = 1), \n\tCONSTRAINT ck_workspace_presentation_schema CHECK (schema_version = 1), \n\tCONSTRAINT ck_workspace_presentation_revision CHECK (revision >= 1)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "schema_version",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "updated_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "files": {
+        "artifacts/sha256/2d/2d441f36d17efafe6c2de790049c43d8f6b94132edb7dd3f2c637ecb3586f957": {
+          "bytes": 3138,
+          "sha256": "2d441f36d17efafe6c2de790049c43d8f6b94132edb7dd3f2c637ecb3586f957"
+        },
+        "artifacts/sha256/56/5611dc4c448e4f9eb064588c08b3c0ca8f1a1e5ceea381ef4d599e114665b13d": {
+          "bytes": 73,
+          "sha256": "5611dc4c448e4f9eb064588c08b3c0ca8f1a1e5ceea381ef4d599e114665b13d"
+        },
+        "artifacts/sha256/6f/6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9": {
+          "bytes": 14435,
+          "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9"
+        },
+        "artifacts/sha256/8d/8d53c4ce847b4f60af29db664f7b4b77332a983405b91f1133398c7e4af03fcb": {
+          "bytes": 3130,
+          "sha256": "8d53c4ce847b4f60af29db664f7b4b77332a983405b91f1133398c7e4af03fcb"
+        },
+        "artifacts/sha256/f6/f64e4e0198181e26689c10aaab7759b72a8b07ef5f8dd6db0b9f5c4777f30d59": {
+          "bytes": 69,
+          "sha256": "f64e4e0198181e26689c10aaab7759b72a8b07ef5f8dd6db0b9f5c4777f30d59"
+        },
+        "ordered-expectations.json": {
+          "bytes": 23345,
+          "sha256": "32c0a19ff0d54020ea1af29412646fe33e38dc16fb1a849eca95e4fc059c069e"
+        },
+        "ordered.neistra.zip": {
+          "bytes": 14435,
+          "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9"
+        }
+      },
+      "logical_sha256": "b8c6c2f57e85f1932208b34b72bad6c80e84ea229aff7d4774ad1e1c81b2b12b",
+      "files_sha256": "c3f7d4779e2b222db8d213e3cbae773cb9781287423154973d21ae644f533586"
+    },
+    "unchanged": true,
+    "database_heads": [
+      "0016"
+    ]
+  },
+  "archive_refusal": {
+    "archive_refusals": [
+      {
+        "path": "/tmp/neistra158-c4-candidate13/measurements-current/ordered.neistra.zip",
+        "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9",
+        "suffix": "neistra",
+        "http": 422,
+        "code": "unsupported_archive_schema",
+        "unchanged": true,
+        "logical_sha256": "dbb4173e3e2eaf7910d9b57ba0816db01830c9da7cdbf9be7ceb208f637acfbc",
+        "files_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      {
+        "path": "/tmp/neistra158-c4-candidate13/measurements-current/ordered.neistra.zip",
+        "sha256": "6fdf3b5079d721a19455e2b2bc1dc5a39c736b55579401c00a5649b12587efd9",
+        "suffix": "molweave",
+        "http": 422,
+        "code": "unsupported_archive_schema",
+        "unchanged": true,
+        "logical_sha256": "dbb4173e3e2eaf7910d9b57ba0816db01830c9da7cdbf9be7ceb208f637acfbc",
+        "files_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      }
+    ],
+    "before": {
+      "database": "molweave.db",
+      "tables": {
+        "alembic_version": {
+          "sql": "CREATE TABLE alembic_version (\n\tversion_num VARCHAR(32) NOT NULL, \n\tCONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)\n)",
+          "columns": [
+            [
+              0,
+              "version_num",
+              "VARCHAR(32)",
+              1,
+              null,
+              1
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "fa0094b9c6678593473c0a3e455cd6779a6417a4950d6214f634cbf0c0882a16"
+        },
+        "artifacts": {
+          "sql": "CREATE TABLE artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tsha256 VARCHAR(64) NOT NULL, \n\tsize INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\trelative_path VARCHAR(512) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (sha256), \n\tUNIQUE (relative_path)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "relative_path",
+              "VARCHAR(512)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "command_records": {
+          "sql": "CREATE TABLE command_records (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tposition INTEGER NOT NULL, \n\tcommand_type VARCHAR(80) NOT NULL, \n\tdescription VARCHAR(240) NOT NULL, \n\tforward_actions JSON NOT NULL, \n\tinverse_actions JSON NOT NULL, \n\taffected_entry_ids JSON NOT NULL, \n\tselection_snapshot JSON NOT NULL, \n\tis_applied BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, position), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "position",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "command_type",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "VARCHAR(240)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "forward_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "inverse_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "affected_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "selection_snapshot",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "is_applied",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "entry_groups": {
+          "sql": "CREATE TABLE entry_groups (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tparent_id VARCHAR(36), \n\tname VARCHAR(120) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE, \n\tFOREIGN KEY(parent_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "parent_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_events": {
+          "sql": "CREATE TABLE job_events (\n\tid INTEGER NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tsequence INTEGER NOT NULL, \n\tkind VARCHAR(32) NOT NULL, \n\tstream VARCHAR(16), \n\tmessage TEXT NOT NULL, \n\tdata JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, sequence), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(32)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "stream",
+              "VARCHAR(16)",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "message",
+              "TEXT",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_inputs": {
+          "sql": "CREATE TABLE job_inputs (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tordinal INTEGER NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tentry_id VARCHAR(36) NOT NULL, \n\tentry_name VARCHAR(160) NOT NULL, \n\tstructure_type VARCHAR(24) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\tartifact_sha256 VARCHAR(64) NOT NULL, \n\tartifact_size INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, ordinal), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "ordinal",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "entry_name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "artifact_sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "artifact_size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_result_artifacts": {
+          "sql": "CREATE TABLE job_result_artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tmetadata_json JSON NOT NULL, \n\timportable_structure BOOLEAN NOT NULL, \n\timported_entry_ids JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "metadata_json",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "importable_structure",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "imported_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "jobs": {
+          "sql": "CREATE TABLE jobs (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tplugin_name VARCHAR(120) NOT NULL, \n\tjob_type VARCHAR(120) NOT NULL, \n\timplementation_version VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(16) NOT NULL, \n\tparameters JSON NOT NULL, \n\tprogress FLOAT NOT NULL, \n\tstatus_message VARCHAR(500) NOT NULL, \n\tresult_values JSON NOT NULL, \n\twarnings JSON NOT NULL, \n\terror JSON, \n\tprovenance JSON NOT NULL, \n\tcancellation_requested BOOLEAN NOT NULL, \n\tevent_sequence INTEGER NOT NULL, \n\tworker_id VARCHAR(120), \n\tcreated_at DATETIME NOT NULL, \n\tstarted_at DATETIME, \n\tcompleted_at DATETIME, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "plugin_name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "job_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "implementation_version",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "status",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "parameters",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "progress",
+              "FLOAT",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "status_message",
+              "VARCHAR(500)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "result_values",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "error",
+              "JSON",
+              0,
+              null,
+              0
+            ],
+            [
+              12,
+              "provenance",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "cancellation_requested",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "event_sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "worker_id",
+              "VARCHAR(120)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              17,
+              "started_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              18,
+              "completed_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              19,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "measurements": {
+          "sql": "CREATE TABLE measurements (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tkind VARCHAR(16) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "projects": {
+          "sql": "CREATE TABLE projects (\n\tid VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tdescription TEXT, \n\trevision INTEGER NOT NULL, \n\tcheckpoint_revision INTEGER NOT NULL, \n\tcheckpoint_state JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "checkpoint_revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "checkpoint_state",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "saved_selections": {
+          "sql": "CREATE TABLE saved_selections (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tgranularity VARCHAR(16) NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "granularity",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "scenes": {
+          "sql": "CREATE TABLE scenes (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tcamera JSON NOT NULL, \n\tentry_states JSON NOT NULL, \n\tselection JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_states",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "selection",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "structure_entries": {
+          "sql": "CREATE TABLE \"structure_entries\" (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tgroup_id VARCHAR(36), \n\tname VARCHAR(160) NOT NULL, \n\tdescription TEXT, \n\tstructure_type VARCHAR(24) NOT NULL, \n\toriginal_filename VARCHAR(255), \n\tsource_format VARCHAR(32), \n\tnormalized_data JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\tlocked BOOLEAN NOT NULL, \n\tuser_metadata JSON NOT NULL, \n\tdirty BOOLEAN NOT NULL, \n\tjob_links JSON NOT NULL, \n\tgenerated_results JSON NOT NULL, \n\toriginal_artifact_id VARCHAR(36), \n\tcurrent_artifact_id VARCHAR(36), \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tatom_count INTEGER DEFAULT '0' NOT NULL, \n\tbond_count INTEGER DEFAULT '0' NOT NULL, \n\tresidue_count INTEGER DEFAULT '0' NOT NULL, \n\tconformer_count INTEGER DEFAULT '0' NOT NULL, \n\twarnings JSON DEFAULT '[]' NOT NULL, \n\tviewer_settings JSON NOT NULL, \n\tatom_ids JSON NOT NULL, \n\tnext_atom_id INTEGER NOT NULL, \n\tnext_bond_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(current_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(group_id) REFERENCES entry_groups (id) ON DELETE SET NULL, \n\tFOREIGN KEY(original_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "group_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "original_filename",
+              "VARCHAR(255)",
+              0,
+              null,
+              0
+            ],
+            [
+              7,
+              "source_format",
+              "VARCHAR(32)",
+              0,
+              null,
+              0
+            ],
+            [
+              8,
+              "normalized_data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "locked",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "user_metadata",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              12,
+              "dirty",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "job_links",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "generated_results",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "original_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "current_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              17,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              18,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              19,
+              "atom_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              20,
+              "bond_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              21,
+              "residue_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              22,
+              "conformer_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              23,
+              "warnings",
+              "JSON",
+              1,
+              "'[]'",
+              0
+            ],
+            [
+              24,
+              "viewer_settings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              25,
+              "atom_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              26,
+              "next_atom_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              27,
+              "next_bond_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "workspace_presentations": {
+          "sql": "CREATE TABLE workspace_presentations (\n\tid INTEGER NOT NULL, \n\tschema_version INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tcamera JSON NOT NULL, \n\tupdated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT ck_workspace_presentation_singleton CHECK (id = 1), \n\tCONSTRAINT ck_workspace_presentation_schema CHECK (schema_version = 1), \n\tCONSTRAINT ck_workspace_presentation_revision CHECK (revision >= 1)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "schema_version",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "updated_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "files": {},
+      "logical_sha256": "dbb4173e3e2eaf7910d9b57ba0816db01830c9da7cdbf9be7ceb208f637acfbc",
+      "files_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "after": {
+      "database": "molweave.db",
+      "tables": {
+        "alembic_version": {
+          "sql": "CREATE TABLE alembic_version (\n\tversion_num VARCHAR(32) NOT NULL, \n\tCONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)\n)",
+          "columns": [
+            [
+              0,
+              "version_num",
+              "VARCHAR(32)",
+              1,
+              null,
+              1
+            ]
+          ],
+          "rows": 1,
+          "rows_sha256": "fa0094b9c6678593473c0a3e455cd6779a6417a4950d6214f634cbf0c0882a16"
+        },
+        "artifacts": {
+          "sql": "CREATE TABLE artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tsha256 VARCHAR(64) NOT NULL, \n\tsize INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\trelative_path VARCHAR(512) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (sha256), \n\tUNIQUE (relative_path)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "relative_path",
+              "VARCHAR(512)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "command_records": {
+          "sql": "CREATE TABLE command_records (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tposition INTEGER NOT NULL, \n\tcommand_type VARCHAR(80) NOT NULL, \n\tdescription VARCHAR(240) NOT NULL, \n\tforward_actions JSON NOT NULL, \n\tinverse_actions JSON NOT NULL, \n\taffected_entry_ids JSON NOT NULL, \n\tselection_snapshot JSON NOT NULL, \n\tis_applied BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, position), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "position",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "command_type",
+              "VARCHAR(80)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "VARCHAR(240)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "forward_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "inverse_actions",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "affected_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "selection_snapshot",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "is_applied",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "entry_groups": {
+          "sql": "CREATE TABLE entry_groups (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tparent_id VARCHAR(36), \n\tname VARCHAR(120) NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE, \n\tFOREIGN KEY(parent_id) REFERENCES entry_groups (id) ON DELETE SET NULL\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "parent_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_events": {
+          "sql": "CREATE TABLE job_events (\n\tid INTEGER NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tsequence INTEGER NOT NULL, \n\tkind VARCHAR(32) NOT NULL, \n\tstream VARCHAR(16), \n\tmessage TEXT NOT NULL, \n\tdata JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, sequence), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(32)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "stream",
+              "VARCHAR(16)",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "message",
+              "TEXT",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_inputs": {
+          "sql": "CREATE TABLE job_inputs (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tordinal INTEGER NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tentry_id VARCHAR(36) NOT NULL, \n\tentry_name VARCHAR(160) NOT NULL, \n\tstructure_type VARCHAR(24) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\tartifact_sha256 VARCHAR(64) NOT NULL, \n\tartifact_size INTEGER NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (job_id, ordinal), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "ordinal",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "entry_name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "artifact_sha256",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "artifact_size",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "job_result_artifacts": {
+          "sql": "CREATE TABLE job_result_artifacts (\n\tid VARCHAR(36) NOT NULL, \n\tjob_id VARCHAR(36) NOT NULL, \n\tartifact_id VARCHAR(36) NOT NULL, \n\trole VARCHAR(64) NOT NULL, \n\tfilename VARCHAR(255) NOT NULL, \n\tmedia_type VARCHAR(120) NOT NULL, \n\tmetadata_json JSON NOT NULL, \n\timportable_structure BOOLEAN NOT NULL, \n\timported_entry_ids JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(job_id) REFERENCES jobs (id) ON DELETE CASCADE, \n\tFOREIGN KEY(artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "job_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "artifact_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "role",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "filename",
+              "VARCHAR(255)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "media_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "metadata_json",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "importable_structure",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "imported_entry_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "jobs": {
+          "sql": "CREATE TABLE jobs (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tplugin_name VARCHAR(120) NOT NULL, \n\tjob_type VARCHAR(120) NOT NULL, \n\timplementation_version VARCHAR(64) NOT NULL, \n\tstatus VARCHAR(16) NOT NULL, \n\tparameters JSON NOT NULL, \n\tprogress FLOAT NOT NULL, \n\tstatus_message VARCHAR(500) NOT NULL, \n\tresult_values JSON NOT NULL, \n\twarnings JSON NOT NULL, \n\terror JSON, \n\tprovenance JSON NOT NULL, \n\tcancellation_requested BOOLEAN NOT NULL, \n\tevent_sequence INTEGER NOT NULL, \n\tworker_id VARCHAR(120), \n\tcreated_at DATETIME NOT NULL, \n\tstarted_at DATETIME, \n\tcompleted_at DATETIME, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "plugin_name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "job_type",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "implementation_version",
+              "VARCHAR(64)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "status",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "parameters",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "progress",
+              "FLOAT",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "status_message",
+              "VARCHAR(500)",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "result_values",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "error",
+              "JSON",
+              0,
+              null,
+              0
+            ],
+            [
+              12,
+              "provenance",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "cancellation_requested",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "event_sequence",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "worker_id",
+              "VARCHAR(120)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              17,
+              "started_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              18,
+              "completed_at",
+              "DATETIME",
+              0,
+              null,
+              0
+            ],
+            [
+              19,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "measurements": {
+          "sql": "CREATE TABLE measurements (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tkind VARCHAR(16) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "kind",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              8,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "projects": {
+          "sql": "CREATE TABLE projects (\n\tid VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tdescription TEXT, \n\trevision INTEGER NOT NULL, \n\tcheckpoint_revision INTEGER NOT NULL, \n\tcheckpoint_state JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "checkpoint_revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "checkpoint_state",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "saved_selections": {
+          "sql": "CREATE TABLE saved_selections (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tatom_references JSON NOT NULL, \n\tgranularity VARCHAR(16) NOT NULL, \n\twarnings JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "atom_references",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "granularity",
+              "VARCHAR(16)",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "warnings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "scenes": {
+          "sql": "CREATE TABLE scenes (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tname VARCHAR(120) NOT NULL, \n\tcamera JSON NOT NULL, \n\tentry_states JSON NOT NULL, \n\tselection JSON NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tUNIQUE (project_id, name), \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "name",
+              "VARCHAR(120)",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "entry_states",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              5,
+              "selection",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              7,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "structure_entries": {
+          "sql": "CREATE TABLE \"structure_entries\" (\n\tid VARCHAR(36) NOT NULL, \n\tproject_id VARCHAR(36) NOT NULL, \n\tgroup_id VARCHAR(36), \n\tname VARCHAR(160) NOT NULL, \n\tdescription TEXT, \n\tstructure_type VARCHAR(24) NOT NULL, \n\toriginal_filename VARCHAR(255), \n\tsource_format VARCHAR(32), \n\tnormalized_data JSON NOT NULL, \n\tvisible BOOLEAN NOT NULL, \n\tlocked BOOLEAN NOT NULL, \n\tuser_metadata JSON NOT NULL, \n\tdirty BOOLEAN NOT NULL, \n\tjob_links JSON NOT NULL, \n\tgenerated_results JSON NOT NULL, \n\toriginal_artifact_id VARCHAR(36), \n\tcurrent_artifact_id VARCHAR(36), \n\tcreated_at DATETIME NOT NULL, \n\tmodified_at DATETIME NOT NULL, \n\tatom_count INTEGER DEFAULT '0' NOT NULL, \n\tbond_count INTEGER DEFAULT '0' NOT NULL, \n\tresidue_count INTEGER DEFAULT '0' NOT NULL, \n\tconformer_count INTEGER DEFAULT '0' NOT NULL, \n\twarnings JSON DEFAULT '[]' NOT NULL, \n\tviewer_settings JSON NOT NULL, \n\tatom_ids JSON NOT NULL, \n\tnext_atom_id INTEGER NOT NULL, \n\tnext_bond_id INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(current_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(group_id) REFERENCES entry_groups (id) ON DELETE SET NULL, \n\tFOREIGN KEY(original_artifact_id) REFERENCES artifacts (id) ON DELETE RESTRICT, \n\tFOREIGN KEY(project_id) REFERENCES projects (id) ON DELETE CASCADE\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "VARCHAR(36)",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "project_id",
+              "VARCHAR(36)",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "group_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              3,
+              "name",
+              "VARCHAR(160)",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "description",
+              "TEXT",
+              0,
+              null,
+              0
+            ],
+            [
+              5,
+              "structure_type",
+              "VARCHAR(24)",
+              1,
+              null,
+              0
+            ],
+            [
+              6,
+              "original_filename",
+              "VARCHAR(255)",
+              0,
+              null,
+              0
+            ],
+            [
+              7,
+              "source_format",
+              "VARCHAR(32)",
+              0,
+              null,
+              0
+            ],
+            [
+              8,
+              "normalized_data",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              9,
+              "visible",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              10,
+              "locked",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              11,
+              "user_metadata",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              12,
+              "dirty",
+              "BOOLEAN",
+              1,
+              null,
+              0
+            ],
+            [
+              13,
+              "job_links",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              14,
+              "generated_results",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              15,
+              "original_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              16,
+              "current_artifact_id",
+              "VARCHAR(36)",
+              0,
+              null,
+              0
+            ],
+            [
+              17,
+              "created_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              18,
+              "modified_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ],
+            [
+              19,
+              "atom_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              20,
+              "bond_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              21,
+              "residue_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              22,
+              "conformer_count",
+              "INTEGER",
+              1,
+              "'0'",
+              0
+            ],
+            [
+              23,
+              "warnings",
+              "JSON",
+              1,
+              "'[]'",
+              0
+            ],
+            [
+              24,
+              "viewer_settings",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              25,
+              "atom_ids",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              26,
+              "next_atom_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              27,
+              "next_bond_id",
+              "INTEGER",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "workspace_presentations": {
+          "sql": "CREATE TABLE workspace_presentations (\n\tid INTEGER NOT NULL, \n\tschema_version INTEGER NOT NULL, \n\trevision INTEGER NOT NULL, \n\tcamera JSON NOT NULL, \n\tupdated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT ck_workspace_presentation_singleton CHECK (id = 1), \n\tCONSTRAINT ck_workspace_presentation_schema CHECK (schema_version = 1), \n\tCONSTRAINT ck_workspace_presentation_revision CHECK (revision >= 1)\n)",
+          "columns": [
+            [
+              0,
+              "id",
+              "INTEGER",
+              1,
+              null,
+              1
+            ],
+            [
+              1,
+              "schema_version",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              2,
+              "revision",
+              "INTEGER",
+              1,
+              null,
+              0
+            ],
+            [
+              3,
+              "camera",
+              "JSON",
+              1,
+              null,
+              0
+            ],
+            [
+              4,
+              "updated_at",
+              "DATETIME",
+              1,
+              null,
+              0
+            ]
+          ],
+          "rows": 0,
+          "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "files": {},
+      "logical_sha256": "dbb4173e3e2eaf7910d9b57ba0816db01830c9da7cdbf9be7ceb208f637acfbc",
+      "files_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    "archive_pairs": 1,
+    "both_suffixes": true
+  },
+  "database_heads": [
+    "0015"
+  ],
+  "refusal_helper": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/schema_boundary_refusal.py",
+    "sha256": "d8d79dfa7cfc8a9f21188b572ba9724b3accf021ac0ade7641619ce664a4984b"
+  },
+  "mode": "refuse",
+  "application_version": "0.35.0",
+  "implementation_root": "/tmp/neistra158-reader-0350",
+  "imported_module_provenance": {
+    "molweave_api": "/tmp/neistra158-reader-0350/apps/api/src/molweave_api/__init__.py",
+    "molweave_api.archive_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/archive_service.py",
+    "molweave_api.main": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/main.py",
+    "molweave_api.schemas": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/schemas.py",
+    "molweave_api.settings": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/settings.py",
+    "molweave_api.surface_upgrade": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/surface_upgrade.py",
+    "molweave_api.viewer_state": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/viewer_state.py",
+    "molweave_core": "/tmp/neistra158-reader-0350/packages/neistra_core/src/molweave_core/__init__.py",
+    "molweave_core.molecular": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/molecular.py",
+    "molweave_core.selection": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/selection.py",
+    "molweave_demo_plugin": "/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src/molweave_demo_plugin/__init__.py",
+    "molweave_demo_plugin.plugin": "/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src/neistra_demo_plugin/plugin.py",
+    "neistra_api": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/__init__.py",
+    "neistra_api.archive_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/archive_service.py",
+    "neistra_api.async_work": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/async_work.py",
+    "neistra_api.contact_execution_data": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/contact_execution_data.py",
+    "neistra_api.contact_execution_worker": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/contact_execution_worker.py",
+    "neistra_api.contact_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/contact_service.py",
+    "neistra_api.coordinate_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/coordinate_service.py",
+    "neistra_api.database": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/database.py",
+    "neistra_api.edit_artifacts": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_artifacts.py",
+    "neistra_api.edit_attempts": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_attempts.py",
+    "neistra_api.edit_computation": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_computation.py",
+    "neistra_api.edit_execution": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_execution.py",
+    "neistra_api.edit_execution_data": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_execution_data.py",
+    "neistra_api.edit_execution_worker": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/edit_execution_worker.py",
+    "neistra_api.import_export": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/import_export.py",
+    "neistra_api.interaction_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/interaction_service.py",
+    "neistra_api.job_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/job_service.py",
+    "neistra_api.job_worker": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/job_worker.py",
+    "neistra_api.ligand_edit_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/ligand_edit_service.py",
+    "neistra_api.main": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/main.py",
+    "neistra_api.minimization_publication": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/minimization_publication.py",
+    "neistra_api.minimization_schemas": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/minimization_schemas.py",
+    "neistra_api.minimization_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/minimization_service.py",
+    "neistra_api.model_edit_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/model_edit_service.py",
+    "neistra_api.models": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/models.py",
+    "neistra_api.project_publication": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/project_publication.py",
+    "neistra_api.project_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/project_service.py",
+    "neistra_api.protein_edit_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/protein_edit_service.py",
+    "neistra_api.quick_minimization": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/quick_minimization.py",
+    "neistra_api.schemas": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/schemas.py",
+    "neistra_api.selection_edit_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/selection_edit_service.py",
+    "neistra_api.selection_style_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/selection_style_service.py",
+    "neistra_api.settings": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/settings.py",
+    "neistra_api.source_identity": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/source_identity.py",
+    "neistra_api.surface_service": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/surface_service.py",
+    "neistra_api.surface_upgrade": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/surface_upgrade.py",
+    "neistra_api.viewer_state": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/viewer_state.py",
+    "neistra_api.workspace_presentation": "/tmp/neistra158-reader-0350/apps/api/src/neistra_api/workspace_presentation.py",
+    "neistra_core": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/__init__.py",
+    "neistra_core.adapters": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/__init__.py",
+    "neistra_core.adapters.base": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/base.py",
+    "neistra_core.adapters.defaults": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/defaults.py",
+    "neistra_core.adapters.ligand": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/ligand.py",
+    "neistra_core.adapters.macromolecular": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/macromolecular.py",
+    "neistra_core.adapters.rdkit_common": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/rdkit_common.py",
+    "neistra_core.adapters.registry": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/adapters/registry.py",
+    "neistra_core.artifacts": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/artifacts.py",
+    "neistra_core.components": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/components.py",
+    "neistra_core.configuration": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/configuration.py",
+    "neistra_core.contacts": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/contacts.py",
+    "neistra_core.editing": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/__init__.py",
+    "neistra_core.editing.fragments": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/fragments.py",
+    "neistra_core.editing.geometry": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/geometry.py",
+    "neistra_core.editing.hydrogen": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/hydrogen.py",
+    "neistra_core.editing.ligand": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/ligand.py",
+    "neistra_core.editing.model": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/model.py",
+    "neistra_core.editing.placement": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/placement.py",
+    "neistra_core.editing.protein": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/protein.py",
+    "neistra_core.editing.reconciliation": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/reconciliation.py",
+    "neistra_core.editing.selection": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/selection.py",
+    "neistra_core.editing.single_hydrogen": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/editing/single_hydrogen.py",
+    "neistra_core.export_policy": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/export_policy.py",
+    "neistra_core.hydrogen_protection": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/hydrogen_protection.py",
+    "neistra_core.interactions": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/interactions.py",
+    "neistra_core.jobs": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/jobs/__init__.py",
+    "neistra_core.jobs.contracts": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/jobs/contracts.py",
+    "neistra_core.jobs.registry": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/jobs/registry.py",
+    "neistra_core.minimization": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/__init__.py",
+    "neistra_core.minimization.assembly": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/assembly.py",
+    "neistra_core.minimization.capture": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/capture.py",
+    "neistra_core.minimization.contracts": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/contracts.py",
+    "neistra_core.minimization.discovery": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/discovery.py",
+    "neistra_core.minimization.live": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/live.py",
+    "neistra_core.minimization.plugin": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/plugin.py",
+    "neistra_core.minimization.preflight": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/preflight.py",
+    "neistra_core.minimization.protein_chemistry": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/protein_chemistry.py",
+    "neistra_core.minimization.quick_chemistry": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_chemistry.py",
+    "neistra_core.minimization.quick_context": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_context.py",
+    "neistra_core.minimization.quick_contracts": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_contracts.py",
+    "neistra_core.minimization.quick_model": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_model.py",
+    "neistra_core.minimization.quick_plugin": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_plugin.py",
+    "neistra_core.minimization.quick_protein": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/quick_protein.py",
+    "neistra_core.minimization.templates": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/minimization/templates.py",
+    "neistra_core.modeling_metadata": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/modeling_metadata.py",
+    "neistra_core.molecular": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/molecular.py",
+    "neistra_core.protein_connectivity": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/protein_connectivity.py",
+    "neistra_core.selection": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/selection.py",
+    "neistra_core.superposition": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/superposition.py",
+    "neistra_core.transforms": "/tmp/neistra158-reader-0350/packages/neistra_core/src/neistra_core/transforms.py",
+    "neistra_demo_plugin": "/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src/neistra_demo_plugin/__init__.py",
+    "neistra_demo_plugin.plugin": "/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src/neistra_demo_plugin/plugin.py",
+    "tests": "/tmp/neistra158-reader-0350/tests/__init__.py",
+    "tests.integration": "/tmp/neistra158-reader-0350/tests/integration/__init__.py",
+    "tests.integration.test_archive_roundtrip": "/tmp/neistra158-reader-0350/tests/integration/test_archive_roundtrip.py",
+    "tests.support": "/tmp/neistra158-reader-0350/tests/support/__init__.py",
+    "tests.support.api_client": "/tmp/neistra158-reader-0350/tests/support/api_client.py",
+    "tests.support.navigation_reader_qualification": "/tmp/neistra158-reader-0350/tests/support/navigation_reader_qualification.py",
+    "tests.support.rebranding_reader_qualification": "/tmp/neistra158-reader-0350/tests/support/rebranding_reader_qualification.py",
+    "tests.support.selection_reader_qualification": "/tmp/neistra158-reader-0350/tests/support/selection_reader_qualification.py",
+    "tests.support.transform_reader_qualification": "/tmp/neistra158-reader-0350/tests/support/transform_reader_qualification.py"
+  },
+  "wrapper_sha256": "50d3b86fb05a37c23e70ca93b5b7723c9da0887e4fad535adcd24e775eb6d35a",
+  "common_wrapper": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+    "sha256": "495642103ae5018eb81ee76d30395855d0ce5b8c5866df84b17ebc09d9df2898"
+  }
+}

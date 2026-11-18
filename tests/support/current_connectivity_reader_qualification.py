@@ -11,6 +11,7 @@ import hashlib
 import importlib
 import io
 import json
+import runpy
 import zipfile
 from copy import deepcopy
 from pathlib import Path
@@ -37,6 +38,11 @@ from tests.support.quick_minimization_reader_qualification import (
 from tests.support.quick_minimization_reader_qualification import (
     read as read_quick,
 )
+
+
+def boundary_tools() -> dict[str, Any]:
+    # This is current tooling, executed against selected actual application imports.
+    return runpy.run_path(str(Path(__file__).with_name("rebranding_reader_qualification.py")))
 
 
 def snapshot(client: ApiClient, project: dict[str, Any]) -> dict[str, Any]:
@@ -143,6 +149,7 @@ def archive_roundtrip(
         assert response.status_code == 201, response.text
         restored = response.json()["project"]
         assert_snapshot(client, restored, state)
+        boundary_tools()["assert_portable_display"](restored, state["project"])
         jobs = client.get(f"/api/v1/projects/{restored['id']}/jobs").json()
         assert len(jobs) == (1 if expected_job else 0)
         if expected_job:
@@ -156,6 +163,7 @@ def archive_roundtrip(
         assert reopened.status_code == 201, reopened.text
         twice = reopened.json()["project"]
         assert_snapshot(client, twice, state)
+        boundary_tools()["assert_portable_display"](twice, state["project"])
         if expected_job:
             twice_jobs = client.get(f"/api/v1/projects/{twice['id']}/jobs").json()
             assert len(twice_jobs) == 1
@@ -228,7 +236,7 @@ def produce(client: ApiClient, data: Path, current: bool, root: Path) -> dict[st
 
     unapplied = seeded_project(client, molecule())
     unchanged = snapshot(client, unapplied)
-    job, proposal = calculate(client, unapplied, [3])
+    job, proposal = calculate(client, unapplied, [3])  # type: ignore[no-untyped-call]
     assert proposal["applicable"], proposal
     job = client.get(f"/api/v1/jobs/{job['id']}").json()
     assert job["status"] == "completed"
@@ -271,7 +279,7 @@ def read(client: ApiClient, data: Path, current: bool) -> dict[str, Any]:
     unapplied = state["unapplied"]
     path = f"/api/v1/projects/{unapplied['project']['id']}"
     project = client.get(path).json()
-    assert project == unapplied["project"]
+    assert project == boundary_tools()["selected_expected_project"](unapplied["project"])
     assert_snapshot(client, project, unapplied)
     job = client.get(f"/api/v1/jobs/{unapplied['job']['id']}").json()
     assert_job(client, job, unapplied["job"])
@@ -311,6 +319,7 @@ def read(client: ApiClient, data: Path, current: bool) -> dict[str, Any]:
     for quick in quick_states:
         current_project = client.get(f"/api/v1/projects/{quick['project']['id']}").json()
         retained = {
+            "project": quick["project"],
             "canonical": quick["after"],
             "originals": quick["originals"],
             "counters": quick["counters"],
@@ -328,7 +337,7 @@ def read(client: ApiClient, data: Path, current: bool) -> dict[str, Any]:
     after = connectivity["after"]
     path = f"/api/v1/projects/{after['project']['id']}"
     project = client.get(path).json()
-    assert project == after["project"]
+    assert project == boundary_tools()["selected_expected_project"](after["project"])
     assert_snapshot(client, project, after)
     for action, expected in (("undo", connectivity["before"]), ("redo", after)):
         response = client.post(
@@ -366,12 +375,15 @@ def read(client: ApiClient, data: Path, current: bool) -> dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=("produce", "read"))
+    parser.add_argument("mode", choices=("produce", "read", "refuse"))
     parser.add_argument("--implementation-root", type=Path, required=True)
     parser.add_argument("--expected-version", required=True)
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--expect-current-connectivity", action="store_true")
+    parser.add_argument("--schema-boundary", action="store_true")
+    parser.add_argument("--refusal-data", type=Path)
+    parser.add_argument("--archives-dir", type=Path)
     args = parser.parse_args()
     root = args.implementation_root.resolve()
     assert Path.cwd().resolve() == root
@@ -393,22 +405,88 @@ def main() -> None:
     paths = {}
     for name in modules:
         module = importlib.import_module(name)
+        assert module.__file__ is not None
         path = Path(module.__file__).resolve()
         assert path.is_relative_to(root), (name, path, root)
         paths[name] = str(path)
     data = args.data_dir.resolve()
     assert data.is_dir(), "Migrate a fresh disposable store first"
+    tools = boundary_tools()
+    common_path = Path(__file__).with_name("rebranding_reader_qualification.py")
+    if args.mode == "refuse":
+        archive_root = args.archives_dir.resolve()
+        specimen = json.loads((archive_root / "current-connectivity-expectations.json").read_text())
+        quick = json.loads((archive_root / "quick-expectations.json").read_text())
+        archives = [archive_root / f"{case['label']}.molweave.zip" for case in quick]
+        archives += [
+            archive_root / "connectivity.neistra.zip",
+            archive_root / "unapplied.neistra.zip",
+        ]
+        assert len(quick) == 4 and len(archives) == 6
+        result = tools["boundary_refuse"](
+            root,
+            args.refusal_data.resolve(),
+            data,
+            specimen["connectivity"]["after"]["project"],
+            archives,
+        )
+        result.update(
+            mode="refuse",
+            application_version=APPLICATION_VERSION,
+            implementation_root=str(root),
+            module_paths=paths,
+            imported_module_provenance=tools["module_provenance"](root),
+            wrapper_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            common_wrapper={
+                "path": str(common_path),
+                "sha256": hashlib.sha256(common_path.read_bytes()).hexdigest(),
+            },
+        )
+        args.evidence.write_text(json.dumps(result, indent=2) + "\n")
+        print(json.dumps(result, indent=2))
+        return
+    before_heads = tools["boundary_prepare_read"](root, data, args.schema_boundary)
     app = create_app(Settings(data_dir=data, database_url=f"sqlite:///{data / 'molweave.db'}"))
     assert app.version == args.expected_version
     client = ApiClient(app)
     try:
+        baseline_path = data / "portable-live-projects.json"
+        if args.mode == "read" and baseline_path.exists():
+            for project_id, baseline in json.loads(baseline_path.read_text()).items():
+                assert client.get(f"/api/v1/projects/{project_id}").json() == (
+                    tools["selected_expected_project"](baseline)
+                )
         result = (
             produce(client, data, args.expect_current_connectivity, root)
             if args.mode == "produce"
             else read(client, data, args.expect_current_connectivity)
         )
+        if args.mode == "produce":
+            specimens = json.loads((data / "current-connectivity-expectations.json").read_text())
+            quick = json.loads((data / "quick-expectations.json").read_text())
+            projects = [case["project"] for case in quick]
+            projects += [
+                specimens["connectivity"]["after"]["project"],
+                specimens["unapplied"]["project"],
+            ]
+            assert len(projects) == 6
+            baselines = {
+                project["id"]: client.get(f"/api/v1/projects/{project['id']}").json()
+                for project in projects
+            }
+            assert len(baselines) == 6
+            baseline_path.write_text(json.dumps(baselines, indent=2) + "\n")
         result.update(
             mode=args.mode,
+            protocol="schema-boundary-v1" if args.schema_boundary else "retention-v1",
+            database_heads_before=before_heads,
+            database_heads=tools["boundary_heads"](data),
+            wrapper_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            common_wrapper={
+                "path": str(common_path),
+                "sha256": hashlib.sha256(common_path.read_bytes()).hexdigest(),
+            },
+            imported_module_provenance=tools["module_provenance"](root),
             application_version=APPLICATION_VERSION,
             implementation_root=str(root),
             module_paths=paths,

@@ -1,0 +1,817 @@
+{
+  "label": "c4-candidate5",
+  "application_version": "0.36.0",
+  "require_clean": true,
+  "compatibility_protocol": "schema-boundary-v1",
+  "unset_environment": [
+    "NEISTRA_DATA_DIR",
+    "NEISTRA_DATABASE_URL",
+    "MOLWEAVE_DATA_DIR",
+    "MOLWEAVE_DATABASE_URL",
+    "DATABASE_URL"
+  ],
+  "preceding_reader": {
+    "tag": "v0.35.0",
+    "version": "0.35.0",
+    "commit": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+    "root": "/tmp/neistra158-reader-0350"
+  },
+  "environment": {
+    "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_QUALIFICATION_VERSION": "0.36.0",
+    "NEISTRA_QUALIFICATION_BASE": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+    "NEISTRA_E2E_API_PORT": "8250",
+    "NEISTRA_E2E_WORKER_PORT": "8251",
+    "NEISTRA_E2E_WEB_PORT": "5413",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-browser.json",
+    "NEISTRA_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra158-c4-candidate5/native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ]
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "downgrade",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "alembic",
+        "downgrade",
+        "base"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "remigration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ]
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/neistra_core",
+        "packages/neistra_demo_plugin"
+      ]
+    },
+    {
+      "label": "reader-tool-types",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "mypy",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/structure_editing_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/navigation_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/project_document_compatibility.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/schema_boundary_refusal.py",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/schema_boundary_evidence.py",
+        "--follow-imports=silent"
+      ]
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "pytest"
+      ]
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser-inventory",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--list",
+        "--reporter=json"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra158-c4-candidate5/e2e",
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-browser-inventory.json"
+      }
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-native"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra158-c4-candidate5/e2e"
+      }
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/versions.py.txt"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "production",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/production-audit.py.txt"
+      ]
+    },
+    {
+      "label": "legacy-cli",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/unit/test_namespace_compatibility.py"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "rich-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "rich-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/rich-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-rich-current-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "rich-previous-migration-and-copy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-c",
+        "import pathlib, shutil, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); shutil.copytree(source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra158-c4-candidate5/rich-current",
+        "/tmp/neistra158-c4-candidate5/rich-refusal"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "rich-previous-refuse-current",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "refuse",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/rich-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-rich-previous-refuse-current.json",
+        "--expect-new-names",
+        "--refusal-data",
+        "/tmp/neistra158-c4-candidate5/rich-refusal",
+        "--archives-dir",
+        "/tmp/neistra158-c4-candidate5/rich-current"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "rich-previous-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/rich-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-rich-previous-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "rich-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/rich-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-rich-current-read-previous.json",
+        "--expect-new-names",
+        "--schema-boundary"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "rich-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/rich-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-rich-current-reopen.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "connectivity-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "connectivity-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-connectivity-current-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "connectivity-previous-migration-and-copy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-c",
+        "import pathlib, shutil, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); shutil.copytree(source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "/tmp/neistra158-c4-candidate5/connectivity-refusal"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "connectivity-previous-refuse-current",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "refuse",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-connectivity-previous-refuse-current.json",
+        "--expect-current-connectivity",
+        "--refusal-data",
+        "/tmp/neistra158-c4-candidate5/connectivity-refusal",
+        "--archives-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-current"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "connectivity-previous-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-connectivity-previous-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "connectivity-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-connectivity-current-read-previous.json",
+        "--expect-current-connectivity",
+        "--schema-boundary"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "connectivity-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-connectivity-current-reopen.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "measurements-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "measurements-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-measurements-current-produce.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "measurements-previous-migration-and-copy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-c",
+        "import pathlib, shutil, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); shutil.copytree(source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra158-c4-candidate5/measurements-current",
+        "/tmp/neistra158-c4-candidate5/measurements-refusal"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "measurements-previous-refuse-current",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "refuse",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-measurements-previous-refuse-current.json",
+        "--expect-ordered-measurements",
+        "--refusal-data",
+        "/tmp/neistra158-c4-candidate5/measurements-refusal",
+        "--archives-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-current"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "measurements-previous-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "--implementation-root",
+        "/tmp/neistra158-reader-0350",
+        "--expected-version",
+        "0.35.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-measurements-previous-produce.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra158-reader-0350/apps/api/src:/tmp/neistra158-reader-0350/packages/neistra_core/src:/tmp/neistra158-reader-0350/packages/neistra_demo_plugin/src:/tmp/neistra158-reader-0350",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra158-reader-0350"
+    },
+    {
+      "label": "measurements-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-measurements-current-read-previous.json",
+        "--expect-ordered-measurements",
+        "--schema-boundary"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "measurements-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/measurement_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra158-c4-candidate5/measurements-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--expected-version",
+        "0.36.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate5-measurements-current-reopen.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/apps/api/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "NEISTRA_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra158-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra158-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation"
+    },
+    {
+      "label": "editing-readers",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tests/support/structure_editing_reader_qualification.py",
+        "run",
+        "--schema-boundary",
+        "--current-root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--previous-root",
+        "/tmp/neistra158-reader-0350",
+        "--previous-receipt",
+        "/tmp/neistra158-reader-0350-source.json",
+        "--python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "--workspace",
+        "/tmp/neistra158-c4-candidate5/editing-readers",
+        "--current-version",
+        "0.36.0",
+        "--previous-version",
+        "0.35.0",
+        "--previous-tag",
+        "v0.35.0",
+        "--previous-commit",
+        "7542d1a19e80afe166d965c6321cda60839e4e5b"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

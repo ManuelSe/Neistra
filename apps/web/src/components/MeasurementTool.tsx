@@ -197,7 +197,12 @@ function ToolContent(props: MeasurementToolProps) {
     onOpenAutoFocus={event => { event.preventDefault(); position(); (minimized && props.onReviewTargets ? reviewTargets.current : heading.current)?.focus({ preventScroll: true }); }}
     onInteractOutside={event => { event.preventDefault(); }}
     onEscapeKeyDown={event => {
+      // Radix listens in document capture. Prevent its default dismissal before
+      // leaving an Escape from another focused dialog to that dialog's owner.
       event.preventDefault();
+      const target = event.target instanceof Element ? event.target : document.activeElement;
+      const dialog = target?.closest('[role="dialog"]');
+      if (dialog && dialog !== content.current) return;
       if (chooserOpen) closeChooser();
       else if (ordering) { setOrdering(false); props.onChooserEntryChange?.(null); useSelection.current?.focus({ preventScroll: true }); }
       else if (draft.acquiring) stopPicking();

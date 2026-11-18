@@ -1,0 +1,45 @@
+{
+  "access": {
+    "bytes": 24836352,
+    "file": "c2-access-attempts.zip",
+    "outer_manifest_entries": 29,
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c2-access-attempts.zip",
+    "sha256": "384aa108cbac802262c191fe3b52d3c0c93b61aabc350ce00ae1adffc9177369",
+    "verification_counts": {
+      "evidence_manifest_entries": 29,
+      "project_archive_files": 0,
+      "zip_archives": 9
+    }
+  },
+  "actual_predecessor_commit": "d8636064263f6221c402665da52a4a1738570845",
+  "actual_predecessor_tag": "v0.33.0",
+  "limitations": [
+    "Diagnostic reader observations precede current scientific corrections.",
+    "Final source-bound qualification must use the actually released predecessor after #156/#157 integration.",
+    "Only named bytecode/tool caches excluded; all synthetic stores, originals, histories, specimens and reports retained."
+  ],
+  "reader_diagnostics": {
+    "bytes": 6065993,
+    "file": "c2-reader-diagnostics.zip",
+    "outer_manifest_entries": 1075,
+    "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c2-reader-diagnostics.zip",
+    "sha256": "08a675b6d12917bb4bc2177bb805dee9829a784d5e2655b1669b06a7076f5430",
+    "verification_counts": {
+      "evidence_manifest_entries": 1075,
+      "project_archive_files": 1587,
+      "zip_archives": 704
+    }
+  },
+  "release_qualification": false,
+  "retained_readers": {
+    "editing": {
+      "excluded_caches": [],
+      "files": 664
+    },
+    "rich-connectivity": {
+      "excluded_caches": [],
+      "files": 411
+    }
+  },
+  "scope": "Retained #158 focused accessibility attempts and actual-source schema-boundary diagnostics, not final qualification"
+}

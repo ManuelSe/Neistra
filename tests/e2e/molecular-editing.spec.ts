@@ -272,7 +272,11 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
     },
   } });
   expect(styled.status()).toBe(200);
-  const project = await styled.json() as Project;
+  let project = await styled.json() as Project;
+  const importedEntry = project.entries[0];
+  const importedSource = (await (await request.get(`/api/v1/projects/${project.id}/entries/${importedEntry.id}/structure`)).json() as StructureProjection).structure;
+  expect(importedEntry.ligand_designation.status).toBe("unresolved");
+  expect(importedEntry.ligand_designation.assessed_at).toBeNull();
   await page.route("**/src/viewer/MolstarEngine.ts*", async route => {
     const response = await route.fetch();
     await route.fulfill({ response, body: `${await response.text()}\nconst editMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await editMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
@@ -281,10 +285,26 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+  // The first opening completes legacy intent assessment before this test's
+  // explicit preparation command captures its authoritative project revision.
+  await expect.poll(async () => ((await (await request.get(`/api/v1/projects/${project.id}`)).json()) as Project)
+    .entries[0].ligand_designation.assessed_at).not.toBeNull();
+  const assessed = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
+  expect(assessed.revision).toBe(project.revision + 1);
+  expect(assessed.history).toEqual(project.history);
+  expect(assessed.entries[0].ligand_designation).toMatchObject({
+    status: "selection_required", instance_id: null, atom_ids: [], origin: null,
+    source_artifact_id: importedEntry.current_artifact_id, assessed_revision: assessed.revision,
+  });
+  expect(assessed.entries[0].dirty).toBe(true);
+  expect({ ...assessed.entries[0], ligand_designation: null, modified_at: null, dirty: null })
+    .toEqual({ ...importedEntry, ligand_designation: null, modified_at: null, dirty: null });
+  project = assessed;
   const entry = project.entries[0];
   const path = `/api/v1/projects/${project.id}`;
   const projection = async () => (await (await request.get(`${path}/entries/${entry.id}/structure`)).json()) as StructureProjection;
   const source = (await projection()).structure;
+  expect(source).toEqual(importedSource);
   const target = source.atoms.find(a => a.element === "C" && a.formal_charge === 0 && a.coordinates[0] > 15)!;
   await selectAtom(page, entry.id, target.id, info.project.name === "mobile-chromium");
   const launcher = page.getByRole("button", { name: "Edit molecule", exact: true });

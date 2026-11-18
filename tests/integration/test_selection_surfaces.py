@@ -268,6 +268,9 @@ def test_surface_archive_compatibility_and_referential_validation(
                 manifest = json.loads(data)
                 settings = manifest["entries"][0]["viewer_settings"]
                 if mode == "legacy":
+                    for entry in manifest["entries"]:
+                        entry.pop("ligand_designation")
+                        entry.pop("designation_source_file")
                     settings.pop("surface_objects")
                     settings.pop("schema_version")
                     manifest["schema_version"] = 1

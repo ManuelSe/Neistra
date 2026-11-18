@@ -308,9 +308,65 @@ that marker is transient client state, not part of this response or archive data
 Deploy matching client/server versions for the required response identity.
 
 The projection is read-only. Neistra exposes no component rename,
-reclassification, individual-style, individual-visibility, ligand-designation,
-or subset-export endpoint. `/api/v1` remains the transport prefix; project/archive
-schema 2 and current Alembic head 0015 remain unchanged by projection identity.
+reclassification, individual-style, individual-visibility or subset-export endpoint.
+Exact ligand designation has its own entry-owned command below; projection reads do
+not designate a ligand. `/api/v1` remains the transport prefix. Current project/archive
+schema is 3, viewer schema is 2 and Alembic head is 0016.
+
+## Exact ligand designation
+
+Each `EntryRead.ligand_designation` is a typed `LigandDesignationV1`: status
+`unresolved | selection_required | not_applicable | cleared | resolved | stale`,
+assessed source artifact, durable instance UUID, complete canonical atom membership,
+automatic/manual origin and assessment provenance. Candidate keys identify current
+inventory choices; they are separate from durable instance UUIDs. Navigation, atom
+selection, camera and visibility never author this field.
+
+| Route under `/api/v1` | Contract |
+| --- | --- |
+| `GET /projects/{project}/entries/{entry}/ligand-candidates` | Current-source-qualified bounded inventory page (`offset`, `limit`, maximum 48; UI pages use 12), exact location/membership, qualified composition or unavailable reasons, provenance and warnings. |
+| `PUT /projects/{project}/entries/{entry}/ligand-designation` | Revision-locked Use or Clear: `expected_revision`, `expected_artifact_id`, and either `candidate_key` with `expected_input_hash`, or `clear: true`. Ordinary reversible project command. |
+| `POST /projects/{project}/ligand-designations/resolve` | Revision-locked controlled legacy assessment of distinct `entry_ids` (maximum 200). Preserves existing command/redo positions and completes only untouched unresolved migrated defaults. |
+| `GET /projects/{project}/entries/{entry}/ligand-candidates/{candidate}/depiction` | Current-source-qualified disposable 2D result: `ready`, `unavailable` or `busy`, with reason and qualified composition/provenance. Ready output references a verified immutable SVG artifact. |
+
+Exactly one fully qualified eligible candidate with no unresolved potentially eligible
+boundary permits automatic designation. Multiple candidates require explicit choice;
+water/true monoatomic ions are excluded under the documented policy. Uncertain
+chemistry does not fabricate formula, charge or mass. Known element identities can
+qualify heavy-site counts independently; unknown is null and known zero remains zero.
+Missing or ambiguous designated membership becomes stale with recovery guidance,
+without silently choosing another instance. Clear persists and suppresses reassignment.
+
+Each candidate also exposes derived `occurrence_count` (positive integer or null),
+`occurrence_basis` and `occurrence_reason`. A known count has exactly one basis and
+no reason: `qualified_representation_v1` counts matching strictly qualified graph
+representations across the complete current entry; `verified_source_entity_v1`
+counts complete instances of one verified original source entity. Source identity
+does not assert current chemical equality. An unavailable count has no basis and an
+explicit reason, never zero or a guessed one. Page size, instance ordinals, other
+entries and symmetry expansion do not contribute to a total. Unknown potential
+matches prevent exact chemical totals; independently verified source totals may
+remain available. Counts never change designation eligibility or persisted state.
+
+Counting shares the two drawing work slots, with single-flight same-input admission
+and no queue. A miss can return `occurrence_work_busy`; an admitted counting batch
+uses a cooperative two-second budget. Input limits are 1,024 potential instances,
+8,192 candidate sites and 1,024 sites per candidate. The process-local immutable
+summary cache retains at most 64 entries, 256 KiB per entry and 8 MiB of encoded
+key/value bytes; these are not Python-heap or process-memory limits. Cache hits
+still verify current normalized and original inputs. Busy/time refusals are not
+retained. One page-level Retry counts action refetches metadata without changing
+the exact choice, drawings, canonical selection or project revision. These limits
+do not bound existing whole-original preparation or interrupt a library call.
+
+Candidate pages and drawings are read-only to molecular content; choosing a ligand
+does not prepare it. Cache bindings include exact source and implementation policy;
+coordinate-only reuse requires matching qualified chemical input. Drawing admission
+retains at most 1,024 content records / 128 MiB, 4,096 source bindings, 512 KiB per
+SVG, and 1,024 admitted layout atoms. Capacity returns an explicit unavailable/busy
+result rather than inventing a drawing. Originals remain immutable. See
+[scientific limits](SCIENTIFIC_LIMITATIONS.md#exact-ligand-designation-and-disposable-depictions-158)
+and [migration/rollback](DEVELOPMENT.md#upgrading-exact-ligand-designation-0016).
 
 ## Selection Contract
 

@@ -20,7 +20,9 @@ VIEWER_SCRIPT = ROOT / "docs/assets/viewer-information/release-evidence.py.txt"
 
 
 @pytest.fixture(
-    scope="module", params=[SCRIPT, VIEWER_SCRIPT], ids=["interaction", "viewer-information"]
+    scope="module",
+    params=[SCRIPT, VIEWER_SCRIPT, ROOT / "docs/assets/ligand-designation/release-evidence.py.txt"],
+    ids=["interaction", "viewer-information", "ligand-designation"],
 )
 def tools(request: pytest.FixtureRequest) -> dict[str, Any]:
     return runpy.run_path(str(request.param))
@@ -72,6 +74,19 @@ def test_recursively_verifies_gzip_logs_and_nested_portable_archives(tools: dict
         "evidence_manifest_entries": 1,
         "project_archive_files": 1,
     }
+
+
+def test_ligand_evidence_checks_schema_three_portable_file_integrity() -> None:
+    tools = runpy.run_path(str(ROOT / "docs/assets/ligand-designation/release-evidence.py.txt"))
+    data = b"preserved original and designation source"
+    manifest = {"schema_version": 3, "files": [{
+        "path": "original.mol", "size": len(data), "sha256": tools["sha"](data),
+    }]}
+    result = tools["verify_layers"](zipped({"original.mol": data}, manifest), "current.zip")
+    assert result["project_archive_files"] == 1
+    manifest["files"][0]["sha256"] = "0" * 64
+    with pytest.raises(AssertionError):
+        tools["verify_layers"](zipped({"original.mol": data}, manifest), "corrupted-current.zip")
 
 
 @pytest.mark.parametrize("variant", ["changed", "missing", "unexpected", "wrong-size", "bad-hash"])

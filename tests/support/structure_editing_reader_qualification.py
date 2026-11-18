@@ -9,6 +9,7 @@ import io
 import json
 import os
 import re
+import runpy
 import shutil
 import subprocess
 import sys
@@ -18,10 +19,12 @@ from copy import deepcopy
 from importlib.metadata import version as distribution_version
 from pathlib import Path
 from typing import Any, Literal, cast
+from uuid import UUID
 
 PREVIOUS_COMMIT = "cc54cd324c5aebe86024c1b85165715691ddcbb3"
 PREVIOUS_VERSION = "0.31.0"
 SUFFIXES = (".neistra.zip", ".molweave.zip")
+SCHEMA_BOUNDARY_PROTOCOL = "schema-boundary-v1"
 PROFILES = {
     "cyclopropyl": (3, 5),
     "cyclobutyl": (4, 7),
@@ -219,6 +222,7 @@ def state(client: Any, project: dict[str, Any]) -> dict[str, Any]:
 
     project = client.get(f"/api/v1/projects/{project['id']}").json()
     canonical, current_sha, originals, counters, entries, ids = {}, {}, {}, {}, {}, {}
+    designations = {}
     fields = (
         "structure_type",
         "original_filename",
@@ -259,7 +263,9 @@ def state(client: Any, project: dict[str, Any]) -> dict[str, Any]:
                 field: entry[field]
                 for field in ("id", "current_artifact_id", "original_artifact_id")
             }
-    return {
+            if "ligand_designation" in entry:
+                designations[name] = deepcopy(entry["ligand_designation"])
+    result = {
         "canonical": canonical,
         "current_sha256": current_sha,
         "original_sha256": originals,
@@ -267,6 +273,9 @@ def state(client: Any, project: dict[str, Any]) -> dict[str, Any]:
         "entries": entries,
         "ids": ids,
     }
+    if designations:
+        result["ligand_designations"] = designations
+    return result
 
 
 def assert_state(
@@ -283,6 +292,34 @@ def assert_state(
     )
     if retained:
         assert actual["ids"] == expected["ids"], "retained stable entry/artifact identities"
+    if "ligand_designations" in expected:
+        assert_designations(actual, expected, retained=retained)
+
+
+def assert_designations(
+    actual: dict[str, Any],
+    expected: dict[str, Any],
+    *,
+    retained: bool,
+) -> None:
+    assert set(actual["ligand_designations"]) == set(expected["ligand_designations"])
+    for name, original in expected["ligand_designations"].items():
+        designation = deepcopy(actual["ligand_designations"][name])
+        wanted = deepcopy(original)
+        if not retained:
+            if wanted["source_artifact_id"] is not None:
+                assert wanted["source_artifact_id"] == expected["ids"][name]["current_artifact_id"]
+                assert (
+                    designation["source_artifact_id"] == actual["ids"][name]["current_artifact_id"]
+                )
+                designation["source_artifact_id"] = wanted["source_artifact_id"]
+            if wanted["instance_id"] is not None:
+                UUID(designation["instance_id"])
+                assert designation["instance_id"] != wanted["instance_id"], (
+                    "independent imported intent"
+                )
+                designation["instance_id"] = wanted["instance_id"]
+        assert designation == wanted, (name, "exact ligand intent/provenance/membership")
 
 
 def export_bytes(client: Any, project: dict[str, Any], label: str, expected_version: str) -> bytes:
@@ -455,7 +492,9 @@ def assert_aromatic_fixed(seed: Any, document: dict[str, Any]) -> None:
     )
 
 
-def produce(client: Any, root: Path, exchange: Path, version: str) -> dict[str, Any]:
+def produce(
+    client: Any, root: Path, exchange: Path, version: str, *, producer_scope: str = "current"
+) -> dict[str, Any]:
     from collections import Counter
 
     import numpy as np
@@ -486,7 +525,7 @@ def produce(client: Any, root: Path, exchange: Path, version: str) -> dict[str, 
                 "transitions": transitions,
                 "history_rows": history_rows(client, project["id"]),
                 "archives": files,
-                "authorship": "current implementation API operations",
+                "authorship": f"{producer_scope} implementation API operations",
             }
         )
 
@@ -732,15 +771,17 @@ def produce(client: Any, root: Path, exchange: Path, version: str) -> dict[str, 
     result = {
         "producer_version": version,
         "cases": cases,
-        "new_operation_author": "current implementation only",
+        "new_operation_author": f"{producer_scope} implementation only",
         "opaque_jobs": "separate existing rich/connectivity families",
     }
     write_json(exchange / "expectations.json", result)
+    assert len(cases) == 15 and sum(len(c["transitions"]) for c in cases) == 24
     return {
         "cases": len(cases),
         "case_labels": [c["label"] for c in cases],
         "transitions": sum(len(c["transitions"]) for c in cases),
         "expectations_sha256": digest((exchange / "expectations.json").read_bytes()),
+        "archives": sum(len(case["archives"]) for case in cases),
     }
 
 
@@ -764,6 +805,83 @@ def retained_history(client: Any, case: dict[str, Any]) -> None:
                 state(client, project), expected, retained=True, counters=case["after"]["counters"]
             )
     assert history_rows(client, project["id"]) == case["history_rows"]
+
+
+def _default_designations(snapshot: dict[str, Any]) -> None:
+    """Only the current process imports its selected schema/default converter."""
+    from neistra_api.schemas import ProjectRead
+
+    from tests.support.project_document_compatibility import expected_project
+
+    assert ProjectRead.model_fields["schema_version"].default == 3
+    converted = expected_project(
+        {
+            "schema_version": 2,
+            "entries": [{"name": name, **entry} for name, entry in snapshot["entries"].items()],
+        }
+    )
+    assert snapshot["ligand_designations"] == {
+        entry["name"]: entry["ligand_designation"] for entry in converted["entries"]
+    }, "schema-2 archive/store restores exact unresolved defaults without automatic GET assignment"
+
+
+def _assert_preceding_history(actual: list[dict[str, Any]], expected: list[dict[str, Any]]) -> None:
+    """Compare every old field; remove only explicitly added typed contract fields."""
+    projected = deepcopy(actual)
+    assert len(projected) == len(expected)
+    for row, old in zip(projected, expected, strict=True):
+        for field in ("forward_actions", "inverse_actions"):
+            assert len(row[field]) == len(old[field])
+            for action, prior in zip(row[field], old[field], strict=True):
+                kind = action.get("kind")
+                if kind == "entry.create":
+                    if "ligand_designation" not in prior["entry"]:
+                        action["entry"].pop("ligand_designation", None)
+                    if "ligand_default_pending" not in prior:
+                        action.pop("ligand_default_pending", None)
+                elif kind in {"entry.molecule", "entry.coordinates"}:
+                    if "ligand_designation" not in prior:
+                        action.pop("ligand_designation", None)
+                if isinstance(action.get("values"), dict) and isinstance(prior.get("values"), dict):
+                    if "ligand_designation" not in prior["values"]:
+                        action["values"].pop("ligand_designation", None)
+    assert projected == expected, "all preceding command data retained exactly"
+
+
+def migrated_retained_history(client: Any, case: dict[str, Any]) -> None:
+    path = f"/api/v1/projects/{case['project_id']}"
+    project = client.get(path).json()
+    assert_state(state(client, project), case["after"], retained=True)
+    _default_designations(state(client, project))
+    _assert_preceding_history(history_rows(client, project["id"]), case["history_rows"])
+    observed: dict[tuple[str, int], dict[str, Any]] = {}
+    stable_history = None
+    # First replay materializes accepted legacy intent snapshots. The second
+    # independently proves those exact identities/provenance are reused.
+    for replay in range(2):
+        for direction, transitions in (
+            ("undo", list(reversed(case["transitions"]))),
+            ("redo", case["transitions"]),
+        ):
+            for index, transition in enumerate(transitions):
+                response = client.post(
+                    f"{path}/history/{direction}", json={"expected_revision": project["revision"]}
+                )
+                assert response.status_code == 200, response.text
+                project = response.json()
+                actual = state(client, project)
+                expected = transition["before" if direction == "undo" else "after"]
+                assert_state(actual, expected, retained=True, counters=case["after"]["counters"])
+                if replay == 0:
+                    observed[direction, index] = actual
+                else:
+                    assert_state(actual, observed[direction, index], retained=True)
+        rows = history_rows(client, project["id"])
+        _assert_preceding_history(rows, case["history_rows"])
+        if replay == 0:
+            stable_history = rows
+        else:
+            assert rows == stable_history, "legacy intent materialization runs once"
 
 
 def persistence(client: Any, data: Path) -> dict[str, Any]:
@@ -939,13 +1057,23 @@ def oracle_controls(cases: list[dict[str, Any]]) -> list[str]:
 
 
 def consume(
-    client: Any, exchange: Path, output: Path, version: str, *, retained: bool
+    client: Any,
+    exchange: Path,
+    output: Path,
+    version: str,
+    *,
+    retained: bool,
+    producer_scope: str = "current",
 ) -> dict[str, Any]:
     expected = json.loads((exchange / "expectations.json").read_text())
     cases, written, retained_projects = expected["cases"], [], []
     for case in cases:
         if retained:
-            retained_history(client, case)
+            current = state(client, client.get(f"/api/v1/projects/{case['project_id']}").json())
+            if "ligand_designations" not in case["after"] and "ligand_designations" in current:
+                migrated_retained_history(client, case)
+            else:
+                retained_history(client, case)
         for archived in case["archives"]:
             content = Path(archived["path"]).read_bytes()
             assert digest(content) == archived["sha256"]
@@ -953,6 +1081,10 @@ def consume(
                 client, content, archived["suffix"], f"read-{case['label']}-{archived['suffix']}"
             )
             assert_state(state(client, project), case["after"])
+            if "ligand_designations" not in case["after"] and "ligand_designations" in state(
+                client, project
+            ):
+                _default_designations(state(client, project))
             retained_projects.append({"project_id": project["id"], "state": state(client, project)})
             reexported = export_bytes(
                 client, project, f"reexport-{case['label']}-{archived['suffix']}", version
@@ -968,7 +1100,7 @@ def consume(
                     "suffix": archived["suffix"],
                     "sha256": digest(reexported),
                     "writer_version": version,
-                    "state_origin": "current API-authored seed retained and re-exported",
+                    "state_origin": f"{producer_scope} API-authored seed retained and re-exported",
                 }
             )
     first = cases[0]
@@ -1001,7 +1133,9 @@ def consume(
         "stale_guards": guards,
         "corruption": controls,
         "deep_oracle_negative_controls": oracle_controls(cases),
-        "authorship": "reader retained current-authored states; no new-fragment authoring claim",
+        "authorship": (
+            f"reader retained {producer_scope}-authored states; no new-fragment authoring claim"
+        ),
     }
 
 
@@ -1048,7 +1182,386 @@ def read_reexports(
     }
 
 
+def produce_designations(client: Any, root: Path, exchange: Path, version: str) -> dict[str, Any]:
+    """Separate durable-intent fixtures; never substitute these for editing cases."""
+    from tests.support.editing_fixture import build_fixture
+
+    cases = []
+    for intent in ("automatic", "manual", "cleared", "stale", "default"):
+        label = f"designation-{intent}"
+        transitions = []
+        if intent == "default":
+            project = import_bytes(
+                client,
+                build_fixture(ligand_seed(label), application_version=version),
+                SUFFIXES[0],
+                label,
+            )
+            _default_designations(state(client, project))
+        else:
+            response = client.post("/api/v1/projects", json={"name": label})
+            assert response.status_code == 201, response.text
+            project = response.json()
+            filename = "repeated.smi" if intent == "manual" else "ethanol.mol"
+            payload = (
+                b"CCO.CCO repeated\n"
+                if intent == "manual"
+                else (root / "tests/fixtures/formats/ethanol.mol").read_bytes()
+            )
+            response = client.post(
+                f"/api/v1/projects/{project['id']}/imports",
+                data={"expected_revision": project["revision"], "generate_3d": "false"},
+                files=[("files", (filename, payload, "application/octet-stream"))],
+            )
+            assert response.status_code == 201, response.text
+            project = client.get(f"/api/v1/projects/{project['id']}").json()
+            entry = project["entries"][0]
+            before = state(client, project)
+            endpoint = f"/api/v1/projects/{project['id']}/entries/{entry['id']}"
+            if intent == "manual":
+                assert entry["ligand_designation"]["status"] == "selection_required"
+                inventory = client.get(
+                    f"{endpoint}/ligand-candidates",
+                    params={"expected_artifact_id": entry["current_artifact_id"]},
+                )
+                assert inventory.status_code == 200, inventory.text
+                page = inventory.json()
+                assert page["total"] == 2
+                candidate = page["candidates"][1]
+                assert candidate["atom_ids"] == [4, 5, 6], "exact repeated second instance"
+                response = client.request(
+                    "PUT",
+                    f"{endpoint}/ligand-designation",
+                    json={
+                        "expected_revision": project["revision"],
+                        "expected_artifact_id": entry["current_artifact_id"],
+                        "candidate_key": candidate["candidate_key"],
+                        "expected_input_hash": page["input_hash"],
+                    },
+                )
+                assert response.status_code == 200, response.text
+                project = response.json()
+                assert project["entries"][0]["ligand_designation"]["origin"] == "manual"
+                assert project["entries"][0]["ligand_designation"]["atom_ids"] == [4, 5, 6]
+            else:
+                designation = entry["ligand_designation"]
+                assert designation["status"] == "resolved"
+                assert designation["origin"] == "automatic_single_candidate"
+                assert designation["atom_ids"] == entry["atom_ids"]
+                if intent == "cleared":
+                    response = client.request(
+                        "PUT",
+                        f"{endpoint}/ligand-designation",
+                        json={
+                            "expected_revision": project["revision"],
+                            "expected_artifact_id": entry["current_artifact_id"],
+                            "clear": True,
+                        },
+                    )
+                    assert response.status_code == 200, response.text
+                    project = response.json()
+                    assert project["entries"][0]["ligand_designation"]["status"] == "cleared"
+                elif intent == "stale":
+                    project = selected(
+                        client, project, entry["id"], [2], {"operation": "atom.delete"}
+                    )["project"]
+                    stale = project["entries"][0]["ligand_designation"]
+                    assert (
+                        stale["status"] == "stale" and stale["atom_ids"] == designation["atom_ids"]
+                    )
+                    assert 2 not in project["entries"][0]["atom_ids"]
+                    assert stale["instance_id"] == designation["instance_id"]
+            if intent in {"manual", "cleared", "stale"}:
+                transitions.append({"before": before, "after": state(client, project)})
+        response = client.post(
+            f"/api/v1/projects/{project['id']}/save",
+            json={"expected_revision": project["revision"]},
+        )
+        assert response.status_code == 200, response.text
+        project = response.json()
+        content = export_bytes(client, project, label, version)
+        archives = []
+        for suffix in SUFFIXES:
+            path = exchange / f"{label}{suffix}"
+            path.write_bytes(content)
+            archives.append({"path": str(path), "suffix": suffix, "sha256": digest(content)})
+        cases.append(
+            {
+                "label": label,
+                "project_id": project["id"],
+                "after": state(client, project),
+                "transitions": transitions,
+                "history_rows": history_rows(client, project["id"]),
+                "archives": archives,
+            }
+        )
+    assert len(cases) == 5
+    write_json(exchange / "designation-expectations.json", {"cases": cases})
+    return {
+        "cases": len(cases),
+        "case_labels": [case["label"] for case in cases],
+        "archives": sum(len(case["archives"]) for case in cases),
+    }
+
+
+def boundary_helper() -> dict[str, Any]:
+    return runpy.run_path(str(Path(__file__).with_name("schema_boundary_refusal.py")))
+
+
+def database_heads(data: Path) -> list[str]:
+    import sqlite3
+
+    database = data / "neistra.db"
+    with sqlite3.connect(f"{database.as_uri()}?mode=ro", uri=True) as connection:
+        return [row[0] for row in connection.execute("SELECT version_num FROM alembic_version")]
+
+
+def migrate_selected(root: Path, data: Path) -> None:
+    """Run only the actually selected implementation's migration environment."""
+    from alembic import command
+    from alembic.config import Config
+
+    keys = {
+        "NEISTRA_DATA_DIR": str(data),
+        "NEISTRA_DATABASE_URL": f"sqlite:///{data / 'neistra.db'}",
+    }
+    previous = {key: os.environ.get(key) for key in keys}
+    try:
+        os.environ.update(keys)
+        command.upgrade(Config(str(root / "alembic.ini")), "head")
+    finally:
+        for key, value in previous.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
+
+def selected_client(data: Path) -> Any:
+    from neistra_api.main import create_app
+    from neistra_api.settings import Settings
+
+    from tests.support.api_client import ApiClient
+
+    app = create_app(Settings(data_dir=data, database_url=f"sqlite:///{data / 'neistra.db'}"))
+    app.state.editing_reader_data = str(data)
+    return ApiClient(app)
+
+
+def refuse_current_store(root: Path, data: Path) -> dict[str, Any]:
+    from alembic.util.exc import CommandError
+    from sqlalchemy.exc import OperationalError
+
+    helper = boundary_helper()
+    before = helper["snapshot"](data)
+    assert database_heads(data) == ["0016"]
+    try:
+        migrate_selected(root, data)
+    except CommandError as exc:
+        assert "Can't locate revision identified by '0016'" in str(exc), str(exc)
+        migration_reason = str(exc)
+    else:
+        raise AssertionError("Actual predecessor unexpectedly accepted migration0016")
+    assert helper["snapshot"](data) == before, "migration refusal changed current store"
+    client = selected_client(data)
+    try:
+        try:
+            client.get("/api/v1/projects")
+        except OperationalError as exc:
+            assert "no such table: projects" in str(exc), str(exc)
+            api_reason = str(exc)
+        else:
+            raise AssertionError("Actual predecessor unexpectedly read the schema3 root")
+    finally:
+        client.app.state.engine.dispose()
+    after = helper["snapshot"](data)
+    assert after == before, "API refusal changed current store"
+    return {
+        "refusals": 2,
+        "migration": {"code": "unknown_revision_0016", "reason": migration_reason},
+        "api": {"code": "missing_projects_table", "reason": api_reason},
+        "before": before,
+        "after": after,
+        "unchanged": True,
+        "database_heads": ["0016"],
+    }
+
+
+def fixture_cases(exchange: Path, *, designation: bool = False) -> list[dict[str, Any]]:
+    filename = "designation-expectations.json" if designation else "expectations.json"
+    return cast(list[dict[str, Any]], json.loads((exchange / filename).read_text())["cases"])
+
+
+def reopen_current(client: Any, exchange: Path, version: str) -> dict[str, Any]:
+    editing = fixture_cases(exchange)
+    designation = fixture_cases(exchange, designation=True)
+    reads = 0
+    for case in [*editing, *designation]:
+        retained_history(client, case)
+        for archive in case["archives"]:
+            payload = Path(archive["path"]).read_bytes()
+            assert digest(payload) == archive["sha256"]
+            imported = import_bytes(client, payload, archive["suffix"], f"reopen-{case['label']}")
+            assert_state(state(client, imported), case["after"])
+            reexport = export_bytes(client, imported, f"reopen-export-{case['label']}", version)
+            reimported = import_bytes(
+                client, reexport, archive["suffix"], f"reopen-reimport-{case['label']}"
+            )
+            assert_state(state(client, reimported), case["after"])
+            reads += 1
+    assert len(editing) == 15 and len(designation) == 5 and reads == 40
+    return {
+        "retained_editing_cases": len(editing),
+        "retained_designation_cases": len(designation),
+        "archive_reads": reads,
+        "reexport_reimports": reads,
+        "designation_exact_provenance_membership_and_remaps": True,
+    }
+
+
+def read_current_reexports(
+    client: Any, exchange: Path, output: Path, version: str
+) -> dict[str, Any]:
+    cases = {case["label"]: case for case in fixture_cases(exchange)}
+    record = json.loads((output / "reexports.json").read_text())
+    assert record["writer_version"] == version
+    retained_history(client, record["allocator_case"])
+    reads = 0
+    for item in record["files"]:
+        payload = Path(item["path"]).read_bytes()
+        assert digest(payload) == item["sha256"]
+        for suffix in SUFFIXES:
+            project = import_bytes(client, payload, suffix, f"migrated-{item['case']}-{suffix}")
+            assert_state(state(client, project), cases[item["case"]]["after"])
+            _default_designations(state(client, project))
+            again = export_bytes(
+                client, project, f"migrated-export-{item['case']}-{suffix}", version
+            )
+            project = import_bytes(
+                client, again, suffix, f"migrated-reimport-{item['case']}-{suffix}"
+            )
+            assert_state(state(client, project), cases[item["case"]]["after"])
+            _default_designations(state(client, project))
+            reads += 1
+    assert len(cases) == 15 and len(record["files"]) == 30 and reads == 60
+    return {
+        "current_writer_archives": len(record["files"]),
+        "current_reads": reads,
+        "current_reexport_reimports": reads,
+        "previous_authored_cases": len(cases),
+    }
+
+
+def boundary_child(args: argparse.Namespace) -> None:
+    root, data = args.root.resolve(), args.data.resolve()
+    record = identity(root, args.version, args.receipt, args.previous_tag, args.previous_commit)
+    helper_path = Path(__file__).with_name("schema_boundary_refusal.py")
+    result: dict[str, Any] = {"protocol": SCHEMA_BOUNDARY_PROTOCOL, "mode": args.mode}
+    if args.mode == "refuse-current-produce-previous":
+        result["current_store_refusal"] = refuse_current_store(root, args.refusal_data.resolve())
+    before_heads = database_heads(data) if (data / "neistra.db").exists() else []
+    if args.mode != "read-previous-reopen-current":
+        assert before_heads == []
+    else:
+        assert before_heads == ["0015"]
+    migrate_selected(root, data)
+    heads = database_heads(data)
+    assert heads == (["0015"] if args.receipt else ["0016"]), heads
+    client = selected_client(data)
+    try:
+        assert client.app.version == args.version
+        if args.mode == "produce-current":
+            result["editing"] = produce(client, root, args.exchange, args.version)
+            result["designation"] = produce_designations(client, root, args.exchange, args.version)
+            result["controls"] = consume(
+                client, args.exchange, args.output, args.version, retained=False
+            )
+        elif args.mode == "refuse-current-produce-previous":
+            archives = [
+                archive
+                for case in [
+                    *fixture_cases(args.exchange),
+                    *fixture_cases(args.exchange, designation=True),
+                ]
+                for archive in case["archives"]
+            ]
+            probes = [
+                {**archive, "suffix": archive["suffix"].split(".")[1]} for archive in archives
+            ]
+            result["current_archive_refusal"] = boundary_helper()["refuse_archives"](
+                client, data, probes
+            )
+            assert len(result["current_archive_refusal"]["archive_refusals"]) == 40
+            result["editing"] = produce(
+                client, root, args.output, args.version, producer_scope="previous"
+            )
+            result["controls"] = consume(
+                client,
+                args.output,
+                args.previous_output,
+                args.version,
+                retained=True,
+                producer_scope="previous",
+            )
+        else:
+            old_controls = json.loads((args.previous_controls / "reexports.json").read_text())
+            assert old_controls["writer_version"] == args.previous_version
+            for retained in old_controls["retained_projects"]:
+                project = client.get(f"/api/v1/projects/{retained['project_id']}").json()
+                assert_state(state(client, project), retained["state"], retained=True)
+                _default_designations(state(client, project))
+                assert history_rows(client, project["id"]) == []
+            assert len(old_controls["retained_projects"]) == 30
+            migrated_retained_history(client, old_controls["allocator_case"])
+            result["previous_control_retention"] = {
+                "retained_imported_projects": len(old_controls["retained_projects"]),
+                "retained_allocator_history": True,
+                "exact_defaults_before_replay": True,
+            }
+            # Assert all migrated defaults before replay may materialize intent.
+            for case in fixture_cases(args.previous_output):
+                _default_designations(
+                    state(client, client.get(f"/api/v1/projects/{case['project_id']}").json())
+                )
+            result["previous_retention"] = consume(
+                client,
+                args.previous_output,
+                args.output,
+                args.version,
+                retained=True,
+                producer_scope="previous",
+            )
+            result["previous_reexports"] = read_current_reexports(
+                client, args.previous_output, args.output, args.version
+            )
+            reopened = selected_client(args.reopen_data.resolve())
+            try:
+                assert database_heads(args.reopen_data.resolve()) == ["0016"]
+                result["current_reopen"] = reopen_current(reopened, args.exchange, args.version)
+            finally:
+                reopened.app.state.engine.dispose()
+        verify_source(record)
+        result.update(
+            identity=record,
+            database_heads_before=before_heads,
+            database_heads=heads,
+            wrapper_sha256=digest(Path(__file__).read_bytes()),
+            refusal_helper={"path": str(helper_path), "sha256": digest(helper_path.read_bytes())},
+        )
+        write_json(args.evidence, result)
+        print(json.dumps({key: value for key, value in result.items() if key != "identity"}))
+    finally:
+        client.app.state.engine.dispose()
+
+
 def child(args: argparse.Namespace) -> None:
+    if args.mode in {
+        "produce-current",
+        "refuse-current-produce-previous",
+        "read-previous-reopen-current",
+    }:
+        boundary_child(args)
+        return
     from alembic import command
     from alembic.config import Config
     from neistra_api.main import create_app
@@ -1196,6 +1709,90 @@ def run(args: argparse.Namespace) -> None:
         print(f"{mode} {version}: exit {process.returncode}; {log}", flush=True)
         assert process.returncode == 0, log.read_text()[-10000:]
 
+    if args.schema_boundary:
+        previous_exchange = work / "previous-exchange"
+        previous_controls = work / "previous-controls"
+        current_controls = work / "current-controls"
+        current_reexports = work / "current-reexports"
+        for directory in (
+            previous_exchange,
+            previous_controls,
+            current_controls,
+            current_reexports,
+        ):
+            directory.mkdir()
+        produced = work / "current-produced"
+        invoke(
+            "produce-current",
+            root,
+            args.current_version,
+            produced,
+            ["--output", str(current_controls)],
+        )
+        refusal = work / "previous-refused"
+        shutil.copytree(produced, refusal)
+        old_produced = work / "previous-produced"
+        invoke(
+            "refuse-current-produce-previous",
+            previous,
+            args.previous_version,
+            old_produced,
+            [
+                "--receipt",
+                str(args.previous_receipt.resolve()),
+                "--refusal-data",
+                str(refusal),
+                "--output",
+                str(previous_exchange),
+                "--previous-output",
+                str(previous_controls),
+            ],
+        )
+        migrated = work / "current-read-previous"
+        shutil.copytree(old_produced, migrated)
+        invoke(
+            "read-previous-reopen-current",
+            root,
+            args.current_version,
+            migrated,
+            [
+                "--previous-output",
+                str(previous_exchange),
+                "--previous-controls",
+                str(previous_controls),
+                "--output",
+                str(current_reexports),
+                "--reopen-data",
+                str(produced),
+            ],
+        )
+        result = {
+            "protocol": SCHEMA_BOUNDARY_PROTOCOL,
+            "release_qualification": not args.diagnostic,
+            "diagnostic": args.diagnostic,
+            "current_version": args.current_version,
+            "previous_version": args.previous_version,
+            "previous_tag": args.previous_tag,
+            "previous_commit": args.previous_commit,
+            "phases": phases,
+            "wrapper_sha256": digest(Path(__file__).read_bytes()),
+            "scope": (
+                "actual predecessor refusal; independently previous-authored editing retention; "
+                "current editing/designation reopen and exact archive remapping"
+            ),
+            "limitations": [
+                "Portable archives omit Undo history; copied stores retain it.",
+                *(
+                    ["Final source/version rerun is required after diagnostic qualification."]
+                    if args.diagnostic
+                    else []
+                ),
+            ],
+        }
+        write_json(work / "summary.json", result)
+        print(json.dumps(result, indent=2))
+        return
+
     produced = work / "current-produced"
     invoke("produce", root, args.current_version, produced, [])
     retained = work / "previous-retained"
@@ -1257,8 +1854,19 @@ def parser() -> argparse.ArgumentParser:
     runner.add_argument("--previous-tag", default=f"v{PREVIOUS_VERSION}")
     runner.add_argument("--previous-commit", default=PREVIOUS_COMMIT)
     runner.add_argument("--diagnostic", action="store_true")
+    runner.add_argument("--schema-boundary", action="store_true")
     worker = subs.add_parser("child")
-    worker.add_argument("mode", choices=("produce", "consume", "read-reexports"))
+    worker.add_argument(
+        "mode",
+        choices=(
+            "produce",
+            "consume",
+            "read-reexports",
+            "produce-current",
+            "refuse-current-produce-previous",
+            "read-previous-reopen-current",
+        ),
+    )
     for name in ("root", "data", "exchange", "evidence"):
         worker.add_argument(f"--{name}", type=Path, required=True)
     worker.add_argument("--version", required=True)
@@ -1268,6 +1876,9 @@ def parser() -> argparse.ArgumentParser:
     worker.add_argument("--receipt", type=Path)
     worker.add_argument("--output", type=Path)
     worker.add_argument("--previous-output", type=Path)
+    worker.add_argument("--previous-controls", type=Path)
+    worker.add_argument("--refusal-data", type=Path)
+    worker.add_argument("--reopen-data", type=Path)
     return parser
 
 
