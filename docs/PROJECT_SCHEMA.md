@@ -17,6 +17,24 @@ Older supported archives are validated and migrated explicitly; unknown versions
 are rejected rather than guessed. The schema 2 sections below describe retained
 historical contracts, not the current project discriminator.
 
+`LigandDesignationV1` carries schema 1, status (`unresolved`, `selection_required`,
+`not_applicable`, `cleared`, `resolved`, `stale`), assessed source artifact, exact
+instance UUID, sorted unique canonical atom IDs, automatic/manual origin, selection
+time and resolver/assessment/reason metadata. Assigned/stale intent requires its
+source, instance, membership and provenance; unassigned states carry no active
+reference. Stale intent requires a recovery reason. Clear is explicit retained
+intent, not a request to pick another automatic candidate.
+
+Migration 0016 adds defaults across live entries, checkpoint snapshots and retained
+forward/inverse command states, then moves the physical project table boundary to
+`project_documents_v3`. Older readers must not silently discard designation fields.
+The actual v0.35 reader qualifies safe refusal without mutation; schema 1/2 archive
+imports migrate forward under current code. Guarded downgrade refuses any retained
+nondefault designation or designation command that would lose intent, including
+Clear. Keep complete pre-upgrade backups and matching client/server versions.
+Original uploads and canonical molecular data remain immutable.
+
+
 The #159 development extension uses Alembic `0017` over `0016` without advancing
 project/archive/viewer schema. It adds `jobs.purpose` (default `user`) and these
 installation-owned, regenerable tables:

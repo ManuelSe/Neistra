@@ -1,0 +1,189 @@
+{
+  "preceding_tag": "v0.35.0",
+  "protocol": "schema-boundary-v1",
+  "preceding_runtime": "7542d1a19e80afe166d965c6321cda60839e4e5b",
+  "preceding_source_identities": 931,
+  "directions": {
+    "rich-current-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-rich-current-produce.json",
+      "evidence_sha256": "45f468e15412d7f2f7c26cf2f3bf2dfff9b76361f81d149c0bc81be7ddb238b0"
+    },
+    "rich-previous-refuse-current": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "refuse",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": true,
+      "evidence": "docs/assets/ligand-designation/c5-master1-rich-previous-refuse-current.json",
+      "evidence_sha256": "281c0974ec1242335f2f2ba287994e597c1079a69b371ae1b28b19ca8139948b"
+    },
+    "rich-previous-produce": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-rich-previous-produce.json",
+      "evidence_sha256": "9a5a8b8fc9bd00689c6824100b1a52c4984f371273f2da87a786ea8bebf471ed"
+    },
+    "rich-current-read-previous": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-rich-current-read-previous.json",
+      "evidence_sha256": "e9d1b6389c868442547b94591be481f2afd5e2f9749dc51fe46011818704a678"
+    },
+    "rich-current-reopen": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-rich-current-reopen.json",
+      "evidence_sha256": "4c6d60aa3483a847f6d0985d4475ddb4c1b455af404df21959b1f6c14b7f5e4f"
+    },
+    "connectivity-current-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-connectivity-current-produce.json",
+      "evidence_sha256": "ac00fde567ca1a2949f5c3ce57066fb6a1c6d5c5b0c0b07c804ad0c6abbec514"
+    },
+    "connectivity-previous-refuse-current": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "refuse",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": true,
+      "evidence": "docs/assets/ligand-designation/c5-master1-connectivity-previous-refuse-current.json",
+      "evidence_sha256": "50ab5a5d33c1b576a3e7a7debe6e5e4176ebb6b55961de8f8192975b8d350d06"
+    },
+    "connectivity-previous-produce": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-connectivity-previous-produce.json",
+      "evidence_sha256": "31368263ee5587f2237b1a7c8ef596e6f761916cb44f2983ac632b2486491222"
+    },
+    "connectivity-current-read-previous": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-connectivity-current-read-previous.json",
+      "evidence_sha256": "72bbc86cbf59b4f47e5e4b08a54d9c4b641bcdc3da07eb0c42aa743ae2987765"
+    },
+    "connectivity-current-reopen": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-connectivity-current-reopen.json",
+      "evidence_sha256": "475de32aea19c672cd0cd98619360f16a599e84b80aa72a7fad39c44f6d9a5ca"
+    },
+    "measurements-current-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-measurements-current-produce.json",
+      "evidence_sha256": "15273efb548e6f4f251de2ca37b17e6a8711fc9c568e01542b108e50dfb8d381"
+    },
+    "measurements-previous-refuse-current": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "refuse",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": true,
+      "evidence": "docs/assets/ligand-designation/c5-master1-measurements-previous-refuse-current.json",
+      "evidence_sha256": "7f4ff91f1a36fa0bbcf1d662f49ed17b0c24489681d620fe030ad47c9bbe827a"
+    },
+    "measurements-previous-produce": {
+      "version": "0.35.0",
+      "implementation_root": "/tmp/neistra158-reader-0350",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-measurements-previous-produce.json",
+      "evidence_sha256": "776a99707f4e33885063a9bcf07c6e7461f80dce2d2f1ea13b9ea9f396d78944"
+    },
+    "measurements-current-read-previous": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-measurements-current-read-previous.json",
+      "evidence_sha256": "fe121b669c9f5e931be4f992b806e2e9907634ca7029077d6be2baa3197ef0bc"
+    },
+    "measurements-current-reopen": {
+      "version": "0.36.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "both_suffixes_refusal_verified": false,
+      "evidence": "docs/assets/ligand-designation/c5-master1-measurements-current-reopen.json",
+      "evidence_sha256": "d668bfa19adf2c781174cec2cbd4a995fd5eba91fc5d1636f086ac7160c5591f"
+    }
+  },
+  "new_editing_states": {
+    "wrapper_sha256": "a5d61a8121809f9af06e2abfb41bff3d0e44b5803393f196bcb92d9129d7a1d3",
+    "actual_three_phases_verified": true,
+    "current_authored_editing_projects": 15,
+    "retained_transitions": 24,
+    "current_designation_projects": 5,
+    "case_labels": [
+      "fragment-cyclopropyl-heavy",
+      "fragment-cyclopropyl-H",
+      "fragment-cyclobutyl-heavy",
+      "fragment-cyclobutyl-H",
+      "fragment-cyclopentyl-heavy",
+      "fragment-cyclopentyl-H",
+      "fragment-cyclohexyl-heavy",
+      "fragment-cyclohexyl-H",
+      "fragment-methoxy-heavy",
+      "fragment-methoxy-H",
+      "cut-mutation",
+      "torsion",
+      "aromatic-partial",
+      "aromatic-ring",
+      "attached-h-appearance"
+    ],
+    "preceding_reader_safely_refuses_current_schema": true,
+    "preceding_archive_refusals": 40,
+    "both_suffixes_verified": true,
+    "independently_preceding_authored_generic_history_retained": true,
+    "current_editing_and_designation_reopen_verified": true,
+    "corruption_and_stale_guards_no_publication": true,
+    "summary_sha256": "5664db684f97952f9fe70fb0e78b5cebedf624617b9a678e18bbc5f5e0ed6d68"
+  }
+}

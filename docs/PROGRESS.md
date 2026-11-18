@@ -3,9 +3,10 @@
 ## Current milestone
 
 Parent #11 remains active for all eight children and verified parent closeout.
-#156/#157 are delivered. #158 is released and explicitly closed after full public
-verification; its normal terminal documentation/owned cleanup continues.
-#159 integrates qualified published runtime247ab651 and prepares version0.37.0.
+#156–#158 are fully delivered. #158 terminal documentation is merged at
+254babcd; its final delivery receipt and owned-branch cleanup are verified.
+#159 integrates qualified runtime247ab651 and terminal documentation254babcd;
+all five authoritative versions remain0.37.0.
 #160 has a passing local source/recovery checkpoint; #161 continues corrected C2
 native preparation. #162 has a technical plan and #163 remains planned.
 
@@ -42,11 +43,11 @@ master gates and all seven same-final-candidate assessments remain required.
 
 ## Blockers
 
-No external blocker. Finish actual158terminal documentation integration, refresh
-source-bound preparations and preserve all original sources/stores/failed attempts.
+No external blocker. Refresh current source-bound preparations and qualify the
+actual released0.36reader. Preserve all original sources/stores/failed attempts.
 
 ## Next action
 
-Commit this passing local release-preparation state, integrate terminal158docs,
-measure and qualify current responsiveness/capacity, and complete all release gates.
+Commit this source-unchanged terminal-documentation integration; qualify the actual
+0.36reader, measure current responsiveness/capacity, and complete all release gates.
 Continue159–163serial delivery with the one parent Goal active through closeout.

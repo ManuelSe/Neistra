@@ -1,0 +1,36 @@
+{
+  "scope": "Verified publication receipt/final release notes/canonical child closeout; terminal docs and owned cleanup remain",
+  "release_id": 449776471,
+  "final_release_notes_sha256": "28cc3553be8e97b2aba04b45d08c13cd881ccba021eeb1381a2cad2f718eb63c",
+  "latest_release_verified": true,
+  "publication_receipt": {
+    "scope": "Actual C6 receipt self-upload/server/full anonymous readback; own identity kept outside receipt",
+    "release_id": 449776471,
+    "asset_id": 762983464,
+    "name": "neistra-v0.36.0-publication.json",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-publication.json",
+    "bytes": 79491,
+    "sha256": "8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c",
+    "server_digest": "sha256:8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c",
+    "http_status": 200,
+    "anonymous_without_authorization": true,
+    "all_bytes_exact": true,
+    "observed_utc": "2026-11-18T10:40:15.575449+00:00"
+  },
+  "child_closeout": {
+    "issue": 158,
+    "comment_id": 6976173710,
+    "url": "https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710",
+    "body_sha256": "498d8854c0652876796deb1a381d411af261618feb7d4d58b0209a6046cd4acc",
+    "reply_remotely_verified": true,
+    "issue_state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-18T10:42:58Z"
+  },
+  "parent_open": true,
+  "parent158_checkbox_checked": true,
+  "parent_goal_remains_active": true,
+  "terminal_docs_cleanup_pending": true,
+  "observed_utc": "2026-11-18T10:46:53.974309+00:00",
+  "canonical_reply_formatting_correction_only": true
+}

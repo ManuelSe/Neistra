@@ -980,3 +980,32 @@ exact preview/committed freshness, qualified unavailable states and downgrade gu
 normal terminal documentation still must merge/integrate. Local preparation remains
 separate from full native/ALL8/capacity/actual0.36reader, final candidate/exact-master
 gates and all-seven same-final-candidate review. No0.37tag/release or push readiness.
+
+
+### C3 integration of the fully delivered predecessor
+
+Merge actual terminal-documentation master254babcd into release-preparation
+checkpoint9046ab15. Resolve only PROGRESS/PROJECT_SCHEMA/RELEASE_NOTES narratives:
+retain the159installation-owned0017contract and0.37versions, add exact predecessor
+designation/schema wording, and retain its committed exact-runtime qualification
+baseline. No application, scientific method, fixture, dependency or source helper
+changes are part of this merge. All1125selected path/body pairs remain identical
+to the passing release-preparation checkpoint.
+
+#158 is fully delivered: PR176 merges terminal documentation at254babcd, all seven
+terminal assessments PASS reviewed9373f8a3, and all1013runtime source bodies stay
+fixed. Three owned branches are verified absent locally/remotely with worktrees
+and raw evidence preserved. The [final delivery receipt](../assets/ligand-designation/c7-delivery.json)
+and [public self-verification](../assets/ligand-designation/c7-delivery-verification.json)
+bind final anonymous HTTP200/body/server-digest checks, canonical reply6976173710
+and stable/latestv0.36.0. Runtime247ab651 and annotated05ec6685 remain immutable.
+Historical earlier pending fields describe their original phase, not current status.
+Parent11remains open and its one matching Goal remains active.
+
+This integration remains a local checkpoint, not final feature readiness. Actual
+0.36reader execution, refreshed source-bound performance/capacity/native/ALL8,
+full43-command candidate and separate exact-master gates, all seven final reviews
+and normal publication remain mandatory. A pre-merge observer used the wrong JSON
+serialization for a historical source-map digest and stopped before Git mutation;
+full dictionary equality against all1125passing checkpoint identities resolves it
+without any source or acceptance change.

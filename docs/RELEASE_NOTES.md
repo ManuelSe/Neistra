@@ -5,9 +5,9 @@
 Child #159 adds fourteen versioned descriptors, installation-level category options,
 automatic exact-input refresh and bounded private execution/cache ownership. It is
 local release preparation; no v0.37.0 tag, release or final qualification is claimed.
-Actual released v0.36.0 is integrated as the prerequisite runtime and its full
-public verification/explicit closure pass. Its normal terminal documentation must
-also be integrated before final159delivery.
+Actual released v0.36.0 and terminal documentation254babcd are integrated as
+the prerequisite. Full public verification, explicit closure, final delivery
+receipt and safe owned-branch cleanup are verified.
 
 Relevant molecular changes immediately retire incompatible values. Qualified cached
 results can return promptly; otherwise the readout remains pending or unavailable
@@ -83,8 +83,14 @@ includes actual evidence and itself passes server/full-anonymous verification.
 The [canonical closeout](https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710)
 is verified and #158 explicitly closed. Required #159–#163 and parent #11 remain
 open. Diagram153, relocations164/165 and all other parent exclusions stay separate.
-Normal terminal documentation/owned cleanup and final delivery-receipt verification
-follow without another runtime release.
+Terminal documentation merged through [PR #176](https://github.com/ManuelSe/Neistra/pull/176)
+at `254babcd136dab883eba65e5f7a2653d8cb69473`. All seven terminal specialist
+assessments PASS its exact candidate and all 1,013 qualified source bodies remain
+unchanged. All three owned branches are absent locally and remotely; worktrees
+and raw evidence are preserved. The [final delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-delivery.json),
+SHA256 `cf945c9a9cb37f615a755e6ff8f8a125db4574db5745cad4d4cb8493b18132f2`,
+and its checksum pass server-digest and full anonymous byte verification.
+The runtime tag is unchanged and parent #11 remains open.
 
 ## 0.35.0 — Deliberate viewer measurements
 
