@@ -1527,3 +1527,44 @@ source digest is `afbbba092bfe129714652288fb4f36692dbf463b897fc81e99563a01ee36d8
 the complete43-vector modulo its label/workspace, including pytest fixture-store
 isolation; master1recipe stays unchanged/unspent. Full candidate/master and all
 seven final same-candidate assessments remain required before protected delivery.
+
+
+### C3 qualification continuation — preserved candidate3 and held-route cleanup
+
+The original `c4-candidate3` at `2a582dfe` exits 1 after 15 passing recipe commands
+and 415 browser passes. One mobile minimization-controls case fails during context
+teardown because its second intercepted proposal request remains in flight; all
+product assertions and its final screenshot already completed. Reported 224 skipped
+cases comprise 34 authored exclusions and 190 unrun cases. No retries or flakes
+occur. All eight descriptor performance cases pass once, but 27 later recipe
+commands remain unrun. This is failed qualification, with no product-assertion
+failure observed in the failing case.
+
+Primary positive cleanup precedes raw copying of all four DB/WAL/SHM bodies.
+Complete preservation retains 5,511 original files, 71 empty directories and exact
+1,130-current/1,013-actual-v0.36 source ZIPs captured before correction. The separate
+131,840,156-byte packet SHA256 is
+`0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc`.
+Independent original union/body/hash/CRC and 59-ZIP verification pass; five corruption
+controls pass. Original inputs remain in place, with only their exact spent output
+prefix excluded locally after verification. See
+[failure metadata](../assets/ligand-properties/c3-candidate3-failed-checkpoint.json).
+
+Exactly three held-route fixture `finally` blocks release their hold and await
+`page.unrouteAll({ behavior: "wait" })`. Every other byte, assertion and deadline is
+preserved. The entire native file passes 12 desktop/mobile cases without skips,
+failures, flakes, retries or errors; 1,130 sources match before/after. Positive
+cleanup checks 43 known PID/start handles and dedicated ports before copying three
+raw DB/WAL/SHM files. Scoped architecture and performance assessments pass. The
+optional expanded strict E2E boundary retains exactly four pre-existing diagnostics;
+it is explicitly not passing and introduces no suppression. The normal application
+typecheck evidence remains source-bound. See the
+[receipt](../assets/ligand-properties/c3-route-lifetime-checkpoint.json) and
+[complete focused packet](../assets/ligand-properties/c3-route-lifetime-evidence.zip).
+
+All 461 runtime and 51 benchmark subjects remain unchanged from native11. Its
+original source identity and timing limitations remain; neither this correction nor
+the focused run establishes new latency measurements. The fresh candidate4 recipe
+is byte-exact candidate3 after label/workspace replacement. The unchanged master1
+recipe remains unspent. Full candidate/master gates and all seven final assessments
+remain required; the seven forensic assets remain publication-pending.

@@ -81,7 +81,7 @@ Its actual interruption and full raw evidence remain separate from qualified res
 The tooling/test corrections are outside the51benchmark subjects and leave
 production/scientific inputs unchanged. Native11 retains its actual original source
 identity; its unaffected portable measurements remain usable with this explicit delta.
-Six separate forensic assets and checksums are planned; publication and complete
+Seven separate forensic assets and checksums are planned; publication and complete
 anonymous download verification remain pending. Early exploratory SHM revision gaps
 and unproven historical pre-SQL ordering remain explicit in their metadata.
 
@@ -92,6 +92,18 @@ status roles, uniqueness and all workflow assertions; the complete lifecycle fil
 passes5cases in desktop/mobile with its existing authored mobile exclusion. No
 production behavior changes. The complete failed-run packet remains separate;
 fresh43-command candidate3/exactmaster1 and final all-seven approval are pending.
+
+
+Candidate3 records 415 browser passes, including all eight descriptor performance
+cases, before a test-owned proposal fetch rejects during context teardown. Its
+product assertions and final screenshot already completed; 190 browser cases and
+27 recipe commands remain unrun. Complete failed-run evidence is preserved separately.
+Three held-route fixture cleanup blocks now await active handlers without suppressing
+errors or changing assertions/deadlines. The whole file passes all 12 desktop/mobile
+cases with zero skips, failures, flakes or retries. Scoped reviews pass. The optional
+expanded strict E2E check retains four identical pre-existing diagnostics and remains
+not passing. Fresh complete candidate4/exactmaster1 qualification and final seven-role
+acceptance remain required.
 
 
 ## 0.36.0 — Exact durable ligand designation

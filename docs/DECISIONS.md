@@ -9520,3 +9520,29 @@ and the explicit later helper/test delta. No extra standalone performance worklo
 is justified solely by these two selectors. Complete fresh candidate3/master1gates
 and final all-seven acceptance remain mandatory. Preserve every failed candidate2
 input separately; it never becomes qualified by the focused correction.
+
+
+### D-201 qualification continuation — drain held test-owned requests
+
+2026-11-18: candidate3 completes 415 native cases, including all eight descriptor
+performance cases, then fails when a second minimization proposal interception is
+still fetching during context teardown. Native trace evidence places every product,
+scientific, layout and accessibility assertion plus the final screenshot before
+teardown; it does not independently establish which application event initiated
+the later request. Preserve normal production polling and error behavior.
+
+In exactly the three existing held-route fixtures, release the hold and await
+`page.unrouteAll({ behavior: "wait" })` before returning. The pinned handler contract
+drains active callbacks without suppressing errors. Retain all fetch/status/JSON/
+fulfill checks, other test bytes, deadlines and workloads. The complete file passes
+12 cases in both configured projects, no skips/failures/flakes/retries. Scoped
+architecture/performance assessments pass. Expanded strict E2E diagnostics remain
+four pre-existing errors, exactly equal before/after; record this as not passing,
+without changing the established application typecheck boundary or adding suppression.
+
+Preserve failed candidate3 and both exact source snapshots independently. Its
+131,840,156-byte separate forensic packet verifies all 5,511 original files, four
+raw DB/WAL/SHM bodies and 59 recursive ZIPs. All 461 runtime and 51 benchmark bodies
+remain native11-exact; reuse its original source identity without a new latency
+claim. A fresh complete candidate4, exact master1 and final seven-role acceptance
+remain required. No failed or focused run establishes full qualification.

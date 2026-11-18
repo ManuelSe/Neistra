@@ -114,6 +114,24 @@ and zero failures/flakes/retries. Scoped architecture/performance assessments PA
 all1,130sources remain exact during that run. See the [correction receipt](assets/ligand-properties/c3-lifecycle-status-checkpoint.json)
 and [evidence](assets/ligand-properties/c3-lifecycle-status-evidence.zip).
 
+Candidate3 at `2a582dfe` passes the first 15 commands and 415 browser cases, including
+all eight descriptor performance cases, before a mobile minimization test-owned
+proposal handler rejects during browser-context teardown. All product assertions
+and its final screenshot had completed. The remaining 190 browser cases and 27
+recipe commands are unrun. Complete failed-run preservation verifies 5,511 original
+files, both exact source snapshots, all four raw database/sidecar files and 59 nested
+ZIPs. The separate 131,840,156-byte packet remains publication-pending; see
+[failure metadata](assets/ligand-properties/c3-candidate3-failed-checkpoint.json).
+
+The three existing held-route fixtures now release their hold and wait for active
+handlers before teardown, preserving errors, assertions and deadlines. The whole
+minimization-controls file passes all 12 desktop/mobile cases with no skips,
+failures, flakes or retries. All 1,130 sources remain exact during that run; 43 known
+process handles are gone and three raw database/sidecar files are copied before SQL.
+Scoped architecture/performance reviews pass. See the
+[correction receipt](assets/ligand-properties/c3-route-lifetime-checkpoint.json)
+and [evidence](assets/ligand-properties/c3-route-lifetime-evidence.zip).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -141,16 +159,21 @@ causal or same-method application speedup claim.
 Full 43-command candidate/exact-master gates, all seven final same-candidate assessments
 and protected delivery remain required. Strict reference latency targets remain
 separate under D-148. #159 has no implementation push or release.
-Only the artifact helper/unit tests and two lifecycle notice selectors change after native11; all 51 benchmark
-subjects and production/scientific inputs remain exact. Reuse that run at its original
+Only the artifact helper/unit tests, two lifecycle notice selectors and three held-route
+fixture cleanup blocks change after native11; all 51 benchmark subjects and
+production/scientific inputs remain exact. Reuse that run at its original
 995e80f8/source identity with the explicit tooling delta; do not relabel it as the new
 full-source digest. Fresh complete gates still qualify the corrected full source.
 
-Six separate forensic assets remain publication-pending. Early exploratory probes
+Seven separate forensic assets remain publication-pending. Early exploratory probes
 are now fully retained at their current bytes; two SHM revisions differ from older
 recorded hashes and their historical pre-SQL ordering is unproven. Those limits do
 not qualify earlier interrupted/failed runs. See the
 [metadata index](assets/ligand-properties/c3-separate-forensic-assets.json).
+
+The optional expanded strict E2E compiler check retains four pre-existing diagnostics,
+identical before/after apart from line shifts. It is not passing; no diagnostic or
+suppression was added. The established application typecheck remains source-bound.
 
 ## Blockers
 
@@ -160,7 +183,7 @@ qualification remains required.
 
 ## Next action
 
-Run fresh complete `c4-candidate3`, retain the authored unspent `c4-master1` recipe,
+Run fresh complete `c4-candidate4`, retain the authored unspent `c4-master1` recipe,
 obtain final seven-specialist assessments,
 then complete protected merge, exact-master qualification and verified release.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.
