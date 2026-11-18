@@ -502,3 +502,22 @@ primary independently rechecks all1831original inputs/outer hashes/CRC/current11
 source bodies and ZIP. This passing checkpoint remains local preparation: actual released159integration, D-194 fixture
 reconciliation, final versions/preceding readers/native/performance/full gates and
 all seven same-final-candidate assessments remain mandatory before protected delivery.
+
+
+### Preparatory inspector checkpoint — 2026-11-18
+
+On base dd4c5cc3, reuse the exact159D-201 query block and three-case regression.
+The entire non-query component suffix and160visit/task/scroll behavior remain
+byte-identical. Preserve complete hidden/selected query ownership, artifact keys,
+seed/error/placeholder qualification and profile cancellation/coverage semantics.
+The original resource test fails; the correction passes three new and122affected
+cases across seven files, plus web lint/types/build. Independent scoped architecture
+and performance reviews PASS with no consequential findings.
+
+[Checkpoint](../assets/ligand-profiles/c2-inspector-scaling-checkpoint.json) and
+[lossless evidence](../assets/ligand-profiles/c2-inspector-scaling-evidence.zip) bind
+source hashes, both resource counts, six actual logs/receipts, preserved inventories
+and scoped assessments. Full body/hash/CRC/exact-entry readback passes. This is a
+local checkpoint only. Actual released159integration, actual preceding readers,
+versions, complete candidate/master qualification and all seven final assessments
+remain pending. Historical source-bound guards remain stale/HOLD.

@@ -8908,3 +8908,23 @@ stale HOLD and integrate actual released159before final delivery. The lossless
 source/recovery packet retains all1831regular input files without SQL processing;
 installed node_modules remains an explicit inert dependency alias, not a bundled
 source or omitted owned evidence tree.
+
+
+### D-201 downstream inspector preparation — preserve complete query ownership
+
+2026-11-18: before released159integration, reuse its exact inspector query-scaling
+correction in160. One immutable-project entry index replaces repeated linear
+searches. Memoized query options preserve every eligible hidden/selected entry and
+artifact key; explicit data/isError/isPlaceholderData notifications retain complete
+projection qualification and retained-data failure retirement. Do not narrow query
+scope or change the visit/task/scroll suffix, profile dependencies or source guards.
+
+Architecture and performance assessed the method before the bounded two-path edit
+and independently reviewed its resulting diff/evidence. The original100/1000-entry
+resource assertion fails as expected; the corrected regression and two ownership
+controls pass, as do122affected cases and web lint/types/build. Preserve raw red and
+green logs, launcher-only failures and source inventories in the scoped evidence
+packet. This passes local preparation only: actual released159integration, profile
+qualification and all-seven same-final-candidate acceptance remain mandatory. No
+additional standalone native workload is required solely for this identical
+correction; no production latency improvement is inferred from mocked work counts.

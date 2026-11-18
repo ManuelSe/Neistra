@@ -1,4 +1,4 @@
-import { useQueries } from "@tanstack/react-query";
+import { queryOptions, useQueries } from "@tanstack/react-query";
 import {
   AlertTriangle,
   ChevronRight,
@@ -523,25 +523,28 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     for (const entryId of selectedEntryIds(selection)) ids.add(entryId);
     return [...ids];
   }, [project?.entries, selection]);
-  const structureQueries = useQueries({
-    queries: relevantIds.map((entryId) => {
-      const entry = project?.entries.find((item) => item.id === entryId);
-      return {
-        ...structureQueryOptions(project?.id ?? "", entryId, entry?.current_artifact_id),
-      };
-    }),
-  });
+  const entriesById = useMemo(
+    () => new Map(project?.entries.map(entry => [entry.id, entry] as const)),
+    [project?.entries],
+  );
+  const structureOptions = useMemo(() => relevantIds.map(entryId => queryOptions({
+    ...structureQueryOptions(projectId ?? "", entryId, entriesById.get(entryId)?.current_artifact_id),
+    // Keep these fields aligned with projection qualification below. Explicit
+    // notifications avoid tracking each property across every query observer.
+    notifyOnChangeProps: ["data", "isError", "isPlaceholderData"],
+  })), [entriesById, projectId, relevantIds]);
+  const structureQueries = useQueries({ queries: structureOptions });
   const structures = useMemo(
     () =>
       new Map(
         structureQueries.flatMap((query, index) => {
-          const entry = project?.entries.find(item => item.id === relevantIds[index]);
+          const entry = entriesById.get(relevantIds[index]);
           return !query.isError && !query.isPlaceholderData
             && isCompleteProjection(query.data, relevantIds[index], entry?.current_artifact_id)
             ? [[query.data.entry_id, query.data.structure] as const] : [];
         }),
       ),
-    [structureQueries, project?.entries, relevantIds],
+    [structureQueries, entriesById, relevantIds],
   );
   return (
     <section className="panel-content project-inspector" aria-label="Project inspector">

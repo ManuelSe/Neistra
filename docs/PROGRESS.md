@@ -3,10 +3,10 @@
 ## Current milestone
 
 Parent #11 remains active through verified releases and closeout for #156–#163.
-#156/#157 are delivered. #158 has published qualified v0.36.0; full anonymous
-asset verification and terminal closeout continue. #159 has a local published-
-runtime integration checkpoint98ffec71; final qualification remains pending.
-#160 remains local preparation with verified shared source/recovery corrections.
+#156–#158 are delivered, including verified v0.36.0 assets and #158 closeout.
+#159 is running its full candidate qualification on16ca91ea; delivery remains
+pending. #160 remains local preparation with verified shared source/recovery
+corrections and the scoped inspector query-scaling correction.
 Serial delivery and accepted exclusions remain unchanged.
 
 ## Completed work
@@ -19,6 +19,9 @@ candidate and numerical recovery require separate genuine matching checks. The
 verified D-196 continuation also isolates private-cache startup I/O and reaps only
 exact owned never-started refusals. Profile definitions and scientific methods stay
 unchanged by those recovery corrections.
+The inspector now uses one entry index and explicit query notifications while
+preserving complete hidden/selected query scope and the existing source guards.
+Its visit, task, scroll and profile behavior outside the query block is unchanged.
 
 ## Verification performed
 
@@ -42,13 +45,24 @@ attempt/store. The full1198source snapshot changes only worker/new regression fr
 readbacks PASS:1845manifest entries/35recursive ZIPs/6756members. The earlier scoped checks and new
 correction checks are not pooled as a complete release gate.
 
+The [inspector checkpoint](assets/ligand-profiles/c2-inspector-scaling-checkpoint.json)
+and [lossless packet](assets/ligand-profiles/c2-inspector-scaling-evidence.zip) retain
+the original failing resource assertion, three passing regressions and122affected
+cases across seven files, plus successful web lint/types/build. At100/1000entries,
+query tracking falls from50,500/5,005,000 to0/0 and ID reads from10,200/1,002,000
+to200/2000. Independent scoped architecture and performance assessments PASS;
+primary readback verifies all declared evidence bodies and the complete ZIP.
+This is local preparatory acceptance, without a native latency or production
+speedup claim. No scientific method, dependency, version or schema changes.
+
 ## Known limitations
 
 Actual released159 integration, final versions, current native/performance/reader
 qualification, complete candidate/exact-master gates and all seven final specialist
-assessments remain outstanding. Old source guards are retained/HOLD. D-194's49
-benchmark paths remain absent as before; prerequisite integration must supply their
-required final reconciliation. No implementation push, PR, release or closeout.
+assessments remain outstanding. Old source guards are retained/HOLD. D-194's
+current51-subject benchmark reconciliation remains pending prerequisite integration;
+the historical49-path guard remains stale/HOLD. No implementation push, PR, release
+or closeout.
 
 ## Blockers
 
