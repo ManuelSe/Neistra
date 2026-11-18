@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import runpy
@@ -604,6 +605,7 @@ def produce_properties(args: argparse.Namespace) -> dict[str, Any]:
             user = ordinary_output(client, project, anchor_id)
             project = response_ok(client.get(f"/api/v1/projects/{project['id']}"), 200)
             consumer = demand(client, project, target_id)
+            pre_edit_input_hash = None
             process_facts: dict[str, Any] = {"calculation_child_observed": False}
             if label in {"captured", "cancelled", "project-deleted"}:
                 with client.app.state.session_factory() as session:
@@ -643,6 +645,7 @@ def produce_properties(args: argparse.Namespace) -> dict[str, Any]:
                         != "ready"
                     )
                 elif label == "stale":
+                    pre_edit_input_hash = current["report"]["input_hash"]
                     entry = next(entry for entry in project["entries"] if entry["id"] == target_id)
                     old_source = source(project, target_id)
                     project = response_ok(
@@ -699,6 +702,7 @@ def produce_properties(args: argparse.Namespace) -> dict[str, Any]:
                 "target_name": "Descriptor target",
                 "anchor_name": "Retained user-job anchor",
                 "target_source": source(project, target_id),
+                "pre_edit_input_hash": pre_edit_input_hash,
                 "consumer_id": consumer,
                 "user_job_id": user["id"],
                 "user_job": user,
@@ -897,8 +901,73 @@ def recovery_failure_control(client: Any) -> dict[str, Any]:
         child.wait(timeout=3)
 
 
+def fixture_property_outcome(
+    report: dict[str, Any], label: str, pre_edit_input_hash: str | None = None
+) -> dict[str, Any]:
+    """Check fixture chemistry independently of terminal execution readiness."""
+    descriptor_ids = {
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "hbd",
+        "hba",
+        "tpsa",
+    }
+    assert label in CASES and re.fullmatch(r"[0-9a-f]{64}", report["input_hash"])
+    assert len(report["coverage"]) == 8 and set(report["coverage"]) == descriptor_ids
+    assert [value["descriptor_id"] for value in report["values"]] == report["coverage"]
+    assert report["contains_formally_charged_atoms"] is False
+    values = {value["descriptor_id"]: value for value in report["values"]}
+    if label == "stale":
+        assert pre_edit_input_hash and re.fullmatch(r"[0-9a-f]{64}", pre_edit_input_hash)
+        assert report["input_hash"] != pre_edit_input_hash, "Edited graph reused ethanol hash"
+        reason = "hydrogen_semantics_unavailable"
+        assert report["model_status"] == "unavailable" and report["model_reason"] == reason
+        known = {
+            "heavy_atom_count": 3,
+            "heteroatom_count": 2,
+            "carbon_count": 1,
+            "formal_charge": 0,
+        }
+        for name, expected in known.items():
+            value = values[name]
+            assert value["status"] == "ready" and value["reason"] is None
+            assert type(value["value"]) is int and value["value"] == expected
+        for name in descriptor_ids - known.keys():
+            value = values[name]
+            assert value["status"] == "unavailable" and value["value"] is None
+            assert value["reason"] == reason
+    else:
+        assert report["model_status"] == "qualified" and report["model_reason"] is None
+        for value in values.values():
+            assert value["status"] == "ready" and value["reason"] is None
+            assert type(value["value"]) in (int, float) and math.isfinite(value["value"])
+    return {
+        key: report[key]
+        for key in (
+            "schema_version",
+            "input_hash",
+            "implementation_version",
+            "library_version",
+            "policy_version",
+            "model_status",
+            "model_reason",
+            "contains_formally_charged_atoms",
+            "coverage",
+            "values",
+        )
+    }
+
+
 def reconstruct_archives(
-    client: Any, directory: Path, label: str, target_name: str, expected_hash: str | None = None
+    client: Any,
+    directory: Path,
+    label: str,
+    target_name: str,
+    expected_hash: str | None = None,
+    pre_edit_input_hash: str | None = None,
 ) -> list[dict[str, Any]]:
     from neistra_api.ligand_property_service import private_execution
     from neistra_api.models import Job
@@ -928,7 +997,9 @@ def reconstruct_archives(
             if row["status"] == "ready":
                 break
             assert worker(client).run_once()
-        assert row["status"] == "ready" and row["report"]["model_status"] == "qualified"
+        assert row["status"] == "ready"
+        assert row["source"] == source(restored, target_id)
+        outcome = fixture_property_outcome(row["report"], label, pre_edit_input_hash)
         if expected_hash is None:
             expected_hash = row["report"]["input_hash"]
         assert row["report"]["input_hash"] == expected_hash
@@ -938,6 +1009,9 @@ def reconstruct_archives(
                 "project_id": restored["id"],
                 "consumer_id": owner,
                 "fresh_binding": row["source"],
+                "requested_source": source(restored, target_id),
+                "property_report": row["report"],
+                "semantic_outcome": outcome,
                 "input_hash": expected_hash,
                 "imported_jobs_ordinary": True,
                 "captured_ids_grant_no_authority": True,
@@ -1077,13 +1151,17 @@ def reopen_properties(args: argparse.Namespace) -> dict[str, Any]:
                     break
                 assert worker(client).run_once()
             assert current["status"] == "ready", current
-            assert current["report"]["model_status"] == "qualified"
+            assert current["source"] == source(project, case["target_entry_id"])
+            outcome = fixture_property_outcome(
+                current["report"], label, case["pre_edit_input_hash"]
+            )
             imported = reconstruct_archives(
                 client,
                 args.workspace / "old-archives" / label,
                 label,
                 case["target_name"],
                 current["report"]["input_hash"],
+                case["pre_edit_input_hash"],
             )
             final = project_state(client, case["project_id"])
             assert_molecular(final, state)
@@ -1101,6 +1179,9 @@ def reopen_properties(args: argparse.Namespace) -> dict[str, Any]:
                 "post_delete_archive_rechecked": deleted_archives,
                 "consumer_id": consumer,
                 "current_input_hash": current["report"]["input_hash"],
+                "fresh_binding": current["source"],
+                "property_report": current["report"],
+                "semantic_outcome": outcome,
                 "canonical_history_originals_user_outputs_retained": True,
                 "both_suffixes_reconstructed": imported,
             }
@@ -1296,6 +1377,25 @@ def validate_reports(reports: dict[str, dict[str, Any]], suite: str) -> None:
                 row["imported_jobs_ordinary"] and row["captured_ids_grant_no_authority"]
                 for row in final["both_suffixes_reconstructed"]
             )
+            origin_hash = fixture.get("pre_edit_input_hash")
+            expected_outcome = None
+            if label != "project-deleted":
+                assert final["fresh_binding"] == fixture["target_source"]
+                expected_outcome = fixture_property_outcome(
+                    final["property_report"], label, origin_hash
+                )
+                assert final["semantic_outcome"] == expected_outcome
+                assert final["current_input_hash"] == expected_outcome["input_hash"]
+            for row in final["both_suffixes_reconstructed"]:
+                assert row["fresh_binding"] == row["requested_source"]
+                outcome = fixture_property_outcome(row["property_report"], label, origin_hash)
+                assert (
+                    row["semantic_outcome"] == outcome
+                    and row["input_hash"] == outcome["input_hash"]
+                )
+                if expected_outcome is None:
+                    expected_outcome = outcome
+                assert outcome == expected_outcome, "Remapped archive changed scientific outcome"
     else:
         contracts = runpy.run_path(str(HERE.with_name("schema_boundary_evidence.py")))
         for producer in (produced, old):

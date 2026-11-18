@@ -153,6 +153,102 @@ def test_private_shell_never_gains_ordinary_relationships(row: dict[str, Any]) -
         reader.assert_private_shells([row])
 
 
+def fixture_report(label: str) -> dict[str, Any]:
+    known = {"heavy_atom_count": 3, "heteroatom_count": 2, "carbon_count": 1, "formal_charge": 0}
+    ethanol = {
+        "molecular_weight": 46.069,
+        "heavy_atom_count": 3,
+        "heteroatom_count": 1,
+        "carbon_count": 2,
+        "formal_charge": 0,
+        "hbd": 1,
+        "hba": 1,
+        "tpsa": 20.23,
+    }
+    values = []
+    for name, number in ethanol.items():
+        unavailable = label == "stale" and name not in known
+        values.append(
+            {
+                "descriptor_id": name,
+                "status": "unavailable" if unavailable else "ready",
+                "value": None if unavailable else known[name] if label == "stale" else number,
+                "reason": "hydrogen_semantics_unavailable" if unavailable else None,
+            }
+        )
+    return {
+        "schema_version": 1,
+        "input_hash": ("b" if label == "stale" else "a") * 64,
+        "implementation_version": "fixture-implementation",
+        "library_version": "fixture-library",
+        "policy_version": "fixture-policy",
+        "created_at": "2026-11-18T00:00:00Z",
+        "model_status": "unavailable" if label == "stale" else "qualified",
+        "model_reason": "hydrogen_semantics_unavailable" if label == "stale" else None,
+        "contains_formally_charged_atoms": False,
+        "coverage": list(ethanol),
+        "values": values,
+    }
+
+
+@pytest.mark.parametrize("label", ["stale", "completed"])
+def test_exact_fixture_chemistry_distinguishes_partial_from_qualified(label: str) -> None:
+    report = fixture_report(label)
+    result = reader.fixture_property_outcome(report, label, "a" * 64)
+    assert result["input_hash"] == report["input_hash"]
+    assert "created_at" not in result
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "qualified_stale",
+        "wrong_model_reason",
+        "wrong_count",
+        "unknown_charge",
+        "charged_atom",
+        "unavailable_number",
+        "missing_value_reason",
+        "missing_descriptor",
+        "duplicate_descriptor",
+        "old_hash",
+        "missing_origin",
+        "invalid_hash",
+    ],
+)
+def test_stale_fixture_oracle_rejects_invented_or_lost_chemistry(mutation: str) -> None:
+    report = fixture_report("stale")
+    origin: str | None = "a" * 64
+    if mutation == "qualified_stale":
+        report["model_status"], report["model_reason"] = "qualified", None
+    elif mutation == "wrong_model_reason":
+        report["model_reason"] = "unrelated_error"
+    elif mutation == "wrong_count":
+        report["values"][2]["value"] = 1
+    elif mutation == "unknown_charge":
+        report["values"][4]["value"] = None
+    elif mutation == "charged_atom":
+        report["contains_formally_charged_atoms"] = True
+    elif mutation == "unavailable_number":
+        report["values"][0]["value"] = 46.069
+    elif mutation == "missing_value_reason":
+        report["values"][0]["reason"] = None
+    elif mutation == "missing_descriptor":
+        report["coverage"].pop()
+        report["values"].pop()
+    elif mutation == "duplicate_descriptor":
+        report["coverage"][-1] = report["coverage"][0]
+        report["values"][-1] = copy.deepcopy(report["values"][0])
+    elif mutation == "old_hash":
+        report["input_hash"] = origin
+    elif mutation == "missing_origin":
+        origin = None
+    elif mutation == "invalid_hash":
+        report["input_hash"] = "not-a-scientific-hash"
+    with pytest.raises(AssertionError):
+        reader.fixture_property_outcome(report, "stale", origin)
+
+
 def property_reports() -> dict[str, dict[str, Any]]:
     reports: dict[str, dict[str, Any]] = {}
     for phase in reader.PHASES:
@@ -180,10 +276,14 @@ def property_reports() -> dict[str, dict[str, Any]]:
     final["derived_reconstruction_exact"] = True
     for name in reader.CASES:
         target_id, anchor_id, user_job_id = f"target-{name}", f"anchor-{name}", f"user-{name}"
+        report = fixture_report(name)
+        origin_hash = "a" * 64 if name == "stale" else None
+        semantic = reader.fixture_property_outcome(report, name, origin_hash)
         produced["cases"][name].update(
             target_entry_id=target_id,
             anchor_entry_id=anchor_id,
             target_source={"entry_id": target_id},
+            pre_edit_input_hash=origin_hash,
             user_job_id=user_job_id,
         )
         old["cases"][name] = {
@@ -224,6 +324,10 @@ def property_reports() -> dict[str, dict[str, Any]]:
             "both_suffixes": [{"suffix": suffix} for suffix in reader.SUFFIXES],
         }
         final["cases"][name] = {
+            "fresh_binding": {"entry_id": target_id},
+            "property_report": copy.deepcopy(report),
+            "semantic_outcome": copy.deepcopy(semantic),
+            "current_input_hash": report["input_hash"],
             "canonical_history_originals_user_outputs_retained": True,
             "old_insert_defaults_to_user": True,
             "post_delete_archive_rechecked": [
@@ -241,6 +345,11 @@ def property_reports() -> dict[str, dict[str, Any]]:
             "both_suffixes_reconstructed": [
                 {
                     "suffix": suffix,
+                    "fresh_binding": {"entry_id": f"remapped-{name}-{suffix}"},
+                    "requested_source": {"entry_id": f"remapped-{name}-{suffix}"},
+                    "property_report": copy.deepcopy(report),
+                    "semantic_outcome": copy.deepcopy(semantic),
+                    "input_hash": report["input_hash"],
                     "imported_jobs_ordinary": True,
                     "captured_ids_grant_no_authority": True,
                 }
@@ -263,6 +372,38 @@ def property_reports() -> dict[str, dict[str, Any]]:
 
 def test_full_private_reader_contract_accepts_complete_results() -> None:
     reader.validate_reports(property_reports(), "properties")
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "missing_report",
+        "foreign_source",
+        "old_hash",
+        "archive_method_change",
+        "archive_source_change",
+        "archive_outcome_change",
+    ],
+)
+def test_actor_reports_reject_lost_or_inconsistent_scientific_reconstruction(mutation: str) -> None:
+    reports = property_reports()
+    stale = reports["reopen-current"]["results"]["cases"]["stale"]
+    archived = stale["both_suffixes_reconstructed"][0]
+    if mutation == "missing_report":
+        stale.pop("property_report")
+    elif mutation == "foreign_source":
+        stale["fresh_binding"]["entry_id"] = "foreign"
+    elif mutation == "old_hash":
+        stale["property_report"]["input_hash"] = "a" * 64
+    elif mutation == "archive_method_change":
+        archived["property_report"]["library_version"] = "different"
+        archived["semantic_outcome"]["library_version"] = "different"
+    elif mutation == "archive_source_change":
+        archived["fresh_binding"]["entry_id"] = "foreign"
+    elif mutation == "archive_outcome_change":
+        archived["property_report"]["values"][0]["value"] = 46.069
+    with pytest.raises((AssertionError, KeyError)):
+        reader.validate_reports(reports, "properties")
 
 
 @pytest.mark.parametrize(

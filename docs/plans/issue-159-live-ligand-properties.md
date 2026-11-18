@@ -1032,3 +1032,39 @@ module-export typing error is retained and corrected without runtime changes.
 All1123other source path/body pairs remain unchanged; D-194methods/fixtures stay
 exact. This scoped checkpoint does not establish actual old-code compatibility,
 full performance qualification or final feature readiness.
+
+
+### Actual reader diagnostic and exact partial-chemistry oracle
+
+At cleanb6b38ac4, the actual current→v0.36→current property diagnostic completes
+producer and old-writer phases with observed exits0. Current reopen stops at the
+unconditional qualified-model assertion for the deliberate stale specimen. The
+complete198regular-file/22empty-directory failed workspace is frozen before root
+diagnostic processing: rawZIP SHA256
+`0e0b6c7f621d3ef1fd34a4f78c03cf1bbd05a4bcb713d3e230ae14e9afa8669f`.
+The original workspace and logs remain intact; no compatibility pass is inferred.
+
+Independent theory and architecture assessments identify a fixture-oracle defect:
+the accepted preserved-H C→N edit produces N–C–O with qualified counts/charges and
+unknown hydrogen semantics. Preserve this useful edited-unknown case. The corrected
+launcher records the existing pre-edit hash without calculating a replacement, then
+requires ready counts3heavy/2hetero/1carbon/charge0 and false charged-atom presence,
+with explicitly unavailable/null MW/HBD/HBA/TPSA and the exact hydrogen reason.
+All eight requested descriptors must appear once; the current scientific hash must
+differ from old ethanol. Other cases remain fully qualified.
+
+Actual current response source/instance/membership, report and scientific projection
+are retained and checked on reopen and both remapped archive suffixes. The separate
+coordinator revalidates them, including equal scientific hash, values, method, policy
+and library identity across reconstruction. Creation time is excluded from semantic
+equality because valid warm reuse or fresh recalculation is permitted. Existing
+canonical warnings/protection/history/originals/designation/preferences/user output,
+old-source409, private authority and no-imported-execution guards remain.
+
+The bounded correction changes only the reader helper and its unit-contract file;
+102reader/recipe cases plus Ruff/format/mypy2/diff checks pass. Twenty added controls
+cover exact partial outcomes and rejected wrong chemistry/counts/reasons/coverage,
+old hash reuse and cross-actor/archive/source/method inconsistencies. No production
+chemistry or scientific input policy changes. Scoped correction reassessments and
+a fresh complete actual-reader sequence remain required, separately from full43
+candidate/exact-master, current performance and all-seven release qualification.

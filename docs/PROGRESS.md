@@ -35,8 +35,14 @@ interpreter rather than resolving it to the system binary. Four regression contr
 fail on the original launcher; all82current reader/recipe controls plus scoped
 Ruff/format/mypy pass after correction. Application/scientific sources are unchanged.
 The archive
-version matrix is labelled-metadata coverage; actual released0.36code qualification
-remains separate. Initial missing-PYTHONPATH and old-version-pin failures are retained.
+version matrix is labelled-metadata coverage. The first actual0.36sequence passed
+current production and actual old writing, then stopped at a stale-fixture oracle:
+an intentional preserved-H element edit correctly yields partial unavailable
+chemistry. Theory and architecture independently identify the unconditional
+qualified-model expectation as invalid. The corrected exact partial-result/source/
+hash/archive oracle passes102reader controls and scoped static checks; a fresh
+complete actor sequence remains required. The failed198-file workspace is retained
+losslessly before diagnostics, without modifying original stores. Initial missing-PYTHONPATH and old-version-pin failures are retained.
 
 ## Known limitations
 
