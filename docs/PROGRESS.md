@@ -4,7 +4,7 @@
 
 Parent #11 remains active through all eight children and verified closeout.
 #156–#158 are delivered. #159 prepares 0.37.0. Its measured inspector correction
-is followed by a passing local benchmark lease-maintenance and packaging correction;
+is followed by passing local lease-maintenance, packaging and batch-oracle corrections;
 fresh complete browser qualification remains pending.
 #160 is a passing local checkpoint. #161 has committed its 16 passing local C2
 native cases. #162 has an authorized technical plan; #163 remains planned.
@@ -26,6 +26,9 @@ payloads, sequences, 20-second maintenance rule and 60-second production lease.
 Stop awaits renewal before release; failures retain observer and partial evidence.
 Release packaging requires actual scoped receipts, the correct approved plan and
 a genuinely successful final ALL8 packet. Production/scientific code is unchanged.
+The benchmark now validates every row and value with pure predicates before one
+batch assertion, retaining ordered source equality. This removes repeated test
+reporting, while keeping the complete workload and scientific checks.
 
 ## Verification performed
 
@@ -51,6 +54,16 @@ Scoped architecture/performance assessments pass for their exact corrected subje
 See [failure metadata](assets/ligand-properties/c3-native9-failed-checkpoint.json)
 and the [local tooling receipt](assets/ligand-properties/c3-lease-maintenance-checkpoint.json).
 
+Native10 also exits 1 with three desktop passes, one failed distinct bulk case and four unrun mobile cases.
+Its serial renewal lane is occupied by slow responses while synchronous per-row
+reporting emits 48,641 matcher steps. The complete 55,068,041-byte failed packet
+passes independent whole-body/CRC/recursive readback. The corrected batch oracle
+passes 16 focused tests, full lint/types and strict benchmark TypeScript. Independent
+old-oracle controls reject 641 predicate faults and 4 source/order faults; data matcher
+calls are 801→2 per 200 ready rows. Scoped architecture/performance assessments pass.
+Both complete 43-command recipes are authored for candidate and exact master;
+neither gate has run. See the [batch-oracle receipt](assets/ligand-properties/c3-bulk-validation-checkpoint.json).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -63,6 +76,9 @@ The later failed ALL8 packet also remains a separate publication-pending forensi
 asset. Its slower partial measurements do not establish a causal regression or
 speedup. The corrected benchmark method adds renewal traffic and response logging;
 its costs remain measured rather than being described as unchanged or free.
+Native10's failure and its original transport identity-observation error are also
+retained in a separate publication-pending raw asset. Later exact process identity
+observations supplement that error; they never turn the failed workload into PASS.
 
 Fresh complete ALL8, full 43-command candidate/exact-master gates, all seven final
 same-candidate assessments and protected delivery remain required. Strict reference
@@ -70,9 +86,10 @@ latency targets remain separate under D-148. #159 has no implementation push or 
 
 ## Blockers
 
-No external blocker. The failed heartbeat was sent after its returned expiry;
-production correctly rejected it. The bounded test-maintenance correction passes
-focused verification; complete integrated correctness still requires qualification.
+No external blocker. Production correctly rejects expired heartbeats. The serial
+maintenance fix alone was insufficient under measured test-reporting overhead;
+complete batch predicates now preserve checks with bounded reporting. Fresh
+integrated qualification remains required.
 
 ## Next action
 

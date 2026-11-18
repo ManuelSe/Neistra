@@ -1286,3 +1286,56 @@ method, timing certification, current ALL8 PASS or final specialist approval is 
 Next run all eight original workload cases under the corrected method, then both
 complete 43-command gates, all-seven same-final-candidate assessments and protected
 delivery. Parent 11 and the single program Goal remain active.
+
+### C3 measured test-reporting correction and authored complete gate recipes
+
+Actual native10 at 060c0fa0 exits 1 with three desktop passes, one failed distinct
+bulk case and four unrun mobile cases. The 20-second serial lane is running, but
+four preceding renewals occupy approximately 51.17 seconds after the affected owner's
+earlier response. Its next request begins approximately 6.896 seconds after expiry;
+the backend correctly returns 409. The raw trace records 48,641 matcher steps,
+88 synchronous 200-row blocks totalling 193.355 seconds, and a longest 7.879-second block
+with 801 steps. Response-receive spans overlap those blocks. These are closed test
+instrumentation observations, not exclusive server or application CPU attribution.
+
+The complete failed packet is 55,068,041 bytes, SHA256
+`2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f`.
+Primary independently verifies all 3,407 original and archived file bodies, seven root unions,
+three empty directories and 16 recursive ZIPs / 3,425 evidence entries / 20 project files.
+The original transport ERROR/identityfalse, actual runner 1, subsequent exact process
+identity observations and scoped recovery assessment remain distinct and retained.
+Planned separate asset `neistra-v0.37.0-native10-failed-all8.zip` and checksum are
+publication-pending; [metadata](../assets/ligand-properties/c3-native10-failed-checkpoint.json)
+belongs in the main evidence while the raw forensic payload stays separate.
+
+The complete batch oracle preserves ordered source equality and checks every
+ready/pending status. Each ready row must have a qualified report, 14 values and
+every value ready/finite. One bounded indexed diagnostic per invalid row replaces
+repeated matcher reporting; no row/value is sampled. Pending null/partial reports,
+zero and negative finite values keep their former meaning. Exact-byte comparison
+shows only one import, four removed matcher sites and one added batch matcher;
+all other benchmark bytes and the heartbeat helper remain identical.
+
+16 focused tests pass: eight new oracle controls plus eight existing maintenance
+controls. A separately transcribed literal prior oracle rejects the same 641 predicate
+fault batches and 4 source/order faults. Every one of the 200 status positions, first/middle/last
+report boundary and all 14 descriptor positions are exercised. Data matcher calls are
+801→2 for 200 ready rows. Full web lint/types and strict benchmark TypeScript pass;
+scoped architecture/performance assessments pass on the exact corrected subjects.
+No application latency improvement or completed qualification follows from this.
+
+The [local packet](../assets/ligand-properties/c3-bulk-validation-evidence.zip) and
+[receipt](../assets/ligand-properties/c3-bulk-validation-checkpoint.json) bind
+1,130 sources and 51 benchmark subjects. Existing production/scientific/lease bytes and
+all 49 non-spec prior benchmark bodies remain unchanged. The new pure validator is
+an explicitly declared method dependency. Prior failed runs are never relabelled.
+
+Both actual complete 43-command recipes are now authored before qualification:
+`c4-candidate1-recipe.json` and `c4-master1-recipe.json`. They retain frozen installs,
+full scientific/frontend/native inventory and execution, migrations, all existing
+reader families and actual current→v0.36.0→current editing/property actors. Actual
+annotated v0.36.0 targets 247ab651 and its 1,013-source extraction/receipt are bound.
+The two owned /tmp bases are empty; no gate has started. Their absolute implementation
+path is this owned feature checkout, which can qualify the verified exact merged
+commit without touching another checkout. Fresh complete ALL8, both 43 gates,
+all-seven same-final-candidate review and normal protected release remain required.

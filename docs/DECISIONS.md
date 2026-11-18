@@ -9427,3 +9427,36 @@ checks and recursive validation. No scientific, production, API, TTL, schema,
 dependency or version change follows from this test correction. Packaging separately
 requires real scoped sidecars and the actual approved plan; final ALL8 success proof
 must remain absent until an actual successful complete run and packet are verified.
+
+### D-194 qualification refinement — complete batch predicates with bounded reporting
+
+Native10 at 060c0fa0 also fails its distinct bulk heartbeat: actual runner 1,
+three desktop passes, one failure and four unrun mobile cases. The globally serial
+renewal lane is active, but four preceding requests occupy approximately 51.17 seconds
+after the affected owner's earlier response. The next request begins approximately
+6.896 seconds after the returned expiry. Production correctly rejects it. The
+independent timer alone does not solve the observed head-of-line delay.
+
+Closed evidence records 48,641 matcher steps and 88 synchronous 200-row validation blocks
+totalling 193.355 seconds. The longest block lasts 7.879 seconds for 801 matcher steps;
+late response-receive spans overlap these blocks. The identified test worker records
+42.98 CPU seconds over a 66.459-second window. This establishes repeated test reporting
+as a concrete bottleneck, without assigning every network/server or function cost.
+
+Preserve ordered source equality once per response. Replace the four repeated
+per-row matcher sites with complete pure predicates and one empty-error-list matcher
+per batch. Inspect every status and, for each ready row, qualified report status,
+exactly 14 values and every value ready and finite. Pending rows may retain null or
+partial reports; finite zero/negative values remain valid. Keep all counts, input
+hashes, bindings, fairness/resource proofs, targets, deadlines and the existing
+20-second serial maintenance lane. Do not sample or add another execution process.
+
+The independent prior pointwise oracle and new collector reject 641 predicate fault
+batches and 4 source/order faults. Controls cover all 200 row positions and all 14
+value positions, report boundaries and valid mixed states. Data matcher calls are 801→2 for
+200 ready rows; this is a deterministic reporting bound, not a browser speedup.
+16 focused tests and applicable static checks pass. Scoped architecture/performance
+assessments cover the exact three corrected files. Scientific/production/API/lease
+bytes remain unchanged. Declare the new 51-subject benchmark method and rerun all
+eight original workloads. Preserve native10's failure and original transport error
+with its independent process-identity recovery; do not normalize either into PASS.

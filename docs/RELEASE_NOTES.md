@@ -47,6 +47,13 @@ Eight deterministic controls, lint/types and strict benchmark TypeScript pass;
 The benchmark method identity changes explicitly; fresh complete qualification is
 still required. Neither failure nor focused checks establish release readiness.
 
+A further retained run demonstrates that serial maintenance alone is insufficient
+when per-row test reporting delays response handling. Complete batch predicates now
+retain all ready/pending, qualified-report, 14-value and finite-ready checks with
+two data matcher calls per 200 rows, instead of 801. 16 focused tests and scoped reviews
+pass. Both failed runs remain explicit; no application speedup is inferred. Current
+ALL8 and the authored candidate/exact-master 43-command gates still require execution.
+
 
 ## 0.36.0 — Exact durable ligand designation
 

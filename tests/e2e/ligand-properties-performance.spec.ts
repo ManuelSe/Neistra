@@ -7,6 +7,7 @@ import { expect, test, type APIRequestContext, type Locator, type Page, type Tes
 import type { Entry, Project } from "../../apps/web/src/api/types";
 import { performanceBudget } from "./support/performance";
 import { maintainConsumerHeartbeats } from "./support/consumer-heartbeat";
+import { collectBulkPropertyValidationErrors } from "./support/bulk-property-validation";
 
 interface Source { entry_id: string; source_artifact_id: string; instance_id: string; atom_ids: number[] }
 interface Report { input_hash: string; model_status: string; values: { descriptor_id: string; status: string; value: number | null }[] }
@@ -852,12 +853,9 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
         aggregateReads.push({ at: started, elapsedMs: performance.now() - started, owner: owner.id,
           entries: rows.length, ready: rows.filter(row => row.status === "ready").length, status: response.status() });
         expect(rows.map(row => row.source)).toEqual(owner.payload.entries);
+        expect(collectBulkPropertyValidationErrors(rows)).toEqual([]);
         for (const row of rows) {
-          expect(["ready", "pending"]).toContain(row.status);
           if (row.status === "ready") {
-            expect(row.report?.model_status).toBe("qualified");
-            expect(row.report?.values).toHaveLength(14);
-            expect(row.report?.values.every(value => value.status === "ready" && Number.isFinite(value.value))).toBe(true);
             inputHashes.add(row.report!.input_hash);
             finalBindings.push({ source: row.source, inputHash: row.report!.input_hash });
             readyCount++;
