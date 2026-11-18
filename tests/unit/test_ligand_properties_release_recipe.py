@@ -487,3 +487,249 @@ def test_release_context_rejects_accidental_public_forensic_rebundle(release_con
     forbidden.write_bytes(b"Synthetic negative control only")
     with pytest.raises(AssertionError, match="separate release asset"):
         tools["add_release_context_members"]({}, root)
+
+
+@pytest.fixture
+def directory_packet() -> Any:
+    import hashlib
+    import io
+    import stat
+    import warnings
+    import zipfile
+
+    body = b"preserved synthetic payload\n"
+    row = {"bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()}
+
+    def build(manifest: Any, entries: list[tuple[str, bytes, int]]) -> bytes:
+        output = io.BytesIO()
+        with warnings.catch_warnings():
+            # Duplicate-member fixtures intentionally exercise the verifier's refusal.
+            warnings.filterwarnings("ignore", message="Duplicate name:", category=UserWarning)
+            with zipfile.ZipFile(output, "w") as packet:
+                for name, value, mode in entries:
+                    info = zipfile.ZipInfo(name)
+                    info.create_system = 3
+                    info.external_attr = mode << 16
+                    packet.writestr(info, value)
+                packet.writestr("manifest.json", json.dumps(manifest))
+        return output.getvalue()
+
+    return build, body, row, stat.S_IFREG | 0o644, stat.S_IFDIR | 0o755
+
+
+@pytest.mark.parametrize("directory_mode", [0, 0o40755])
+def test_manifest_accepts_only_declared_empty_directories(
+    directory_packet: Any, directory_mode: int
+) -> None:
+    import io
+    import zipfile
+
+    build, body, row, regular, _ = directory_packet
+    manifest = {"files": {"payload.txt": row}, "empty_directories": ["scratch/empty"]}
+    packet = build(
+        manifest,
+        [("payload.txt", body, regular), ("scratch/empty/", b"", directory_mode)],
+    )
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    with zipfile.ZipFile(io.BytesIO(packet)) as archive:
+        assert tools["check_manifest"](archive, manifest, "synthetic") == (1, 0)
+        assert archive.read("payload.txt") == body
+    assert tools["verify_layers"](packet, "synthetic") == {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1,
+        "project_archive_files": 0,
+    }
+
+
+def test_flat_manifest_file_named_empty_directories_remains_a_regular_file(
+    directory_packet: Any,
+) -> None:
+    build, body, row, regular, _ = directory_packet
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    packet = build({"empty_directories": row}, [("empty_directories", body, regular)])
+    assert tools["verify_layers"](packet, "flat") == {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1,
+        "project_archive_files": 0,
+    }
+
+
+def test_project_manifest_file_rows_retain_project_verification(directory_packet: Any) -> None:
+    build, body, row, regular, _ = directory_packet
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    packet = build(
+        {"schema_version": 3, "files": [{"path": "payload.txt", **row}]},
+        [("payload.txt", body, regular)],
+    )
+    assert tools["verify_layers"](packet, "project") == {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 1,
+    }
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        "declaration_string",
+        "declaration_object",
+        "declaration_null",
+        "declaration_number",
+        "declaration_nonstring",
+        "duplicate_declaration",
+        "trailing_slash",
+        "absolute",
+        "traversal",
+        "backslash",
+        "nul",
+        "noncanonical",
+        "dot_prefix",
+        "dot",
+        "undeclared_directory",
+        "missing_directory",
+        "directory_has_body",
+        "directory_has_regular_mode",
+        "directory_has_symlink_mode",
+        "directory_lacks_slash",
+        "regular_has_directory_mode",
+        "same_file_and_directory",
+        "file_below_empty_directory",
+        "directory_below_empty_directory",
+        "directory_below_regular_file",
+        "directory_below_manifest",
+        "duplicate_zip_directory",
+        "unlisted_regular_file",
+        "changed_regular_hash",
+        "changed_regular_size",
+        "regular_traversal",
+    ],
+)
+def test_manifest_rejects_directory_and_regular_body_faults(
+    directory_packet: Any, fault: str
+) -> None:
+    import io
+    import stat
+    import zipfile
+
+    build, body, row, regular, directory = directory_packet
+    files = {"payload.txt": dict(row)}
+    declared: Any = ["empty"]
+    entries = [("payload.txt", body, regular), ("empty/", b"", directory)]
+    declarations = {
+        "declaration_string": "empty",
+        "declaration_object": {"path": "empty"},
+        "declaration_null": None,
+        "declaration_number": 1,
+        "declaration_nonstring": ["empty", 7],
+        "duplicate_declaration": ["empty", "empty"],
+        "trailing_slash": ["empty/"],
+        "absolute": ["/empty"],
+        "traversal": ["../empty"],
+        "backslash": ["a\\empty"],
+        "nul": ["empty\x00"],
+        "noncanonical": ["a//empty"],
+        "dot_prefix": ["./empty"],
+        "dot": ["."],
+        "undeclared_directory": [],
+    }
+    if fault in declarations:
+        declared = declarations[fault]
+        if fault in {
+            "trailing_slash",
+            "absolute",
+            "traversal",
+            "backslash",
+            "noncanonical",
+            "dot_prefix",
+            "dot",
+        }:
+            # Match the unsafe ZIP name so refusal exercises path policy, not a missing member.
+            entries[1] = (declared[0] + "/", b"", directory)
+    elif fault == "missing_directory":
+        entries.pop()
+    elif fault == "directory_has_body":
+        entries[1] = ("empty/", b"unmanifested bytes", directory)
+    elif fault == "directory_has_regular_mode":
+        entries[1] = ("empty/", b"", regular)
+    elif fault == "directory_has_symlink_mode":
+        entries[1] = ("empty/", b"", stat.S_IFLNK | 0o777)
+    elif fault == "directory_lacks_slash":
+        entries[1] = ("empty", b"", directory)
+    elif fault == "regular_has_directory_mode":
+        entries[0] = ("payload.txt", body, directory)
+    elif fault == "same_file_and_directory":
+        files["empty"] = dict(row)
+        entries.append(("empty", body, regular))
+    elif fault == "file_below_empty_directory":
+        files["empty/child.txt"] = dict(row)
+        entries.append(("empty/child.txt", body, regular))
+    elif fault == "directory_below_empty_directory":
+        declared.append("empty/child")
+        entries.append(("empty/child/", b"", directory))
+    elif fault == "directory_below_regular_file":
+        declared = ["payload.txt/child"]
+        entries[1] = ("payload.txt/child/", b"", directory)
+    elif fault == "directory_below_manifest":
+        declared = ["manifest.json/child"]
+        entries[1] = ("manifest.json/child/", b"", directory)
+    elif fault == "duplicate_zip_directory":
+        entries.append(entries[1])
+    elif fault == "unlisted_regular_file":
+        entries.append(("unlisted.txt", body, regular))
+    elif fault == "changed_regular_hash":
+        files["payload.txt"]["sha256"] = "0" * 64
+    elif fault == "changed_regular_size":
+        files["payload.txt"]["bytes"] += 1
+    elif fault == "regular_traversal":
+        files = {"../payload.txt": dict(row)}
+        entries[0] = ("../payload.txt", body, regular)
+    else:
+        raise AssertionError(f"Unrecognized test fault: {fault}")
+    manifest = {"files": files, "empty_directories": declared}
+    packet = build(manifest, entries)
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    with zipfile.ZipFile(io.BytesIO(packet)) as archive, pytest.raises(AssertionError):
+        tools["check_manifest"](archive, manifest, fault)
+    with pytest.raises(AssertionError):
+        tools["verify_layers"](packet, fault)
+
+
+@pytest.mark.parametrize(
+    "filename, size, digest, files, directories",
+    [
+        (
+            "c3-reader-clock-evidence.zip",
+            7_390_348,
+            "2607a58fa0c937b48d8c2e89649b0747fac01aba95ac171d49996e72e8790319",
+            371,
+            145,
+        ),
+        (
+            "c3-all8-baseline-evidence.zip",
+            34_763_616,
+            "5f01dadeaa5c9d0065f6ed67ef007c2fc38bb41070bf2f54f0f1359599cd01ad",
+            4_807,
+            7,
+        ),
+    ],
+)
+def test_retained_legacy_evidence_directory_packets_verify_without_rewriting(
+    filename: str, size: int, digest: str, files: int, directories: int
+) -> None:
+    import hashlib
+    import zipfile
+
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    path = ASSETS / filename
+    before = path.read_bytes()
+    assert len(before) == size and hashlib.sha256(before).hexdigest() == digest
+    with zipfile.ZipFile(path) as archive:
+        manifest = json.loads(archive.read("manifest.json"))
+        assert len(manifest["files"]) == files
+        assert len(manifest["empty_directories"]) == directories
+        assert len(archive.namelist()) == files + directories + 1
+        assert tools["check_manifest"](archive, manifest, filename) == (files, 0)
+        assert archive.testzip() is None
+    verified = tools["verify_layers"](path, filename)
+    assert verified["zip_archives"] >= 1 and verified["evidence_manifest_entries"] >= files
+    assert path.read_bytes() == before

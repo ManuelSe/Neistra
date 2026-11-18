@@ -165,10 +165,33 @@ def check_manifest(archive: zipfile.ZipFile, manifest: Any, name: str) -> tuple[
     else:
         assert isinstance(rows, dict), name
         members = rows
-    names = set(archive.namelist())
-    assert names == set(members) | {"manifest.json"}, name
+    listed = archive.namelist()
+    names = set(listed)
+    assert len(listed) == len(names), name
+    assert all(isinstance(path, str) for path in members), name
+    declared = manifest.get("empty_directories", []) if "files" in manifest else []
+    assert isinstance(declared, list) and all(isinstance(path, str) for path in declared), name
+    assert len(declared) == len(set(declared)), name
+    assert all(path not in {".", "manifest.json"} for path in declared), name
+    directories = {safe_name(path) + "/" for path in declared}
+    assert not set(members).intersection(declared), name
+    assert names == set(members) | directories | {"manifest.json"}, name
+    parents = {str(parent) for path in names for parent in PurePosixPath(path).parents}
+    assert not (set(members) | set(declared) | {"manifest.json"}).intersection(parents), name
+    for path in directories:
+        info = archive.getinfo(path)
+        assert info.is_dir() and stat.S_IFMT(info.external_attr >> 16) in {0, stat.S_IFDIR}, (
+            name,
+            path,
+        )
+        assert info.file_size == 0 and archive.read(path) == b"", (name, path)
     for path, expected in members.items():
         safe_name(path)
+        info = archive.getinfo(path)
+        assert not info.is_dir() and stat.S_IFMT(info.external_attr >> 16) in {0, stat.S_IFREG}, (
+            name,
+            path,
+        )
         digest = expected if isinstance(expected, str) else expected["sha256"]
         assert re.fullmatch(r"[a-f0-9]{64}", digest), (name, path)
         data = archive.read(path)
@@ -533,6 +556,7 @@ def package_gate(args: argparse.Namespace) -> None:
 
 def verify_package_receipt(path: Path) -> dict[str, Any]:
     record = read_json(path)
+    assert isinstance(record, dict), path
     assert record["all_archive_hashes_and_crc_verified"]
     assert record["packager_sha256"] == fingerprint(Path(__file__))["sha256"]
     assert record["archives"]
@@ -686,6 +710,7 @@ def package_release(args: argparse.Namespace) -> None:
 def expected_archive(receipt: dict[str, Any], filename: str) -> dict[str, Any]:
     if receipt["kind"] == "release asset":
         expected = receipt["archive"]
+        assert isinstance(expected, dict), filename
         assert expected["file"] == filename
         return expected
     return next(record for record in receipt["archives"] if record["file"] == filename)

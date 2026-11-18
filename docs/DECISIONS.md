@@ -9477,3 +9477,26 @@ bytes and their overhead remains measured. No strict-host certification, unchang
 comparison or causal application speedup follows. No additional optimization is required
 by the scoped performance assessment; complete candidate/master release gates and final
 same-candidate seven-specialist review remain binding.
+
+### D-174 verifier refinement — preserve declared empty directories and interrupted gates
+
+Final child159 review finds that two valid immutable checkpoint packets carry
+explicit declared empty-directory ZIP entries. Treat those entries as part of the
+manifest's exact archive contract. Accept only unique canonical safe declarations
+matched by zero-byte directory members; preserve exact regular-file unions, hashes,
+sizes, CRCs and recursive/project checks. Refuse unsafe/undeclared/nonempty/mislabelled
+entries and file/directory ancestry collisions. Never rewrite prior packets to fit
+the verifier. 89 controls and all ten preceding immutable checkpoint packets pass; typed receipt
+dictionary guards resolve two direct-helper type errors without weakening return types.
+
+The first complete candidate attempt is intentionally interrupted after 15 passing
+commands for this known tooling correction. Preserve its actual runner241/browser-15,
+partial native work, complete logs, original source maps/ZIPs, raw stores and cleanup
+proof in a separate lossless forensic asset. Do not count it as a product failure or
+qualified gate. A fresh complete candidate and exact-master gate remain required.
+
+Only the artifact helper and its unit tests change; none of the 51 benchmark subjects
+or scientific/application inputs change. Independent performance assessment permits
+unaffected native11 evidence reuse at its original source identity with an explicit
+later tooling delta and honest new full-source digest. It does not permit relabelling
+the old run or skipping the fresh whole release gates/final seven-role reconfirmation.

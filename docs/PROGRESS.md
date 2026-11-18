@@ -6,6 +6,9 @@ Parent #11 remains active through all eight children and verified closeout.
 #156–#158 are delivered. #159 prepares 0.37.0. Its measured inspector correction
 is followed by passing local lease-maintenance, packaging and batch-oracle corrections.
 All eight corrected portable performance cases pass; complete release gates remain.
+The first full candidate gate is intentionally stopped after 15 passing commands
+to correct a retained-evidence verifier defect. The integrated correction passes
+89 controls; a fresh complete candidate gate is required.
 #160 is a passing local checkpoint. #161 has committed its 16 passing local C2
 native cases. #162 has an authorized technical plan; #163 remains planned.
 
@@ -74,6 +77,24 @@ passes independent original/body/CRC/union and recursive readback. See its
 [receipt](assets/ligand-properties/c3-all8-remeasurement-checkpoint.json) and
 [measurements](assets/ligand-properties/c3-all8-remeasurement-analysis.json).
 
+All seven initial specialist assessments inspect the complete #159 change. They
+find no consequential production/scientific/UI defect; architecture identifies
+a release-blocking verifier error for valid declared empty directories. The correction
+retains exact regular-file unions/hashes and accepts only safe, truly empty declared
+directory entries. All 52 previous controls remain; 37 new controls cover both actual
+legacy packets and negative paths/types/modes/collisions/tampering. All ten preceding immutable
+checkpoint ZIPs verify without rewriting. Integrated 89 tests, Ruff/format and the
+helper's direct mypy check pass; two bounded dictionary guards resolve its untyped returns.
+See the [focused correction receipt](assets/ligand-properties/c3-manifest-directory-checkpoint.json).
+
+Candidate1 records 3,552 Python tests, 1,584 frontend tests across 136 files, 14 supervisor
+tests, build/static checks and a 640-case browser inventory. Its browser process group is
+deliberately stopped for the known tooling correction: actual runner 241, browser -15,
+15 passing commands and 27 later commands unrun. It is not full qualification or a product
+test failure. Complete logs, 719 raw inputs, source ZIPs, raw databases and cleanup proof
+are preserved in a separately verified 36,544,045-byte forensic packet. The absence of
+a final browser JSON report remains explicit. Original artifacts remain in place.
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -101,6 +122,16 @@ causal or same-method application speedup claim.
 Full 43-command candidate/exact-master gates, all seven final same-candidate assessments
 and protected delivery remain required. Strict reference latency targets remain
 separate under D-148. #159 has no implementation push or release.
+Only the artifact helper and its unit tests change after native11; all 51 benchmark
+subjects and production/scientific inputs remain exact. Reuse that run at its original
+995e80f8/source identity with the explicit tooling delta; do not relabel it as the new
+full-source digest. Fresh complete gates still qualify the corrected full source.
+
+Five separate forensic assets remain publication-pending. Early exploratory probes
+are now fully retained at their current bytes; two SHM revisions differ from older
+recorded hashes and their historical pre-SQL ordering is unproven. Those limits do
+not qualify earlier interrupted/failed runs. See the
+[metadata index](assets/ligand-properties/c3-separate-forensic-assets.json).
 
 ## Blockers
 
@@ -110,6 +141,7 @@ qualification remains required.
 
 ## Next action
 
-Run the complete 43-command candidate gate, obtain final seven-specialist assessments,
+Run fresh complete `c4-candidate2`, retain the authored unspent `c4-master1` recipe,
+obtain final seven-specialist assessments,
 then complete protected merge, exact-master qualification and verified release.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.

@@ -69,6 +69,22 @@ their overhead is included. No strict timing certification or causal speedup is
 claimed. Both full 43-command gates, final seven-specialist review, protected merge
 and verified publication remain required.
 
+Final review finds one release-evidence tooling defect: two valid retained packets
+contain explicitly declared empty-directory ZIP entries. The verifier now preserves
+their exact file/hash/size/CRC contract while accepting only safe, empty declared
+directories. 89 controls and all ten preceding immutable checkpoint packets pass; direct helper
+typing and formatting pass. Original archives are unchanged. The first full candidate
+gate is deliberately stopped after 15 successful commands, including 3,552 Python and
+1,584 frontend tests, to qualify the corrected tooling with a fresh complete gate.
+Its actual interruption and full raw evidence remain separate from qualified results.
+
+The two changed tooling/test files are outside the 51 benchmark subjects and leave
+production/scientific inputs unchanged. Native11 retains its actual original source
+identity; its unaffected portable measurements remain usable with this explicit delta.
+Five separate forensic assets and checksums are planned; publication and complete
+anonymous download verification remain pending. Early exploratory SHM revision gaps
+and unproven historical pre-SQL ordering remain explicit in their metadata.
+
 
 ## 0.36.0 — Exact durable ligand designation
 

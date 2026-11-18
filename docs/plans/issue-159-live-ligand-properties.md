@@ -1391,3 +1391,100 @@ Full 43-command candidate/exact-master gates, all-seven final same-candidate ass
 protected merge, verified 0.37.0 publication and closeout remain. No implementation
 push, PR, tag or release exists for #159 at this checkpoint. Parent #11 and the single
 program Goal remain active for #159–#163 after delivered #156–#158.
+
+### C3 final review correction — declared evidence directories and typed receipts
+
+All seven roles assess the complete f435e7c0 change against released delivery master
+254babcd. No consequential production/scientific/UI defect is found. Architecture
+identifies a P2 in `check_manifest`: its exact union omits explicitly declared empty
+directories. The immutable reader-clock packet has 371 regular files and 145 directory
+entries; the baseline packet has 4,807 regular files and seven directory entries. Both
+have valid bodies but the existing final release verifier rejects their directory names.
+Preserve every original byte; correct the verifier rather than changing old evidence.
+
+The correction accepts only unique canonical safe declarations matched by actual zero-byte
+directory entries. Reject undeclared/missing/nonempty entries, incompatible file modes,
+duplicates, traversal/absolute/backslash/noncanonical paths, file/directory ancestry
+collisions and tampered file hashes/sizes. Exact regular-file union, SHA, size, CRC,
+recursive checks and project-manifest accounting remain. Existing 52 test bytes remain;
+37 additional controls include both actual immutable packets and independent synthetic
+faults. The final unsafe-path fixtures match the bad ZIP name to its bad declaration,
+so refusal exercises path policy rather than an incidental missing member. Initial
+successful/provisional subjects and the final stronger subject retain distinct hashes.
+
+All 89 integrated controls pass, as do Ruff/format and direct helper mypy. The extra
+type check exposes two existing `Any` returns; one dictionary assertion each in
+`verify_package_receipt` and `expected_archive` preserves their typed contract. Only
+these three helper functions change; 23 others remain AST-identical. All ten preceding
+C1/C2/C3 ZIPs pass complete recursive validation with the corrected manifest function,
+with before/after original hashes exact. The public helper and its existing unit-test
+file are the only two changed selected sources; all 51 benchmark subjects, production,
+scientific inputs, fixtures, workload, targets and acceptance remain unchanged.
+The [focused receipt](../assets/ligand-properties/c3-manifest-directory-checkpoint.json)
+and [51-body selected packet](../assets/ligand-properties/c3-manifest-directory-evidence.zip)
+retain correction code, tests, raw logs, provisional/final source proofs, scoped assessment
+and exact source/recipe bindings. Packet size is 155,192 bytes, SHA256
+`aeae335fb246515578084809e1e7f3ac2f16b159a3fc63863eaa476ab36385ed`.
+Synthetic unit-test temporary/cache directories remain private and are not selected
+into this focused packet; complete raw workload packets retain their separate scope.
+
+The current eight-case evidence remains bound to actual 995e80f8 / 1,130 sources /
+compact digest `b2d49ff2c807b6634d7830a1d331c4df5380571d86daf77efb3a95ed869040af`.
+Independent performance assessment permits reuse for this exact non-runtime tooling
+delta without another standalone ALL8/profile. The corrected 1,130-source compact digest
+is `e36c7ac9bd1f50da76b174990daf61928448b0d4bcf9ef0ad20135a59ad2b7a5`;
+51-method digest remains `dceb6a3202e1d378e051e8e3efa1f3ce0ed257793732a4c26df46c86d6346d07`.
+Do not relabel the captured run; fresh complete candidate/exact-master gates remain required.
+
+### C4 first candidate deliberately interrupted; fresh gate preparation
+
+Original `c4-candidate1` at f435e7c0 passes its first 15 commands: frozen installs,
+migration/downgrade/reupgrade, Ruff/mypy/reader-tool types, 3,552 Python tests with
+zero skips, web lint/types, 1,584 frontend tests across 136 files, 14 supervisor checks,
+build and a full 640-case native inventory. After the confirmed verifier defect,
+primary deliberately sends SIGTERM only to the positively identified owned browser
+process group. Its step exits -15; the original public runner actually waits and exits
+241, with 27 later commands unrun. This is an intentional interruption, not a complete
+gate PASS or a product-test failure. The absent final browser JSON is not fabricated.
+
+All 16 lossless compressed logs and original current/actual-v0.36 maps verify. Two
+captured source ZIPs match every original 1,130/1,013 body and CRC. After exact owned
+process/port cleanup, both raw DB files (552,960 bytes total) are copied and hashed
+before SQL. The first strict cleanup observation fails before sending a signal;
+that attempt remains alongside the subsequent positive automatic-service cleanup proof.
+The complete forensic packet preserves 719 original files / 55,720,287 bytes,
+including hidden native artifacts and original transport/workspace, with three empty
+directories and no aliases. Its 36,544,045 bytes have SHA256
+`bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995`.
+Primary independently verifies all original/archive bodies, exact union/CRC and
+16 recursive ZIPs / 735 evidence entries / 20 project files. No corrupt inner ZIP occurs.
+Original generated outputs remain in place, locally excluded only by their exact spent
+label; tracked recipe/source remain visible. The raw packet stays outside Git/main
+qualified payload for its separate future asset and checksum.
+
+The full `c4-candidate2` recipe is authored before its gate. It is exactly candidate1's
+43 commands modulo its fresh label/workspace, preserving D-177 fixture-store isolation,
+all suites/readers/deadlines/retries/exclusion identities. The existing `c4-master1`
+recipe is unchanged and unspent. Both new candidate and master bases are empty at
+preparation. Complete both gates and final same-candidate seven-role assessments before
+normal protected publication; no #159 push/PR/tag/release is claimed here.
+
+### Complete forensic publication inventory and early-retention limits
+
+The [five-asset metadata index](../assets/ligand-properties/c3-separate-forensic-assets.json)
+covers desktop diagnostics, failed native9/native10, early exploratory performance1–4,
+and the intentionally interrupted candidate1 gate. Raw payloads remain separate from
+Git and the qualified main archive. Every asset/checksum still requires actual release
+publication and complete anonymous download/hash/CRC/recursive readback before closeout.
+
+Early exploratory preservation closes the remaining raw coverage gap: all 12 roots,
+749 current regular files / 170,419,625 bytes, 12 empty directories and 93 selected
+uncovered preparatory originals are retained without rebundling earlier payloads.
+Its 124,222,530-byte packet SHA256 is
+`166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f`.
+Whole original/archive readback verifies 836 outer bodies and four recursive ZIPs.
+Probe1 remains interrupted -2, probes2/3 failed1, probe4 a single exploratory pass,
+and preparations5–7 unexecuted/HOLD. Two current 32KiB SHM bodies differ from older
+indexed hashes; current bytes and original hash records are preserved, while the older
+byte revisions and historical pre-SQL ordering remain unproven. DB/WAL bodies match.
+This is transparent later forensic retention, never current ALL8 or release qualification.

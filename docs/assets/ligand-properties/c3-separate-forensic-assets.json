@@ -1,0 +1,54 @@
+{
+  "scope": "Five separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
+  "planned_version": "0.37.0",
+  "qualified_main_payloads": false,
+  "assets": [
+    {
+      "asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "checksum_asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "bytes": 190937608,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "80890ebfbf5e431c8688b644e11490e8bc5e56e605c3763a47f8c5decb61d612"
+    },
+    {
+      "asset": "neistra-v0.37.0-native9-failed-all8.zip",
+      "checksum_asset": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "bytes": 51668757,
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "6263a57f79b32fe7045bb36ff88f09f4ad210cc0e7e1306d6a94c52e4b938929"
+    },
+    {
+      "asset": "neistra-v0.37.0-native10-failed-all8.zip",
+      "checksum_asset": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "bytes": 55068041,
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "61dee004bdcef0a52cdd102c05094c4d841f8daaff87a50252d160d482798147"
+    },
+    {
+      "asset": "neistra-v0.37.0-early-performance.zip",
+      "checksum_asset": "neistra-v0.37.0-early-performance.zip.sha256",
+      "bytes": 124222530,
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "3a740b8d9fb665f259d99bbf992cb8330d56c994bff69d4bb5860b12fd2f027f"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "bytes": 36544045,
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "4298cbd94dd45289382a04a0aa004f8db222e8b8434cce2a16fe336ddd44a8cc"
+    }
+  ],
+  "limits": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+  "verification_requirement": "Full anonymous download body SHA/size/CRC and recursive manifests, plus checksums/readback, after actual release publication; no published asset claimed now."
+}
