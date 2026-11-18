@@ -1,0 +1,95 @@
+{
+  "actual_final_ALL8_success_receipt_created": false,
+  "actual_native9_outcome": "exit1/3PASS/1FAIL/4unrun; failed evidence retained",
+  "base_candidate": "0f843c17733ef1a84b8c804be6cdcb485c0ddde6",
+  "bytes": 166666,
+  "focused_maintenance_tests": 8,
+  "focused_packaging_tests": 52,
+  "fresh_complete_ALL8_full43_both_final7_and_delivery_pending": true,
+  "method_count": 50,
+  "method_digest_spaced_json": "bb085d13b027770a939db61e9638c7c329a18a758cb53c293cd801904ccaa63d",
+  "original_assertion_chains": 167,
+  "original_assertion_workload_target_deadline_ASTs_preserved": true,
+  "original_budget_calls": 8,
+  "original_case_deadlines": 3,
+  "original_expect_call_nodes": 334,
+  "original_wait_calls": 5,
+  "outer_manifest_entries": 36,
+  "packet": "docs/assets/ligand-properties/c3-lease-maintenance-evidence.zip",
+  "production_scientific_API_TTL_schema_dependency_versions_changed": false,
+  "recorded_utc": "2026-11-18T16:00:35.872704+00:00",
+  "scope": "Passing LOCAL benchmark-maintenance and release-packaging checkpoint; no current ALL8 or release readiness",
+  "scoped_architecture": "PASS",
+  "scoped_performance": "PASS",
+  "sha256": "7212a149a72f96e8a8efcc4199831544fe8bbb853e485551eb7b6f5317893c07",
+  "source_count": 1128,
+  "source_delta": {
+    "added": [
+      "apps/web/src/test/ligand-property-consumer-heartbeat.test.ts",
+      "tests/e2e/support/consumer-heartbeat.ts"
+    ],
+    "all_existing_production_and_scientific_bodies_equal_native9": true,
+    "base": "0f843c17733ef1a84b8c804be6cdcb485c0ddde6",
+    "benchmark_change": "Explicit serial lease maintenance and failure evidence; same8workloads/originalassertions/targets/deadlines. No same-method latency claim.",
+    "changed": [
+      "docs/assets/ligand-properties/release-evidence.py.txt",
+      "tests/e2e/ligand-properties-performance.spec.ts",
+      "tests/unit/test_ligand_properties_release_recipe.py"
+    ],
+    "method_count": 50,
+    "method_spaced_digest": "bb085d13b027770a939db61e9638c7c329a18a758cb53c293cd801904ccaa63d",
+    "old48other_benchmark_bodies_equal": true,
+    "removed": [],
+    "source_compact_digest": "f1d5e6179433cc40f3da613a97beaf3081296ce586d71681794372800545ac97",
+    "source_count": 1128,
+    "source_spaced_digest": "c477666c808ab117ab4638bdb162356663465b4fb6ae0d9b211342c7c89808cd"
+  },
+  "source_digest_compact_json": "f1d5e6179433cc40f3da613a97beaf3081296ce586d71681794372800545ac97",
+  "source_digest_spaced_json": "c477666c808ab117ab4638bdb162356663465b4fb6ae0d9b211342c7c89808cd",
+  "strict_benchmark_TypeScript": {
+    "actual_terminal_chunk": "57e05b",
+    "actual_tool_session": 15060,
+    "command": [
+      "./node_modules/.bin/tsc",
+      "--strict",
+      "--noEmit",
+      "--target",
+      "ES2022",
+      "--module",
+      "ESNext",
+      "--moduleResolution",
+      "Bundler",
+      "--lib",
+      "ES2022,DOM,DOM.Iterable",
+      "--typeRoots",
+      "node_modules/@types",
+      "--types",
+      "node",
+      "--skipLibCheck",
+      "../../tests/e2e/ligand-properties-performance.spec.ts"
+    ],
+    "cwd": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/apps/web",
+    "exit_code": 0,
+    "inspected_subjects": {
+      "tests/e2e/ligand-properties-performance.spec.ts": "6e7e84f2e43a07d7749cfcccaf2f483cd5e87869dae43660a795d495950cb2ff",
+      "tests/e2e/support/consumer-heartbeat.ts": "fabdfc7b91fe414571cf5dc6c43af0ce96f566b75a156e60c3dca563bdc48124"
+    },
+    "scope": "Actual previously observed strict no-emit benchmark check, attributed tool receipt; no invented process log",
+    "stdout": "",
+    "subjects_unchanged_since_actual_check": true
+  },
+  "subjects": {
+    "apps/web/src/test/ligand-property-consumer-heartbeat.test.ts": "6f82e04644172cbbb7571228e0233f9fd46a855f60ef0f4e35e58722a4584eeb",
+    "docs/assets/ligand-properties/release-evidence.py.txt": "9bcbe8d2fc23ce090f1d5fed42f9eef7f060ea47551dde2813ba6ed49ae7de13",
+    "tests/e2e/ligand-properties-performance.spec.ts": "6e7e84f2e43a07d7749cfcccaf2f483cd5e87869dae43660a795d495950cb2ff",
+    "tests/e2e/support/consumer-heartbeat.ts": "fabdfc7b91fe414571cf5dc6c43af0ce96f566b75a156e60c3dca563bdc48124",
+    "tests/unit/test_ligand_properties_release_recipe.py": "cf8d064a9c587566b83511f0eca3ad5bc710121bc1eae624d62ba91aeba6dee6"
+  },
+  "verification_counts": {
+    "evidence_manifest_entries": 36,
+    "project_archive_files": 0,
+    "zip_archives": 1
+  },
+  "web_lint": "PASS",
+  "web_types": "PASS"
+}

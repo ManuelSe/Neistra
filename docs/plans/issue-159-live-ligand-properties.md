@@ -1231,3 +1231,58 @@ full original ALL8. D-148 keeps absolute targets opt-in on a controlled referenc
 host; mandatory portable scientific/state/request/work/resource/fairness criteria
 remain. Full 43-command candidate and exact-master gates, final all-seven assessments and
 normal protected publication/closeout remain pending. Parent #11 stays open.
+
+### C3 failed remeasurement and bounded maintenance/tooling checkpoint
+
+Native9 attempts the full eight-case program from clean 0f843c17 / 1,126 sources / 49 methods
+with one worker, no retries and max failures 1. Actual detached child wait exits 1.
+Three desktop cases pass; distinct bulk fails on HTTP 409 `property_consumer_expired`;
+four mobile cases do not run. The next heartbeat begins 27.443 ms after its returned
+expiry. The backend is correct; the test's 20-second maintenance check is delayed by
+its sequential five-owner progress/assertion sweep. Source maps, cleanup, resource
+observer completion and raw DB/WAL/SHM capture before SQL pass. No test is relabelled.
+
+The complete failed raw packet is 51,668,757 bytes, SHA256
+`c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae`.
+Primary independently verifies all 3,225 original and archived file bodies, seven root unions,
+five empty directories and 16 recursive ZIPs / 3,240 evidence entries / 20 project files.
+Originals remain. Planned separate forensic asset
+`neistra-v0.37.0-native9-failed-all8.zip` and checksum are publication-pending;
+the main qualification archive carries its [metadata](../assets/ligand-properties/c3-native9-failed-checkpoint.json),
+not the raw forensic payload. Existing 191 MB profiling diagnostics remain separate.
+
+Closed partial measurements show desktop cold median 4,438.55 ms / p95 7,681.7 ms /
+max 8,695.7 ms, cache median 158.7 ms with 17/20 over 100 ms, repeated-bulk active 17,494.1 ms
+and cancellation 27.9 ms. Warm new jobs remain zero; repeated 1,000-entry bindings and
+productive fairness pass. Shared-host load is materially higher than the earlier
+baseline. These observations establish neither a causal regression nor speedup;
+failed distinct capacity/fairness and unrun mobile cases remain unqualified.
+
+D-194's maintenance refinement uses one independent globally serial lane, same
+five owners/payloads/sequence 1 and 20-second due rule, no overlapping/catch-up PUTs,
+retries, reallocation or TTL change. Stop awaits in-flight maintenance before
+sequence 2 release. First failures and partial arrays survive observer cleanup.
+Eight deterministic controls include the expired unmaintained 60-second negative
+control while five maintained leases survive 125 seconds of held foreground work.
+All 167 original assertion-chain AST bodies, 334 expect call nodes plus 8 budget calls,
+five wait calls plus three case deadlines and 56 pre-bulk statements except the new
+import remain exact. Full web lint/types and strict benchmark TypeScript pass;
+scoped architecture/performance assessments pass for the exact corrected subjects.
+
+Two definite release-helper defects are also corrected: nonexistent generic C2/C3
+receipts become the actual scoped checkpoint contracts, and the approved-plan path
+is corrected. All 24 other function ASTs and release/source/all-seven/merge guards
+remain unchanged. 52 offline controls pass, including complete independent raw member
+union and failure on missing/malformed/tampered final ALL8 proof. No final success
+sidecar or packet is invented to satisfy this guard.
+
+The [local tooling packet](../assets/ligand-properties/c3-lease-maintenance-evidence.zip)
+and [subject receipt](../assets/ligand-properties/c3-lease-maintenance-checkpoint.json)
+bind 1,128 selected sources and 50 benchmark subjects. Existing production and scientific
+bodies match native9. Only the old benchmark spec changes among 49 previous methods;
+its new maintenance dependency is declared explicitly. Renewal traffic and full
+response retention are new measured overhead, inside original clocks. No unchanged
+method, timing certification, current ALL8 PASS or final specialist approval is claimed.
+Next run all eight original workload cases under the corrected method, then both
+complete 43-command gates, all-seven same-final-candidate assessments and protected
+delivery. Parent 11 and the single program Goal remain active.

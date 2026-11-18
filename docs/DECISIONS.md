@@ -9393,3 +9393,37 @@ The [attribution](assets/ligand-properties/c3-desktop-profile-analysis.json) and
 record precise subjects and limits. The complete raw diagnostics exceed the Git
 file bound and remain one private, verified 190,937,608-byte packet for the planned
 v0.37.0 separate forensic asset. Its metadata does not claim remote publication.
+
+### D-194 qualification refinement — maintain bulk leases independently of progress
+
+Actual native9 at 0f843c17 exits 1 with three passing desktop cases, one failed distinct
+bulk case and four unrun mobile cases. The failed same-sequence heartbeat begins
+27.443 ms after the server's returned expiry. Five sequential aggregate reads and
+2,978 expectation steps separate renewal attempts by 60.303 seconds. Production
+correctly enforces its 60-second lease; the nominal 20-second test-maintenance check
+is delayed by foreground progress. Those facts do not independently assign the
+remaining elapsed time to assertion CPU, tracing or shared-host contention.
+
+Use one independently scheduled, globally serial test-maintenance lane. Renew the
+same five 200-entry owners with unchanged payloads and sequence 1 when 20 seconds due.
+Do not accumulate catch-up operations, overlap renewals, retry, reallocate or extend
+leases. Capture response status/body/timing and returned expiry before checking
+success. Preserve the first failure and stop scheduling. Teardown stops and awaits
+the in-flight request before sequence 2 releases, then preserves observer/partial
+evidence even when renewal or release fails. Genuine expiry remains a failure.
+
+The eight workload cases, scientific assertions, work/resource/fairness proofs,
+absolute targets and original deadlines remain. Independent fake-time controls
+include an expired unmaintained 60-second control during 125 seconds of held foreground
+work while all five maintained leases remain valid. Scoped architecture and
+performance assessments support the correction; focused 8 tests and static checks
+pass. This changes the benchmark method: declare the new helper dependency and
+renewal/response-logging overhead, preserve native9 as failed evidence and rerun all
+eight cases. Do not relabel the failed run or infer a browser speedup.
+
+The complete failed-run raw packet is retained privately as a separate planned
+release asset, with all 3,225 original file bodies, five empty directories, CRC/hash
+checks and recursive validation. No scientific, production, API, TTL, schema,
+dependency or version change follows from this test correction. Packaging separately
+requires real scoped sidecars and the actual approved plan; final ALL8 success proof
+must remain absent until an actual successful complete run and packet are verified.

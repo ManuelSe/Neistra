@@ -1,0 +1,53 @@
+{
+  "actual_runner_wait_exit": 1,
+  "all_regular_original_and_archived_bodies_CRC_exact_union_verified": true,
+  "benchmark_method_count": 49,
+  "captured_candidate": "0f843c17733ef1a84b8c804be6cdcb485c0ddde6",
+  "correction": "Test-only independent serial20s maintenance; same payloads/sequences/TTL/workload/deadlines; requires fresh full ALL8",
+  "did_not_run": 4,
+  "empty_directories": 5,
+  "failed": 1,
+  "failure": "HTTP409 property_consumer_expired: next heartbeat starts27.443ms after returned60s expiry; backend correctly rejects it",
+  "inert_aliases": 0,
+  "original_bytes": 160009333,
+  "originals_retained": true,
+  "partial_measurements": {
+    "cache_above100ms": "17/20",
+    "cache_projection_median_ms": 158.7,
+    "cancellation_ms": 27.9,
+    "desktop_cold_max_ms": 8695.7,
+    "desktop_cold_median_ms": 4438.55,
+    "desktop_cold_p95_ms": 7681.7,
+    "limits": "Materially higher shared-host load; no causal speedup/regression or strict-host certification. Distinct incomplete, mobile unrun.",
+    "repeated_bulk_active_ms": 17494.1,
+    "warm_new_jobs": 0
+  },
+  "passed": 3,
+  "planned_checksum_companion": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+  "planned_separate_release_asset": "neistra-v0.37.0-native9-failed-all8.zip",
+  "primary_readback_sha256": "6263a57f79b32fe7045bb36ff88f09f4ad210cc0e7e1306d6a94c52e4b938929",
+  "private_packet": {
+    "bytes": 51668757,
+    "file": "native9-failed-all8-evidence.zip",
+    "outer_manifest_entries": 3230,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-native9-failure-preservation1/native9-failed-all8-evidence.zip",
+    "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+    "verification_counts": {
+      "evidence_manifest_entries": 3240,
+      "project_archive_files": 20,
+      "zip_archives": 16
+    }
+  },
+  "publication_pending": true,
+  "qualified_main_member": false,
+  "raw_DB_WAL_SHM_copied_before_SQL_and_revalidated": true,
+  "recursive_verification": {
+    "evidence_manifest_entries": 3240,
+    "project_archive_files": 20,
+    "zip_archives": 16
+  },
+  "regular_original_files": 3225,
+  "roots": 7,
+  "scope": "Complete failed native9 preservation; never final ALL8 or release qualification",
+  "source_count": 1126
+}

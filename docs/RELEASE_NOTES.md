@@ -37,6 +37,16 @@ exact-master qualification and all seven final assessments remain pending. No st
 reference-host or universal instant-response claim is made. Profiles/sidebar/property
 filters/inspector retirement remain #160–#163; parent #11 exclusions are unchanged.
 
+The subsequent eight-case remeasurement exits 1 after three desktop passes: a bulk
+heartbeat arrives after its returned 60-second lease, and four mobile cases remain
+unrun. Raw evidence and slower partial timings are retained. A test-only serial
+maintenance lane removes the renewal dependency on sequential reads/assertions,
+preserving all original workloads, assertions, fairness proofs, targets and deadlines.
+Eight deterministic controls, lint/types and strict benchmark TypeScript pass;
+52 offline packaging controls cover actual scoped receipts and the approved plan.
+The benchmark method identity changes explicitly; fresh complete qualification is
+still required. Neither failure nor focused checks establish release readiness.
+
 
 ## 0.36.0 — Exact durable ligand designation
 

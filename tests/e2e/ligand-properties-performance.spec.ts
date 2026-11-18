@@ -6,6 +6,7 @@ import { performance } from "node:perf_hooks";
 import { expect, test, type APIRequestContext, type Locator, type Page, type TestInfo } from "@playwright/test";
 import type { Entry, Project } from "../../apps/web/src/api/types";
 import { performanceBudget } from "./support/performance";
+import { maintainConsumerHeartbeats } from "./support/consumer-heartbeat";
 
 interface Source { entry_id: string; source_artifact_id: string; instance_id: string; atom_ids: number[] }
 interface Report { input_hash: string; model_status: string; values: { descriptor_id: string; status: string; value: number | null }[] }
@@ -768,7 +769,24 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
   const observer = await startObserver(info, project.id, true);
   const owners: { id: string; payload: { entries: Source[]; descriptor_ids: string[]; sequence: number; active_entry_id: null }; renewed: number }[] = [];
   const aggregateReads: { at: number; elapsedMs: number; owner: string; entries: number; ready: number; status: number }[] = [];
-  const consumerUpdates: { at: number; elapsedMs: number; owner: string; entries: number; sequence: number; kind: string; status: number }[] = [];
+  const consumerUpdates: { at: number; elapsedMs: number; owner: string; entries: number; sequence: number; kind: string; status: number;
+    responseAt?: number; responseBody?: string; expiresAt?: string }[] = [];
+  const progress: { at: number; ready: number }[] = [];
+  const failures: unknown[] = [];
+  const heartbeats = maintainConsumerHeartbeats(() => owners, async owner => {
+    const started = performance.now();
+    const renewed = await request.put(`${propertyPath(project)}/consumers/${owner.id}`, { data: owner.payload });
+    const responseAt = performance.now(), responseBody = await renewed.text();
+    let expiresAt: string | undefined;
+    try {
+      const decoded = JSON.parse(responseBody) as { expires_at?: unknown };
+      if (typeof decoded.expires_at === "string") expiresAt = decoded.expires_at;
+    } catch { /* Preserve the original body if an unsuccessful response is not JSON. */ }
+    consumerUpdates.push({ at: started, elapsedMs: responseAt - started, responseAt, responseBody, expiresAt,
+      owner: owner.id, entries: owner.payload.entries.length, sequence: owner.payload.sequence,
+      kind: "same-sequence-heartbeat", status: renewed.status() });
+    expect(renewed.ok()).toBe(true);
+  });
   let evidence: Record<string, unknown> = { kind, profile: info.project.name };
   let completed = false;
   try {
@@ -783,6 +801,7 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
     for (let offset = 0; offset < 1000; offset += 200) {
       const allocationStarted = performance.now();
       const allocation = await request.post(`${propertyPath(project)}/consumers`);
+      heartbeats.check();
       expect(allocation.ok()).toBe(true);
       const id = (await allocation.json() as { consumer_id: string }).consumer_id;
       consumerUpdates.push({ at: allocationStarted, elapsedMs: performance.now() - allocationStarted,
@@ -790,45 +809,44 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       const payload = { entries: bulk.slice(offset, offset + 200).map(source), descriptor_ids: [], sequence: 1, active_entry_id: null };
       const submittedAt = performance.now();
       const submitted = await request.put(`${propertyPath(project)}/consumers/${id}`, { data: payload });
+      heartbeats.check();
       expect(submitted.ok()).toBe(true);
       consumerUpdates.push({ at: submittedAt, elapsedMs: performance.now() - submittedAt,
         owner: id, entries: payload.entries.length, sequence: 1, kind: "demand", status: submitted.status() });
       owners.push({ id, payload, renewed: performance.now() });
+      heartbeats.changed();
     }
     expect(new Set(owners.map(owner => owner.id)).size).toBe(5);
     await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).some(job => job.execution_id
       && job.captures?.some(capture => capture.targets.some(target => bulk.some(entry => entry.id === target.source.entry_id)))), { timeout: 30_000 }).toBe(true);
+    heartbeats.check();
     const ordinary = await request.post(`/api/v1/projects/${project.id}/jobs`, { data: {
       job_type: "molweave.demo.structure_statistics", parameters: { step_count: 1, delay_ms: 0 }, inputs: [{ role: "structure", entry_id: active.id }],
     } });
+    heartbeats.check();
     expect(ordinary.ok()).toBe(true);
     const ordinaryJob = await ordinary.json() as { id: string; created_at: string };
     const dispatchRead = await request.post(`${propertyPath(project)}/read`, { data: { entries: owners.at(-1)!.payload.entries, descriptor_ids: [] } });
+    heartbeats.check();
     expect(dispatchRead.ok()).toBe(true);
     const pendingAtDispatch = (await dispatchRead.json() as { entries: Current[] }).entries.filter(row => row.status === "pending").length;
     const changed = await actualEdit(page, request, project, activeCarbon, preparedButton); project = changed.project;
+    heartbeats.check();
     expect(changed.current.report!.input_hash).not.toBe(initial.report!.input_hash);
     expect(changed.timing.networkCurrentMs).not.toBeNull();
     performanceBudget(changed.timing.networkCurrentMs!, 5000, "active edit to automatic current App READY during 1000-entry bulk ms", true);
-    const progress: { at: number; ready: number }[] = [];
     const deadline = performance.now() + 900_000;
     let readyCount = 0;
     let inputHashes = new Set<string>();
     let finalBindings: { source: Source; inputHash: string }[] = [];
     while (readyCount < 1000) {
+      heartbeats.check();
       expect(performance.now()).toBeLessThan(deadline);
       readyCount = 0; inputHashes = new Set<string>(); finalBindings = [];
       for (const owner of owners) {
-        if (performance.now() - owner.renewed >= 20_000) {
-          const started = performance.now();
-          const renewed = await request.put(`${propertyPath(project)}/consumers/${owner.id}`, { data: owner.payload });
-          expect(renewed.ok()).toBe(true);
-          consumerUpdates.push({ at: started, elapsedMs: performance.now() - started, owner: owner.id,
-            entries: owner.payload.entries.length, sequence: owner.payload.sequence, kind: "same-sequence-heartbeat", status: renewed.status() });
-          owner.renewed = performance.now();
-        }
         const started = performance.now();
         const response = await request.post(`${propertyPath(project)}/read`, { data: { entries: owner.payload.entries, descriptor_ids: [] } });
+        heartbeats.check();
         expect(response.ok()).toBe(true);
         const rows = (await response.json() as { entries: Current[] }).entries;
         aggregateReads.push({ at: started, elapsedMs: performance.now() - started, owner: owner.id,
@@ -850,6 +868,7 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       if (readyCount < 1000) await page.waitForTimeout(750);
     }
     const ordinaryRead = await request.get(`/api/v1/jobs/${ordinaryJob.id}`);
+    heartbeats.check();
     expect(ordinaryRead.ok()).toBe(true); expect((await ordinaryRead.json() as { status: string }).status).toBe("completed");
     expect(inputHashes.size).toBe(kind === "repeated" ? 1 : 1000);
     evidence = { ...evidence, setupMsExcluded, active: changed.timing, changedSource: source(changed.entry),
@@ -862,37 +881,59 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       pendingInLast200BeforeClickDiagnosticOnly: pendingAtDispatch,
       overlapScope: "Accepted exact-source/generation work-order proof is evaluated separately; pre-click counts do not qualify overlap" };
     completed = true;
-  } finally {
-    for (const owner of owners) expect((await request.delete(`${propertyPath(project)}/consumers/${owner.id}?sequence=2`)).ok()).toBe(true);
-    if (completed) await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).filter(job => job.execution_id).every(job => job.reaped), { timeout: 15_000 }).toBe(true);
-    const observation = await observer.finish();
-    const jobs = Object.values(observation.jobs).sort((left, right) => (left.started_at ?? "").localeCompare(right.started_at ?? ""));
+  } catch (error) { failures.push(error); }
+  finally {
+    // Await the sole in-flight sequence1 renewal before any sequence2 release.
+    // Cleanup failures must not bypass observer/evidence preservation or hide the first error.
+    try { await heartbeats.stop(); } catch (error) { failures.push(error); }
+    for (const owner of owners) {
+      try { expect((await request.delete(`${propertyPath(project)}/consumers/${owner.id}?sequence=2`)).ok()).toBe(true); }
+      catch (error) { failures.push(error); }
+    }
+    if (completed) {
+      try { await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).filter(job => job.execution_id).every(job => job.reaped), { timeout: 15_000 }).toBe(true); }
+      catch (error) { failures.push(error); }
+    }
+    let observation: Observation | undefined;
+    try { observation = await observer.finish(); } catch (error) { failures.push(error); }
+    const jobs = Object.values(observation?.jobs ?? {}).sort((left, right) => (left.started_at ?? "").localeCompare(right.started_at ?? ""));
     const output = resolve(observer.directory, "native-bulk-performance.json");
     const browserEvidence = await page.evaluate(() => ({ requests: window.ligandPropertyPerformance.requests,
-      clock: { installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() } }));
-    evidence = { ...evidence, actualOrder: jobs, retained: observation.retained, observerDirectory: observer.directory,
-      allAppRequests: browserEvidence.requests, browserClock: browserEvidence.clock,
+      clock: { installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() } }))
+      .catch((error: unknown) => { failures.push(error); return undefined; });
+    evidence = { ...evidence, actualOrder: jobs, retained: observation?.retained, observerDirectory: observer.directory,
+      allAppRequests: browserEvidence?.requests, browserClock: browserEvidence?.clock,
+      aggregateReads, consumerUpdates, progress,
+      owners: owners.map(owner => ({ id: owner.id, sequence: owner.payload.sequence, entries: owner.payload.entries.length })),
+      leaseMaintenance: "One serial independent20s-due lane; same payload/sequence/60s lease, no retries; stopped and awaited before release",
+      failures: failures.map(String),
       hardWorkOrderStatus: completed ? "not_yet_evaluated" : "incomplete_workload" };
     // Keep exact workload/source/request facts even if a hard qualification
     // assertion rejects this run. The raw store and trace remain authoritative.
     await writeFile(output, JSON.stringify(evidence, null, 2));
     try {
+      if (!observation) throw new Error("Worker observation did not finish; qualification incomplete");
       validateWorkerEvidence(observation);
       const hardWorkOrder = completed ? await workOrderProof(observation, evidence.changedSource as Source,
         String(evidence.changedInputHash), evidence.activeRequests as FetchSample[], bulk,
         String(evidence.ordinaryJobId), String(evidence.ordinaryQueuedAt), kind === "distinct") : null;
       evidence = { ...evidence, hardWorkOrder, hardWorkOrderStatus: completed ? "passed" : "incomplete_workload" };
     } catch (error) {
+      failures.push(error);
       evidence = { ...evidence, hardWorkOrderStatus: "failed", hardWorkOrderError: String(error) };
       await writeFile(output, JSON.stringify(evidence, null, 2));
-      throw error;
     }
-    await writeFile(output, JSON.stringify(evidence, null, 2));
-    await info.attach("descriptor-bulk-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" });
     if (completed) {
-      expect(jobs.filter(job => job.execution_id).every(job => job.reaped)).toBe(true);
-      expect(jobs.filter(job => job.execution_id).length).toBeLessThanOrEqual(Math.ceil(1000 / 8) + 4);
+      try {
+        expect(jobs.filter(job => job.execution_id).every(job => job.reaped)).toBe(true);
+        expect(jobs.filter(job => job.execution_id).length).toBeLessThanOrEqual(Math.ceil(1000 / 8) + 4);
+      } catch (error) { failures.push(error); }
     }
+    evidence = { ...evidence, failures: failures.map(String) };
+    await writeFile(output, JSON.stringify(evidence, null, 2));
+    try { await info.attach("descriptor-bulk-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" }); }
+    catch (error) { failures.push(error); }
+    if (failures.length) throw failures[0];
     // The hard ordinary bound is checked against actual productive coordinator
     // turns above, including warm/failure progress; child starts cannot prove it.
 

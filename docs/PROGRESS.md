@@ -3,8 +3,9 @@
 ## Current milestone
 
 Parent #11 remains active through all eight children and verified closeout.
-#156–#158 are delivered. #159 prepares 0.37.0 and has a passing local correction
-for measured quadratic inspector work; fresh browser qualification remains pending.
+#156–#158 are delivered. #159 prepares 0.37.0. Its measured inspector correction
+is followed by a passing local benchmark lease-maintenance and packaging correction;
+fresh complete browser qualification remains pending.
 #160 is a passing local checkpoint. #161 has committed its 16 passing local C2
 native cases. #162 has an authorized technical plan; #163 remains planned.
 
@@ -20,6 +21,12 @@ Explicit data/error/placeholder notifications avoid cross-observer property trac
 Hidden eligible entries, current-artifact qualification and failure recovery remain.
 See the [local correction receipt](assets/ligand-properties/c3-inspector-correction-checkpoint.json).
 
+Bulk benchmark leases now renew in one independent serial lane, with the same
+payloads, sequences, 20-second maintenance rule and 60-second production lease.
+Stop awaits renewal before release; failures retain observer and partial evidence.
+Release packaging requires actual scoped receipts, the correct approved plan and
+a genuinely successful final ALL8 packet. Production/scientific code is unchanged.
+
 ## Verification performed
 
 Earlier source/recovery, actual current→v0.36.0→current reader suites and all eight
@@ -34,6 +41,16 @@ verify all observer memberships, seeds, retained-data failure/recovery, project 
 entry removal and held completions. Current web lint, types and production build pass.
 Scoped architecture assessment passes. These are local checkpoint checks.
 
+The next actual ALL8 run at 0f843c17 exits 1: three desktop cases pass, distinct bulk
+fails on an expired heartbeat, and four mobile cases do not run. Cleanup, source
+and raw DB/WAL/SHM preservation pass. Its complete 51,668,757-byte forensic packet
+passes independent whole-body/CRC/recursive readback. The corrected maintenance
+passes eight deterministic tests, including an expired unmaintained control;
+web lint/types and strict benchmark TypeScript pass. Packaging controls pass 52.
+Scoped architecture/performance assessments pass for their exact corrected subjects.
+See [failure metadata](assets/ligand-properties/c3-native9-failed-checkpoint.json)
+and the [local tooling receipt](assets/ligand-properties/c3-lease-maintenance-checkpoint.json).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -42,6 +59,10 @@ covered active-edit window supports [renderer/API attribution](assets/ligand-pro
 including measured inspector redundancy; it does not establish a runtime speedup.
 The complete 190,937,608-byte raw packet is retained privately for a future separate
 release asset, with [publication-pending metadata](assets/ligand-properties/c3-desktop-profile-checkpoint.json).
+The later failed ALL8 packet also remains a separate publication-pending forensic
+asset. Its slower partial measurements do not establish a causal regression or
+speedup. The corrected benchmark method adds renewal traffic and response logging;
+its costs remain measured rather than being described as unchanged or free.
 
 Fresh complete ALL8, full 43-command candidate/exact-master gates, all seven final
 same-candidate assessments and protected delivery remain required. Strict reference
@@ -49,11 +70,12 @@ latency targets remain separate under D-148. #159 has no implementation push or 
 
 ## Blockers
 
-No external blocker. The identified work redundancy is corrected; its actual browser
-responsiveness and complete integrated correctness still require qualification.
+No external blocker. The failed heartbeat was sent after its returned expiry;
+production correctly rejected it. The bounded test-maintenance correction passes
+focused verification; complete integrated correctness still requires qualification.
 
 ## Next action
 
-Prepare a fresh source-bound unchanged ALL8 run from this local checkpoint, then
-complete final qualification and protected delivery.
+Run all eight original workload cases with the explicitly corrected maintenance
+method, then complete final qualification and protected delivery.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.
