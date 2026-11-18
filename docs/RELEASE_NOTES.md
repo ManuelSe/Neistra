@@ -31,9 +31,9 @@ preserved at their declared candidates. The measured inspector correction remove
 quadratic query tracking and entry scans while preserving the full observed source
 set. At 1,000 entries the work regression changes 5,005,000 tracking calls and 1,002,000
 ID reads to 0 and 2,000. Focused tests, current lint/types and build pass; actual browser
-improvement remains unmeasured. Prior cold and desktop bulk latency misses and both
-incomplete diagnostic outcomes remain explicit. Final current ALL8, 43-command candidate /
-exact-master qualification and all seven final assessments remain pending. No strict
+improvement is not established by the changed-method measurements. Prior cold and desktop bulk latency misses and both
+incomplete diagnostic outcomes remain explicit. Current ALL8 portable qualification passes;
+43-command candidate / exact-master qualification and all seven final assessments remain pending. No strict
 reference-host or universal instant-response claim is made. Profiles/sidebar/property
 filters/inspector retirement remain #160–#163; parent #11 exclusions are unchanged.
 
@@ -51,8 +51,23 @@ A further retained run demonstrates that serial maintenance alone is insufficien
 when per-row test reporting delays response handling. Complete batch predicates now
 retain all ready/pending, qualified-report, 14-value and finite-ready checks with
 two data matcher calls per 200 rows, instead of 801. 16 focused tests and scoped reviews
-pass. Both failed runs remain explicit; no application speedup is inferred. Current
-ALL8 and the authored candidate/exact-master 43-command gates still require execution.
+pass. Both failed runs remain explicit; no application speedup is inferred.
+
+The corrected eight-case run at 995e80f8 now exits 0 with all eight single-attempt
+passes and no skips, failures, flakes or retries. All four 1,000-entry cohorts reach
+qualified current results with bounded productive scheduling. Source, cleanup, raw
+evidence, cache, cancellation and resource checks pass. Its complete 41,422,460-byte
+evidence packet receives independent whole-body/CRC/recursive verification and a
+scoped performance specialist PASS. These are portable checks under D-148.
+
+Cold edit median/p95/maximum are 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds.
+Both desktop bulk active updates exceed 5 seconds (6,928.2/6,921.8 ms), while mobile
+records 3,144.9/3,967.4 ms. Feedback exceeds 100 ms in 21/84 observations. Matching
+cache projection is at most 74.5 ms with zero new jobs; cancellation feedback is at
+most 22 ms. The benchmark's 105 renewal calls preserve 28,801,010 response-body bytes;
+their overhead is included. No strict timing certification or causal speedup is
+claimed. Both full 43-command gates, final seven-specialist review, protected merge
+and verified publication remain required.
 
 
 ## 0.36.0 — Exact durable ligand designation

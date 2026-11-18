@@ -1339,3 +1339,55 @@ The two owned /tmp bases are empty; no gate has started. Their absolute implemen
 path is this owned feature checkout, which can qualify the verified exact merged
 commit without touching another checkout. Fresh complete ALL8, both 43 gates,
 all-seven same-final-candidate review and normal protected release remain required.
+
+### C3 corrected current ALL8 portable qualification
+
+Native11 executes the original eight workloads at clean 995e80f8, with one worker,
+zero retries and the unchanged fail-fast rule. Actual runner wait exits 0; all eight
+cases pass in one attempt with no skips, failures or flakes. Normal supervisor/runner
+PID, start token, argv, parent, process group and session are positively verified;
+terminal wait and cleanup remain distinct from launcher acceptance. Before/after/current
+source maps and both complete source ZIPs match all 1,130 sources and 51 method subjects.
+All owned services are cleaned up before original DB/WAL/SHM bytes are copied and
+hashed, without SQL. The complete worker/resource observations remain available.
+
+Closed metadata analysis exits 0; 24 meaningful terminal controls reject failed or
+Boolean wait codes, wrong candidate/source/method identities and wrong process bindings.
+Independent performance assessment verifies all 116 consumed bodies, the actual
+eight-case report, all 40 cold/warm current-source result pairs and all four bulk
+work-order proofs. Each bulk cohort reaches 1,000 ready entries with 1 or 1,000
+qualified input hashes, 3 or 127 private jobs, at most one running job and all completed
+children reaped. Ordinary productive turns before claim are 1–2, within the limit 4;
+productive bulk turns before active admission are zero, within the limit 1. Original
+scientific/read/request/capture/publication/batch/cache/retention bounds pass.
+
+Measured cold edits have median 2,102.85 ms, nearest-rank p95 2,279.1 ms and maximum
+2,595.3 ms; 32/40 exceed 2,000 ms. Desktop bulk active values take 6,928.2/6,921.8 ms,
+above 5,000 ms; mobile takes 3,144.9/3,967.4 ms. Feedback exceeds 100 ms in 21/84
+observations. All 40 matching-cache projections finish within 74.5 ms and enqueue
+zero new jobs. Cancellation feedback is 22/7.1 ms, preserving accepted late-reply
+retirement and explicit Retry; this is not worker-kill latency. All 105 recorded
+renewals succeed with unchanged sequence/payload and nonoverlapping header intervals;
+28,801,010 UTF8 response-body bytes are preserved and costs stay inside measured clocks.
+546 sampled resource rows record a maximum joined owned RSS of 1,805,557,760 bytes;
+browser/GPU and short-lived accounting remains incomplete, with no universal ceiling claim.
+
+The [complete raw packet](../assets/ligand-properties/c3-all8-remeasurement-evidence.zip)
+is 41,422,460 bytes, SHA256
+`95d800bc538e376003e2958821fefaa191710111453c4ab148fd8181a7076fa3`.
+It preserves all 4,896 original regular inputs / 285,805,034 bytes across 15 roots,
+including the complete runner, eight workflow roots, workspace, prelaunch/terminal
+proofs, closed analysis and attributed scoped assessment. Three empty directories
+are described; no aliases or input omissions occur. Primary separately reads every
+original and archived body, exact union and CRC, then verifies 15 recursive ZIPs,
+4,909 evidence entries and 20 project files. Originals and earlier packets remain.
+The [actual successful receipt](../assets/ligand-properties/c3-all8-remeasurement-checkpoint.json)
+and [measurements](../assets/ligand-properties/c3-all8-remeasurement-analysis.json)
+retain timing misses and distinguish portable qualification from strict-host certification.
+
+This completes current C3 performance evidence only. The explicit method change and
+shared-host conditions do not establish a causal or same-method application speedup.
+Full 43-command candidate/exact-master gates, all-seven final same-candidate assessments,
+protected merge, verified 0.37.0 publication and closeout remain. No implementation
+push, PR, tag or release exists for #159 at this checkpoint. Parent #11 and the single
+program Goal remain active for #159–#163 after delivered #156–#158.

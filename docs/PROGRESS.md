@@ -4,8 +4,8 @@
 
 Parent #11 remains active through all eight children and verified closeout.
 #156–#158 are delivered. #159 prepares 0.37.0. Its measured inspector correction
-is followed by passing local lease-maintenance, packaging and batch-oracle corrections;
-fresh complete browser qualification remains pending.
+is followed by passing local lease-maintenance, packaging and batch-oracle corrections.
+All eight corrected portable performance cases pass; complete release gates remain.
 #160 is a passing local checkpoint. #161 has committed its 16 passing local C2
 native cases. #162 has an authorized technical plan; #163 remains planned.
 
@@ -64,6 +64,16 @@ calls are 801→2 per 200 ready rows. Scoped architecture/performance assessment
 Both complete 43-command recipes are authored for candidate and exact master;
 neither gate has run. See the [batch-oracle receipt](assets/ligand-properties/c3-bulk-validation-checkpoint.json).
 
+Native11 at 995e80f8 exits 0 with eight single-attempt passes, zero skips, failures,
+flakes or retries. Both profiles complete cold/edit, cancellation and repeated/distinct
+1,000-entry demand workflows. All 1,130 sources and 51 method subjects remain exact;
+cleanup precedes raw DB/WAL/SHM preservation. Closed analysis and independent performance
+assessment pass mandatory source, scientific, request/work, fairness and resource checks.
+The complete 41,422,460-byte [packet](assets/ligand-properties/c3-all8-remeasurement-evidence.zip)
+passes independent original/body/CRC/union and recursive readback. See its
+[receipt](assets/ligand-properties/c3-all8-remeasurement-checkpoint.json) and
+[measurements](assets/ligand-properties/c3-all8-remeasurement-analysis.json).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -80,19 +90,26 @@ Native10's failure and its original transport identity-observation error are als
 retained in a separate publication-pending raw asset. Later exact process identity
 observations supplement that error; they never turn the failed workload into PASS.
 
-Fresh complete ALL8, full 43-command candidate/exact-master gates, all seven final
-same-candidate assessments and protected delivery remain required. Strict reference
-latency targets remain separate under D-148. #159 has no implementation push or release.
+Current cold edits have median 2,102.85 ms, p95 2,279.1 ms and maximum 2,595.3 ms;
+32/40 exceed the 2-second target. Desktop bulk active updates take 6,928.2/6,921.8 ms,
+above 5 seconds; mobile takes 3,144.9/3,967.4 ms. Command feedback exceeds 100 ms in
+21/84 observations. All 40 matching-cache projections finish within 74.5 ms without
+new jobs; cancellation feedback is at most 22 ms. Renewal traffic includes 105 calls
+and 28,801,010 response-body bytes. Changed method and host conditions preclude a
+causal or same-method application speedup claim.
+
+Full 43-command candidate/exact-master gates, all seven final same-candidate assessments
+and protected delivery remain required. Strict reference latency targets remain
+separate under D-148. #159 has no implementation push or release.
 
 ## Blockers
 
-No external blocker. Production correctly rejects expired heartbeats. The serial
-maintenance fix alone was insufficient under measured test-reporting overhead;
-complete batch predicates now preserve checks with bounded reporting. Fresh
-integrated qualification remains required.
+No external blocker. Corrected complete batch predicates and independent maintenance
+pass the original eight workloads without weakening checks. Full integrated release
+qualification remains required.
 
 ## Next action
 
-Run all eight original workload cases with the explicitly corrected maintenance
-method, then complete final qualification and protected delivery.
+Run the complete 43-command candidate gate, obtain final seven-specialist assessments,
+then complete protected merge, exact-master qualification and verified release.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.

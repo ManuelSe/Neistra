@@ -9460,3 +9460,20 @@ assessments cover the exact three corrected files. Scientific/production/API/lea
 bytes remain unchanged. Declare the new 51-subject benchmark method and rerun all
 eight original workloads. Preserve native10's failure and original transport error
 with its independent process-identity recovery; do not normalize either into PASS.
+
+### D-194 current qualification result — corrected complete eight-case method
+
+Native11 at 995e80f8 completes all eight original workloads in one attempt with actual
+runner exit 0 and no skips, failures, flakes or retries. All 1,130 sources and 51 declared
+method subjects remain exact. Mandatory scientific/source/work/request/fairness/resource,
+cleanup and raw-preservation proofs pass; closed analysis and independent scoped performance
+assessment agree. The successful 41,422,460-byte complete packet is independently verified.
+
+Retain every absolute target miss under D-148: 32/40 cold edits exceed 2 seconds,
+both desktop active-bulk cases exceed 5 seconds, and 21/84 command-feedback observations
+exceed 100 ms. Matching-cache values require no new jobs and finish within 74.5 ms;
+cancellation feedback is at most 22 ms. The 105 renewal calls preserve 28,801,010 response
+bytes and their overhead remains measured. No strict-host certification, unchanged-method
+comparison or causal application speedup follows. No additional optimization is required
+by the scoped performance assessment; complete candidate/master release gates and final
+same-candidate seven-specialist review remain binding.
