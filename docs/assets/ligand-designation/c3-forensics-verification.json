@@ -1,0 +1,52 @@
+{
+  "scope": "Local supplemental forensic retention and verifier checkpoint; not public availability, application qualification, or final specialist readiness",
+  "archive": "c3-forensics-verification.zip",
+  "files": 68,
+  "archive_bytes": 5628004,
+  "archive_sha256": "6c275f5949c7a0e79276bcf7eb1f5c0eeb79f16b467d38b2f81dc2242adaf63a",
+  "recursive_verification": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 68,
+    "project_archive_files": 0
+  },
+  "index_sha256": "c707af73a25fe466a05e1a0a0bcf9456fdcb49b03b7b3af5c87805f2d2a7b12d",
+  "verifier_sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0",
+  "tests_sha256": "a4d2f7aa2d06c51a6e455271a48c5c09e79003440e9f7dab1ce36fb46cf89275",
+  "local_parts_verified": 18,
+  "canonical_files": 32747,
+  "raw_bytes": 2858561549,
+  "part_bytes": 1405381190,
+  "all_recursive_crcs_and_exact_disjoint_inventory_unions": true,
+  "offline_controls": 64,
+  "offline_control_network_requests": 0,
+  "ruff": "PASS",
+  "mypy": "PASS2files",
+  "source_identities_unchanged": true,
+  "actual_enclosing_readback": [
+    {
+      "session": 57369,
+      "exit_code": 0,
+      "phase": "registration and recursive packaging"
+    },
+    {
+      "session": 13146,
+      "exit_code": 0,
+      "phase": "tracked local verifier"
+    },
+    {
+      "session": 1506,
+      "exit_code": 0,
+      "phase": "offline controls, Ruff and mypy"
+    }
+  ],
+  "raw_native_relocation": "Verified filewise before/after; all original owned stores retained and no payload deleted",
+  "snapshot_boundary": "C5 plus closed before1/after1 raw snapshots; actual enclosing receipts written afterwards are retained separately in this verification ZIP. Corrected after2/after3 belong to a separate root checkpoint.",
+  "failed_gates_remain_unqualified": true,
+  "required_remaining": [
+    "Independent specialist assessment of current verifier/index/parts and integrated final candidate",
+    "Fresh complete candidate and exact merged-master gates with source maps including verifier and offline controls",
+    "Primary packet includes this small source/control ZIP and indexed metadata, without nesting raw /forensics part payloads",
+    "Publish all18 indexed supplemental assets only from verified release; read server identities and full anonymous bodies with tracked verifier",
+    "Verify all public hashes, recursive CRCs, provenance and exact disjoint unions before child closeout"
+  ]
+}

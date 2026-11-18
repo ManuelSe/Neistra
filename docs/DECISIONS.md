@@ -9214,3 +9214,120 @@ future workloads. The public c2-prelaunch-recovery checkpoint/ZIP retain all799o
 regular files,106inert aliases,409empty directories, raw attempts and stores without
 SQL inspection. Primary full-union/source readback passes. No scientific method,
 version, schema, capacity or performance-target change follows from this correction.
+
+
+### Published predecessor decision union — 2026-11-18
+
+The following accepted predecessor decisions are preserved verbatim alongside the
+current property-result producer and recovery decisions. Runtime v0.36.0 is published;
+its anonymous evidence verification and terminal delivery closeout remain pending.
+
+## D-189 — Coalesce job progress refreshes without discarding in-flight state
+
+Date:2026-11-17. Fresh158candidate8 passes every pre-browser phase but fails the
+existing demonstration-job running/cancel lifecycle. The correct100step/50ms job
+runs5.23seconds; HTTP lists report it running during the assertion while decoded
+DOM snapshots retain the previous failed job until completion. JobsPanel and API
+client are unchanged from the accepted base. Exact exclusive native causation is
+not established by that trace alone.
+
+Independent actual-component/installed-QueryClient proof reproduces a reachable
+refresh starvation defect: repeated WebSocket invalidations logically cancel four
+held successful running responses, leaving five list requests and no running DOM.
+A counterfactual coalescing control publishes running state through one request.
+The query functions do not consume AbortSignal, so HTTP200 does not prove cache
+publication. Permanent held-list and held-events regressions each fail before the
+correction with five requests instead of one.
+
+Pass cancelRefetch:false to both progress-notification invalidations. Allow an
+existing list/event refresh to finish; preserve polling fallback, explicit Retry,
+project/job query ownership, selected detail tab/focus, cancellation confirmation
+and terminal/error handling. No control, job duration, retry or deadline changes.
+Qualify current running/log publication during held progress events, retained
+cancellation behavior, project transitions and the unchanged actual native lifecycle.
+The reference assessment supports responsive status/progress and deliberate cancel;
+it prescribes no particular query implementation or new workflow.
+
+
+D-189 cancellation publication refinement: a separate controlled regression proves
+that an already held pre-cancel list response can restore running after the API has
+confirmed terminal cancellation. Coalescing ordinary progress must not weaken a
+successful explicit intent. On cancel success, logically cancel the older list
+refresh for the returned job's own project before publishing the acknowledged job
+into that same cache. Retain the exact stale-response negative control and normal
+error/confirmation behavior. This is a query publication barrier, not an additional
+server cancellation or a changed job lifecycle.
+
+
+D-189 acknowledgement ordering refinement: the running-job cancel API can acknowledge
+running with cancellation_requested=true. Independent actual-component proof shows
+that this older acknowledgement can arrive after a GET has already published a
+terminal cancelled result, then regress cache/DOM to running. Preserve already
+observed terminal state for the same job against a nonterminal acknowledgement,
+including across the targeted query-cancellation barrier; qualify cancelled,
+completed and failed outcomes. Keep normal acknowledged payload updates for live
+jobs and avoid a generic revision protocol or additional server commands.
+
+## D-198 — Qualify ligand source failures across read and write producers
+
+Independent actual application controls reproduce a source-qualification defect:
+Use can report a molecular integrity or missing-artifact failure while cached
+composition/drawing remain visible and Use stays enabled. The corresponding159
+path also retains numerical authority. This violates D-166/D-195 even though the
+failed operation leaves durable intent unchanged. The old1007-source candidate,
+all raw controls and its active C12 qualification remain untouched. An isolated
+fix/issue-158-source-producer-qualification tree owns this correction under the
+same approved158plan; it is not a separate release or permission to push early.
+
+Audit the closed four-producer ligand-service boundary: candidates and depiction
+use their query owners; designate and legacy resolve report failure inside their
+actual captured API operation, before generic command/toast/helper feedback gates.
+Expose a bounded explicit canonical-owner source-failure entry point, reusing the
+existing barrier, cancellation and notification path. Preserve128records/64KiB,
+weak request-start guards and current-only successful candidate requalification.
+Depiction success never qualifies candidate facts.159's numerical bridge consumes
+these facts separately; it still requires a fresh property READ for recovery.
+
+Known current/original molecular reads carry optional typed source_verification
+and source_identity={project_id,entry_id,current_artifact_id,original_artifact_id},
+captured as primitives before the actual read. Preserve existing HTTP status/code/
+message. Include normalized-source StructureArtifactConflict failures as well as
+integrity/missing-artifact failures. Derived SVG reads remain untagged. The _entry
+expected-current mismatch receives a typed current tag without inventing an old-
+current/new-original tuple. Its single-target operation can use its own captured
+four-field input. A later expected_input_hash mismatch is semantic rejection, stays
+untagged and does not invalidate independent scientific facts.
+
+The client distinguishes absent, valid and invalid supplied identity; malformed
+provided provenance cannot become absent fallback authority. Batch resolve accepts
+only proof matching its captured project, requested member and all four immutable
+source fields, even for a one-entry batch. Never invalidate every batch input.
+Single-target operations use the captured exact source and valid producer evidence.
+Delayed source facts apply independently of UI feedback ownership to matching
+cached source only; a different source B remains untouched. Returning to the same
+immutable A requires verification after the latest observed failure. Clear/no-op
+fabricates no read proof; successful assignment/clear follows existing identity/
+history. Transport, revision/context errors, semantic candidate rejection and
+untagged derived drawing errors do not become molecular-source failures.
+
+Architecture and scientific implementation assessed this boundary before code.
+Verify actual158composition/drawing/Use retirement, actual159numerical/captured-
+authority retirement, exact batch isolation, API provenance validation, held reads,
+closed/switched contexts, Clear/semantic/transport/derived positives, bounded
+retention and successful current candidate recheck. Preserve all failed proofs.
+Complete focused/static/web checks and all-seven same-final-candidate assessments;
+then run a fresh full158candidate/exact-master gate before publication. C12's
+unchanged automated results are historical, not approval of the known defect.
+
+
+D-198 single-Use compatibility clarification: inspection of the designation write,
+entry.ligand patch application, history trimming and project DTO construction finds
+no artifact reads outside the captured target's _inputs. Therefore legacy untagged
+artifact_integrity_error409/artifact_not_found404 on the actual single-target Use
+API promise are valid source evidence for that captured input. Enable this narrow
+fallback only when selecting a candidate. Clear has no input read and gains no such
+fallback; batch resolution always requires full typed exact identity. Untagged
+structure_artifact_conflict remains ambiguous with candidate-hash rejection and
+cannot grant mutation authority. A supplied malformed or mismatching identity
+always prevents fallback. This preserves the original source-failure regression
+while retaining explicit producer and immutable-source ownership.

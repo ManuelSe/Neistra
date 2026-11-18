@@ -917,3 +917,36 @@ corrections, refresh literal guards and integrate the actually released #158 bef
 final159version/preceding-reader qualification. Required performance/capacity/native
 workloads, complete candidate and exact-master gates, all seven same-final-candidate
 assessments and normal verified delivery remain pending. No push readiness is claimed.
+
+
+### C3 local integration of the published qualified predecessor runtime
+
+2026-11-18: v0.36.0 is stable/latest release449776471, with all56initial server
+asset identities matching their expected hashes. Its annotated tag resolves to the
+fully qualified247ab651 runtime. Full anonymous evidence verification and terminal
+#158 closeout remain pending; this local integration does not claim that delivery
+complete or permit #159 final publication ahead of it. Later terminal158documentation
+must also be integrated before final159qualification.
+
+Merge that actual published runtime into the159checkpoint8a4f5385. Resolve App
+byte-for-byte to its existing a1673375 body and canonical inventoryOwner, preserving
+the numerical bridge/captured-operation qualification. Union the two missing accepted
+predecessor decisions D-189 and the ligand-source D-198 context without replacing
+existing159decisions. Retain the exact qualified JobsPanel and six frontend cases,
+four native test/helper refinements, forensic verifier and64unit controls. No API,
+core scientific, schema, worker or descriptor/session source changes in this merge.
+
+The fresh existing-policy inventory has1125sources: the verifier/tool test are
+added, two frontend files and four inherited native test/helper bodies change, all
+other prior subjects remain exact. All changed/added source bodies match the
+published predecessor verbatim; App remains exact159. Fresh integrated validation
+passes1565frontend tests/133suites,64verifier tests, frontend lint/types/build,
+globalRuff and diff checks. Actual enclosing95335exit0; the complete1125-source
+map remains fixed through every command. Earlier worker33+171/static and D-194
+method evidence remain tied to unchanged subjects; they are not pooled as a full gate.
+
+This is a coherent local integration checkpoint, with no push/full-feature/all-seven
+readiness claim. Refresh future source guards from the actual final candidate after
+prerequisite closeout/documentation, final0.37version/preceding-reader preparation
+and any required measured latency correction. Required native/ALL8/capacity, full
+candidate/exact-master gates and final specialist reviews remain mandatory.

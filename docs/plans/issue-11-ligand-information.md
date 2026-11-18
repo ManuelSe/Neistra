@@ -95,10 +95,10 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 | --- | --- | --- | --- | --- | --- |
 | #156 | [Contract](issue-156-viewer-information-strip.md); None | FULLY DELIVERED | reviewed20cf198b, runtimeab5e5fef; terminaldocs4b8ae716 | PR168; annotated7aacc228→ab5e5fef; stable/latestv0.34.0; reply6926458297; closedcompleted; PR169merged and ownedbranchabsence verified | Both35gates/7agentPASS; anonymousasset511ZIP2779hash870files; terminalc7delivery asset/comment verified; tag unchanged |
 | #157 | [Contract](issue-157-viewer-measurements.md); #156 | FULLY DELIVERED | Reviewed `c06c7248`; runtime `7542d1a1`; terminal docs `b038e4e6`; all 931 sources unchanged | [PR170](https://github.com/ManuelSe/Neistra/pull/170), [PR174](https://github.com/ManuelSe/Neistra/pull/174), [v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0), [canonical reply](https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610); closed as completed; both owned branches absent | Both 42-command gates and all seven application/doc assessments pass. Primary/sidecars, 26 forensic assets, C6 and C7/checksum pass full anonymous verification. [Delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-delivery.json), SHA `05c904dd…`; immutable tag `81963d29` targets runtime. Parent Goal remains active. |
-| #158 | [Contract](issue-158-durable-ligand-designation.md); None | Verification environment correction passes focused checks | `ac4786d1` plus generator/environment-test correction on owned feature branch; base `b038e4e6` | No implementation push/PR/release/closeout | All7 application CODE assessments pass; candidate3 fails132 migration cases from injected DB aliases. Direct fail/pass proof, unchanged133migration and17recipe cases pass; application1304frontend/26native evidence unchanged. Commit correction, fresh42candidate4 and final exact-merged/final-review gates remain. |
-| #159 | [Contract](issue-159-live-ligand-properties.md); #158 | Planned, unimplemented | planned `feat/issue-159-live-ligand-properties`; base recheck pending | None | Implement in dependency order after C0 |
-| #160 | [Contract](issue-160-physicochemical-profiles.md); #159 | Planned, unimplemented | planned `feat/issue-160-physicochemical-profiles`; base recheck pending | None | Implement in dependency order after C0 |
-| #161 | [Contract](issue-161-ligand-information-sidebar.md); #158, #159, #160 | Planned, unimplemented | planned `feat/issue-161-ligand-information-sidebar`; base recheck pending | None | Implement in dependency order after C0 |
+| #158 | [Contract](issue-158-durable-ligand-designation.md); none | Full corrected C13 candidate qualification PASS; final delivery pending | Local `feat/issue-158-durable-ligand-designation`; comparisonb038e4e6, qualified4965727c/1,013sources | All42/summary/package/actual60716exit0;3,077Python/1,388web/14supervisor/531native+75historical; all7CODE PASS | Final same-commit all7; protected merge; fresh exactM42; release/main+53forensic public readback/closeout |
+| #159 | [Contract](issue-159-live-ligand-properties.md); #158 | LocalC1 plus frozen D-194 editable fixtures and D-195 source-fence propagation | Local `feat/issue-159-live-ligand-properties`; C1f6e847b8, actual158release still required | All44frozen originals pass strict science/edit/trueUndo controls;56unit; scoped science/performance-method PASS, architecture launch guard pending | Fresh source-union-guarded native performance; actual158release integration; versions43gates/all7/protected delivery |
+| #160 | [Contract](issue-160-physicochemical-profiles.md); #159 | LocalC2 current-input profile vertical slice plus exact D-195 source-fence propagation | Local `feat/issue-160-physicochemical-profiles`;98ed1000, actual159release still required | Domain/scoped UI/UX/architecture and18native local proof retained; propagated80source controls pass | Reconcile actual released159, measured/full qualification/final versions/all7/protected delivery |
+| #161 | [Contract](issue-161-ligand-information-sidebar.md); #158, #159, #160 | C1 sidebar/context/radar implementation preparation; actual native qualification pending | Local `feat/issue-161-ligand-information-sidebar`;afe38ec from unreleased160C2 | 1,710web first checkpoint; corrected source barrier/header120focused;35native-driver adaptation preserves620existing case identities | Current combined gate/new native workflows, actual released prerequisites, final all7/full qualification/protected delivery |
 | #162 | [Contract](issue-162-live-property-entry-filters.md); #159, #160 | Planned, unimplemented | planned `feat/issue-162-live-property-entry-filters`; base recheck pending | None | Implement in dependency order after C0 |
 | #163 | [Contract](issue-163-ligand-workflow-integration.md); #156, #157, #161, #162 | Planned, unimplemented | planned `feat/issue-163-ligand-workflow-integration`; base recheck pending | None | Implement in dependency order after C0 |
 
@@ -117,3 +117,42 @@ The158contract below records concrete schema/compatibility/scientific policy bef
 Owner explicitly confirmed takeover of the existing program checkout. Reverified native membership and all blocking edges, remote master62623a16, planning branch248807ec and stable/latest0.33.0. All required issues remain open; no unrelated checkout/ref/process is changed. The one durable Goal covers the complete program endpoint. Current remote classic protection reports unprotected and rulesets empty; these are observations, never authority to bypass later protection.
 
 Current #156 work and diagnostic evidence are being reconciled under its child log. Planning assessments identified concrete pre-code refinements for158/159: typed entry durability and reader refusal, complete instance connectivity, explicit-H/isotope protection, atomic current publication and bounded priority scheduling. These preserve the accepted scope and are not implementation approval. Serial dependencies and exclusions remain unchanged.
+
+
+### Program continuation — bounded qualification source checkpoint
+
+Required scope remains156–163, exclusions and serial release order unchanged.
+156/157 remain delivered;158is unreleased. Its D-197 source correction now passes
+all seven complete-feature CODE assessments plus99focused/1,334web/lint/types/build.
+The complete1,007-source freeze is retained; fresh42-step candidate12 remains next,
+followed by final same-candidate assessment/protected merge/exact-master42/release.
+C11is explicitly interrupted130, not qualified;53forensic assets/eightruns are
+locally verified and still require full public proof before child closeout.
+
+Independent159preparation corrects captured private-worker startup/refusal and
+reaped-result publication under D-196. Author156focused/sixreal supervisors/static
+and scoped architecture/scientific/performance assessments pass. Exact propagation
+into160/161passes156focused/sixsupervisors/mypy280/lint in each. Shared D-197
+frontend propagation passes99focused in159/160/161; completeweb1,411/1,673/1,738
+and typing/lint/build pass.160's earlier three5second concurrent-run timeouts remain
+retained; identical-source serial rerun passes all1,673 with unchanged timeouts.
+161uses the canonical QueryClient owner and preserves its sidebar-specific context,
+header and publication boundary. A fresh scoped8-case native attempt has launched;
+no result or final feature/readiness claim is inferred. Actual released dependencies
+must still be integrated before each child's final gates and serial publication.
+162/163 remain required planned work. Keep the single whole-program Goal active.
+
+
+### #158 shared source-producer checkpoint before fresh qualification
+
+C12 closes all42automated steps/summary/package/actualouter0 on unchanged3d8d9e88,
+but independent actual-App Use-source failure tests supersede its qualification.
+The isolated owned fix/issue-158-source-producer-qualification branch now has the
+bounded D-198 correction:allseven complete-feature CODE PASS,69backend/180focused/
+1,388web/static/build evidence and4native passes; exact1,013source identities.
+Original602native identities remain and four new cases make606. Preserve successful
+superseded C12 packets separately from the unchanged53-part/eightfailed-run index.
+Integrate into the original158feature branch and run fresh fullC13/exact-master;
+no implementation push or publication has occurred. The next159integration also
+needs typed verifier/result source facts; its performance preparations stay HOLD.
+Remaining required children, release order and all exclusions are unchanged.

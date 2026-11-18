@@ -2,7 +2,15 @@ import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
-import type { Project, Selection } from "../../apps/web/src/api/types";
+import type { Project, Selection, StructureProjection } from "../../apps/web/src/api/types";
+import { observe } from "./support/modeling";
+import type { MolstarEngine } from "../../apps/web/src/viewer/MolstarEngine";
+import type { observeEditPicks } from "../../apps/web/src/test/molecularEditHarness";
+
+declare global { interface Window {
+  interactionEngines: MolstarEngine[];
+  editingPicks: Awaited<ReturnType<typeof observeEditPicks>>;
+} }
 
 const ETHANOL = resolve("tests/fixtures/formats/ethanol.mol");
 
@@ -106,6 +114,10 @@ test("expands from styling across hidden entries without durable changes", async
   });
   expect(created.status()).toBe(201);
   let project: Project = await created.json();
+  await page.route("**/src/viewer/MolstarEngine.ts*", async route => {
+    const response = await route.fetch();
+    await route.fulfill({ response, body: `${await response.text()}\nconst selectionStyleMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await selectionStyleMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
+  });
   await page.goto("/");
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" })
@@ -161,7 +173,7 @@ test("expands from styling across hidden entries without durable changes", async
   }
   await page.keyboard.press("Escape");
   await expect(page.getByRole("button", { name: "Style selection", exact: true })).toBeFocused();
-  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   const colorPixels = (channel: "magenta" | "red") => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement, channel: "magenta" | "red") => {
     const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
     if (!gl) return 0;
@@ -193,7 +205,7 @@ test("expands from styling across hidden entries without durable changes", async
   expect(carbon.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
     .toEqual(colored.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect.poll(magentaPixels).toBeGreaterThan(100);
   await expect.poll(() => colorPixels("red")).toBeGreaterThan(100);
   const settings = carbon.entries.find((entry) => entry.id === original.id)!.viewer_settings;
@@ -213,7 +225,7 @@ test("expands from styling across hidden entries without durable changes", async
   await dialog.getByRole("button", { name: "Reset color" }).click();
   await expect(dialog.getByRole("status")).toHaveText("Selection color reset.");
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect.poll(magentaPixels).toBe(0);
   const reset: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   expect(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings.selection_colors).toHaveLength(1);
@@ -224,10 +236,24 @@ test("expands from styling across hidden entries without durable changes", async
   await launcher.click();
   const canvas = page.locator(".molstar-host canvas").first();
   const box = (await canvas.boundingBox())!;
-  for (const fraction of [0.65, 0.6, 0.55, 0.7, 0.75]) {
-    await canvas.click({ position: { x: box.width * fraction, y: box.height * 0.5 } });
-    if ((await dialog.locator(".selection-style-summary").textContent()) === "1 atom") break;
+  await observe(page);
+  const projection = await (await request.get(`/api/v1/projects/${project.id}/entries/${original.id}/structure`)).json() as StructureProjection;
+  let pickedAtom: number | undefined;
+  for (const atom of projection.structure.atoms) {
+    const point = await page.evaluate(coordinates => window.editingPicks.point(coordinates), atom.coordinates);
+    const unobstructed = await canvas.evaluate((node, position) => {
+      const bounds = node.getBoundingClientRect();
+      return position.x > 0 && position.x < bounds.width && position.y > 0 && position.y < bounds.height
+        && document.elementFromPoint(bounds.x + position.x, bounds.y + position.y) === node;
+    }, point);
+    if (!unobstructed) continue;
+    await canvas.click({ position: point });
+    await expect.poll(() => page.evaluate(() => window.editingPicks.events
+      .filter(event => event.selection).at(-1)?.selection?.atoms)).toEqual([{ structure_id: original.id, atom_id: atom.id }]);
+    pickedAtom = atom.id;
+    break;
   }
+  expect(pickedAtom).toBeDefined();
   await expect(dialog.locator(".selection-style-summary")).toHaveText("1 atom");
   await expect(dialog).toBeVisible();
   const saveCamera = async (name: string) => {
@@ -275,7 +301,7 @@ test("expands from styling across hidden entries without durable changes", async
     .toEqual([{ color: "#3b82f6", atom_ids: submitted!.atoms.map((atom) => atom.atom_id) }]);
   expect(applied.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
     .toEqual(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
-  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect(dialog.locator(".selection-style-summary")).toHaveText("0 atoms");
   await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeDisabled();
   await launcher.click();

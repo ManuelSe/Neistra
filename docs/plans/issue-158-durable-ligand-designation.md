@@ -490,3 +490,504 @@ Current1,003source digest is
 Unchanged application/science/frontend/native evidence is explicitly reusable; a
 fresh cleancandidate4 must still complete all42commands/summary/recursive packaging/
 actualenclosing before final evidence and all-seven same-candidate readiness review.
+
+
+### C3 native legacy-assessment baseline correction
+
+Freshcandidate4 atcd6715d3 passes2,976Python/zero skips,1,304frontend/122suites,
+14supervisor, frozeninstalls/migrationroundtrip/lint/types/build. Native stops after
+53passes, two encountered historical exclusions and one failure;546cases do not run.
+Actualenclosing73200exit1; all1,003current/931preceding sources remain unchanged.
+This is failed qualification, not pooled evidence for any later complete gate.
+
+The existing orphan-H native fixture imports a historical archive with untouched
+unresolved ligand intent. Opening the project deliberately completes its first
+controlled assessment: HTTP200, revision1→2, automatic complete20-atom membership,
+source and assessed revision, with the original single history command retained.
+The old test compared its final read-only revision against the pre-opening value.
+Read-only owned-store/trace inspection and scoped architecture assessment confirm
+this accepted lifecycle; no production regression or method change is established.
+
+Only `tests/e2e/hydrogen-membership.spec.ts` changes. It proves the initial unassessed
+state and exact one-time assessment separately, then captures the complete assessed
+project before native picking/editor checks. Designation and modification timestamps
+change legitimately; computed entry dirty changesfalse→true because designation now
+differs from the untouched checkpoint. Assert that explicitly, compare every other
+entry field, exact history, canonical structure/hierarchy/source and complete intent.
+Retain the original component/orphan-H/native-picking/editability assertions and add
+exact final complete-project and original-byte invariance against that baseline.
+
+Isolated before1 reproduces both profile failures (actual75909exit1). A first added
+transition assertion incorrectly required dirty to stayfalse and fails both profiles
+(actual72016exit1); retain it as oracle-development evidence. Corrected after2 passes
+both profiles, zero skips/flakes/retries, actual5043exit0 and all1,003sources unchanged.
+Scoped architecture independently approves the corrected source and acknowledges the
+earlier dirty assumption. Every application/science/API/frontend/migration/helper
+source remains byte-identical. No deadlines, exclusions or product requirements move.
+
+The [checkpoint](../assets/ligand-designation/c3-legacy-native-baseline-checkpoint.json)
+retains full failed candidate4 logs/native frames, all exact test versions, focused
+traces/receipts and every owned synthetic store. Independent manifest-bearing ZIP
+parts remain below normal file limits. Incomplete browser artifacts are explicit
+failed-run forensics; the generic finished-gate packager still rejects them. The
+private original monolithic forensic copy is preserved too. Freshcandidate5 must
+start clean and repeat all42commands, summary, packaging and actual enclosing readback.
+Final all-seven assessment covers the final evidence candidate before any push.
+
+
+The subsequent static audit examines all six native archive-import files before
+another full run. A second historical fixture captures a styled pre-opening revision
+for an explicit preparation API call. Actual before1 traces show assessment2→3 then
+that stale call2→409; both profiles fail (actual18952exit1). Capture the post-assessment
+revision only after proving exact+1, unchanged history/source/other entry fields and
+`selection_required` with no chosen instance. Keep all six-H/native-picking/camera/
+one-affected-reload assertions. Corrected after1 passes both (actual83091exit0).
+A fresh combined run passes all four cases, zero fail/flake/retry/skip, all1,003sources
+fixed, actual47963exit0. Scoped architecture independently approves both corrections.
+
+The [second checkpoint](../assets/ligand-designation/c3-prepared-legacy-baseline-checkpoint.json)
+binds a4,355,973-byte ZIP/SHA262d0003… with48manifest entries, threeZIPs and all owned
+stores/trace/HTTP proof. Final source digest is14af75c7…200b43. Only the two existing
+native files differ fromcd6715d3; all1,001other selected sources stay unchanged.
+Other archive cases use current-producer roundtrips, current UI command ownership or
+wording/invalid/cancelled input rather than the stale explicit revision pattern.
+This audit does not replace the still-required fresh complete602-case native run.
+
+
+### Native locator correction and supplemental forensic retention
+
+Freshcandidate5 at5d34a29b completes all pre-browser phases but fails the global
+Receptor text locator after157native passes/three encountered historical exclusions;
+441cases do not run. Actual97110exit1,1,003current/931preceding source identities
+unchanged. New Entry options make the old unscoped name ambiguous. An independent
+98-file/125-text-locator audit confirms the scoped browser-row corrections and
+selection Clear ownership; no production change is justified.
+
+Before-runs reproduce both strict locator failures. Scoped selectors preserve all
+rename/duplicate/group/lock/hide/isolate/delete/Undo/Redo/save/reload assertions. A
+later old fractional canvas click misses actual atom centers. Use the established
+read-only native projection harness and a trusted unobstructed canvas click; assert
+exact canonical viewer structure_id/atom_id as well as1atom summary, then retain all
+palette/color/camera/held-command/project-durability assertions. A first added event
+assertion uses the wrong field name and fails despite a correct atom2pick; retain it.
+Corrected fresh after3 passes11cases, zero failure/flake/retry, three unchanged
+historical exclusions, actual73803exit0. All1,005selected sources remain frozen and
+strictnativeTS passes. Scoped architecture independently verifies and approves.
+[Checkpoint](../assets/ligand-designation/c3-native-locator-checkpoint.json) binds
+18,310,542-byte ZIP/SHAe054230a…009f,49manifest entries, both actual owned stores and
+all failed/corrected source versions. No new exclusion, retry or deadline is added.
+
+Reuse D-174's supplemental forensic release-asset contract. Move five existing C4
+parts unchanged into forensics/; preserve C5 failed native/store evidence in13private
+parts. All18parts are below80MiB,1,405,381,190bytes total. Exact disjoint inventories
+cover8,966C4 and23,781C5payloads, with recursive CRC/SHA and historical recipe/gate/
+source/log identity verification. The specialized tracked verifier and64offline
+corruption controls pass Ruff/mypy and independent scoped architecture review.
+[Expected index](../assets/ligand-designation/c3-forensics-index.json) and the small
+[source/control ZIP](../assets/ligand-designation/c3-forensics-verification.json)
+enter the primary packet; raw parts are supplemental, not nested again. All owned
+stores remain and raw C5native relocation is verified filewise. Actual server IDs,
+full anonymous bodies/hashes/recursive CRCs/exact unions are mandatory after release
+and before child closeout. Local checks make no public-availability claim.
+
+The only four selected-source changes from5d34 are two existing native oracles plus
+the new verifier and its tests; application/science/API/frontend/migrations stay
+unchanged. Fresh cleancandidate6 must still complete all42commands, summary, packaging
+and actual enclosing readback. Final all-seven assessment covers the complete final
+candidate before push; exact merged-master qualification remains separately required.
+
+
+### Candidate6 transport interruption and unchanged-source recovery
+
+All seven complete-feature CODE reconfirmations pass exactb41fa747 againstb038e4e6;
+no consequential source finding remains. Freshcandidate6 passes3,040Python/zero skips,
+1,304frontend/122suites,14supervisor, all pre-browser install/migration/static/build
+phases, then fails native with65passes, one failure, two encountered historical
+exclusions and534unexecuted cases. Actual62395exit1;1,005current/931preceding source
+identities remain unchanged. Independent summary/complete packaging did not run.
+
+The failing interaction test reaches its native observer check after module-loading
+failure. Trace evidence records98ERR_NETWORK_CHANGED requests/console errors; the
+instrumented MolstarEngine response is HTTP200 with the expected wrapper, while
+dependent modules fail. The UI explicitly shows its dynamic-import error and disables
+unavailable native actions; canonical visible/loaded counts are separate structure
+data. A fresh unchanged-source8-case interaction probe passes both profiles with zero
+failures/skips/flakes/retries, actual80161exit0 and all1,005source identities fixed.
+Independent performance diagnosis supports a module-transport interruption, establishes
+no underlying host/network cause and finds no evidence warranting application changes.
+This does not prove that every intermittent application defect is impossible.
+
+Preserve the failed full run, all raw native/owned store payloads, lossless logs,
+source/recipe/gate identities and exact probe/enclosing receipts as an append-only
+extension of D-174's supplemental index. Existing two run records,18parts, inventories
+and first source/control ZIP remain byte-identical; version2 verification binds the
+new finalized index and candidate6 payloads. Do not rebundle raw forensic parts into
+the primary packet or count this local verification as public download availability.
+
+Fresh cleancandidate7 must repeat every42commands, independent summary, recursive
+packaging and actual enclosing exit. Application/harness sources, retries, deadlines,
+exclusions and acceptance remain unchanged; no failed partial gate contributes pooled
+passes. Final evidence-head all-seven readiness and separately fresh exact-merged
+qualification remain mandatory before release/closeout.
+
+
+### Candidate7 legacy minimization baseline correction
+
+Freshcandidate7 at5b4dd06b passes3,040Python/zero skips,1,304frontend/122suites,
+14supervisor and all pre-browser phases, then fails after207native passes/one failure/
+four encountered historical exclusions/390unexecuted cases. Actual92826exit1;
+1,005current/931actual preceding sources remain unchanged. No summary or complete
+packaging ran. Preserve this failed run independently; no partial passes pool.
+
+Independent trace analysis locates a successful first legacy-archive assessment
+before minimization submission: revision1 becomes2 and the job captures2. Original
+and structure bytes are identical; no calculation mutation defect is established.
+The shared minimization fixture now observes actual resolver responses, verifies
+each contiguous mutating batch and exactly one assessment per entry, checks canonical
+membership/provenance/dirty transition plus exact immutable bytes/unrelated fields/
+history, and returns that assessed baseline. It handles actual one- and two-entry
+batching rather than assuming every fixture receives one universal increment.
+Existing calculation, preview, nonselected-coordinate, Apply+1 and Undo/Redo assertions
+remain unchanged; no retry, timeout or exclusion changes.
+
+Before1 reproduces two failures; after1 passes both profiles. The closed all-consumer
+run passes17cases, one unchanged historical mobile zoom exclusion, zero failures/
+flakes/retries and actual native childexit0 with all1,005sources fixed. Its original
+execution-session completion result was unavailable after resume; a fresh readback
+independently verifies retained receipt/log/report hashes and current source identity,
+without claiming a new native execution. Strict changed-helper TypeScript passes
+actual48114exit0 using actual Vite mapping, installed Node types and the existing
+browser-test globals. Earlier misconfigured ad-hoc compiler failures stay retained.
+Scoped independent architecture returns PASS for exact helper57d75c0d…f081.
+
+D-174 supplemental retention extends append-only to four failed runs/43parts,
+3,344,071,044asset bytes and77,386files/7,143,818,984raw bytes. All43parts pass the
+tracked local verifier, actual41979exit0. Prior three run records/24parts/inventories/
+verification1/2 remain unchanged. Verification3 ZIP is6,050,719bytes,
+SHA995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577.
+Candidate7 raw native relocation is filewise verified; all owned stores remain.
+The separate correction packet retains the complete closed consumer run/store and
+exact helper/config/source proofs. No public availability is claimed before release.
+
+Fresh clean candidate8 repeats all42commands, independent summary, recursive packaging
+and actual enclosing exit. Final all-seven readiness covers the complete final
+candidate after evidence; fresh exact merged-master qualification remains separately
+mandatory before immutable annotation, publication and child closeout.
+
+The [shared-fixture correction checkpoint](../assets/ligand-designation/c3-minimization-baseline-checkpoint.json)
+binds4,817,942-byte ZIP/SHA5184e34ad04d9f0598c5b2546cf806ed75c4c24e47876d93488c0b62fbcc6dc7,
+301manifest entries/15recursively checked ZIPs, the complete249file consumer store,
+27consumer output files and exact previous/current helper/config proofs. Current
+1,005source digest isa320f57aa335f4d08587c7c3ea330d94ca7e6e51ce17c3b169cb77623efe1637;
+only the helper differs from the prior1,005-source candidate. Other source and
+actual931-source reader identities remain fixed. This passing focused checkpoint
+is not a complete release gate or final readiness approval.
+
+
+### Candidate8 inherited job-progress publication correction
+
+Freshcandidate8 at0beff590 passes3,040Python/zero skips,1,304frontend/122suites,
+14supervisor and every pre-browser phase; native stops after17passes/one failure/
+584unexecuted cases, actual39005exit1. All1,005current/931preceding source identities
+remain unchanged. No independent summary or complete packaging ran.
+
+D-189 records an inherited JobsPanel refresh-starvation defect independently
+reproduced with the actual component and installed QueryClient. Preserve the full
+failed native/store/log/source record in the next append-only forensic extension.
+Correct only progress refresh coalescing and meaningful regressions, retaining all
+native job-duration/deadline/cancellation assertions. This is required recovery of
+the existing workflow, not new job scope. Focused component/native checks, all affected
+frontend gates, independent reassessment and a separately fresh complete gate remain
+mandatory; neither the failed full gate nor a focused pass is final readiness.
+
+
+The bounded progress correction also preserves acknowledged cancellation: an exact
+held-response regression fails when an old running list overwrites terminal cancelled
+state. Cancel success now retires that older list refresh for the returned job's own
+project before publishing its acknowledged state in the same cache. Final focused
+frontend verification passes8jobs tests/1,307web tests122suites/lint/types/build,
+actual75792exit0 with all1,005selected sources fixed. Earlier test-only compiler/lint
+fixture errors remain retained. The final unchanged native file passes both intended
+profile cases with two unchanged historical cross-profile exclusions, actual8862exit0;
+all durations, deadlines and canonical workflow assertions remain. A prior focused
+run legitimately returns409 when its cancellation reaches the server after completion;
+its raw trace/store remains separate and contributes no pooled passes.
+
+D-174 retention now covers five failed runs/44parts,3,353,195,176asset bytes and
+77,506files/7,155,100,911raw bytes. All44pass full tracked local verification,
+actual63025exit0. IndexSHAd22bb6089dba8063d2283b75b8ad9c474a506df5901cef9e6c75e4a7c65ae06e;
+verification4 ZIP436,310bytes/SHA c4521db1e5543fe25bbcacb58b3bb72b9e33b5d5518b76d43b98db2b184ad10d.
+Earlier43assets/four run records/inventories/verification1–3 remain unchanged. Exact
+historical source bodies and their installed-library license accompany the closed
+independent proof. All owned stores remain; no public-availability claim yet.
+
+Fresh clean candidate9 must repeat all42commands, independent summary, recursive
+packaging and actual enclosing exit. New recovery implementation/evidence needs
+updated scoped assessment and final same-candidate all-seven review before push.
+Separately fresh exact merged-master qualification and public verification remain
+mandatory before immutable annotation, release and child closeout.
+
+
+Independent reassessment finds and reproduces an additional ACK-order edge: an older
+legitimate running+cancellation_requested acknowledgement arrives after a newer
+terminal GET and restores running. Three permanent negative controls reproduce
+cancelled/completed/failed regressions. The correction retains terminal same-job
+state observed before the targeted query barrier or afterward, while normal live
+acknowledgements still publish. Final checks pass11job cases/1,310frontend122suites,
+lint/types/build, actual97335exit0, plus the unchanged native lifecycle2passes/two
+historical profile exclusions, actual75251exit0. All1,005selected sources stay fixed.
+Independent architecture's three retained ACK/project controls pass50523exit0 and
+its [scoped correction proof](../assets/ligand-designation/c3-jobs-progress-checkpoint.json)
+records PASS. This remains separate from final all-seven readiness.
+
+The final correction ZIP is8,057,278bytes,
+SHAb13e284fa4d95bfcaf07a9de38a42827747b094c7f94a62a9f5a83c61a0fc1a7,
+with120manifest payloads/two recursiveZIPs, every exact prior77payload retained,
+all four native stores and original/verified reconstructed source versions. The
+unpublished eight-test first draft remains private as prior-candidate evidence;
+its ACK-order CHANGES_REQUIRED finding is not erased. Final1,005source digest is
+25fd41ef26d6af357c2a463a24ccd2b5087db4d6f9f6b5b1e6152860d35ea20f;
+actual preceding931source identities remain fixed. No raw C8forensic part is nested
+into this correction packet. Freshcandidate9 still repeats all42commands, summary,
+recursive packaging and actual enclosing readback before final readiness.
+
+
+### Candidate9 mobile initial-focus oracle and complete forensic retention
+
+Freshcandidate9 atf024e5e208988227181630f6c60331e81c3b2b0e passes all15pre-browser
+phases:3,040Python/zero skips,1,310frontend/122suites,14supervisor, frozen installs,
+migrations, static checks/build and602-case inventory. Native stops after438passes,
+one failure,56encountered historical exclusions and107unexecuted cases, actual
+86433exit1. The raw report counts163skipped including unexecuted cases; do not
+mislabel all163 as historical exclusions. All1,005current/931actual preceding source
+hashes remain fixed. Summary and complete packaging do not run; no gate pooling.
+
+The mobile release-hardening test expects Selection to be the first focused control.
+Independent UI/UX read the actual trace/accessibility snapshot and PNG: Entry is
+active, Choose an entry retained, Selection still selected. The App opening/closing/
+first-enabled-control policy is byte-identical across current, historicalC9, baseb038
+and actualv0.35. New durable-ligand context deliberately precedes the task tabs.
+No production focus change is justified. Update only the native expectation to the
+exact enabled/focused/empty Entry selector and add real Tab→Selection. Retain explicit
+Selection focus, ArrowRight→Inspect focus/aria-selected, Escape closure/launcher focus,
+tooltip dismissal, all geometry and deadlines. Read-only audit finds no second native
+initial-Selection-focus assumption; explicit focus/click/containment cases remain valid.
+
+The [focused correction checkpoint](../assets/ligand-designation/c3-mobile-focus-checkpoint.json)
+and [source/store evidence](../assets/ligand-designation/c3-mobile-focus-correction.zip)
+retain actual91833exit0:5passes, one unchanged historical mobile-performance
+exclusion, zero failures/flakes/retries. The full existing release-hardening file
+runs across both profiles; no retry/deadline/workload changes. All1,005current and
+931preceding sources remain fixed. Only release-hardening.spec.ts differs from
+failedC9; six lines are inserted and no old assertion is removed. The entire
+mobile-excluded desktop performance test body stays byte-identical. ZIP595,290bytes
+has SHA2565250718373f4c7de8ea5dc217c09c9c024232c08114d62579502d311ce6a6124;
+32payloads pass recursiveCRC/SHA and root source-map readback. Current1,005source
+digest isf014f32d0671a3a229dae723a79d6935fec1231cb38d06bf03113dd6b50a630d.
+
+C9's six new raw partitions retain21,607canonical files/975,663,537raw bytes,
+including all1,005historicalGit blobs, old931source proof, complete native/store/
+log/recipe/wrapper and closed diagnosis. The index now binds50assets totaling
+3,826,531,869bytes, SHA256c5777a87ba18f088ac56f22f75b68862a2f7ed916a0870237c5b2fcf1a6ac063.
+Prior44parts/five run records/inventories/verification1–4 remain byte-identical.
+The tracked full50verifier passes actual58424exit0; raw readback73537exit0.
+Authorized relocation preserves19,841native files/687,122,124bytes filewise at a
+unique private retained path, actual50393exit0; all/tmp and other originals remain.
+Verification5ZIP10,654,282bytes hasSHA25662c16705fff6971c21bc70aee631a2de471164ebc2d0ee34998808b2387cc54b;
+its packaging89882 and finalreadback86315 both exit0. Neutral naming scans74nested
+ZIPs/5,247text payloads without flags. These are local retention proofs, not public
+availability. D-174 requires full anonymous verification of all50supplemental
+assets before child closeout; never rebundle those raw parts into the mainZIP.
+
+Freshcandidate10recipe is committed before execution. Its42commands exactly match
+C9 after replacing only label/workspace/evidence paths; no policy/bounds/version/
+exclusion changes. RecipeSHA2569f16294a9d9f01b4a21e186e184c3a5022213971cd2d11546fe8362356b620dc.
+Require a fresh clean all42run, independent summary, recursive packaging and actual
+enclosing0. Then prepare actual-master recipe before final metadata/all-seven
+same-candidate readiness, normal protected delivery, fresh actualM42qualification
+and immutable annotation/publication. Parent Goal remains active for all eight.
+
+
+### D-195 correction — C10 explicitly interrupted, source-failure race
+
+Independent actual component probe49521exited1 and demonstrates older held page-zero
+success reviving12cached cards/formula after a newer page12integrity failure, without
+a fresh check. The same hook is byte-identical in159/160;161newowner also reproduces.
+Root explicitly interrupted C10 via its unique positively owned Playwright CLI.
+Actual enclosing70976exit130, never a functional-test failure/timeout or passing
+gate. All15pre-browser phases PASS (3040Python/1310web/14supervisor plus static/build/
+migrations/inventory), browser293PASS/0unexpected/0flake; its309skipped count includes
+unexecuted mobile cases and must not be described as historical exclusions. All1005
+current and931preceding sources remain fixed. Summary/recursive packaging did not
+execute. Complete raw outputs/store remain retained; owned ports8250/8251/5413are
+unused and no owned process remains. Evidence under.issue-11-evidence/issue158-c10-
+source-race-interruption includes actual interruption/cleanup and independent probe.
+
+D-195 records the recovery contract before correction. Freeze and independently
+review the smallest installed-query-proved fix, preserve all failed/interrupted
+forensics, propagate exact policy to later children, then run a fresh complete
+candidate gate. No implementation push, verified release or all-seven readiness
+is established by C10 partial progress.
+
+
+### D-195 locally qualified correction and fresh candidate11 preparation
+
+The frozen correction changes exactly Controls, one typed inventory-qualification
+module and five appended unit cases. All original75test bytes remain an exact
+prefix. Author actual67403exit0 passes scoped lint/types/80cases; independent
+architecture actual2037fresh acceptance,88204five regressions and six installed-
+query controls pass. The unchanged defect-seeking diagnostic now times out waiting
+for forbidden radios; retain it separately rather than calling it a product failure.
+
+Combined web lint/types/1,315cases122files/build have complete childwait0 receipts
+and1,006source equality. Original4521/48522tool handles were unavailable after
+continuation; no original outer exit is fabricated. Primary fresh54bb7eexit0
+independently reads the closed sources/artifacts. This is focused checkpoint proof,
+not the required new42command candidate or exact-master qualification.
+
+Forensics now contain52assets/3,914,486,005bytes across seven historical runs.
+C10 is293PASS/9historical/1interrupted/299notrun, rootSIGINT130,0unexpected/flake.
+Verification6 ZIP is11,874,678bytes SHAe4b5cb53fad6aa25ace2b4c67998cd49633e6ce34608411b79e10e6574549e57;
+indexSHA259199793772e9a10f3ed148a976d64cf5eacbea61f660fe262b0787c95f9ff3.
+Every earlier50part identity is unchanged, originals retained and local exact unions
+verified. Stale50asset publication preparation cannot qualify the52asset endpoint.
+
+Candidate11 and exact-master1 recipes preserve all42commands/arguments/bounds,
+changing only owned labels/output paths from candidate10. Both require clean start.
+Run candidate11 only after this passing checkpoint is committed; exact-master1 is
+reserved for the actual later protected merge commit. Final all-seven assessments,
+normal reviews/checks/protection, actualM42gate, immutable tag/release/full public
+asset readback and issue closeout remain mandatory. No implementation push yet.
+
+
+### C11 interrupted and D-197 pre-code retention correction
+
+Candidate `c56e4c37b6d726a2c3a67d2a069e520065b043ed` begins clean and passes
+15pre-browser phases:3,040Python/1,315web/14supervisor plus static/build/migrations
+and602browser inventory. Root explicitly interrupts the positively owned browser
+CLI for an independently confirmed owner-retention defect, actual4339exit130.
+Browser231PASS/5historical exclusions/1interrupted/365unrun; zero unexpected or
+flaky cases. No summary/package. All1,006current/931preceding source identities
+remain fixed; owned services stop and8250/8251/5413are free. The complete raw run,
+store, source snapshots and diagnosis remain required forensic evidence.
+
+Independent installed-query controls, repeated by root actualceece7exit0, show
+0queries/1,000retained source records after1,000fail/remove cycles and after
+1,000fail/genuine-recovery/remove cycles. Unrecovered records retain1,000errors.
+These are cardinality/string-byte observations, not heap/RSS measurements.
+D-197 records the architecture-reviewed bounded conservative requalification
+method before code. The original75tests and allfiveD-195controls remain intact;
+add independent retention/eviction/token/unknown-source controls. Renew affected
+assessments before a fresh complete candidate; no previous partial gate is pooled.
+
+
+### D-197 passing source checkpoint and candidate12 preparation
+
+[Bounded-owner evidence](../assets/ligand-designation/c3-owner-budget-checkpoint.json)
+binds99focused/1,334web123suites/lint/types/build, actual16116exit0,350web/config
+identities fixed and the original80tests as an exact88,835Bprefix. The525,877Bpacket
+SHA`952286ec7399e5f2d9bb71101f47a45984d29d35a4513820a04338bb17d78cec`
+passes primary independent63payload hashes/fourrecursiveZIP CRCs, observed tool
+chunk1bff8eexit0. Complete selected source count1,007/digest
+`9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274`
+has exactly3existing+1newsource differences from the interrupted C11 map.
+
+All seven specialists return complete-feature CODE PASS on this same source
+candidate. Independent owner/presenter controls cover retained-memory budgets,
+opaque token recreation, old/manual publications, failure during Retry, genuine
+fresh recovery, source isolation, error classification and no automatic retry loop.
+No original Error objects are retained in records. Original1,000-source controls
+now retain128records/7,296keybytes in both recovery modes, not a heap/RSS claim.
+Current/original/conflict recovery copy, scientific warnings and originals remain.
+
+C11 is retained in53forensic parts/eightruns, with v7 local/full-union/CRC proof and
+primary small-packet readback. Its231PASS/5historical/1interrupted/365unrun and
+15passing pre-browser phases are never a full-gate claim. All earlier52parts and
+seven run records remain exact. Future release requires all53public body proofs.
+
+Fresh candidate12 retains every42recipe step; only label/output/store paths differ
+from C11, SHA`968a4acd41b6937fb5203e2be8064dc69c1aff6c3f9c323c2a0f67833ff5346c`.
+Prelaunch static inspection corrects the private wrapper's receipt binding to its
+label, current wrapperSHA`bbf383cdb789f345a643b9349be9d64769171b381f7f6be1656c1e2515376b65`;
+original draft/preparation are preserved, with no executed C12 failure or run claimed.
+Commit the coherent local checkpoint, then execute cleanC12/all42/summary/package
+and observe actual enclosing0. Final metadata/all-seven same-final-candidate
+reconfirmation, protected merge, actual-master42qualification and verified release
+remain mandatory. No implementation push or feature completion is established here.
+
+
+### Source-producer correction before publication
+
+Actual application proof confirms a D-166/D-195 violation after Use reports a
+physical-source failure: cached composition/drawing and Use remain available.
+The approved scope requires correction in earliest158before release. The isolated
+owned fix/issue-158-source-producer-qualification branch starts at3d8d9e88 and
+preserves the active original C12 tree unchanged. D-198 records the shared typed
+four-producer boundary before code. Keep original negative controls and the entire
+C12 run; no partial or superseded pass authorizes publication. Integrate a verified
+correction into the original feature branch, obtain all-seven final assessments
+and run a fresh complete candidate gate. No new delivery issue/release is created.
+
+
+### Verified D-198 source-producer checkpoint (pre-full-gate)
+
+The isolated correction fixes the original actual-App failures. All seven complete
+feature CODE assessments PASS on1,013frozen sources (six existing runtime changes,
+six new tests), compact digest203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617.
+Author69backend/180focused/1,388web/static/build evidence explicitly distinguishes
+five unchanged Python/static scopes reused after a new-test typing correction from
+the fresh frontend checks; no identical old/new global-map claim is made.
+Independent54backend+5App/architecture56/performance180/UI30/UX59controls and theory/
+reference assessments support the checkpoint. Four actual new native cases pass,
+root14249exit0/26.1seconds, allsourcefixed/zeroownedcleanup/rawDBcopiesbeforeSQL.
+The new collection totals606 and preserves all602oldcase identities/exclusions.
+
+Original C12 is now CLOSED:all42commands, summary, recursive packaging and actual
+root31447exit0, with independent full packet/log/source readback22136exit0. Counts
+3,040Python/1,334web/14supervisor/527native+75existing exclusions are automated scope
+evidence for the superseded source, not approval of its independently proven defect.
+Retain both complete qualified parts and explicit supersession evidence as mandatory
+supplemental release inputs; do not classify this as another interrupted/failed run
+or modify the existing53-part/eight-run forensic index. The focused correction is
+recorded in c3-source-producer-checkpoint.json/correction ZIP before integration.
+
+Next:integrate this passing checkpoint into the owned original feature branch,
+prepare a clean fresh C13 recipe preserving every42step and all606native cases,
+obtain final same-commit seven-role reconfirmation and qualify the actual merged
+master before protected publication. No push/PR/release readiness is declared.
+
+
+### C13 full corrected-candidate qualification — 2026-11-18
+
+Clean candidate `4965727c894020052eaa25d0c9ade6a0f308dd16` completes every42recipe
+step, independent summary, recursive packaging and primary directly observed actual
+session60716exit0 (tool chunk e5b39b). [Summary](../assets/ligand-designation/c4-candidate13-summary.json),
+[gate](../assets/ligand-designation/c4-candidate13-gate.json),
+[reader audit](../assets/ligand-designation/c4-candidate13-reader-audit.json) and
+[packaging](../assets/ligand-designation/c4-candidate13-packaging.json) record the
+complete run. Earlier pending statements above are historical checkpoints.
+
+Passes:3,077Python/zero skips,1,388web/126suites,14supervisor and531native;606case
+inventory includes exactly75unchanged historical exclusions, with zero failures,
+flakes, retries or new exclusions. All1,013current and931actualv0.35source identities
+remain fixed. Release-tool digest `df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07`
+and compact digest `203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617`
+bind the same current source map. Actual old readers safely refuse current stores;
+old-authored stores migrate forward/current reopen for both archive suffixes. Current
+canonical unapplied proposals remain intact. The7,106.931second sum is portable
+correctness evidence, not strict reference-host qualification.
+
+Qualified01 is83,328,878bytes/SHA`b7a1951c8ad5e23fe64e370b0a377bc775dc6ea9b62558df04ca1c992f622cf4`;
+qualified02 is8,194,845bytes/SHA`03cba9c4051d1f7817d287d53b219bd823641faa20f960674d2ef840434ea2f4`.
+They retain674native files and664reader workspace files with no cache exclusions;
+recursive packaging records481/174ZIPs,1,309/397manifest entries and924/527project
+archive files. Preserve originals and validate complete raw-native coverage before
+relocating untracked raw evidence into private storage.
+
+All seven complete-feature CODE assessments already pass on this implementation;
+final same-commit metadata reconfirmation remains mandatory before push. Successful
+superseded C12 remains a complete required supplement, not a ninth failed run.
+Existing53forensic assets/eightfailed-or-interrupted records remain exact. Protected
+merge, fresh actual-master42/summary/package/enclosing0, annotatedv0.36release,
+complete anonymous main/sidecar/53forensic verification, explicit closeout and safe
+owned cleanup remain required. Parent #11 and its single Goal stay active.

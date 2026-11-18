@@ -1,0 +1,238 @@
+{
+  "scope": "D198closedfourproducer source/CODE correction checkpoint; allsevenCODEPASS, NOT finalcommit/readiness/release",
+  "repository": "ManuelSe/Neistra",
+  "issue": 158,
+  "parent": 11,
+  "base_commit": "3d8d9e88aee29cdb5e9a5750f9c4ba9af0a169b9",
+  "complete_selected_source_count": 1013,
+  "source_digest_compact": "203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617",
+  "source_digest_release_spaced_json": "df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07",
+  "source_digest_conventions_differ_not_source_bytes": true,
+  "current_twelve_source_identities": {
+    "apps/api/src/neistra_api/ligand_service.py": "f87e23bbf9f20fca5a3eed128e4b6f42cc48203f993e90a661c49546f88b64f5",
+    "apps/api/src/neistra_api/main.py": "49ea9a9a66f30052431287135a4fea9e429452459f0e2cbe968d2156ee316970",
+    "apps/web/src/App.tsx": "3123f04e4f23d862a795a6f59a66788de832a34e33fa904c9b8bea813a60058d",
+    "apps/web/src/api/client.ts": "e56c00c58a7091979dd75b3f70e606e6df90ab18010b2eedbc49e1998679cb25",
+    "apps/web/src/api/types.ts": "b87731908d165f8ae04deba1df572642b3e77333be93f40d878c5f20220522c1",
+    "apps/web/src/ligands/inventoryQualification.ts": "784ef0e28005043612b1c32adadea9d982e1eec7ec57a1e64d3f5cf54587e56f",
+    "apps/web/src/test/ligand-source-producer-api.test.ts": "0ee4dc279e2b301b7955f75b603cc9b669f7bbba5e7abb561bb586e864d7e50c",
+    "apps/web/src/test/ligand-source-producer-app.test.tsx": "cd566da711fec278f187f8f26bdd8f4ff9a8eac12c766206d37de4e4857a7227",
+    "apps/web/src/test/ligand-source-producer-owner.test.ts": "ac7ea6b3606a9c63cfad8947d36fc8020d67ef42d642b56c4b5837c1025b90f9",
+    "tests/e2e/ligand-source-write-recovery.spec.ts": "dc299ef643f19dbe5126a33f9be958978d5c68a8c7a9a4e445466251178a38ed",
+    "tests/integration/test_ligand_depiction_source_verification.py": "6e5dce921dddfb06189ab8f7ac7a7f543061b6ca41596f2d46636e24878612d8",
+    "tests/integration/test_ligand_source_producers.py": "be4d59725464915586157766817be5d6ede8f6c03f28eec8305435165686fee1"
+  },
+  "author": {
+    "actual_session": 10398,
+    "actual_exit": 0,
+    "focused_tests": 180,
+    "web_tests": 1388,
+    "web_suites": 126,
+    "backend_tests": 69,
+    "mypy_source_files": 249,
+    "lint_types_build_Ruff": "PASS",
+    "format_scope": "Two newPython test modules andchangedserviceboundary; eightunmodifiedservice methods byteexact; no wholehistoricalfileformatclaim",
+    "prior_gate1_actual_exit": 1,
+    "prior_gate1_failure": "NewApp test unsupported ByRoleOptions.exact:true; onlyoneTESTline removed, namestringalreadyexact. Allruntime/config/Python unchanged. OldnewglobalmapsNOTidentical.",
+    "reuse": "FirstfivePython/static passed scopes reused after unchanged-scopereconciliation; allaffectedfrontendchecks fresh underfinal1013sourceguard."
+  },
+  "all_seven_CODE_assessments": {
+    "receipt": "root-review-and-all-seven-CODE/all-seven-freeze2-CODE-assessments.json",
+    "sha256": "39489acce50b1b51375afb60a33e79d29a56680bdee0a60a632df315c93b524d",
+    "verdicts": {
+      "scientific_theory": "PASS",
+      "scientific_implementation": "PASS",
+      "software_architecture": "PASS",
+      "performance": "PASS",
+      "ui_design": "PASS",
+      "ux_design": "PASS",
+      "modeling_reference": "PASS"
+    },
+    "source_count": 1013,
+    "same_effective_source_candidate": true,
+    "reported_conversation_roles": [
+      "scientific_theory",
+      "ui_design",
+      "ux_design",
+      "modeling_reference"
+    ],
+    "no_invented_independent_raw_logs": true,
+    "final_commit_documentation_reconfirmation_required": true
+  },
+  "independent_checks": {
+    "architecture": "OriginaltwoactualAppnegatives nowPASS; completeclosedproducer/identity/recovery review; allfirstandfinalsources preserved",
+    "science": "54realbackend+5actualAppPASS; first51PASS/3privateUTCbaselineserializationfailures retained with correctedGETreadback; sourcebindings/rollback/media/canonicalvalidation/skip/Clear/transport positives",
+    "performance": "Independent180focused/source/readshape plusnativeevidence inspection PASS; bounded128records/64KiB, no timingspeedup/strict-targetclaim"
+  },
+  "root_native": {
+    "actual_session": 14249,
+    "actual_completion_chunk": "7ea99b",
+    "actual_outer_exit": 0,
+    "passed": 4,
+    "failed_flaky_skipped_retries": 0,
+    "seconds": 26.1,
+    "original_inline_attachments": 12,
+    "decoded_PNG": 8,
+    "decoded_JSON": 4,
+    "canonical_readback": "root-native/native1/root-actual-enclosing-readback-v2.json",
+    "canonical_readback_sha256": "6d2d1b4ff0e01074b92f7adc6ba97499598faf91c677ae22656301c5b1c26f7f",
+    "first_path_only_observer_zero_preserved": true,
+    "new_static_case_collection": 4,
+    "full_static_inventory": 606,
+    "old602identities_unchanged": true,
+    "full606_native_execution_still_required": true,
+    "full_unique_store_retained": "root-native-full-store/",
+    "original_raw_DB_WAL_SHM_verified_against_immediatecopies": {
+      "neistra.db": {
+        "original_present": true,
+        "immediate_copy_present": true,
+        "bytes": 172032,
+        "sha256": "8aa3407e8fad4886cdfd617c5e73a48b7cbba9778c3419fbe6bddcb73e666c92",
+        "byte_identical_before_packet": true
+      },
+      "neistra.db-wal": {
+        "original_present": true,
+        "immediate_copy_present": true,
+        "bytes": 304912,
+        "sha256": "8b67235c57a5b23175d72996747d596ee4dc03ed5807b7133334ae149698bd0e",
+        "byte_identical_before_packet": true
+      },
+      "neistra.db-shm": {
+        "original_present": true,
+        "immediate_copy_present": true,
+        "bytes": 32768,
+        "sha256": "c260478eef55588b92a6d36def90e0dda7f03423a1460f94787ba339108f0bd3",
+        "byte_identical_before_packet": true
+      }
+    },
+    "SQL_performed_by_packet_tools": false,
+    "WAL_status": "Presentandbyteexact; no missingWAL observed. Aclosed/checkpointedstore may have no WAL; absence alone neverprovesearlierWALbyteidentity."
+  },
+  "C12_successful_superseded": {
+    "actual_outer_session": 31447,
+    "actual_outer_exit": 0,
+    "actual_completion_chunk": "2fbeef",
+    "complete_steps": 42,
+    "summary_and_recursive_packaging_exit": 0,
+    "source_count": 1007,
+    "python": 3040,
+    "frontend": 1334,
+    "supervisor": 14,
+    "native_pass": 527,
+    "existing_exclusions": 75,
+    "new_failures_flakes_retries_exclusions": 0,
+    "status": "COMPLETED SUCCESSFULLY; SUPERSEDED by actualUse sourcefailure defect, NOT failed/interrupted",
+    "supersession_receipt_sha256": "0d1420581ba3d472cdaf4996ef8342f22fd4f35a7ba0cf2d97ab4b21d29a985d",
+    "qualified_archive_fingerprints": [
+      {
+        "file": "c4-candidate12-qualified-01.zip",
+        "bytes": 83324869,
+        "sha256": "c431607267caba17f7b7121e3f406255ae87d8b4aa43ff4bd9e5ba19a9b1ef30"
+      },
+      {
+        "file": "c4-candidate12-qualified-02.zip",
+        "bytes": 7227605,
+        "sha256": "c135c178c91055fb4b40ca1f0cde9007a55ee7aea1d0ea581a3d5457f7e38b44"
+      }
+    ],
+    "qualified_ZIP_bodies_not_embedded_in_focused_checkpoint": true,
+    "mandatory_future_mainrelease_input": {
+      "flag": "--evidence",
+      "stage": ".issue-11-evidence/issue158-source-producer-packet/c12-historical-inputs",
+      "stage_manifest": ".issue-11-evidence/issue158-source-producer-packet/c12-historical-inputs-manifest.json",
+      "stage_manifest_sha256": "e4b1961a8f7396a9d338708ec390d5046f7f0e8a2a16f8d22347332d36dca312",
+      "regular_files": 75,
+      "total_bytes": 104598771,
+      "must_include_before_release_publication": true,
+      "not_uploaded_no_public_availability_claim": true,
+      "argument": "source-producer-C12=/datadisk/dev/neistra-worktrees/issue-158-source-producer-qualification/.issue-11-evidence/issue158-source-producer-packet/c12-historical-inputs",
+      "cli": [
+        "--evidence",
+        "source-producer-C12=/datadisk/dev/neistra-worktrees/issue-158-source-producer-qualification/.issue-11-evidence/issue158-source-producer-packet/c12-historical-inputs"
+      ]
+    }
+  },
+  "forensics": {
+    "index_sha256": "8efff69745bb1a8acedc384a1a67f5e88d283aa6b6adbfa8fb15d11d2c0e31f8",
+    "parts": 53,
+    "failed_or_interrupted_runs": 8,
+    "index_unchanged": true,
+    "successful_C12_not_ninth_failed_run": true,
+    "raw53parts_not_embedded_or_staged": true,
+    "all53public_body_proofs_still_required_before_closeout": true
+  },
+  "packet": {
+    "file": "c3-source-producer-correction.zip",
+    "bytes": 21292233,
+    "sha256": "f52028cec7f1c3aa00da24650d9daf87a4c32570214768144074116b301e309b",
+    "manifest_entries": 198,
+    "current_direct_source_bodies": 12,
+    "contains_all86_author_handoff_payloads": true,
+    "original_negative_failed_oracles_and_raw_stores_preserved": true,
+    "under_80MiB": true,
+    "not_published": true
+  },
+  "packager_sha256": "00fb48ee3529815193cea7d258f2699c1357af17f921202192862af011f5e0b5",
+  "remaining": [
+    "Integrateverifiedcorrectioninto originalfeature withouttouching immutableC12closure",
+    "FreshfullC13candidate606inventory withallrequired42commands,summary,recursivepackaging,actualouter0",
+    "Finalsamecommitseven-role/documentationreconfirmation andnormalprotectedPRreview/merge",
+    "Exactmergedmasterfreshfullgate, immutabletag/release/fullanonymousassetverification, childcloseout/cleanup",
+    "Continueparent11allrequired159\u2013163 throughverifiedreleaseandparentcloseout"
+  ],
+  "metadata_correction": {
+    "scope": "Future supplemental CLI syntax only; firstpacket/sidecar/handoff preserved privately; no current source changes",
+    "correct_cli": [
+      "--evidence",
+      "source-producer-C12=/datadisk/dev/neistra-worktrees/issue-158-source-producer-qualification/.issue-11-evidence/issue158-source-producer-packet/c12-historical-inputs"
+    ],
+    "actual_parser_and_decoder_check": "static-future-release-cli-parser-check.json",
+    "actual_static_check_sha256": "a9140e9917648ad4f9f54e5b5d443270e2c31cd07936a25df042be9f1e7d3f0a",
+    "previous_packet_sha256": "72b093d32452607d760b0ca4d6a86874f8219259c77875d298ab5d386b2e7f38",
+    "previous_checkpoint_sha256": "cd7d07bf2d65121f3576a572cc9f56810681414b9d3bb6e909cb2de6fd5e0ccc"
+  },
+  "verification": {
+    "all_recursive_SHA_CRC_manifests_valid": true,
+    "focused_packet_counts": {
+      "zip_archives": 34,
+      "evidence_manifest_entries": 218,
+      "project_archive_files": 40
+    },
+    "manifest_payloads": 198,
+    "current_direct_source_bodies": 12,
+    "current_full_source_count": 1013,
+    "author86_and_all_before_after_archives_verified": true,
+    "C12_stage_all75_body_hashes_valid": true,
+    "C12_qualified_archives_recursive_counts": {
+      "c4-candidate12-qualified-01.zip": {
+        "zip_archives": 481,
+        "evidence_manifest_entries": 1323,
+        "project_archive_files": 924
+      },
+      "c4-candidate12-qualified-02.zip": {
+        "zip_archives": 174,
+        "evidence_manifest_entries": 383,
+        "project_archive_files": 527
+      }
+    },
+    "DB_WAL_SHM_originals_and_immediate_copies_byte_exact": true,
+    "forensics53_index_eightruns_unchanged": true,
+    "verification_tool_sha256": "44e242a828ca9d3aa517acb4ea01ad746034b8f8ede822244cdee2b43d9fbe1e",
+    "existing_release_verifier_sha256": "80f9e7b70288e5bd9fb894a4b32f7ddb8ad63c70b03fb975763ac8a16900b9cf",
+    "not_full_C13_release_readiness": true
+  },
+  "primary_finalization": {
+    "scope": "Metadata-only observed primary verifier/relocation completion; packet bodies and1013sources unchanged",
+    "created_utc": "2026-11-18T04:30:54.390182+00:00",
+    "actual_verifier_session": 27053,
+    "actual_completion_chunk": "a61aaa",
+    "actual_outer_exit": 0,
+    "verified_prior_sidecar_sha256": "b931969f4746d48baabbececf94c3b43572b1ec2d2cfe015a8f002b595022e89",
+    "primary_readback_sha256": "15a88931940a3f4e8bb00c57546f2580cecaf35823e0007def882cbd7b9692ce",
+    "unobserved_original_verifier2_outer": "Handle85220wasmissing onresume; innerall-passedreceiptretained, nottreatedasoriginalouter0",
+    "later_native_relocation_sidecar": "c3-source-producer-C12-native-relocation.json",
+    "later_native_relocation_sha256": "362022b22c9553341508da25427c9db40b371d1f0aae619a5c6d79f523b5c8a3",
+    "relocation_result": "674closedrawnativefiles preservedbyteexact privately andexactqualified01/02union verified; original/tmpreader/uploadstores untouched",
+    "sources_unchanged": true
+  }
+}
