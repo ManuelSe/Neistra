@@ -101,7 +101,7 @@ from neistra_api.ligand_schemas import (
     LigandDesignationCreate,
     LigandResolveCreate,
 )
-from neistra_api.ligand_service import LigandService
+from neistra_api.ligand_service import LigandService, LigandSourceVerificationError
 from neistra_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCapabilities,
@@ -2020,6 +2020,14 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
                 "warnings": [warning.model_dump(mode="json") for warning in error.warnings],
                 "reports": [report.model_dump(mode="json") for report in error.reports],
             },
+        ) from error
+    except LigandSourceVerificationError as error:
+        detail: dict[str, object] = {"code": error.code, "message": str(error),
+                                     "source_verification": error.source}
+        if error.identity is not None:
+            detail["source_identity"] = error.identity.detail()
+        raise HTTPException(
+            status_code=404 if error.code == "artifact_not_found" else 409, detail=detail,
         ) from error
     except ArtifactIntegrityError as error:
         raise _error(409, "artifact_integrity_error", str(error)) from error

@@ -79,15 +79,15 @@ async function installObservation(page: Page) {
         try { sources = (JSON.parse(init.body) as { entries?: Source[] }).entries ?? []; } catch { /* Non-JSON requests are not descriptor demands. */ }
       }
       const before = snapshot();
-      const record: FetchSample = { at: performance.now(), method, path: url.pathname, sources,
+      const record: FetchSample = { at: globalThis.performance.now(), method, path: url.pathname, sources,
         carbon: before.visibleValue, rawCarbon: before.rawValue, carbonVisible: before.visible };
       if (url.pathname.includes("/ligand-properties") || /\/(model-edits|history\/undo|history\/redo)$/.test(url.pathname)) state.requests.push(record);
       const response = await original(...args);
-      Object.assign(record, { status: response.status, finished: performance.now() });
+      Object.assign(record, { status: response.status, finished: globalThis.performance.now() });
       if (/\/ligand-properties\/(read|consumers\/[^/]+)$/.test(url.pathname) && response.ok) {
         void response.clone().json().then((body: { entries?: Current[]; consumer_id?: string; sequence?: number }) => {
           record.results = body.entries?.map(item => ({ source: item.source, status: item.status, inputHash: item.report?.input_hash ?? null, report: item.report }));
-          record.consumerId = body.consumer_id; record.sequence = body.sequence; record.observedAt = performance.now();
+          record.consumerId = body.consumer_id; record.sequence = body.sequence; record.observedAt = globalThis.performance.now();
         }).catch(() => { /* Original application parsing owns response errors. */ });
       }
       return response;
@@ -100,14 +100,14 @@ async function installObservation(page: Page) {
         if (sample?.started === undefined) return;
         const current = snapshot();
         // A closed/offscreen presentation cannot supply a retirement latency.
-        if (sample.retirementObservation === "observable" && current.visibleValue !== sample.oldValue && sample.retired === undefined) sample.retired = performance.now();
-        if (current.rawValue === sample.nextValue && sample.ready === undefined) sample.ready = performance.now();
-        if (current.visibleValue === sample.nextValue && sample.visibleReady === undefined) sample.visibleReady = performance.now();
+        if (sample.retirementObservation === "observable" && current.visibleValue !== sample.oldValue && sample.retired === undefined) sample.retired = globalThis.performance.now();
+        if (current.rawValue === sample.nextValue && sample.ready === undefined) sample.ready = globalThis.performance.now();
+        if (current.visibleValue === sample.nextValue && sample.visibleReady === undefined) sample.visibleReady = globalThis.performance.now();
         if (sample.feedback === undefined && visible(state.control) && state.control!.matches(":disabled")) {
-          sample.feedback = performance.now(); sample.feedbackKind = "visible-command-disabled";
+          sample.feedback = globalThis.performance.now(); sample.feedbackKind = "visible-command-disabled";
         }
         if (visible(document.querySelector(".edit-preview-status"))) sample.changedPreviewObserved = true;
-        if (current.rawValue === sample.nextValue && sample.visibleReady === undefined && performance.now() - sample.started < 30_000) frame = requestAnimationFrame(check);
+        if (current.rawValue === sample.nextValue && sample.visibleReady === undefined && globalThis.performance.now() - sample.started < 30_000) frame = requestAnimationFrame(check);
       };
       state.observer = new MutationObserver(() => { if (frame !== null) cancelAnimationFrame(frame); check(); });
       state.observer.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true,
@@ -119,18 +119,18 @@ async function installObservation(page: Page) {
 
 async function arm(page: Page, control: Locator, oldValue: string, nextValue: string, event = "click") {
   await page.evaluate(({ oldValue, nextValue }) => {
-    window.ligandPropertyPerformance.sample = { oldValue, nextValue, armed: performance.now() };
+    window.ligandPropertyPerformance.sample = { oldValue, nextValue, armed: globalThis.performance.now() };
   }, { oldValue, nextValue });
   await control.evaluate((element, event) => {
     const state = window.ligandPropertyPerformance;
     state.control = element;
     element.addEventListener(event, () => {
       const sample = state.sample!, current = state.readCarbon();
-      sample.started = performance.now(); sample.startSnapshot = current;
+      sample.started = globalThis.performance.now(); sample.startSnapshot = current;
       sample.retirementObservation = !current.visible ? "unobserved_hidden_at_start"
         : current.visibleValue === sample.oldValue ? "observable" : "unobserved_old_value_not_displayed";
       if (event === "change" && element instanceof HTMLSelectElement) {
-        sample.feedback = performance.now(); sample.feedbackKind = "visible-entry-choice-changed";
+        sample.feedback = globalThis.performance.now(); sample.feedbackKind = "visible-entry-choice-changed";
       }
     }, { once: true, capture: true });
   }, event);
@@ -178,7 +178,7 @@ async function openCachedPresentation(page: Page, entryId: string) {
     const show = page.getByRole("button", { name: "Inspector", exact: true });
     await show.evaluate(element => element.addEventListener("click", () => {
       const sample = window.ligandPropertyPerformance.sample!;
-      sample.presentationOpened = performance.now(); sample.visibleReady = undefined;
+      sample.presentationOpened = globalThis.performance.now(); sample.visibleReady = undefined;
     }, { once: true, capture: true }));
     await show.click();
   }
@@ -239,7 +239,24 @@ async function closeInspector(page: Page) {
   }
 }
 
-async function imported(request: APIRequestContext, name: string, smiles: string[], filename = "capacity.smi"): Promise<Project> {
+async function frozenEditableFixture(identity: string, intendedSmiles: string) {
+  const directory = resolve("tests/fixtures/ligand-properties-performance/editable");
+  const manifestBytes = await readFile(resolve(directory, "manifest.json"));
+  const manifest = JSON.parse(manifestBytes.toString("utf8")) as { schema_version: number; fixtures: {
+    id: string; intended_smiles: string; filename: string; sha256: string; bytes: number }[] };
+  expect(manifest.schema_version).toBe(1);
+  const matches = manifest.fixtures.filter(row => row.id === identity); expect(matches).toHaveLength(1);
+  const fixture = matches[0]; expect(fixture.intended_smiles).toBe(intendedSmiles);
+  expect(fixture.filename).toBe(`${identity}.sdf`); expect(fixture.filename).toMatch(/^[a-z0-9-]+\.sdf$/);
+  expect(fixture.bytes).toBeGreaterThan(0); expect(fixture.bytes).toBeLessThanOrEqual(4 * 1024 * 1024);
+  const bytes = await readFile(resolve(directory, fixture.filename));
+  expect(bytes.length).toBe(fixture.bytes);
+  expect(createHash("sha256").update(bytes).digest("hex")).toBe(fixture.sha256);
+  return { ...fixture, data: bytes, manifestSha256: createHash("sha256").update(manifestBytes).digest("hex") };
+}
+
+async function imported(request: APIRequestContext, name: string, smiles: string[], filename = "capacity.smi",
+  editableIndexes: ReadonlyMap<number, string> = new Map()): Promise<Project> {
   const created = await request.post("/api/v1/projects", { data: { name } });
   expect(created.ok()).toBe(true);
   let project = await created.json() as Project;
@@ -247,14 +264,69 @@ async function imported(request: APIRequestContext, name: string, smiles: string
     // Duplicate field names/filenames are deliberate: repeated input must prove
     // content coalescing rather than merely relabel different normalized sources.
     const form = new FormData();
+    const batch = smiles.slice(offset, offset + 50);
+    const generated = editableIndexes.has(offset);
+    expect(batch.every((_, index) => editableIndexes.has(offset + index) === generated), "Keep frozen editable setup separate from graph-only cohort batches").toBe(true);
     form.set("expected_revision", String(project.revision)); form.set("generate_3d", "false");
-    for (const text of smiles.slice(offset, offset + 50)) form.append("files", new Blob([`${text} capacity\n`], { type: "chemical/x-daylight-smiles" }), filename);
+    for (const [index, text] of batch.entries()) {
+      const fixtureId = editableIndexes.get(offset + index);
+      if (fixtureId) {
+        const fixture = await frozenEditableFixture(fixtureId, text);
+        form.append("files", new Blob([new Uint8Array(fixture.data)], { type: "chemical/x-mdl-sdfile" }), fixture.filename);
+      } else form.append("files", new Blob([`${text} capacity\n`], { type: "chemical/x-daylight-smiles" }), filename);
+    }
     const response = await request.post(`/api/v1/projects/${project.id}/imports`, { multipart: form });
     expect(response.ok(), await response.text()).toBe(true);
     project = (await response.json() as { project: Project }).project;
   }
   expect(project.entries).toHaveLength(smiles.length);
   return project;
+}
+
+async function preflightEditableFixture(project: Project, entry: Entry, smiles: string, directory: string, label: string, fixtureId: string) {
+  const setupStarted = performance.now();
+  const frozen = await frozenEditableFixture(fixtureId, smiles);
+  const output = resolve(directory, `fixture-${label}`); await mkdir(output);
+  const requirements = resolve(output, "requirements.json");
+  expect(entry.original_artifact_id).toBeTruthy();
+  await writeFile(requirements, JSON.stringify({ project_id: project.id, source: source(entry),
+    original_artifact_id: entry.original_artifact_id, smiles, fixture_id: fixtureId }, null, 2));
+  const legacyStore = process.env.NEISTRA_E2E_DATA_DIR === undefined && process.env.MOLWEAVE_E2E_DATA_DIR !== undefined;
+  const data = resolve(process.env.NEISTRA_E2E_DATA_DIR ?? process.env.MOLWEAVE_E2E_DATA_DIR ?? ".neistra-e2e");
+  const database = resolve(data, legacyStore ? "molweave.db" : "neistra.db");
+  const args = ["-m", "tests.support.ligand_property_performance_qualification", "fixture-preflight",
+    "--database", database, "--data-dir", data, "--requirements", requirements,
+    "--output-dir", resolve(output, "qualification")];
+  // Disposable core/editor checks run before demand or the measured trigger.
+  // They cannot publish an edit, API descriptor request or shared cache value.
+  const child = spawn(resolve(".venv/bin/python"), args, { cwd: process.cwd(), env: process.env,
+    stdio: ["ignore", "pipe", "pipe"], timeout: 30_000, killSignal: "SIGTERM" });
+  let log = "";
+  child.stdout!.on("data", chunk => { log += String(chunk); });
+  child.stderr!.on("data", chunk => { log += String(chunk); });
+  const completion = await new Promise<{ code: number | null; signal: string | null }>((done, reject) => {
+    child.once("close", (code, signal) => done({ code, signal })); child.once("error", reject);
+  });
+  await writeFile(resolve(output, "process.log"), log);
+  const setupMs = performance.now() - setupStarted;
+  await writeFile(resolve(output, "process.json"), JSON.stringify({ scope: "Isolated nonpublishing setup only; outside measured trigger",
+    command: [resolve(".venv/bin/python"), ...args], pid: child.pid, ...completion, setupMs, timeoutMs: 30_000 }, null, 2));
+  expect(completion.code, log).toBe(0); expect(completion.signal).toBeNull();
+  const result = JSON.parse(await readFile(resolve(output, "qualification/result.json"), "utf8")) as {
+    source: Source; source_sha256: string; original_sha256: string; before_report: Report; after_report: Report;
+    source_atom_ids: number[]; trial_atom_ids: number[]; original_recovery_disabled: boolean;
+    no_shared_cache_or_API_descriptor_work: boolean; warnings: unknown[] };
+  expect(result.source).toEqual(source(entry));
+  expect(result.source_sha256).toMatch(/^[a-f0-9]{64}$/);
+  expect(result.original_sha256).toBe(frozen.sha256);
+  expect(result.original_recovery_disabled && result.no_shared_cache_or_API_descriptor_work).toBe(true);
+  for (const report of [result.before_report, result.after_report]) {
+    expect(report.model_status).toBe("qualified"); expect(report.values).toHaveLength(14);
+    expect(report.values.every(value => value.status === "ready" && Number.isFinite(value.value))).toBe(true);
+  }
+  // Generated H can be removed by the real edit. Expected-source matching below
+  // always uses actual ACK/Undo membership, never these preflight/previous IDs.
+  return { directory: output, setupMs, result, frozenFixture: { id: fixtureId, sha256: frozen.sha256, manifestSha256: frozen.manifestSha256, intendedSmiles: smiles }, geometry: "idealized and unoptimized; frozen SDF original, no runtime embedding" };
 }
 
 async function open(page: Page, project: Project) {
@@ -502,7 +574,10 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
         const smiles = mobile ? "C".repeat(Math.floor(size / 2)) + "O" + "C".repeat(size - Math.floor(size / 2) - 1) : "C".repeat(size);
         const initialCarbon = mobile ? size - 1 : size;
         const setup = performance.now();
-        let project = await imported(request, `Descriptor samples ${info.project.name} ${index} ${randomUUID()}`, [smiles]);
+        let project = await imported(request, `Descriptor samples ${info.project.name} ${index} ${randomUUID()}`, [smiles], "capacity.smi",
+          index >= 5 ? new Map([[0, `paired-${info.project.name}-${size}`]]) : new Map());
+        const editablePreflight = index >= 5
+          ? await preflightEditableFixture(project, project.entries[0], smiles, observer.directory, `paired-${index - 5}`, `paired-${info.project.name}-${size}`) : null;
         await open(page, project);
         const select = page.getByRole("region", { name: "Ligand of interest", exact: true }).getByRole("combobox", { name: "Entry", exact: true });
         if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
@@ -563,6 +638,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
           const warmNewJobs = Object.values((await observer.read())!.jobs).filter(job => job.project_id === project.id && !beforeWarmJobs.has(job.id));
           expect(warmNewJobs).toHaveLength(0);
           records.push({ kind: "paired-edit", index: index - 5, heavyAtoms: size, setupMsExcluded,
+            editablePreflight,
             cold: edited.timing, warm, oldSource: source(project.entries[0]), changedSource: source(edited.entry),
             firstInputHash: first.report!.input_hash, changedInputHash: edited.current.report!.input_hash,
             matchingQualifiedResultReadyBeforeViewOpen: true, automaticReady: edited.automaticReady,
@@ -625,8 +701,8 @@ test("measures cancellation feedback and retains cancellation after an actual ac
       element.addEventListener("click", () => {
         const observer = new MutationObserver(() => {
           if (document.querySelector(".ligand-properties-status")?.textContent?.trim() === "Update cancelled") {
-            window.ligandPropertyPerformance.sample!.ready = performance.now(); observer.disconnect();
-            window.ligandPropertyPerformance.sample!.visibleReady = performance.now();
+            window.ligandPropertyPerformance.sample!.ready = globalThis.performance.now(); observer.disconnect();
+            window.ligandPropertyPerformance.sample!.visibleReady = globalThis.performance.now();
           }
         });
         observer.observe(document.body, { subtree: true, childList: true, characterData: true });
@@ -664,7 +740,7 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
   const mobile = info.project.name.includes("mobile");
   const activeSmiles = "C".repeat(41) + (kind === "distinct" ? "O" : "N") + (mobile ? "O" : "C");
   const activeCarbon = mobile ? 41 : 42;
-  let project = await imported(request, `Descriptor bulk ${kind} ${info.project.name} ${randomUUID()}`, [...smiles, activeSmiles], `capacity-${kind}-${info.project.name}.smi`);
+  let project = await imported(request, `Descriptor bulk ${kind} ${info.project.name} ${randomUUID()}`, [...smiles, activeSmiles], `capacity-${kind}-${info.project.name}.smi`, new Map([[1000, `bulk-active-${info.project.name}-${kind}`]]));
   const active = project.entries.at(-1)!;
   const isolated = await request.post(`/api/v1/projects/${project.id}/entries/${active.id}/isolate`, { data: { expected_revision: project.revision } });
   expect(isolated.ok()).toBe(true); project = await isolated.json() as Project;
@@ -681,6 +757,9 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
   let evidence: Record<string, unknown> = { kind, profile: info.project.name };
   let completed = false;
   try {
+    const editablePreflight = await preflightEditableFixture(project, active, activeSmiles, observer.directory, `bulk-active-${kind}`, `bulk-active-${info.project.name}-${kind}`);
+    evidence = { ...evidence, editablePreflight,
+      fixtureSetup: "1000 graph-only bulk inputs unchanged; active entry imported separately from a frozen idealized/unoptimized SDF before measured dispatch" };
     await open(page, project); await inspect(page, active.id);
     await expect(carbon(page)).toHaveText(String(activeCarbon), { timeout: 30_000 });
     const initial = await checkedRead(request, project, active);

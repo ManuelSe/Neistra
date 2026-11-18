@@ -648,3 +648,206 @@ worker/native eight-case performance execution, four1,000-entry workloads, curre
 full43candidate and exact-master qualification, actual released158integration,
 versions, final all-seven assessment, protected PR/merge and verified publication/
 closeout remain mandatory. Keep the one parent Goal active through all eight children.
+
+
+### First actual browser measurement — qualified clock-capture correction
+
+The first selected desktop five-context/twenty-paired-edit performance case never
+reaches browser API transport. Captured transformed init source references an absent
+Node import alias before forwarding fetch. Independent architecture VM replay of
+that exact source confirms the failure and a browser-global control. A full audit
+of twenty-one serialized callbacks finds fourteen clock references in five bodies.
+Implement D-191's browser-global qualification only; Node timings, all cohorts,
+assertions, deadlines, source/trace/resource bounds and other cases remain intact.
+No numerical/scientific or production API correction follows from this finding.
+
+Preserve native-probe1 as interrupted setup: actual corepack -SIGINT(-2), outer
+session68817exit1 at the detached-service cleanup guard, followed by positively owned
+cleanup and cleared ports. All1,062sources retain the originalC1digest; zero productive
+materializations and no completed browser measurement. Raw/live traces, canonical
+store, one new harness-owned UUID evidence directory, worker trace and independent
+failure/control proofs remain retained. The other seven cases/four1,000-entry
+workloads were not executed. After correction, fresh transformed-source/offline
+controls and the actual selected desktop case must pass before any measurement claim;
+final complete qualification still includes all eight cases on integrated sources.
+
+
+### Supported editable performance fixtures — scientific correction contract
+
+D-191's exact14browser-clock correction passes independent architecture and nonauthor
+performance code/method assessment. Twenty-one callbacks have no outer runtime
+captures; browser and Node durations remain in their separate clock domains. The
+fresh actual probe2 proceeds through allfive cold prefixes and real scientific
+children, then fails the first paired edit's strict fully qualified READY predicate,
+actual16196exit1. Source identity and automatic refresh are correct; the response
+is terminal-ready but chemistry unavailable after explicit degenerate-H warnings.
+All1,062source hashes stay fixed8503dae2940aeafdfa795562e379db80659890a1b779e4a8c01b434c6a363151;
+seven children are reaped and normal cleanup clears all owned ports/processes.
+The outside-test reporter error remains retained without an unsupported causal claim.
+
+Independent theory and implementation read the actual artifact and reproduce the
+correct strict refusal. Generated desktop/mobile/bulk representatives qualify all14
+before and after disposable C→N withoriginal_bytes=None, actual70958exit0; all-zero
+negative remains unavailable. D-192 prescribes generated coordinates/complete canonical
+H only for the44actual edit targets, leaving cold/cancel-only and all1,000-entry bulk
+inputs unchanged. Per-target nonpublishing preflight is setup, never shared descriptor
+cache warming, and verifies original/heavy graph/source, finite nondegenerate vectors,
+complete reconciliation and all14qualification. Preserve legitimate warnings and
+every cohort, command, deadline, request/source/READY/work/resource assertion.
+
+The old five-process API proof retains equal historical before/after729maps. Its
+current reconciliation now identifies the native test-only clock change;728unchanged
+API/worker/kernel/Python files remain exact. Any further helper-only additions must
+be explicitly reconciled rather than claiming all729current hashes unchanged.
+Neither partial browser prefix observations nor supported-fixture controls establish
+actual completed browser performance or release readiness.
+
+
+### D-192 corrected fixture execution — retained failed native probe3
+
+Independent scientific implementation, architecture and nonauthor performance CODE/method assessments PASS for the frozen two-harness correction, full1,062-source digest73cf17df957c12894747e4a006e0de214179f6697b4000e7890a945337928233. These scoped assessments do not establish runtime/final performance approval. Fresh selected desktop probe3 completed five cold-prefix and13actualpaired edit/Undo records through58heavy atoms, then production import refused the next62-carbon fixture withcoordinate_generation_failed. Actual enclosing74383exited1 ordinarily after187.4s; sources remained exact, ownedports8450/8451/5450wereunused andnoownedprocess remained. All raw workflow records, native diagnostics and complete/tmp/neistra159-performance-native3store are retained. No partial records are pooled into a passing case or release gate.
+
+Independent frozen production-adapter control reproducesC58success/C62failure. The failure occurs during generated-coordinate fixture import, before its preflight/App demand/timed trigger, rather than automatic current-result publication. Preserve all20editable sizes10–86and allscientific assertions/budgets. A separately recorded, scientifically reviewed fixture-generation decision is required before changing uploaded fixture representation; no size cap, changed graph, production embedding change or automatic rerun is authorized by this failure diagnosis. Sevenothercases/four1,000-entrycohorts andcomplete qualification remain pending.
+
+
+### D-194 — disclosed frozen editable originals
+
+After the independently reproduced C62 production-import refusal, D-194 explicitly replaces only D-192's uploaded-SMILES representation condition with frozen idealized/unoptimized coordinate-bearing MOL/SDF originals. Preserve all44distinct intendedgraphs and sizes, including fourdifferentbulkactivevariants andO–O; retain their intendedSMILES/source manifest and immutable neworiginal bytes. No production embedding change, smaller workload, changed chemistry, adaptive retry or relaxed timing/source/strict-H requirement. All44serialized fixtures require production reparse/edit/inverse/kernel controls before runtime use, then actual-source preflight at every editable import. All old cold/cancel/1,000-entry graph inputs stay unchanged. Implementation and independent corrective assessments precede fresh selected native execution; failed partial records never qualify a passing case.
+
+
+### D-196 lifecycle correction after native1 no-progress evidence
+
+D194's frozen44editable fixtures and runtime source guard receive independent
+science/architecture/performance-method PASS. Selected probe4 then passes one real
+desktop case:5cold/20paired edits and all20runtime preflights, actual7395exit0,
+1110source/49method guards fixed, no orphan processes or occupied ports. Actual
+cold-edit median2057.95ms/p952242.60ms/max3051.80ms are portable observations, not a
+met2000ms target or all8/fourcapacity-cohort acceptance.
+
+A separate161native flow reveals a real no-progress outcome after abandoning an
+entry calculation. The actual159private startup refusal branch can leave a running
+job after reaping and block new admission; independent copied-DB/child controls
+prove this mechanism. D196records the bounded ownership/terminalization repair
+before implementation. Source-tree158does not contain this branch. Preserve every
+failed store and existing deadline; correct159thenpropagate160/161, independently
+review, run focused real-process lifecycle recovery and fresh UI/capacity proofs.
+
+
+### C2 scoped lifecycle correction — captured startup and reaped publication
+
+[Focused evidence](../assets/ligand-properties/c2-startup-ownership-checkpoint.json)
+and its lossless packet bind the complete five-path D-196 correction, candidate1
+sources, original independent reaped-publication failure and corrected regression,
+author logs, independent assessments and focused stores. The2,540,205Bpacket SHA
+`c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24`
+passes independent primary readback:1,734manifest payloads, five recursive ZIPs,
+allCRC/SHA and five current source bodies exact, actual9946cfexit0.
+
+Authorfinal2 passes156focused/six real process supervisors/mypy274/Ruff/format,
+actual18451exit0. Architecture passes29controls plus the original negative;
+scientific implementation passes19including that negative. Performance's scoped
+code/evidence PASS is explicitly a conversation transcription with no invented
+independent execution. The original author988-source guard is distinct from the
+current1,111-source observation and propagated destination1,080/1,091complete maps.
+
+Exact runtime/test propagation into160/161 passes156focused/six supervisors/
+mypy280/Ruff/format in each, actual14403exit0/61535exit0. Four existing C1test
+modules needed by the invocation are copied byte-exactly fromf6e847b; earlier
+missing-path exit4setup logs are retained. Native1's exact runtime branch remains
+an inference; sufficient orphan/recovery mechanisms are independently reproduced.
+Fresh integrated native/performance cases, four bulk workloads, released158base,
+all-seven final review and full candidate/exact-master gates remain required.
+This is a scoped checkpoint, not feature completion or readiness to push.
+
+
+### D-198 pre-code verified-source numerical retirement correction
+
+Independent source-bound controls reproduce a P1 current-authority defect on the
+canonical1,112-source preparation. For genuine same-source integrity/not-found/
+conflict API failures, formula/drawing retire while MW46.069andREADYremain;161also
+retains profilePASS/radar. Strong probe21800exit1has three failing assertions and
+three passing discrimination controls;161extension84415exit1. Controlled API
+responses exercise production components/owners/session; no numerical method error
+or actual storage corruption is claimed. Original source/log/assessment SHA
+`e240b1574d156373d9374e9cde4c41739dc401746161730f9a92123fef79618e`
+remain private and source-bound. D-198records the architecture-reviewed exact-source
+failure-to-session/owner bridge before code. Preserve transport/eviction/unrelated
+numeric qualification; fresh candidate success alone must not revive old bindings.
+All8performance preparation is retained but deliberately unexecuted/noGO until the
+correction passes independent reassessment and fresh appropriate checks.158C12is
+unaffected because it has no live-property integration; its frozen source continues.
+
+
+D-198 channel review establishes an additional depiction-source409negative after
+the first six-path correction. The accepted refinement in DECISIONS preserves
+HTTP codes/status and adds optional typed current/original read provenance,
+keeping derived SVG cache failures local. Correct and independently reassess this
+supported channel before propagation, native execution or performance GO. The
+first candidate's231focused/1,433web passes remain historical evidence; they do
+not establish the corrected candidate or final readiness.
+
+
+The D-198 closure audit also proves a separate reverse property-result gap: six
+actual physical-source failures retire numbers but leave candidate facts qualified.
+The pre-code property-result producer decision requires typed verifier provenance,
+exact request/source guards and one canonical retirement path; generic result
+status/reason and designation-conflict codes are insufficient. Implement/reassess
+this159producer after the earliest158shared boundary. Both unexecuted ALL8prep5/6
+remain historical/HOLD; refresh from the final corrected source before GO.
+
+
+### D-198 source-producer integration — verified local candidate2
+
+The complete1,122-source correction is frozen at compact digest
+`28760569338bf572a0edbf1ddb98b829b90fda17196c1d1fe1d92a45bbd7dc1e`;
+map-file SHA256 is`29c3c5c31aaead721d442b95052848786d2786731864405e1777055e22329fbd`.
+Twenty owned paths comprise13existing changes and seven additions. Four common
+runtime modules and six common regression paths match the accepted158source
+checkpoint4965727c exactly. App and API routing are merged narrowly around the
+existing property/lifetime owners; no source, molecular interpretation or numerical
+method is changed. Only_current changes within the property service, preserving
+all33other methods and protected D-196 implementation/startup tests.
+
+The verifier preserves physical snapshot/read provenance through its existing
+operation-local memo, attributing shared-artifact failures to each row. The existing
+current result gains one optional typed fact with all four primitive source IDs,
+current/original role and a fixed classification. The session validates that fact
+after existing request ownership checks, publishes it synchronously to the canonical
+inventory owner, and returns immediately after its own authority retires. Generic
+failed/unavailable states and semantic409 do not prove physical-source failure.
+Candidate and numerical recovery retain separate genuine-check requirements.
+
+Author actual97831exit0 completes357focused/1,559web, lint/types/build/Ruff/format/
+mypy274. A new-test-only import/mock typing correction reuses only the exact unchanged
+90backend/156D-196/six-supervisor subjects; first actual55633exit1/candidate1/raw logs
+remain preserved. Two source-fixed actual six-failure replay sets and restored
+candidate GET controls establish one-event retirement and zero allocation/demand;
+actual46715exit0 proves candidate recovery alone cannot restore numbers. Numerical
+READY/recovery payloads remain controlled fixtures, explicitly distinct from new
+scientific execution or actual App-browser qualification.
+
+Independent architecture and scientific implementation return scopedPASS. Their
+separate21backend/sixASGI/sixsession and58backend/148frontend/sevenASGI/12session
+checks are not pooled into a full gate. Root independently verifies100handoff
+artifacts, six ZIP CRCs, all five complete/owned source-map ZIP unions and all1,122
+current qualifying source identities. Original49authority tests and D-194's49paths
+remain exact. Raw negative proofs, candidate1 and original1,115sources are retained.
+
+Source-bound local evidence packaging and propagation into160/161 continue. ALL8
+performance preparations5/6 remain unexecuted/HOLD and stale after this correction.
+Actual released158integration, current native/performance, complete candidate and
+exact-master gates, all-seven final same-candidate review and protected delivery
+remain required. This checkpoint is not feature completion or readiness to push.
+
+The [source-producer checkpoint](../assets/ligand-properties/c2-source-producer-checkpoint.json)
+and [lossless packet](../assets/ligand-properties/c2-source-producer-evidence.zip)
+now retain1,400regular payloads,45recursive ZIPs/1,425manifest entries/55project
+archive files, all100author handoff artifacts, original write/reverse negatives and
+raw owned stores. The27,099,010-byte ZIP has SHA256
+`7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b`.
+Primary actualdd139dexit0 verifies every recursive manifest/CRC, exact regular-file
+unions for author/independent review/original-write evidence, all20current owned
+source copies, the complete current1,122-source qualification inventory and all
+earlier public asset identities. All138owned link records remain validated metadata
+without active ZIP links or omitted cache files. This is a local passing checkpoint,
+not a complete native/performance/release qualification or all-seven final approval.

@@ -3,9 +3,10 @@ import { completeLegacyLigands } from "./ligands/resolve";
 import { LigandDesignationControls } from "./components/LigandDesignationControls";
 import { LigandProperties } from "./components/LigandProperties";
 import { LigandPropertySession } from "./ligandProperties/session";
+import { captureArtifactSource, getLigandInventoryOwner, ligandOperationSourceFailure } from "./ligands/inventoryQualification";
 import { PropertyInputOwner, type PropertyOwnerContext } from "./ligandProperties/ownership";
 import { PROPERTY_PREFERENCES_KEY, PROPERTY_REGISTRY_KEY, propertyInputKey } from "./ligandProperties/context";
-import { useLigandProperties } from "./ligandProperties/useProperties";
+import { useLigandProperties, usePropertySourceVerification } from "./ligandProperties/useProperties";
 import type { DescriptorRegistry, PropertyPreferences } from "./ligandProperties/types";
 import { ligandApi } from "./ligands/api";
 import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
@@ -186,6 +187,7 @@ export default function App() {
   const ligandOwnerPorts = useRef<(() => LigandOwnerContext) | null>(null);
   const [ligandOwner] = useState(() => new LigandIntentOwner(() => ligandOwnerPorts.current!()));
   const propertyOwnerPorts = useRef<(() => PropertyOwnerContext) | null>(null);
+  const [inventoryOwner] = useState(() => getLigandInventoryOwner(queryClient));
   const [propertyOwner] = useState(() => new PropertyInputOwner(() => propertyOwnerPorts.current!()));
   const [propertySession] = useState(() => new LigandPropertySession(target => propertyOwner.capture(target)));
   useEffect(() => { propertySession.activate(); return () => propertySession.deactivate(); }, [propertySession]);
@@ -566,6 +568,8 @@ export default function App() {
     const registry = queryClient.getQueryState<DescriptorRegistry>(PROPERTY_REGISTRY_KEY);
     const preferences = queryClient.getQueryState<PropertyPreferences>(PROPERTY_PREFERENCES_KEY);
     return { activeProjectId: active, inspectedEntryId: inspected,
+      sourceIdentity: active && entry ? { projectId: active, entryId: entry.id,
+        currentArtifactId: entry.current_artifact_id, originalArtifactId: entry.original_artifact_id } : null,
       inputKey: propertyInputKey(active, entry, registry?.status === "success" ? registry.data : undefined,
         preferences?.status === "success" ? preferences.data : undefined),
       paused: Boolean(coordinatePreviewRef.current)
@@ -588,6 +592,7 @@ export default function App() {
       })];
     return () => { for (const stop of release) stop(); propertyOwner.deactivate(); };
   }, [propertyOwner, movementSession, publication, editAttempts, queryClient]);
+  usePropertySourceVerification(inventoryOwner, propertySession, propertyOwner);
   const propertyState = useLigandProperties({ project, entryId: ligandEntryId, pausedReason: ligandPausedReason,
     session: propertySession, owner: propertyOwner });
   useLegacyLigandResolution({
@@ -599,11 +604,20 @@ export default function App() {
       return completeLegacyLigands(captured, entryIds, {
         current: () => owner.ownsFeedback(),
         resolve: (source, ids) => {
+          const projectId = source.id, revision = source.revision, requestedIds = [...ids];
+          const sources = source.entries.filter(entry => requestedIds.includes(entry.id)).map(entry => captureArtifactSource(projectId, entry));
           const context = { ownsFeedback: owner.ownsFeedback,
             assertDispatchable: () => owner.assertDispatchable(source, ids) };
           context.assertDispatchable();
           return commandMutation.mutateAsync(captureProjectCommand(source.id,
-            () => ligandApi.resolve(source.id, source.revision, ids), "quiet", context));
+            async () => {
+              try { return await ligandApi.resolve(projectId, revision, requestedIds); }
+              catch (error) {
+                const proof = ligandOperationSourceFailure(error, sources, "resolve");
+                if (proof) inventoryOwner.recordSourceFailure(proof);
+                throw error;
+              }
+            }, "quiet", context));
         },
         read: projectApi.get,
         accept: updateProjectCache,
@@ -620,6 +634,7 @@ export default function App() {
     pausedReason={ligandPausedReason} busy={busy}
     onDesignate={async (entry, candidateKey, inputHash, ownsAttempt) => {
       const captured = project;
+      const source = captureArtifactSource(captured.id, entry), revision = captured.revision;
       const context = { ownsFeedback: () => ligandViewOwner.ownsFeedback() && (!ownsAttempt || ownsAttempt()),
         assertDispatchable: () => {
           if (ownsAttempt && !ownsAttempt()) throw new ApiError(409, "ligand_context_changed", "The ligand choice was closed. Review the current choice before saving.");
@@ -628,10 +643,18 @@ export default function App() {
       context.assertDispatchable();
       if (busy) throw new ApiError(409, "ligand_context_changed", "Another change is being saved.");
       const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id,
-        () => ligandApi.designate(captured.id, entry.id, {
-          expected_revision: captured.revision, expected_artifact_id: entry.current_artifact_id,
-          ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
-        }), undefined, context));
+        async () => {
+          try {
+            return await ligandApi.designate(source.projectId, source.entryId, {
+              expected_revision: revision, expected_artifact_id: source.currentArtifactId,
+              ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
+            });
+          } catch (error) {
+            const proof = ligandOperationSourceFailure(error, [source], candidateKey ? "use" : "clear");
+            if (proof) inventoryOwner.recordSourceFailure(proof);
+            throw error;
+          }
+        }, undefined, context));
       const current = queryClient.getQueryData<Project>(["project", captured.id]);
       return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
     }} /><LigandProperties state={propertyState} session={propertySession} /></> : null;

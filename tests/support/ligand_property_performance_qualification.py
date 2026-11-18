@@ -28,9 +28,12 @@ from contextlib import contextmanager
 from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from tests.support.performance import performance_budget, performance_enabled
+
+if TYPE_CHECKING:
+    from neistra_core.molecular import NormalizedStructureV1
 
 ROOT = Path(__file__).resolve().parents[2]
 DATABASE_ALIASES = (
@@ -137,6 +140,224 @@ def source(entry: dict[str, Any]) -> dict[str, Any]:
         "source_artifact_id": entry["current_artifact_id"],
         "instance_id": designation["instance_id"],
         "atom_ids": designation["atom_ids"],
+    }
+
+
+def fixture_trial(
+    structure: NormalizedStructureV1,
+    original: bytes,
+    filename: str,
+    *,
+    intended_smiles: str | None = None,
+) -> dict[str, Any]:
+    """Disposable production science control; never publish or access shared caches."""
+    from neistra_core.adapters.base import ImportOptions
+    from neistra_core.adapters.ligand import SmilesAdapter
+    from neistra_core.editing.model import DirectMolecularEditor, ModelElement
+    from neistra_core.ligand_properties import calculate_properties
+
+    assert 0 < len(structure.atoms) <= 1024 and len(structure.bonds) <= 4096
+    before_bytes = structure.to_bytes()
+    original_sha = hashlib.sha256(original).hexdigest()
+    if intended_smiles is not None:
+        from tests.support.ligand_property_performance_fixtures import verify_original
+
+        original_structure = verify_original(original, intended_smiles, filename)
+        assert structure.atoms == original_structure.atoms
+        assert structure.bonds == original_structure.bonds
+        assert structure.conformers == original_structure.conformers
+        assert structure.annotations == original_structure.annotations
+        assert structure.metadata == original_structure.metadata
+        authored_bytes = (intended_smiles + " capacity\n").encode()
+    else:
+        authored_bytes = original
+    parsed = SmilesAdapter().parse(authored_bytes, filename, ImportOptions(generate_3d=False))
+    assert len(parsed.structures) == 1
+
+    def graph(value: NormalizedStructureV1) -> tuple[dict[int, Any], list[tuple[Any, ...]]]:
+        atoms = {atom.id: atom for atom in value.atoms if atom.element not in {"H", "D", "T"}}
+        bonds = [
+            (bond.id, bond.atom_1_id, bond.atom_2_id, bond.order, bond.aromatic, bond.stereo)
+            for bond in value.bonds
+            if bond.atom_1_id in atoms and bond.atom_2_id in atoms
+        ]
+        return atoms, bonds
+
+    atoms, bonds = graph(structure)
+    authored, authored_bonds = graph(parsed.structures[0])
+    assert 10 <= len(atoms) <= 100 and set(atoms) == set(authored)
+    assert bonds == authored_bonds
+    for identity, atom in atoms.items():
+        assert (atom.element, atom.formal_charge, atom.stereo) == (
+            authored[identity].element,
+            authored[identity].formal_charge,
+            authored[identity].stereo,
+        )
+    target = atoms[1]
+    assert target.element == "C" and target.formal_charge == 0 and target.stereo is None
+    neighbors = {
+        second if first == 1 else first for _, first, second, *_ in bonds if 1 in {first, second}
+    }
+    assert len(neighbors) == 1
+    assert all(bond[3] == 1 for bond in bonds if 1 in {bond[1], bond[2]})
+    affected = {1} | neighbors
+
+    def geometry(value: NormalizedStructureV1) -> list[dict[str, Any]]:
+        positions = {atom.id: index for index, atom in enumerate(value.atoms)}
+        assert len(positions) == len(value.atoms) and value.conformers
+        assert all(
+            math.isfinite(coordinate) for atom in value.atoms for coordinate in atom.coordinates
+        )
+        measured = []
+        for conformer in value.conformers:
+            assert len(conformer.coordinates) == len(value.atoms)
+            assert all(
+                math.isfinite(coordinate) for xyz in conformer.coordinates for coordinate in xyz
+            )
+            for bond in value.bonds:
+                if not {bond.atom_1_id, bond.atom_2_id} & affected:
+                    continue
+                first = conformer.coordinates[positions[bond.atom_1_id]]
+                second = conformer.coordinates[positions[bond.atom_2_id]]
+                length = math.dist(first, second)
+                # The existing production reconciliation rejects vectors below 1e-6 A.
+                assert math.isfinite(length) and length >= 1e-6
+                measured.append(
+                    {
+                        "conformer_id": conformer.id,
+                        "bond_id": bond.id,
+                        "atom_ids": [bond.atom_1_id, bond.atom_2_id],
+                        "length_angstrom": length,
+                    }
+                )
+        assert measured
+        return measured
+
+    before_geometry = geometry(structure)
+    initial = calculate_properties(
+        structure, [atom.id for atom in structure.atoms], original_bytes=None
+    )
+    trial = DirectMolecularEditor().edit(
+        structure,
+        [1],
+        ModelElement(operation="atom.element", element="N"),
+        next_atom_id=max(atom.id for atom in structure.atoms) + 1,
+        next_bond_id=max(bond.id for bond in structure.bonds) + 1,
+        hydrogen_policy="automatic",
+    )
+    after = trial.edit.structure
+    edited = calculate_properties(after, [atom.id for atom in after.atoms], original_bytes=None)
+    assert structure.to_bytes() == before_bytes
+    assert hashlib.sha256(original).hexdigest() == original_sha
+    after_atoms, after_bonds = graph(after)
+    assert set(after_atoms) == set(atoms) and after_bonds == bonds
+    assert after_atoms[1].element == "N" and after_atoms[1].formal_charge == 0
+    for identity in atoms:
+        if identity != 1:
+            assert after_atoms[identity] == atoms[identity]
+    reconciliation = trial.hydrogen_reconciliation_report
+    assert reconciliation is not None and reconciliation.status == "complete"
+    assert reconciliation.skipped_count == reconciliation.unprocessed_count == 0
+    for report in (initial, edited):
+        assert report.model_status == "qualified" and report.model_reason is None
+        assert len(report.values) == 14
+        assert all(
+            value.status == "ready" and value.value is not None and math.isfinite(value.value)
+            for value in report.values
+        )
+    initial_carbon = initial.get_value("carbon_count").value
+    assert initial_carbon is not None
+    assert edited.get_value("carbon_count").value == initial_carbon - 1
+    assert edited.get_value("heavy_atom_count").value == initial.get_value("heavy_atom_count").value
+    if intended_smiles is None:
+        assert any(item.code == "smiles_coordinates_generated" for item in structure.inferences)
+    return {
+        "scope": "Nonpublishing disposable production editor/kernel preflight only",
+        "original_recovery_disabled": True,
+        "source_object_preserved": True,
+        "original_sha256": original_sha,
+        "heavy_graph_preserved_except_target_element": True,
+        "target_id": 1,
+        "heavy_atoms": len(atoms),
+        "source_atom_ids": [a.id for a in structure.atoms],
+        "trial_atom_ids": [a.id for a in after.atoms],
+        "before_geometry": before_geometry,
+        "after_geometry": geometry(after),
+        "before_report": initial.model_dump(mode="json"),
+        "after_report": edited.model_dump(mode="json"),
+        "reconciliation": reconciliation.model_dump(mode="json"),
+        "warnings": [warning.model_dump(mode="json") for warning in trial.edit.warnings],
+    }
+
+
+def fixture_preflight(
+    database: Path, data: Path, requirements: Path, output: Path
+) -> dict[str, Any]:
+    """Read committed actual source bytes in an isolated setup process, without writes."""
+    from neistra_core.molecular import NormalizedStructureV1
+
+    started = time.perf_counter()
+    request = json.loads(requirements.read_text())
+    dump(output / "requirements.json", request)
+    assert database.resolve().parent == data.resolve()
+    assert database.name in {"neistra.db", "molweave.db"}
+    wanted = request["source"]
+    # mode=ro retains normal WAL visibility; immutable=1 would miss live commits.
+    with sqlite3.connect(f"file:{database.resolve()}?mode=ro", uri=True, timeout=5) as db:
+        db.row_factory = sqlite3.Row
+        entry_row = db.execute(
+            "SELECT id,project_id,current_artifact_id,original_artifact_id,original_filename,"
+            "ligand_designation FROM structure_entries WHERE id=?",
+            (wanted["entry_id"],),
+        ).fetchone()
+        assert entry_row is not None
+        entry = dict(entry_row)
+        entry["ligand_designation"] = json.loads(entry["ligand_designation"])
+        dump(output / "actual-entry.json", entry)
+        assert entry["project_id"] == request["project_id"] and source(entry) == wanted
+        assert entry["original_artifact_id"] == request["original_artifact_id"]
+
+        def artifact(identity: str, destination: str) -> bytes:
+            row = db.execute(
+                "SELECT id,sha256,size,relative_path FROM artifacts WHERE id=?", (identity,)
+            ).fetchone()
+            assert row is not None
+            metadata = dict(row)
+            dump(output / (destination + ".identity.json"), metadata)
+            path: Path = (data / metadata["relative_path"]).resolve()
+            assert path.is_relative_to((data / "artifacts").resolve()) and not path.is_symlink()
+            assert 0 < metadata["size"] <= 4 * 1024 * 1024
+            with path.open("rb") as handle:
+                payload = handle.read(4 * 1024 * 1024 + 1)
+            (output / destination).write_bytes(payload)
+            assert len(payload) == metadata["size"]
+            assert hashlib.sha256(payload).hexdigest() == metadata["sha256"]
+            return payload
+
+        canonical = artifact(entry["current_artifact_id"], "actual-source.json")
+        original = artifact(entry["original_artifact_id"], "actual-original.sdf")
+    from tests.support.ligand_property_performance_fixtures import load_fixture
+
+    fixture, frozen = load_fixture(request["fixture_id"])
+    assert fixture["intended_smiles"] == request["smiles"]
+    assert entry["original_filename"] == fixture["filename"]
+    assert original == frozen
+    structure = NormalizedStructureV1.from_bytes(canonical)
+    assert wanted["atom_ids"] == sorted(atom.id for atom in structure.atoms)
+    result = fixture_trial(
+        structure, original, entry["original_filename"], intended_smiles=fixture["intended_smiles"]
+    )
+    assert (output / "actual-source.json").read_bytes() == canonical
+    assert (output / "actual-original.sdf").read_bytes() == original
+    return {
+        **result,
+        "source": wanted,
+        "original_artifact_id": entry["original_artifact_id"],
+        "frozen_fixture": fixture,
+        "source_sha256": hashlib.sha256(canonical).hexdigest(),
+        "setup_seconds": time.perf_counter() - started,
+        "database_access": "Read-only SQLite with committed WAL visibility",
+        "no_shared_cache_or_API_descriptor_work": True,
     }
 
 
@@ -1200,6 +1421,11 @@ def main() -> None:
     commands = parser.add_subparsers(dest="command", required=True)
     worker_parser = commands.add_parser("worker")
     worker_parser.add_argument("--trace", type=Path, required=True)
+    fixture = commands.add_parser("fixture-preflight")
+    fixture.add_argument("--database", type=Path, required=True)
+    fixture.add_argument("--data-dir", type=Path, required=True)
+    fixture.add_argument("--requirements", type=Path, required=True)
+    fixture.add_argument("--output-dir", type=Path, required=True)
     run = commands.add_parser("run")
     run.add_argument("--output-dir", type=Path, required=True)
     cold = commands.add_parser("cold")
@@ -1224,6 +1450,12 @@ def main() -> None:
     output = args.output_dir.resolve()
     assert not output.exists(), "Preserve earlier qualification output; use a fresh directory"
     output.mkdir(parents=True)
+    if args.command == "fixture-preflight":
+        dump(
+            output / "result.json",
+            fixture_preflight(args.database, args.data_dir, args.requirements, output),
+        )
+        return
     if args.command == "cold":
         dump(output / "result.json", sample(output, args.index))
         return

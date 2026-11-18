@@ -9,6 +9,10 @@ from typing import TYPE_CHECKING, Any, Literal
 from neistra_api.artifact_errors import ArtifactIntegrityError, ArtifactNotFoundError
 from neistra_api.import_export import NORMALIZED_MEDIA_TYPE
 from neistra_api.ligand_property_identity import raw_source_fingerprint
+from neistra_api.ligand_property_schemas import (
+    LigandPropertySourceFailure,
+    LigandPropertySourceIdentity,
+)
 
 if TYPE_CHECKING:
     from neistra_api.ligand_property_schemas import LigandPropertySource
@@ -20,9 +24,15 @@ SOURCE_VERIFICATION_BYTES = 64 * 1024 * 1024
 
 class PropertySourceFailure(ValueError):
     def __init__(
-        self, status: Literal["failed", "unavailable"], reason: str, *, capacity: bool = False
+        self,
+        status: Literal["failed", "unavailable"],
+        reason: str,
+        *,
+        capacity: bool = False,
+        source_failure: LigandPropertySourceFailure | None = None,
     ) -> None:
         self.status, self.reason, self.capacity = status, reason, capacity
+        self.source_failure = source_failure
         super().__init__(reason)
 
 
@@ -59,11 +69,24 @@ class PropertySourceVerification:
     def key(snapshot: dict[str, Any]) -> tuple[Any, ...]:
         return snapshot["id"], snapshot["sha256"], snapshot["size"]
 
-    def _read(self, snapshot: dict[str, Any], label: str) -> bytes:
+    def _read(
+        self,
+        snapshot: dict[str, Any],
+        label: str,
+        identity: LigandPropertySourceIdentity,
+        role: Literal["current", "original"],
+    ) -> bytes:
         key = self.key(snapshot)
         if key in self._failures:
             status, reason = self._failures[key]
-            raise PropertySourceFailure(status, reason)
+            # Memoize the physical read outcome, never the first entry's attribution.
+            raise PropertySourceFailure(
+                status,
+                reason,
+                source_failure=LigandPropertySourceFailure(
+                    source_identity=identity, source_verification=role
+                ),
+            )
         if key in self._bytes:
             return self._bytes[key]
         size = snapshot["size"]
@@ -74,8 +97,7 @@ class PropertySourceVerification:
         if self._budget.reserved_bytes + size > SOURCE_VERIFICATION_BYTES:
             raise PropertySourceFailure(
                 "unavailable",
-                "Aggregate property source verification byte budget reached; "
-                "read fewer entries.",
+                "Aggregate property source verification byte budget reached; read fewer entries.",
                 capacity=True,
             )
         self._budget.reserved_bytes += size
@@ -89,7 +111,13 @@ class PropertySourceVerification:
                 "Restore the source and retry."
             )
             self._failures[key] = ("failed", reason)
-            raise PropertySourceFailure("failed", reason) from None
+            raise PropertySourceFailure(
+                "failed",
+                reason,
+                source_failure=LigandPropertySourceFailure(
+                    source_identity=identity, source_verification=role
+                ),
+            ) from None
         self._bytes[key] = data
         self.verified_bytes += len(data)
         return data
@@ -97,19 +125,34 @@ class PropertySourceVerification:
     def fingerprint(
         self, entry: StructureEntry, source: LigandPropertySource
     ) -> VerifiedPropertySource:
+        # ORM refreshes during later retirement must not change this read's provenance.
+        identity = LigandPropertySourceIdentity(
+            project_id=entry.project_id,
+            entry_id=source.entry_id,
+            current_artifact_id=source.source_artifact_id,
+            original_artifact_id=entry.original_artifact_id,
+        )
         try:
-            normalized = self.service._snapshot(source.source_artifact_id)
+            normalized = self.service._snapshot(identity.current_artifact_id)
         except ValueError:
             raise PropertySourceFailure(
-                "failed", "Current normalized source is missing. Restore the source and retry."
+                "failed",
+                "Current normalized source is missing. Restore the source and retry.",
+                source_failure=LigandPropertySourceFailure(
+                    source_identity=identity, source_verification="current"
+                ),
             ) from None
         original = None
-        if entry.original_artifact_id:
+        if identity.original_artifact_id:
             try:
-                original = self.service._snapshot(entry.original_artifact_id)
+                original = self.service._snapshot(identity.original_artifact_id)
             except ValueError:
                 raise PropertySourceFailure(
-                    "failed", "Original source is missing. Restore the source and retry."
+                    "failed",
+                    "Original source is missing. Restore the source and retry.",
+                    source_failure=LigandPropertySourceFailure(
+                        source_identity=identity, source_verification="original"
+                    ),
                 ) from None
         if normalized["media_type"] != NORMALIZED_MEDIA_TYPE:
             raise PropertySourceFailure(
@@ -119,9 +162,9 @@ class PropertySourceVerification:
         normalized_key = self.key(normalized)
         original_key = self.key(original) if original else None
         proof_key = (normalized_key, original_key, source.atom_ids)
-        data = self._read(normalized, "Current normalized source")
+        data = self._read(normalized, "Current normalized source", identity, "current")
         if original is not None:
-            self._read(original, "Original source")
+            self._read(original, "Original source", identity, "original")
         if proof_key in self._proof_failures:
             raise PropertySourceFailure("unavailable", self._proof_failures[proof_key])
         if proof_key not in self._fingerprints:

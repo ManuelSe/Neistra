@@ -1,21 +1,33 @@
-import { propertyTargetKey, type PropertyTarget } from "./session";
+import { propertySourceIdentity, propertyTargetKey, type PropertyTarget } from "./session";
+import { sameVerifiedArtifactSource, type VerifiedArtifactSource } from "../ligands/inventoryQualification";
 
 export interface PropertyOwnerContext {
   activeProjectId: string | null;
   inspectedEntryId: string | null;
   inputKey: string;
   paused: boolean;
+  sourceIdentity?: VerifiedArtifactSource | null;
 }
 
 /** Synchronous exact-target visits, independent of unrelated project entries. */
 export class PropertyInputOwner {
   private generation = 0;
+  private connectionGeneration = 0;
+  private capturedSource: { key: string; identity: VerifiedArtifactSource } | null = null;
   private active = true;
   private previous: PropertyOwnerContext | null = null;
   private readonly listeners = new Set<() => void>();
   constructor(private readonly read: () => PropertyOwnerContext) {}
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   snapshot = () => this.generation;
+  connectionSnapshot = () => this.connectionGeneration;
+  retireSource(source: VerifiedArtifactSource) {
+    const current = this.refresh(false);
+    const identity = current.sourceIdentity ?? (this.capturedSource?.key === current.inputKey ? this.capturedSource.identity : null);
+    if (!identity || !sameVerifiedArtifactSource(identity, source)) return;
+    this.generation++;
+    for (const listener of this.listeners) listener();
+  }
   activate = () => { this.active = true; };
   deactivate = () => { this.active = false; };
   observe = () => { this.refresh(true); };
@@ -24,7 +36,7 @@ export class PropertyInputOwner {
     this.previous = current;
     if (previous && (previous.activeProjectId !== current.activeProjectId || previous.inspectedEntryId !== current.inspectedEntryId
       || previous.inputKey !== current.inputKey || previous.paused !== current.paused)) {
-      this.generation++;
+      this.generation++; this.connectionGeneration++;
       if (notify) for (const listener of this.listeners) listener();
     }
     return current;
@@ -37,6 +49,7 @@ export class PropertyInputOwner {
   }
   capture(target: PropertyTarget): () => boolean {
     this.refresh(false);
+    this.capturedSource = { key: propertyTargetKey(target), identity: propertySourceIdentity(target) };
     const generation = this.generation;
     return () => { this.refresh(true); return generation === this.generation && this.matches(target); };
   }

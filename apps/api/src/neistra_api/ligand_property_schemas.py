@@ -111,12 +111,35 @@ class LigandPropertyConsumerUpdate(LigandPropertyReadRequest):
         return self
 
 
+class LigandPropertySourceIdentity(PropertyModel):
+    project_id: str = Field(min_length=1, max_length=36)
+    entry_id: str = Field(min_length=1, max_length=36)
+    current_artifact_id: str = Field(min_length=1, max_length=36)
+    original_artifact_id: str | None = Field(default=None, min_length=1, max_length=36)
+
+
+class LigandPropertySourceFailure(PropertyModel):
+    source_identity: LigandPropertySourceIdentity
+    source_verification: Literal["current", "original"]
+    reason: Literal["artifact_unavailable"] = "artifact_unavailable"
+
+    @model_validator(mode="after")
+    def role_has_source(self) -> LigandPropertySourceFailure:
+        if (
+            self.source_verification == "original"
+            and self.source_identity.original_artifact_id is None
+        ):
+            raise ValueError("Original verification requires an original artifact identity")
+        return self
+
+
 class LigandPropertyCurrentRead(PropertyModel):
     source: LigandPropertySource
     binding_key: str
     status: Literal["pending", "ready", "unavailable", "cancelled", "failed"]
     report: DescriptorReport | None = None
     reason: str | None = None
+    source_failure: LigandPropertySourceFailure | None = None
     progress: float = Field(default=0, ge=0, le=100, allow_inf_nan=False)
 
 
