@@ -1,12 +1,36 @@
 # Project Schema
 
-Status: Neistra, `ProjectStateV2`, `ViewerSettingsV2`, and `ProjectManifestV2`
+Status: project/checkpoint/API schema 3, `ProjectManifestV3`, and `ViewerSettingsV2`
 
 Neistra separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
 browser layout state is not project state.
 
-## Versioning
+## Current schema 3 — migration 0016
+
+Current project responses and checkpoint payloads carry `schema_version: 3`;
+portable current archives use `ProjectManifestV3` with schema 3. Viewer settings
+remain `ViewerSettingsV2`/schema 2. The fields described by the historical schema 2
+base below remain, with typed `ligand_designation` added to every entry.
+
+`LigandDesignationV1` carries schema 1, status (`unresolved`, `selection_required`,
+`not_applicable`, `cleared`, `resolved`, `stale`), assessed source artifact, exact
+instance UUID, sorted unique canonical atom IDs, automatic/manual origin, selection
+time and resolver/assessment/reason metadata. Assigned/stale intent requires its
+source, instance, membership and provenance; unassigned states carry no active
+reference. Stale intent requires a recovery reason. Clear is explicit retained
+intent, not a request to pick another automatic candidate.
+
+Migration 0016 adds defaults across live entries, checkpoint snapshots and retained
+forward/inverse command states, then moves the physical project table boundary to
+`project_documents_v3`. Older readers must not silently discard designation fields.
+The actual v0.35 reader qualifies safe refusal without mutation; schema 1/2 archive
+imports migrate forward under current code. Guarded downgrade refuses any retained
+nondefault designation or designation command that would lose intent, including
+Clear. Keep complete pre-upgrade backups and matching client/server versions.
+Original uploads and canonical molecular data remain immutable.
+
+## Historical schema2 versioning — migrations0014/0015
 
 The checkpoint payload is `ProjectStateV2` and contains
 `"schema_version": 2`. The API exposes the same version on complete project
@@ -14,7 +38,7 @@ responses. Alembic migration `0014` upgrades every retained viewer snapshot and 
 root. Migration `0002` originally introduced the project discriminator.
 
 Migration notes for 0002–0013 below describe their historical schema-1 changes;
-the current contract is schema 2 under 0014.
+the historical contract was schema2 under0014; the current contract above is schema3.
 
 Any incompatible change requires a new schema number and a migration. Readers
 must reject unknown newer versions rather than guessing. The portable
