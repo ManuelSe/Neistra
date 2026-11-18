@@ -1,12 +1,59 @@
 # Project Schema
 
-Status: Neistra, `ProjectStateV2`, `ViewerSettingsV2`, and `ProjectManifestV2`
+Status: current branch project/checkpoint/archive schema 3, `ViewerSettingsV2`,
+and `ProjectManifestV3`; property extension `0017` is in release preparation.
 
 Neistra separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
 browser layout state is not project state.
 
-## Versioning
+## Current schema and derived properties
+
+Migration `0016` established project/checkpoint/archive schema 3 and the physical
+`project_documents_v3` project boundary for durable exact ligand designation. The
+current API `ProjectRead.schema_version` is 3 and archive manifests use
+`ProjectManifestV3`. Normalized molecular schema 1 and viewer schema 2 remain.
+Older supported archives are validated and migrated explicitly; unknown versions
+are rejected rather than guessed. The schema 2 sections below describe retained
+historical contracts, not the current project discriminator.
+
+The #159 development extension uses Alembic `0017` over `0016` without advancing
+project/archive/viewer schema. It adds `jobs.purpose` (default `user`) and these
+installation-owned, regenerable tables:
+
+| Table | Ownership and purpose |
+| --- | --- |
+| `ligand_property_preferences` | One revisioned installation-wide category selection. |
+| `ligand_property_content` | Bounded immutable report-envelope references, coverage and use timestamps. |
+| `ligand_property_proofs` | Sealed scientific-content lookup associations for conservative source fingerprints. |
+| `ligand_property_bindings` | Current entry/source binding with a distinct incarnation, not historical report authority. |
+| `ligand_property_consumers` | Server-issued sequenced, expiring demand leases and failures. |
+| `ligand_property_executions` | Exact private job captures, process ownership facts and reaping state. |
+
+A private execution requires a matching positive job/execution association; a
+plugin name, purpose label or imported parameter alone grants no publication or
+cleanup authority. Properly associated automatic jobs are excluded from ordinary
+job projections and current archives. They do not add entry job links/generated
+results, molecular commands, project dirty state or Undo history. Current input
+verification and immutable originals remain authoritative.
+
+Archives retain the canonical molecular inputs and durable ligand choice, not
+installation preferences, transient consumers, current cache bindings or live
+private execution ownership. Import/remapping reconstructs derived results through
+fresh strict source proof. Captured historical report/job IDs cannot become current
+values or executable private work. Existing ordinary user job/output retention and
+the archive's existing omission of portable Undo history are unchanged.
+
+Back up the complete managed store before upgrading and deploy matching client/server
+versions. Downgrade from 0017 refuses any nondefault property categories or unreaped
+private execution before dropping tables. Restore/save all default categories and
+stop/reap property work first. A permitted downgrade removes regenerable property
+tables and positively associated private jobs; ordinary jobs remain outside that
+cleanup. Exact released 0.36 reader/writer qualification is still pending and must
+distinguish Alembic unknown-revision refusal from schema 3 API/archive compatibility.
+See [Live ligand properties](LIGAND_PROPERTIES.md#persistence-and-version-changes).
+
+## Historical schema-2 versioning
 
 The checkpoint payload is `ProjectStateV2` and contains
 `"schema_version": 2`. The API exposes the same version on complete project
@@ -14,7 +61,8 @@ responses. Alembic migration `0014` upgrades every retained viewer snapshot and 
 root. Migration `0002` originally introduced the project discriminator.
 
 Migration notes for 0002–0013 below describe their historical schema-1 changes;
-the current contract is schema 2 under 0014.
+the historical schema-2 contract is under 0014; current 0016/0017 behavior is
+described above.
 
 Any incompatible change requires a new schema number and a migration. Readers
 must reject unknown newer versions rather than guessing. The portable

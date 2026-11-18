@@ -95,6 +95,15 @@ data/history/archives, while new H building needs the current client/server.
 Earlier schema downgrade guards remain binding. Back up the complete managed data
 directory before changing versions.
 
+The development branch adds automatic **Properties** below the inspector's exact
+**Ligand of interest** choice. Use **Property options** to save installation-wide
+category choices, and **Methods and limits** for units and unavailable reasons.
+Relevant edits automatically retire incompatible values; changed molecular previews
+show Preview unavailable. This adds the guarded property migration `0017` while
+retaining project/archive schema 3 and viewer schema 2. See
+[live ligand properties](docs/LIGAND_PROPERTIES.md) for scientific scope,
+cancellation, persistence and pending release qualification.
+
 The [protein sequence viewer](docs/SEQUENCE_VIEWER.md) below the 3D canvas stacks
 the observed chains of displayed proteins. Browse and select residues with the
 same modifiers as Components and the viewer. Collapse or hide sequences
@@ -341,6 +350,7 @@ format or molecular state store.
 
 See [architecture](docs/ARCHITECTURE.md), [development and troubleshooting](docs/DEVELOPMENT.md),
 [HTTP API](docs/API.md), [measurements](docs/MEASUREMENTS.md),
+[live ligand properties](docs/LIGAND_PROPERTIES.md),
 [project/archive schema](docs/PROJECT_SCHEMA.md),
 [normalized molecular schema](docs/NORMALIZED_SCHEMA.md), [format matrix](docs/FORMAT_MATRIX.md),
 [plugin guide](docs/PLUGIN_GUIDE.md), [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md),

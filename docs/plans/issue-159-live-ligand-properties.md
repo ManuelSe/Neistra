@@ -950,3 +950,33 @@ readiness claim. Refresh future source guards from the actual final candidate af
 prerequisite closeout/documentation, final0.37version/preceding-reader preparation
 and any required measured latency correction. Required native/ALL8/capacity, full
 candidate/exact-master gates and final specialist reviews remain mandatory.
+
+
+### C3 release preparation — five consistent versions and user contracts
+
+Prepare0.37.0 in the five authoritative sources after fresh remote collision reads
+find no matching tag/release. Preserve every dependency pin and the existing0016
+migration bodies; the only new head is0017. Project/archive3 and viewer2 stay fixed.
+Publish the actual implemented user/API/schema/scientific-limit contracts, keeping
+performance, actual old-code compatibility and final release qualifiers explicit.
+The inherited archive test's expected current-version pin advances0.36→0.37 and
+adds the0.36label row without removing an assertion or old row. This matrix runs
+current codec code with labelled metadata; it is not actual preceding-reader proof.
+
+Fresh scoped preparation passes versions/schema/dependency audit against actual
+247ab651, offline lock check,67archive cases/zero errors/skips, Ruff/mypy274, frontend
+types/build and diff checks. Root enclosing38263exit0/chunk9cf28f; all1125selected
+sources stay exact. The first direct helper wrapper omitted required PYTHONPATH;
+its import failure is retained and the approved recipe environment fixes it. The
+next run retains46old-pin failures/20passes; the version-specific test correction
+then passes all67. No scientific method, source fixture or production fallback is
+changed to obtain these passes.
+
+Independent documentation author checks14definitions,7actualroutes,6migration
+tables, caps and8local links/anchors against18source files, without workloads. Root
+reviews the full guide and preserves installation-wide CAS/consumer distinctions,
+exact preview/committed freshness, qualified unavailable states and downgrade guards.
+#158 publication receipt8217564e and canonical completed reply are verified; its
+normal terminal documentation still must merge/integrate. Local preparation remains
+separate from full native/ALL8/capacity/actual0.36reader, final candidate/exact-master
+gates and all-seven same-final-candidate review. No0.37tag/release or push readiness.

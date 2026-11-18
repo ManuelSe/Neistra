@@ -1,25 +1,90 @@
 # Neistra Release Notes
 
-## 0.36.0 — Exact ligand designation (in preparation)
+## 0.37.0 — Automatic current-input ligand properties (in preparation)
 
-Child #158 is integrating with released 0.35.0; no 0.36 release or final integrated
-qualification is claimed yet. Exact per-entry instance choice, automatic qualified
-single-candidate recognition, persistent Clear, reversible intent and bounded cached
-2D candidate cards are the accepted scope. Unknown chemistry remains unavailable.
+Child #159 adds fourteen versioned descriptors, installation-level category options,
+automatic exact-input refresh and bounded private execution/cache ownership. It is
+local release preparation; no v0.37.0 tag, release or final qualification is claimed.
+Actual released v0.36.0 is integrated as the prerequisite runtime and its full
+public verification/explicit closure pass. Its normal terminal documentation must
+also be integrated before final159delivery.
 
-Serialization compatibility changes: migration 0016 introduces the physical
-`project_documents_v3` boundary and project/archive schema3, with viewer2 unchanged.
-Deploy matching client/server versions. Actual older code must refuse current stores
-and archives without mutation; current code retains validated schema1/2 imports.
-Default-only downgrade is guarded across live/checkpoint/history state. Automatic
-recognition and Clear can prevent downgrade; complete pre-upgrade backups provide
-rollback. Original files and existing measurement/history content remain preserved.
+Relevant molecular changes immediately retire incompatible values. Qualified cached
+results can return promptly; otherwise the readout remains pending or unavailable
+with a reason until a genuine current result is verified. Committed inputs and
+changed previews retain distinct exact identities. Late results, Undo/Redo, source
+failures and project/entry changes cannot publish incompatible numerical values.
+Candidate composition/drawing and calculated properties requalify independently.
+Original uploads and canonical chemistry remain unchanged; unsupported chemistry is
+not silently neutralized, protonated, desalted or converted to zero.
 
-All five authoritative versions are 0.36.0 with unchanged dependency pins. Final
-candidate/exact-merged gates must retain all 42 predecessor responsibilities,
-including actual ordered-measurement readers, plus new designation/schema-boundary
-qualification. All seven final same-candidate assessments remain required.
+All five authoritative versions are prepared at0.37.0, with dependency pins unchanged.
+Migration0017 adds installation property preferences and privately owned derived
+execution; project/archive schema3 and viewer2 remain. Deploy matching client/server
+versions and retain a complete pre-upgrade store backup. Downgrade is guarded; actual
+preceding0.36reader/producer and archive qualification remains required before release.
+Derived values/cache/preferences do not become portable molecular history merely
+because the archive schema is unchanged.
 
+Scoped correction and integration checks pass, including the independent worker
+recovery/source-producer evidence. Complete native, ALL8/capacity/performance,
+actual-predecessor compatibility, final candidate/exact-master gates and all seven
+same-final-candidate assessments remain pending. The historical cold-latency miss
+is retained; no strict-host, universal instant-response or current timing pass is
+claimed. Profiles/sidebar/property filters/inspector retirement remain #160–#163;
+parent #11 and its explicit exclusions remain unchanged.
+
+## 0.36.0 — Exact durable ligand designation
+
+Published as [v0.36.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0)
+through [PR #175](https://github.com/ManuelSe/Neistra/pull/175), at exact qualified
+runtime `247ab651b35c2d58e8939985ae50633de70311a3`. Annotated tag `05ec6685`
+remains fixed during terminal documentation and cleanup.
+
+- Each entry retains an exact ligand instance independently of atom selection,
+  camera and visibility. Qualified single candidates are automatic; multiple
+  candidates require deliberate choice. Change/Clear and reversible reconciliation
+  preserve intent, lineage, provenance and canonical membership.
+- Bounded keyboard/touch cards expose source-qualified composition, location,
+  occurrence counts, provenance and cached 2D depictions. Read/write physical-source
+  failures retire only matching facts. Genuine matching checks restore their own
+  authority; derived/semantic/transport failures do not invent physical evidence.
+- Typed current-input handoff supports required property/sidebar/filter work.
+  Original uploads remain unchanged. Unsupported or uncertain chemistry remains
+  explicit, with no hidden size/name/proximity/fragment/protonation policy.
+
+**Serialization compatibility change:** migration 0016 introduces physical
+`project_documents_v3` and project/archive schema 3; viewer 2 and API v1 remain.
+Deploy matching client/server versions and preserve a complete pre-upgrade backup.
+Actual v0.35 readers safely refuse current stores/archives without mutation;
+old-authored inputs migrate forward and reopen under current code for both archive
+suffixes. Guarded downgrade protects nondefault intent, including Clear. Archives
+preserve snapshots; live-store Undo/Redo history remains local.
+
+Both fresh42-command gates, independent summaries, recursive packaging and observed
+enclosing exits pass. Each passes 3,077 Python/zero skips,1,388 frontend/126 suites,
+14 supervisor and531 native, with exactly 75 old exclusions and zero failures/flakes/
+retries/new exclusions. All 1,013 current/931 actual preceding-source identities stay
+fixed. All seven final specialist agent assessments PASS the same reviewed tree;
+these are not human approvals. Portable correctness is qualified, without strict
+reference-host timing certification.
+
+The 531,749,736-byte main qualification ZIP has SHA256
+`84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16`.
+Main/sidecars and all 53separate forensic ZIPs pass complete anonymous HTTP200,
+SHA-256, recursive CRC/internal hashes and exact unions. Main verifies3,442ZIPs,
+9,760 manifest entries and7,431project files. Eight failed/interrupted runs remain
+unqualified; successful superseded C12/source-producer supplements are retained in
+main. Raw forensic parts are not duplicated there.
+
+[Publication receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-publication.json),
+SHA256 `8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c`,
+includes actual evidence and itself passes server/full-anonymous verification.
+The [canonical closeout](https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710)
+is verified and #158 explicitly closed. Required #159–#163 and parent #11 remain
+open. Diagram153, relocations164/165 and all other parent exclusions stay separate.
+Normal terminal documentation/owned cleanup and final delivery-receipt verification
+follow without another runtime release.
 
 ## 0.35.0 — Deliberate viewer measurements
 
