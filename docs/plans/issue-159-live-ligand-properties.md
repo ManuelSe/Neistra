@@ -1185,3 +1185,49 @@ cost before selecting a correctness-preserving fix. Any accepted source correcti
 still requires current unit/source-fence regression checks, the full original ALL8
 and complete candidate/exact-master43gates, all seven final reviews and normal
 protected release delivery. Parent11remains open.
+
+
+### C3 measured inspector correction and passing local checkpoint
+
+The sealed [desktop analysis](../assets/ligand-properties/c3-desktop-profile-analysis.json)
+binds captured `8d24605` / 1,125 sources and all 49 methods. Diagnostic1 outer143 is
+interrupted; diagnostic2 actual runner1/global trace guard is incomplete. Its
+active edit window is fully covered, with no trace data loss in the returned prefix.
+Neither diagnostic becomes a passing test or latency qualification. The complete
+raw 14-root / 2,634-file packet (190,937,608 bytes, SHA256
+`5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d`)
+is retained privately for future release asset
+`neistra-v0.37.0-desktop-profiling-diagnostics.zip`; it is not yet published.
+[Metadata](../assets/ligand-properties/c3-desktop-profile-checkpoint.json) records
+both actual outcomes. Primary independently verifies every original/archived body,
+exact outer union and 38 recursive ZIPs without SQL.
+
+The measured renderer path contains quadratic inspector query tracking and repeated
+entry scans. D-201's correction indexes current entries, memoizes the identical
+query set and explicitly observes data/error/placeholder result fields. All current
+source keys, hidden/selected scope and complete-projection guards remain. Only
+ProjectInspector changes among existing selected sources; one meaningful regression
+file is added. The new 1,126-source compact-map digest is
+`413b364b0de9a6046211a9586713e1c150f8ea2dc8e2598821e8d3a2781e4b22`;
+all 49 benchmark method bodies remain exact. Scientific/API code, versions and pins
+are unchanged.
+
+The expected red resource control records 50,500 / 5,005,000 tracked calls and
+10,200 / 1,002,000 ID reads at 100 / 1,000 entries. The correction records 0 / 0 and 200 / 2,000;
+every query remains subscribed and no molecular read is added. Focused 137 tests in
+eight files pass. The final 3 tests add full observer-scope assertions and preserve
+seed→full qualification, retained-data failure/recovery, held project ABA and entry
+removal. Lint and typing pass after correcting three test-only lint findings; the
+unchanged production body has a passing build. Scoped independent architecture PASS
+covers the complete production delta and final test. These are local checkpoint
+checks, not all-seven final approval. Earlier scientific code assessment PASS binds
+captured8d and requires final intervening-diff confirmation.
+
+The [correction packet](../assets/ligand-properties/c3-inspector-correction-evidence.zip)
+and [receipt](../assets/ligand-properties/c3-inspector-correction-checkpoint.json)
+preserve raw failing/passing logs, source bodies, source/method maps, attribution and
+scoped assessment. Browser responsiveness must now be remeasured with the unchanged
+full original ALL8. D-148 keeps absolute targets opt-in on a controlled reference
+host; mandatory portable scientific/state/request/work/resource/fairness criteria
+remain. Full 43-command candidate and exact-master gates, final all-seven assessments and
+normal protected publication/closeout remain pending. Parent #11 stays open.

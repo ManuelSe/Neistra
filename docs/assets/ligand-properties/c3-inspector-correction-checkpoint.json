@@ -1,0 +1,81 @@
+{
+  "scope": "Passing local Inspector work-bound correction with focused validation; no measured browser speedup or final feature/release approval",
+  "comparison_base": "8d24605a2e61b9134baaaf77565c630e8ab44725",
+  "source_count": 1126,
+  "source_digest_compact_json": "413b364b0de9a6046211a9586713e1c150f8ea2dc8e2598821e8d3a2781e4b22",
+  "changed_existing_source": [
+    "apps/web/src/components/ProjectInspector.tsx"
+  ],
+  "added_source": [
+    "apps/web/src/test/project-inspector-query-scaling.test.tsx"
+  ],
+  "subjects": {
+    "apps/web/src/components/ProjectInspector.tsx": "2af34504753d1ad5ca84b6c2349dfe9e267af126fdee5fcbaa681aaab8ffd1c5",
+    "apps/web/src/test/project-inspector-query-scaling.test.tsx": "96ba311128b6fdc9f6b761b8676c11ecca881e0852839d16514c98532c9e3e92"
+  },
+  "all49_benchmark_methods_unchanged": true,
+  "scientific_backend_API_versions_dependency_pins_unchanged": true,
+  "before_100_1000": {
+    "tracking_calls": [
+      50500,
+      5005000
+    ],
+    "entry_ID_reads": [
+      10200,
+      1002000
+    ]
+  },
+  "after_100_1000": {
+    "tracking_calls": [
+      0,
+      0
+    ],
+    "entry_ID_reads": [
+      200,
+      2000
+    ],
+    "all_queries_still_observed": true,
+    "additional_molecular_reads": 0
+  },
+  "focused_validation": {
+    "initial8files137tests": "PASS",
+    "final3currenttests": "PASS",
+    "current_web_lint": "PASS",
+    "current_web_types": "PASS",
+    "same_production_build": "PASS",
+    "initial_test_lint_errors": "Corrected and preserved"
+  },
+  "scoped_architecture": "PASS",
+  "packet": {
+    "path": "docs/assets/ligand-properties/c3-inspector-correction-evidence.zip",
+    "bytes": 135439,
+    "sha256": "e036f1bcaa8e157f249a23c8fabf3ed949e688aaddc194dce53d340b31525a26",
+    "entries": 39,
+    "recursive_verification": {
+      "file": "c3-inspector-correction-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/docs/assets/ligand-properties/c3-inspector-correction-evidence.zip",
+      "bytes": 135439,
+      "sha256": "e036f1bcaa8e157f249a23c8fabf3ed949e688aaddc194dce53d340b31525a26",
+      "outer_manifest_entries": 39,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 39,
+        "project_archive_files": 0
+      }
+    }
+  },
+  "captured_diagnostic_analysis_sha256": "9c4fd573dcd832cf14a8e79d7cf205143e8c3fa0d1ef8faa38936a39bfac2b44",
+  "large_raw_packet_future_release_asset": {
+    "name": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+    "bytes": 190937608,
+    "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+    "published": false
+  },
+  "remaining": [
+    "Fresh unchanged complete ALL8 after this source correction",
+    "Complete43-command candidate and exact-master gates",
+    "All-seven same-final-candidate assessment",
+    "Protected PR/merge/annotated release/assets/closeout",
+    "Remaining children160\u2013163 and parent11 closeout"
+  ]
+}

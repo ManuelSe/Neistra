@@ -26,13 +26,17 @@ preceding0.36reader/producer and archive qualification remains required before r
 Derived values/cache/preferences do not become portable molecular history merely
 because the archive schema is unchanged.
 
-Scoped correction and integration checks pass, including the independent worker
-recovery/source-producer evidence. Final candidate/exact-master gates, including fresh native/ALL8/actual-reader
-qualification, and all seven same-final-candidate assessments remain pending. Fresh ALL8portable workflows pass at c22e7579, but timing limits remain:27/40cold
-edits exceed2s and both desktop1000entry active edits exceed5s. Cache projection
-and cancellation pass their observed targets. Source-handoff/API profiling continues;
-no strict-host or universal instant-response claim is made. Profiles/sidebar/property filters/inspector retirement remain #160–#163;
-parent #11 and its explicit exclusions remain unchanged.
+Scoped source/recovery, actual preceding-reader and portable ALL8 checks remain
+preserved at their declared candidates. The measured inspector correction removes
+quadratic query tracking and entry scans while preserving the full observed source
+set. At 1,000 entries the work regression changes 5,005,000 tracking calls and 1,002,000
+ID reads to 0 and 2,000. Focused tests, current lint/types and build pass; actual browser
+improvement remains unmeasured. Prior cold and desktop bulk latency misses and both
+incomplete diagnostic outcomes remain explicit. Final current ALL8, 43-command candidate /
+exact-master qualification and all seven final assessments remain pending. No strict
+reference-host or universal instant-response claim is made. Profiles/sidebar/property
+filters/inspector retirement remain #160–#163; parent #11 exclusions are unchanged.
+
 
 ## 0.36.0 — Exact durable ligand designation
 

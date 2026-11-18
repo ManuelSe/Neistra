@@ -2,60 +2,58 @@
 
 ## Current milestone
 
-Parent #11 remains active through all required children and verified closeout.
-#156–#158 are fully delivered. #159 prepares0.37.0 and now completes all eight
-portable performance workflows; measured latency gaps still require investigation.
-#160 remains a passing local checkpoint. #161 passes all16local C2native cases.
-#162 has an authorized technical plan; #163 remains planned. No later child is
-inferred delivered from local preparation.
+Parent #11 remains active through all eight children and verified closeout.
+#156–#158 are delivered. #159 prepares 0.37.0 and has a passing local correction
+for measured quadratic inspector work; fresh browser qualification remains pending.
+#160 is a passing local checkpoint. #161 has committed its 16 passing local C2
+native cases. #162 has an authorized technical plan; #163 remains planned.
 
 ## Completed work
 
 #159 implements fourteen versioned descriptors, exact-input freshness and bounded
-private execution/cache ownership. D-194 fixes scientific inputs/methods; D-196
-corrects startup/reaping; D-198 preserves physical-source and separate candidate/
-numerical recovery. Original uploads remain immutable. Published158runtime247ab651
-and terminal docs254babcd/C7 are integrated. All five versions agree at0.37.0;
-dependency pins and project/archive3/viewer2 stay fixed.
+private execution/cache ownership. Published #158 runtime and terminal documentation
+are integrated. All five versions remain 0.37.0; dependency pins, scientific methods,
+project/archive schema 3 and viewer schema 2 are unchanged.
+
+The inspector now indexes current entries and memoizes the same complete query set.
+Explicit data/error/placeholder notifications avoid cross-observer property tracking.
+Hidden eligible entries, current-artifact qualification and failure recovery remain.
+See the [local correction receipt](assets/ligand-properties/c3-inspector-correction-checkpoint.json).
 
 ## Verification performed
 
-Recovery33new+171affected, integrated1565frontend/133suites+64verifier, version67archive
-and static checks pass in their pinned scopes. Corrected reader controls pass102.
-Actual current→v0.36.0→current property and editing suites complete six actor phases0
-at586390e3 with1125current/1013actual-old source bodies fixed. These remain distinct
-from the full43-command candidate and exact-master release gates.
+Earlier source/recovery, actual current→v0.36.0→current reader suites and all eight
+portable performance workflows remain preserved at their declared source identities.
+Their timing misses are retained; they do not qualify the corrected application.
 
-At cleanc22e7579, fresh ALL8passes every case once: desktop/mobile cold/warm edits,
-cancellation and four1000entry bulk cohorts. Primary observes91266exit0/2cf0f2.
-All1125source/49method bodies and HEAD remain fixed; cleanup, resource/worker traces
-and raw DB/WAL/SHM copies before diagnostics pass. Forty cache projections are all
-under100ms (max69); warm reuse creates no jobs. Both cancellation feedback samples
-are under12ms. All four productive-order/ordinary-job fairness proofs pass.
-Complete4807-file/214,640,422-byte raw input union is retained in the34,763,616-byte
-[baseline packet](assets/ligand-properties/c3-all8-baseline-evidence.zip).
+The new resource regression first reproduces 5,005,000 tracking calls and 1,002,000
+entry-ID reads at 1,000 entries. The correction records zero tracking calls and 2,000
+ID reads, with every query still observed and no additional molecular read. Focused
+validation passes 137 tests across eight files; the final three tests additionally
+verify all observer memberships, seeds, retained-data failure/recovery, project ABA,
+entry removal and held completions. Current web lint, types and production build pass.
+Scoped architecture assessment passes. These are local checkpoint checks.
 
 ## Known limitations
 
-Workflow success does not establish all timing targets.27/40cold edits exceed2s:
-median2036ms, p952163.2ms, max2210.4ms. Desktop bulk active edits take7623.9/7928.6ms
-against5s; mobile takes3605.3/3757.6ms. Desktop warm-click feedback and bulk feedback
-also retain misses; mobile deliberate presentation-opening time is reported
-separately from matching-cache projection. Strict reference-host certification is
-not claimed. See the [timing assessment](assets/ligand-properties/c3-all8-baseline-assessment.json).
+The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
+marked global capture incomplete. Both outcomes remain explicit. Its completely
+covered active-edit window supports [renderer/API attribution](assets/ligand-properties/c3-desktop-profile-analysis.json),
+including measured inspector redundancy; it does not establish a runtime speedup.
+The complete 190,937,608-byte raw packet is retained privately for a future separate
+release asset, with [publication-pending metadata](assets/ligand-properties/c3-desktop-profile-checkpoint.json).
 
-Full43candidate/exact-master gates, all seven same-final-candidate assessments and
-protected delivery remain required. #159 has no implementation push, PR or release.
+Fresh complete ALL8, full 43-command candidate/exact-master gates, all seven final
+same-candidate assessments and protected delivery remain required. Strict reference
+latency targets remain separate under D-148. #159 has no implementation push or release.
 
 ## Blockers
 
-No external blocker. Measured desktop source-handoff and demand latency require
-profiling; no production polling interval change is accepted from timestamp-only
-predictions. Existing scientific and timing requirements remain intact.
+No external blocker. The identified work redundancy is corrected; its actual browser
+responsiveness and complete integrated correctness still require qualification.
 
 ## Next action
 
-Profile the unchanged desktop cold/cancel/repeated-bulk prefix in an isolated
-instrumented diagnostic, attribute client/API delay, then choose a measured fix.
-Repeat complete qualification after any source change. Preserve the one parent
-Goal and continue159–163serial releases through verified parent closeout.
+Prepare a fresh source-bound unchanged ALL8 run from this local checkpoint, then
+complete final qualification and protected delivery.
+Continue #160–#163 serial releases and parent closeout under the existing single Goal.

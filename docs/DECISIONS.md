@@ -9352,3 +9352,44 @@ precedes database commit; a successful `turn_end` may bound publication, but nei
 proves the exact time an unseen browser response could have completed. Record
 request counts and real work before considering a polling optimization. No speedup,
 strict reference-host pass or counterfactual claim follows from instrumentation.
+
+
+## D-201 — Keep inspector projection observation linear without narrowing source scope
+
+A retained diagnostic at source `8d24605` covers the complete active click-to-READY
+window, although its global trace-buffer guard makes the overall diagnostic fail.
+Keep that distinction and the prior interrupted diagnostic. Source, cleanup,
+raw DB/WAL/SHM copies and resource guards pass. The bounded window contains
+6,306 ms of sampled React render/commit/dispatch work; 930 ms belongs to existing
+browser-test snapshots and 85 ms to the existing benchmark script. These are
+sample-weighted phase attributions, not exclusive CPU or uninstrumented speedups.
+Current-source READ/demand server spans are approximately 28/36 ms while renderer
+response handling arrives later. Do not label the full fetch await span server CPU.
+
+The installed query library tracks every accessed result property across all
+observers. The inspector's whole-project projection loop therefore repeats that
+work quadratically, and two entry lookups also scan the complete entry array.
+Use one index from the current immutable entry list and memoized options for the
+same full relevant-entry set. Preserve project/artifact keys, query functions,
+cancellation, retry and complete-projection qualification. Explicitly subscribe to
+exactly data, isError and isPlaceholderData, the result fields consumed here. Any
+future additional result-field read must revisit this notification list. A failed
+refetch with retained data must still retire the projection; recovery and a complete
+replacement for a coordinate seed must still notify.
+
+Read-only performance and architecture consultations support this narrow correction.
+Do not reduce hidden/selected eligibility, add a new source cache, alter chemistry,
+shorten polling, change production limits or redesign entry rows from these results.
+The independent installed-library resource regression reproduces 5,005,000 tracked
+property calls and 1,002,000 ID reads for 1,000 hidden eligible entries before correction,
+then 0 and 2,000 respectively with all 1,000 queries still observed. Significant
+lifecycle tests and focused/static checks pass; initial test-only lint errors are
+corrected and retained. This demonstrates bounded work, not a five-second browser
+claim. Fresh unchanged ALL8 and complete candidate/exact-master qualification,
+all-seven same-final-candidate review and protected release remain mandatory.
+
+The [attribution](assets/ligand-properties/c3-desktop-profile-analysis.json) and
+[correction evidence](assets/ligand-properties/c3-inspector-correction-checkpoint.json)
+record precise subjects and limits. The complete raw diagnostics exceed the Git
+file bound and remain one private, verified 190,937,608-byte packet for the planned
+v0.37.0 separate forensic asset. Its metadata does not claim remote publication.
