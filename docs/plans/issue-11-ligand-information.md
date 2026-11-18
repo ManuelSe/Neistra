@@ -141,3 +141,18 @@ header and publication boundary. A fresh scoped8-case native attempt has launche
 no result or final feature/readiness claim is inferred. Actual released dependencies
 must still be integrated before each child's final gates and serial publication.
 162/163 remain required planned work. Keep the single whole-program Goal active.
+
+
+### #158 shared source-producer checkpoint before fresh qualification
+
+C12 closes all42automated steps/summary/package/actualouter0 on unchanged3d8d9e88,
+but independent actual-App Use-source failure tests supersede its qualification.
+The isolated owned fix/issue-158-source-producer-qualification branch now has the
+bounded D-198 correction:allseven complete-feature CODE PASS,69backend/180focused/
+1,388web/static/build evidence and4native passes; exact1,013source identities.
+Original602native identities remain and four new cases make606. Preserve successful
+superseded C12 packets separately from the unchanged53-part/eightfailed-run index.
+Integrate into the original158feature branch and run fresh fullC13/exact-master;
+no implementation push or publication has occurred. The next159integration also
+needs typed verifier/result source facts; its performance preparations stay HOLD.
+Remaining required children, release order and all exclusions are unchanged.

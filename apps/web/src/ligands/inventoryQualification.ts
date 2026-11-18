@@ -11,6 +11,63 @@ export const MAX_INVENTORY_SOURCE_RECORDS = 128;
 export const MAX_INVENTORY_SOURCE_KEY_BYTES = 64 * 1024;
 export type InventoryRecovery = "source_conflict" | "artifact_unavailable" | "retry_required";
 export interface InventoryQualification { readonly blocked: boolean; readonly error: InventoryRecovery | undefined }
+export interface VerifiedArtifactSource {
+  projectId: string; entryId: string; currentArtifactId: string | null; originalArtifactId: string | null;
+}
+export interface InventoryVerificationFailure {
+  source: VerifiedArtifactSource; token: object; reason: "source_conflict" | "artifact_unavailable";
+}
+export interface VerifiedSourceFailure {
+  source: VerifiedArtifactSource; reason: "source_conflict" | "artifact_unavailable";
+}
+export function captureArtifactSource(projectId: string, entry: Pick<Entry, "id" | "current_artifact_id" | "original_artifact_id">): VerifiedArtifactSource {
+  return { projectId, entryId: entry.id, currentArtifactId: entry.current_artifact_id, originalArtifactId: entry.original_artifact_id };
+}
+export function sameVerifiedArtifactSource(left: VerifiedArtifactSource, right: VerifiedArtifactSource): boolean {
+  return left.projectId === right.projectId && left.entryId === right.entryId
+    && left.currentArtifactId === right.currentArtifactId && left.originalArtifactId === right.originalArtifactId;
+}
+function suppliedIdentityMatches(error: ApiError, source: VerifiedArtifactSource): boolean {
+  if (error.sourceIdentity.kind === "invalid") return false;
+  if (error.sourceIdentity.kind === "absent") return true;
+  const identity = error.sourceIdentity.identity;
+  return sameVerifiedArtifactSource(source, { projectId: identity.project_id, entryId: identity.entry_id,
+    currentArtifactId: identity.current_artifact_id, originalArtifactId: identity.original_artifact_id });
+}
+function physicalReason(error: ApiError): VerifiedSourceFailure["reason"] | null {
+  if (error.status === 409 && error.code === "structure_artifact_conflict") return "source_conflict";
+  if (error.status === 409 && error.code === "artifact_integrity_error" || error.status === 404 && error.code === "artifact_not_found") return "artifact_unavailable";
+  return null;
+}
+function taggedReadMatches(error: ApiError, source: VerifiedArtifactSource): boolean {
+  return error.sourceVerification === "current" && source.currentArtifactId !== null
+    || error.sourceVerification === "original" && source.originalArtifactId !== null;
+}
+export function ligandOperationSourceFailure(error: unknown, sources: readonly VerifiedArtifactSource[], operation: "use" | "clear" | "resolve"): VerifiedSourceFailure | null {
+  if (!(error instanceof ApiError) || error.sourceIdentity.kind === "invalid" || error.sourceVerificationInvalid) return null;
+  const reason = physicalReason(error);
+  if (!reason) return null;
+  const source = sources.find(candidate => suppliedIdentityMatches(error, candidate));
+  if (!source) return null;
+  if (operation === "resolve") {
+    return error.sourceIdentity.kind === "valid" && taggedReadMatches(error, source) ? { source, reason } : null;
+  }
+  if (sources.length !== 1) return null;
+  if (operation === "clear") {
+    return reason === "source_conflict" && error.sourceVerification === "current"
+      && error.sourceIdentity.kind === "absent" ? { source, reason } : null;
+  }
+  if (reason === "source_conflict") {
+    // The same public code also reports semantic inventory-hash rejection.
+    // Only the producer's physical current/original boundary establishes proof.
+    return error.sourceVerification === "current" && error.sourceIdentity.kind === "absent"
+      || taggedReadMatches(error, source) ? { source, reason } : null;
+  }
+  // Legacy Use has one molecular-input reader and no derived artifact readers.
+  // Clear performs no molecular reads and cannot inherit this compatibility path.
+  return error.sourceVerification === null || taggedReadMatches(error, source) ? { source, reason } : null;
+}
+
 interface InventoryQuery {
   readonly queryKey: readonly unknown[];
   readonly state: { readonly data: unknown; readonly error: unknown; readonly status: string;
@@ -31,12 +88,40 @@ const declined: InventoryQualification = Object.freeze({ blocked: true, error: "
 export function inventorySourceKey(project: Pick<Project, "id">, entry: Pick<Entry, "id" | "current_artifact_id" | "original_artifact_id">): string {
   return JSON.stringify([project.id, entry.id, entry.current_artifact_id, entry.original_artifact_id]);
 }
-function querySource(query: InventoryQuery): string | null {
+interface SourceQuery {
+  channel: "inventory" | "depiction"; key: string; identity: VerifiedArtifactSource;
+}
+function querySource(query: InventoryQuery): SourceQuery | null {
   const key = query.queryKey;
-  return key[0] === "ligand-candidates" && key[1] === INVENTORY_POLICY && key[6] === INVENTORY_CHEMISTRY_POLICY
-    && key[7] === INVENTORY_OCCURRENCE_POLICY && typeof key[2] === "string" && typeof key[3] === "string"
-    && (typeof key[4] === "string" || key[4] === null) && (typeof key[5] === "string" || key[5] === null)
-    ? JSON.stringify(key.slice(2, 6)) : null;
+  let channel: SourceQuery["channel"], offset: number;
+  if (key[0] === "ligand-candidates" && key[1] === INVENTORY_POLICY && key[6] === INVENTORY_CHEMISTRY_POLICY
+    && key[7] === INVENTORY_OCCURRENCE_POLICY) { channel = "inventory"; offset = 2; }
+  else if (key.length === 13 && key[0] === "ligand-depiction" && key[1] === INVENTORY_POLICY
+    && key[2] === "ligand-2d-v1" && key[3] === "committed" && key[8] === INVENTORY_CHEMISTRY_POLICY
+    && typeof key[9] === "string" && typeof key[10] === "string" && key[11] === 240 && key[12] === 180) {
+    channel = "depiction"; offset = 4;
+  } else return null;
+  const [projectId, entryId, currentArtifactId, originalArtifactId] = key.slice(offset, offset + 4);
+  if (typeof projectId !== "string" || typeof entryId !== "string"
+    || (typeof currentArtifactId !== "string" && currentArtifactId !== null)
+    || (typeof originalArtifactId !== "string" && originalArtifactId !== null)) return null;
+  return { channel, key: JSON.stringify([projectId, entryId, currentArtifactId, originalArtifactId]),
+    identity: { projectId, entryId, currentArtifactId, originalArtifactId } };
+}
+function queryRecovery(source: SourceQuery, error: unknown): InventoryRecovery | null {
+  if (source.channel === "inventory") {
+    return error instanceof ApiError && (error.sourceVerificationInvalid || !suppliedIdentityMatches(error, source.identity)) ? "retry_required" : recoveryFor(error);
+  }
+  // Depiction artifact errors may concern a derived SVG. Only the producer's
+  // typed molecular-input provenance can make those failures source authority.
+  if (!(error instanceof ApiError)) return null;
+  if (error.sourceVerificationInvalid || !suppliedIdentityMatches(error, source.identity)) return null;
+  if (error.status === 409 && error.code === "structure_artifact_conflict") return "source_conflict";
+  if ((error.sourceVerification === "current" && source.identity.currentArtifactId !== null
+    || error.sourceVerification === "original" && source.identity.originalArtifactId !== null)
+    && (error.code === "artifact_integrity_error" && error.status === 409
+      || error.code === "artifact_not_found" && error.status === 404)) return "artifact_unavailable";
+  return null;
 }
 function matchingInventory(query: InventoryQuery): boolean {
   const data = query.state.data as LigandCandidatesRead | undefined;
@@ -54,10 +139,14 @@ export class LigandInventoryOwner {
   private unknownRequiresCheck = false;
   private readonly observedErrors = new WeakMap<object, number>();
   private readonly listeners = new Set<() => void>();
+  private readonly verificationListeners = new Set<(failure: InventoryVerificationFailure) => void>();
   private release: (() => void) | null = null;
   private revision = 0;
   constructor(private readonly client: QueryClient) { this.scanErrors(); }
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
+  subscribeVerificationFailures = (listener: (failure: InventoryVerificationFailure) => void) => {
+    this.verificationListeners.add(listener); return () => { this.verificationListeners.delete(listener); };
+  };
   snapshot = () => this.revision;
   private notify() { this.revision++; for (const listener of this.listeners) listener(); }
   private touch(source: string, barrier: SourceBarrier) {
@@ -79,23 +168,38 @@ export class LigandInventoryOwner {
     this.barriers.set(source, barrier); this.retainedKeyBytes += bytes;
     return { barrier, evicted };
   }
-  private fail(query: InventoryQuery, source: string, error: unknown) {
-    const { barrier } = this.admit(source);
-    if (barrier) { barrier.token = Object.freeze({}); barrier.blocked = true; barrier.recovery = recoveryFor(error); }
+  private recordFailure(source: VerifiedArtifactSource, reason: InventoryRecovery) {
+    const key = JSON.stringify([source.projectId, source.entryId, source.currentArtifactId, source.originalArtifactId]);
+    const { barrier } = this.admit(key);
+    const token = Object.freeze({});
+    if (barrier) { barrier.token = token; barrier.blocked = true; barrier.recovery = reason; }
+    // Revoke downstream authority after the barrier, before cancellation or presentation publication.
+    // Generic errors and metadata admission failures carry no physical-source failure authority.
+    if (reason !== "retry_required") {
+      const failure: InventoryVerificationFailure = { token, reason, source };
+      for (const listener of this.verificationListeners) listener(failure);
+    }
+    this.retire(key); this.notify();
+  }
+  recordSourceFailure = (proof: VerifiedSourceFailure) => { this.recordFailure(proof.source, proof.reason); };
+  private fail(query: InventoryQuery, source: SourceQuery, reason: InventoryRecovery) {
     this.observedErrors.set(query, query.state.errorUpdateCount);
+    this.recordFailure(source.identity, reason);
   }
   private scanErrors() {
     for (const query of this.client.getQueryCache().getAll()) {
       const source = querySource(query), count = query.state.errorUpdateCount;
       if (!source || isCancelledError(query.state.error) || (query.state.status !== "error" && !count)
         || this.observedErrors.get(query) === count) continue;
-      this.fail(query, source, query.state.error); this.notify();
+      const reason = queryRecovery(source, query.state.error);
+      if (reason === null) continue;
+      this.fail(query, source, reason);
     }
   }
   private retire(source: string) {
     // TanStack cancels matching retryers synchronously before returning this promise.
     // Keep the token guard too: cancellation never qualifies a cached response.
-    void this.client.cancelQueries({ predicate: query => querySource(query) === source && query.state.fetchStatus !== "idle" });
+    void this.client.cancelQueries({ predicate: query => querySource(query)?.key === source && query.state.fetchStatus !== "idle" });
   }
   activate = () => {
     if (this.release) return;
@@ -104,20 +208,23 @@ export class LigandInventoryOwner {
       const query = event.query, source = querySource(query);
       if (!source) return;
       if (event.action.type === "fetch") {
-        const { barrier, evicted } = this.admit(source);
+        if (source.channel !== "inventory") return;
+        const { barrier, evicted } = this.admit(source.key);
         if (barrier) this.starts.set(query, barrier.token); else this.starts.delete(query);
         if (evicted) this.notify();
       } else if (event.action.type === "error" && !isCancelledError(event.action.error)) {
-        this.fail(query, source, event.action.error);
-        this.retire(source); this.notify();
+        const reason = queryRecovery(source, event.action.error);
+        if (reason === null) return;
+        this.fail(query, source, reason);
       } else if (event.action.type === "success" && !event.action.manual) {
-        const barrier = this.barriers.get(source);
+        if (source.channel !== "inventory") return;
+        const barrier = this.barriers.get(source.key);
         if (!barrier?.blocked || this.starts.get(query) !== barrier.token || !matchingInventory(query)) return;
         // Only a check begun after the latest failure acknowledges older error visits.
-        for (const previous of this.client.getQueryCache().getAll()) if (querySource(previous) === source && previous.state.errorUpdateCount) {
+        for (const previous of this.client.getQueryCache().getAll()) if (querySource(previous)?.key === source.key && previous.state.errorUpdateCount) {
           this.observedErrors.set(previous, previous.state.errorUpdateCount);
         }
-        barrier.blocked = false; barrier.recovery = undefined; this.touch(source, barrier); this.notify();
+        barrier.blocked = false; barrier.recovery = undefined; this.touch(source.key, barrier); this.notify();
       }
     });
     this.scanErrors();

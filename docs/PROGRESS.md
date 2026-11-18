@@ -3,53 +3,81 @@
 ## Current milestone
 
 Parent #11 remains active through verified releases and closeout for #156–#163.
-#156/#157 are delivered. #158 has a passing D-197 source checkpoint and all seven
-complete-feature CODE assessments; fresh candidate12 qualification remains next.
-#159/#160/#161 are unreleased preparation; #162/#163 remain planned.
+#156/#157 are delivered. #158's D-198 source-producer correction passes all seven
+complete-feature CODE assessments and four new native cases. Persist the checkpoint
+and run fresh full C13 qualification before readiness or publication. #159–#161
+remain preparation; #162/#163 are planned. Global PLAN and product scope are unchanged.
 
 ## Completed work
 
 #158 provides exact durable ligand intent, conservative candidate/chemistry policy,
-reversible lineage, bounded depictions and qualified occurrence counts. D-195
-retires earlier responses and manual cache writes after source failures. D-197
-bounds retained source facts to128records/64KiBkeys, uses unique opaque tokens and
-conservative requalification after eviction, and retains small recovery classes
-rather than error graphs. Specific current/original-file/conflict guidance remains.
+reversible lineage, bounded depictions and qualified occurrence counts. D-197 bounds
+qualification metadata to128records/64KiBkeys without retained error graphs.
+
+D-198 now covers candidate/depiction reads and captured Use/Clear/legacy-resolution
+operations. Known molecular reads carry exact primitive source provenance; failed
+Use retires composition/drawing and disables Use. Derived SVG, semantic candidate,
+transport and revision errors preserve independently qualified facts. Batch errors
+identify only their failed requested source; late A does not retire B. Failure
+itself changes no durable intent, source bytes or history. Fresh matching candidate
+checks recover facts; old/manual/depiction publications cannot.
 
 ## Verification performed
 
-D-197 author actual16116exit0:99focused/1,334web123suites/lint/types/build,350web/config
-identities fixed; original80tests remain an exact88,835Bprefix. Independent all-seven
-complete-feature CODE verdicts PASS. Independent source reconciliation verifies all
-1,007selected paths, digest9c2afea7…ff2c274, with exactly3existing+1newsource changes.
-Before/after installed-query controls show1,000sources shrink from1,000retained rows
-to128rows/7,296keybytes/zero original errors; counts are not heap/RSS measurements.
-The correction packet independently passes63payload hashes/fourrecursiveZIP CRCs.
+Final1,013source identities are fixed; exactly six existing runtime paths change
+and six tests are added. Compact digest203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617
+and release-tool spaced-JSON digestdf28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07
+represent the same source map. Original99owner/chooser and27App tests remain exact.
 
-C11 remains explicitly interrupted for the fixed retention defect, actual4339exit130:
-15pre-browser phases3,040Python/1,315web/14supervisor plus static/build/migrations,
-then231browserPASS/5historical exclusions/1interrupted/365unrun; zero unexpected/flaky.
-No full summary/package. Its1,006current/931preceding sources remain preserved.
-All53forensic parts/eightfailed-or-interrupted runs pass local SHA/CRC/exact-union
-verification; original stores and closed diagnostics remain retained separately.
+Author evidence passes69backend,180focused and1,388web/126suites, lint/types/build,
+Ruff and mypy249. Five unchanged Python/static scopes are explicitly reused after
+a one-line new-unit-test typing correction; the original failed enclosing gate is
+retained. This scoped continuation is distinct from future fresh full qualification.
+
+Independent science passes54backend plus5actual-App controls; architecture passes56,
+performance180, UI30selected and UX59selected cases. Theory independently checks
+strict scientific inputs/units and analytical cases; reference reconciles documented
+workflow with original source qualification. All seven complete-feature CODE PASS
+on the same frozen implementation; conversation-only assessments are labelled.
+
+Four new desktop/mobile and light/dark native cases pass, actual14249exit0,
+26.1seconds/zero failures, skips, flakes or retries. Actual semantic rejection,
+legacy/typed source faults, held matching GET recovery and final manual Use preserve
+original/current bytes and failed-write history. All1,013sources stay fixed, owned
+cleanup is zero, and raw DB/WAL/SHM copies precede any diagnostic SQL. Eight PNG and
+four JSON attachments are verified lossless decodes; a first path-only attachment
+observer was corrected explicitly. Collection preserves all602oldcase identities,
+adds four and totals606 without altering the75historical exclusions.
+
+Original C12 completes all42commands plus summary/recursive packaging/actual31447
+exit0:3,040Python/1,334web/14supervisor/527native+75historical exclusions. All1,007
+current/931actualprevious-source identities and logs verify. It is superseded by
+independent actual-App source-failure regressions, not a failed/interrupted run.
+Its complete packets and the original negative proofs remain retained. Existing
+53forensic parts/eightfailed-or-interrupted records are unchanged.
 
 ## Known limitations
 
-CODE approval is not final push/release readiness. Candidate12's complete42checks,
-summary/recursive package/observed enclosing0 and final same-candidate seven-role
-reconfirmation remain required. Head0016/projectarchive3/viewer2 needs the complete
-actual0.35reader families in that fresh gate. No #158 push, PR, release or closeout.
-Portable timings are not reference-host certification; all53forensic assets require
-complete anonymous body/hash/CRC/union and server readback before issue closeout.
+CODE assessment and focused native success do not establish readiness to push.
+Fresh clean C13/all42/606-case qualification, summary/package/enclosing0, final
+same-commit seven-role confirmation, protected review/merge and fresh actual-master
+qualification remain required. Head0016/projectarchive3/viewer2 and every actual
+v0.35reader family must qualify again. No #158 implementation push, PR, tag,
+release or closeout exists. Portable timings are not reference-host certification.
+
+#159 must integrate the shared boundary and explicitly preserve physical-source
+facts from its own verifier/result producer; generic result status/reason or
+conflict codes cannot safely supply that proof. Its ALL8 preparations remain
+unexecuted/HOLD. This is separate from the implemented #158 producer scope.
 
 ## Blockers
 
-No external blocker. Preserve existing deadlines, admission bounds and exclusions;
-partial failed/interrupted runs are never pooled into qualification success.
+No external blocker. Preserve all original stores and failed/superseded evidence;
+never pool partial runs into full qualification or bypass remote protection.
 
 ## Next action
 
-Commit the passing correction/evidence with prepared candidate12/exact-master
-recipes, then run the fresh42candidate checks, independent summary and recursive
-packaging. Finish normal protected delivery and fresh actual-master42qualification
-before publication. Continue159–163 and keep the parent/program Goal open.
+Persist the source/evidence checkpoint, integrate the owned original feature branch
+and run fresh C13. Complete normal protected delivery, actual-master qualification,
+annotated release and full anonymous verification of main assets and all53forensic
+parts before child closeout. Continue #159–#163 and retain the one parent Goal.

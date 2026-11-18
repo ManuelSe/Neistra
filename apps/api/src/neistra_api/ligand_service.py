@@ -5,8 +5,10 @@ from __future__ import annotations
 import hashlib
 import json
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from threading import BoundedSemaphore, Lock
+from typing import Literal
 
 from neistra_core.artifacts import LocalArtifactStore
 from neistra_core.ligands.candidates import resolve_candidates
@@ -38,6 +40,7 @@ from rdkit import rdBase
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
+from neistra_api.artifact_errors import ArtifactIntegrityError, ArtifactNotFoundError
 from neistra_api.import_export import ArtifactService, StructureArtifactConflictError
 from neistra_api.ligand_occurrence_cache import OccurrenceCacheKey, OccurrenceSummaryCache
 from neistra_api.ligand_schemas import (
@@ -69,6 +72,47 @@ _OCCURRENCE_CACHE = OccurrenceSummaryCache(_DEPICTION_WORK)
 
 
 @dataclass(frozen=True, slots=True)
+class LigandSourceIdentity:
+    project_id: str
+    entry_id: str
+    current_artifact_id: str | None
+    original_artifact_id: str | None
+
+    @classmethod
+    def capture(cls, entry: StructureEntry) -> LigandSourceIdentity:
+        return cls(
+            entry.project_id,
+            entry.id,
+            entry.current_artifact_id,
+            entry.original_artifact_id,
+        )
+
+    def detail(self) -> dict[str, str | None]:
+        return {
+            "project_id": self.project_id,
+            "entry_id": self.entry_id,
+            "current_artifact_id": self.current_artifact_id,
+            "original_artifact_id": self.original_artifact_id,
+        }
+
+
+class LigandSourceVerificationError(RuntimeError):
+    def __init__(
+        self,
+        source: Literal["current", "original"],
+        code: Literal[
+            "artifact_integrity_error", "artifact_not_found", "structure_artifact_conflict"
+        ],
+        message: str,
+        identity: LigandSourceIdentity | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.source = source
+        self.code = code
+        self.identity = identity
+
+
+@dataclass(frozen=True, slots=True)
 class _LigandInputs:
     structure: NormalizedStructureV1 | None
     original: bytes | None
@@ -89,8 +133,44 @@ class LigandService:
     def _entry(self, project_id: str, entry_id: str, expected: str | None) -> StructureEntry:
         entry = self.projects._entry(self.projects._project(project_id), entry_id)
         if entry.current_artifact_id != expected:
-            raise StructureArtifactConflictError("Ligand input changed; use the current structure")
+            raise LigandSourceVerificationError(
+                "current",
+                "structure_artifact_conflict",
+                "Ligand input changed; use the current structure",
+            )
         return entry
+
+    def _source_read[ResultT](
+        self,
+        identity: LigandSourceIdentity,
+        source: Literal["current", "original"],
+        operation: Callable[[], ResultT],
+    ) -> ResultT:
+        # Only immutable molecular input reads carry source-failure authority.
+        # Derived SVG reads deliberately keep their ordinary artifact errors.
+        try:
+            return operation()
+        except ArtifactIntegrityError as error:
+            raise LigandSourceVerificationError(
+                source,
+                "artifact_integrity_error",
+                str(error),
+                identity,
+            ) from error
+        except ArtifactNotFoundError as error:
+            raise LigandSourceVerificationError(
+                source,
+                "artifact_not_found",
+                f"Artifact {error} was not found",
+                identity,
+            ) from error
+        except StructureArtifactConflictError as error:
+            raise LigandSourceVerificationError(
+                source,
+                "structure_artifact_conflict",
+                str(error),
+                identity,
+            ) from error
 
     def _inputs(
         self, entry: StructureEntry,
@@ -99,23 +179,42 @@ class LigandService:
         return inputs.structure, inputs.original, inputs.inventory
 
     def _load_inputs(self, entry: StructureEntry, *, with_chemistry: bool = False) -> _LigandInputs:
-        if entry.current_artifact_id is None:
+        identity = LigandSourceIdentity.capture(entry)
+        current_id, original_id = identity.current_artifact_id, identity.original_artifact_id
+        if current_id is None:
             return _LigandInputs(
-                None, None, LigandInventoryV1(
+                None,
+                None,
+                LigandInventoryV1(
                     input_hash=hashlib.sha256(b"no-current-ligand-input").hexdigest(),
                     candidates=[],
                     warnings=["no_current_structure"],
-                ), None, None,
+                ),
+                None,
+                None,
             )
-        structure = self.artifacts.load_normalized(entry.current_artifact_id)
-        original = self.artifacts.read_verified_bytes(entry.original_artifact_id) \
-            if entry.original_artifact_id else None
+        structure = self._source_read(
+            identity,
+            "current",
+            lambda: self.artifacts.load_normalized(current_id),
+        )
+        original = (
+            self._source_read(
+                identity,
+                "original",
+                lambda: self.artifacts.read_verified_bytes(original_id),
+            )
+            if original_id
+            else None
+        )
         source = assess_mmcif_source(structure, original)
         chemistry = (
             prepare_chemistry(structure, original_bytes=original) if with_chemistry else None
         )
         inventory = resolve_candidates(
-            structure, original_bytes=original, source_inventory=source,
+            structure,
+            original_bytes=original,
+            source_inventory=source,
             prepared_chemistry=chemistry,
         )
         return _LigandInputs(structure, original, inventory, source, chemistry)
@@ -276,7 +375,10 @@ class LigandService:
         ], separators=(",", ":")).encode()).hexdigest()
 
     def _cached(
-        self, entry: StructureEntry, candidate_key: str, request_key: str,
+        self,
+        entry: StructureEntry,
+        candidate_key: str,
+        request_key: str,
     ) -> LigandDepictionRead | None:
         binding = self.session.get(LigandDepictionBinding, request_key)
         cache = self.session.get(LigandDepictionCache, binding.cache_key) if binding else None
@@ -284,16 +386,31 @@ class LigandService:
             return None
         # Trust immutable identities only after verifying their stored bytes;
         # a cache hit needs no chemical reconstruction or drawing.
-        if entry.current_artifact_id:
-            self.artifacts.read_verified_bytes(entry.current_artifact_id)
-        if entry.original_artifact_id:
-            self.artifacts.read_verified_bytes(entry.original_artifact_id)
+        identity = LigandSourceIdentity.capture(entry)
+        current_id, original_id = identity.current_artifact_id, identity.original_artifact_id
+        if current_id:
+            self._source_read(
+                identity,
+                "current",
+                lambda: self.artifacts.read_verified_bytes(current_id),
+            )
+        if original_id:
+            self._source_read(
+                identity,
+                "original",
+                lambda: self.artifacts.read_verified_bytes(original_id),
+            )
         self.artifacts.read_verified_bytes(cache.artifact_id)
         return LigandDepictionRead(
-            entry_id=entry.id, artifact_id=entry.current_artifact_id, candidate_key=candidate_key,
-            status="ready", input_hash=cache.input_hash, cache_key=cache.cache_key,
+            entry_id=entry.id,
+            artifact_id=entry.current_artifact_id,
+            candidate_key=candidate_key,
+            status="ready",
+            input_hash=cache.input_hash,
+            cache_key=cache.cache_key,
             artifact=self.artifacts.response(self.artifacts.get(cache.artifact_id)),
-            implementation=cache.implementation, library_version=cache.library_version,
+            implementation=cache.implementation,
+            library_version=cache.library_version,
             **binding.summary,
         )
 

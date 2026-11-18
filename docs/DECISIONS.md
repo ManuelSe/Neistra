@@ -8633,3 +8633,68 @@ writes after eviction, old success across recreation, failure during Retry,
 reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
 independent architecture/performance reassessment before the next full candidate
 qualification, then all seven same-candidate assessments and the complete gates.
+
+
+## D-198 — Qualify ligand source failures across read and write producers
+
+Independent actual application controls reproduce a source-qualification defect:
+Use can report a molecular integrity or missing-artifact failure while cached
+composition/drawing remain visible and Use stays enabled. The corresponding159
+path also retains numerical authority. This violates D-166/D-195 even though the
+failed operation leaves durable intent unchanged. The old1007-source candidate,
+all raw controls and its active C12 qualification remain untouched. An isolated
+fix/issue-158-source-producer-qualification tree owns this correction under the
+same approved158plan; it is not a separate release or permission to push early.
+
+Audit the closed four-producer ligand-service boundary: candidates and depiction
+use their query owners; designate and legacy resolve report failure inside their
+actual captured API operation, before generic command/toast/helper feedback gates.
+Expose a bounded explicit canonical-owner source-failure entry point, reusing the
+existing barrier, cancellation and notification path. Preserve128records/64KiB,
+weak request-start guards and current-only successful candidate requalification.
+Depiction success never qualifies candidate facts.159's numerical bridge consumes
+these facts separately; it still requires a fresh property READ for recovery.
+
+Known current/original molecular reads carry optional typed source_verification
+and source_identity={project_id,entry_id,current_artifact_id,original_artifact_id},
+captured as primitives before the actual read. Preserve existing HTTP status/code/
+message. Include normalized-source StructureArtifactConflict failures as well as
+integrity/missing-artifact failures. Derived SVG reads remain untagged. The _entry
+expected-current mismatch receives a typed current tag without inventing an old-
+current/new-original tuple. Its single-target operation can use its own captured
+four-field input. A later expected_input_hash mismatch is semantic rejection, stays
+untagged and does not invalidate independent scientific facts.
+
+The client distinguishes absent, valid and invalid supplied identity; malformed
+provided provenance cannot become absent fallback authority. Batch resolve accepts
+only proof matching its captured project, requested member and all four immutable
+source fields, even for a one-entry batch. Never invalidate every batch input.
+Single-target operations use the captured exact source and valid producer evidence.
+Delayed source facts apply independently of UI feedback ownership to matching
+cached source only; a different source B remains untouched. Returning to the same
+immutable A requires verification after the latest observed failure. Clear/no-op
+fabricates no read proof; successful assignment/clear follows existing identity/
+history. Transport, revision/context errors, semantic candidate rejection and
+untagged derived drawing errors do not become molecular-source failures.
+
+Architecture and scientific implementation assessed this boundary before code.
+Verify actual158composition/drawing/Use retirement, actual159numerical/captured-
+authority retirement, exact batch isolation, API provenance validation, held reads,
+closed/switched contexts, Clear/semantic/transport/derived positives, bounded
+retention and successful current candidate recheck. Preserve all failed proofs.
+Complete focused/static/web checks and all-seven same-final-candidate assessments;
+then run a fresh full158candidate/exact-master gate before publication. C12's
+unchanged automated results are historical, not approval of the known defect.
+
+
+D-198 single-Use compatibility clarification: inspection of the designation write,
+entry.ligand patch application, history trimming and project DTO construction finds
+no artifact reads outside the captured target's _inputs. Therefore legacy untagged
+artifact_integrity_error409/artifact_not_found404 on the actual single-target Use
+API promise are valid source evidence for that captured input. Enable this narrow
+fallback only when selecting a candidate. Clear has no input read and gains no such
+fallback; batch resolution always requires full typed exact identity. Untagged
+structure_artifact_conflict remains ambiguous with candidate-hash rejection and
+cannot grant mutation authority. A supplied malformed or mismatching identity
+always prevents fallback. This preserves the original source-failure regression
+while retaining explicit producer and immutable-source ownership.

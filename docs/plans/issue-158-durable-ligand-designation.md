@@ -914,3 +914,44 @@ Commit the coherent local checkpoint, then execute cleanC12/all42/summary/packag
 and observe actual enclosing0. Final metadata/all-seven same-final-candidate
 reconfirmation, protected merge, actual-master42qualification and verified release
 remain mandatory. No implementation push or feature completion is established here.
+
+
+### Source-producer correction before publication
+
+Actual application proof confirms a D-166/D-195 violation after Use reports a
+physical-source failure: cached composition/drawing and Use remain available.
+The approved scope requires correction in earliest158before release. The isolated
+owned fix/issue-158-source-producer-qualification branch starts at3d8d9e88 and
+preserves the active original C12 tree unchanged. D-198 records the shared typed
+four-producer boundary before code. Keep original negative controls and the entire
+C12 run; no partial or superseded pass authorizes publication. Integrate a verified
+correction into the original feature branch, obtain all-seven final assessments
+and run a fresh complete candidate gate. No new delivery issue/release is created.
+
+
+### Verified D-198 source-producer checkpoint (pre-full-gate)
+
+The isolated correction fixes the original actual-App failures. All seven complete
+feature CODE assessments PASS on1,013frozen sources (six existing runtime changes,
+six new tests), compact digest203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617.
+Author69backend/180focused/1,388web/static/build evidence explicitly distinguishes
+five unchanged Python/static scopes reused after a new-test typing correction from
+the fresh frontend checks; no identical old/new global-map claim is made.
+Independent54backend+5App/architecture56/performance180/UI30/UX59controls and theory/
+reference assessments support the checkpoint. Four actual new native cases pass,
+root14249exit0/26.1seconds, allsourcefixed/zeroownedcleanup/rawDBcopiesbeforeSQL.
+The new collection totals606 and preserves all602oldcase identities/exclusions.
+
+Original C12 is now CLOSED:all42commands, summary, recursive packaging and actual
+root31447exit0, with independent full packet/log/source readback22136exit0. Counts
+3,040Python/1,334web/14supervisor/527native+75existing exclusions are automated scope
+evidence for the superseded source, not approval of its independently proven defect.
+Retain both complete qualified parts and explicit supersession evidence as mandatory
+supplemental release inputs; do not classify this as another interrupted/failed run
+or modify the existing53-part/eight-run forensic index. The focused correction is
+recorded in c3-source-producer-checkpoint.json/correction ZIP before integration.
+
+Next:integrate this passing checkpoint into the owned original feature branch,
+prepare a clean fresh C13 recipe preserving every42step and all606native cases,
+obtain final same-commit seven-role reconfirmation and qualify the actual merged
+master before protected publication. No push/PR/release readiness is declared.
