@@ -12,7 +12,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
 from multiprocessing.connection import Connection
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 from neistra_core.jobs import (
     InputArtifact,
@@ -26,6 +26,7 @@ if TYPE_CHECKING:
 
     from neistra_api.import_export import ArtifactService
     from neistra_api.job_service import JobService
+    from neistra_api.ligand_property_process import PropertyAttempt
     from neistra_api.models import Job
     from neistra_api.settings import Settings
 
@@ -196,6 +197,7 @@ def _execute_child(
             # No private calculation starts before its exact process group is durably owned.
             if not connection.poll(5) or connection.recv() != ("coordinator_ready",):
                 raise JobCancelled("Descriptor coordinator ownership was not confirmed")
+            context.checkpoint()
         # Bound native thread pools before registry imports initialize NumPy/BLAS.
         os.environ["OPENBLAS_NUM_THREADS"] = "1"
         os.environ["OMP_NUM_THREADS"] = "1"
@@ -302,7 +304,7 @@ class JobWorker:
             try:
                 LigandPropertyCache(session, self.settings.data_dir).cleanup_orphans()
                 session.commit()
-            except PropertyCacheError as error:
+            except (PropertyCacheError, OSError) as error:
                 import logging
 
                 session.rollback()
@@ -313,6 +315,7 @@ class JobWorker:
 
     def run_once(self) -> bool:
         from neistra_api.job_service import JobService
+        from neistra_api.ligand_property_process import PropertyAttempt
 
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
@@ -358,20 +361,33 @@ class JobWorker:
                 self._property_streak = 0
             if job is None:
                 return False
+            attempt = (
+                PropertyAttempt.capture(job, self.worker_id)
+                if job.purpose == "ligand_properties"
+                else None
+            )
             if (
                 self.registry.get(job.job_type).definition.implementation_version
                 != job.implementation_version
             ):
-                service.fail(
-                    job.id,
-                    "implementation_version_unavailable",
-                    "The recorded implementation is unavailable; resubmit the calculation.",
-                )
+                code = "implementation_version_unavailable"
+                message = "The recorded implementation is unavailable; resubmit the calculation."
+                if attempt is not None:
+                    session.rollback()
+                    self._fail_unstarted_property_attempt(attempt, code, message)
+                else:
+                    service.fail(job.id, code, message)
                 return True
             try:
                 child_inputs = self._load_inputs(session, service, job)
             except Exception as error:
-                service.fail(job.id, "invalid_input_artifact", str(error))
+                if attempt is not None:
+                    session.rollback()
+                    self._fail_unstarted_property_attempt(
+                        attempt, "invalid_input_artifact", str(error)
+                    )
+                else:
+                    service.fail(job.id, "invalid_input_artifact", str(error))
                 return True
         self._run_claimed(job, child_inputs)
         return True
@@ -421,9 +437,106 @@ class JobWorker:
             )
         return tuple(loaded)
 
-    def _run_claimed(self, job: Job, child_inputs: tuple[ChildInput, ...]) -> None:
+    def _property_attempt_state(
+        self, session: Session, attempt: PropertyAttempt, *, serialized: bool = True
+    ) -> Literal["active", "retired", "refused", "superseded"]:
+        from neistra_api.ligand_property_service import LigandPropertyService, private_execution
+
+        current = (attempt.locked_job if serialized else attempt.current_job)(session)
+        if current is None or current.status != "running":
+            return "superseded"
+        execution = private_execution(session, current)
+        if execution is None or execution.reaped:
+            return "refused"
+        if current.cancellation_requested or not LigandPropertyService(
+            session, self.settings
+        ).execution_live(current):
+            return "retired"
+        return "active"
+
+    def _terminalize_property_attempt(
+        self, attempt: PropertyAttempt, code: str, message: str
+    ) -> None:
         from neistra_api.job_service import JobService
 
+        with self.session_factory() as session:
+            JobService(session, self.settings, self.registry).terminalize_property_attempt(
+                attempt, code, message
+            )
+
+    def _reap_property_attempt(self, attempt: PropertyAttempt) -> None:
+        from neistra_api.ligand_property_service import LigandPropertyService, private_execution
+
+        with self.session_factory() as session:
+            current = attempt.locked_job(session)
+            if current is None:
+                return
+            execution = private_execution(session, current)
+            if execution is not None and execution.id == attempt.execution_id:
+                execution.reaped = True
+                LigandPropertyService(session, self.settings).prune_executions()
+                session.commit()
+
+    def _fail_unstarted_property_attempt(
+        self, attempt: PropertyAttempt, code: str, message: str
+    ) -> None:
+        """Close this never-started capture without replacing newer job authority."""
+        from neistra_api.job_service import JobService
+        from neistra_api.ligand_property_service import LigandPropertyService, private_execution
+
+        with self.session_factory() as session:
+            current = attempt.locked_job(session)
+            if current is None:
+                return
+            execution = private_execution(session, current)
+            if (
+                execution is None
+                or execution.child_pid is not None
+                or execution.child_start_token is not None
+                or execution.group_confirmed is not False
+            ):
+                return
+            JobService(session, self.settings, self.registry).terminalize_property_attempt(
+                attempt, code, message
+            )
+            # Terminalization commits. Reacquire the writer and refresh ownership
+            # before pruning; a later replacement never inherits this refusal.
+            session.rollback()  # Close any read opened while returning the terminal job.
+            current = attempt.locked_job(session)
+            if current is None or current.status not in {"completed", "failed", "cancelled"}:
+                return
+            execution = private_execution(session, current)
+            if (
+                execution is None
+                or execution.child_pid is not None
+                or execution.child_start_token is not None
+                or execution.group_confirmed is not False
+            ):
+                return
+            execution.reaped = True
+            LigandPropertyService(session, self.settings).prune_executions()
+            session.commit()
+
+    def _run_claimed(self, job: Job, child_inputs: tuple[ChildInput, ...]) -> None:
+        from neistra_api.job_service import JobService
+        from neistra_api.ligand_property_process import PropertyAttempt
+
+        attempt = (
+            PropertyAttempt.capture(job, self.worker_id)
+            if job.purpose == "ligand_properties"
+            else None
+        )
+        if attempt is not None:
+            with self.session_factory() as session:
+                state = self._property_attempt_state(session, attempt)
+            if state != "active":
+                self._terminalize_property_attempt(
+                    attempt,
+                    "descriptor_startup_ownership_failed",
+                    "Descriptor startup attempt is no longer available",
+                )
+                self._reap_property_attempt(attempt)
+                return
         registered = self.registry.get(job.job_type)
         policy = registered.definition.resources
         work_directory = self.settings.data_dir / "work" / "jobs" / job.id
@@ -458,6 +571,17 @@ class JobWorker:
         pipe_closed = False
         peak_rss = 0
 
+        def finish(code: str, message: str, *, cancelled: bool = False) -> None:
+            if attempt is not None:
+                self._terminalize_property_attempt(attempt, code, message)
+            else:
+                with self.session_factory() as session:
+                    service = JobService(session, self.settings, self.registry)
+                    if cancelled:
+                        service.cancelled(job.id, message)
+                    else:
+                        service.fail(job.id, code, message)
+
         def stop_tree() -> None:
             if process_group is not None:
                 try:
@@ -476,22 +600,47 @@ class JobWorker:
                         pipe_closed = True
                         break
                     if message[0] == "process_group":
-                        if message[1] == process.pid:
-                            process_group = int(message[1])
-                            if job.purpose == "ligand_properties":
-                                from neistra_api.ligand_property_process import record_process
+                        candidate = message[1]
+                        if attempt is not None:
+                            from neistra_api.ligand_property_process import record_process
 
-                                try:
-                                    with self.session_factory() as session:
-                                        record_process(session, job.id, process_group)
-                                except ValueError:
-                                    stop_tree()
-                                    process.join(timeout=2)
-                                    terminal_received = True
-                                    break
-                                parent.send(("coordinator_ready",))
+                            try:
+                                if candidate != process_id:
+                                    raise ValueError(
+                                        "Descriptor child group did not match its process"
+                                    )
+                                with self.session_factory() as session:
+                                    state = self._property_attempt_state(session, attempt)
+                                    if state != "active":
+                                        raise ValueError("Descriptor startup attempt was retired")
+                                    record_process(session, job.id, process_id, attempt=attempt)
+                                # Signal authority follows positive registration.
+                                process_group = process_id
+                                with self.session_factory() as session:
+                                    state = self._property_attempt_state(session, attempt)
+                                    if state != "active":
+                                        raise ValueError("Descriptor startup attempt was retired")
+                                    if time.monotonic() - started > policy.wall_time_seconds:
+                                        raise TimeoutError(
+                                            "Descriptor startup exceeded its wall budget"
+                                        )
+                                    # Serialize ACK ahead of any subsequent cancellation controls.
+                                    parent.send(("coordinator_ready",))
+                            except (ValueError, TimeoutError, BrokenPipeError, EOFError) as error:
+                                stop_tree()
+                                process.join(timeout=2)
+                                finish(
+                                    "wall_time_exceeded"
+                                    if isinstance(error, TimeoutError)
+                                    else "descriptor_startup_ownership_failed",
+                                    str(error),
+                                )
+                                terminal_received = True
+                                break
+                        elif candidate == process_id:
+                            process_group = process_id
                         continue
-                    terminal_received = self._handle_message(job.id, message)
+                    terminal_received = self._handle_message(job.id, message, attempt=attempt)
                     if terminal_received:
                         break
                 if terminal_received:
@@ -501,33 +650,43 @@ class JobWorker:
                     if peak_rss > policy.resident_memory_bytes:
                         stop_tree()
                         process.join(timeout=2)
-                        with self.session_factory() as session:
-                            JobService(session, self.settings, self.registry).fail(
-                                job.id,
-                                "resident_memory_exceeded",
-                                f"Job process tree used {peak_rss} resident bytes; "
-                                f"budget {policy.resident_memory_bytes} bytes",
-                            )
+                        finish(
+                            "resident_memory_exceeded",
+                            f"Job process tree used {peak_rss} resident bytes; "
+                            f"budget {policy.resident_memory_bytes} bytes",
+                        )
                         terminal_received = True
                         break
-                with self.session_factory() as session:
-                    from neistra_api.job_service import JobNotFoundError
-                    from neistra_api.ligand_property_service import LigandPropertyService
-
-                    try:
-                        persisted = JobService(session, self.settings, self.registry).get(
-                            job.id, include_derived=True
-                        )
-                    except JobNotFoundError:
+                if attempt is not None:
+                    with self.session_factory() as session:
+                        state = self._property_attempt_state(session, attempt, serialized=False)
+                    if state in {"superseded", "refused"}:
                         stop_tree()
                         process.join(timeout=2)
+                        finish("descriptor_startup_ownership_failed", "Descriptor attempt changed")
                         terminal_received = True
                         break
-                    cancel_requested = persisted.cancellation_requested
-                    if persisted.purpose == "ligand_properties":
-                        cancel_requested |= not LigandPropertyService(
-                            session, self.settings
-                        ).execution_live(persisted)
+                    cancel_requested = state == "retired"
+                else:
+                    with self.session_factory() as session:
+                        from neistra_api.job_service import JobNotFoundError
+
+                        try:
+                            persisted = JobService(session, self.settings, self.registry).get(
+                                job.id, include_derived=True
+                            )
+                        except JobNotFoundError:
+                            stop_tree()
+                            process.join(timeout=2)
+                            terminal_received = True
+                            break
+                        cancel_requested = persisted.cancellation_requested
+                if cancel_requested and attempt is not None and process_group is None:
+                    stop_tree()
+                    process.join(timeout=2)
+                    finish("descriptor_startup_ownership_failed", "Descriptor startup was retired")
+                    terminal_received = True
+                    break
                 if cancel_requested and cancel_sent_at is None:
                     try:
                         parent.send(("cancel",))
@@ -540,48 +699,75 @@ class JobWorker:
                 ):
                     stop_tree()
                     process.join(timeout=2)
-                    with self.session_factory() as session:
-                        JobService(session, self.settings, self.registry).cancelled(
-                            job.id, "Job cancelled after termination grace period"
-                        )
+                    finish(
+                        "job_cancelled",
+                        "Job cancelled after termination grace period",
+                        cancelled=True,
+                    )
                     terminal_received = True
                     break
                 if time.monotonic() - started > policy.wall_time_seconds:
                     stop_tree()
                     process.join(timeout=2)
-                    with self.session_factory() as session:
-                        JobService(session, self.settings, self.registry).fail(
-                            job.id,
-                            "wall_time_exceeded",
-                            f"Job exceeded {policy.wall_time_seconds:g} seconds",
-                        )
+                    finish(
+                        "wall_time_exceeded", f"Job exceeded {policy.wall_time_seconds:g} seconds"
+                    )
                     terminal_received = True
                     break
                 time.sleep(0.02)
             process.join(timeout=2)
             if not terminal_received:
-                with self.session_factory() as session:
-                    JobService(session, self.settings, self.registry).fail(
-                        job.id,
-                        "child_process_lost",
-                        f"Plugin process exited with code {process.exitcode}",
-                    )
+                finish("child_process_lost", f"Plugin process exited with code {process.exitcode}")
         finally:
             stop_tree()
             process.join(timeout=2)
             parent.close()
             shutil.rmtree(work_directory, ignore_errors=True)
-            with self.session_factory() as session:
-                from neistra_api.ligand_property_service import LigandPropertyService
+            if attempt is not None:
+                self._reap_property_attempt(attempt)
 
-                LigandPropertyService(session, self.settings).reaped(job.id)
-
-    def _handle_message(self, job_id: str, message: tuple[Any, ...]) -> bool:
+    def _handle_message(
+        self,
+        job_id: str,
+        message: tuple[Any, ...],
+        *,
+        attempt: PropertyAttempt | None = None,
+    ) -> bool:
         from neistra_api.job_service import JobService
 
         kind = message[0]
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
+            if attempt is not None:
+                current = (
+                    attempt.current_job(session)
+                    if kind == "result"
+                    else attempt.locked_job(session)
+                )
+                if current is None or current.status != "running":
+                    return True
+                from neistra_api.ligand_property_service import (
+                    LigandPropertyService,
+                    private_execution,
+                )
+
+                execution = private_execution(session, current)
+                if execution is not None and execution.reaped:
+                    service.terminalize_property_attempt(
+                        attempt,
+                        "descriptor_execution_reaped",
+                        "Descriptor execution was reaped before publication",
+                    )
+                    return True
+                if current.cancellation_requested or not LigandPropertyService(
+                    session, self.settings
+                ).execution_live(current):
+                    service.terminalize_property_attempt(
+                        attempt,
+                        "descriptor_result_retired",
+                        "Property request retired before execution finished",
+                    )
+                    return True
             from neistra_api.job_service import JobNotFoundError
 
             try:
@@ -605,10 +791,16 @@ class JobWorker:
                         result.values,
                         [warning.model_dump(mode="json") for warning in result.warnings],
                         result.message,
+                        property_attempt=attempt,
                     )
                 except Exception as error:
                     session.rollback()
-                    service.fail(job_id, "invalid_plugin_result", str(error))
+                    if attempt is not None:
+                        self._terminalize_property_attempt(
+                            attempt, "invalid_plugin_result", str(error)
+                        )
+                    else:
+                        service.fail(job_id, "invalid_plugin_result", str(error))
                 return True
             if kind == "cancelled":
                 service.cancelled(job_id, str(message[1]) or "Job cancelled")

@@ -1,6 +1,8 @@
 import type { HydrogenPolicy, ModelPlacementAction, ModelPreview, MoleculeCreateResult } from "./types";
 import type {
   ApiErrorBody,
+  ArtifactSourceIdentity,
+  SourceIdentityEvidence,
   AtomReference,
   CameraState,
   Contact,
@@ -65,6 +67,9 @@ export class ApiError extends Error {
   readonly warnings: MolecularWarning[];
   readonly reports: ExportEntryReport[];
   readonly retryAfterMs: number | null;
+  readonly sourceVerification: "current" | "original" | null;
+  readonly sourceIdentity: SourceIdentityEvidence;
+  readonly sourceVerificationInvalid: boolean;
 
   constructor(
     status: number,
@@ -73,6 +78,9 @@ export class ApiError extends Error {
     warnings: MolecularWarning[] = [],
     reports: ExportEntryReport[] = [],
     retryAfterMs: number | null = null,
+    sourceVerification: "current" | "original" | null = null,
+    sourceIdentity: SourceIdentityEvidence = { kind: "absent" },
+    sourceVerificationInvalid = false,
   ) {
     super(message);
     this.name = "ApiError";
@@ -81,7 +89,23 @@ export class ApiError extends Error {
     this.warnings = warnings;
     this.reports = reports;
     this.retryAfterMs = retryAfterMs;
+    this.sourceVerification = sourceVerification;
+    this.sourceIdentity = sourceIdentity;
+    this.sourceVerificationInvalid = sourceVerificationInvalid;
   }
+}
+
+function sourceIdentityEvidence(detail: ApiErrorBody["detail"]): SourceIdentityEvidence {
+  if (typeof detail !== "object" || detail === null || !Object.hasOwn(detail, "source_identity")) return { kind: "absent" };
+  const value = detail.source_identity;
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return { kind: "invalid" };
+  const source = value as Partial<ArtifactSourceIdentity>;
+  if (typeof source.project_id !== "string" || !source.project_id || typeof source.entry_id !== "string" || !source.entry_id
+    || (typeof source.current_artifact_id !== "string" && source.current_artifact_id !== null)
+    || (typeof source.original_artifact_id !== "string" && source.original_artifact_id !== null)
+    || source.current_artifact_id === "" || source.original_artifact_id === "") return { kind: "invalid" };
+  return { kind: "valid", identity: { project_id: source.project_id, entry_id: source.entry_id,
+    current_artifact_id: source.current_artifact_id, original_artifact_id: source.original_artifact_id } };
 }
 
 function apiError(status: number, body: ApiErrorBody, retryAfter: string | null = null): ApiError {
@@ -98,7 +122,11 @@ function apiError(status: number, body: ApiErrorBody, retryAfter: string | null 
   const retryAfterMs = retryAfter !== null && /^\d+(?:\.\d+)?$/.test(retryAfter)
     ? Number(retryAfter) * 1000 : null;
   return new ApiError(status, code, message, warnings, reports,
-    retryAfterMs !== null && Number.isFinite(retryAfterMs) ? retryAfterMs : null);
+    retryAfterMs !== null && Number.isFinite(retryAfterMs) ? retryAfterMs : null,
+    typeof detail === "object" && (detail?.source_verification === "current" || detail?.source_verification === "original")
+      ? detail.source_verification : null, sourceIdentityEvidence(detail),
+    typeof detail === "object" && detail !== null && Object.hasOwn(detail, "source_verification")
+      && detail.source_verification !== "current" && detail.source_verification !== "original");
 }
 
 async function request<ResponseType>(

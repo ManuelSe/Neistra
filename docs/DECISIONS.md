@@ -8585,3 +8585,326 @@ Inspector opening preserves the editor/workspace. Corrected actual native5 passe
 all16main cases in both themes and desktop/mobile, actual97537exit0 with1,071source
 hashes fixed, including preview Cancel/Apply/exactUndoRedo and metadata recovery.
 This does not pool into the still-failed access qualification or authorize readiness.
+
+
+## D-195 — A source failure retires earlier inventory checks across presenters
+
+Independent installed-query/component controls reveal a consequential source-failure
+race in158candidate246efa and the identical159/160controls, plus161's new shared
+owner: an older successful page-zero response held in transport can arrive after a
+newer page integrity failure and restore cached cards/composition/image without a
+new source check. Preserve the independent failed controls and interrupted158C10;
+passing earlier checks or a later presenter change do not qualify this behavior.
+
+A known failure must synchronously withhold the exact-source inventory across its
+header, chooser, pages and responsive visits. Only a genuine matching check begun
+after that failure may restore qualification. Late arrival time and manual cache
+writes do not establish requalification. Retain failure knowledge through presenter
+unmounts; do not reconstruct recovery from success timestamps changed manually.
+A bounded start/failure-generation barrier or verified cancellation of all earlier
+in-flight exact-source checks may implement this contract. Choose through actual
+installed-query probes before code, then retain permanent negative/recovery tests.
+Keep unrelated project/entry/artifact work independent, one shared qualification
+object and existing two-active/24-queued drawing admission. No scientific value
+cache, chemistry method, predictor, schema, source-file mutation or new dependency.
+
+The161header additionally requires its resolved designation's non-null source
+artifact to equal the authoritative current entry artifact. Agreement between two
+stale designation copies is insufficient. Preserve exact instance/membership and
+distinct inventory/chemistry/descriptor hashes; candidate key is not a durable
+instance ID. Missing/unqualified facts remain withheld with recovery.
+
+Correct earliest158first and propagate the qualified policy through159/160/161.
+Verify held earlier-page responses, source failure, close/reopen and responsive
+unmount, manual writes, genuine fresh Retry, another failure during Retry, shared
+pages, source/project changes and unaffected independent consumers. Keep all old
+scientific assertions, workloads, timing bounds and warnings. Run appropriate fresh
+candidate/full gates and same-candidate seven-role reviews; this correction is not
+permission to pool partial runs or claim a release before exact-master qualification.
+
+
+## D-196 — Terminalize refused private startup ownership without unconfirmed signals
+
+The new161native1 first identity/profile case passes, but its next project remains
+pending through120seconds despite fast successful reads and renewed leases. The
+retained source is unchanged. Independent offline controls of159's actual worker,
+child and copied database prove a sufficient new159failure mechanism: registration
+refusal can reap a child while leaving its job RUNNING, and that orphan blocks later
+derived admission. Early cancellation can precede the ownership ACK. The exact
+native1branch remains an inference; post-shutdown reaped/PID fields do not prove
+when reaping occurred. This path is absent in158; its fresh qualification continues.
+
+Keep candidate process-group identity separate from signal authority. Grant group
+signals only after positive record_process ownership registration. A refused or
+unconfirmed child is cleaned up through its positively owned process handle and
+joins, never through unconfirmed killpg. Recheck the captured current attempt and
+liveness before spawn and before coordinator_ready; do not grant calculation
+permission to work already known to be retired. Preserve cancellation grace and
+wall-time bounds and serialize ownership ACK before later control messages.
+
+Before treating startup refusal as terminal/reaped, refresh under the existing
+serialized database writer boundary and match captured job ID, worker ID, private
+execution ID and parameters. Only that still-owned RUNNING attempt may transition:
+use existing cancelled for real cancellation/owner retirement, or explicit startup
+failed when still wanted. Do not clobber terminal/deleted/reassigned attempts; bind
+reaping to the captured execution identity. Reuse captured-generation failure
+fencing; one startup error must not fail unrelated current demands.
+
+This is a necessary159lifecycle correction propagated to160/161, not a new chemistry
+method, schema, scientific cache, scheduling policy, fairness or resource-budget
+change. Do not raise deadlines, suppress failures, publish late outputs or restore
+historical numbers. Regression evidence must cover early stop/ACK ordering, absent
+unconfirmed group signals, truthful active startup failure, existing terminal and
+reassigned states, durable terminalization plus next admission, and real process
+cleanup/recovery. Preserve the original failed native store and all observations.
+
+The preceding corrected159selected browser probe4 passes one desktop case with
+five cold starts and20paired real edits, actual7395exit0, all1110/49method identities
+fixed and cleanup verified. This does not qualify all8cases or the forthcoming
+worker correction. Portable cold-edit median2057.95ms/p952242.60ms exceeds the
+unchanged2000ms target under disclosed concurrent work; do not claim that target or
+controlled-host performance has passed. Measure current corrected source before
+performance acceptance; preserve the existing targets and D148 policy.
+
+
+## D-197 — Bound inventory failure facts with conservative requalification
+
+Independent installed-query controls of D-195 show that 1,000 failed sources,
+with or without genuine recovery before query removal, leave 1,000 retained
+owner records after all queries are gone. Unrecovered records also retain full
+error objects. The module-lifetime QueryClient outlives presenters, so query
+collection alone cannot bound this separate map. Candidate11 is explicitly
+interrupted for this confirmed resource defect; its partial checks are not a
+complete qualification and remain retained independently.
+
+Keep at most128 source qualification records and64KiB of source-key UTF-8 bytes.
+These are local metadata-retention limits, not limits on entries, molecule size,
+candidate eligibility or chemistry work. On eviction, retain one sticky owner-
+lifetime fact that an unknown source requires a genuine check. An absent source
+must then remain blocked until a matching successful request qualifies it; manual
+cache writes and old responses cannot admit or qualify records. Retained unrelated
+records keep their qualification, and eviction never cancels unrelated work.
+
+Allocate a fresh opaque token for each admitted source record and each subsequent
+failure. At actual query-fetch start, retain only that token in a weak query map.
+Only matching nonmanual success with the still-current token may recover a record.
+Eviction/recreation and deactivate/reactivate must never reset token authority.
+Keep cancellation scoped to the exact project/entry/current/original source, after
+installing the new failure token. Preserve weak historical-error acknowledgements
+so successful recovery is not undone by reactivation or manual cache publications.
+
+Retain only fixed recovery classifications: source conflict, artifact unavailable
+or integrity failure, and retry required. Full response errors, warnings, reports,
+stack traces and cause graphs remain with existing query/API owners. Preserve the
+presenter's specific current/original-file recovery wording. Use one QueryClient-
+owned instance across application/presenter remounts; a new owner for an existing
+client would lose conservative forgetting. An oversized source key is declined
+conservatively rather than stored beyond the byte budget.
+
+This introduces no scientific cache, method, request retry loop, resource/deadline
+relaxation or schema change. The bounded tradeoff is an occasional genuine check
+after qualification metadata is evicted. Verify thousands of failed/recovered/
+removed sources against both bounds, absent original error references, manual
+writes after eviction, old success across recreation, failure during Retry,
+reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
+independent architecture/performance reassessment before the next full candidate
+qualification, then all seven same-candidate assessments and the complete gates.
+
+
+## D-198 — Retire numerical source authority on verified source failure
+
+Independent production-hook/session/component controls demonstrate that candidate
+source-integrity, missing-artifact and source-conflict failures withhold formula
+and drawing but leave cached properties labelled current. In161the same condition
+leaves a complete passing profile and radar. This is an earliest159frontend
+source-publication defect, not a demonstrated chemistry or numerical-value error.
+Transport failure, unrelated source and qualification-metadata eviction controls
+preserve independently qualified numbers; those conditions must remain distinct.
+
+The canonical inventory owner emits a typed exact-source verification-failure fact
+only for structure_artifact_conflict, artifact_integrity_error and artifact_not_found.
+Carry project/entry/current/original artifact identity, a fresh opaque failure token
+and fixed classification. Install the candidate barrier first, emit before query
+cancellation/React notifications, and retain no original errors or unbounded history.
+Do not use generic inventory blocked status/revision as numerical authority.
+
+One App-lifetime subscription forwards that fact into the existing property session,
+independent of presenter visibility. Invalidate every matching source-bound client
+binding and coverage alias, clear matching request projections, stop only matching
+active work via existing generation/abort/release, and retire the matching current
+PropertyInputOwner capture before notification. Tag existing bounded records with
+typed source identity rather than parsing opaque cache keys. Captured profile
+isCurrent checks must become false immediately. Preserve explicit Cancel and
+unrelated work, intent, original bytes and Undo ownership.
+
+Candidate success never restores numerical authority. Recover only through a fresh
+matching source-verified property READ begun after the latest failure, under the
+existing report/source/binding/method guards. Older held reads/demands cannot cross
+the failure generation. Keep the backend semantic report/proof cache, so verified
+warm reuse does not require new calculation. Reuse connection/retry behavior with
+no automatic retry loop; other supported exact-source producers enter this typed
+boundary through their existing owners rather than a global HTTP interceptor.
+
+This is a frontend authority correction with no migration, scientific method,
+backend cache policy, scheduler/resource/deadline change or broader delivery scope.
+Verify all three failures across coverage aliases/profile/radar/table, candidate-
+only recovery rejection, old held responses, another failure during fresh READ,
+fresh warm recovery, captured-profile retirement, transport/unrelated/eviction
+independence, hidden/mobile/remount/A→B→A/Cancel/Undo/source-replacement ownership
+and repeated bounded failures. Long performance execution remains held until the
+corrected source is independently reassessed and freshly qualified.
+
+
+### D-198 refinement — distinguish molecular source failures from drawing artifacts
+
+Independent architecture review reproduces a remaining current-authority failure:
+a committed exact-source depiction query reporting409structure_artifact_conflict
+leaves cached numerical authority live. The existing depiction service verifies
+current and original molecular inputs and a separate derived SVG; its generic
+artifact error codes alone cannot distinguish those reads. Source integrity and
+missing-input failures must therefore carry narrowly assigned typed provenance.
+
+Preserve existing HTTP status and error code. A local ligand-source exception
+records current/original input role and the original failure classification only
+around known molecular input reads in _load_inputs/_cached. The API adds optional
+source_verification=current|original; derived SVG reads remain untagged. The
+frontend validates this optional enum, with a null default for existing callers.
+The canonical owner decodes the committed, supported-policy depiction query's
+exact project/entry/current/original identity. Source conflicts and provenance-
+qualified artifact failures enter the existing barrier and numerical-retirement
+boundary before cancellation/publication. Transport, malformed/legacy/preview
+keys and untagged drawing errors do not acquire molecular failure authority.
+Candidate behavior remains compatible. Neither depiction nor candidate success
+restores numerical authority; only a fresh validated property READ may recover.
+
+This completes the already accepted D-198 producer boundary without changing
+chemistry, cache policy, schemas, scheduling, budgets or delivery dependencies.
+Architecture and scientific implementation assessed the seam before code. Verify
+real cached/cold current/original integrity/missing failures, distinct derived SVG
+failures, public error compatibility, precise query identity, old in-flight work
+and fresh warm recovery. Keep the first failed channel proof and original frozen
+candidate intact; renew affected independent assessments before propagation.
+
+
+### D-198 producer closure — shared current facts before numerical consumers
+
+Independent actual application controls reproduce a source-qualification defect:
+Use can report a molecular integrity or missing-artifact failure while cached
+composition/drawing remain visible and Use stays enabled. The corresponding159
+path also retains numerical authority. This violates D-166/D-195 even though the
+failed operation leaves durable intent unchanged. The old1007-source candidate,
+all raw controls and its active C12 qualification remain untouched. An isolated
+fix/issue-158-source-producer-qualification tree owns this correction under the
+same approved158plan; it is not a separate release or permission to push early.
+
+Audit the closed four-producer ligand-service boundary: candidates and depiction
+use their query owners; designate and legacy resolve report failure inside their
+actual captured API operation, before generic command/toast/helper feedback gates.
+Expose a bounded explicit canonical-owner source-failure entry point, reusing the
+existing barrier, cancellation and notification path. Preserve128records/64KiB,
+weak request-start guards and current-only successful candidate requalification.
+Depiction success never qualifies candidate facts.159's numerical bridge consumes
+these facts separately; it still requires a fresh property READ for recovery.
+
+Known current/original molecular reads carry optional typed source_verification
+and source_identity={project_id,entry_id,current_artifact_id,original_artifact_id},
+captured as primitives before the actual read. Preserve existing HTTP status/code/
+message. Include normalized-source StructureArtifactConflict failures as well as
+integrity/missing-artifact failures. Derived SVG reads remain untagged. The _entry
+expected-current mismatch receives a typed current tag without inventing an old-
+current/new-original tuple. Its single-target operation can use its own captured
+four-field input. A later expected_input_hash mismatch is semantic rejection, stays
+untagged and does not invalidate independent scientific facts.
+
+The client distinguishes absent, valid and invalid supplied identity; malformed
+provided provenance cannot become absent fallback authority. Batch resolve accepts
+only proof matching its captured project, requested member and all four immutable
+source fields, even for a one-entry batch. Never invalidate every batch input.
+Single-target operations use the captured exact source and valid producer evidence.
+Delayed source facts apply independently of UI feedback ownership to matching
+cached source only; a different source B remains untouched. Returning to the same
+immutable A requires verification after the latest observed failure. Clear/no-op
+fabricates no read proof; successful assignment/clear follows existing identity/
+history. Transport, revision/context errors, semantic candidate rejection and
+untagged derived drawing errors do not become molecular-source failures.
+
+Architecture and scientific implementation assessed this boundary before code.
+Verify actual158composition/drawing/Use retirement, actual159numerical/captured-
+authority retirement, exact batch isolation, API provenance validation, held reads,
+closed/switched contexts, Clear/semantic/transport/derived positives, bounded
+retention and successful current candidate recheck. Preserve all failed proofs.
+Complete focused/static/web checks and all-seven same-final-candidate assessments;
+then run a fresh full158candidate/exact-master gate before publication. C12's
+unchanged automated results are historical, not approval of the known defect.
+
+
+D-198 single-Use compatibility clarification: inspection of the designation write,
+entry.ligand patch application, history trimming and project DTO construction finds
+no artifact reads outside the captured target's _inputs. Therefore legacy untagged
+artifact_integrity_error409/artifact_not_found404 on the actual single-target Use
+API promise are valid source evidence for that captured input. Enable this narrow
+fallback only when selecting a candidate. Clear has no input read and gains no such
+fallback; batch resolution always requires full typed exact identity. Untagged
+structure_artifact_conflict remains ambiguous with candidate-hash rejection and
+cannot grant mutation authority. A supplied malformed or mismatching identity
+always prevents fallback. This preserves the original source-failure regression
+while retaining explicit producer and immutable-source ownership.
+
+
+### D-198 property-result producer — preserve explicit physical verification facts
+
+A separate159integration negative uses six actual current/original corruption,
+missing-file and missing-metadata READ results. They return HTTP200/status=failed
+with no report; the property session retires numbers but leaves canonical candidate
+facts qualified. Preserve the source-bound negative assessment72841d050ca371a1778aa461610eec39a683f07b9eab6ae08d0476fabf77ea95.
+This producer belongs159, not the earliest158ligand-service correction.
+
+Before159integration, carry a narrow optional physical-source fact from existing
+PropertySourceVerification snapshot/read failure branches into the existing current
+result row. Capture project/entry/current/original primitive IDs before publication
+locks/rechecks or ORM refresh, and preserve provenance in operation-local failure
+memoization. Never infer physical failure from free-text reason, generic failed/
+unavailable status, worker/chemistry/capacity errors or generic structure409; the
+latter also covers valid-source designation/instance/membership changes.
+
+Install a narrow session-to-canonical-owner publication port synchronously above
+presentation. After existing active request/read-generation/ownership and exact
+source guards, validate all four fields and non-null role evidence, publish one
+fact through the canonical barrier/event retirement path, and return immediately.
+That response's own authority has retired; it cannot then publish, poll or demand.
+The inventory-to-session retirement path must not re-emit a physical fact. Apply
+the same provenance validation to source-verified demand rows while retaining the
+fresh-property-READ recovery fence. No new broker, error history, retry loop or
+scientific method is introduced.
+
+Candidate and numerical recovery remain independent: candidate success alone
+cannot restore numbers, and numeric success cannot silently qualify composition/
+drawing. Verify six actual physical failures, unsupported/worker/capacity/transport/
+designation positives, one-event retirement across aliases, held A/B/Undo/Retry/
+newer-failure ownership, hidden/remounted consumers and unrelated/Cancel/original-
+bytes/history/bounded retention. Architecture and scientific implementation have
+assessed the method before code; actual159implementation and reassessment remain
+pending the earliest158shared-source correction.
+
+
+### D-196 downstream recovery continuation — verified profile preparation
+
+2026-11-18: propagate the exact accepted159worker correction into160without changing
+profile definitions, evaluator/dependency behavior, scientific methods, schema or
+resource bounds. Catch private-cache OSError only inside its housekeeping seam;
+pre-launch input/version refusals capture immutable ownership and terminalize/reap
+only a rechecked exact association with affirmative never-started process metadata.
+Replacement, foreign, deleted and positively registered captures keep their existing
+verified recovery authority.
+
+Only job_worker.py changes and one independent33-case regression file is added to
+the1197-source preparation. All1196other source bodies remain exact. Destination
+checks pass33new+171affected cases and Ruff/ownedformat/mypy280. Three unchanged
+private migration cases bind ROOT/alembic/current0017 to this destination, with
+collection-time proof and a same-case160location supplement; the initial missing-
+file collection failure is retained. This is scoped local checkpoint acceptance,
+not a full-feature/all-seven/performance qualification. Preserve old guards as
+stale HOLD and integrate actual released159before final delivery. The lossless
+source/recovery packet retains all1831regular input files without SQL processing;
+installed node_modules remains an explicit inert dependency alias, not a bundled
+source or omitted owned evidence tree.

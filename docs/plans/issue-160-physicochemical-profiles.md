@@ -428,3 +428,77 @@ The checkpoint is a verified LOCAL preparation state only. It is not a pushed
 application implementation, final all-seven readiness, delivered prerequisite,
 complete performance/compatibility qualification or release. Serial actual159
 integration and all final delivery requirements above remain mandatory.
+
+
+### D-198 downstream source authority — passing scoped integration
+
+The reviewed159correction is adopted through21common paths and a narrow App merge.
+Nineteen paths match its frozen1,122-source candidate exactly. API changes retain
+all profile routes; the property hook retains profile dependencies and registry
+invalidation. Existing context, molecular methods, D-196 protected implementation,
+old tests/native files and downstream presentation/filter behavior remain exact.
+All original source/evidence snapshots and raw stores are preserved. RootApp
+captures source facts inside actual Use/Clear/legacy-resolve promises and installs
+one synchronous canonical inventory-to-numerical authority bridge above presentation.
+
+Fresh author actual98294exit0/7aabeb passes139backend/profile cases,156D-196,
+six real supervisors, Ruff/scoped format/mypy280, lint/types/build,603focused
+frontend and1821web/137files. The full1197-path audit remains fixed at
+mapSHA256`83f08d0634ccc2a38c1e8737e5972d7a0d94ef98b64fa05523edf22eaec76e80`. It additionally covers107existing qualification scripts versus
+the older selected-source inventory; no old path is dropped. Root independently
+checks all55handoff artifacts, four source ZIP CRCs and every complete/owned ZIP
+entry against its source map, plus all actual gate log hashes. D-194's49benchmark
+paths remain absent here as before; actual released159integration still supplies
+that separately required final reconciliation.
+
+Independent scoped architecture and scientific implementation each PASS. Architecture
+executes three actual-App controls plus85source-authority regressions. Science
+executes26component,83existing frontend,49Python and seven actual ASGI controls.
+Physical failures synchronously retire current profile/numeric authority and captured
+actions. Candidate and numerical recovery require independent genuine checks;
+generic/derived, malformed, unrelated and held-response controls remain safe.
+The161consumer controls also remove radar points/polygon and show Unavailable table
+cells. READY/recovery payloads are controlled transports; physical failure/restored
+candidate inputs use actual ASGI. These scopes are explicit and are not pooled into
+a full release gate or browser/performance claim.
+
+Actual prerequisite releases, current native/performance/compatibility, consistent
+versions, all seven same-final-candidate assessments and complete candidate/exact-
+master qualification remain required before protected publication and closeout.
+
+
+### C2 combined source/recovery preparation — bounded passing checkpoint
+
+2026-11-18: preserve the complete1197-source D-198 integration above and propagate
+the exact two-file159recovery correction from8a4f5385. Current1198source mapSHA256
+`00c2db4fcd120c40add2eb80f9484fdcf08dd51284290e8bd98bc35430063deb`
+changes only job_worker.py and adds test_ligand_property_preload_ownership.py; all
+1196other prior bodies remain exact. No profile/scientific/schema/version/cap change.
+
+Destination new33and affected171cases pass, zero errors/failures/skips. The171are
+168local existing cases plus three unchanged privately borrowed migration cases
+against the actual160ROOT/alembic/0017. The first absent-file collection exit4 is
+retained, as is a fresh location-proof supplement repeating those same three cases
+without increasing unique coverage. Ruff, ownedformat and mypy280 pass. Original
+1197D-198 author/architecture/scientific scopes remain distinct and source-bound;
+unchanged frontend subjects retain their recorded1821-case check.
+
+The [checkpoint](../assets/ligand-profiles/c2-source-recovery-checkpoint.json) and
+[lossless ZIP](../assets/ligand-profiles/c2-source-recovery-evidence.zip) retain every
+1831regular input payload/120134866raw bytes,231inert aliases and802empty directories
+from all seven completed author/review/propagation inputs. Current1198source bodies
+and complete before snapshots are included; every attempt/store/cache remains. The
+22442923-byte ZIP SHA256 is
+`29530e1efc4e2f1ab1d04fb093d159d6315b2c978bd4533c1dfb525c13a14a15`.
+Older159public packets are hash references; PRODUCT_SPEC/globalPLAN bodies are not
+copied. The one external installed-tool dependency alias is validated metadata and
+is not followed into node_modules. No SQL is opened for capture/readback.
+
+Root independently verifies both destination source/manifests/JUnit and actual
+migration-location bindings. Independent full packet readback PASS verifies1845outer entries,35recursive ZIPs,
+6756regular members,64project artifact bodies and118manifest references. Its receipt
+SHA256 is538a6b270e995d16d24a6a05ff0174ca7062a3c7c4368e0f27be1d8212913c9c;
+primary independently rechecks all1831original inputs/outer hashes/CRC/current1198
+source bodies and ZIP. This passing checkpoint remains local preparation: actual released159integration, D-194 fixture
+reconciliation, final versions/preceding readers/native/performance/full gates and
+all seven same-final-candidate assessments remain mandatory before protected delivery.

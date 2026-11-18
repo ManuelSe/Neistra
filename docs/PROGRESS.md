@@ -2,117 +2,61 @@
 
 ## Current milestone
 
-Parent #11 remains active through verified releases for required #156–#163 and
-parent closeout. #156/#157 are delivered; #158 freshcandidate9 full qualification
-is running. #160 has a verified local profile vertical slice awaiting actual
-released #159 integration, full qualification and final publication review.
+Parent #11 remains active through verified releases and closeout for #156–#163.
+#156/#157 are delivered. #158 has published qualified v0.36.0; full anonymous
+asset verification and terminal closeout continue. #159 has a local published-
+runtime integration checkpoint98ffec71; final qualification remains pending.
+#160 remains local preparation with verified shared source/recovery corrections.
+Serial delivery and accepted exclusions remain unchanged.
 
 ## Completed work
 
-#160 provides seven sourced/versioned profiles and two explicitly unavailable
-methods through one registry, a shared typed evaluator and read-only metadata API.
-App-owned profile demand reuses current descriptors, cancellation and uncertainty.
-Current methods/provenance remain inspectable with all display categories disabled.
-A bounded presentation anchor preserves focused legacy task position while expanded
-profile/property results change height, retaining explicit navigation authority.
+Seven sourced/versioned profiles and two explicitly unavailable methods share one
+typed evaluator, registry and read-only metadata API. Profile dependencies reuse
+current descriptor demand; explanations remain secondary.
+D-198 preserves exact physical provenance and one canonical source retirement path;
+candidate and numerical recovery require separate genuine matching checks. The
+verified D-196 continuation also isolates private-cache startup I/O and reaps only
+exact owned never-started refusals. Profile definitions and scientific methods stay
+unchanged by those recovery corrections.
 
 ## Verification performed
 
-Domain47Python/220TypeScript cases and both scoped scientific assessments pass.
-Current profile/domain/API plus copied prerequisite lifecycle tests pass78cases,
-Ruff, owned format and mypy280, actual23929exit0 with553source/fixture hashes fixed.
-The copied D-188 correction is from unreleased159C1f6e847b8; subsequent formatting
-preserves the entire Python AST. Earlier format-failed proof remains retained.
-Frontend400focused/1,649global cases, lint/types/build pass, actual9640exit0;
-all359web sources and original15domain/13provisional pins remain fixed.
-Fresh native7 passes18cases, zero failure/skip/flake/retry, actual69297exit0;
-all1,074selected hashes remain fixed, digestee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e.
-It covers both themes/runner profiles, actual100%/200% desktop zoom,320px access,
-profile-only demand, Cancel/Retry, hidden-inspector edits, real preview Cancel/Apply/
-exactUndoRedo and held metadata recovery across an edit. Eight zoom scenarios and
-24full compositor captures show≤0.4375px task movement. Independent architecture,
-UI and UX corrective assessments PASS on this same bounded correction.
+Historical domain/native evidence remains bound to its original snapshots. The
+1197-source D-198 destination run passes139 backend/profile cases,156 startup
+regressions,6 supervisors,603 focused frontend and1821 frontend cases/137suites,
+Ruff/format/mypy280/lint/types/build. Independent scoped architecture and scientific
+implementation assessments PASS; actual ASGI physical failures remain distinct from
+controlled numerical READY/recovery transports.
+The current1198-source correction passes33 new and171 affected existing regressions,
+zero failures/errors/skips, plus Ruff/owned format/mypy280. The three exact privately
+borrowed migration cases execute against this actual destination; they are included
+in171, not additional unique cases. The first missing-file collection exit4 and the
+same-three-case location supplement remain retained.
+
+The [source/recovery checkpoint](assets/ligand-profiles/c2-source-recovery-checkpoint.json)
+and [lossless packet](assets/ligand-profiles/c2-source-recovery-evidence.zip) preserve
+all1831regular inputs,231inert aliases and802empty directories, including every
+attempt/store. The full1198source snapshot changes only worker/new regression from
+1197; all1196other source bodies remain exact. Independent and primary full packet
+readbacks PASS:1845manifest entries/35recursive ZIPs/6756members. The earlier scoped checks and new
+correction checks are not pooled as a complete release gate.
 
 ## Known limitations
 
-These are local preparation checks, not all-seven whole-feature readiness or a
-complete release gate. The13pins/49borrowed runtime paths, private migration0017
-and preparation version0.36 must be reconciled against actual verified159master;
-provisional160release remains0.38. All failed native attempts/stores are preserved.
-Performance, compatibility readers, final versions, full candidate/exact-master
-checks and normal protected delivery remain required. No implementation push/release.
+Actual released159 integration, final versions, current native/performance/reader
+qualification, complete candidate/exact-master gates and all seven final specialist
+assessments remain outstanding. Old source guards are retained/HOLD. D-194's49
+benchmark paths remain absent as before; prerequisite integration must supply their
+required final reconciliation. No implementation push, PR, release or closeout.
 
 ## Blockers
 
-No external blocker. Delivered prerequisites and complete final qualification
-remain mandatory before publication; independent preparation does not satisfy them.
+No external blocker. Preserve original sources/stores, all failed attempts and
+accepted exclusions. #159 remains the delivery prerequisite.
 
 ## Next action
 
-The coherent local checkpoint has source-bound evidence (C2ZIP33,134,745bytes,
-821outer payloads/15recursive ZIPs); original C1 is unchanged. Reconcile actual
-delivered prerequisites, then complete full gates/all-seven final
-review, protected merge, exact-commit release verification and child closeout.
-
-## Historical progress before isolated #160 preparation
-
-
-## Current milestone
-
-Parent #11 remains active for required #156–#163 through verified releases and
-parent closeout. #156/#157 are delivered in0.34.0/0.35.0. #158 has passing native
-oracle corrections and local forensic verification; full qualification/push/release
-remain pending. #159 prepares independently with serial final integration/publication.
-
-## Completed work
-
-#158 provides exact durable ligand intent, conservative candidates, reversible
-lineage, bounded cached2D cards and qualified entry-wide occurrence counts. The
-previously reviewed application/scientific/API/frontend/migration sources remain
-unchanged. Existing native tests now scope browser-row names and selection Clear,
-and use actual camera projection for a trusted unobstructed atom click.
-
-## Verification performed
-
-Freshcandidate5 at5d34a29b passes2,976Python/zero skips,1,304frontend/122suites,
-14supervisor, installs, migrationroundtrip, lint/types and build. Native fails an
-old global entry-name locator after157passes/three encountered historical exclusions;
-441cases do not run. Actual97110exit1;1,003current/931preceding sources unchanged.
-This failed gate is retained and is not pooled into subsequent qualification.
-
-Focused runs reproduce entry-name and Clear ambiguity. After scoping them, old
-fractional canvas clicks miss the atoms; projected trusted picking works, then an
-added assertion incorrectly expects entry_id instead of viewer structure_id. Both
-failed development attempts are retained. Corrected fresh combined run passes11,
-zero failure/flake/retry, three unchanged historical exclusions, actual73803exit0;
-all1,005selected sources unchanged. StrictnativeTS passes. Scoped architecture PASS.
-The [oracle checkpoint](assets/ligand-designation/c3-native-locator-checkpoint.json)
-binds exact sources, failed/corrected traces and all owned stores in an18,310,542-byte
-ZIP/SHAe054230a…009f. Earlier application evidence is reusable only for unchanged code.
-
-Established supplemental-asset retention preserves failedcandidate4/5 in18parts,
-all below80MiB; exact disjoint inventories and recursive CRC/SHA checks pass locally.
-The independent verifier's64offline corruption controls, Ruff and scopedmypy pass;
-scoped architecture PASS. The [index](assets/ligand-designation/c3-forensics-index.json)
-and [verification](assets/ligand-designation/c3-forensics-verification.json) retain
-source/provenance/controls without rebundling raw parts in the primary release ZIP.
-All actual stores and losslessly relocated raw output remain preserved. Local
-verification does not establish public download availability or a passing full gate.
-
-## Known limitations
-
-Originals, scientific uncertainty, cooperative work limits and encoded cache bounds
-remain. Head0016/projectarchive3/viewer2 requires actual0.35safe-refusal/forward tests.
-Portable timing is not strict-host or physical-device qualification.
-
-## Blockers
-
-No external blocker. Full gates have not yet passed; final all-seven same-candidate
-review and public availability of all release assets remain required.
-
-## Next action
-
-Commit this passing checkpoint with freshcandidate6recipe, then complete all42commands,
-independent summary, recursive packaging and actual enclosing readback. Prepare exact-
-master recipe before final evidence and all-seven final readiness assessment; use
-normal protected delivery and verify every supplemental asset before child closeout.
+Integrate actually delivered159, refresh source-bound workload guards, reconcile
+versions and preceding readers, and complete all delivery gates in serial order.
+Keep the one parent Goal active through163and verified parent closeout.

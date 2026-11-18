@@ -1,10 +1,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Hexagon, LoaderCircle, RotateCw, X } from "lucide-react";
-import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { ApiError } from "../api/client";
 import type { Entry, Project } from "../api/types";
 import { ligandApi } from "../ligands/api";
+import { useInventoryQualification, type InventoryQualification, INVENTORY_POLICY as POLICY,
+  INVENTORY_CHEMISTRY_POLICY as CHEMISTRY_POLICY, INVENTORY_OCCURRENCE_POLICY as OCCURRENCE_POLICY } from "../ligands/inventoryQualification";
 import type { LigandCandidate, LigandCandidatesRead, LigandDepictionRead } from "../ligands/types";
 import { IconButton } from "./IconButton";
 import "./ligand-designation.css";
@@ -21,10 +23,7 @@ interface LigandDesignationControlsProps {
 }
 
 const PAGE_SIZE = 12;
-const POLICY = "ligand-instance-v3";
-const CHEMISTRY_POLICY = "ligand-exact-representation-v2";
 const DRAWING_POLICY = "ligand-2d-v1";
-const OCCURRENCE_POLICY = "ligand-occurrence-v1";
 const abortError = () => new DOMException("The depiction request was cancelled", "AbortError");
 
 // Keep visible-page requests within the backend's two-drawing admission limit.
@@ -81,8 +80,6 @@ function transientOccurrenceCounts(data: LigandCandidatesRead | undefined): bool
     && (candidate.occurrence_reason === "occurrence_work_busy" || candidate.occurrence_reason === "occurrence_work_limit")) ?? false;
 }
 
-interface InventoryQualification { blocked: boolean; error: unknown }
-
 function inventoryOptions(project: Project, entry: Entry, offset: number, qualification?: InventoryQualification) {
   return {
     queryKey: ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
@@ -97,42 +94,6 @@ function currentInventory(data: LigandCandidatesRead | undefined, project: Proje
   return data?.project_id === project.id && data.entry_id === entry.id
     && data.artifact_id === entry.current_artifact_id && data.resolver_version === POLICY ? data : undefined;
 }
-/** Keep known source failures across designation keys and chooser open visits. */
-function useInventoryQualification(project: Project, entry: Entry): InventoryQualification {
-  const client = useQueryClient();
-  const matches = useMemo(() => {
-    const prefix = ["ligand-candidates", POLICY, project.id, entry.id, entry.current_artifact_id,
-      entry.original_artifact_id, CHEMISTRY_POLICY, OCCURRENCE_POLICY];
-    return (key: readonly unknown[]) => prefix.every((part, index) => key[index] === part);
-  }, [project.id, entry.id, entry.current_artifact_id, entry.original_artifact_id]);
-  const [qualification] = useState<InventoryQualification>(() => {
-    let failedAt = 0, succeededAt = 0, error: unknown;
-    for (const query of client.getQueryCache().getAll()) {
-      if (!matches(query.queryKey)) continue;
-      if (query.state.status === "error" && query.state.errorUpdatedAt >= failedAt) {
-        failedAt = query.state.errorUpdatedAt; error = query.state.error;
-      }
-      if (query.state.status === "success"
-        && currentInventory(query.state.data as LigandCandidatesRead | undefined, project, entry)) {
-        succeededAt = Math.max(succeededAt, query.state.dataUpdatedAt);
-      }
-    }
-    return { blocked: failedAt > 0 && failedAt >= succeededAt, error };
-  });
-  const [, refresh] = useState(0);
-  useLayoutEffect(() => client.getQueryCache().subscribe(event => {
-    if (event.type !== "updated" || !matches(event.query.queryKey as readonly unknown[])) return;
-    if (event.action.type === "error") {
-      qualification.blocked = true; qualification.error = event.action.error;
-      refresh(value => value + 1);
-    } else if (event.action.type === "success" && !event.action.manual
-      && currentInventory(event.query.state.data as LigandCandidatesRead | undefined, project, entry)) {
-      if (qualification.blocked) { qualification.blocked = false; qualification.error = undefined; refresh(value => value + 1); }
-    }
-  }), [client, project, entry, qualification, matches]);
-  return qualification;
-}
-
 function locationLabel(candidate: LigandCandidate) {
   return candidate.locations.map(location => {
     const number = location.author_number === null ? `residue ${location.residue_id}`
@@ -201,10 +162,10 @@ function designationRecovery(entry: Entry): string | null {
 }
 
 function inventoryFailure(error: unknown, entry: Entry): string {
-  if (error instanceof ApiError && error.status === 409 && error.code === "structure_artifact_conflict") {
+  if (error === "source_conflict" || (error instanceof ApiError && error.status === 409 && error.code === "structure_artifact_conflict")) {
     return "The structure input changed. Reload the page, then review the ligand choice for the current structure.";
   }
-  if (error instanceof ApiError && ["artifact_integrity_error", "artifact_not_found"].includes(error.code)) {
+  if (error === "artifact_unavailable" || (error instanceof ApiError && ["artifact_integrity_error", "artifact_not_found"].includes(error.code))) {
     return entry.ligand_designation.reason_code === "original_ligand_source_unavailable"
       ? originalRecovery : molecularRecovery;
   }
@@ -336,10 +297,6 @@ function CandidateDialog({ project, entry, pausedReason, busy, pending, error, o
   const [countNotice, setCountNotice] = useState<{ visit: typeof visit; text: string } | null>(null);
   const client = useQueryClient();
   const options = inventoryOptions(project, entry, offset, qualification);
-  const observedKey = useRef(options.queryKey);
-  const previousState = client.getQueryState<LigandCandidatesRead>(observedKey.current);
-  if (previousState?.status === "error") { qualification.blocked = true; qualification.error = previousState.error; }
-  observedKey.current = options.queryKey;
   const query = useQuery({ ...options,
     // A durable choice changes the response's designation fields, not its source
     // inventory. Keep verified rows mounted while checking the new query key.

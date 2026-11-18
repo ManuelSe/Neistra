@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from copy import deepcopy
 from datetime import UTC, datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from neistra_core.artifacts import LocalArtifactStore
 from neistra_core.jobs import PluginRegistry, ResultArtifact
@@ -35,6 +35,10 @@ from neistra_api.project_service import (
 )
 from neistra_api.settings import Settings
 from neistra_api.viewer_state import default_viewer_settings
+
+if TYPE_CHECKING:
+    from neistra_api.ligand_property_process import PropertyAttempt
+
 
 TERMINAL_STATUSES = frozenset({"completed", "failed", "cancelled"})
 
@@ -227,6 +231,7 @@ class JobService:
             raise JobNotFoundError(job_id)
         if not include_derived:
             from neistra_api.ligand_property_service import is_owned_property_job
+
             if is_owned_property_job(self.session, job):
                 raise JobNotFoundError(job_id)
         return job
@@ -261,8 +266,10 @@ class JobService:
 
     def claim_next(self, worker_id: str) -> Job | None:
         candidate_id = self.session.scalar(
-            select(Job.id).where(Job.status == "queued", Job.purpose == "user")
-            .order_by(Job.created_at).limit(1)
+            select(Job.id)
+            .where(Job.status == "queued", Job.purpose == "user")
+            .order_by(Job.created_at)
+            .limit(1)
         )
         if candidate_id is None:
             return None
@@ -291,6 +298,7 @@ class JobService:
         jobs = list(self.session.scalars(select(Job).where(Job.status == "running")).all())
         for job in jobs:
             from neistra_api.ligand_property_service import LigandPropertyService
+
             LigandPropertyService(self.session, self.settings).fail_execution(
                 job, "Worker stopped before the property calculation completed"
             )
@@ -329,15 +337,34 @@ class JobService:
         values: dict[str, Any],
         warnings: list[dict[str, Any]],
         message: str,
+        *,
+        property_attempt: PropertyAttempt | None = None,
     ) -> Job:
         job = self._running(job_id)
-        from neistra_api.ligand_property_service import LigandPropertyService, is_owned_property_job
+        from neistra_api.ligand_property_process import PropertyAttempt
+        from neistra_api.ligand_property_service import (
+            LigandPropertyService,
+            PropertyExecutionReaped,
+            is_owned_property_job,
+            private_execution,
+        )
+
+        if property_attempt is not None and not property_attempt.matches(
+            job, private_execution(self.session, job)
+        ):
+            return self.get(job_id, include_derived=True)
         if is_owned_property_job(self.session, job):
             if artifacts:
                 raise InvalidJobOperationError(
                     "Derived properties cannot publish ordinary artifacts"
                 )
-            LigandPropertyService(self.session, self.settings).complete(job, values)
+            captured = property_attempt or PropertyAttempt.capture(job, job.worker_id)
+            try:
+                LigandPropertyService(self.session, self.settings).complete(job, values)
+            except PropertyExecutionReaped as error:
+                self.terminalize_property_attempt(
+                    captured, "descriptor_execution_reaped", str(error)
+                )
             return self.get(job_id, include_derived=True)
         registered = self.registry.get(job.job_type)
         definitions = {item.role: item for item in registered.definition.result_roles}
@@ -388,11 +415,27 @@ class JobService:
         self.session.commit()
         return self.get(job.id, include_derived=True)
 
+    def terminalize_property_attempt(
+        self, attempt: PropertyAttempt, code: str, message: str
+    ) -> Job | None:
+        """Refresh and terminalize only this still-owned private running claim."""
+        from neistra_api.ligand_property_service import LigandPropertyService
+
+        current = attempt.locked_job(self.session)
+        if current is None or current.status != "running":
+            return current
+        if current.cancellation_requested or not LigandPropertyService(
+            self.session, self.settings
+        ).execution_live(current, include_reaped=True):
+            return self.cancelled(current.id, "Property request retired before execution finished")
+        return self.fail(current.id, code, message)
+
     def fail(self, job_id: str, code: str, message: str) -> Job:
         job = self._job(job_id)
         if job.status in TERMINAL_STATUSES:
             return self.get(job.id, include_derived=True)
         from neistra_api.ligand_property_service import LigandPropertyService
+
         LigandPropertyService(self.session, self.settings).fail_execution(job, message)
         job.status = "failed"
         job.status_message = message[:500]
@@ -407,6 +450,7 @@ class JobService:
         if job.status in TERMINAL_STATUSES:
             return self.get(job.id, include_derived=True)
         from neistra_api.ligand_property_service import LigandPropertyService
+
         LigandPropertyService(self.session, self.settings).fail_execution(job, message)
         job.status = "cancelled"
         job.status_message = message[:500]
@@ -479,9 +523,7 @@ class JobService:
             self.session,
             load_structure=self.artifacts.load_normalized,
             load_original_bytes=self.artifacts.read_verified_bytes,
-        ).import_job_result(
-            project.id, expected_revision, entry_state, job.id
-        )
+        ).import_job_result(project.id, expected_revision, entry_state, job.id)
         return project_read, entry_id
 
     def append_event(
@@ -516,9 +558,11 @@ class JobService:
 
     @staticmethod
     def ordinary_job_filter() -> Any:
-        return ~Job.id.in_(select(LigandPropertyExecution.job_id).join(
-            Job, Job.id == LigandPropertyExecution.job_id
-        ).where(Job.purpose == "ligand_properties", Job.job_type == "ligand.properties"))
+        return ~Job.id.in_(
+            select(LigandPropertyExecution.job_id)
+            .join(Job, Job.id == LigandPropertyExecution.job_id)
+            .where(Job.purpose == "ligand_properties", Job.job_type == "ligand.properties")
+        )
 
     @staticmethod
     def _job_query() -> Select[tuple[Job]]:

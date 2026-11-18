@@ -94,6 +94,10 @@ class PropertyCapacityError(RuntimeError):
     pass
 
 
+class PropertyExecutionReaped(ValueError):
+    """A finished process lifecycle no longer grants publication authority."""
+
+
 def utc(value: datetime) -> datetime:
     return value.replace(tzinfo=UTC) if value.tzinfo is None else value.astimezone(UTC)
 
@@ -278,9 +282,11 @@ class LigandPropertyService:
 
     def _binding_stamp(self, entry_id: str) -> PropertyBindingStamp | None:
         table = LigandPropertyBinding.__table__
-        row = self.session.execute(
-            select(table).where(table.c.entry_id == entry_id)
-        ).mappings().one_or_none()
+        row = (
+            self.session.execute(select(table).where(table.c.entry_id == entry_id))
+            .mappings()
+            .one_or_none()
+        )
         return (
             PropertyBindingStamp(
                 row["entry_id"], row["source_key"], row["input_hash"], row["incarnation"]
@@ -451,7 +457,11 @@ class LigandPropertyService:
                 self._lock_retirement(project_id)
                 self._recheck_failure(target, observed, retirement_verification)
             return LigandPropertyCurrentRead(
-                source=source, binding_key=key, status=failure.status, reason=failure.reason
+                source=source,
+                binding_key=key,
+                status=failure.status,
+                reason=failure.reason,
+                source_failure=failure.source_failure,
             )
         binding = self.session.get(LigandPropertyBinding, source.entry_id)
         if binding is not None:
@@ -687,8 +697,7 @@ class LigandPropertyService:
             and target["source_key"] not in consumer.failures
             and target["source"] in consumer.entries_json
             and bool(
-                set(owner["descriptor_ids"])
-                & set(self._effective(tuple(consumer.descriptor_ids)))
+                set(owner["descriptor_ids"]) & set(self._effective(tuple(consumer.descriptor_ids)))
             )
         )
 
@@ -1042,9 +1051,9 @@ class LigandPropertyService:
         self._commit_derived()
         return tuple(inputs)
 
-    def execution_live(self, job: Job) -> bool:
+    def execution_live(self, job: Job, *, include_reaped: bool = False) -> bool:
         execution = private_execution(self.session, job)
-        if execution is None or execution.reaped:
+        if execution is None or (execution.reaped and not include_reaped):
             return False
         return any(
             self._target_live(target)
@@ -1053,9 +1062,14 @@ class LigandPropertyService:
         )
 
     def complete(self, job: Job, values: dict[str, Any]) -> None:
+        from neistra_api.ligand_property_process import PropertyAttempt
+
+        attempt = PropertyAttempt.capture(job, job.worker_id)
         execution = private_execution(self.session, job)
-        if execution is None or execution.reaped:
+        if execution is None:
             raise ValueError("Unowned derived execution cannot publish descriptor content")
+        if execution.reaped:
+            raise PropertyExecutionReaped("Descriptor execution was reaped before publication")
         raw_reports, timings = values.get("reports"), values.get("stage_timings")
         expected = {capture["semantic_fingerprint"]: capture for capture in execution.captures}
         if (
@@ -1117,8 +1131,13 @@ class LigandPropertyService:
             self.session.rollback()
             return
         execution = private_execution(self.session, current)
+        if not attempt.matches(current, execution):
+            self.session.rollback()
+            return
         if execution is None:
             raise ValueError("Derived execution ownership changed")
+        if execution.reaped:
+            raise PropertyExecutionReaped("Descriptor execution was reaped before publication")
         publication_started = time.perf_counter()
         publication_verification = PropertySourceVerification(self)
         if not current.cancellation_requested:
