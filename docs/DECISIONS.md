@@ -9331,3 +9331,24 @@ structure_artifact_conflict remains ambiguous with candidate-hash rejection and
 cannot grant mutation authority. A supplied malformed or mismatching identity
 always prevents fallback. This preserves the original source-failure regression
 while retaining explicit producer and immutable-source ownership.
+
+
+### D-194 diagnostic addendum — retain browser clock origins
+
+The historical cold-edit latency evidence lacks a browser `performance.timeOrigin`,
+so it cannot establish an exact correspondence between browser-relative observations
+and worker wall-clock events. Preserve that historical miss and every existing
+fixture, measured trigger, start/stop expression, target and deadline. Add only
+explicit diagnostic clock origins and calibration records outside the measured
+intervals to the benchmark evidence. Tag records with their actual document clock
+basis; navigation must not silently mix origins. Keep any wall-clock calibration
+uncertainty visible rather than assuming synchronized clocks.
+
+This changes one benchmark method file and requires a fresh declared source/method
+binding and current execution. It does not change numerical inputs, production
+chemistry, scheduling, polling, benchmark boundaries or acceptance. Existing
+application-ready observations retain their meaning. A worker `bind_return` event
+precedes database commit; a successful `turn_end` may bound publication, but neither
+proves the exact time an unseen browser response could have completed. Record
+request counts and real work before considering a polling optimization. No speedup,
+strict reference-host pass or counterfactual claim follows from instrumentation.

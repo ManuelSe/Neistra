@@ -28,17 +28,19 @@ interface WorkRecord { record: number; event: string; turn: number | null; epoch
   active_owners?: ActiveOwner[]; format_version?: number; database?: string }
 interface WorkOrder { complete: boolean; observed_records: string; observed_sha256: string; start_record: number; last_record: number; records: number; header: WorkRecord }
 interface Observation { complete: boolean; samples: number; jobs: Record<string, JobRecord>; retained: Record<string, number>; max_running_property_jobs: number; work_order?: WorkOrder }
-interface AppReadyProof { source: Source; inputHash: string; report: Report; requestAt: number; responseAt: number; observedAt: number; consumerId?: string; sequence?: number }
-interface FetchSample { at: number; method: string; path: string; sources: Source[]; carbon: string | null; rawCarbon: string | null; carbonVisible: boolean; status?: number; finished?: number;
+interface BrowserClockCalibration { timeOrigin: number; dateBeforeMs: number; performanceNowMs: number; dateAfterMs: number }
+interface BrowserClockEvidence { installed: BrowserClockCalibration; observed: BrowserClockCalibration }
+interface AppReadyProof { timeOrigin: number; source: Source; inputHash: string; report: Report; requestAt: number; responseAt: number; observedAt: number; consumerId?: string; sequence?: number }
+interface FetchSample { timeOrigin: number; at: number; method: string; path: string; sources: Source[]; carbon: string | null; rawCarbon: string | null; carbonVisible: boolean; status?: number; finished?: number;
   observedAt?: number; consumerId?: string; sequence?: number; results?: { source: Source; status: string; inputHash: string | null; report: Report | null }[] }
 interface CarbonSnapshot { rawValue: string | null; visibleValue: string | null; visible: boolean }
-interface DomSample { started?: number; armed?: number; retired?: number; ready?: number; visibleReady?: number; presentationOpened?: number;
+interface DomSample { timeOrigin: number; started?: number; armed?: number; retired?: number; ready?: number; visibleReady?: number; presentationOpened?: number;
   networkReadyAt?: number; inputHash?: string; feedback?: number; feedbackKind?: string; changedPreviewObserved?: boolean;
   retirementObservation?: "observable" | "unobserved_hidden_at_start" | "unobserved_old_value_not_displayed";
   startSnapshot?: CarbonSnapshot; oldValue: string; nextValue: string }
 declare global {
   interface Window {
-    ligandPropertyPerformance: { requests: FetchSample[]; sample?: DomSample; observer?: MutationObserver; control?: Element; readCarbon: () => CarbonSnapshot };
+    ligandPropertyPerformance: { clock: BrowserClockCalibration; readClock: () => BrowserClockCalibration; requests: FetchSample[]; sample?: DomSample; observer?: MutationObserver; control?: Element; readCarbon: () => CarbonSnapshot };
   }
 }
 
@@ -55,6 +57,11 @@ const source = (entry: Entry): Source => {
 
 async function installObservation(page: Page) {
   await page.addInitScript(() => {
+    // Each document gets its own basis before measured work, including navigations.
+    const readClock = (): BrowserClockCalibration => {
+      const dateBeforeMs = Date.now(), performanceNowMs = globalThis.performance.now(), dateAfterMs = Date.now();
+      return { timeOrigin: globalThis.performance.timeOrigin, dateBeforeMs, performanceNowMs, dateAfterMs };
+    };
     const visible = (element: Element | null | undefined) => {
       if (!element?.isConnected || element.closest('[aria-hidden="true"], [inert]')) return false;
       const bounds = element.getBoundingClientRect(), style = getComputedStyle(element);
@@ -67,7 +74,7 @@ async function installObservation(page: Page) {
       return { rawValue: candidates[0]?.parentElement?.querySelector("dd")?.textContent?.trim() ?? null,
         visibleValue: shown?.parentElement?.querySelector("dd")?.textContent?.trim() ?? null, visible: !!shown };
     };
-    const state: Window["ligandPropertyPerformance"] = { requests: [], readCarbon: snapshot };
+    const state: Window["ligandPropertyPerformance"] = { clock: readClock(), readClock, requests: [], readCarbon: snapshot };
     window.ligandPropertyPerformance = state;
     const original = window.fetch.bind(window);
     window.fetch = async (...args: Parameters<typeof fetch>) => {
@@ -79,7 +86,7 @@ async function installObservation(page: Page) {
         try { sources = (JSON.parse(init.body) as { entries?: Source[] }).entries ?? []; } catch { /* Non-JSON requests are not descriptor demands. */ }
       }
       const before = snapshot();
-      const record: FetchSample = { at: globalThis.performance.now(), method, path: url.pathname, sources,
+      const record: FetchSample = { at: globalThis.performance.now(), method, path: url.pathname, sources, timeOrigin: state.clock.timeOrigin,
         carbon: before.visibleValue, rawCarbon: before.rawValue, carbonVisible: before.visible };
       if (url.pathname.includes("/ligand-properties") || /\/(model-edits|history\/undo|history\/redo)$/.test(url.pathname)) state.requests.push(record);
       const response = await original(...args);
@@ -119,7 +126,7 @@ async function installObservation(page: Page) {
 
 async function arm(page: Page, control: Locator, oldValue: string, nextValue: string, event = "click") {
   await page.evaluate(({ oldValue, nextValue }) => {
-    window.ligandPropertyPerformance.sample = { oldValue, nextValue, armed: globalThis.performance.now() };
+    window.ligandPropertyPerformance.sample = { oldValue, nextValue, armed: globalThis.performance.now(), timeOrigin: window.ligandPropertyPerformance.clock.timeOrigin };
   }, { oldValue, nextValue });
   await control.evaluate((element, event) => {
     const state = window.ligandPropertyPerformance;
@@ -158,7 +165,7 @@ async function automaticReady(page: Page, expected: Source, expectedHash?: strin
         && item.report?.model_status === "qualified" && (!expectedHash || item.inputHash === expectedHash));
       if (result?.inputHash && result.report) {
         state.sample!.networkReadyAt = request.observedAt; state.sample!.inputHash = result.inputHash;
-        return { source: result.source, inputHash: result.inputHash, report: result.report,
+        return { source: result.source, inputHash: result.inputHash, report: result.report, timeOrigin: request.timeOrigin,
           requestAt: request.at, responseAt: request.finished, observedAt: request.observedAt,
           consumerId: request.consumerId, sequence: request.sequence };
       }
@@ -186,11 +193,12 @@ async function openCachedPresentation(page: Page, entryId: string) {
 }
 
 async function timing(page: Page, command: boolean): Promise<DomSample & {
-  currentMs: number; domCurrentMs: number | null; networkCurrentMs: number | null; ackToNetworkReadyMs: number | null;
+  clock: BrowserClockEvidence; currentMs: number; domCurrentMs: number | null; networkCurrentMs: number | null; ackToNetworkReadyMs: number | null;
   retirementMs: number | null; retirementRelativeToResponseMs: number | null; retirementQualification: string;
   responseToCurrentMs: number | null; responseToVisibleCurrentMs: number | null; feedbackMs: number | null; cachedPresentationMs: number | null }> {
   await expect.poll(() => page.evaluate(() => window.ligandPropertyPerformance.sample?.visibleReady)).toBeDefined();
-  const { sample, requests } = await page.evaluate(() => ({ sample: window.ligandPropertyPerformance.sample!, requests: window.ligandPropertyPerformance.requests }));
+  const { sample, requests, clock } = await page.evaluate(() => ({ sample: window.ligandPropertyPerformance.sample!, requests: window.ligandPropertyPerformance.requests,
+    clock: { installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() } }));
   expect(sample.started).toBeDefined(); expect(sample.visibleReady).toBeDefined();
   const currentMs = sample.visibleReady! - sample.started!;
   expect(Number.isFinite(currentMs) && currentMs >= 0).toBe(true);
@@ -209,7 +217,7 @@ async function timing(page: Page, command: boolean): Promise<DomSample & {
       else retirementQualification = "observed_withheld_before_acknowledgement";
     }
   }
-  return { ...sample, currentMs,
+  return { ...sample, currentMs, clock,
     domCurrentMs: sample.ready === undefined ? null : sample.ready - sample.started!,
     networkCurrentMs: sample.networkReadyAt === undefined ? null : sample.networkReadyAt - sample.started!,
     ackToNetworkReadyMs: acknowledgement?.finished === undefined || sample.networkReadyAt === undefined ? null : sample.networkReadyAt - acknowledgement.finished,
@@ -563,6 +571,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
   test.setTimeout(1_200_000);
   const observer = await startObserver(info);
   const records: { kind: string; [key: string]: unknown }[] = [];
+  const pageClocks: { index: number; clock?: BrowserClockEvidence; unavailable?: string }[] = [];
   try {
     for (let index = 0; index < 25; index++) {
       const context = await browser.newContext({ viewport: info.project.use.viewport, isMobile: info.project.use.isMobile,
@@ -595,7 +604,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
         performanceBudget(firstTiming.networkCurrentMs!, 2000, "cold automatic exact-source App READY ms", true);
         if (index < 5) {
           records.push({ kind: "fresh-browser-context-cold-start", index, heavyAtoms: size, setupMsExcluded,
-            source: source(project.entries[0]), inputHash: first.report!.input_hash, timing: firstTiming });
+            source: source(project.entries[0]), inputHash: first.report!.input_hash, timing: firstTiming, automaticReady: firstAutomaticReady });
         } else {
           const edited = await actualEdit(page, request, project, initialCarbon);
           expect(edited.timing.networkCurrentMs).not.toBeNull();
@@ -646,7 +655,13 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
             cacheProjectionBoundary: mobile ? "Presentation open; ACK-to-visible includes deliberate view-open delay" : "ACK/current input to DOM",
             warmNewJobs: warmNewJobs.length, requests: afterQuiet });
         }
-      } finally { await context.close(); }
+      } finally {
+        try {
+          const clock = await page.evaluate(() => ({ installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() }));
+          pageClocks.push({ index, clock });
+        } catch (error) { pageClocks.push({ index, unavailable: String(error) }); }
+        await context.close();
+      }
     }
   } finally {
     const observation = await observer.finish();
@@ -654,7 +669,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
     const cold = records.filter(row => row.kind === "fresh-browser-context-cold-start");
     const pairs = records.filter(row => row.kind === "paired-edit");
     const evidence = { scope: "Actual browser/production API/real worker; fresh contexts are not cold server or OS-process claims",
-      profile: info.project.name, records, coldStarts: cold.length ? summary(cold.map(row => (row.timing as { currentMs: number }).currentMs)) : null,
+      profile: info.project.name, records, pageClocks, coldStarts: cold.length ? summary(cold.map(row => (row.timing as { currentMs: number }).currentMs)) : null,
       coldEdits: pairs.length ? summary(pairs.map(row => (row.cold as { networkCurrentMs: number }).networkCurrentMs)) : null,
       coldEditVisibleIncludingPresentation: pairs.length ? summary(pairs.map(row => (row.cold as { currentMs: number }).currentMs)) : null,
       warmUndo: pairs.length ? summary(pairs.map(row => (row.warm as { currentMs: number }).currentMs)) : null,
@@ -853,8 +868,10 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
     const observation = await observer.finish();
     const jobs = Object.values(observation.jobs).sort((left, right) => (left.started_at ?? "").localeCompare(right.started_at ?? ""));
     const output = resolve(observer.directory, "native-bulk-performance.json");
+    const browserEvidence = await page.evaluate(() => ({ requests: window.ligandPropertyPerformance.requests,
+      clock: { installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() } }));
     evidence = { ...evidence, actualOrder: jobs, retained: observation.retained, observerDirectory: observer.directory,
-      allAppRequests: await page.evaluate(() => window.ligandPropertyPerformance.requests),
+      allAppRequests: browserEvidence.requests, browserClock: browserEvidence.clock,
       hardWorkOrderStatus: completed ? "not_yet_evaluated" : "incomplete_workload" };
     // Keep exact workload/source/request facts even if a hard qualification
     // assertion rejects this run. The raw store and trace remain authoritative.

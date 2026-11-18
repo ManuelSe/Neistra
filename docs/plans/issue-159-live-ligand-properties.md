@@ -1068,3 +1068,64 @@ old hash reuse and cross-actor/archive/source/method inconsistencies. No product
 chemistry or scientific input policy changes. Scoped correction reassessments and
 a fresh complete actual-reader sequence remain required, separately from full43
 candidate/exact-master, current performance and all-seven release qualification.
+
+
+### Actual preceding-reader sequences pass at 586390e3
+
+Fresh execution2 completes property and broader editing suites with all six actor
+phases exit0. Primary directly observes enclosing97675exit0/c28be9; all1125current
+and1013actual0.36source bodies remain fixed throughout. Both source trees use the
+explicit locked virtual environment with implementation-specific cwd/module paths.
+The annotated predecessor05ec6685→247ab651 and all five0.36versions remain verified.
+
+The property suite covers all nine private lifecycle fixtures, nonmutating unknown
+0017 migration refusal separately from positive old API/archive writes, ordinary
+job default ownership, exact target deletion/Undo, retained preferences, canonical
+warnings/protection/designation, original uploads, user outputs and history. Fresh
+current responses and both remapped archive suffixes retain the exact partial stale
+outcome and its new scientific hash; no old ethanol numerical values return. The
+broader editing suite preserves its independent old-produced/forward-upgraded and
+current-produced/old-written/current-reopened responsibilities and both suffixes.
+
+Complete raw successful property workspace:203regular files/21empty directories,
+ZIP1,334,101bytes SHA256
+`e3557dd51f90c16ecb73bc4247d489790a8aa358bd30ccff42f81e5ea8967b30`.
+Complete raw editing workspace:796regular files/6empty directories, ZIP4,433,672bytes
+SHA256 `7ced4f32e20998e4432551c4ef6538ce00611981973bb7924b248077af932bf1`.
+All original file bodies, exact unions, CRCs and manifests verify; original stores
+remain intact. Packaging opens no SQL. Failed attempt1 remains separately retained.
+
+This is actual-source scoped compatibility evidence, not the complete43-command
+release gate or final readiness. Simultaneous old background-worker execution is
+not qualified; deploy matching client/server/worker versions. Archives retain
+snapshots rather than live Undo history. Current performance, full candidate and
+exact-master qualification, all seven final reviews and protected delivery remain.
+
+
+### C3 scoped compatibility and diagnostic-clock checkpoint
+
+The [checkpoint receipt](../assets/ligand-properties/c3-reader-clock-checkpoint.json)
+and [lossless supplement](../assets/ligand-properties/c3-reader-clock-evidence.zip)
+preserve the complete frozen input union from ten bounded preparation/review/test
+directories:371regular files,74inert symlink metadata records and145empty directories.
+The7,390,348-byte ZIP SHA256 is
+`2607a58fa0c937b48d8c2e89649b0747fac01aba95ac171d49996e72e8790319`.
+Both successful actor workspaces, the failed original workspace, all correction
+checks/reports, actual predecessor receipt and clock preparation remain included;
+originals remain in place. Exact outer union, all file hashes and CRCs verify without
+opening SQL. Recursive text inspection covers4263members with neutral terminology.
+
+Add browser document origins and calibration records solely to diagnostic evidence.
+Preserve342assertion calls, eight timeout/wait calls, all numerical literals/case
+templates/imports and every measured start/stop expression. Strict TypeScript and
+static collection of all eight performance cases pass. The benchmark file advances
+from2b3c0439 to a1b1a1ca; the other48method bodies and646application/package files
+remain exact. D-194's diagnostic addendum records cross-clock uncertainty and the
+precommit meaning of worker bind_return. No workload or speedup is claimed.
+
+The actual reader evidence binds prior clean586390e3. This checkpoint's sole source
+delta is additive benchmark instrumentation; production algorithms and scientific
+fixtures are unchanged. Regenerate a fresh complete current source/method/validation
+binding before ALL8 execution; never edit/replay the stale prep7pins or count its
+HOLD preparation as a pass. Performance/capacity and full43candidate/exact-master
+qualification, all seven final reviews and normal release delivery remain pending.

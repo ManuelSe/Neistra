@@ -40,18 +40,24 @@ current production and actual old writing, then stopped at a stale-fixture oracl
 an intentional preserved-H element edit correctly yields partial unavailable
 chemistry. Theory and architecture independently identify the unconditional
 qualified-model expectation as invalid. The corrected exact partial-result/source/
-hash/archive oracle passes102reader controls and scoped static checks; a fresh
-complete actor sequence remains required. The failed198-file workspace is retained
-losslessly before diagnostics, without modifying original stores. Initial missing-PYTHONPATH and old-version-pin failures are retained.
+hash/archive oracle passes102reader controls and scoped static checks. Fresh
+property and broader editing sequences then pass all six current/actual0.36/current
+actor phases at586390e3, with1125current/1013old bodies fixed. Both suffixes,
+canonical state, private ownership, old writes and current reconstruction qualify
+within those suites. Full43candidate/exact-master gates remain separate. Complete
+failed and successful workspaces are retained losslessly without SQL packaging. Initial missing-PYTHONPATH and old-version-pin failures are retained.
 
 ## Known limitations
 
 Historical cold median2057.95ms/p952242.60ms exceeds the unchanged2000ms target.
 Read-only diagnosis identifies readiness observation and edit/worker timings worth
 measuring; no optimization or current timing pass is inferred. Old ALL8/maps remain
-stale/HOLD. Complete native/ALL8/capacity/actual preceding-reader, candidate/exact-
-master gates and all seven same-final-candidate assessments remain required.
-#159 has no implementation push, PR, release or closeout.
+stale/HOLD. Current native/ALL8/capacity, full candidate/exact-master gates and all seven
+same-final-candidate assessments remain required. Actual preceding-reader property
+and editing suites pass separately at586390e3; the full43-step gate must still run.
+#159 has no implementation push, PR, release or closeout. Additive browser clock
+evidence changes one benchmark file;48other methods/646application files remain
+exact. Strict types/static8-case collection pass; current timing is unmeasured.
 
 ## Blockers
 
@@ -60,6 +66,6 @@ actual released0.36reader. Preserve all original sources/stores/failed attempts.
 
 ## Next action
 
-Run the actual0.36/current/reopen compatibility actors from frozen source bindings;
-measure current responsiveness/capacity and complete all release gates.
+Freeze the current source/method/validation binding and execute fresh ALL8
+performance/capacity qualification, then complete all release gates.
 Continue159–163serial delivery with the one parent Goal active through closeout.
