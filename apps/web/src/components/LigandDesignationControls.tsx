@@ -162,10 +162,10 @@ function designationRecovery(entry: Entry): string | null {
 }
 
 function inventoryFailure(error: unknown, entry: Entry): string {
-  if (error instanceof ApiError && error.status === 409 && error.code === "structure_artifact_conflict") {
+  if (error === "source_conflict" || (error instanceof ApiError && error.status === 409 && error.code === "structure_artifact_conflict")) {
     return "The structure input changed. Reload the page, then review the ligand choice for the current structure.";
   }
-  if (error instanceof ApiError && ["artifact_integrity_error", "artifact_not_found"].includes(error.code)) {
+  if (error === "artifact_unavailable" || (error instanceof ApiError && ["artifact_integrity_error", "artifact_not_found"].includes(error.code))) {
     return entry.ligand_designation.reason_code === "original_ligand_source_unavailable"
       ? originalRecovery : molecularRecovery;
   }

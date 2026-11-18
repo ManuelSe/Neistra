@@ -8589,3 +8589,47 @@ pages, source/project changes and unaffected independent consumers. Keep all old
 scientific assertions, workloads, timing bounds and warnings. Run appropriate fresh
 candidate/full gates and same-candidate seven-role reviews; this correction is not
 permission to pool partial runs or claim a release before exact-master qualification.
+
+
+## D-197 — Bound inventory failure facts with conservative requalification
+
+Independent installed-query controls of D-195 show that 1,000 failed sources,
+with or without genuine recovery before query removal, leave 1,000 retained
+owner records after all queries are gone. Unrecovered records also retain full
+error objects. The module-lifetime QueryClient outlives presenters, so query
+collection alone cannot bound this separate map. Candidate11 is explicitly
+interrupted for this confirmed resource defect; its partial checks are not a
+complete qualification and remain retained independently.
+
+Keep at most128 source qualification records and64KiB of source-key UTF-8 bytes.
+These are local metadata-retention limits, not limits on entries, molecule size,
+candidate eligibility or chemistry work. On eviction, retain one sticky owner-
+lifetime fact that an unknown source requires a genuine check. An absent source
+must then remain blocked until a matching successful request qualifies it; manual
+cache writes and old responses cannot admit or qualify records. Retained unrelated
+records keep their qualification, and eviction never cancels unrelated work.
+
+Allocate a fresh opaque token for each admitted source record and each subsequent
+failure. At actual query-fetch start, retain only that token in a weak query map.
+Only matching nonmanual success with the still-current token may recover a record.
+Eviction/recreation and deactivate/reactivate must never reset token authority.
+Keep cancellation scoped to the exact project/entry/current/original source, after
+installing the new failure token. Preserve weak historical-error acknowledgements
+so successful recovery is not undone by reactivation or manual cache publications.
+
+Retain only fixed recovery classifications: source conflict, artifact unavailable
+or integrity failure, and retry required. Full response errors, warnings, reports,
+stack traces and cause graphs remain with existing query/API owners. Preserve the
+presenter's specific current/original-file recovery wording. Use one QueryClient-
+owned instance across application/presenter remounts; a new owner for an existing
+client would lose conservative forgetting. An oversized source key is declined
+conservatively rather than stored beyond the byte budget.
+
+This introduces no scientific cache, method, request retry loop, resource/deadline
+relaxation or schema change. The bounded tradeoff is an occasional genuine check
+after qualification metadata is evicted. Verify thousands of failed/recovered/
+removed sources against both bounds, absent original error references, manual
+writes after eviction, old success across recreation, failure during Retry,
+reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
+independent architecture/performance reassessment before the next full candidate
+qualification, then all seven same-candidate assessments and the complete gates.

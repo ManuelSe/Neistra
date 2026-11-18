@@ -1,18 +1,33 @@
 import { isCancelledError, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import { useLayoutEffect, useMemo, useSyncExternalStore } from "react";
 import type { Entry, Project } from "../api/types";
+import { ApiError } from "../api/client";
 import type { LigandCandidatesRead } from "./types";
 
 export const INVENTORY_POLICY = "ligand-instance-v3";
 export const INVENTORY_CHEMISTRY_POLICY = "ligand-exact-representation-v2";
 export const INVENTORY_OCCURRENCE_POLICY = "ligand-occurrence-v1";
-export interface InventoryQualification { readonly blocked: boolean; readonly error: unknown }
+export const MAX_INVENTORY_SOURCE_RECORDS = 128;
+export const MAX_INVENTORY_SOURCE_KEY_BYTES = 64 * 1024;
+export type InventoryRecovery = "source_conflict" | "artifact_unavailable" | "retry_required";
+export interface InventoryQualification { readonly blocked: boolean; readonly error: InventoryRecovery | undefined }
 interface InventoryQuery {
   readonly queryKey: readonly unknown[];
   readonly state: { readonly data: unknown; readonly error: unknown; readonly status: string;
     readonly errorUpdateCount: number; readonly fetchStatus: string };
 }
-interface SourceBarrier { generation: number; blocked: boolean; error: unknown }
+interface SourceBarrier { token: object; blocked: boolean; recovery: InventoryRecovery | undefined; bytes: number }
+function keyBytes(source: string): number | null {
+  if (source.length > MAX_INVENTORY_SOURCE_KEY_BYTES) return null;
+  const bytes = new TextEncoder().encode(source).byteLength;
+  return bytes <= MAX_INVENTORY_SOURCE_KEY_BYTES ? bytes : null;
+}
+function recoveryFor(error: unknown): InventoryRecovery {
+  if (error instanceof ApiError && error.status === 409 && error.code === "structure_artifact_conflict") return "source_conflict";
+  if (error instanceof ApiError && ["artifact_integrity_error", "artifact_not_found"].includes(error.code)) return "artifact_unavailable";
+  return "retry_required";
+}
+const declined: InventoryQualification = Object.freeze({ blocked: true, error: "retry_required" });
 export function inventorySourceKey(project: Pick<Project, "id">, entry: Pick<Entry, "id" | "current_artifact_id" | "original_artifact_id">): string {
   return JSON.stringify([project.id, entry.id, entry.current_artifact_id, entry.original_artifact_id]);
 }
@@ -29,12 +44,14 @@ function matchingInventory(query: InventoryQuery): boolean {
     && data.artifact_id === query.queryKey[4] && data.resolver_version === INVENTORY_POLICY;
 }
 
-/** Source failure facts and request-start barriers only; never molecular values.
+/** Bounded source qualification facts and request-start tokens only; never molecular values.
  * A late success cannot requalify a check that began before a known failure.
  */
 export class LigandInventoryOwner {
   private readonly barriers = new Map<string, SourceBarrier>();
-  private readonly starts = new WeakMap<object, number>();
+  private readonly starts = new WeakMap<object, object>();
+  private retainedKeyBytes = 0;
+  private unknownRequiresCheck = false;
   private readonly observedErrors = new WeakMap<object, number>();
   private readonly listeners = new Set<() => void>();
   private release: (() => void) | null = null;
@@ -43,9 +60,28 @@ export class LigandInventoryOwner {
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   snapshot = () => this.revision;
   private notify() { this.revision++; for (const listener of this.listeners) listener(); }
+  private touch(source: string, barrier: SourceBarrier) {
+    this.barriers.delete(source); this.barriers.set(source, barrier);
+  }
+  private admit(source: string): { barrier: SourceBarrier | undefined; evicted: boolean } {
+    const existing = this.barriers.get(source);
+    if (existing) { this.touch(source, existing); return { barrier: existing, evicted: false }; }
+    const bytes = keyBytes(source);
+    if (bytes === null) return { barrier: undefined, evicted: false };
+    let evicted = false;
+    while (this.barriers.size >= MAX_INVENTORY_SOURCE_RECORDS || this.retainedKeyBytes + bytes > MAX_INVENTORY_SOURCE_KEY_BYTES) {
+      const oldest = this.barriers.entries().next().value!;
+      this.barriers.delete(oldest[0]); this.retainedKeyBytes -= oldest[1].bytes;
+      this.unknownRequiresCheck = true; evicted = true;
+    }
+    const barrier: SourceBarrier = { token: Object.freeze({}), blocked: this.unknownRequiresCheck,
+      recovery: this.unknownRequiresCheck ? "retry_required" : undefined, bytes };
+    this.barriers.set(source, barrier); this.retainedKeyBytes += bytes;
+    return { barrier, evicted };
+  }
   private fail(query: InventoryQuery, source: string, error: unknown) {
-    const generation = (this.barriers.get(source)?.generation ?? 0) + 1;
-    this.barriers.set(source, { generation, blocked: true, error });
+    const { barrier } = this.admit(source);
+    if (barrier) { barrier.token = Object.freeze({}); barrier.blocked = true; barrier.recovery = recoveryFor(error); }
     this.observedErrors.set(query, query.state.errorUpdateCount);
   }
   private scanErrors() {
@@ -58,7 +94,7 @@ export class LigandInventoryOwner {
   }
   private retire(source: string) {
     // TanStack cancels matching retryers synchronously before returning this promise.
-    // Keep the generation guard too: cancellation never qualifies a cached response.
+    // Keep the token guard too: cancellation never qualifies a cached response.
     void this.client.cancelQueries({ predicate: query => querySource(query) === source && query.state.fetchStatus !== "idle" });
   }
   activate = () => {
@@ -68,28 +104,38 @@ export class LigandInventoryOwner {
       const query = event.query, source = querySource(query);
       if (!source) return;
       if (event.action.type === "fetch") {
-        this.starts.set(query, this.barriers.get(source)?.generation ?? 0);
+        const { barrier, evicted } = this.admit(source);
+        if (barrier) this.starts.set(query, barrier.token); else this.starts.delete(query);
+        if (evicted) this.notify();
       } else if (event.action.type === "error" && !isCancelledError(event.action.error)) {
         this.fail(query, source, event.action.error);
         this.retire(source); this.notify();
       } else if (event.action.type === "success" && !event.action.manual) {
         const barrier = this.barriers.get(source);
-        if (!barrier?.blocked || this.starts.get(query) !== barrier.generation || !matchingInventory(query)) return;
+        if (!barrier?.blocked || this.starts.get(query) !== barrier.token || !matchingInventory(query)) return;
         // Only a check begun after the latest failure acknowledges older error visits.
         for (const previous of this.client.getQueryCache().getAll()) if (querySource(previous) === source && previous.state.errorUpdateCount) {
           this.observedErrors.set(previous, previous.state.errorUpdateCount);
         }
-        barrier.blocked = false; barrier.error = undefined; this.notify();
+        barrier.blocked = false; barrier.recovery = undefined; this.touch(source, barrier); this.notify();
       }
     });
     this.scanErrors();
-    for (const [source, barrier] of this.barriers) if (barrier.blocked) this.retire(source);
+    for (const [source, barrier] of [...this.barriers]) if (barrier.blocked) this.retire(source);
   };
   deactivate = () => { this.release?.(); this.release = null; };
+  retention() {
+    return Object.freeze({ records: this.barriers.size, sourceKeyBytes: this.retainedKeyBytes,
+      unknownRequiresCheck: this.unknownRequiresCheck });
+  }
   qualification(source: string): InventoryQualification {
-    const barriers = this.barriers;
-    return { get blocked() { return barriers.get(source)?.blocked ?? false; },
-      get error() { return barriers.get(source)?.error; } };
+    if (keyBytes(source) === null) return declined;
+    const isBlocked = () => this.barriers.get(source)?.blocked ?? this.unknownRequiresCheck;
+    const recovery = (): InventoryRecovery | undefined => {
+      const barrier = this.barriers.get(source);
+      return barrier ? barrier.recovery : this.unknownRequiresCheck ? "retry_required" : undefined;
+    };
+    return { get blocked() { return isBlocked(); }, get error() { return recovery(); } };
   }
 }
 const clientOwners = new WeakMap<QueryClient, LigandInventoryOwner>();

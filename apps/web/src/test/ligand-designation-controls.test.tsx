@@ -1358,3 +1358,41 @@ describe("source failures retire earlier inventory checks", () => {
     owner.deactivate(); owner.activate(); expect(owner.qualification(inventorySourceKey(project, item)).blocked).toBe(false); owner.deactivate();
   });
 });
+
+describe("bounded source recovery classifications", () => {
+  it.each(["original", "current", "conflict"])("preserves %s recovery wording after the raw query error is replaced manually", async kind => {
+    const owner = resolvedEntry(), app = setup(owner); await screen.findByText("ATP 601 · chain A");
+    candidatesMock.mockRejectedValueOnce(new ApiError(409, kind === "conflict" ? "structure_artifact_conflict" : "artifact_integrity_error", "Full response remains query-owned"));
+    await act(async () => { await app.client.refetchQueries({ queryKey: ["ligand-candidates"] }); });
+    const key = app.client.getQueryCache().find({ queryKey: ["ligand-candidates"], exact: false })!.queryKey;
+    if (kind !== "conflict") {
+      const changed = { ...owner, ligand_designation: { ...owner.ligand_designation, status: "stale" as const,
+        reason_code: kind === "original" ? "original_ligand_source_unavailable" : "molecular_source_unavailable" } };
+      app.update({ ...app.props, project: { ...app.props.project, entries: [changed] } });
+    }
+    act(() => { app.client.setQueryData(key, inventory(owner)); });
+    const expected = kind === "original" ? "The original file could not be verified. Reimport the structure, then choose the new entry."
+      : kind === "current" ? "A molecular file could not be verified. Reimport the structure, then choose the new entry."
+        : "The structure input changed. Reload the page, then review the ligand choice for the current structure.";
+    expect(screen.getByRole("status")).toHaveTextContent(expected);
+  });
+});
+
+it("requires one real check after mounted qualification is evicted without starting an automatic retry loop", async () => {
+  const owner = resolvedEntry(), app = setup(owner); await screen.findByText("ATP 601 · chain A");
+  expect(candidatesMock).toHaveBeenCalledTimes(1);
+  await act(async () => {
+    for (let i = 0; i < 129; i++) {
+      const other = { ...owner, id: `retained-entry-${i}` }, data = inventory(other);
+      const key = ["ligand-candidates", "ligand-instance-v3", app.props.project.id, other.id, other.current_artifact_id,
+        other.original_artifact_id, "ligand-exact-representation-v2", "ligand-occurrence-v1", "designation", 0, 12];
+      await app.client.fetchQuery({ queryKey: key, queryFn: () => Promise.resolve(data) });
+    }
+  });
+  expect(candidatesMock).toHaveBeenCalledTimes(1); expect(screen.queryByText("ATP 601 · chain A")).toBeNull();
+  await userEvent.click(screen.getByRole("button", { name: "Change" })); const dialog = screen.getByRole("dialog");
+  expect(await within(dialog).findAllByRole("radio")).toHaveLength(2); expect(candidatesMock).toHaveBeenCalledTimes(2);
+  await userEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+  await userEvent.click(screen.getByRole("button", { name: "Change" }));
+  expect(await within(screen.getByRole("dialog")).findAllByRole("radio")).toHaveLength(2); expect(candidatesMock).toHaveBeenCalledTimes(2);
+});

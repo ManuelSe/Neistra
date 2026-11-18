@@ -117,3 +117,27 @@ The158contract below records concrete schema/compatibility/scientific policy bef
 Owner explicitly confirmed takeover of the existing program checkout. Reverified native membership and all blocking edges, remote master62623a16, planning branch248807ec and stable/latest0.33.0. All required issues remain open; no unrelated checkout/ref/process is changed. The one durable Goal covers the complete program endpoint. Current remote classic protection reports unprotected and rulesets empty; these are observations, never authority to bypass later protection.
 
 Current #156 work and diagnostic evidence are being reconciled under its child log. Planning assessments identified concrete pre-code refinements for158/159: typed entry durability and reader refusal, complete instance connectivity, explicit-H/isotope protection, atomic current publication and bounded priority scheduling. These preserve the accepted scope and are not implementation approval. Serial dependencies and exclusions remain unchanged.
+
+
+### Program continuation — bounded qualification source checkpoint
+
+Required scope remains156–163, exclusions and serial release order unchanged.
+156/157 remain delivered;158is unreleased. Its D-197 source correction now passes
+all seven complete-feature CODE assessments plus99focused/1,334web/lint/types/build.
+The complete1,007-source freeze is retained; fresh42-step candidate12 remains next,
+followed by final same-candidate assessment/protected merge/exact-master42/release.
+C11is explicitly interrupted130, not qualified;53forensic assets/eightruns are
+locally verified and still require full public proof before child closeout.
+
+Independent159preparation corrects captured private-worker startup/refusal and
+reaped-result publication under D-196. Author156focused/sixreal supervisors/static
+and scoped architecture/scientific/performance assessments pass. Exact propagation
+into160/161passes156focused/sixsupervisors/mypy280/lint in each. Shared D-197
+frontend propagation passes99focused in159/160/161; completeweb1,411/1,673/1,738
+and typing/lint/build pass.160's earlier three5second concurrent-run timeouts remain
+retained; identical-source serial rerun passes all1,673 with unchanged timeouts.
+161uses the canonical QueryClient owner and preserves its sidebar-specific context,
+header and publication boundary. A fresh scoped8-case native attempt has launched;
+no result or final feature/readiness claim is inferred. Actual released dependencies
+must still be integrated before each child's final gates and serial publication.
+162/163 remain required planned work. Keep the single whole-program Goal active.

@@ -858,3 +858,59 @@ Run candidate11 only after this passing checkpoint is committed; exact-master1 i
 reserved for the actual later protected merge commit. Final all-seven assessments,
 normal reviews/checks/protection, actualM42gate, immutable tag/release/full public
 asset readback and issue closeout remain mandatory. No implementation push yet.
+
+
+### C11 interrupted and D-197 pre-code retention correction
+
+Candidate `c56e4c37b6d726a2c3a67d2a069e520065b043ed` begins clean and passes
+15pre-browser phases:3,040Python/1,315web/14supervisor plus static/build/migrations
+and602browser inventory. Root explicitly interrupts the positively owned browser
+CLI for an independently confirmed owner-retention defect, actual4339exit130.
+Browser231PASS/5historical exclusions/1interrupted/365unrun; zero unexpected or
+flaky cases. No summary/package. All1,006current/931preceding source identities
+remain fixed; owned services stop and8250/8251/5413are free. The complete raw run,
+store, source snapshots and diagnosis remain required forensic evidence.
+
+Independent installed-query controls, repeated by root actualceece7exit0, show
+0queries/1,000retained source records after1,000fail/remove cycles and after
+1,000fail/genuine-recovery/remove cycles. Unrecovered records retain1,000errors.
+These are cardinality/string-byte observations, not heap/RSS measurements.
+D-197 records the architecture-reviewed bounded conservative requalification
+method before code. The original75tests and allfiveD-195controls remain intact;
+add independent retention/eviction/token/unknown-source controls. Renew affected
+assessments before a fresh complete candidate; no previous partial gate is pooled.
+
+
+### D-197 passing source checkpoint and candidate12 preparation
+
+[Bounded-owner evidence](../assets/ligand-designation/c3-owner-budget-checkpoint.json)
+binds99focused/1,334web123suites/lint/types/build, actual16116exit0,350web/config
+identities fixed and the original80tests as an exact88,835Bprefix. The525,877Bpacket
+SHA`952286ec7399e5f2d9bb71101f47a45984d29d35a4513820a04338bb17d78cec`
+passes primary independent63payload hashes/fourrecursiveZIP CRCs, observed tool
+chunk1bff8eexit0. Complete selected source count1,007/digest
+`9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274`
+has exactly3existing+1newsource differences from the interrupted C11 map.
+
+All seven specialists return complete-feature CODE PASS on this same source
+candidate. Independent owner/presenter controls cover retained-memory budgets,
+opaque token recreation, old/manual publications, failure during Retry, genuine
+fresh recovery, source isolation, error classification and no automatic retry loop.
+No original Error objects are retained in records. Original1,000-source controls
+now retain128records/7,296keybytes in both recovery modes, not a heap/RSS claim.
+Current/original/conflict recovery copy, scientific warnings and originals remain.
+
+C11 is retained in53forensic parts/eightruns, with v7 local/full-union/CRC proof and
+primary small-packet readback. Its231PASS/5historical/1interrupted/365unrun and
+15passing pre-browser phases are never a full-gate claim. All earlier52parts and
+seven run records remain exact. Future release requires all53public body proofs.
+
+Fresh candidate12 retains every42recipe step; only label/output/store paths differ
+from C11, SHA`968a4acd41b6937fb5203e2be8064dc69c1aff6c3f9c323c2a0f67833ff5346c`.
+Prelaunch static inspection corrects the private wrapper's receipt binding to its
+label, current wrapperSHA`bbf383cdb789f345a643b9349be9d64769171b381f7f6be1656c1e2515376b65`;
+original draft/preparation are preserved, with no executed C12 failure or run claimed.
+Commit the coherent local checkpoint, then execute cleanC12/all42/summary/package
+and observe actual enclosing0. Final metadata/all-seven same-final-candidate
+reconfirmation, protected merge, actual-master42qualification and verified release
+remain mandatory. No implementation push or feature completion is established here.
