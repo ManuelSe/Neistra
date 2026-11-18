@@ -1,0 +1,207 @@
+{
+  "status": "Passing local preparatory checkpoint only.",
+  "base": "b05bc597285a818c0983ab0d718ec181430f4876",
+  "source_reference": "16ca91ea902aec8ca231eed35e8aa9ccc598cf3f",
+  "subjects": {
+    "apps/web/src/components/ProjectInspector.tsx": "4b065a9218ac6a4bd3f4c931f67b217492e3ceadaf6c02b91d1c15d38b157efe",
+    "apps/web/src/test/project-inspector-query-scaling.test.tsx": "96ba311128b6fdc9f6b761b8676c11ecca881e0852839d16514c98532c9e3e92",
+    "apps/web/src/test/project-inspector-view-queries.test.tsx": "5399c3fa52f70fb57441dade265843f3399cf00075509a2d1ffc0edc3b951573"
+  },
+  "adaptation": "Preserve161tools-only enabled guard and include view memo dependency; all other query-method changes match159.",
+  "verification": {
+    "red": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx",
+        "src/test/project-inspector-view-queries.test.tsx"
+      ],
+      "exit": 1,
+      "elapsed_seconds": 2.2841720160795376,
+      "log_sha256": "31831f4d9be5f0897daf587a020178230128c6165d1524b95a306aafd53907e4"
+    },
+    "red-corrected-control": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx",
+        "src/test/project-inspector-view-queries.test.tsx"
+      ],
+      "exit": 1,
+      "elapsed_seconds": 2.352437491994351,
+      "log_sha256": "30f9cd77c13e3bbcab8fcc76e8daed5982a332b329b7bd8c7ed3f1d481011257"
+    },
+    "green": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx",
+        "src/test/project-inspector-view-queries.test.tsx"
+      ],
+      "exit": 1,
+      "elapsed_seconds": 2.160166218993254,
+      "log_sha256": "c2596a7438694769248deefd2345e44a41f13fffe2183f08c0330c177621e1ec"
+    },
+    "green-corrected": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx",
+        "src/test/project-inspector-view-queries.test.tsx"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 3.009965298930183,
+      "log_sha256": "707b4f2ef3827d02f63b33f5cbe4d086bea08708d735c3e56583d8217da425c0"
+    },
+    "final-regressions": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx",
+        "src/test/project-inspector-view-queries.test.tsx"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 2.078264700016007,
+      "log_sha256": "18525fba6afaed9bb004859922b60472d718fed80bec5070efcaf192ffdee0c2"
+    },
+    "focused": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/inspector-content-anchor.test.tsx",
+        "src/test/ligand-information-sidebar.test.tsx",
+        "src/test/ligand-information-publications.test.tsx",
+        "src/test/ligand-properties.test.tsx",
+        "src/test/ligand-profiles-integration.test.tsx",
+        "src/test/ligand-properties-source-verification.test.tsx",
+        "src/test/measurement-current-source.test.tsx",
+        "src/test/structure-projection-lifecycle.test.tsx",
+        "src/test/structure-projection.test.ts"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 5.348894783994183,
+      "log_sha256": "19df1401b2a86c0dd91ccb4bc67f28a7e729cc57fe0ab7612ad0e1360d16e007"
+    },
+    "lint": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit": 1,
+      "elapsed_seconds": 29.029504359001294,
+      "log_sha256": "8e2835ec0b5372bbf0257c3a9c041f11a99c91e7e1f210aa90ca1258bfcfd53e"
+    },
+    "lint-final": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 22.419221200980246,
+      "log_sha256": "94d3523f9b94d633fc7ce7a404ce5464f9663fef66d908b86d75cee5d7425f35"
+    },
+    "typecheck": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 13.288501273957081,
+      "log_sha256": "8f5efea190f4fb429a932669d5fb7e5714cf4206209a3f9ee308b0f9fe7edda7"
+    },
+    "typecheck-final": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 10.861156352097169,
+      "log_sha256": "8f5efea190f4fb429a932669d5fb7e5714cf4206209a3f9ee308b0f9fe7edda7"
+    },
+    "build": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 19.45820031093899,
+      "log_sha256": "8ccf7f5ae1247808ec23029947c9c20acfb24ea5ba2800d4e774ebbd9713db74"
+    }
+  },
+  "counts": {
+    "new_regressions": 4,
+    "existing_affected_tests": 139,
+    "existing_affected_files": 9,
+    "entries": [
+      100,
+      1000
+    ],
+    "before_tracking": [
+      50500,
+      5005000
+    ],
+    "after_tracking": [
+      0,
+      0
+    ],
+    "before_entry_id_reads": [
+      10200,
+      1002000
+    ],
+    "after_entry_id_reads": [
+      200,
+      2000
+    ]
+  },
+  "preservation": "Entire nonquery suffix, prefix except queryOptions import, and13protected source/dependency/version/document bodies unchanged.",
+  "specialist_verdicts": {
+    "software_architecture": "PASS scopedpreparation",
+    "performance": "PASS scopedpreparation"
+  },
+  "retained_failures": "Initial red also exposed author wrong URL parameter. Corrected red has only expected resource failure. Green-labelled run remained old source after patch-generator SyntaxError and is another red, not PASS. Initial lint3errors corrected with exact URL assertion/await. All original raw logs/receipts retained.",
+  "packet": {
+    "file": "c2-inspector-scaling-evidence.zip",
+    "bytes": 41294,
+    "sha256": "7ee27724107f00126242a57c8afba9bd860654edb50363fe28a02697dbb249ee",
+    "manifest_entries": 35,
+    "complete_body_crc_exact_union_readback": "PASS"
+  },
+  "limitations": [
+    "Both reviewers performed read-only source/hash checks; no actual application or workload execution by reviewers.",
+    "Actual released159/160 integration, fresh native/performance qualification, full gates and final seven-role acceptance remain pending.",
+    "No actual native latency or production speedup is inferred from mocked work counts."
+  ]
+}

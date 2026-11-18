@@ -312,3 +312,33 @@ separate final publication. This packet includes the current preparation's narro
 native8raw copy, not every previous failure tree. Remaining complete644native
 inventory execution, current performance/readers, actual released159/160integration,
 full candidate/exact-master gates and all seven final assessments remain mandatory.
+
+
+### Preparatory inspector query checkpoint — 2026-11-18
+
+On base b05bc597, carry the D-201 query correction while preserving this sidebar's
+tools-only enabled guard and adding view to memo dependencies. The complete
+non-query suffix and prefix except queryOptions import remain byte-identical;
+all13recorded source/profile/anchor/dependency/version/product/global-plan subjects
+remain unchanged. Preserve complete hidden/selected query scope and existing source
+qualification, failure notifications and in-flight semantics.
+
+The original resource assertion fails with50,500/5,005,000tracked properties at
+100/1000entries. The final correction records0/0tracking and200/2000ID reads and
+passes four new controls plus139affected cases across nine files, lint/types/build.
+The added view control proves initial ligand-only zero demand, exact-source tools
+activation, seed qualification, retained-data failure and held recovery across
+visits, controlled task preservation and no duplicate reads. Scoped architecture
+and performance independently review the complete three-path diff and evidence:
+both PASS with no consequential finding. No additional standalone native/profile
+workload is required solely for this bounded correction.
+
+[Checkpoint](../assets/ligand-information/c2-inspector-scaling-checkpoint.json) and
+[lossless evidence](../assets/ligand-information/c2-inspector-scaling-evidence.zip)
+retain all bounded preparation files, exact source bodies and failed attempts.
+Primary full body/hash/CRC/exact-entry verification passes. Initial authoring/lint
+failures and the old-source green-labelled failed run remain explicit. Historical
+C2native evidence keeps its original subject; current guards remain stale/HOLD.
+Actual released159/160integration, final versions/readers, fresh current native/
+performance/full candidate/master gates and all seven final assessments remain
+mandatory. This local checkpoint is not final feature readiness or publication.

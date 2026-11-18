@@ -8980,3 +8980,26 @@ newer-failure ownership, hidden/remounted consumers and unrelated/Cancel/origina
 bytes/history/bounded retention. Architecture and scientific implementation have
 assessed the method before code; actual159implementation and reassessment remain
 pending the earliest158shared-source correction.
+
+
+### D-201 sidebar inspector continuation — retain view-specific query demand
+
+2026-11-18: reuse159's indexed/memoized structure-query correction in161while
+preserving the sidebar's tools-only enabled guard. Include view in memoized option
+dependencies so deliberate Tools activation enables the exact-source read and
+Ligand information alone creates no new projection demand. Preserve the complete
+relevant-entry set, artifact keys, data/isError/isPlaceholderData notifications,
+seed/current-source qualification and existing in-flight cancellation semantics.
+No new abort-on-hide policy or workflow is introduced. Keep the entire non-query
+component suffix, visit/task/layout logic and profile ownership byte-identical.
+
+Architecture and performance assess the method before implementation and the
+complete resulting three-path diff independently. Retain the original scaling
+failure and the final four passing scaling/source/view controls,139affected cases
+and lint/types/build evidence. The new view control checks tools activation, seeds,
+retained-data failure, held recovery, task/visit preservation and no duplicate read.
+Keep authoring and initial lint failures explicit; a green-labelled invocation
+that still used old source after a patch-generator failure is another red result.
+This is local preparation only, without a native latency or production speedup
+claim. Actual released159/160integration, fresh native/performance qualification,
+complete candidate/master gates and all seven final assessments remain mandatory.

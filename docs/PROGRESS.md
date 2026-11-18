@@ -3,10 +3,11 @@
 ## Current milestone
 
 Parent #11 remains active through verified releases and closeout for #156–#163.
-#156–#158 are delivered. #159 has passing actual preceding-reader property/editing
-sequences and is qualifying current performance. #160 remains a local checkpoint.
-This #161 branch now passes all16C2native lifecycle/access cases. Actual released
-prerequisite integration and final release qualification remain separate.
+#156–#158 are delivered. #159 is running full candidate qualification on16ca91ea;
+#160 remains local preparation with query-scaling checkpoint0f54385c. The historical
+#161 C2native run passes16selected cases. Its subsequent inspector query-scaling
+preparation passes focused checks; actual released prerequisite integration and
+final release qualification remain separate.
 
 ## Completed work
 
@@ -23,6 +24,9 @@ The shared private-startup correction preserves exact execution ownership and
 truthful terminal/reaped states. Both P2 recovery findings are closed by scoped
 architecture review. No production scientific method or fixture is changed by the
 subsequent C2 synchronization and native-disclosure test corrections.
+The inspector also reuses D-201 entry indexing and explicit query notifications,
+while preserving its tools-only read activation and view memo dependency. Entire
+non-query layout/visit/task/profile behavior remains byte-identical.
 
 ## Verification performed
 
@@ -46,9 +50,21 @@ current native run and source-equivalent scoped checks. Original workspaces and
 all failed/prepared attempts remain retained. In-place inventories preserve910prior files and102raw
 store members without recursive rebundling.
 
+The [inspector checkpoint](assets/ligand-information/c2-inspector-scaling-checkpoint.json)
+and [lossless packet](assets/ligand-information/c2-inspector-scaling-evidence.zip)
+bind four new regressions,139affected cases/nine files and successful web lint,
+types and build. At100/1000entries, tracking changes from50,500/5,005,000 to0/0;
+ID reads change from10,200/1,002,000 to200/2000. The view control preserves initial
+ligand-view zero reads, tools activation, seed/failure qualification and held
+recovery across visits. Scoped architecture and performance assessments PASS.
+All failed authoring/check attempts remain retained with their actual outcomes.
+These mocked work counts do not establish native latency or a production speedup.
+
 ## Known limitations
 
-This is a passing local C2candidate, not feature readiness or delivery. Actual
+These are passing local checkpoints, not feature readiness or delivery. Historical
+native evidence remains bound to its original snapshot; current source guards
+are stale/HOLD until prerequisite integration and fresh qualification. Actual
 released159/160integration must also incorporate158terminal documentation, final
 0.39versions and all inherited source/method corrections. Current performance,
 actual preceding-reader compatibility, final all-seven review and complete
