@@ -28,7 +28,13 @@ Published-runtime integration retains the canonical owner and exact qualified
 JobsPanel/native refinements;1565frontend/133suites,64verifier and static checks pass.
 Current version preparation passes five-version/schema/dependency audit, offline
 lock consistency,67archive codec/metadata cases, Ruff/mypy274/types/build/diff.
-All1125current selected sources remain exact through those checks. The archive
+All1125selected sources remain exact through the version and terminal-doc checks.
+The actual tagged0.36reader is now extracted and its1013source bodies verified.
+A narrow compatibility-launcher correction preserves the explicit virtual-environment
+interpreter rather than resolving it to the system binary. Four regression controls
+fail on the original launcher; all82current reader/recipe controls plus scoped
+Ruff/format/mypy pass after correction. Application/scientific sources are unchanged.
+The archive
 version matrix is labelled-metadata coverage; actual released0.36code qualification
 remains separate. Initial missing-PYTHONPATH and old-version-pin failures are retained.
 
@@ -48,6 +54,6 @@ actual released0.36reader. Preserve all original sources/stores/failed attempts.
 
 ## Next action
 
-Commit this source-unchanged terminal-documentation integration; qualify the actual
-0.36reader, measure current responsiveness/capacity, and complete all release gates.
+Run the actual0.36/current/reopen compatibility actors from frozen source bindings;
+measure current responsiveness/capacity and complete all release gates.
 Continue159–163serial delivery with the one parent Goal active through closeout.

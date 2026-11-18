@@ -1009,3 +1009,26 @@ and normal publication remain mandatory. A pre-merge observer used the wrong JSO
 serialization for a historical source-map digest and stopped before Git mutation;
 full dictionary equality against all1125passing checkpoint identities resolves it
 without any source or acceptance change.
+
+
+### Actual predecessor extraction and interpreter preservation
+
+Extract all1013selected regular source blobs directly from actual annotated
+v0.36.0 (05ec6685→247ab651) into a fresh isolated tree. Verify the complete
+path/body map and unchanged dependency package pins; no version-labelled current
+copy supplies old code. The complete source receipt remains bound to247ab651.
+Actual compatibility actors remain pending at this checkpoint.
+
+Preflight stdlib subprocess probes establish that resolving `.venv/bin/python`
+to its system executable loses the virtual environment and locked dependencies,
+even with correct implementation-specific cwd/PYTHONPATH. Preserve the explicit
+absolute interpreter path instead. Only the shared reader launcher and its unit
+contract tests change; source ownership, actor cwd, environment, identity checks,
+all prior assertions and the43-command recipe remain intact. Four new offline
+controls cover absolute/relative symlinks and both suites across all three actor
+phases; each fails against the original launcher. Corrected82reader/recipe cases,
+Ruff, formatting, mypy2 and diff checks pass. The first static attempt's unit-test
+module-export typing error is retained and corrected without runtime changes.
+All1123other source path/body pairs remain unchanged; D-194methods/fixtures stay
+exact. This scoped checkpoint does not establish actual old-code compatibility,
+full performance qualification or final feature readiness.

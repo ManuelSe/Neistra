@@ -1438,7 +1438,8 @@ def run(args: argparse.Namespace) -> None:
     ):
         report, log = work / f"{phase}.json", work / f"{phase}.log"
         command = [
-            str(args.python.resolve()),
+            # Resolving the executable symlink would bypass its virtual environment.
+            str(args.python.absolute()),
             "-B",
             str(HERE),
             "actor",

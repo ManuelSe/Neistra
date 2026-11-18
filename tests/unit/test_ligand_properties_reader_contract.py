@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import copy
 import json
 import runpy
@@ -13,6 +14,61 @@ from typing import Any
 import pytest
 
 from tests.support import ligand_properties_reader_qualification as reader
+
+
+@pytest.mark.parametrize("mode", ["run", "editing-run"])
+@pytest.mark.parametrize("relative_interpreter", [False, True])
+def test_actor_launch_preserves_explicit_virtual_environment_interpreter(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    mode: str,
+    relative_interpreter: bool,
+) -> None:
+    current, previous = tmp_path / "current", tmp_path / "previous"
+    current.mkdir()
+    previous.mkdir()
+    interpreter = current / ".venv/bin/python"
+    interpreter.parent.mkdir(parents=True)
+    base_interpreter = tmp_path / "base-python"
+    base_interpreter.write_text("not executed")
+    interpreter.symlink_to(base_interpreter)
+    monkeypatch.chdir(current)
+    supplied_interpreter = interpreter.relative_to(current) if relative_interpreter else interpreter
+    monkeypatch.setattr(reader, "verify_predecessor", lambda *args: {"offline_binding": True})
+    reports = editing_reports() if mode == "editing-run" else property_reports()
+    observed_phases = []
+
+    def capture_actor(command: list[str], **kwargs: Any) -> subprocess.CompletedProcess[bytes]:
+        phase = command[4]
+        selected = previous if phase == "old-write" else current
+        assert command[0] == str(interpreter)
+        assert command[0] != str(interpreter.resolve())
+        assert kwargs["cwd"] == selected
+        assert kwargs["env"]["PYTHONPATH"].split(":")[0] == str(selected / "apps/api/src")
+        assert kwargs["start_new_session"] is True
+        reader.dump(Path(command[command.index("--evidence") + 1]), reports[phase])
+        observed_phases.append(phase)
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr(subprocess, "run", capture_actor)
+    work = tmp_path / "work"
+    reader.run(
+        argparse.Namespace(
+            command=mode,
+            current_root=current,
+            previous_root=previous,
+            previous_receipt=tmp_path / "receipt.json",
+            python=supplied_interpreter,
+            workspace=work,
+            current_version="0.37.0",
+            previous_version="0.36.0",
+            previous_tag="v0.36.0",
+            previous_commit="a" * 40,
+        )
+    )
+    assert observed_phases == list(reader.PHASES)
+    summary = reader.load(work / "summary.json")
+    assert summary["complete"] and summary["all_actor_reports_verified"]
 
 
 def store(path: Path, *, pid: int | None = None, token: str | None = None) -> Path:
