@@ -9500,3 +9500,23 @@ or scientific/application inputs change. Independent performance assessment perm
 unaffected native11 evidence reuse at its original source identity with an explicit
 later tooling delta and honest new full-source digest. It does not permit relabelling
 the old run or skipping the fresh whole release gates/final seven-role reconfirmation.
+
+
+### D-201 qualification continuation — uniquely identify workflow notices
+
+2026-11-18: the complete candidate2native run exposes a lifecycle test locator
+collision: the recovery/checkpoint notices and truthful Properties empty state
+share the status role. Preserve production accessibility behavior. Scope exactly
+the two workflow assertions by their expected notice text, retaining role, strict
+uniqueness, all subsequent Undo/Redo/save/reopen checks and deadlines. An independent
+75-call status-locator audit finds no other equivalent unscoped workspace assertion.
+The extra report error is only the existing maximum-failure stop, not another defect.
+
+The complete lifecycle file passes5cases in both browser profiles with one existing
+authored mobile exclusion, no failure/flake/retry and1,130unchanged selected sources.
+Scoped architecture/performance assessments PASS. All461runtime bodies and51native11
+method subjects remain exact; preserve that measurement's original995e/b2d49identity
+and the explicit later helper/test delta. No extra standalone performance workload
+is justified solely by these two selectors. Complete fresh candidate3/master1gates
+and final all-seven acceptance remain mandatory. Preserve every failed candidate2
+input separately; it never becomes qualified by the focused correction.

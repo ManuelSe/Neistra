@@ -8,9 +8,12 @@ is followed by passing local lease-maintenance, packaging and batch-oracle corre
 All eight corrected portable performance cases pass; complete release gates remain.
 The first full candidate gate is intentionally stopped after 15 passing commands
 to correct a retained-evidence verifier defect. The integrated correction passes
-89 controls; a fresh complete candidate gate is required.
-#160 is a passing local checkpoint. #161 has committed its 16 passing local C2
-native cases. #162 has an authorized technical plan; #163 remains planned.
+89 controls. Candidate2 then fails on a lifecycle test status-locator collision after
+15 passing commands; its complete forensics are independently verified. Two scoped
+notice filters pass the complete lifecycle file in both browser profiles. Fresh
+candidate3 qualification is required; master1 remains unspent.
+#160 has local query-scaling checkpoint0f54385c; #161 has checkpoint05be77a4
+preserving its tools-only query activation, alongside its historical16native cases. #162 has an authorized technical plan; #163 remains planned.
 
 ## Completed work
 
@@ -64,8 +67,8 @@ passes independent whole-body/CRC/recursive readback. The corrected batch oracle
 passes 16 focused tests, full lint/types and strict benchmark TypeScript. Independent
 old-oracle controls reject 641 predicate faults and 4 source/order faults; data matcher
 calls are 801→2 per 200 ready rows. Scoped architecture/performance assessments pass.
-Both complete 43-command recipes are authored for candidate and exact master;
-neither gate has run. See the [batch-oracle receipt](assets/ligand-properties/c3-bulk-validation-checkpoint.json).
+Both complete43-command recipes were authored at that checkpoint; subsequent
+candidate outcomes are recorded below. See the [batch-oracle receipt](assets/ligand-properties/c3-bulk-validation-checkpoint.json).
 
 Native11 at 995e80f8 exits 0 with eight single-attempt passes, zero skips, failures,
 flakes or retries. Both profiles complete cold/edit, cancellation and repeated/distinct
@@ -95,6 +98,22 @@ test failure. Complete logs, 719 raw inputs, source ZIPs, raw databases and clea
 are preserved in a separately verified 36,544,045-byte forensic packet. The absence of
 a final browser JSON report remains explicit. Original artifacts remain in place.
 
+Candidate2 at16ca91ea passes its first15commands, including3,589Python tests/zero
+skips and1,584frontend cases. The full native run stops after174passes, one failure,
+three authored exclusions and462unrun cases. Its generic lifecycle status locator
+collides with the valid Properties empty state; the only top-level error is normal
+maximum-failure stopping. The complete1,149,122,794-byte failed-run packet preserves
+34,630raw files, all4DB/WAL/SHM bodies and exact current/actual-v0.36 source ZIPs.
+Independent full original/body/hash/CRC/union and40-layer verification PASS for
+retention only. See [failure metadata](assets/ligand-properties/c3-candidate2-failed-checkpoint.json).
+
+Only the two lifecycle status assertions gain intended-notice text filters. All
+roles, uniqueness, workflow assertions and deadlines remain. The full lifecycle
+file passes5cases in desktop/mobile, with one existing authored mobile exclusion
+and zero failures/flakes/retries. Scoped architecture/performance assessments PASS;
+all1,130sources remain exact during that run. See the [correction receipt](assets/ligand-properties/c3-lifecycle-status-checkpoint.json)
+and [evidence](assets/ligand-properties/c3-lifecycle-status-evidence.zip).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -122,12 +141,12 @@ causal or same-method application speedup claim.
 Full 43-command candidate/exact-master gates, all seven final same-candidate assessments
 and protected delivery remain required. Strict reference latency targets remain
 separate under D-148. #159 has no implementation push or release.
-Only the artifact helper and its unit tests change after native11; all 51 benchmark
+Only the artifact helper/unit tests and two lifecycle notice selectors change after native11; all 51 benchmark
 subjects and production/scientific inputs remain exact. Reuse that run at its original
 995e80f8/source identity with the explicit tooling delta; do not relabel it as the new
 full-source digest. Fresh complete gates still qualify the corrected full source.
 
-Five separate forensic assets remain publication-pending. Early exploratory probes
+Six separate forensic assets remain publication-pending. Early exploratory probes
 are now fully retained at their current bytes; two SHM revisions differ from older
 recorded hashes and their historical pre-SQL ordering is unproven. Those limits do
 not qualify earlier interrupted/failed runs. See the
@@ -141,7 +160,7 @@ qualification remains required.
 
 ## Next action
 
-Run fresh complete `c4-candidate2`, retain the authored unspent `c4-master1` recipe,
+Run fresh complete `c4-candidate3`, retain the authored unspent `c4-master1` recipe,
 obtain final seven-specialist assessments,
 then complete protected merge, exact-master qualification and verified release.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.

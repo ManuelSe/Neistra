@@ -1488,3 +1488,42 @@ and preparations5–7 unexecuted/HOLD. Two current 32KiB SHM bodies differ from 
 indexed hashes; current bytes and original hash records are preserved, while the older
 byte revisions and historical pre-SQL ordering remain unproven. DB/WAL bodies match.
 This is transparent later forensic retention, never current ALL8 or release qualification.
+
+
+### Candidate2 failure retained; bounded lifecycle correction
+
+Original candidate2at16ca91ea completes15commands:3,589Python/zero skips,1,584web/
+136files,14supervisors, static/build/migrations/frozen installs and640native inventory.
+Browser execution records174passes,1failure,3authored exclusions and462unrun. The
+sole failure is a generic status locator matching both the genuine recovery notice
+and Properties empty state; top-level error is maximum-failure stopping only.
+All16lossless logs,1,130current/1,013actual036source bodies and4rawDB/WAL/SHM files
+verify. Positive cleanup checks56known handles gone, dedicated markers absent and
+all three ports free before raw copying; no SQL or additional signals are used.
+
+Complete raw preservation retains34,630files/1,755,590,798bytes,23empty directories
+and zero aliases. Its separate1,149,122,794-byte packet SHA256 is
+`2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa`. Primary
+full original/hash/CRC/union verification reports40ZIPs/34,650evidence entries/28project
+files, with no partial inner archive. Five corruption controls pass; the initial
+layer-only truncated-outer control failure remains explicit. Generated originals
+remain in place, locally excluded only by the exact spent label after verification.
+[Failure metadata](../assets/ligand-properties/c3-candidate2-failed-checkpoint.json)
+and the six-asset index retain failure/publication-pending status, not qualification.
+
+Only lifecycle lines90/98 gain intended-notice status text filters. Role, strict
+uniqueness, all workflow assertions and deadlines remain. The complete lifecycle
+file passes5cases in desktop/mobile, one existing authored mobile exclusion, zero
+failures/flakes/retries, with1,130sources unchanged throughout. Scoped architecture
+and performance assessments PASS. [Correction receipt](../assets/ligand-properties/c3-lifecycle-status-checkpoint.json)
+and [focused packet](../assets/ligand-properties/c3-lifecycle-status-evidence.zip)
+retain exact source/readback and raw workflow evidence. The focused cleanup's lack
+of a live browser-descendant inventory is explicit; it is not release qualification.
+
+All461runtime and51method bodies remain native11exact. Retain original995e/b2d49
+measurement identity and explicit later helper/test delta. No extra standalone
+performance/profile run is required solely for this correction. Current compact
+source digest is `afbbba092bfe129714652288fb4f36692dbf463b897fc81e99563a01ee36d899`. Fresh candidate3recipe retains
+the complete43-vector modulo its label/workspace, including pytest fixture-store
+isolation; master1recipe stays unchanged/unspent. Full candidate/master and all
+seven final same-candidate assessments remain required before protected delivery.

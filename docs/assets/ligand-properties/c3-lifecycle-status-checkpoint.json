@@ -1,0 +1,41 @@
+{
+  "status": "Passing local test-locator correction; complete release qualification pending.",
+  "base": "16ca91ea902aec8ca231eed35e8aa9ccc598cf3f",
+  "subjects": {
+    "tests/e2e/project-lifecycle.spec.ts": "c5d93f6bb2d11ef891aad35edc0a7aa4178bd7bcd5a5263439659ca3e7d62782"
+  },
+  "change": "Only two status text-filter additions; role, uniqueness, notice expectations, all workflows and deadlines unchanged.",
+  "focused_native": {
+    "actual_enclosing_exit": 0,
+    "passed": 5,
+    "existing_authored_skipped": 1,
+    "failed": 0,
+    "flaky": 0,
+    "retry": 0,
+    "both_projects": true,
+    "source_count": 1130,
+    "source_before_after_exact": true
+  },
+  "scoped_reviews": {
+    "software_architecture": "PASS",
+    "performance": "PASS"
+  },
+  "native11_reuse": "Unchanged461runtime/51methodsubjects; original995e/b2d49identity retained. No production latency claim or new performance workload.",
+  "packet": {
+    "file": "c3-lifecycle-status-evidence.zip",
+    "bytes": 152699,
+    "sha256": "99f91d0b7d3cc98885bb6991243aaec4d20ed15823bcfb77d129be848c427727",
+    "manifest_entries": 21,
+    "recursive_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 21,
+      "project_archive_files": 0
+    },
+    "complete_body_CRC_exact_union": "PASS"
+  },
+  "limitations": [
+    "Focused workflow check is not full qualification or latency evidence.",
+    "Focused cleanup observes original child/group, dedicated workspace markers and ports; no live browser-descendant inventory was captured during19second run.",
+    "Fresh complete candidate3/exactmaster1 and allseven final assessments remain mandatory."
+  ]
+}

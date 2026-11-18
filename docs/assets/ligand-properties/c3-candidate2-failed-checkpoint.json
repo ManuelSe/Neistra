@@ -1,0 +1,42 @@
+{
+  "status": "FAILED browser qualification; complete retained forensics, not PASS.",
+  "candidate": "16ca91ea902aec8ca231eed35e8aa9ccc598cf3f",
+  "actual_runner_exit": 1,
+  "successful_commands": 15,
+  "browser_exit": 1,
+  "unrun_commands": 27,
+  "browser_outcome": {
+    "passed": 174,
+    "failed": 1,
+    "authored_skipped": 3,
+    "unrun": 462,
+    "report_combined_skipped": 465,
+    "top_level_error": "Maximum-failure fail-fast only"
+  },
+  "failure": "Project lifecycle generic status locator matches recovery notice and Properties empty-state. Two intended-notice status filters preserve original workflow checks.",
+  "cleanup": "56knownhandles gone, dedicated workspace markers absent and8340/8341/5423free; no signals sent.",
+  "raw_preservation": "All4DB/WAL/SHMfiles copied after cleanup before SQL; original sources1130/actual0361013 and16gzip bodies verified.",
+  "forensic_asset": {
+    "asset": "neistra-v0.37.0-c4-candidate2-failed.zip",
+    "checksum_asset": "neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+    "bytes": 1149122794,
+    "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+    "published": false,
+    "qualified_main_member": false,
+    "primary_readback_sha256": "be88240dede914635c34f374cf405a0be44971988fd5a6f3309387165c48a562"
+  },
+  "raw_inputs": {
+    "files": 34630,
+    "bytes": 1755590798,
+    "empty_directories": 23,
+    "aliases": 0
+  },
+  "recursive_counts": {
+    "zip_archives": 40,
+    "evidence_manifest_entries": 34650,
+    "project_archive_files": 28
+  },
+  "full_original_body_crc_exact_union_readback": "PASS for preservation only",
+  "publication_pending": true,
+  "originals_retained": true
+}

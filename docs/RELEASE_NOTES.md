@@ -78,12 +78,20 @@ gate is deliberately stopped after 15 successful commands, including 3,552 Pytho
 1,584 frontend tests, to qualify the corrected tooling with a fresh complete gate.
 Its actual interruption and full raw evidence remain separate from qualified results.
 
-The two changed tooling/test files are outside the 51 benchmark subjects and leave
+The tooling/test corrections are outside the51benchmark subjects and leave
 production/scientific inputs unchanged. Native11 retains its actual original source
 identity; its unaffected portable measurements remain usable with this explicit delta.
-Five separate forensic assets and checksums are planned; publication and complete
+Six separate forensic assets and checksums are planned; publication and complete
 anonymous download verification remain pending. Early exploratory SHM revision gaps
 and unproven historical pre-SQL ordering remain explicit in their metadata.
+
+Candidate2passes15commands including3,589Python and1,584frontend tests, then stops
+on a broad lifecycle status locator after174native passes. The intended recovery
+notice is present alongside the new Properties empty state. Two text filters retain
+status roles, uniqueness and all workflow assertions; the complete lifecycle file
+passes5cases in desktop/mobile with its existing authored mobile exclusion. No
+production behavior changes. The complete failed-run packet remains separate;
+fresh43-command candidate3/exactmaster1 and final all-seven approval are pending.
 
 
 ## 0.36.0 — Exact durable ligand designation
