@@ -3,7 +3,7 @@
 ## Current milestone
 
 Parent #11 remains active through verified releases and closeout for #156–#163.
-#156–#158 are delivered. #159 is running full candidate qualification on16ca91ea;
+#156–#158 are delivered. #159 is running fresh full candidate qualification on2a582dfe;
 #160 remains local preparation with query-scaling checkpoint0f54385c. The historical
 #161 C2native run passes16selected cases. Its subsequent inspector query-scaling
 preparation passes focused checks; actual released prerequisite integration and
@@ -59,6 +59,19 @@ ligand-view zero reads, tools activation, seed/failure qualification and held
 recovery across visits. Scoped architecture and performance assessments PASS.
 All failed authoring/check attempts remain retained with their actual outcomes.
 These mocked work counts do not establish native latency or a production speedup.
+
+The [retained-navigation checkpoint](assets/ligand-information/c2-native-navigation-checkpoint.json)
+and [lossless packet](assets/ligand-information/c2-native-navigation-evidence.zip)
+cover the complete four affected native files in both configured projects:28passes,
+six unchanged authored exclusions, zero failures/flakes/retries,34single-attempt
+results. Seven explicit Tools→Selection setup pairs and one import align existing
+callers with the approved default ligand view; every original assertion, deadline,
+focus/retirement boundary, source/original-byte and history check remains. All1,216
+source bodies stay fixed during execution. Strict native TypeScript passes using
+the real Vite URL mapping; both initial configuration failures remain retained.
+Positive cleanup checks58known handles gone and three dedicated ports free before
+copying all3raw DB/WAL/SHM files. Scoped architecture and UX reviews PASS. Application
+code is unchanged; prior app lint/types/build evidence retains its original subject.
 
 ## Known limitations
 

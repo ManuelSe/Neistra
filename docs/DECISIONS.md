@@ -9003,3 +9003,30 @@ that still used old source after a patch-generator failure is another red result
 This is local preparation only, without a native latency or production speedup
 claim. Actual released159/160integration, fresh native/performance qualification,
 complete candidate/master gates and all seven final assessments remain mandatory.
+
+
+### Retained-workflow qualification — explicit native task entry
+
+2026-11-18: the sidebar intentionally starts in ligand information while retaining
+Tools until163. A read-only caller audit identifies four old native files that
+assume Selection is initially visible. Adapt only those callers through existing
+real Inspector tools and exact Selection tab actions. Keep the shared navigation
+helper's task-preserving contract; selecting Selection globally could cancel
+active movement or measurement acquisition in unrelated callers.
+
+Place hierarchy setup before component browsing so its deliberate focus check
+remains the final action, and synchronized setup before the first row selection.
+Keep summary helpers observational. Expose persisted controls again after reload;
+movement setup retains its original mobile opening and later Transform action.
+Never insert task changes into active-preview, retirement, focus or measured
+intervals. All existing assertions, exclusions, clocks and the20second fragment
+deadline remain byte-identical after removing7setup pairs and1import adjustment.
+
+Architecture and UX assess the approach before implementation and independently
+review the complete resulting four-file diff/raw evidence. The whole four-file
+both-project run passes28cases with six existing authored exclusions and no
+failures/flakes/retries. Strict TypeScript passes after private configuration
+models the existing absolute Vite .ts URL import; both initial failures are retained
+without suppressing source diagnostics. No product/scientific method or runtime
+behavior changes. Actual released159/160integration and full161candidate/master/
+reader/performance/native/all-seven acceptance remain mandatory.

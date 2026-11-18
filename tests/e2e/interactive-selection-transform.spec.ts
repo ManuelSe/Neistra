@@ -46,6 +46,8 @@ async function simpleMovement(page: Page, request: APIRequestContext, mobile: bo
   await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("structure");
   await page.getByLabel("Value", { exact: true }).fill(project.entries[0].id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();

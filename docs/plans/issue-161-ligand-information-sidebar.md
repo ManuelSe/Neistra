@@ -342,3 +342,36 @@ C2native evidence keeps its original subject; current guards remain stale/HOLD.
 Actual released159/160integration, final versions/readers, fresh current native/
 performance/full candidate/master gates and all seven final assessments remain
 mandatory. This local checkpoint is not final feature readiness or publication.
+
+
+### Retained native caller alignment — 2026-11-18
+
+On05be77a4, adapt only four existing native files: interactive selection/transform,
+structure hierarchy, selection styling and synchronized selection. Seven native
+Tools→exact Selection setup pairs and one helper import restore their explicit
+entry into the retained workflow. Initial setup precedes hierarchy component
+browsing and synchronized row selection; observation helpers remain pure. Reopen
+the correct view after reload before persisted-control interactions. The shared
+helper, application, source/selection semantics, preview/retirement/focus checks,
+all assertions/exclusions/deadlines and20second fragment budget remain unchanged.
+
+The complete four files collect34cases across desktop/mobile. Actual enclosing
+wait0passes28cases, six original authored exclusions, zero failures/flakes/retries;
+every case has one result/retry0. All1,216source bodies remain exact throughout.
+Strict native TypeScript passes; the initial two-file-derived configuration lacked
+the existing absolute Vite .ts URL mapping, so both configuration failures remain
+explicit alongside the corrected no-emit configuration and original source.
+Application lint/types/build evidence is reused only for unchanged05be77a4bodies.
+
+Positive cleanup verifies58sampled PID/start handles gone, dedicated ports23900/
+23901/23902free and exact workspace markers absent. All3DB/WAL/SHM files are copied
+and hashed before any SQL; originals remain. Scoped architecture and UX independently
+review complete diff/raw records and return PASS with no consequential findings.
+[Checkpoint](../assets/ligand-information/c2-native-navigation-checkpoint.json) and
+[packet](../assets/ligand-information/c2-native-navigation-evidence.zip) retain61
+manifest bodies, current/baseline test sources, full raw report/logs/configuration
+attempts/workspace and explicit empty-directory metadata. The1,502,328-byte ZIP SHA256
+is `0021c6200c5c52c9869be33a46dec3d1cc92c1a3e5c3dd96b80c70e02769669c`;
+full body/hash/CRC/exact-union verification passes. This does not claim complete644
+native execution, actual released prerequisite integration or final feature readiness.
+Current full gates/readers/performance/all-seven/protected release remain pending.

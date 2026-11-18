@@ -1,4 +1,4 @@
-import { browseComponents } from "./support/navigation";
+import { browseComponents, openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -161,6 +161,8 @@ test("synchronizes hierarchy selection, visibility, focus, persistence, and WebG
   await saveScene(page, "Before hierarchy selection");
   const beforeSelection = await readProject(request, project.id);
 
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   await browseComponents(page, entry.name);
   await expect(page.getByRole("button", { name: /^Select Protein in/ })).toBeVisible();
   await expect(page.getByText("Other heterogens", { exact: true })).toBeVisible();
@@ -238,6 +240,8 @@ test("synchronizes hierarchy selection, visibility, focus, persistence, and WebG
   await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", {
     timeout: 30_000,
   });
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   const saved = page
     .locator(".saved-selection-row")
     .filter({ hasText: "Hierarchy ligand" });

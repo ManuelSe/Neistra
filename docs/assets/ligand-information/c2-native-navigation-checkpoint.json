@@ -1,0 +1,80 @@
+{
+  "status": "Passing local native-caller correction only.",
+  "base": "05be77a43d422f10f60044dc15cc98678fe10373",
+  "subjects": {
+    "tests/e2e/interactive-selection-transform.spec.ts": "d23f937c7b5f6451b18a72e8062dc92695cc5b2427e10ae895d43baeae10c371",
+    "tests/e2e/structure-hierarchy.spec.ts": "0e87c1cf404078276df0ec7980196b61e8ff0dc3a26f427dabeb7ceebb486e4c",
+    "tests/e2e/selection-styling.spec.ts": "189cedccd9640a4c114c521561864295f0663bfe9252596e05e12bed7c388d8a",
+    "tests/e2e/synchronized-selection.spec.ts": "a469345b4606b5f7ffea036ef2aa1ad294f21a43cc8baafb3f480e2ab2101f29"
+  },
+  "change": "Only7realTools\u2192exactSelectionsetup pairs and1import. Alloriginalassertions/exclusions/clocks/deadlines/focus/source/coordinate/camera/history/originalbyteschecks preserved.",
+  "native": {
+    "collected": 34,
+    "passed": 28,
+    "existing_authored_skipped": 6,
+    "failed": 0,
+    "flaky": 0,
+    "retry": 0,
+    "both_configured_projects": true,
+    "actual_enclosing_exit": 0,
+    "source_count": 1216,
+    "source_before_after_current_exact": true
+  },
+  "strict_native_types": {
+    "scope": "Strict no-emit native type check aligned with actual Vite absolute .ts URL imports; no suppression or public source change.",
+    "command": [
+      "corepack",
+      "pnpm",
+      "--filter",
+      "@neistra/web",
+      "exec",
+      "tsc",
+      "--project",
+      "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-native-navigation-preparation1/tsconfig-vite-url.json",
+      "--pretty",
+      "false"
+    ],
+    "exit": 0,
+    "seconds": 3.140862697036937,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prior_failures_retained": [
+      "TS2307: initial two-file-derived config lacked actual Vite /src mapping.",
+      "TS5097: mapping resolved source, then existing .ts URL required allowImportingTsExtensions in noEmit mode."
+    ],
+    "strictness_preserved": true
+  },
+  "initial_type_config_failures": "Both TS2307 and TS5097 retained; finalnoEmitstrictconfig models realVite /src/*.ts imports without source suppression.",
+  "cleanup": {
+    "known_PID_start_handles_gone": 58,
+    "workspace_markers_absent": true,
+    "dedicated_ports_free": [
+      23900,
+      23901,
+      23902
+    ],
+    "signals_sent": false,
+    "raw_DB_WAL_SHM_files": 3,
+    "raw_copied_before_SQL": true
+  },
+  "specialist_verdicts": {
+    "software_architecture": "PASS scopedcorrection",
+    "ux_design": "PASS scopedcorrection"
+  },
+  "packet": {
+    "file": "c2-native-navigation-evidence.zip",
+    "bytes": 1502328,
+    "sha256": "0021c6200c5c52c9869be33a46dec3d1cc92c1a3e5c3dd96b80c70e02769669c",
+    "manifest_entries": 61,
+    "empty_directories": 2,
+    "recursive_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 61,
+      "project_archive_files": 0
+    },
+    "complete_body_CRC_exact_union_readback": "PASS"
+  },
+  "limitations": [
+    "No product/runtime/scientific method changes; prior app lint/types/build evidence remains bound to unchanged05be77a4application bodies.",
+    "Actual released159/160integration, current full644native qualification/performance/readers/fullcandidate/mastergates and finalall7 remain pending."
+  ]
+}
