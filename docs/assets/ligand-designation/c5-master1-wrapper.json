@@ -1,0 +1,52 @@
+{
+  "scope": "Actual sequential exact merged-master qualification, independent summary and recursive packaging; not publication",
+  "label": "c5-master1",
+  "head": "247ab651b35c2d58e8939985ae50633de70311a3",
+  "started_utc": "2026-11-18T07:22:49.607457+00:00",
+  "steps": [
+    {
+      "phase": "qualification",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/qualification.py.txt",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c5-master1-recipe.json"
+      ],
+      "actual_child_pid": 3905011,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c5-master1-qualification.log",
+      "log_sha256": "5fea74a61363f807c265ff2da94252a283274111f93613e87e812c66c67672fb"
+    },
+    {
+      "phase": "summary",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/qualification-summary.py.txt",
+        "c5-master1"
+      ],
+      "actual_child_pid": 3955282,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c5-master1-summary.log",
+      "log_sha256": "4818c0ad703ca2216bd0e967774dcfb4161e2acc86ee90e6167c07444d7ffb50"
+    },
+    {
+      "phase": "packaging",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/release-evidence.py.txt",
+        "gate",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--label",
+        "c5-master1",
+        "--output-dir",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation"
+      ],
+      "actual_child_pid": 3955320,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c5-master1-packaging.log",
+      "log_sha256": "d53a66132dec6254be370a5580e8831250c9e9735e028e0b8eaef7ff54ddf0d4"
+    }
+  ],
+  "complete": true,
+  "finished_utc": "2026-11-18T09:20:05.665013+00:00"
+}

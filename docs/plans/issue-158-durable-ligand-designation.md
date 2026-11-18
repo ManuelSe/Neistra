@@ -991,3 +991,64 @@ Existing53forensic assets/eightfailed-or-interrupted records remain exact. Prote
 merge, fresh actual-master42/summary/package/enclosing0, annotatedv0.36release,
 complete anonymous main/sidecar/53forensic verification, explicit closeout and safe
 owned cleanup remain required. Parent #11 and its single Goal stay active.
+
+
+### C4–C6 — same-candidate approval, normal merge and verified publication
+
+All seven final specialist agent assessments PASS c82004ce against b038e4e6.
+Architecture independently passes 98focused cases; scientific implementation266;
+theory checks analytical formula/mass/charge and representation oracles. UI/UX and
+reference assessments inspect their actual evidence. No consequential finding
+remains. These are agent assessments, not human approval. The @codex request exists;
+no completed remote assessment was available. Fresh remote protection/review/check/
+conversation reconciliation finds no unmet mandatory requirement; no bypass occurs.
+
+[PR 175](https://github.com/ManuelSe/Neistra/pull/175) merges normally to
+`247ab651b35c2d58e8939985ae50633de70311a3`, complete tree identical to reviewed head.
+That exact runtime independently completes every 42 fresh command, summary, recursive
+packaging and primary-observed enclosing15284exit0/chunkcbfd9b.
+[Summary](../assets/ligand-designation/c5-master1-summary.json),
+[reader audit](../assets/ligand-designation/c5-master1-reader-audit.json),
+[wrapper](../assets/ligand-designation/c5-master1-wrapper.json) and
+[enclosing proof](../assets/ligand-designation/c5-master1-actual-enclosing.json)
+record 3077 Python/zero skips,1388 frontend/126 suites,14 supervisor,531 native/75exact old
+exclusions/606inventory, no failure/flake/retry/new exclusion. All 1013 current and
+931actual0.35 sources remain fixed. Actual old-code safe refusal, old-authored forward
+migration/current reopen/both suffixes and canonical unapplied proposals qualify.
+
+The master qualified packets retain674 native and664 reader files with no cache
+omissions. All raw native originals are verified before lossless private relocation.
+Main 531749736 bytes/SHA
+`84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16`
+contains all 42 candidate/master logs, source/reader proofs, seven individual final
+assessments, merge receipts and every mandatory80 source-correction/C12 supplemental
+member, including 75C12 regular files. Independent local readback verifies exact 212
+outer members,3442ZIPs/9760 manifest entries/7431project files. C12is successful
+superseded qualification, not a ninth failed run. No raw53 forensic part is rebundled.
+
+Stable/latest [v0.36.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0),
+release 449776471, targets only this runtime through annotated tag05ec6685. All 56
+initial assets match server identities and complete anonymous bodies/hashes/recursive
+CRC/exact unions: primary, two sidecars,53 forensic ZIPs/eightfailed-or-interrupted
+runs. Both reader children and root enclosing6748exit0/chunk47a5b3 complete. Those
+failed runs remain unqualified. The draft release was resolved by verified ID after
+the tag endpoint returned404; the original publisher stays exact, and the narrow
+ID adapter independently passes 44offline architecture controls before upload. No
+release duplication, tag retarget, clobber or settings override occurs.
+
+[Publication evidence](../assets/ligand-designation/c6-publication.json) is the exact
+79491-byte release receipt/SHA
+`8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c`,
+asset 762983464. Its own full-anonymous/server readback and final notes are
+[recorded separately](../assets/ligand-designation/c6-publication-verification.json).
+The [canonical reply](https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710)
+is remotely verified and158explicitly closed completed. Parent 11remains open with
+its158checkbox reconciled. All five versions remain0.36.0; migration 0016/project/
+archive3/viewer 2 and conservative chemistry/performance limits are explicit.
+
+This terminal documentation integration records the current schema 3 contract while
+retaining historical schema 2 documentation. It changes no1013 qualified source body.
+Normal all-seven documentation assessment/remote review/merge, owned branch cleanup
+and the final delivery-receipt readback remain. Reconcile their actual results into
+the same canonical reply without moving the runtime tag or another release. The
+one parent Goal continues through 159–163 and verified integrated parent closeout.
