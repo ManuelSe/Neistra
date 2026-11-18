@@ -1,0 +1,12 @@
+{
+  "scope": "Primary directly observed actual whole candidate wrapper enclosing completion; not protected merge/exact-master/release readiness",
+  "created_utc": "2026-11-18T06:38:22.501784+00:00",
+  "actual_session": 60716,
+  "actual_tool_chunk": "e5b39b",
+  "actual_exit": 0,
+  "wrapper_path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate13-wrapper.json",
+  "wrapper_sha256": "9b5b47729df38944ba22b9d4abd76ba79d16d56ef823ea80f8b0d7fb54aa5489",
+  "qualification_summary_packaging_all0": true,
+  "complete": true,
+  "qualified_commit": "4965727c894020052eaa25d0c9ade6a0f308dd16"
+}

@@ -1,0 +1,52 @@
+{
+  "scope": "Actual sequential candidate qualification, independent summary and recursive packaging; not publication",
+  "label": "c4-candidate13",
+  "head": "4965727c894020052eaa25d0c9ade6a0f308dd16",
+  "started_utc": "2026-11-18T04:37:58.278942+00:00",
+  "steps": [
+    {
+      "phase": "qualification",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/qualification.py.txt",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate13-recipe.json"
+      ],
+      "actual_child_pid": 3814216,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate13-qualification.log",
+      "log_sha256": "b7cb8752a2034b6bf1cf2b7300e03c6e260e820784bb773abde528f71fc8c04a"
+    },
+    {
+      "phase": "summary",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/qualification-summary.py.txt",
+        "c4-candidate13"
+      ],
+      "actual_child_pid": 3891398,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate13-summary.log",
+      "log_sha256": "b522fcd452ae0bbf752015aa7bf82c78e27ea539ad4f492422b8a3ce962eea9d"
+    },
+    {
+      "phase": "packaging",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/release-evidence.py.txt",
+        "gate",
+        "--root",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+        "--label",
+        "c4-candidate13",
+        "--output-dir",
+        "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation"
+      ],
+      "actual_child_pid": 3891407,
+      "exit_code": 0,
+      "log": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-c4-candidate13-packaging.log",
+      "log_sha256": "f97510601841df8b0faa878d6e630b49a5f23b778ac925474079080b66d75f38"
+    }
+  ],
+  "complete": true,
+  "finished_utc": "2026-11-18T06:36:35.416902+00:00"
+}

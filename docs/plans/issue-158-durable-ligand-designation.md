@@ -955,3 +955,39 @@ Next:integrate this passing checkpoint into the owned original feature branch,
 prepare a clean fresh C13 recipe preserving every42step and all606native cases,
 obtain final same-commit seven-role reconfirmation and qualify the actual merged
 master before protected publication. No push/PR/release readiness is declared.
+
+
+### C13 full corrected-candidate qualification — 2026-11-18
+
+Clean candidate `4965727c894020052eaa25d0c9ade6a0f308dd16` completes every42recipe
+step, independent summary, recursive packaging and primary directly observed actual
+session60716exit0 (tool chunk e5b39b). [Summary](../assets/ligand-designation/c4-candidate13-summary.json),
+[gate](../assets/ligand-designation/c4-candidate13-gate.json),
+[reader audit](../assets/ligand-designation/c4-candidate13-reader-audit.json) and
+[packaging](../assets/ligand-designation/c4-candidate13-packaging.json) record the
+complete run. Earlier pending statements above are historical checkpoints.
+
+Passes:3,077Python/zero skips,1,388web/126suites,14supervisor and531native;606case
+inventory includes exactly75unchanged historical exclusions, with zero failures,
+flakes, retries or new exclusions. All1,013current and931actualv0.35source identities
+remain fixed. Release-tool digest `df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07`
+and compact digest `203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617`
+bind the same current source map. Actual old readers safely refuse current stores;
+old-authored stores migrate forward/current reopen for both archive suffixes. Current
+canonical unapplied proposals remain intact. The7,106.931second sum is portable
+correctness evidence, not strict reference-host qualification.
+
+Qualified01 is83,328,878bytes/SHA`b7a1951c8ad5e23fe64e370b0a377bc775dc6ea9b62558df04ca1c992f622cf4`;
+qualified02 is8,194,845bytes/SHA`03cba9c4051d1f7817d287d53b219bd823641faa20f960674d2ef840434ea2f4`.
+They retain674native files and664reader workspace files with no cache exclusions;
+recursive packaging records481/174ZIPs,1,309/397manifest entries and924/527project
+archive files. Preserve originals and validate complete raw-native coverage before
+relocating untracked raw evidence into private storage.
+
+All seven complete-feature CODE assessments already pass on this implementation;
+final same-commit metadata reconfirmation remains mandatory before push. Successful
+superseded C12 remains a complete required supplement, not a ninth failed run.
+Existing53forensic assets/eightfailed-or-interrupted records remain exact. Protected
+merge, fresh actual-master42/summary/package/enclosing0, annotatedv0.36release,
+complete anonymous main/sidecar/53forensic verification, explicit closeout and safe
+owned cleanup remain required. Parent #11 and its single Goal stay active.
