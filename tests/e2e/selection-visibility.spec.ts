@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, test, type APIRequestContext } from "@playwright/test";
@@ -245,6 +246,7 @@ test("compact Hide/Show preserves selection, styles and cached projections", asy
   await expect(palette.getByRole("button", { name: "Show atom detail", exact: true })).toBeEnabled();
   await page.keyboard.press("Escape");
   if (isMobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("atom_reference");
   await page.getByLabel("Value").fill(`${entry.id}:2`);

@@ -7,6 +7,8 @@ import {
   Save,
   Ruler,
   Trash2,
+  Hexagon,
+  SlidersHorizontal,
   X,
 } from "lucide-react";
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -41,8 +43,14 @@ import { TransformPanel } from "./TransformPanel";
 import { activateTabFromKeyboard } from "./tabKeyboard";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
+export type InspectorView = "ligand" | "tools";
+export type InspectorTask = "selection" | "inspect" | "measurements" | "transform" | "ligand" | "protein" | "details";
 interface ProjectInspectorProps {
   ligandControls?: ReactNode;
+  view?: InspectorView;
+  onViewChange?: (view: InspectorView) => void;
+  task?: InspectorTask;
+  onTaskChange?: (task: InspectorTask) => void;
   project: Project | undefined;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
@@ -477,24 +485,20 @@ function SelectionPanel({
 export function ProjectInspector(props: ProjectInspectorProps) {
   const tabId = useId();
   const { project, selection, onCollapse, ligandControls } = props;
-  const [tab, setTab] = useState<
-    | "selection"
-    | "inspect"
-    | "measurements"
-    | "transform"
-    | "ligand"
-    | "protein"
-    | "details"
-  >(props.movement?.state.capture ? "transform" : "selection");
+  const [localTab, setLocalTab] = useState<InspectorTask>(props.movement?.state.capture ? "transform" : "selection");
+  const tab = props.task ?? localTab;
+  const setTab = props.onTaskChange ?? setLocalTab;
+  const view = props.view ?? "tools";
   const automaticallyOpenedDetails = useRef(false);
   const scrollOwner = useRef<HTMLDivElement>(null);
   const tabList = useRef<HTMLDivElement>(null);
   const [taskScrollRequest, requestTaskScroll] = useState(0);
+  const [presentationVisit, changePresentationVisit] = useState(0);
   useLayoutEffect(() => {
-    if (!taskScrollRequest || !scrollOwner.current || !tabList.current) return;
+    if (view !== "tools" || !taskScrollRequest || !scrollOwner.current || !tabList.current) return;
     const owner = scrollOwner.current;
     owner.scrollTop = Math.max(0, owner.scrollTop + tabList.current.getBoundingClientRect().top - owner.getBoundingClientRect().top);
-  }, [taskScrollRequest]);
+  }, [taskScrollRequest, view]);
   const projectId = project?.id;
   const entryCount = project?.entries.length;
   useEffect(() => {
@@ -506,7 +510,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       automaticallyOpenedDetails.current = false;
       setTab("selection");
     }
-  }, [entryCount, projectId]);
+  }, [entryCount, projectId, setTab]);
   const relevantIds = useMemo(() => {
     const ids = new Set(
       project?.entries.filter((entry) => entry.visible).map((entry) => entry.id),
@@ -528,6 +532,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       const entry = project?.entries.find((item) => item.id === entryId);
       return {
         ...structureQueryOptions(project?.id ?? "", entryId, entry?.current_artifact_id),
+        enabled: view === "tools" && Boolean(project?.id && entryId && entry?.current_artifact_id),
       };
     }),
   });
@@ -549,7 +554,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         <div>
           <span className="panel-eyebrow">Inspector</span>
           <h2>
-            {tab === "selection"
+            {view === "ligand" ? "Ligand information" : tab === "selection"
               ? "Selection"
               : tab === "inspect"
                 ? "Inspect"
@@ -564,14 +569,25 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                     : "Project"}
           </h2>
         </div>
+        <div className="inspector-header-actions">
+        {props.onViewChange ? <IconButton label={view === "ligand" ? "Inspector tools" : "Ligand information"}
+          onClick={() => { requestTaskScroll(value => value + 1); props.onViewChange?.(view === "ligand" ? "tools" : "ligand"); }}>
+          {view === "ligand" ? <SlidersHorizontal size={17} /> : <Hexagon size={17} />}
+        </IconButton> : null}
         {onCollapse ? (
           <IconButton label="Collapse inspector" onClick={onCollapse}>
             <ChevronRight size={17} />
           </IconButton>
         ) : null}
+        </div>
       </div>
-      <div className="inspector-scroll" ref={scrollOwner} data-inspector-visit={JSON.stringify([project?.id ?? "", tab, taskScrollRequest])}>
-        {ligandControls}
+      <div className="inspector-scroll" ref={scrollOwner} data-inspector-visit={JSON.stringify([project?.id ?? "", view, tab, taskScrollRequest, presentationVisit])}>
+        {props.view === undefined ? ligandControls : view === "ligand" ? <div className="inspector-body ligand-information-body"
+          onChangeCapture={() => changePresentationVisit(value => value + 1)}
+          onClickCapture={event => { if (event.target instanceof Element && event.target.closest("summary")) changePresentationVisit(value => value + 1); }}
+          onKeyDownCapture={event => { if ((event.key === "Enter" || event.key === " ") && event.target instanceof Element && event.target.closest("summary")) changePresentationVisit(value => value + 1); }}
+        >{ligandControls}</div> : null}
+        <div hidden={view !== "tools"} className="inspector-tools">
         <div
           ref={tabList}
           className="inspector-tabs"
@@ -662,6 +678,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           ) : (
             <DetailsPanel project={project} busy={props.busy} onApply={props.onApply} />
           )}
+        </div>
         </div>
       </div>
     </section>

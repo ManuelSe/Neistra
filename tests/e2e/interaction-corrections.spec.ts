@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { writeFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import type { InteractionRecord, InteractionKind } from "../../apps/web/src/interactions/types";
@@ -170,10 +171,12 @@ test("renders genuine six-type records alone, pairwise and together with indepen
   // geometry; original upload remains unchanged and Undo restores that identity.
   const mobile = info.project.name === "mobile-chromium";
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await page.getByLabel("Select by").selectOption("atom_reference");
   await page.getByLabel("Value", { exact: true }).fill(`${project.entries[0].id}:2`);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page.getByRole("button", { name: "Delete selected", exact: true }).click();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });

@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -73,6 +74,7 @@ async function selectAtoms(
   entryId: string,
   atomIds: number[],
 ): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   const mode = page.getByRole("group", { name: "Operation mode" });
   await mode.getByRole("button", { name: "replace" }).click();
@@ -107,6 +109,7 @@ test("creates and manages reference measurements with synchronized inspection", 
     const ids = atoms.slice(0, count).map(atom => atom.id);
     await selectAtoms(page, entryId, ids);
     // The inspector is a bridge to the same App-owned tool, with no second creator.
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "measurements" }).click();
     await page.getByRole("button", { name: "Open measurements", exact: true }).click();
     await expect(tool).toBeVisible();
@@ -149,6 +152,7 @@ test("creates and manages reference measurements with synchronized inspection", 
   await expect(row("C-C reference")).toContainText(`${distance.toFixed(2)} Å`);
   await close();
   await selectAtoms(page, entryId, [atoms[0].id]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "inspect" }).click();
   await expect(page.locator(".inspect-panel")).toContainText("Full name");
   await expect(page.locator(".inspect-panel")).toContainText(atoms[0].element);

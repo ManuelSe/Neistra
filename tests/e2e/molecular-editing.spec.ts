@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { addOneHydrogen } from "./support/hydrogen";
 import { readFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
@@ -71,6 +72,7 @@ test("keeps a held edit projection out of Undo and reloads the exact artifact on
 
 async function selectAtom(page: Page, entryId: string, atomId: number, mobile: boolean) {
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entryId}:${atomId}`);

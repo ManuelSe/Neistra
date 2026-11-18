@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { expect, test } from "@playwright/test";
 import type { Job, QuickMinimizationProposal } from "../../apps/web/src/api/types";
 import { prepare } from "./support/interactions";
@@ -15,6 +16,7 @@ test("keeps warned Ctrl+M results quiet while retaining full inspection and exac
     await page.getByRole("button", { name: "Dismiss message", exact: true }).click();
   }
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(entry.id);

@@ -1,3 +1,5 @@
+import type { ArtifactSourceIdentity } from "../api/types";
+
 export type DescriptorCategory = "composition" | "polarity" | "lipophilicity" | "flexibility";
 export interface DescriptorDefinition {
   id: string; name: string; description: string; category: DescriptorCategory; order: number;
@@ -26,9 +28,14 @@ export interface PropertyPreferences {
 export interface PropertySource {
   entry_id: string; source_artifact_id: string; instance_id: string; atom_ids: number[];
 }
+export interface PropertySourceFailure {
+  source_identity: ArtifactSourceIdentity; source_verification: "current" | "original";
+  reason: "artifact_unavailable";
+}
 export interface PropertyCurrent {
   source: PropertySource; binding_key: string; status: "pending" | "ready" | "unavailable" | "cancelled" | "failed";
   report: DescriptorReport | null; reason: string | null; progress: number;
+  source_failure?: PropertySourceFailure | null;
 }
 export interface PropertyAggregate {
   project_id: string; entries: PropertyCurrent[];

@@ -1,4 +1,4 @@
-import { browseComponents } from "./support/navigation";
+import { browseComponents, openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -137,6 +137,7 @@ function componentMembers(payload: StructureRead, category: string): number[] {
 }
 
 async function selectAtom(page: Page, entryId: string, atomId: number): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await page.getByRole("group", { name: "Operation mode" }).getByRole("button", {
     name: "replace",

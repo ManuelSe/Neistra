@@ -1,3 +1,4 @@
+import { useWorkspaceStore } from "../store/workspace";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
@@ -124,9 +125,45 @@ describe("project browser selection and discovery", () => {
     expect(original.isConnected).toBe(false);
     expect(screen.getByRole("button", { name: "Actions for Receptor" })).toHaveFocus();
   });
+  it("preserves rapid search edits, caret and type patches without remounting the input", async () => {
+    renderBrowser(<ProjectBrowser project={molecularProject()} {...actions} />);
+    const input = screen.getByRole<HTMLInputElement>("textbox", { name: "Search structures" });
+    await userEvent.type(input, "Ligand"); await userEvent.keyboard("{ArrowLeft}{ArrowLeft}X");
+    expect(input).toHaveFocus(); expect(input).toHaveValue("LigaXnd"); expect(input.selectionStart).toBe(5);
+    await userEvent.click(screen.getByText("Filter and sort"));
+    await userEvent.selectOptions(screen.getByLabelText("Filter structure type"), "ligand");
+    expect(useWorkspaceStore.getState().browserFilters).toEqual({ search: "LigaXnd", type: "ligand" });
+    expect(screen.getByRole("textbox", { name: "Search structures" })).toBe(input);
+  });
+  it("retains search/type through presenter unmount and responsive replacement without retargeting inspection", async () => {
+    const project = molecularProject(), view = renderBrowser(<ProjectBrowser project={project} {...actions} />);
+    await userEvent.type(screen.getByPlaceholderText("Search structures"), "Ligand");
+    await userEvent.click(screen.getByText("Filter and sort")); await userEvent.selectOptions(screen.getByLabelText("Filter structure type"), "ligand");
+    const before = structuredClone(project);
+    view.unmount();
+    const media = window.matchMedia;
+    vi.spyOn(window, "matchMedia").mockImplementation(query => ({ ...media(query),
+      matches: query.includes("max-width: 840px") || query.includes("any-pointer: coarse") }));
+    renderBrowser(<ProjectBrowser project={project} {...actions} />);
+    expect(screen.getByRole("tab", { name: "Entries" })).toBeVisible();
+    expect(screen.getByPlaceholderText("Search structures")).toHaveValue("Ligand");
+    expect(screen.getByLabelText("Filter structure type")).toHaveValue("ligand");
+    expect(project).toEqual(before);
+    expect(document.querySelectorAll(".entry-row")).toHaveLength(1);
+  });
+  it("does not apply a rendered previous project's patch to the active project", () => {
+    const workspace = useWorkspaceStore.getState(); workspace.setActiveProjectId("other");
+    const current = useWorkspaceStore.getState();
+    current.patchBrowserFilters({ projectId: "other", visit: current.browserFilterVisit }, { search: "new project" });
+    renderBrowser(<ProjectBrowser project={molecularProject()} {...actions} />);
+    fireEvent.change(screen.getByPlaceholderText("Search structures"), { target: { value: "stale callback" } });
+    expect(useWorkspaceStore.getState().browserFilters.search).toBe("new project");
+  });
 });
 
 beforeEach(() => {
+  useWorkspaceStore.getState().setActiveProjectId(null);
+  useWorkspaceStore.getState().setActiveProjectId("project-1");
   // JSDOM has no layout: place resize handles away from pointer origin.
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);

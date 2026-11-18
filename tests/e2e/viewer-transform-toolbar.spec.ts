@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
@@ -43,6 +44,7 @@ MolstarEngine.prototype.mount = async function(target) {
   const launcher = page.getByRole("button", { name: "Transform selection", exact: true });
   await expect(launcher).toHaveAttribute("aria-disabled", "true");
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByLabel("Select by").selectOption("structure");
   await page.getByLabel("Value", { exact: true }).fill(project.entries[0].id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();

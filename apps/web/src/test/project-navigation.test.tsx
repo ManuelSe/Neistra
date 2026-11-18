@@ -20,6 +20,8 @@ const projection: StructureProjection = { entry_id: "protein", artifact_id: "cur
   hierarchy: componentHierarchy(structure), viewer: { format: "mmcif", data: "projection" } };
 
 beforeEach(() => {
+  useWorkspaceStore.getState().setActiveProjectId(null);
+  useWorkspaceStore.getState().setActiveProjectId("project-1");
   vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(400);
   vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
   vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(400);

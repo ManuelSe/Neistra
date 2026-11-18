@@ -1,3 +1,4 @@
+import { useWorkspaceStore } from "../store/workspace";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { fireEvent, render, screen } from "@testing-library/react";
@@ -322,6 +323,8 @@ describe("component hierarchy", () => {
 });
 
 beforeEach(() => {
+  useWorkspaceStore.getState().setActiveProjectId(null);
+  useWorkspaceStore.getState().setActiveProjectId("project-1");
   vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(400);
   vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
   vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(400);

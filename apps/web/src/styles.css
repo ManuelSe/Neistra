@@ -2454,6 +2454,18 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   overflow: visible;
 }
 
+.inspector-header-actions { display: flex; align-items: center; gap: 4px; }
+.inspector-header-actions .icon-button { min-width: 44px; min-height: 44px; }
+.inspector-tools[hidden] { display: none; }
+.ligand-information-body { padding: 0; }
+.ligand-information { min-width: 0; }
+.ligand-information .ligand-entry-choice select,
+.ligand-information .ligand-designation-summary .secondary-button,
+.ligand-information .ligand-designation-clear { min-height: 44px; }
+.ligand-interaction-unavailable { padding: 0 10px 10px; font-size: var(--text-xs); line-height: 1.45; overflow-wrap: anywhere; }
+.ligand-interaction-unavailable summary { min-height: 44px; align-content: center; cursor: pointer; }
+.ligand-interaction-unavailable summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
 .project-browser {
   display: flex;
   flex-direction: column;

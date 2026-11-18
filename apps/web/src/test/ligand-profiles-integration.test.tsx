@@ -48,8 +48,8 @@ beforeEach(() => {
 afterEach(() => {
   cleanup(); sessions.splice(0).forEach(session => session.deactivate()); clients.splice(0).forEach(client => client.clear()); vi.restoreAllMocks();
 });
-function setup({ categories = [], strict = false, selected = "" }: {
-  categories?: PropertyPreferences["enabled_categories"]; strict?: boolean; selected?: string;
+function setup({ categories = [], strict = false, selected = "", showComparison = false }: {
+  categories?: PropertyPreferences["enabled_categories"]; strict?: boolean; selected?: string; showComparison?: boolean;
 } = {}) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: Infinity } } }); clients.push(client);
   client.setQueryData(PROPERTY_PREFERENCES_KEY, { ...propertyPreferences, enabled_categories: categories });
@@ -71,7 +71,7 @@ function setup({ categories = [], strict = false, selected = "" }: {
     useLayoutEffect(() => { owner.activate(); session.activate(); owner.observe(); return () => { owner.deactivate(); session.deactivate(); }; }, []);
     const profiles = useLigandProfiles(true, selection, owner);
     presentation = useLigandProperties({ ...input, session, owner, profileSelection: selection });
-    return visible ? <LigandProperties state={presentation} session={session} profiles={profiles} /> : null;
+    return visible ? <LigandProperties state={presentation} session={session} profiles={profiles} showComparison={showComparison} /> : null;
   }
   const tree = (visible: boolean) => <QueryClientProvider client={client}><Tooltip.Provider>
     {strict ? <StrictMode><Harness visible={visible} /></StrictMode> : <Harness visible={visible} />}
@@ -90,6 +90,29 @@ const waitCatalog = () => screen.findByRole("option", { name: "Ro5 — all four"
 const currentStatus = () => screen.findByText("Within profile criteria.");
 
 describe("profile and property integration", () => {
+  it("compares profile-only current rows without extra demand or changing category preferences", async () => {
+    const app = setup({ showComparison: true }); await waitCatalog();
+    expect(screen.getByText("Choose a profile to compare properties.")).toBeVisible();
+    expect(ligandPropertyApi.read).not.toHaveBeenCalled();
+    await app.change("teague-lead-range"); await currentStatus();
+    expect(app.state().target?.descriptorIds).toEqual(descriptorRegistry.definitions
+      .filter(definition => ["molecular_weight", "calculated_logp"].includes(definition.id)).map(definition => definition.id));
+    const comparison = screen.getByRole("region", { name: "Profile comparison" });
+    const reads = vi.mocked(ligandPropertyApi.read).mock.calls.length;
+    const demands = vi.mocked(ligandPropertyApi.demand).mock.calls.length;
+    await userEvent.click(within(comparison).getByText("Values and criteria"));
+    const table = within(comparison).getByRole("table");
+    expect(within(table).getAllByRole("row")).toHaveLength(3);
+    expect(within(table).getByText("250 g/mol")).toBeVisible();
+    expect(within(table).getByText("≥ 100 g/mol · Met")).toBeVisible();
+    expect(within(table).getByText("≤ 350 g/mol · Met")).toBeVisible();
+    await userEvent.click(within(comparison).getByText("Values and criteria"));
+    expect(ligandPropertyApi.read).toHaveBeenCalledTimes(reads);
+    expect(ligandPropertyApi.demand).toHaveBeenCalledTimes(demands);
+    expect(ligandPropertyApi.allocate).not.toHaveBeenCalled();
+    expect(app.client.getQueryData<PropertyPreferences>(PROPERTY_PREFERENCES_KEY)?.enabled_categories).toEqual([]);
+    expect(ligandPropertyApi.savePreferences).not.toHaveBeenCalled();
+  });
   it("starts with No profile and no demand; profile requirements run with categories off without rewriting preferences", async () => {
     const app = setup(); await waitCatalog();
     expect(screen.getByRole("combobox", { name: "Profile" })).toHaveValue(""); expect(ligandPropertyApi.read).not.toHaveBeenCalled();

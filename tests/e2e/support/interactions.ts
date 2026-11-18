@@ -5,7 +5,8 @@ import type { MolstarEngine } from "../../../apps/web/src/viewer/MolstarEngine";
 
 declare global { interface Window { interactionEngines: MolstarEngine[] } }
 
-export async function prepare(page: Page, request: APIRequestContext, fixtures: (string | { name: string; mimeType: string; buffer: Buffer })[], label: string) {
+type FixturePayload = { name: string; mimeType: string; buffer: Buffer };
+export async function prepare(page: Page, request: APIRequestContext, fixtures: (string | FixturePayload)[], label: string) {
   await page.route("**/src/viewer/MolstarEngine.ts*", async route => {
     const response = await route.fetch();
     await route.fulfill({ response, body: `${await response.text()}\nconst interactionMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await interactionMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
@@ -17,7 +18,11 @@ export async function prepare(page: Page, request: APIRequestContext, fixtures: 
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await page.getByRole("button", { name: "Import structures" }).first().click();
   const imports = page.getByRole("dialog", { name: "Import structures" });
-  await imports.locator('input[type="file"]').setInputFiles(fixtures.map(path => typeof path === "string" ? resolve(path) : path));
+  const paths = fixtures.filter((fixture): fixture is string => typeof fixture === "string");
+  if (paths.length > 0 && paths.length !== fixtures.length) throw new Error("Use either file paths or file payloads for one fixture import.");
+  const files = paths.length === fixtures.length ? paths.map(path => resolve(path))
+    : fixtures.filter((fixture): fixture is FixturePayload => typeof fixture !== "string");
+  await imports.locator('input[type="file"]').setInputFiles(files);
   await imports.getByRole("button", { name: "Import", exact: true }).click();
   await expect(imports).toBeHidden({ timeout: 30_000 });
   await expect(page.locator(".viewer-status")).toContainText(`${fixtures.length} visible / ${fixtures.length} loaded`, { timeout: 30_000 });
@@ -34,7 +39,8 @@ export async function frameFixture(page: Page) {
 }
 
 export const native = (page: Page, options: { allowQueueError?: boolean } = {}) => page.evaluate(async options => {
-  const { inspectInteractions } = await import("/src/test/interactionHarness.ts");
+  const modulePath = "/src/test/interactionHarness.ts";
+  const { inspectInteractions } = await import(/* @vite-ignore */ modulePath);
   return inspectInteractions(window.interactionEngines.at(-1)!, options);
 }, options);
 export interface CyanPixelMask { width: number; height: number; indices: number[] }

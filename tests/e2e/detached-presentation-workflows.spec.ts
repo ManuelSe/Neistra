@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { readFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
@@ -175,6 +176,7 @@ test("mirrors placement, atomic edits, undo/redo, interactive movement and numer
   await page.getByRole("button", { name: "Cancel movement", exact: true }).click();
   await expect(child.locator(".presentation-preview")).toBeHidden();
   await expectMirror(page, child);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.locator(".gesture-slider input").focus(); await page.keyboard.press("ArrowRight");
   await expect(child.locator(".presentation-preview")).toBeVisible();
@@ -189,6 +191,7 @@ test("mirrors real native minimization frames and restores committed output on c
   test.setTimeout(180000);
   const project = await prepare(page, request, [{ name: "prepared1STP.pdb", mimeType: "chemical/x-pdb",
     buffer: await readFile("tests/fixtures/minimization/1stp-protein-prepared.pdb") }], "Presentation minimization");
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("residue_number");
   for (const residue of [1, 2, 3, 4]) {

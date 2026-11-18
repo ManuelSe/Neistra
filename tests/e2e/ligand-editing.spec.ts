@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -87,6 +88,7 @@ async function selectAtoms(
   entryId: string,
   atomIds: number[],
 ): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   const mode = page.getByRole("group", { name: "Operation mode" });
   await mode.getByRole("button", { name: "replace" }).click();
@@ -144,6 +146,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   const original = await atoms(request, state.id, entryId);
   await expectNonblankCanvas(page);
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await expect(page.getByRole("button", { name: "Add", exact: true })).toBeDisabled();
   await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(entryId);
@@ -195,6 +198,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   const connected = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
   const sideIds = [3, addedHeavy.id, ...connected.atoms.filter((a: AtomRead) => a.element === "H" && connected.bonds.some((b: { atom_1_id: number; atom_2_id: number }) => [b.atom_1_id,b.atom_2_id].includes(a.id) && [b.atom_1_id,b.atom_2_id].includes(addedHeavy.id))).map((a: AtomRead) => a.id)];
   await selectAtoms(page, entryId, sideIds);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page
     .getByRole("combobox", { name: "Rotatable bond" })
@@ -216,6 +220,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   state = await project(request, state.id);
 
   await selectAtoms(page, entryId, [1]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page
     .getByRole("combobox", { name: "Rotatable bond" })
@@ -244,6 +249,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   state = await project(request, state.id);
 
   await selectAtoms(page, entryId, [addedHeavy.id]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   const beforeMove = (await atoms(request, state.id, entryId)).find(a => a.id === addedHeavy.id)!.coordinates;
   await page.getByRole("spinbutton", { name: "dX" }).fill("1");
@@ -263,6 +269,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
     "1 visible / 1 loaded",
     { timeout: 30_000 },
   );
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(entryId);
   await expect(page.getByText("Locked", { exact: true })).toBeVisible();
@@ -288,6 +295,7 @@ test("keeps ligand editing functional in the mobile inspector", async ({
 
   await page.getByRole("button", { name: "Inspector" }).click();
   const inspector = page.getByRole("region", { name: "Project inspector" });
+  await openInspectorTools(page);
   await inspector.getByRole("tab", { name: "ligand" }).click();
   await expect(inspector.getByLabel("Ligand editor")).toBeVisible();
   await expect(inspector.getByRole("button", { name: "Add", exact: true })).toBeDisabled();

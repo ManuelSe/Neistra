@@ -187,3 +187,128 @@ truthful, and all parent exclusions intact.
 C0 verification is documentation scope plus unchanged source/version/globalPLAN/
 PRODUCT_SPEC and neutral naming. Persist this authorized refinement before code;
 standing delivery authority continues without a separate finished-plan approval.
+
+
+### C1 implementation preparation — pure comparison, source context and panel composition
+
+All seven early-role consultations support the scoped composition; none is a final implementation verdict. Three disjoint authors are preparing the pure profile comparison, exact shared designation context/header, and responsive panel/publication integration. No version/schema/dependency or delivered-prerequisite claim changes.
+
+The root-authored comparison captures one current authority and reuses the existing evaluator/axis selector. Plot/table share required rows, exact criteria/raw units/clipping and explicit missing-definition failures. Two early independent scientific findings are corrected: registry axis order is authoritative even when profile references reorder, and paused preview remains explicitly preview with no numbers. Meaningful controls cover both, all seven available profiles, duplicate/missing axes, two-axis open comparisons, complete passing/failing polygons, partial gaps, true zero and clipping. Actual property-session integration with all categories disabled preserves the two-property profile demand and category settings, adding no requests/jobs for disclosure.
+
+Scoped actual84692exit0 passes263cases (19new comparison/220existing domain/24actual profile-session integration); scopedESLint actual24040exit0. Private source/log receipts are under.issue-11-evidence/issue161-comparison; initial failed test/oracle attempts remain explicit. Other authors remain in progress, so this is neither a full-source frozen candidate nor C1 completion. Source/header and common publication-boundary focused tests continue; composed native accessibility/zoom/freshness, actual released prerequisites, all seven final assessments and full release qualification remain required.
+
+
+### C1 correction intake — existing browser filter context
+
+Independent UX assessment identifies the missing outside-current-filters explanation
+required by this plan. D-199records the architecture-reviewed minimal transient
+search/type ownership and shared predicate before implementation. Preserve existing
+filename matching, sorting/groups and all scientific identities; no162property
+filters or name-only search are absorbed. C1native2all8/1,738web evidence remains
+bound to the preceding1,092-source snapshot; corrective coverage must be fresh.
+
+
+### D-198 downstream source authority — passing scoped integration
+
+The reviewed159correction is adopted through21common paths and a narrow App merge.
+Nineteen paths match its frozen1,122-source candidate exactly. API changes retain
+all profile routes; the property hook retains profile dependencies and registry
+invalidation. Existing context, molecular methods, D-196 protected implementation,
+old tests/native files and downstream presentation/filter behavior remain exact.
+All original source/evidence snapshots and raw stores are preserved. RootApp
+captures source facts inside actual Use/Clear/legacy-resolve promises and installs
+one synchronous canonical inventory-to-numerical authority bridge above presentation.
+
+Fresh author actual61306exit0/bc9e70 passes139backend/profile cases,156D-196,
+six real supervisors, Ruff/scoped format/mypy280, lint/types/build,689focused
+frontend and1910web/143files. The full1213-path audit remains fixed at
+mapSHA256`860df2a3ff80ac82d2b7c0492c12407295d5a2add6e74be334e42c15e18a51de`. It additionally covers107existing qualification scripts versus
+the older selected-source inventory; no old path is dropped. Root independently
+checks all55handoff artifacts, four source ZIP CRCs and every complete/owned ZIP
+entry against its source map, plus all actual gate log hashes. D-194's49benchmark
+paths remain absent here as before; actual released159integration still supplies
+that separately required final reconciliation.
+
+Independent scoped architecture and scientific implementation each PASS. Architecture
+executes three actual-App controls plus85source-authority regressions. Science
+executes26component,109existing frontend,49Python and seven actual ASGI controls.
+Physical failures synchronously retire current profile/numeric authority and captured
+actions. Candidate and numerical recovery require independent genuine checks;
+generic/derived, malformed, unrelated and held-response controls remain safe.
+The161consumer controls also remove radar points/polygon and show Unavailable table
+cells. READY/recovery payloads are controlled transports; physical failure/restored
+candidate inputs use actual ASGI. These scopes are explicit and are not pooled into
+a full release gate or browser/performance claim.
+
+Actual prerequisite releases, current native/performance/compatibility, consistent
+versions, all seven same-final-candidate assessments and complete candidate/exact-
+master qualification remain required before protected publication and closeout.
+
+
+### C2 source-bound lifecycle/access qualification passes
+
+Fresh native9completes all16cases under the unchanged120-second authored deadlines,
+one worker and zero retries. Desktop/mobile and both themes cover actual100/200%
+zoom/320px, qualified primary-header identity, raw-complex manual assignment and
+unknown chemistry, outside-current-filters feedback without retargeting, project
+A→B→A, real bond-preview Cancel/Apply/Undo/Redo, same-source candidate/numerical
+retirement, stale READY rejection and genuine source-verified warm recovery.
+Primary directly observes enclosing81096exit0/c11ee6; the browser report contains
+exactly one passed result/retry0 for each case, with no failure/flake/skip/new
+exclusion. This evidence is independent of earlier failed or unused preparations.
+
+The complete1214source union remains fixed at compact-map digest
+874685e8c151512672bc679c6ca154ab124b6de985f9b5b6e81ea252d7000c8c
+and frozen-map-file SHAc17f1b7cff1ca5d6be8c6b0a7dbd9632eb7c97126bf97ac80d7f4f158938947f.
+All execution/source guards pass; positive owned cleanup leaves no process
+or occupied dedicated port. The raw store ZIP is351,889bytes, SHA256
+8fae190f0edbb20510db2ac77ded3343b6c1c035bda7f1a6d4625f848215753f, with CRC verified
+and raw bytes captured before diagnostic SQL. Original stores remain intact.
+
+Corrections preserve the required workflow/scientific assertions and deadlines.
+The first source-retirement recovery hold now precedes the legitimate automatic
+profile-change READ; candidate-only zero-READ checks remain distinct, and the other
+variants retain explicit Retry. Browser READ counters count once at entry without
+resets or double-counting route forwarding. The mobile filter disclosure uses its
+actual native summary because filtered text changes intentionally. Both locator
+actions preserve all187assertions and complete509-line structure. Independent
+architecture assesses each correction and unchanged22runtime functions. Final
+prep9passes strict types, exact16/644collections and49guard controls.
+
+All earlier failed attempts and unused HOLD preparations remain separate. Complete
+in-place hash inventories retain910prior regular files and102raw store members;
+latest source/raw snapshots are narrow exact copies. This preserves original
+evidence without recursively embedding old preparation archives. No result pooling,
+forced UI state, scientific fallback, assertion reduction or deadline increase is
+introduced.
+
+This is scoped local C2qualification at afe38ec1 plus the frozen working candidate.
+Actual released159/160and inherited158terminal integration, final versions/current
+performance/actual readers, full candidate and exact-master gates, all seven final
+implementation assessments and normal protected publication remain mandatory.
+
+
+### Passing local C2checkpoint evidence and scope
+
+The [checkpoint receipt](../assets/ligand-information/c2-native-checkpoint.json)
+and [complete current-run packet](../assets/ligand-information/c2-native-evidence.zip)
+retain1072original inputs, including all209current native9files,765startup-recovery
+files and explicit source/review lineage. The84,633,753-byte ZIP has SHA256
+`d5e28022c526dd17d52161b6496cea912a0c1698f5b20c41fce749a3beb821c7`.
+Independent primary layer verification confirms44ZIPs,4343evidence-manifest entries
+and56project-archive files. All136native attachment bodies remain exact. Source
+qualification reuses the original139/156/6/1910scopes only for unchanged subjects;
+current worker33+171coverage and fresh16native cases remain separately identified.
+
+All1214source paths/bodies equal the actual passing native9candidate. The original
+1213source map differs only in the worker and two C2test fixtures, plus the added
+startup regression file. Protected product/global plan/version/dependency bodies
+stay unchanged and accepted decisions remain append-only. Current versions stay
+0.36for this unreleased local checkpoint; final0.39preparation follows actual
+released prerequisites. No implementation push or final feature readiness is claimed.
+
+Earlier failed native payloads and old D-198raw stores remain in place and require
+separate final publication. This packet includes the current preparation's narrow
+native8raw copy, not every previous failure tree. Remaining complete644native
+inventory execution, current performance/readers, actual released159/160integration,
+full candidate/exact-master gates and all seven final assessments remain mandatory.

@@ -1,3 +1,4 @@
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import type { Project } from "../../apps/web/src/api/types";
@@ -8,6 +9,7 @@ interface Preferences { revision: number; enabled_categories: string[]; default_
 const preferencePath = "/api/v1/workspace/ligand-property-preferences";
 
 async function inspect(page: Page, entryId: string) {
+  await openLigandInformation(page);
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
@@ -19,7 +21,7 @@ async function inspect(page: Page, entryId: string) {
 async function closeInspector(page: Page) {
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
   if (await drawer.isVisible()) {
-    await drawer.getByRole("combobox", { name: "Entry", exact: true }).focus();
+    await drawer.locator(".inspector-header").getByRole("button").first().focus();
     await page.keyboard.press("Escape");
     await expect(drawer).toBeHidden();
   }
@@ -154,6 +156,7 @@ for (const theme of ["light", "dark"] as const) {
       await route.continue();
     });
     try {
+      await openInspectorTools(page);
       await page.getByRole("tab", { name: "selection", exact: true }).click();
       await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
       await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
@@ -222,6 +225,7 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
   };
   await choice.selectOption("ro5");
   await current("46.069");
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   const mode = page.getByRole("group", { name: "Operation mode" });
@@ -246,6 +250,7 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
   }
+  await openLigandInformation(page);
   await expect(panel).toBeVisible();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await expect(choice).toHaveValue("ro5");
@@ -330,6 +335,7 @@ for (const theme of ["light", "dark"] as const) test(`recovers failed profile me
     await expect(choice).toHaveValue("");
     await properties.getByRole("button", { name: "Retry profiles", exact: true }).click();
     await captured;
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "selection", exact: true }).click();
     await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
     await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);

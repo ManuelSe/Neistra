@@ -28,8 +28,9 @@ function valueText(value: DescriptorValue | undefined, definition: DescriptorDef
   return definition.value_type === "integer" ? String(value.value) : new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 }).format(value.value);
 }
 
-export function LigandProperties({ state, session, profiles }: {
+export function LigandProperties({ state, session, profiles, showComparison = false, anchored = true }: {
   state: PropertyPresentation; session: LigandPropertySession; profiles?: ProfilePresentation;
+  showComparison?: boolean; anchored?: boolean;
 }) {
   const { entry, target, registry, preferences, enabledDefinitions, configurationError, pausedReason, tooLarge } = state;
   useSyncExternalStore(session.subscribe, session.snapshot);
@@ -58,7 +59,7 @@ export function LigandProperties({ state, session, profiles }: {
   else status = "Updating properties…";
   const updating = !!configured && !!target && descriptorIds.length > 0 && !pausedReason && view?.status === "pending";
   const retryable = !pausedReason && !!target && (view?.status === "cancelled" || view?.retryable);
-  return <InspectorContentAnchor className="ligand-properties" aria-label="Properties" scope={entry?.id ?? null}>
+  const content = <>
     <div className="ligand-properties-heading"><strong>Properties</strong>
       {configured ? <PropertyOptions registry={registry} preferences={preferences} /> : null}
     </div>
@@ -71,7 +72,7 @@ export function LigandProperties({ state, session, profiles }: {
       {retryable ? <button type="button" className="ligand-properties-action" onClick={() => session.retry(target)}><RotateCw size={12} aria-hidden="true" />Retry</button> : null}
       {configurationError && !pausedReason ? <button type="button" className="ligand-properties-action" onClick={state.retryOptions}>Retry options</button> : null}
     </div>
-    {profiles ? <ProfileReadout profiles={profiles} properties={state} session={session} propertyStatus={status} /> : null}
+    {profiles ? <ProfileReadout profiles={profiles} properties={state} session={session} propertyStatus={status} showComparison={showComparison} /> : null}
     {current && values ? <div className="ligand-properties-groups">{categories.map(category => {
       const definitions = enabledDefinitions.filter(definition => definition.category === category.id);
       return definitions.length ? <div key={category.id} className="ligand-properties-group">
@@ -97,7 +98,9 @@ export function LigandProperties({ state, session, profiles }: {
       {current?.report ? <><p>Latest report <time dateTime={current.report.created_at}>{new Date(current.report.created_at).toLocaleString()}</time></p>
         {current.report.provenance.length ? <ul>{current.report.provenance.map((item, index) => <li key={index}>{readableReason(item)}</li>)}</ul> : null}</> : null}
     </details> : null}
-  </InspectorContentAnchor>;
+  </>;
+  return anchored ? <InspectorContentAnchor className="ligand-properties" aria-label="Properties" scope={entry?.id ?? null}>{content}</InspectorContentAnchor>
+    : <section className="ligand-properties" aria-label="Properties">{content}</section>;
 }
 
 function PropertyOptions({ registry, preferences }: { registry: DescriptorRegistry; preferences: PropertyPreferences }) {

@@ -486,6 +486,16 @@ export interface JobResultImport {
   imported_entry_id: string;
 }
 
+export interface ArtifactSourceIdentity {
+  project_id: string;
+  entry_id: string;
+  current_artifact_id: string | null;
+  original_artifact_id: string | null;
+}
+
+export type SourceIdentityEvidence = { kind: "absent" } | { kind: "invalid" }
+  | { kind: "valid"; identity: ArtifactSourceIdentity };
+
 export interface ApiErrorBody {
   detail?: {
     code?: string;
@@ -495,6 +505,8 @@ export interface ApiErrorBody {
     record_index?: number;
     warnings?: MolecularWarning[];
     reports?: ExportEntryReport[];
+    source_verification?: "current" | "original";
+    source_identity?: unknown;
   } | string;
 }
 

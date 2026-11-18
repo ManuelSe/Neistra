@@ -1,0 +1,17 @@
+.profile-comparison { min-width: 0; }
+.profile-comparison svg { display: block; width: min(100%, 240px); height: auto; margin: 0 auto; overflow: visible; }
+.profile-comparison svg text { fill: var(--text); font-size: 12px; }
+.comparison-guide { fill: none; stroke: var(--border); stroke-width: 1; }
+.comparison-shape { fill: color-mix(in srgb, var(--accent) 12%, transparent); stroke: var(--accent); stroke-width: 2; }
+.comparison-segment { stroke: var(--accent); stroke-width: 2; }
+.comparison-point { fill: var(--accent); stroke: var(--surface); stroke-width: 1; }
+.comparison-point[data-clipped] { stroke: var(--text); stroke-width: 2; }
+.comparison-caption, .profile-comparison-reason { font-size: var(--text-xs); line-height: 1.45; overflow-wrap: anywhere; }
+.comparison-caption { text-align: center; margin: 0 0 6px; }
+.comparison-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; padding-left: 20px; font-size: var(--text-xs); overflow-wrap: anywhere; }
+.comparison-table summary { min-height: 44px; align-content: center; cursor: pointer; }
+.comparison-table summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.comparison-table table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: var(--text-xs); }
+.comparison-table th, .comparison-table td { text-align: start; vertical-align: top; padding: 6px 3px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.comparison-table td span { display: block; }
+.comparison-table td { font-variant-numeric: tabular-nums; }

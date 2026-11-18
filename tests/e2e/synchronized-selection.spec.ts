@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -167,6 +168,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await residue.click();
   await expect(residue).toHaveAttribute("aria-pressed", "true");
   await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");
 

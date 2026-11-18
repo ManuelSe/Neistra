@@ -1,11 +1,16 @@
 import { LigandIntentOwner, type LigandOwnerContext } from "./ligands/ownership";
 import { completeLegacyLigands } from "./ligands/resolve";
 import { LigandDesignationControls } from "./components/LigandDesignationControls";
+import { matchesBrowserFilters } from "./browser/filtering";
 import { LigandProperties } from "./components/LigandProperties";
+import { LigandInformation } from "./components/LigandInformation";
+import { InspectorPublications, inspectorQueryPublications } from "./components/inspectorPublications";
+import { useDesignatedLigandContext } from "./ligands/presentation";
+import { captureArtifactSource, getLigandInventoryOwner, ligandOperationSourceFailure } from "./ligands/inventoryQualification";
 import { LigandPropertySession } from "./ligandProperties/session";
 import { PropertyInputOwner, type PropertyOwnerContext } from "./ligandProperties/ownership";
 import { PROPERTY_PREFERENCES_KEY, PROPERTY_REGISTRY_KEY, propertyInputKey } from "./ligandProperties/context";
-import { useLigandProperties } from "./ligandProperties/useProperties";
+import { useLigandProperties, usePropertySourceVerification } from "./ligandProperties/useProperties";
 import { ProfileSelection } from "./ligandProfiles/context";
 import { useLigandProfiles } from "./ligandProfiles/useProfiles";
 import type { DescriptorRegistry, PropertyPreferences } from "./ligandProperties/types";
@@ -90,7 +95,7 @@ import { useGroupActionFocus } from "./groups/useGroupActionFocus";
 import { useSequenceNavigationStore } from "./store/sequenceNavigation";
 import { useNavigationStore } from "./store/navigation";
 import { ProjectBrowser } from "./components/ProjectBrowser";
-import { ProjectInspector } from "./components/ProjectInspector";
+import { ProjectInspector, type InspectorTask, type InspectorView } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
 import { WorkspaceCanvas } from "./components/WorkspaceCanvas";
 import { JobSubmitDialog } from "./components/JobSubmitDialog";
@@ -144,6 +149,7 @@ export default function App() {
   const {
     theme,
     activeProjectId,
+    browserFilters,
     horizontalLayout,
     verticalLayout,
     leftCollapsed,
@@ -179,6 +185,8 @@ export default function App() {
   const [editedThisSession, setEditedThisSession] = useState(false);
   const recoveryClassifiedProjects = useRef(new Set<string>());
   const [selectionBusy, setSelectionBusy] = useState(false);
+  const [inspectorView, setInspectorView] = useState<InspectorView>("ligand");
+  const [inspectorTask, setInspectorTask] = useState<InspectorTask>("selection");
   const [selectionColorMode, setSelectionColorMode] =
     useState<SelectionColorMode>("carbon");
   const [coordinatePreview, setCoordinatePreviewState] =
@@ -192,6 +200,11 @@ export default function App() {
   const [profileSelection] = useState(() => new ProfileSelection(queryClient));
   const [propertySession] = useState(() => new LigandPropertySession(target => propertyOwner.capture(target)));
   useEffect(() => { propertySession.activate(); return () => propertySession.deactivate(); }, [propertySession]);
+  const [ligandInventoryOwner] = useState(() => getLigandInventoryOwner(queryClient));
+  const inspectorPublicationContext = useRef<{ projectId: string | null; entryId: string | null }>({ projectId: null, entryId: null });
+  const [inspectorPublications] = useState(() => new InspectorPublications([propertySession.subscribe,
+    inspectorQueryPublications(queryClient, () => inspectorPublicationContext.current),
+  ]));
   const {
     selection,
     pickingGranularity,
@@ -206,6 +219,7 @@ export default function App() {
   const rightRef = useRef<ImperativePanelHandle>(null);
   const lowerRef = useRef<ImperativePanelHandle>(null);
   const mobilePanelRef = useRef<HTMLElement>(null);
+  const mobilePanelFocusVisit = useRef<string | null>(null);
   const mobilePanelTriggerRef = useRef<HTMLElement | null>(null);
   const renderedMovementAtoms = useRef<() => AtomReference[]>(() => []);
 
@@ -222,15 +236,19 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!mobilePanel) return;
+    if (!mobilePanel) { mobilePanelFocusVisit.current = null; return; }
+    if (mobilePanelFocusVisit.current === mobilePanel) return;
+    mobilePanelFocusVisit.current = mobilePanel;
     requestAnimationFrame(() => {
-      mobilePanelRef.current
-        ?.querySelector<HTMLElement>(
+      (mobilePanel === "inspector" ? mobilePanelRef.current?.querySelector<HTMLElement>(inspectorView === "ligand"
+        ? ".ligand-entry-choice select" : '.inspector-tabs button[aria-selected="true"]') : null)?.focus();
+      if (mobilePanelRef.current?.contains(document.activeElement)) return;
+      mobilePanelRef.current?.querySelector<HTMLElement>(
           'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
         )
         ?.focus();
     });
-  }, [mobilePanel]);
+  }, [mobilePanel, inspectorView]);
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],
@@ -569,6 +587,8 @@ export default function App() {
     const registry = queryClient.getQueryState<DescriptorRegistry>(PROPERTY_REGISTRY_KEY);
     const preferences = queryClient.getQueryState<PropertyPreferences>(PROPERTY_PREFERENCES_KEY);
     return { activeProjectId: active, inspectedEntryId: inspected,
+      sourceIdentity: active && entry ? { projectId: active, entryId: entry.id,
+        currentArtifactId: entry.current_artifact_id, originalArtifactId: entry.original_artifact_id } : null,
       inputKey: propertyInputKey(active, entry, registry?.status === "success" ? registry.data : undefined,
         preferences?.status === "success" ? preferences.data : undefined,
         profileSelection.dependencies(registry?.status === "success" ? registry.data : undefined)),
@@ -592,9 +612,14 @@ export default function App() {
       })];
     return () => { for (const stop of release) stop(); propertyOwner.deactivate(); };
   }, [propertyOwner, movementSession, publication, editAttempts, queryClient]);
+  usePropertySourceVerification(ligandInventoryOwner, propertySession, propertyOwner);
   const profileState = useLigandProfiles(!!project, profileSelection, propertyOwner);
   const propertyState = useLigandProperties({ project, entryId: ligandEntryId, pausedReason: ligandPausedReason,
     session: propertySession, owner: propertyOwner, profileSelection });
+  const designatedContext = useDesignatedLigandContext({ project, entryId: ligandEntryId,
+    pausedReason: ligandPausedReason, owner: ligandInventoryOwner,
+    depiction: inspectorView === "ligand" && (compact ? mobilePanel === "inspector" : !rightCollapsed) });
+  inspectorPublicationContext.current = { projectId: project?.id ?? null, entryId: designatedContext.entry?.id ?? null };
   useLegacyLigandResolution({
     project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
     blocked: busy || !!ligandPausedReason,
@@ -604,11 +629,20 @@ export default function App() {
       return completeLegacyLigands(captured, entryIds, {
         current: () => owner.ownsFeedback(),
         resolve: (source, ids) => {
+          const projectId = source.id, revision = source.revision, requestedIds = [...ids];
+          const sources = source.entries.filter(entry => requestedIds.includes(entry.id)).map(entry => captureArtifactSource(projectId, entry));
           const context = { ownsFeedback: owner.ownsFeedback,
             assertDispatchable: () => owner.assertDispatchable(source, ids) };
           context.assertDispatchable();
           return commandMutation.mutateAsync(captureProjectCommand(source.id,
-            () => ligandApi.resolve(source.id, source.revision, ids), "quiet", context));
+            async () => {
+              try { return await ligandApi.resolve(projectId, revision, requestedIds); }
+              catch (error) {
+                const proof = ligandOperationSourceFailure(error, sources, "resolve");
+                if (proof) ligandInventoryOwner.recordSourceFailure(proof);
+                throw error;
+              }
+            }, "quiet", context));
         },
         read: projectApi.get,
         accept: updateProjectCache,
@@ -618,13 +652,20 @@ export default function App() {
       if (owner === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
-  const ligandControls = project ? <><LigandDesignationControls project={project} entryId={ligandEntryId}
+  const ligandControls = project ? <LigandInformation scope={JSON.stringify([project.id, designatedContext.entry?.id ?? null])}
+    publications={inspectorPublications} complex={designatedContext.entry?.structure_type === "complex"}>
+    <LigandDesignationControls project={project} entryId={ligandEntryId}
+    inventoryOwner={ligandInventoryOwner} context={designatedContext} informationHeader
+    outsideCurrentFilters={project.id === activeProjectId && !!designatedContext.entry
+      && !matchesBrowserFilters(designatedContext.entry, browserFilters)}
+    onPublication={inspectorPublications.publish}
     onInspectEntry={id => useNavigationStore.getState().inspect(project.id, id)}
     onOpenChoices={() => measurementSession.cancelAcquisition("Atom picking stopped for ligand choice.")}
     ownsContext={ligandViewOwner.ownsFeedback}
     pausedReason={ligandPausedReason} busy={busy}
     onDesignate={async (entry, candidateKey, inputHash, ownsAttempt) => {
       const captured = project;
+      const source = captureArtifactSource(captured.id, entry), revision = captured.revision;
       const context = { ownsFeedback: () => ligandViewOwner.ownsFeedback() && (!ownsAttempt || ownsAttempt()),
         assertDispatchable: () => {
           if (ownsAttempt && !ownsAttempt()) throw new ApiError(409, "ligand_context_changed", "The ligand choice was closed. Review the current choice before saving.");
@@ -633,13 +674,22 @@ export default function App() {
       context.assertDispatchable();
       if (busy) throw new ApiError(409, "ligand_context_changed", "Another change is being saved.");
       const next = await commandMutation.mutateAsync(captureProjectCommand(captured.id,
-        () => ligandApi.designate(captured.id, entry.id, {
-          expected_revision: captured.revision, expected_artifact_id: entry.current_artifact_id,
-          ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
-        }), undefined, context));
+        async () => {
+          try {
+            return await ligandApi.designate(source.projectId, source.entryId, {
+              expected_revision: revision, expected_artifact_id: source.currentArtifactId,
+              ...(candidateKey ? { candidate_key: candidateKey, expected_input_hash: inputHash } : { clear: true }),
+            });
+          } catch (error) {
+            const proof = ligandOperationSourceFailure(error, [source], candidateKey ? "use" : "clear");
+            if (proof) ligandInventoryOwner.recordSourceFailure(proof);
+            throw error;
+          }
+        }, undefined, context));
       const current = queryClient.getQueryData<Project>(["project", captured.id]);
       return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
-    }} /><LigandProperties state={propertyState} session={propertySession} profiles={profileState} /></> : null;
+    }} /><LigandProperties state={propertyState} session={propertySession} profiles={profileState} anchored={false} showComparison /></LigandInformation>
+    : <p className="empty-label">Open a project to inspect a ligand.</p>;
 
   measurementPorts.current = {
     context: () => {
@@ -1585,6 +1635,7 @@ export default function App() {
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
                         ligandControls={ligandControls}
+                        view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                         project={project}
                         busy={busy}
                         {...inspectorSelectionProps}
@@ -1767,6 +1818,7 @@ export default function App() {
                 ) : (
                   <ProjectInspector
                         ligandControls={ligandControls}
+                    view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                     project={project}
                     busy={busy}
                     {...inspectorSelectionProps}

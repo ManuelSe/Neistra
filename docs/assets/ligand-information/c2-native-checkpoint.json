@@ -1,0 +1,118 @@
+{
+  "D198_historical_validation": {
+    "D196_cases": 156,
+    "actual_original_chunk": "bc9e70",
+    "actual_original_exit": 0,
+    "actual_original_session": 61306,
+    "all_declared_log_receipt_hashes_valid": true,
+    "backend_profile_cases": 139,
+    "frontend_files": 143,
+    "frontend_focused": 689,
+    "frontend_global": 1910,
+    "real_supervisor_cases": 6,
+    "reuse": "Original run and complete frozen subjects retained. All frontend and scientific/source-producer bodies remain exact; worker changed in two bounded methods, separately validated below. Do not relabel entire historical156/supervisor command as a newly executed current-source gate.",
+    "source_count": 1213,
+    "static": "Ruff/scoped format/mypy280/lint/types/build PASS at original frozen source"
+  },
+  "D198_source_delta": {
+    "added": {
+      "tests/integration/test_ligand_property_preload_ownership.py": "22bbcb57f3fe5d45dfeb9f814ffcf5cf7bf43568302bc162118d4302cdd8cf16"
+    },
+    "all_frontend_runtime_tests_config_exact": true,
+    "changed": {
+      "apps/api/src/neistra_api/job_worker.py": {
+        "after": "ecb0426cce55490ae740586c0cf95a302a8588f9c2d505c21cf3ca7990711f05",
+        "before": "b7972af2864dc83ee111a70d0b432bc9ef3428edd8fe9776f5ee846b572a0c43"
+      },
+      "tests/e2e/ligand-information-access.spec.ts": {
+        "after": "5972e4fddedaec6ead1feff4a3e8a3cdad19feeecbc9bef68c0820ad4b39cea4",
+        "before": "6b05a1b431e4ac160742599c23fa87703216cb1917c159f453f8c0d8c90c166c"
+      },
+      "tests/e2e/ligand-information-lifecycle.spec.ts": {
+        "after": "1e8c69852bbad44cb406a7f91f7f5ee2226e74b78ec4d3969370d5bb7c2b405e",
+        "before": "9a07967d077dbc53eaaff927c4efe75355829987c76a368dd6482c841aa91211"
+      }
+    },
+    "other1210_bodies_exact": true
+  },
+  "actual_authority_attachment_readback": "metadata/actual-authority-attachment-readback.json",
+  "actual_source_body_version_reuse": "No tests/builds/install/app import/SQL/services/native/performance executed by packager. Original passing runs are source-bound, not relabelled fresh full gates.",
+  "aliases_inert_metadata": 103,
+  "all_original_staged_archive_bodies_exact": true,
+  "archive": "c2-native-evidence.zip",
+  "archive_bytes": 84633753,
+  "archive_sha256": "d5e28022c526dd17d52161b6496cea912a0c1698f5b20c41fce749a3beb821c7",
+  "candidate_base_head": "afe38ec1bdbc8c94159668664abf7684306b9c04",
+  "candidate_includes_working_tree_changes": true,
+  "empty_directories_explicit": 420,
+  "exact_outer_and_current_run_union": true,
+  "format_version": 1,
+  "fresh_native_checkpoint": {
+    "attachments": 136,
+    "author_did_not_inherit_or_poll_root_handle": true,
+    "complete_report_attachment_bodies_rehashed": true,
+    "each_single_passed_result_retry0": true,
+    "fresh_current_cases": 16,
+    "guards": [],
+    "owned_cleanup_and_ports": "PASS",
+    "raw_store": {
+      "bytes": 351889,
+      "sha256": "8fae190f0edbb20510db2ac77ded3343b6c1c035bda7f1a6d4625f848215753f"
+    },
+    "raw_store_members": 20,
+    "root_observed_chunk": "c11ee6",
+    "root_observed_exit": 0,
+    "root_observed_session": 81096,
+    "root_snapshot_preceded_SQL": true,
+    "skips_failures_flakes_retries": 0,
+    "source1214_exact": true
+  },
+  "full_current_run_regular_files": 209,
+  "issue": 161,
+  "observed_utc": "2026-11-18T13:36:56.752939+00:00",
+  "old_D198_raw_stores": "Original directories remain in place; declared source ZIPs/logs/receipt/review proof included.",
+  "outer_manifest_entries": 1083,
+  "ownership_scope": {
+    "changed_or_untracked_paths_before_assets": 102,
+    "complete_final_hash_manifest": "Root-owned private owned-path-manifest.final.json is generated after both assets exist; no self-reference is embedded.",
+    "complete_future_staging_path_count": 104,
+    "new_asset_paths": [
+      "docs/assets/ligand-information/c2-native-evidence.zip",
+      "docs/assets/ligand-information/c2-native-checkpoint.json"
+    ],
+    "unrelated_paths": []
+  },
+  "parent": 11,
+  "prior_native_failures": "Complete old failed native trees remain in place and require separate final forensic publication. Current prep9 tree includes one narrow native8raw20-member copy; it does not include every prior failed payload.",
+  "protected_docs_versions_dependencies": "ProductSpec/globalPLAN and dependency files unchanged from afe38; all five authoritative version values remain0.36.0. Final0.39 preparation pending. Bodies of ProductSpec/globalPLAN are not copied.",
+  "publication_state": "Local assets only; no Git commit/stage/push/PR/release/issue action by packager.",
+  "recursive_verification": {
+    "evidence_manifest_entries": 4343,
+    "project_archive_files": 56,
+    "zip_archives": 44
+  },
+  "regular_original_input_bytes": 151675052,
+  "regular_original_input_files": 1072,
+  "remaining": [
+    "Earlier failed native attempts remain failed and in place; complete failed payload publication/forensics remains pending.",
+    "Packet includes FULL current prep9 tree, which itself includes a narrow native8 raw-store copy; it does not contain complete earlier failed native trees.",
+    "D198 source ZIPs/logs/review top-level proof included; old D198 raw-store subdirectories remain in place, not packaged here.",
+    "Actual released159/160 integration, final versions, current performance/preceding readers, complete candidate/exact-master gates and final all-seven same-candidate review remain pending.",
+    "Only the16 selected C2 native cases ran; complete644 inventory was collected, not executed by this checkpoint."
+  ],
+  "repository": "ManuelSe/Neistra",
+  "scope": "Passing LOCAL C2 checkpoint evidence only. No finished feature, push readiness, final all-seven review or release claim.",
+  "scoped_reviews": "D198 architecture/scientific implementation PASS on unchanged source-producer subjects; upstream worker architecture PASS on exact worker/test correction. These are not seven final161 verdicts.",
+  "source_count": 1214,
+  "source_digest": "874685e8c151512672bc679c6ca154ab124b6de985f9b5b6e81ea252d7000c8c",
+  "source_map_sha256": "c17f1b7cff1ca5d6be8c6b0a7dbd9632eb7c97126bf97ac80d7f4f158938947f",
+  "startup_coverage": "Complete target startup propagation tree plus exact bounded upstream correction packet included; one logical browser READ is distinct from route.fetch forwarding in actual C2 evidence.",
+  "startup_current_subject_equivalence": {
+    "affected_cases": 171,
+    "junit_zero_failures_errors_skips": true,
+    "new_cases": 33,
+    "source_equivalence": "Current differs from target1214 startup map only in lifecycle e2e fixture; all Python/tests/configs exact",
+    "static": "Target Ruff/owned format/mypy280 PASS",
+    "upstream_worker_ARCH": "Scoped PASS for exact current worker/test bodies; not final161 all-seven assessment"
+  }
+}

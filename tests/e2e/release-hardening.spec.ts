@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
@@ -114,7 +115,14 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await page.keyboard.press("Enter");
     const drawer = page.getByRole("dialog", { name: "Inspector panel" });
     await expect(drawer).toBeVisible();
+    const ligandChoice = drawer.getByRole("region", { name: "Ligand of interest", exact: true });
+    const entryChoice = ligandChoice.getByRole("combobox", { name: "Entry", exact: true });
+    await expect(entryChoice).toBeEnabled();
+    await expect(entryChoice).toBeFocused();
+    await expect(entryChoice).toHaveValue("");
+    await openInspectorTools(page);
     const selectionTab = drawer.getByRole("tab", { name: "selection" });
+    await selectionTab.focus();
     await expect(selectionTab).toBeFocused();
     await selectionTab.focus();
     await page.keyboard.press("ArrowRight");
@@ -128,6 +136,7 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await expect(inspectorButton).toBeFocused();
     await expect(page.locator(".tooltip")).toBeHidden();
   } else {
+    await openInspectorTools(page);
     const selectionTab = page.getByRole("tab", { name: "selection" });
     await selectionTab.focus();
     await page.keyboard.press("ArrowRight");

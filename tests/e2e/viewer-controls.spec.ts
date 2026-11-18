@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { watchNativeUi, expectApplicationViewer } from "./support/viewer-ui";
 import { resolve } from "node:path";
 import {
@@ -321,6 +322,7 @@ test("synchronizes picking and keeps selection, focus actions, and project state
   await expect(focusSelection).toHaveAttribute("aria-disabled", "false");
   const selectionStatus = await page.locator(".viewer-status").textContent();
 
+  await openInspectorTools(page);
   const viewerPick = page.getByRole("group", { name: "Viewer pick", exact: true });
   await page.getByRole("button", { name: "Pick residues" }).click();
   await expect(viewerPick.getByRole("button", { name: "residue" })).toHaveAttribute(
@@ -397,6 +399,7 @@ test("keeps compact picking and focus controls bounded and keyboard reachable", 
 
   await page.getByRole("button", { name: "Inspector" }).click();
   const drawer = page.getByRole("dialog", { name: "Inspector panel" });
+  await openInspectorTools(page);
   const viewerPick = drawer.getByRole("group", { name: "Viewer pick", exact: true });
   await expect(viewerPick.getByRole("button", { name: "structure" })).toHaveAttribute(
     "aria-pressed",

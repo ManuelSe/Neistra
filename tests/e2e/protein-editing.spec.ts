@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -106,6 +107,7 @@ async function selectAtoms(
   entryId: string,
   atomIds: number[],
 ): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   const mode = page.getByRole("group", { name: "Operation mode" });
   await mode.getByRole("button", { name: "replace" }).click();
@@ -176,6 +178,7 @@ test("edits protein hierarchy and chemistry with exact history and validation", 
     }));
   await expectNonblankCanvas(page);
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "protein" }).click();
   await expect(page.getByLabel("Protein editor")).toContainText(
     "No rotamer search, protonation analysis, or full protein preparation",
@@ -288,6 +291,7 @@ test("edits protein hierarchy and chemistry with exact history and validation", 
   state = await project(request, state.id);
 
   await selectAtoms(page, entryId, [15]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "protein" }).click();
   const beforeAtomMove = (await structure(request, state.id, entryId)).atoms.find(
     (atom) => atom.id === 15,
@@ -333,6 +337,7 @@ test("edits protein hierarchy and chemistry with exact history and validation", 
   state = await project(request, state.id);
 
   await selectAtoms(page, entryId, [7]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "protein" }).click();
   await page.getByRole("button", { name: "Delete selected residues" }).click();
   await expect
@@ -389,6 +394,7 @@ test("edits protein hierarchy and chemistry with exact history and validation", 
     "1 visible / 1 loaded",
     { timeout: 30_000 },
   );
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "protein" }).click();
   await expect(page.getByText("Locked", { exact: true })).toBeVisible();
   await expect(
@@ -437,6 +443,7 @@ test("keeps protein editing usable in the mobile inspector", async ({
 
   await page.getByRole("button", { name: "Inspector" }).click();
   const inspector = page.getByRole("region", { name: "Project inspector" });
+  await openInspectorTools(page);
   await inspector.getByRole("tab", { name: "protein" }).click();
   await expect(inspector.getByLabel("Protein editor")).toBeVisible();
   await expect(inspector).toContainText(
