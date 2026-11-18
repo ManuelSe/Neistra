@@ -851,3 +851,69 @@ source copies, the complete current1,122-source qualification inventory and all
 earlier public asset identities. All138owned link records remain validated metadata
 without active ZIP links or omitted cache files. This is a local passing checkpoint,
 not a complete native/performance/release qualification or all-seven final approval.
+
+
+### Early complete code audit — bounded worker-recovery correction in progress
+
+Candidate049173da is compared with the actual initial shared forkcd6715d3, covering
+all147intended paths. This is distinct from later integration of the actually
+released #158 prerequisite. Early theory and scientific implementation audits find
+no consequential scientific-method defect: all14definitions, strict H/stereo/input
+qualification, numerical domains, sealed cache/current-source proofs and existing
+regression subjects are inspected. They are code/method assessments, not final
+readiness or newly executed numerical tests. All1,122old source bodies remain the
+subjects of those historical assessments.
+
+Architecture finds two consequential P2 gaps: raw descriptor-cache OSError can stop
+worker startup before ordinary work; and implementation-version or input-load
+refusal before _run_claimed leaves a never-started private capture unreaped, bypassing
+terminal retention. The appended D-196 continuation records the accepted narrow
+correction: isolated cache warning/rollback; immutable pre-dispatch capture; exact
+writer-locked ownership plus affirmative absent process metadata; existing truthful
+terminal classification; re-lock/recheck before reaped/prune. Preserve foreign,
+replacement, deleted and positively registered records for verified recovery.
+
+Only job_worker.py and a new independent regression file are assigned for code.
+Original startup tests and D-194's49paths stay exact. No numerical algorithm, schema,
+version or cap change is authorized by this correction. No execution checks run
+while #158's exact-master browser qualification occupies the host. The patch is
+work in progress, not a passing checkpoint or ready-to-push implementation.
+
+After the active #158 gate, prove startup-I/O isolation with ordinary work; both
+pre-dispatch refusal paths; repeated failures beyond32terminal captures; retirement,
+already-terminal, replacement/foreign/deleted and positive-process metadata races.
+Run affected static/focused checks, reconcile findings and renew source-bound
+preparations. ALL8prep7 and earlier maps remain retained/HOLD; they must refuse
+changed source bytes. Integrate actual released #158 before final version/predecessor
+qualification, complete candidate/exact-master gates, all-seven final assessment and
+normal verified release. Parent #11 and its single Goal remain active.
+
+
+### C2 pre-launch recovery correction — verified bounded checkpoint
+
+2026-11-18: complete the accepted two-P2 repair in job_worker.py and the new
+independent test_ligand_property_preload_ownership.py. The baseline worker loaded
+without replacing production files reproduces three intended failures with zero
+setup errors. Corrected source passes33 new tests and171 affected existing tests,
+zero skips/errors. Global Ruff passes. The additional whole-tree format probe
+fails on105 source-identical historical files; preserve the original failed receipt.
+Owned formatting, mypy274 and diff checks pass in the unchanged-source continuation.
+Architecture independently returns scopedPASS and closes both P2s.
+
+The [checkpoint](../assets/ligand-properties/c2-prelaunch-recovery-checkpoint.json)
+and [lossless evidence ZIP](../assets/ligand-properties/c2-prelaunch-recovery-evidence.zip)
+preserve every799regular input payload,106validated inert aliases and409empty
+directories, including negative/positive/failed-format/continuation attempts and raw
+stores before diagnostic processing. The1,665,983-byte ZIP SHA256 is
+`99b77afb632cfaa88654d1f3753d7f0b3620c351752998fde837805a7cfc39d5`.
+Primary readback verifies all807manifest entries, exact original-file union, CRCs,
+corrected source bodies and the complete current1123-source map. Its compact digest
+is8741811eef3861af1ab3be5f7397de434da38a6baa5239a8ec981e19b11a5ba3.
+No original source/store/evidence is replaced and no SQL is opened for packaging.
+
+This is a passing local checkpoint only. The old1122-source ALL8prep7 remains
+unexecuted/HOLD and must reject the corrected worker. Propagate verified shared
+corrections, refresh literal guards and integrate the actually released #158 before
+final159version/preceding-reader qualification. Required performance/capacity/native
+workloads, complete candidate and exact-master gates, all seven same-final-candidate
+assessments and normal verified delivery remain pending. No push readiness is claimed.

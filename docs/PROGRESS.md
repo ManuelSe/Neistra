@@ -3,84 +3,53 @@
 ## Current milestone
 
 Parent #11 remains active for required #156–#163 through verified releases and
-parent closeout. #156/#157 are delivered. #158 is running fresh C13 qualification.
-#159's D-198 source-producer correction has a passing local correctness checkpoint
-and independent scoped architecture/scientific implementation assessments. Its
-propagation into #160/#161 is undergoing fresh destination validation. #162/#163
-remain planned. Actual released prerequisites and final delivery gates remain binding.
+parent closeout. #156/#157 are delivered. #158 merged through PR175; its exact
+247ab651 qualification and independent primary-packet verification pass. Its
+annotated v0.36.0 tag and draft release449776471 are verified; asset publication,
+anonymous verification and closeout remain pending. Delivery remains serial.
+#159 now has a passing bounded worker-recovery correction. #160/#161 are local
+preparation; #162 has a technical plan checkpoint; #163 remains planned.
 
 ## Completed work
 
-#159 supplies fourteen versioned descriptors, configurable display categories,
-automatic exact-input updates and bounded scientific execution/cache/consumer
-ownership. D-196 repairs captured startup and reaped-publication ownership.
-
-D-198 adopts the corrected common ligand read/write boundary and preserves typed
-physical-source facts from property verification results. Exact current/original
-failures synchronously retire matching candidate facts, numerical aliases and
-captured input authority. The retired request returns without further polling or
-demand. Candidate and numerical recovery require their own genuine matching checks.
-Generic worker, capacity, chemistry, semantic, transport and derived-artifact failures
-do not acquire physical-source authority. No numerical method or persisted-data
-schema changes; the existing API result gains one optional typed source fact.
+#159 implements fourteen versioned descriptors, configurable categories and bounded
+execution/cache/consumer ownership. D-194 retains frozen benchmark inputs; D-196
+captures startup ownership; D-198 preserves physical-source provenance.
+The two early architecture findings are corrected: private cache I/O cannot stop
+ordinary startup recovery, and exact never-started refusals terminalize/reap with
+writer-locked association and process-metadata checks.
 
 ## Verification performed
 
-Current1,122-source candidate2 matches map29c3c5c31aaead721d442b95052848786d2786731864405e1777055e22329fbd.
-Author checkpoint passes357focused frontend/13files,1,559web/133files, lint/types/
-build, Ruff/format/mypy274. Only90backend,156D-196 and six real supervisors are
-explicitly reused after a new-test-only import/mock typing correction. The first
-actual55633exit1 lint failure and candidate1 remain preserved; actual97831exit0
-completes the corrected checkpoint. Existing large-chunk build advisory remains.
-
-Two actual six-case ASGI failure sets feed production session/canonical-owner
-controls. They prove exact four-ID/role attribution, one retirement event, absent
-numbers/retired captures and zero new allocation/demand. Actual46715exit0 separately
-qualifies genuine restored candidate GETs: candidate recovery alone cannot revive
-numbers; fresh property READ can recover warm numbers without qualifying candidates.
-Numerical READY/recovery transports are controlled fixtures, not new calculations.
-
-Independent architecture passes21backend, six ASGI and six installed-session
-controls; scientific implementation passes58backend,148frontend, six ASGI physical
-failures plus a valid unsupported-metadata control, and12session recovery controls.
-Both scoped assessments PASS without consequential findings. Root verifies all100
-handoff artifacts, six ZIP CRCs, five complete/owned source ZIP maps and the current
-complete qualification inventory. Original49source-authority tests, D-194's49paths,
-D-196 protected files and33property-service methods remain exact; only_current's
-failure projection changes. These checks do not establish full-feature readiness.
-
-The [source-producer checkpoint](assets/ligand-properties/c2-source-producer-checkpoint.json)
-and [lossless packet](assets/ligand-properties/c2-source-producer-evidence.zip) retain
-1,400regular payloads,45recursive ZIPs/1,425manifest entries/55project archive files,
-all100handoff artifacts, the original write/reverse negatives and raw owned stores.
-The27,099,010-byte ZIP has SHA256
-`7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b`.
-Primary actualdd139dexit0 independently verifies the full packet, exact original
-regular-file unions, current1,122-source inventory and all earlier public assets.
-Its138link records are metadata, with no active archive symlinks or cache omissions.
-
-D-194's earlier single desktop probe4 passes five cold starts/20paired edits. Its
-cold-edit median2,057.95ms/p952,242.60ms exceeds the unchanged2,000ms target; portable
-correctness is not strict-host certification. Seven other cases/four1,000-entry
-workloads remain unexecuted. ALL8preparations5/6 are retained historical/HOLD and
-must be refreshed to the corrected source before any execution.
+The original worker reproduces all three intended negative assertions with zero
+setup errors. The corrected worker passes33 new cases and171 affected regressions,
+with zero skips/errors. Global Ruff, owned formatting, mypy274 and diff checks pass.
+An extra whole-repository format probe failed on105 byte-identical baseline files;
+that attempt remains retained and distinct from the passing scoped continuation.
+Architecture independently closes both P2 findings. The
+[checkpoint](assets/ligand-properties/c2-prelaunch-recovery-checkpoint.json) and
+[lossless packet](assets/ligand-properties/c2-prelaunch-recovery-evidence.zip)
+preserve all799 owned regular files,106 inert aliases and all attempts/stores.
+Primary readback verifies the exact807-member manifest union and all1,123 current
+source bodies. Original startup tests, D-194 fixtures and earlier packets stay exact.
 
 ## Known limitations
 
-Preparation version0.36/planned0.37, migration0017/projectarchive3/viewer2 require
-actual released #158 integration and actual preceding-reader qualification. Current
-native/performance and complete candidate/exact-master gates, all seven final
-same-candidate assessments and protected publication remain outstanding. Scoped
-reviews supplement those gates. No #159 implementation push, PR, release or closeout.
+This is a local correction checkpoint, not full-feature readiness or final all-seven
+approval. Old1,122-source ALL8prep7 remains historical/HOLD and stale after the fix.
+The old desktop probe cold median2,057.95ms/p952,242.60ms exceeds the unchanged
+2,000ms target; seven other cases/four1,000-entry cohorts remain unexecuted.
+Portable correctness and prepared runners do not establish strict-host performance.
 
 ## Blockers
 
-No external blocker. Preserve original stores, failed/superseded runs and raw logs.
+No external blocker. Actual released-prerequisite integration, refreshed workload
+source guards, performance qualification and all final delivery gates remain required.
+Preserve original stores and failed/superseded evidence. No #159 push or release.
 
 ## Next action
 
-Finish source-bound propagation/verification for #160/#161 and qualify current
-native and all required performance workloads. Integrate
-actual released #158, reconcile all authoritative versions, complete candidate and
-exact-master release gates, then protected publication/closeout. Keep the one parent
-Goal active through the whole required program.
+Finish #158 publication/readback/closeout; commit the validated #159 correction,
+propagate shared fixes into160/161 with scoped verification, integrate released #158,
+update final versions and qualify required workloads/full gates/all-seven reviews.
+Keep the one Goal active through #163 and verified parent closeout.

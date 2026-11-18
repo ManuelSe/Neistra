@@ -9155,3 +9155,62 @@ newer-failure ownership, hidden/remounted consumers and unrelated/Cancel/origina
 bytes/history/bounded retention. Architecture and scientific implementation have
 assessed the method before code; actual159implementation and reassessment remain
 pending the earliest158shared-source correction.
+
+
+### D-196 continuation — isolate private-cache recovery and close pre-launch refusals
+
+Date: 2026-11-18. Early complete #159 code review of049173da identifies two concrete
+failure-recovery gaps within the existing captured-attempt contract. This refinement
+adds no scientific method, schema, service, dependency or resource-limit change.
+
+Descriptor-cache construction or orphan cleanup can raise OSError in worker startup.
+Catch only OSError and PropertyCacheError around that exclusive housekeeping stage,
+roll back its transaction and retain the warning. Positive process recovery, job
+recovery, ownership checks and database errors remain outside that catch. A private
+cache outage must not stop otherwise valid ordinary user work.
+
+Capture immutable PropertyAttempt ownership before implementation-version refusal or
+input materialization. On a pre-launch refusal, release the failing caller transaction
+before opening another session, or use the same writer seam. Refresh the exact claim
+under the writer lock and require child_pid=None, child_start_token=None and
+group_confirmed=False before never-started finalization. Reuse existing truthful
+failed-versus-retired cancellation classification. After a terminalizer commit,
+reacquire the writer lock and recheck ownership, those three metadata fields and
+terminal status before marking reaped and pruning. Already terminal matching claims
+keep their status; queued/running claims are not falsely reaped.
+
+Missing, deleted, replacement, foreign or positively registered captures cannot gain
+never-started authority from a job ID or a missing local process object. Preserve
+existing verified recovery for those cases; do not hide a reaping failure. Keep old
+startup regressions and D-194 fixtures unchanged, and add independent startup-I/O,
+pre-load/version refusal, bounded-retention and ownership-race oracles.
+
+This is the accepted bounded correction design, not execution evidence. The owned
+#159 patch remains unverified until focused tests and applicable checks run after
+#158's active exact-master qualification. Refresh source-bound performance preparations
+before any future workload; do not rewrite old maps or borrow their passes for new
+worker bytes. Final released prerequisites, full gates and all seven final assessments
+remain mandatory.
+
+
+### D-196 correction verification — 2026-11-18
+
+After the exact #158 host qualification finished, the original worker class loaded
+in a test-only child reproduces three real negative assertions: cache-path
+NotADirectoryError escapes startup, and input/version refusal leaves each captured
+execution unreaped. Zero setup errors occur. The corrected two-file candidate
+passes33 new cases and171 existing affected cases with zero skips/errors. Global
+Ruff passes. The extra whole-repository format probe reports105 unchanged baseline
+files; retain that failed attempt without bulk formatting. An unchanged-source
+continuation passes owned formatting, mypy274 and diff checks.
+
+Independent architecture execution assessment closes both original P2s, including
+retention beyond32terminal captures, actual0017 downgrade, ordinary-job preservation,
+retirement/replacement and positively registered process metadata. This is scoped
+correction acceptance, not all-seven final feature approval. The new1123-source map
+keeps1121other prior bodies exact; old startup cases and D-194 fixture paths stay
+unchanged. Preserve old maps/ALL8prep7 as stale HOLD inputs and refresh guards before
+future workloads. The public c2-prelaunch-recovery checkpoint/ZIP retain all799owned
+regular files,106inert aliases,409empty directories, raw attempts and stores without
+SQL inspection. Primary full-union/source readback passes. No scientific method,
+version, schema, capacity or performance-target change follows from this correction.

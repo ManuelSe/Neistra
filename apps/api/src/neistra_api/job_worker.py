@@ -304,7 +304,7 @@ class JobWorker:
             try:
                 LigandPropertyCache(session, self.settings.data_dir).cleanup_orphans()
                 session.commit()
-            except PropertyCacheError as error:
+            except (PropertyCacheError, OSError) as error:
                 import logging
 
                 session.rollback()
@@ -315,6 +315,7 @@ class JobWorker:
 
     def run_once(self) -> bool:
         from neistra_api.job_service import JobService
+        from neistra_api.ligand_property_process import PropertyAttempt
 
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
@@ -360,20 +361,33 @@ class JobWorker:
                 self._property_streak = 0
             if job is None:
                 return False
+            attempt = (
+                PropertyAttempt.capture(job, self.worker_id)
+                if job.purpose == "ligand_properties"
+                else None
+            )
             if (
                 self.registry.get(job.job_type).definition.implementation_version
                 != job.implementation_version
             ):
-                service.fail(
-                    job.id,
-                    "implementation_version_unavailable",
-                    "The recorded implementation is unavailable; resubmit the calculation.",
-                )
+                code = "implementation_version_unavailable"
+                message = "The recorded implementation is unavailable; resubmit the calculation."
+                if attempt is not None:
+                    session.rollback()
+                    self._fail_unstarted_property_attempt(attempt, code, message)
+                else:
+                    service.fail(job.id, code, message)
                 return True
             try:
                 child_inputs = self._load_inputs(session, service, job)
             except Exception as error:
-                service.fail(job.id, "invalid_input_artifact", str(error))
+                if attempt is not None:
+                    session.rollback()
+                    self._fail_unstarted_property_attempt(
+                        attempt, "invalid_input_artifact", str(error)
+                    )
+                else:
+                    service.fail(job.id, "invalid_input_artifact", str(error))
                 return True
         self._run_claimed(job, child_inputs)
         return True
@@ -462,6 +476,46 @@ class JobWorker:
                 execution.reaped = True
                 LigandPropertyService(session, self.settings).prune_executions()
                 session.commit()
+
+    def _fail_unstarted_property_attempt(
+        self, attempt: PropertyAttempt, code: str, message: str
+    ) -> None:
+        """Close this never-started capture without replacing newer job authority."""
+        from neistra_api.job_service import JobService
+        from neistra_api.ligand_property_service import LigandPropertyService, private_execution
+
+        with self.session_factory() as session:
+            current = attempt.locked_job(session)
+            if current is None:
+                return
+            execution = private_execution(session, current)
+            if (
+                execution is None
+                or execution.child_pid is not None
+                or execution.child_start_token is not None
+                or execution.group_confirmed is not False
+            ):
+                return
+            JobService(session, self.settings, self.registry).terminalize_property_attempt(
+                attempt, code, message
+            )
+            # Terminalization commits. Reacquire the writer and refresh ownership
+            # before pruning; a later replacement never inherits this refusal.
+            session.rollback()  # Close any read opened while returning the terminal job.
+            current = attempt.locked_job(session)
+            if current is None or current.status not in {"completed", "failed", "cancelled"}:
+                return
+            execution = private_execution(session, current)
+            if (
+                execution is None
+                or execution.child_pid is not None
+                or execution.child_start_token is not None
+                or execution.group_confirmed is not False
+            ):
+                return
+            execution.reaped = True
+            LigandPropertyService(session, self.settings).prune_executions()
+            session.commit()
 
     def _run_claimed(self, job: Job, child_inputs: tuple[ChildInput, ...]) -> None:
         from neistra_api.job_service import JobService
