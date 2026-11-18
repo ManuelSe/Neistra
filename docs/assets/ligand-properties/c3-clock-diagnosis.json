@@ -1,0 +1,352 @@
+{
+  "role": "performance",
+  "reviewer": "/root/issue159_current_performance_preflight",
+  "verdict": "PASS",
+  "scope": "Closed completed desktop cold-case timing diagnosis only; not final seven-role performance approval, ALL8 completion, strict-host certification or a latency-target pass",
+  "candidate": "Frozen c22e75792f0d9c01ef797baa8396871153c33aa0; parent reports1125source map423ab89dd1a71fd2c32ffdb24f9317947cfd0ffcc0a14911c2db2b7b0713a0da. This analysis does not query live root/runtime/process state.",
+  "performed": "Standard-library JSON/JSONL metadata parsing, exact closed source/job/membership/input/owner-generation joins, arithmetic and small evidence hashing only. No source/docs/Git/remote mutations, app imports, SQL, tests, services, native/performance workloads, process probes, live global worker trace or live observer/database reads. Only the new assigned private analysis directory is written.",
+  "closed_evidence": {
+    "case": ".issue-11-evidence/issue159-performance/chromium-554d6801-f169-4e24-97c7-fa5a1085f24a",
+    "closed_case_inputs": {
+      "native-edit-performance.json": {
+        "bytes": 3619623,
+        "sha256": "a79058f58814c1e2553579787def33a165beff07b16d00a2ca49038a2e1a4811"
+      },
+      "worker-observation.json": {
+        "bytes": 450021,
+        "sha256": "6dfb0ad838417a2b0427633dae66df06ac05fd34bcf8b8d65ea049fa15bbacf6"
+      },
+      "work-order-observed.jsonl": {
+        "bytes": 2287137,
+        "sha256": "614988486b4d163b07160ec8eeed896a3f98767ed117e159fbdfe28dacbf7f9d"
+      },
+      "observer.stop": {
+        "bytes": 5,
+        "sha256": "a11c3d917a2149a4b548217038bc8f2dd2130a1966e0c7af5c4225d81f25a8c3"
+      },
+      "observer.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "observer_closed_and_unchanged": true,
+    "closed_observed_trace_contiguous": true,
+    "never_read_live_global_trace_or_database": true
+  },
+  "source_subject_bodies_match_closed_observer": {
+    "apps/web/src/ligandProperties/session.ts": "610425fd45dfb13682ca6edff0adfb3b8d4deda3091a2d900aa06fedaab25da0",
+    "tests/support/ligand_property_performance_qualification.py": "dac492eb8a681f31acca9067bdd7b5711fe0d982002a9b2b52ebbd35c69fcb4a",
+    "tests/e2e/ligand-properties-performance.spec.ts": "a1b1a1caf6a3045951d146bf5ca6a6c77a4cdcdafd114802cae6c965c4e297e8"
+  },
+  "workload": {
+    "profile": "chromium",
+    "cold_contexts": 5,
+    "cold_context_heavy_atoms": "92\u201396",
+    "paired_cold_edits": 20,
+    "paired_heavy_atoms": "10,14,...,86",
+    "operation": "Trusted actual C\u2192N edit, including edit acknowledgement, automatic source-qualified work and matching automatic App READ READY observation. Setup remains excluded and unchanged; all44scientific originals remain frozen.",
+    "clock_capture": "25per-document page clocks present; every20cold source/proof/request/sample clock origin agrees."
+  },
+  "current_observations": {
+    "cold_browser_contexts_ms": {
+      "samples": 5,
+      "median": 910.1000000238419,
+      "p95": 935.3999999761581,
+      "max": 935.3999999761581
+    },
+    "cold_actual_edits_ms": {
+      "samples": 20,
+      "median": 1995.0000000596046,
+      "p95": 2199.7999999523163,
+      "max": 2210.399999976158
+    },
+    "cold_above2000ms": 8,
+    "cold_limit_ms": 2000,
+    "within_target_claim": false,
+    "warm_undo_visible_including_command_ms": {
+      "samples": 20,
+      "median": 164.3499999642372,
+      "p95": 169.90000009536743,
+      "max": 176.29999995231628
+    },
+    "matching_cache_projection_ms": {
+      "samples": 20,
+      "median": 57.950000047683716,
+      "p95": 63.40000009536743,
+      "max": 69
+    },
+    "matching_cache_projection_above100ms": 0,
+    "cold_click_feedback_ms": {
+      "n": 20,
+      "median": 37.09999996423721,
+      "p95_nearest_rank": 93.80000007152557,
+      "min": 20.700000047683716,
+      "max": 94.30000007152557
+    },
+    "warm_click_feedback_ms": {
+      "n": 20,
+      "median": 103.89999997615814,
+      "p95_nearest_rank": 108.59999990463257,
+      "min": 98.5,
+      "max": 110.5
+    },
+    "warm_click_feedback_above100ms": 19,
+    "ordinary_scope": "Warm inclusive command/ACK\u2192visible timing is separate from matching-cache projection; neither substitutes for the trusted cold metric."
+  },
+  "key_measured_stages_ms": {
+    "trusted_click_to_edit_ACK_ms": {
+      "n": 20,
+      "median": 789.1500000357628,
+      "p95_nearest_rank": 853.7000000476837,
+      "min": 749.6000000238419,
+      "max": 908.1000000238419
+    },
+    "ACK_to_current_source_initial_READ_start_ms": {
+      "n": 20,
+      "median": 208.25,
+      "p95_nearest_rank": 229.40000009536743,
+      "min": 120.19999992847443,
+      "max": 232.09999990463257
+    },
+    "initial_current_source_READ_http_ms": {
+      "n": 20,
+      "median": 68.60000002384186,
+      "p95_nearest_rank": 242.70000004768372,
+      "min": 58.10000002384186,
+      "max": 244.20000004768372
+    },
+    "demand_http_ms": {
+      "n": 20,
+      "median": 96.85000002384186,
+      "p95_nearest_rank": 205.29999995231628,
+      "min": 33.300000071525574,
+      "max": 298.0
+    },
+    "ACK_to_demand_response_ms": {
+      "n": 20,
+      "median": 368.5499999523163,
+      "p95_nearest_rank": 566.3999999761581,
+      "min": 326.09999990463257,
+      "max": 571.3999999761581
+    },
+    "demand_response_to_READY_READ_start_ms": {
+      "n": 20,
+      "median": 775.0000000596046,
+      "p95_nearest_rank": 867.6000000238419,
+      "min": 765.0,
+      "max": 937.3000000715256
+    },
+    "demand_response_to_materialize_return_ms": {
+      "n": 20,
+      "median": -20.37548828125,
+      "p95_nearest_rank": 24.996826171875,
+      "min": -211.867919921875,
+      "max": 28.423095703125
+    },
+    "materialize_return_to_bind_return_ms": {
+      "n": 20,
+      "median": 517.99755859375,
+      "p95_nearest_rank": 565.115966796875,
+      "min": 494.91015625,
+      "max": 578.455810546875
+    },
+    "bind_return_to_successful_turn_end_ms": {
+      "n": 20,
+      "median": 21.8065185546875,
+      "p95_nearest_rank": 46.429931640625,
+      "min": 10.623046875,
+      "max": 53.578857421875
+    },
+    "demand_response_to_successful_turn_end_ms": {
+      "n": 20,
+      "median": 530.9244384765625,
+      "p95_nearest_rank": 575.425048828125,
+      "min": 341.46923828125,
+      "max": 601.569091796875
+    },
+    "publication_to_READY_READ_start_lower_bound_ms": {
+      "n": 20,
+      "median": 258.174560546875,
+      "p95_nearest_rank": 435.430908203125,
+      "min": 191.430908203125,
+      "max": 459.158203125
+    },
+    "publication_to_READY_READ_start_upper_bound_ms": {
+      "n": 20,
+      "median": 277.9158935546875,
+      "p95_nearest_rank": 472.867919921875,
+      "min": 212.1240234375,
+      "max": 512.737060546875
+    },
+    "ready_READ_http_ms": {
+      "n": 20,
+      "median": 10.300000011920929,
+      "p95_nearest_rank": 12.100000023841858,
+      "min": 7.200000047683716,
+      "max": 12.399999976158142
+    },
+    "ready_READ_response_to_clone_READY_observation_ms": {
+      "n": 20,
+      "median": 12.050000011920929,
+      "p95_nearest_rank": 14.799999952316284,
+      "min": 9.0,
+      "max": 16.0
+    },
+    "child_prepare_ms": {
+      "n": 20,
+      "median": 21.267310541588813,
+      "p95_nearest_rank": 35.849953070282936,
+      "min": 5.613136920146644,
+      "max": 40.152721921913326
+    },
+    "child_calculate_ms": {
+      "n": 20,
+      "median": 2.3143405560404062,
+      "p95_nearest_rank": 2.880042069591582,
+      "min": 1.4546680031344295,
+      "max": 2.958919038064778
+    }
+  },
+  "join_proof": {
+    "rows": 20,
+    "job_capture_match": "Exactly one completed/reaped job per changed source, with full project/entry/artifact/instance/sorted atom membership equality. Closed trace target atom_count+SHA256(JSON compact atom IDs) agrees.",
+    "input_match": "Matching changed input hash in automatic App READY proof, recorded READ response and exact worker bind_return; all14descriptor values ready/qualified.",
+    "generation_match": "Worker active_owner and materialize target match actual consumer ID and returned demand sequence/generation; all14admitted descriptors retained.",
+    "closed_trace": "4571contiguous observed worker records plus retained header; body hash equals closed observer record. Never opened the globally running trace path.",
+    "publication_window": "bind_return explicitly occurs before transaction commit. Matching successful turn_end(worked=true) returns after production run_once and bounds postcommit completion. Actual publication lies between those observations; completed_at metadata is not itself the commit timestamp.",
+    "request_counts": "Each of20cold phases has one initial pending exact-current-source READ, one matching demand PUT and one qualifying READY READ. Each also retains one unsettled older-source READ; no completion/abort inference from its missing finished field. No intermediate exact-current-source READ occurs while the fixed pending timer waits.",
+    "readiness_observation_lower_bound": "All20READY_READ starts occur after successful turn_end; median258.17ms, min191.43ms, max459.16ms before allowance for millisecond clock rounding. This proves a substantial postcommit observation gap under the captured run, not the exact removable latency of another schedule."
+  },
+  "clock_validity": {
+    "page_clocks": 25,
+    "all_pair_clock_origins_and_closed_source_matches": true,
+    "calibration_samples": 50,
+    "browser_epoch_minus_Date_before_ms": {
+      "n": 50,
+      "median": 0.5,
+      "p95_nearest_rank": 1.0,
+      "min": 0.0,
+      "max": 1.10009765625
+    },
+    "browser_epoch_minus_Date_after_ms": {
+      "n": 50,
+      "median": 0.5,
+      "p95_nearest_rank": 1.0,
+      "min": 0.0,
+      "max": 1.10009765625
+    },
+    "absolute_per_page_install_to_final_midpoint_residual_drift_ms": {
+      "n": 25,
+      "median": 0.300048828125,
+      "p95_nearest_rank": 0.699951171875,
+      "min": 0.0,
+      "max": 0.89990234375
+    },
+    "worker_epoch_minus_monotonic_offset_spread_ms": 0.030517578125,
+    "worker_offset_samples": 4572,
+    "caveat": "Recorded calibration supports stable same-host millisecond alignment; retain at least1ms rounding allowance and signed intervals. No microsecond-accurate browser/worker synchronization, exact commit timestamp or exclusion of an unobserved transient wall-clock step is claimed."
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "finding": "Current cold target still misses in8of20samples despite median1995ms; p952199.8ms/max2210.4ms. Portable workflow PASS cannot become a2000ms target PASS."
+    },
+    {
+      "priority": "P2",
+      "finding": "Pending-read cadence contributes observation delay: response\u2192READY_READ median775ms; successful turn end already occurs median530.92ms after that response, leaving a median258.17ms lower-bound postpublication wait. These are paired clock-aligned observations, not summed medians or a measured speedup.",
+      "source": "apps/web/src/ligandProperties/session.ts:37,362"
+    },
+    {
+      "priority": "P2",
+      "finding": "Other substantial stages remain: edit ACK median789.15ms and ACK\u2192demandresponse368.55ms. Initial exact-current READ starts median208.25ms after ACK. This analysis cannot attribute that gap between rendering/query/source-inventory scheduling without a separate profile."
+    },
+    {
+      "priority": "P3",
+      "finding": "Descriptor arithmetic median2.31ms and preparation21.27ms are small relative to worker lifetime523.08ms. Existing evidence does not justify scientific approximation, persistent workers or concurrency."
+    },
+    {
+      "priority": "P3",
+      "finding": "Matching-cache projection stays below100ms inall20samples (median57.95/max69ms), while warm click feedback exceeds100ms in19of20samples (median103.90/max110.5ms). These remain distinct recorded timing targets; no acceptance threshold is changed."
+    }
+  ],
+  "cadence_tradeoffs": {
+    "timestamp_classification_only": {
+      "250": {
+        "after_successful_turn_end_bound": 0,
+        "before_bind_return_precommit": 20,
+        "between_bind_return_and_turn_end": 0
+      },
+      "500": {
+        "after_successful_turn_end_bound": 6,
+        "before_bind_return_precommit": 11,
+        "between_bind_return_and_turn_end": 3
+      },
+      "600": {
+        "after_successful_turn_end_bound": 19,
+        "before_bind_return_precommit": 0,
+        "between_bind_return_and_turn_end": 1
+      },
+      "750": {
+        "after_successful_turn_end_bound": 20,
+        "before_bind_return_precommit": 0,
+        "between_bind_return_and_turn_end": 0
+      }
+    },
+    "table_meaning": "These classify proposed timestamps measured from the ACTUAL demand response against the captured bind/turn observations; they are not simulated requests, response/status predictions or a counterfactual speedup. Changed request timing can change server load, lock blocking, JSON scheduling and later timer starts.",
+    "implications": [
+      "At250ms everycaptured worker is still beforebind_return; at500ms only6of20are beyondsuccessfulturn_end,11stillprebind and3withincommitwindow. A shorter fixed interval may add pendingREADs and make a subsequent read arrive later.",
+      "At600ms19of20are beyondthepostcommitbound,1iswithincommitwindow. At750msall20are beyondit. This bounds an experiment opportunity, not a production value choice or a universal workload rule.",
+      "More READs repeat current/original source verification, I/O/hash/deserialization and SQLite/demand work. Preserve64MiBverificationbudget, operation-local trust, oneinflightread/onetimer, zero new jobs for warm cache, ownership/lease release and no polling afterterminal/cancel/source retirement.",
+      "Bulkactive responsiveness, ordinaryjob fairness, cancellation and mobile both-cohort behavior must qualify; this completed desktop-only case cannot establish them."
+    ]
+  },
+  "historical_comparison": {
+    "prior_desktop_cold_median_ms": 2057.95,
+    "prior_p95_ms": 2242.6,
+    "prior_max_ms": 3051.8,
+    "prior_misses20": 12,
+    "current_misses20": 8,
+    "interpretation": "New observation is a different source/worker and host-load context. No controlled before/after speedup attribution, significance or universal improvement is claimed. Current power/thermal/load was not probed; only authorized closed case metadata was read."
+  },
+  "smallest_next_action": [
+    "Finish and preserve the currently running frozen ALL8 baseline without source or runner changes. This diagnosis must not interrupt, rebind or invalidate it.",
+    "After baseline closure, if responsiveness improvement is selected, the smallest scheduling experiment is one bounded pending-read delay change against750ms on identical sources/20edit samples and calibration. A600ms diagnostic candidate targets the measured readiness window with less expected extra request work than250/500, but the recorded600ms overlap case means it is not accepted or guaranteed faster. No production interval is selected here.",
+    "Compare actual median/p95/max, exact-current READ counts, verified bytes/request CPU/I/O, feedback/cache behavior, warm newjobs=0, cancellation/source-recovery invariants, allmobile/desktop bulk-active/ordinary-fairness bounds and original100/2000/5000targets. Renew affected review and final qualification for any actual source change.",
+    "If the fixed-delay candidate worsens tail latency or request work, profile the208ms ACK\u2192current-source-READ handoff and789ms ACK path before considering a more complex notification/worker architecture. Preserve the whole trusted-click metric and scientific methods."
+  ],
+  "limits": [
+    "Calibration residual browser_epoch\u2212Date.now spans0..1.1001ms; per-page install\u2192final residual drift\u22640.8999ms; closed worker wall-minus-monotonic offset spread0.03052ms. These support millisecond-scale alignment with retained rounding uncertainty, not microsecond synchronization or a strict unobserved-step bound.",
+    "App clone JSON observation is distinct from actual application JSON parsing/timer-arm time; demand.observedAt can occur after the app scheduled its timer. Do not infer sub750ms timer behavior from clone-relative differences.",
+    "Browser request metadata omits requested descriptor vectors; exact14coverage is established by recorded admitted worker consumer and READYreport. No per-request CPU/I/O profile or source-verification cost for the App READs is present in these closed artifacts.",
+    "Stage distributions overlap; medians must not be summed as a reconstructed critical path. Publication interval endpoints are bounds, not an exact commit instant.",
+    "Verdict covers this metadata diagnosis only. No final performance/ALL8/feature/release approval or optimization implemented."
+  ],
+  "actual_own_analysis": {
+    "completion_chunk": "c69202",
+    "exit_code": 0,
+    "live_root_workload_handle_observed_or_polled": false
+  },
+  "observed_utc": "2026-11-18T13:01:56.820773+00:00",
+  "own_artifacts": {
+    "analyze.py": {
+      "bytes": 11606,
+      "sha256": "bd84aa198cdf6270af0e90b2c438b77800eeaf1bfd545670d15954a1c0b52652"
+    },
+    "paired-phase-records.json": {
+      "bytes": 112099,
+      "sha256": "9059be1948d2eb849caee1fc0cad9504dd7e63b8615561407caa2735ac72dc49"
+    },
+    "phase-distributions.json": {
+      "bytes": 5533,
+      "sha256": "ab232391b02261aed4ac5488e29775f5a81e01970a0e037dc095bb452fa8332b"
+    },
+    "clock-calibration.json": {
+      "bytes": 16197,
+      "sha256": "6aeb91fa02fae821507968de131e6cec26ee47c2f664940b65064317898ca28f"
+    },
+    "inputs.json": {
+      "bytes": 977,
+      "sha256": "3d065ee9adeda41c00c3af6694bc8b5b33248b8a48fcf644d7243f04e64f0df6"
+    }
+  }
+}

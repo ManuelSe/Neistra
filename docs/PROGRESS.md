@@ -2,70 +2,60 @@
 
 ## Current milestone
 
-Parent #11 remains active for all eight children and verified parent closeout.
-#156–#158 are fully delivered. #158 terminal documentation is merged at
-254babcd; its final delivery receipt and owned-branch cleanup are verified.
-#159 integrates qualified runtime247ab651 and terminal documentation254babcd;
-all five authoritative versions remain0.37.0.
-#160 has a passing local source/recovery checkpoint; #161 continues corrected C2
-native preparation. #162 has a technical plan and #163 remains planned.
+Parent #11 remains active through all required children and verified closeout.
+#156–#158 are fully delivered. #159 prepares0.37.0 and now completes all eight
+portable performance workflows; measured latency gaps still require investigation.
+#160 remains a passing local checkpoint. #161 passes all16local C2native cases.
+#162 has an authorized technical plan; #163 remains planned. No later child is
+inferred delivered from local preparation.
 
 ## Completed work
 
-#159 implements fourteen versioned descriptors, category options, immediate exact-
-input freshness and bounded private execution/cache ownership. D-194 fixes scientific
-inputs/methods; D-196 corrects startup/reaping; D-198 preserves physical-source and
-independent candidate/numerical recovery. Original uploads remain unchanged.
-The user guide/API/schema/limits now describe actual implemented scope and retain
-final performance/reader/release qualifiers. Five authoritative versions agree at
-0.37.0; dependency pins, scientific methods and project/archive3/viewer2 stay fixed.
+#159 implements fourteen versioned descriptors, exact-input freshness and bounded
+private execution/cache ownership. D-194 fixes scientific inputs/methods; D-196
+corrects startup/reaping; D-198 preserves physical-source and separate candidate/
+numerical recovery. Original uploads remain immutable. Published158runtime247ab651
+and terminal docs254babcd/C7 are integrated. All five versions agree at0.37.0;
+dependency pins and project/archive3/viewer2 stay fixed.
 
 ## Verification performed
 
-The recovery checkpoint passes33new+171affected cases; independent architecture
-closes both P2s. Its complete raw packet and source1123remain historical/scoped.
-Published-runtime integration retains the canonical owner and exact qualified
-JobsPanel/native refinements;1565frontend/133suites,64verifier and static checks pass.
-Current version preparation passes five-version/schema/dependency audit, offline
-lock consistency,67archive codec/metadata cases, Ruff/mypy274/types/build/diff.
-All1125selected sources remain exact through the version and terminal-doc checks.
-The actual tagged0.36reader is now extracted and its1013source bodies verified.
-A narrow compatibility-launcher correction preserves the explicit virtual-environment
-interpreter rather than resolving it to the system binary. Four regression controls
-fail on the original launcher; all82current reader/recipe controls plus scoped
-Ruff/format/mypy pass after correction. Application/scientific sources are unchanged.
-The archive
-version matrix is labelled-metadata coverage. The first actual0.36sequence passed
-current production and actual old writing, then stopped at a stale-fixture oracle:
-an intentional preserved-H element edit correctly yields partial unavailable
-chemistry. Theory and architecture independently identify the unconditional
-qualified-model expectation as invalid. The corrected exact partial-result/source/
-hash/archive oracle passes102reader controls and scoped static checks. Fresh
-property and broader editing sequences then pass all six current/actual0.36/current
-actor phases at586390e3, with1125current/1013old bodies fixed. Both suffixes,
-canonical state, private ownership, old writes and current reconstruction qualify
-within those suites. Full43candidate/exact-master gates remain separate. Complete
-failed and successful workspaces are retained losslessly without SQL packaging. Initial missing-PYTHONPATH and old-version-pin failures are retained.
+Recovery33new+171affected, integrated1565frontend/133suites+64verifier, version67archive
+and static checks pass in their pinned scopes. Corrected reader controls pass102.
+Actual current→v0.36.0→current property and editing suites complete six actor phases0
+at586390e3 with1125current/1013actual-old source bodies fixed. These remain distinct
+from the full43-command candidate and exact-master release gates.
+
+At cleanc22e7579, fresh ALL8passes every case once: desktop/mobile cold/warm edits,
+cancellation and four1000entry bulk cohorts. Primary observes91266exit0/2cf0f2.
+All1125source/49method bodies and HEAD remain fixed; cleanup, resource/worker traces
+and raw DB/WAL/SHM copies before diagnostics pass. Forty cache projections are all
+under100ms (max69); warm reuse creates no jobs. Both cancellation feedback samples
+are under12ms. All four productive-order/ordinary-job fairness proofs pass.
+Complete4807-file/214,640,422-byte raw input union is retained in the34,763,616-byte
+[baseline packet](assets/ligand-properties/c3-all8-baseline-evidence.zip).
 
 ## Known limitations
 
-Historical cold median2057.95ms/p952242.60ms exceeds the unchanged2000ms target.
-Read-only diagnosis identifies readiness observation and edit/worker timings worth
-measuring; no optimization or current timing pass is inferred. Old ALL8/maps remain
-stale/HOLD. Current native/ALL8/capacity, full candidate/exact-master gates and all seven
-same-final-candidate assessments remain required. Actual preceding-reader property
-and editing suites pass separately at586390e3; the full43-step gate must still run.
-#159 has no implementation push, PR, release or closeout. Additive browser clock
-evidence changes one benchmark file;48other methods/646application files remain
-exact. Strict types/static8-case collection pass; current timing is unmeasured.
+Workflow success does not establish all timing targets.27/40cold edits exceed2s:
+median2036ms, p952163.2ms, max2210.4ms. Desktop bulk active edits take7623.9/7928.6ms
+against5s; mobile takes3605.3/3757.6ms. Desktop warm-click feedback and bulk feedback
+also retain misses; mobile deliberate presentation-opening time is reported
+separately from matching-cache projection. Strict reference-host certification is
+not claimed. See the [timing assessment](assets/ligand-properties/c3-all8-baseline-assessment.json).
+
+Full43candidate/exact-master gates, all seven same-final-candidate assessments and
+protected delivery remain required. #159 has no implementation push, PR or release.
 
 ## Blockers
 
-No external blocker. Refresh current source-bound preparations and qualify the
-actual released0.36reader. Preserve all original sources/stores/failed attempts.
+No external blocker. Measured desktop source-handoff and demand latency require
+profiling; no production polling interval change is accepted from timestamp-only
+predictions. Existing scientific and timing requirements remain intact.
 
 ## Next action
 
-Freeze the current source/method/validation binding and execute fresh ALL8
-performance/capacity qualification, then complete all release gates.
-Continue159–163serial delivery with the one parent Goal active through closeout.
+Profile the unchanged desktop cold/cancel/repeated-bulk prefix in an isolated
+instrumented diagnostic, attribute client/API delay, then choose a measured fix.
+Repeat complete qualification after any source change. Preserve the one parent
+Goal and continue159–163serial releases through verified parent closeout.

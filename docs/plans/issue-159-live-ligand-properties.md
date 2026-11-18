@@ -1129,3 +1129,59 @@ fixtures are unchanged. Regenerate a fresh complete current source/method/valida
 binding before ALL8 execution; never edit/replay the stale prep7pins or count its
 HOLD preparation as a pass. Performance/capacity and full43candidate/exact-master
 qualification, all seven final reviews and normal release delivery remain pending.
+
+
+### C3 complete current ALL8baseline and measured timing limits
+
+At cleanc22e7579, fresh baseline native-probe8-all8completes every original case
+once, without skips, retries, flakes or failures. Primary observes enclosing91266
+exit0/2cf0f2. All1125source paths/bodies,49method files and HEAD stay fixed. Owned
+process cleanup and ports, source postguards, resource capture, bounded worker trace
+and immediate raw DB/WAL/SHM copies before diagnostics pass. Original stores and
+all earlier preparations remain intact. Four1000entry bulk workloads preserve
+productive ordering and ordinary-job fairness; those hard proofs pass separately
+from latency targets.
+
+| Observed metric | Result | Existing target/disposition |
+| --- | --- | --- |
+|40cold edits, both profiles | median2036ms; p952163.2; max2210.4 |27exceed2000ms; retained miss |
+|40matching-cache projections | median59.2ms; max69 | All below100ms; zero warm jobs |
+|Cancellation feedback |11.7/6.1ms | Both below100ms |
+|Desktop bulk active, repeated/distinct |7623.9/7928.6ms | Both exceed5000ms |
+|Mobile bulk active, repeated/distinct |3605.3/3757.6ms | Both below5000ms |
+
+Desktop warm-click feedback also misses100ms in19/20samples, while matching-cache
+projection remains independently fast. Mobile warm visible time includes deliberate
+presentation opening and must not be mislabelled cache latency. Portable workflow
+PASS does not establish universal timing acceptance or strict reference-host
+certification. No target, workload, scientific fixture or deadline is reduced.
+
+The [baseline receipt](../assets/ligand-properties/c3-all8-baseline-checkpoint.json),
+[full timing assessment](../assets/ligand-properties/c3-all8-baseline-assessment.json)
+and [clock diagnosis](../assets/ligand-properties/c3-clock-diagnosis.json) distinguish
+actual observations, inferred bounds and unresolved attribution. The complete
+[raw baseline packet](../assets/ligand-properties/c3-all8-baseline-evidence.zip)
+is34,763,616bytes SHA256
+`5f01dadeaa5c9d0065f6ed67ef007c2fc38bb41070bf2f54f0f1359599cd01ad`.
+It contains all4807regular runner/harness/workspace inputs (214,640,422uncompressed
+bytes), seven empty directories and an exact manifest; all original bytes, outer
+union and CRC verify without SQL. Prior unrelated/superseded runs are retained
+separately rather than recursively copied.
+
+Closed desktop traces match all20exact source/job/input/owner generations. READY
+READ starts follow a postcommit-bounding successful worker turn by at least191ms,
+median258ms; the pending timer contributes observation wait. This does not imply
+all750ms is removable or prove a600ms counterfactual. Desktop bulk delay is larger:
+approximately3.0–3.2s from ACK headers to changed-source READ, followed by1.7–1.76s
+demand HTTP. Mobile bulk has different polling phases and may add a poll under
+a shorter cadence. A one-delay trial is therefore on hold while the larger path
+is profiled. No production polling interval has changed.
+
+Next perform a transparent isolated profiling diagnostic using unchanged desktop
+cold/edit, cancellation and repeated-bulk bodies to recreate the prelude. CPU/
+network/ASGI instrumentation overhead is disclosed; that diagnostic is not a new
+latency qualification or a reduced final workload. Attribute actual client/API
+cost before selecting a correctness-preserving fix. Any accepted source correction
+still requires current unit/source-fence regression checks, the full original ALL8
+and complete candidate/exact-master43gates, all seven final reviews and normal
+protected release delivery. Parent11remains open.

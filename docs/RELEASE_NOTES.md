@@ -27,11 +27,11 @@ Derived values/cache/preferences do not become portable molecular history merely
 because the archive schema is unchanged.
 
 Scoped correction and integration checks pass, including the independent worker
-recovery/source-producer evidence. Complete native, ALL8/capacity/performance,
-actual-predecessor compatibility, final candidate/exact-master gates and all seven
-same-final-candidate assessments remain pending. The historical cold-latency miss
-is retained; no strict-host, universal instant-response or current timing pass is
-claimed. Profiles/sidebar/property filters/inspector retirement remain #160–#163;
+recovery/source-producer evidence. Final candidate/exact-master gates, including fresh native/ALL8/actual-reader
+qualification, and all seven same-final-candidate assessments remain pending. Fresh ALL8portable workflows pass at c22e7579, but timing limits remain:27/40cold
+edits exceed2s and both desktop1000entry active edits exceed5s. Cache projection
+and cancellation pass their observed targets. Source-handoff/API profiling continues;
+no strict-host or universal instant-response claim is made. Profiles/sidebar/property filters/inspector retirement remain #160–#163;
 parent #11 and its explicit exclusions remain unchanged.
 
 ## 0.36.0 — Exact durable ligand designation
