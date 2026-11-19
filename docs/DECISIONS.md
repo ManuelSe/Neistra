@@ -9716,3 +9716,41 @@ post-publication89-test catalogue check pass. Record Python3.12.3/zlib1.3 as the
 qualified compressed-byte runtime; do not claim arbitrary-runtime reproduction.
 This context script remains explicitly unselected by the runtime-source contract.
 No source/method/science, deadline, exclusion or release requirement is reduced.
+
+### D-201 qualification continuation — complete candidate4 and separate companions
+
+2026-11-19: the original fresh c5-candidate4 completes all43 commands at B1 with
+actual wait0. Keep that HEAD frozen through positive cleanup, all59 actual raw
+database/sidecar copies, both source capsules, complete workspace/transport and
+all8 original observer trees. Portable checks and an independently implemented
+whole original/body/metadata/CRC/union/Git-disk-capsule/trace readback pass before
+the development freeze ends. Every original campaign evidence root stays closed.
+
+Keep the76,385,129-byte retained-state packet and9,636,580-byte source companion
+separate: the former contains all6,977 workspace/transport/observer originals;
+the latter contains the complete seven-file sealed source capture and both
+current/actual036 capsules. Keep official gate parts separately bound, and publish
+the complete independent-reader and analysis contexts as qualified supplements.
+The complete analysis history includes two adapter-preparation/schema corrections;
+no native campaign is rerun or promoted and no thirteenth forensic asset follows.
+The twelve failed/diagnostic assets retain their original publication obligations.
+
+Preserve actual current-run timing misses and unavailable measurements. Current
+cold39/40,cache20/40,feedback46/84 andbulk4/4 miss their latency targets. C4's10,023
+case-observer samples do not supply wrapper CPU/RSS/load or complete browser/GPU
+accounting; do not borrow historical native12 samples. Hidden mobile retirement
+latencies remain unavailable, neverzero. Portable correctness and hard bounds pass;
+the accepted D148 strict-host policy and every numerical/workload limit remain.
+
+The evidence/docs checkpoint may reuse the complete B1 gate only with explicit
+full selected-source equivalence and unchanged qualifying helpers/methods. Record
+its actual qualifying identity; do not relabel it as the later review commit.
+Require all seven final assessments on one common final candidate and a fresh
+complete actual merged-master campaign before immutable release/closeout.
+
+Use the existing c3-prefixed qualified-context discovery for these new public
+companions and metadata. Keep the completed c5-candidate4 campaign-prefix
+inventory unchanged; do not let later analysis/checkpoint files enter that frozen
+gate-package union. Only public names change: all packet bodies and source/helper
+identities remain exact. The existing release-context collector then includes
+every companion without a qualification-source change or another native run.

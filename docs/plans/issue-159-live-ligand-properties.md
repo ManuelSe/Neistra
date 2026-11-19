@@ -2002,3 +2002,88 @@ See also the [focused readiness checkpoint](../assets/ligand-properties/c3-edito
 The [three-part receipt](../assets/ligand-properties/c3-editor-readiness-packaging.json)
 and [public-only readback](../assets/ligand-properties/c3-editor-readiness-public-roundtrip.json)
 bind their complete bodies, executable-code pins and actual reconstruction runtime.
+
+### C3 complete corrective qualification — c5-candidate4
+
+Fresh c5-candidate4 at `b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582` completes all
+43 ordered commands with the original one-shot supervisor/runner and actual wait0.
+The HEAD remains fixed through all commands, cleanup, source capture and complete
+retention. All1,133 selected bodies remain exact before/after and against current
+disk/Git; actual annotated v0.36.0 supplies all1,013 preceding-reader bodies. The
+current compact digest remains `776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec`.
+Original native12 retains its distinct7da/be93 identity and exactly the two already
+declared test-only deltas; all52 method and789 observer subjects are unchanged.
+
+The complete gate includes upgrade/downgrade/re-upgrade, lint/types/build/version/
+production checks,3,598 Python tests with zero skips,1,599 frontend tests,
+14 supervisor checks, every640 native inventory case and actual old/new reader
+actors. Native results are565 passes and exactly75 released exclusions, with no
+failures, flakes, retries, report errors or new exclusions. Both editing and
+property three-phase actual-reader suites pass. The canonical editor keyboard/zoom
+case that stopped candidate3 now passes within the complete campaign; no partial
+campaign or focused check is relabelled as the new full run.
+
+Positive cleanup verifies known PID/start handles, workspace markers and unused
+ports before copying all59 existing raw database/sidecar files. No diagnostic SQL
+is opened. The unchanged official summary and both strict gate packages pass.
+Separate source capture preserves the current5,191,267-byte capsule and actual036
+4,784,614-byte capsule with maps, bindings, seal and portable verifier.
+
+The [retained packet](../assets/ligand-properties/c3-c5-candidate4-retained-state.zip)
+is76,385,129 bytes, SHA`4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2`.
+It preserves all6,977 originals/622,790,963 original bytes,44 empty directories,
+the whole closed workspace/transport, five exact public bindings, all8 observer
+attachments and every original UUID tree/480 observer files. It does not duplicate
+the separate source capsules or official gate parts. The complete seven-file
+[source companion](../assets/ligand-properties/c3-c5-candidate4-source-evidence.zip)
+is9,636,580 bytes, SHA`bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74`.
+Both portable verification and fresh packet-only consumer executions pass.
+
+An independently implemented reader, statically reviewed by architecture before
+execution, then passes complete original body/metadata/alias/empty-directory union,
+CRC/recursive manifests, all2,146 actual Git/disk/capsule bodies, every raw pair,
+all8 original observer report/mirror/source/trace offset/sequence bindings and
+all43 lossless log bodies. It separately verifies the2,110-member disjoint official
+package union and the source companion. Its [readback](../assets/ligand-properties/c3-c5-candidate4-independent-readback.json)
+has SHA`fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4`.
+Only after that actual exit0 and a final full selected-inventory check does the
+development source/HEAD freeze end. Every original evidence root stays unchanged.
+
+Closed [current-run analysis](../assets/ligand-properties/c3-c5-candidate4-analysis.json)
+preserves the accepted numerical/work/per-case resource core and nine helper
+bodies. Both actual analysis and a separate direct arithmetic check exit0;
+all528 consumed input identities recheck. The complete analysis context includes
+its first static gzip-path mistake and subsequent exclusions-schema mistake.
+Neither changes inputs or reruns the native workload; neither adds a thirteenth
+failed campaign. The twelve separate forensic assets and original identities stay.
+
+Current timing results remain explicit:
+
+| Observation | Current C4 result | Target misses |
+| --- | --- | --- |
+| Cold current values | median/p95/max2,786.6/3,567.5/3,647.9ms |39/40 above2s |
+| Matching cached values | maximum128.1ms; zero new warm jobs |20/40 above100ms |
+| Click feedback | maximum1,052.1ms |46/84 above100ms |
+| Bulk active update, repeated/distinct | desktop7,070.7/7,997.8ms; mobile5,344.1/6,889ms |4/4 above5s |
+| Cancellation feedback | maximum13ms |0/2 above100ms |
+
+All93 renewals,28,056,765 complete UTF-8 renewal-response bytes and133 consumer
+updates remain included. All4 priority overlaps execute; ordinary work follows one
+productive derived turn, and active admission follows zero or one productive bulk
+fairness turn. Private bulk jobs remain3/127 against the129 cap and are all reaped.
+Mobile hidden old-value retirement latency is unavailable for20 cold and20 warm
+observations. The10,023 case-observer samples do not establish whole-browser/GPU/
+short-lived-process accounting or simultaneous RSS totals. C4 wrapper CPU/RSS/load
+sampling is unavailable; native12 wrapper samples remain historical. D148 portable
+hard bounds pass; no strict-host timing certification or causal speedup/regression
+is claimed, and no tolerance or latency target is relaxed.
+
+The [checkpoint](../assets/ligand-properties/c3-c5-candidate4-checkpoint.json) and
+context-packaging receipt bind the public companions, complete independent reader
+and complete analysis history. Materialize only source-equivalent documentation
+and evidence, retaining the actual qualifying B1 identity. Verify the full selected
+set and focused catalogue after publication; obtain all seven final verdicts on
+the same final review candidate. Normal corrective PR/review/merge, fresh complete
+c5-master1 on the actual resulting commit, immutable annotated037 release, complete
+anonymous main/twelve-forensic verification and explicit159closeout remain required.
+Parent #11 stays open through160–163 and final integrated acceptance/closeout.

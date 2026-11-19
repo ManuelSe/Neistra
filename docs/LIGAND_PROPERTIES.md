@@ -136,5 +136,7 @@ client/server versions. Downgrade to `0016` refuses nondefault property preferen
 or any unreaped private execution. Restore and save default categories, stop/reap
 owned property work, and use the supported migration path. A permitted downgrade
 removes regenerable property tables and positively associated private jobs; ordinary
-user jobs are outside that cleanup authority. Exact released 0.36 reader/writer
-qualification remains a release gate; current scoped checks are not that proof.
+user jobs are outside that cleanup authority. Complete c5-candidate4 qualification
+passes the actual tagged 0.36 reader/writer suites. Fresh repetition on the actual
+corrective merge remains a release gate; see the
+[candidate checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json).

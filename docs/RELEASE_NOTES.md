@@ -2,119 +2,73 @@
 
 ## 0.37.0 — Automatic current-input ligand properties (in preparation)
 
-Child #159 adds fourteen versioned ligand descriptors with automatic current-input
-refresh, compact readouts and installation-level category options. Relevant molecular
-changes immediately retire incompatible values. A verified matching cache can return
-promptly; otherwise values remain pending or unavailable with an explicit reason.
-Committed structures and changed previews retain distinct identities. Late results,
-Undo/Redo, source failures and project/entry changes cannot publish incompatible values.
+Child #159 adds fourteen versioned descriptors with automatic current-input refresh,
+compact readouts and installation-level category options. Relevant edits immediately
+retire incompatible values. Matching verified cache entries can return promptly;
+otherwise results stay pending or unavailable with a reason. Changed chemistry
+previews explicitly show Preview — properties unavailable. Cancel restores the
+matching committed basis. Late responses, Undo/Redo and project/entry changes cannot
+publish incompatible values.
 
-Calculations use strict, versioned scientific input and documented hydrogen handling.
-Known counts can remain available when other descriptors cannot be calculated. Missing
-chemistry never becomes a neutral charge, single bond or numerical zero. Original
-uploads and canonical molecules are preserved; no hidden protonation, desalting or
-other preparation is performed. Method details and limitations remain available in
-the advanced surface. Bounded coalesced work and active-ligand priority reuse the
-existing controlled job infrastructure without making private derived work portable
-project history.
+Strict scientific inputs preserve known versus unknown chemistry and original uploads.
+Independent counts can succeed while chemistry-dependent values remain unavailable;
+missing charge/order never becomes neutral/single or numerical zero. Calculation
+performs no hidden preparation. Advanced controls expose policies and provenance.
+Bounded coalesced jobs prioritize the inspected ligand during bulk work.
 
-All five authoritative versions are prepared at 0.37.0; dependency pins are unchanged.
-Migration 0017 adds installation preferences and private derived execution/cache
-ownership. Project/archive schema 3, viewer 2 and API v1 remain. Deploy matching client
-and server versions and retain a complete pre-upgrade store backup. Downgrade guards
-nondefault preferences. Actual tagged-v0.36 readers/writers preserve canonical inputs,
-ordinary jobs and unapplied editing proposals through the qualified archive paths;
-derived values are recalculated after remapping and installation preferences do not
-travel as project settings. Unsupported migration paths refuse safely.
+All five authoritative versions are prepared at 0.37.0; dependencies are unchanged.
+Migration 0017 adds installation preferences and private derived cache/execution
+ownership. Project/archive schema 3, viewer 2 and API v1 remain. Use matching client and
+server versions and retain a complete pre-upgrade backup. Downgrade guards nondefault
+preferences and unreaped private work. Qualified actual v0.36 readers/writers preserve
+canonical inputs, ordinary jobs and unapplied proposals; derived values recalculate
+after remapping and installation preferences remain local. Unsupported paths refuse.
 
-The complete 43-command candidate5 gate passes at `e47de3dd`: 3,589 Python tests/zero
-skips, 1,584 frontend tests across 136 files, 14 supervisor tests and 565 browser passes.
-All 640 browser cases are accounted for, with exactly 75 unchanged released exclusions
-and zero failures/flakes/retries/new exclusions. Frozen installs, migrations, static
-checks, build, production/version/legacy audits and actual preceding-reader suites
-pass. All 1,130 current / 1,013 preceding source bodies remain exact. Both official gate
-parts, exact source capsules and the complete retained-state supplement pass independent
-body/hash/CRC/recursive/union verification. The reviewed feature merged in PR177 at
-`26e7cc1b`, but its fresh exact-master1 gate failed in observer instrumentation.
-The failed mobile cold/edit case retains five cold starts and fourteen completed
-paired edits; it does not qualify the merged commit. A bounded atomic-publication/
-strict-reader correction changes benchmark-method identity and requires new ALL8
-analysis, complete candidate qualification, all-seven review, normal corrective merge
-and fresh exact-merged-master qualification. No 0.37.0 publication is claimed.
+**Verification to date.** Fresh corrective c5-candidate4 at b1cdb138 passes all 43
+commands: 3,598 Python tests with zero skips, 1,599 frontend tests, 14 supervisor checks,
+565 native passes and exactly 75 released exclusions across all 640 inventory cases.
+There are zero failures, flakes, retries or new exclusions. Migration phases,
+lint/types/build/production/version/legacy checks and actual preceding-reader suites
+pass. All 1,133 current and 1,013 actual tagged-reader source identities verify.
 
-The inspector avoids quadratic query tracking and repeated entry scans while
-preserving every observed query: at 1,000 entries the work regression changes tracking
-calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. The observer correction passes
-fresh native12 at original C1 `7da9913b`: all eight cases pass once, without skips,
-failures, flakes or retries. All 1,133 qualifying files, 52 benchmark subjects and 789 observer subjects are
-explicit; all 461 production runtime bodies remain unchanged. Closed analysis and complete original
-retention verification pass; final feature/candidate/all-seven/merged/release gates
-remain separate. Historical native11 keeps its original995e/51 identity and data.
+PR177 previously merged at 26e7cc1b, whose original merged gate failed in observer
+instrumentation. Atomic complete publication, precise read errors, the actual warm
+baseline and current-target editor-test readiness are corrected. Scientific runtime,
+workloads and deadlines retain their definitions. Original native12 keeps its identity;
+exactly two later test-only source deltas are declared. Historical failed campaigns
+and optional expanded-check limitations retain their recorded status in the child plan.
 
-Native12 cold edit median/p95/max is 2,042.9/2,166.5/2,213.9 ms; 32/40 exceed two
-seconds. Desktop bulk updates 6,934.8/7,094.8 ms exceed five seconds; mobile
-3,566.2/3,750.3 ms does not. Feedback exceeds 100 ms in 24/84 observations. Cache
-projection is at most 65.6 ms with zero new jobs; cancellation feedback at most
-sixteen ms. All 90 renewals and 26,903,516 response-body UTF-8 bytes are included.
-Twenty mobile cold and twenty warm retirement observations remain unavailable
-because old values were hidden. Resource samples are discrete, with incomplete
-browser/GPU/short-lived-process accounting. Changed observation methods and shared
-host conditions preclude causal speedup or strict reference-host certification.
+Complete retention and independent body/CRC/metadata/union verification pass for
+all 6,977 originals, 44 empty directories, 59 raw-file original/copy pairs and all eight
+original observer trees/480 files. The separate source companion preserves both
+capsules; all 2,146 Git/disk/capsule bodies verify. Fresh packet-only consumers pass.
+Complete independent-reader and analysis contexts preserve their actual executions
+and adapter history. Twelve failed/diagnostic forensic assets remain separate.
 
-Fresh c5-candidate1 stops at a release-helper catalogue assertion after 3,597 Python
-passes and one failure; browser and 34 later commands are unrun. Complete failed
-source/raw/log evidence verifies. The explicit six-helper/context classification
-passes all 89 focused recipe tests and affected style/types, preserving the 52
-method and 789 observer bodies. A fresh complete candidate gate and final reviews
-remain required. See the [catalogue checkpoint](assets/ligand-properties/c3-helper-catalogue-checkpoint.json).
+**Measured limits.** Current C4 cold median/p95/max is 2,786.6/3,567.5/3,647.9 ms;
+39/40 exceed 2 seconds. Cache maximum is 128.1 ms, with 20/40 above 100 ms and zero
+new warm jobs.
+Feedback exceeds 100 ms in 46/84 observations. Bulk active updates are 7,070.7/7,997.8 ms
+on desktop and 5,344.1/6,889 ms on mobile; all four exceed 5 seconds. Cancellation
+feedback is at most 13 ms. All 93 renewals, 28,056,765 complete UTF-8 renewal-response bytes and 133
+consumer updates remain included.
 
-Fresh c5-candidate2 passes forty commands, including 3,598 Python tests, 1,599 frontend
-tests, 14 supervisor tests and all 640 native cases: 565 passes and exactly the same
-75 released exclusions, with no failures/flakes/retries/new exclusions. Command41
-fails before its reader actors start because the isolated checkout lacks its required
-preceding-reader receipt. The whole 185,748,045-byte failed packet is verified and
-remains unqualified. After complete preservation, the exact original receipt is
-restored and both focused three-phase actual-reader suites pass, with 42 raw-store
-pairs preserved after cleanup. No application, scientific, dependency or version
-body changes. The failed campaign remains unqualified.
+Mobile old-value retirement latency is unavailable for 20 cold and 20 warm observations.
+The 10,023 discrete case-observer samples do not establish simultaneous RSS totals or
+complete browser/GPU/short-lived-process accounting. C4 wrapper CPU/RSS/load is
+unavailable; native12 samples remain historical. Portable hard bounds pass. No causal
+speedup/regression, universal latency guarantee or strict-host certification is claimed.
 
-Fresh c5-candidate3 passes fifteen commands, then stops on editor keyboard focus:
-200 native passes, one failure, four runtime skips and 435 fail-fast unrun cases.
-The entire mobile project and 27 later commands remain unrun. Complete lossless
-failure retention and independent readback pass before a three-line test-readiness
-correction. The actual trace shows enabled-control enumeration during loading;
-its positional locator changes identity as eleven more controls become enabled.
-The test now awaits the selected-carbon target's nitrogen replacement command
-before retaining its original focus, bounds, accessibility and zoom checks.
-Application and benchmark-method bodies remain unchanged. The complete original
-zoom file passes four desktop scenarios with the four unchanged mobile-project
-exclusions, no failures/flakes/retries. A real held-response diagnostic also passes,
-blocking enumeration during loading and exercising all25 loaded controls after
-release, with original bytes preserved. Its first private fieldset-matcher mistake
-remains separately retained and failed. Fresh complete candidate4/all-seven/normal
-corrective merge/exact-master qualification remain required.
+**Remaining delivery.** All seven final common-candidate assessments, normal corrective
+PR/review/merge, fresh complete actual merged-master qualification, immutable release
+and complete anonymous main/twelve-forensic asset verification remain required before
+explicit #159 closeout. Profiles, sidebar, property filters and inspector retirement
+remain required #160–#163 work. Diagram #153, relocations #164/#165 and the other parent
+exclusions stay separate.
 
-The complete focused evidence is retained in three whole-member ZIP parts. Both
-private and standalone public-only reconstruction reproduce the159,287,047-byte
-canonical packet exactly, preserving all1,103 originals and the nested failed
-attempt. The recorded exact-byte reconstruction runtime is Python3.12.3/zlib1.3;
-broader runtime reproducibility is unverified. See the
-[focused checkpoint](assets/ligand-properties/c3-editor-readiness-checkpoint.json).
-
-Earlier interrupted/failed runs remain unqualified in twelve separate lossless
-forensic assets, with publication and full anonymous download verification pending.
-The child plan records tooling/fixture corrections and their focused checks; all
-original product assertions, deadlines and exclusion identities are retained. Early
-exploratory SHM revision gaps and unproven historical pre-SQL ordering remain explicit.
-The earlier optional expanded E2E check retained four pre-existing diagnostics; no
-expanded pass is claimed. The established app and changed-benchmark checks pass.
-
-Profiles, sidebar, property filters and inspector retirement remain #160–#163.
-Diagram #153, relocations #164/#165 and the other parent #11 exclusions remain separate.
 See [property documentation](LIGAND_PROPERTIES.md),
-[fresh ALL8 checkpoint](assets/ligand-properties/c3-native12-all8-checkpoint.json),
-[historical candidate checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json),
-[failed-master evidence](assets/ligand-properties/c3-master1-failed-checkpoint.json)
+[current checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json),
+[current measured analysis](assets/ligand-properties/c3-c5-candidate4-analysis.json)
 and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
 
 ## 0.36.0 — Exact durable ligand designation

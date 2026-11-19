@@ -1,0 +1,127 @@
+{
+  "SQL_opened": false,
+  "actual_Git_disk_capsule_bodies": 2146,
+  "all8_observer_original_attachment_source_and_exact_trace_mirrors": [
+    {
+      "first_record": 24022,
+      "last_record": 26811,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/chromium-1b8d5608-754a-438f-8064-57429fbceaa5",
+      "records": 2790,
+      "source_start_offset": 8811145
+    },
+    {
+      "first_record": 114981,
+      "last_record": 117568,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/mobile-chromium-60b4415f-1450-4b78-9269-7828d67b750d",
+      "records": 2588,
+      "source_start_offset": 46801557
+    },
+    {
+      "first_record": 27334,
+      "last_record": 31125,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/chromium-bed2e3bc-98be-434e-8f0a-34e360ff7230",
+      "records": 3792,
+      "source_start_offset": 12722429
+    },
+    {
+      "first_record": 118048,
+      "last_record": 121664,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/mobile-chromium-083d8691-5193-4689-bf90-1d37161de45f",
+      "records": 3617,
+      "source_start_offset": 50631259
+    },
+    {
+      "first_record": 23630,
+      "last_record": 23727,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/chromium-4ee4a0eb-007a-49e9-9481-b4a78be46e53",
+      "records": 98,
+      "source_start_offset": 8668169
+    },
+    {
+      "first_record": 114540,
+      "last_record": 114670,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/mobile-chromium-1fc3f05f-385e-480d-9a78-ed024bdff332",
+      "records": 131,
+      "source_start_offset": 46640662
+    },
+    {
+      "first_record": 18772,
+      "last_record": 23613,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/chromium-9f0e91b7-f9f8-4b4b-a281-a0b9a95090c1",
+      "records": 4842,
+      "source_start_offset": 6338674
+    },
+    {
+      "first_record": 107654,
+      "last_record": 114516,
+      "original_root": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-performance/mobile-chromium-e0cb16ce-83d4-4711-9b84-1afac9e38a69",
+      "records": 6863,
+      "source_start_offset": 43574890
+    }
+  ],
+  "all_original_bodies_metadata_and_exact_union": true,
+  "archive": {
+    "bytes": 76385129,
+    "sha256": "4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2"
+  },
+  "candidate": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+  "empty_directories": 44,
+  "final_all7_merge_master_release_complete": false,
+  "final_original_path_metadata_alias_union_rechecked": true,
+  "independent_recursive_counts": {
+    "evidence_manifest_entries": 6987,
+    "project_archive_files": 2100,
+    "zip_archives": 957
+  },
+  "inert_aliases": 0,
+  "official_disjoint_union_members": 2110,
+  "official_part_recursive_counts": [
+    {
+      "evidence_manifest_entries": 1371,
+      "project_archive_files": 1052,
+      "zip_archives": 551
+    },
+    {
+      "evidence_manifest_entries": 739,
+      "project_archive_files": 1040,
+      "zip_archives": 341
+    }
+  ],
+  "original_bytes": 622790963,
+  "original_files": 6977,
+  "original_observer_files": 480,
+  "original_observer_roots": 8,
+  "original_roots": 12,
+  "outer_manifest_members": 6987,
+  "portable_verifier_or_postgate_helpers_imported_or_executed": false,
+  "raw_original_copy_pairs": 59,
+  "recorded_utc": "2026-11-19T18:08:26.275883+00:00",
+  "scope": "Independent complete C4 candidate original/source/raw/observer/archive readback; not final-seven/merge/release readiness",
+  "separate_public_source_companion": {
+    "all_seven_original_companion_bytes_and_union_exact": true,
+    "archive": {
+      "bytes": 9636580,
+      "sha256": "bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74"
+    },
+    "complete_companion_files": 7,
+    "recursive_counts": {
+      "evidence_manifest_entries": 17,
+      "project_archive_files": 20,
+      "zip_archives": 15
+    }
+  },
+  "source_capsules": {
+    "actual036": {
+      "bytes": 4784614,
+      "commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "sha256": "24ef1810ef626d97254ec5d76d7623ebb199a207099316f3fd005f1b361ed945",
+      "source_count": 1013
+    },
+    "current": {
+      "bytes": 5191267,
+      "commit": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+      "sha256": "caf163622bd9cd18987d2f90972109adc41749a8666114ddbe98edc7751c30ea",
+      "source_count": 1133
+    }
+  }
+}

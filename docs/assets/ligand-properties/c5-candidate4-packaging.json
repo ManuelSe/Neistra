@@ -1,0 +1,118 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "application_version": "0.37.0",
+  "archives": [
+    {
+      "bytes": 83360400,
+      "file": "c5-candidate4-qualified-01.zip",
+      "outer_manifest_entries": 1371,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c5-candidate4-qualified-01.zip",
+      "sha256": "5da9609a253097fe5faf0c7d06307ffbf0a06ac539a854398f1732caa0c58ecb",
+      "verification_counts": {
+        "evidence_manifest_entries": 1371,
+        "project_archive_files": 1052,
+        "zip_archives": 551
+      }
+    },
+    {
+      "bytes": 22958747,
+      "file": "c5-candidate4-qualified-02.zip",
+      "outer_manifest_entries": 739,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c5-candidate4-qualified-02.zip",
+      "sha256": "772a1e0502d6577ba6c664b1ca6a423913fa31e2f257e675ccb4c6e7318dd217",
+      "verification_counts": {
+        "evidence_manifest_entries": 739,
+        "project_archive_files": 1040,
+        "zip_archives": 341
+      }
+    }
+  ],
+  "browser_native_files": 714,
+  "kind": "gate packages",
+  "label": "c5-candidate4",
+  "not_published_by_this_script": true,
+  "packager_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "property_reader_workspace_excluded_caches": [],
+  "qualified_commit": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+  "reader_workspace_exclusions": {
+    "files": [],
+    "reason": "Only bytecode and named interpreter/tool caches are excluded. All owned synthetic live databases, history, artifact stores, specimens, reports and logs are retained."
+  },
+  "retained_property_reader_workspace_files": 203,
+  "retained_reader_workspace_files": 796,
+  "retained_rich_connectivity_measurement_workspaces": {
+    "connectivity-current-produce": {
+      "excluded_caches": [],
+      "files": 73
+    },
+    "connectivity-previous-produce": {
+      "excluded_caches": [],
+      "files": 74
+    },
+    "connectivity-previous-read-current": {
+      "excluded_caches": [],
+      "files": 72
+    },
+    "measurements-current-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-read-current": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "rich-current-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-read-current": {
+      "excluded_caches": [],
+      "files": 16
+    }
+  },
+  "scientific_native_files": 7,
+  "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+  "summary": {
+    "actual_reader_audit": "c5-candidate4-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.37.0",
+    "branch": "fix/issue-159-observer-snapshots",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "9684a360bce6e3df2dbe0af6b073bcecdd83c83c485ca4c2e5f5ca82adf85a66",
+    "browser_passed": 565,
+    "clean_start": true,
+    "commit": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 43,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 10029.161,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 1599,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 3598,
+    "python_skips": 0,
+    "source_count": 1133,
+    "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 10033.0
+  }
+}
