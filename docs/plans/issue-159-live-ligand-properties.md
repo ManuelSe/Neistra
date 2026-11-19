@@ -1677,3 +1677,59 @@ No additional runtime or performance execution is justified by this documentatio
 correction. Obtain affected reassessment and all other specialists' explicit
 confirmation after they inspect the exact intervening diff on the final candidate.
 No push/readiness or release is claimed until that gate passes.
+
+
+### Authorized corrective checkpoint — complete observer snapshots after failed master1
+
+PR177 merged the reviewed feature at `26e7cc1b9fdc5758ed18049b0fa7be67d7559882`.
+The original exact-master1 runner exits 1: fifteen commands pass; browser outcomes
+are 391 passes, one failure, 32 authored skips and 216 unrun. Twenty-seven later
+commands are unrun. The mobile cold/edit case dereferences a null observer after a
+successful completed-source poll. It retains five cold starts and fourteen completed
+paired edits, not twenty. The top-level error is the maximum-failure stop notice.
+No 0.37.0 tag or release exists.
+
+Early architecture and performance assessments require a bounded tooling correction.
+The publisher writes JSON in place, while its reader hides every read/parse error as
+null. A controlled file-I/O interleaving reproduces an empty-file parse window.
+The exact swallowed exception from the historical failed read was not retained.
+
+This refinement is **Authorized within agreed scope; not individually reviewed**
+under the owner's standing parent11 plan-and-deliver authorization. Use dedicated
+`fix/issue-159-observer-snapshots`, based on the failed merged commit. Application
+behavior, science, compatibility and all five 0.37.0 versions remain unchanged.
+
+Accepted implementation contract:
+
+- Fully serialize the observer payload, write and close a uniquely owned temporary
+  sibling, then atomically replace the published snapshot for ordinary and final
+  writes. Serialization/write/replace failure preserves the old snapshot and
+  propagates; clean only the publisher's own temporary file.
+- Permit missing output only before the first valid snapshot. Reject malformed JSON,
+  null/invalid envelopes, permissions/other I/O errors and subsequent disappearance.
+  Do not silently retain stale snapshots or substitute empty jobs.
+- Capture the actual snapshot satisfying the existing completed-source poll for the
+  before-warm baseline. Warm-job and reaping checks require valid evidence.
+- Preserve five cold contexts, twenty paired edits per profile, both bulk cohorts,
+  cancellation, scientific/resource predicates, clocks/timing boundaries, budgets,
+  100ms sampling/write cadence, deadlines, fail-fast policy and exclusions.
+- Regress deliberately interleaved publication, serialization/write/replace failure,
+  own-temp cleanup, first absence versus malformed/inaccessible/subsequently missing
+  snapshots and failure without cached/empty fallback.
+
+The ninth forensic packet preserves all 4,860 originals, 62 empty directories, both
+exact source capsules, four pre-SQL raw database/copy pairs and all 395 files in five
+original observer roots. Its 174,910,299 bytes have SHA256
+`ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a`.
+Primary independent full body/hash/CRC/recursive/Git-blob/original-union verification
+passes without SQL. This retention does not qualify the failed merged commit.
+
+Native11 and candidate5 keep their historical identities and limitations. The
+observer correction changes declared benchmark-method identity: do not claim all
+51 original subjects remain unchanged. Declare the new exact method set before a
+fresh one-attempt ALL8 native12 execution and closed analysis. No speedup or strict
+host timing claim follows this correction. Run a fresh complete 43-command candidate
+gate, obtain all seven final same-candidate assessments, then use a normal corrective
+PR/protected merge. Run another complete fresh gate on its actual merged commit
+under an unspent label before tag/release/assets/closeout. Earlier master1 success-only
+preparation is unused historical material. Parent scope/dependencies/exclusions remain.

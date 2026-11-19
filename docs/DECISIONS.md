@@ -9590,3 +9590,18 @@ qualification follow. The existing complete 43-command candidate PASS remains so
 all seven final assessments must explicitly cover the corrected documentation
 candidate before push. Exact merged-master qualification and verified release remain
 mandatory. See the [raw count correction](assets/ligand-properties/c3-renewal-count-checkpoint.json).
+
+
+### D-201 qualification continuation — publish complete observer snapshots
+
+2026-11-19: exact merged-master1 fails on a null observer job-baseline read. Preserve
+its complete failed evidence and partial workload. The direct JSON publisher exposes
+a reproducible truncate/write window; the historical swallowed exception is unknown.
+Use observer-only atomic sibling publication, explicit startup/missing/error semantics,
+the actual qualifying poll snapshot and valid-observation warm/reaping checks.
+Regress old-or-new complete publication and visible failures without stale/empty
+fallback. Preserve scientific workloads, timing definitions, budgets, sampling cadence,
+deadlines and exclusions. Correct through a dedicated normal PR, with a new declared
+benchmark method, fresh ALL8 analysis, complete candidate qualification, all-seven
+same-candidate review and a fresh exact merged gate. Native11/candidate5 retain their
+historical identities and timing limitations; no speedup is claimed.
