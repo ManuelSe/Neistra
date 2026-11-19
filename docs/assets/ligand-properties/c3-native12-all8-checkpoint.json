@@ -17,7 +17,9 @@
   },
   "analysis_script": {
     "file": "c3-native12-analysis.py.txt",
-    "sha256": "62b71d2b07422763c9b2640e42e827f62e29bce1c689b2e41f00fdf7240e8ed3"
+    "sha256": "1f55f9f6d0a18fd3f7997d57c157ece54d1a173896276e473ca6f42f8f04f74d",
+    "original_executed_sha256": "62b71d2b07422763c9b2640e42e827f62e29bce1c689b2e41f00fdf7240e8ed3",
+    "public_copy_change": "One extra trailing blank line removed; whole module AST remains identical. Exact executed script remains in the closed evidence packet."
   },
   "archive": {
     "file": "c3-native12-all8-evidence.zip",
