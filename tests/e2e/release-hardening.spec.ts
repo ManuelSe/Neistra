@@ -117,9 +117,18 @@ test("supports keyboard focus and bounded responsive controls", async ({
     const selectionTab = drawer.getByRole("tab", { name: "selection" });
     const entryChoice = drawer.getByRole("region", { name: "Ligand of interest", exact: true })
       .getByRole("combobox", { name: "Entry", exact: true });
+    const properties = drawer.getByRole("region", { name: "Properties", exact: true });
+    const propertyOptions = properties.getByRole("button", { name: "Property options", exact: true });
+    const methodsSummary = properties.locator("summary").filter({ hasText: /^Methods and limits$/ });
     await expect(entryChoice).toBeEnabled();
     await expect(entryChoice).toBeFocused();
     await expect(entryChoice).toHaveValue("");
+    await expect(propertyOptions).toBeEnabled();
+    await expect(methodsSummary).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(propertyOptions).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(methodsSummary).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(selectionTab).toBeFocused();
     await selectionTab.focus();

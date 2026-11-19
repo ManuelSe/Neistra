@@ -132,6 +132,27 @@ Scoped architecture/performance reviews pass. See the
 [correction receipt](assets/ligand-properties/c3-route-lifetime-checkpoint.json)
 and [evidence](assets/ligand-properties/c3-route-lifetime-evidence.zip).
 
+
+Candidate4 at `ad505d27` completes all desktop cases and records 476 browser passes,
+including all eight descriptor performance and all twelve minimization-controls
+cases, before a mobile release-hardening keyboard assertion fails. The first Tab
+correctly reaches Property options; the old assertion expected Selection immediately.
+Methods and limits is another native keyboard stop before the tabs. The failed run
+retains 56 authored exclusions and 107 unrun browser cases; 27 later commands remain
+unrun. All 35,094 original files, four raw database/sidecar bodies and exact source
+snapshots verify in a separate 675,409,215-byte packet, including 76 nested ZIPs.
+See [failure metadata](assets/ligand-properties/c3-candidate4-failed-checkpoint.json).
+
+Three added test blocks now establish readiness and traverse Entry → Property options
+→ Methods and limits → Selection with actual Tab keys. Every original assertion,
+deadline, exclusion, desktop branch and performance case remains unchanged. The full
+release-hardening file passes five desktop/mobile cases with its one existing mobile
+performance exclusion, no failures/flakes/retries. All 1,130 sources match before/after;
+32 known process handles are gone and three raw database/sidecar files are copied
+before SQL. Scoped architecture, performance and UX reviews pass. See the
+[correction receipt](assets/ligand-properties/c3-property-tab-order-checkpoint.json)
+and [evidence](assets/ligand-properties/c3-property-tab-order-evidence.zip).
+
 ## Known limitations
 
 The first diagnostic was interrupted; the second exited 1 after a trace-buffer guard
@@ -159,13 +180,13 @@ causal or same-method application speedup claim.
 Full 43-command candidate/exact-master gates, all seven final same-candidate assessments
 and protected delivery remain required. Strict reference latency targets remain
 separate under D-148. #159 has no implementation push or release.
-Only the artifact helper/unit tests, two lifecycle notice selectors and three held-route
-fixture cleanup blocks change after native11; all 51 benchmark subjects and
-production/scientific inputs remain exact. Reuse that run at its original
+Only the artifact helper/unit tests, two lifecycle notice selectors, three held-route
+fixture cleanup blocks and one explicit keyboard path change after native11. All
+51 benchmark subjects and production/scientific inputs remain exact. Reuse that run at its original
 995e80f8/source identity with the explicit tooling delta; do not relabel it as the new
 full-source digest. Fresh complete gates still qualify the corrected full source.
 
-Seven separate forensic assets remain publication-pending. Early exploratory probes
+Eight separate forensic assets remain publication-pending. Early exploratory probes
 are now fully retained at their current bytes; two SHM revisions differ from older
 recorded hashes and their historical pre-SQL ordering is unproven. Those limits do
 not qualify earlier interrupted/failed runs. See the
@@ -183,7 +204,7 @@ qualification remains required.
 
 ## Next action
 
-Run fresh complete `c4-candidate4`, retain the authored unspent `c4-master1` recipe,
+Run fresh complete `c4-candidate5`, retain the authored unspent `c4-master1` recipe,
 obtain final seven-specialist assessments,
 then complete protected merge, exact-master qualification and verified release.
 Continue #160–#163 serial releases and parent closeout under the existing single Goal.

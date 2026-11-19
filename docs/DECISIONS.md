@@ -9546,3 +9546,28 @@ raw DB/WAL/SHM bodies and 59 recursive ZIPs. All 461 runtime and 51 benchmark bo
 remain native11-exact; reuse its original source identity without a new latency
 claim. A fresh complete candidate4, exact master1 and final seven-role acceptance
 remain required. No failed or focused run establishes full qualification.
+
+
+### D-201 qualification continuation — retain explicit property keyboard stops
+
+2026-11-19: candidate4 records 476 native passes, including all eight descriptor
+performance and twelve minimization-controls cases, before a mobile keyboard test
+expects a direct Entry → Selection transition. The actual screenshot and source show
+two legitimate intervening controls: Property options and the native Methods and
+limits summary. Preserve both controls in the keyboard path; do not alter product
+focus order or hide scientific-method access to satisfy an old test.
+
+Add only scoped control locators, loaded-control readiness and real Tab/focus
+assertions through those two controls before the original Selection assertion.
+Retain every original assertion, deadline, exclusion, desktop branch and performance
+case. The complete file passes five cases with one unchanged authored mobile
+performance exclusion, no failures/flakes/retries. Scoped architecture, performance
+and UX assessments pass; native evidence resolves the initial omission of the native
+summary from a preliminary recommendation. A bounded audit finds no other equivalent
+adjacency assumption among the twelve literal Tab calls.
+
+Preserve failed candidate4 separately: 35,094 original files, four raw DB/WAL/SHM
+bodies, both exact source snapshots and 76 nested ZIPs verify in the 675,409,215-byte
+packet. All 461 runtime and 51 benchmark subjects remain native11-exact; preserve its
+original identity and timing limitations. Complete candidate5/exact-master gates
+and final same-candidate seven-role acceptance remain mandatory.

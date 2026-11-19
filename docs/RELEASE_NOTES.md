@@ -81,7 +81,7 @@ Its actual interruption and full raw evidence remain separate from qualified res
 The tooling/test corrections are outside the51benchmark subjects and leave
 production/scientific inputs unchanged. Native11 retains its actual original source
 identity; its unaffected portable measurements remain usable with this explicit delta.
-Seven separate forensic assets and checksums are planned; publication and complete
+Eight separate forensic assets and checksums are planned; publication and complete
 anonymous download verification remain pending. Early exploratory SHM revision gaps
 and unproven historical pre-SQL ordering remain explicit in their metadata.
 
@@ -104,6 +104,18 @@ cases with zero skips, failures, flakes or retries. Scoped reviews pass. The opt
 expanded strict E2E check retains four identical pre-existing diagnostics and remains
 not passing. Fresh complete candidate4/exactmaster1 qualification and final seven-role
 acceptance remain required.
+
+
+Candidate4 records 476 browser passes, including all eight descriptor performance
+and twelve minimization-controls cases, before a mobile test assumes a direct
+Entry → Selection keyboard transition. The legitimate Property options and native
+Methods and limits controls now precede the tabs. Explicit Tab/focus assertions cover
+both while preserving all original checks/deadlines and product focus behavior.
+The complete file passes five cases with one existing mobile performance exclusion;
+scoped architecture/performance/UX reviews pass. All failed originals and source
+snapshots remain separately verified; 107 browser cases and 27 later commands were
+unrun. Fresh candidate5/exactmaster1 qualification and final all-seven acceptance
+remain pending.
 
 
 ## 0.36.0 — Exact durable ligand designation

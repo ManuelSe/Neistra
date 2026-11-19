@@ -1568,3 +1568,45 @@ the focused run establishes new latency measurements. The fresh candidate4 recip
 is byte-exact candidate3 after label/workspace replacement. The unchanged master1
 recipe remains unspent. Full candidate/master gates and all seven final assessments
 remain required; the seven forensic assets remain publication-pending.
+
+
+### C3 qualification continuation — preserve candidate4 and actual keyboard order
+
+The original `c4-candidate4` at `ad505d27` exits 1 after fifteen passing commands and
+476 native passes. All desktop cases, all eight descriptor performance cases and all
+twelve minimization-controls cases complete without failure. Mobile release-hardening
+then expects Selection after one Tab from the focused, empty Entry selector. The
+actual focus is on the legitimate Property options button. Source and screenshot
+also show the native Methods and limits summary before the tabs. The browser report
+contains one failure, 56 authored exclusions, 107 unrun cases, no flakes/retries;
+27 later recipe commands remain unrun. The extra top-level error is maximum-failure
+stopping only. This is not complete qualification.
+
+Complete original retention preserves 35,094 files / 1,501,779,138 raw bytes, 73 empty
+directories, all four raw DB/WAL/SHM files and exact current/actual-v0.36 source ZIPs
+sealed before any corrective edit. The separate 675,409,215-byte packet SHA256 is
+`b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a`.
+Primary independent outer hash, full original body/union, 76-ZIP recursive and sealed
+source-map/ZIP semantic verification pass. Five corruption controls pass. Originals
+remain in place; only their exact spent output prefix is locally excluded after
+verification. See [failure metadata](../assets/ligand-properties/c3-candidate4-failed-checkpoint.json).
+
+Exactly three added test blocks establish Property options enabled and Methods and
+limits visible, then traverse and assert Entry → Property options → native summary
+→ Selection with real Tab keys. All original bytes/assertions/deadlines/exclusions,
+desktop behavior and representative-performance code remain. The whole native file
+passes five cases with one unchanged authored mobile performance exclusion; zero
+failures/flakes/retries/errors. All 1,130 source bodies match before/after. Positive
+cleanup checks 32 known handles, workspace markers and three dedicated ports before
+copying three raw database/sidecar files. Scoped architecture/performance/UX reviews
+pass; the actual native traversal resolves the preliminary one-control omission.
+A bounded audit finds no other equivalent adjacency assumption among twelve literal
+Tab calls. See the [receipt](../assets/ligand-properties/c3-property-tab-order-checkpoint.json)
+and [complete focused packet](../assets/ligand-properties/c3-property-tab-order-evidence.zip).
+
+All 461 runtime and 51 native11 benchmark subjects remain unchanged; release-hardening
+belongs to neither map. Reuse only the original native11 identity and limitations,
+with no new latency claim. The fresh candidate5 recipe is byte-exact candidate4 after
+label/workspace substitution. Master1 remains unchanged and unspent. Both complete
+gates, final all-seven assessments and verified delivery remain required. Eight
+separate forensic assets remain publication-pending.
