@@ -1610,3 +1610,49 @@ with no new latency claim. The fresh candidate5 recipe is byte-exact candidate4 
 label/workspace substitution. Master1 remains unchanged and unspent. Both complete
 gates, final all-seven assessments and verified delivery remain required. Eight
 separate forensic assets remain publication-pending.
+
+
+### C3 complete qualification — candidate5 and closed retained evidence
+
+The original `c4-candidate5` at `e47de3dd8f2e53fd27abac8d39dac3f0696da7f7`
+exits 0 after all 43 sequential commands. It passes 3,589 Python tests with no skips,
+1,584 frontend tests across 136 files, 14 supervisor tests and the entire 640-case
+browser inventory: 565 passes plus exactly 75 released baseline exclusions. There
+are no failures, flakes, retries or new exclusions. Frozen installs, migrations,
+static checks, production/build/version/legacy audits and actual tagged-v0.36 rich,
+connectivity, measurement, editing and property reader/archive sequences pass. All
+1,130 current and 1,013 actual preceding source bodies remain unchanged.
+
+The independent summary verifies every lossless log. Official qualified parts are
+83,337,784 bytes / SHA256 `2be3852ed523c2deaa0560b554dad903664fb8ecda104f75204e90d4c520c90a`
+and 23,236,848 bytes / SHA256 `9ae33c4171100e13f156db565a1b376181dbac271b159b9da89592d0334f48d7`.
+Primary full-body/hash/CRC/recursive verification proves their exact disjoint union
+of 2,110 expected members. The first manual postprocessing invocation uses an
+unsupported subcommand and exits 2 before any output or mutation; the subsequent
+correct `gate` invocation exits 0. This is not a qualification failure or rerun.
+
+Positive cleanup precedes raw copying of all 59 existing database/sidecar bodies;
+no diagnostic SQL is opened. Both source capsules verify all 2,143 exact bodies
+against the actual current/preceding commit blobs. The additional qualified
+retained-state ZIP preserves the complete closed workspace, original transport and
+five selected public bindings: 6,485 originals / 540,403,585 raw bytes, 46 empty
+directories, zero aliases/special descriptors/cache exclusions. Its 68,133,428 bytes
+have SHA256 `931706fff11987a36e7db734e309d789bc8a59793aa50bfc55796c45c33f8f7e`.
+Worker and primary full-original/body/CRC/union checks pass, including 957 recursive
+ZIPs and every raw original/copy pair. Source capsules and this retained-state ZIP
+are supplemental main-release evidence; they do not add a ninth failed forensic
+asset or duplicate the official part binaries/eight failed packets.
+
+See the [complete candidate checkpoint](../assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
+and [summary](../assets/ligand-properties/c4-candidate5-summary.json). The source map
+has compact-JSON SHA256 `3c0d53d1c002bbc68082c7ca352f07dc8e8fee2eab41ee0496b1262889b9909e`
+and default-spaced-JSON SHA256 `60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653`;
+these encode the same body map and are deliberately distinguished. Later evidence/docs
+commits must explicitly retain this qualifying identity rather than relabeling its run.
+All 461 runtime and 51 native11 method bodies remain unchanged; keep its original
+995e/b2d49 measurement identity and absolute timing limitations.
+
+Final all-seven complete-feature assessments, normal protected merge, a fresh exact
+merged-master 43-command gate, verified publication, child closeout and owned cleanup
+remain required. Master1 remains unspent. No final review, push, PR, tag or release
+is claimed by this checkpoint. The parent Goal and remaining required scope stay active.

@@ -1,0 +1,118 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "application_version": "0.37.0",
+  "archives": [
+    {
+      "bytes": 83337784,
+      "file": "c4-candidate5-qualified-01.zip",
+      "outer_manifest_entries": 1368,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/docs/assets/ligand-properties/c4-candidate5-qualified-01.zip",
+      "sha256": "2be3852ed523c2deaa0560b554dad903664fb8ecda104f75204e90d4c520c90a",
+      "verification_counts": {
+        "evidence_manifest_entries": 1368,
+        "project_archive_files": 1052,
+        "zip_archives": 551
+      }
+    },
+    {
+      "bytes": 23236848,
+      "file": "c4-candidate5-qualified-02.zip",
+      "outer_manifest_entries": 742,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/docs/assets/ligand-properties/c4-candidate5-qualified-02.zip",
+      "sha256": "9ae33c4171100e13f156db565a1b376181dbac271b159b9da89592d0334f48d7",
+      "verification_counts": {
+        "evidence_manifest_entries": 742,
+        "project_archive_files": 1040,
+        "zip_archives": 341
+      }
+    }
+  ],
+  "browser_native_files": 714,
+  "kind": "gate packages",
+  "label": "c4-candidate5",
+  "not_published_by_this_script": true,
+  "packager_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "property_reader_workspace_excluded_caches": [],
+  "qualified_commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+  "reader_workspace_exclusions": {
+    "files": [],
+    "reason": "Only bytecode and named interpreter/tool caches are excluded. All owned synthetic live databases, history, artifact stores, specimens, reports and logs are retained."
+  },
+  "retained_property_reader_workspace_files": 203,
+  "retained_reader_workspace_files": 796,
+  "retained_rich_connectivity_measurement_workspaces": {
+    "connectivity-current-produce": {
+      "excluded_caches": [],
+      "files": 73
+    },
+    "connectivity-previous-produce": {
+      "excluded_caches": [],
+      "files": 74
+    },
+    "connectivity-previous-read-current": {
+      "excluded_caches": [],
+      "files": 72
+    },
+    "measurements-current-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-read-current": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "rich-current-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-read-current": {
+      "excluded_caches": [],
+      "files": 16
+    }
+  },
+  "scientific_native_files": 7,
+  "source_digest": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653",
+  "summary": {
+    "actual_reader_audit": "c4-candidate5-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.37.0",
+    "branch": "feat/issue-159-live-ligand-properties",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "ac44f7ff79651321b77edad73a9cdc98987a8ab3db9126b650884416744a77ea",
+    "browser_passed": 565,
+    "clean_start": true,
+    "commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 43,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 10012.822,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 1584,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 3589,
+    "python_skips": 0,
+    "source_count": 1130,
+    "source_digest": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 10016.0
+  }
+}

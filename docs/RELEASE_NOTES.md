@@ -2,121 +2,66 @@
 
 ## 0.37.0 — Automatic current-input ligand properties (in preparation)
 
-Child #159 adds fourteen versioned descriptors, installation-level category options,
-automatic exact-input refresh and bounded private execution/cache ownership. It is
-local release preparation; no v0.37.0 tag, release or final qualification is claimed.
-Actual released v0.36.0 and terminal documentation254babcd are integrated as
-the prerequisite. Full public verification, explicit closure, final delivery
-receipt and safe owned-branch cleanup are verified.
+Child #159 adds fourteen versioned ligand descriptors with automatic current-input
+refresh, compact readouts and installation-level category options. Relevant molecular
+changes immediately retire incompatible values. A verified matching cache can return
+promptly; otherwise values remain pending or unavailable with an explicit reason.
+Committed structures and changed previews retain distinct identities. Late results,
+Undo/Redo, source failures and project/entry changes cannot publish incompatible values.
 
-Relevant molecular changes immediately retire incompatible values. Qualified cached
-results can return promptly; otherwise the readout remains pending or unavailable
-with a reason until a genuine current result is verified. Committed inputs and
-changed previews retain distinct exact identities. Late results, Undo/Redo, source
-failures and project/entry changes cannot publish incompatible numerical values.
-Candidate composition/drawing and calculated properties requalify independently.
-Original uploads and canonical chemistry remain unchanged; unsupported chemistry is
-not silently neutralized, protonated, desalted or converted to zero.
+Calculations use strict, versioned scientific input and documented hydrogen handling.
+Known counts can remain available when other descriptors cannot be calculated. Missing
+chemistry never becomes a neutral charge, single bond or numerical zero. Original
+uploads and canonical molecules are preserved; no hidden protonation, desalting or
+other preparation is performed. Method details and limitations remain available in
+the advanced surface. Bounded coalesced work and active-ligand priority reuse the
+existing controlled job infrastructure without making private derived work portable
+project history.
 
-All five authoritative versions are prepared at0.37.0, with dependency pins unchanged.
-Migration0017 adds installation property preferences and privately owned derived
-execution; project/archive schema3 and viewer2 remain. Deploy matching client/server
-versions and retain a complete pre-upgrade store backup. Downgrade is guarded; actual
-preceding0.36reader/producer and archive qualification remains required before release.
-Derived values/cache/preferences do not become portable molecular history merely
-because the archive schema is unchanged.
+All five authoritative versions are prepared at 0.37.0; dependency pins are unchanged.
+Migration 0017 adds installation preferences and private derived execution/cache
+ownership. Project/archive schema 3, viewer 2 and API v1 remain. Deploy matching client
+and server versions and retain a complete pre-upgrade store backup. Downgrade guards
+nondefault preferences. Actual tagged-v0.36 readers/writers preserve canonical inputs,
+ordinary jobs and unapplied editing proposals through the qualified archive paths;
+derived values are recalculated after remapping and installation preferences do not
+travel as project settings. Unsupported migration paths refuse safely.
 
-Scoped source/recovery, actual preceding-reader and portable ALL8 checks remain
-preserved at their declared candidates. The measured inspector correction removes
-quadratic query tracking and entry scans while preserving the full observed source
-set. At 1,000 entries the work regression changes 5,005,000 tracking calls and 1,002,000
-ID reads to 0 and 2,000. Focused tests, current lint/types and build pass; actual browser
-improvement is not established by the changed-method measurements. Prior cold and desktop bulk latency misses and both
-incomplete diagnostic outcomes remain explicit. Current ALL8 portable qualification passes;
-43-command candidate / exact-master qualification and all seven final assessments remain pending. No strict
-reference-host or universal instant-response claim is made. Profiles/sidebar/property
-filters/inspector retirement remain #160–#163; parent #11 exclusions are unchanged.
+The complete 43-command candidate5 gate passes at `e47de3dd`: 3,589 Python tests/zero
+skips, 1,584 frontend tests across 136 files, 14 supervisor tests and 565 browser passes.
+All 640 browser cases are accounted for, with exactly 75 unchanged released exclusions
+and zero failures/flakes/retries/new exclusions. Frozen installs, migrations, static
+checks, build, production/version/legacy audits and actual preceding-reader suites
+pass. All 1,130 current / 1,013 preceding source bodies remain exact. Both official gate
+parts, exact source capsules and the complete retained-state supplement pass independent
+body/hash/CRC/recursive/union verification. Final seven-specialist acceptance, normal
+merge, fresh exact-merged-master qualification and public release verification remain
+required; no 0.37.0 publication is claimed.
 
-The subsequent eight-case remeasurement exits 1 after three desktop passes: a bulk
-heartbeat arrives after its returned 60-second lease, and four mobile cases remain
-unrun. Raw evidence and slower partial timings are retained. A test-only serial
-maintenance lane removes the renewal dependency on sequential reads/assertions,
-preserving all original workloads, assertions, fairness proofs, targets and deadlines.
-Eight deterministic controls, lint/types and strict benchmark TypeScript pass;
-52 offline packaging controls cover actual scoped receipts and the approved plan.
-The benchmark method identity changes explicitly; fresh complete qualification is
-still required. Neither failure nor focused checks establish release readiness.
+The inspector now avoids quadratic query tracking and repeated entry scans while
+preserving every observed query: at 1,000 entries the work regression changes tracking
+calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. Portable native11 qualification
+passes all eight original workflows at its original source identity. Its measured
+cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
+bulk updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
+Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
+zero new jobs and cancellation feedback at most 22 ms. All 105 renewals and 28,801,010
+response-body bytes are included. Changed measurement methods and host conditions
+preclude a causal speedup claim or strict reference-host certification.
 
-A further retained run demonstrates that serial maintenance alone is insufficient
-when per-row test reporting delays response handling. Complete batch predicates now
-retain all ready/pending, qualified-report, 14-value and finite-ready checks with
-two data matcher calls per 200 rows, instead of 801. 16 focused tests and scoped reviews
-pass. Both failed runs remain explicit; no application speedup is inferred.
+Earlier interrupted/failed runs remain unqualified in eight separate lossless
+forensic assets, with publication and full anonymous download verification pending.
+The child plan records tooling/fixture corrections and their focused checks; all
+original product assertions, deadlines and exclusion identities are retained. Early
+exploratory SHM revision gaps and unproven historical pre-SQL ordering remain explicit.
+An optional expanded strict E2E check retains four pre-existing diagnostics and is
+not passing; the established application typecheck passes.
 
-The corrected eight-case run at 995e80f8 now exits 0 with all eight single-attempt
-passes and no skips, failures, flakes or retries. All four 1,000-entry cohorts reach
-qualified current results with bounded productive scheduling. Source, cleanup, raw
-evidence, cache, cancellation and resource checks pass. Its complete 41,422,460-byte
-evidence packet receives independent whole-body/CRC/recursive verification and a
-scoped performance specialist PASS. These are portable checks under D-148.
-
-Cold edit median/p95/maximum are 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds.
-Both desktop bulk active updates exceed 5 seconds (6,928.2/6,921.8 ms), while mobile
-records 3,144.9/3,967.4 ms. Feedback exceeds 100 ms in 21/84 observations. Matching
-cache projection is at most 74.5 ms with zero new jobs; cancellation feedback is at
-most 22 ms. The benchmark's 105 renewal calls preserve 28,801,010 response-body bytes;
-their overhead is included. No strict timing certification or causal speedup is
-claimed. Both full 43-command gates, final seven-specialist review, protected merge
-and verified publication remain required.
-
-Final review finds one release-evidence tooling defect: two valid retained packets
-contain explicitly declared empty-directory ZIP entries. The verifier now preserves
-their exact file/hash/size/CRC contract while accepting only safe, empty declared
-directories. 89 controls and all ten preceding immutable checkpoint packets pass; direct helper
-typing and formatting pass. Original archives are unchanged. The first full candidate
-gate is deliberately stopped after 15 successful commands, including 3,552 Python and
-1,584 frontend tests, to qualify the corrected tooling with a fresh complete gate.
-Its actual interruption and full raw evidence remain separate from qualified results.
-
-The tooling/test corrections are outside the51benchmark subjects and leave
-production/scientific inputs unchanged. Native11 retains its actual original source
-identity; its unaffected portable measurements remain usable with this explicit delta.
-Eight separate forensic assets and checksums are planned; publication and complete
-anonymous download verification remain pending. Early exploratory SHM revision gaps
-and unproven historical pre-SQL ordering remain explicit in their metadata.
-
-Candidate2passes15commands including3,589Python and1,584frontend tests, then stops
-on a broad lifecycle status locator after174native passes. The intended recovery
-notice is present alongside the new Properties empty state. Two text filters retain
-status roles, uniqueness and all workflow assertions; the complete lifecycle file
-passes5cases in desktop/mobile with its existing authored mobile exclusion. No
-production behavior changes. The complete failed-run packet remains separate;
-fresh43-command candidate3/exactmaster1 and final all-seven approval are pending.
-
-
-Candidate3 records 415 browser passes, including all eight descriptor performance
-cases, before a test-owned proposal fetch rejects during context teardown. Its
-product assertions and final screenshot already completed; 190 browser cases and
-27 recipe commands remain unrun. Complete failed-run evidence is preserved separately.
-Three held-route fixture cleanup blocks now await active handlers without suppressing
-errors or changing assertions/deadlines. The whole file passes all 12 desktop/mobile
-cases with zero skips, failures, flakes or retries. Scoped reviews pass. The optional
-expanded strict E2E check retains four identical pre-existing diagnostics and remains
-not passing. Fresh complete candidate4/exactmaster1 qualification and final seven-role
-acceptance remain required.
-
-
-Candidate4 records 476 browser passes, including all eight descriptor performance
-and twelve minimization-controls cases, before a mobile test assumes a direct
-Entry → Selection keyboard transition. The legitimate Property options and native
-Methods and limits controls now precede the tabs. Explicit Tab/focus assertions cover
-both while preserving all original checks/deadlines and product focus behavior.
-The complete file passes five cases with one existing mobile performance exclusion;
-scoped architecture/performance/UX reviews pass. All failed originals and source
-snapshots remain separately verified; 107 browser cases and 27 later commands were
-unrun. Fresh candidate5/exactmaster1 qualification and final all-seven acceptance
-remain pending.
-
+Profiles, sidebar, property filters and inspector retirement remain #160–#163.
+Diagram #153, relocations #164/#165 and the other parent #11 exclusions remain separate.
+See [property documentation](LIGAND_PROPERTIES.md),
+[qualification checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
+and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
 
 ## 0.36.0 — Exact durable ligand designation
 
