@@ -61,7 +61,14 @@ because old values were hidden. Resource samples are discrete, with incomplete
 browser/GPU/short-lived-process accounting. Changed observation methods and shared
 host conditions preclude causal speedup or strict reference-host certification.
 
-Earlier interrupted/failed runs remain unqualified in nine separate lossless
+Fresh c5-candidate1 stops at a release-helper catalogue assertion after 3,597 Python
+passes and one failure; browser and 34 later commands are unrun. Complete failed
+source/raw/log evidence verifies. The explicit six-helper/context classification
+passes all 89 focused recipe tests and affected style/types, preserving the 52
+method and 789 observer bodies. A fresh complete candidate gate and final reviews
+remain required. See the [catalogue checkpoint](assets/ligand-properties/c3-helper-catalogue-checkpoint.json).
+
+Earlier interrupted/failed runs remain unqualified in ten separate lossless
 forensic assets, with publication and full anonymous download verification pending.
 The child plan records tooling/fixture corrections and their focused checks; all
 original product assertions, deadlines and exclusion identities are retained. Early

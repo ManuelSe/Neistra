@@ -4,8 +4,11 @@
 
 Parent #11 remains active. #156–#158 are released and closed. #159 prepares 0.37.0:
 PR177 merged at `26e7cc1b`, but its exact-master1 gate failed in observer tooling.
-The corrective branch passes its local implementation checkpoint and fresh native12
-ALL8 qualification. Full candidate qualification, final seven-role acceptance,
+The observer correction passes its focused checkpoint and fresh native12 ALL8.
+Fresh c5-candidate1 stops at a helper-catalogue assertion: 3,597 Python passes and
+one failure; browser and 34 later commands are unrun. Complete failed evidence is
+verified. The explicit helper/context catalogue correction passes 89 focused tests
+and affected style/types. Fresh full qualification, all-seven final acceptance,
 normal corrective merge, fresh merged qualification and release remain required.
 
 ## Completed work
@@ -20,8 +23,9 @@ pass. Original failed-master evidence remains separately retained and unqualifie
 ## Verification performed
 
 Original native12 at `7da9913b` exits 0: eight single-attempt cases pass, no skips,
-failures, flakes or retries. All 1,133 selected sources, 52 method subjects and
-789 observer subjects remain exact. Positive cleanup precedes all three raw
+failures, flakes or retries. Its 1,133 captured sources, 52 method subjects and
+789 observer subjects verify. The later catalogue-only unit-test delta is declared;
+all runtime/scientific/method/observer bodies remain unchanged. Positive cleanup precedes all three raw
 original/runner/primary-copy sets; both complete source capsules and all eight
 original observer trees verify. No diagnostic SQL was opened.
 
@@ -44,7 +48,7 @@ latencies remain unavailable (twenty each). Discrete resource samples do not pro
 complete browser/GPU/short-lived-process accounting. No causal speedup or strict
 reference-host certification is claimed. Historical native11 retains its own data.
 
-Nine failed/diagnostic forensic assets remain unpublished. #160/#161 have local
+Ten failed/diagnostic forensic assets remain unpublished. #160/#161 have local
 implementations awaiting actual released dependencies/full delivery. #162/#163
 have technical preparation; neither is implemented.
 
@@ -54,7 +58,7 @@ No external blocker. Full qualification and normal corrective delivery remain wo
 
 ## Next action
 
-Freeze the source-identical evidence/recipe checkpoint and run fresh c5-candidate1
+Freeze the focused-passing catalogue/evidence checkpoint and run fresh c5-candidate2
 with all 43 commands. Obtain all seven final same-candidate assessments, merge through
 the normal protected process and run fresh c5-master1 on the actual merge before
 release. Continue #160–#163 and parent closeout under the same Goal and exclusions.

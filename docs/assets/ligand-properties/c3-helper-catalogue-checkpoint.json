@@ -1,0 +1,40 @@
+{
+  "scope": "Passing focused release-helper/context catalogue correction only; full candidate and final all-seven acceptance remain pending.",
+  "failure_candidate": "955b4c0c68a5feda55653b6b17626fb1cf5651a0",
+  "failure_checkpoint": "c3-c5-candidate1-failed-checkpoint.json",
+  "accepted_design": "Six independently declared release helpers across four directories equal the 24-path TOOLS set; all published scripts parse; additional context scripts remain unselected. Checkpoint JSON remains unselected.",
+  "changed_code_file": "tests/unit/test_ligand_properties_release_recipe.py",
+  "source_delta_from_original_native12": {
+    "tests/unit/test_ligand_properties_release_recipe.py": {
+      "old": "fa019dffc96a972c56f18197728874eccfde426ea956f99bf2280757b25f783a",
+      "new": "9947c6b75171656d92578edc6a3dd624396d9520950daeef945558e657e2cce9"
+    }
+  },
+  "source_count": 1133,
+  "source_digest_compact": "11e2b076f88efffccae91efc51441530a55d0680b1c402718b774657bdc7fef9",
+  "original_native12_candidate": "7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c",
+  "original_native12_full_source_digest_compact": "be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7",
+  "runtime_scientific_method52_observer789_bodies_unchanged": true,
+  "focused_checks": {
+    "release_recipe_tests": 89,
+    "pytest_exit": 0,
+    "ruff_check_format_exit": 0,
+    "mypy_exit": 0
+  },
+  "actual_validation_sha256": "2bd436514818d0fdc61b3a20a1f73ef3701ff93ea11bbf74e406b12a4774f208",
+  "evidence": {
+    "file": "c3-helper-catalogue-evidence.zip",
+    "bytes": 74997,
+    "sha256": "95d5fa106253674d43cbdc62bfc53ea06dae133bdd71579af3dd4d7cab922985",
+    "recursive_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 8,
+      "project_archive_files": 0
+    }
+  },
+  "seven_role_preliminary_assessments_candidate": "955b4c0c68a5feda55653b6b17626fb1cf5651a0",
+  "seven_role_preliminary_consequential_implementation_findings": [],
+  "final_same_candidate_all7_complete": false,
+  "fresh_full43_complete": false,
+  "release_complete": false
+}

@@ -1820,3 +1820,47 @@ only owned root/label/workspace/port values differ. Their static inverse proof d
 not establish future gates. Freeze a genuinely clean candidate, qualify all43,
 obtain all seven final same-candidate assessments, merge normally and separately
 qualify the actual merged commit. No release or implementation push is claimed.
+
+
+### C3 qualification continuation — explicit helper and context catalogue
+
+Fresh c5-candidate1 at `955b4c0c68a5feda55653b6b17626fb1cf5651a0` exits 1
+at command nine: 3,597 Python tests pass and one helper-catalogue assertion fails.
+The assertion conflates six selected release helpers with all seven published
+Python-text files after the retained native12 analyzer was added. Browser and the
+remaining 34 commands do not run. This failed campaign remains unqualified.
+
+Primary cleanup precedes the one complete raw original/copy pair, with no diagnostic
+SQL. The complete 10,133,222-byte forensic packet retains all 47 original files,
+1,739,809 original bytes, the actual seven-file catalogue, all nine lossless logs,
+whole workspace/transport, and both complete source capsules. All 1,133 current and
+1,013 actual tagged/extracted predecessor bodies match their Git blobs. Standalone
+and independent primary full-body/CRC/recursive/original-union/metadata checks pass;
+recursive counts are 15 ZIPs, 70 manifest entries and 20 project files. The tenth
+separate forensic asset remains unpublished. Original public failed records retain
+their paths; no failed run is relabelled as a passing qualification.
+
+The independently assessed correction names the six helpers literally, checks their
+complete 24-path allowlist across four directories, parses every published script,
+and keeps extra context scripts and checkpoint JSON outside current tool selection.
+All 89 recipe tests, Ruff check/format and the focused mypy check pass. Only
+`tests/unit/test_ligand_properties_release_recipe.py` changes among the 1,133 selected
+sources: `fa019dff…` becomes `9947c6b7…`; compact full-map digest becomes
+`11e2b076f88efffccae91efc51441530a55d0680b1c402718b774657bdc7fef9`.
+All scientific/runtime, 52 method and 789 observer bodies remain unchanged. Native12
+keeps its original 7da/be93 source identity and measured limitations; the changed
+unit-test digest is not silently relabelled as part of that campaign.
+
+All seven actual feature assessments at 955b find no consequential implementation
+defect, with final qualification explicitly incomplete. Each must reassess the final
+candidate and intervening diff after the fresh gate. The candidate2 recipe preserves
+all 43 command vectors and policies after only label/workspace and three owned-port
+substitutions; its inverse proof passes. The original candidate1 success-only kit
+stays unused. New pins must derive from a clean corrected commit. Future retention
+must bind the new complete map separately while proving unchanged native12 method,
+observer and runtime bodies. Full c5-candidate2, all-seven final review, corrective
+PR/normal merge, fresh exact c5-master1, release/asset verification and closeout remain.
+
+See [failed campaign](../assets/ligand-properties/c3-c5-candidate1-failed-checkpoint.json),
+[catalogue checkpoint](../assets/ligand-properties/c3-helper-catalogue-checkpoint.json)
+and [focused evidence](../assets/ligand-properties/c3-helper-catalogue-evidence.zip).

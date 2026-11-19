@@ -9623,3 +9623,21 @@ Keep 32/40 cold,2/4 bulk and24/84 feedback target misses, hidden retirement unce
 and discrete resource limits explicit. No causal speedup or strict-host certification
 follows this instrumentation correction. Full candidate/all-seven/normal merge/fresh
 merged qualification and verified release remain mandatory.
+
+
+### D-201 qualification continuation — separate helpers from closed context scripts
+
+2026-11-19: c5-candidate1 stops in the Python suite because a catalogue test treats
+all published Python-text evidence as exactly six qualifying helpers. Preserve the
+actual 3,597 passes / one failure, unrun browser/later stages and complete original
+forensic evidence before correction. Keep the six release-helper names as an
+independent literal allowlist across four tool directories. Validate every published
+script syntactically and require additional context scripts to remain unselected.
+Closed analyzers may be retained without becoming runtime qualification tools.
+
+The catalogue-only unit-test change alters the full selected source map but no
+scientific/runtime, method52 or observer789 body. Preserve native12's original
+complete source map separately and declare the exact unit-test digest delta in new
+pins and evidence. Focused 89-test/style/type passes do not qualify the failed run.
+Fresh complete candidate and exact merged gates and all-seven same-candidate final
+acceptance remain mandatory; no thresholds, workloads or exclusions change.

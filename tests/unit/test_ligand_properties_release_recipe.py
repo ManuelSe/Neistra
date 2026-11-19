@@ -180,19 +180,33 @@ def test_native_gate_owns_the_trace_path_without_leaking_into_unit_stores(
             assert "NEISTRA_PROPERTY_WORKER_TRACE" not in step.get("environment", {})
 
 
-def test_all_six_new_helpers_are_syntactically_valid_and_source_qualified() -> None:
-    names = {path.name for path in ASSETS.glob("*.py.txt")}
-    assert len(names) == 6
-    for name in names:
+def test_release_helpers_and_published_context_have_explicit_source_qualification() -> None:
+    helpers = {
+        "production-audit.py.txt",
+        "qualification-summary.py.txt",
+        "qualification.py.txt",
+        "release-evidence.py.txt",
+        "release-recipe.py.txt",
+        "versions.py.txt",
+    }
+    published = {path.name for path in ASSETS.glob("*.py.txt")}
+    assert helpers <= published
+    for name in published:
         ast.parse((ASSETS / name).read_bytes(), filename=name)
     runner = runpy.run_path(str(ASSETS / "qualification.py.txt"))
-    for directory in (
+    directories = (
         "viewer-information",
         "viewer-measurements",
         "ligand-designation",
         "ligand-properties",
-    ):
-        assert all(runner["selected"](f"docs/assets/{directory}/{name}") for name in names)
+    )
+    expected_paths = {
+        f"docs/assets/{directory}/{name}" for directory in directories for name in helpers
+    }
+    assert runner["TOOLS"] == expected_paths
+    assert all(runner["selected"](path) for path in expected_paths)
+    for name in published - helpers:
+        assert not runner["selected"](f"docs/assets/ligand-properties/{name}")
     assert not runner["selected"]("docs/assets/ligand-properties/c3-checkpoint.json")
 
 
