@@ -9571,3 +9571,22 @@ bodies, both exact source snapshots and 76 nested ZIPs verify in the 675,409,215
 packet. All 461 runtime and 51 benchmark subjects remain native11-exact; preserve its
 original identity and timing limitations. Complete candidate5/exact-master gates
 and final same-candidate seven-role acceptance remain mandatory.
+
+
+### D-194 qualification erratum — count retained heartbeat renewals exactly
+
+2026-11-19: final independent performance review identifies an arithmetic error in
+release prose. The unchanged native11 raw records and closed analysis contain
+15 + 30 + 15 + 35 = 95 successful same-sequence heartbeat renewals, not the earlier
+105. Their correctly reported full UTF-8 response-body total remains 28,801,010 bytes.
+All renewals have HTTP 200, sequence 1 and 200 entries. The four bulk fixture cohorts
+record 135 consumer updates: 20 allocations, 20 initial demands and 95 heartbeats; separate
+App active-consumer traffic is outside that count.
+
+Correct current progress/release text and append this erratum and the child-plan
+correction without rewriting accepted historical text, raw packets or analysis.
+No scientific/application/test/tool/method body changes, new timings or new runtime
+qualification follow. The existing complete 43-command candidate PASS remains source-valid;
+all seven final assessments must explicitly cover the corrected documentation
+candidate before push. Exact merged-master qualification and verified release remain
+mandatory. See the [raw count correction](assets/ligand-properties/c3-renewal-count-checkpoint.json).

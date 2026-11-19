@@ -1656,3 +1656,24 @@ Final all-seven complete-feature assessments, normal protected merge, a fresh ex
 merged-master 43-command gate, verified publication, child closeout and owned cleanup
 remain required. Master1 remains unspent. No final review, push, PR, tag or release
 is claimed by this checkpoint. The parent Goal and remaining required scope stay active.
+
+
+### C4 review correction — exact retained renewal count
+
+Final performance review at `9c902dc4` reports one P2 factual evidence discrepancy:
+current prose says 105 renewals, while immutable native11 raw records and its closed
+analysis agree on 15 + 30 + 15 + 35 = 95 successful same-sequence heartbeats. Primary
+independent recomputation confirms all 95 have HTTP 200 / sequence 1 / 200 entries, and
+28,801,010 UTF-8 response-body bytes. The four benchmark bulk consumer cohorts have
+135 total updates: 20 allocations, 20 initial demands and 95 renewals. Separate App traffic
+is outside that scoped total. No runtime or workload defect is identified.
+
+Correct only current progress/release prose; append this correction and the D-194
+erratum, preserving historical statements and all immutable raw/analysis bytes.
+The [count checkpoint](../assets/ligand-properties/c3-renewal-count-checkpoint.json)
+binds the exact four member bodies. All qualifying source bodies, 43-command passing
+candidate evidence, native11 identity/method and timing/resource limitations remain.
+No additional runtime or performance execution is justified by this documentation
+correction. Obtain affected reassessment and all other specialists' explicit
+confirmation after they inspect the exact intervening diff on the final candidate.
+No push/readiness or release is claimed until that gate passes.

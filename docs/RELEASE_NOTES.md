@@ -45,7 +45,7 @@ passes all eight original workflows at its original source identity. Its measure
 cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
 bulk updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
 Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
-zero new jobs and cancellation feedback at most 22 ms. All 105 renewals and 28,801,010
+zero new jobs and cancellation feedback at most 22 ms. All 95 renewals and 28,801,010
 response-body bytes are included. Changed measurement methods and host conditions
 preclude a causal speedup claim or strict reference-host certification.
 

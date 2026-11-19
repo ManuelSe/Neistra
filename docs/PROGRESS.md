@@ -59,7 +59,7 @@ Portable correctness is qualified; strict reference-host timing is not. Native11
 cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
 bulk active updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
 Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
-zero new jobs; cancellation feedback is at most 22 ms. All 105 renewal calls and their
+zero new jobs; cancellation feedback is at most 22 ms. All 95 renewal calls and their
 28,801,010 response-body bytes remain measured. No causal speedup is established.
 
 Eight separately verified forensic assets remain publication-pending; see the
