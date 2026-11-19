@@ -9605,3 +9605,21 @@ deadlines and exclusions. Correct through a dedicated normal PR, with a new decl
 benchmark method, fresh ALL8 analysis, complete candidate qualification, all-seven
 same-candidate review and a fresh exact merged gate. Native11/candidate5 retain their
 historical identities and timing limitations; no speedup is claimed.
+
+
+### D-201 corrective qualification — preserve distinct native12 evidence
+
+2026-11-19: the snapshot correction qualifies in a fresh original eight-case campaign
+at C1 `7da9913b`: one attempt each, no skips/failures/flakes/retries. The 52 benchmark method
+subjects and 1,133 source files are explicit; the observer basis has 789 subjects. All 461 production
+bodies, other 156 scientific bodies and the producer's normalized scientific code
+remain exact. Historical native11/51 and candidate5 identities remain separate.
+
+Preserve the entire closed run, source capsules, three raw copy triplets, all eight
+original observer trees and analysis. Independent numerical/work/resource/clock
+review and full SHA/CRC/recursive/original-union verification pass. Report actual
+ninety renewals/26,903,516 UTF-8 response bytes; never carry historical 95 into native12.
+Keep 32/40 cold,2/4 bulk and24/84 feedback target misses, hidden retirement uncertainty
+and discrete resource limits explicit. No causal speedup or strict-host certification
+follows this instrumentation correction. Full candidate/all-seven/normal merge/fresh
+merged qualification and verified release remain mandatory.

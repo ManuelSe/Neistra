@@ -1,0 +1,31 @@
+{
+  "scope": "Historical passed candidate5 original observer retention gap supplement only; no new qualification/timing or corrected-candidate identity claim.",
+  "historical_candidate": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+  "archive": {
+    "file": "c3-candidate5-original-observers.zip",
+    "bytes": 8043157,
+    "sha256": "2ba27d32b0b701937d37f0ab9a360a78269f9ccd66013efa7012444971bdd21f"
+  },
+  "original_observer_roots": 8,
+  "original_observer_files": 480,
+  "historical_bindings": 13,
+  "total_original_files": 493,
+  "original_bytes": 83332737,
+  "observed_source_subjects": 787,
+  "recursive_counts": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 501,
+    "project_archive_files": 0
+  },
+  "all_original_report_native_attachment_trace_and_sealed_retained_workspace_bindings_verified": true,
+  "primary_readback_sha256": "fadf16242e9603e957a91e05da41337279feeec394b2b7c1ffc24799c566b915",
+  "access_erratum": {
+    "file": "c3-candidate5-observer-access-erratum.json",
+    "sha256": "cfd8d79a37c93db3d3ec164ffbe76fed1fcff8b7b591d5ab5af70adbb6f2bd3e",
+    "summary": "An old support digest function definition was read to confirm serialization; no current HEAD query, newfix access or identity substitution."
+  },
+  "main_qualified_context_supplement": true,
+  "not_a_tenth_failed_forensic_asset": true,
+  "SQL_opened": false,
+  "published": false
+}

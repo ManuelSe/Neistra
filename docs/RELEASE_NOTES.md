@@ -42,28 +42,37 @@ strict-reader correction changes benchmark-method identity and requires new ALL8
 analysis, complete candidate qualification, all-seven review, normal corrective merge
 and fresh exact-merged-master qualification. No 0.37.0 publication is claimed.
 
-The inspector now avoids quadratic query tracking and repeated entry scans while
+The inspector avoids quadratic query tracking and repeated entry scans while
 preserving every observed query: at 1,000 entries the work regression changes tracking
-calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. Portable native11 qualification
-passes all eight original workflows at its original source identity. Its measured
-cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
-bulk updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
-Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
-zero new jobs and cancellation feedback at most 22 ms. All 95 renewals and 28,801,010
-response-body bytes are included. Changed measurement methods and host conditions
-preclude a causal speedup claim or strict reference-host certification.
+calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. The observer correction passes
+fresh native12 at original C1 `7da9913b`: all eight cases pass once, without skips,
+failures, flakes or retries. All 1,133 qualifying files, 52 benchmark subjects and 789 observer subjects are
+explicit; all 461 production runtime bodies remain unchanged. Closed analysis and complete original
+retention verification pass; final feature/candidate/all-seven/merged/release gates
+remain separate. Historical native11 keeps its original995e/51 identity and data.
+
+Native12 cold edit median/p95/max is 2,042.9/2,166.5/2,213.9 ms; 32/40 exceed two
+seconds. Desktop bulk updates 6,934.8/7,094.8 ms exceed five seconds; mobile
+3,566.2/3,750.3 ms does not. Feedback exceeds 100 ms in 24/84 observations. Cache
+projection is at most 65.6 ms with zero new jobs; cancellation feedback at most
+sixteen ms. All 90 renewals and 26,903,516 response-body UTF-8 bytes are included.
+Twenty mobile cold and twenty warm retirement observations remain unavailable
+because old values were hidden. Resource samples are discrete, with incomplete
+browser/GPU/short-lived-process accounting. Changed observation methods and shared
+host conditions preclude causal speedup or strict reference-host certification.
 
 Earlier interrupted/failed runs remain unqualified in nine separate lossless
 forensic assets, with publication and full anonymous download verification pending.
 The child plan records tooling/fixture corrections and their focused checks; all
 original product assertions, deadlines and exclusion identities are retained. Early
 exploratory SHM revision gaps and unproven historical pre-SQL ordering remain explicit.
-An optional expanded strict E2E check retains four pre-existing diagnostics and is
-not passing; the established application typecheck passes.
+The earlier optional expanded E2E check retained four pre-existing diagnostics; no
+expanded pass is claimed. The established app and changed-benchmark checks pass.
 
 Profiles, sidebar, property filters and inspector retirement remain #160–#163.
 Diagram #153, relocations #164/#165 and the other parent #11 exclusions remain separate.
 See [property documentation](LIGAND_PROPERTIES.md),
+[fresh ALL8 checkpoint](assets/ligand-properties/c3-native12-all8-checkpoint.json),
 [historical candidate checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json),
 [failed-master evidence](assets/ligand-properties/c3-master1-failed-checkpoint.json)
 and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).

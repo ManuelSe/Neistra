@@ -1756,3 +1756,67 @@ No new native timing or speedup is claimed. See the
 [raw checks and source evidence](../assets/ligand-properties/c3-observer-snapshot-evidence.zip)
 and [failed-master retention](../assets/ligand-properties/c3-master1-failed-checkpoint.json).
 Fresh native12 ALL8 qualification and every subsequent gate remain pending.
+
+
+### C3 corrective qualification — native12 and complete originals
+
+The original native12 at `7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c` exits 0 after
+all eight original cases pass once, with no skips/failures/flakes/retries. The
+full source map remains 1,133 / compact `be93fda7…`; methods are 52 / sorted-spaced
+`d6a528b3…`; the actual observer basis is 789 subjects. The 461 production runtime files and all other
+156 scientific bodies remain exact; producer normalization preserves its scientific
+code. Native11 remains original995e/original51, without a same-method identity claim.
+
+Original supervisor wait, positive PID/start cleanup, unused ports, three raw
+original/runner/primary copy sets, both source capsules and all eight original UUID
+trees verify before diagnostic SQL. The complete 45,583,688-byte packet preserves
+4,871 originals / 313,025,325 bytes and six empty directories. Strict recursive
+verification counts sixteen ZIPs, 4,913 manifest entries and twenty project files.
+Standalone whole-original-union, source-capsule and all observer/trace mirror checks
+pass. The eight workflows themselves contain 480 original files.
+
+The closed analyzer preserves all nine original numerical helpers and the complete
+numeric/work/resource/cohort core after declared stronger identity checks and
+explicit retirement/clock descriptions. Independent performance review recomputes
+all 532 closed input bindings, forty scientific hash pairs and four bulk hashes.
+Current raw results contain 90 renewals / 26,903,516 response-body UTF-8 bytes and
+130 fixture updates (twenty allocations, twenty demands, ninety renewals).
+
+Retain all advisory target misses: cold edit median/p95/max is
+2,042.9/2,166.5/2,213.9 ms, 32/40 above two seconds; desktop bulk 6,934.8/7,094.8 ms
+above five seconds; mobile 3,566.2/3,750.3 ms. Feedback misses 100 ms in 24/84 samples.
+Cache projection max is 65.6 ms with zero new jobs; cancellation max is sixteen ms.
+All four actual overlaps qualify the recorded work order: one productive derived
+turn precedes each ordinary claim and zero bulk fairness turns precede active
+admission. Resource/work/retention bounds pass. All fifty document-clock origins
+remain consistent; twenty mobile cold and twenty warm retirement latencies remain
+unavailable because the old values were hidden. Resource sampling is discrete and
+incomplete for browser/GPU/short-lived processes. No causal speedup, controlled A/B
+or strict-host certification is claimed.
+
+The old native11 collection supplies expected normalized case identities only;
+no native12 prelaunch collection is claimed. Actual native12 final JSON independently
+accounts for exactly all eight one-attempt outcomes. A typed HEAD-record correction
+in unused retention preparation was caught before packaging; corrected package and
+portable verifier require equal complete before/after records, canonical commit/ref/
+HEAD text and pins. Two positive/seventeen negative metadata controls pass. This
+was not another native measurement failure.
+
+Historical passed candidate5 retains its own e47de3dd identity. Its eight observer
+roots outside the earlier workspace supplement are now preserved in an additional
+8,043,157-byte main-context ZIP: 480 observer originals plus thirteen historical
+bindings. All 493 originals, 787 observer source subjects, attachments, exact trace slices and existing
+sealed retained-workspace trace verify independently. One old support digest definition
+was read to confirm serialization; the preserved access erratum corrects an earlier
+over-broad metadata statement without changing historical identity or archived bytes.
+This qualified-H supplement is not a tenth failed forensic asset.
+
+See [native12 checkpoint](../assets/ligand-properties/c3-native12-all8-checkpoint.json),
+[analysis](../assets/ligand-properties/c3-native12-all8-analysis.json),
+[complete packet](../assets/ligand-properties/c3-native12-all8-evidence.zip) and
+[historical observer supplement](../assets/ligand-properties/c3-candidate5-original-observers-checkpoint.json).
+The new c5-candidate1/c5-master1 recipes preserve all forty-three commands and policies;
+only owned root/label/workspace/port values differ. Their static inverse proof does
+not establish future gates. Freeze a genuinely clean candidate, qualify all43,
+obtain all seven final same-candidate assessments, merge normally and separately
+qualify the actual merged commit. No release or implementation push is claimed.

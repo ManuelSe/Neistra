@@ -1,0 +1,655 @@
+"""Closed ALL8 metadata adaptation; requires actual terminal proof before run inputs.
+
+No application imports, database connections, profiling, processes or networking.
+Analysis is limited to closed native12 inputs after independently verified terminal proof; native11 remains historical.
+"""
+from pathlib import Path
+import argparse
+import collections
+import datetime
+import hashlib
+import json
+import math
+import os
+import stat
+import statistics
+import zipfile
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots')
+OUT = Path(__file__).resolve().parent
+BASE = ROOT/'.issue-11-evidence/issue159-native12-preparation1'
+WORKSPACE = Path('/tmp/neistra159-performance-native12-all8')
+HISTORICAL_ROOT = Path('/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties')
+BASELINE = HISTORICAL_ROOT/'.issue-11-evidence/issue159-performance/native-probe11-all8'
+BASELINE_ANALYSIS = HISTORICAL_ROOT/'.issue-11-evidence/issue159-native11-closed-analysis1'
+HISTORICAL_HEAD = '995e80f8e59bac4265ecc7b70ced04277ecb7550'
+OBSERVER_PARENT = ROOT/'.issue-11-evidence/issue159-performance'
+OBSERVER_MAP = ROOT/'.issue-11-evidence/issue159-native12-primary-launch1/expected-observer-source-map.json'
+INPUTS = {}
+PINS = PREPARED = EXPECTED_SOURCES = EXPECTED_METHODS = EXPECTED_OBSERVER = None
+HEAD = SOURCE = METHOD = None
+PORTS = set()
+
+
+def path_checked(path):
+    path = Path(path)
+    if not path.is_absolute(): path = ROOT/path
+    assert path.is_file() and not path.is_symlink() and path.resolve() == path, path
+    assert any(path.is_relative_to(root) for root in (ROOT,WORKSPACE,HISTORICAL_ROOT)), path
+    return path
+
+
+def fingerprint(path, *, register=True):
+    path = path_checked(path)
+    before = path.stat(); digest = hashlib.sha256(); size = 0
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1024*1024), b''):
+            digest.update(block); size += len(block)
+    after = path.stat()
+    assert (before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns) == (
+        after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns), path
+    value = {'bytes':size,'sha256':digest.hexdigest()}
+    if register:
+        key = str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+        assert key not in INPUTS or INPUTS[key] == value, f'Closed input changed: {path}'
+        INPUTS[key] = value
+    return value
+
+
+def sha(path): return fingerprint(path)['sha256']
+
+
+def load(path):
+    path = path_checked(path)
+    expected = fingerprint(path)
+    body = path.read_bytes()
+    assert len(body) == expected['bytes'] and hashlib.sha256(body).hexdigest() == expected['sha256']
+    return json.loads(body)
+
+
+def jsonl(path):
+    path = path_checked(path); fingerprint(path)
+    with path.open('rb') as stream:
+        for line in stream:
+            assert line.endswith(b'\n'), f'Incomplete closed JSONL: {path}'
+            value = json.loads(line); assert isinstance(value,dict)
+            yield value
+
+
+def dist(values, limit=None):
+    # Same median/nearest-rank p95 and target-miss semantics as closed baseline.
+    values = sorted(values)
+    assert values and all(type(v) in (int,float) and math.isfinite(v) and v >= 0 for v in values)
+    result = {'n':len(values),'median':statistics.median(values),
+              'p95_nearest_rank':values[math.ceil(.95*len(values))-1],
+              'min':values[0],'max':values[-1]}
+    if limit is not None: result.update(limit=limit,misses=sum(v>limit for v in values))
+    return result
+
+
+def strict_zero(value): assert type(value) is int and value == 0
+
+
+def bound(description, expected_path):
+    path = path_checked(description['path'])
+    assert path == expected_path
+    assert fingerprint(path)['sha256'] == description['sha256']
+    return path
+
+
+def browser_cases(document, *, passed):
+    output = []
+    def walk(suite):
+        for spec in suite.get('specs',[]):
+            for test in spec['tests']:
+                if passed:
+                    assert len(test['results']) == 1
+                    result = test['results'][0]
+                    assert result['status'] == 'passed'
+                    strict_zero(result['retry'])
+                output.append((test['projectName'],spec['title']))
+        for child in suite.get('suites',[]): walk(child)
+    walk(document)
+    assert len(output) == len(set(output)) == 8
+    assert {profile for profile,title in output} == {'chromium','mobile-chromium'}
+    assert len([title for profile,title in output if '1000-entry' in title]) == 4
+    if passed:
+        assert document.get('errors',[]) == []
+        assert document['stats']['expected'] == 8
+        for field in ('skipped','unexpected','flaky'): strict_zero(document['stats'][field])
+    return output
+
+
+def validate_terminal_metadata(proof,status,reservation,acceptance):
+    assert status['terminal'] is True and status['state'] == 'TERMINAL'
+    assert status['identity_complete'] is True
+    assert status.get('runner_identity_error') is None and status.get('error') is None
+    strict_zero(status['actual_runner_returncode'])
+    strict_zero(proof['actual_original_runner_wait_exit'])
+    assert status['finished']['monotonic_ns'] >= status['started']['monotonic_ns']
+    assert acceptance['accepted'] is True
+    assert status['reservation_id'] == reservation['reservation_id'] == acceptance['reservation_id']
+    supervisor,runner = status['supervisor'],status['runner_identity']
+    expected = {role:(item['pid'],item['start_token']) for role,item in [('supervisor',supervisor),('runner_identity',runner)]}
+    keys = ('pid','start_token','pgid','session','command')
+    assert type(supervisor['pid']) is int and supervisor['pid'] == supervisor['pgid'] == supervisor['session']
+    assert runner['pgid'] == runner['session'] == runner['ppid'] == supervisor['pid']
+    assert status['runner_pid'] == runner['pid']
+    assert status['runner_command'] == runner['command'] == [str(ROOT/'.venv/bin/python'),'-B',str(BASE/'runner.py'),'execute']
+    assert supervisor['command'] == reservation['supervisor_command'] == [str(ROOT/'.venv/bin/python'),'-B',str(BASE/'supervisor.py'),'supervise',status['reservation_id']]
+    assert acceptance['supervisor_pid'] == supervisor['pid']
+    assert all(acceptance['supervisor_identity'][key] == supervisor[key] for key in keys)
+    assert acceptance['supervisor_identity']['ppid'] == reservation['launcher']['pid']
+    observed = [row for row in status['runner_identity_observations'] if row['event'] == 'observed'
+                and all(row['actual'].get(key) == runner[key] for key in keys)]
+    assert observed and observed[-1]['kernel']['ppid'] == supervisor['pid']
+    checked = set()
+    for row in proof['positive_PID_start_checks']:
+        item = row.get('expected',row)
+        checked.add((item['pid'],item['start_token']))
+    assert set(expected.values()) <= checked
+    return expected
+
+
+def terminal_identity(proof):
+    status = load(BASE/'transport-status.json')
+    reservation = load(BASE/'transport-reservation.json')
+    acceptance = load(BASE/'transport-launch.json')
+    expected = validate_terminal_metadata(proof,status,reservation,acceptance)
+    assert reservation['prepared_sha256'] == sha(BASE/'prepared.json')
+    assert reservation['go_sha256'] == sha(BASE/'go.json')
+    assert reservation['binding'] == PREPARED['binding']
+    child = load(BASE/'transport-child-reservation.json')
+    assert child['reservation_id'] == status['reservation_id']
+    assert child['runner_command'] == status['runner_command']
+    assert all(child['supervisor'][key] == status['supervisor'][key] for key in ('pid','start_token','pgid','session','command'))
+    both=set(); rows=errors=terminal_rows=0
+    for row in jsonl(BASE/'primary-live-observations.jsonl'):
+        rows+=1
+        assert row['identity_complete'] is True
+        handles=row.get('handles',{})
+        for role,(pid,token) in expected.items():
+            item=handles.get(role,{})
+            if isinstance(item,dict) and item.get('live') is True:
+                assert item['expected']['pid'] == item['actual']['pid'] == pid
+                assert item['expected']['start_token'] == item['actual']['start_token'] == token
+                assert item['command_exact'] is True
+                assert item['actual']['pgid'] == item['actual']['session'] == expected['supervisor'][0]
+                if role == 'runner_identity': assert item['actual']['ppid'] == expected['supervisor'][0]
+        if all(handles.get(role,{}).get('live') is True for role in expected): both.add(row['recorded_utc'])
+        if row['terminal'] is True:
+            assert row['state'] == 'TERMINAL';strict_zero(row['actual_runner_returncode']);terminal_rows+=1
+        errors+=int('observation_error' in row or any('observation_error' in value for value in handles.values() if isinstance(value,dict)))
+    assert len(both)>=2
+    return {'original_state':status['state'],'original_identity_complete':True,
+            'actual_runner_returncode':0,'source_and_candidate_binding_verified':True,
+            'original_PID_start_handles':{role:{'pid':pid,'start_token':token} for role,(pid,token) in expected.items()},
+            'primary_observation_rows':rows,'both_positive_distinct_observations':len(both),
+            'terminal_observation_rows':terminal_rows,'unavailable_observation_rows':errors,
+            'same_original_PID_start_parent_argv_group_session_verified':True,
+            'terminal_authority':'Original supervisor Popen.wait plus separately supplied actual primary collector proof; live poll intentionally does not append terminal rows.',
+            'launcher_scope':'Transport acceptance only; no actual launcher exit or native PASS inferred from acceptance.',
+            'limits':'Discrete positive observations, not continuous sampling. Actual wait and positive terminal cleanup are independent.'}
+
+
+def source_and_raw_guards(runtime):
+    assert runtime['complete'] is True and runtime['runner_observation_complete'] is True
+    strict_zero(runtime['exit_code'])
+    assert runtime['qualification_status'] == 'ORDINARY_COMPLETION' and not runtime['interrupted']
+    assert runtime['source_before'] == runtime['source_after'] == load(BASE/'expected-sources.json')
+    assert runtime['methods_before'] == runtime['methods_after'] == load(BASE/'expected-methods.json')
+    sources,methods = runtime['source_before'],runtime['methods_before']
+    assert len(sources) == len(EXPECTED_SOURCES) and len(methods) == len(EXPECTED_METHODS)
+    assert hashlib.sha256(json.dumps(sources,sort_keys=True,separators=(',',':')).encode()).hexdigest() == SOURCE
+    assert hashlib.sha256(json.dumps(methods,sort_keys=True).encode()).hexdigest() == METHOD
+    assert all(sources[name] == value for name,value in methods.items())
+    assert runtime['authoritative_HEAD_before']['commit'] == runtime['authoritative_HEAD_after']['commit'] == HEAD
+    assert runtime['binding']['HEAD'] == HEAD and runtime['binding']['environment_overrides']['NEISTRA_PERFORMANCE'] == '0'
+    command = runtime['binding']['command']
+    assert '--retries=0' in command and '--workers=1' in command and '--max-failures=1' in command
+    assert not any(arg in command for arg in ('--grep','--project','--config'))
+    assert runtime['binding']['selected_cases'] == 8 and runtime['binding']['bulk_1000_entry_cohorts'] == 4
+    prepared = load(BASE/'prepared.json'); go = load(BASE/'go.json')
+    assert prepared['binding'] == go['binding'] == runtime['binding'] and go['authorized'] is True
+    assert go['prepared_sha256'] == sha(BASE/'prepared.json')
+    assert sha(BASE/'runner.py') == runtime['binding']['runner_sha256']
+    assert sha(BASE/'source_guard.py') == runtime['binding']['guard_sha256']
+    for name in ('source-preparation.zip','source-after.zip'):
+        fingerprint(BASE/name)
+        with zipfile.ZipFile(BASE/name) as archive:
+            assert archive.testzip() is None
+            assert len(archive.namelist()) == len(sources) and set(archive.namelist()) == set(sources)
+            assert all(hashlib.sha256(archive.read(path)).hexdigest() == digest for path,digest in sources.items())
+    cleanup = runtime['cleanup']; raw = runtime['database_byte_archive']
+    assert cleanup == load(BASE/'cleanup-before-store-archive.json') and cleanup['complete'] is True
+    assert cleanup['positively_owned_processes_remaining'] == []
+    assert set(cleanup['ports_unused']) == PORTS and all(cleanup['ports_unused'].values())
+    assert runtime['database_byte_archive_error'] is None and runtime['complete_source_guard_error'] is None
+    assert raw == load(BASE/'database-byte-archive.json') and raw['originals_retained'] is True
+    assert raw['started_monotonic_ns'] >= cleanup['monotonic_ns']
+    assert runtime['canonical_database_exists'] is True and runtime['legacy_database_exists'] is False
+    for name,item in raw['files'].items():
+        original = WORKSPACE/'e2e'/name
+        assert type(item['exists']) is bool
+        if item['exists']:
+            copy_path = path_checked(item['copy'])
+            assert copy_path == BASE/'post-cleanup-database-bytes'/name
+            expected = {key:item[key] for key in ('bytes','sha256')}
+            assert fingerprint(copy_path) == fingerprint(original) == expected
+        else: assert not original.exists()
+    assert raw['files']['neistra.db']['exists'] is True
+    assert sha(BASE/'raw.log') == runtime['raw_log_sha256']
+    assert runtime['resource_observer']['complete'] is True and runtime['resource_observer_alive'] is False
+    assert runtime['worker_trace_exists'] is True and runtime['worker_trace_incomplete'] is False
+    trace = WORKSPACE/'e2e/qualification/worker-turns.jsonl'
+    trace_fp = fingerprint(trace); assert trace_fp['bytes'] <= 128*1024*1024
+    count = max_turn = 0; header = None
+    for row in jsonl(trace):
+        count += 1; assert row['record'] == count
+        if count == 1:
+            header = row; assert row['event'] == 'header' and row['format_version'] == 1
+        if row['turn'] is not None: max_turn = max(max_turn,row['turn'])
+    assert count <= 200_000 and max_turn <= 100_000 and header
+    inventory = load(trace.parent/header['sources'])
+    assert hashlib.sha256(json.dumps(inventory,sort_keys=True,separators=(',',':')).encode()).hexdigest() == header['source_digest']
+    assert len(inventory) == header['source_count']
+    assert inventory == EXPECTED_OBSERVER
+    assert all(sources.get(name) == digest for name,digest in inventory.items())
+    return {'full_selected_source_ZIPs_CRC_and_exact_union_verified':True,
+            'source_count':len(sources),'method_count':len(methods),
+            'closed_raw_DB_WAL_SHM_receipts_originals_and_copies_exact':True,
+            'worker_trace':{**trace_fp,'records':count,'max_turn':max_turn,'source_inventory_count':len(inventory)},
+            'SQL_opened':False}
+
+
+def renewal_traffic(data):
+    owners = {row['id']:row for row in data['owners']}
+    updates = data['consumerUpdates']; groups = collections.defaultdict(list)
+    for row in updates:
+        assert row['owner'] in owners and row['status'] == 200
+        assert row['kind'] in {'allocate','demand','same-sequence-heartbeat'}
+        groups[row['kind']].append(row)
+    assert len(owners) == 5 and len(groups['allocate']) == len(groups['demand']) == 5
+    assert {row['owner'] for row in groups['allocate']} == {row['owner'] for row in groups['demand']} == set(owners)
+    assert all(row['sequence'] == 0 and row['entries'] == 0 for row in groups['allocate'])
+    assert all(row['sequence'] == 1 and row['entries'] == 200 for row in groups['demand'])
+    heartbeat = groups['same-sequence-heartbeat']
+    assert len(heartbeat) <= 5*math.ceil(1_200_000/20_000)
+    by_owner = collections.defaultdict(list); body_sizes = []
+    previous_response = None
+    latest = {row['owner']:row['at']+row['elapsedMs'] for row in groups['demand']}
+    for row in heartbeat:
+        assert row['sequence'] == 1 and row['entries'] == 200
+        assert row['responseAt'] >= row['at'] and row['elapsedMs'] == row['responseAt']-row['at']
+        assert row['at']-latest[row['owner']] >= 20_000
+        if previous_response is not None: assert row['at'] >= previous_response
+        previous_response = row['responseAt']; latest[row['owner']] = row['responseAt']
+        assert isinstance(row['responseBody'],str)
+        decoded = json.loads(row['responseBody'])
+        assert row['expiresAt'] == decoded['expires_at']
+        datetime.datetime.fromisoformat(row['expiresAt'].replace('Z','+00:00'))
+        body_sizes.append(len(row['responseBody'].encode('utf-8')))
+        by_owner[row['owner']].append(row)
+    assert all(len(rows) <= math.ceil(1_200_000/20_000) for rows in by_owner.values())
+    return {'all_consumer_updates':len(updates),'kinds':dict(collections.Counter(row['kind'] for row in updates)),
+            'heartbeat_calls':len(heartbeat),'cadence_derived_per_case_count_cap':300,
+            'heartbeat_count_per_owner':{owner:len(by_owner[owner]) for owner in owners},
+            'heartbeat_header_response_ms':dist([row['elapsedMs'] for row in heartbeat]) if heartbeat else None,
+            'heartbeat_full_response_body_UTF8_bytes':dist(body_sizes) if body_sizes else None,'heartbeat_full_response_body_UTF8_bytes_total':sum(body_sizes),
+            'heartbeat_requests_overlap_in_recorded_header_intervals':False,'same_sequence_payload_entries':200,
+            'scope':'Independent serial20s maintenance traffic is included in actual workload. Full response strings are preserved; responseAt is before text/JSON consumption, so body-read/parse latency is not separately timestamped. Count cap is derived from the unchanged20min case deadline and20s cadence, not a new performance target.'}
+
+
+def configure():
+    global PINS, PREPARED, HEAD, SOURCE, METHOD, WORKSPACE, EXPECTED_SOURCES, EXPECTED_METHODS, EXPECTED_OBSERVER, PORTS
+    bindings = load(OUT/'closed-input-bindings.json')
+    for name, expected in bindings['files'].items():
+        assert fingerprint(Path(name)) == expected
+    PINS = load(BASE/'canonical-root-pins.json')
+    PREPARED = load(BASE/'prepared.json')
+    HEAD, SOURCE, METHOD = PINS['HEAD'], PINS['source_digest'], PINS['method_digest']
+    assert HEAD == '7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c'
+    assert PREPARED['binding']['HEAD'] == HEAD
+    assert PREPARED['binding']['source_digest'] == SOURCE and PREPARED['binding']['method_digest'] == METHOD
+    WORKSPACE = Path(PREPARED['binding']['workspace'])
+    assert WORKSPACE == Path('/tmp/neistra159-performance-native12-all8')
+    EXPECTED_SOURCES = load(BASE/'expected-sources.json')
+    EXPECTED_METHODS = load(BASE/'expected-methods.json')
+    assert sha(BASE/'expected-sources.json') == PINS['source_map_sha256'] == PREPARED['binding']['expected_sources_file_sha256']
+    assert sha(BASE/'expected-methods.json') == PINS['methods_map_sha256'] == PREPARED['binding']['expected_methods_file_sha256']
+    assert len(EXPECTED_SOURCES) == PINS['source_count'] == PREPARED['binding']['source_count']
+    assert len(EXPECTED_METHODS) == PINS['method_count'] == PREPARED['binding']['method_count']
+    assert hashlib.sha256(json.dumps(EXPECTED_SOURCES,sort_keys=True,separators=(',',':')).encode()).hexdigest() == SOURCE
+    assert hashlib.sha256(json.dumps(EXPECTED_METHODS,sort_keys=True).encode()).hexdigest() == METHOD
+    assert all(EXPECTED_SOURCES[name] == value for name,value in EXPECTED_METHODS.items())
+    EXPECTED_OBSERVER = load(OBSERVER_MAP)
+    assert sha(OBSERVER_MAP) == '21820bb45d67be2158f906ea9a6e7176c652c7dbdb492fda4b0c7c4ac4b43ec5'
+    assert all(EXPECTED_SOURCES.get(name) == value for name,value in EXPECTED_OBSERVER.items())
+    PORTS = {str(PREPARED['binding']['environment_overrides'][name]) for name in
+             ('NEISTRA_E2E_API_PORT','NEISTRA_E2E_WORKER_PORT','NEISTRA_E2E_WEB_PORT')}
+
+def case_inventory(document):
+    values = []
+    def walk(suite, inherited_file=None):
+        filename = suite.get('file',inherited_file)
+        for spec in suite.get('specs',[]):
+            exact_file = Path(spec.get('file',filename)).name
+            assert exact_file == 'ligand-properties-performance.spec.ts'
+            for test in spec['tests']:
+                values.append((exact_file,test['projectName'],spec['title']))
+        for child in suite.get('suites',[]):
+            walk(child,filename)
+    for suite in document.get('suites',[]):
+        walk(suite)
+    assert len(values) == len(set(values)) == 8
+    return sorted(values)
+
+def initial_terminal_barrier(path, expected_sha256):
+    assert Path(path) == BASE/'primary-terminal-readback1/readback.json'
+    assert sha(path) == expected_sha256
+    proof = load(path)
+    strict_zero(proof['actual_original_runner_wait_exit'])
+    assert proof['candidate'] == HEAD and proof['SQL_opened'] is False
+    assert proof['qualification_PASS'] is False  # Retention is not an ALL8 verdict.
+    assert proof['source_count'] == len(EXPECTED_SOURCES) and proof['method_count'] == len(EXPECTED_METHODS)
+    assert proof['source_digest'] == SOURCE and proof['method_digest'] == METHOD
+    assert proof['all_source_archive_bodies_CRC_unique_exact_union'] is True
+    assert proof['all_original_observer_root_regular_bytes_rehashed'] is True
+    assert set(proof['ports_unused']) == PORTS and all(proof['ports_unused'].values())
+    checks = proof['positive_PID_start_checks']
+    assert checks
+    for row in checks:
+        if row.get('observation') == 'missing':
+            assert type(row['pid']) is int and row['start_token']
+        else:
+            assert row['actual']['start_token'] != row['expected']['start_token'] or row['actual']['state'] == 'Z'
+    raw = proof['raw_original_runner_copy_primary_copy_pairs']
+    assert raw
+    for name,row in raw.items():
+        assert Path(row['original']) == WORKSPACE/'e2e'/name
+        assert Path(row['runner_preSQL_copy']) == BASE/'post-cleanup-database-bytes'/name
+        assert Path(row['primary_copy']) == BASE/'primary-terminal-readback1/raw-database-bytes'/name
+        assert type(row['bytes']) is int and row['bytes'] > 0 and len(row['sha256']) == 64
+    roots = proof['complete_original_observer_roots']
+    assert len(roots) == 8
+    assert all(Path(name).parent == OBSERVER_PARENT and type(count) is int and count > 0 for name,count in roots.items())
+    assert proof['browser_errors'] == []
+    return proof
+
+def retirement_scope(pairs):
+    result = {}
+    for phase in ('cold','warm'):
+        timings = [pair[phase] for pair in pairs]
+        observed = [row['retirementMs'] for row in timings if type(row.get('retirementMs')) in (int,float)]
+        result[phase] = {'observations':len(timings),
+            'retirement_observation_kinds':dict(collections.Counter(row.get('retirementObservation','unrecorded') for row in timings)),
+            'retirement_qualification_kinds':dict(collections.Counter(row.get('retirementQualification','unrecorded') for row in timings)),
+            'measured_retirement_ms':dist(observed) if observed else None,
+            'unavailable_retirement_latency':sum(row.get('retirementMs') is None for row in timings),
+            'scope':'Only recorded observable retirement supplies latency. Hidden/unobserved old values remain unavailable, never inferred as zero or immediate retirement.'}
+    return result
+
+def verify_original_observer_roots(runtime, proof):
+    saved = load(BASE/'retained-workflow-inventories.json')
+    assert set(saved) == set(runtime['new_harness_directories']) == set(proof['complete_original_observer_roots'])
+    complete = {}
+    for name, expected in saved.items():
+        root = Path(name)
+        assert root.parent == OBSERVER_PARENT and root.is_dir() and not root.is_symlink()
+        actual = {}
+        for path in sorted(root.rglob('*')):
+            relative = str(path.relative_to(root))
+            mode = path.lstat().st_mode
+            if stat.S_ISLNK(mode): actual[relative] = {'symlink_target':os.readlink(path),'followed':False}
+            elif stat.S_ISREG(mode): actual[relative] = fingerprint(path)
+            elif not stat.S_ISDIR(mode): actual[relative] = {'nonregular':True,'mode':mode}
+        assert actual == expected, f'Closed original observer tree changed: {root}'
+        assert len(actual) == proof['complete_original_observer_roots'][name]
+        complete[name] = {'regular_files':sum('sha256' in row for row in actual.values()),
+                          'inert_alias_or_structural_descriptors':sum('sha256' not in row for row in actual.values())}
+    assert len(complete) == 8
+    return complete
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--terminal-proof',required=True,type=Path)
+    parser.add_argument('--terminal-proof-sha256',required=True)
+    args = parser.parse_args()
+    configure()
+    for name in ('assessment.json','comparison-samples.json','input-identities.json'):
+        assert not (OUT/name).exists(), 'Preserve previous analysis; do not overwrite reports'
+    # No current metrics/observer/resource/store is read before this real proof
+    # and independently verified normal terminal metadata checks succeed.
+    proof = initial_terminal_barrier(args.terminal_proof,args.terminal_proof_sha256)
+    identity = terminal_identity(proof)
+    runtime = load(BASE/'actual-receipt.json'); browser = load(BASE/'browser.json')
+    assert runtime['browser_stats'] == browser['stats'] == proof['browser_stats']
+    results = browser_cases(browser,passed=True)
+    expected_collection = load(BASELINE/'collection.json')
+    assert sorted(results) == sorted(browser_cases(expected_collection,passed=False))
+    assert case_inventory(browser) == case_inventory(expected_collection)
+    expected_collection_provenance = {'candidate':HISTORICAL_HEAD,
+        'path':str(BASELINE/'collection.json'), **fingerprint(BASELINE/'collection.json'),
+        'scope':'Original native11 collection supplies expected identities only. No native12 collection/list execution is claimed; native12 outcomes derive independently from its closed final browser report.'}
+    raw_proof = source_and_raw_guards(runtime)
+    raw_proof['all_original_observer_trees_rehashed'] = verify_original_observer_roots(runtime,proof)
+    for name,row in proof['raw_original_runner_copy_primary_copy_pairs'].items():
+        expected={key:row[key] for key in ('bytes','sha256')}
+        assert fingerprint(Path(row['original'])) == fingerprint(Path(row['runner_preSQL_copy'])) == fingerprint(Path(row['primary_copy'])) == expected
+    raw_proof['primary_raw_copy_pairs_rehashed']=len(proof['raw_original_runner_copy_primary_copy_pairs'])
+    root = {'HEAD':HEAD,'completed_case_metrics':[]}
+    directories = runtime['new_harness_directories']
+    assert len(directories) == len(set(directories)) == 8
+    for directory in directories:
+        case = Path(directory)
+        assert case.parent == OBSERVER_PARENT and case.is_dir() and not case.is_symlink()
+        paths = list(case.glob('native-*-performance.json'))
+        assert len(paths) == 1
+        root['completed_case_metrics'].append({'path':str(paths[0])})
+    inputs = INPUTS
+    exact_inputs = {}
+    edits={};cancellations=[];bulks=[];observers=[];targets=collections.defaultdict(list);allcold=[];allwarm=[];cold_compares=[]
+    for item in root["completed_case_metrics"]:
+     path=Path(item["path"]);assert path.is_relative_to(ROOT)
+     case=path.parent;data=load(path);obs=load(case/"worker-observation.json");assert data.get("failures",[])==[]
+     assert obs["complete"] and obs["sources_unchanged"] and obs["sources_before"]==obs["sources_after"]==EXPECTED_OBSERVER
+     assert all(runtime["source_before"].get(n)==h for n,h in obs["sources_before"].items())
+     assert obs["max_running_property_jobs"]<=1
+     retained=obs["retained"];assert retained["content_bytes"]<=16*1024*1024 and retained["ligand_property_content"]<=2048 and retained["ligand_property_proofs"]<=4096 and retained["ligand_property_executions"]<=33
+     for name in [path.name,"worker-observation.json","work-order-observed.jsonl","observer.stop","observer.log"]:
+      f=case/name
+      if f.is_file():inputs[str(f.relative_to(ROOT))]={"bytes":f.stat().st_size,"sha256":sha(f)}
+     tracepath=case/"work-order-observed.jsonl"
+     assert sha(tracepath)==obs["work_order"]["observed_sha256"] and obs["work_order"]["complete"]
+     for target in data["targets"]:
+      assert target["enforced"] is False and math.isfinite(target["actual"]) and target["actual"]>=0
+      assert target["withinTarget"]==(target["actual"]<=target["limit"])
+      targets[target["label"]].append(target)
+     private=[j for j in obs["jobs"].values() if j.get("execution_id")];completed=[j for j in private if j["status"]=="completed"]
+     maxima={"capture_verified_bytes":0,"capture_source_reads":0,"capture_byte_cap":0,"publication_verified_bytes":0,"publication_reads":0,"publication_byte_cap":0,"materialized_verified_bytes":0,"envelope_bytes":0,"batch_sources":0,"child_stage_capture_bytes":0}
+     totals={"capture_verified_bytes":0,"capture_source_reads":0,"publication_verified_bytes":0,"publication_reads":0,"materialized_verified_bytes":0}
+     for job in completed:
+      p=job["provenance"];cap=p["source_capture"];pub=p["publication_verification"];material=p["input_materialization"]
+      assert cap["coordinator_native_preparations"]==0 and 0<cap["source_proofs"]<=8 and cap["verified_bytes"]<=64*1024*1024 and cap["source_read_calls"]<=16 and cap["source_read_byte_cap"]<=64*1024*1024+16
+      assert pub["verified_bytes"]<=64*1024*1024 and pub["source_reads"]<=16 and pub["read_byte_cap"]<=64*1024*1024+16
+      assert material["verified_bytes"]<=64*1024*1024 and material["envelope_bytes"]<=96*1024*1024
+      stages=job["result_values"]["stage_timings"];assert 0<len(stages)<=8
+      assert all(stage["capture_bytes"]>0 and stage["capture_bytes"]<=96*1024*1024 for stage in stages)
+      assert all(all(math.isfinite(stage[k]) and stage[k]>=0 for k in ("raw_proof_seconds","prepare_seconds","calculate_seconds")) for stage in stages)
+      assert all(job["reaped"] for job in completed)
+      vals={"capture_verified_bytes":cap["verified_bytes"],"capture_source_reads":cap["source_read_calls"],"capture_byte_cap":cap["source_read_byte_cap"],"publication_verified_bytes":pub["verified_bytes"],"publication_reads":pub["source_reads"],"publication_byte_cap":pub["read_byte_cap"],"materialized_verified_bytes":material["verified_bytes"],"envelope_bytes":material["envelope_bytes"],"batch_sources":cap["source_proofs"],"child_stage_capture_bytes":max(x["capture_bytes"] for x in stages)}
+      for k,v in vals.items():maxima[k]=max(maxima[k],v)
+      for k in totals:totals[k]+=vals[k]
+     observer={"case":str(case.relative_to(ROOT)),"samples":obs["samples"],"observed_jobs":len(obs["jobs"]),"private_jobs_observed":len(private),"completed_private_jobs":len(completed),"private_statuses":dict(collections.Counter(j["status"] for j in private)),"completed_private_all_reaped":all(j["reaped"] for j in completed),"max_running_property_jobs":obs["max_running_property_jobs"],"retained_at_case_close":retained,"peak_child_rss_bytes":max(obs.get("peak_child_rss_bytes",{}).values(),default=0),"peak_worker_parent_rss_bytes":max(obs.get("peak_worker_parent_rss_bytes",{}).values(),default=0),"per_completed_private_job_maxima":maxima,"per_case_observed_job_totals":totals}
+     observers.append(observer)
+     if "edit-performance" in path.name:
+      pairs=[r for r in data["records"] if r["kind"]=="paired-edit"];prefix=[r for r in data["records"] if r["kind"]=="fresh-browser-context-cold-start"]
+      assert len(pairs)==20 and len(prefix)==5 and len(data["pageClocks"])==25
+      assert all(r["matchingQualifiedResultReadyBeforeViewOpen"] and r["warmNewJobs"]==0 for r in pairs)
+      profile=data["profile"]
+      exact_inputs[profile]=[(r["index"],r["heavyAtoms"],r["firstInputHash"],r["changedInputHash"]) for r in pairs]
+      entry={"path":str(path.relative_to(ROOT)),"cold_edit_ms":dist([r["cold"]["networkCurrentMs"] for r in pairs],2000),"cold_context_first_five_network_ms":dist([r["timing"]["networkCurrentMs"] for r in prefix],2000),"cold_context_first_five_visible_ms":data["coldStarts"],"warm_visible_including_command_and_view_open_ms":dist([r["warm"]["currentMs"] for r in pairs]),"warm_automatic_READY_ms":dist([r["warm"]["networkCurrentMs"] for r in pairs]),"matching_cache_projection_ms":dist([r["cachedProjectionMs"] for r in pairs],100),"cold_click_feedback_ms":dist([r["cold"]["feedbackMs"] for r in pairs],100),"warm_click_feedback_ms":dist([r["warm"]["feedbackMs"] for r in pairs],100),"warm_new_jobs":sum(r["warmNewJobs"] for r in pairs),"page_clock_count":len(data["pageClocks"])}
+      if profile.startswith("mobile"):
+       assert all(r["warm"]["presentationOpened"]>r["warmAutomaticReady"]["observedAt"] for r in pairs)
+       entry["mobile_deliberate_presentation_open_after_READY_ms"]=dist([r["warm"]["presentationOpened"]-r["warmAutomaticReady"]["observedAt"] for r in pairs])
+      entry["source_retirement_scope"]=retirement_scope(pairs)
+      entry["page_clock_evidence"]=data["pageClocks"]
+      entry["clock_scope"]="Actual saved per-document installed/observed calibrations; no cross-document monotonic-origin equality is inferred."
+      edits[profile]=entry;allcold.extend(r["cold"]["networkCurrentMs"] for r in pairs);allwarm.extend(r["cachedProjectionMs"] for r in pairs)
+      for pair in pairs:
+       s=pair["changedSource"];req=[q for q in pair["requests"] if q.get("sources")==[s] and pair["cold"]["started"]<=q["at"]<=pair["automaticReady"]["requestAt"]]
+       warmreq=[q for q in pair["requests"] if q.get("sources")==[pair["oldSource"]] and pair["warm"]["started"]<=q["at"]<=pair["warmAutomaticReady"]["requestAt"]]
+       cold_compares.append({"warm_exact_source_READs":sum(q["method"]=="POST" and q["path"].endswith("/read") for q in warmreq),"warm_exact_source_demand_PUTs":sum(q["method"]=="PUT" for q in warmreq),"profile":profile,"index":pair["index"],"heavy_atoms":pair["heavyAtoms"],"cold_ms":pair["cold"]["networkCurrentMs"],"matching_cache_projection_ms":pair["cachedProjectionMs"],"cold_feedback_ms":pair["cold"]["feedbackMs"],"warm_feedback_ms":pair["warm"]["feedbackMs"],"exact_changed_source_READs":sum(q["method"]=="POST" and q["path"].endswith("/read") for q in req),"exact_changed_source_demand_PUTs":sum(q["method"]=="PUT" for q in req),"warm_new_jobs":pair["warmNewJobs"]})
+     elif "cancellation" in path.name:
+      assert sum(q["method"]=="PUT" for q in data["requests"])==1
+      cancellations.append({"profile":data["profile"],"path":str(path.relative_to(ROOT)),"feedback_ms":data["cancellation"]["currentMs"],"recorded_pre_Retry_requests":len(data["requests"]),"recorded_pre_Retry_demand_PUTs":1,"source":data["source"],"scope":data["scope"],"functional_evidence":"Actual passing case asserts accepted late reply stays cancelled after reopen/quiet period and explicitRetry subsequently works; not worker-kill latency."})
+     else:
+      assert data["hardWorkOrderStatus"]=="passed" and data["readyCount"]==1000 and len(data["finalBindings"])==1000
+      assert len(data["owners"])==5 and all(x["entries"]==200 for x in data["owners"])
+      assert all(x["entries"]==200 and x["status"]==200 for x in data["aggregateReads"])
+      assert data["qualifiedDistinctInputHashes"]==(1 if data["kind"]=="repeated" else 1000)
+      hard=data["hardWorkOrder"];assert hard["ordinary"]["productiveDerivedTurnsBeforeClaim"]<=4 and len(hard["active"]["productiveBulkFairnessTurnsBeforeAdmission"])<=1
+      assert hard["active"]["source"]==data["changedSource"] and hard["active"]["inputHash"]==data["changedInputHash"]
+      if data["kind"]=="distinct":assert hard["active"]["priorityOverlapExercised"]
+      assert hard["trace"]["sha256"]==sha(tracepath)
+      trace=list(jsonl(tracepath));byid={r["record"]:r for r in trace}
+      actor=hard["active"];bind=byid[actor["publicationRecord"]];mat=byid[actor["admissionRecord"]];seen=byid[actor["observedRecord"]]
+      assert bind["event"]=="bind_return" and bind["input_hash"]==data["changedInputHash"]
+      turnend=next(r for r in trace if r["event"]=="turn_end" and r["turn"]==bind["turn"]);assert turnend["worked"]
+      s=data["changedSource"];current=[q for q in data["activeRequests"] if q.get("sources")==[s]];demand=next(q for q in current if q["method"]=="PUT");reads=[q for q in current if q["method"]=="POST" and q["path"].endswith("/read")];ready=reads[-1]
+      assert ready["results"][0]["status"]=="ready" and ready["results"][0]["inputHash"]==data["changedInputHash"]
+      ack=next(q for q in data["activeRequests"] if q["path"].endswith("/model-edits"));active=data["active"];origin=active["timeOrigin"]
+      assert all(q["timeOrigin"]==origin for q in current)
+      stage={"click_to_ACK_ms":ack["finished"]-active["started"],"ACK_to_first_current_READ_ms":reads[0]["at"]-ack["finished"],"first_current_READ_http_ms":reads[0]["finished"]-reads[0]["at"],"demand_http_ms":demand["finished"]-demand["at"],"demand_response_to_final_READY_READ_start_ms":ready["at"]-demand["finished"],"demand_response_to_successful_turn_end_ms":turnend["epoch_us"]/1000-origin-demand["finished"],"publication_to_READY_READ_start_lower_ms":origin+ready["at"]-turnend["epoch_us"]/1000,"publication_to_READY_READ_start_upper_ms":origin+ready["at"]-bind["epoch_us"]/1000,"active_owner_observed_to_materialize_return_ms":(mat["epoch_us"]-seen["epoch_us"])/1000}
+      pending_gaps=[{"status":q["results"][0]["status"],"READ_start_after_demand_response_ms":q["at"]-demand["finished"],"http_ms":q["finished"]-q["at"]} for q in reads[1:]]
+      bulks.append({"profile":data["profile"],"kind":data["kind"],"path":str(path.relative_to(ROOT)),"active_READY_ms":active["networkCurrentMs"],"target_ms":5000,"target_missed":active["networkCurrentMs"]>5000,"click_feedback_ms":active["feedbackMs"],"visible_including_presentation_ms":active["currentMs"],"hard_work_order_passed":True,"ordinary_productive_derived_turns_before_claim":hard["ordinary"]["productiveDerivedTurnsBeforeClaim"],"ordinary_warm_progress_turns":hard["ordinary"]["warmProgressTurnsBeforeClaim"],"productive_bulk_fairness_turns_before_active_admission":len(hard["active"]["productiveBulkFairnessTurnsBeforeAdmission"]),"post_acceptance_bulk_bindings":hard["active"]["actualPostAcceptanceBulkBindings"],"priority_overlap_exercised":hard["active"]["priorityOverlapExercised"],"ready_bulk_entries":1000,"distinct_qualified_input_hashes":data["qualifiedDistinctInputHashes"],"bulk_owner_count":5,"bulk_owner_entries":200,"aggregate_READ_calls":len(data["aggregateReads"]),"aggregate_READ_entry_operations":sum(q["entries"] for q in data["aggregateReads"]),"aggregate_READ_http_ms":dist([q["elapsedMs"] for q in data["aggregateReads"]]),"consumer_update_calls":len(data["consumerUpdates"]),"consumer_update_kinds":dict(collections.Counter(q["kind"] for q in data["consumerUpdates"])),"all_App_requests":len(data["allAppRequests"]),"App_changed_source_READs":len(reads),"App_changed_source_demand_PUTs":1,"post_demand_READ_sequence":pending_gaps,"observed_jobs":len(data["actualOrder"]),"observed_private_jobs":sum(bool(q["execution_id"]) for q in data["actualOrder"]),"private_job_count_limit":129,"private_jobs_all_reaped":all(q["reaped"] for q in data["actualOrder"] if q["execution_id"]),"phase_metrics_ms":stage,"retained_at_close":retained})
+      assert sum(bool(q["execution_id"]) for q in data["actualOrder"])<=129
+      assert all(q["reaped"] for q in data["actualOrder"] if q["execution_id"])
+      bulks[-1]["renewal_traffic"]=renewal_traffic(data)
+      bulks[-1]["changed_input_hash"]=data["changedInputHash"]
+
+    assert set(edits)=={'chromium','mobile-chromium'}
+    assert len(allcold)==len(allwarm)==40 and len(cancellations)==2 and len(bulks)==4
+    assert {row['profile'] for row in cancellations}==set(edits)
+    assert {(row['profile'],row['kind']) for row in bulks}=={
+        (profile,kind) for profile in edits for kind in ('repeated','distinct')}
+    job_children=set()
+    for case in observers:
+        saved=load(ROOT/case['case']/'worker-observation.json')
+        job_children.update((job.get('child_pid'),str(job.get('child_start_token')))
+            for job in saved['jobs'].values() if job.get('child_pid') and job.get('child_start_token'))
+    resource_file=BASE/'owned-resource-samples.jsonl'; resource_count=0
+    load_values=[]; rss_peaks=collections.defaultdict(int); cpus={}; complete_totals=[]
+    missing_rss=missing_cpu=0
+    for row in jsonl(resource_file):
+        resource_count+=1;load_values.append(row['load_average'][0])
+        if all('rss_bytes' in process for process in row['owned']):
+            complete_totals.append(sum(process['rss_bytes'] for process in row['owned']))
+        for process in row['owned']:
+            command=process['command'];key=(process['pid'],process['start_token'])
+            if key in job_children:role='positively_joined_property_child'
+            elif 'tests.support.ligand_property_performance_qualification' in command and 'worker' in command:role='worker'
+            elif 'tests.support.ligand_property_performance_qualification' in command and 'observe' in command:role='test_observer'
+            elif 'tests.support.ligand_property_performance_qualification' in command and 'fixture-preflight' in command:role='fixture_preflight'
+            elif 'neistra_api.main:app' in command:role='API'
+            elif any('vite/bin/vite.js' in item or '/esbuild' in item for item in command):role='web_dev_server'
+            elif any('playwright/' in item or '@playwright/test/cli.js' in item for item in command):role='playwright_harness'
+            else:role='unclassified_owned_helper'
+            if 'rss_bytes' in process:rss_peaks[role]=max(rss_peaks[role],process['rss_bytes'])
+            else:missing_rss+=1
+            if 'user_cpu_ticks' in process and 'system_cpu_ticks' in process:
+                ticks=process['user_cpu_ticks']+process['system_cpu_ticks']
+                saved=cpus.setdefault(key,{'min':ticks,'max':ticks,'role':role})
+                saved['min']=min(saved['min'],ticks);saved['max']=max(saved['max'],ticks)
+            else:missing_cpu+=1
+    assert type(runtime['resource_observer']['records']) is int
+    assert resource_count==runtime['resource_observer']['records'] and 0<resource_count<=200_000
+    resource_fp=fingerprint(resource_file)
+    assert resource_fp['bytes']==runtime['resource_observer']['bytes'] and resource_fp['bytes']<=128*1024*1024
+    resource={'saved_wrapper_samples':resource_count,'saved_wrapper_bytes':resource_fp['bytes'],
+        'one_minute_load_during_saved_samples':dist(load_values),
+        'max_complete_sample_owned_total_RSS_bytes':max(complete_totals) if complete_totals else None,
+        'max_sampled_per_process_RSS_by_role_bytes':dict(rss_peaks),
+        'unavailable_RSS_measurements':missing_rss,'unavailable_CPU_measurements':missing_cpu,
+        'sampled_CPU_seconds_by_role':{role:sum(value['max']-value['min'] for value in cpus.values()
+            if value['role']==role)/runtime['host_before']['clock_ticks_per_second'] for role in {value['role'] for value in cpus.values()}},
+        'scope':'Saved PID/starttoken joined sample deltas only; incomplete browser/GPU/short-lived process accounting. Missing observations are unavailable, not zero CPU/RSS. Case-close retention is not an every-instant memory ceiling.'}
+    combined={'all40_cold_actual_edits_ms':dist(allcold,2000),
+        'all40_matching_cache_projection_ms':dist(allwarm,100),
+        'cancellation_feedback_ms':dist([row['feedback_ms'] for row in cancellations],100),
+        'four_bulk_active_ms':dist([row['active_READY_ms'] for row in bulks],5000),
+        'four_bulk_click_feedback_ms':dist([row['click_feedback_ms'] for row in bulks],100)}
+    alltargets={label:{**dist([item['actual'] for item in values],values[0]['limit']),'enforced':False}
+                for label,values in targets.items()}
+    baseline_runtime=load(BASELINE/'actual-receipt.json')
+    baseline_summary=load(BASELINE_ANALYSIS/'assessment.json')
+    baseline_sources=load(BASELINE/'expected-sources.json')
+    previous_methods=load(BASELINE/'expected-methods.json')
+    baseline_root={'HEAD':HISTORICAL_HEAD}
+    strict_zero(baseline_runtime['exit_code'])
+    assert baseline_runtime['complete'] is True and baseline_runtime['runner_observation_complete'] is True
+    assert baseline_runtime['authoritative_HEAD_before']['commit']==baseline_runtime['authoritative_HEAD_after']['commit']==HISTORICAL_HEAD
+    assert baseline_summary['candidate']==HISTORICAL_HEAD and baseline_summary['workflow_passes']==8
+    assert baseline_summary['source_count']==len(baseline_sources) and baseline_summary['method_count']==len(previous_methods)
+    assert baseline_runtime['source_before']==baseline_runtime['source_after']==baseline_sources
+    assert baseline_runtime['methods_before']==baseline_runtime['methods_after']==previous_methods
+    assert sorted(browser_cases(load(BASELINE/'browser.json'),passed=True))==sorted(results)
+    current_methods=runtime['methods_before']
+    assert set(current_methods)-set(previous_methods)=={'tests/e2e/support/observer-snapshot.ts'}
+    assert not set(previous_methods)-set(current_methods)
+    assert {name for name in previous_methods if current_methods[name]!=previous_methods[name]}=={
+        'tests/e2e/ligand-properties-performance.spec.ts','tests/support/ligand_property_performance_qualification.py'}
+    baseline_pairs={};baseline_bulk={}
+    assert len(baseline_runtime['new_harness_directories'])==8
+    for directory in baseline_runtime['new_harness_directories']:
+        case=Path(directory);assert case.parent==BASELINE.parent and case.is_dir() and not case.is_symlink()
+        paths=list(case.glob('native-*-performance.json'));assert len(paths)==1
+        data=load(paths[0])
+        if 'records' in data:
+            baseline_pairs[data['profile']]=[(row['index'],row['heavyAtoms'],row['firstInputHash'],row['changedInputHash'])
+                for row in data['records'] if row['kind']=='paired-edit']
+        elif 'kind' in data:baseline_bulk[(data['profile'],data['kind'])]=data['changedInputHash']
+    assert baseline_pairs==exact_inputs
+    assert all(row['changed_input_hash']==baseline_bulk[(row['profile'],row['kind'])] for row in bulks)
+    baseline_inputs=load(BASELINE_ANALYSIS/'input-identities.json')
+    # Preserve the original baseline manifest; verify every baseline raw file actually
+    # consumed here against it. Do not reclassify prior native8 inputs as native12.
+    for path,expected in list(INPUTS.items()):
+        actual=Path(path) if Path(path).is_absolute() else ROOT/path
+        if actual.is_relative_to(BASELINE.parent):
+            relative=str(actual.relative_to(HISTORICAL_ROOT))
+            assert relative in baseline_inputs and baseline_inputs[relative]==expected
+    summary={'scope':'Closed completeALL8 portable metadata assessment only; not final feature/release acceptance',
+        'candidate':HEAD,'workflow_cases':results,'workflow_passes':8,'skips_failures_flakes_retries':0,
+        'source_count':len(EXPECTED_SOURCES),'method_count':len(EXPECTED_METHODS),'source_digest_compact':SOURCE,'method_digest_spaced':METHOD,
+        'expected_case_identities_provenance':expected_collection_provenance,
+        'actual_terminal_collector_proof':{'path':str(args.terminal_proof),'sha256':args.terminal_proof_sha256},
+        'source_raw_guards':raw_proof,'transport_identity':identity,
+        'combined':combined,'profiles':edits,'cancellations':cancellations,'bulk_cases':bulks,
+        'all_timing_annotation_groups':alltargets,'closed_observers':observers,'saved_resources':resource,
+        'host_before':runtime['host_before'],'host_after':runtime['host_after'],
+        'descriptive_baseline_comparison':{'baseline_candidate':baseline_root['HEAD'],
+            'baseline_source_count':len(baseline_sources),'baseline_method_count':len(previous_methods),'baseline_combined':baseline_summary['combined'],
+            'baseline_host_before':baseline_runtime['host_before'],'baseline_host_after':baseline_runtime['host_after'],
+            'baseline_saved_resources':baseline_summary['saved_resources'],
+            'all40_initial_changed_scientific_hash_pairs_and4bulk_changed_hashes_equal':True,
+            'method_change':'Observer producer/spec changed and strict observer-reader dependency added;49other original method bodies unchanged. Atomic snapshot publication and explicit read errors improve instrumentation reliability; original scientific workloads, timing boundaries and budgets remain. Historical native11 retains995e/original51; current source/method identity is distinct.',
+            'limits':'One observation per source revision on a shared host; descriptive only. No controlled A/B, causal speedup/regression, same-method or strict-reference timing certification.'},
+        'policy':'D148 retains100ms feedback/cache,2000ms cold and5000ms bulk targets/misses; portable work/resource/scientific/cancellation/deadline bounds mandatory. Absolute targets are opt-in strict reference-host qualification.',
+        'no_SQL_apps_services_browser_profile_or_chemistry_execution':True,
+        'final_feature_release_qualification':False}
+    # Recheck all consumed closed inputs before writing any success analysis.
+    for path,expected in list(INPUTS.items()):
+        actual=Path(path) if Path(path).is_absolute() else ROOT/path
+        assert fingerprint(actual,register=False)==expected, f'Closed input drift: {actual}'
+    outputs={'assessment.json':summary,'comparison-samples.json':{'cold_samples':cold_compares},
+             'input-identities.json':dict(sorted(INPUTS.items()))}
+    for name,value in outputs.items():
+        with (OUT/name).open('x') as stream:
+            json.dump(value,stream,indent=2,allow_nan=False);stream.write('\n')
+    print(json.dumps({'scope':summary['scope'],'candidate':HEAD,'workflow_passes':8,
+                      'input_files':len(INPUTS),'combined':combined,'transport_original_state':identity['original_state']}))
+
+
+if __name__=='__main__': main()
+
