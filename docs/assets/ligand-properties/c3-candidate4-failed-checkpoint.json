@@ -1,0 +1,63 @@
+{
+  "status": "FAILED original candidate4; complete preservation, publication pending. Not qualification PASS.",
+  "candidate": "ad505d2723413e2d79879960c45d29c19c6d9f2f",
+  "actual_runner_exit": 1,
+  "successful_recipe_commands": 15,
+  "recorded_recipe_commands": 16,
+  "remaining_unrun_commands": 27,
+  "browser": {
+    "passed": 476,
+    "failed": 1,
+    "authored_skipped": 56,
+    "unrun": 107,
+    "report_combined_skipped": 163,
+    "flaky": 0,
+    "retry": 0,
+    "descriptor_performance_passed_one_attempt": 8,
+    "minimization_control_passed_one_attempt": 12,
+    "top_level_error": "Maximum-failure fail-fast only"
+  },
+  "failure": "Mobile keyboard test expected Selection immediately after Entry, but legitimate Property options and native Methods summary now precede the tabs. Actual first Tab focuses Property options.",
+  "raw_files": 35094,
+  "raw_bytes": 1501779138,
+  "empty_directories": 73,
+  "all_original_bytes_and_union_unchanged": true,
+  "raw_DB_WAL_SHM_files": 4,
+  "positive_cleanup_before_raw_copy": true,
+  "SQL_opened": false,
+  "source_capture_seal_sha256": "a9f0be9b7f076bb44b6ea73511cdc9bdda79b93ac4fc482fd7814d437dfe063a",
+  "source_current_count": 1130,
+  "source_actual036_count": 1013,
+  "all16_lossless_gzip_logs_exact": true,
+  "recursive_counts": {
+    "zip_archives": 76,
+    "evidence_manifest_entries": 35116,
+    "project_archive_files": 28
+  },
+  "corruption_controls": {
+    "pure_in_memory_scenarios": 5,
+    "passed": 5,
+    "results": {
+      "valid_nested_full_CRC": "PASS",
+      "truncated-inner": "REFUSED",
+      "CRC-inner": "REFUSED",
+      "corrupt-outer": "REFUSED",
+      "truncated-outer": "REFUSED"
+    },
+    "no_actual_input_or_archive_changed": true
+  },
+  "separate_asset": {
+    "asset": "neistra-v0.37.0-c4-candidate4-failed.zip",
+    "checksum_asset": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+    "bytes": 675409215,
+    "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+    "published": false,
+    "qualified_main_member": false,
+    "primary_readback_sha256": "5ac9a4da5b7a7af42c9943522bb5f2a335be45570cab652e967ce8489fa9a9db"
+  },
+  "limits": [
+    "107 browser cases and27later recipe commands were not run.",
+    "This failed run is not qualified by the focused keyboard correction.",
+    "Full anonymous verification remains required after actual release publication."
+  ]
+}

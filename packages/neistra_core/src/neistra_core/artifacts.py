@@ -62,6 +62,16 @@ class LocalArtifactStore:
     def read_bytes(self, relative_path: str) -> bytes:
         return self._resolve(relative_path).read_bytes()
 
+    def read_bytes_bounded(self, relative_path: str, max_bytes: int) -> bytes:
+        """Read at most the declared cap plus one sentinel byte using normal path guards."""
+        if type(max_bytes) is not int or max_bytes < 1:
+            raise ValueError("A positive artifact byte limit is required")
+        with self._resolve(relative_path).open("rb") as stream:
+            data = stream.read(max_bytes + 1)
+        if len(data) > max_bytes:
+            raise ValueError("Artifact exceeds its bounded read limit")
+        return data
+
     def _resolve(self, relative_path: str) -> Path:
         candidate_path = Path(relative_path)
         if candidate_path.is_absolute():

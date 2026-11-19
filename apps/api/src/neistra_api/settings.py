@@ -23,10 +23,13 @@ class Settings:
     max_archive_compression_ratio: float = 100.0
     atom_warning_limit: int = 250_000
     atom_hard_limit: int = 1_000_000
-    job_plugin_allowlist: tuple[str, ...] = ("molweave.demo", "molweave.minimization")
+    job_plugin_allowlist: tuple[str, ...] = (
+        "molweave.demo", "molweave.minimization", "neistra.ligand_properties",
+    )
     job_plugin_targets: tuple[str, ...] = (
         "neistra_demo_plugin.plugin:plugin",
         "neistra_core.minimization.plugin:plugin",
+        "neistra_api.ligand_property_plugin:plugin",
     )
     job_worker_poll_seconds: float = 0.1
     job_worker_health_port: int | None = None
@@ -38,6 +41,14 @@ class Settings:
     @classmethod
     def from_env(cls) -> Settings:
         data_dir, database_url = resolve_store()
+        allowlist = csv_setting(
+            "JOB_PLUGIN_ALLOWLIST", "molweave.demo,molweave.minimization,neistra.ligand_properties"
+        )
+        default_targets = (
+            "neistra_demo_plugin.plugin:plugin,neistra_core.minimization.plugin:plugin"
+        )
+        if "neistra.ligand_properties" in allowlist:
+            default_targets += ",neistra_api.ligand_property_plugin:plugin"
         return cls(
             data_dir=data_dir,
             database_url=database_url,
@@ -51,13 +62,8 @@ class Settings:
             max_archive_compression_ratio=positive_float("MAX_ARCHIVE_COMPRESSION_RATIO", 100),
             atom_warning_limit=positive_int("ATOM_WARNING_LIMIT", 250000),
             atom_hard_limit=positive_int("ATOM_HARD_LIMIT", 1000000),
-            job_plugin_allowlist=csv_setting(
-                "JOB_PLUGIN_ALLOWLIST", "molweave.demo,molweave.minimization"
-            ),
-            job_plugin_targets=csv_setting(
-                "JOB_PLUGIN_TARGETS",
-                "neistra_demo_plugin.plugin:plugin,neistra_core.minimization.plugin:plugin",
-            ),
+            job_plugin_allowlist=allowlist,
+            job_plugin_targets=csv_setting("JOB_PLUGIN_TARGETS", default_targets),
             job_worker_poll_seconds=positive_float("JOB_WORKER_POLL_SECONDS", 0.1),
             job_worker_health_port=health_port(),
             edit_preview_timeout_seconds=positive_float("EDIT_PREVIEW_TIMEOUT_SECONDS", 30),

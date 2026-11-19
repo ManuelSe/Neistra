@@ -160,3 +160,1520 @@ restore, atomic source binding, A/B/C races and shared-consumer cancellation. Re
 all parent resource, freshness and 1,000-entry active-priority requirements. New
 modules must preserve the repository's canonical/legacy single-implementation
 alias contract.
+
+
+### C1 concrete scientific contract — descriptor kernel before implementation
+
+Preparatory ownership: `feat/issue-159-live-ligand-properties`, isolated worktree
+`/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties`, initially branches
+from #158 candidate cd6715d3. #158 is still qualifying; this is not released0.36
+reader evidence. Integrate the verified preceding delivery master before final gates.
+The parent permits independent preparation while retaining serial publication.
+
+A preimplementation scientific assessment confirms the existing method scope.
+Implement a separate `neistra_core.ligand_properties` kernel and canonical/legacy
+single-implementation aliases. Reuse the strict prepared chemistry boundary on
+immutable normalized/original input, then copy for descriptor-specific preparation.
+Do not change the designation/depiction implementation or use its ordinary SMILES
+hash alone as descriptor authority. A typed content report owns independent finite
+numeric values or structured errors, descriptor coverage, implementation/library/
+policy identity and qualified charge facts. API current source/instance ownership
+remains separate from scientific content identity.
+
+Explicit conventions:
+
+- Average molecular weight uses MolWt in g/mol. Heavy/carbon/hetero counts use
+  established designated members and known elements; charge requires qualified
+  atomic charges. Known independent counts can survive unsupported model chemistry.
+- Use CalcNumHBD/CalcNumHBA, CalcTPSA(includeSandP=False), Wildman–Crippen logP/MR
+  with hydrogen inclusion explicit, strict rotor options, pinned perceived total/
+  aromatic-ring definitions and CalcFractionCSP3. Carbon-free fractionsp3 is
+  unavailable (`no_carbon_atoms`), not an invented fractional zero.
+- Remove only ordinary terminal neutral H on a disposable copy, retaining total
+  hydrogen inventory, heavy graph, charge and supported stereo invariants. Never
+  strip isotopic, hydride, bridging or unsupported stereo-defining H silently.
+  Initially unavailable model domains may include isotope/radical, enhanced or
+  nonstandard stereo, query/dummy, unqualified aromaticity, coordination and
+  nonterminal-H semantics; preserve separately established counts/charge.
+- The scientific digest covers qualified representation, H/isotope/radical/stereo
+  semantics, relevant protection/inference facts and fixed policy/options/library.
+  Exclude coordinates/display metadata. Coordinate reuse requires a fresh current
+  binding proof. A charge-presence fact is true for proved nonzero atomic charge,
+  false only when all relevant charges are proved zero, otherwise unknown.
+
+Independent scientific acceptance includes ethanol (3heavy/2carbon/1hetero,
+HBD/HBA1/1, strictrotors0, TPSA20.23, charge0, fractionsp3=1), ordinary-H equivalence
+for ethanol/pyrrole/amides/stereocenters, source-bound foscarnic TPSA94.83, rings and
+rotor adversaries, carbon-free input, isotope/radical/unknown-H and zwitterionic
+cases, coordinate/atom-order invariance, changed qualification/policy invalidation,
+forced per-descriptor failure and nonfinite rejection. Numerical tolerances must
+be justified independently; originals/canonical data remain byte-identical.
+
+Reference consultation supports grouped readable properties, persistent options,
+default restoration and compact job progress. Installation preference ownership,
+effective dependency union and automatic same-transition freshness are accepted
+original design requirements; no unverified external GUI equivalence is claimed.
+The full sidebar/profiles/radar remain later children. Architecture's concrete
+capture/artifact/demand lifecycle refinement remains pending before API/worker
+implementation; no application readiness or completed verification is claimed.
+
+
+### C1 concrete architecture contract — privately owned derived execution
+
+Preimplementation architecture assessment selects a narrow seam in the existing
+allowlisted spawned worker; no second queue platform. Add migration0017 for
+installation preferences (independent revision/default restore), bounded derived
+content, current entry/instance bindings, consumer demand and private execution/
+source capture. Keep project/archive3 and existing physical project root. Prefer
+foreign-key ownership where safe; interrupted child captures remain until reaped.
+
+Cache executions create **no ordinary JobInput or JobResultArtifact records**.
+A server-controlled job purpose defaults to ordinary/user in the database, including
+older-writer inserts. Private execution/capture association is the sole authority
+for derived execution/cleanup/publication; type/parameters/provenance markers alone
+confer none. Parameters contain only an opaque execution ID. A checked worker
+loader constructs existing immutable ChildInput values from verified captures and
+retains the existing spawn/resource/cancellation machinery. Public ordinary submit
+cannot invoke the internal descriptor capture path. Derived submission/completion
+never modifies entry links/results, project revision/dirty/checkpoints or history.
+
+Current archives and ordinary job/result projections exclude positively owned
+cache executions. The preceding writer enumerates all project jobs, but permits
+unknown-plugin shells with empty ordinary inputs/results: deletion then cannot
+leave an invalid ordinary entry relationship. This is a source-based design
+inference until the actual released preceding writer executes deletion/export/
+import/reexport in both suffixes. Import creates ordinary-purpose jobs with fresh
+IDs and no private association; forged or historical markers must never authorize
+execution, cache publication or cleanup. Older-writer ordinary inserts retain their
+server default. Retain queued-equivalent/running/completed/cancelled/restart and
+entry/project-deletion probes, with child teardown and original/user output proof.
+
+Use an exclusively owned descriptor-cache root built on LocalArtifactStore,
+separate from global original/user artifact storage. Verify digest/size/path before
+read or publication. Corrupt derived content may be quarantined/replaced only within
+this owned root with bounded retention; shared originals and user artifacts are
+never repair/delete targets. Descriptor content and current binding are separate.
+Completion validates the report and rechecks authoritative source/designation/
+membership/demand generation under existing project-publication locking before
+atomic binding. Obsolete work may retain reusable keyed content but cannot publish
+as current. Missing/deleted ownership retires work, never reconstructs it from
+captured parameters. Prune only positively associated cache executions/events/
+captures after reaping; failures/capacity/recovery remain explicit.
+
+Maintain latest bounded consumer demand rather than a job per entry. Materialize
+and claim only the next small coalesced batch at worker scheduling boundaries;
+never leave a bulk FIFO for an older worker. Active priority, ordinary-job fairness,
+bulk fairness, lease/retry/retention and batch limits require focused real-worker
+measurements before qualification. Batch8 and aggregate200 remain proposals, not
+passing capacity evidence. Public current-input projections and preference/consumer
+updates use typed bounded aggregate contracts. A consumer release cannot cancel
+another consumer's useful demand.
+
+Early UX consultation scopes cancellation to one named current-input consumer.
+Retain a same-input cancellation latch through rerenders/refetch/hide/reopen;
+explicit Retry or a genuinely relevant new input may clear it. Do not promise that
+shared work stops globally. Keep a compact property readout/options at the existing
+ligand region; full sidebar/profile/radar remains later scope. Final concrete UX
+assessment precedes frontend integration.
+
+
+### C2 concrete workflow contract — compact readout and session ownership
+
+Preimplementation UX assessment selects a compact Properties section beneath the
+existing inspected-entry ligand controls, using the current inspector slot. Keep
+exact-instance identity above readable grouped values/units, one aggregate status,
+Property options and secondary Methods and limits. Do not construct later sidebar,
+profile/radar or filter controls here. Material qualification warnings remain visible
+through a concise warning indicator; unsupported values show Unavailable with reason,
+independent successful counts stay available, and transient failures may offer Retry.
+
+Options are an accessible draft dialog: explain installation-wide ownership, group
+category choices, Restore defaults updates the draft, Save atomically persists the
+independent preference revision, Cancel preserves saved choices. Effective descriptor
+demand unions real consumers' requirements without rewriting saved category choices;
+show actual dependency explanations only when such a consumer exists. Preserve
+focus through value updates; return options focus, keep header/Close/footer visible,
+scroll only the dialog body, support coarse-pointer targets and actual200%zoom.
+Use one polite transition status rather than per-value announcements.
+
+An App-owned session/controller survives property component unmount/reopen and owns
+current input/request generations, shared consumer leases and cancellation latches.
+The target is the inspected entry's durable designation, never ordinary selection,
+visibility, camera or a viewer ID. Incompatible project/entry/designation/membership/
+source/settings changes retire old numbers synchronously; matching results alone
+can be shown as current. Changed previews show labelled Preview unavailable; Cancel
+restores matching committed state and Apply requalifies actual current source.
+Late A/B data cannot replace C, including ABA navigation and Undo/Redo.
+
+Cancel update releases this consumer's demand and retains cancellation for that
+exact request through rerenders/refetch/close/reopen: show Update cancelled and Retry.
+Explicit Retry or a genuinely relevant new input permits automatic work; incidental
+hover/camera does not. Other useful consumers remain, so do not promise globally
+stopping shared work. Normal closing releases the visible demand without creating
+an explicit-cancellation latch; reopening resumes automatic current-input behavior.
+No unsupported-chemistry Retry loop or polling-triggered cancellation loop is allowed.
+
+Acceptance adds held A/B/C, preview Cancel/Apply, source/designation/project changes,
+Undo/Redo, cancellation through reopening/polling, shared-consumer retention, options
+conflicts/failure/default restore, partial values and project/history invariance.
+Readout/settings must work in both themes, keyboard/touch/narrow/actualzoom with
+accessible recovery and stable focus. Full release/reader/performance gates remain.
+
+
+### C1 consumer allocation refinement — fence replay after bounded pruning
+
+Integration review identifies a real ordering boundary: release2 may arrive before
+held update1. Retaining a last-sequence tombstone rejects the immediate replay, but
+pruning bounded tombstones must not permit that old update to recreate demand.
+Use server-issued consumer IDs: POST the project consumer collection once to obtain
+an owner ID/sequence0/expiry; PUT requires an existing issued record and never
+recreates unknown or pruned owners. DELETE is idempotent; update/release sequence
+remains monotonic. Allocation is per valid App/project owner, not per descriptor or
+edit, and cheap reads may run in parallel. Expired owners have bounded reallocation
+recovery, never an unbounded409/retry loop.
+
+Frontend ownership checks also cover allocation: a late allocation after source/
+project retirement or explicit Cancel cannot issue demand. Release unused tokens
+best effort. Reallocation never clears the same-input explicit-cancellation latch.
+Test DELETE2-before-PUT1 and replay after token pruning independently, plus late
+allocation/cancel and normal Retry with a new generation. Resource/lease/tombstone
+limits remain explicit proposals until measured; no unbounded retained fence or
+separate session platform is introduced.
+
+
+### C1 scientific review correction — joint stereochemical evidence identity
+
+The first scientific kernel passes68focused cases but independent theory finds a
+realP2: a separate global stereochemical signature plus independently canonicalized
+boolean-stereo evidence topology can associate an inference flag with the wrong
+stereochemical site. Reproduced tetrahedral and E/Z placement counterexamples retain
+identical old digests despite independently distinct stereochemical site coloring.
+Preserve old source snapshots, negative probes and failed regressions. The scoped
+implementation verdict is CHANGES_REQUIRED until independent reassessment; those
+68passes are not proof against the newly established counterexample.
+
+The accepted bounded correction proves exact native/current atom and bond mapping
+and stereo neighbor frames, clears stale native labels, freshly assigns absolute
+case-sensitiveR/S/r/s andE/Z under100,000CIPiterations, and encodes those labels in
+the same site-associated evidence graph. Never use raw index-relative chiral tags
+as canonical site labels. Preserve unsupported enhanced/nonstandard domains; missing
+mapped labels or assignment limits fail closed. Conservative unavailable fallback
+retains the full available ordered frame/evidence and cannot assert false site
+interchangeability. It is never a descriptor calculation molecule.
+
+Policy advances to `strict-current-graph-terminal-h-cip-v2`, retiring old local
+candidate bindings. Descriptor methods/units remain. Acceptance includes both actual
+counterexamples,2,880renumbering probes, genuinely automorphic coalescence, source-bound
+pseudoasymmetricr/s, stale/missing labels, odd neighbor-frame permutations, iteration
+refusal and original-byte preservation. Author reports83focused passes for the
+correction; frozen receipt and independent reassessment remain pending.
+
+Early performance consultation separately identifies duplicated native preparation
+in the coordinator and calculation child, plus heartbeat sequence invalidation.
+Move all strict native preparation/CIP/canonicalization under the existing controlled
+child. A conservative exact noncoordinate raw-input proof may reference only content
+previously qualified by that child, never replace scientific identity. Concrete sealed
+proof/index and renewal semantics require architecture assessment before integration;
+source reads/JSON parsing remain separately bounded and measured. No latency/capacity
+qualification or speedup is claimed.
+
+
+### C1 controlled preparation and sealed coordinate proof
+
+Early performance review exposes actual duplicated strict preparation in the worker
+coordinator and spawned plugin. Architecture accepts a narrow correction: coordinator
+uses verified bounded bytes/JSON only; all strict native preparation/CIP/canonicalization
+and descriptor calculation run once under existing controlled child resources. Source
+reads/JSON/fingerprinting outside the child remain separately bounded and measured;
+never describe them as covered by child wall/CPU/RSS limits.
+
+For the current graph-only catalog, scientific assessment permits a separately versioned
+conservative raw-input fingerprint that removes only atoms[].coordinates and
+conformers[].coordinates after validating finite triples/counts. Retain every other
+field, including IDs/order, active conformer, source, inference/protection, exact
+membership, original digest/size and fixed implementation/library/policy. It is not
+the scientific digest. Child independently recomputes it before strict preparation.
+
+A sixth bounded0017 proof index may locate qualified content only when the fingerprint
+and validated scientific report are associated inside the same digest/size-verified
+owned cache envelope. Index substitution cannot confer proof. Bound index rows,
+fingerprints/envelope, envelope/IPC bytes and coverage merges; eviction/missing proof
+means child requalification. Recheck current source/designation/membership/demand
+before binding. Warm coordinate-only reuse creates no descriptor job only after that
+fresh exact proof. Actual bounded reads use cap+1, not a size check followed by an
+unbounded read. Preserve original/global user artifact ownership.
+
+Separate network sequence from internal semantic generation. Same sequence with
+identical canonical payload renews lease; same sequence with differing payload is a
+conflict. Higher sequence with priority-only change preserves generation, failures
+and fairness age. Higher sequence with otherwise identical payload means explicit
+Retry; input/coverage change or release/resume advances generation. Canonicalize entry
+sets and descriptor coverage. Captured publication/failure checks generation plus
+current exact source/coverage, so a heartbeat cannot invalidate useful work or let
+retired completion overwrite a later Retry. Shared consumers retain subset coverage.
+
+Acceptance includes parent native-preparation prohibition, exactly-once child prepare,
+coordinate zero-new-job reuse, malformed coordinate/noncoordinate/original/method
+invalidation, sealed-index substitution/eviction/merge bounds, held work spanning a
+heartbeat/priority/Retry/release/ABA and disjoint shared coverage. Final implementation,
+performance and actual old-reader qualification remain pending.
+
+
+### C2 property-specific App ownership correction
+
+Independent early UX review reproduces aP2: equal cloned/renamed/visibility project
+DTOs recreate component object dependencies, causing cleanup/release/new demand for
+an unchanged scientific target. D181 would treat that higher identical request as
+Retry. A related broad designation-command owner observes all project entries, so
+an unrelated source edit can retire a property's guard and strand pending work.
+Retain those actual probes; the frontend scope is CHANGES_REQUIRED until corrected
+and independently reassessed.
+
+Architecture selects a separate App-owned property context and connection above the
+remountable presenter. Compare only active project/inspected entry, its exact current/
+original source, designation status/instance/membership, method identity/coverage and
+accepted preview/reconciliation predicates. Exclude DTO identity, project revision,
+unrelated entries, names, visibility and appearance. Observe relevant authoritative
+stores/cache synchronously with a monotonic epoch; preserve batched ABA/preview and
+StrictMode/true-unmount retirement. Update numerical-preview refs and observe before
+React publication. The connection keys semantic input plus ownership epoch; rendering
+or responsive presentation remount must not imply Retry.
+
+The parent's nonnegotiable automatic-refresh outcome clarifies one earlier UX
+proposal: keep the single active-inspected-ligand App consumer across inspector hide,
+editor presentation and responsive remount, so a relevant edit schedules without
+requiring sidebar reopening. Closing a presenter alone does not cancel that automatic
+work. Project/target retirement, true App unmount and explicit Cancel release its
+demand. No duplicate hidden consumer is added; empty/invalid target creates no work.
+This explicitly supersedes the earlier suggestion that ordinary pane close releases
+this active automatic consumer. Preserve cancellation through reopening and latest
+input recovery; incidental camera/appearance/other-entry edits create no new work.
+
+A second UX finding concerns options: before submission Cancel discards the draft;
+a submitted Save may persist after closing, so while it is pending the action is
+Close, with concise continuing-save feedback. Old acknowledgements update monotonic
+saved preferences but cannot close/refocus/reset a replacement dialog/draft. Qualify
+held-save/Close/reopen/lateACK in component and actual native tests. Keep existing
+preference conflict recovery and partial-current-value behavior.
+
+
+### Backend authority correction before integrated qualification
+
+D-183 refines the accepted derived-cache contract after independent architecture
+review: every ready read and installed binding requires fresh bounded byte/proof
+verification, not only matching IDs or the fingerprint lookup index. Keep existing
+encoded limits and preserve sealed alias proofs under finite admission rather than
+rolling truncation. Live-demand content cannot be evicted into a recalculation loop;
+new capacity refusal is explicit and scoped to the request. Worker metadata remains
+only a bounded scheduling hint. These are correction contracts, not passing results.
+The backend author owns meaningful tamper/missing-source/33-alias/capacity regressions;
+root retains actual native/performance/integrated gates and final all-seven review.
+
+
+### Actual predecessor qualification contract
+
+D-184 defines the concrete three-actor private-derived-state qualification before
+new tools are implemented. Keep project/archive3; separately prove actual0.36API/
+archive compatibility and unknown0017Alembic refusal. Preserve all current reader
+families and add one owned coordinator command (proposed43-step full gate). All
+three actor reports bind actual source/module identities and deep retained-state/
+file checks; no fabricated live-process claims or acting on copied live identities.
+Prepare six issue-specific helpers under assets/ligand-properties and focused
+contract controls. Real predecessor execution waits for the actual0.36release;
+current source candidates and static controls do not establish released compatibility.
+
+
+D-185 adds the concrete rollback-safe owned-file lifecycle required by D-183's
+capacity admission. SQL reference publication and valid-file creation are serialized;
+valid victim unlinking follows commit and exact-reference recheck under the same
+store-wide writer lock. Corruption repair obeys that boundary too. Postcommit cleanup
+failure retains an owned orphan without reversing successful scientific publication.
+This correction requires focused fault/race controls before backend handoff.
+
+
+### Review correction: retirement CAS and coverage-independent source fencing
+
+D-187 records two independently reproducedP2s before further implementation. Backend
+retirement/invalid-binding cleanup must compare observed binding/source identity and
+revalidate delayed owner generations under the publication lock, including A→B→A.
+Frontend request keys remain coverage-sensitive while matching scientific reuse and
+known-source failure fences span coverage masks for the same exact base input.
+Only actual successful current qualification clears a source fence; changing a mask
+cannot resurrect values. Retain earlier146backend/104focused+1369frontend results as
+prior-candidate evidence, then run affected regressions/fullfrontend checks and obtain
+independent reassessment before firstactual159native run. No milestone completion,
+version bump or release-ready claim is made by this correction contract.
+
+
+Reader-tool review identifies a coverage correction before actual predecessor use:
+old-writer archive roundtrip must occur while the descriptor target remains deleted,
+not only after Undo restoration. Use a retained anchor entry for ordinary user-job
+inputs/outputs so this isolates private execution rather than a pre-existing ordinary
+job dangling-input seam. Export/import/reexport both suffixes before Undo, retain the
+restoration checks, and require explicit post-deletion evidence in summary/negative
+controls. The earlier64offline passes remain prior-tool-candidate evidence, not an
+actual predecessor pass. Current backend/frontend application sources are unaffected.
+
+The first22-case native run passes four320px/held-acknowledgement cases, then fails an
+immediate actual-zoom modal geometry sample;17cases do not run, actual80550exit1 and
+all1,062sources stay unchanged. Independent UI trace/isolated-browser assessment
+reproduces866.683px bottom during the inherited140ms entrance animation versus853px
+once finished (861px viewport). Keep production styles; await real modal animation
+completion before the same geometry/Axe assertions. Keep1px allowance, deadlines,
+real zoom, retries and exclusions unchanged. Retain failed raw trace/store/enclosing
+proof and require a fresh complete22-case run.
+
+
+### Native layout correction before C2 acceptance
+
+Native2 passes seven cases including actual100%/200% zoom, cancellation and golden
+properties, then cannot click Apply query in the real edit flow. Actual85545exit1;
+14cases do not run. All1,053focused runtime/test sources remain unchanged; nine
+unexecuted reader-tool drafts are explicitly excluded while their separate author
+works. No native case, deadline, retry or assertion is excluded or weakened.
+
+Independent UI and UX assessments confirm a real high-priority regression: fixed
+ligand/property/tabs consume the inspector height while its remaining flex body
+collapses tozero. A locator change or forced click would conceal it. Introduce ONE
+content scroll owner below the existing persistent inspector header. Place ligand
+context, all14properties/methods, tabs and natural-height active tab panel inside it;
+remove the competing tabpanel scrollbar/height constraint. Keep outerframe clipping
+non-scrollable so focused controls cannot displace the header. Use scoped component/
+styles changes, preserving all existing actions/state/tab semantics and App-owned
+scientific work. No arbitrary property height cap or mandatory collapse.
+
+Deliberate pointer/keyboard tab activation, including the already-selected tab,
+brings that task into view inside this owner. Property completions or warning/method
+updates do not automatically change focus or reading position. Qualify trusted query/
+Apply, actual edit→automatic properties→Undo/Redo, asynchronous values while a legacy
+control is focused, expanded methods, lower tools,320px/shortviews/both themes and real
+200% zoom. Renew affected component/global frontend validation and the complete native
+workflow run; earlier119/1384passes remain prior-layout-candidate evidence.
+
+
+### Productive-turn fairness and performance-oracle correction
+
+Full integration Python/static checkpoint passes3,234tests/zero skips, Ruff and
+mypy274 with all1,062selected source identities fixed, actual96589exit0. A separate
+native7 run remains failed at a mobile test-helper control absent from mobile
+markup; before changing production, keep both evidence scopes distinct.
+
+Independent performance/architecture assessment confirms D-188's warm-progress
+fairness defect and identifies performance-harness gaps: cold exact-source READY
+must precede mobile reopening; hidden-at-start DOM is not a retirement timing;
+accepted-source overlap/priority and ordinary fairness need hard work-order proof
+including warm coordinator turns. Correct within existing bounds, preserve failed
+sources and tests, independently reassess and complete actual measurements later.
+Actual released158master integration and full43-step candidate/exact-master gates
+remain separately mandatory; no local preparation proves the prerequisite delivered.
+
+
+Qualification-only work-order observation uses a bounded test harness wrapper around
+actual production worker/service method calls and invokes the exact worker.main
+lifecycle/health/recovery/run_forever. Default worker startup remains unchanged.
+Record actual productive turn kind, counters, active/bulk choice, selected/bound exact
+source/generation and ordinary claims without additional coordinator source reads,
+chemistry or scheduling pauses. Keep trace bytes/records explicitly bounded, fail
+on incompleteness, and disclose observation overhead in portable timing. No durable
+production trace/table/API or alternate scheduler is introduced. Active priority is
+assessed after actual accepted exact-source demand, allowing the already claimed turn
+and at most one bulk-fairness turn; ordinary fairness counts productive warm turns.
+
+
+### First real API performance invocation — compare persisted checkpoints
+
+The first exploratory invocation fails before measurement because its external
+command lacks the API import path; retain it and invoke with explicit repository
+module paths. The corrected invocation reaches real cold calculation and zero-child
+coordinate reuse, then fails an overbroad POST-response-versus-GET equality oracle.
+Independent replay captures every actual response without substitutions and proves
+only three differences: project/entry modified_at retain identical six-digit UTC
+instants with POST's literalZ omitted by GET; structure_patches is one command-only
+coordinate patch versus GET's empty list. The project_read factory documents this
+transport projection; no production mutation defect is established.
+
+Before warm reads/demands, capture the actual persisted GET after the coordinate
+command. Validate the command acknowledgement against it allowing ONLY those two
+literal timestamp-suffix differences and the known command-only patch. Validate
+that patch's entry/artifact/membership/coordinates against the canonical structure.
+Then compare the entire after-warm GET exactly with the persisted baseline, retaining
+revision/history/molecular/source/original invariants. Preserve command/baseline/patch/
+canonical/after snapshots before assertions. Negative controls reject any altered
+timestamp digits, history/revision/artifact or additional omitted field. Baseline
+observation/patch verification is outside the measured warm operation and remains
+explicit in request evidence. No generic date/field stripping or scientific change.
+The exploratory run remains incomplete and is not final performance qualification.
+
+
+### Local C1 vertical checkpoint and source-bound evidence
+
+The [C1checkpoint](../assets/ligand-properties/c1-checkpoint.json) binds all1,062
+current selected source hashes, digest9367e4d04cc2f4a9cd80822b24f088c5f22d4ffc0e33cec937b9db57db234268,
+and copies all73changed/new source paths against the planning head. The complete
+37,202,926-byte [evidence packet](../assets/ligand-properties/c1-evidence.zip) has
+SHA256f25634d34eb5de3c3fc280291074e3a3375cb74faea517722ef0196f8202b0fe.
+It retains2,356outer payloads,110recursive ZIPs,2,382manifest entries,398project
+archive files, all eight native output/store sets and earlier corrections/failures.
+Every payload hash/recursive CRC is verified. Exact metadata preserves142pytest
+convenience links and four deliberate security fixtures without active ZIP symlinks.
+Neutral naming/path checks pass; root independently verifies current source copies,
+outer manifest/hash/CRC and source stability. Actual packaging49926exit0.
+
+Evidence scopes remain explicit:83kernel cases;158backend cases before the separate
+29-case productive-turn correction;133focused/1,387global frontend cases;3,234prior
+full Python cases, never summed with later cases;26actual native cases/zero skips,
+failures, flakes or retries, actual71526exit0. Native source scope is1,060with exactly
+two unexecuted performance drafts excluded; subsequent default-preserving optional
+trace config/recipe/unit changes are identified. Prior77offline reader cases have
+raw proof. Current78combined and11recipe tool executions are recorded as direct
+root observations without fabricated raw receipts. Actual released0.36reader actors
+and full43-step qualification have not run for this child.
+
+The corrected API probe5 completes actual five unique API/coordinator processes,
+each with a distinct controlled real scientific child. Coordinate edits change the
+source artifact, preserve qualified scientific input hashes and produce zero new
+calculation children; entire persisted project GETs remain exact. The observed
+1,001-atom complex explicitly reports unqualified chemistry/formal-charge uncertainty
+while retaining independent available counts. All729selected API measurement-source
+hashes match before, after and current. Actual inner command receipts recordexit0;
+outer32820completion is directly root-observed, not a fabricated machine receipt.
+Independent nonauthor performance assessment accepts functional evidence. Concurrent
+158native workload remains disclosed; timings are exploratory portable observations,
+not final browser/capacity/reference-host qualification. One earlier single-process
+smoke and all three earlier invocation/oracle failures remain separately retained.
+
+This is a coherent passing LOCAL checkpoint, not final all-seven implementation
+readiness, a pushed application branch or delivered prerequisite. Actual traced
+worker/native eight-case performance execution, four1,000-entry workloads, current
+full43candidate and exact-master qualification, actual released158integration,
+versions, final all-seven assessment, protected PR/merge and verified publication/
+closeout remain mandatory. Keep the one parent Goal active through all eight children.
+
+
+### First actual browser measurement — qualified clock-capture correction
+
+The first selected desktop five-context/twenty-paired-edit performance case never
+reaches browser API transport. Captured transformed init source references an absent
+Node import alias before forwarding fetch. Independent architecture VM replay of
+that exact source confirms the failure and a browser-global control. A full audit
+of twenty-one serialized callbacks finds fourteen clock references in five bodies.
+Implement D-191's browser-global qualification only; Node timings, all cohorts,
+assertions, deadlines, source/trace/resource bounds and other cases remain intact.
+No numerical/scientific or production API correction follows from this finding.
+
+Preserve native-probe1 as interrupted setup: actual corepack -SIGINT(-2), outer
+session68817exit1 at the detached-service cleanup guard, followed by positively owned
+cleanup and cleared ports. All1,062sources retain the originalC1digest; zero productive
+materializations and no completed browser measurement. Raw/live traces, canonical
+store, one new harness-owned UUID evidence directory, worker trace and independent
+failure/control proofs remain retained. The other seven cases/four1,000-entry
+workloads were not executed. After correction, fresh transformed-source/offline
+controls and the actual selected desktop case must pass before any measurement claim;
+final complete qualification still includes all eight cases on integrated sources.
+
+
+### Supported editable performance fixtures — scientific correction contract
+
+D-191's exact14browser-clock correction passes independent architecture and nonauthor
+performance code/method assessment. Twenty-one callbacks have no outer runtime
+captures; browser and Node durations remain in their separate clock domains. The
+fresh actual probe2 proceeds through allfive cold prefixes and real scientific
+children, then fails the first paired edit's strict fully qualified READY predicate,
+actual16196exit1. Source identity and automatic refresh are correct; the response
+is terminal-ready but chemistry unavailable after explicit degenerate-H warnings.
+All1,062source hashes stay fixed8503dae2940aeafdfa795562e379db80659890a1b779e4a8c01b434c6a363151;
+seven children are reaped and normal cleanup clears all owned ports/processes.
+The outside-test reporter error remains retained without an unsupported causal claim.
+
+Independent theory and implementation read the actual artifact and reproduce the
+correct strict refusal. Generated desktop/mobile/bulk representatives qualify all14
+before and after disposable C→N withoriginal_bytes=None, actual70958exit0; all-zero
+negative remains unavailable. D-192 prescribes generated coordinates/complete canonical
+H only for the44actual edit targets, leaving cold/cancel-only and all1,000-entry bulk
+inputs unchanged. Per-target nonpublishing preflight is setup, never shared descriptor
+cache warming, and verifies original/heavy graph/source, finite nondegenerate vectors,
+complete reconciliation and all14qualification. Preserve legitimate warnings and
+every cohort, command, deadline, request/source/READY/work/resource assertion.
+
+The old five-process API proof retains equal historical before/after729maps. Its
+current reconciliation now identifies the native test-only clock change;728unchanged
+API/worker/kernel/Python files remain exact. Any further helper-only additions must
+be explicitly reconciled rather than claiming all729current hashes unchanged.
+Neither partial browser prefix observations nor supported-fixture controls establish
+actual completed browser performance or release readiness.
+
+
+### D-192 corrected fixture execution — retained failed native probe3
+
+Independent scientific implementation, architecture and nonauthor performance CODE/method assessments PASS for the frozen two-harness correction, full1,062-source digest73cf17df957c12894747e4a006e0de214179f6697b4000e7890a945337928233. These scoped assessments do not establish runtime/final performance approval. Fresh selected desktop probe3 completed five cold-prefix and13actualpaired edit/Undo records through58heavy atoms, then production import refused the next62-carbon fixture withcoordinate_generation_failed. Actual enclosing74383exited1 ordinarily after187.4s; sources remained exact, ownedports8450/8451/5450wereunused andnoownedprocess remained. All raw workflow records, native diagnostics and complete/tmp/neistra159-performance-native3store are retained. No partial records are pooled into a passing case or release gate.
+
+Independent frozen production-adapter control reproducesC58success/C62failure. The failure occurs during generated-coordinate fixture import, before its preflight/App demand/timed trigger, rather than automatic current-result publication. Preserve all20editable sizes10–86and allscientific assertions/budgets. A separately recorded, scientifically reviewed fixture-generation decision is required before changing uploaded fixture representation; no size cap, changed graph, production embedding change or automatic rerun is authorized by this failure diagnosis. Sevenothercases/four1,000-entrycohorts andcomplete qualification remain pending.
+
+
+### D-194 — disclosed frozen editable originals
+
+After the independently reproduced C62 production-import refusal, D-194 explicitly replaces only D-192's uploaded-SMILES representation condition with frozen idealized/unoptimized coordinate-bearing MOL/SDF originals. Preserve all44distinct intendedgraphs and sizes, including fourdifferentbulkactivevariants andO–O; retain their intendedSMILES/source manifest and immutable neworiginal bytes. No production embedding change, smaller workload, changed chemistry, adaptive retry or relaxed timing/source/strict-H requirement. All44serialized fixtures require production reparse/edit/inverse/kernel controls before runtime use, then actual-source preflight at every editable import. All old cold/cancel/1,000-entry graph inputs stay unchanged. Implementation and independent corrective assessments precede fresh selected native execution; failed partial records never qualify a passing case.
+
+
+### D-196 lifecycle correction after native1 no-progress evidence
+
+D194's frozen44editable fixtures and runtime source guard receive independent
+science/architecture/performance-method PASS. Selected probe4 then passes one real
+desktop case:5cold/20paired edits and all20runtime preflights, actual7395exit0,
+1110source/49method guards fixed, no orphan processes or occupied ports. Actual
+cold-edit median2057.95ms/p952242.60ms/max3051.80ms are portable observations, not a
+met2000ms target or all8/fourcapacity-cohort acceptance.
+
+A separate161native flow reveals a real no-progress outcome after abandoning an
+entry calculation. The actual159private startup refusal branch can leave a running
+job after reaping and block new admission; independent copied-DB/child controls
+prove this mechanism. D196records the bounded ownership/terminalization repair
+before implementation. Source-tree158does not contain this branch. Preserve every
+failed store and existing deadline; correct159thenpropagate160/161, independently
+review, run focused real-process lifecycle recovery and fresh UI/capacity proofs.
+
+
+### C2 scoped lifecycle correction — captured startup and reaped publication
+
+[Focused evidence](../assets/ligand-properties/c2-startup-ownership-checkpoint.json)
+and its lossless packet bind the complete five-path D-196 correction, candidate1
+sources, original independent reaped-publication failure and corrected regression,
+author logs, independent assessments and focused stores. The2,540,205Bpacket SHA
+`c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24`
+passes independent primary readback:1,734manifest payloads, five recursive ZIPs,
+allCRC/SHA and five current source bodies exact, actual9946cfexit0.
+
+Authorfinal2 passes156focused/six real process supervisors/mypy274/Ruff/format,
+actual18451exit0. Architecture passes29controls plus the original negative;
+scientific implementation passes19including that negative. Performance's scoped
+code/evidence PASS is explicitly a conversation transcription with no invented
+independent execution. The original author988-source guard is distinct from the
+current1,111-source observation and propagated destination1,080/1,091complete maps.
+
+Exact runtime/test propagation into160/161 passes156focused/six supervisors/
+mypy280/Ruff/format in each, actual14403exit0/61535exit0. Four existing C1test
+modules needed by the invocation are copied byte-exactly fromf6e847b; earlier
+missing-path exit4setup logs are retained. Native1's exact runtime branch remains
+an inference; sufficient orphan/recovery mechanisms are independently reproduced.
+Fresh integrated native/performance cases, four bulk workloads, released158base,
+all-seven final review and full candidate/exact-master gates remain required.
+This is a scoped checkpoint, not feature completion or readiness to push.
+
+
+### D-198 pre-code verified-source numerical retirement correction
+
+Independent source-bound controls reproduce a P1 current-authority defect on the
+canonical1,112-source preparation. For genuine same-source integrity/not-found/
+conflict API failures, formula/drawing retire while MW46.069andREADYremain;161also
+retains profilePASS/radar. Strong probe21800exit1has three failing assertions and
+three passing discrimination controls;161extension84415exit1. Controlled API
+responses exercise production components/owners/session; no numerical method error
+or actual storage corruption is claimed. Original source/log/assessment SHA
+`e240b1574d156373d9374e9cde4c41739dc401746161730f9a92123fef79618e`
+remain private and source-bound. D-198records the architecture-reviewed exact-source
+failure-to-session/owner bridge before code. Preserve transport/eviction/unrelated
+numeric qualification; fresh candidate success alone must not revive old bindings.
+All8performance preparation is retained but deliberately unexecuted/noGO until the
+correction passes independent reassessment and fresh appropriate checks.158C12is
+unaffected because it has no live-property integration; its frozen source continues.
+
+
+D-198 channel review establishes an additional depiction-source409negative after
+the first six-path correction. The accepted refinement in DECISIONS preserves
+HTTP codes/status and adds optional typed current/original read provenance,
+keeping derived SVG cache failures local. Correct and independently reassess this
+supported channel before propagation, native execution or performance GO. The
+first candidate's231focused/1,433web passes remain historical evidence; they do
+not establish the corrected candidate or final readiness.
+
+
+The D-198 closure audit also proves a separate reverse property-result gap: six
+actual physical-source failures retire numbers but leave candidate facts qualified.
+The pre-code property-result producer decision requires typed verifier provenance,
+exact request/source guards and one canonical retirement path; generic result
+status/reason and designation-conflict codes are insufficient. Implement/reassess
+this159producer after the earliest158shared boundary. Both unexecuted ALL8prep5/6
+remain historical/HOLD; refresh from the final corrected source before GO.
+
+
+### D-198 source-producer integration — verified local candidate2
+
+The complete1,122-source correction is frozen at compact digest
+`28760569338bf572a0edbf1ddb98b829b90fda17196c1d1fe1d92a45bbd7dc1e`;
+map-file SHA256 is`29c3c5c31aaead721d442b95052848786d2786731864405e1777055e22329fbd`.
+Twenty owned paths comprise13existing changes and seven additions. Four common
+runtime modules and six common regression paths match the accepted158source
+checkpoint4965727c exactly. App and API routing are merged narrowly around the
+existing property/lifetime owners; no source, molecular interpretation or numerical
+method is changed. Only_current changes within the property service, preserving
+all33other methods and protected D-196 implementation/startup tests.
+
+The verifier preserves physical snapshot/read provenance through its existing
+operation-local memo, attributing shared-artifact failures to each row. The existing
+current result gains one optional typed fact with all four primitive source IDs,
+current/original role and a fixed classification. The session validates that fact
+after existing request ownership checks, publishes it synchronously to the canonical
+inventory owner, and returns immediately after its own authority retires. Generic
+failed/unavailable states and semantic409 do not prove physical-source failure.
+Candidate and numerical recovery retain separate genuine-check requirements.
+
+Author actual97831exit0 completes357focused/1,559web, lint/types/build/Ruff/format/
+mypy274. A new-test-only import/mock typing correction reuses only the exact unchanged
+90backend/156D-196/six-supervisor subjects; first actual55633exit1/candidate1/raw logs
+remain preserved. Two source-fixed actual six-failure replay sets and restored
+candidate GET controls establish one-event retirement and zero allocation/demand;
+actual46715exit0 proves candidate recovery alone cannot restore numbers. Numerical
+READY/recovery payloads remain controlled fixtures, explicitly distinct from new
+scientific execution or actual App-browser qualification.
+
+Independent architecture and scientific implementation return scopedPASS. Their
+separate21backend/sixASGI/sixsession and58backend/148frontend/sevenASGI/12session
+checks are not pooled into a full gate. Root independently verifies100handoff
+artifacts, six ZIP CRCs, all five complete/owned source-map ZIP unions and all1,122
+current qualifying source identities. Original49authority tests and D-194's49paths
+remain exact. Raw negative proofs, candidate1 and original1,115sources are retained.
+
+Source-bound local evidence packaging and propagation into160/161 continue. ALL8
+performance preparations5/6 remain unexecuted/HOLD and stale after this correction.
+Actual released158integration, current native/performance, complete candidate and
+exact-master gates, all-seven final same-candidate review and protected delivery
+remain required. This checkpoint is not feature completion or readiness to push.
+
+The [source-producer checkpoint](../assets/ligand-properties/c2-source-producer-checkpoint.json)
+and [lossless packet](../assets/ligand-properties/c2-source-producer-evidence.zip)
+now retain1,400regular payloads,45recursive ZIPs/1,425manifest entries/55project
+archive files, all100author handoff artifacts, original write/reverse negatives and
+raw owned stores. The27,099,010-byte ZIP has SHA256
+`7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b`.
+Primary actualdd139dexit0 verifies every recursive manifest/CRC, exact regular-file
+unions for author/independent review/original-write evidence, all20current owned
+source copies, the complete current1,122-source qualification inventory and all
+earlier public asset identities. All138owned link records remain validated metadata
+without active ZIP links or omitted cache files. This is a local passing checkpoint,
+not a complete native/performance/release qualification or all-seven final approval.
+
+
+### Early complete code audit — bounded worker-recovery correction in progress
+
+Candidate049173da is compared with the actual initial shared forkcd6715d3, covering
+all147intended paths. This is distinct from later integration of the actually
+released #158 prerequisite. Early theory and scientific implementation audits find
+no consequential scientific-method defect: all14definitions, strict H/stereo/input
+qualification, numerical domains, sealed cache/current-source proofs and existing
+regression subjects are inspected. They are code/method assessments, not final
+readiness or newly executed numerical tests. All1,122old source bodies remain the
+subjects of those historical assessments.
+
+Architecture finds two consequential P2 gaps: raw descriptor-cache OSError can stop
+worker startup before ordinary work; and implementation-version or input-load
+refusal before _run_claimed leaves a never-started private capture unreaped, bypassing
+terminal retention. The appended D-196 continuation records the accepted narrow
+correction: isolated cache warning/rollback; immutable pre-dispatch capture; exact
+writer-locked ownership plus affirmative absent process metadata; existing truthful
+terminal classification; re-lock/recheck before reaped/prune. Preserve foreign,
+replacement, deleted and positively registered records for verified recovery.
+
+Only job_worker.py and a new independent regression file are assigned for code.
+Original startup tests and D-194's49paths stay exact. No numerical algorithm, schema,
+version or cap change is authorized by this correction. No execution checks run
+while #158's exact-master browser qualification occupies the host. The patch is
+work in progress, not a passing checkpoint or ready-to-push implementation.
+
+After the active #158 gate, prove startup-I/O isolation with ordinary work; both
+pre-dispatch refusal paths; repeated failures beyond32terminal captures; retirement,
+already-terminal, replacement/foreign/deleted and positive-process metadata races.
+Run affected static/focused checks, reconcile findings and renew source-bound
+preparations. ALL8prep7 and earlier maps remain retained/HOLD; they must refuse
+changed source bytes. Integrate actual released #158 before final version/predecessor
+qualification, complete candidate/exact-master gates, all-seven final assessment and
+normal verified release. Parent #11 and its single Goal remain active.
+
+
+### C2 pre-launch recovery correction — verified bounded checkpoint
+
+2026-11-18: complete the accepted two-P2 repair in job_worker.py and the new
+independent test_ligand_property_preload_ownership.py. The baseline worker loaded
+without replacing production files reproduces three intended failures with zero
+setup errors. Corrected source passes33 new tests and171 affected existing tests,
+zero skips/errors. Global Ruff passes. The additional whole-tree format probe
+fails on105 source-identical historical files; preserve the original failed receipt.
+Owned formatting, mypy274 and diff checks pass in the unchanged-source continuation.
+Architecture independently returns scopedPASS and closes both P2s.
+
+The [checkpoint](../assets/ligand-properties/c2-prelaunch-recovery-checkpoint.json)
+and [lossless evidence ZIP](../assets/ligand-properties/c2-prelaunch-recovery-evidence.zip)
+preserve every799regular input payload,106validated inert aliases and409empty
+directories, including negative/positive/failed-format/continuation attempts and raw
+stores before diagnostic processing. The1,665,983-byte ZIP SHA256 is
+`99b77afb632cfaa88654d1f3753d7f0b3620c351752998fde837805a7cfc39d5`.
+Primary readback verifies all807manifest entries, exact original-file union, CRCs,
+corrected source bodies and the complete current1123-source map. Its compact digest
+is8741811eef3861af1ab3be5f7397de434da38a6baa5239a8ec981e19b11a5ba3.
+No original source/store/evidence is replaced and no SQL is opened for packaging.
+
+This is a passing local checkpoint only. The old1122-source ALL8prep7 remains
+unexecuted/HOLD and must reject the corrected worker. Propagate verified shared
+corrections, refresh literal guards and integrate the actually released #158 before
+final159version/preceding-reader qualification. Required performance/capacity/native
+workloads, complete candidate and exact-master gates, all seven same-final-candidate
+assessments and normal verified delivery remain pending. No push readiness is claimed.
+
+
+### C3 local integration of the published qualified predecessor runtime
+
+2026-11-18: v0.36.0 is stable/latest release449776471, with all56initial server
+asset identities matching their expected hashes. Its annotated tag resolves to the
+fully qualified247ab651 runtime. Full anonymous evidence verification and terminal
+#158 closeout remain pending; this local integration does not claim that delivery
+complete or permit #159 final publication ahead of it. Later terminal158documentation
+must also be integrated before final159qualification.
+
+Merge that actual published runtime into the159checkpoint8a4f5385. Resolve App
+byte-for-byte to its existing a1673375 body and canonical inventoryOwner, preserving
+the numerical bridge/captured-operation qualification. Union the two missing accepted
+predecessor decisions D-189 and the ligand-source D-198 context without replacing
+existing159decisions. Retain the exact qualified JobsPanel and six frontend cases,
+four native test/helper refinements, forensic verifier and64unit controls. No API,
+core scientific, schema, worker or descriptor/session source changes in this merge.
+
+The fresh existing-policy inventory has1125sources: the verifier/tool test are
+added, two frontend files and four inherited native test/helper bodies change, all
+other prior subjects remain exact. All changed/added source bodies match the
+published predecessor verbatim; App remains exact159. Fresh integrated validation
+passes1565frontend tests/133suites,64verifier tests, frontend lint/types/build,
+globalRuff and diff checks. Actual enclosing95335exit0; the complete1125-source
+map remains fixed through every command. Earlier worker33+171/static and D-194
+method evidence remain tied to unchanged subjects; they are not pooled as a full gate.
+
+This is a coherent local integration checkpoint, with no push/full-feature/all-seven
+readiness claim. Refresh future source guards from the actual final candidate after
+prerequisite closeout/documentation, final0.37version/preceding-reader preparation
+and any required measured latency correction. Required native/ALL8/capacity, full
+candidate/exact-master gates and final specialist reviews remain mandatory.
+
+
+### C3 release preparation — five consistent versions and user contracts
+
+Prepare0.37.0 in the five authoritative sources after fresh remote collision reads
+find no matching tag/release. Preserve every dependency pin and the existing0016
+migration bodies; the only new head is0017. Project/archive3 and viewer2 stay fixed.
+Publish the actual implemented user/API/schema/scientific-limit contracts, keeping
+performance, actual old-code compatibility and final release qualifiers explicit.
+The inherited archive test's expected current-version pin advances0.36→0.37 and
+adds the0.36label row without removing an assertion or old row. This matrix runs
+current codec code with labelled metadata; it is not actual preceding-reader proof.
+
+Fresh scoped preparation passes versions/schema/dependency audit against actual
+247ab651, offline lock check,67archive cases/zero errors/skips, Ruff/mypy274, frontend
+types/build and diff checks. Root enclosing38263exit0/chunk9cf28f; all1125selected
+sources stay exact. The first direct helper wrapper omitted required PYTHONPATH;
+its import failure is retained and the approved recipe environment fixes it. The
+next run retains46old-pin failures/20passes; the version-specific test correction
+then passes all67. No scientific method, source fixture or production fallback is
+changed to obtain these passes.
+
+Independent documentation author checks14definitions,7actualroutes,6migration
+tables, caps and8local links/anchors against18source files, without workloads. Root
+reviews the full guide and preserves installation-wide CAS/consumer distinctions,
+exact preview/committed freshness, qualified unavailable states and downgrade guards.
+#158 publication receipt8217564e and canonical completed reply are verified; its
+normal terminal documentation still must merge/integrate. Local preparation remains
+separate from full native/ALL8/capacity/actual0.36reader, final candidate/exact-master
+gates and all-seven same-final-candidate review. No0.37tag/release or push readiness.
+
+
+### C3 integration of the fully delivered predecessor
+
+Merge actual terminal-documentation master254babcd into release-preparation
+checkpoint9046ab15. Resolve only PROGRESS/PROJECT_SCHEMA/RELEASE_NOTES narratives:
+retain the159installation-owned0017contract and0.37versions, add exact predecessor
+designation/schema wording, and retain its committed exact-runtime qualification
+baseline. No application, scientific method, fixture, dependency or source helper
+changes are part of this merge. All1125selected path/body pairs remain identical
+to the passing release-preparation checkpoint.
+
+#158 is fully delivered: PR176 merges terminal documentation at254babcd, all seven
+terminal assessments PASS reviewed9373f8a3, and all1013runtime source bodies stay
+fixed. Three owned branches are verified absent locally/remotely with worktrees
+and raw evidence preserved. The [final delivery receipt](../assets/ligand-designation/c7-delivery.json)
+and [public self-verification](../assets/ligand-designation/c7-delivery-verification.json)
+bind final anonymous HTTP200/body/server-digest checks, canonical reply6976173710
+and stable/latestv0.36.0. Runtime247ab651 and annotated05ec6685 remain immutable.
+Historical earlier pending fields describe their original phase, not current status.
+Parent11remains open and its one matching Goal remains active.
+
+This integration remains a local checkpoint, not final feature readiness. Actual
+0.36reader execution, refreshed source-bound performance/capacity/native/ALL8,
+full43-command candidate and separate exact-master gates, all seven final reviews
+and normal publication remain mandatory. A pre-merge observer used the wrong JSON
+serialization for a historical source-map digest and stopped before Git mutation;
+full dictionary equality against all1125passing checkpoint identities resolves it
+without any source or acceptance change.
+
+
+### Actual predecessor extraction and interpreter preservation
+
+Extract all1013selected regular source blobs directly from actual annotated
+v0.36.0 (05ec6685→247ab651) into a fresh isolated tree. Verify the complete
+path/body map and unchanged dependency package pins; no version-labelled current
+copy supplies old code. The complete source receipt remains bound to247ab651.
+Actual compatibility actors remain pending at this checkpoint.
+
+Preflight stdlib subprocess probes establish that resolving `.venv/bin/python`
+to its system executable loses the virtual environment and locked dependencies,
+even with correct implementation-specific cwd/PYTHONPATH. Preserve the explicit
+absolute interpreter path instead. Only the shared reader launcher and its unit
+contract tests change; source ownership, actor cwd, environment, identity checks,
+all prior assertions and the43-command recipe remain intact. Four new offline
+controls cover absolute/relative symlinks and both suites across all three actor
+phases; each fails against the original launcher. Corrected82reader/recipe cases,
+Ruff, formatting, mypy2 and diff checks pass. The first static attempt's unit-test
+module-export typing error is retained and corrected without runtime changes.
+All1123other source path/body pairs remain unchanged; D-194methods/fixtures stay
+exact. This scoped checkpoint does not establish actual old-code compatibility,
+full performance qualification or final feature readiness.
+
+
+### Actual reader diagnostic and exact partial-chemistry oracle
+
+At cleanb6b38ac4, the actual current→v0.36→current property diagnostic completes
+producer and old-writer phases with observed exits0. Current reopen stops at the
+unconditional qualified-model assertion for the deliberate stale specimen. The
+complete198regular-file/22empty-directory failed workspace is frozen before root
+diagnostic processing: rawZIP SHA256
+`0e0b6c7f621d3ef1fd34a4f78c03cf1bbd05a4bcb713d3e230ae14e9afa8669f`.
+The original workspace and logs remain intact; no compatibility pass is inferred.
+
+Independent theory and architecture assessments identify a fixture-oracle defect:
+the accepted preserved-H C→N edit produces N–C–O with qualified counts/charges and
+unknown hydrogen semantics. Preserve this useful edited-unknown case. The corrected
+launcher records the existing pre-edit hash without calculating a replacement, then
+requires ready counts3heavy/2hetero/1carbon/charge0 and false charged-atom presence,
+with explicitly unavailable/null MW/HBD/HBA/TPSA and the exact hydrogen reason.
+All eight requested descriptors must appear once; the current scientific hash must
+differ from old ethanol. Other cases remain fully qualified.
+
+Actual current response source/instance/membership, report and scientific projection
+are retained and checked on reopen and both remapped archive suffixes. The separate
+coordinator revalidates them, including equal scientific hash, values, method, policy
+and library identity across reconstruction. Creation time is excluded from semantic
+equality because valid warm reuse or fresh recalculation is permitted. Existing
+canonical warnings/protection/history/originals/designation/preferences/user output,
+old-source409, private authority and no-imported-execution guards remain.
+
+The bounded correction changes only the reader helper and its unit-contract file;
+102reader/recipe cases plus Ruff/format/mypy2/diff checks pass. Twenty added controls
+cover exact partial outcomes and rejected wrong chemistry/counts/reasons/coverage,
+old hash reuse and cross-actor/archive/source/method inconsistencies. No production
+chemistry or scientific input policy changes. Scoped correction reassessments and
+a fresh complete actual-reader sequence remain required, separately from full43
+candidate/exact-master, current performance and all-seven release qualification.
+
+
+### Actual preceding-reader sequences pass at 586390e3
+
+Fresh execution2 completes property and broader editing suites with all six actor
+phases exit0. Primary directly observes enclosing97675exit0/c28be9; all1125current
+and1013actual0.36source bodies remain fixed throughout. Both source trees use the
+explicit locked virtual environment with implementation-specific cwd/module paths.
+The annotated predecessor05ec6685→247ab651 and all five0.36versions remain verified.
+
+The property suite covers all nine private lifecycle fixtures, nonmutating unknown
+0017 migration refusal separately from positive old API/archive writes, ordinary
+job default ownership, exact target deletion/Undo, retained preferences, canonical
+warnings/protection/designation, original uploads, user outputs and history. Fresh
+current responses and both remapped archive suffixes retain the exact partial stale
+outcome and its new scientific hash; no old ethanol numerical values return. The
+broader editing suite preserves its independent old-produced/forward-upgraded and
+current-produced/old-written/current-reopened responsibilities and both suffixes.
+
+Complete raw successful property workspace:203regular files/21empty directories,
+ZIP1,334,101bytes SHA256
+`e3557dd51f90c16ecb73bc4247d489790a8aa358bd30ccff42f81e5ea8967b30`.
+Complete raw editing workspace:796regular files/6empty directories, ZIP4,433,672bytes
+SHA256 `7ced4f32e20998e4432551c4ef6538ce00611981973bb7924b248077af932bf1`.
+All original file bodies, exact unions, CRCs and manifests verify; original stores
+remain intact. Packaging opens no SQL. Failed attempt1 remains separately retained.
+
+This is actual-source scoped compatibility evidence, not the complete43-command
+release gate or final readiness. Simultaneous old background-worker execution is
+not qualified; deploy matching client/server/worker versions. Archives retain
+snapshots rather than live Undo history. Current performance, full candidate and
+exact-master qualification, all seven final reviews and protected delivery remain.
+
+
+### C3 scoped compatibility and diagnostic-clock checkpoint
+
+The [checkpoint receipt](../assets/ligand-properties/c3-reader-clock-checkpoint.json)
+and [lossless supplement](../assets/ligand-properties/c3-reader-clock-evidence.zip)
+preserve the complete frozen input union from ten bounded preparation/review/test
+directories:371regular files,74inert symlink metadata records and145empty directories.
+The7,390,348-byte ZIP SHA256 is
+`2607a58fa0c937b48d8c2e89649b0747fac01aba95ac171d49996e72e8790319`.
+Both successful actor workspaces, the failed original workspace, all correction
+checks/reports, actual predecessor receipt and clock preparation remain included;
+originals remain in place. Exact outer union, all file hashes and CRCs verify without
+opening SQL. Recursive text inspection covers4263members with neutral terminology.
+
+Add browser document origins and calibration records solely to diagnostic evidence.
+Preserve342assertion calls, eight timeout/wait calls, all numerical literals/case
+templates/imports and every measured start/stop expression. Strict TypeScript and
+static collection of all eight performance cases pass. The benchmark file advances
+from2b3c0439 to a1b1a1ca; the other48method bodies and646application/package files
+remain exact. D-194's diagnostic addendum records cross-clock uncertainty and the
+precommit meaning of worker bind_return. No workload or speedup is claimed.
+
+The actual reader evidence binds prior clean586390e3. This checkpoint's sole source
+delta is additive benchmark instrumentation; production algorithms and scientific
+fixtures are unchanged. Regenerate a fresh complete current source/method/validation
+binding before ALL8 execution; never edit/replay the stale prep7pins or count its
+HOLD preparation as a pass. Performance/capacity and full43candidate/exact-master
+qualification, all seven final reviews and normal release delivery remain pending.
+
+
+### C3 complete current ALL8baseline and measured timing limits
+
+At cleanc22e7579, fresh baseline native-probe8-all8completes every original case
+once, without skips, retries, flakes or failures. Primary observes enclosing91266
+exit0/2cf0f2. All1125source paths/bodies,49method files and HEAD stay fixed. Owned
+process cleanup and ports, source postguards, resource capture, bounded worker trace
+and immediate raw DB/WAL/SHM copies before diagnostics pass. Original stores and
+all earlier preparations remain intact. Four1000entry bulk workloads preserve
+productive ordering and ordinary-job fairness; those hard proofs pass separately
+from latency targets.
+
+| Observed metric | Result | Existing target/disposition |
+| --- | --- | --- |
+|40cold edits, both profiles | median2036ms; p952163.2; max2210.4 |27exceed2000ms; retained miss |
+|40matching-cache projections | median59.2ms; max69 | All below100ms; zero warm jobs |
+|Cancellation feedback |11.7/6.1ms | Both below100ms |
+|Desktop bulk active, repeated/distinct |7623.9/7928.6ms | Both exceed5000ms |
+|Mobile bulk active, repeated/distinct |3605.3/3757.6ms | Both below5000ms |
+
+Desktop warm-click feedback also misses100ms in19/20samples, while matching-cache
+projection remains independently fast. Mobile warm visible time includes deliberate
+presentation opening and must not be mislabelled cache latency. Portable workflow
+PASS does not establish universal timing acceptance or strict reference-host
+certification. No target, workload, scientific fixture or deadline is reduced.
+
+The [baseline receipt](../assets/ligand-properties/c3-all8-baseline-checkpoint.json),
+[full timing assessment](../assets/ligand-properties/c3-all8-baseline-assessment.json)
+and [clock diagnosis](../assets/ligand-properties/c3-clock-diagnosis.json) distinguish
+actual observations, inferred bounds and unresolved attribution. The complete
+[raw baseline packet](../assets/ligand-properties/c3-all8-baseline-evidence.zip)
+is34,763,616bytes SHA256
+`5f01dadeaa5c9d0065f6ed67ef007c2fc38bb41070bf2f54f0f1359599cd01ad`.
+It contains all4807regular runner/harness/workspace inputs (214,640,422uncompressed
+bytes), seven empty directories and an exact manifest; all original bytes, outer
+union and CRC verify without SQL. Prior unrelated/superseded runs are retained
+separately rather than recursively copied.
+
+Closed desktop traces match all20exact source/job/input/owner generations. READY
+READ starts follow a postcommit-bounding successful worker turn by at least191ms,
+median258ms; the pending timer contributes observation wait. This does not imply
+all750ms is removable or prove a600ms counterfactual. Desktop bulk delay is larger:
+approximately3.0–3.2s from ACK headers to changed-source READ, followed by1.7–1.76s
+demand HTTP. Mobile bulk has different polling phases and may add a poll under
+a shorter cadence. A one-delay trial is therefore on hold while the larger path
+is profiled. No production polling interval has changed.
+
+Next perform a transparent isolated profiling diagnostic using unchanged desktop
+cold/edit, cancellation and repeated-bulk bodies to recreate the prelude. CPU/
+network/ASGI instrumentation overhead is disclosed; that diagnostic is not a new
+latency qualification or a reduced final workload. Attribute actual client/API
+cost before selecting a correctness-preserving fix. Any accepted source correction
+still requires current unit/source-fence regression checks, the full original ALL8
+and complete candidate/exact-master43gates, all seven final reviews and normal
+protected release delivery. Parent11remains open.
+
+
+### C3 measured inspector correction and passing local checkpoint
+
+The sealed [desktop analysis](../assets/ligand-properties/c3-desktop-profile-analysis.json)
+binds captured `8d24605` / 1,125 sources and all 49 methods. Diagnostic1 outer143 is
+interrupted; diagnostic2 actual runner1/global trace guard is incomplete. Its
+active edit window is fully covered, with no trace data loss in the returned prefix.
+Neither diagnostic becomes a passing test or latency qualification. The complete
+raw 14-root / 2,634-file packet (190,937,608 bytes, SHA256
+`5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d`)
+is retained privately for future release asset
+`neistra-v0.37.0-desktop-profiling-diagnostics.zip`; it is not yet published.
+[Metadata](../assets/ligand-properties/c3-desktop-profile-checkpoint.json) records
+both actual outcomes. Primary independently verifies every original/archived body,
+exact outer union and 38 recursive ZIPs without SQL.
+
+The measured renderer path contains quadratic inspector query tracking and repeated
+entry scans. D-201's correction indexes current entries, memoizes the identical
+query set and explicitly observes data/error/placeholder result fields. All current
+source keys, hidden/selected scope and complete-projection guards remain. Only
+ProjectInspector changes among existing selected sources; one meaningful regression
+file is added. The new 1,126-source compact-map digest is
+`413b364b0de9a6046211a9586713e1c150f8ea2dc8e2598821e8d3a2781e4b22`;
+all 49 benchmark method bodies remain exact. Scientific/API code, versions and pins
+are unchanged.
+
+The expected red resource control records 50,500 / 5,005,000 tracked calls and
+10,200 / 1,002,000 ID reads at 100 / 1,000 entries. The correction records 0 / 0 and 200 / 2,000;
+every query remains subscribed and no molecular read is added. Focused 137 tests in
+eight files pass. The final 3 tests add full observer-scope assertions and preserve
+seed→full qualification, retained-data failure/recovery, held project ABA and entry
+removal. Lint and typing pass after correcting three test-only lint findings; the
+unchanged production body has a passing build. Scoped independent architecture PASS
+covers the complete production delta and final test. These are local checkpoint
+checks, not all-seven final approval. Earlier scientific code assessment PASS binds
+captured8d and requires final intervening-diff confirmation.
+
+The [correction packet](../assets/ligand-properties/c3-inspector-correction-evidence.zip)
+and [receipt](../assets/ligand-properties/c3-inspector-correction-checkpoint.json)
+preserve raw failing/passing logs, source bodies, source/method maps, attribution and
+scoped assessment. Browser responsiveness must now be remeasured with the unchanged
+full original ALL8. D-148 keeps absolute targets opt-in on a controlled reference
+host; mandatory portable scientific/state/request/work/resource/fairness criteria
+remain. Full 43-command candidate and exact-master gates, final all-seven assessments and
+normal protected publication/closeout remain pending. Parent #11 stays open.
+
+### C3 failed remeasurement and bounded maintenance/tooling checkpoint
+
+Native9 attempts the full eight-case program from clean 0f843c17 / 1,126 sources / 49 methods
+with one worker, no retries and max failures 1. Actual detached child wait exits 1.
+Three desktop cases pass; distinct bulk fails on HTTP 409 `property_consumer_expired`;
+four mobile cases do not run. The next heartbeat begins 27.443 ms after its returned
+expiry. The backend is correct; the test's 20-second maintenance check is delayed by
+its sequential five-owner progress/assertion sweep. Source maps, cleanup, resource
+observer completion and raw DB/WAL/SHM capture before SQL pass. No test is relabelled.
+
+The complete failed raw packet is 51,668,757 bytes, SHA256
+`c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae`.
+Primary independently verifies all 3,225 original and archived file bodies, seven root unions,
+five empty directories and 16 recursive ZIPs / 3,240 evidence entries / 20 project files.
+Originals remain. Planned separate forensic asset
+`neistra-v0.37.0-native9-failed-all8.zip` and checksum are publication-pending;
+the main qualification archive carries its [metadata](../assets/ligand-properties/c3-native9-failed-checkpoint.json),
+not the raw forensic payload. Existing 191 MB profiling diagnostics remain separate.
+
+Closed partial measurements show desktop cold median 4,438.55 ms / p95 7,681.7 ms /
+max 8,695.7 ms, cache median 158.7 ms with 17/20 over 100 ms, repeated-bulk active 17,494.1 ms
+and cancellation 27.9 ms. Warm new jobs remain zero; repeated 1,000-entry bindings and
+productive fairness pass. Shared-host load is materially higher than the earlier
+baseline. These observations establish neither a causal regression nor speedup;
+failed distinct capacity/fairness and unrun mobile cases remain unqualified.
+
+D-194's maintenance refinement uses one independent globally serial lane, same
+five owners/payloads/sequence 1 and 20-second due rule, no overlapping/catch-up PUTs,
+retries, reallocation or TTL change. Stop awaits in-flight maintenance before
+sequence 2 release. First failures and partial arrays survive observer cleanup.
+Eight deterministic controls include the expired unmaintained 60-second negative
+control while five maintained leases survive 125 seconds of held foreground work.
+All 167 original assertion-chain AST bodies, 334 expect call nodes plus 8 budget calls,
+five wait calls plus three case deadlines and 56 pre-bulk statements except the new
+import remain exact. Full web lint/types and strict benchmark TypeScript pass;
+scoped architecture/performance assessments pass for the exact corrected subjects.
+
+Two definite release-helper defects are also corrected: nonexistent generic C2/C3
+receipts become the actual scoped checkpoint contracts, and the approved-plan path
+is corrected. All 24 other function ASTs and release/source/all-seven/merge guards
+remain unchanged. 52 offline controls pass, including complete independent raw member
+union and failure on missing/malformed/tampered final ALL8 proof. No final success
+sidecar or packet is invented to satisfy this guard.
+
+The [local tooling packet](../assets/ligand-properties/c3-lease-maintenance-evidence.zip)
+and [subject receipt](../assets/ligand-properties/c3-lease-maintenance-checkpoint.json)
+bind 1,128 selected sources and 50 benchmark subjects. Existing production and scientific
+bodies match native9. Only the old benchmark spec changes among 49 previous methods;
+its new maintenance dependency is declared explicitly. Renewal traffic and full
+response retention are new measured overhead, inside original clocks. No unchanged
+method, timing certification, current ALL8 PASS or final specialist approval is claimed.
+Next run all eight original workload cases under the corrected method, then both
+complete 43-command gates, all-seven same-final-candidate assessments and protected
+delivery. Parent 11 and the single program Goal remain active.
+
+### C3 measured test-reporting correction and authored complete gate recipes
+
+Actual native10 at 060c0fa0 exits 1 with three desktop passes, one failed distinct
+bulk case and four unrun mobile cases. The 20-second serial lane is running, but
+four preceding renewals occupy approximately 51.17 seconds after the affected owner's
+earlier response. Its next request begins approximately 6.896 seconds after expiry;
+the backend correctly returns 409. The raw trace records 48,641 matcher steps,
+88 synchronous 200-row blocks totalling 193.355 seconds, and a longest 7.879-second block
+with 801 steps. Response-receive spans overlap those blocks. These are closed test
+instrumentation observations, not exclusive server or application CPU attribution.
+
+The complete failed packet is 55,068,041 bytes, SHA256
+`2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f`.
+Primary independently verifies all 3,407 original and archived file bodies, seven root unions,
+three empty directories and 16 recursive ZIPs / 3,425 evidence entries / 20 project files.
+The original transport ERROR/identityfalse, actual runner 1, subsequent exact process
+identity observations and scoped recovery assessment remain distinct and retained.
+Planned separate asset `neistra-v0.37.0-native10-failed-all8.zip` and checksum are
+publication-pending; [metadata](../assets/ligand-properties/c3-native10-failed-checkpoint.json)
+belongs in the main evidence while the raw forensic payload stays separate.
+
+The complete batch oracle preserves ordered source equality and checks every
+ready/pending status. Each ready row must have a qualified report, 14 values and
+every value ready/finite. One bounded indexed diagnostic per invalid row replaces
+repeated matcher reporting; no row/value is sampled. Pending null/partial reports,
+zero and negative finite values keep their former meaning. Exact-byte comparison
+shows only one import, four removed matcher sites and one added batch matcher;
+all other benchmark bytes and the heartbeat helper remain identical.
+
+16 focused tests pass: eight new oracle controls plus eight existing maintenance
+controls. A separately transcribed literal prior oracle rejects the same 641 predicate
+fault batches and 4 source/order faults. Every one of the 200 status positions, first/middle/last
+report boundary and all 14 descriptor positions are exercised. Data matcher calls are
+801→2 for 200 ready rows. Full web lint/types and strict benchmark TypeScript pass;
+scoped architecture/performance assessments pass on the exact corrected subjects.
+No application latency improvement or completed qualification follows from this.
+
+The [local packet](../assets/ligand-properties/c3-bulk-validation-evidence.zip) and
+[receipt](../assets/ligand-properties/c3-bulk-validation-checkpoint.json) bind
+1,130 sources and 51 benchmark subjects. Existing production/scientific/lease bytes and
+all 49 non-spec prior benchmark bodies remain unchanged. The new pure validator is
+an explicitly declared method dependency. Prior failed runs are never relabelled.
+
+Both actual complete 43-command recipes are now authored before qualification:
+`c4-candidate1-recipe.json` and `c4-master1-recipe.json`. They retain frozen installs,
+full scientific/frontend/native inventory and execution, migrations, all existing
+reader families and actual current→v0.36.0→current editing/property actors. Actual
+annotated v0.36.0 targets 247ab651 and its 1,013-source extraction/receipt are bound.
+The two owned /tmp bases are empty; no gate has started. Their absolute implementation
+path is this owned feature checkout, which can qualify the verified exact merged
+commit without touching another checkout. Fresh complete ALL8, both 43 gates,
+all-seven same-final-candidate review and normal protected release remain required.
+
+### C3 corrected current ALL8 portable qualification
+
+Native11 executes the original eight workloads at clean 995e80f8, with one worker,
+zero retries and the unchanged fail-fast rule. Actual runner wait exits 0; all eight
+cases pass in one attempt with no skips, failures or flakes. Normal supervisor/runner
+PID, start token, argv, parent, process group and session are positively verified;
+terminal wait and cleanup remain distinct from launcher acceptance. Before/after/current
+source maps and both complete source ZIPs match all 1,130 sources and 51 method subjects.
+All owned services are cleaned up before original DB/WAL/SHM bytes are copied and
+hashed, without SQL. The complete worker/resource observations remain available.
+
+Closed metadata analysis exits 0; 24 meaningful terminal controls reject failed or
+Boolean wait codes, wrong candidate/source/method identities and wrong process bindings.
+Independent performance assessment verifies all 116 consumed bodies, the actual
+eight-case report, all 40 cold/warm current-source result pairs and all four bulk
+work-order proofs. Each bulk cohort reaches 1,000 ready entries with 1 or 1,000
+qualified input hashes, 3 or 127 private jobs, at most one running job and all completed
+children reaped. Ordinary productive turns before claim are 1–2, within the limit 4;
+productive bulk turns before active admission are zero, within the limit 1. Original
+scientific/read/request/capture/publication/batch/cache/retention bounds pass.
+
+Measured cold edits have median 2,102.85 ms, nearest-rank p95 2,279.1 ms and maximum
+2,595.3 ms; 32/40 exceed 2,000 ms. Desktop bulk active values take 6,928.2/6,921.8 ms,
+above 5,000 ms; mobile takes 3,144.9/3,967.4 ms. Feedback exceeds 100 ms in 21/84
+observations. All 40 matching-cache projections finish within 74.5 ms and enqueue
+zero new jobs. Cancellation feedback is 22/7.1 ms, preserving accepted late-reply
+retirement and explicit Retry; this is not worker-kill latency. All 105 recorded
+renewals succeed with unchanged sequence/payload and nonoverlapping header intervals;
+28,801,010 UTF8 response-body bytes are preserved and costs stay inside measured clocks.
+546 sampled resource rows record a maximum joined owned RSS of 1,805,557,760 bytes;
+browser/GPU and short-lived accounting remains incomplete, with no universal ceiling claim.
+
+The [complete raw packet](../assets/ligand-properties/c3-all8-remeasurement-evidence.zip)
+is 41,422,460 bytes, SHA256
+`95d800bc538e376003e2958821fefaa191710111453c4ab148fd8181a7076fa3`.
+It preserves all 4,896 original regular inputs / 285,805,034 bytes across 15 roots,
+including the complete runner, eight workflow roots, workspace, prelaunch/terminal
+proofs, closed analysis and attributed scoped assessment. Three empty directories
+are described; no aliases or input omissions occur. Primary separately reads every
+original and archived body, exact union and CRC, then verifies 15 recursive ZIPs,
+4,909 evidence entries and 20 project files. Originals and earlier packets remain.
+The [actual successful receipt](../assets/ligand-properties/c3-all8-remeasurement-checkpoint.json)
+and [measurements](../assets/ligand-properties/c3-all8-remeasurement-analysis.json)
+retain timing misses and distinguish portable qualification from strict-host certification.
+
+This completes current C3 performance evidence only. The explicit method change and
+shared-host conditions do not establish a causal or same-method application speedup.
+Full 43-command candidate/exact-master gates, all-seven final same-candidate assessments,
+protected merge, verified 0.37.0 publication and closeout remain. No implementation
+push, PR, tag or release exists for #159 at this checkpoint. Parent #11 and the single
+program Goal remain active for #159–#163 after delivered #156–#158.
+
+### C3 final review correction — declared evidence directories and typed receipts
+
+All seven roles assess the complete f435e7c0 change against released delivery master
+254babcd. No consequential production/scientific/UI defect is found. Architecture
+identifies a P2 in `check_manifest`: its exact union omits explicitly declared empty
+directories. The immutable reader-clock packet has 371 regular files and 145 directory
+entries; the baseline packet has 4,807 regular files and seven directory entries. Both
+have valid bodies but the existing final release verifier rejects their directory names.
+Preserve every original byte; correct the verifier rather than changing old evidence.
+
+The correction accepts only unique canonical safe declarations matched by actual zero-byte
+directory entries. Reject undeclared/missing/nonempty entries, incompatible file modes,
+duplicates, traversal/absolute/backslash/noncanonical paths, file/directory ancestry
+collisions and tampered file hashes/sizes. Exact regular-file union, SHA, size, CRC,
+recursive checks and project-manifest accounting remain. Existing 52 test bytes remain;
+37 additional controls include both actual immutable packets and independent synthetic
+faults. The final unsafe-path fixtures match the bad ZIP name to its bad declaration,
+so refusal exercises path policy rather than an incidental missing member. Initial
+successful/provisional subjects and the final stronger subject retain distinct hashes.
+
+All 89 integrated controls pass, as do Ruff/format and direct helper mypy. The extra
+type check exposes two existing `Any` returns; one dictionary assertion each in
+`verify_package_receipt` and `expected_archive` preserves their typed contract. Only
+these three helper functions change; 23 others remain AST-identical. All ten preceding
+C1/C2/C3 ZIPs pass complete recursive validation with the corrected manifest function,
+with before/after original hashes exact. The public helper and its existing unit-test
+file are the only two changed selected sources; all 51 benchmark subjects, production,
+scientific inputs, fixtures, workload, targets and acceptance remain unchanged.
+The [focused receipt](../assets/ligand-properties/c3-manifest-directory-checkpoint.json)
+and [51-body selected packet](../assets/ligand-properties/c3-manifest-directory-evidence.zip)
+retain correction code, tests, raw logs, provisional/final source proofs, scoped assessment
+and exact source/recipe bindings. Packet size is 155,192 bytes, SHA256
+`aeae335fb246515578084809e1e7f3ac2f16b159a3fc63863eaa476ab36385ed`.
+Synthetic unit-test temporary/cache directories remain private and are not selected
+into this focused packet; complete raw workload packets retain their separate scope.
+
+The current eight-case evidence remains bound to actual 995e80f8 / 1,130 sources /
+compact digest `b2d49ff2c807b6634d7830a1d331c4df5380571d86daf77efb3a95ed869040af`.
+Independent performance assessment permits reuse for this exact non-runtime tooling
+delta without another standalone ALL8/profile. The corrected 1,130-source compact digest
+is `e36c7ac9bd1f50da76b174990daf61928448b0d4bcf9ef0ad20135a59ad2b7a5`;
+51-method digest remains `dceb6a3202e1d378e051e8e3efa1f3ce0ed257793732a4c26df46c86d6346d07`.
+Do not relabel the captured run; fresh complete candidate/exact-master gates remain required.
+
+### C4 first candidate deliberately interrupted; fresh gate preparation
+
+Original `c4-candidate1` at f435e7c0 passes its first 15 commands: frozen installs,
+migration/downgrade/reupgrade, Ruff/mypy/reader-tool types, 3,552 Python tests with
+zero skips, web lint/types, 1,584 frontend tests across 136 files, 14 supervisor checks,
+build and a full 640-case native inventory. After the confirmed verifier defect,
+primary deliberately sends SIGTERM only to the positively identified owned browser
+process group. Its step exits -15; the original public runner actually waits and exits
+241, with 27 later commands unrun. This is an intentional interruption, not a complete
+gate PASS or a product-test failure. The absent final browser JSON is not fabricated.
+
+All 16 lossless compressed logs and original current/actual-v0.36 maps verify. Two
+captured source ZIPs match every original 1,130/1,013 body and CRC. After exact owned
+process/port cleanup, both raw DB files (552,960 bytes total) are copied and hashed
+before SQL. The first strict cleanup observation fails before sending a signal;
+that attempt remains alongside the subsequent positive automatic-service cleanup proof.
+The complete forensic packet preserves 719 original files / 55,720,287 bytes,
+including hidden native artifacts and original transport/workspace, with three empty
+directories and no aliases. Its 36,544,045 bytes have SHA256
+`bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995`.
+Primary independently verifies all original/archive bodies, exact union/CRC and
+16 recursive ZIPs / 735 evidence entries / 20 project files. No corrupt inner ZIP occurs.
+Original generated outputs remain in place, locally excluded only by their exact spent
+label; tracked recipe/source remain visible. The raw packet stays outside Git/main
+qualified payload for its separate future asset and checksum.
+
+The full `c4-candidate2` recipe is authored before its gate. It is exactly candidate1's
+43 commands modulo its fresh label/workspace, preserving D-177 fixture-store isolation,
+all suites/readers/deadlines/retries/exclusion identities. The existing `c4-master1`
+recipe is unchanged and unspent. Both new candidate and master bases are empty at
+preparation. Complete both gates and final same-candidate seven-role assessments before
+normal protected publication; no #159 push/PR/tag/release is claimed here.
+
+### Complete forensic publication inventory and early-retention limits
+
+The [five-asset metadata index](../assets/ligand-properties/c3-separate-forensic-assets.json)
+covers desktop diagnostics, failed native9/native10, early exploratory performance1–4,
+and the intentionally interrupted candidate1 gate. Raw payloads remain separate from
+Git and the qualified main archive. Every asset/checksum still requires actual release
+publication and complete anonymous download/hash/CRC/recursive readback before closeout.
+
+Early exploratory preservation closes the remaining raw coverage gap: all 12 roots,
+749 current regular files / 170,419,625 bytes, 12 empty directories and 93 selected
+uncovered preparatory originals are retained without rebundling earlier payloads.
+Its 124,222,530-byte packet SHA256 is
+`166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f`.
+Whole original/archive readback verifies 836 outer bodies and four recursive ZIPs.
+Probe1 remains interrupted -2, probes2/3 failed1, probe4 a single exploratory pass,
+and preparations5–7 unexecuted/HOLD. Two current 32KiB SHM bodies differ from older
+indexed hashes; current bytes and original hash records are preserved, while the older
+byte revisions and historical pre-SQL ordering remain unproven. DB/WAL bodies match.
+This is transparent later forensic retention, never current ALL8 or release qualification.
+
+
+### Candidate2 failure retained; bounded lifecycle correction
+
+Original candidate2at16ca91ea completes15commands:3,589Python/zero skips,1,584web/
+136files,14supervisors, static/build/migrations/frozen installs and640native inventory.
+Browser execution records174passes,1failure,3authored exclusions and462unrun. The
+sole failure is a generic status locator matching both the genuine recovery notice
+and Properties empty state; top-level error is maximum-failure stopping only.
+All16lossless logs,1,130current/1,013actual036source bodies and4rawDB/WAL/SHM files
+verify. Positive cleanup checks56known handles gone, dedicated markers absent and
+all three ports free before raw copying; no SQL or additional signals are used.
+
+Complete raw preservation retains34,630files/1,755,590,798bytes,23empty directories
+and zero aliases. Its separate1,149,122,794-byte packet SHA256 is
+`2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa`. Primary
+full original/hash/CRC/union verification reports40ZIPs/34,650evidence entries/28project
+files, with no partial inner archive. Five corruption controls pass; the initial
+layer-only truncated-outer control failure remains explicit. Generated originals
+remain in place, locally excluded only by the exact spent label after verification.
+[Failure metadata](../assets/ligand-properties/c3-candidate2-failed-checkpoint.json)
+and the six-asset index retain failure/publication-pending status, not qualification.
+
+Only lifecycle lines90/98 gain intended-notice status text filters. Role, strict
+uniqueness, all workflow assertions and deadlines remain. The complete lifecycle
+file passes5cases in desktop/mobile, one existing authored mobile exclusion, zero
+failures/flakes/retries, with1,130sources unchanged throughout. Scoped architecture
+and performance assessments PASS. [Correction receipt](../assets/ligand-properties/c3-lifecycle-status-checkpoint.json)
+and [focused packet](../assets/ligand-properties/c3-lifecycle-status-evidence.zip)
+retain exact source/readback and raw workflow evidence. The focused cleanup's lack
+of a live browser-descendant inventory is explicit; it is not release qualification.
+
+All461runtime and51method bodies remain native11exact. Retain original995e/b2d49
+measurement identity and explicit later helper/test delta. No extra standalone
+performance/profile run is required solely for this correction. Current compact
+source digest is `afbbba092bfe129714652288fb4f36692dbf463b897fc81e99563a01ee36d899`. Fresh candidate3recipe retains
+the complete43-vector modulo its label/workspace, including pytest fixture-store
+isolation; master1recipe stays unchanged/unspent. Full candidate/master and all
+seven final same-candidate assessments remain required before protected delivery.
+
+
+### C3 qualification continuation — preserved candidate3 and held-route cleanup
+
+The original `c4-candidate3` at `2a582dfe` exits 1 after 15 passing recipe commands
+and 415 browser passes. One mobile minimization-controls case fails during context
+teardown because its second intercepted proposal request remains in flight; all
+product assertions and its final screenshot already completed. Reported 224 skipped
+cases comprise 34 authored exclusions and 190 unrun cases. No retries or flakes
+occur. All eight descriptor performance cases pass once, but 27 later recipe
+commands remain unrun. This is failed qualification, with no product-assertion
+failure observed in the failing case.
+
+Primary positive cleanup precedes raw copying of all four DB/WAL/SHM bodies.
+Complete preservation retains 5,511 original files, 71 empty directories and exact
+1,130-current/1,013-actual-v0.36 source ZIPs captured before correction. The separate
+131,840,156-byte packet SHA256 is
+`0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc`.
+Independent original union/body/hash/CRC and 59-ZIP verification pass; five corruption
+controls pass. Original inputs remain in place, with only their exact spent output
+prefix excluded locally after verification. See
+[failure metadata](../assets/ligand-properties/c3-candidate3-failed-checkpoint.json).
+
+Exactly three held-route fixture `finally` blocks release their hold and await
+`page.unrouteAll({ behavior: "wait" })`. Every other byte, assertion and deadline is
+preserved. The entire native file passes 12 desktop/mobile cases without skips,
+failures, flakes, retries or errors; 1,130 sources match before/after. Positive
+cleanup checks 43 known PID/start handles and dedicated ports before copying three
+raw DB/WAL/SHM files. Scoped architecture and performance assessments pass. The
+optional expanded strict E2E boundary retains exactly four pre-existing diagnostics;
+it is explicitly not passing and introduces no suppression. The normal application
+typecheck evidence remains source-bound. See the
+[receipt](../assets/ligand-properties/c3-route-lifetime-checkpoint.json) and
+[complete focused packet](../assets/ligand-properties/c3-route-lifetime-evidence.zip).
+
+All 461 runtime and 51 benchmark subjects remain unchanged from native11. Its
+original source identity and timing limitations remain; neither this correction nor
+the focused run establishes new latency measurements. The fresh candidate4 recipe
+is byte-exact candidate3 after label/workspace replacement. The unchanged master1
+recipe remains unspent. Full candidate/master gates and all seven final assessments
+remain required; the seven forensic assets remain publication-pending.
+
+
+### C3 qualification continuation — preserve candidate4 and actual keyboard order
+
+The original `c4-candidate4` at `ad505d27` exits 1 after fifteen passing commands and
+476 native passes. All desktop cases, all eight descriptor performance cases and all
+twelve minimization-controls cases complete without failure. Mobile release-hardening
+then expects Selection after one Tab from the focused, empty Entry selector. The
+actual focus is on the legitimate Property options button. Source and screenshot
+also show the native Methods and limits summary before the tabs. The browser report
+contains one failure, 56 authored exclusions, 107 unrun cases, no flakes/retries;
+27 later recipe commands remain unrun. The extra top-level error is maximum-failure
+stopping only. This is not complete qualification.
+
+Complete original retention preserves 35,094 files / 1,501,779,138 raw bytes, 73 empty
+directories, all four raw DB/WAL/SHM files and exact current/actual-v0.36 source ZIPs
+sealed before any corrective edit. The separate 675,409,215-byte packet SHA256 is
+`b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a`.
+Primary independent outer hash, full original body/union, 76-ZIP recursive and sealed
+source-map/ZIP semantic verification pass. Five corruption controls pass. Originals
+remain in place; only their exact spent output prefix is locally excluded after
+verification. See [failure metadata](../assets/ligand-properties/c3-candidate4-failed-checkpoint.json).
+
+Exactly three added test blocks establish Property options enabled and Methods and
+limits visible, then traverse and assert Entry → Property options → native summary
+→ Selection with real Tab keys. All original bytes/assertions/deadlines/exclusions,
+desktop behavior and representative-performance code remain. The whole native file
+passes five cases with one unchanged authored mobile performance exclusion; zero
+failures/flakes/retries/errors. All 1,130 source bodies match before/after. Positive
+cleanup checks 32 known handles, workspace markers and three dedicated ports before
+copying three raw database/sidecar files. Scoped architecture/performance/UX reviews
+pass; the actual native traversal resolves the preliminary one-control omission.
+A bounded audit finds no other equivalent adjacency assumption among twelve literal
+Tab calls. See the [receipt](../assets/ligand-properties/c3-property-tab-order-checkpoint.json)
+and [complete focused packet](../assets/ligand-properties/c3-property-tab-order-evidence.zip).
+
+All 461 runtime and 51 native11 benchmark subjects remain unchanged; release-hardening
+belongs to neither map. Reuse only the original native11 identity and limitations,
+with no new latency claim. The fresh candidate5 recipe is byte-exact candidate4 after
+label/workspace substitution. Master1 remains unchanged and unspent. Both complete
+gates, final all-seven assessments and verified delivery remain required. Eight
+separate forensic assets remain publication-pending.
+
+
+### C3 complete qualification — candidate5 and closed retained evidence
+
+The original `c4-candidate5` at `e47de3dd8f2e53fd27abac8d39dac3f0696da7f7`
+exits 0 after all 43 sequential commands. It passes 3,589 Python tests with no skips,
+1,584 frontend tests across 136 files, 14 supervisor tests and the entire 640-case
+browser inventory: 565 passes plus exactly 75 released baseline exclusions. There
+are no failures, flakes, retries or new exclusions. Frozen installs, migrations,
+static checks, production/build/version/legacy audits and actual tagged-v0.36 rich,
+connectivity, measurement, editing and property reader/archive sequences pass. All
+1,130 current and 1,013 actual preceding source bodies remain unchanged.
+
+The independent summary verifies every lossless log. Official qualified parts are
+83,337,784 bytes / SHA256 `2be3852ed523c2deaa0560b554dad903664fb8ecda104f75204e90d4c520c90a`
+and 23,236,848 bytes / SHA256 `9ae33c4171100e13f156db565a1b376181dbac271b159b9da89592d0334f48d7`.
+Primary full-body/hash/CRC/recursive verification proves their exact disjoint union
+of 2,110 expected members. The first manual postprocessing invocation uses an
+unsupported subcommand and exits 2 before any output or mutation; the subsequent
+correct `gate` invocation exits 0. This is not a qualification failure or rerun.
+
+Positive cleanup precedes raw copying of all 59 existing database/sidecar bodies;
+no diagnostic SQL is opened. Both source capsules verify all 2,143 exact bodies
+against the actual current/preceding commit blobs. The additional qualified
+retained-state ZIP preserves the complete closed workspace, original transport and
+five selected public bindings: 6,485 originals / 540,403,585 raw bytes, 46 empty
+directories, zero aliases/special descriptors/cache exclusions. Its 68,133,428 bytes
+have SHA256 `931706fff11987a36e7db734e309d789bc8a59793aa50bfc55796c45c33f8f7e`.
+Worker and primary full-original/body/CRC/union checks pass, including 957 recursive
+ZIPs and every raw original/copy pair. Source capsules and this retained-state ZIP
+are supplemental main-release evidence; they do not add a ninth failed forensic
+asset or duplicate the official part binaries/eight failed packets.
+
+See the [complete candidate checkpoint](../assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
+and [summary](../assets/ligand-properties/c4-candidate5-summary.json). The source map
+has compact-JSON SHA256 `3c0d53d1c002bbc68082c7ca352f07dc8e8fee2eab41ee0496b1262889b9909e`
+and default-spaced-JSON SHA256 `60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653`;
+these encode the same body map and are deliberately distinguished. Later evidence/docs
+commits must explicitly retain this qualifying identity rather than relabeling its run.
+All 461 runtime and 51 native11 method bodies remain unchanged; keep its original
+995e/b2d49 measurement identity and absolute timing limitations.
+
+Final all-seven complete-feature assessments, normal protected merge, a fresh exact
+merged-master 43-command gate, verified publication, child closeout and owned cleanup
+remain required. Master1 remains unspent. No final review, push, PR, tag or release
+is claimed by this checkpoint. The parent Goal and remaining required scope stay active.
+
+
+### C4 review correction — exact retained renewal count
+
+Final performance review at `9c902dc4` reports one P2 factual evidence discrepancy:
+current prose says 105 renewals, while immutable native11 raw records and its closed
+analysis agree on 15 + 30 + 15 + 35 = 95 successful same-sequence heartbeats. Primary
+independent recomputation confirms all 95 have HTTP 200 / sequence 1 / 200 entries, and
+28,801,010 UTF-8 response-body bytes. The four benchmark bulk consumer cohorts have
+135 total updates: 20 allocations, 20 initial demands and 95 renewals. Separate App traffic
+is outside that scoped total. No runtime or workload defect is identified.
+
+Correct only current progress/release prose; append this correction and the D-194
+erratum, preserving historical statements and all immutable raw/analysis bytes.
+The [count checkpoint](../assets/ligand-properties/c3-renewal-count-checkpoint.json)
+binds the exact four member bodies. All qualifying source bodies, 43-command passing
+candidate evidence, native11 identity/method and timing/resource limitations remain.
+No additional runtime or performance execution is justified by this documentation
+correction. Obtain affected reassessment and all other specialists' explicit
+confirmation after they inspect the exact intervening diff on the final candidate.
+No push/readiness or release is claimed until that gate passes.

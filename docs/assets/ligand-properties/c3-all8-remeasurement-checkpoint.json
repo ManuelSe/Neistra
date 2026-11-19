@@ -1,0 +1,86 @@
+{
+  "scope": "Complete closed corrected ALL8 portable performance qualification; fullcandidate/exactmaster/allseven/protectedrelease remain separate",
+  "complete": true,
+  "all8workflow_cases_passed": true,
+  "actual_runner_wait_exit": 0,
+  "skips_failures_flakes_retries": 0,
+  "packet": "docs/assets/ligand-properties/c3-all8-remeasurement-evidence.zip",
+  "bytes": 41422460,
+  "sha256": "95d800bc538e376003e2958821fefaa191710111453c4ab148fd8181a7076fa3",
+  "all_regular_input_bodies_crc_and_exact_union_verified": true,
+  "candidate": "995e80f8e59bac4265ecc7b70ced04277ecb7550",
+  "source_count": 1130,
+  "method_count": 51,
+  "source_digest_compact": "b2d49ff2c807b6634d7830a1d331c4df5380571d86daf77efb3a95ed869040af",
+  "method_digest_spaced": "dceb6a3202e1d378e051e8e3efa1f3ce0ed257793732a4c26df46c86d6346d07",
+  "regular_input_files": 4896,
+  "regular_input_bytes": 285805034,
+  "roots": 15,
+  "empty_directories": 3,
+  "inert_aliases": 0,
+  "recursive_verification": {
+    "zip_archives": 15,
+    "evidence_manifest_entries": 4909,
+    "project_archive_files": 20
+  },
+  "primary_readback_sha256": "7d2e7b75a800d93fc89b7ae6b976174378af3b16367b975d8f60589907258baf",
+  "complete_current_runner_eight_harnesses_and_workspace_included": true,
+  "originals_retained": true,
+  "SQL_opened_for_packaging": false,
+  "scoped_performance_specialist_verdict": "PASS",
+  "scoped_performance_assessment_sha256": "780648e051b808f52ba94736cbac576b39cfcf2ad171e3eedf8b545f5d6ab095",
+  "known_timing_misses_retained": true,
+  "strict_reference_host_certification": false,
+  "causal_or_same_method_speedup_claim": false,
+  "analysis": "docs/assets/ligand-properties/c3-all8-remeasurement-analysis.json",
+  "analysis_sha256": "4eb1ce7a14e9af3f4f6b3b15362dcb0e049170935b22595daef83cb83de6e378",
+  "combined_measurements": {
+    "all40_cold_actual_edits_ms": {
+      "n": 40,
+      "median": 2102.849999964237,
+      "p95_nearest_rank": 2279.100000023842,
+      "min": 1874.1000000238419,
+      "max": 2595.3000000715256,
+      "limit": 2000,
+      "misses": 32
+    },
+    "all40_matching_cache_projection_ms": {
+      "n": 40,
+      "median": 60.14999997615814,
+      "p95_nearest_rank": 66.69999992847443,
+      "min": 44,
+      "max": 74.5,
+      "limit": 100,
+      "misses": 0
+    },
+    "cancellation_feedback_ms": {
+      "n": 2,
+      "median": 14.550000011920929,
+      "p95_nearest_rank": 22,
+      "min": 7.100000023841858,
+      "max": 22,
+      "limit": 100,
+      "misses": 0
+    },
+    "four_bulk_active_ms": {
+      "n": 4,
+      "median": 5444.600000023842,
+      "p95_nearest_rank": 6928.199999928474,
+      "min": 3144.9000000953674,
+      "max": 6928.199999928474,
+      "limit": 5000,
+      "misses": 2
+    },
+    "four_bulk_click_feedback_ms": {
+      "n": 4,
+      "median": 562.4000000357628,
+      "p95_nearest_rank": 1191.1999999284744,
+      "min": 80.10000002384186,
+      "max": 1191.1999999284744,
+      "limit": 100,
+      "misses": 2
+    }
+  },
+  "full43candidate_exactmaster_all7_and_release_pending": true,
+  "prior_runs_not_rebundled_or_deleted": true
+}

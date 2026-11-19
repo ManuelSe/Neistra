@@ -1,0 +1,199 @@
+{
+  "scope": "D196focused startup/process/publication ownership checkpoint only; not full feature/native/performance/release/allsevenreadiness",
+  "repository": "ManuelSe/Neistra",
+  "issue": 159,
+  "parent": 11,
+  "base": "f6e847b8e25eb4d1068f8b14741fda6fb8bdd0d0",
+  "current_five_source_identities": {
+    "apps/api/src/neistra_api/job_worker.py": "b7972af2864dc83ee111a70d0b432bc9ef3428edd8fe9776f5ee846b572a0c43",
+    "apps/api/src/neistra_api/ligand_property_process.py": "19a9763f198393acbf0efad04d420b8aec7b4f4b51b867d1d867180ab6d0e005",
+    "apps/api/src/neistra_api/job_service.py": "7e318e1695b414274c6ac0b8adc061f17d3746498febf514430382076ca664a4",
+    "apps/api/src/neistra_api/ligand_property_service.py": "49e7e759fbb2bd642b312e90b5e2aa6160d6fe841b6d3303551bb77a9b8f6ceb",
+    "tests/integration/test_ligand_property_startup_ownership.py": "46f4bcf4e33424a66031940fbdb57f076bfc90b4b62e22cb619c2c79f1746f02"
+  },
+  "candidate1_source_identities": {
+    "apps/api/src/neistra_api/job_worker.py": "a525bb2e7fa9f995de9fa1f1c7d805088590d6ba0fe4cea04ce845feeaf928a7",
+    "apps/api/src/neistra_api/ligand_property_process.py": "19a9763f198393acbf0efad04d420b8aec7b4f4b51b867d1d867180ab6d0e005",
+    "apps/api/src/neistra_api/job_service.py": "735582e6bebd02273b8365971bc3f627fd51d1fbd06aabecc98d92db2c7bb869",
+    "apps/api/src/neistra_api/ligand_property_service.py": "ceeb2aa3314604ef950f794ce1ca044b58d3154f4eecda9eeafa87c2d6ae1827",
+    "tests/integration/test_ligand_property_startup_ownership.py": "553a09aed3cedbb775b51e2afb899e031fb048b5fee5f50931a443a3387dbe37"
+  },
+  "source_guard": {
+    "author_selected_count": 988,
+    "root_full_union_count_observed": 1111,
+    "author988_not_root_full1111_union": true,
+    "current_five_fixed": true
+  },
+  "author_candidate1": {
+    "actual_session": 95364,
+    "actual_exit": 0,
+    "focused": 144,
+    "real_supervisors": 6,
+    "mypy": 274,
+    "ruff_format": "PASS"
+  },
+  "author_final2": {
+    "actual_session": 18451,
+    "actual_exit": 0,
+    "focused": 156,
+    "real_supervisors": 6,
+    "mypy": 274,
+    "ruff_format": "PASS"
+  },
+  "scoped_reviews": {
+    "software_architecture": {
+      "verdict": "PASS",
+      "scope": "D196fivepathfinal2only",
+      "original_CHANGES_REQUIRED_retained": true,
+      "final2_assessment_sha256": "06dbb56045df19f4f90f33c3ee50004f180ac65565ad250fba493dae5135756b",
+      "actual_sessions": [
+        1384,
+        35599
+      ],
+      "actual_exits": [
+        0,
+        0
+      ],
+      "controls": 29,
+      "separate_original_negative_passed": 1,
+      "setup_collection_exit2_retained": true
+    },
+    "scientific_implementation": {
+      "verdict": "PASS",
+      "scope": "D196fivepathfinal2only",
+      "original_negative_session": 93702,
+      "original_negative_exit": 1,
+      "prior_positive_session": 96530,
+      "prior_positive_cases": 8,
+      "prior_positive_exit": 0,
+      "final2_session": 93754,
+      "final2_exit": 0,
+      "final2_cases_including_original_negative": 19,
+      "assessment_sha256": "affc675f689b370efaf6556cc6345d1e814cd7003f35cd460c4e6fa8edd40863"
+    },
+    "performance": {
+      "verdict": "PASS",
+      "scope": "Code/boundedwork and retained evidence inspection; no independent test execution or integrated performance approval",
+      "conversation_transcription": true,
+      "reviewer_execution_ids": null,
+      "independent_tests": false
+    },
+    "three_scoped_roles_are_not_allsevenfinal": true
+  },
+  "destination_propagation": {
+    "issue-160-physicochemical-profiles": {
+      "root_actual": {
+        "scope": "Actual observed outer destination D196 focused gate completion; not final release readiness",
+        "actual_session": 14403,
+        "actual_chunk": "4fc17d",
+        "actual_exit": 0,
+        "receipt_sha256": "3e93d2ac4c15ac9f1358bba8c023333a7a4923ec80c31294cc2263ba2836f46c",
+        "complete_source_count": 1080,
+        "all_source_paths_and_contents_fixed": true,
+        "reviewed_five_hashes_still_exact": true,
+        "focused_passed": 156,
+        "real_supervisor_passed": 6,
+        "mypy_source_files": 280,
+        "ruff_format_passed": true,
+        "first_gate_exit4_missing_four_existing_C1_testmodules_retained": true,
+        "borrowed_regression_modules_exact_from_Git_f6e847b": true,
+        "new_D197_integration_and_native_workflows_pending": true,
+        "observed_utc": "2026-11-18T00:44:03.311201+00:00"
+      },
+      "before_four_full_AST_equal_to_C1base": true,
+      "current_five_exact": true,
+      "borrowed_four_modules_exact": true,
+      "gate1_setup_exit": 4,
+      "gate1_no_tests_collected": true,
+      "gate2_source_scope": 1080,
+      "gate2_focused": 156,
+      "gate2_supervisors": 6,
+      "mypy": 280,
+      "ruff_format": "PASS",
+      "destination_stores_originals_untouched_not_bundled": true
+    },
+    "issue-161-ligand-information-sidebar": {
+      "root_actual": {
+        "scope": "Actual observed outer destination D196 focused gate completion; not final release readiness",
+        "actual_session": 61535,
+        "actual_chunk": "73e47b",
+        "actual_exit": 0,
+        "receipt_sha256": "79e7de00989535a5bbb17eb3f20aa6c1e1a30823ee717629de739d6f35aaf157",
+        "complete_source_count": 1091,
+        "all_source_paths_and_contents_fixed": true,
+        "reviewed_five_hashes_still_exact": true,
+        "focused_passed": 156,
+        "real_supervisor_passed": 6,
+        "mypy_source_files": 280,
+        "ruff_format_passed": true,
+        "first_gate_exit4_missing_four_existing_C1_testmodules_retained": true,
+        "borrowed_regression_modules_exact_from_Git_f6e847b": true,
+        "new_D197_integration_and_native_workflows_pending": true,
+        "observed_utc": "2026-11-18T00:44:03.312398+00:00"
+      },
+      "before_four_full_AST_equal_to_C1base": true,
+      "current_five_exact": true,
+      "borrowed_four_modules_exact": true,
+      "gate1_setup_exit": 4,
+      "gate1_no_tests_collected": true,
+      "gate2_source_scope": 1091,
+      "gate2_focused": 156,
+      "gate2_supervisors": 6,
+      "mypy": 280,
+      "ruff_format": "PASS",
+      "destination_stores_originals_untouched_not_bundled": true
+    }
+  },
+  "mechanism": "Immutable exact captured attempt/CAS guards startup, frames, terminalization and publication. Group signaling authority begins only after durable actual process registration; ACK ordering and original limits/checkpoints remain. Reaped execution is refused initially and after validation under the refreshed publication lock, with one shared exact-capture truthful failed/cancelled terminalizer. Replacement/deleted/terminal state is preserved.",
+  "scientific_scope": "D196five paths do not change D194kernel/fixture method, numerical output, source/coverage identity, cache admission, resource budgets or fairness. Relevant source/science/performance assessments retained; no new scientific/performance qualification inferred.",
+  "raw_retention": {
+    "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-startup-ownership": {
+      "prefix": "author-and-science",
+      "files": 1499,
+      "bytes": 86709330,
+      "all_noncache_regular_files_retained": true
+    },
+    "/tmp/neistra159-d196-independent-kpvsqxg1": {
+      "prefix": "independent-architecture-original",
+      "files": 89,
+      "bytes": 6170661,
+      "all_noncache_regular_files_retained": true
+    },
+    "/tmp/neistra159-d196-final2-architecture-qwdshr9i": {
+      "prefix": "independent-architecture-final2",
+      "files": 90,
+      "bytes": 6725804,
+      "all_noncache_regular_files_retained": true
+    }
+  },
+  "symlink_metadata_count": 220,
+  "named_cache_omissions": {
+    "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-startup-ownership": [
+      {
+        "path": "scientific-review1/__pycache__/test_reaped_publication.cpython-312-pytest-8.4.2.pyc",
+        "bytes": 8833,
+        "sha256": "9bfc34d5c31ddeff31ed998725a256923e94b29d00cc5f4f95ff5c5b09801847"
+      }
+    ],
+    "/tmp/neistra159-d196-independent-kpvsqxg1": [],
+    "/tmp/neistra159-d196-final2-architecture-qwdshr9i": []
+  },
+  "failed_evidence": "Original author probe1 scheduling8failures/10passes, scientific actual93702negative, architecture collection/import setup failure, original destination gate1exit4 before collection and all closed focused stores/logs remain distinct and byte-retained. Passing segments are not pooled into a full gate.",
+  "observation_limits": "Native1 exact original runtime branch remains qualified inference; offline actualworker/database/process mechanisms are independently confirmed within recorded scopes. Performance assessment is a primary transcription of actual specialist conversation, not raw execution or an independent benchmark. Source count988guards author checks; root1111snapshot and destination1080/1091guards are separately named and no full release union approval follows.",
+  "required_next": [
+    "RootD197ownerfix propagation and current integrated workflow reconciliation",
+    "Fresh current native8/performance8 and four1000entrycohorts without pooling earlier timings",
+    "Allsevenfinalsamecandidate and fresh complete candidate/exactmaster release gates",
+    "Protectedreview/merge, actualrelease/publicassets verification and issue/programcloseout"
+  ],
+  "archive": "c2-startup-ownership.zip",
+  "archive_bytes": 2540205,
+  "archive_sha256": "c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24",
+  "outer_manifest_entries": 1734,
+  "recursive_verification": {
+    "zip_archives": 5,
+    "evidence_manifest_entries": 1734,
+    "project_archive_files": 10
+  },
+  "observed_utc": "2026-11-18T00:51:58.073766+00:00"
+}

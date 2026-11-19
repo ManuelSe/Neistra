@@ -1,0 +1,480 @@
+"""Verify a completed issue-159 gate, actual readers and exact existing exclusions."""
+
+import argparse
+import datetime
+import gzip
+import json
+import re
+import runpy
+import subprocess
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("label")
+args = parser.parse_args()
+root = Path.cwd().resolve()
+out = root / "docs/assets/ligand-properties"
+helpers = runpy.run_path(str(out / "qualification.py.txt"))
+digest = helpers["digest"]
+state = json.loads((out / f"{args.label}-gate.json").read_text())
+recipe_path = out / f"{args.label}-recipe.json"
+recipe = json.loads(recipe_path.read_text())
+current_version = recipe["application_version"]
+previous_version = recipe["preceding_reader"]["version"]
+assert state["complete"] and state["source_unchanged"] and state["preceding_source_unchanged"]
+assert not state["initial_status"]
+assert state["label"] == recipe["label"] == args.label
+assert state["unset_environment"] == recipe["unset_environment"]
+assert set(state["unset_environment"]) == {
+    "NEISTRA_DATA_DIR",
+    "NEISTRA_DATABASE_URL",
+    "MOLWEAVE_DATA_DIR",
+    "MOLWEAVE_DATABASE_URL",
+    "DATABASE_URL",
+}
+assert len(state["steps"]) == len(recipe["steps"]) == 43
+assert digest(recipe_path.read_bytes()) == state["recipe_sha256"]
+assert digest((out / "qualification.py.txt").read_bytes()) == state["runner_sha256"]
+assert helpers["current_identities"](root) == state["source_before"] == state["source_after"]
+old_tag = recipe["preceding_reader"]["tag"]
+expected_old = helpers["tagged_identities"](old_tag)
+assert state["preceding_source_expected"] == state["preceding_source_before"] == expected_old
+assert state["preceding_source_after"] == expected_old
+old_root = Path(state["preceding_reader"]["root"])
+assert helpers["extracted_identities"](old_root, expected_old) == expected_old
+assert state["preceding_reader"] == recipe["preceding_reader"]
+old_commit = subprocess.check_output(["git", "rev-parse", f"{old_tag}^{{}}"], text=True).strip()
+assert old_commit == state["preceding_reader"]["commit"]
+assert old_tag == f"v{previous_version}"
+logs = {}
+for expected, actual in zip(recipe["steps"], state["steps"], strict=True):
+    assert actual["exit_code"] == 0
+    for key in ("label", "command", "environment", "cwd"):
+        assert expected.get(key) == actual.get(key), (actual["label"], key)
+    blob = gzip.decompress((root / actual["log"]).read_bytes())
+    assert digest(blob) == actual["log_sha256"], actual["log"]
+    logs[actual["label"]] = blob.decode()
+assert not re.search(r"\d+ skipped", logs["python"])
+assert not re.search(r"\d+ skipped", logs["legacy-cli"])
+
+reader_audit = {
+    "preceding_tag": old_tag,
+    "protocol": "private-derived-shared-schema-v1",
+    "preceding_runtime": old_commit,
+    "preceding_source_identities": len(expected_old),
+    "directions": {},
+}
+rich_checks = (
+    "exact_coordinates_and_originals",
+    "retained_batch_undo_redo",
+    "save_and_reexport",
+    "archive_import",
+    "archive_omits_history",
+    "original_jobs_unchanged",
+    "surface_objects_exact",
+    "scenes_exact",
+    "archive_surface_seed_remapping",
+    "named_selections_exact",
+    "gesture_scene_exact",
+    "archive_selection_remapping",
+    "transient_anchor_absent",
+)
+connectivity_checks = (
+    "four_case_quick_retention",
+    "result_values_exact",
+    "connectivity_retention",
+    "unapplied_job_retention",
+)
+connectivity_modules = {
+    "molweave_api.main": "apps/api/src/neistra_api/main.py",
+    "molweave_api.archive_service": "apps/api/src/neistra_api/archive_service.py",
+    "molweave_core.molecular": "packages/neistra_core/src/neistra_core/molecular.py",
+    "molweave_core.adapters.macromolecular": (
+        "packages/neistra_core/src/neistra_core/adapters/macromolecular.py"
+    ),
+    "molweave_core.minimization.quick_plugin": (
+        "packages/neistra_core/src/neistra_core/minimization/quick_plugin.py"
+    ),
+    "molweave_demo_plugin": "packages/neistra_demo_plugin/src/molweave_demo_plugin/__init__.py",
+    "tests.support.api_client": "tests/support/api_client.py",
+    "tests.support.quick_minimization_reader_qualification": (
+        "tests/support/quick_minimization_reader_qualification.py"
+    ),
+    "tests.support.modeling_reader_qualification": "tests/support/modeling_reader_qualification.py",
+    "tests.integration.test_model_edits": "tests/integration/test_model_edits.py",
+    "tests.integration.test_quick_minimization": "tests/integration/test_quick_minimization.py",
+    "tests.support.minimization": "tests/support/minimization.py",
+}
+contracts = runpy.run_path(str(root / "tests/support/schema_boundary_evidence.py"))
+refusal_helper = root / "tests/support/schema_boundary_refusal.py"
+
+
+def check_tool(receipt, path):
+    assert Path(receipt["path"]) == path
+    assert receipt["sha256"] == digest(path.read_bytes())
+
+
+for family, filename in (
+    ("rich", "rebranding_reader_qualification.py"),
+    ("connectivity", "current_connectivity_reader_qualification.py"),
+    ("measurements", "measurement_reader_qualification.py"),
+):
+    wrapper = root / "tests/support" / filename
+    for suffix, mode, implementation, version, before, after in (
+        ("current-produce", "produce", root, current_version, "0017", "0017"),
+        ("previous-read-current", "read", old_root, previous_version, "0017", "0017"),
+        ("previous-produce", "produce", old_root, previous_version, "0016", "0016"),
+        ("current-read-previous", "read", root, current_version, "0017", "0017"),
+        ("current-reopen", "read", root, current_version, "0017", "0017"),
+    ):
+        name = f"{family}-{suffix}"
+        step = next(s for s in state["steps"] if s["label"] == name)
+        command = step["command"]
+        assert str(wrapper) in command
+        assert Path(command[command.index("--implementation-root") + 1]) == implementation
+        assert command[command.index("--expected-version") + 1] == version
+        assert Path(step["cwd"]) == implementation
+        report_path = out / f"{args.label}-{name}.json"
+        evidence = json.loads(report_path.read_text())
+        assert evidence["application_version"] == version
+        assert evidence["implementation_root"] == str(implementation)
+        assert evidence["mode"] == mode
+        assert evidence["wrapper_sha256"] == digest(wrapper.read_bytes())
+        assert evidence["database_heads"] == [after]
+        if before is not None:
+            assert evidence["database_heads_before"] == [before]
+        provenance = evidence["imported_module_provenance"]
+        assert provenance
+        identities = state["source_before"] if implementation == root else expected_old
+        for module, filename in provenance.items():
+            path = Path(filename)
+            assert path.is_relative_to(implementation), (name, module, path)
+            assert digest(path.read_bytes()) == identities[str(path.relative_to(implementation))]
+        if family in {"connectivity", "measurements"}:
+            check_tool(
+                evidence["common_wrapper"],
+                root / "tests/support/rebranding_reader_qualification.py",
+            )
+        assert evidence["protocol"] == "retention-v1"
+        if family == "rich":
+            assert evidence["api_module"] == str(
+                implementation / "apps/api/src/neistra_api/main.py"
+            )
+            assert evidence["core_module"] == str(
+                implementation / "packages/neistra_core/src/neistra_core/molecular.py"
+            )
+            assert evidence["expect_new_names"]
+            assert evidence["legacy_suffix_http"] == evidence["new_suffix_http"] == 201
+            assert evidence["representative_atomic_polymer_color_hydrogen_settings"] is True
+            assert evidence["nondefault_surface_appearance_kinds"] == [
+                "entry",
+                "fragment",
+                "pocket",
+            ]
+            assert evidence["portable_scene_camera_has_no_fov"] is True
+            assert set(evidence["archive_display_checks"]) == {"molweave", "neistra"}
+            for checks in evidence["archive_display_checks"].values():
+                assert checks["http"] == 201
+                for check in (
+                    "entry_settings_exact",
+                    "scene_records_exact",
+                    "selection_measurement_records_exact",
+                    "canonical_structures_and_originals_exact",
+                ):
+                    assert checks[check] is True, (name, check)
+                assert set(checks["negative_controls_rejected"]) == {
+                    "scene_camera",
+                    "scene_surface_appearance",
+                    "entry_surface_appearance",
+                }
+            if mode == "read":
+                assert all(evidence[check] is True for check in rich_checks)
+        elif family == "connectivity":
+            assert evidence["module_paths"] == {
+                module: str(implementation / relative)
+                for module, relative in connectivity_modules.items()
+            }
+            assert evidence["assertion_scope"] == (
+                "producer specimens verified"
+                if mode == "produce"
+                else "actual reader retention verified"
+            )
+            assert evidence["baseline"]["cases"] == 4
+            assert all(evidence[check] is True for check in connectivity_checks)
+            assert evidence["both_archive_suffixes"] is (mode == "read")
+            if mode == "read":
+                assert all(
+                    evidence["baseline"][check] is True
+                    for check in (
+                        "canonical_all_conformers_exact",
+                        "generic_multi_entry_undo_redo_exact",
+                        "jobs_inputs_reports_models_and_provenance_exact",
+                        "originals_and_allocation_floors_exact",
+                        "save_archive_import_reexport_exact",
+                    )
+                )
+            assert "--expect-current-connectivity" in command
+            assert evidence["historical_apply_refused"] is None
+        else:
+            contracts["ordered_measurements"](
+                evidence,
+                mode=mode,
+                schema_boundary=False,
+            )
+            assert "--expect-ordered-measurements" in command
+        reader_audit["directions"][name] = {
+            "version": version,
+            "implementation_root": str(implementation),
+            "module_paths_verified": True,
+            "mode": mode,
+            "both_suffixes_reader_verified": mode == "read",
+            "shared_schema_positive_compatibility": True,
+            "evidence": str(report_path.relative_to(root)),
+            "evidence_sha256": digest(report_path.read_bytes()),
+        }
+coordinator_path = root / "tests/support/ligand_properties_reader_qualification.py"
+coordinator = runpy.run_path(str(coordinator_path))
+for family, label, suite in (
+    ("new_editing_states", "editing-readers", "editing"),
+    ("private_derived_state", "property-readers", "properties"),
+):
+    step = next(step for step in recipe["steps"] if step["label"] == label)
+    command = step["command"]
+    assert Path(command[2]) == coordinator_path
+    assert command[3] == ("editing-run" if suite == "editing" else "run")
+    workspace = Path(command[command.index("--workspace") + 1])
+    summary_path = workspace / "summary.json"
+    receipt = json.loads(summary_path.read_bytes())
+    assert (
+        receipt["release_qualification"]
+        and receipt["complete"]
+        and receipt["all_actor_reports_verified"]
+    )
+    assert receipt["protocol"] == "private-derived-shared-schema-v1" and receipt["suite"] == suite
+    assert (
+        receipt["current_version"] == current_version
+        and receipt["previous_version"] == previous_version
+    )
+    assert receipt["previous_tag"] == old_tag and receipt["previous_commit"] == old_commit
+    binding = receipt["preceding_source"]
+    assert binding["tag"] == old_tag and binding["commit"] == old_commit
+    assert binding["files"] == len(expected_old) and binding["annotated_tag"] is True
+    predecessor_receipt = Path(command[command.index("--previous-receipt") + 1])
+    assert binding["receipt_sha256"] == digest(predecessor_receipt.read_bytes())
+    assert receipt["wrapper_sha256"] == digest(coordinator_path.read_bytes())
+    assert len(receipt["phases"]) == 3
+    reports = {}
+    for phase, expected_phase, implementation, version in zip(
+        receipt["phases"],
+        coordinator["PHASES"],
+        (root, old_root, root),
+        (current_version, previous_version, current_version),
+        strict=True,
+    ):
+        assert phase["phase"] == expected_phase and phase["version"] == version
+        assert phase["exit_code"] == 0 and phase["cwd"] == str(implementation)
+        vector = phase["argv"]
+        assert Path(vector[2]) == coordinator_path
+        assert vector[3:5] == ["actor", expected_phase]
+        assert Path(vector[vector.index("--root") + 1]) == implementation
+        phase_log = Path(phase["log"]).read_bytes()
+        assert digest(phase_log) == phase["log_sha256"]
+        report_path = Path(phase["report"])
+        report_blob = report_path.read_bytes()
+        assert digest(report_blob) == phase["report_sha256"]
+        evidence = json.loads(report_blob)
+        assert evidence["wrapper_sha256"] == digest(coordinator_path.read_bytes())
+        identity = evidence["identity"]
+        assert identity["root"] == str(implementation) and set(identity["versions"].values()) == {
+            version
+        }
+        identities = state["source_before"] if implementation == root else expected_old
+        for relative, sha in identity["source_files"].items():
+            assert sha == identities[relative] == digest((implementation / relative).read_bytes())
+        for module in identity["module_paths"].values():
+            filename = Path(module["path"])
+            assert filename.is_relative_to(implementation)
+            assert (
+                module["sha256"]
+                == identities[str(filename.relative_to(implementation))]
+                == digest(filename.read_bytes())
+            )
+        if implementation == old_root:
+            assert identity["previous_receipt"]["commit"] == old_commit
+            assert identity["previous_receipt"]["files_verified"] == len(expected_old)
+        reports[expected_phase] = evidence
+        (out / f"{args.label}-{label}-{expected_phase}.log.gz").write_bytes(
+            gzip.compress(phase_log, mtime=0)
+        )
+        (out / f"{args.label}-{label}-{expected_phase}.json.gz").write_bytes(
+            gzip.compress(report_blob, mtime=0)
+        )
+    coordinator["validate_reports"](reports, suite)
+    reader_audit[family] = {
+        "actual_three_phases_verified": True,
+        "summary_sha256": digest(summary_path.read_bytes()),
+        "wrapper_sha256": digest(coordinator_path.read_bytes()),
+        "both_suffixes_verified": True,
+        "protocol": "private-derived-shared-schema-v1",
+    }
+    (out / f"{args.label}-{label}-summary.json").write_text(json.dumps(receipt, indent=2) + "\n")
+(out / f"{args.label}-reader-audit.json").write_text(json.dumps(reader_audit, indent=2) + "\n")
+
+report = out / f"{args.label}-browser.json"
+compressed = out / f"{args.label}-browser.json.gz"
+blob = report.read_bytes() if report.exists() else gzip.decompress(compressed.read_bytes())
+browser = json.loads(blob)
+records = []
+
+
+def walk(suite, output, parents=(), *, inventory=False):
+    for spec in suite.get("specs", []):
+        for test in spec["tests"]:
+            result = None if inventory else test["results"][-1]
+            title = " \u203a ".join((*parents, spec["title"]))
+            output.append(
+                {
+                    "identity": (
+                        f"[{test['projectName']}] \u203a tests/e2e/{spec['file']} \u203a {title}"
+                    ),
+                    "file": spec["file"],
+                    "project": test["projectName"],
+                    "title": title,
+                    "status": None if result is None else result["status"],
+                    "expected_status": test["expectedStatus"],
+                    "retries": 0 if inventory else len(test["results"]) - 1,
+                }
+            )
+    for child in suite.get("suites", []):
+        walk(
+            child,
+            output,
+            parents + ((suite["title"],) if suite.get("specs") else ()),
+            inventory=inventory,
+        )
+
+
+for suite in browser["suites"]:
+    walk(suite, records)
+inventory_path = out / f"{args.label}-browser-inventory.json"
+inventory = json.loads(inventory_path.read_bytes())
+assert not inventory.get("errors"), inventory.get("errors")
+listed = []
+for suite in inventory["suites"]:
+    walk(suite, listed, inventory=True)
+identities = [r["identity"] for r in records]
+listed_identities = [r["identity"] for r in listed]
+assert len(set(identities)) == len(identities)
+assert len(set(listed_identities)) == len(listed_identities)
+assert set(identities) == set(listed_identities), "Browser run differs from complete inventory."
+assert not browser.get("errors"), browser.get("errors")
+assert browser["stats"]["unexpected"] == browser["stats"]["flaky"] == 0
+assert all(r["retries"] == 0 and r["status"] in {"passed", "skipped"} for r in records)
+skips = {r["identity"] for r in records if r["status"] == "skipped"}
+baseline_summaries = [
+    path
+    for path in (root / "docs/assets/ligand-designation").glob("c5*-summary.json")
+    if json.loads(path.read_bytes()).get("commit") == old_commit
+    and json.loads(path.read_bytes()).get("application_version") == previous_version
+]
+assert len(baseline_summaries) == 1, "One exact released-predecessor gate baseline is required"
+baseline_summary_path = baseline_summaries[0]
+baseline_path = baseline_summary_path.with_name(
+    baseline_summary_path.name.replace("-summary.json", "-browser.json.gz")
+)
+baseline_commit = subprocess.check_output(
+    ["git", "log", "-1", "--format=%H", "--", str(baseline_summary_path.relative_to(root))],
+    text=True,
+).strip()
+subprocess.run(["git", "merge-base", "--is-ancestor", old_commit, baseline_commit], check=True)
+subprocess.run(["git", "merge-base", "--is-ancestor", baseline_commit, "HEAD"], check=True)
+baseline_bytes = subprocess.check_output(
+    ["git", "show", f"{baseline_commit}:{baseline_path.relative_to(root)}"]
+)
+assert baseline_path.read_bytes() == baseline_bytes, "Preceding exclusion baseline changed"
+baseline_browser = json.loads(gzip.decompress(baseline_bytes))
+baseline_summary = json.loads(
+    subprocess.check_output(
+        [
+            "git",
+            "show",
+            f"{baseline_commit}:{baseline_summary_path.relative_to(root)}",
+        ]
+    )
+)
+assert baseline_summary["commit"] == old_commit
+assert baseline_summary["application_version"] == previous_version
+assert not baseline_browser.get("errors")
+assert baseline_browser["stats"]["unexpected"] == baseline_browser["stats"]["flaky"] == 0
+baseline_records = []
+for suite in baseline_browser["suites"]:
+    walk(suite, baseline_records)
+baseline = {r["identity"] for r in baseline_records if r["status"] == "skipped"}
+assert baseline, "Preceding qualification must declare its exact existing exclusions"
+assert len(baseline) == baseline_summary["browser_exclusions"]
+assert len(baseline_records) == baseline_summary["browser_inventory_count"]
+assert skips == baseline, {
+    "missing_existing": sorted(baseline - skips),
+    "unapproved_new": sorted(skips - baseline),
+}
+assert len(records) == browser["stats"]["expected"] + len(skips)
+summary = {
+    "commit": state["commit"],
+    "application_version": current_version,
+    "branch": state["branch"],
+    "clean_start": True,
+    "complete_steps": 43,
+    "source_count": len(state["source_before"]),
+    "source_inventory_unchanged": True,
+    "source_digest": digest(json.dumps(state["source_before"], sort_keys=True).encode()),
+    "sources_unchanged": True,
+    "all_lossless_log_hashes_valid": True,
+    "python": int(re.search(r"(\d+) passed", logs["python"])[1]),
+    "python_skips": 0,
+    "frontend": int(re.search(r"Tests\s+(\d+) passed", logs["web"])[1]),
+    "supervisor": int(re.search(r"# pass (\d+)", logs["supervisor"])[1]),
+    "browser_passed": browser["stats"]["expected"],
+    "browser_exclusions": len(skips),
+    "browser_inventory_count": len(listed),
+    "browser_inventory_sha256": digest(inventory_path.read_bytes()),
+    "complete_browser_inventory_executed": True,
+    "exclusion_baseline": str(baseline_path.relative_to(root)),
+    "exclusion_baseline_sha256": digest(baseline_path.read_bytes()),
+    "existing_exclusion_identities_unchanged": True,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": state["qualification_profile"],
+    "preceding_reader": (
+        f"actual v{previous_version}; shared-schema positive old API/archive writing, "
+        "separate unknown0017 migration refusal, independently old-authored migration "
+        "and current reopen; both suffixes"
+    ),
+    "preceding_source_identities_verified": len(expected_old),
+    "actual_reader_audit": f"{args.label}-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": True,
+    "duration_seconds": round(sum(s["seconds"] for s in state["steps"]), 3),
+    "duration_definition": (
+        "Sum of all complete sequential command durations; no partial command reuse."
+    ),
+    "wall_seconds": (
+        datetime.datetime.fromisoformat(state["finished_utc"])
+        - datetime.datetime.fromisoformat(state["started_utc"])
+    ).total_seconds(),
+}
+(out / f"{args.label}-summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+(out / f"{args.label}-exclusions.json").write_text(
+    json.dumps(
+        {
+            "baseline": sorted(baseline),
+            "new_approved_desktop_only": [],
+            "existing_unchanged": True,
+        },
+        indent=2,
+    )
+    + "\n"
+)
+(out / f"{args.label}-browser-cases.json").write_text(json.dumps(records, indent=2) + "\n")
+if report.exists():
+    compressed.write_bytes(gzip.compress(blob, mtime=0))
+    report.unlink()
+print(json.dumps(summary, indent=2))

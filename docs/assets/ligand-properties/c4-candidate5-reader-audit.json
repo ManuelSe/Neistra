@@ -1,0 +1,172 @@
+{
+  "preceding_tag": "v0.36.0",
+  "protocol": "private-derived-shared-schema-v1",
+  "preceding_runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+  "preceding_source_identities": 1013,
+  "directions": {
+    "rich-current-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-rich-current-produce.json",
+      "evidence_sha256": "5bdc776f6cbab4995d909835e1aa0e07a59cc0f086090d1d5a5a0ddb4fcfcce3"
+    },
+    "rich-previous-read-current": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-rich-previous-read-current.json",
+      "evidence_sha256": "d3f343799da77e9bc94016e4a65bfef85c8acbe2ad28b5fb3633a239c14f5e9f"
+    },
+    "rich-previous-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-rich-previous-produce.json",
+      "evidence_sha256": "02f92bc31fd9db23831de1a2a3d5d9a44785186afeecaaef997084ae9faf2a74"
+    },
+    "rich-current-read-previous": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-rich-current-read-previous.json",
+      "evidence_sha256": "6dc4a631a79b12c245e27784bb80bc7187ee2cde1edfd6149bae75b22fe209a9"
+    },
+    "rich-current-reopen": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-rich-current-reopen.json",
+      "evidence_sha256": "6463f0945f4710f822faa921a1bec54bbe8d3c21e78aa57cbe9f77146f459eed"
+    },
+    "connectivity-current-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-connectivity-current-produce.json",
+      "evidence_sha256": "c480ab423babfd8429284bb08b8e5fab2b7fb66e7b8e2e860022d20d4b4bcd89"
+    },
+    "connectivity-previous-read-current": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-connectivity-previous-read-current.json",
+      "evidence_sha256": "efc1723e221b3e9a3bd83efc1150debce7364d07adab5e5ed70b7d0bc7faf527"
+    },
+    "connectivity-previous-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-connectivity-previous-produce.json",
+      "evidence_sha256": "05132056c2ae71fb68801eaf5be61e522d52769b8668d62608e9d11a948d31d3"
+    },
+    "connectivity-current-read-previous": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-connectivity-current-read-previous.json",
+      "evidence_sha256": "f827590b164b55a5ebafac4b277842ed46b8ee05245c8ec61c952d0a10d6a6a1"
+    },
+    "connectivity-current-reopen": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-connectivity-current-reopen.json",
+      "evidence_sha256": "f827590b164b55a5ebafac4b277842ed46b8ee05245c8ec61c952d0a10d6a6a1"
+    },
+    "measurements-current-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-measurements-current-produce.json",
+      "evidence_sha256": "0edbb5a841619ca301a270f688470405fd50f0dab27c65c8a8eb9f753af517d9"
+    },
+    "measurements-previous-read-current": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-measurements-previous-read-current.json",
+      "evidence_sha256": "222b0e201d2dd0a2c99efe7ad45458a76266aef858ac69f67b6844181ebfd052"
+    },
+    "measurements-previous-produce": {
+      "version": "0.36.0",
+      "implementation_root": "/tmp/neistra159-reader036-actual247-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-measurements-previous-produce.json",
+      "evidence_sha256": "f8fca8055fb22a937e8f5892cfc219d4da681d61b25e6a45f6c82c9063adb2c9"
+    },
+    "measurements-current-read-previous": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-measurements-current-read-previous.json",
+      "evidence_sha256": "7ac7a29844934b848dee1f0f806e21d2a7ef63c3b660bdec6d665bf469608e56"
+    },
+    "measurements-current-reopen": {
+      "version": "0.37.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-properties/c4-candidate5-measurements-current-reopen.json",
+      "evidence_sha256": "b4d7b28a9637b78b7e9f80cfe944c95512d8f6aa14dfd8d1eac33eddfeb1c29c"
+    }
+  },
+  "new_editing_states": {
+    "actual_three_phases_verified": true,
+    "summary_sha256": "009f4452588b7208e5adfbb69128869f3be08ecd44a6ad7b6f0b9d3eb226fbf4",
+    "wrapper_sha256": "c6c4857b3630aadb5af7c6a72149eca6ab08f3136fdb4be0b7475b64b7c07cb8",
+    "both_suffixes_verified": true,
+    "protocol": "private-derived-shared-schema-v1"
+  },
+  "private_derived_state": {
+    "actual_three_phases_verified": true,
+    "summary_sha256": "87fa035479eb11444319342c5eab1d1a5f564c7fb8078c43942e468d046ff66f",
+    "wrapper_sha256": "c6c4857b3630aadb5af7c6a72149eca6ab08f3136fdb4be0b7475b64b7c07cb8",
+    "both_suffixes_verified": true,
+    "protocol": "private-derived-shared-schema-v1"
+  }
+}

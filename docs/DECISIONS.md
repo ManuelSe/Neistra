@@ -8508,51 +8508,353 @@ archived or followed as filesystem links. Original workspaces/links stay intact;
 generic release packaging continues to reject arbitrary symlinks.
 
 
-## D-189 — Coalesce job progress refreshes without discarding in-flight state
+## D-178 — Separate descriptor scientific identity from current source binding
 
-Date:2026-11-17. Fresh158candidate8 passes every pre-browser phase but fails the
-existing demonstration-job running/cancel lifecycle. The correct100step/50ms job
-runs5.23seconds; HTTP lists report it running during the assertion while decoded
-DOM snapshots retain the previous failed job until completion. JobsPanel and API
-client are unchanged from the accepted base. Exact exclusive native causation is
-not established by that trace alone.
+Date:2026-11-17. Required #159 preparation retains the approved descriptor catalog
+and strict normalized-source interpretation. A dedicated disposable descriptor
+kernel owns ordinary-terminal-H normalization, explicit toolkit method/options and
+independent value/error outcomes. Preserve unsupported isotope/radical/nonterminal-H
+and stereo facts; return unavailable model outputs while retaining independently
+known counts/charge. Carbon-free fractionsp3 is undefined and unavailable.
 
-Independent actual-component/installed-QueryClient proof reproduces a reachable
-refresh starvation defect: repeated WebSocket invalidations logically cancel four
-held successful running responses, leaving five list requests and no running DOM.
-A counterfactual coalescing control publishes running state through one request.
-The query functions do not consume AbortSignal, so HTTP200 does not prove cache
-publication. Permanent held-list and held-events regressions each fail before the
-correction with five requests instead of one.
-
-Pass cancelRefetch:false to both progress-notification invalidations. Allow an
-existing list/event refresh to finish; preserve polling fallback, explicit Retry,
-project/job query ownership, selected detail tab/focus, cancellation confirmation
-and terminal/error handling. No control, job duration, retry or deadline changes.
-Qualify current running/log publication during held progress events, retained
-cancellation behavior, project transitions and the unchanged actual native lifecycle.
-The reference assessment supports responsive status/progress and deliberate cancel;
-it prescribes no particular query implementation or new workflow.
+Descriptor content identity covers qualified graph/H/stereo/protection/inference
+semantics plus implementation/options/library, excluding coordinates/display data.
+The depiction hash alone is insufficient. Separate freshly proved current entry,
+instance, membership and immutable-source bindings from reusable scientific content.
+This enables coordinate-only reuse without stale publication. Preview/current
+retirement, original preservation, unknown-not-zero, serial release and actual
+preceding-reader qualification remain mandatory. The detailed method conventions
+and independent oracles are recorded in #159's authorized plan before code.
 
 
-D-189 cancellation publication refinement: a separate controlled regression proves
-that an already held pre-cancel list response can restore running after the API has
-confirmed terminal cancellation. Coalescing ordinary progress must not weaken a
-successful explicit intent. On cancel success, logically cancel the older list
-refresh for the returned job's own project before publishing the acknowledged job
-into that same cache. Retain the exact stale-response negative control and normal
-error/confirmation behavior. This is a query publication barrier, not an additional
-server cancellation or a changed job lifecycle.
+## D-179 — Keep automatic descriptor execution privately owned
+
+Date:2026-11-17. #159 reuses the existing allowlisted spawned job worker with
+server-owned purpose and private0017 execution/source captures. Derived executions
+have no ordinary JobInput/JobResultArtifact relationships and never update user
+entry job links/results or project history/dirty state. Parameters/provenance alone
+cannot confer ownership. Imports default to ordinary purpose and have no private
+association. Positively associated cache work is excluded from current archives/
+ordinary job projections; actual predecessor tests must prove harmless empty-input
+unknown-plugin shells survive older-writer deletion/archive operations.
+
+A dedicated descriptor cache root permits narrow digest-verified corruption repair
+and bounded cleanup without touching originals/shared user artifacts. Scientific
+content and current bindings remain separate; publication rechecks current ownership
+under existing project locking. Latest consumer demands materialize only the next
+bounded batch, with measured active/user/bulk fairness and shared cancellation.
+Project/archive3 remains: canonical input/designation reconstruct derived state;
+installation preferences do not travel in archives and nondefault downgrade refuses.
 
 
-D-189 acknowledgement ordering refinement: the running-job cancel API can acknowledge
-running with cancellation_requested=true. Independent actual-component proof shows
-that this older acknowledgement can arrive after a GET has already published a
-terminal cancelled result, then regress cache/DOM to running. Preserve already
-observed terminal state for the same job against a nonterminal acknowledgement,
-including across the targeted query-cancellation barrier; qualify cancelled,
-completed and failed outcomes. Keep normal acknowledged payload updates for live
-jobs and avoid a generic revision protocol or additional server commands.
+D179 refinement during #159 implementation: server-issued consumer IDs close the
+late-update/pruned-tombstone gap. Unknown/pruned IDs cannot recreate demand via
+PUT; bounded sequence records enforce release-before-update ordering. Allocation
+shares current-source/generation ownership and must not restart cancelled input.
+Use one bounded reallocation on owner expiry, with explicit failure afterward;
+retain independent immediate-replay and post-pruning negative controls.
+
+
+## D-180 — Bind descriptor evidence jointly to stereochemical sites
+
+Date:2026-11-17. Independent #159 review reproduces tetrahedral/E–Z inference-site
+collisions when a global stereochemical signature is separate from boolean-stereo
+evidence topology. Use exact validated native/current mapping and fresh absolute
+R/S/r/s/E/Z labels jointly in the evidence graph, with bounded CIP assignment,
+neighbor-frame validation and fail-closed incomplete labels. Preserve case-sensitive
+pseudoasymmetry and supported-domain distinctions; a bookkeeping graph never enters
+chemical interpretation/calculation. Policycip-v2 retires the prior local candidate
+identity. Retain independent placement/renumbering/symmetry and refusal controls;
+initial passing tests do not override the actual counterexamples.
+
+
+## D-181 — Control descriptor preparation and qualify coordinate reuse
+
+Date:2026-11-17. All strict descriptor preparation/CIP/canonicalization belongs in
+the existing resource-controlled child, once. A separate conservative raw-input
+fingerprint may omit only validated coordinate arrays for the current graph-only
+catalog, retaining every other source/semantic field, membership/original identity
+and fixed method identity. It is a proof lookup, not scientific content identity.
+A bounded index can reference only the fingerprint/report association sealed inside
+the verified exclusively owned child-produced cache envelope. Missing/corrupt proof
+requires requalification; fresh current binding remains mandatory. Parent source
+reads/JSON work are genuinely bounded and separately measured.
+
+Consumer ordering sequence differs from semantic execution generation: unchanged
+same-sequence heartbeat renews only lease; priority-only changes preserve generation,
+failures and fairness age; semantic changes, Retry and release/resume retire captured
+authority. Identical higher-sequence payload explicitly means Retry. Keep canonical
+entry/coverage order and shared-subset publication, with independent stale-work tests.
+
+
+## D-182 — Own active property work above remountable presentation
+
+Date:2026-11-17. A property-specific App owner observes exact inspected scientific
+input/method and preview/navigation epochs synchronously. Equal DTOs, names,
+visibility, unrelated sources and project revisions do not retire it. Keep the
+connection above the presenter and preserve ABA/StrictMode/true-unmount fences.
+A single active-target consumer persists when the inspector closes: the parent's
+required automatic refresh must not depend on reopening it after a mobile edit.
+Project/target retirement and explicit cancellation retain their scoped teardown;
+no duplicate invisible work owner is added. This supersedes the earlier pane-close
+release suggestion within #159's planning refinement.
+
+Pending preference saves use Close, with truthful continuing-save feedback; Cancel
+remains for an unsubmitted draft. Captured visit ownership prevents late save
+acknowledgements from closing, refocusing or resetting a replacement options visit.
+
+
+## D-183 — Verify current source authority and retain bounded alias proofs
+
+Date:2026-11-17. Independent architecture review finds that a previously installed
+binding cannot establish current authority from source IDs/key and a readable
+scientific report alone. Every foreground current-result read must verify bounded
+current/original bytes, exact stored source/key and fresh conservative raw-input
+fingerprint membership in that report's sealed envelope. Per-operation memoization
+may share verified artifact reads and JSON/proof work; no native chemistry runs in
+the coordinator. A proof locator is a scheduling/reuse index, not authority.
+Child publication likewise verifies exact source/proof association for each binding
+under the existing project lock and generation/source compare-and-set contract.
+
+Rolling truncation of per-report alias proofs can revoke still-current bindings
+and provoke repeated qualification for nonscientific aliases. Replace the provisional
+32-proof rolling policy with admission of at most1,024 proofs, still subject to the
+existing128KiB envelope and16MiB aggregate encoded bounds. This is a finite upper
+limit, not a measured promise that1,024 fit. Refuse a new request explicitly before
+mutating existing proofs when capacity is exhausted. Pin live-demand content against
+capacity eviction with bounded lease/release ownership; integrity invalidation and
+repair remain possible. No hot recalculation loop or deletion of valid old proof.
+
+Worker metadata may prioritize which bounded batch of pending/active sources to
+verify; it must never publish ready results or install bindings from scheduling
+hints. Foreground reads always verify, so auditing every covered bulk source on
+every worker tick is unnecessary. Preserve fairness and explicit bounded-I/O failure.
+Actual33-alias progress, small-cap refusal, pinned-full, tampered binding/report and
+missing/corrupt original/current source regressions precede acceptance. Independent
+architecture reassessment and actual large-workload qualification remain required.
+
+
+## D-184 — Qualify private derived state with the actual preceding schema-3 writer
+
+Date:2026-11-17. Independent architecture consultation defines #159's additive
+compatibility boundary before reader-tool implementation. Migration0017 introduces
+private derived execution/cache/preferences; project/archive schema remains3. The
+actual released0.36 predecessor must be qualified, never a source-emulating adapter.
+Its Alembic refusal of unknown0017 is distinct from successful compatible API/archive
+reads and writes. Current readers must migrate predecessor0016 and reconstruct
+private derived state without changing originals or ordinary user job/output data.
+
+Add a standard-library coordinator with produce-current, old-write and reopen-current
+actor phases in separately owned stores. Each actor binds real version/head, module
+locations/hashes and actual tagged source receipt. Pending-without-execution,
+claimed-but-not-started, genuinely started, completed, cancelled and interrupted
+states have precise process facts: a persisted running row alone is not a live child.
+Never copy a live PID/start-token/process-group identity into another store and invoke
+recovery there. Live restart/deletion uses one explicitly owned execution store and
+positive identity checks. Retain SQL/file snapshots and every actual test store.
+
+Actual predecessor actions cover read/save, ordinary job creation, entry deletion/
+Undo, project deletion where supported, and export/import/reexport with both suffixes.
+Empty-input unknown-plugin shells may survive; private relationships must never
+become ordinary artifact references. Label actual-old ORM probes accurately when no
+public endpoint exists. Current reopen verifies exact canonical/history/original/
+user-output retention, preference ownership, stale binding retirement, archive-ID
+remapping/reconstruction and restart/reaping. Forged markers or imported execution
+IDs never confer private execution/publication/cleanup authority. Imported nonterminal
+history remains failed history rather than a restored executable process.
+
+Preserve every existing rich/connectivity/editing/ordered-measurement responsibility.
+Explicitly replace prior schema3-versus2 archive-refusal labels with shared-schema3
+positive compatibility and separate unknown-migration refusal. One additional
+coordinator command makes the proposed complete gate43commands; summary/source
+inventory/typechecking/recursive packaging must require all three actor reports and
+retained stores. Tool preparation does not establish preceding qualification: resolve
+and verify the real0.36tag and source receipt only after #158 release.
+
+
+## D-185 — Commit cache references before retiring valid owned files
+
+Date:2026-11-17. During D-183 correction, source review finds that unlinking valid
+cache victims before SQL commit can leave rolled-back rows pointing to deleted
+bytes after a later admission failure. Plan capacity/victims before mutation.
+Create valid owned files and install references inside the existing store-wide
+SQLite BEGIN IMMEDIATE publication lock. Queue replaced/pruned valid paths locally;
+commit successful publication before any retirement, then reacquire that writer
+lock, requery exact references and unlink only still-unreferenced owned candidates.
+Rollback discards retirement intent and preserves old valid bytes. Newly created
+unreferenced blobs may await bounded startup cleanup rather than unsafe rollback
+unlinking. The contract relies on serialization, not a single-publisher assumption.
+
+API corruption repair/unlink must also serialize and recheck: a stale bad read
+cannot unlink a newly repaired file. Cleanup failure after a successful publication
+must not convert that success into failed demand/job state; retain a bounded owned
+orphan for recovery. No session-global hooks, new table or generic GC framework.
+Independent architecture consultation accepts this narrow lifecycle correction;
+rollback/admission/re-adoption/stale-repair/postcommit-cleanup regressions and
+independent implementation reassessment remain required. Originals/user artifacts
+remain outside the descriptor cache's ownership and cleanup authority.
+
+
+## D-187 — Fence binding retirement and cached coverage by current authority
+
+Date:2026-11-17. Independent architecture review of backend correction2 reproduces
+late source A failure deleting an already-published B binding: retirement deletes by
+entry ID alone. Conditional retirement must compare the actually observed binding/
+source stamp, protecting replacement and ABA rebindings. Before delayed worker
+failure publication, refresh authoritative source and captured consumer generations
+under the existing publication lock. Retired ownership cannot delete bindings or
+attach failures to replacement demand. A stale foreground read may report its own
+failure without invalidating newer authority. Apply the same CAS to invalid-binding
+cleanup. Held A→B and A→B→A failures must preserve newer binding/value/failure state.
+The original warm-byte verification and sealed-association correction remains valid;
+its146passing checks and exact source receipts stay retained as historical evidence.
+
+Independent UX review also reproduces coverage-sensitive caching resurrecting known
+bad source data. Cache all14values, request a two-descriptor subset, hold/reject its
+read with a source conflict, then restore the original mask: exact-request-only
+failure keys expose the older14-value report again before successful requalification.
+Even without failure, narrowing coverage initially hides valid existing values.
+
+Keep request/generation identity coverage-sensitive, but reuse scientific values and
+fence source qualification by exact project/entry/current+original source/instance/
+membership/implementation/policy/library. Immediately show matching cached requested
+values; only missing coverage remains pending. A source failure fences every coverage
+variant of that input until an actual successful current read requalifies it.
+Cancellation precedence, ABA/preview/StrictMode ownership and finite retention remain;
+fence eviction cannot expose older retained values. No source hash is self-certified
+from report values. Add held full→subset, subset→superset partial, failed-mask change,
+successful recovery and mismatched identity/method regressions. Renew affected focused
+and full frontend validation plus independent review before first159native workflow.
+D-186 is reserved by isolated160planning; this decision keeps the shared ID unique.
+
+
+D-187 implementation refinement: independent architecture accepts a non-null private
+binding incarnation UUID in unpublished0017 and its model. Mint a fresh nonce on each
+actual installation/replacement; idempotent verification leaves it unchanged. Capture
+entry/source-key/input-hash/incarnation immutably before verification; observed-absent
+bindings grant no deletion authority. Conditional SQL retirement checks that complete
+stamp and affected rows, never recapturing the latest binding as old authority.
+Retain initially captured owner generations, serialized source/failure rechecks and
+D-185 transaction/file ordering; reuse an existing writer transaction without nested
+BEGIN, intermediate commits or rollback to acquire locks. No public binding key,
+scientific digest/policy, project/archive format or version change follows. Use fresh
+owned test stores; preserve historical unpublished0017 stores unchanged. Controls
+cover equal-timestamp Retry/ABA, absent→present, invalid cleanup, rollback incarnation
+and already-held writer transactions, preserving newer binding and failure maps.
+
+
+D-187 source-contract assessment: independent architecture traces every supported
+original-artifact producer and public update whitelist. An original pointer is
+established/restored with its entry identity; duplication/archive/job-result paths
+create new identities, and supported edits replace only current artifacts. No public
+same-entry original replacement is established. The frontend still isolates its
+observed original exactly and the backend verifies original bytes in its source key/
+proof. Therefore no additional original-ID echo/precondition is required by current
+supported behavior. A future command permitting same-entry original replacement must
+extend conditional property-source ownership before relying on this immutability.
+Forged SQL/history is not described as an existing replacement endpoint.
+
+
+## D-188 — Count productive coordinator turns in job fairness
+
+Date:2026-11-17. Independent performance and architecture review identifies a
+consequential scheduler gap: materialize() returning True represents actual warm
+binding or failure progress, yet JobWorker returns before incrementing either
+fairness counter. An isolated exact-production-method probe retains5warm turns
+with ordinary claim only on6, and143warm turns with claim only on144; both counters
+remainzero. This is branch proof, not a1000-source runtime measurement.
+
+Count every productive derived turn, boolean progress or returned child job, in
+both existing streaks before returning. Preserve False/None as no-work and retain
+the existing ordinary opportunity after four productive derived turns and existing
+active/bulk fairness policy. Qualify actual warm aliases with an ordinary queued
+job, mixed warm/cold and cache-failure progress; preserve the existing cold-child
+fairness test. Work-order evidence must count coordinator turns, including warm
+progress, rather than infer fairness solely from spawned-child counts. No new job
+type, scientific method, scheduling deadline or timing target is introduced.
+
+The performance harness must prove exact new-source App READY before mobile
+presentation reopening. Separate command/ACK-to-network-ready and deliberate
+open-to-cached-DOM timing. Hidden-at-start DOM retirement is unobserved, never a
+measured zero; retain raw visibility facts and observable desktop/immediate-owner
+controls. Active-priority evidence must establish accepted exact-source overlap
+and bounded actual scheduling order, not only an optional wall-time threshold.
+
+
+## D-191 — Keep browser qualification clocks in their browser realm
+
+The first actual native property measurement stops during setup before browser
+API transport. The performance harness imports a Node clock and uses the unqualified
+name inside browser-serialized callbacks; the installed transform emits a Node-only
+module alias into the browser. Captured init source throws before original fetch.
+Independent architecture replay confirms zero original calls; explicitly qualifying
+the browser-global clock permits forwarding once. Audit finds fourteen references
+across five of the twenty-one serialized callback bodies, including nested observers.
+
+Correct those browser callbacks to globalThis.performance.now(), keeping Node-side
+clock measurements in Node. Browser timestamps remain compared within their realm;
+do not subtract them from Node timestamps. Preserve every cohort, workload, deadline,
+request/source/READY/retirement assertion and trace/resource bound. Retain the actual
+transformed before/after callback proof and an all-callback outer-capture audit, then
+run fresh source-bound native measurement. No scientific method, API, worker policy
+or application behavior changes are implied by this harness correction.
+
+The owned exploratory run is INTERRUPTED_SETUP, not a completed timeout or measured
+case. Its corepack child ends by SIGINT(-2); supervising runner exits1 on its explicit
+leftover-service assertion. Positively matched detached API/worker/web groups are
+then stopped and all ports/PIDs cleared. Preserve both interruption and cleanup
+recovery facts, raw/live traces, exact source maps and store. No browser report is
+invented after interruption. The five-process API functional proof remains separate;
+all eight native performance cases and final qualification are still required.
+
+
+## D-192 — Qualify editable performance fixtures without warming measured chemistry
+
+Actual corrected native probe2 completes five cold-context prefixes, then its first
+chemical edit returns a current terminal-ready response with chemistry unavailable.
+The stored edited graph has no explicit H and all-zero coordinates; automatic
+reconciliation skips two degenerate sites. Independent theory and implementation
+assessments confirm the strict hydrogen_semantics_unavailable refusal is correct.
+Do not weaken current/model-qualified/all-fourteen-ready or interpret this sample
+as a refresh-latency defect. Retain the failed run and partial prefix observations.
+
+Use the existing generated-coordinate import option ONLY for the44editable targets:
+twenty paired samples per profile and four active entries across the bulk cases.
+Keep five nonediting cold prefixes, cancellation-only fixtures and both1,000-entry
+graph-only cohorts unchanged. Preserve submitted SMILES bytes, intended heavy graph,
+charge/microstate, exact C→N/Undo commands, counts, scheduling and deadlines. Existing
+AddHs/seeded embedding/cleanup is disclosed representation setup, not protonation or
+complete preparation. Valid orientation/source/unoptimized-geometry warnings remain.
+
+Before the measured trigger, qualify each editable canonical fixture through finite
+coordinates/nondegenerate affected vectors across conformers and a disposable,
+nonpublishing production-editor/kernel control. Canonical H semantics must qualify
+without immutable-original recovery, before and after the trial edit. Assert all14
+outcomes ready, complete reconciliation with no skipped/unprocessed sites, intended
+carbon decrement/heavy membership and unchanged originals/input objects. Never call
+API descriptor calculations or publish trial edits/Undo into the measured cache.
+Use only bounded isolated objects/processes and record preflight/setup separately.
+
+Independent generated desktop/mobile/bulk representative controls pass with
+original_bytes=None, while the zero-coordinate negative control remains unavailable,
+actual70958exit0. This supports the method, not all44runtime fixtures or completed
+performance qualification. Actual edit→current starts at the existing trusted trigger
+and includes acknowledgement, automatic work and publication. No Refresh/reopen/read
+may initiate the measured update. Full corrected cases and all-eight qualification
+remain required, with requests/jobs/RSS/trace/cap/cleanup evidence retained.
+
+
+## D-194 — Freeze idealized editable benchmark originals without changing production embedding
+
+The fresh D-192 native probe3 fails during production generated-coordinate import of C62, after five cold prefixes and13paired samples throughC58. Independent frozen adapter reproduction confirms a deterministic setup refusal, not an automatic-refresh failure. Preserve that complete failed attempt and all earlier inputs/stores. Do not cap sizes, substitute easier graphs, retry production seeds, relax strict chemistry or change the production importer.
+
+For qualification setup ONLY, explicitly supersede D-192's identical uploaded-SMILES representation/filename condition. Freeze44coordinate-bearing MOL/SDF originals for the EXACT44intended heavy graphs and retain each original intendedSMILES in a source manifest. This comprises20desktopalkanes and20mobileethers at10,14,…,86heavy atoms, plus four distinct43-heavy bulk-active graphs:C41NC,C41OC,C41NO,C41OO. The last is a peroxide; equal atom counts do not establish identical graphs. New frozen upload bytes are the immutable originals and require SHA/size/source checks. Cold five-prefix, cancellation-only and all1,000-entry graph inputs remain unchanged.
+
+Scientific-theory consultation accepts one deterministic idealized-chain generator for these explicitly bounded linear, acyclic, ordinary neutral C/N/O single-bond graphs. Preserve heavy ordering/connectivity; use existing approximate covalent_length values and internal angle acos(-1/3), assign finite conformer, then pinned explicit-H AddHs(addCoords=True). Serialize once and freeze. No stochastic fallback/adaptive retry/hidden optimization/new dependency. Coordinates are idealized and unoptimized, not low-energy conformers, pH inference or preparation predictions.
+
+Before runtime use, independently qualify ALL44serialized artifacts through the production adapter: exact heavy graph/element order/bonds/charges/isotopes/radicals/H inventory/no introduced stereochemical assignment; finite coordinates and nondegenerate affected vectors across all conformers; strict14descriptors with original recovery disabled before/after real disposable production C→N; complete H reconciliation and unchanged other heavy membership; exact restoration using actual inverse/history semantics where applicable. Retain generator/settings/library/source identities and the explicitO–Ocase. Runtime preflight still binds actual committed current/original artifact bytes and exact membership; preserve raw warnings and reject disagreement.
+
+Generation/import/preflight are disclosed setup before App demand/trusted measured trigger, never changed-input descriptor-cache warming. Retain20pairedsamples per profile, allfourbulkactivecases, exact realedit/Undo/source/READY/work-order/resource assertions, timing clocks/deadlines and portable-only policy. Existing measured trigger includes acknowledgement, automatic work and publication. Code/method review, all44offline controls and fresh runtime execution are separate requirements; this decision establishes no performance pass or release readiness.
 
 
 ## D-195 — A source failure retires earlier inventory checks across presenters
@@ -8589,6 +8891,50 @@ pages, source/project changes and unaffected independent consumers. Keep all old
 scientific assertions, workloads, timing bounds and warnings. Run appropriate fresh
 candidate/full gates and same-candidate seven-role reviews; this correction is not
 permission to pool partial runs or claim a release before exact-master qualification.
+
+
+## D-196 — Terminalize refused private startup ownership without unconfirmed signals
+
+The new161native1 first identity/profile case passes, but its next project remains
+pending through120seconds despite fast successful reads and renewed leases. The
+retained source is unchanged. Independent offline controls of159's actual worker,
+child and copied database prove a sufficient new159failure mechanism: registration
+refusal can reap a child while leaving its job RUNNING, and that orphan blocks later
+derived admission. Early cancellation can precede the ownership ACK. The exact
+native1branch remains an inference; post-shutdown reaped/PID fields do not prove
+when reaping occurred. This path is absent in158; its fresh qualification continues.
+
+Keep candidate process-group identity separate from signal authority. Grant group
+signals only after positive record_process ownership registration. A refused or
+unconfirmed child is cleaned up through its positively owned process handle and
+joins, never through unconfirmed killpg. Recheck the captured current attempt and
+liveness before spawn and before coordinator_ready; do not grant calculation
+permission to work already known to be retired. Preserve cancellation grace and
+wall-time bounds and serialize ownership ACK before later control messages.
+
+Before treating startup refusal as terminal/reaped, refresh under the existing
+serialized database writer boundary and match captured job ID, worker ID, private
+execution ID and parameters. Only that still-owned RUNNING attempt may transition:
+use existing cancelled for real cancellation/owner retirement, or explicit startup
+failed when still wanted. Do not clobber terminal/deleted/reassigned attempts; bind
+reaping to the captured execution identity. Reuse captured-generation failure
+fencing; one startup error must not fail unrelated current demands.
+
+This is a necessary159lifecycle correction propagated to160/161, not a new chemistry
+method, schema, scientific cache, scheduling policy, fairness or resource-budget
+change. Do not raise deadlines, suppress failures, publish late outputs or restore
+historical numbers. Regression evidence must cover early stop/ACK ordering, absent
+unconfirmed group signals, truthful active startup failure, existing terminal and
+reassigned states, durable terminalization plus next admission, and real process
+cleanup/recovery. Preserve the original failed native store and all observations.
+
+The preceding corrected159selected browser probe4 passes one desktop case with
+five cold starts and20paired real edits, actual7395exit0, all1110/49method identities
+fixed and cleanup verified. This does not qualify all8cases or the forthcoming
+worker correction. Portable cold-edit median2057.95ms/p952242.60ms exceeds the
+unchanged2000ms target under disclosed concurrent work; do not claim that target or
+controlled-host performance has passed. Measure current corrected source before
+performance acceptance; preserve the existing targets and D148 policy.
 
 
 ## D-197 — Bound inventory failure facts with conservative requalification
@@ -8634,6 +8980,293 @@ reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
 independent architecture/performance reassessment before the next full candidate
 qualification, then all seven same-candidate assessments and the complete gates.
 
+
+## D-198 — Retire numerical source authority on verified source failure
+
+Independent production-hook/session/component controls demonstrate that candidate
+source-integrity, missing-artifact and source-conflict failures withhold formula
+and drawing but leave cached properties labelled current. In161the same condition
+leaves a complete passing profile and radar. This is an earliest159frontend
+source-publication defect, not a demonstrated chemistry or numerical-value error.
+Transport failure, unrelated source and qualification-metadata eviction controls
+preserve independently qualified numbers; those conditions must remain distinct.
+
+The canonical inventory owner emits a typed exact-source verification-failure fact
+only for structure_artifact_conflict, artifact_integrity_error and artifact_not_found.
+Carry project/entry/current/original artifact identity, a fresh opaque failure token
+and fixed classification. Install the candidate barrier first, emit before query
+cancellation/React notifications, and retain no original errors or unbounded history.
+Do not use generic inventory blocked status/revision as numerical authority.
+
+One App-lifetime subscription forwards that fact into the existing property session,
+independent of presenter visibility. Invalidate every matching source-bound client
+binding and coverage alias, clear matching request projections, stop only matching
+active work via existing generation/abort/release, and retire the matching current
+PropertyInputOwner capture before notification. Tag existing bounded records with
+typed source identity rather than parsing opaque cache keys. Captured profile
+isCurrent checks must become false immediately. Preserve explicit Cancel and
+unrelated work, intent, original bytes and Undo ownership.
+
+Candidate success never restores numerical authority. Recover only through a fresh
+matching source-verified property READ begun after the latest failure, under the
+existing report/source/binding/method guards. Older held reads/demands cannot cross
+the failure generation. Keep the backend semantic report/proof cache, so verified
+warm reuse does not require new calculation. Reuse connection/retry behavior with
+no automatic retry loop; other supported exact-source producers enter this typed
+boundary through their existing owners rather than a global HTTP interceptor.
+
+This is a frontend authority correction with no migration, scientific method,
+backend cache policy, scheduler/resource/deadline change or broader delivery scope.
+Verify all three failures across coverage aliases/profile/radar/table, candidate-
+only recovery rejection, old held responses, another failure during fresh READ,
+fresh warm recovery, captured-profile retirement, transport/unrelated/eviction
+independence, hidden/mobile/remount/A→B→A/Cancel/Undo/source-replacement ownership
+and repeated bounded failures. Long performance execution remains held until the
+corrected source is independently reassessed and freshly qualified.
+
+
+### D-198 refinement — distinguish molecular source failures from drawing artifacts
+
+Independent architecture review reproduces a remaining current-authority failure:
+a committed exact-source depiction query reporting409structure_artifact_conflict
+leaves cached numerical authority live. The existing depiction service verifies
+current and original molecular inputs and a separate derived SVG; its generic
+artifact error codes alone cannot distinguish those reads. Source integrity and
+missing-input failures must therefore carry narrowly assigned typed provenance.
+
+Preserve existing HTTP status and error code. A local ligand-source exception
+records current/original input role and the original failure classification only
+around known molecular input reads in _load_inputs/_cached. The API adds optional
+source_verification=current|original; derived SVG reads remain untagged. The
+frontend validates this optional enum, with a null default for existing callers.
+The canonical owner decodes the committed, supported-policy depiction query's
+exact project/entry/current/original identity. Source conflicts and provenance-
+qualified artifact failures enter the existing barrier and numerical-retirement
+boundary before cancellation/publication. Transport, malformed/legacy/preview
+keys and untagged drawing errors do not acquire molecular failure authority.
+Candidate behavior remains compatible. Neither depiction nor candidate success
+restores numerical authority; only a fresh validated property READ may recover.
+
+This completes the already accepted D-198 producer boundary without changing
+chemistry, cache policy, schemas, scheduling, budgets or delivery dependencies.
+Architecture and scientific implementation assessed the seam before code. Verify
+real cached/cold current/original integrity/missing failures, distinct derived SVG
+failures, public error compatibility, precise query identity, old in-flight work
+and fresh warm recovery. Keep the first failed channel proof and original frozen
+candidate intact; renew affected independent assessments before propagation.
+
+
+### D-198 producer closure — shared current facts before numerical consumers
+
+Independent actual application controls reproduce a source-qualification defect:
+Use can report a molecular integrity or missing-artifact failure while cached
+composition/drawing remain visible and Use stays enabled. The corresponding159
+path also retains numerical authority. This violates D-166/D-195 even though the
+failed operation leaves durable intent unchanged. The old1007-source candidate,
+all raw controls and its active C12 qualification remain untouched. An isolated
+fix/issue-158-source-producer-qualification tree owns this correction under the
+same approved158plan; it is not a separate release or permission to push early.
+
+Audit the closed four-producer ligand-service boundary: candidates and depiction
+use their query owners; designate and legacy resolve report failure inside their
+actual captured API operation, before generic command/toast/helper feedback gates.
+Expose a bounded explicit canonical-owner source-failure entry point, reusing the
+existing barrier, cancellation and notification path. Preserve128records/64KiB,
+weak request-start guards and current-only successful candidate requalification.
+Depiction success never qualifies candidate facts.159's numerical bridge consumes
+these facts separately; it still requires a fresh property READ for recovery.
+
+Known current/original molecular reads carry optional typed source_verification
+and source_identity={project_id,entry_id,current_artifact_id,original_artifact_id},
+captured as primitives before the actual read. Preserve existing HTTP status/code/
+message. Include normalized-source StructureArtifactConflict failures as well as
+integrity/missing-artifact failures. Derived SVG reads remain untagged. The _entry
+expected-current mismatch receives a typed current tag without inventing an old-
+current/new-original tuple. Its single-target operation can use its own captured
+four-field input. A later expected_input_hash mismatch is semantic rejection, stays
+untagged and does not invalidate independent scientific facts.
+
+The client distinguishes absent, valid and invalid supplied identity; malformed
+provided provenance cannot become absent fallback authority. Batch resolve accepts
+only proof matching its captured project, requested member and all four immutable
+source fields, even for a one-entry batch. Never invalidate every batch input.
+Single-target operations use the captured exact source and valid producer evidence.
+Delayed source facts apply independently of UI feedback ownership to matching
+cached source only; a different source B remains untouched. Returning to the same
+immutable A requires verification after the latest observed failure. Clear/no-op
+fabricates no read proof; successful assignment/clear follows existing identity/
+history. Transport, revision/context errors, semantic candidate rejection and
+untagged derived drawing errors do not become molecular-source failures.
+
+Architecture and scientific implementation assessed this boundary before code.
+Verify actual158composition/drawing/Use retirement, actual159numerical/captured-
+authority retirement, exact batch isolation, API provenance validation, held reads,
+closed/switched contexts, Clear/semantic/transport/derived positives, bounded
+retention and successful current candidate recheck. Preserve all failed proofs.
+Complete focused/static/web checks and all-seven same-final-candidate assessments;
+then run a fresh full158candidate/exact-master gate before publication. C12's
+unchanged automated results are historical, not approval of the known defect.
+
+
+D-198 single-Use compatibility clarification: inspection of the designation write,
+entry.ligand patch application, history trimming and project DTO construction finds
+no artifact reads outside the captured target's _inputs. Therefore legacy untagged
+artifact_integrity_error409/artifact_not_found404 on the actual single-target Use
+API promise are valid source evidence for that captured input. Enable this narrow
+fallback only when selecting a candidate. Clear has no input read and gains no such
+fallback; batch resolution always requires full typed exact identity. Untagged
+structure_artifact_conflict remains ambiguous with candidate-hash rejection and
+cannot grant mutation authority. A supplied malformed or mismatching identity
+always prevents fallback. This preserves the original source-failure regression
+while retaining explicit producer and immutable-source ownership.
+
+
+### D-198 property-result producer — preserve explicit physical verification facts
+
+A separate159integration negative uses six actual current/original corruption,
+missing-file and missing-metadata READ results. They return HTTP200/status=failed
+with no report; the property session retires numbers but leaves canonical candidate
+facts qualified. Preserve the source-bound negative assessment72841d050ca371a1778aa461610eec39a683f07b9eab6ae08d0476fabf77ea95.
+This producer belongs159, not the earliest158ligand-service correction.
+
+Before159integration, carry a narrow optional physical-source fact from existing
+PropertySourceVerification snapshot/read failure branches into the existing current
+result row. Capture project/entry/current/original primitive IDs before publication
+locks/rechecks or ORM refresh, and preserve provenance in operation-local failure
+memoization. Never infer physical failure from free-text reason, generic failed/
+unavailable status, worker/chemistry/capacity errors or generic structure409; the
+latter also covers valid-source designation/instance/membership changes.
+
+Install a narrow session-to-canonical-owner publication port synchronously above
+presentation. After existing active request/read-generation/ownership and exact
+source guards, validate all four fields and non-null role evidence, publish one
+fact through the canonical barrier/event retirement path, and return immediately.
+That response's own authority has retired; it cannot then publish, poll or demand.
+The inventory-to-session retirement path must not re-emit a physical fact. Apply
+the same provenance validation to source-verified demand rows while retaining the
+fresh-property-READ recovery fence. No new broker, error history, retry loop or
+scientific method is introduced.
+
+Candidate and numerical recovery remain independent: candidate success alone
+cannot restore numbers, and numeric success cannot silently qualify composition/
+drawing. Verify six actual physical failures, unsupported/worker/capacity/transport/
+designation positives, one-event retirement across aliases, held A/B/Undo/Retry/
+newer-failure ownership, hidden/remounted consumers and unrelated/Cancel/original-
+bytes/history/bounded retention. Architecture and scientific implementation have
+assessed the method before code; actual159implementation and reassessment remain
+pending the earliest158shared-source correction.
+
+
+### D-196 continuation — isolate private-cache recovery and close pre-launch refusals
+
+Date: 2026-11-18. Early complete #159 code review of049173da identifies two concrete
+failure-recovery gaps within the existing captured-attempt contract. This refinement
+adds no scientific method, schema, service, dependency or resource-limit change.
+
+Descriptor-cache construction or orphan cleanup can raise OSError in worker startup.
+Catch only OSError and PropertyCacheError around that exclusive housekeeping stage,
+roll back its transaction and retain the warning. Positive process recovery, job
+recovery, ownership checks and database errors remain outside that catch. A private
+cache outage must not stop otherwise valid ordinary user work.
+
+Capture immutable PropertyAttempt ownership before implementation-version refusal or
+input materialization. On a pre-launch refusal, release the failing caller transaction
+before opening another session, or use the same writer seam. Refresh the exact claim
+under the writer lock and require child_pid=None, child_start_token=None and
+group_confirmed=False before never-started finalization. Reuse existing truthful
+failed-versus-retired cancellation classification. After a terminalizer commit,
+reacquire the writer lock and recheck ownership, those three metadata fields and
+terminal status before marking reaped and pruning. Already terminal matching claims
+keep their status; queued/running claims are not falsely reaped.
+
+Missing, deleted, replacement, foreign or positively registered captures cannot gain
+never-started authority from a job ID or a missing local process object. Preserve
+existing verified recovery for those cases; do not hide a reaping failure. Keep old
+startup regressions and D-194 fixtures unchanged, and add independent startup-I/O,
+pre-load/version refusal, bounded-retention and ownership-race oracles.
+
+This is the accepted bounded correction design, not execution evidence. The owned
+#159 patch remains unverified until focused tests and applicable checks run after
+#158's active exact-master qualification. Refresh source-bound performance preparations
+before any future workload; do not rewrite old maps or borrow their passes for new
+worker bytes. Final released prerequisites, full gates and all seven final assessments
+remain mandatory.
+
+
+### D-196 correction verification — 2026-11-18
+
+After the exact #158 host qualification finished, the original worker class loaded
+in a test-only child reproduces three real negative assertions: cache-path
+NotADirectoryError escapes startup, and input/version refusal leaves each captured
+execution unreaped. Zero setup errors occur. The corrected two-file candidate
+passes33 new cases and171 existing affected cases with zero skips/errors. Global
+Ruff passes. The extra whole-repository format probe reports105 unchanged baseline
+files; retain that failed attempt without bulk formatting. An unchanged-source
+continuation passes owned formatting, mypy274 and diff checks.
+
+Independent architecture execution assessment closes both original P2s, including
+retention beyond32terminal captures, actual0017 downgrade, ordinary-job preservation,
+retirement/replacement and positively registered process metadata. This is scoped
+correction acceptance, not all-seven final feature approval. The new1123-source map
+keeps1121other prior bodies exact; old startup cases and D-194 fixture paths stay
+unchanged. Preserve old maps/ALL8prep7 as stale HOLD inputs and refresh guards before
+future workloads. The public c2-prelaunch-recovery checkpoint/ZIP retain all799owned
+regular files,106inert aliases,409empty directories, raw attempts and stores without
+SQL inspection. Primary full-union/source readback passes. No scientific method,
+version, schema, capacity or performance-target change follows from this correction.
+
+
+### Published predecessor decision union — 2026-11-18
+
+The following accepted predecessor decisions are preserved verbatim alongside the
+current property-result producer and recovery decisions. Runtime v0.36.0 is published;
+its anonymous evidence verification and terminal delivery closeout remain pending.
+
+## D-189 — Coalesce job progress refreshes without discarding in-flight state
+
+Date:2026-11-17. Fresh158candidate8 passes every pre-browser phase but fails the
+existing demonstration-job running/cancel lifecycle. The correct100step/50ms job
+runs5.23seconds; HTTP lists report it running during the assertion while decoded
+DOM snapshots retain the previous failed job until completion. JobsPanel and API
+client are unchanged from the accepted base. Exact exclusive native causation is
+not established by that trace alone.
+
+Independent actual-component/installed-QueryClient proof reproduces a reachable
+refresh starvation defect: repeated WebSocket invalidations logically cancel four
+held successful running responses, leaving five list requests and no running DOM.
+A counterfactual coalescing control publishes running state through one request.
+The query functions do not consume AbortSignal, so HTTP200 does not prove cache
+publication. Permanent held-list and held-events regressions each fail before the
+correction with five requests instead of one.
+
+Pass cancelRefetch:false to both progress-notification invalidations. Allow an
+existing list/event refresh to finish; preserve polling fallback, explicit Retry,
+project/job query ownership, selected detail tab/focus, cancellation confirmation
+and terminal/error handling. No control, job duration, retry or deadline changes.
+Qualify current running/log publication during held progress events, retained
+cancellation behavior, project transitions and the unchanged actual native lifecycle.
+The reference assessment supports responsive status/progress and deliberate cancel;
+it prescribes no particular query implementation or new workflow.
+
+
+D-189 cancellation publication refinement: a separate controlled regression proves
+that an already held pre-cancel list response can restore running after the API has
+confirmed terminal cancellation. Coalescing ordinary progress must not weaken a
+successful explicit intent. On cancel success, logically cancel the older list
+refresh for the returned job's own project before publishing the acknowledged job
+into that same cache. Retain the exact stale-response negative control and normal
+error/confirmation behavior. This is a query publication barrier, not an additional
+server cancellation or a changed job lifecycle.
+
+
+D-189 acknowledgement ordering refinement: the running-job cancel API can acknowledge
+running with cancellation_requested=true. Independent actual-component proof shows
+that this older acknowledgement can arrive after a GET has already published a
+terminal cancelled result, then regress cache/DOM to running. Preserve already
+observed terminal state for the same job against a nonterminal acknowledgement,
+including across the targeted query-cancellation barrier; qualify cancelled,
+completed and failed outcomes. Keep normal acknowledged payload updates for live
+jobs and avoid a generic revision protocol or additional server commands.
 
 ## D-198 — Qualify ligand source failures across read and write producers
 
@@ -8698,3 +9331,262 @@ structure_artifact_conflict remains ambiguous with candidate-hash rejection and
 cannot grant mutation authority. A supplied malformed or mismatching identity
 always prevents fallback. This preserves the original source-failure regression
 while retaining explicit producer and immutable-source ownership.
+
+
+### D-194 diagnostic addendum — retain browser clock origins
+
+The historical cold-edit latency evidence lacks a browser `performance.timeOrigin`,
+so it cannot establish an exact correspondence between browser-relative observations
+and worker wall-clock events. Preserve that historical miss and every existing
+fixture, measured trigger, start/stop expression, target and deadline. Add only
+explicit diagnostic clock origins and calibration records outside the measured
+intervals to the benchmark evidence. Tag records with their actual document clock
+basis; navigation must not silently mix origins. Keep any wall-clock calibration
+uncertainty visible rather than assuming synchronized clocks.
+
+This changes one benchmark method file and requires a fresh declared source/method
+binding and current execution. It does not change numerical inputs, production
+chemistry, scheduling, polling, benchmark boundaries or acceptance. Existing
+application-ready observations retain their meaning. A worker `bind_return` event
+precedes database commit; a successful `turn_end` may bound publication, but neither
+proves the exact time an unseen browser response could have completed. Record
+request counts and real work before considering a polling optimization. No speedup,
+strict reference-host pass or counterfactual claim follows from instrumentation.
+
+
+## D-201 — Keep inspector projection observation linear without narrowing source scope
+
+A retained diagnostic at source `8d24605` covers the complete active click-to-READY
+window, although its global trace-buffer guard makes the overall diagnostic fail.
+Keep that distinction and the prior interrupted diagnostic. Source, cleanup,
+raw DB/WAL/SHM copies and resource guards pass. The bounded window contains
+6,306 ms of sampled React render/commit/dispatch work; 930 ms belongs to existing
+browser-test snapshots and 85 ms to the existing benchmark script. These are
+sample-weighted phase attributions, not exclusive CPU or uninstrumented speedups.
+Current-source READ/demand server spans are approximately 28/36 ms while renderer
+response handling arrives later. Do not label the full fetch await span server CPU.
+
+The installed query library tracks every accessed result property across all
+observers. The inspector's whole-project projection loop therefore repeats that
+work quadratically, and two entry lookups also scan the complete entry array.
+Use one index from the current immutable entry list and memoized options for the
+same full relevant-entry set. Preserve project/artifact keys, query functions,
+cancellation, retry and complete-projection qualification. Explicitly subscribe to
+exactly data, isError and isPlaceholderData, the result fields consumed here. Any
+future additional result-field read must revisit this notification list. A failed
+refetch with retained data must still retire the projection; recovery and a complete
+replacement for a coordinate seed must still notify.
+
+Read-only performance and architecture consultations support this narrow correction.
+Do not reduce hidden/selected eligibility, add a new source cache, alter chemistry,
+shorten polling, change production limits or redesign entry rows from these results.
+The independent installed-library resource regression reproduces 5,005,000 tracked
+property calls and 1,002,000 ID reads for 1,000 hidden eligible entries before correction,
+then 0 and 2,000 respectively with all 1,000 queries still observed. Significant
+lifecycle tests and focused/static checks pass; initial test-only lint errors are
+corrected and retained. This demonstrates bounded work, not a five-second browser
+claim. Fresh unchanged ALL8 and complete candidate/exact-master qualification,
+all-seven same-final-candidate review and protected release remain mandatory.
+
+The [attribution](assets/ligand-properties/c3-desktop-profile-analysis.json) and
+[correction evidence](assets/ligand-properties/c3-inspector-correction-checkpoint.json)
+record precise subjects and limits. The complete raw diagnostics exceed the Git
+file bound and remain one private, verified 190,937,608-byte packet for the planned
+v0.37.0 separate forensic asset. Its metadata does not claim remote publication.
+
+### D-194 qualification refinement — maintain bulk leases independently of progress
+
+Actual native9 at 0f843c17 exits 1 with three passing desktop cases, one failed distinct
+bulk case and four unrun mobile cases. The failed same-sequence heartbeat begins
+27.443 ms after the server's returned expiry. Five sequential aggregate reads and
+2,978 expectation steps separate renewal attempts by 60.303 seconds. Production
+correctly enforces its 60-second lease; the nominal 20-second test-maintenance check
+is delayed by foreground progress. Those facts do not independently assign the
+remaining elapsed time to assertion CPU, tracing or shared-host contention.
+
+Use one independently scheduled, globally serial test-maintenance lane. Renew the
+same five 200-entry owners with unchanged payloads and sequence 1 when 20 seconds due.
+Do not accumulate catch-up operations, overlap renewals, retry, reallocate or extend
+leases. Capture response status/body/timing and returned expiry before checking
+success. Preserve the first failure and stop scheduling. Teardown stops and awaits
+the in-flight request before sequence 2 releases, then preserves observer/partial
+evidence even when renewal or release fails. Genuine expiry remains a failure.
+
+The eight workload cases, scientific assertions, work/resource/fairness proofs,
+absolute targets and original deadlines remain. Independent fake-time controls
+include an expired unmaintained 60-second control during 125 seconds of held foreground
+work while all five maintained leases remain valid. Scoped architecture and
+performance assessments support the correction; focused 8 tests and static checks
+pass. This changes the benchmark method: declare the new helper dependency and
+renewal/response-logging overhead, preserve native9 as failed evidence and rerun all
+eight cases. Do not relabel the failed run or infer a browser speedup.
+
+The complete failed-run raw packet is retained privately as a separate planned
+release asset, with all 3,225 original file bodies, five empty directories, CRC/hash
+checks and recursive validation. No scientific, production, API, TTL, schema,
+dependency or version change follows from this test correction. Packaging separately
+requires real scoped sidecars and the actual approved plan; final ALL8 success proof
+must remain absent until an actual successful complete run and packet are verified.
+
+### D-194 qualification refinement — complete batch predicates with bounded reporting
+
+Native10 at 060c0fa0 also fails its distinct bulk heartbeat: actual runner 1,
+three desktop passes, one failure and four unrun mobile cases. The globally serial
+renewal lane is active, but four preceding requests occupy approximately 51.17 seconds
+after the affected owner's earlier response. The next request begins approximately
+6.896 seconds after the returned expiry. Production correctly rejects it. The
+independent timer alone does not solve the observed head-of-line delay.
+
+Closed evidence records 48,641 matcher steps and 88 synchronous 200-row validation blocks
+totalling 193.355 seconds. The longest block lasts 7.879 seconds for 801 matcher steps;
+late response-receive spans overlap these blocks. The identified test worker records
+42.98 CPU seconds over a 66.459-second window. This establishes repeated test reporting
+as a concrete bottleneck, without assigning every network/server or function cost.
+
+Preserve ordered source equality once per response. Replace the four repeated
+per-row matcher sites with complete pure predicates and one empty-error-list matcher
+per batch. Inspect every status and, for each ready row, qualified report status,
+exactly 14 values and every value ready and finite. Pending rows may retain null or
+partial reports; finite zero/negative values remain valid. Keep all counts, input
+hashes, bindings, fairness/resource proofs, targets, deadlines and the existing
+20-second serial maintenance lane. Do not sample or add another execution process.
+
+The independent prior pointwise oracle and new collector reject 641 predicate fault
+batches and 4 source/order faults. Controls cover all 200 row positions and all 14
+value positions, report boundaries and valid mixed states. Data matcher calls are 801→2 for
+200 ready rows; this is a deterministic reporting bound, not a browser speedup.
+16 focused tests and applicable static checks pass. Scoped architecture/performance
+assessments cover the exact three corrected files. Scientific/production/API/lease
+bytes remain unchanged. Declare the new 51-subject benchmark method and rerun all
+eight original workloads. Preserve native10's failure and original transport error
+with its independent process-identity recovery; do not normalize either into PASS.
+
+### D-194 current qualification result — corrected complete eight-case method
+
+Native11 at 995e80f8 completes all eight original workloads in one attempt with actual
+runner exit 0 and no skips, failures, flakes or retries. All 1,130 sources and 51 declared
+method subjects remain exact. Mandatory scientific/source/work/request/fairness/resource,
+cleanup and raw-preservation proofs pass; closed analysis and independent scoped performance
+assessment agree. The successful 41,422,460-byte complete packet is independently verified.
+
+Retain every absolute target miss under D-148: 32/40 cold edits exceed 2 seconds,
+both desktop active-bulk cases exceed 5 seconds, and 21/84 command-feedback observations
+exceed 100 ms. Matching-cache values require no new jobs and finish within 74.5 ms;
+cancellation feedback is at most 22 ms. The 105 renewal calls preserve 28,801,010 response
+bytes and their overhead remains measured. No strict-host certification, unchanged-method
+comparison or causal application speedup follows. No additional optimization is required
+by the scoped performance assessment; complete candidate/master release gates and final
+same-candidate seven-specialist review remain binding.
+
+### D-174 verifier refinement — preserve declared empty directories and interrupted gates
+
+Final child159 review finds that two valid immutable checkpoint packets carry
+explicit declared empty-directory ZIP entries. Treat those entries as part of the
+manifest's exact archive contract. Accept only unique canonical safe declarations
+matched by zero-byte directory members; preserve exact regular-file unions, hashes,
+sizes, CRCs and recursive/project checks. Refuse unsafe/undeclared/nonempty/mislabelled
+entries and file/directory ancestry collisions. Never rewrite prior packets to fit
+the verifier. 89 controls and all ten preceding immutable checkpoint packets pass; typed receipt
+dictionary guards resolve two direct-helper type errors without weakening return types.
+
+The first complete candidate attempt is intentionally interrupted after 15 passing
+commands for this known tooling correction. Preserve its actual runner241/browser-15,
+partial native work, complete logs, original source maps/ZIPs, raw stores and cleanup
+proof in a separate lossless forensic asset. Do not count it as a product failure or
+qualified gate. A fresh complete candidate and exact-master gate remain required.
+
+Only the artifact helper and its unit tests change; none of the 51 benchmark subjects
+or scientific/application inputs change. Independent performance assessment permits
+unaffected native11 evidence reuse at its original source identity with an explicit
+later tooling delta and honest new full-source digest. It does not permit relabelling
+the old run or skipping the fresh whole release gates/final seven-role reconfirmation.
+
+
+### D-201 qualification continuation — uniquely identify workflow notices
+
+2026-11-18: the complete candidate2native run exposes a lifecycle test locator
+collision: the recovery/checkpoint notices and truthful Properties empty state
+share the status role. Preserve production accessibility behavior. Scope exactly
+the two workflow assertions by their expected notice text, retaining role, strict
+uniqueness, all subsequent Undo/Redo/save/reopen checks and deadlines. An independent
+75-call status-locator audit finds no other equivalent unscoped workspace assertion.
+The extra report error is only the existing maximum-failure stop, not another defect.
+
+The complete lifecycle file passes5cases in both browser profiles with one existing
+authored mobile exclusion, no failure/flake/retry and1,130unchanged selected sources.
+Scoped architecture/performance assessments PASS. All461runtime bodies and51native11
+method subjects remain exact; preserve that measurement's original995e/b2d49identity
+and the explicit later helper/test delta. No extra standalone performance workload
+is justified solely by these two selectors. Complete fresh candidate3/master1gates
+and final all-seven acceptance remain mandatory. Preserve every failed candidate2
+input separately; it never becomes qualified by the focused correction.
+
+
+### D-201 qualification continuation — drain held test-owned requests
+
+2026-11-18: candidate3 completes 415 native cases, including all eight descriptor
+performance cases, then fails when a second minimization proposal interception is
+still fetching during context teardown. Native trace evidence places every product,
+scientific, layout and accessibility assertion plus the final screenshot before
+teardown; it does not independently establish which application event initiated
+the later request. Preserve normal production polling and error behavior.
+
+In exactly the three existing held-route fixtures, release the hold and await
+`page.unrouteAll({ behavior: "wait" })` before returning. The pinned handler contract
+drains active callbacks without suppressing errors. Retain all fetch/status/JSON/
+fulfill checks, other test bytes, deadlines and workloads. The complete file passes
+12 cases in both configured projects, no skips/failures/flakes/retries. Scoped
+architecture/performance assessments pass. Expanded strict E2E diagnostics remain
+four pre-existing errors, exactly equal before/after; record this as not passing,
+without changing the established application typecheck boundary or adding suppression.
+
+Preserve failed candidate3 and both exact source snapshots independently. Its
+131,840,156-byte separate forensic packet verifies all 5,511 original files, four
+raw DB/WAL/SHM bodies and 59 recursive ZIPs. All 461 runtime and 51 benchmark bodies
+remain native11-exact; reuse its original source identity without a new latency
+claim. A fresh complete candidate4, exact master1 and final seven-role acceptance
+remain required. No failed or focused run establishes full qualification.
+
+
+### D-201 qualification continuation — retain explicit property keyboard stops
+
+2026-11-19: candidate4 records 476 native passes, including all eight descriptor
+performance and twelve minimization-controls cases, before a mobile keyboard test
+expects a direct Entry → Selection transition. The actual screenshot and source show
+two legitimate intervening controls: Property options and the native Methods and
+limits summary. Preserve both controls in the keyboard path; do not alter product
+focus order or hide scientific-method access to satisfy an old test.
+
+Add only scoped control locators, loaded-control readiness and real Tab/focus
+assertions through those two controls before the original Selection assertion.
+Retain every original assertion, deadline, exclusion, desktop branch and performance
+case. The complete file passes five cases with one unchanged authored mobile
+performance exclusion, no failures/flakes/retries. Scoped architecture, performance
+and UX assessments pass; native evidence resolves the initial omission of the native
+summary from a preliminary recommendation. A bounded audit finds no other equivalent
+adjacency assumption among the twelve literal Tab calls.
+
+Preserve failed candidate4 separately: 35,094 original files, four raw DB/WAL/SHM
+bodies, both exact source snapshots and 76 nested ZIPs verify in the 675,409,215-byte
+packet. All 461 runtime and 51 benchmark subjects remain native11-exact; preserve its
+original identity and timing limitations. Complete candidate5/exact-master gates
+and final same-candidate seven-role acceptance remain mandatory.
+
+
+### D-194 qualification erratum — count retained heartbeat renewals exactly
+
+2026-11-19: final independent performance review identifies an arithmetic error in
+release prose. The unchanged native11 raw records and closed analysis contain
+15 + 30 + 15 + 35 = 95 successful same-sequence heartbeat renewals, not the earlier
+105. Their correctly reported full UTF-8 response-body total remains 28,801,010 bytes.
+All renewals have HTTP 200, sequence 1 and 200 entries. The four bulk fixture cohorts
+record 135 consumer updates: 20 allocations, 20 initial demands and 95 heartbeats; separate
+App active-consumer traffic is outside that count.
+
+Correct current progress/release text and append this erratum and the child-plan
+correction without rewriting accepted historical text, raw packets or analysis.
+No scientific/application/test/tool/method body changes, new timings or new runtime
+qualification follow. The existing complete 43-command candidate PASS remains source-valid;
+all seven final assessments must explicitly cover the corrected documentation
+candidate before push. Exact merged-master qualification and verified release remain
+mandatory. See the [raw count correction](assets/ligand-properties/c3-renewal-count-checkpoint.json).

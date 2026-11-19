@@ -6,7 +6,7 @@ import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager, suppress
 from multiprocessing.connection import Connection
-from typing import Literal, NoReturn, cast
+from typing import Any, Literal, NoReturn, cast
 from urllib.parse import quote
 from uuid import UUID
 
@@ -18,6 +18,7 @@ from fastapi import (
     Form,
     Header,
     HTTPException,
+    Query,
     Request,
     Response,
     UploadFile,
@@ -76,6 +77,24 @@ from neistra_api.job_service import (
     JobService,
 )
 from neistra_api.ligand_edit_service import LigandEditService
+from neistra_api.ligand_property_cache import PropertyCacheError
+from neistra_api.ligand_property_schemas import (
+    LigandPropertyAggregateRead,
+    LigandPropertyConsumerUpdate,
+    LigandPropertyPreferencesRead,
+    LigandPropertyPreferencesUpdate,
+    LigandPropertyReadRequest,
+    LigandPropertyRegistryRead,
+)
+from neistra_api.ligand_property_service import (
+    LigandPropertyService,
+    PropertyCapacityError,
+    PropertyConsumerConflict,
+    PropertyConsumerExpired,
+    PropertyPreferenceConflict,
+    read_property_preferences,
+    update_property_preferences,
+)
 from neistra_api.ligand_schemas import (
     LigandCandidatesRead,
     LigandDepictionRead,
@@ -527,7 +546,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Neistra API",
-        version="0.36.0",
+        version="0.37.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -593,7 +612,96 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 ],
             )
             for registered in job_registry.definitions()
+            if registered.definition.job_type != "ligand.properties"
         ]
+
+    @router.get("/ligand-properties/registry", response_model=LigandPropertyRegistryRead)
+    def ligand_property_registry() -> LigandPropertyRegistryRead:
+        from neistra_core.ligand_properties.registry import (
+            DESCRIPTOR_DEFINITIONS,
+            IMPLEMENTATION_VERSION,
+            LIBRARY_VERSION,
+            POLICY_VERSION,
+        )
+
+        return LigandPropertyRegistryRead(
+            definitions=DESCRIPTOR_DEFINITIONS,
+            implementation_version=IMPLEMENTATION_VERSION,
+            policy_version=POLICY_VERSION,
+            library_version=LIBRARY_VERSION,
+        )
+
+
+    @router.get(
+        "/workspace/ligand-property-preferences", response_model=LigandPropertyPreferencesRead
+    )
+    def get_ligand_property_preferences(
+        session: Session = Depends(session_dependency),
+    ) -> LigandPropertyPreferencesRead:
+        return read_property_preferences(session)
+
+
+    @router.put(
+        "/workspace/ligand-property-preferences", response_model=LigandPropertyPreferencesRead
+    )
+    def put_ligand_property_preferences(
+        payload: LigandPropertyPreferencesUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> LigandPropertyPreferencesRead:
+        return _call(lambda: update_property_preferences(session, payload))
+
+
+    @router.post(
+        "/projects/{project_id}/ligand-properties/read", response_model=LigandPropertyAggregateRead
+    )
+    def read_ligand_properties(
+        project_id: str,
+        payload: LigandPropertyReadRequest,
+        session: Session = Depends(session_dependency),
+    ) -> LigandPropertyAggregateRead:
+        return _call(lambda: LigandPropertyService(session, app_settings).read(project_id, payload))
+
+
+    @router.post(
+        "/projects/{project_id}/ligand-properties/consumers",
+        response_model=LigandPropertyAggregateRead,
+    )
+    def allocate_ligand_property_consumer(
+        project_id: str, session: Session = Depends(session_dependency),
+    ) -> LigandPropertyAggregateRead:
+        return _call(
+            lambda: LigandPropertyService(session, app_settings).allocate_consumer(project_id)
+        )
+
+    @router.put(
+        "/projects/{project_id}/ligand-properties/consumers/{consumer_id}",
+        response_model=LigandPropertyAggregateRead,
+    )
+    def demand_ligand_properties(
+        project_id: str,
+        consumer_id: str,
+        payload: LigandPropertyConsumerUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> LigandPropertyAggregateRead:
+        return _call(
+            lambda: LigandPropertyService(session, app_settings).update_consumer(
+                project_id, consumer_id, payload
+            )
+        )
+
+
+    @router.delete("/projects/{project_id}/ligand-properties/consumers/{consumer_id}")
+    def release_ligand_properties(
+        project_id: str,
+        consumer_id: str,
+        sequence: int = Query(ge=1, le=9_007_199_254_740_991),
+        session: Session = Depends(session_dependency),
+    ) -> dict[str, Any]:
+        return _call(
+            lambda: LigandPropertyService(session, app_settings).release_consumer(
+                project_id, consumer_id, sequence
+            )
+        )
 
     @router.get("/workspace/presentation", response_model=WorkspacePresentationV1)
     async def get_workspace_presentation(
@@ -1869,6 +1977,16 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
         raise _error(404, "project_not_found", f"Project {error} was not found") from error
     except EntryNotFoundError as error:
         raise _error(404, "entry_not_found", f"Entry {error} was not found") from error
+    except PropertyPreferenceConflict as error:
+        raise _error(409, "property_preference_revision_conflict", str(error)) from error
+    except PropertyConsumerExpired as error:
+        raise _error(409, "property_consumer_expired", str(error)) from error
+    except PropertyConsumerConflict as error:
+        raise _error(409, "property_consumer_conflict", str(error)) from error
+    except PropertyCacheError as error:
+        raise _error(503, "property_cache_unavailable", str(error)) from error
+    except PropertyCapacityError as error:
+        raise _error(503, "property_capacity_unavailable", str(error)) from error
     except PresentationRevisionConflict as error:
         raise _error(
             409,

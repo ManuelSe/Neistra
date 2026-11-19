@@ -1227,3 +1227,75 @@ these are operational controls rather than all-host timing or instantaneous memo
 bounds. A refusal discards the entire result. Cleanup retains admission until owned
 reads/child termination and staging removal settle; cleanup failure closes admission.
 See D-167/D-168 and [measurement workflow](MEASUREMENTS.md).
+
+
+## Live ligand properties
+
+These routes implement the #159 development workflow; final release qualification
+is pending. See [Live ligand properties](LIGAND_PROPERTIES.md) for the user workflow,
+scientific definitions and operational limits. They use the existing `/api/v1`
+prefix and do not expose descriptor execution as an ordinary user-submitted job.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/v1/ligand-properties/registry` | Fourteen ordered definitions, units, methods, plotting domains and implementation/policy/library identities. |
+| `GET` | `/api/v1/workspace/ligand-property-preferences` | Installation-wide enabled/default categories and revision. |
+| `PUT` | `/api/v1/workspace/ligand-property-preferences` | Save categories using `expected_revision`. |
+| `POST` | `/api/v1/projects/{project_id}/ligand-properties/read` | Verify/project current cached outcomes; does not allocate a consumer or submit chemistry work. |
+| `POST` | `/api/v1/projects/{project_id}/ligand-properties/consumers` | Allocate an empty server-issued consumer lease. |
+| `PUT` | `/api/v1/projects/{project_id}/ligand-properties/consumers/{consumer_id}` | Submit or renew exact input/coverage demand, with sequence and optional active-entry priority. |
+| `DELETE` | `/api/v1/projects/{project_id}/ligand-properties/consumers/{consumer_id}?sequence=N` | Release that consumer with an advancing sequence. |
+
+Preference updates contain `expected_revision` and unique `enabled_categories`
+from `composition`, `polarity`, `lipophilicity`, `flexibility`. Empty is valid;
+all four are the defaults. A stale revision returns 409
+`property_preference_revision_conflict`. Preferences do not belong to a project
+and are not exported as project settings.
+
+Read payloads contain `entries` and `descriptor_ids`. Each entry supplies its
+`entry_id`, exact current `source_artifact_id`, persisted UUID `instance_id`, and
+positive/sorted/unique canonical `atom_ids`. Use identities from current project
+and designation responses, never a viewer ID or candidate-card key. Entries must
+be distinct. Unknown/duplicate descriptor IDs or malformed membership fail validation.
+Coverage follows registry order and is the union of explicitly requested descriptors
+and saved category requirements; it can exceed the explicit request.
+
+Each returned row contains `source`, `binding_key`, `status`, optional `report`,
+`reason`, optional `source_failure`, and progress 0–100. Status is `pending`, `ready`,
+`unavailable`, `cancelled` or `failed`. A report has exact ordered `coverage` and
+one `ready` finite value, `unavailable` reason, or `error` reason per descriptor.
+A row with complete coverage can be `ready` while some descriptors are unavailable;
+that is partial scientific success. A `pending` row may include already qualified
+coverage while missing descriptors are scheduled. Empty effective coverage yields
+`unavailable` / `no_properties_requested`.
+
+Reads validate actual current/original bytes and sealed source-to-report proofs.
+They may retire corrupt derived bindings without changing project history or dirty
+state. Optional `source_failure` carries an exact
+`{project_id, entry_id, current_artifact_id, original_artifact_id}` identity,
+`source_verification: current | original`, and `reason: artifact_unavailable`.
+It represents a physical source failure, not a generic worker/chemistry/capacity/
+transport failure. Clients must match its full identity and role; absence or invalid
+provenance cannot be replaced by parsing free text or treating every 409 as a physical
+failure. Candidate recovery alone does not restore numerical authority: use a fresh
+matching property read.
+
+Allocation returns `consumer_id`, sequence 0 and `expires_at`. Consumer updates add
+sequence 1–9,007,199,254,740,991 and optional `active_entry_id`, which must be among
+the requested entries. The same sequence can only renew identical demand; a higher
+otherwise-identical sequence explicitly retries. Priority-only changes preserve
+execution generation/failures. Releasing active demand must advance the sequence;
+a late older update cannot resurrect it. Leases last 60 seconds, with limits of 64 live
+consumers, 256 retained consumer records and 4,096 aggregate demanded entries. Unknown
+or expired ownership returns 409 `property_consumer_expired`; conflicting/replaced
+sequence input returns 409 `property_consumer_conflict`. Consumer-capacity and cache
+exceptions use 503
+`property_capacity_unavailable` / `property_cache_unavailable`; callers must surface
+them without treating them as molecular corruption.
+
+Aggregate admission is 200 entries, 16,384 atom IDs per source and 65,536 total; at most 14
+known descriptor IDs. Current and required original source verification share a 64 MiB
+operation budget, also capped at 64 MiB per artifact. Reading fewer entries can resolve
+that per-row `unavailable` aggregate byte refusal, which can accompany HTTP 200.
+This transport bound does not enlarge the calculation kernel's 1,024-atom/4,096-bond supported domain. Worker batching/cache/resource bounds
+and unsupported-model behavior are documented separately in the property guide.

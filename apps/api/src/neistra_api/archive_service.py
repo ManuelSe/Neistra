@@ -27,6 +27,7 @@ from neistra_api.import_export import (
     safe_display_filename,
     safe_filename_stem,
 )
+from neistra_api.ligand_property_service import is_owned_property_job
 from neistra_api.models import (
     EntryGroup,
     Job,
@@ -61,7 +62,7 @@ from neistra_api.viewer_state import (
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 3
-APPLICATION_VERSION = "0.36.0"
+APPLICATION_VERSION = "0.37.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
@@ -671,6 +672,7 @@ class ProjectArchiveService:
                 modified_at=job.modified_at,
             )
             for job in sorted(project.jobs, key=lambda item: item.id)
+            if not is_owned_property_job(self.session, job)
         ]
         manifest = ProjectManifestV3(
             application_version=APPLICATION_VERSION,

@@ -1,0 +1,329 @@
+{
+  "scope": "Coherent local C1 descriptor vertical checkpoint; implementation and focused proof only, NOT final all-seven readiness, complete capacity qualification, merge or release",
+  "repository": "ManuelSe/Neistra",
+  "issue": 159,
+  "parent": 11,
+  "head_plus_working_changes": "68fd720b18e4897aea7a0a9018ccf39deb780598",
+  "implemented": "Fourteen strict versioned descriptors; private bounded execution/cache/source proofs/consumer lifecycle; App-owned current-input values and compact installation options; actual focused desktop/mobile/native workflows.",
+  "current_source_count": 1062,
+  "current_source_digest": "9367e4d04cc2f4a9cd80822b24f088c5f22d4ffc0e33cec937b9db57db234268",
+  "changed_or_new_source_count": 73,
+  "head_baseline_fully_hashed": true,
+  "current_changed_source_code_tests_helpers_and_config_copied": true,
+  "checks": {
+    "kernel": {
+      "python": 83,
+      "owned_sources": 12,
+      "current": true,
+      "actual_enclosing": "closed-evidence/issue159-kernel/final2-enclosing.json"
+    },
+    "backend": {
+      "focused": 158,
+      "owned_sources": 29,
+      "scope": "Historical author correction; two later scheduler/lifecycle paths have dedicated29case proof",
+      "source_delta": [
+        "apps/api/src/neistra_api/job_worker.py",
+        "tests/integration/test_ligand_property_lifecycle.py"
+      ],
+      "handoff": "closed-evidence/issue159-backend/handoff-retirement-correction3.json"
+    },
+    "full_python_static": {
+      "root_observed_session": 96589,
+      "root_observed_exit": 0,
+      "python_passed": 3234,
+      "ruff": "PASS",
+      "mypy_files": 274,
+      "scope": "Actual earlier complete Python/static checkpoint, before three fairness cases and later trace-control unit; not an invented sum for current sources",
+      "subsequent_source_delta": [
+        "apps/api/src/neistra_api/job_worker.py",
+        "docs/assets/ligand-properties/release-recipe.py.txt",
+        "playwright.config.ts",
+        "tests/e2e/ligand-properties-access.spec.ts",
+        "tests/e2e/ligand-properties-performance.spec.ts",
+        "tests/e2e/ligand-properties.spec.ts",
+        "tests/integration/test_ligand_property_lifecycle.py",
+        "tests/support/ligand_property_performance_qualification.py",
+        "tests/unit/test_ligand_properties_release_recipe.py"
+      ]
+    },
+    "fairness": {
+      "negative_root_observed_session": 55627,
+      "negative_exit": 1,
+      "real_aliases": 41,
+      "positive_root_observed_session": 31942,
+      "positive_exit": 0,
+      "lifecycle_cases": 29,
+      "ruff": "PASS",
+      "mypy_files": 274,
+      "scope": "Productive warm/cold/mixed/cache-failure turns; distinct from prior3234full suite"
+    },
+    "frontend": {
+      "focused": 133,
+      "full_passed": 1387,
+      "full_suites": 126,
+      "lint": "PASS",
+      "types": "PASS",
+      "build": "PASS",
+      "owned_sources": 16,
+      "current": true,
+      "handoff": "closed-evidence/issue159-frontend/inspector-layout-handoff.json"
+    },
+    "reader_tools": {
+      "scoped_sources": 9,
+      "offline_cases": 77,
+      "actual_old036_actors_executed": false,
+      "current_trace_reported_units": {
+        "scope": "Explicit root-observed tool facts without persisted raw receipt/log files; not fabricated machine evidence",
+        "reader_recipe_units": {
+          "actual_session": 62263,
+          "actual_exit": 0,
+          "passed": 78,
+          "scope": "Combined offline reader/recipe units after optional worker trace-path addition"
+        },
+        "recipe_units": {
+          "actual_session": 90271,
+          "actual_exit": 0,
+          "passed": 11
+        },
+        "current_scope_source_identities": {
+          "playwright.config.ts": "70d7b3122a3cf102168cb9e0c6b051f2f89033e40542a3bc7a3a8a936a92ec27",
+          "docs/assets/ligand-properties/release-recipe.py.txt": "a157508e07e54b499240288da11071ab2c9a7ddaaa227b96f8c21e68fcf90e6e",
+          "tests/unit/test_ligand_properties_release_recipe.py": "125659471e176d0f891d4472d61b2818974c2ac6863755649285ed4866453323"
+        },
+        "limitation": "No persisted raw logs/receipts were found for these two root executions. Prior77offline controls retain their own raw proof and differ from these reported observations."
+      }
+    },
+    "native": {
+      "actual_enclosing": {
+        "scope": "Actual root observed focused26nativecorrectness enclosing result;2explicitunexecutedperformanceharnesssourcesexcluded during authoring; notfullreleasegate/benchmark",
+        "actual_session": 71526,
+        "actual_exit": 0,
+        "native_passed": 26,
+        "skips_failures_flakes_retries": 0,
+        "source_count": 1060,
+        "source_paths_excluded": [
+          "tests/e2e/ligand-properties-performance.spec.ts",
+          "tests/support/ligand_property_performance_qualification.py"
+        ],
+        "receipt_sha256": "30022c0ffbfff6de006000778d64f79990d7270e784c0b0f6076480d14895393",
+        "browser_sha256": "8f5b8d86025409b772422ee99ab22803166dc8f23eeb5cbe8eb9d59eb4eae758",
+        "observed_utc": "2026-11-17T19:03:43.246278+00:00"
+      },
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "retries": 0,
+      "source_count": 1060,
+      "explicit_unexecuted_performance_source_exclusions": [
+        "tests/e2e/ligand-properties-performance.spec.ts",
+        "tests/support/ligand_property_performance_qualification.py"
+      ],
+      "subsequent_default_preserving_trace_config_changes": [
+        "docs/assets/ligand-properties/release-recipe.py.txt",
+        "playwright.config.ts",
+        "tests/unit/test_ligand_properties_release_recipe.py"
+      ],
+      "all_eight_runs_and_owned_stores_retained": true,
+      "actual_cdp_zoom_captures_retained": true
+    }
+  },
+  "source_authority": "Final scientific kernel, frontend and backend author maps/logs are retained. Later two-file fairness and optional trace changes are explicitly separate proof scopes. No earlier candidate approval or count is silently carried to the entire current tree.",
+  "performance": {
+    "harness_source_files": {
+      "tests/support/ligand_property_performance_qualification.py": {
+        "sha256": "35d7f5382a8ef335879c5ba64f8ecd5757bff2234993506ae93b717411ac7fa4",
+        "bytes": 55481
+      },
+      "tests/e2e/ligand-properties-performance.spec.ts": {
+        "sha256": "5951f294bb4c88a02ce016696da21dc9804e24dbc487c2a1f02c6f3bcefff79e",
+        "bytes": 61045
+      }
+    },
+    "offline_controls": 35,
+    "native_cases_collected": 8,
+    "native_performance_cases_executed": 0,
+    "code_review_scope": "Author static/offline controls plus root-reported nonauthor scoped CODE assessment; no final timing or thousand-entry native capacity approval",
+    "api5": {
+      "root_observed_session": 32820,
+      "root_observed_exit": 0,
+      "actual_processes": 5,
+      "unique_coordinator_pids": [
+        3524737,
+        3524791,
+        3524834,
+        3524875,
+        3524894
+      ],
+      "source_scope_count": 729,
+      "source_scope_before_after_equal": true,
+      "cold_ms": {
+        "samples": 5,
+        "median": 564.2996520036831,
+        "p95": 688.4870689827949,
+        "max": 688.4870689827949
+      },
+      "coordinate_reuse": [
+        {
+          "index": 0,
+          "pid": 3524737,
+          "demand_to_current_ms": 559.4811859773472,
+          "coordinate_new_jobs": 0,
+          "persisted_row_values_exactly_preserved": true,
+          "before": {
+            "bytes": 3353,
+            "sha256": "13735543a1c2a6a9fb81706474749403e11aed4079e40d247077f752782fa247"
+          },
+          "after": {
+            "bytes": 3353,
+            "sha256": "13735543a1c2a6a9fb81706474749403e11aed4079e40d247077f752782fa247"
+          }
+        },
+        {
+          "index": 1,
+          "pid": 3524791,
+          "demand_to_current_ms": 564.2996520036831,
+          "coordinate_new_jobs": 0,
+          "persisted_row_values_exactly_preserved": true,
+          "before": {
+            "bytes": 3458,
+            "sha256": "2e798dfd5c31f7fb79f7b9ee87fcb06ac02fea9d19158136608a557cb49dfdb2"
+          },
+          "after": {
+            "bytes": 3458,
+            "sha256": "2e798dfd5c31f7fb79f7b9ee87fcb06ac02fea9d19158136608a557cb49dfdb2"
+          }
+        },
+        {
+          "index": 2,
+          "pid": 3524834,
+          "demand_to_current_ms": 512.8473239019513,
+          "coordinate_new_jobs": 0,
+          "persisted_row_values_exactly_preserved": true,
+          "before": {
+            "bytes": 3562,
+            "sha256": "0fff187a49701fd03e056eb86f12981c4d98033ab42c6f2021f82068268d0ba6"
+          },
+          "after": {
+            "bytes": 3562,
+            "sha256": "0fff187a49701fd03e056eb86f12981c4d98033ab42c6f2021f82068268d0ba6"
+          }
+        },
+        {
+          "index": 3,
+          "pid": 3524875,
+          "demand_to_current_ms": 674.8024520929903,
+          "coordinate_new_jobs": 0,
+          "persisted_row_values_exactly_preserved": true,
+          "before": {
+            "bytes": 3666,
+            "sha256": "04a5ea368772e684514625924f8bb1fa9c6c59f5350532e29b8139bacf418980"
+          },
+          "after": {
+            "bytes": 3666,
+            "sha256": "04a5ea368772e684514625924f8bb1fa9c6c59f5350532e29b8139bacf418980"
+          }
+        },
+        {
+          "index": 4,
+          "pid": 3524894,
+          "demand_to_current_ms": 688.4870689827949,
+          "coordinate_new_jobs": 0,
+          "persisted_row_values_exactly_preserved": true,
+          "before": {
+            "bytes": 3770,
+            "sha256": "846df1997ea291e44af856eba62bc9609dc447ae0d1a640cdc28628fb004a00d"
+          },
+          "after": {
+            "bytes": 3770,
+            "sha256": "846df1997ea291e44af856eba62bc9609dc447ae0d1a640cdc28628fb004a00d"
+          }
+        }
+      ],
+      "observed_complex": {
+        "source_atoms": 1001,
+        "scientific_model_qualified": false,
+        "model_status": "unavailable",
+        "model_reason": "formal_charge_unknown",
+        "scope": "Truthful partial independent counts; no extra charge or bond assignment"
+      }
+    },
+    "host_context": "Portable0 with concurrent158C9native workload. These exploratory ASGI/real-child correctness/resource observations are not reference-host timing approval, actual browser capacity qualification, GPU or physical-device claims.",
+    "earlier_probes": "APIprobe1 fails before measurement because import path is unavailable; probe2 fails a POST/GET transport oracle, captureprobe3 preserves exact timestamp-suffix/coordinate-patch evidence; smoke4 is one real cold plus coordinate reuse pass, not five-process qualification. All raw outputs and stores remain included."
+  },
+  "retained": {
+    "issue159-kernel": 27,
+    "issue159-backend": 1617,
+    "issue159-frontend": 65,
+    "issue159-reader-tooling": 39,
+    "issue159-c1-python1": 4,
+    "issue159-fairness-before1": 2,
+    "issue159-fairness-after1": 4,
+    "issue159-integration-root": 181,
+    "issue159-animation-oracle": 3,
+    "issue159-layout-oracle4": 2,
+    "issue159-layout-oracle5": 3,
+    "issue159-layout-oracle6": 3,
+    "issue159-panel-oracle7": 3,
+    "issue159-panel-oracle8": 5,
+    "issue159-performance": 227,
+    "neistra159-integrated-native1": 8,
+    "neistra159-integrated-native2": 11,
+    "neistra159-integrated-native3": 6,
+    "neistra159-integrated-native4": 6,
+    "neistra159-integrated-native5": 14,
+    "neistra159-integrated-native6": 14,
+    "neistra159-integrated-native7": 14,
+    "neistra159-integrated-native8": 14
+  },
+  "raw_regular_payload_bytes_before_metadata": 142077578,
+  "estimated_deflate_bytes_before_metadata": 36053470,
+  "encoded_links": 146,
+  "omitted_named_cache_files": {
+    "issue159-kernel": [],
+    "issue159-backend": [],
+    "issue159-frontend": [],
+    "issue159-reader-tooling": [],
+    "issue159-c1-python1": [],
+    "issue159-fairness-before1": [],
+    "issue159-fairness-after1": [],
+    "issue159-integration-root": [],
+    "issue159-animation-oracle": [],
+    "issue159-layout-oracle4": [],
+    "issue159-layout-oracle5": [],
+    "issue159-layout-oracle6": [],
+    "issue159-panel-oracle7": [],
+    "issue159-panel-oracle8": [],
+    "issue159-performance": [],
+    "neistra159-integrated-native1": [],
+    "neistra159-integrated-native2": [],
+    "neistra159-integrated-native3": [],
+    "neistra159-integrated-native4": [],
+    "neistra159-integrated-native5": [],
+    "neistra159-integrated-native6": [],
+    "neistra159-integrated-native7": [],
+    "neistra159-integrated-native8": []
+  },
+  "prior_failures_and_limits": "All seven earlier failed native runs, exact before/after animation/layout/panel oracle sources, retained backend/frontend/kernel corrective proofs and source archives remain distinct. Ad hoc E2E TypeScript attempts encountered pre-existing mixed upload typing and Vite path/global setup issues; no whole legacy E2E TypeScript pass is claimed. Root trace-unit tool facts have an explicit missing-raw-receipt limitation.",
+  "prerequisite": "Actual verified158deliverymaster and immutable0.36tag are still required before final159integration/qualification. This local plan-base checkpoint does not establish that prerequisite or actual older-reader compatibility.",
+  "specialist_scope": "Retained handoffs and review/diagnosis/control files identify their actual authors, scopes and hashes. No missing specialist execution or all-seven final verdict is inferred. All-seven same-final-candidate review remains required.",
+  "required_remaining": [
+    "Integrate actual released158master/tag0.36 and reconcile all inherited source/runtime contracts",
+    "Finish actual native performance/capacity/resource measurements, including both1000entry workloads, under accepted qualification policy",
+    "Prepare versions and execute complete fresh43candidate and exact merged-master gates, actual old/current actors and source-bound packaging",
+    "Obtain all-seven final same-candidate specialist assessments and normal protected PR/merge",
+    "Verify immutable tag/release/public assets, child closeout/owned cleanup and complete parent program"
+  ],
+  "archive": "c1-evidence.zip",
+  "archive_bytes": 37202926,
+  "archive_sha256": "f25634d34eb5de3c3fc280291074e3a3375cb74faea517722ef0196f8202b0fe",
+  "outer_manifest_entries": 2356,
+  "recursive_verification": {
+    "zip_archives": 110,
+    "evidence_manifest_entries": 2382,
+    "project_archive_files": 398
+  },
+  "all_payload_hashes_and_recursive_crcs_verified": true,
+  "all_current_sources_and_snapshotted_payloads_unchanged": true,
+  "observed_utc": "2026-11-17T20:15:41.253267+00:00"
+}

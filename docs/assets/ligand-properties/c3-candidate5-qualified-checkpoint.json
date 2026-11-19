@@ -1,0 +1,283 @@
+{
+  "actual_runner_wait_exit": 0,
+  "official_gate_parts": [
+    {
+      "bytes": 83337784,
+      "file": "c4-candidate5-qualified-01.zip",
+      "manifest_entries": 1368,
+      "recursive_counts": {
+        "evidence_manifest_entries": 1368,
+        "project_archive_files": 1052,
+        "zip_archives": 551
+      },
+      "sha256": "2be3852ed523c2deaa0560b554dad903664fb8ecda104f75204e90d4c520c90a"
+    },
+    {
+      "bytes": 23236848,
+      "file": "c4-candidate5-qualified-02.zip",
+      "manifest_entries": 742,
+      "recursive_counts": {
+        "evidence_manifest_entries": 742,
+        "project_archive_files": 1040,
+        "zip_archives": 341
+      },
+      "sha256": "9ae33c4171100e13f156db565a1b376181dbac271b159b9da89592d0334f48d7"
+    }
+  ],
+  "official_package_receipt_sha256": "43b1242bc406adde9abdd467818310bacc581869fadfec4f92612a636a4e7364",
+  "primary_independent_readbacks": {
+    "qualified_parts": {
+      "evidence": {
+        "SQL_opened": false,
+        "all59_raw_original_copy_bodies_still_exact": true,
+        "all_expected_original_members_exact": true,
+        "candidate": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+        "complete_member_union": 2110,
+        "originals_retained": true,
+        "package_receipt_sha256": "43b1242bc406adde9abdd467818310bacc581869fadfec4f92612a636a4e7364",
+        "parts": [
+          {
+            "bytes": 83337784,
+            "file": "c4-candidate5-qualified-01.zip",
+            "manifest_entries": 1368,
+            "recursive_counts": {
+              "evidence_manifest_entries": 1368,
+              "project_archive_files": 1052,
+              "zip_archives": 551
+            },
+            "sha256": "2be3852ed523c2deaa0560b554dad903664fb8ecda104f75204e90d4c520c90a"
+          },
+          {
+            "bytes": 23236848,
+            "file": "c4-candidate5-qualified-02.zip",
+            "manifest_entries": 742,
+            "recursive_counts": {
+              "evidence_manifest_entries": 742,
+              "project_archive_files": 1040,
+              "zip_archives": 341
+            },
+            "sha256": "9ae33c4171100e13f156db565a1b376181dbac271b159b9da89592d0334f48d7"
+          }
+        ],
+        "raw_capture_receipt_sha256": "c38ecf4994346d1b055b7ecb3da0d0106b5d64521476e0d45ce10bdbec561fcf",
+        "recorded_utc": "2026-11-19T03:45:20.397000+00:00",
+        "scope": "Primary independent qualified candidate5 package fullSHA/CRC/recursive/exact original-body/complete-union and postcollection raw-store readback. Not finalseven/merge/release approval.",
+        "source_digest": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653",
+        "summary": {
+          "actual_reader_audit": "c4-candidate5-reader-audit.json",
+          "all_lossless_log_hashes_valid": true,
+          "application_version": "0.37.0",
+          "branch": "feat/issue-159-live-ligand-properties",
+          "browser_exclusions": 75,
+          "browser_inventory_count": 640,
+          "browser_inventory_sha256": "ac44f7ff79651321b77edad73a9cdc98987a8ab3db9126b650884416744a77ea",
+          "browser_passed": 565,
+          "clean_start": true,
+          "commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+          "complete_browser_inventory_executed": true,
+          "complete_steps": 43,
+          "current_canonical_unapplied_proposal_retained": true,
+          "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+          "duration_seconds": 10012.822,
+          "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+          "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+          "existing_exclusion_identities_unchanged": true,
+          "failures_flakes_retries": 0,
+          "frontend": 1584,
+          "new_exclusions": 0,
+          "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+          "preceding_source_identities_verified": 1013,
+          "profile": "portable correctness; no strict reference-host timing claim",
+          "python": 3589,
+          "python_skips": 0,
+          "source_count": 1130,
+          "source_digest": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653",
+          "source_inventory_unchanged": true,
+          "sources_unchanged": true,
+          "supervisor": 14,
+          "wall_seconds": 10016.0
+        }
+      },
+      "receipt_sha256": "f71322f3576f541548739c495fea8bb7bdac39a31698be323932632999b87f8e"
+    },
+    "retained_state": {
+      "evidence": {
+        "SQL_opened": false,
+        "all_original_bodies_exact": true,
+        "candidate": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+        "complete_original_union_exact": true,
+        "empty_directories": 46,
+        "original_files": 6485,
+        "originals_retained": true,
+        "packet": {
+          "bytes": 68133428,
+          "file": "qualified-candidate5-retained-state.zip",
+          "outer_manifest_entries": 6493,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-c4-candidate5-retained-state1/qualified-candidate5-retained-state.zip",
+          "sha256": "931706fff11987a36e7db734e309d789bc8a59793aa50bfc55796c45c33f8f7e",
+          "verification_counts": {
+            "evidence_manifest_entries": 6493,
+            "project_archive_files": 2100,
+            "zip_archives": 957
+          }
+        },
+        "raw_original_copy_pairs": 59,
+        "recorded_utc": "2026-11-19T03:52:06.481523+00:00",
+        "scope": "Primary independent retained-state whole outer hash/full CRC/recursive/all6485 original body/complete original union/46empty directories/59raw pair readback. Not final review or release approval."
+      },
+      "receipt_sha256": "b374b33b2a6e5c4bb2e36972c26cfc61eca3d4690df1669a45145a96d9acf7c8"
+    },
+    "source_capsules": {
+      "evidence": {
+        "SQL_opened": false,
+        "candidate": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+        "checked": {
+          "actual036": {
+            "all_original_commit_blobs_equal_archive": true,
+            "commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+            "source_bodies": 1013,
+            "zip_sha256": "12d4ff7009549678bc3fed91067ae7b3aaeac462736a6b997801f5986c5aa9dd"
+          },
+          "current": {
+            "all_original_commit_blobs_equal_archive": true,
+            "commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+            "source_bodies": 1130,
+            "zip_sha256": "6682b3aed7bed80da18a634b3de0553b7626c85ac4c183974e6bddf264f98864"
+          }
+        },
+        "manifest_sha256": "eef2f2579ebac79b95910344415a45da7de70167c1a0d137a57830ad1adb58bc",
+        "originals_retained": true,
+        "recorded_utc": "2026-11-19T03:50:42.298321+00:00",
+        "scope": "Primary independent source capsule complete manifest/fullZIP CRC/unique union/all2143 body hashes and actual commit blob readback; current1130 original paths unchanged. Not final review or merged qualification.",
+        "seal_sha256": "04eafc02f73b452bc47a8156b19e83fb568f197108c2204eaff23c69e9ff484d"
+      },
+      "receipt_sha256": "f26dedff52ddc8cbe5d7b70015a358c189fd96635b778f0f07dcb4777f40c322"
+    }
+  },
+  "primary_terminal_proof_sha256": "5a00498e17e1c3eda6fb2c556bc5c972776c829a3b9873e071574ad503725fcc",
+  "qualification": {
+    "actual_reader_audit": "c4-candidate5-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.37.0",
+    "branch": "feat/issue-159-live-ligand-properties",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "ac44f7ff79651321b77edad73a9cdc98987a8ab3db9126b650884416744a77ea",
+    "browser_passed": 565,
+    "clean_start": true,
+    "commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 43,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 10012.822,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 1584,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 3589,
+    "python_skips": 0,
+    "source_count": 1130,
+    "source_digest": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 10016.0
+  },
+  "qualifying_commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+  "recorded_utc": "2026-11-19T03:54:13.239717+00:00",
+  "remaining": [
+    "All seven final same-candidate complete-feature assessments",
+    "Normal remote PR review/protection and merge",
+    "Fresh complete43-command c4-master1 on exact merged commit",
+    "Annotated immutable tag, published release and full anonymous asset verification",
+    "Child closeout, terminal documentation and owned branch cleanup",
+    "Required160\u2013163 deliveries and final integrated parent closeout"
+  ],
+  "retained_state_supplement": {
+    "all59_original_preSQL_copy_pairs_verified_before_after_and_standalone": true,
+    "all_before_after_original_bytes_metadata_and_union_exact": true,
+    "archive": {
+      "bytes": 68133428,
+      "file": "qualified-candidate5-retained-state.zip",
+      "outer_manifest_entries": 6493,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-c4-candidate5-retained-state1/qualified-candidate5-retained-state.zip",
+      "sha256": "931706fff11987a36e7db734e309d789bc8a59793aa50bfc55796c45c33f8f7e",
+      "verification_counts": {
+        "evidence_manifest_entries": 6493,
+        "project_archive_files": 2100,
+        "zip_archives": 957
+      }
+    },
+    "complete_expected_workspace_families": [
+      "connectivity-current",
+      "connectivity-previous",
+      "connectivity-previous-read-current",
+      "database",
+      "e2e",
+      "editing-readers",
+      "measurements-current",
+      "measurements-previous",
+      "measurements-previous-read-current",
+      "native",
+      "property-readers",
+      "rich-current",
+      "rich-previous",
+      "rich-previous-read-current"
+    ],
+    "empty_directories": 46,
+    "excluded_named_cache_files": 0,
+    "inert_aliases": 0,
+    "inert_nonregular_descriptors": 0,
+    "not_a_ninth_failed_forensic_asset": true,
+    "original_bytes": 540403585,
+    "original_files": 6485,
+    "source_capsule_and8_failed_packets_and2_official_part_binaries_not_duplicated": true,
+    "strict_recursive_counts": {
+      "evidence_manifest_entries": 6493,
+      "project_archive_files": 2100,
+      "zip_archives": 957
+    }
+  },
+  "retention": {
+    "all_raw_DB_WAL_SHM_pairs": 59,
+    "cleanup_before_raw_copy": true,
+    "diagnostic_SQL_opened": false,
+    "failed_forensic_asset_count_unchanged": 8,
+    "originals_retained": true,
+    "source_capsules_and_retained_state_for_future_main_release_supplements": true
+  },
+  "source_capsule_manifest_sha256": "eef2f2579ebac79b95910344415a45da7de70167c1a0d137a57830ad1adb58bc",
+  "source_capsule_seal_sha256": "04eafc02f73b452bc47a8156b19e83fb568f197108c2204eaff23c69e9ff484d",
+  "source_capsules": {
+    "actual036": {
+      "all_bodies_CRC_unique_exact_union": "PASS",
+      "all_bodies_match_actual_commit_blob": true,
+      "bytes": 4784614,
+      "commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "file": "captured-actual036-sources.zip",
+      "sha256": "12d4ff7009549678bc3fed91067ae7b3aaeac462736a6b997801f5986c5aa9dd",
+      "source_count": 1013
+    },
+    "current": {
+      "all_bodies_CRC_unique_exact_union": "PASS",
+      "all_bodies_match_actual_commit_blob": true,
+      "bytes": 5186562,
+      "commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+      "file": "captured-current-sources.zip",
+      "sha256": "6682b3aed7bed80da18a634b3de0553b7626c85ac4c183974e6bddf264f98864",
+      "source_count": 1130
+    }
+  },
+  "source_digest_definitions": {
+    "compact_json_sha256": "3c0d53d1c002bbc68082c7ca352f07dc8e8fee2eab41ee0496b1262889b9909e",
+    "same_1130_path_body_map": true,
+    "summary_default_json_spacing_sha256": "60a422fc2b3b52b342190453d0d4bc08a7a7cca6b85aed20f691c20b9e65c653"
+  },
+  "status": "PASS for complete candidate5 qualification and independent evidence collection; final same-candidate seven-role reviews, merge, exact-master qualification and publication remain pending."
+}

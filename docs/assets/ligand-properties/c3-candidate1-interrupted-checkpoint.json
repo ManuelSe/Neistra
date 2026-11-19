@@ -1,0 +1,46 @@
+{
+  "scope": "Complete lossless original candidate1 intentionally interrupted forensic retention; not fullgate qualification or product test failure",
+  "candidate": "f435e7c06654be5d13f468faa3869a6ac43247a8",
+  "qualification_PASS": false,
+  "actual_runner_wait_exit": 241,
+  "active_browser_exit": -15,
+  "successful_steps": 15,
+  "remaining_unrun_steps": 27,
+  "reason": "Stop confirmed release-blocking retained-directory verifier defect before completing an obsolete candidate; preserve output then correct selected helper and run fresh fullgate",
+  "passing_checkpoint_counts": {
+    "python": 3552,
+    "python_skipped": 0,
+    "web": 1584,
+    "web_files": 136,
+    "supervisor": 14,
+    "browser_inventory": 640
+  },
+  "optional_browser_JSON": "Absent after interruption; no final report invented",
+  "raw_input_files": 719,
+  "raw_input_bytes": 55720287,
+  "empty_directories": 3,
+  "inert_aliases": 0,
+  "all_original_and_archived_body_CRC_exact_union_verified": true,
+  "recursive_verification": {
+    "zip_archives": 16,
+    "evidence_manifest_entries": 735,
+    "project_archive_files": 20
+  },
+  "primary_readback_sha256": "4298cbd94dd45289382a04a0aa004f8db222e8b8434cce2a16fe336ddd44a8cc",
+  "private_packet": {
+    "file": "c4-candidate1-interrupted-evidence.zip",
+    "bytes": 36544045,
+    "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-c4-candidate1-preservation1/c4-candidate1-interrupted-evidence.zip"
+  },
+  "planned_separate_release_asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+  "planned_checksum_companion": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+  "publication_pending": true,
+  "qualified_main_member": false,
+  "originals_retained": true,
+  "SQL_opened": false,
+  "raw_DB_originals_and_copies_preserved": true,
+  "failed_initial_cleanup_guard_no_signals_retained": true,
+  "source_current1130_and_actualold1013_exact_captured_full_ZIPs_verified": true,
+  "spent_outputs_preserved_in_place_and_locally_excluded_fromGit": true
+}

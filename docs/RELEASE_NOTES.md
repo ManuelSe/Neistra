@@ -1,5 +1,68 @@
 # Neistra Release Notes
 
+## 0.37.0 — Automatic current-input ligand properties (in preparation)
+
+Child #159 adds fourteen versioned ligand descriptors with automatic current-input
+refresh, compact readouts and installation-level category options. Relevant molecular
+changes immediately retire incompatible values. A verified matching cache can return
+promptly; otherwise values remain pending or unavailable with an explicit reason.
+Committed structures and changed previews retain distinct identities. Late results,
+Undo/Redo, source failures and project/entry changes cannot publish incompatible values.
+
+Calculations use strict, versioned scientific input and documented hydrogen handling.
+Known counts can remain available when other descriptors cannot be calculated. Missing
+chemistry never becomes a neutral charge, single bond or numerical zero. Original
+uploads and canonical molecules are preserved; no hidden protonation, desalting or
+other preparation is performed. Method details and limitations remain available in
+the advanced surface. Bounded coalesced work and active-ligand priority reuse the
+existing controlled job infrastructure without making private derived work portable
+project history.
+
+All five authoritative versions are prepared at 0.37.0; dependency pins are unchanged.
+Migration 0017 adds installation preferences and private derived execution/cache
+ownership. Project/archive schema 3, viewer 2 and API v1 remain. Deploy matching client
+and server versions and retain a complete pre-upgrade store backup. Downgrade guards
+nondefault preferences. Actual tagged-v0.36 readers/writers preserve canonical inputs,
+ordinary jobs and unapplied editing proposals through the qualified archive paths;
+derived values are recalculated after remapping and installation preferences do not
+travel as project settings. Unsupported migration paths refuse safely.
+
+The complete 43-command candidate5 gate passes at `e47de3dd`: 3,589 Python tests/zero
+skips, 1,584 frontend tests across 136 files, 14 supervisor tests and 565 browser passes.
+All 640 browser cases are accounted for, with exactly 75 unchanged released exclusions
+and zero failures/flakes/retries/new exclusions. Frozen installs, migrations, static
+checks, build, production/version/legacy audits and actual preceding-reader suites
+pass. All 1,130 current / 1,013 preceding source bodies remain exact. Both official gate
+parts, exact source capsules and the complete retained-state supplement pass independent
+body/hash/CRC/recursive/union verification. Final seven-specialist acceptance, normal
+merge, fresh exact-merged-master qualification and public release verification remain
+required; no 0.37.0 publication is claimed.
+
+The inspector now avoids quadratic query tracking and repeated entry scans while
+preserving every observed query: at 1,000 entries the work regression changes tracking
+calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. Portable native11 qualification
+passes all eight original workflows at its original source identity. Its measured
+cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
+bulk updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
+Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
+zero new jobs and cancellation feedback at most 22 ms. All 95 renewals and 28,801,010
+response-body bytes are included. Changed measurement methods and host conditions
+preclude a causal speedup claim or strict reference-host certification.
+
+Earlier interrupted/failed runs remain unqualified in eight separate lossless
+forensic assets, with publication and full anonymous download verification pending.
+The child plan records tooling/fixture corrections and their focused checks; all
+original product assertions, deadlines and exclusion identities are retained. Early
+exploratory SHM revision gaps and unproven historical pre-SQL ordering remain explicit.
+An optional expanded strict E2E check retains four pre-existing diagnostics and is
+not passing; the established application typecheck passes.
+
+Profiles, sidebar, property filters and inspector retirement remain #160–#163.
+Diagram #153, relocations #164/#165 and the other parent #11 exclusions remain separate.
+See [property documentation](LIGAND_PROPERTIES.md),
+[qualification checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
+and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
+
 ## 0.36.0 — Exact durable ligand designation
 
 Published as [v0.36.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0)
@@ -49,8 +112,14 @@ includes actual evidence and itself passes server/full-anonymous verification.
 The [canonical closeout](https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710)
 is verified and #158 explicitly closed. Required #159–#163 and parent #11 remain
 open. Diagram153, relocations164/165 and all other parent exclusions stay separate.
-Normal terminal documentation/owned cleanup and final delivery-receipt verification
-follow without another runtime release.
+Terminal documentation merged through [PR #176](https://github.com/ManuelSe/Neistra/pull/176)
+at `254babcd136dab883eba65e5f7a2653d8cb69473`. All seven terminal specialist
+assessments PASS its exact candidate and all 1,013 qualified source bodies remain
+unchanged. All three owned branches are absent locally and remotely; worktrees
+and raw evidence are preserved. The [final delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-delivery.json),
+SHA256 `cf945c9a9cb37f615a755e6ff8f8a125db4574db5745cad4d4cb8493b18132f2`,
+and its checksum pass server-digest and full anonymous byte verification.
+The runtime tag is unchanged and parent #11 remains open.
 
 ## 0.35.0 — Deliberate viewer measurements
 
