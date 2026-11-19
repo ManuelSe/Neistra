@@ -1,5 +1,5 @@
 {
-  "scope": "Ten separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
+  "scope": "Eleven separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
   "planned_version": "0.37.0",
   "qualified_main_payloads": false,
   "assets": [
@@ -92,6 +92,15 @@
       "published": false,
       "qualified_main_member": false,
       "primary_readback_sha256": "070fe3e01c4f431f759c84e9146ba04060e306535f9cde30b65849d8edb4bfcf"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "bytes": 185748045,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "8ae18dc7111d60cf05373029f255bc9905506ca403a6a46fd2110297841cf28d"
     }
   ],
   "limits": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",

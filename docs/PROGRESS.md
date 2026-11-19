@@ -5,11 +5,15 @@
 Parent #11 remains active. #156–#158 are released and closed. #159 prepares 0.37.0:
 PR177 merged at `26e7cc1b`, but its exact-master1 gate failed in observer tooling.
 The observer correction passes its focused checkpoint and fresh native12 ALL8.
-Fresh c5-candidate1 stops at a helper-catalogue assertion: 3,597 Python passes and
-one failure; browser and 34 later commands are unrun. Complete failed evidence is
-verified. The explicit helper/context catalogue correction passes 89 focused tests
-and affected style/types. Fresh full qualification, all-seven final acceptance,
-normal corrective merge, fresh merged qualification and release remain required.
+The helper/context catalogue correction passes its focused checks. Fresh
+c5-candidate2 passes forty commands, including all 640 native cases: 565 passes,
+exactly 75 unchanged released exclusions and no failures/flakes/retries. Command41
+then fails before reader actors start because an ignored prerequisite receipt was
+not transferred into the isolated checkout. The whole failed campaign is retained.
+The exact receipt is restored after verified preservation; read-only predecessor
+preflight and both complete focused reader suites now pass. Fresh complete
+qualification, all-seven final acceptance, normal corrective merge, fresh merged
+qualification and release remain required.
 
 ## Completed work
 
@@ -37,6 +41,20 @@ Full SHA/CRC/recursive/portable and whole-original-union verification passes. Se
 Historical candidate5's eight original observer directories are also independently
 preserved and verified as a qualified-context supplement; its original identity stays.
 
+Failed c5-candidate2 retains 6,709 original files, 115 empty directories, all eight
+original observer trees and seventeen raw original/copy pairs in its separate
+185,748,045-byte forensic packet. Portable and independent primary full original/
+metadata/body/CRC/union, 2,146 actual Git/disk/capsule and mirror checks pass.
+All 41 lossless logs remain exact. The first preservation-format attempt is also
+retained; strict actual TAP validation passes the real data and 35 negative controls.
+
+The [reader recovery checkpoint](assets/ligand-properties/c3-reader-recovery-checkpoint.json)
+and 16,717,261-byte [packet](assets/ligand-properties/c3-reader-recovery-evidence.zip)
+retain both three-phase actual current/old-writer/current-reopen suites, all 1,056
+original inputs and 42 raw-store pairs copied after positive cleanup. Both commands
+exit zero; all six actor logs/reports and the unchanged 1,133-source map verify.
+This focused evidence does not qualify the original failed campaign or a release.
+
 ## Known limitations
 
 Native12 cold edit median/p95/max: 2,042.9/2,166.5/2,213.9 ms; 32/40 exceed 2 seconds.
@@ -48,7 +66,7 @@ latencies remain unavailable (twenty each). Discrete resource samples do not pro
 complete browser/GPU/short-lived-process accounting. No causal speedup or strict
 reference-host certification is claimed. Historical native11 retains its own data.
 
-Ten failed/diagnostic forensic assets remain unpublished. #160/#161 have local
+Eleven failed/diagnostic forensic assets remain unpublished. #160/#161 have local
 implementations awaiting actual released dependencies/full delivery. #162/#163
 have technical preparation; neither is implemented.
 
@@ -58,7 +76,7 @@ No external blocker. Full qualification and normal corrective delivery remain wo
 
 ## Next action
 
-Freeze the focused-passing catalogue/evidence checkpoint and run fresh c5-candidate2
-with all 43 commands. Obtain all seven final same-candidate assessments, merge through
+Freeze the receipt-recovery/evidence checkpoint and run fresh c5-candidate3 with
+all 43 commands and verified external inputs. Obtain all seven final same-candidate assessments, merge through
 the normal protected process and run fresh c5-master1 on the actual merge before
 release. Continue #160–#163 and parent closeout under the same Goal and exclusions.

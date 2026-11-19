@@ -1864,3 +1864,53 @@ PR/normal merge, fresh exact c5-master1, release/asset verification and closeout
 See [failed campaign](../assets/ligand-properties/c3-c5-candidate1-failed-checkpoint.json),
 [catalogue checkpoint](../assets/ligand-properties/c3-helper-catalogue-checkpoint.json)
 and [focused evidence](../assets/ligand-properties/c3-helper-catalogue-evidence.zip).
+
+
+### C3 qualification continuation — preserved missing receipt and actual recovery
+
+Original c5-candidate2 at `2061c55f` exits1 after forty successful commands.
+Its complete native run passes565 cases, with exactly the same75 exclusions as
+the actual released0.36 baseline, no new exclusions/failures/flakes/retries, and
+all640 inventory identities executed once. Python3,598/frontend1,599/supervisor14
+also pass. Command41 fails while opening the missing private preceding-reader
+receipt, before actor workspace creation. Property-readers and diff remain unrun.
+This is a failed full campaign, never a complete qualification pass.
+
+Positive cleanup precedes all17 raw original/copy pairs. The complete separate
+185,748,045-byte packet preserves6,709 originals/753,301,661 original bytes,
+115 empty directories, all8 original observer trees/480 observer files and every
+source/header/trace-offset mirror binding. All41 lossless logs and both actual
+Git/disk/capsule source sets1133/1013 verify. Portable and independent primary
+whole-original-body/metadata/CRC/exact-union checks pass; recursive counts are
+309 ZIPs/6,756 manifest entries/703 project files. The first packaging-format
+attempt stopped before an archive because it expected a different supervisor log
+format. Its whole kit/execution record remains retained. Strict actual TAP parsing
+accepts the original data and rejects35 coherent negative mutations. No product
+or gate rerun follows that preservation-only correction.
+
+After complete preservation, copy only the exact original122,230-byte receipt,
+SHA`f1e06e72…`, to the recipe's intended private path. Keep the original preparation
+JSON untouched and bind transfer provenance separately. The unchanged read-only
+predecessor contract passes for actual annotatedv0.36.0/247ab651 and all1013 bodies.
+Independent architecture checks both recipes:24 static paths, zero missing inputs;
+54 generated paths remain outputs. Dependencies/import paths/native pins/browser
+binaries remain exact. No application or diagnostic SQL occurs during preflight.
+
+Both unchanged complete reader commands then exit0 in a fresh owned focused
+workspace. Each verifies actual current production, actual old-writer and current
+reopen; all six actor logs/reports verify. Positive cleanup precedes42 raw-store
+original/copy pairs. The16,717,261-byte recovery packet retains1,056 originals,
+source capsules and provenance with full body/CRC/recursive/exact-union and
+before/after-original checks. It is focused qualified context, not a substitute
+for a complete gate. The full1133 selected source bodies stay unchanged.
+
+The two large failed native/report outputs stay at their original paths under
+exact local exclusions only after full retention verification; smaller public
+records remain committed/visible. Eleven separate failed/diagnostic assets remain
+unpublished. Fresh c5-candidate3 preserves all43 command/environment/cwd vectors
+and policies after only fresh label/workspace/port substitutions, with exact JSON
+and byte-inverse proof. Complete fresh candidate/all-seven/normal corrective PR/
+merge/fresh exact master/release/anonymous-asset verification and closeout remain.
+
+See [failed campaign](../assets/ligand-properties/c3-c5-candidate2-failed-checkpoint.json)
+and [focused reader recovery](../assets/ligand-properties/c3-reader-recovery-checkpoint.json).

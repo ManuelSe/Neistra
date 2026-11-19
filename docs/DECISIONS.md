@@ -9641,3 +9641,34 @@ complete source map separately and declare the exact unit-test digest delta in n
 pins and evidence. Focused 89-test/style/type passes do not qualify the failed run.
 Fresh complete candidate and exact merged gates and all-seven same-candidate final
 acceptance remain mandatory; no thresholds, workloads or exclusions change.
+
+
+### D-201 qualification continuation — transfer and verify prerequisite inputs
+
+2026-11-19: c5-candidate2 passes forty commands, including all 565 native passes and
+the exact 75 released exclusions, then stops before the editing-reader actors because
+the recipe's isolated-root substitution references an ignored receipt that was not
+transferred. Preserve the failed campaign and its two unrun commands; do not resume
+or relabel it as a complete gate. Positive cleanup and seventeen raw original/copy
+pairs precede diagnostic inspection. Complete preservation includes every public run
+output, workspace, transport, eight original observer trees, source capsules and
+the failed first retention-format attempt. Portable and independent primary checks
+pass for the 185,748,045-byte packet and all 6,709 original files.
+
+Only after that verification, transfer the original root-independent receipt byte
+for byte. Keep historical preparation records unchanged and record transfer provenance
+separately. Check both candidate and merged recipes' required static inputs before
+long campaigns; distinguish generated outputs. Invoke the unchanged read-only
+predecessor contract to bind the annotated tag, ancestry and all 1,013 extracted
+bodies without starting application actors or SQL. Independent architecture confirms
+zero remaining missing static inputs. Both complete reader suites then pass in a
+fresh focused workspace, retaining all six actor phases and 42 raw-store pairs.
+
+No application/scientific/method/dependency/version source changes. The full selected
+map stays at 1,133 bodies with the already declared catalogue-unit delta from original
+native12. Following the existing failure-retention policy, keep large failed native
+and report payloads at their original paths under two exact local exclusions only
+after full retention verification; commit their metadata and smaller original public
+records. The eleventh separate forensic asset remains publication-pending. A fresh
+complete 43-command candidate3, all-seven final review, normal corrective merge and
+fresh exact merged qualification remain mandatory before release.

@@ -68,7 +68,17 @@ passes all 89 focused recipe tests and affected style/types, preserving the 52
 method and 789 observer bodies. A fresh complete candidate gate and final reviews
 remain required. See the [catalogue checkpoint](assets/ligand-properties/c3-helper-catalogue-checkpoint.json).
 
-Earlier interrupted/failed runs remain unqualified in ten separate lossless
+Fresh c5-candidate2 passes forty commands, including 3,598 Python tests, 1,599 frontend
+tests, 14 supervisor tests and all 640 native cases: 565 passes and exactly the same
+75 released exclusions, with no failures/flakes/retries/new exclusions. Command41
+fails before its reader actors start because the isolated checkout lacks its required
+preceding-reader receipt. The whole 185,748,045-byte failed packet is verified and
+remains unqualified. After complete preservation, the exact original receipt is
+restored and both focused three-phase actual-reader suites pass, with 42 raw-store
+pairs preserved after cleanup. No application, scientific, dependency or version
+body changes. Fresh complete candidate3 and exact merged qualification remain required.
+
+Earlier interrupted/failed runs remain unqualified in eleven separate lossless
 forensic assets, with publication and full anonymous download verification pending.
 The child plan records tooling/fixture corrections and their focused checks; all
 original product assertions, deadlines and exclusion identities are retained. Early
