@@ -76,9 +76,32 @@ preceding-reader receipt. The whole 185,748,045-byte failed packet is verified a
 remains unqualified. After complete preservation, the exact original receipt is
 restored and both focused three-phase actual-reader suites pass, with 42 raw-store
 pairs preserved after cleanup. No application, scientific, dependency or version
-body changes. Fresh complete candidate3 and exact merged qualification remain required.
+body changes. The failed campaign remains unqualified.
 
-Earlier interrupted/failed runs remain unqualified in eleven separate lossless
+Fresh c5-candidate3 passes fifteen commands, then stops on editor keyboard focus:
+200 native passes, one failure, four runtime skips and 435 fail-fast unrun cases.
+The entire mobile project and 27 later commands remain unrun. Complete lossless
+failure retention and independent readback pass before a three-line test-readiness
+correction. The actual trace shows enabled-control enumeration during loading;
+its positional locator changes identity as eleven more controls become enabled.
+The test now awaits the selected-carbon target's nitrogen replacement command
+before retaining its original focus, bounds, accessibility and zoom checks.
+Application and benchmark-method bodies remain unchanged. The complete original
+zoom file passes four desktop scenarios with the four unchanged mobile-project
+exclusions, no failures/flakes/retries. A real held-response diagnostic also passes,
+blocking enumeration during loading and exercising all25 loaded controls after
+release, with original bytes preserved. Its first private fieldset-matcher mistake
+remains separately retained and failed. Fresh complete candidate4/all-seven/normal
+corrective merge/exact-master qualification remain required.
+
+The complete focused evidence is retained in three whole-member ZIP parts. Both
+private and standalone public-only reconstruction reproduce the159,287,047-byte
+canonical packet exactly, preserving all1,103 originals and the nested failed
+attempt. The recorded exact-byte reconstruction runtime is Python3.12.3/zlib1.3;
+broader runtime reproducibility is unverified. See the
+[focused checkpoint](assets/ligand-properties/c3-editor-readiness-checkpoint.json).
+
+Earlier interrupted/failed runs remain unqualified in twelve separate lossless
 forensic assets, with publication and full anonymous download verification pending.
 The child plan records tooling/fixture corrections and their focused checks; all
 original product assertions, deadlines and exclusion identities are retained. Early

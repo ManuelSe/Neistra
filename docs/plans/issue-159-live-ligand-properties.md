@@ -1914,3 +1914,91 @@ merge/fresh exact master/release/anonymous-asset verification and closeout remai
 
 See [failed campaign](../assets/ligand-properties/c3-c5-candidate2-failed-checkpoint.json)
 and [focused reader recovery](../assets/ligand-properties/c3-reader-recovery-checkpoint.json).
+
+### C3 qualification continuation — editor readiness prerequisite
+
+Fresh c5-candidate3 on `dfeb499a` passes the first fifteen commands, including
+3,598 Python tests, 1,599 frontend tests across 137 files and fourteen supervisor
+controls. Browser command16 stops after 200 passes, one failure, four actual
+runtime skips and 435 fail-fast unrun cases. All320 mobile cases and27 later
+commands remain unrun. Four desktop property cases pass; the four mobile property
+cases are unrun. Do not reinterpret the report's439 combined skipped count as
+authored exclusions or claim complete native/full-gate qualification.
+
+The complete separate failure packet is1,377,294,877bytes,
+SHA`1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4`.
+It preserves all41,093 originals/2,159,659,556 original bytes,26 empty directories,
+four original observer trees/240 files, four raw-store pairs, all16 lossless logs,
+the failed trace/screenshot and both actual Git/disk/capsule source sets1133/1013.
+Portable and independent primary whole-body/metadata/CRC/exact-union checks pass.
+The primary readback SHA is`517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7`.
+No diagnostic SQL is opened. The success-only candidate3 postgate kit remains unused.
+
+The trace establishes dynamic positional-locator identity drift during current
+target loading: fourteen enabled/visible controls become25, and position7 resolves
+to a summary during focus but an oxygen button during the assertion. Final active
+element is not independently recorded. Independent UI/UX diagnosis and architecture
+review support a bounded test-readiness correction. Only after full preservation,
+add three lines after the Atoms section click, immediately before the unchanged
+control loop: wait for exact `Replace selected atom with N` enabled. The selected
+carbon fixture requires the complete current projection for that command. Preserve
+every original focus/bounds/hit-test/accessibility/theme/zoom/preview/history check
+and all deadlines, without sleeps, retries or application changes.
+
+The corrected zoom test SHA is`75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0`.
+The new selected1133-body compact map is`776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec`.
+Declare both exact test-only deltas from original native12: this file and the
+catalogue unit test. All1,131 other bodies, all52 method bodies, observer subjects,
+production/scientific code, versions and dependencies remain unchanged. The
+original native12 map retains its own identity. Complete original-file verification
+passes four desktop scenarios with four unchanged authored mobile-project exclusions,
+zero failure/flake/retry/report errors. The real held-response diagnostic2 passes
+once without skips/retries/report errors: the actual4377-byte committed-artifact
+response remains held during loading/disabled controls and blocked enumeration,
+then all25 loaded identities pass individual focus/bounds/hit checks after release.
+One actual selected-carbon +H edit advances revision1→2 and preserves original
+bytes. Positive cleanup precedes all six raw-store pairs across both successful
+scopes. Its first private diagnostic stays failed: the installed native-disabled
+matcher excludes FIELDSET itself; presence/absence of its disabled attribute,
+actual child N disablement and the DOM fieldset property provide distinct checks.
+All967 first-attempt originals are retained in a separate nested19,993,645-byte
+packet, SHA`5096cfae6f156019776ac18893ae792762ca6a4ff9c54fe85fc4b1ca65d54e51`.
+The diagnostic trace retains three expected intermediate preparation expect.poll
+failures, each contained in a subsequently passed poll; they are not hidden or
+counted as failed test results. No test rerun follows that readback classification.
+
+Independent scoped architecture/UI/UX assessments pass. Whole-file shell coverage
+reaches360CSSpx; editor actual zoom coverage is1440/720, not320. Direct focus checks
+do not establish Tab traversal or assistive-technology behavior, and this file does
+not qualify Undo/Redo, locked-target recovery or all load-error paths. Complete
+focused retention passes: the159,287,047-byte canonical packet,
+SHA`f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5`,
+retains all1,103 originals/192,528,283 original bytes, nine empty directories,
+six successful raw pairs and the entire nested failed first attempt. Its1,119
+outer members,26 ZIPs/2,098 manifest entries/20 project files verify. Standalone
+portable-originals verification and independent primary whole-body/metadata/exact
+union and all1,133 disk/capsule bodies pass. The primary also verifies all1,132
+other actual base-Git bodies and the one declared canonical test delta. Primary
+readback SHA`eb7e4bc5528bad6764b3f8ba32923e18cf0f7eb5efdd565bd7171b26235451e2`.
+Public whole-member parts follow the existing80MiB estimate/95MiB actual package
+policy. Three actual parts are42,457,595/83,750,714/33,079,272bytes. Their disjoint
+complete member union reconstructs the canonical ZIP byte for byte. The staged
+standalone public consumer, using only published parts/receipt/script and a fresh
+output directory, also reconstructs it exactly and passes the original portable
+verifier with an actual child wait0. All89 catalogue tests pass after the additional
+context script is published locally; it remains outside the1,133-source selection
+and six qualifying helpers. Exact compressed-byte reproduction is qualified on
+Python3.12.3/zlib1.3, not arbitrary runtime combinations. The complete canonical
+packet remains private and unchanged. This local passing checkpoint can begin
+fresh qualification. Keep the actual
+qualifying HEAD fixed through the complete gate and postgate source/original
+retention. No fresh full-gate pass is claimed.
+Candidate4 retains all43 ordered commands and policies under fresh owned resources.
+Complete fresh candidate/all-seven/normal protected merge/fresh exact-master and
+verified release/anonymous assets/closeout remain required.
+
+See [failed candidate3 checkpoint](../assets/ligand-properties/c3-c5-candidate3-failed-checkpoint.json).
+See also the [focused readiness checkpoint](../assets/ligand-properties/c3-editor-readiness-checkpoint.json).
+The [three-part receipt](../assets/ligand-properties/c3-editor-readiness-packaging.json)
+and [public-only readback](../assets/ligand-properties/c3-editor-readiness-public-roundtrip.json)
+bind their complete bodies, executable-code pins and actual reconstruction runtime.

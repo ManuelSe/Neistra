@@ -9672,3 +9672,47 @@ after full retention verification; commit their metadata and smaller original pu
 records. The eleventh separate forensic asset remains publication-pending. A fresh
 complete 43-command candidate3, all-seven final review, normal corrective merge and
 fresh exact merged qualification remain mandatory before release.
+
+
+### D-201 qualification continuation — await complete editor control readiness
+
+2026-11-19: c5-candidate3 passes fifteen commands, then fails the existing editor
+keyboard test. Preserve the original failure: 200 native passes, one failure,
+four actual runtime skips and 435 fail-fast unrun cases; all 320 mobile cases and
+27 later recipe commands remain unrun. Its complete 1,377,294,877-byte separate
+packet retains 41,093 originals, 26 empty directories, four original observer
+trees, four raw-store pairs, both source capsules and every failure attachment.
+Portable and independent primary whole-body/metadata/CRC/union checks pass before
+any source correction. No diagnostic SQL is opened. Keep the extra fixture-step
+console message separate from the actual focus assertion; no causal claim follows.
+
+The actual trace enumerates fourteen enabled/visible controls while current target
+chemistry is loading. When loading completes, eleven more buttons become enabled;
+the same positional locator changes from a summary to an oxygen replacement
+button between focus and its assertion. The trace does not independently record
+the final active element and does not establish broader application focus failure.
+After clicking Atoms, await the exact nitrogen replacement control enabled for
+the selected-carbon fixture, then retain the entire original enumeration, focus,
+viewport/hit-test, accessibility, theme, zoom and workflow assertions. No sleeps,
+retries, deadline increases or application focus changes are justified.
+
+This three-line test-only correction is outside all 52 benchmark-method and 789
+observer subjects. New full-source bindings explicitly declare both exact deltas
+from original native12: the earlier catalogue unit test and this zoom test;
+all 1,131 other bodies remain unchanged. Preserve the original native12 map and
+all failed campaign identities. Focused checks, complete fresh qualification,
+all-seven final acceptance, normal corrective merge and fresh exact merged
+qualification remain separate requirements. Twelve forensic assets remain
+publication-pending; complete asset/checksum verification remains mandatory.
+
+The complete focused159,287,047-byte packet exceeds the repository's per-part
+budget. Preserve it unchanged and publish three complete-member ZIP parts under
+the existing80MiB estimate/95MiB actual policy. Require a disjoint exact member
+union, every original body/metadata record and reconstruction of the entire
+canonical ZIP byte for byte. A standalone context consumer uses only public
+parts/receipt/script and fresh output; pin its four audited executable sources
+before running the original portable verifier. Both reconstructions and the
+post-publication89-test catalogue check pass. Record Python3.12.3/zlib1.3 as the
+qualified compressed-byte runtime; do not claim arbitrary-runtime reproduction.
+This context script remains explicitly unselected by the runtime-source contract.
+No source/method/science, deadline, exclusion or release requirement is reduced.
