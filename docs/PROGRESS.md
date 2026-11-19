@@ -2,80 +2,88 @@
 
 ## Current milestone
 
-Parent #11 remains active through all eight required children and verified closeout.
-#156–#158 are released and closed. #159 prepares 0.37.0: its complete candidate5
-qualification passes at `e47de3dd`; final same-candidate specialist review, protected
-merge, fresh exact-master qualification and verified publication remain.
+Parent #11 remains active. #156–#158 are released and closed. #159 prepares
+0.37.0: PR177 merged at 26e7cc1b, whose original merged qualification failed in
+observer tooling. The corrective c5-candidate4 campaign at b1cdb138 now passes
+all 43 commands. Complete source capture, retained-state preservation, portable
+verification and independent whole-original readback pass. Final same-candidate
+review, normal corrective merge, fresh actual merged qualification and verified
+release/closeout remain required.
 
-#160 has local profile/query preparation at `0f54385c`; #161 has local sidebar and
-native-navigation preparation at `a6f48892`. Their actual released dependencies,
-full qualification and delivery remain pending. #162 has an authorized technical
-plan; #163 remains planned. Serial release order and parent exclusions are unchanged.
+#160/#161 have local implementations awaiting their released dependencies and
+complete delivery. #162/#163 have technical preparation; neither is implemented.
 
 ## Completed work
 
-#159 implements fourteen versioned descriptors, exact-input freshness, installation
-property preferences and bounded private execution/cache ownership. Relevant edits
-retire incompatible values immediately; previews and committed inputs retain distinct
-identities. Original uploads and canonical chemistry remain unchanged. Migration 0017
-adds preferences/private derived execution; project/archive schema 3 and viewer 2 remain.
-All five authoritative versions are 0.37.0; dependency pins are unchanged.
+Observer JSON publishes through closed temporary siblings and atomic replacement.
+Reads distinguish first absence from invalid or subsequently missing evidence;
+the warm-job baseline retains the actual qualifying snapshot. The original editor
+zoom test now awaits the complete current target before enumerating controls.
 
-The inspector correction removes quadratic query tracking and repeated entry scans
-while preserving the complete observed query set. At 1,000 entries the regression
-records tracking calls 5,005,000→0 and entry-ID reads 1,002,000→2,000. Benchmark tooling
-retains independent serial lease renewal, complete batch predicates and all scientific
-checks. The archive verifier preserves valid declared empty directories and strict
-body/hash/size/CRC unions. Scoped lifecycle, held-request cleanup and keyboard-path
-corrections preserve product behavior, assertions, deadlines and existing exclusions.
+Production runtime, scientific calculations, dependencies, workloads, deadlines
+and acceptance policies retain their definitions. Compared with original native12,
+only the catalogue unit test and editor zoom test differ; all 1,131 other selected
+bodies, 52 method subjects and 789 observer subjects remain unchanged. Historical
+failed campaigns and focused checks keep their original identities.
 
 ## Verification performed
 
-The original 43-command candidate5 runner exits 0. Frozen installs, migration
-upgrade/downgrade/reupgrade, static checks, production build/audit, legacy CLI and
-actual tagged-v0.36 producer/reader/archive checks all pass. Python: 3,589 / zero skips;
-frontend: 1,584 across 136 files; supervisor: 14. The complete 640-case browser inventory
-records 565 passes and exactly 75 released baseline exclusions, with zero failures,
-flakes, retries or new exclusions. All 1,130 current and 1,013 actual preceding-source
-bodies remain exact. Source/reader summaries and both qualified archive parts verify.
+Fresh c5-candidate4 passes all 43 sequential commands: migration upgrade/downgrade/
+re-upgrade, lint/types/build/production checks, 3,598 Python tests with zero skips,
+1,599 frontend tests, 14 supervisor checks, all 640 native inventory cases and the
+actual preceding-reader suites. Native results are 565 passes and exactly the
+75 released exclusions, with zero failures, flakes, retries or new exclusions.
+All 1,133 current and 1,013 actual v0.36.0 reader source identities verify.
 
-Positive process/port cleanup precedes copying all 59 retained database/sidecar files;
-no diagnostic SQL is opened. Independent full body/hash/CRC/recursive/member-union
-readback passes for the two official gate parts, both exact source capsules and the
-whole retained workspace/transport supplement. See the
-[candidate qualification checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
-and [complete summary](assets/ligand-properties/c4-candidate5-summary.json).
+Positive cleanup precedes all 59 existing raw database/sidecar original/copy pairs.
+The 76,385,129-byte retained-state packet preserves 6,977 originals, 622,790,963
+original bytes, 44 empty directories, all eight original observer trees and all
+480 observer files. The separate 9,636,580-byte source companion preserves the
+complete seven-file capture, including both source capsules. These are distinct
+qualified-context artifacts.
 
-The separate native11 run passes all eight original portable performance workflows.
-Its original `995e80f8` identity remains; all 461 runtime / 51 method bodies are unchanged.
-See its [closed measurements](assets/ligand-properties/c3-all8-remeasurement-analysis.json)
-and [qualified packet](assets/ligand-properties/c3-all8-remeasurement-evidence.zip).
-Focused corrections and earlier interrupted/failed runs remain separately source-bound
-in the child plan. They do not become complete qualification.
+Portable verification, fresh packet-only consumers and independent complete
+body/CRC/metadata/union checks pass. Independent readback also compares all
+2,146 Git/disk/capsule bodies, the complete observer trace byte windows/sequence,
+all 43 lossless logs and both official gate parts. The original source freeze
+ends only after that proof; every closed original evidence root stays unchanged.
+No diagnostic SQL was opened.
+
+See the [candidate summary](assets/ligand-properties/c5-candidate4-summary.json)
+and [checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json).
+The [current analysis](assets/ligand-properties/c3-c5-candidate4-analysis.json)
+rechecks all 528 consumed inputs and independently reconciles the measured
+arithmetic. Native12, focused reader recovery and editor readiness remain
+separate historical/focused evidence.
 
 ## Known limitations
 
-Portable correctness is qualified; strict reference-host timing is not. Native11
-cold edit median/p95/max is 2,102.85/2,279.1/2,595.3 ms; 32/40 exceed 2 seconds. Desktop
-bulk active updates 6,928.2/6,921.8 ms exceed 5 seconds; mobile 3,144.9/3,967.4 ms does not.
-Feedback exceeds 100 ms in 21/84 observations. Cache projection is at most 74.5 ms with
-zero new jobs; cancellation feedback is at most 22 ms. All 95 renewal calls and their
-28,801,010 response-body bytes remain measured. No causal speedup is established.
+Current C4 cold median/p95/max is 2,786.6/3,567.5/3,647.9 ms; 39/40 exceed 2 seconds.
+Matching-cache maximum is 128.1 ms; 20/40 exceed 100 ms, with zero new warm jobs.
+Feedback exceeds 100 ms in 46/84 observations. Bulk active updates are
+7,070.7/7,997.8 ms on desktop and 5,344.1/6,889 ms on mobile; all four exceed
+5 seconds. Cancellation feedback is at most 13 ms.
 
-Eight separately verified forensic assets remain publication-pending; see the
-[index](assets/ligand-properties/c3-separate-forensic-assets.json). Early exploratory
-SHM revision gaps and unproven historical pre-SQL ordering remain explicit. The
-optional expanded strict E2E compiler check retains four pre-existing diagnostics
-and is not passing; the established application typecheck passes. No final seven-role
-approval, implementation push, merged-master gate or 0.37.0 release is claimed yet.
+All 93 renewals, 28,056,765 UTF-8 renewal-response bytes and 133 consumer updates
+remain included. Mobile hidden old-value retirement latency is unavailable for
+20 cold and 20 warm observations. The 10,023 case-observer samples provide
+discrete worker/resource observations; wrapper CPU/RSS/load and complete
+browser/GPU/short-lived-process accounting remain unavailable. Native12 wrapper
+samples remain historical. Portable hard bounds pass; no causal speedup/regression
+or strict reference-host timing certification is claimed.
+
+Twelve failed/diagnostic forensic assets remain publication-pending. Two private
+analysis-adapter corrections are preserved in their qualified analysis context;
+they neither rerun the native workload nor add another failed campaign.
 
 ## Blockers
 
-No external blocker. Final review and release qualification remain required work.
+No external blocker. Final review and normal corrective delivery remain work.
 
 ## Next action
 
-Freeze the evidence/docs candidate with unchanged qualifying sources, obtain all
-seven final assessments, then complete normal protected delivery and the fresh,
-unspent `c4-master1` qualification before publishing. Continue #160–#163 and parent
-closeout under the existing single Goal.
+Finish the evidence/docs checkpoint and focused source-equivalence checks, obtain
+all seven final same-candidate assessments, merge through the normal process and
+run fresh c5-master1 on the actual merge. Only then publish and verify the immutable
+0.37.0 release, main evidence and all twelve forensic assets before #159 closeout.
+Continue #160–#163 and parent closeout under the same Goal and exclusions.

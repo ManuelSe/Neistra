@@ -9590,3 +9590,167 @@ qualification follow. The existing complete 43-command candidate PASS remains so
 all seven final assessments must explicitly cover the corrected documentation
 candidate before push. Exact merged-master qualification and verified release remain
 mandatory. See the [raw count correction](assets/ligand-properties/c3-renewal-count-checkpoint.json).
+
+
+### D-201 qualification continuation — publish complete observer snapshots
+
+2026-11-19: exact merged-master1 fails on a null observer job-baseline read. Preserve
+its complete failed evidence and partial workload. The direct JSON publisher exposes
+a reproducible truncate/write window; the historical swallowed exception is unknown.
+Use observer-only atomic sibling publication, explicit startup/missing/error semantics,
+the actual qualifying poll snapshot and valid-observation warm/reaping checks.
+Regress old-or-new complete publication and visible failures without stale/empty
+fallback. Preserve scientific workloads, timing definitions, budgets, sampling cadence,
+deadlines and exclusions. Correct through a dedicated normal PR, with a new declared
+benchmark method, fresh ALL8 analysis, complete candidate qualification, all-seven
+same-candidate review and a fresh exact merged gate. Native11/candidate5 retain their
+historical identities and timing limitations; no speedup is claimed.
+
+
+### D-201 corrective qualification — preserve distinct native12 evidence
+
+2026-11-19: the snapshot correction qualifies in a fresh original eight-case campaign
+at C1 `7da9913b`: one attempt each, no skips/failures/flakes/retries. The 52 benchmark method
+subjects and 1,133 source files are explicit; the observer basis has 789 subjects. All 461 production
+bodies, other 156 scientific bodies and the producer's normalized scientific code
+remain exact. Historical native11/51 and candidate5 identities remain separate.
+
+Preserve the entire closed run, source capsules, three raw copy triplets, all eight
+original observer trees and analysis. Independent numerical/work/resource/clock
+review and full SHA/CRC/recursive/original-union verification pass. Report actual
+ninety renewals/26,903,516 UTF-8 response bytes; never carry historical 95 into native12.
+Keep 32/40 cold,2/4 bulk and24/84 feedback target misses, hidden retirement uncertainty
+and discrete resource limits explicit. No causal speedup or strict-host certification
+follows this instrumentation correction. Full candidate/all-seven/normal merge/fresh
+merged qualification and verified release remain mandatory.
+
+
+### D-201 qualification continuation — separate helpers from closed context scripts
+
+2026-11-19: c5-candidate1 stops in the Python suite because a catalogue test treats
+all published Python-text evidence as exactly six qualifying helpers. Preserve the
+actual 3,597 passes / one failure, unrun browser/later stages and complete original
+forensic evidence before correction. Keep the six release-helper names as an
+independent literal allowlist across four tool directories. Validate every published
+script syntactically and require additional context scripts to remain unselected.
+Closed analyzers may be retained without becoming runtime qualification tools.
+
+The catalogue-only unit-test change alters the full selected source map but no
+scientific/runtime, method52 or observer789 body. Preserve native12's original
+complete source map separately and declare the exact unit-test digest delta in new
+pins and evidence. Focused 89-test/style/type passes do not qualify the failed run.
+Fresh complete candidate and exact merged gates and all-seven same-candidate final
+acceptance remain mandatory; no thresholds, workloads or exclusions change.
+
+
+### D-201 qualification continuation — transfer and verify prerequisite inputs
+
+2026-11-19: c5-candidate2 passes forty commands, including all 565 native passes and
+the exact 75 released exclusions, then stops before the editing-reader actors because
+the recipe's isolated-root substitution references an ignored receipt that was not
+transferred. Preserve the failed campaign and its two unrun commands; do not resume
+or relabel it as a complete gate. Positive cleanup and seventeen raw original/copy
+pairs precede diagnostic inspection. Complete preservation includes every public run
+output, workspace, transport, eight original observer trees, source capsules and
+the failed first retention-format attempt. Portable and independent primary checks
+pass for the 185,748,045-byte packet and all 6,709 original files.
+
+Only after that verification, transfer the original root-independent receipt byte
+for byte. Keep historical preparation records unchanged and record transfer provenance
+separately. Check both candidate and merged recipes' required static inputs before
+long campaigns; distinguish generated outputs. Invoke the unchanged read-only
+predecessor contract to bind the annotated tag, ancestry and all 1,013 extracted
+bodies without starting application actors or SQL. Independent architecture confirms
+zero remaining missing static inputs. Both complete reader suites then pass in a
+fresh focused workspace, retaining all six actor phases and 42 raw-store pairs.
+
+No application/scientific/method/dependency/version source changes. The full selected
+map stays at 1,133 bodies with the already declared catalogue-unit delta from original
+native12. Following the existing failure-retention policy, keep large failed native
+and report payloads at their original paths under two exact local exclusions only
+after full retention verification; commit their metadata and smaller original public
+records. The eleventh separate forensic asset remains publication-pending. A fresh
+complete 43-command candidate3, all-seven final review, normal corrective merge and
+fresh exact merged qualification remain mandatory before release.
+
+
+### D-201 qualification continuation — await complete editor control readiness
+
+2026-11-19: c5-candidate3 passes fifteen commands, then fails the existing editor
+keyboard test. Preserve the original failure: 200 native passes, one failure,
+four actual runtime skips and 435 fail-fast unrun cases; all 320 mobile cases and
+27 later recipe commands remain unrun. Its complete 1,377,294,877-byte separate
+packet retains 41,093 originals, 26 empty directories, four original observer
+trees, four raw-store pairs, both source capsules and every failure attachment.
+Portable and independent primary whole-body/metadata/CRC/union checks pass before
+any source correction. No diagnostic SQL is opened. Keep the extra fixture-step
+console message separate from the actual focus assertion; no causal claim follows.
+
+The actual trace enumerates fourteen enabled/visible controls while current target
+chemistry is loading. When loading completes, eleven more buttons become enabled;
+the same positional locator changes from a summary to an oxygen replacement
+button between focus and its assertion. The trace does not independently record
+the final active element and does not establish broader application focus failure.
+After clicking Atoms, await the exact nitrogen replacement control enabled for
+the selected-carbon fixture, then retain the entire original enumeration, focus,
+viewport/hit-test, accessibility, theme, zoom and workflow assertions. No sleeps,
+retries, deadline increases or application focus changes are justified.
+
+This three-line test-only correction is outside all 52 benchmark-method and 789
+observer subjects. New full-source bindings explicitly declare both exact deltas
+from original native12: the earlier catalogue unit test and this zoom test;
+all 1,131 other bodies remain unchanged. Preserve the original native12 map and
+all failed campaign identities. Focused checks, complete fresh qualification,
+all-seven final acceptance, normal corrective merge and fresh exact merged
+qualification remain separate requirements. Twelve forensic assets remain
+publication-pending; complete asset/checksum verification remains mandatory.
+
+The complete focused159,287,047-byte packet exceeds the repository's per-part
+budget. Preserve it unchanged and publish three complete-member ZIP parts under
+the existing80MiB estimate/95MiB actual policy. Require a disjoint exact member
+union, every original body/metadata record and reconstruction of the entire
+canonical ZIP byte for byte. A standalone context consumer uses only public
+parts/receipt/script and fresh output; pin its four audited executable sources
+before running the original portable verifier. Both reconstructions and the
+post-publication89-test catalogue check pass. Record Python3.12.3/zlib1.3 as the
+qualified compressed-byte runtime; do not claim arbitrary-runtime reproduction.
+This context script remains explicitly unselected by the runtime-source contract.
+No source/method/science, deadline, exclusion or release requirement is reduced.
+
+### D-201 qualification continuation — complete candidate4 and separate companions
+
+2026-11-19: the original fresh c5-candidate4 completes all43 commands at B1 with
+actual wait0. Keep that HEAD frozen through positive cleanup, all59 actual raw
+database/sidecar copies, both source capsules, complete workspace/transport and
+all8 original observer trees. Portable checks and an independently implemented
+whole original/body/metadata/CRC/union/Git-disk-capsule/trace readback pass before
+the development freeze ends. Every original campaign evidence root stays closed.
+
+Keep the76,385,129-byte retained-state packet and9,636,580-byte source companion
+separate: the former contains all6,977 workspace/transport/observer originals;
+the latter contains the complete seven-file sealed source capture and both
+current/actual036 capsules. Keep official gate parts separately bound, and publish
+the complete independent-reader and analysis contexts as qualified supplements.
+The complete analysis history includes two adapter-preparation/schema corrections;
+no native campaign is rerun or promoted and no thirteenth forensic asset follows.
+The twelve failed/diagnostic assets retain their original publication obligations.
+
+Preserve actual current-run timing misses and unavailable measurements. Current
+cold39/40,cache20/40,feedback46/84 andbulk4/4 miss their latency targets. C4's10,023
+case-observer samples do not supply wrapper CPU/RSS/load or complete browser/GPU
+accounting; do not borrow historical native12 samples. Hidden mobile retirement
+latencies remain unavailable, neverzero. Portable correctness and hard bounds pass;
+the accepted D148 strict-host policy and every numerical/workload limit remain.
+
+The evidence/docs checkpoint may reuse the complete B1 gate only with explicit
+full selected-source equivalence and unchanged qualifying helpers/methods. Record
+its actual qualifying identity; do not relabel it as the later review commit.
+Require all seven final assessments on one common final candidate and a fresh
+complete actual merged-master campaign before immutable release/closeout.
+
+Use the existing c3-prefixed qualified-context discovery for these new public
+companions and metadata. Keep the completed c5-candidate4 campaign-prefix
+inventory unchanged; do not let later analysis/checkpoint files enter that frozen
+gate-package union. Only public names change: all packet bodies and source/helper
+identities remain exact. The existing release-context collector then includes
+every companion without a qualification-source change or another native run.

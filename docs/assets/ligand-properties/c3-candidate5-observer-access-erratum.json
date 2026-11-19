@@ -1,0 +1,15 @@
+{
+  "actual_actions": "No HEAD/Git command or production module execution. The old checkout support helper definition sha_json was read to confirm the existing sorted compact-JSON digest format. Historical source identity authority remained the sealed H source capsule, never a current-tree calculation. No corrective/live native12 tree was accessed.",
+  "asset_or_verification_impact": "None; full supplemental asset and both source/mirror identity bindings unchanged",
+  "first_handoff": {
+    "bytes": 12469,
+    "sha256": "3026af919c87f058512e2eccd3eb27738ae342f996b86f752d23520bc0fdb67f"
+  },
+  "incorrect_field": "current_HEAD_or_source_tree_read=false",
+  "original_readback_chunks": [
+    "be9ac4",
+    "981b28"
+  ],
+  "scope": "Correct only an overbroad source-access boolean in the first local handoff; no packet, verification or original changed",
+  "source_definition_inspected": "tests/support/ligand_property_performance_qualification.py:sha_json"
+}

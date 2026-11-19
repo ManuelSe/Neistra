@@ -919,7 +919,12 @@ candidate/depiction success alone cannot restore invalidated numerical results.
 The kernel admits at most 1,024 designated atoms before H normalization and 4,096
 considered bonds. API source admission, per-operation byte budgets, cache and worker
 controls are separate bounds, not larger chemical-model domains or universal latency/
-whole-process memory guarantees. Final performance and actual preceding-reader
-qualification remain pending; focused correctness evidence does not establish them.
+whole-process memory guarantees. Complete c5-candidate4 portable qualification and
+actual v0.36.0 reader/writer checks pass; the actual merged repetition remains a
+release gate. Current observations miss the latency targets in 39/40 cold, 20/40 cache,
+46/84 feedback and 4/4 bulk measurements. Hidden mobile retirement latency and complete
+browser/GPU/short-lived-process accounting remain unavailable; discrete case-observer samples do not supply wrapper
+CPU/RSS/load. No strict-host certification or causal comparison follows. See the
+[current checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json).
 See [Live ligand properties](LIGAND_PROPERTIES.md) for all 14 definitions, units,
 recovery behavior and current operational limits.

@@ -1,0 +1,97 @@
+{
+  "scope": "Actual public-only focused evidence reconstruction; not full43 or release qualification",
+  "actual_roundtrip": {
+    "SQL_opened": false,
+    "actual_portable_command": [
+      "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+      "-B",
+      "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-publication-primary1/public-only-roundtrip/portable/verify.py",
+      "--archive",
+      "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-publication-primary1/public-only-roundtrip/editor-readiness-evidence.zip"
+    ],
+    "actual_wait_exit": 0,
+    "audited_code_SHA_constants": {
+      "release-evidence-used.py.txt": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "support.py": "e815bf52aab1c45738d614898e6c64aa0566a8f05d5e2cb80845ab6bb2f2a94e",
+      "validate.py": "2260e64b0b4bd93afab58fa064bbf3e01a2f91412542df182f923602061679f0",
+      "verify.py": "9ac8cfd693e0936eadcbfbb1d5b213c0548fffb2e5a1a414ca58246f64b268af"
+    },
+    "canonical_archive": {
+      "bytes": 159287047,
+      "sha256": "f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5"
+    },
+    "canonical_manifest": {
+      "bytes": 215614,
+      "sha256": "8ccb90ec9df58e197c9b60ea97de16e5fcfd9c21b33a6540905e9c8d3b512d97"
+    },
+    "old_absolute_input_or_source_roots_read": false,
+    "part_count": 3,
+    "part_recursive_checks": [
+      {
+        "evidence_manifest_entries": 2024,
+        "project_archive_files": 20,
+        "zip_archives": 18
+      },
+      {
+        "evidence_manifest_entries": 71,
+        "project_archive_files": 0,
+        "zip_archives": 7
+      },
+      {
+        "evidence_manifest_entries": 3,
+        "project_archive_files": 0,
+        "zip_archives": 3
+      }
+    ],
+    "portable_stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "portable_stdout": {
+      "bytes": 1123,
+      "sha256": "f122e2318cb323c982f61eec7abb15b8ede458a55a794d165b4d3cfe6d44efa5"
+    },
+    "scope": "Closed focused packet public roundtrip only; no full43 or release qualification"
+  },
+  "runtime": {
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "zlib_build_version": "1.3",
+    "zlib_runtime_version": "1.3",
+    "exact_compressed_bytes_qualified_on_recorded_runtime_only": true,
+    "arbitrary_Python_zlib_byte_reproducibility_not_claimed": true
+  },
+  "public_receipt_sha256": "e57d8ba8174552503b9ea141b6cd9ed1909201c56662a0685e74ac06003b1fcc",
+  "public_script_sha256": "01e33a9e08232afb95c636832b6ce5405cc6053f4b45d42a77d072bbe2a2f5f6",
+  "catalogue_after_public_context": {
+    "actual_exit": 0,
+    "passed": 89,
+    "raw_log_sha256": "cf7fce1578d20943826448243206ed8cdc38c921c23d873f10c43c8cc62cc3af",
+    "log": "c3-editor-readiness-recipe-tests.log.gz"
+  },
+  "actual_tools": {
+    "partition": [
+      "54af8d",
+      "a1cb8f"
+    ],
+    "private_reconstruct": [
+      "dd95a6",
+      "328231"
+    ],
+    "finalize": [
+      "6c529c",
+      "848a53"
+    ],
+    "public_copy": "1175e6",
+    "public_roundtrip": [
+      "72466a",
+      "0335bf"
+    ],
+    "catalogue": [
+      "6f4375",
+      "0d0911"
+    ]
+  },
+  "new_separate_forensic_asset": false,
+  "full43_qualification": false,
+  "SQL_opened": false
+}

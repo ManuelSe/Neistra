@@ -1677,3 +1677,413 @@ No additional runtime or performance execution is justified by this documentatio
 correction. Obtain affected reassessment and all other specialists' explicit
 confirmation after they inspect the exact intervening diff on the final candidate.
 No push/readiness or release is claimed until that gate passes.
+
+
+### Authorized corrective checkpoint — complete observer snapshots after failed master1
+
+PR177 merged the reviewed feature at `26e7cc1b9fdc5758ed18049b0fa7be67d7559882`.
+The original exact-master1 runner exits 1: fifteen commands pass; browser outcomes
+are 391 passes, one failure, 32 authored skips and 216 unrun. Twenty-seven later
+commands are unrun. The mobile cold/edit case dereferences a null observer after a
+successful completed-source poll. It retains five cold starts and fourteen completed
+paired edits, not twenty. The top-level error is the maximum-failure stop notice.
+No 0.37.0 tag or release exists.
+
+Early architecture and performance assessments require a bounded tooling correction.
+The publisher writes JSON in place, while its reader hides every read/parse error as
+null. A controlled file-I/O interleaving reproduces an empty-file parse window.
+The exact swallowed exception from the historical failed read was not retained.
+
+This refinement is **Authorized within agreed scope; not individually reviewed**
+under the owner's standing parent11 plan-and-deliver authorization. Use dedicated
+`fix/issue-159-observer-snapshots`, based on the failed merged commit. Application
+behavior, science, compatibility and all five 0.37.0 versions remain unchanged.
+
+Accepted implementation contract:
+
+- Fully serialize the observer payload, write and close a uniquely owned temporary
+  sibling, then atomically replace the published snapshot for ordinary and final
+  writes. Serialization/write/replace failure preserves the old snapshot and
+  propagates; clean only the publisher's own temporary file.
+- Permit missing output only before the first valid snapshot. Reject malformed JSON,
+  null/invalid envelopes, permissions/other I/O errors and subsequent disappearance.
+  Do not silently retain stale snapshots or substitute empty jobs.
+- Capture the actual snapshot satisfying the existing completed-source poll for the
+  before-warm baseline. Warm-job and reaping checks require valid evidence.
+- Preserve five cold contexts, twenty paired edits per profile, both bulk cohorts,
+  cancellation, scientific/resource predicates, clocks/timing boundaries, budgets,
+  100ms sampling/write cadence, deadlines, fail-fast policy and exclusions.
+- Regress deliberately interleaved publication, serialization/write/replace failure,
+  own-temp cleanup, first absence versus malformed/inaccessible/subsequently missing
+  snapshots and failure without cached/empty fallback.
+
+The ninth forensic packet preserves all 4,860 originals, 62 empty directories, both
+exact source capsules, four pre-SQL raw database/copy pairs and all 395 files in five
+original observer roots. Its 174,910,299 bytes have SHA256
+`ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a`.
+Primary independent full body/hash/CRC/recursive/Git-blob/original-union verification
+passes without SQL. This retention does not qualify the failed merged commit.
+
+Native11 and candidate5 keep their historical identities and limitations. The
+observer correction changes declared benchmark-method identity: do not claim all
+51 original subjects remain unchanged. Declare the new exact method set before a
+fresh one-attempt ALL8 native12 execution and closed analysis. No speedup or strict
+host timing claim follows this correction. Run a fresh complete 43-command candidate
+gate, obtain all seven final same-candidate assessments, then use a normal corrective
+PR/protected merge. Run another complete fresh gate on its actual merged commit
+under an unspent label before tag/release/assets/closeout. Earlier master1 success-only
+preparation is unused historical material. Parent scope/dependencies/exclusions remain.
+
+
+#### Observer correction — passing local implementation checkpoint
+
+The observer-only publisher and strict typed reader now implement the accepted
+contract. All nine closed checks pass: nine Python publication/cadence/error controls,
+1,599 frontend tests across 137 files (including fifteen reader regressions), scoped
+Python lint/format/types, web lint/types/build and strict benchmark TypeScript.
+Architecture and performance independently inspect the complete five-source change
+and all raw log bindings and return scoped PASS. These are checkpoint assessments,
+not final seven-role acceptance.
+
+All 461 production runtime subjects remain native11-exact. The new full map has
+1,133 sources; its compact SHA256 is
+`be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7`.
+The method set has 52 subjects: two changed, one new observer-reader helper and
+49 original subjects unchanged. The sorted-spaced JSON method digest is
+`d6a528b32c76d6aa4808757e42266dc7e528a7af10e00fb5de642bf7ed9e64ca`.
+No new native timing or speedup is claimed. See the
+[correction checkpoint](../assets/ligand-properties/c3-observer-snapshot-checkpoint.json),
+[raw checks and source evidence](../assets/ligand-properties/c3-observer-snapshot-evidence.zip)
+and [failed-master retention](../assets/ligand-properties/c3-master1-failed-checkpoint.json).
+Fresh native12 ALL8 qualification and every subsequent gate remain pending.
+
+
+### C3 corrective qualification — native12 and complete originals
+
+The original native12 at `7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c` exits 0 after
+all eight original cases pass once, with no skips/failures/flakes/retries. The
+full source map remains 1,133 / compact `be93fda7…`; methods are 52 / sorted-spaced
+`d6a528b3…`; the actual observer basis is 789 subjects. The 461 production runtime files and all other
+156 scientific bodies remain exact; producer normalization preserves its scientific
+code. Native11 remains original995e/original51, without a same-method identity claim.
+
+Original supervisor wait, positive PID/start cleanup, unused ports, three raw
+original/runner/primary copy sets, both source capsules and all eight original UUID
+trees verify before diagnostic SQL. The complete 45,583,688-byte packet preserves
+4,871 originals / 313,025,325 bytes and six empty directories. Strict recursive
+verification counts sixteen ZIPs, 4,913 manifest entries and twenty project files.
+Standalone whole-original-union, source-capsule and all observer/trace mirror checks
+pass. The eight workflows themselves contain 480 original files.
+
+The closed analyzer preserves all nine original numerical helpers and the complete
+numeric/work/resource/cohort core after declared stronger identity checks and
+explicit retirement/clock descriptions. Independent performance review recomputes
+all 532 closed input bindings, forty scientific hash pairs and four bulk hashes.
+Current raw results contain 90 renewals / 26,903,516 response-body UTF-8 bytes and
+130 fixture updates (twenty allocations, twenty demands, ninety renewals).
+
+Retain all advisory target misses: cold edit median/p95/max is
+2,042.9/2,166.5/2,213.9 ms, 32/40 above two seconds; desktop bulk 6,934.8/7,094.8 ms
+above five seconds; mobile 3,566.2/3,750.3 ms. Feedback misses 100 ms in 24/84 samples.
+Cache projection max is 65.6 ms with zero new jobs; cancellation max is sixteen ms.
+All four actual overlaps qualify the recorded work order: one productive derived
+turn precedes each ordinary claim and zero bulk fairness turns precede active
+admission. Resource/work/retention bounds pass. All fifty document-clock origins
+remain consistent; twenty mobile cold and twenty warm retirement latencies remain
+unavailable because the old values were hidden. Resource sampling is discrete and
+incomplete for browser/GPU/short-lived processes. No causal speedup, controlled A/B
+or strict-host certification is claimed.
+
+The old native11 collection supplies expected normalized case identities only;
+no native12 prelaunch collection is claimed. Actual native12 final JSON independently
+accounts for exactly all eight one-attempt outcomes. A typed HEAD-record correction
+in unused retention preparation was caught before packaging; corrected package and
+portable verifier require equal complete before/after records, canonical commit/ref/
+HEAD text and pins. Two positive/seventeen negative metadata controls pass. This
+was not another native measurement failure.
+
+Historical passed candidate5 retains its own e47de3dd identity. Its eight observer
+roots outside the earlier workspace supplement are now preserved in an additional
+8,043,157-byte main-context ZIP: 480 observer originals plus thirteen historical
+bindings. All 493 originals, 787 observer source subjects, attachments, exact trace slices and existing
+sealed retained-workspace trace verify independently. One old support digest definition
+was read to confirm serialization; the preserved access erratum corrects an earlier
+over-broad metadata statement without changing historical identity or archived bytes.
+This qualified-H supplement is not a tenth failed forensic asset.
+
+See [native12 checkpoint](../assets/ligand-properties/c3-native12-all8-checkpoint.json),
+[analysis](../assets/ligand-properties/c3-native12-all8-analysis.json),
+[complete packet](../assets/ligand-properties/c3-native12-all8-evidence.zip) and
+[historical observer supplement](../assets/ligand-properties/c3-candidate5-original-observers-checkpoint.json).
+The new c5-candidate1/c5-master1 recipes preserve all forty-three commands and policies;
+only owned root/label/workspace/port values differ. Their static inverse proof does
+not establish future gates. Freeze a genuinely clean candidate, qualify all43,
+obtain all seven final same-candidate assessments, merge normally and separately
+qualify the actual merged commit. No release or implementation push is claimed.
+
+
+### C3 qualification continuation — explicit helper and context catalogue
+
+Fresh c5-candidate1 at `955b4c0c68a5feda55653b6b17626fb1cf5651a0` exits 1
+at command nine: 3,597 Python tests pass and one helper-catalogue assertion fails.
+The assertion conflates six selected release helpers with all seven published
+Python-text files after the retained native12 analyzer was added. Browser and the
+remaining 34 commands do not run. This failed campaign remains unqualified.
+
+Primary cleanup precedes the one complete raw original/copy pair, with no diagnostic
+SQL. The complete 10,133,222-byte forensic packet retains all 47 original files,
+1,739,809 original bytes, the actual seven-file catalogue, all nine lossless logs,
+whole workspace/transport, and both complete source capsules. All 1,133 current and
+1,013 actual tagged/extracted predecessor bodies match their Git blobs. Standalone
+and independent primary full-body/CRC/recursive/original-union/metadata checks pass;
+recursive counts are 15 ZIPs, 70 manifest entries and 20 project files. The tenth
+separate forensic asset remains unpublished. Original public failed records retain
+their paths; no failed run is relabelled as a passing qualification.
+
+The independently assessed correction names the six helpers literally, checks their
+complete 24-path allowlist across four directories, parses every published script,
+and keeps extra context scripts and checkpoint JSON outside current tool selection.
+All 89 recipe tests, Ruff check/format and the focused mypy check pass. Only
+`tests/unit/test_ligand_properties_release_recipe.py` changes among the 1,133 selected
+sources: `fa019dff…` becomes `9947c6b7…`; compact full-map digest becomes
+`11e2b076f88efffccae91efc51441530a55d0680b1c402718b774657bdc7fef9`.
+All scientific/runtime, 52 method and 789 observer bodies remain unchanged. Native12
+keeps its original 7da/be93 source identity and measured limitations; the changed
+unit-test digest is not silently relabelled as part of that campaign.
+
+All seven actual feature assessments at 955b find no consequential implementation
+defect, with final qualification explicitly incomplete. Each must reassess the final
+candidate and intervening diff after the fresh gate. The candidate2 recipe preserves
+all 43 command vectors and policies after only label/workspace and three owned-port
+substitutions; its inverse proof passes. The original candidate1 success-only kit
+stays unused. New pins must derive from a clean corrected commit. Future retention
+must bind the new complete map separately while proving unchanged native12 method,
+observer and runtime bodies. Full c5-candidate2, all-seven final review, corrective
+PR/normal merge, fresh exact c5-master1, release/asset verification and closeout remain.
+
+See [failed campaign](../assets/ligand-properties/c3-c5-candidate1-failed-checkpoint.json),
+[catalogue checkpoint](../assets/ligand-properties/c3-helper-catalogue-checkpoint.json)
+and [focused evidence](../assets/ligand-properties/c3-helper-catalogue-evidence.zip).
+
+
+### C3 qualification continuation — preserved missing receipt and actual recovery
+
+Original c5-candidate2 at `2061c55f` exits1 after forty successful commands.
+Its complete native run passes565 cases, with exactly the same75 exclusions as
+the actual released0.36 baseline, no new exclusions/failures/flakes/retries, and
+all640 inventory identities executed once. Python3,598/frontend1,599/supervisor14
+also pass. Command41 fails while opening the missing private preceding-reader
+receipt, before actor workspace creation. Property-readers and diff remain unrun.
+This is a failed full campaign, never a complete qualification pass.
+
+Positive cleanup precedes all17 raw original/copy pairs. The complete separate
+185,748,045-byte packet preserves6,709 originals/753,301,661 original bytes,
+115 empty directories, all8 original observer trees/480 observer files and every
+source/header/trace-offset mirror binding. All41 lossless logs and both actual
+Git/disk/capsule source sets1133/1013 verify. Portable and independent primary
+whole-original-body/metadata/CRC/exact-union checks pass; recursive counts are
+309 ZIPs/6,756 manifest entries/703 project files. The first packaging-format
+attempt stopped before an archive because it expected a different supervisor log
+format. Its whole kit/execution record remains retained. Strict actual TAP parsing
+accepts the original data and rejects35 coherent negative mutations. No product
+or gate rerun follows that preservation-only correction.
+
+After complete preservation, copy only the exact original122,230-byte receipt,
+SHA`f1e06e72…`, to the recipe's intended private path. Keep the original preparation
+JSON untouched and bind transfer provenance separately. The unchanged read-only
+predecessor contract passes for actual annotatedv0.36.0/247ab651 and all1013 bodies.
+Independent architecture checks both recipes:24 static paths, zero missing inputs;
+54 generated paths remain outputs. Dependencies/import paths/native pins/browser
+binaries remain exact. No application or diagnostic SQL occurs during preflight.
+
+Both unchanged complete reader commands then exit0 in a fresh owned focused
+workspace. Each verifies actual current production, actual old-writer and current
+reopen; all six actor logs/reports verify. Positive cleanup precedes42 raw-store
+original/copy pairs. The16,717,261-byte recovery packet retains1,056 originals,
+source capsules and provenance with full body/CRC/recursive/exact-union and
+before/after-original checks. It is focused qualified context, not a substitute
+for a complete gate. The full1133 selected source bodies stay unchanged.
+
+The two large failed native/report outputs stay at their original paths under
+exact local exclusions only after full retention verification; smaller public
+records remain committed/visible. Eleven separate failed/diagnostic assets remain
+unpublished. Fresh c5-candidate3 preserves all43 command/environment/cwd vectors
+and policies after only fresh label/workspace/port substitutions, with exact JSON
+and byte-inverse proof. Complete fresh candidate/all-seven/normal corrective PR/
+merge/fresh exact master/release/anonymous-asset verification and closeout remain.
+
+See [failed campaign](../assets/ligand-properties/c3-c5-candidate2-failed-checkpoint.json)
+and [focused reader recovery](../assets/ligand-properties/c3-reader-recovery-checkpoint.json).
+
+### C3 qualification continuation — editor readiness prerequisite
+
+Fresh c5-candidate3 on `dfeb499a` passes the first fifteen commands, including
+3,598 Python tests, 1,599 frontend tests across 137 files and fourteen supervisor
+controls. Browser command16 stops after 200 passes, one failure, four actual
+runtime skips and 435 fail-fast unrun cases. All320 mobile cases and27 later
+commands remain unrun. Four desktop property cases pass; the four mobile property
+cases are unrun. Do not reinterpret the report's439 combined skipped count as
+authored exclusions or claim complete native/full-gate qualification.
+
+The complete separate failure packet is1,377,294,877bytes,
+SHA`1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4`.
+It preserves all41,093 originals/2,159,659,556 original bytes,26 empty directories,
+four original observer trees/240 files, four raw-store pairs, all16 lossless logs,
+the failed trace/screenshot and both actual Git/disk/capsule source sets1133/1013.
+Portable and independent primary whole-body/metadata/CRC/exact-union checks pass.
+The primary readback SHA is`517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7`.
+No diagnostic SQL is opened. The success-only candidate3 postgate kit remains unused.
+
+The trace establishes dynamic positional-locator identity drift during current
+target loading: fourteen enabled/visible controls become25, and position7 resolves
+to a summary during focus but an oxygen button during the assertion. Final active
+element is not independently recorded. Independent UI/UX diagnosis and architecture
+review support a bounded test-readiness correction. Only after full preservation,
+add three lines after the Atoms section click, immediately before the unchanged
+control loop: wait for exact `Replace selected atom with N` enabled. The selected
+carbon fixture requires the complete current projection for that command. Preserve
+every original focus/bounds/hit-test/accessibility/theme/zoom/preview/history check
+and all deadlines, without sleeps, retries or application changes.
+
+The corrected zoom test SHA is`75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0`.
+The new selected1133-body compact map is`776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec`.
+Declare both exact test-only deltas from original native12: this file and the
+catalogue unit test. All1,131 other bodies, all52 method bodies, observer subjects,
+production/scientific code, versions and dependencies remain unchanged. The
+original native12 map retains its own identity. Complete original-file verification
+passes four desktop scenarios with four unchanged authored mobile-project exclusions,
+zero failure/flake/retry/report errors. The real held-response diagnostic2 passes
+once without skips/retries/report errors: the actual4377-byte committed-artifact
+response remains held during loading/disabled controls and blocked enumeration,
+then all25 loaded identities pass individual focus/bounds/hit checks after release.
+One actual selected-carbon +H edit advances revision1→2 and preserves original
+bytes. Positive cleanup precedes all six raw-store pairs across both successful
+scopes. Its first private diagnostic stays failed: the installed native-disabled
+matcher excludes FIELDSET itself; presence/absence of its disabled attribute,
+actual child N disablement and the DOM fieldset property provide distinct checks.
+All967 first-attempt originals are retained in a separate nested19,993,645-byte
+packet, SHA`5096cfae6f156019776ac18893ae792762ca6a4ff9c54fe85fc4b1ca65d54e51`.
+The diagnostic trace retains three expected intermediate preparation expect.poll
+failures, each contained in a subsequently passed poll; they are not hidden or
+counted as failed test results. No test rerun follows that readback classification.
+
+Independent scoped architecture/UI/UX assessments pass. Whole-file shell coverage
+reaches360CSSpx; editor actual zoom coverage is1440/720, not320. Direct focus checks
+do not establish Tab traversal or assistive-technology behavior, and this file does
+not qualify Undo/Redo, locked-target recovery or all load-error paths. Complete
+focused retention passes: the159,287,047-byte canonical packet,
+SHA`f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5`,
+retains all1,103 originals/192,528,283 original bytes, nine empty directories,
+six successful raw pairs and the entire nested failed first attempt. Its1,119
+outer members,26 ZIPs/2,098 manifest entries/20 project files verify. Standalone
+portable-originals verification and independent primary whole-body/metadata/exact
+union and all1,133 disk/capsule bodies pass. The primary also verifies all1,132
+other actual base-Git bodies and the one declared canonical test delta. Primary
+readback SHA`eb7e4bc5528bad6764b3f8ba32923e18cf0f7eb5efdd565bd7171b26235451e2`.
+Public whole-member parts follow the existing80MiB estimate/95MiB actual package
+policy. Three actual parts are42,457,595/83,750,714/33,079,272bytes. Their disjoint
+complete member union reconstructs the canonical ZIP byte for byte. The staged
+standalone public consumer, using only published parts/receipt/script and a fresh
+output directory, also reconstructs it exactly and passes the original portable
+verifier with an actual child wait0. All89 catalogue tests pass after the additional
+context script is published locally; it remains outside the1,133-source selection
+and six qualifying helpers. Exact compressed-byte reproduction is qualified on
+Python3.12.3/zlib1.3, not arbitrary runtime combinations. The complete canonical
+packet remains private and unchanged. This local passing checkpoint can begin
+fresh qualification. Keep the actual
+qualifying HEAD fixed through the complete gate and postgate source/original
+retention. No fresh full-gate pass is claimed.
+Candidate4 retains all43 ordered commands and policies under fresh owned resources.
+Complete fresh candidate/all-seven/normal protected merge/fresh exact-master and
+verified release/anonymous assets/closeout remain required.
+
+See [failed candidate3 checkpoint](../assets/ligand-properties/c3-c5-candidate3-failed-checkpoint.json).
+See also the [focused readiness checkpoint](../assets/ligand-properties/c3-editor-readiness-checkpoint.json).
+The [three-part receipt](../assets/ligand-properties/c3-editor-readiness-packaging.json)
+and [public-only readback](../assets/ligand-properties/c3-editor-readiness-public-roundtrip.json)
+bind their complete bodies, executable-code pins and actual reconstruction runtime.
+
+### C3 complete corrective qualification — c5-candidate4
+
+Fresh c5-candidate4 at `b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582` completes all
+43 ordered commands with the original one-shot supervisor/runner and actual wait0.
+The HEAD remains fixed through all commands, cleanup, source capture and complete
+retention. All1,133 selected bodies remain exact before/after and against current
+disk/Git; actual annotated v0.36.0 supplies all1,013 preceding-reader bodies. The
+current compact digest remains `776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec`.
+Original native12 retains its distinct7da/be93 identity and exactly the two already
+declared test-only deltas; all52 method and789 observer subjects are unchanged.
+
+The complete gate includes upgrade/downgrade/re-upgrade, lint/types/build/version/
+production checks,3,598 Python tests with zero skips,1,599 frontend tests,
+14 supervisor checks, every640 native inventory case and actual old/new reader
+actors. Native results are565 passes and exactly75 released exclusions, with no
+failures, flakes, retries, report errors or new exclusions. Both editing and
+property three-phase actual-reader suites pass. The canonical editor keyboard/zoom
+case that stopped candidate3 now passes within the complete campaign; no partial
+campaign or focused check is relabelled as the new full run.
+
+Positive cleanup verifies known PID/start handles, workspace markers and unused
+ports before copying all59 existing raw database/sidecar files. No diagnostic SQL
+is opened. The unchanged official summary and both strict gate packages pass.
+Separate source capture preserves the current5,191,267-byte capsule and actual036
+4,784,614-byte capsule with maps, bindings, seal and portable verifier.
+
+The [retained packet](../assets/ligand-properties/c3-c5-candidate4-retained-state.zip)
+is76,385,129 bytes, SHA`4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2`.
+It preserves all6,977 originals/622,790,963 original bytes,44 empty directories,
+the whole closed workspace/transport, five exact public bindings, all8 observer
+attachments and every original UUID tree/480 observer files. It does not duplicate
+the separate source capsules or official gate parts. The complete seven-file
+[source companion](../assets/ligand-properties/c3-c5-candidate4-source-evidence.zip)
+is9,636,580 bytes, SHA`bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74`.
+Both portable verification and fresh packet-only consumer executions pass.
+
+An independently implemented reader, statically reviewed by architecture before
+execution, then passes complete original body/metadata/alias/empty-directory union,
+CRC/recursive manifests, all2,146 actual Git/disk/capsule bodies, every raw pair,
+all8 original observer report/mirror/source/trace offset/sequence bindings and
+all43 lossless log bodies. It separately verifies the2,110-member disjoint official
+package union and the source companion. Its [readback](../assets/ligand-properties/c3-c5-candidate4-independent-readback.json)
+has SHA`fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4`.
+Only after that actual exit0 and a final full selected-inventory check does the
+development source/HEAD freeze end. Every original evidence root stays unchanged.
+
+Closed [current-run analysis](../assets/ligand-properties/c3-c5-candidate4-analysis.json)
+preserves the accepted numerical/work/per-case resource core and nine helper
+bodies. Both actual analysis and a separate direct arithmetic check exit0;
+all528 consumed input identities recheck. The complete analysis context includes
+its first static gzip-path mistake and subsequent exclusions-schema mistake.
+Neither changes inputs or reruns the native workload; neither adds a thirteenth
+failed campaign. The twelve separate forensic assets and original identities stay.
+
+Current timing results remain explicit:
+
+| Observation | Current C4 result | Target misses |
+| --- | --- | --- |
+| Cold current values | median/p95/max2,786.6/3,567.5/3,647.9ms |39/40 above2s |
+| Matching cached values | maximum128.1ms; zero new warm jobs |20/40 above100ms |
+| Click feedback | maximum1,052.1ms |46/84 above100ms |
+| Bulk active update, repeated/distinct | desktop7,070.7/7,997.8ms; mobile5,344.1/6,889ms |4/4 above5s |
+| Cancellation feedback | maximum13ms |0/2 above100ms |
+
+All93 renewals,28,056,765 complete UTF-8 renewal-response bytes and133 consumer
+updates remain included. All4 priority overlaps execute; ordinary work follows one
+productive derived turn, and active admission follows zero or one productive bulk
+fairness turn. Private bulk jobs remain3/127 against the129 cap and are all reaped.
+Mobile hidden old-value retirement latency is unavailable for20 cold and20 warm
+observations. The10,023 case-observer samples do not establish whole-browser/GPU/
+short-lived-process accounting or simultaneous RSS totals. C4 wrapper CPU/RSS/load
+sampling is unavailable; native12 wrapper samples remain historical. D148 portable
+hard bounds pass; no strict-host timing certification or causal speedup/regression
+is claimed, and no tolerance or latency target is relaxed.
+
+The [checkpoint](../assets/ligand-properties/c3-c5-candidate4-checkpoint.json) and
+context-packaging receipt bind the public companions, complete independent reader
+and complete analysis history. Materialize only source-equivalent documentation
+and evidence, retaining the actual qualifying B1 identity. Verify the full selected
+set and focused catalogue after publication; obtain all seven final verdicts on
+the same final review candidate. Normal corrective PR/review/merge, fresh complete
+c5-master1 on the actual resulting commit, immutable annotated037 release, complete
+anonymous main/twelve-forensic verification and explicit159closeout remain required.
+Parent #11 stays open through160–163 and final integrated acceptance/closeout.

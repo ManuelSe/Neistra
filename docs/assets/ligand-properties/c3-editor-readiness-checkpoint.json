@@ -1,0 +1,529 @@
+{
+  "scope": "Passing focused test-readiness checkpoint only; no full43, final all-seven or release qualification",
+  "base_HEAD": "dfeb499aef32a8b53715a65f00cfa056951fb231",
+  "working_change": {
+    "recorded_utc": "2026-11-19T13:50:56.632224+00:00",
+    "base": "dfeb499aef32a8b53715a65f00cfa056951fb231",
+    "path": "tests/e2e/rebranding-zoom.spec.ts",
+    "before_sha256": "5002451820458969f3da28ba6aceaa0a6cdb9753040e33745b632663f610c0bd",
+    "after_sha256": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0",
+    "scope": "Wait for selected-carbon current-target projection before enumerating dynamic enabled controls; all original assertions and deadlines retained",
+    "failed_campaign_preserved_before_change": true,
+    "failed_packet_sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+    "primary_readback_sha256": "517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7"
+  },
+  "source_model": {
+    "selected_count": 1133,
+    "compact_source_digest": "776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec",
+    "native12_deltas": {
+      "tests/e2e/rebranding-zoom.spec.ts": {
+        "native12": "5002451820458969f3da28ba6aceaa0a6cdb9753040e33745b632663f610c0bd",
+        "current": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0"
+      },
+      "tests/unit/test_ligand_properties_release_recipe.py": {
+        "native12": "fa019dffc96a972c56f18197728874eccfde426ea956f99bf2280757b25f783a",
+        "current": "9947c6b75171656d92578edc6a3dd624396d9520950daeef945558e657e2cce9"
+      }
+    },
+    "native12_other_bodies_unchanged": 1131,
+    "method52_all_exact": true,
+    "only_tracked_diff": [
+      "tests/e2e/rebranding-zoom.spec.ts"
+    ],
+    "source_before_sha256": "34f7059397326fdb83bbc13a96a08df97ab854cb5904fd32162796e08154ac31",
+    "runtime_qualification_executed": false
+  },
+  "observer_bodies": {
+    "observer_map_original": "/tmp/neistra159-c5-candidate3/e2e/qualification/worker-turns.sources.json",
+    "observer_map_sha256": "fc72c652e6dd59ba6fc780e2ca07e0eaae094df3615bcdd9d58052812a6e9e10",
+    "actual_current789_bodies_exact": true,
+    "both_declared_test_deltas_outside_observer_map": true,
+    "canonical_current_sha256": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0",
+    "SQL_opened": false
+  },
+  "actual_executions": {
+    "recorded_utc": "2026-11-19T14:14:05.622255+00:00",
+    "canonical_change_tool_chunk": "c0b263",
+    "canonical_before": "5002451820458969f3da28ba6aceaa0a6cdb9753040e33745b632663f610c0bd",
+    "canonical_after": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0",
+    "scopes": {
+      "probe1": {
+        "command": [
+          "python3",
+          ".issue-11-evidence/issue159-editor-readiness-correction1/run-focused.py",
+          "probe"
+        ],
+        "launch_chunk": "ce3147",
+        "terminal_chunk": "13e03c",
+        "actual_exit": 1,
+        "reason": "Private FIELDSET assertion matcher does not interpret disabled attribute on fieldset itself",
+        "complete_retention_chunk": "18db05",
+        "complete_retention_sha256": "5096cfae6f156019776ac18893ae792762ca6a4ff9c54fe85fc4b1ca65d54e51",
+        "actual_runner_source_sha256_at_launch": "67bbffd23bfb8e87b25620cf0e10b01a636c84d4416f5ff2f5db0f5b1decffc2"
+      },
+      "complete_original_zoomfile": {
+        "command": [
+          "python3",
+          ".issue-11-evidence/issue159-editor-readiness-correction1/run-focused.py",
+          "zoomfile"
+        ],
+        "launch_chunk": "b58c7b",
+        "terminal_chunk": "17947c",
+        "actual_exit": 0,
+        "results": "4PASS/4unchangedauthoredmobileexclusions/zero failure/flake/retry/report errors",
+        "primary_readback_chunk": "ce0692",
+        "actual_runner_source_sha256_at_launch": "67bbffd23bfb8e87b25620cf0e10b01a636c84d4416f5ff2f5db0f5b1decffc2"
+      },
+      "probe2": {
+        "command": [
+          "python3",
+          ".issue-11-evidence/issue159-editor-readiness-correction1/run-focused.py",
+          "probe2"
+        ],
+        "launch_chunk": "dcedf5",
+        "terminal_chunk": "8e0df4",
+        "actual_exit": 0,
+        "results": "1PASS/0skipfailureflakeretry/report errors",
+        "primary_readback_chunk": "55ab09",
+        "initial_inline_readback_assertion_failure_chunk": "efd9d5",
+        "no_test_rerun_for_readback_correction": true,
+        "actual_runner_source_sha256_at_launch": "6afc60b0ce0b51bdcc7b559ef72fd616dc44e64d32722f6cd0368de7d01cc97e"
+      },
+      "recipe_catalogue": {
+        "command": [
+          ".venv/bin/python",
+          "-m",
+          "pytest",
+          "tests/unit/test_ligand_properties_release_recipe.py",
+          "-q"
+        ],
+        "launch_chunk": "b1d4aa",
+        "terminal_chunk": "f8b35b",
+        "actual_exit": 0,
+        "passed": 89,
+        "log_sha256": "e188b16b6bd6efd5518bf76d8988a8ea3cd6e34fdd233e569f67f052cc6f13a6"
+      },
+      "owned_types": {
+        "launch_chunk": "00d1a1",
+        "terminal_chunk": "5dc468",
+        "actual_exit": 0,
+        "scope": "Canonical changed file and focused configuration only",
+        "retained_imported_support_diagnostics": 4
+      }
+    },
+    "successful_scope_raw_pairs": 6,
+    "failed_scope_raw_pairs": 3,
+    "full43_gate": false,
+    "release_or_push_readiness": false,
+    "SQL_opened": false
+  },
+  "whole_original_file": {
+    "scope": "Complete original rebranding-zoom file, both configured projects",
+    "actual_wait_exit": 0,
+    "stats": {
+      "startTime": "2026-11-19T13:58:19.302Z",
+      "duration": 176457.051,
+      "expected": 4,
+      "skipped": 4,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "case_results": [
+      {
+        "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "chromium",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "annotations": [],
+        "results": [
+          [
+            "passed",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "chromium",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "annotations": [],
+        "results": [
+          [
+            "passed",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "chromium",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "annotations": [],
+        "results": [
+          [
+            "passed",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "chromium",
+        "status": "expected",
+        "expectedStatus": "passed",
+        "annotations": [],
+        "results": [
+          [
+            "passed",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "mobile-chromium",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "annotations": [
+          {
+            "type": "skip",
+            "description": "Real desktop browser zoom is separate from mobile emulation.",
+            "location": {
+              "file": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/rebranding-zoom.spec.ts",
+              "line": 98,
+              "column": 8
+            }
+          }
+        ],
+        "results": [
+          [
+            "skipped",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "mobile-chromium",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "annotations": [
+          {
+            "type": "skip",
+            "description": "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.",
+            "location": {
+              "file": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/rebranding-zoom.spec.ts",
+              "line": 367,
+              "column": 8
+            }
+          }
+        ],
+        "results": [
+          [
+            "skipped",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "mobile-chromium",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "annotations": [
+          {
+            "type": "skip",
+            "description": "Desktop zoom is independent of touch emulation.",
+            "location": {
+              "file": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/rebranding-zoom.spec.ts",
+              "line": 401,
+              "column": 8
+            }
+          }
+        ],
+        "results": [
+          [
+            "skipped",
+            0
+          ]
+        ]
+      },
+      {
+        "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+        "file": "rebranding-zoom.spec.ts",
+        "project": "mobile-chromium",
+        "status": "skipped",
+        "expectedStatus": "skipped",
+        "annotations": [
+          {
+            "type": "skip",
+            "description": "Actual desktop zoom; mobile residue navigation has separate native qualification.",
+            "location": {
+              "file": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/rebranding-zoom.spec.ts",
+              "line": 505,
+              "column": 8
+            }
+          }
+        ],
+        "results": [
+          [
+            "skipped",
+            0
+          ]
+        ]
+      }
+    ],
+    "raw_original_copy_pairs": 3,
+    "positive_cleanup": true,
+    "sources_after_count": 1133,
+    "report_sha256": "ba2eac200eb3891593c85e6d38c1f4cc56d686290c572513a24cc001e6032b1e",
+    "SQL_opened": false,
+    "full43_qualification": false
+  },
+  "held_response": {
+    "scope": "Independent actual held-response diagnostic2 readback only",
+    "actual_terminal_wait_exit": 0,
+    "report_sha256": "1c47d6de298e9d3ffe6d690ab45521277136d2fc6c771c7291c2258d52fd9406",
+    "receipt_sha256": "cfffd5a32daa54e36416174a54085fa9166878c61d77faf07dbd4724c95a6c92",
+    "trace_sha256": "104b68cf268d872ff062f472082babbeb4891e53356a338bb2695b25f50593d6",
+    "decoded_real_response_bytes": 4377,
+    "decoded_response_sha256": "eeff8f497709abeeb88f23dbac48a8796144474318f542efa62715897f64aaae",
+    "actual_native_focus_calls": 26,
+    "expected_intermediate_poll_attempts": [
+      {
+        "trace": "test.trace",
+        "call_id": "expect@46",
+        "parent": "test.step@44",
+        "error": {
+          "name": "",
+          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+          "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at prepare (/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/support/interactions.ts:24:3)\n    at /datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-native-probe2/editor-readiness.spec.ts:76:21"
+        },
+        "parent_poll_completed_successfully": true
+      },
+      {
+        "trace": "test.trace",
+        "call_id": "expect@48",
+        "parent": "test.step@44",
+        "error": {
+          "name": "",
+          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+          "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at prepare (/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/support/interactions.ts:24:3)\n    at /datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-native-probe2/editor-readiness.spec.ts:76:21"
+        },
+        "parent_poll_completed_successfully": true
+      },
+      {
+        "trace": "test.trace",
+        "call_id": "expect@50",
+        "parent": "test.step@44",
+        "error": {
+          "name": "",
+          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
+          "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m\n    at prepare (/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/tests/e2e/support/interactions.ts:24:3)\n    at /datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-native-probe2/editor-readiness.spec.ts:76:21"
+        },
+        "parent_poll_completed_successfully": true
+      }
+    ],
+    "unhandled_failed_trace_after_events": 0,
+    "loading_controls": 14,
+    "loaded_and_individually_focused_controls": 25,
+    "ordered_readiness_before_enumeration_after_real_response_release": true,
+    "one_real_H_edit_revision_and_original_hash_verified": true,
+    "single_pass_retry0_no_skips_or_report_errors": true,
+    "positive_cleanup_and3_raw_copy_pairs": true,
+    "selected1133_sources_fixed": true,
+    "diagnostic_SQL_opened": false,
+    "full43_qualification": false,
+    "initial_readback_attempt": {
+      "tool_chunk": "efd9d5",
+      "exit": 1,
+      "reason": "Overstrict zero-all-trace-errors assertion rejected three expected expect.poll intermediate attempts; original data unchanged, no test rerun."
+    }
+  },
+  "scoped_specialist_agent_review": {
+    "candidate_HEAD": "dfeb499aef32a8b53715a65f00cfa056951fb231",
+    "working_canonical_path": "tests/e2e/rebranding-zoom.spec.ts",
+    "working_canonical_sha256": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0",
+    "selected_source_count": 1133,
+    "selected_source_compact_digest": "776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec",
+    "specialist_agent_review": [
+      {
+        "role": "software_architecture",
+        "agent": "/root/issue159_c5_candidate1_prelaunch_architecture",
+        "verdict": "PASS",
+        "scope": "Canonical guard and exact sealed probe2/wrapper lifecycle/prelaunch design; no actual full-feature approval",
+        "corrections": "Private fieldset presence/absence matcher; old failure kept separate"
+      },
+      {
+        "role": "ui_design",
+        "agent": "/root/issue159_editor_readiness_ui_review1",
+        "verdict": "PASS",
+        "scope": "Canonical three-line guard, complete original file report/trace and light/dark/100200 rendered screenshots",
+        "corrections": "No consequential finding; existing assertion set retained"
+      },
+      {
+        "role": "ux_design",
+        "agent": "/root/issue159_editor_readiness_ux_review1",
+        "verdict": "PASS",
+        "scope": "Canonical readiness meaning, original failure, whole-file actual run and held-response2 real-response/selection/molecular-state recovery",
+        "corrections": "No consequential finding; private diagnostic fieldset correction accepted"
+      }
+    ],
+    "test_evidence": {
+      "whole_original_file": "4desktopPASS/4unchangedauthoredmobileexclusions/0failflake retry/reporterrors",
+      "held_response2": "1PASS/0skipfailflake retry/reporterrors",
+      "recipe_catalogue": "89PASS",
+      "owned_canonical_and_config_types": "PASS zeroowneddiagnostics, four existing imported-support diagnostics kept separate",
+      "raw_success_original_copy_pairs": 6,
+      "failed_probe1_retained_original_copy_pairs": 3
+    },
+    "limits": [
+      "Only bounded checkpoint assessments, not all-seven final same-candidate feature gate.",
+      "Whole file shell coverage down to360CSSpx/editor1440and720, no320editor proof by this file.",
+      "Directfocus does not establish Tab traversal or assistive technology; file does not qualify Undo/Redo/lockedtarget/allloaderrors/mobileeditor.",
+      "Held response2 light100only; wholefile independentlycoversbothdesktopthemesandzoomfactors.",
+      "Full candidate43, finalallseven, normalprotectedmerge, freshmerged43/release andverifiedcloseout remain mandatory."
+    ],
+    "application_ready_to_push": false,
+    "goal_complete": false
+  },
+  "canonical_archive": {
+    "bytes": 159287047,
+    "file": "editor-readiness-evidence.zip",
+    "outer_manifest_entries": 1119,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-editor-readiness-focused-retention1/editor-readiness-evidence.zip",
+    "sha256": "f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5",
+    "verification_counts": {
+      "evidence_manifest_entries": 2098,
+      "project_archive_files": 20,
+      "zip_archives": 26
+    }
+  },
+  "original_roots": 6,
+  "original_files": 1103,
+  "original_bytes": 192528283,
+  "empty_directories": 9,
+  "successful_raw_original_copy_pairs": 6,
+  "nested_failed_probe1_raw_pairs": 3,
+  "complete_original_before_after_bodies_metadata_exact_union": true,
+  "portable_originals_verifier_actual_exit": 0,
+  "independent_primary_readback_actual_exit": 0,
+  "independent_primary_readback_sha256": "eb7e4bc5528bad6764b3f8ba32923e18cf0f7eb5efdd565bd7171b26235451e2",
+  "public_member_parts": {
+    "status": "PASS; actual three complete member parts and public-only reconstruction",
+    "packaging": {
+      "SQL_opened": false,
+      "all_archive_hashes_and_crc_verified": true,
+      "archives": [
+        {
+          "bytes": 42457595,
+          "file": "c3-editor-readiness-qualified-01.zip",
+          "outer_manifest_entries": 1045,
+          "sha256": "1fc6c0c0b5d533ae35d42e93089508719ea946870cc9dee5572063ac1396500c",
+          "verification_counts": {
+            "evidence_manifest_entries": 2024,
+            "project_archive_files": 20,
+            "zip_archives": 18
+          }
+        },
+        {
+          "bytes": 83750714,
+          "file": "c3-editor-readiness-qualified-02.zip",
+          "outer_manifest_entries": 71,
+          "sha256": "d95306971224a3d5da0655c051a719d828e34c35dfd7addace4d1991fd565c39",
+          "verification_counts": {
+            "evidence_manifest_entries": 71,
+            "project_archive_files": 0,
+            "zip_archives": 7
+          }
+        },
+        {
+          "bytes": 33079272,
+          "file": "c3-editor-readiness-qualified-03.zip",
+          "outer_manifest_entries": 3,
+          "sha256": "d8e4356635674a53d78e5f7e9fd900b14cbe11116adc2a708b618c4ad328e02d",
+          "verification_counts": {
+            "evidence_manifest_entries": 3,
+            "project_archive_files": 0,
+            "zip_archives": 3
+          }
+        }
+      ],
+      "canonical_archive": {
+        "bytes": 159287047,
+        "file": "editor-readiness-evidence.zip",
+        "outer_manifest_entries": 1119,
+        "sha256": "f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5",
+        "verification_counts": {
+          "evidence_manifest_entries": 2098,
+          "project_archive_files": 20,
+          "zip_archives": 26
+        }
+      },
+      "canonical_full_archive_retained_private_unchanged": true,
+      "canonical_manifest": {
+        "bytes": 215614,
+        "sha256": "8ccb90ec9df58e197c9b60ea97de16e5fcfd9c21b33a6540905e9c8d3b512d97"
+      },
+      "complete_member_union_count": 1119,
+      "deterministic_reconstruction_matches_full_canonical_SHA_and_bytes": true,
+      "disjoint_complete_canonical_member_union": true,
+      "full43_or_release_qualification": false,
+      "kind": "focused editor readiness member packages",
+      "old_portable_verifier_on_reconstructed_archive": {
+        "actual_wait_exit": 0,
+        "nested_failed_raw_pairs": 3,
+        "original_files": 1103,
+        "original_roots": 6,
+        "source_count": 1133,
+        "stdout_sha256": "f122e2318cb323c982f61eec7abb15b8ede458a55a794d165b4d3cfe6d44efa5",
+        "successful_raw_pairs": 6
+      },
+      "partition_policy": {
+        "estimated_part_budget": 83886080,
+        "member_estimate": "compressed_size(member) + 512 + len(name.encode()) * 2",
+        "strict_actual_part_cap": 99614720
+      },
+      "public_files": [
+        "c3-editor-readiness-qualified-01.zip",
+        "c3-editor-readiness-qualified-02.zip",
+        "c3-editor-readiness-qualified-03.zip",
+        "c3-editor-readiness-packaging.json",
+        "c3-editor-readiness-reconstruct.py.txt"
+      ],
+      "public_reconstruction_script": {
+        "bytes": 6152,
+        "file": "c3-editor-readiness-reconstruct.py.txt",
+        "sha256": "01e33a9e08232afb95c636832b6ce5405cc6053f4b45d42a77d072bbe2a2f5f6"
+      },
+      "publication_performed_by_this_helper": false,
+      "scope": "Focused evidence only; original failed probe1 remains failed; no full43/feature/release acceptance",
+      "unchanged_archive_helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3"
+    },
+    "public_roundtrip": "c3-editor-readiness-public-roundtrip.json",
+    "public_roundtrip_sha256": "508c1be5db169434e2e09b81615d4252eac0f3e1243a8c3f307843a1c398c2ee",
+    "catalogue_tests_after_public_context": 89,
+    "runtime_qualification": {
+      "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+      "zlib_build_version": "1.3",
+      "zlib_runtime_version": "1.3",
+      "exact_compressed_bytes_qualified_on_recorded_runtime_only": true,
+      "arbitrary_Python_zlib_byte_reproducibility_not_claimed": true
+    },
+    "canonical_private_archive_unchanged": true
+  },
+  "new_separate_forensic_asset": false,
+  "full43_qualification": false,
+  "ready_to_push": false,
+  "SQL_opened": false,
+  "next": "Freeze this passing checkpoint and bind/start fresh candidate4 all43 with fixed HEAD. Final all-seven review, normal corrective merge, fresh exact merged gate and verified release/closeout remain required."
+}

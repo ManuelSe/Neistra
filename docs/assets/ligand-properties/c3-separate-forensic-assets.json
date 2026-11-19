@@ -1,5 +1,5 @@
 {
-  "scope": "Eight separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
+  "scope": "Twelve separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
   "planned_version": "0.37.0",
   "qualified_main_payloads": false,
   "assets": [
@@ -74,6 +74,42 @@
       "published": false,
       "qualified_main_member": false,
       "primary_readback_sha256": "5ac9a4da5b7a7af42c9943522bb5f2a335be45570cab652e967ce8489fa9a9db"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-master1-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "bytes": 174910299,
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "4a07cc65149a93668837f8e5f633699f5a6172a26b98180fe94438efa373a65e"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "bytes": 10133222,
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "070fe3e01c4f431f759c84e9146ba04060e306535f9cde30b65849d8edb4bfcf"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "bytes": 185748045,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "8ae18dc7111d60cf05373029f255bc9905506ca403a6a46fd2110297841cf28d"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "bytes": 1377294877,
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7"
     }
   ],
   "limits": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",

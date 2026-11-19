@@ -22,6 +22,7 @@ import sqlite3
 import statistics
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 from contextlib import contextmanager
@@ -47,6 +48,33 @@ DATABASE_ALIASES = (
 
 def dump(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
+
+
+def publish_observation(path: Path, value: Any) -> None:
+    """Publish complete observer JSON without exposing an in-progress write."""
+    serialized = json.dumps(value, indent=2, allow_nan=False) + "\n"
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as stream:
+            temporary = Path(stream.name)
+            stream.write(serialized)
+        temporary.replace(path)
+    except BaseException as error:
+        if temporary is not None:
+            try:
+                temporary.unlink(missing_ok=True)
+            except OSError as cleanup_error:
+                error.add_note(
+                    f"Observer temporary cleanup failed for {temporary}: {cleanup_error}"
+                )
+        raise
 
 
 def source_inventory() -> dict[str, str]:
@@ -1052,7 +1080,7 @@ def observe(
         state["retained"] = snapshot["retained"]
         state["samples"] += 1
         if changed or time.monotonic() - last_write >= 1:
-            dump(output, state)
+            publish_observation(output, state)
             last_write = time.monotonic()
         if stop.exists():
             break
@@ -1063,7 +1091,7 @@ def observe(
     state["sources_unchanged"] = state["sources_after"] == state["sources_before"]
     assert state["sources_unchanged"], "The observed candidate changed during qualification"
     state.update(complete=True, finished_utc=datetime.now(UTC).isoformat())
-    dump(output, state)
+    publish_observation(output, state)
 
 
 class QualificationWorkerTrace:
