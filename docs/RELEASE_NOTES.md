@@ -34,9 +34,13 @@ and zero failures/flakes/retries/new exclusions. Frozen installs, migrations, st
 checks, build, production/version/legacy audits and actual preceding-reader suites
 pass. All 1,130 current / 1,013 preceding source bodies remain exact. Both official gate
 parts, exact source capsules and the complete retained-state supplement pass independent
-body/hash/CRC/recursive/union verification. Final seven-specialist acceptance, normal
-merge, fresh exact-merged-master qualification and public release verification remain
-required; no 0.37.0 publication is claimed.
+body/hash/CRC/recursive/union verification. The reviewed feature merged in PR177 at
+`26e7cc1b`, but its fresh exact-master1 gate failed in observer instrumentation.
+The failed mobile cold/edit case retains five cold starts and fourteen completed
+paired edits; it does not qualify the merged commit. A bounded atomic-publication/
+strict-reader correction changes benchmark-method identity and requires new ALL8
+analysis, complete candidate qualification, all-seven review, normal corrective merge
+and fresh exact-merged-master qualification. No 0.37.0 publication is claimed.
 
 The inspector now avoids quadratic query tracking and repeated entry scans while
 preserving every observed query: at 1,000 entries the work regression changes tracking
@@ -49,7 +53,7 @@ zero new jobs and cancellation feedback at most 22 ms. All 95 renewals and 28,80
 response-body bytes are included. Changed measurement methods and host conditions
 preclude a causal speedup claim or strict reference-host certification.
 
-Earlier interrupted/failed runs remain unqualified in eight separate lossless
+Earlier interrupted/failed runs remain unqualified in nine separate lossless
 forensic assets, with publication and full anonymous download verification pending.
 The child plan records tooling/fixture corrections and their focused checks; all
 original product assertions, deadlines and exclusion identities are retained. Early
@@ -60,7 +64,8 @@ not passing; the established application typecheck passes.
 Profiles, sidebar, property filters and inspector retirement remain #160–#163.
 Diagram #153, relocations #164/#165 and the other parent #11 exclusions remain separate.
 See [property documentation](LIGAND_PROPERTIES.md),
-[qualification checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json)
+[historical candidate checkpoint](assets/ligand-properties/c3-candidate5-qualified-checkpoint.json),
+[failed-master evidence](assets/ligand-properties/c3-master1-failed-checkpoint.json)
 and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
 
 ## 0.36.0 — Exact durable ligand designation

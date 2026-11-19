@@ -8,6 +8,7 @@ import type { Entry, Project } from "../../apps/web/src/api/types";
 import { performanceBudget } from "./support/performance";
 import { maintainConsumerHeartbeats } from "./support/consumer-heartbeat";
 import { collectBulkPropertyValidationErrors } from "./support/bulk-property-validation";
+import { createObserverSnapshotReader } from "./support/observer-snapshot";
 
 interface Source { entry_id: string; source_artifact_id: string; instance_id: string; atom_ids: number[] }
 interface Report { input_hash: string; model_status: string; values: { descriptor_id: string; status: string; value: number | null }[] }
@@ -419,11 +420,14 @@ async function startObserver(info: TestInfo, projectId?: string, requireWorkOrde
   let log = "";
   child.stdout!.on("data", chunk => { log += String(chunk); }); child.stderr!.on("data", chunk => { log += String(chunk); });
   const completion = new Promise<number | null>((resolveExit, reject) => { child.once("exit", resolveExit); child.once("error", reject); });
-  const read = async (): Promise<Observation | null> => {
-    try { return JSON.parse(await readFile(output, "utf8")) as Observation; } catch { return null; }
+  const readPublished = createObserverSnapshotReader<Observation>(() => readFile(output, "utf8"));
+  const read = async (): Promise<Observation> => {
+    const observation = await readPublished();
+    if (observation === null) throw new Error("Descriptor observer has not published its first snapshot");
+    return observation;
   };
   try {
-    await expect.poll(async () => (await read())?.samples ?? 0, { timeout: 15_000 }).toBeGreaterThan(0);
+    await expect.poll(async () => (await readPublished())?.samples ?? 0, { timeout: 15_000 }).toBeGreaterThan(0);
   } catch (error) {
     await writeFile(stop, "stop\n");
     if (child.exitCode === null && child.signalCode === null) child.kill("SIGTERM");
@@ -437,9 +441,9 @@ async function startObserver(info: TestInfo, projectId?: string, requireWorkOrde
     }
     await writeFile(resolve(directory, "observer.log"), log);
     expect(exit, log).toBe(0);
-    const result = await read(); expect(result?.complete).toBe(true);
+    const result = await read(); expect(result.complete).toBe(true);
     await info.attach("descriptor-worker-observation", { path: output, contentType: "application/json" });
-    return result!;
+    return result;
   } };
 }
 
@@ -613,9 +617,16 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
           performanceBudget(edited.timing.networkCurrentMs!, 2000, "cold actual-edit automatic current App READY ms", true);
           expect(edited.current.report!.input_hash).not.toBe(first.report!.input_hash);
           project = edited.project;
-          await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).some(job => job.status === "completed"
-            && job.captures?.some(capture => capture.targets.some(target => target.source.source_artifact_id === edited.entry.current_artifact_id))), { timeout: 15_000 }).toBe(true);
-          const beforeWarmJobs = new Set(Object.keys((await observer.read())!.jobs));
+          let completedSourceObservation: Observation | undefined;
+          await expect.poll(async () => {
+            const observation = await observer.read();
+            const completed = Object.values(observation.jobs).some(job => job.status === "completed"
+              && job.captures?.some(capture => capture.targets.some(target => target.source.source_artifact_id === edited.entry.current_artifact_id)));
+            if (completed) completedSourceObservation = observation;
+            return completed;
+          }, { timeout: 15_000 }).toBe(true);
+          expect(completedSourceObservation).toBeDefined();
+          const beforeWarmJobs = new Set(Object.keys(completedSourceObservation!.jobs));
           await closeInspector(page);
           const undo = page.getByRole("button", { name: /^Undo:/ });
           await arm(page, undo, String(initialCarbon - 1), String(initialCarbon));
@@ -646,7 +657,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
           await page.waitForTimeout(1600);
           const afterQuiet = await page.evaluate(() => window.ligandPropertyPerformance.requests.slice(0));
           expect(afterQuiet.slice(quietAt).filter(item => item.path.endsWith("/read") || item.method === "PUT")).toHaveLength(0);
-          const warmNewJobs = Object.values((await observer.read())!.jobs).filter(job => job.project_id === project.id && !beforeWarmJobs.has(job.id));
+          const warmNewJobs = Object.values((await observer.read()).jobs).filter(job => job.project_id === project.id && !beforeWarmJobs.has(job.id));
           expect(warmNewJobs).toHaveLength(0);
           records.push({ kind: "paired-edit", index: index - 5, heavyAtoms: size, setupMsExcluded,
             editablePreflight,
@@ -818,7 +829,7 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       heartbeats.changed();
     }
     expect(new Set(owners.map(owner => owner.id)).size).toBe(5);
-    await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).some(job => job.execution_id
+    await expect.poll(async () => Object.values((await observer.read()).jobs).some(job => job.execution_id
       && job.captures?.some(capture => capture.targets.some(target => bulk.some(entry => entry.id === target.source.entry_id)))), { timeout: 30_000 }).toBe(true);
     heartbeats.check();
     const ordinary = await request.post(`/api/v1/projects/${project.id}/jobs`, { data: {
@@ -889,7 +900,7 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       catch (error) { failures.push(error); }
     }
     if (completed) {
-      try { await expect.poll(async () => Object.values((await observer.read())?.jobs ?? {}).filter(job => job.execution_id).every(job => job.reaped), { timeout: 15_000 }).toBe(true); }
+      try { await expect.poll(async () => Object.values((await observer.read()).jobs).filter(job => job.execution_id).every(job => job.reaped), { timeout: 15_000 }).toBe(true); }
       catch (error) { failures.push(error); }
     }
     let observation: Observation | undefined;

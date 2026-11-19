@@ -1,0 +1,49 @@
+{
+  "scope": "Passing scoped observer instrumentation correction; no ALL8/full candidate/merged gate/release qualification.",
+  "comparison_base": "26e7cc1b9fdc5758ed18049b0fa7be67d7559882",
+  "source_subjects": 1133,
+  "source_digest_compact_json": "be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7",
+  "production_runtime461_native11_byte_exact": true,
+  "benchmark_method_count": 52,
+  "benchmark_method_digest_sorted_spaced_json": "d6a528b32c76d6aa4808757e42266dc7e528a7af10e00fb5de642bf7ed9e64ca",
+  "benchmark_method_delta": {
+    "changed": [
+      "tests/e2e/ligand-properties-performance.spec.ts",
+      "tests/support/ligand_property_performance_qualification.py"
+    ],
+    "added": [
+      "tests/e2e/support/observer-snapshot.ts"
+    ],
+    "unchanged_original_subjects": 49
+  },
+  "checks": {
+    "python_regressions": 9,
+    "frontend_tests": 1599,
+    "frontend_files": 137,
+    "reader_regressions_in_frontend": 15,
+    "all9_command_exits_zero": true,
+    "lint_format_type_build_and_strict_benchmark_TypeScript": true
+  },
+  "validation_receipt_sha256": "d0f1395ad91e5cda0d1245576e1bceca126e55b606cc378e5db01159bd5d8fd9",
+  "primary_reconciliation_sha256": "8c11a9d07873271e977aa7fc6c3f530aa74dd011f966e28b8d49259c7c968260",
+  "scoped_specialist_verdicts": {
+    "software_architecture": "PASS",
+    "performance": "PASS"
+  },
+  "archive": {
+    "file": "c3-observer-snapshot-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c3-observer-snapshot-evidence.zip",
+    "bytes": 150060,
+    "sha256": "7bd5dec11b74447438468b4e9a3e67e67eecbd3ff9f5fef52f99bfa553558dc4",
+    "outer_manifest_entries": 23,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 23,
+      "project_archive_files": 0
+    }
+  },
+  "scientific_workloads_or_timing_boundaries_budgets_deadlines_exclusions_changed": false,
+  "new_ALL8_or_full_gate_PASS_claim": false,
+  "all7_final_acceptance_complete": false,
+  "published": false
+}

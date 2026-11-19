@@ -25,7 +25,8 @@ candidate5/native11 evidence retains its original identity; the method will chan
 
 ## Known limitations
 
-The correction is planned, not implemented or qualified. Nine forensic packets remain
+The correction passes its local implementation checkpoint; native/full qualification
+and final seven-role acceptance remain pending. Nine forensic packets remain
 unpublished. Native11 timing/resource limitations remain historical, with no speedup
 or strict-host claim. #160/#161 have local implementations awaiting actual released
 dependencies/full delivery. #162/#163 have technical preparation; neither is implemented.
@@ -36,7 +37,8 @@ No external blocker. Observer correction and fresh verification are required wor
 
 ## Next action
 
-Implement and regress the accepted snapshot contract; declare and qualify the new
-ALL8 method; complete candidate qualification/all-seven review/normal corrective PR,
+Freeze the passing observer checkpoint (nine Python and fifteen reader controls;
+full frontend 1,599/137 and all lint/types/build pass), then qualify the declared
+52-subject ALL8 method. Complete candidate qualification/all-seven review/normal corrective PR,
 then qualify the actual merged commit before release. Continue #160–#163 and parent
 closeout under the same Goal, preserving dependency order and exclusions.

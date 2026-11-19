@@ -1733,3 +1733,26 @@ gate, obtain all seven final same-candidate assessments, then use a normal corre
 PR/protected merge. Run another complete fresh gate on its actual merged commit
 under an unspent label before tag/release/assets/closeout. Earlier master1 success-only
 preparation is unused historical material. Parent scope/dependencies/exclusions remain.
+
+
+#### Observer correction — passing local implementation checkpoint
+
+The observer-only publisher and strict typed reader now implement the accepted
+contract. All nine closed checks pass: nine Python publication/cadence/error controls,
+1,599 frontend tests across 137 files (including fifteen reader regressions), scoped
+Python lint/format/types, web lint/types/build and strict benchmark TypeScript.
+Architecture and performance independently inspect the complete five-source change
+and all raw log bindings and return scoped PASS. These are checkpoint assessments,
+not final seven-role acceptance.
+
+All 461 production runtime subjects remain native11-exact. The new full map has
+1,133 sources; its compact SHA256 is
+`be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7`.
+The method set has 52 subjects: two changed, one new observer-reader helper and
+49 original subjects unchanged. The sorted-spaced JSON method digest is
+`d6a528b32c76d6aa4808757e42266dc7e528a7af10e00fb5de642bf7ed9e64ca`.
+No new native timing or speedup is claimed. See the
+[correction checkpoint](../assets/ligand-properties/c3-observer-snapshot-checkpoint.json),
+[raw checks and source evidence](../assets/ligand-properties/c3-observer-snapshot-evidence.zip)
+and [failed-master retention](../assets/ligand-properties/c3-master1-failed-checkpoint.json).
+Fresh native12 ALL8 qualification and every subsequent gate remain pending.
