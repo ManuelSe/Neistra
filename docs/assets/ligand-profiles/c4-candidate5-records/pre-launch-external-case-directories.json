@@ -1,0 +1,11 @@
+{
+  "recorded_utc": "2026-11-20T11:26:41.156945+00:00",
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "scope": "Pre-launch external case namespace snapshot; not a completed qualification claim",
+  "namespaces": {
+    "issue161-primary-performance": [],
+    "issue160-profile-performance": [],
+    "issue159-performance": []
+  },
+  "publication_requirement": "Retain complete actual candidate and merged performance case companion trees, including stores outside runroot, after positive cleanup and raw copies; publish supplemental evidence, not only inline native attachments."
+}

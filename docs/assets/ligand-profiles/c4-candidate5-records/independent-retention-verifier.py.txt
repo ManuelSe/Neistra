@@ -1,0 +1,82 @@
+import datetime
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import runpy
+import sys
+import zipfile
+
+sys.dont_write_bytecode = True
+root = Path('/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus')
+os.chdir(root)
+for path in reversed((root,root/'apps/api/src',root/'packages/neistra_core/src',root/'packages/neistra_demo_plugin/src')):
+    sys.path.insert(0,str(path))
+directory = root/'.issue-11-evidence/issue160-c4-candidate5-package-postgate1'
+load = lambda path: json.loads(path.read_bytes())
+def fp(body):
+    if isinstance(body,Path):
+        digest = hashlib.sha256()
+        size = 0
+        with body.open('rb') as handle:
+            while block := handle.read(1024*1024):
+                size += len(block)
+                digest.update(block)
+        return {'bytes':size,'sha256':digest.hexdigest()}
+    return {'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()}
+package = runpy.run_path(str(root/'docs/assets/ligand-profiles/release-evidence.py.txt'))
+wrapped = runpy.run_path(str(root/'tools/verify_profile_forensics.py'))
+canonical,_ = package['gate_items'](root,'c4-candidate5')
+expected_gate = {name:fp(body) for name,body in canonical.items()}
+assert expected_gate == load(directory/'gate-parts/inventory.json')
+groups = {}
+assets = load(directory/'asset-plan.json')['assets']
+assert len(assets) == len({row['asset_name'] for row in assets}) == 5
+for group in ('gate-parts','retained-state','case-companions'):
+    target = directory/group
+    expected = load(target/'inventory.json')
+    if group != 'gate-parts':
+        context = load(target/'context.json')
+        originals = {}
+        for tree in context['trees']:
+            origin = Path(tree['original'])
+            paths,excluded = package['files'](origin,reader_workspace=True)
+            assert len(paths) == tree['body_count'] and excluded == tree['excluded_named_caches']
+            for path in paths:
+                name = tree['prefix']+'/'+path.relative_to(origin).as_posix()
+                assert name not in originals
+                originals[name] = fp(path)
+        if group == 'retained-state':
+            launcher = root/'.issue-11-evidence/run-full-c4-candidate5.py'
+            originals['launcher/'+launcher.name] = fp(launcher)
+        assert originals == expected
+        expected = {**expected,'inventory.json':fp(target/'inventory.json'),'context.json':fp(target/'context.json')}
+    observed = {}
+    part_rows = [row for row in assets if Path(row['path']).parent == target]
+    for row in part_rows:
+        path = Path(row['path'])
+        assert path.name == row['asset_name'] and fp(path) == {k:row[k] for k in ('bytes','sha256')}
+        assert row['bytes'] < 80*1024*1024
+        assert Path(row['sidecar']).read_bytes() == (row['sha256']+'  '+path.name+'\n').encode()
+        with zipfile.ZipFile(path) as archive:
+            assert archive.testzip() is None
+            names = archive.namelist()
+            manifest = json.loads(archive.read('manifest.json'))
+            assert len(names) == len(set(names)) and set(names) == set(manifest)|{'manifest.json'}
+            for name,identity in manifest.items():
+                assert name not in observed
+                actual = fp(archive.read(name))
+                assert actual == identity
+                observed[name] = actual
+        package['verify_layers'](path,path.name)
+        wrapped['verify_wrapped_layers'](path,path.name,package)
+    assert observed == expected
+    groups[group] = {'parts':len(part_rows),'payloads':len(observed),'raw_bytes':sum(r['bytes'] for r in observed.values()),'exact_disjoint_union':True,'all_original_bodies_rehashed':True,'outer_and_nested_manifests_CRC_and_wrapped_archives_checked':True}
+before = load(directory/'input-verification.json')['closure']
+after = load(directory/'post-capture-closure.json')
+assert before['unrelated_process_proof'] == after['unrelated_process_proof']
+assert len(before['explicitly_exempted_environment_inspections']) == len(after['explicitly_exempted_environment_inspections']) == 4
+report = {'verified_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'candidate':load(directory/'result.json')['candidate'],'groups':groups,'assets':assets,'all_five_parts_strictly_below_80MiB':True,'post_capture_process_proof_identity_unchanged':True,'explicitly_exempted_environment_inspections':4,'unseen_environments_inspected':False,'original_browser_retention_and_transform':{'retained_original':fp(root/'.issue-11-evidence/issue160-c4-candidate5-run1/original-browser-before-summary.json'),'lossless_transform_equal':gzip.decompress((root/'docs/assets/ligand-profiles/c4-candidate5-browser.json.gz').read_bytes())==(root/'.issue-11-evidence/issue160-c4-candidate5-run1/original-browser-before-summary.json').read_bytes()},'SQL_performed':False,'originals_relocated_or_deleted':False,'scope':'Independent primary retention readback; final specialist gate, merged qualification and publication remain pending'}
+(directory/'independent-primary-readback.json').write_text(json.dumps(report,indent=2,sort_keys=True)+'\n')
+print(json.dumps({'independent_retention_readback':'PASS','groups':groups,'assets_bytes':sum(row['bytes'] for row in assets)}),flush=True)

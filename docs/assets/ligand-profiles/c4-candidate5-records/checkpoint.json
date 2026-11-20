@@ -1,0 +1,232 @@
+{
+  "actual_enclosing_tool_session_exit_code": 0,
+  "actual_failed_merge": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+  "actual_runner_exit_code": 0,
+  "application_version": "0.38.0",
+  "browser": {
+    "exact_preceding_exclusions": 75,
+    "failures_flakes_retries_new_exclusions": 0,
+    "observed": 660,
+    "passed": 585
+  },
+  "comparison_base": "3f873f5062814eac61a716112c92eb99f2e30328",
+  "complete_commands": 43,
+  "explicit_environment_inspection_exceptions": {
+    "count": 4,
+    "decision": "D-207",
+    "limitation": "Unseen desktop environments are explicitly exempted, not inspected; unknown unreadable instances refuse",
+    "literal_proof": "unrelated-desktop-process-proof.json"
+  },
+  "external_original_bodies": 744,
+  "external_original_raw_bytes": 86479039,
+  "forensic_ZIP_assets": 17,
+  "forensic_anonymous_verification": "PENDING",
+  "forensic_checksum_sidecars": 17,
+  "forensic_indices_unchanged": {
+    "c3-forensics-index.json": "a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a",
+    "c4-master1-forensics-index.json": "3c0edf38a5cf6fdad555dd3a8e7e2067f97d4456096b16f385f86b19468a22de"
+  },
+  "frontend": 1879,
+  "native_original_files": 734,
+  "native_original_raw_bytes": 107703541,
+  "original_browser_body_bytes": 86985337,
+  "original_browser_body_sha256": "6b3c0dd9f4a2d6f22b42c9daf045419bd3e39024dc991f6881b5eac8d46c6110",
+  "performance": {
+    "D148_unchanged": true,
+    "deliberate_policy_examples_separate": 4,
+    "inherited_property_target_misses": 119,
+    "minimization_target_misses": 1,
+    "profile_and_property_workflow_misses": 149,
+    "profile_target_misses": 30,
+    "strict_host_or_speedup_claim": false,
+    "workflow_target_misses": 150
+  },
+  "positive_process_port_closure": true,
+  "primary_diagnostic_SQL_performed": false,
+  "python": 4157,
+  "python_skips": 0,
+  "qualified_candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "raw_bytes_each_side": 105083496,
+  "raw_pairs": 136,
+  "record_inventory": {
+    "cleanup.json": {
+      "bytes": 839,
+      "sha256": "86265568f8371296df1c4fd741da533c6a1499f48d5bb2afa40a4a103d7c7b32"
+    },
+    "closed-raw-copy-receipt.json": {
+      "bytes": 58964,
+      "sha256": "dcb9cb91759c0d7102dc90511686192c237d021f4062d749765887beebee485e"
+    },
+    "combined-forensic-release-plan.json": {
+      "bytes": 28603,
+      "sha256": "300b8fc231b280b10fba87f31ed94123c11b8ef15b3c22982ac38790227d4be7"
+    },
+    "complete-five-part-asset-plan.json": {
+      "bytes": 2853,
+      "sha256": "e1493459352ea16f779943f64a5542935b9e742b519160b05a757e9e2efafdfd"
+    },
+    "execution.json": {
+      "bytes": 1174,
+      "sha256": "7fcdfd241f7d1c5a28ace6339c9f9814d61e566b6278bab4b2fb2cedddd70a86"
+    },
+    "external-case-context.json": {
+      "bytes": 4282,
+      "sha256": "50394400212db5d951649441a1f0c898ed4da00efabc39806e3cbeb2130218d0"
+    },
+    "external-case-exact-union.json": {
+      "bytes": 138,
+      "sha256": "2ebde11a08f3d29b3857e4020e5ce3e474430f9cf67e2ce2e02d77fdbe169c49"
+    },
+    "external-case-receipt.json": {
+      "bytes": 734,
+      "sha256": "c3250ba922d60a8f6efc17813a3bdcdeb6a23ccf5616906417dd8b474e0f4748"
+    },
+    "gate-exact-union.json": {
+      "bytes": 140,
+      "sha256": "dbd69f2729a2b9f891dd1f0d0d147adbac3f02e00e6565a5bdb5570ec7399b5a"
+    },
+    "gate-package-receipt.json": {
+      "bytes": 99259,
+      "sha256": "32e11bd688a8e75f1b13a230409316c66d388d563c59aefe0949d084127293f6"
+    },
+    "independent-retention-readback.json": {
+      "bytes": 4344,
+      "sha256": "af9605b035ad3b9afc74decbb0d1c395742ee21e69cf6a8ba160f1c6cc147308"
+    },
+    "independent-retention-verifier.py.txt": {
+      "bytes": 5255,
+      "sha256": "92fad961d65c831a665db196e1116935e1fac3f5d404c9311af6ade2bceb5f07"
+    },
+    "native-original-relocation.json": {
+      "bytes": 785,
+      "sha256": "0ddb0011839c2a4332a8158c2f2ab3802380854f7ea464e8a0b2ad73e3f1f764"
+    },
+    "performance-assessment.json": {
+      "bytes": 168903,
+      "sha256": "bc338836c56b2e8d694feb3cdad2134e6a7a5ae6f1f3d857ffc23853d07c1086"
+    },
+    "performance-audit.py.txt": {
+      "bytes": 18244,
+      "sha256": "ae8971a5a724a6d5cf756994fc763cd31795b692bec29ea16a51970f652b6493"
+    },
+    "performance-input-inventory.json": {
+      "bytes": 191122,
+      "sha256": "151cd2d0742e885df275b3dec07691a6cb87977bc321b19b937281a60ca1d2d7"
+    },
+    "performance-invocation-corrections.json": {
+      "bytes": 931,
+      "sha256": "07a4d6786a01b0a2a12ec53f0bfa7dcd18dd6c0034da0da80c8aacf3be86919e"
+    },
+    "performance-report.md": {
+      "bytes": 3867,
+      "sha256": "bcf27a35f0cccf7438c25a7127f63a55d9d6a8e7c70e19336771151ffe867a25"
+    },
+    "pre-launch-external-case-directories.json": {
+      "bytes": 595,
+      "sha256": "8843453a91368f966f93013e01c7d94e346a0c8059f46a705fccdbe60a89876b"
+    },
+    "retained-state-context.json": {
+      "bytes": 12091,
+      "sha256": "3747b6fa5578631dd3781b83113557a82743a16620e6a2c62eecfe18deb65e36"
+    },
+    "retained-state-exact-union.json": {
+      "bytes": 140,
+      "sha256": "fba5f6890ea93ee3c9a584a6a9806f5207e7a3982827578e00eb73cd1c5a9fab"
+    },
+    "retained-state-receipt.json": {
+      "bytes": 1288,
+      "sha256": "c12fc049ce24e2138ffb3ec74b655becf1055be4f72c6db2a88320b009432489"
+    },
+    "retention-collector.py.txt": {
+      "bytes": 35271,
+      "sha256": "d14f9ec25897a0d3a00e133750b111ee5d8f1e238c3cde44671df870d69b51c8"
+    },
+    "retention-guard-negative-controls.json": {
+      "bytes": 1348,
+      "sha256": "459b2e7ecdb5fa589681c57ccbd49db7c254260c2e982be2bbb1364848648dcd"
+    },
+    "retention-input-verification.json": {
+      "bytes": 105826,
+      "sha256": "a39f53aad0ca87001b68e5bc4939964241ff066be6affe2a9a2a2c3766b8cdfa"
+    },
+    "retention-post-capture-closure.json": {
+      "bytes": 2873,
+      "sha256": "9ad0404a4edcf66fe3760e0cd15fc0fcc1a8a2dededae62e875da986db83bf94"
+    },
+    "retention-result.json": {
+      "bytes": 1179,
+      "sha256": "7d598503c643c138815ede2c5af28ebf67ca9bf3ea7d36d0636d6fb39f29754e"
+    },
+    "retention-tooling-architecture-assessment.json": {
+      "bytes": 848,
+      "sha256": "5f3022698480f7d3a9feb95016de7770e6fea19563b33fe537ccd1b065395879"
+    },
+    "strict-summary-invocation.json": {
+      "bytes": 1588,
+      "sha256": "0f6429e9a813e88062a36b934f07b4129c4599c0d43e08279d80110df38031f5"
+    },
+    "terminal-raw-source-verification.json": {
+      "bytes": 7113,
+      "sha256": "bbd98310024fc950bf138be71b738241586c1c9ec38ddc246c6c65b277e27f46"
+    },
+    "unrelated-desktop-process-proof.json": {
+      "bytes": 2063,
+      "sha256": "deaa43227e2bcf4459f0f544a9910c33bdcc7a3c050cd6d8fb97499f756fe5d1"
+    }
+  },
+  "recorded_utc": "2026-11-20T14:44:59.739250+00:00",
+  "remaining": [
+    "Commit evidence-only metadata with all1183 selected source bodies exact",
+    "All seven same-final-candidate whole-feature assessments",
+    "Normal corrective PR, required remote review/policy/checks, merge and exact tree readback",
+    "Fresh full actual merged c4-master2 qualification in new owned checkout",
+    "Immutable annotated v0.38.0 tag and published release; full anonymous main/current/historical/17forensic+sidecar verification",
+    "Child160closeout, terminal docs, safe owned cleanup; then161162163 and parentcloseout under same activeGoal"
+  ],
+  "retention": {
+    "all_originals_remain_in_place": true,
+    "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+    "external_case_count": 10,
+    "external_cases": {
+      "actual_parts_strictly_under_80MiB": true,
+      "exact_disjoint_union": true,
+      "parts": 1,
+      "payloads": 746,
+      "raw_bytes": 86656950,
+      "receipt": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/archive-receipt.json"
+    },
+    "gate": {
+      "actual_parts_strictly_under_80MiB": true,
+      "exact_disjoint_union": true,
+      "parts": 2,
+      "payloads": 2555,
+      "raw_bytes": 254349015
+    },
+    "inputs_mutated_by_collector": false,
+    "label": "c4-candidate5",
+    "readiness_or_publication_claim": false,
+    "retained_state": {
+      "actual_parts_strictly_under_80MiB": true,
+      "exact_disjoint_union": true,
+      "parts": 2,
+      "payloads": 7015,
+      "raw_bytes": 692582578,
+      "receipt": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/archive-receipt.json"
+    },
+    "schema": "postgate-retention-v1",
+    "strict_summary_ran_separately": true
+  },
+  "retention_assets_bytes": 239194221,
+  "scope_exclusions_unchanged": true,
+  "source": {
+    "DATA_files": 3,
+    "current_bodies": 1183,
+    "current_working_and_Git_bodies_match_qualified_snapshot_after_evidence_updates": true,
+    "lossless_logs": 43,
+    "offline_reports": 44,
+    "preceding_bodies": 1133
+  },
+  "stage": "Complete corrected candidate qualification and independently verified retention; final all-seven review and release remain pending",
+  "strict_summary": "../c4-candidate5-summary.json",
+  "supervisor": 14
+}

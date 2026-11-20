@@ -1,0 +1,86 @@
+{
+  "body_files": 744,
+  "body_raw_bytes": 86479039,
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "canonical_body_inventory_sha256": "e6a4800ce171738fb7c393bf80832bfba958230b10cdd0ceef1b2ef6363ab79b",
+  "namespaces": [
+    "issue161-primary-performance",
+    "issue160-profile-performance",
+    "issue159-performance"
+  ],
+  "originals_remain_in_place": true,
+  "prelaunch_snapshot": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/pre-launch-external-case-directories.json",
+  "schema": "complete-external-case-state-v1",
+  "trees": [
+    {
+      "body_count": 132,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/chromium-e573b112-cee3-46ac-83a1-c153498d42bb",
+      "prefix": "issue160-profile-performance/chromium-e573b112-cee3-46ac-83a1-c153498d42bb"
+    },
+    {
+      "body_count": 132,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/mobile-chromium-296287d1-3ff8-4b69-962c-98377ed091ed",
+      "prefix": "issue160-profile-performance/mobile-chromium-296287d1-3ff8-4b69-962c-98377ed091ed"
+    },
+    {
+      "body_count": 205,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-0f19b46c-6863-481b-9c49-80cef6046b73",
+      "prefix": "issue159-performance/chromium-0f19b46c-6863-481b-9c49-80cef6046b73"
+    },
+    {
+      "body_count": 5,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-54696c86-b55e-4cea-9bd1-935195d63dd0",
+      "prefix": "issue159-performance/chromium-54696c86-b55e-4cea-9bd1-935195d63dd0"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-87ceaf21-c598-446f-adda-69a9548c1152",
+      "prefix": "issue159-performance/chromium-87ceaf21-c598-446f-adda-69a9548c1152"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-d9f2548c-c72e-44d0-a431-04475680c416",
+      "prefix": "issue159-performance/chromium-d9f2548c-c72e-44d0-a431-04475680c416"
+    },
+    {
+      "body_count": 205,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-3e528211-c9d9-4fa6-8449-2d51650599ae",
+      "prefix": "issue159-performance/mobile-chromium-3e528211-c9d9-4fa6-8449-2d51650599ae"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-4cf6af28-885b-4eba-b73b-ea4aa5b23320",
+      "prefix": "issue159-performance/mobile-chromium-4cf6af28-885b-4eba-b73b-ea4aa5b23320"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-78140241-59b7-40f9-9a56-c0bcbb3a83bf",
+      "prefix": "issue159-performance/mobile-chromium-78140241-59b7-40f9-9a56-c0bcbb3a83bf"
+    },
+    {
+      "body_count": 5,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-bd497d4b-5c28-4c55-aba2-7d73859cce4f",
+      "prefix": "issue159-performance/mobile-chromium-bd497d4b-5c28-4c55-aba2-7d73859cce4f"
+    }
+  ]
+}

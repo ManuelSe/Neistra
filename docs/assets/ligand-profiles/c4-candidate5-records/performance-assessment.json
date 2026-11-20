@@ -1,0 +1,4978 @@
+{
+  "all_757_indexed_input_bodies_rehashed_unchanged_after_analysis": true,
+  "all_browser_target_counts": {
+    "detached-presentation-resources.spec.ts": {
+      "annotations": 1,
+      "misses": 0
+    },
+    "entry-surfaces.spec.ts": {
+      "annotations": 4,
+      "misses": 0
+    },
+    "interactions.spec.ts": {
+      "annotations": 6,
+      "misses": 0
+    },
+    "interactive-transform-performance.spec.ts": {
+      "annotations": 14,
+      "misses": 0
+    },
+    "ligand-profiles-performance.spec.ts": {
+      "annotations": 120,
+      "misses": 30
+    },
+    "ligand-properties-performance.spec.ts": {
+      "annotations": 290,
+      "misses": 119
+    },
+    "minimization-live.spec.ts": {
+      "annotations": 12,
+      "misses": 0
+    },
+    "minimization-performance.spec.ts": {
+      "annotations": 8,
+      "misses": 1
+    },
+    "performance-policy.spec.ts": {
+      "annotations": 8,
+      "misses": 4
+    },
+    "pocket-surfaces.spec.ts": {
+      "annotations": 16,
+      "misses": 0
+    },
+    "protein-residue-hierarchy.spec.ts": {
+      "annotations": 8,
+      "misses": 0
+    },
+    "quick-minimization-performance.spec.ts": {
+      "annotations": 20,
+      "misses": 0
+    },
+    "release-hardening.spec.ts": {
+      "annotations": 3,
+      "misses": 0
+    },
+    "selection-minimization.spec.ts": {
+      "annotations": 2,
+      "misses": 0
+    },
+    "selection-surfaces.spec.ts": {
+      "annotations": 12,
+      "misses": 0
+    },
+    "sequence-viewer.spec.ts": {
+      "annotations": 4,
+      "misses": 0
+    },
+    "surface-capacity.spec.ts": {
+      "annotations": 12,
+      "misses": 0
+    },
+    "viewer-hover.spec.ts": {
+      "annotations": 28,
+      "misses": 0
+    },
+    "viewer-warning-details.spec.ts": {
+      "annotations": 12,
+      "misses": 0
+    }
+  },
+  "all_browser_target_misses": {
+    "ligand-profiles-performance.spec.ts": [
+      {
+        "actual": 104.59999990463257,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 101,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile edit feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2184.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile edit to automatic current App values ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 113.80000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile undo feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 215.40000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile undo old criteria retirement ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 125.19999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile redo feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 218.89999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile redo old criteria retirement ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 119.39999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 119.40000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 118.09999990463257,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 122.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 122.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.70000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 119.89999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 106.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 119.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 116.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 115.90000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 120.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 115.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 120.69999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile warm selection to current criteria ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 123.89999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile edit feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3467.7999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile edit to automatic current App values ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 136.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile undo feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2410.399999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile undo to automatic current App values ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 141.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile redo feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2484.6999999284744,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile redo to automatic current App values ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 128.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "profile explicit metadata Retry feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery",
+        "withinTarget": false
+      }
+    ],
+    "ligand-properties-performance.spec.ts": [
+      {
+        "actual": 102.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2152.7999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 118.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 103.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2181.1999999284744,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 119.69999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 120.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2183.399999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 128.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 109.40000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2175.7000000476837,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 103.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2197.6999999284744,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.30000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 108,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2197.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 126.10000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 115.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2171.899999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 104.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2184.399999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.30000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 110.39999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2212.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 130,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 104.10000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2235.7000000476837,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 125.80000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 107.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2182.7999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 126.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 108,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2226.8000000715256,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.39999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 105,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2170.1999999284744,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 137.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 113,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2235.4000000953674,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 129.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 106.90000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2217.600000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 114.10000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2232.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 122.30000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 109.70000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2247.9000000953674,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 104.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2254.9000000953674,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 142,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 106.70000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2197.2999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 120.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 110.89999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 2234.600000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 126.09999990463257,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 1040.2999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      },
+      {
+        "actual": 7084.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+        "limit": 5000,
+        "project": "chromium",
+        "title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      },
+      {
+        "actual": 1019.9000000953674,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "chromium",
+        "title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      },
+      {
+        "actual": 7072.700000047684,
+        "enforced": false,
+        "inclusive": true,
+        "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+        "limit": 5000,
+        "project": "chromium",
+        "title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3445.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 126.10000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 133.80000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3435.8000000715256,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.59999990463257,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 131.39999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3452,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.10000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3614.5999999046326,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 128.89999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 132.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3458.2000000476837,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 124.69999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 136.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3562.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3560.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 128.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 139.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3569.600000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 129,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 132.39999997615814,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3544.2999999523163,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 123.19999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 132.90000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3574.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3564.899999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.30000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 133.59999990463257,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3482.5999999046326,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 129.20000004768372,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3617.600000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 130.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3671.399999976158,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 133.60000002384186,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3683.4000000953674,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 127.79999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 130.69999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3555.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 126.19999992847443,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3686.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 123.80000007152557,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 132.90000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3601,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 123.40000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 132.90000009536743,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3699.2000000476837,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 131.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 136.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 3525.100000023842,
+        "enforced": false,
+        "inclusive": true,
+        "label": "cold actual-edit automatic current App READY ms",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 121.5,
+        "enforced": false,
+        "inclusive": true,
+        "label": "Inspector-open to visible matching-cache values ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery",
+        "withinTarget": false
+      },
+      {
+        "actual": 138.29999995231628,
+        "enforced": false,
+        "inclusive": true,
+        "label": "trusted click to visible disabled feedback ms",
+        "limit": 100,
+        "project": "mobile-chromium",
+        "title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      },
+      {
+        "actual": 6912.700000047684,
+        "enforced": false,
+        "inclusive": true,
+        "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+        "limit": 5000,
+        "project": "mobile-chromium",
+        "title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress",
+        "withinTarget": false
+      }
+    ],
+    "minimization-performance.spec.ts": [
+      {
+        "actual": 501.39999997615814,
+        "enforced": false,
+        "inclusive": false,
+        "label": "discardMs",
+        "limit": 500,
+        "project": "chromium",
+        "title": "bounds real 18k-atom assembly minimization and native preview work",
+        "withinTarget": false
+      }
+    ],
+    "performance-policy.spec.ts": [
+      {
+        "actual": 2600,
+        "enforced": false,
+        "inclusive": false,
+        "label": "slow battery example",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "timing profile 0 preserves workflows and enforces only requested targets",
+        "withinTarget": false
+      },
+      {
+        "actual": 2600,
+        "enforced": true,
+        "inclusive": false,
+        "label": "slow battery example",
+        "limit": 2000,
+        "project": "chromium",
+        "title": "timing profile 1 preserves workflows and enforces only requested targets",
+        "withinTarget": false
+      },
+      {
+        "actual": 2600,
+        "enforced": false,
+        "inclusive": false,
+        "label": "slow battery example",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "timing profile 0 preserves workflows and enforces only requested targets",
+        "withinTarget": false
+      },
+      {
+        "actual": 2600,
+        "enforced": true,
+        "inclusive": false,
+        "label": "slow battery example",
+        "limit": 2000,
+        "project": "mobile-chromium",
+        "title": "timing profile 1 preserves workflows and enforces only requested targets",
+        "withinTarget": false
+      }
+    ]
+  },
+  "all_worker_source_maps_identical_and_bound_to_gate": true,
+  "all_workflow_misses_excluding_policy_examples": 150,
+  "browser_original_body": {
+    "bytes": 86985337,
+    "path_used": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/original-browser-before-summary.json",
+    "sha256": "6b3c0dd9f4a2d6f22b42c9daf045419bd3e39024dc991f6881b5eac8d46c6110"
+  },
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "canonical_compressed_browser_matches_original_body": true,
+  "checks": [
+    "All ten native inline report bodies decode to byte-exact unique external originals",
+    "Both project profiles execute all ten distinct cases without failure/retry",
+    "Eight native worker files equal the corresponding complete case observations",
+    "All case observations and contiguous trace bodies bind the exact owned store and frozen source map",
+    "All profile companions rehashed, actual five cold and twenty warm distributions independently recomputed",
+    "All browser performance annotations parsed with target predicate independently recalculated",
+    "Actual bulk source/generation trace bindings, stated hard bounds, READY counts, profile cleanup and consumer retirement inspected",
+    "Full ten-case file inventory rehashed without deleting or relocating originals"
+  ],
+  "cold_classification_note": "Full campaign did not set REQUIRE_COLD; all five actual before-selection missing-required-coverage classifications per project nevertheless independently support the recorded numerical-cold distributions.",
+  "complete_external_case_count": 10,
+  "consequential_findings": [],
+  "current_observed_source_bodies_independently_rehashed": 815,
+  "deliberate_policy_misses_separate": 4,
+  "exact_cases": [
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-0f19b46c-6863-481b-9c49-80cef6046b73",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-54696c86-b55e-4cea-9bd1-935195d63dd0",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-87ceaf21-c598-446f-adda-69a9548c1152",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-d9f2548c-c72e-44d0-a431-04475680c416",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-3e528211-c9d9-4fa6-8449-2d51650599ae",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-4cf6af28-885b-4eba-b73b-ea4aa5b23320",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-78140241-59b7-40f9-9a56-c0bcbb3a83bf",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-bd497d4b-5c28-4c55-aba2-7d73859cce4f",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/chromium-e573b112-cee3-46ac-83a1-c153498d42bb",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/mobile-chromium-296287d1-3ff8-4b69-962c-98377ed091ed"
+  ],
+  "exact_native_external_bindings": [
+    {
+      "attachment": "profile-performance-v1",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/chromium-e573b112-cee3-46ac-83a1-c153498d42bb/profile-performance-v1.json",
+      "identity": {
+        "bytes": 367285,
+        "sha256": "decb0bf903b5b1158873630f693a8a299ae6602ff06f96dc4c3b97f5ff984565"
+      },
+      "project": "chromium",
+      "test_file": "ligand-profiles-performance.spec.ts",
+      "test_title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery"
+    },
+    {
+      "attachment": "profile-performance-v1",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-profile-performance/mobile-chromium-296287d1-3ff8-4b69-962c-98377ed091ed/profile-performance-v1.json",
+      "identity": {
+        "bytes": 360683,
+        "sha256": "a5ed3a1c3a0faf1805520e57a7549a6ed3faf272c860c144f63ee1eabc69b258"
+      },
+      "project": "mobile-chromium",
+      "test_file": "ligand-profiles-performance.spec.ts",
+      "test_title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery"
+    },
+    {
+      "attachment": "descriptor-edit-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-0f19b46c-6863-481b-9c49-80cef6046b73/native-edit-performance.json",
+      "identity": {
+        "bytes": 3619038,
+        "sha256": "87a7b1c213178f8a89ebb4b7a20fed531b82eb8e33449b240d72b2c00cde2374"
+      },
+      "project": "chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery"
+    },
+    {
+      "attachment": "descriptor-cancellation-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-54696c86-b55e-4cea-9bd1-935195d63dd0/native-cancellation-performance.json",
+      "identity": {
+        "bytes": 10803,
+        "sha256": "448bfcfb677480405c77fb9d87032da3a94a1a9bc7c703f65e33301e4e62e04a"
+      },
+      "project": "chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "measures cancellation feedback and retains cancellation after an actual accepted demand replies late"
+    },
+    {
+      "attachment": "descriptor-bulk-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-87ceaf21-c598-446f-adda-69a9548c1152/native-bulk-performance.json",
+      "identity": {
+        "bytes": 6013729,
+        "sha256": "97de9da1d0a2faf6aef860b2330d8c7b3d716392bad4cee542b6971ce1fe4a01"
+      },
+      "project": "chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress"
+    },
+    {
+      "attachment": "descriptor-bulk-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/chromium-d9f2548c-c72e-44d0-a431-04475680c416/native-bulk-performance.json",
+      "identity": {
+        "bytes": 11961553,
+        "sha256": "770c6c0bcd9b826867a62126fb3a322ff67d550f6e474b714bffeeb84cf4ddda"
+      },
+      "project": "chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress"
+    },
+    {
+      "attachment": "descriptor-edit-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-3e528211-c9d9-4fa6-8449-2d51650599ae/native-edit-performance.json",
+      "identity": {
+        "bytes": 3585409,
+        "sha256": "526c21d18af2307145e569fa48db1962a54872c74d4965597baf9a5312abac17"
+      },
+      "project": "mobile-chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery"
+    },
+    {
+      "attachment": "descriptor-cancellation-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-bd497d4b-5c28-4c55-aba2-7d73859cce4f/native-cancellation-performance.json",
+      "identity": {
+        "bytes": 10864,
+        "sha256": "4bb9fa1bf408bace11024c82f471983d6e6ee18f1954b417e6f4754e98e49c79"
+      },
+      "project": "mobile-chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "measures cancellation feedback and retains cancellation after an actual accepted demand replies late"
+    },
+    {
+      "attachment": "descriptor-bulk-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-4cf6af28-885b-4eba-b73b-ea4aa5b23320/native-bulk-performance.json",
+      "identity": {
+        "bytes": 6114336,
+        "sha256": "3ffb2c14f745bc7b1e848f100eab9ccb8bc9791a6e49af780ca2042e3548838f"
+      },
+      "project": "mobile-chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress"
+    },
+    {
+      "attachment": "descriptor-bulk-performance",
+      "external_report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue159-performance/mobile-chromium-78140241-59b7-40f9-9a56-c0bcbb3a83bf/native-bulk-performance.json",
+      "identity": {
+        "bytes": 13006669,
+        "sha256": "24f35b270b2e6fe80b285a2b4e32e9aef626f2c05093f49185542562a1170055"
+      },
+      "project": "mobile-chromium",
+      "test_file": "ligand-properties-performance.spec.ts",
+      "test_title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress"
+    }
+  ],
+  "inherited_property": {
+    "chromium:native-bulk-performance.json:distinct": {
+      "active": {
+        "currentMs": 7069.100000023842,
+        "networkCurrentMs": 7072.700000047684,
+        "retirementMs": 1004.2000000476837,
+        "retirementQualification": "observed_withheld_before_acknowledgement"
+      },
+      "active_heavy_atoms": 43,
+      "failures": [],
+      "hardWorkOrderStatus": "passed",
+      "hard_order": {
+        "active_fairness_turns": 0,
+        "actual_post_acceptance_bulk_bindings": 912,
+        "ordinary_productive_turns": 1,
+        "priority_overlap_exercised": true
+      },
+      "kind": "distinct",
+      "profile": "chromium",
+      "qualifiedDistinctInputHashes": 1000,
+      "readyCount": 1000,
+      "targets": [
+        {
+          "actual": 1019.9000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 7072.700000047684,
+          "enforced": false,
+          "inclusive": true,
+          "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+          "limit": 5000,
+          "withinTarget": false
+        }
+      ]
+    },
+    "chromium:native-bulk-performance.json:repeated": {
+      "active": {
+        "currentMs": 7078.5,
+        "networkCurrentMs": 7084.5,
+        "retirementMs": 1024.1999999284744,
+        "retirementQualification": "observed_withheld_before_acknowledgement"
+      },
+      "active_heavy_atoms": 43,
+      "failures": [],
+      "hardWorkOrderStatus": "passed",
+      "hard_order": {
+        "active_fairness_turns": 0,
+        "actual_post_acceptance_bulk_bindings": 848,
+        "ordinary_productive_turns": 1,
+        "priority_overlap_exercised": true
+      },
+      "kind": "repeated",
+      "profile": "chromium",
+      "qualifiedDistinctInputHashes": 1,
+      "readyCount": 1000,
+      "targets": [
+        {
+          "actual": 1040.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 7084.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+          "limit": 5000,
+          "withinTarget": false
+        }
+      ]
+    },
+    "chromium:native-cancellation-performance.json": {
+      "profile": "chromium",
+      "scope": "Real accepted HTTP demand; only its delivery is held. Measures consumer feedback and late-reply retirement, not sole-worker termination latency.",
+      "targets": [
+        {
+          "actual": 20.300000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "consumer cancellation feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        }
+      ]
+    },
+    "chromium:native-edit-performance.json": {
+      "coldEditVisibleIncludingPresentation": {
+        "max": 2254.7000000476837,
+        "median": 2197.199999988079,
+        "p95": 2247.600000023842,
+        "samples": 20
+      },
+      "coldEdits": {
+        "max": 2254.9000000953674,
+        "median": 2197.4999999403954,
+        "p95": 2247.9000000953674,
+        "samples": 20
+      },
+      "coldStarts": {
+        "max": 924.5,
+        "median": 922.1999999284744,
+        "p95": 924.5,
+        "samples": 5
+      },
+      "matchingCacheProjection": {
+        "max": 89.90000009536743,
+        "median": 62.64999997615814,
+        "p95": 86.70000004768372,
+        "samples": 20
+      },
+      "paired_heavy_atoms": [
+        10,
+        14,
+        18,
+        22,
+        26,
+        30,
+        34,
+        38,
+        42,
+        46,
+        50,
+        54,
+        58,
+        62,
+        66,
+        70,
+        74,
+        78,
+        82,
+        86
+      ],
+      "profile": "chromium",
+      "scope": "Actual browser/production API/real worker; fresh contexts are not cold server or OS-process claims",
+      "targets": [
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 919.5999999046326,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 924.6000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 922.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 920.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 924.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 908.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 102.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2152.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 118.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 70.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 70.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 941.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 103.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2181.1999999284744,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 119.69999992847443,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 89.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 89.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 909.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 120.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2183.399999976158,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 128.29999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 63.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 63.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 914,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 109.40000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2175.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 124.20000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 84.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 84.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 935,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 103.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2197.6999999284744,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 127.30000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 62.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 62.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 911.2000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 108,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2197.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 126.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 62.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 62.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 920.1000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 115.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2171.899999976158,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 124.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 58.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 58.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 952.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 104.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2184.399999976158,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 127.30000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 60.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 60.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 923.2000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 110.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2212.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 130,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 62.700000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 62.700000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 921,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 104.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2235.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 125.80000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 63.299999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 63.299999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 931.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 107.29999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2182.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 126.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 65,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 65,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 942.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 108,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2226.8000000715256,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 124.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 63.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 63.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 931.6000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 105,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2170.1999999284744,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 137.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 55.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 55.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 958.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 113,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2235.4000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 129.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 61.799999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 61.799999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 960.1000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 106.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2217.600000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 127.29999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 61.800000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 61.800000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0.10000002384185791,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 941.4000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 114.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2232.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 122.30000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 86.70000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 86.70000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0.10000002384185791,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 938.8000000715256,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 109.70000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2247.9000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 127.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 62.699999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 62.699999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 974.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 104.20000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2254.9000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 142,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 54.700000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 54.700000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 941,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 106.70000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2197.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 120.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 49.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 49.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 974.1999999284744,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 110.89999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 2234.600000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 126.09999990463257,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 61.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "acknowledged input to observed retired DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 61.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "matching-cache response to current DOM ms",
+          "limit": 100,
+          "withinTarget": true
+        }
+      ],
+      "warmUndo": {
+        "max": 211.60000002384186,
+        "median": 191.89999997615814,
+        "p95": 210.80000007152557,
+        "samples": 20
+      }
+    },
+    "mobile-chromium:native-bulk-performance.json:distinct": {
+      "active": {
+        "currentMs": 8182.899999976158,
+        "networkCurrentMs": 6912.700000047684,
+        "retirementMs": null,
+        "retirementQualification": "unobserved_hidden_at_start"
+      },
+      "active_heavy_atoms": 43,
+      "failures": [],
+      "hardWorkOrderStatus": "passed",
+      "hard_order": {
+        "active_fairness_turns": 0,
+        "actual_post_acceptance_bulk_bindings": 928,
+        "ordinary_productive_turns": 1,
+        "priority_overlap_exercised": true
+      },
+      "kind": "distinct",
+      "profile": "mobile-chromium",
+      "qualifiedDistinctInputHashes": 1000,
+      "readyCount": 1000,
+      "targets": [
+        {
+          "actual": 27.700000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 6912.700000047684,
+          "enforced": false,
+          "inclusive": true,
+          "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+          "limit": 5000,
+          "withinTarget": false
+        }
+      ]
+    },
+    "mobile-chromium:native-bulk-performance.json:repeated": {
+      "active": {
+        "currentMs": 6003.5,
+        "networkCurrentMs": 4777.100000023842,
+        "retirementMs": null,
+        "retirementQualification": "unobserved_hidden_at_start"
+      },
+      "active_heavy_atoms": 43,
+      "failures": [],
+      "hardWorkOrderStatus": "passed",
+      "hard_order": {
+        "active_fairness_turns": 0,
+        "actual_post_acceptance_bulk_bindings": 880,
+        "ordinary_productive_turns": 1,
+        "priority_overlap_exercised": true
+      },
+      "kind": "repeated",
+      "profile": "mobile-chromium",
+      "qualifiedDistinctInputHashes": 1,
+      "readyCount": 1000,
+      "targets": [
+        {
+          "actual": 138.29999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 4777.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "active edit to automatic current App READY during 1000-entry bulk ms",
+          "limit": 5000,
+          "withinTarget": true
+        }
+      ]
+    },
+    "mobile-chromium:native-cancellation-performance.json": {
+      "profile": "mobile-chromium",
+      "scope": "Real accepted HTTP demand; only its delivery is held. Measures consumer feedback and late-reply retirement, not sole-worker termination latency.",
+      "targets": [
+        {
+          "actual": 7.800000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "consumer cancellation feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        }
+      ]
+    },
+    "mobile-chromium:native-edit-performance.json": {
+      "coldEditVisibleIncludingPresentation": {
+        "max": 4477.399999976158,
+        "median": 4139.699999988079,
+        "p95": 4312.799999952316,
+        "samples": 20
+      },
+      "coldEdits": {
+        "max": 3699.2000000476837,
+        "median": 3563.699999988079,
+        "p95": 3686.5,
+        "samples": 20
+      },
+      "coldStarts": {
+        "max": 965.3999999761581,
+        "median": 894.5,
+        "p95": 965.3999999761581,
+        "samples": 5
+      },
+      "matchingCacheProjection": {
+        "max": 133.60000002384186,
+        "median": 127.59999996423721,
+        "p95": 131.5,
+        "samples": 20
+      },
+      "paired_heavy_atoms": [
+        10,
+        14,
+        18,
+        22,
+        26,
+        30,
+        34,
+        38,
+        42,
+        46,
+        50,
+        54,
+        58,
+        62,
+        66,
+        70,
+        74,
+        78,
+        82,
+        86
+      ],
+      "profile": "mobile-chromium",
+      "scope": "Actual browser/production API/real worker; fresh contexts are not cold server or OS-process claims",
+      "targets": [
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 894.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 834.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 902.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 965.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 847.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 871.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3445.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30.200000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 126.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 873.2000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 133.80000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3435.8000000715256,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.600000023841858,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.59999990463257,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0.10000002384185791,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 879.3000000715256,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 131.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3452,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.59999990463257,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.10000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 921.6000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 16.799999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3614.5999999046326,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30.199999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 128.89999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 883.1000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 132.20000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3458.2000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.600000023841858,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 124.69999992847443,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 839.3000000715256,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 136.20000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3562.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 29.399999976158142,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 898.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 18.799999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3560.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 128.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 899.7000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 139.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3569.600000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.300000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 129,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 837.6000000238419,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 132.39999997615814,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3544.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 29.199999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 123.19999992847443,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 884.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 132.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3574.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.399999976158142,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 947.3999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 17.800000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3564.899999976158,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 31.200000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.30000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 902.3999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 133.59999990463257,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3482.5999999046326,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 28.299999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 129.20000004768372,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 916.3999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 20.200000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3617.600000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 31.100000023841858,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 130.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 891.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 19.100000023841858,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3671.399999976158,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 29.799999952316284,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 133.60000002384186,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 939,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 20.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3683.4000000953674,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 29.200000047683716,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 127.79999995231628,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 902.2999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 130.69999992847443,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3555.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30.199999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 126.19999992847443,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 929.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 19.899999976158142,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 3686.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 29.300000071525574,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 123.80000007152557,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 856.7999999523163,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 132.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3601,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 31.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 123.40000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 935.8999999761581,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 132.90000009536743,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3699.2000000476837,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30.399999976158142,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 131.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 0,
+          "enforced": false,
+          "inclusive": true,
+          "label": "entry-choice visible feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 856.6999999284744,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold automatic exact-source App READY ms",
+          "limit": 2000,
+          "withinTarget": true
+        },
+        {
+          "actual": 136.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": false
+        },
+        {
+          "actual": 3525.100000023842,
+          "enforced": false,
+          "inclusive": true,
+          "label": "cold actual-edit automatic current App READY ms",
+          "limit": 2000,
+          "withinTarget": false
+        },
+        {
+          "actual": 30.199999928474426,
+          "enforced": false,
+          "inclusive": true,
+          "label": "trusted click to visible disabled feedback ms",
+          "limit": 100,
+          "withinTarget": true
+        },
+        {
+          "actual": 121.5,
+          "enforced": false,
+          "inclusive": true,
+          "label": "Inspector-open to visible matching-cache values ms",
+          "limit": 100,
+          "withinTarget": false
+        }
+      ],
+      "warmUndo": {
+        "max": 3211.899999976158,
+        "median": 3191.75,
+        "p95": 3208.600000023842,
+        "samples": 20
+      }
+    }
+  },
+  "input_inventory": {
+    "bytes": 191122,
+    "files": 757,
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-candidate5-native-independent-audit1/input-body-inventory.json",
+    "sha256": "151cd2d0742e885df275b3dec07691a6cb87977bc321b19b937281a60ca1d2d7"
+  },
+  "limitations": [
+    "No new optimization, campaign, SQL, service, Git or publication action performed",
+    "Timing targets remain portable and unenforced under D-148; 30 profile +119 property +1 minimization target misses require disclosure",
+    "One 18k-atom minimization discard observation is501.39999997615814ms against strict-less-than500ms target; this is a portable timing miss",
+    "Four deliberate policy misses are separate from150actualworkflow misses",
+    "Hidden retirement and hidden visible-current observations remain null/unavailable, never measured zero",
+    "Mobile Chromium is existing emulation, not physical-device qualification",
+    "Sampled individual child and parent RSS peaks are not simultaneous or aggregate peak memory; browser/GPU peak unavailable",
+    "Observer job sets can include earlier shared-store jobs; ownership is established by source/project and native report bindings, not all observed jobs",
+    "Recorded hard-order proof and contiguous trace/hash/source bindings inspected; this audit does not rerun the original TypeScript assertion implementation",
+    "No speedup, strict-host, universal-capacity or final merged/release/readiness claim"
+  ],
+  "native_worker_attachments_byte_exact": 8,
+  "profile": {
+    "chromium": {
+      "cleanup": {
+        "observer_closed": true,
+        "owned_live_consumers": 0,
+        "preferences_restored": true,
+        "worker_reaped": true
+      },
+      "cold": {
+        "max": 985,
+        "median": 930.6000000238419,
+        "misses": 0,
+        "n": 5,
+        "p95_nearest_rank": 985,
+        "target": 2000
+      },
+      "environment": {
+        "browser": "140.0.7339.16",
+        "cpu": "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics",
+        "host_policy": "Portable measurements; absolute latency enforced only by existing performanceBudget opt-in",
+        "load_after": [
+          4.56,
+          7.06,
+          6.39
+        ],
+        "load_before": [
+          7.52,
+          8.35,
+          6.68
+        ],
+        "logical_cpus": 16,
+        "node": "v22.19.0",
+        "platform": "linux",
+        "project": "chromium",
+        "release": "6.17.0-119029-tuxedo",
+        "total_memory_bytes": 65082986496,
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "measurement_gaps": {
+        "browser_gpu_peak_memory": "Unavailable; read-only observer supplies discrete worker/store samples only",
+        "inherited_bulk": "Unchanged property benchmarks independently qualify scheduler; one active profile evaluator adds no extra bulk campaign",
+        "simultaneous_peak_memory": "Unavailable; no simultaneous-memory claim",
+        "strict_host_certification": "Not inferred from portable run"
+      },
+      "phases": [
+        {
+          "durations": {
+            "current_criteria_ms": 935.8999999761581,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0.09999990463256836,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 87,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": 935.8999999761581,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [
+            "01a1f8d5-9664-7f78-9d5a-301c5e41805e"
+          ],
+          "phase": "composite-expansion",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 4
+          }
+        },
+        {
+          "durations": {
+            "current_criteria_ms": 85.60000002384186,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 85.60000002384186,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          },
+          "new_jobs": [],
+          "phase": "unavailable-preset",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 0,
+            "metadata": 0,
+            "reads": 0,
+            "releases": 0,
+            "requests": 0
+          }
+        },
+        {
+          "durations": {
+            "current_criteria_ms": 92.89999997615814,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0.09999990463256836,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          },
+          "new_jobs": [],
+          "phase": "clear",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 0,
+            "metadata": 0,
+            "reads": 0,
+            "releases": 0,
+            "requests": 0
+          }
+        },
+        {
+          "automatic_current_ms": 2184.5,
+          "durations": {
+            "current_criteria_ms": 2184,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 101,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          },
+          "new_jobs": [
+            "01a1f8d5-b9ef-7e32-9bfa-46f176a8beb0"
+          ],
+          "phase": "edit",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 3,
+            "releases": 1,
+            "requests": 6
+          }
+        },
+        {
+          "automatic_current_ms": 1098.8000000715256,
+          "durations": {
+            "current_criteria_ms": 215.40000009536743,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 113.80000007152557,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 215.40000009536743,
+            "retirement_relative_to_ack_ms": 99.70000004768372,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": 215.40000009536743,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [],
+          "phase": "undo",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 5
+          }
+        },
+        {
+          "automatic_current_ms": 1122.3999999761581,
+          "durations": {
+            "current_criteria_ms": 218.89999997615814,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 125.19999992847443,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 218.89999997615814,
+            "retirement_relative_to_ack_ms": 93.10000002384186,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": 218.89999997615814,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [],
+          "phase": "redo",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 5
+          }
+        },
+        {
+          "attempts": 2,
+          "first_metadata_failure_ms": 28.5,
+          "injected_hold_ms": 3076.3000000715256,
+          "phase": "metadata-recovery",
+          "recovery_excluding_injected_hold_ms": 188.4999998807907,
+          "recovery_total_ms": 3264.7999999523163,
+          "request_delta": {
+            "allocations": 1,
+            "demands": 1,
+            "metadata": 1,
+            "reads": 2,
+            "releases": 1,
+            "requests": 7
+          },
+          "retry_durations": {
+            "current_criteria_ms": 3249.899999976158,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "visible-status",
+            "feedback_ms": 86.60000002384186,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          }
+        }
+      ],
+      "warm": {
+        "max": 104.59999990463257,
+        "median": 88.80000001192093,
+        "misses": 1,
+        "n": 20,
+        "p95_nearest_rank": 98.60000002384186,
+        "target": 100
+      },
+      "warm_new_jobs_and_allocations": 0
+    },
+    "mobile-chromium": {
+      "cleanup": {
+        "observer_closed": true,
+        "owned_live_consumers": 0,
+        "preferences_restored": true,
+        "worker_reaped": true
+      },
+      "cold": {
+        "max": 967.7000000476837,
+        "median": 861.7000000476837,
+        "misses": 0,
+        "n": 5,
+        "p95_nearest_rank": 967.7000000476837,
+        "target": 2000
+      },
+      "environment": {
+        "browser": "140.0.7339.16",
+        "cpu": "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics",
+        "host_policy": "Portable measurements; absolute latency enforced only by existing performanceBudget opt-in",
+        "load_after": [
+          3.43,
+          5.26,
+          6.33
+        ],
+        "load_before": [
+          8.06,
+          6.54,
+          6.85
+        ],
+        "logical_cpus": 16,
+        "node": "v22.19.0",
+        "platform": "linux",
+        "project": "mobile-chromium",
+        "release": "6.17.0-119029-tuxedo",
+        "total_memory_bytes": 65082986496,
+        "viewport": {
+          "height": 700,
+          "width": 320
+        }
+      },
+      "measurement_gaps": {
+        "browser_gpu_peak_memory": "Unavailable; read-only observer supplies discrete worker/store samples only",
+        "inherited_bulk": "Unchanged property benchmarks independently qualify scheduler; one active profile evaluator adds no extra bulk campaign",
+        "simultaneous_peak_memory": "Unavailable; no simultaneous-memory claim",
+        "strict_host_certification": "Not inferred from portable run"
+      },
+      "phases": [
+        {
+          "durations": {
+            "current_criteria_ms": 940.7000000476837,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 121.20000004768372,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": 940.7000000476837,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [
+            "01a1f91e-3893-771b-9d16-d710913641e2"
+          ],
+          "phase": "composite-expansion",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 4
+          }
+        },
+        {
+          "durations": {
+            "current_criteria_ms": 121,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": 121,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": null,
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          },
+          "new_jobs": [],
+          "phase": "unavailable-preset",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 0,
+            "metadata": 0,
+            "reads": 0,
+            "releases": 0,
+            "requests": 0
+          }
+        },
+        {
+          "durations": {
+            "current_criteria_ms": 114.69999992847443,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "native-selected-value",
+            "feedback_ms": 0.19999992847442627,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          },
+          "new_jobs": [],
+          "phase": "clear",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 0,
+            "metadata": 0,
+            "reads": 0,
+            "releases": 0,
+            "requests": 0
+          }
+        },
+        {
+          "automatic_current_ms": 3467.7999999523163,
+          "durations": {
+            "current_criteria_ms": 4787.699999928474,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 123.89999997615814,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": 4787.699999928474,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [
+            "01a1f91e-62e4-7826-b9e1-53eb285b9630"
+          ],
+          "phase": "edit",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 3,
+            "releases": 1,
+            "requests": 6
+          }
+        },
+        {
+          "automatic_current_ms": 2410.399999976158,
+          "durations": {
+            "current_criteria_ms": 4092,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 136.5,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": 4092,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [],
+          "phase": "undo",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 5
+          }
+        },
+        {
+          "automatic_current_ms": 2484.6999999284744,
+          "durations": {
+            "current_criteria_ms": 4137,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "disabled-command",
+            "feedback_ms": 141.29999995231628,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": 4137,
+            "visible_current_unavailable_reason": null
+          },
+          "new_jobs": [],
+          "phase": "redo",
+          "request_delta": {
+            "allocations": 0,
+            "demands": 1,
+            "metadata": 0,
+            "reads": 2,
+            "releases": 1,
+            "requests": 5
+          }
+        },
+        {
+          "attempts": 2,
+          "first_metadata_failure_ms": 33,
+          "injected_hold_ms": 3850,
+          "phase": "metadata-recovery",
+          "recovery_excluding_injected_hold_ms": 162.79999995231628,
+          "recovery_total_ms": 4012.7999999523163,
+          "request_delta": {
+            "allocations": 1,
+            "demands": 1,
+            "metadata": 1,
+            "reads": 2,
+            "releases": 1,
+            "requests": 7
+          },
+          "retry_durations": {
+            "current_criteria_ms": 3997.899999976158,
+            "current_criteria_unavailable_reason": null,
+            "feedback_basis": "visible-status",
+            "feedback_ms": 128.5,
+            "feedback_unavailable_reason": null,
+            "retirement_ms": null,
+            "retirement_relative_to_ack_ms": null,
+            "retirement_unavailable_reason": "Profile criteria hidden at trigger; no visible retirement latency",
+            "visible_current_criteria_ms": null,
+            "visible_current_unavailable_reason": "Current criteria not observed in visible viewport"
+          }
+        }
+      ],
+      "warm": {
+        "max": 124.79999995231628,
+        "median": 119.34999996423721,
+        "misses": 16,
+        "n": 20,
+        "p95_nearest_rank": 124.70000004768372,
+        "target": 100
+      },
+      "warm_new_jobs_and_allocations": 0
+    }
+  },
+  "profile_and_property_workflow_misses": 149,
+  "profile_require_cold_flags": {
+    "chromium": false,
+    "mobile-chromium": false
+  },
+  "reviewed_utc": "2026-11-20T14:41:12.710652+00:00",
+  "sampled_memory": {
+    ".issue-11-evidence/issue159-performance/chromium-0f19b46c-6863-481b-9c49-80cef6046b73": {
+      "max_individual_child_rss_bytes": 119623680,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 92732,
+        "ligand_property_bindings": 52,
+        "ligand_property_consumers": 6,
+        "ligand_property_content": 49,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 62
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212271104
+      }
+    },
+    ".issue-11-evidence/issue159-performance/chromium-54696c86-b55e-4cea-9bd1-935195d63dd0": {
+      "max_individual_child_rss_bytes": 115650560,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 94611,
+        "ligand_property_bindings": 53,
+        "ligand_property_consumers": 6,
+        "ligand_property_content": 50,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 63
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212271104
+      }
+    },
+    ".issue-11-evidence/issue159-performance/chromium-87ceaf21-c598-446f-adda-69a9548c1152": {
+      "max_individual_child_rss_bytes": 116731904,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 98436,
+        "ligand_property_bindings": 1054,
+        "ligand_property_consumers": 9,
+        "ligand_property_content": 52,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 66
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212271104
+      }
+    },
+    ".issue-11-evidence/issue159-performance/chromium-d9f2548c-c72e-44d0-a431-04475680c416": {
+      "max_individual_child_rss_bytes": 117653504,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 1982396,
+        "ligand_property_bindings": 2055,
+        "ligand_property_consumers": 11,
+        "ligand_property_content": 1054,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 1068
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212271104
+      }
+    },
+    ".issue-11-evidence/issue159-performance/mobile-chromium-3e528211-c9d9-4fa6-8449-2d51650599ae": {
+      "max_individual_child_rss_bytes": 119824384,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 2069118,
+        "ligand_property_bindings": 2128,
+        "ligand_property_consumers": 5,
+        "ligand_property_content": 1100,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 1120
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212422656
+      }
+    },
+    ".issue-11-evidence/issue159-performance/mobile-chromium-4cf6af28-885b-4eba-b73b-ea4aa5b23320": {
+      "max_individual_child_rss_bytes": 117575680,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 2074824,
+        "ligand_property_bindings": 3130,
+        "ligand_property_consumers": 9,
+        "ligand_property_content": 1103,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 1124
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212422656
+      }
+    },
+    ".issue-11-evidence/issue159-performance/mobile-chromium-78140241-59b7-40f9-9a56-c0bcbb3a83bf": {
+      "max_individual_child_rss_bytes": 117645312,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 2145595,
+        "ligand_property_bindings": 4131,
+        "ligand_property_consumers": 11,
+        "ligand_property_content": 1105,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 2126
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212422656
+      }
+    },
+    ".issue-11-evidence/issue159-performance/mobile-chromium-bd497d4b-5c28-4c55-aba2-7d73859cce4f": {
+      "max_individual_child_rss_bytes": 114778112,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 2070999,
+        "ligand_property_bindings": 2129,
+        "ligand_property_consumers": 5,
+        "ligand_property_content": 1101,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 1121
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212422656
+      }
+    },
+    ".issue-11-evidence/issue160-profile-performance/chromium-e573b112-cee3-46ac-83a1-c153498d42bb": {
+      "max_individual_child_rss_bytes": 119623680,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 10622,
+        "ligand_property_bindings": 12,
+        "ligand_property_consumers": 3,
+        "ligand_property_content": 9,
+        "ligand_property_executions": 17,
+        "ligand_property_proofs": 13
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 200327168
+      }
+    },
+    ".issue-11-evidence/issue160-profile-performance/mobile-chromium-296287d1-3ff8-4b69-962c-98377ed091ed": {
+      "max_individual_child_rss_bytes": 119758848,
+      "max_running_property_jobs": 1,
+      "retained": {
+        "content_bytes": 1991272,
+        "ligand_property_bindings": 2088,
+        "ligand_property_consumers": 2,
+        "ligand_property_content": 1062,
+        "ligand_property_executions": 32,
+        "ligand_property_proofs": 1082
+      },
+      "worker_parent_sampled_rss_bytes": {
+        "795085": 212422656
+      }
+    }
+  },
+  "schema": "candidate5-native-companion-independent-audit-v1",
+  "scope": "Bounded read-only audit of native performance evidence and exact external-case bindings; not final seven-role application approval",
+  "verdict": "PASS",
+  "worker_source_map_count": 815
+}

@@ -1066,3 +1066,49 @@ and portable packet bind the exact working source, controlled red cases, origina
 typing failures, corrected web/tool checks, unchanged native cases, complete focused
 store/raw copies and both typed local forensic receipts. They are scoped evidence,
 not completion of the next full campaign or permission to bypass final review.
+
+### C4 — Corrected complete candidate5, 2026-11-20
+
+Frozen `98a0676df791d914b759aad3c1b3f6d9a1d099b1` completes all 43 commands with
+actual runner and enclosing tool exit 0. Strict summary and independent readback
+pass: 4,157 Python / zero skips, 1,879 frontend, 14 supervisor, 585 browser passes
+and the exact 75 preceding-release exclusions across 660 observed cases, with
+zero failures, flakes, retries or new exclusions. All 1,183 current / 1,133 actual
+preceding Git/disk bodies, DATA3, 43 lossless logs, 44 offline reports and actual
+producer/readers remain exact. No scientific method, fixture, deadline, workload,
+schema, dependency or gate command changed after the frozen candidate.
+
+Positive closure precedes all 136 original/raw pairs, 105,083,496 bytes each side.
+The retention guard explicitly excludes four exactly pinned preprogram desktop
+instances from environment inspection; unknown denials refuse. D-207 records the
+ownership model, limitations, six negative controls and pre/post proof binding.
+An actual bounded architecture assessment passes the corrected ignored collector.
+The original browser body is retained before the unchanged strict summary's lossless
+gzip transformation. No primary diagnostic SQL is performed.
+
+Five verified ignored parts total 239,194,221 bytes, all strictly below 80 MiB.
+Independent SHA/CRC, recursive/wrapped checks and exact disjoint unions verify
+2,555 gate, 7,015 retained-state and 746 external-case payloads, including inventory
+and context bodies. All ten unique native-linked case trees retain 744 original
+files / 86,479,039 bytes. Complete run/store/trace/execution/raw/tooling bodies remain;
+734 original native files move into separate ignored retention only after verified
+byte- and inode-preserving capture. Reuse these immutable gate parts rather than
+recapturing from the former native path.
+
+The [checkpoint](../assets/ligand-profiles/c4-candidate5-records/checkpoint.json)
+binds receipts, identities, transformations and the independent performance audit.
+Candidate5 has 30 profile, 119 inherited-property and one minimization portable
+target miss (150 workflow observations); four deliberate policy examples are
+separate. Hidden retirement stays null, automatic readiness differs from later
+presentation, and no strict-host, physical-device, speedup, universal-capacity or
+simultaneous-memory claim is supported. Historical candidate4 and failed master1
+remain distinct.
+
+Commit only evidence/docs with all selected source bodies equal to this qualified
+candidate, then obtain all seven actual same-final-candidate assessments over the
+whole feature and correction before push. Normal corrective PR/merge and fresh
+actual `c4-master2` qualification remain mandatory. The main release must explicitly
+retain current and historical C4 records/case/state companions and both small
+forensic indexes; upload all 17 large forensic parts and checksum sidecars separately.
+Verify the complete public asset inventory anonymously before child closeout.
+No v0.38.0 publication, child completion or parent completion is claimed here.

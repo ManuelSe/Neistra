@@ -1,0 +1,12 @@
+{
+  "from": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-native",
+  "to": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-retained-original-native1",
+  "files": 734,
+  "raw_bytes": 107703541,
+  "byte_SHA256_and_inode_identity_preserved": true,
+  "performed_after_actual_collector0_and_independent_complete_archive_union_verification": true,
+  "complete_native_bodies_retained_in_canonical_gate_parts": true,
+  "input_execution_run_and_external_case_trees_unchanged": true,
+  "original_bodies_deleted": false,
+  "transformation": "Rename untracked original native directory into separate ignored retention; no subsequent canonical gate recapture from old path allowed"
+}

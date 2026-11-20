@@ -10062,3 +10062,24 @@ index and the combined release inventory before closeout. Preserve containment:
 old parts may be verified under their original owned root, and new parts under the
 corrective root; do not relax bounds or introduce symlinks. Neither forensic index
 qualifies its failed campaign or permits tagging an unqualified merged commit.
+
+### D-207 — Record narrowly identified noncampaign process exceptions
+
+The candidate5 retention guard encountered four same-user desktop service instances
+whose process environments deny inspection. Do not ignore unknown unreadable
+processes or disturb unrelated services. For these four instances only, pin boot ID,
+PID, UID, start ticks, PPID, SID, command-line identity and cgroup. Convert boot time
+and clock ticks to verify that they predate the parent program. Always check runner
+PID, owned session and readable campaign tokens before considering an exception.
+Allow only an environment permission denial for an exact pinned instance; identity
+drift, unknown denials and unreadable identity fields refuse. Recheck before and
+after capture, hash the exact proof bytes parsed, require unchanged proof identity,
+retain the literal proof/tooling and persist both closure receipts.
+
+This is an explicit operational ownership exception for four preprogram desktop
+instances, not proof of their unseen environment contents. Report the exempted
+inspections and limitation. Focused negative controls reject altered boot, identity,
+age, unknown denied instances, owned runner PID and between-pass proof changes;
+the session check is additionally source-reviewed. Positive capture and independent
+archive readback follow those controls. No primary diagnostic SQL or qualification
+command change is introduced. Application sources and acceptance remain unchanged.

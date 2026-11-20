@@ -1,0 +1,876 @@
+{
+  "recorded_utc": "2026-11-20T14:26:20.496570+00:00",
+  "runner_exit_code": 0,
+  "positive_closed": true,
+  "live_owned_pids": [],
+  "observed_step_session_ids": [
+    779633,
+    779662,
+    779667,
+    779687,
+    779692,
+    779699,
+    779704,
+    779737,
+    779748,
+    779762,
+    791590,
+    791650,
+    791685,
+    794817,
+    794879,
+    794993,
+    795029,
+    841627,
+    841671,
+    841673,
+    841707,
+    841709,
+    841724,
+    841727,
+    841740,
+    841775,
+    841787,
+    841799,
+    841801,
+    841842,
+    841847,
+    841918,
+    841971,
+    842049,
+    842143,
+    842145,
+    842149,
+    842154,
+    842165,
+    842171,
+    842180,
+    842187,
+    843369,
+    844406
+  ],
+  "ports_closed": {
+    "8340": true,
+    "8341": true,
+    "5423": true
+  },
+  "primary_diagnostic_sql_before_copy": false,
+  "files": [
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-current/molweave.db",
+      "bytes": 741376,
+      "sha256": "77bf57feef2b7972b702076459aa4f8c67233f506920e01c581c44d9795fc088"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "0e737c64cf99303327edca49d0d0c118551195af341497d2ccb460270654552f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-current/molweave.db-wal",
+      "bytes": 4120032,
+      "sha256": "feab590ba1424aa884f80a2d8f0d4b737b0b7e306f8f89458482d18ec2179591"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous/molweave.db",
+      "bytes": 376832,
+      "sha256": "e31675e94f96a09332f19dfc2f8375c765b4f3f2a97410e6f704f8b8fc7ca93e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "32eb378bc5220458e17f62f8e58d6665194e258be47a59b2b5ae6eedc6dafb01"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous/molweave.db-wal",
+      "bytes": 3378432,
+      "sha256": "09a698707f2f1581c6f2861ca0cae5502bd3ddcd16da8e46b675f88fce5d995c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous-read-current/molweave.db",
+      "bytes": 741376,
+      "sha256": "344ff6272057083a9377f5e8e4293f74bf74da176d7655c618e736b985e5a42d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "c8fe264d604427c6de96f369ea98e074c8aeba68c81da2b65b05d0bccacfaeed"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/connectivity-previous-read-current/molweave.db-wal",
+      "bytes": 4120032,
+      "sha256": "aac4c7162c498728121685647e00d7872ef1140cf75a78acc6c052678de3846e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/database/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/database/molweave.db",
+      "bytes": 245760,
+      "sha256": "9f3e2362572ef6fd6cc1a3928abd930b22526fd6c63fa0e9a6c6d49c51cb1360"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/e2e/neistra.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/e2e/neistra.db",
+      "bytes": 51208192,
+      "sha256": "9d3b25a917cf8bc36d209b1750b8a086d48c877f7d0185b653c80660c3062166"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/e2e/neistra.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/e2e/neistra.db-shm",
+      "bytes": 32768,
+      "sha256": "8f886a0f87d19d5949c63270a1a77d0e17630fb5cd9a7fd6e5ead1c3e7685666"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/e2e/neistra.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/e2e/neistra.db-wal",
+      "bytes": 5298352,
+      "sha256": "de570ce122b700c3a42418d0f98682783a412b04a722563300990eb9da55f925"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-produced/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-produced/molweave.db",
+      "bytes": 245760,
+      "sha256": "200cdf885314f516f75710b3b662bf384d4564f6c8c48a76749efbaf782477eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-produced/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-produced/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "0fb7e434b10ab601a43115aef96d72b699198729bfbe1ae5bee91d90c658b73e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-produced/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-produced/molweave.db-wal",
+      "bytes": 2607992,
+      "sha256": "1d69378b3ff09751182ffb90637321f33e78b84d72150d4e9e49d39ac823b413"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-old-reexports/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db",
+      "bytes": 2990080,
+      "sha256": "26dffbae1bf83599b89854b932ebcb792925c9e50081934f06e70b9c52b7aaac"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-old-reexports/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-old-reexports/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-previous/molweave.db",
+      "bytes": 1417216,
+      "sha256": "f8d2a638d9ade31eca3e75433f11cc0e45f02940a5f129e67d5a982b806c4071"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-previous/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-previous/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/current-read-previous/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/current-read-previous/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-produced/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-produced/molweave.db",
+      "bytes": 245760,
+      "sha256": "200cdf885314f516f75710b3b662bf384d4564f6c8c48a76749efbaf782477eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-produced/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-produced/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "7167a7aed4d13ec2bce451f959ee323722467c90f23fb900ca927276db175ffc"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-produced/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-produced/molweave.db-wal",
+      "bytes": 2607992,
+      "sha256": "2aa1b4553dcb5a7df420a3453ee81348cfbbd2557d0b7066bb1ecb1b97da9ef0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-retained/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-retained/molweave.db",
+      "bytes": 1417216,
+      "sha256": "6366531f570365467bfa94684f709462f919956981548df496e9f68486bb734c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-retained/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-retained/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/editing-readers/previous-retained/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/editing-readers/previous-retained/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/measurements-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/measurements-current/molweave.db",
+      "bytes": 319488,
+      "sha256": "9a1ff71f486182ca7e32c5ba4a05d0e8de1ca16c3a272c080c39ef71ebca31da"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/measurements-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/measurements-previous/molweave.db",
+      "bytes": 319488,
+      "sha256": "1a113db8c101216c6fcda706e62a236cd7dbc5464b7ee7fcd0d6c6e6eac74c41"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/measurements-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/measurements-previous-read-current/molweave.db",
+      "bytes": 262144,
+      "sha256": "bf3eb969017462d037787fc5ca1e1b875bdd105b7ec2be6b2adf98dbd1f34cb8"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/measurements-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/measurements-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "dd52d251feddefbc18bcc09a7f306b82c0748cb017b8f2c4fafbdd8db5c81031"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/measurements-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/measurements-previous-read-current/molweave.db-wal",
+      "bytes": 234872,
+      "sha256": "76ee7a5aca2bf932e925e2d258aad49ec741121cfd23d97494de6f30958df153"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "2406e7d4133b81eda0e78cea896019c9948428e4a13dcf22aa8b74991b862dce"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "d38629fc89f663f61aafdd6f1b1e073ed995cba51f13a06e11eaae605bf51845"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "3c0c24f077bfc1205e836c2d105f5b9cbf3e18c678a966007ba93aa37f86bcfe"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "18410d892037dd332eebd2da2a0efbf92d985798be0471bedab4eec485efd9cb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "2653342f558dd9e262ffb3818057772d0d05639fe855a1d858ca389ca02e7b63"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "097e74ce56b07750ff0b5a4501fe55ba3de8947632f4d6485dcbb0dc7d8c0633"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "b1400bb9dc02024ab7a0928592d5099cfcb8611d25f7347e04105e2c23816fa1"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "043466aa9c02051e557396dd018a463e6ef18cd476a92658cdf7f31712782f1e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "d401302f95eee965753468aedc08b7e2c654b91b353e9f52185c2781bcfc5a83"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "2a0a139b6a26c15e0a2f3454d583b41e3e93dc60d3cdca8fdba84f5655546194"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "be730a9308d2c5885ea8aa9fe294858492ed27f9d2565ba7239d2391d9846f10"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "0d5e0d2c329c0810173ec82b0612ac92d15699c92d0a6adfbaff2959f7675918"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "9f5ffcdc6a1d4a2e31c12c40b8de01ef8ba05a4d129c85e15c69c4d2c8d8990c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "9703c06b8fb030f8af00916dcfe9967fe99678798a0741574553b6a37b5185b3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "8d5653243ca94e3df183232c8fa96ce76520b5991e08a1a078946c0d1580f974"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "f7d18b3e5ca198f0f29889fd2ee4c06c65a2b546a468cbcd3dd11c7a777414f3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "54957a26baf264baa41be85f32e0dbdacd4e2a2c1f04246de1d491ec2798aa42"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "a5bd48c5a7fbc287dde3c4a274279f20e9fa6081e0b88ae61190b00f9b6125ec"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "bytes": 253952,
+      "sha256": "fde4c91711ea141dfc5f0d5533e2b7e1523337aa2291e01765597837fdd21cb0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "57c6f453a6b97fd3ca2b389d626366e31d93e2bf09d9babf55dcf84663e31c8e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "26d4169dd03ff1d9aa6e554bf13456f5db4ed217b72890a2d9c330f0359a791c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "6148ec7129af000442466240dae59c18c861861997da180446d84998383a41ee"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "bab1bb8975f5843c80efd640abfc029d65adb3a8727473a5a3f13c1caa713fa3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "091c2cfeb87bb32cdcb17478c5d6d22e81b9d1a890c7cd4cda69642deaf0e550"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "6a4c71bfaedc140bdf98a36b727b87a28eafd7b8cc954586c6206684a45b37c5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "dd9f95d7e23306dabb1d0d633ebedeeea9d17357c4b7ccdbfc4098078aa3011d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "de17e49303389bdb2232622f60eb95a389cec9cf800a372997e900bfd76bb76d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "0d5da9f4006637d5fa92bde10c263bd9db9d28a5e5e812aa6ea83463ea93a0e0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "b4751da0b452757b6c4d3005186104b4058b12abe6896393b17d5643f404b6fd"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "a8f3b176e03dd330436b1c70ffccaf46bd8c09847ac3d4e7988c14420cd27fcc"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "6a6d797b3796f848bfa25d0a9e7eac18457d4c51eccede30f99fb8a0087a86f5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "7ac44068a6175370cd0c473c0e1bcc4df9d11e9911fd34b68784ddf78d234ef1"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "16e0b8448a3da92abaf8ee612a0bcb3462236cb233a378667eded8a328d1531d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "f39fdf1406716acabd16d5c42e3d2faae2e985bd17a26dd51ee3d55f6b107c9e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "b714fd8e4c0156e36dfed8632858124a360324c6d78c69c231d4fecc137de14b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "bf8f0ec9284bb693f210a7a58e3548a03c25b9b420b6ea16d314581e1247f8c8"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "2cdad526b8a52289e0f81d68c8aac9faf1057d993d2749489f37d8fdee4c6f81"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "59cfb74e94c76a5b041ae6645512e4dfebfe845814a799ec0d834effabb921b9"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "bytes": 249856,
+      "sha256": "82f428253ebb73909fba790a3e1c5321980f3494f18aca555dbd838c8cc4a785"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "69b26332a45d203033798b32363c8be2525e3724f38f0c0f0d1cea0f33b50849"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "89ddfb92b1b90ba9c4f053d999288f4aacad01b2175e0ab83c6c3935dbce7971"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "7ff1629f4528cf3fe2e8e21e4c6bb534270c7ab76671288b182dbc9427305375"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "4374d3e4aa99921be7999fc4077ab19619557a69439919504e5c1a6075481178"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "b9855484688001875db40d512e082dcda7885e331dd6a8cecbcf8e985ae09480"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/cancelled/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db",
+      "bytes": 417792,
+      "sha256": "62a3c1cd384f8640ff2bd94945efab110cbf1d440ad99115440d934f980e39e0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/cancelled/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/cancelled/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/captured/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db",
+      "bytes": 417792,
+      "sha256": "6d0bd80d1ff068b10550b0d277bf29e6e4e9e954904b8e2b8225ced310c6205b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/captured/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/captured/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/completed/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db",
+      "bytes": 413696,
+      "sha256": "92f5692d25ecae518c6954df7a5836c35d59389fe42b14144bac72ae4f2ddc78"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/completed/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/completed/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/corrupt/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db",
+      "bytes": 417792,
+      "sha256": "49c45f17bf8173ededdf6904bade5f2220b845e2a3ab3dc2cbfc9ddf128682a4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/corrupt/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/corrupt/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/forged/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db",
+      "bytes": 417792,
+      "sha256": "489c0d6ad3c0484b29b6e58a4ad440314333bbe040af7001ef90ec033f86baea"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/forged/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/forged/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/pending/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db",
+      "bytes": 413696,
+      "sha256": "d80a5c3e7848b15a0a4b30a1f47e33ef3c7fefc1d744768508862a45b8e3404c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/pending/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/pending/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/project-deleted/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db",
+      "bytes": 409600,
+      "sha256": "6bcc1ac531cc3859e5e5dc618e3fadb57ac6c5568ae3d2f1c58fe359de01a84f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/project-deleted/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/project-deleted/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/stale/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db",
+      "bytes": 430080,
+      "sha256": "c28010fe21b398ca1b0956a468edada7f64dda01cd4b9493ec60861a67d1548a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/stale/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/stale/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/started/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db",
+      "bytes": 417792,
+      "sha256": "fea712eaaa10c97603beb6d8b26bee78f40c291e0e16e92e5be613e3665867cd"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/started/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/current/cases/started/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/cancelled/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db",
+      "bytes": 417792,
+      "sha256": "dc5051231ea5e2583d87e5dfab46221d18ff564d65f30c2565d7df50195de332"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/cancelled/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/cancelled/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/captured/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db",
+      "bytes": 417792,
+      "sha256": "d56e1da194bddf3eb39c69f211e3fec8ebb38145d5d33ad88f6b11cbff596148"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/captured/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/captured/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/completed/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db",
+      "bytes": 413696,
+      "sha256": "5e250c30a0ebe5fec067143954fa25ff563f887c15308e96bddd06c680456b4d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/completed/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/completed/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/corrupt/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db",
+      "bytes": 417792,
+      "sha256": "526da5c77cb0391e35d7128f99a57760dfd241d418038d52f75b0289748a460f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/corrupt/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/corrupt/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/forged/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db",
+      "bytes": 417792,
+      "sha256": "442748f96cbdf838bb34a516bfb963403695f2908456ffd43cba59de3d53d078"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/forged/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/forged/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/pending/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db",
+      "bytes": 413696,
+      "sha256": "363a1a327b38400f670b7a5f564b6171505589e3363944877da176c8ebe148aa"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/pending/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/pending/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/project-deleted/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db",
+      "bytes": 409600,
+      "sha256": "a18d1a75e23a2928e1824295f246772528f79d04a4f48a137512976a0b8748ae"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/project-deleted/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/project-deleted/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/stale/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db",
+      "bytes": 430080,
+      "sha256": "87c0cd5b1225cf0a409bc81dc917c587245dfc50cad2df912fc54ca6ea6a486f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/stale/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/stale/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/started/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db",
+      "bytes": 417792,
+      "sha256": "6d09a60da09a239f70db3c7d5b6c4d2e5a551f645e577eb5a226b8ec8a5d5871"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/started/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/property-readers/origins/previous/cases/started/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/rich-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/rich-current/molweave.db",
+      "bytes": 745472,
+      "sha256": "3d0055dbbca4ba5c7b18a647fcb7462078b8af8dbafcb9f35b49f2ed4b1ff298"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/rich-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/rich-previous/molweave.db",
+      "bytes": 745472,
+      "sha256": "2c208f76f444ba223ffef81ebd3a21f02aadc592f380ef3e032d2c99b5af97ca"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/rich-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/rich-previous-read-current/molweave.db",
+      "bytes": 458752,
+      "sha256": "1bd89bab2efe85d1fdeab14a0dbb80c4eafd816c0f73ea29d2f510e4c5afa99f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/rich-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/rich-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "1b86406f737e49e1e696593e7e30451b55bd66b8f8cbdda64f1a41ce2a3f4b32"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate5/rich-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/closed-raw/rich-previous-read-current/molweave.db-wal",
+      "bytes": 898192,
+      "sha256": "2c903345ba556d1aa4fb651008136aaea8fafc8bfdead467eab4868b659b455a"
+    }
+  ]
+}

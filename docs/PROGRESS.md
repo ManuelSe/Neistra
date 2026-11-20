@@ -6,7 +6,8 @@ Parent #11 remains active through verified delivery of #156–#163. #156–#159 
 released and closed. PR #180 merged #160 as `b170d1cc`, but its fresh complete
 merged campaign failed in chooser opening before SVG recovery. Release is withheld.
 The owned `fix/issue-160-mobile-panel-focus` branch corrects the controlled opening
-focus race; full candidate/merged qualification and final review remain required.
+focus race. Fresh candidate5 passes all 43 commands; final review, corrective merge
+and fresh actual-merged qualification remain required.
 #161 is preparatory, and #162/#163 remain planned and unimplemented.
 
 ## Completed work
@@ -51,16 +52,29 @@ raw bytes, including all 12,739 native files, complete owned stores, execution/r
 receipts and historical current/preceding source bodies. Originals remain in place.
 Anonymous verification and all final release assets remain pending.
 
-The [correction checkpoint](assets/ligand-profiles/c3-c4-master1-correction-checkpoint.json)
-retains the exact scoped evidence and source identities, including earlier failed
-checks and their corrections. Full candidate and merged qualification remain pending.
+Fresh candidate5 at `98a0676d` passes 4,157 Python cases with zero skips, 1,879
+frontend, 14 supervisor and 585 browser cases plus the exact 75 released exclusions
+across 660 cases. All 43 logs, 1,183 current / 1,133 preceding source bodies, DATA3,
+44 offline reports and actual readers verify. Positive closure precedes 136 raw
+pairs, 105,083,496 bytes per side. Four pinned preprogram desktop instances have
+explicitly exempted denied environment inspections (D-207); unknown denials refuse.
+
+Independent readback verifies five parts totaling 239,194,221 bytes, each below
+80 MiB: exact gate/state/case unions of 2,555 / 7,015 / 746 payloads, including
+inventories and contexts. All ten native-linked case trees retain 744 original
+bodies. The original browser JSON is retained before its lossless compression;
+734 native originals move into ignored retention only after verified capture.
+The [candidate5 checkpoint](assets/ligand-profiles/c4-candidate5-records/checkpoint.json)
+keeps prior failures distinct and binds the actual evidence. Final seven-role
+assessments and fresh actual-merged qualification remain pending.
 
 ## Known limitations
 
-D-148 portable timing enforcement remains. Candidate4 records 31 profile and 120
-inherited-property target misses; four policy examples are separate. Hidden
-retirement is null. No strict-host, speedup, physical-device, universal-capacity or
-simultaneous/GPU-memory claim is supported. New campaign results must stay separate.
+D-148 portable timing enforcement remains. Candidate5 records 30 profile, 119
+inherited-property and one minimization target miss: 150 workflow observations;
+four policy examples are separate. Candidate4's earlier results remain historical.
+Hidden retirement is null. No strict-host, speedup, physical-device, universal-capacity
+or simultaneous/GPU-memory claim is supported.
 
 #161 still requires actual released #160, the public baseline, full current native
 acceptance, measurements, compatibility and complete gates. Parent exclusions,
@@ -74,8 +88,8 @@ originals, other sessions and the user's dirty master.
 
 ## Next action
 
-Commit the passing correction and complete forensic checkpoint, then run fresh
-`c4-candidate5`. Obtain seven final same-candidate assessments before normal
+Commit the candidate5 evidence checkpoint, retaining all selected source bodies
+exactly. Obtain seven final same-candidate assessments before normal
 corrective PR/merge. Run fresh `c4-master2` on the actual resulting merge in its
 separate owned checkout before immutable tag/release, anonymous asset verification
 and child closeout. Continue #161–#163 and verified parent closeout under one Goal.
