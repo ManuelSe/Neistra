@@ -3,9 +3,10 @@
 ## Current milestone
 
 Parent #11 remains active through verified delivery of required #156–#163.
-#156–#159 are released and closed. #160's fresh complete campaign4 is running
-at `da6dc220`, with 4,138 Python and 1,875 frontend passes; its browser suite has
-passed the earlier stopping point. No complete gate or v0.38.0 publication is claimed.
+#156–#159 are released and closed. #160's candidate4 passes all 43 commands,
+including 4,138 Python, 1,875 frontend and 585 browser cases with exactly 75
+unchanged exclusions. PR #180 normally merged as `b170d1cc`; its fresh complete
+merged-commit campaign is running. No v0.38.0 publication is claimed.
 This checkout is #161's reversible local prerequisite integration, combining
 prepared `a6f48892` with explicitly unreleased #160 `b14670a0`. Actual released
 #160 integration remains required before final #161 gates or publication.
@@ -138,8 +139,7 @@ parent exclusions remain outside scope.
 The isolated real-component probe confirms clipped Collapse controls at minimum
 Inspector widths around 841–1000px desktop viewports, including after Tab focus.
 UI/UX consultation accepts a scoped shrinkable heading/nonshrinking action fix.
-Corrected component and actual App/resizer verification remain outstanding; this
-probe does not qualify full application resizing. The scoped header correction now
+That original probe does not qualify full application resizing. The scoped header correction now
 passes the identical sixteen isolated view/theme/width cases: both 44px actions
 are contained, hittable and keyboard reachable, with full accessible heading names,
 tooltips, visible focus and one callback per activation. All 382 frontend bodies
@@ -152,14 +152,24 @@ Two pre-existing unnecessary type assertions were removed after the scoped lint
 reported them; complete emitted JavaScript remains identical for that cleanup.
 Existing native assertions/deadlines/exclusions remain. A new actual-App regression
 case exercises the real keyboard divider, full header geometry, view switching and
-Collapse/Expand in sixteen scenarios per runner. Its two declared instances raise
-the source inventory to 700; the existing 36-case sidebar campaign plus these two
-cases require actual execution. Serial cold-workload order still verifies in the
+Collapse/Expand in sixteen scenarios per runner. Both instances now pass on clean
+`0311247d`, with 32 geometry scenarios and 32 PNG attachments. Each runner deliberately
+uses a desktop context; this is not mobile-header or performance qualification.
+All 1,208 captured sources remain unchanged, owned processes/ports close, and three
+original/raw database pairs verify before primary diagnostic SQL. The full current
+38-case acceptance campaign remains required after actual released #160 integration.
+The source inventory remains 700. Serial cold-workload order still verifies in the
 server-free inventory. All seven specialists reconfirm PASS for this correction's
 whole preparatory source. The
 [header checkpoint](assets/ligand-information/c3-minimum-inspector-header-checkpoint.json)
 retains the original defect, corrected probe, validation and exact reviewed subject;
 none of these results establishes full feature readiness.
+
+The focused [real-App header checkpoint](assets/ligand-information/c3-minimum-inspector-native-checkpoint.json)
+retains the native report, source capsule, geometry, images, complete owned store,
+closed raw copies and independent readback. Earlier isolated probes and failures
+remain separate. This preparation does not replace the complete current native,
+measurement, compatibility, candidate or actual-merged qualification campaigns.
 
 ## Blockers
 

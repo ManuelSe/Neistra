@@ -777,3 +777,39 @@ specialists reconfirm PASS for this preparatory subject; their exact reviewed
 sources and evidence are retained in the
 [header checkpoint](../assets/ligand-information/c3-minimum-inspector-header-checkpoint.json).
 Actual App/native/measurement/release gates and final feature review remain required.
+
+### C3 — Actual minimum-width header regression, 2026-11-20
+
+The clean preparatory `0311247d` source now passes both newly declared real-App
+header instances in `issue161-header-native7`: 32 width/theme/starting-view
+scenarios and 32 PNG attachments, with no failure, skip, retry or report error.
+Each runner deliberately creates a desktop context to exercise the desktop
+resizer; the runner named mobile does not make this mobile-header qualification.
+The ordinary keyboard divider changes the expanded size from 22 to 17, and the
+test checks both complete 44px hit areas, focus outlines, full accessible headings,
+Tab/Enter view switching, Collapse/Expand and restored minimum size. PNG captures
+occur after view switching; their names identify the starting view. Entry identity,
+designation, project revision, current artifacts and original bytes remain equal.
+
+All 1,208 available selected source bodies, including the six sidebar qualification
+helpers, remain identical before/after execution. The complete source capsule,
+native report and body hashes are retained. Positive owned process/port closure
+precedes three verified raw DB/WAL/SHM copies; no primary diagnostic SQL is used.
+The small correctness run used separate ports/stores while #160's actual-merged
+campaign was in its Python suite and closed before its browser phase. Neither run
+claims an exclusive timing host or a speedup from this overlap.
+
+Independent focused UI and UX assessments PASS after inspecting the actual report,
+source capsule, geometry, images and raw-copy evidence. No consequential finding
+remains within this checkpoint. The test explicitly focuses Expand after collapse,
+so it does not establish automatic focus handoff at that boundary. These focused
+assessments do not replace the final same-candidate seven-role feature review.
+
+The [native checkpoint](../assets/ligand-information/c3-minimum-inspector-native-checkpoint.json)
+and packet retain all original execution evidence and the complete owned store.
+The original isolated clipping reproduction and corrected component probes remain
+unchanged in their earlier checkpoint. This focused result does not establish
+the complete 38-case campaign or final feature readiness. Actual released #160
+integration/public baseline, consistent 0.39.0 preparation, primary and inherited
+measurements, compatibility, complete candidate/merged gates and seven final
+same-candidate assessments remain mandatory.
