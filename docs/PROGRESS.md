@@ -117,7 +117,7 @@ The bounded correction keeps the request exact, accepts complete superset covera
 checks unique rows and validates only requested ready/finite values. Seventeen
 source-extracted controls, original/candidate strict typing and scoped lint pass;
 the original actual eight-descriptor report refusal and first lint-wrapper failure
-remain retained. All seven specialists now PASS the whole preparatory source,
+remain retained. At `f2465cf6`, all seven specialists PASS the whole preparatory source,
 including the corrected access oracle and its documentation. This resolves the
 source finding; actual native execution and final feature qualification remain
 pending. The [correction checkpoint](assets/ligand-information/c3-cached-report-coverage-checkpoint.json)
@@ -135,9 +135,31 @@ The failed 36-case campaign is not a current complete PASS. Actual primary-view
 measurements, runtime qualification of the reconciled benchmark navigation and
 prior failed-run publication remain outstanding. #153 diagram delivery and all other
 parent exclusions remain outside scope.
-Actual minimum-resized Inspector geometry around 841–1000px desktop widths also
-needs qualification after the UI source review identified an unconfirmed clipping
-risk. No speculative styling change or reproduced defect is claimed.
+The isolated real-component probe confirms clipped Collapse controls at minimum
+Inspector widths around 841–1000px desktop viewports, including after Tab focus.
+UI/UX consultation accepts a scoped shrinkable heading/nonshrinking action fix.
+Corrected component and actual App/resizer verification remain outstanding; this
+probe does not qualify full application resizing. The scoped header correction now
+passes the identical sixteen isolated view/theme/width cases: both 44px actions
+are contained, hittable and keyboard reachable, with full accessible heading names,
+tooltips, visible focus and one callback per activation. All 382 frontend bodies
+stay fixed within that run; exactly two production paths differ from the original.
+Both browsers/process sets are positively closed, with no network requests.
+
+Fresh correction verification passes all 2,023 frontend cases, web lint, types and
+production build. Both native access files pass strict typing and scoped lint.
+Two pre-existing unnecessary type assertions were removed after the scoped lint
+reported them; complete emitted JavaScript remains identical for that cleanup.
+Existing native assertions/deadlines/exclusions remain. A new actual-App regression
+case exercises the real keyboard divider, full header geometry, view switching and
+Collapse/Expand in sixteen scenarios per runner. Its two declared instances raise
+the source inventory to 700; the existing 36-case sidebar campaign plus these two
+cases require actual execution. Serial cold-workload order still verifies in the
+server-free inventory. All seven specialists reconfirm PASS for this correction's
+whole preparatory source. The
+[header checkpoint](assets/ligand-information/c3-minimum-inspector-header-checkpoint.json)
+retains the original defect, corrected probe, validation and exact reviewed subject;
+none of these results establishes full feature readiness.
 
 ## Blockers
 

@@ -1,0 +1,79 @@
+{
+  "recorded_utc": "2026-11-20T08:58:20.478358+00:00",
+  "stage": "C3 minimum-Inspector header correction checkpoint; not finished application feature or verified release",
+  "candidate_base": "f2465cf62783d90a903957bdd2e850000f47e757",
+  "reviewed_working_subject": {
+    "apps/web/src/components/ProjectInspector.tsx": "a61dcaec55ade991c9383967c31de715172d27b57cb0c643e853b6741cfbdc56",
+    "apps/web/src/styles.css": "7eca5267957ce385c867188894fe87167b5cb1bbfafd69a6de048ae7ecaedf87",
+    "docs/PROGRESS.md": "b0d2a104a047126708627f38b282949db02cf6add3e6926b60fa1b2d36dd04bc",
+    "docs/plans/issue-161-ligand-information-sidebar.md": "185bab511f2b70de4283dc98b6aed1666506055090526a7709f7a938f8690863",
+    "tests/e2e/ligand-information-access.spec.ts": "a87827bf06b96417a78b71fdd51b4e5ec5e2cb2c07d21e277af5f7c823b98b06"
+  },
+  "production_delta": "Only headerheadingclass andscopedshrink/ellipsis/nonshrinkingaction styles",
+  "original_reproduction": "Isolatedactualcomponent:10clippedrecords in16scenarios;900px153pxpane Collapsex893..937 outsideviewport, Tabfocusdoesnotrestorehit",
+  "current_component": "Same16casesPASS;both44actionscontained/hittable/fullheadingaccessible/tooltips/focusoutlines/keyboardcallbacks once;382sourcefixed/0network/errors/positiveclosure",
+  "web_validation": "Fresh2023frontend150files/lint/types/buildPASS; all382applicationinputs same afterwards",
+  "native_validation": "Strictoriginal/candidate0diagnostics, scopedlint0; first2unnecessarynonnullerrorsretained andfixed withfullJS-identicalcleanup",
+  "new_native_regression": "RealApp divider/default22\u2192min17;16scenarios/view/theme/widths plusCollapse/Expand/canonical/original invariants;2declaredinstances UNEXECUTED",
+  "declared_inventory": 700,
+  "current_sidebar_acceptance_instances": 38,
+  "cold_workload_order": "Serial1worker inheritedworkloads precedecomplement, server-freeproofretained",
+  "seven_actual_preparatory_source_assessments": {
+    "scientific_theory": {
+      "verdict": "PASS",
+      "agent": "/root/issue161_c3_whole_theory_source"
+    },
+    "scientific_implementation": {
+      "verdict": "PASS",
+      "agent": "/root/issue160_scientific_implementation_6d_review"
+    },
+    "software_architecture": {
+      "verdict": "PASS",
+      "agent": "/root/issue161_c3_whole_architecture_source"
+    },
+    "performance": {
+      "verdict": "PASS",
+      "agent": "/root/issue160_performance_6d_whole_review"
+    },
+    "ui_design": {
+      "verdict": "PASS",
+      "agent": "/root/issue161_c3_whole_ui_source"
+    },
+    "ux_design": {
+      "verdict": "PASS",
+      "agent": "/root/issue161_c3_whole_ux_source"
+    },
+    "modeling_reference": {
+      "verdict": "PASS",
+      "agent": "/root/issue161_c3_whole_reference_source"
+    }
+  },
+  "post_review_documentation_only_delta": {
+    "reason": "Recordreturnedsevenverdicts andlinkcheckpoint; no furtherproduction/testsourcechanges",
+    "current_hashes": {
+      "docs/PROGRESS.md": "f9621ed55d84927f9063d008e649bd1fa45d7fd2da249f119df12cbf26aa06e5",
+      "docs/plans/issue-161-ligand-information-sidebar.md": "1c3d3441f3bcf72afa59bf0e08b47072bbb006198522355269e7c44e8f0cfc99"
+    },
+    "reviewed_document_bodies": "Retained underwhole-source-review/reviewed-subject"
+  },
+  "remaining": [
+    "ActualApp/resizer/newcase not executed",
+    "Existing36+new2 current nativeacceptance pending",
+    "Actualreleased160/038publicbaseline/final039sources absent",
+    "Actualperformance/scientific/compatibility andfullcandidate/mergedgates pending",
+    "All7finalfeatureapproval andnormaldelivery remainpending"
+  ],
+  "final_feature_push_release_readiness": false,
+  "original_probe_status": "Originalmeasurementprocess exit0 capturedthedefect, not apassingaccessibilitycheck",
+  "portable_evidence": {
+    "path": "docs/assets/ligand-information/c3-minimum-inspector-header-evidence.zip",
+    "bytes": 1555019,
+    "sha256": "0a46e33b72396b6c166320d52dc593e980376d815a3d5b50b8e83863fbe66666",
+    "outer_manifest_entries": 117,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 117,
+      "project_archive_files": 0
+    }
+  }
+}

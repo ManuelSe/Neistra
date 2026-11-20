@@ -554,7 +554,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
   return (
     <section className="panel-content project-inspector" aria-label="Project inspector">
       <div className="panel-header inspector-header">
-        <div>
+        <div className="inspector-heading">
           <span className="panel-eyebrow">Inspector</span>
           <h2>
             {view === "ligand" ? "Ligand information" : tab === "selection"

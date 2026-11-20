@@ -728,3 +728,52 @@ retain complete newly owned case companion trees and explicitly include them thr
 the release packager's supplemental-evidence seam. JSON companion inventories alone
 do not retain image, source, preflight or observer bodies. Preserve failed attempts
 and keep large supplemental parts in owned ignored staging under the existing bound.
+
+### C3 minimum-width header correction — reproduced before styling
+
+At `f2465cf6`, an isolated real ProjectInspector/production-style probe reproduces
+clipped Collapse controls in ten of sixteen view/theme/width cases. At a 900px
+desktop viewport, the 17% pane is 153px wide but Collapse spans x893–937, outside
+the viewport. Tab reaches the clipped button. Both views fail at 841/900px; the
+primary view also fails at 1000px; 1440px controls fit. All 382 frontend source
+bodies remain fixed, with zero network requests and positive browser/process
+closure. This reproduces component geometry, not the App's actual resize behavior.
+
+Read-only UI and UX consultation accepts a bounded correction: make an explicit
+noninteractive heading wrapper shrinkable with minimum width zero, ellipsize its
+eyebrow/title, and keep the action group nonshrinking. Preserve the complete heading
+in the DOM/accessibility tree, both 44px actions, labels/tooltips, focus outlines,
+order, callbacks and existing pane constraints. Scope styles to the Inspector;
+do not change global headers or increase header height by wrapping actions.
+
+Repeat the identical sixteen component cases and verify complete button bounds,
+hit tests, keyboard focus/activation and accessible full heading names. Retain the
+original probe and exact source delta. Actual App minimum resizing, full current
+native acceptance, actual released prerequisite integration and final qualification
+remain required. This is a usability correction within the existing resize contract.
+
+The corrected isolated probe passes all sixteen cases, with both 44px controls
+contained/hittable before and after Tab focus, full accessible headings/tooltips,
+visible focus outlines, and actual keyboard view/Collapse callbacks once. The
+original and corrected probes retain their exact 382-source maps and positive
+closure. Exactly the intended component class and scoped styles differ.
+
+Fresh web verification passes 2,023 cases/150 files, lint, types and build. A new
+native access case uses a real desktop context under each runner, the App's ordinary
+keyboard divider step from default22 to expanded minimum17, and sixteen scenarios
+covering four viewport widths, both views and themes. It asserts complete hit areas,
+focus outlines, full headings, keyboard view switching/Collapse/Expand, restored
+minimum size, unchanged canonical entry/designation/revision and original bytes.
+Both new instances are declared in the actual 700-case server-free inventory;
+they have not executed. Full current acceptance is the existing36 plus these2,
+without new exclusions or relaxed deadlines. Cold-order/serial guards still pass.
+
+Scoped native lint first reported two existing unnecessary non-null assertions.
+Their removal changes no emitted JavaScript; retain that initial failure and exact
+compiler equivalence proof. Candidate/original strict native typing and final
+scoped native lint pass. Web checks remain valid on identical production inputs;
+the later native-only cleanup is bound separately. All seven whole-source
+specialists reconfirm PASS for this preparatory subject; their exact reviewed
+sources and evidence are retained in the
+[header checkpoint](../assets/ligand-information/c3-minimum-inspector-header-checkpoint.json).
+Actual App/native/measurement/release gates and final feature review remain required.

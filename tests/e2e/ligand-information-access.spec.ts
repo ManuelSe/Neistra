@@ -140,11 +140,11 @@ for (const theme of ["light", "dark"] as const) test(`keeps the primary publicat
       const payload = body.entries ? route.request().postDataJSON() as PropertyRequest | null : null;
       const wanted = payload?.entries?.[0];
       const exact = wanted && current && JSON.stringify(wanted) === JSON.stringify(current.source)
-        && current.ids.every(id => payload!.descriptor_ids.includes(id));
+        && current.ids.every(id => payload.descriptor_ids.includes(id));
       const ready = exact && body.entries?.find(item => item.status === "ready" && item.report
         && JSON.stringify(item.source) === JSON.stringify(current.source) && current.ids.every(id => item.report!.coverage.includes(id)));
       if (current && !current.delivery && ready) {
-        current.delivery = { path: new URL(route.request().url()).pathname, method, request: payload!, response: body };
+        current.delivery = { path: new URL(route.request().url()).pathname, method, request: payload, response: body };
         current.capture(); await current.held;
       }
       await route.fulfill({ response }); if (current?.delivery?.response === body) current.delivered = true;
@@ -230,4 +230,79 @@ for (const theme of ["light", "dark"] as const) test(`keeps the primary publicat
     expect(await (await request.get(preferencePath)).json()).toEqual(hiddenPreferences);
     await info.attach("primary-visible-access-and-publication-evidence", { contentType: "application/json", body: JSON.stringify(evidence) });
   } finally { gates.forEach(item => item.release()); await context.close(); await rm(directory, { recursive: true, force: true }); await restore(request, originalPreferences); }
+});
+
+test("keeps both Inspector header actions reachable at the actual minimum desktop panel size", async ({ browser, request, baseURL }, info) => {
+  test.setTimeout(180_000);
+  const context = await browser.newContext({ baseURL, viewport: { width: 1440, height: 900 },
+    deviceScaleFactor: 1, isMobile: false, hasTouch: false });
+  const page = await context.newPage(), records = [];
+  try {
+    const project = await prepare(page, request, [{ name: "header-access.smi", mimeType: "chemical/x-daylight-smiles",
+      buffer: Buffer.from("CCO ethanol\n") }], "Minimum Inspector header");
+    const endpoint = `/api/v1/projects/${project.id}`;
+    const before = await (await request.get(endpoint)).json() as Project;
+    const entry = before.entries[0], original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
+    const panel = page.locator('[data-panel-id="inspector-panel"]');
+    const separator = page.getByRole("separator", { name: "Resize inspector", exact: true });
+    await expect(panel).toHaveAttribute("data-panel-size", "22.0");
+    // The real divider's ordinary 10-point keyboard step clamps22 to the expanded
+    // minimum17. Do not inject saved layouts or substitute fixed-width markup.
+    await separator.focus(); await page.keyboard.press("ArrowRight");
+    await expect(panel).toHaveAttribute("data-panel-size", "17.0");
+    const bounds = async (control: Locator) => control.evaluate(node => {
+      const rect = node.getBoundingClientRect(), section = node.closest(".project-inspector")!;
+      const owner = section.getBoundingClientRect(), hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+      const style = getComputedStyle(node);
+      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, width: rect.width, height: rect.height,
+        ownerLeft: Math.max(0, owner.left), ownerRight: Math.min(innerWidth, owner.right),
+        ownerTop: Math.max(0, owner.top), ownerBottom: Math.min(innerHeight, owner.bottom),
+        hit: hit === node || node.contains(hit), focused: document.activeElement === node,
+        outline: { style: style.outlineStyle, width: style.outlineWidth, color: style.outlineColor } };
+    });
+    const reachableHeader = (value: Awaited<ReturnType<typeof bounds>>) => {
+      expect(value.width).toBeGreaterThanOrEqual(44); expect(value.height).toBeGreaterThanOrEqual(44);
+      expect(value.left).toBeGreaterThanOrEqual(value.ownerLeft); expect(value.right).toBeLessThanOrEqual(value.ownerRight);
+      expect(value.top).toBeGreaterThanOrEqual(value.ownerTop); expect(value.bottom).toBeLessThanOrEqual(value.ownerBottom);
+      expect(value.hit).toBe(true);
+    };
+    for (const width of [841, 900, 1000, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeHidden();
+      await expect(panel).toHaveAttribute("data-panel-size", "17.0");
+      for (const theme of ["light", "dark"] as const) {
+        await setTheme(page, theme);
+        for (const view of ["ligand", "tools"] as const) {
+          if (view === "ligand") await openLigandInformation(page); else await openInspectorTools(page);
+          const frame = inspector(page), heading = view === "ligand" ? "Ligand information" : "Selection";
+          await expect(frame.getByRole("heading", { name: heading, exact: true })).toBeVisible();
+          const first = frame.getByRole("button", { name: view === "ligand" ? "Inspector tools" : "Ligand information", exact: true });
+          const collapse = frame.getByRole("button", { name: "Collapse inspector", exact: true });
+          const initial = [await bounds(first), await bounds(collapse)]; initial.forEach(reachableHeader);
+          await separator.focus(); await page.keyboard.press("Tab"); await expect(first).toBeFocused();
+          const firstFocus = await bounds(first); reachableHeader(firstFocus);
+          expect(firstFocus.outline.style).not.toBe("none"); expect(parseFloat(firstFocus.outline.width)).toBeGreaterThan(0);
+          await page.keyboard.press("Enter");
+          await expect(frame.getByRole("heading", { name: view === "ligand" ? "Selection" : "Ligand information", exact: true })).toBeVisible();
+          await page.keyboard.press("Tab"); await expect(collapse).toBeFocused();
+          const collapseFocus = await bounds(collapse); reachableHeader(collapseFocus);
+          expect(collapseFocus.outline.style).not.toBe("none"); expect(parseFloat(collapseFocus.outline.width)).toBeGreaterThan(0);
+          await compositor(page, info, `minimum-header-${width}-${theme}-${view}`);
+          await page.keyboard.press("Enter"); await expect(frame).toBeHidden();
+          const expand = page.getByRole("button", { name: "Expand inspector", exact: true }); await expect(expand).toBeVisible();
+          await expand.focus(); await page.keyboard.press("Enter"); await expect(frame).toBeVisible();
+          await expect(panel).toHaveAttribute("data-panel-size", "17.0");
+          records.push({ width, theme, startingView: view, panelSize: await panel.getAttribute("data-panel-size"),
+            initial, firstFocus, collapseFocus, context: "Actual desktop context and native App divider, both runner projects" });
+        }
+      }
+    }
+    expect(records).toHaveLength(16);
+    const after = await (await request.get(endpoint)).json() as Project;
+    expect(after.revision).toBe(before.revision);
+    expect(after.entries.map(item => ({ id: item.id, current: item.current_artifact_id, designation: item.ligand_designation })))
+      .toEqual(before.entries.map(item => ({ id: item.id, current: item.current_artifact_id, designation: item.ligand_designation })));
+    expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
+    await info.attach("actual-minimum-inspector-header", { contentType: "application/json", body: JSON.stringify(records) });
+  } finally { await context.close(); }
 });

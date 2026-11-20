@@ -2454,7 +2454,9 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   overflow: visible;
 }
 
-.inspector-header-actions { display: flex; align-items: center; gap: 4px; }
+.inspector-heading { flex: 1 1 auto; min-width: 0; }
+.inspector-heading .panel-eyebrow, .inspector-heading h2 { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.inspector-header-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 4px; }
 .inspector-header-actions .icon-button { min-width: 44px; min-height: 44px; }
 .inspector-tools[hidden] { display: none; }
 .ligand-information-body { padding: 0; }
