@@ -1,0 +1,116 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "application_version": "0.36.0",
+  "archives": [
+    {
+      "bytes": 83324869,
+      "file": "c4-candidate12-qualified-01.zip",
+      "outer_manifest_entries": 1323,
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate12-qualified-01.zip",
+      "sha256": "c431607267caba17f7b7121e3f406255ae87d8b4aa43ff4bd9e5ba19a9b1ef30",
+      "verification_counts": {
+        "evidence_manifest_entries": 1323,
+        "project_archive_files": 924,
+        "zip_archives": 481
+      }
+    },
+    {
+      "bytes": 7227605,
+      "file": "c4-candidate12-qualified-02.zip",
+      "outer_manifest_entries": 383,
+      "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/c4-candidate12-qualified-02.zip",
+      "sha256": "c135c178c91055fb4b40ca1f0cde9007a55ee7aea1d0ea581a3d5457f7e38b44",
+      "verification_counts": {
+        "evidence_manifest_entries": 383,
+        "project_archive_files": 527,
+        "zip_archives": 174
+      }
+    }
+  ],
+  "browser_native_files": 674,
+  "kind": "gate packages",
+  "label": "c4-candidate12",
+  "not_published_by_this_script": true,
+  "packager_sha256": "80f9e7b70288e5bd9fb894a4b32f7ddb8ad63c70b03fb975763ac8a16900b9cf",
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "qualified_commit": "3d8d9e88aee29cdb5e9a5750f9c4ba9af0a169b9",
+  "reader_workspace_exclusions": {
+    "files": [],
+    "reason": "Only bytecode and named interpreter/tool caches are excluded. All owned synthetic live databases, history, artifact stores, specimens, reports and logs are retained."
+  },
+  "retained_reader_workspace_files": 664,
+  "retained_rich_connectivity_measurement_workspaces": {
+    "connectivity-current-produce": {
+      "excluded_caches": [],
+      "files": 71
+    },
+    "connectivity-previous-produce": {
+      "excluded_caches": [],
+      "files": 74
+    },
+    "connectivity-previous-refuse-current": {
+      "excluded_caches": [],
+      "files": 52
+    },
+    "measurements-current-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-produce": {
+      "excluded_caches": [],
+      "files": 9
+    },
+    "measurements-previous-refuse-current": {
+      "excluded_caches": [],
+      "files": 10
+    },
+    "rich-current-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-produce": {
+      "excluded_caches": [],
+      "files": 16
+    },
+    "rich-previous-refuse-current": {
+      "excluded_caches": [],
+      "files": 17
+    }
+  },
+  "scientific_native_files": 7,
+  "source_digest": "9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274",
+  "summary": {
+    "actual_reader_audit": "c4-candidate12-reader-audit.json",
+    "all_lossless_log_hashes_valid": true,
+    "application_version": "0.36.0",
+    "branch": "feat/issue-158-durable-ligand-designation",
+    "browser_exclusions": 75,
+    "browser_inventory_count": 602,
+    "browser_inventory_sha256": "e6ac9ba95120dbf993f102f6b398dc7e091a5e37c9630c3380beba949121a526",
+    "browser_passed": 527,
+    "clean_start": true,
+    "commit": "3d8d9e88aee29cdb5e9a5750f9c4ba9af0a169b9",
+    "complete_browser_inventory_executed": true,
+    "complete_steps": 42,
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "duration_seconds": 6999.973,
+    "exclusion_baseline": "docs/assets/viewer-measurements/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "ec3cfbf1b138d11e41a255a0bf9a4e6072e95fb025d89fef645760ea699dc751",
+    "existing_exclusion_identities_unchanged": true,
+    "failures_flakes_retries": 0,
+    "frontend": 1334,
+    "new_exclusions": 0,
+    "preceding_reader": "actual v0.35.0; separate old-reader safe refusal, old-authored migration and current reopen processes; both archive suffixes",
+    "preceding_source_identities_verified": 931,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "python": 3040,
+    "python_skips": 0,
+    "source_count": 1007,
+    "source_digest": "9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274",
+    "source_inventory_unchanged": true,
+    "sources_unchanged": true,
+    "supervisor": 14,
+    "wall_seconds": 7003.0
+  }
+}

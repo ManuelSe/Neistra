@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ApiError, jobApi } from "../api/client";
-import type { Job, JobDefinition } from "../api/types";
+import type { Job, JobDefinition, JobEvent } from "../api/types";
 import { JobSubmitDialog } from "../components/JobSubmitDialog";
 import { JobsPanel } from "../components/JobsPanel";
 import { molecularProject } from "./molecular-fixtures";
@@ -116,7 +116,121 @@ describe("jobs", () => {
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
+
+  it.each(["jobs", "events"] as const)(
+    "publishes a held %s refresh during repeated progress notifications",
+    async (heldKind) => {
+      const sockets: { onmessage: (() => void) | null; closed: boolean }[] = [];
+      class Socket {
+        onmessage: (() => void) | null = null;
+        closed = false;
+        constructor() { sockets.push(this); }
+        close() { this.closed = true; }
+      }
+      vi.stubGlobal("WebSocket", Socket);
+      const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+      const initial = job("failed"), running = { ...job("running"), id: "job-2" };
+      const log: JobEvent = { id: 1, job_id: initial.id, sequence: 1, kind: "log",
+        stream: "stdout", message: "Running progress reached the log", data: {},
+        created_at: "2026-07-31T10:00:01Z" };
+      client.setQueryData(["jobs", initial.project_id], [initial]);
+      client.setQueryData(["job-events", initial.id], []);
+      const pending: (() => void)[] = [];
+      const list = vi.spyOn(jobApi, "list").mockImplementation(() => heldKind === "jobs"
+        ? new Promise(resolve => pending.push(() => resolve([running, initial])))
+        : Promise.resolve([initial]));
+      const events = vi.spyOn(jobApi, "events").mockImplementation(() => heldKind === "events"
+        ? new Promise(resolve => pending.push(() => resolve([log])))
+        : Promise.resolve([]));
+      const ui = render(<QueryClientProvider client={client}><Tooltip.Provider>
+        <JobsPanel project={molecularProject()} onNewJob={vi.fn()}
+          onProjectUpdate={vi.fn()} onNotice={vi.fn()} />
+      </Tooltip.Provider></QueryClientProvider>);
+      try {
+        await waitFor(() => expect(pending).toHaveLength(1));
+        const tab = screen.getByRole("tab", { name: heldKind === "jobs" ? "Overview" : "Logs" });
+        await userEvent.setup().click(tab);
+        for (let index = 0; index < 4; index++) {
+          await act(async () => {
+            sockets.filter(socket => !socket.closed).at(-1)!.onmessage!();
+            await Promise.resolve();
+          });
+        }
+        expect(heldKind === "jobs" ? list : events).toHaveBeenCalledTimes(1);
+        await act(async () => { pending[0](); await Promise.resolve(); });
+        if (heldKind === "jobs") {
+          await waitFor(() => expect(ui.container.querySelector(".job-detail-pane .job-status.running"))
+            .toBeVisible());
+          expect(ui.container.querySelector(".job-detail-header")).toHaveTextContent(running.id);
+          expect(screen.getByRole("button", { name: /^Cancel$/ })).toBeEnabled();
+        } else {
+          expect(await screen.findByText(log.message)).toBeInTheDocument();
+        }
+        expect(tab).toHaveAttribute("aria-selected", "true");
+        expect(tab).toHaveFocus();
+      } finally { ui.unmount(); client.clear(); }
+    },
+  );
+
+  it("keeps confirmed cancellation when an older progress refresh resolves late", async () => {
+    const user = userEvent.setup();
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const running = job("running"), cancelled = job("cancelled");
+    client.setQueryData(["jobs", running.project_id], [running]);
+    let release!: (jobs: Job[]) => void;
+    const list = vi.spyOn(jobApi, "list").mockImplementation(() => new Promise(resolve => { release = resolve; }));
+    vi.spyOn(jobApi, "events").mockResolvedValue([]);
+    vi.spyOn(jobApi, "cancel").mockResolvedValue(cancelled);
+    const ui = render(<QueryClientProvider client={client}><Tooltip.Provider>
+      <JobsPanel project={molecularProject()} onNewJob={vi.fn()}
+        onProjectUpdate={vi.fn()} onNotice={vi.fn()} />
+    </Tooltip.Provider></QueryClientProvider>);
+    try {
+      await waitFor(() => expect(list).toHaveBeenCalledTimes(1));
+      await user.click(screen.getByRole("button", { name: /^Cancel$/ }));
+      await user.click(screen.getByRole("button", { name: "Cancel job" }));
+      await waitFor(() => expect(client.getQueryData<Job[]>(["jobs", running.project_id])?.[0].status)
+        .toBe("cancelled"));
+      await act(async () => { release([running]); await Promise.resolve(); });
+      expect(client.getQueryData<Job[]>(["jobs", running.project_id])?.[0].status).toBe("cancelled");
+      expect(ui.container.querySelector(".job-detail-pane .job-status.cancelled")).toBeVisible();
+    } finally { ui.unmount(); client.clear(); }
+  });
+
+  it.each(["cancelled", "completed", "failed"] as const)(
+    "keeps newer %s state when a running cancellation acknowledgement arrives late",
+    async (terminalStatus) => {
+      const user = userEvent.setup();
+      const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+      const running = job("running"), terminal = job(terminalStatus);
+      client.setQueryData(["jobs", running.project_id], [running]);
+      let publishRead!: (jobs: Job[]) => void, acknowledge!: (job: Job) => void;
+      vi.spyOn(jobApi, "list").mockImplementation(() => new Promise(resolve => { publishRead = resolve; }));
+      vi.spyOn(jobApi, "events").mockResolvedValue([]);
+      const cancel = vi.spyOn(jobApi, "cancel").mockImplementation(() => new Promise(resolve => { acknowledge = resolve; }));
+      const ui = render(<QueryClientProvider client={client}><Tooltip.Provider>
+        <JobsPanel project={molecularProject()} onNewJob={vi.fn()}
+          onProjectUpdate={vi.fn()} onNotice={vi.fn()} />
+      </Tooltip.Provider></QueryClientProvider>);
+      try {
+        await waitFor(() => expect(publishRead).toBeDefined());
+        await user.click(screen.getByRole("button", { name: /^Cancel$/ }));
+        await user.click(screen.getByRole("button", { name: "Cancel job" }));
+        await waitFor(() => expect(cancel).toHaveBeenCalledTimes(1));
+        await act(async () => { publishRead([terminal]); await Promise.resolve(); });
+        expect(client.getQueryData<Job[]>(["jobs", running.project_id])?.[0].status).toBe(terminalStatus);
+        await act(async () => {
+          acknowledge({ ...running, cancellation_requested: true });
+          await Promise.resolve();
+        });
+        await waitFor(() => expect(screen.queryByRole("heading", { name: "Cancel job" })).not.toBeInTheDocument());
+        expect(client.getQueryData<Job[]>(["jobs", running.project_id])?.[0].status).toBe(terminalStatus);
+        expect(ui.container.querySelector(`.job-detail-pane .job-status.${terminalStatus}`)).toBeVisible();
+      } finally { ui.unmount(); client.clear(); }
+    },
+  );
 
   it("guards the actual result import dispatch while downloads remain available", async () => {
     const user = userEvent.setup();

@@ -1,0 +1,110 @@
+{
+  "scope": "Fresh original native12 ALL8 portable qualification and complete closed evidence only; no full feature/candidate/master/release acceptance.",
+  "candidate": "7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c",
+  "workflow_cases": 8,
+  "workflow_passes": 8,
+  "skips_failures_flakes_retries": 0,
+  "source_count": 1133,
+  "method_count": 52,
+  "observer_source_count": 789,
+  "source_digest_compact": "be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7",
+  "method_digest_spaced": "d6a528b32c76d6aa4808757e42266dc7e528a7af10e00fb5de642bf7ed9e64ca",
+  "actual_original_runner_wait_exit": 0,
+  "terminal_collector_sha256": "8e0ade7b1bbf9cb906a149413918ad5867e919eff77dd41e62eadb60c62355af",
+  "analysis": {
+    "file": "c3-native12-all8-analysis.json",
+    "sha256": "f767e5087d473708f3b088f5dbd291f01d15f8a10a59c0a15a49e05db74003de"
+  },
+  "analysis_script": {
+    "file": "c3-native12-analysis.py.txt",
+    "sha256": "1f55f9f6d0a18fd3f7997d57c157ece54d1a173896276e473ca6f42f8f04f74d",
+    "original_executed_sha256": "62b71d2b07422763c9b2640e42e827f62e29bce1c689b2e41f00fdf7240e8ed3",
+    "public_copy_change": "One extra trailing blank line removed; whole module AST remains identical. Exact executed script remains in the closed evidence packet."
+  },
+  "archive": {
+    "file": "c3-native12-all8-evidence.zip",
+    "bytes": 45583688,
+    "sha256": "9b55c23d95918d44a26b00bcc7b243e004ec91aada6d71aa8acd9b0e7300e5e6",
+    "verification_counts": {
+      "evidence_manifest_entries": 4913,
+      "project_archive_files": 20,
+      "zip_archives": 16
+    }
+  },
+  "original_retention": {
+    "files": 4871,
+    "bytes": 313025325,
+    "empty_directories": 6,
+    "observer_roots": 8,
+    "observer_files": 480,
+    "raw_original_runner_primary_copy_triplets": 3,
+    "full_before_after_original_union_SHA_CRC_source_capsule_and_trace_mirror_verification": "PASS"
+  },
+  "primary_final_readback_sha256": "81aecbd37f0980668fd893050476f9f062b4b6267d233c0001883c13b02dc147",
+  "independent_performance_analysis_review": {
+    "verdict": "PASS",
+    "file": "c3-native12-analysis-review.json",
+    "sha256": "cbcdd731629dfdea078c475fdcc04033c13f48b9c529cd9b1b26b2bb69049811",
+    "scope": "Closed analysis only; final seven-role gate remains."
+  },
+  "renewal_calls": 90,
+  "renewal_full_UTF8_response_bytes": 26903516,
+  "fixture_consumer_updates": 130,
+  "combined": {
+    "all40_cold_actual_edits_ms": {
+      "n": 40,
+      "median": 2042.9000000357628,
+      "p95_nearest_rank": 2166.5,
+      "min": 1870.3000000715256,
+      "max": 2213.9000000953674,
+      "limit": 2000,
+      "misses": 32
+    },
+    "all40_matching_cache_projection_ms": {
+      "n": 40,
+      "median": 59.14999997615814,
+      "p95_nearest_rank": 65.39999997615814,
+      "min": 52.300000071525574,
+      "max": 65.60000002384186,
+      "limit": 100,
+      "misses": 0
+    },
+    "cancellation_feedback_ms": {
+      "n": 2,
+      "median": 10.5,
+      "p95_nearest_rank": 16,
+      "min": 5,
+      "max": 16,
+      "limit": 100,
+      "misses": 0
+    },
+    "four_bulk_active_ms": {
+      "n": 4,
+      "median": 5342.549999952316,
+      "p95_nearest_rank": 7094.799999952316,
+      "min": 3566.2000000476837,
+      "max": 7094.799999952316,
+      "limit": 5000,
+      "misses": 2
+    },
+    "four_bulk_click_feedback_ms": {
+      "n": 4,
+      "median": 552.5,
+      "p95_nearest_rank": 1060.2999999523163,
+      "min": 76.19999992847443,
+      "max": 1060.2999999523163,
+      "limit": 100,
+      "misses": 2
+    }
+  },
+  "feedback_target_misses": 24,
+  "feedback_observations": 84,
+  "all4_actual_priority_overlaps": true,
+  "all40_scientific_hash_pairs_and4bulk_hashes_equal_historical_native11": true,
+  "historical_native11_candidate": "995e80f8e59bac4265ecc7b70ced04277ecb7550",
+  "historical_native11_method_count": 51,
+  "same_method_speedup_or_strict_reference_host_claim": false,
+  "SQL_opened": false,
+  "all7_final_approval_complete": false,
+  "release_complete": false
+}

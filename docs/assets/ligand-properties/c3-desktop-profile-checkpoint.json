@@ -1,0 +1,215 @@
+{
+  "captured_source": {
+    "captured_HEAD": "8d24605a2e61b9134baaaf77565c630e8ab44725",
+    "captured_method_count": 49,
+    "captured_method_digest": "ca9fe772a327b04be6127a5761ce324b5dd15bddc1320d70fb1a2de6c239e585",
+    "captured_source_count": 1125,
+    "captured_source_digest": "97cb7c41d9e7d30690c6e3a123d4ed0010d0a618be11e83ab7ef734897eb1efb"
+  },
+  "diagnostic1": {
+    "CPU_or_browser_result_exists": false,
+    "actual_outer_chunk": "f96d7e",
+    "actual_outer_exit": 143,
+    "actual_outer_session": 36815,
+    "interpretation": "Interrupted diagnostic preserved with its incomplete original receipt and later recovery proof; no workflow or profiling PASS inferred.",
+    "original_receipt_complete": false,
+    "positive_CLI_interrupt_chunk": "582761",
+    "positive_CLI_interrupt_exit": 0,
+    "recovery_cleanup_and_raw_archive_complete": true,
+    "recovery_complete_sha256": "cbefeb74a3b722c3ddabc5b5dfad4a7ffc66420656971e80058e6e6e799c75d0",
+    "runner_observation_complete": false,
+    "termination_cause": "Unknown; not established by the retained evidence."
+  },
+  "diagnostic2": {
+    "CPU_bytes": 4299651,
+    "CPU_sha256": "c7d2c61fd3570f77d951da1f88df805c5434b03fb6bc59783c9ba6384b16f5c1",
+    "Network_and_backend_raw_retained": true,
+    "active_window_coverage": {
+      "CPU_after_READY_ms": 118276.56494140625,
+      "CPU_before_click_ms": 51211.254150390625,
+      "CPU_duration_seconds": 177.741219,
+      "active_click_through_automatic_READY_fully_covered": true,
+      "interpretation": "Coverage and raw body/work-order proofs support analysis of this active window. They do not override the failed browser test or incomplete global capture.",
+      "primary_coverage_member": "root-13/coverage.json",
+      "primary_coverage_sha256": "e0bee4f13ee3a94584f9a55102787a850422350eddba3c465328790fa21e2e87",
+      "raw_bulk_hard_work_order_passed": true,
+      "raw_bulk_ready_count": 1000
+    },
+    "actual_runner_wait_exit": 1,
+    "actual_runner_wait_receipt_sha256": "e7e0a2f506f69ef87f909d462419ff171247c04ac50aab0a32f9609b738632bb",
+    "browser_failed": 1,
+    "browser_passed": 2,
+    "browser_retries": 0,
+    "capture_only_error": "Trace buffer guard ended capture before case completion",
+    "capture_stop_reason": "trace_buffer_guard",
+    "global_capture_complete": false,
+    "internal_fixture_errors": 1,
+    "launcher_chunk": "772025",
+    "launcher_exit": 0,
+    "launcher_meaning": "Detached supervisor acceptance only.",
+    "original_cleanup_raw_source_resource_guards": "PASS",
+    "root_observed_terminal_chunk": "a186ab",
+    "root_terminal_readback_chunk": "3fdb62",
+    "timeline_bytes": 86995254,
+    "timeline_data_loss_occurred": false,
+    "whole_capture_test_or_performance_PASS": false
+  },
+  "limitations": [
+    "Instrumentation overhead makes these diagnostic runs unsuitable as unchanged latency qualification.",
+    "No final bottleneck, causal attribution, fix or speedup is asserted.",
+    "Only the fourteen named frozen roots are included; ongoing analysis and unlisted historical raw payloads remain outside this packet."
+  ],
+  "packet": {
+    "empty_directories": [
+      "root-02/native/.playwright-artifacts-0/traces",
+      "root-03/e2e/work/jobs",
+      "root-03/e2e/cache/ligand-properties-v1/work",
+      "root-04/e2e/work/edits",
+      "root-04/e2e/work/jobs",
+      "root-04/e2e/cache/ligand-properties-v1/work"
+    ],
+    "excluded": [
+      "Still-writing desktop profile2 analysis1 directory",
+      "Unlisted historical workflow runs and whole prior performance programs"
+    ],
+    "full_regular_file_union": true,
+    "inert_symlink_records": [],
+    "input_bytes": 392349296,
+    "input_inventory": {
+      "bytes": 1024126,
+      "sha256": "cedcf35383ac85e90a8bed031682547affede608eb22230da68726f031f4b924"
+    },
+    "input_inventory_member": "input-inventory.json",
+    "input_regular_files": 2634,
+    "input_roots": {
+      "root-01": {
+        "bytes": 193920203,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile1",
+        "regular_files": 1957
+      },
+      "root-02": {
+        "bytes": 151619469,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile2",
+        "regular_files": 152
+      },
+      "root-03": {
+        "bytes": 7209501,
+        "original_root": "/tmp/neistra159-desktop-bulk-profile1",
+        "regular_files": 66
+      },
+      "root-04": {
+        "bytes": 22098483,
+        "original_root": "/tmp/neistra159-desktop-bulk-profile2",
+        "regular_files": 131
+      },
+      "root-05": {
+        "bytes": 3366754,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-performance/chromium-caf0ee5a-30ae-4f56-af67-37d16125b06b",
+        "regular_files": 95
+      },
+      "root-06": {
+        "bytes": 9047321,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-performance/chromium-417f69a4-6c11-4ce4-a4c2-c48a4e5e867f",
+        "regular_files": 205
+      },
+      "root-07": {
+        "bytes": 4791569,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-performance/chromium-9312fc27-316d-437c-8401-d8e50cb067d4",
+        "regular_files": 15
+      },
+      "root-08": {
+        "bytes": 265830,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-performance/chromium-afebb5d0-ed27-4755-a135-c1750aafeafa",
+        "regular_files": 5
+      },
+      "root-09": {
+        "bytes": 5784,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile-primary-readback1",
+        "regular_files": 2
+      },
+      "root-10": {
+        "bytes": 10920,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile-primary-architecture1",
+        "regular_files": 2
+      },
+      "root-11": {
+        "bytes": 5312,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile2-primary-readback",
+        "regular_files": 1
+      },
+      "root-12": {
+        "bytes": 2456,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile2-primary-architecture",
+        "regular_files": 1
+      },
+      "root-13": {
+        "bytes": 2237,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-desktop-bulk-profile2-primary-window",
+        "regular_files": 1
+      },
+      "root-14": {
+        "bytes": 3457,
+        "original_root": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-current-scientific-theory-review1",
+        "regular_files": 1
+      }
+    },
+    "original_ownership_metadata": "Full input inventory records uid, gid, mode, mtime_ns and nlink for each regular file; directories record uid, gid, mode and mtime_ns. No active aliases occur.",
+    "originals_preserved_in_place": true,
+    "outer_manifest_entries": 2638,
+    "root_manifest_contract": "Exact archive entry union equals manifest keys plus manifest.json; each body is bound by size and SHA256.",
+    "root_manifest_name": "manifest.json",
+    "scope_boundary": "Every regular file inside each of the fourteen named frozen roots is retained, including their existing preparation/control subtrees; references to other historical roots do not imply their inclusion."
+  },
+  "pending": [
+    "Final performance analysis and any evidence-supported correction",
+    "Fresh full43 correctness qualification on the final candidate",
+    "Fresh complete ALL8 performance qualification on the final candidate",
+    "All seven specialist assessments covering the same final candidate",
+    "Verified protected merge and v0.37.0 release asset publication/readback",
+    "Parent program closeout"
+  ],
+  "publication": {
+    "future_asset_basename": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+    "future_verified_release": "v0.37.0",
+    "note": "No split, lossy omission, Git staging, commit or release upload performed. No public archive link exists yet.",
+    "private_packet": {
+      "bytes": 190937608,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d"
+    },
+    "private_packet_path": ".issue-11-evidence/issue159-desktop-profile-preservation1/c3-desktop-profile-evidence.zip",
+    "public_zip_present": false,
+    "reason": "Complete lossless archive exceeds the 100 MB Git publication bound.",
+    "release_URL_verified": false,
+    "release_asset_published": false,
+    "status": "PRIVATE_PACKET_PREPARED_PUBLICATION_PENDING"
+  },
+  "schema_version": 1,
+  "scope": "Preserved desktop profiling diagnostics for local review; no performance qualification, complete-capture or feature-completion claim.",
+  "source_authority": "Both original-run preparation/before/after maps and all four source ZIPs are included and body-verified. Six captured maps agree. Later production changes do not change the original-run source identity.",
+  "source_observation": {
+    "live_HEAD": "8d24605a2e61b9134baaaf77565c630e8ab44725",
+    "live_observation_utc": "2026-11-18T14:46:13.418559+00:00",
+    "live_selected_body_delta": []
+  },
+  "subsequent_primary_source_change_announcement": "After the dated source observation, the primary announced a new query-scaling regression test and an inspector query-tracking change. These are outside the captured raw roots and original-run source identity; this packet does not verify the later candidate.",
+  "verification": {
+    "all_input_archive_and_staged_bodies_exact": true,
+    "all_original_file_unions_bytes_and_metadata_unchanged": true,
+    "checks_executed": "Offline byte copies, hash inventories, receipt/source readbacks, recursive ZIP CRC/body/manifest and naming checks only.",
+    "method_digest_recomputed": true,
+    "new_tests_services_profiles_SQL_app_imports": false,
+    "protected_global_document_bodies": 0,
+    "recursive_CRC_and_manifest_checks": {
+      "evidence_manifest_entries": 2663,
+      "project_archive_files": 50,
+      "zip_archives": 38
+    },
+    "recursive_naming_scan": {
+      "gzip_streams": 0,
+      "leaf_bodies": 11384,
+      "restricted_hits": 0,
+      "zip_archives": 37
+    },
+    "source_digest_recomputed": true
+  }
+}

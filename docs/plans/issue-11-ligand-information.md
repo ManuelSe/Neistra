@@ -6,8 +6,8 @@
 - Repository: `ManuelSe/Neistra`; [parent #11](https://github.com/ManuelSe/Neistra/issues/11).
 - Authority: owner's 2026-11-16 explicit personal issue-delivery invocation for parent #11 and all eight required children #156–#163, including one durable Goal through verified release and parent closeout. The wording of these plans has not been individually reviewed. Routine reversible implementation, checkpoint commits/pushes, normal PR/review/merge, release preparation/tag/publication/replies and owned cleanup are authorized within these boundaries.
 - Goal: existing active matching program Goal created in this conversation; no per-child Goal.
-- Observed fresh base: `62623a169f4e27da259c40ba1e74b1935b7c7775` on `origin/master`.
-- Latest verified release: stable v0.33.0, annotated tag `4bb78f11f20c63ce8e77459259d4862a8944b9c1` → `d8636064263f6221c402665da52a4a1738570845`.
+- Intake base: `62623a169f4e27da259c40ba1e74b1935b7c7775` on `origin/master`.
+- Intake verified release: stable v0.33.0, annotated tag `4bb78f11f20c63ce8e77459259d4862a8944b9c1` → `d8636064263f6221c402665da52a4a1738570845`. Current delivery state is recorded in the program ledger below.
 - Planning branch: `feat/issue-11-ligand-information`; owned reusable checkout `/datadisk/dev/neistra-worktrees/issue-11-ligand-information`. Do not switch/update the owner's original master or retained #147 checkout/branch/data/processes.
 - Snapshot: 2026-11-16 authenticated bodies/comments/native sub-issues and paginated blocked-by edges. All nine issues open; no application delivery is inferred from checkboxes. The sole parent comment is an archived proposal superseded by current parent/child briefs. No child comments.
 - Native membership exactly #156–#163. Parent, #156 and #158 have no blocked-by edges. Graph below matches every native required edge, is acyclic and has no external runtime prerequisite. #127 and #52 remain open but do not block bounded qualified/explicit-unavailable behavior here.
@@ -95,12 +95,25 @@ Tag only exact qualified merged commit, reverify remote annotated tag target and
 | --- | --- | --- | --- | --- | --- |
 | #156 | [Contract](issue-156-viewer-information-strip.md); None | FULLY DELIVERED | reviewed20cf198b, runtimeab5e5fef; terminaldocs4b8ae716 | PR168; annotated7aacc228→ab5e5fef; stable/latestv0.34.0; reply6926458297; closedcompleted; PR169merged and ownedbranchabsence verified | Both35gates/7agentPASS; anonymousasset511ZIP2779hash870files; terminalc7delivery asset/comment verified; tag unchanged |
 | #157 | [Contract](issue-157-viewer-measurements.md); #156 | FULLY DELIVERED | Reviewed `c06c7248`; runtime `7542d1a1`; terminal docs `b038e4e6`; all 931 sources unchanged | [PR170](https://github.com/ManuelSe/Neistra/pull/170), [PR174](https://github.com/ManuelSe/Neistra/pull/174), [v0.35.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.35.0), [canonical reply](https://github.com/ManuelSe/Neistra/issues/157#issuecomment-6944161610); closed as completed; both owned branches absent | Both 42-command gates and all seven application/doc assessments pass. Primary/sidecars, 26 forensic assets, C6 and C7/checksum pass full anonymous verification. [Delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.35.0/neistra-v0.35.0-delivery.json), SHA `05c904dd…`; immutable tag `81963d29` targets runtime. Parent Goal remains active. |
-| #158 | [Contract](issue-158-durable-ligand-designation.md); none | Fresh42-step candidate9 qualification running; all-seven CODE review PASS, final readiness pending | `feat/issue-158-durable-ligand-designation`; comparisonb038e4e6, checkpointf024e5e2 | 3,040Python/1,310frontend/14supervisor and first15phases pass; fullnative/readers/summary/packaging/enclosing still pending;44forensic assets locally verified | Finish current42candidate; finalmetadata/all7/protected merge/fresh exactM42/release/public assets/closeout |
-| #159 | [Contract](issue-159-live-ligand-properties.md); #158 | Coherent local descriptor vertical checkpoint; actual prerequisite/performance/final gates pending | `feat/issue-159-live-ligand-properties`; localC1f6e847b8, no implementation push | 83kernel/158backend/133focused+1,387web/26native; prior3,234fullPython and later29fairness distinct; source-boundC1packet; actual5APIprocess functional proof | Complete native capacity/work-order proof, integrate actual158release, versions43gates/all7/protected delivery |
-| #160 | [Contract](issue-160-physicochemical-profiles.md); #159 | Verified local profile vertical preparation with bound checkpoint evidence | `feat/issue-160-physicochemical-profiles`; planheadcb4a6c21 plus frozen working sources, actual159reconciliation required | 47Python/220TSdomain+bothscience; current78API/domain/lifecycle/Ruff/mypy280;400focused/1,649web/lint/types/build;fresh18nativePASS,1,074hashesfixed; scopedarchitecture/UI/UXcorrectionPASS | Reconcile actual159master before fullgates/all7/protected publication |
-| #161 | [Contract](issue-161-ligand-information-sidebar.md); #158, #159, #160 | Planned, unimplemented | planned `feat/issue-161-ligand-information-sidebar`; base recheck pending | None | Implement in dependency order after C0 |
-| #162 | [Contract](issue-162-live-property-entry-filters.md); #159, #160 | Planned, unimplemented | planned `feat/issue-162-live-property-entry-filters`; base recheck pending | None | Implement in dependency order after C0 |
-| #163 | [Contract](issue-163-ligand-workflow-integration.md); #156, #157, #161, #162 | Planned, unimplemented | planned `feat/issue-163-ligand-workflow-integration`; base recheck pending | None | Implement in dependency order after C0 |
+| #158 | [Contract](issue-158-durable-ligand-designation.md); none | FULLY DELIVERED | Reviewed c82004ce; runtime247ab651; terminal docs254babcd; all1013sources unchanged | [PR175](https://github.com/ManuelSe/Neistra/pull/175), [PR176](https://github.com/ManuelSe/Neistra/pull/176), [v0.36.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0), annotated05ec6685; [canonical reply](https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710); closedcompleted; three owned branches absent | Both42gates/all7application and terminal assessments PASS; all payloads/C6/C7+checksum full anonymous verified. [Final delivery receipt](https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-delivery.json), SHA cf945c9a…; tag immutable; parent Goal active. |
+| #159 | [Contract](issue-159-live-ligand-properties.md); #158 | FULLY DELIVERED | Reviewed `8c70ddb0`; runtime `9f774103`; terminal docs `3f873f50`; all 1,133 qualified sources unchanged | [PR178](https://github.com/ManuelSe/Neistra/pull/178), [PR179](https://github.com/ManuelSe/Neistra/pull/179), [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0), [canonical reply](https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950); all-seven feature and terminal documentation PASS; all 27 assets anonymously verified; three owned branches absent | Both 43-command gates pass; [publication evidence](../assets/ligand-properties/c5-master1-publication.json) preserves actual M2 results and explicit limits. Integrate delivered prerequisite into #160. |
+| #160 | [Contract](issue-160-physicochemical-profiles.md); #159 | Released prerequisite resolved locally; focused checks PASS; full qualification pending | Pre-merge `4a3d1f6f`, incoming actual master `3f873f50`; original profile/source-recovery/query-scaling evidence retained | [D-203 contract](../assets/ligand-profiles/c3-same-schema-acceptance.json) records independently accepted v2 obligations and actual released v0.37.0 identity; predecessor actors remain unqualified | Passing local integration: 220 backend/525 web plus lint/types/build. Implement same-schema actors, then versions/native/performance/full gates/all seven final review/normal release. |
+| #161 | [Contract](issue-161-ligand-information-sidebar.md); #158,#159,#160 | Passing LOCAL sidebar/query/native-navigation preparation | Locala6f48892; 28native PASS/6existing exclusions; prior4new+139affected web/static/build evidence reused only for unchanged app bodies | Seven explicit Tools→Selection navigation pairs preserve workflow assertions; scopedARCH/UX PASS | Actual released159/160integration, versions/readers/fullcurrentnative/performance/gates/all7/release pending. |
+| #162 | [Contract](issue-162-live-property-entry-filters.md); #159, #160 | Local technical plan refined; unimplemented | Local feat/issue-162-live-property-entry-filters;67e04cc5;931baseline sources unchanged | Seven early planning consultations; no app/native/performance/push | Implement accepted bounded committed-row/filter contract after actual prerequisites; all final gates remain. |
+| #163 | [Contract](issue-163-ligand-workflow-integration.md); #156, #157, #161, #162 | Local C0 technical refinement; unimplemented | Local3990752d on feat/issue-163-ligand-workflow-integration; integration base must be refreshed after actual prerequisites | Seven early technical consultations; no application delivery | Preserve/rebase accepted retirement contract after released161/162, then implement and qualify the complete parent outcome. |
+
+### 2026-11-19 — completed candidate4 and scope reconciliation
+
+Authenticated parent/native-child and every blocked-by collection still show exactly
+the eight required children and the same acyclic graph. #156–#158 remain closed;
+#159–#163 and the parent remain open. No excluded issue is added. The original
+c5-candidate4 completes its full43-command campaign; independent complete retention
+and source readback pass before releasing its development freeze. Final common-
+candidate reviews, normal corrective merge, fresh exact merged qualification,
+verified037release and explicit159closeout remain work. Local160/161 preparation
+does not replace actual released-dependency integration. The same Goal continues
+through160–163 and verified parent closeout; exclusions and serial release order
+remain unchanged.
 
 ### Intake evidence (not implementation qualification)
 
@@ -117,3 +130,42 @@ The158contract below records concrete schema/compatibility/scientific policy bef
 Owner explicitly confirmed takeover of the existing program checkout. Reverified native membership and all blocking edges, remote master62623a16, planning branch248807ec and stable/latest0.33.0. All required issues remain open; no unrelated checkout/ref/process is changed. The one durable Goal covers the complete program endpoint. Current remote classic protection reports unprotected and rulesets empty; these are observations, never authority to bypass later protection.
 
 Current #156 work and diagnostic evidence are being reconciled under its child log. Planning assessments identified concrete pre-code refinements for158/159: typed entry durability and reader refusal, complete instance connectivity, explicit-H/isotope protection, atomic current publication and bounded priority scheduling. These preserve the accepted scope and are not implementation approval. Serial dependencies and exclusions remain unchanged.
+
+
+### Program continuation — bounded qualification source checkpoint
+
+Required scope remains156–163, exclusions and serial release order unchanged.
+156/157 remain delivered;158is unreleased. Its D-197 source correction now passes
+all seven complete-feature CODE assessments plus99focused/1,334web/lint/types/build.
+The complete1,007-source freeze is retained; fresh42-step candidate12 remains next,
+followed by final same-candidate assessment/protected merge/exact-master42/release.
+C11is explicitly interrupted130, not qualified;53forensic assets/eightruns are
+locally verified and still require full public proof before child closeout.
+
+Independent159preparation corrects captured private-worker startup/refusal and
+reaped-result publication under D-196. Author156focused/sixreal supervisors/static
+and scoped architecture/scientific/performance assessments pass. Exact propagation
+into160/161passes156focused/sixsupervisors/mypy280/lint in each. Shared D-197
+frontend propagation passes99focused in159/160/161; completeweb1,411/1,673/1,738
+and typing/lint/build pass.160's earlier three5second concurrent-run timeouts remain
+retained; identical-source serial rerun passes all1,673 with unchanged timeouts.
+161uses the canonical QueryClient owner and preserves its sidebar-specific context,
+header and publication boundary. A fresh scoped8-case native attempt has launched;
+no result or final feature/readiness claim is inferred. Actual released dependencies
+must still be integrated before each child's final gates and serial publication.
+162/163 remain required planned work. Keep the single whole-program Goal active.
+
+
+### #158 shared source-producer checkpoint before fresh qualification
+
+C12 closes all42automated steps/summary/package/actualouter0 on unchanged3d8d9e88,
+but independent actual-App Use-source failure tests supersede its qualification.
+The isolated owned fix/issue-158-source-producer-qualification branch now has the
+bounded D-198 correction:allseven complete-feature CODE PASS,69backend/180focused/
+1,388web/static/build evidence and4native passes; exact1,013source identities.
+Original602native identities remain and four new cases make606. Preserve successful
+superseded C12 packets separately from the unchanged53-part/eightfailed-run index.
+Integrate into the original158feature branch and run fresh fullC13/exact-master;
+no implementation push or publication has occurred. The next159integration also
+needs typed verifier/result source facts; its performance preparations stay HOLD.
+Remaining required children, release order and all exclusions are unchanged.

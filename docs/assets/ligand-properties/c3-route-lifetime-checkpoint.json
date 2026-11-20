@@ -1,0 +1,53 @@
+{
+  "status": "Passing local test-owned route lifetime correction; complete qualification pending.",
+  "base": "2a582dfe6d7e36e599691203988122de2cd9cb20",
+  "subjects": {
+    "tests/e2e/minimization-controls.spec.ts": "8e98c7ac1bee413a4d6a58702324d88fdf92e7a84fe2fdda379eef41d5185a26"
+  },
+  "change": "Only three existing held-route finally blocks release then await unrouteAll(wait); every other byte/assertion/deadline unchanged.",
+  "focused_native": {
+    "actual_exit": 0,
+    "passed": 12,
+    "skipped": 0,
+    "failed": 0,
+    "flaky": 0,
+    "retry": 0,
+    "both_projects": true,
+    "selected_sources": 1130,
+    "source_before_after_exact": true
+  },
+  "positive_cleanup": {
+    "known_PID_start_handles": 43,
+    "remaining": 0,
+    "ports_unused": [
+      23910,
+      23911,
+      23912
+    ],
+    "raw_DB_WAL_SHM_files": 3,
+    "copied_before_SQL": true
+  },
+  "scoped_reviews": {
+    "software_architecture": "PASS",
+    "performance": "PASS"
+  },
+  "expanded_strict_E2E_check": "FAILED with identical four before/after diagnostics; zero added; no suppression.",
+  "native11_reuse": "All461runtime/51method subjects unchanged; retain original995e/b2d49identity. No new latency claim.",
+  "packet": {
+    "file": "c3-route-lifetime-evidence.zip",
+    "bytes": 1860036,
+    "sha256": "7e1ba1b58a878049dcc8cf0eae57dae038068f4d90f3a7105dad81df0b4c6f83",
+    "manifest_entries": 73,
+    "recursive_counts": {
+      "zip_archives": 9,
+      "evidence_manifest_entries": 73,
+      "project_archive_files": 0
+    },
+    "complete_original_body_CRC_exact_union": "PASS"
+  },
+  "limitations": [
+    "Focused workflow is not full qualification.",
+    "Optional expanded E2E strict boundary still has four pre-existing diagnostics; no added diagnostics/suppressions.",
+    "Freshwhole43candidate4/exactmaster1 and allsevenfinalsamecandidate assessments remain mandatory."
+  ]
+}

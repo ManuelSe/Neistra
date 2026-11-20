@@ -1,0 +1,82 @@
+{
+  "all_bulk_fixture_consumer_updates": {
+    "allocate": 20,
+    "demand": 20,
+    "same-sequence-heartbeat": 95,
+    "scope": "Four benchmark bulk consumer cohorts only; separate App active-consumer traffic excluded.",
+    "total": 135
+  },
+  "comparison_candidate": "9c902dc4d5261bb2f54d0d815832f0f3484dfb86",
+  "correct_renewal_response_body_UTF8_bytes": 28801010,
+  "correct_successful_heartbeat_renewals": 95,
+  "finding": "Release prose said105renewals. The immutable native11 packet and its unchanged closed analysis establish95.",
+  "immutable_analysis": {
+    "file": "c3-all8-remeasurement-analysis.json",
+    "sha256": "4eb1ce7a14e9af3f4f6b3b15362dcb0e049170935b22595daef83cb83de6e378"
+  },
+  "immutable_packet": {
+    "file": "c3-all8-remeasurement-evidence.zip",
+    "sha256": "95d800bc538e376003e2958821fefaa191710111453c4ab148fd8181a7076fa3"
+  },
+  "preservation": {
+    "SQL_opened": false,
+    "accepted_historical_decisions_rewritten": false,
+    "immutable_raw_packet_and_analysis_changed": false,
+    "new_runtime_or_performance_execution": false,
+    "qualifying_application_test_tool_or_method_source_changed": false
+  },
+  "primary_raw_recomputation_sha256": "2b242a89f86c611ece1c587cdf88015ca16fef8685f2e3215a5d628d98873ddf",
+  "qualifying_commit": "e47de3dd8f2e53fd27abac8d39dac3f0696da7f7",
+  "remaining": "Obtain allseven finalsamecandidate reassessments/reconfirmations beforepush; exactmastergate andverifieddelivery remain.",
+  "rows": [
+    {
+      "all_bulk_fixture_consumer_update_kinds": {
+        "allocate": 5,
+        "demand": 5,
+        "same-sequence-heartbeat": 15
+      },
+      "all_heartbeats_status200_sequence1_entries200": true,
+      "member_sha256": "84c29c6332f91c21b64242f8bf7686cac3b4a076add8e981ca10340bcdd4bce2",
+      "packet_member": "workflow-02/native-bulk-performance.json",
+      "renewal_response_body_UTF8_bytes": 4847730,
+      "successful_heartbeat_renewals": 15
+    },
+    {
+      "all_bulk_fixture_consumer_update_kinds": {
+        "allocate": 5,
+        "demand": 5,
+        "same-sequence-heartbeat": 30
+      },
+      "all_heartbeats_status200_sequence1_entries200": true,
+      "member_sha256": "21164dcdc06752f0525fda1637526ca454794e461235e0fd966eaee42344276b",
+      "packet_member": "workflow-04/native-bulk-performance.json",
+      "renewal_response_body_UTF8_bytes": 8684016,
+      "successful_heartbeat_renewals": 30
+    },
+    {
+      "all_bulk_fixture_consumer_update_kinds": {
+        "allocate": 5,
+        "demand": 5,
+        "same-sequence-heartbeat": 15
+      },
+      "all_heartbeats_status200_sequence1_entries200": true,
+      "member_sha256": "d322a49a19f4c23c935ba4b755d164b9fd760304d429c6fa9a8c3628511ffaff",
+      "packet_member": "workflow-06/native-bulk-performance.json",
+      "renewal_response_body_UTF8_bytes": 4859910,
+      "successful_heartbeat_renewals": 15
+    },
+    {
+      "all_bulk_fixture_consumer_update_kinds": {
+        "allocate": 5,
+        "demand": 5,
+        "same-sequence-heartbeat": 35
+      },
+      "all_heartbeats_status200_sequence1_entries200": true,
+      "member_sha256": "14689a04447db2e71844f2ea30bf39e2e15d18206f5fca4271802d0a6f2192cc",
+      "packet_member": "workflow-07/native-bulk-performance.json",
+      "renewal_response_body_UTF8_bytes": 10409354,
+      "successful_heartbeat_renewals": 35
+    }
+  ],
+  "status": "Passing read-only factual documentation correction; updated final same-candidate specialist assessments remain pending."
+}

@@ -1,0 +1,89 @@
+{
+  "SQL_opened": false,
+  "all_archive_hashes_and_crc_verified": true,
+  "archives": [
+    {
+      "bytes": 42457595,
+      "file": "c3-editor-readiness-qualified-01.zip",
+      "outer_manifest_entries": 1045,
+      "sha256": "1fc6c0c0b5d533ae35d42e93089508719ea946870cc9dee5572063ac1396500c",
+      "verification_counts": {
+        "evidence_manifest_entries": 2024,
+        "project_archive_files": 20,
+        "zip_archives": 18
+      }
+    },
+    {
+      "bytes": 83750714,
+      "file": "c3-editor-readiness-qualified-02.zip",
+      "outer_manifest_entries": 71,
+      "sha256": "d95306971224a3d5da0655c051a719d828e34c35dfd7addace4d1991fd565c39",
+      "verification_counts": {
+        "evidence_manifest_entries": 71,
+        "project_archive_files": 0,
+        "zip_archives": 7
+      }
+    },
+    {
+      "bytes": 33079272,
+      "file": "c3-editor-readiness-qualified-03.zip",
+      "outer_manifest_entries": 3,
+      "sha256": "d8e4356635674a53d78e5f7e9fd900b14cbe11116adc2a708b618c4ad328e02d",
+      "verification_counts": {
+        "evidence_manifest_entries": 3,
+        "project_archive_files": 0,
+        "zip_archives": 3
+      }
+    }
+  ],
+  "canonical_archive": {
+    "bytes": 159287047,
+    "file": "editor-readiness-evidence.zip",
+    "outer_manifest_entries": 1119,
+    "sha256": "f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5",
+    "verification_counts": {
+      "evidence_manifest_entries": 2098,
+      "project_archive_files": 20,
+      "zip_archives": 26
+    }
+  },
+  "canonical_full_archive_retained_private_unchanged": true,
+  "canonical_manifest": {
+    "bytes": 215614,
+    "sha256": "8ccb90ec9df58e197c9b60ea97de16e5fcfd9c21b33a6540905e9c8d3b512d97"
+  },
+  "complete_member_union_count": 1119,
+  "deterministic_reconstruction_matches_full_canonical_SHA_and_bytes": true,
+  "disjoint_complete_canonical_member_union": true,
+  "full43_or_release_qualification": false,
+  "kind": "focused editor readiness member packages",
+  "old_portable_verifier_on_reconstructed_archive": {
+    "actual_wait_exit": 0,
+    "nested_failed_raw_pairs": 3,
+    "original_files": 1103,
+    "original_roots": 6,
+    "source_count": 1133,
+    "stdout_sha256": "f122e2318cb323c982f61eec7abb15b8ede458a55a794d165b4d3cfe6d44efa5",
+    "successful_raw_pairs": 6
+  },
+  "partition_policy": {
+    "estimated_part_budget": 83886080,
+    "member_estimate": "compressed_size(member) + 512 + len(name.encode()) * 2",
+    "strict_actual_part_cap": 99614720
+  },
+  "public_files": [
+    "c3-editor-readiness-qualified-01.zip",
+    "c3-editor-readiness-qualified-02.zip",
+    "c3-editor-readiness-qualified-03.zip",
+    "c3-editor-readiness-packaging.json",
+    "c3-editor-readiness-reconstruct.py.txt"
+  ],
+  "public_reconstruction_script": {
+    "bytes": 6152,
+    "file": "c3-editor-readiness-reconstruct.py.txt",
+    "sha256": "01e33a9e08232afb95c636832b6ce5405cc6053f4b45d42a77d072bbe2a2f5f6"
+  },
+  "publication_performed_by_this_helper": false,
+  "scope": "Focused evidence only; original failed probe1 remains failed; no full43/feature/release acceptance",
+  "unchanged_archive_helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3"
+}

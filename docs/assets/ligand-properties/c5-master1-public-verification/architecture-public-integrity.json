@@ -1,0 +1,28 @@
+{
+  "role": "software_architecture",
+  "author_agent": "/root/issue159_c5_master1_prelaunch_architecture1",
+  "persisted_by": "primary from actual completed independent assessment",
+  "verdict": "PASS",
+  "candidate": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "scope": "Actual runtime public release integrity only; terminaldocumentation/cleanup/childcloseout/remainingparentdelivery separate",
+  "reconciliation_sha256": "4ad97fe015b06b0a0cf672e63a254d7e40425fef8cb6084b567edeb114ef341e",
+  "actual_independent_check": "be298a PASS",
+  "checks": [
+    "All27assets/4882143705B matchpublishedIDs/names/sizes/serverdigests/URLs/actualanonymousHTTP200bodyproofs.",
+    "All4actualexecutionreceipts exactargv/cwd/zeroexits/outputfingerprints.",
+    "Main5486ZIP/43937manifestentries/12249projectfiles verified.",
+    "Bothsmallsidecars fullEOF/canonicalbody semantics exact.",
+    "All12forensicpairs passdownload andsubsequentcompleteverification; finalsummary473fd4389669834a0bf6b119450c23ce4acb63731d85b5910790d46a1ba9e231.",
+    "Closedoutputs no.part/failure records; forensicqualificationfalse/historicalunknowns/no crosscampaign disjointness claims preserved."
+  ],
+  "consequential_findings": [],
+  "valid_full_body_checks_reused": true,
+  "actions_not_performed": [
+    "largepayloadrehash",
+    "network",
+    "entrypoints",
+    "mutations",
+    "process",
+    "SQL"
+  ]
+}

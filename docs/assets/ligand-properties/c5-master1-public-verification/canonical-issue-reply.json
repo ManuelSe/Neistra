@@ -1,0 +1,52 @@
+{
+  "recorded_utc": "2026-11-20T00:30:31.871539+00:00",
+  "comment": {
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/issues/comments/7026392950",
+    "html_url": "https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950",
+    "issue_url": "https://api.github.com/repos/ManuelSe/Neistra/issues/159",
+    "id": 7026392950,
+    "node_id": "IC_kwDOTqyhK88AAAABos4_dg",
+    "user": {
+      "login": "ManuelSe",
+      "id": 62375995,
+      "node_id": "MDQ6VXNlcjYyMzc1OTk1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62375995?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ManuelSe",
+      "html_url": "https://github.com/ManuelSe",
+      "followers_url": "https://api.github.com/users/ManuelSe/followers",
+      "following_url": "https://api.github.com/users/ManuelSe/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ManuelSe/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ManuelSe/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ManuelSe/subscriptions",
+      "organizations_url": "https://api.github.com/users/ManuelSe/orgs",
+      "repos_url": "https://api.github.com/users/ManuelSe/repos",
+      "events_url": "https://api.github.com/users/ManuelSe/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ManuelSe/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "created_at": "2026-11-20T00:30:30Z",
+    "updated_at": "2026-11-20T00:30:30Z",
+    "body": "Released in [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0) through [PR #178](https://github.com/ManuelSe/Neistra/pull/178), at exact qualified merge `9f77410389c4e8738fdf94d3e69e7c8550fbc70c`. Annotated tag `5763142ce085111d8d8cdf0eefb248908b5eb4b2` is remotely verified and remains fixed.\n\nFourteen versioned properties update automatically for the exact designated ligand. Relevant edits retire incompatible values; matching source-qualified cache results, cancellation/recovery, late results, Undo/Redo and project changes retain current-input authority. Category options are installation-owned. Changed molecular previews deliberately show explicit Preview unavailability under the parent contract. Unsupported chemistry retains reasons, independent known counts and qualified charge; calculation preserves original uploads and canonical molecules without hidden preparation.\n\n- Both complete 43-command gates pass. Fresh merged qualification: 3,598 Python tests/zero skips, 1,599 frontend tests, 14 supervisor checks, and 565 native passes with exactly 75 unchanged released exclusions across 640 cases. No failures, flakes, retries or new exclusions. Actual preceding-reader, migration, production/version/legacy checks pass.\n- All seven specialist agent roles\u2014scientific theory, scientific implementation, architecture, performance, UI, UX and reference workflows\u2014PASS reviewed `8c70ddb0`; its whole tree matches the merge. Observer atomic publication, precise read failures, actual warm-baseline identity and editor readiness findings were corrected. Scientific methods, workloads and deadlines retain their definitions. Agent assessments are not human approval; normal merge/review policy was checked without bypass.\n- Independent full readback verifies 2,146 current/preceding Git/disk/capsule source bodies, 6,965 originals, 59 raw original/copy pairs and all eight observer trees/480 files and exact trace windows. Positive cleanup preceded raw copying; no diagnostic SQL opened. Fresh packet-only consumers and a different nonauthor performance reviewer pass.\n- All 27 assets pass anonymous HTTP 200 full-body size/SHA-256 verification and applicable complete recursive CRC/internal-manifest checks. Final reconciliation covers all twelve historical forensic ZIP/checksum pairs; their failed/diagnostic qualification status remains unchanged. Main ZIP: 719,241,445 bytes; SHA256 `b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb`. Its exact 328-member union verifies 5,486 recursive ZIPs, 43,937 manifest entries and 12,249 project files.\n\nCompatibility: migration 0017 adds guarded installation preferences and private regenerable state; project/archive schema3, viewer2 and APIv1 remain. Actual v0.36.0 shared-schema API/archive writing, separate unknown0017 migration refusal, independently old-authored forward migration and current reopen qualify both archive suffixes. Downgrade refuses nondefault preferences or unreaped private work; restore defaults and stop/reap owned work before the supported migration. Use matching client/server versions and a complete pre-upgrade managed-data backup.\n\nMeasured limits remain explicit: 38/40 cold edits exceed 2 seconds, 20/40 cache projections and 47/84 feedback observations exceed 100 ms, and all four bulk active updates exceed 5 seconds. Cold median/p95/max is 2,832.35/3,619.9/3,654.1 ms; cache is 100.65/121.8/123.6 ms with zero new warm jobs. Cancellation feedback peaks at 11.5 ms. All 92 renewals/27,243,680 UTF-8 response bytes/132 updates are counted. Mobile retirement latency, wrapper CPU/RSS/load and complete browser/GPU/short-lived-process accounting remain unavailable. Discrete samples are not simultaneous totals; portable bounds pass without strict-host certification or causal speedup/regression claims.\n\nProfiles #160, sidebar #161, filters #162 and final inspector integration #163 remain required under open parent #11. Diagram #153, relocations #164/#165 and the other parent exclusions remain separate. Terminal documentation integration and safe owned-branch cleanup are being completed through the normal process; the runtime tag remains immutable.\n",
+    "author_association": "OWNER",
+    "pin": null,
+    "reactions": {
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/issues/comments/7026392950/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null,
+    "minimized": null
+  },
+  "canonical_reply_unique": true,
+  "body_sha256": "d1b073aaca99ab5455d4489738b86e9a4a6923e36d05d1504b3d5291d9bdeedc"
+}

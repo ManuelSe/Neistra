@@ -1,0 +1,424 @@
+{
+  "API_requests": [
+    {
+      "ASGI_wall_ms": 1209.163749,
+      "method": "POST",
+      "network_body_ms": 1213.4879999794066,
+      "request_id": 1050,
+      "route_thread_CPU_ms": null,
+      "route_wall_ms": null,
+      "source_matches": null,
+      "wrapper_ms": 1461.4000000953674
+    },
+    {
+      "ASGI_wall_ms": 10.592423,
+      "method": "POST",
+      "network_body_ms": null,
+      "request_id": 1051,
+      "route_thread_CPU_ms": 7.581411,
+      "route_wall_ms": 7.582593,
+      "source_matches": false,
+      "wrapper_ms": null
+    },
+    {
+      "ASGI_wall_ms": 28.386308,
+      "method": "POST",
+      "network_body_ms": 34.07699998933822,
+      "request_id": 1053,
+      "route_thread_CPU_ms": 21.789714,
+      "route_wall_ms": 21.903752,
+      "source_matches": true,
+      "wrapper_ms": 823.3000000715256
+    },
+    {
+      "ASGI_wall_ms": 35.816477,
+      "method": "PUT",
+      "network_body_ms": 43.563000042922795,
+      "request_id": 1057,
+      "route_thread_CPU_ms": 31.515295,
+      "route_wall_ms": 32.297775,
+      "source_matches": true,
+      "wrapper_ms": 1840.7000000476837
+    },
+    {
+      "ASGI_wall_ms": 25.365979,
+      "method": "POST",
+      "network_body_ms": 32.05500007607043,
+      "request_id": 1058,
+      "route_thread_CPU_ms": 22.04628,
+      "route_wall_ms": 22.16421,
+      "source_matches": true,
+      "wrapper_ms": 32
+    },
+    {
+      "ASGI_wall_ms": 7.424919,
+      "method": "DELETE",
+      "network_body_ms": 11.5300000179559,
+      "request_id": 1059,
+      "route_thread_CPU_ms": null,
+      "route_wall_ms": null,
+      "source_matches": null,
+      "wrapper_ms": 29.100000023841858
+    }
+  ],
+  "actual_runner_exit": 1,
+  "bottleneck_finding": "Renderer synchronous React work delays source READ dispatch and delivery of already-completed responses. A concrete quadratic Inspector result-tracking path is measured; original per-route READ/demand CPU is tens of milliseconds.",
+  "broader_row_change_disposition": "Defer; direct invocation cost measured, descendant React ownership not fully assigned, no need to expand this correction into row/menu redesign.",
+  "candidate": "8d24605a2e61b9134baaaf77565c630e8ab44725",
+  "capture_failure": "trace_buffer_guard only; returned stream complete/dataLossOccurredfalse",
+  "case_outcomes": "2PASS1FAIL; bulk original body records1000ready, one hash and hard work order passed, integrated case fails capture completeness assertion",
+  "covered_window": {
+    "CDP_epoch_offset_median_us": 1794343540747836.0,
+    "CDP_epoch_offset_spread_ms": 0.662,
+    "CPU_end_us": 668950115229,
+    "CPU_margin_after_ms": 118276.565,
+    "CPU_margin_before_ms": 51211.254,
+    "CPU_start_us": 668772374010,
+    "actual_runner_exit": 1,
+    "browser_clock_residuals": {
+      "installed": {
+        "after_residual_ms": -0.5,
+        "before_residual_ms": -0.5
+      },
+      "observed": {
+        "after_residual_ms": -0.10009765625,
+        "before_residual_ms": -0.10009765625
+      }
+    },
+    "exact_new_source_route_profiles": 4,
+    "input_hash": "8052c45322add669e1ca7b3afad2b4d8cba11797b1e9d6f7afb54d52fb612c28",
+    "network_and_API_join_method": "Unique method/path/epoch/order with full source membership for API profiles and native requests/results; separate subsystem IDs, no invented common request ID",
+    "original_bulk_completed_facts": {
+      "distinct_hashes": 1,
+      "hard_work_order_status": "passed",
+      "ready_count": 1000
+    },
+    "page_time_origin_ms": 1795012330721.6,
+    "phase_boundaries": {
+      "ACK_to_current_READ": [
+        35075.40000009537,
+        38228
+      ],
+      "click_to_ACK": [
+        33611.5,
+        35075.40000009537
+      ],
+      "click_to_READY": [
+        33611.5,
+        41864.90000009537
+      ],
+      "current_READ_body_network_to_renderer_response": [
+        38262.388916015625,
+        39051.300000071526
+      ],
+      "current_READ_wrapper_to_demand": [
+        39051.300000071526,
+        39198.200000047684
+      ],
+      "demand_body_network_to_renderer_response": [
+        39241.94482421875,
+        41038.90000009537
+      ],
+      "demand_wrapper_to_READY_READ": [
+        41038.90000009537,
+        41809
+      ]
+    },
+    "scope": "Covered active-edit window only; whole diagnostic remains FAILED/incomplete due trace_buffer_guard, no qualification/speedup claim",
+    "source": {
+      "atom_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130
+      ],
+      "entry_id": "01a1ef12-7f6f-7541-99af-2379bfd3a27b",
+      "instance_id": "8c7c870a-2b81-4589-9f49-f723b446593e",
+      "source_artifact_id": "01a1ef13-0bb5-7a66-bd49-d1a8da8fa873"
+    },
+    "source_membership_sha256": "a782cb67745eee613adafffd01e1cbf2b6a6d620f3b47b21c1a2b8c66c8cf0d4",
+    "trace_clock_markers": [
+      {
+        "args": {
+          "sync_id": "neistra-bulk-profile-start"
+        },
+        "cat": "__metadata",
+        "name": "clock_sync",
+        "ph": "c",
+        "pid": 4037001,
+        "tid": 4037001,
+        "ts": 668772388562,
+        "tts": 10033561
+      },
+      {
+        "args": {
+          "sync_id": "neistra-bulk-profile-stop"
+        },
+        "cat": "__metadata",
+        "name": "clock_sync",
+        "ph": "c",
+        "pid": 4037001,
+        "tid": 4037001,
+        "ts": 668950224346,
+        "tts": 11290675
+      }
+    ],
+    "trace_data_loss": false,
+    "trace_frame_renderer_join": {
+      "frame": "5569AAD1A1A60FFBCE6B762F1892381F",
+      "pid": 4039092,
+      "tid": 4039092
+    },
+    "trace_stream_complete": true,
+    "whole_capture_complete": false,
+    "window_CDP_us": [
+      668823585264.0,
+      668831838664.0
+    ],
+    "window_page_ms": [
+      33611.5,
+      41864.90000009537
+    ]
+  },
+  "evidence": {
+    "API-new-source-pstats.json": "9e786a7d7fbf3faa5b82dad99b92bfc39a949f0b3f7eda688724aeccbb48d364",
+    "analyze.py": "79e06824cfc07d253189c961a63229e4916ee386466573b7c17facecc143fd15",
+    "coverage.json": "e0350d8f34bd7bf72d7b32fea49a7b7549d1d5299166a51941c3733ee8c78559",
+    "input-identities.json": "47f5fa3e30b1f406c03c527b4185c02a227d1f2877265521c147c3f6efef9dad",
+    "network-api-phase-joins.json": "e6816bd28f8cf4ef87f749dedbd5289272c2abcb0287b1ba9cfeba52631236dc",
+    "page-CPU-phases.json": "2c30bfd0ce9f2f73420cb7a34159661155426f5bcd5be8b7d4f3c7c8872a8021",
+    "renderer-long-function-calls.json": "a4af6cd396a79584985733d859d04e3d5f56726014cecb23ca2c47cf22424b66",
+    "renderer-timeline-phases.json": "298a740b60b2fe8f40f1d7f584f879f4d5d967d5afd281aca2056b9b96011f9c",
+    "source-context.json": "184227cd6f7728aec17bf9b6bd9a132fae3f7591d8e1c651c74b24e2df86aaa1",
+    "stack-parent-proof.json": "b9866607473bd2e4e1bd470e65b37f9b9013e716286f16ecb50559c2edc96d52",
+    "worker-publication-join.json": "fc46e6bb58155acfe211abbb42c127558a4160f80a22e7e12223791d2f454aab"
+  },
+  "measurements": {
+    "ACK_to_current_READ_ms": 3152.5999999046326,
+    "ACK_to_current_READ_sample_categories_ms": {
+      "(garbage collector)": 125.16,
+      "(program)": 44.32,
+      "React_render_commit_or_dispatch_stack": 2794.573,
+      "existing_Playwright_DOM_snapshot_stack": 129.998,
+      "existing_benchmark_init_script_stack": 34.903,
+      "other_browser_or_application_stack": 23.646
+    },
+    "EntryRow_invocation_sample_ms": 354.278,
+    "Inspector_invocation_sample_ms": 1022.497,
+    "Inspector_structures_callback_sample_ms": 869.02,
+    "Inspector_trackProp_self_sample_ms": 546.121,
+    "ProjectBrowser_invocation_sample_ms": 240.009,
+    "active_click_to_READY_ms": 8253.400000095367,
+    "demand_body_to_renderer_ms": 1796.9551758766174,
+    "demand_body_to_renderer_sample_categories_ms": {
+      "(garbage collector)": 58.319,
+      "(program)": 40.955,
+      "React_render_commit_or_dispatch_stack": 1557.316,
+      "existing_Playwright_DOM_snapshot_stack": 127.402,
+      "existing_benchmark_init_script_stack": 4.394,
+      "other_browser_or_application_stack": 8.569
+    },
+    "exclusive_sample_stack_categories_ms": {
+      "(garbage collector)": 271.275,
+      "(idle)": 295.243,
+      "(program)": 292.001,
+      "React_render_commit_or_dispatch_stack": 6306.271,
+      "existing_Playwright_DOM_snapshot_stack": 929.739,
+      "existing_benchmark_init_script_stack": 85.056,
+      "other_browser_or_application_stack": 73.815
+    },
+    "sampling_limit": "Time-delta weighted samples approximate wall distribution; inclusive frames overlap, sampled wall is not exact CPU. Original dev-server/framework/instrumentation path preserved.",
+    "sampling_max_active_delta_us": 5197
+  },
+  "methods_before_after_count": 49,
+  "policy": "D148 opt-in reference-host absolute timings preserved. Portable correctness and production limits mandatory. Diagnostic output is not qualification.",
+  "recorded_utc": "2026-11-18T14:52:12.211119+00:00",
+  "report_sha256": "1c9a716af1d983e9e027e12506196df4a163419422070c25518337aeaee04810",
+  "retry_recommendation": "No fresh diagnostic merely for whole-case capture guard: relevant interval is covered. Obtain equivalent uninstrumented ALL8 candidate results after accepted correction.",
+  "scope": "Bounded closed-file diagnostic attribution and narrow recommendation; no application edits, tests, SQL, workloads, agents or Git/publication actions",
+  "smallest_recommended_correction": {
+    "changes": [
+      "Memoized entriesById avoids repeated linear finds inside query/result loops",
+      "Memoized full query-options array with the same project/entry/artifact identities",
+      "Explicit notifyOnChangeProps data/isError/isPlaceholderData bypasses the measured all-observer property tracking while preserving precisely the fields read"
+    ],
+    "not_claimed": "No measured candidate result,5s guarantee, exact API serialization CPU, async model-edit CPU or counterfactual speedup",
+    "preserve": [
+      "Every relevant query including hidden entries/full-project selection",
+      "Original project/entry/artifact keys, signals, retries and physical-source fences",
+      "isCompleteProjection/coordinate-seed exclusion and error/placeholder semantics",
+      "Scientific descriptors/precision, original uploads, ownership, undo/cancellation, worker scheduling and750ms pending interval",
+      "Original fixtures/assertions/deadlines/zero retries/ALL8 targets and portable/reference distinction"
+    ],
+    "scope": "ProjectInspector only, subject to root/architecture implementation decision"
+  },
+  "source_method_HEAD_unchanged_for_run": true,
+  "sources_before_after_count": 1125,
+  "validation_recommendation": [
+    "Focused regression for all same query targets and project/artifact/data/error/placeholder transitions, including hidden/selection/current-source behavior",
+    "Original fullALL8 and release checks on accepted final candidate; preserve request/work/source/resource/precision/cancel bounds and recorded timing misses"
+  ],
+  "whole_capture_complete": false,
+  "worker_bound": {
+    "bind_return": {
+      "epoch_us": 1795012371483318,
+      "page_ms": 40761.718017578125,
+      "phase": "Precommit method return; cannot be exact ready/commit time",
+      "record": 6284,
+      "turn": 2616
+    },
+    "commit_bracket_ms": 18.505859375,
+    "no_counterfactual": "Observed pending750ms timer begins only after delayed renderer reply; changing renderer work changes this phase relationship. No exact commit, immediate-read success or600ms speedup is claimed.",
+    "owner": {
+      "accepted_updated_at": "2026-11-18T14:32:49.931841+00:00",
+      "generation": 3,
+      "id": "01a1ef12-d5ae-742a-bb43-61e541124f8f",
+      "project_id": "01a1ef12-4037-7ade-bc54-7464c8a75bd3",
+      "sequence": 3,
+      "source": {
+        "atom_count": 129,
+        "entry_id": "01a1ef12-7f6f-7541-99af-2379bfd3a27b",
+        "instance_id": "8c7c870a-2b81-4589-9f49-f723b446593e",
+        "membership_sha256": "a782cb67745eee613adafffd01e1cbf2b6a6d620f3b47b21c1a2b8c66c8cf0d4",
+        "source_artifact_id": "01a1ef13-0bb5-7a66-bd49-d1a8da8fa873"
+      }
+    },
+    "publication_to_app_READY_observation_lower_bound_ms": 1084.6761231422424,
+    "publication_to_qualifying_READ_start_lower_bound_ms": 1028.776123046875,
+    "publication_to_qualifying_READ_start_upper_bound_ms": 1047.281982421875,
+    "scope": "Closed observer + captured exact source + job/owner/generation + bind input hash + successful matching turn; no managedSQL",
+    "successful_turn_end": {
+      "epoch_us": 1795012371501824,
+      "page_ms": 40780.223876953125,
+      "phase": "Successful postcommit upper publication bound",
+      "record": 6285,
+      "turn": 2616
+    },
+    "turn_end_before_demand_renderer_reply_ms": 258.67612314224243
+  }
+}

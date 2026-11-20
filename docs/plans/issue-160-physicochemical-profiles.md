@@ -552,3 +552,28 @@ explicitly; do not overwrite complete files to discard either accepted behavior.
 Then implement the accepted compatibility contract, refresh source-bound guards,
 prepare versions and run current focused and full qualification. Prior focused
 preparation remains historical evidence, not a full integrated release gate.
+
+
+### Actual released #159 integration — passing local checkpoint
+
+The normal merge of owned planning checkpoint `4a3d1f6f` with verified prerequisite
+master `3f873f50` is resolved without discarding either accepted behavior. All 17
+migrations and incoming job refresh/cancellation, native/observer/heartbeat/bulk,
+legacy-reader and benchmark guardrail bodies remain exact. The only six existing
+application paths extended relative to incoming master are the profile API and
+five frontend consumers. All 33 changed/new non-documentation bodies other than
+`main.py` retain their premerge bytes. Both complete decision histories survive verbatim, including
+D-203. The lifecycle-test conflict changes formatting only; both ASTs match.
+
+Focused actual integrated checks pass 220 backend tests with zero skips/failures,
+525 frontend tests across 18 files, Ruff, mypy on 280 files, web lint/typecheck and
+the production build. The existing Vite chunk-size warning remains. The complete
+staged diff against delivered master passes whitespace validation, including new
+files. The [checkpoint](../assets/ligand-profiles/c3-released159-integration-checkpoint.json)
+records exact source fingerprints and every original command/log identity. Original
+execution evidence is retained; this is not a complete portable release packet.
+
+No native/performance/actual-preceding-actor or complete release gate is claimed.
+Implement accepted same-schema v2 next, preserve literal/default v1, refresh the
+source-bound guard and actual predecessor receipt, prepare all five version sources,
+and complete the remaining qualification and seven-role delivery gates.

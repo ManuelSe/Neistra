@@ -887,3 +887,50 @@ failures are surfaced; cached failed inputs cannot be submitted as verified choi
 An unavailable or failed depiction does not invalidate an independently exact
 selectable instance. Derived SVG corruption is refused without changing molecular
 sources; restoring valid output bytes is distinct from requalifying an original.
+
+
+## Live ligand properties
+
+The #159 development workflow calculates versioned descriptors for one exact
+designated canonical instance. It is not a preparation, protonation, tautomer,
+desalting, salt-selection or validation procedure. Unsupported chemistry remains
+unavailable with a reason; missing charge/order is not guessed neutral/single.
+Original uploads and the canonical molecular model are not changed by calculation.
+
+Observed heavy/hetero/carbon counts and independently qualified formal charge may
+succeed when model descriptors cannot. A finite numerical zero is distinct from
+unavailability. Carbon-free fraction sp³ is undefined. Net charge 0 does not establish
+absence of formally charged atoms; the auxiliary charged-atom fact can be unknown.
+
+The disposable model normalizes admitted ordinary terminal H with a checked
+expanded-H round trip, preserving rather than erasing isotope/radical/nonterminal-H
+and stereochemical limitations. HBD/HBA use RDKit `CalcNumHBD`/`CalcNumHBA`, TPSA
+uses `includeSandP=False`, Crippen logP/MR uses `includeHs=True, force=True`, and
+rotatable bonds use `Strict`. Rings are perceived RDKit rings, not graph cycle rank.
+Calculated logP is not measured logP, logD, pKa, permeability or binding affinity.
+Registry plotting domains do not clip values or certify a property/profile verdict.
+
+A relevant changed molecular preview withholds property values and is labelled
+Preview; committed numbers are not a claim about proposed chemistry. Camera/hover/
+visibility changes do not request chemical calculation. Coordinate-only reuse still
+requires matching graph semantics and a fresh current/original source proof. A
+candidate/depiction success alone cannot restore invalidated numerical results.
+
+The kernel admits at most 1,024 designated atoms before H normalization and 4,096
+considered bonds. API source admission, per-operation byte budgets, cache and worker
+controls are separate bounds, not larger chemical-model domains or universal latency/
+whole-process memory guarantees. Both complete candidate and actual merged-commit
+portable qualifications and actual v0.36.0 reader/writer checks pass. The actual
+M2 observations miss latency targets in 38/40 cold, 20/40 cache, 47/84 feedback
+and 4/4 bulk measurements. Cold median/p95/max is 2,832.35/3,619.9/3,654.1 ms;
+matching-cache median/p95/max is 100.65/121.8/123.6 ms, with zero new warm jobs.
+Cancellation feedback peaks at 11.5 ms; it measures consumer feedback and late-reply
+retirement rather than worker termination latency. Hidden mobile retirement latency
+is unavailable for 20 cold and 20 warm observations. The 10,115 discrete case samples
+do not establish simultaneous process totals or complete browser/GPU/short-lived
+accounting; wrapper CPU/RSS/load remains unavailable. All 92 renewals, 27,243,680
+UTF-8 response bytes and 132 consumer updates are retained. No strict-host
+certification, causal speedup or regression claim follows. Historical measurements
+remain separately identified in the [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).
+See [Live ligand properties](LIGAND_PROPERTIES.md) for all 14 definitions, units,
+recovery behavior and current operational limits.

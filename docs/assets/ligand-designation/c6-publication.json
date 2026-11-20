@@ -1,0 +1,1751 @@
+{
+  "scope": "Verified published v0.36.0 payload assets; canonical child reply, terminal docs and owned cleanup follow",
+  "repository": "ManuelSe/Neistra",
+  "issue": 158,
+  "parent": 11,
+  "observed_utc": "2026-11-18T10:40:12.475474+00:00",
+  "release": {
+    "id": 449776471,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0",
+    "tag": "v0.36.0",
+    "runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+    "published_at": "2026-11-18T10:02:47Z",
+    "draft": false,
+    "prerelease": false,
+    "all56_payload_server_and_anonymous_verified": true,
+    "total_payload_bytes": 4524518265
+  },
+  "annotated_tag": {
+    "object": "05ec6685d117d000cd6c23eddfa90144b4d2a5dc",
+    "runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+    "annotation": "Neistra v0.36.0: durable ligand of interest; exact merged-commit qualification passed.\n",
+    "remote_annotation_and_dereference_verified": true
+  },
+  "qualification": {
+    "candidate": {
+      "commit": "4965727c894020052eaa25d0c9ade6a0f308dd16",
+      "application_version": "0.36.0",
+      "branch": "feat/issue-158-durable-ligand-designation",
+      "clean_start": true,
+      "complete_steps": 42,
+      "source_count": 1013,
+      "source_inventory_unchanged": true,
+      "source_digest": "df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07",
+      "sources_unchanged": true,
+      "all_lossless_log_hashes_valid": true,
+      "python": 3077,
+      "python_skips": 0,
+      "frontend": 1388,
+      "supervisor": 14,
+      "browser_passed": 531,
+      "browser_exclusions": 75,
+      "browser_inventory_count": 606,
+      "browser_inventory_sha256": "ed32f1a0c4e43bab28b7446c6fb0d9b87357ec67bcb4a0a9d2351d0afcdca60e",
+      "complete_browser_inventory_executed": true,
+      "exclusion_baseline": "docs/assets/viewer-measurements/c5-master1-browser.json.gz",
+      "exclusion_baseline_sha256": "ec3cfbf1b138d11e41a255a0bf9a4e6072e95fb025d89fef645760ea699dc751",
+      "existing_exclusion_identities_unchanged": true,
+      "new_exclusions": 0,
+      "failures_flakes_retries": 0,
+      "profile": "portable correctness; no strict reference-host timing claim",
+      "preceding_reader": "actual v0.35.0; separate old-reader safe refusal, old-authored migration and current reopen processes; both archive suffixes",
+      "preceding_source_identities_verified": 931,
+      "actual_reader_audit": "c4-candidate13-reader-audit.json",
+      "current_canonical_unapplied_proposal_retained": true,
+      "duration_seconds": 7106.931,
+      "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+      "wall_seconds": 7110.0
+    },
+    "exact_merged_master": {
+      "commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "application_version": "0.36.0",
+      "branch": "",
+      "clean_start": true,
+      "complete_steps": 42,
+      "source_count": 1013,
+      "source_inventory_unchanged": true,
+      "source_digest": "df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07",
+      "sources_unchanged": true,
+      "all_lossless_log_hashes_valid": true,
+      "python": 3077,
+      "python_skips": 0,
+      "frontend": 1388,
+      "supervisor": 14,
+      "browser_passed": 531,
+      "browser_exclusions": 75,
+      "browser_inventory_count": 606,
+      "browser_inventory_sha256": "b015cd507b8b0b24d9229350d8f8f0699a9c6ac5bf640176c4eeb5881c952478",
+      "complete_browser_inventory_executed": true,
+      "exclusion_baseline": "docs/assets/viewer-measurements/c5-master1-browser.json.gz",
+      "exclusion_baseline_sha256": "ec3cfbf1b138d11e41a255a0bf9a4e6072e95fb025d89fef645760ea699dc751",
+      "existing_exclusion_identities_unchanged": true,
+      "new_exclusions": 0,
+      "failures_flakes_retries": 0,
+      "profile": "portable correctness; no strict reference-host timing claim",
+      "preceding_reader": "actual v0.35.0; separate old-reader safe refusal, old-authored migration and current reopen processes; both archive suffixes",
+      "preceding_source_identities_verified": 931,
+      "actual_reader_audit": "c5-master1-reader-audit.json",
+      "current_canonical_unapplied_proposal_retained": true,
+      "duration_seconds": 7025.721,
+      "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+      "wall_seconds": 7029.0
+    },
+    "reviewed_candidate": "c82004ce973d5cdcb43bb0e198874e4e7b181a00",
+    "all7_final_specialist_agent_verdicts": {
+      "software_architecture": "PASS",
+      "scientific_implementation": "PASS",
+      "performance": "PASS",
+      "ui_design": "PASS",
+      "ux_design": "PASS",
+      "scientific_theory": "PASS",
+      "modeling_reference": "PASS"
+    },
+    "all7_receipt_sha256": "920090edfb07763d8fddee1211586255b951dd3b4dab25ed173f634011d5cd6e",
+    "agent_review_is_not_human_approval": true,
+    "complete_reviewed_and_runtime_trees_identical": true,
+    "candidate_and_master_42_summary_packaging_enclosing_exits": 0
+  },
+  "primary_asset_server": {
+    "id": 762856125,
+    "name": "neistra-v0.36.0-qualification.zip",
+    "size": 531749736,
+    "digest": "sha256:84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16",
+    "state": "uploaded",
+    "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip"
+  },
+  "primary_anonymous_verification": {
+    "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+    "anonymous_request_without_authorization_header": true,
+    "bytes": 531749736,
+    "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-public-assets-verification1/anonymous-primary/neistra-v0.36.0-qualification.zip",
+    "http_status": 200,
+    "matches_local_release_asset": true,
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip",
+    "qualified_master": "247ab651b35c2d58e8939985ae50633de70311a3",
+    "sha256": "84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16",
+    "verification_counts": {
+      "evidence_manifest_entries": 9760,
+      "project_archive_files": 7431,
+      "zip_archives": 3442
+    }
+  },
+  "sidecars_anonymous_verification": [
+    {
+      "asset_id": 762859292,
+      "name": "neistra-v0.36.0-qualification.zip.sha256",
+      "bytes": 100,
+      "sha256": "622a2532a0225796479f778cdd74880336d64951accc755ce181de0163339bc6",
+      "http_status": 200,
+      "anonymous": true,
+      "authorization_header_present": false
+    },
+    {
+      "asset_id": 762859611,
+      "name": "neistra-v0.36.0-qualification.zip.package.json",
+      "bytes": 1280,
+      "sha256": "3736183c3d9c8cc2d5430ef26449f0a5690dd0e8d84a5344788b42db5ae76890",
+      "http_status": 200,
+      "anonymous": true,
+      "authorization_header_present": false
+    }
+  ],
+  "forensic_anonymous_verification": {
+    "scope": "Indexed failed-run forensic asset verification only; no full-gate qualification claim",
+    "mode": "anonymous",
+    "index_sha256": "8efff69745bb1a8acedc384a1a67f5e88d283aa6b6adbfa8fb15d11d2c0e31f8",
+    "verifier_sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0",
+    "qualified_helper_sha256": "80f9e7b70288e5bd9fb894a4b32f7ddb8ad63c70b03fb975763ac8a16900b9cf",
+    "assets": [
+      {
+        "run": "c4-candidate4",
+        "asset_name": "c3-legacy-native-baseline-correction-part01.zip",
+        "asset_id": 762819849,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:564cfda8dbcbc395c10887f59a104fd96106eed27c0ccdd81ede80542a98f709",
+        "bytes": 82819897,
+        "sha256": "564cfda8dbcbc395c10887f59a104fd96106eed27c0ccdd81ede80542a98f709",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2518,
+          "project_archive_files": 0
+        },
+        "seconds": 23.162646997952834
+      },
+      {
+        "run": "c4-candidate4",
+        "asset_name": "c3-legacy-native-baseline-correction-part02.zip",
+        "asset_id": 762820989,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4171875c0b5b90457542450c04b67575127a452c0a0824a0b4844d1e077b8cd1",
+        "bytes": 82535944,
+        "sha256": "4171875c0b5b90457542450c04b67575127a452c0a0824a0b4844d1e077b8cd1",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1883,
+          "project_archive_files": 0
+        },
+        "seconds": 41.664124508039095
+      },
+      {
+        "run": "c4-candidate4",
+        "asset_name": "c3-legacy-native-baseline-correction-part03.zip",
+        "asset_id": 762821649,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:9d2e69bb3410e89a9fc7d86b8e37d2331b211a04022606b558820ddd650c3c88",
+        "bytes": 82588461,
+        "sha256": "9d2e69bb3410e89a9fc7d86b8e37d2331b211a04022606b558820ddd650c3c88",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1934,
+          "project_archive_files": 0
+        },
+        "seconds": 21.171866543008946
+      },
+      {
+        "run": "c4-candidate4",
+        "asset_name": "c3-legacy-native-baseline-correction-part04.zip",
+        "asset_id": 762822254,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:00b22e172deb5e684734f2855436b3bd201891b1112fee1296bcb2b345415565",
+        "bytes": 82531288,
+        "sha256": "00b22e172deb5e684734f2855436b3bd201891b1112fee1296bcb2b345415565",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1810,
+          "project_archive_files": 0
+        },
+        "seconds": 30.003473724005744
+      },
+      {
+        "run": "c4-candidate4",
+        "asset_name": "c3-legacy-native-baseline-correction-part05.zip",
+        "asset_id": 762822987,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4bc1edfd739c387d48eb6defbdf67015b598c06c807f60a5e91615f933420cb8",
+        "bytes": 50182769,
+        "sha256": "4bc1edfd739c387d48eb6defbdf67015b598c06c807f60a5e91615f933420cb8",
+        "recursive_verification": {
+          "zip_archives": 10,
+          "evidence_manifest_entries": 821,
+          "project_archive_files": 4
+        },
+        "seconds": 43.99893567909021
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part01.zip",
+        "asset_id": 762823728,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:d9c6ff6646bab3fd497ad9457828c34c2929a77428ff4e22f97e57fe1970044f",
+        "bytes": 79918557,
+        "sha256": "d9c6ff6646bab3fd497ad9457828c34c2929a77428ff4e22f97e57fe1970044f",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 607,
+          "project_archive_files": 0
+        },
+        "seconds": 38.98437882401049
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part02.zip",
+        "asset_id": 762824468,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:f4a047dbafde9fbc8ba4804aaea0b07921ba6de16435d0489db1f28d1bc03250",
+        "bytes": 81479942,
+        "sha256": "f4a047dbafde9fbc8ba4804aaea0b07921ba6de16435d0489db1f28d1bc03250",
+        "recursive_verification": {
+          "zip_archives": 2,
+          "evidence_manifest_entries": 4195,
+          "project_archive_files": 2
+        },
+        "seconds": 36.40988743503112
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part03.zip",
+        "asset_id": 762825142,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:7e10647ffb3b585f6d54580d9312e74466dfacfe014d7471a8453a4dde291227",
+        "bytes": 80383730,
+        "sha256": "7e10647ffb3b585f6d54580d9312e74466dfacfe014d7471a8453a4dde291227",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1666,
+          "project_archive_files": 0
+        },
+        "seconds": 24.20734465692658
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part04.zip",
+        "asset_id": 762825837,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:c55b4368e2eef3e4d50894e9b2312d3edc082180211347a75789270e55f66e7d",
+        "bytes": 80448595,
+        "sha256": "c55b4368e2eef3e4d50894e9b2312d3edc082180211347a75789270e55f66e7d",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1800,
+          "project_archive_files": 0
+        },
+        "seconds": 21.85496113798581
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part05.zip",
+        "asset_id": 762826508,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:f81d16b04215bd763c3c73100b21f65e0d83014f4268e3fcf55a0d3199a1bdfd",
+        "bytes": 80435530,
+        "sha256": "f81d16b04215bd763c3c73100b21f65e0d83014f4268e3fcf55a0d3199a1bdfd",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1772,
+          "project_archive_files": 0
+        },
+        "seconds": 23.077634238055907
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part06.zip",
+        "asset_id": 762827125,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e3fb70a8ca35995f8196b48b04b2dc269bbb80ee63ce7c8ce447c0c34203aa36",
+        "bytes": 80517746,
+        "sha256": "e3fb70a8ca35995f8196b48b04b2dc269bbb80ee63ce7c8ce447c0c34203aa36",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2017,
+          "project_archive_files": 0
+        },
+        "seconds": 48.19062951405067
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part07.zip",
+        "asset_id": 762827921,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part07.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:1778eeb2e6b66fd9646fbb7a7e9b811bb5034d7491438dc86007048476204c35",
+        "bytes": 80434278,
+        "sha256": "1778eeb2e6b66fd9646fbb7a7e9b811bb5034d7491438dc86007048476204c35",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1849,
+          "project_archive_files": 0
+        },
+        "seconds": 25.431079408037476
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part08.zip",
+        "asset_id": 762828746,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part08.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:9801e2f7fb2be6cf3e18b327ec126f88561fdb6c9b20f3c41826de8740b895e3",
+        "bytes": 80447435,
+        "sha256": "9801e2f7fb2be6cf3e18b327ec126f88561fdb6c9b20f3c41826de8740b895e3",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1855,
+          "project_archive_files": 0
+        },
+        "seconds": 34.56298671499826
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part09.zip",
+        "asset_id": 762829432,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part09.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4beeedf923e7c7b49e7ca516b7403eaa07493fb8dd272ce902fb5d106073f92e",
+        "bytes": 80492673,
+        "sha256": "4beeedf923e7c7b49e7ca516b7403eaa07493fb8dd272ce902fb5d106073f92e",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1954,
+          "project_archive_files": 0
+        },
+        "seconds": 30.532233958947472
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part10.zip",
+        "asset_id": 762829986,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part10.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:168687e85db7586abd68d67fce4d20e1e133c50f4c138b773b378912645d01be",
+        "bytes": 80374631,
+        "sha256": "168687e85db7586abd68d67fce4d20e1e133c50f4c138b773b378912645d01be",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1672,
+          "project_archive_files": 0
+        },
+        "seconds": 41.994835466961376
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part11.zip",
+        "asset_id": 762830693,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part11.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:24e51a942d2eb60be1e5d65b637d4fc854097e160398450607217a0483dc04bd",
+        "bytes": 80495811,
+        "sha256": "24e51a942d2eb60be1e5d65b637d4fc854097e160398450607217a0483dc04bd",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1996,
+          "project_archive_files": 0
+        },
+        "seconds": 20.57324665307533
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part12.zip",
+        "asset_id": 762831578,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part12.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:b3c40b9c1e1ca71104acb9118cdc3a45cf486e50a26865b4ea98686f08e1de44",
+        "bytes": 80410903,
+        "sha256": "b3c40b9c1e1ca71104acb9118cdc3a45cf486e50a26865b4ea98686f08e1de44",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1831,
+          "project_archive_files": 0
+        },
+        "seconds": 50.274347175029106
+      },
+      {
+        "run": "c4-candidate5",
+        "asset_name": "c3-candidate5-native-failure-part13.zip",
+        "asset_id": 762832186,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part13.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:fc4229a010f93dd572ab1a69492bc68e5fec44384bbd76fdb82a8d112628d328",
+        "bytes": 58883000,
+        "sha256": "fc4229a010f93dd572ab1a69492bc68e5fec44384bbd76fdb82a8d112628d328",
+        "recursive_verification": {
+          "zip_archives": 28,
+          "evidence_manifest_entries": 567,
+          "project_archive_files": 6
+        },
+        "seconds": 32.98835581599269
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part01.zip",
+        "asset_id": 762832751,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:69b4ab90dca6a9116e2991b37657821d083f63d38f8def9be4f880a88d8538a1",
+        "bytes": 80847211,
+        "sha256": "69b4ab90dca6a9116e2991b37657821d083f63d38f8def9be4f880a88d8538a1",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2747,
+          "project_archive_files": 0
+        },
+        "seconds": 26.00495717197191
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part02.zip",
+        "asset_id": 762833364,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:66089e1cc468de2f8d1f2ab802ab79310943227953cdadeada72485025c23e06",
+        "bytes": 80378934,
+        "sha256": "66089e1cc468de2f8d1f2ab802ab79310943227953cdadeada72485025c23e06",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1683,
+          "project_archive_files": 0
+        },
+        "seconds": 43.767346570966765
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part03.zip",
+        "asset_id": 762834268,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:bf9a1f38a12934b68af0a9bbdc21c0cb64635641094cde897b15767a96878476",
+        "bytes": 80380824,
+        "sha256": "bf9a1f38a12934b68af0a9bbdc21c0cb64635641094cde897b15767a96878476",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1746,
+          "project_archive_files": 0
+        },
+        "seconds": 21.860855208011344
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part04.zip",
+        "asset_id": 762834800,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:6013c8b34728e6b51c88ebd962d373c0868ff33b48bed4e9821eeccbdcac863f",
+        "bytes": 80458585,
+        "sha256": "6013c8b34728e6b51c88ebd962d373c0868ff33b48bed4e9821eeccbdcac863f",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1865,
+          "project_archive_files": 0
+        },
+        "seconds": 36.60202956094872
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part05.zip",
+        "asset_id": 762835454,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:63f8adf9b79f0dc286ecf359652bbcb353f2d173e693d2b27a8d117bcfa272d0",
+        "bytes": 80393943,
+        "sha256": "63f8adf9b79f0dc286ecf359652bbcb353f2d173e693d2b27a8d117bcfa272d0",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1682,
+          "project_archive_files": 0
+        },
+        "seconds": 35.32645413093269
+      },
+      {
+        "run": "c4-candidate6",
+        "asset_name": "c3-candidate6-native-failure-part06.zip",
+        "asset_id": 762836169,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:3876961abfee5f045ac19972ca5c8f386cc1f70ea0ad94181ca37ff9784eccdd",
+        "bytes": 45955954,
+        "sha256": "3876961abfee5f045ac19972ca5c8f386cc1f70ea0ad94181ca37ff9784eccdd",
+        "recursive_verification": {
+          "zip_archives": 6,
+          "evidence_manifest_entries": 904,
+          "project_archive_files": 4
+        },
+        "seconds": 18.802394394995645
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part01.zip",
+        "asset_id": 762836758,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:5005646b95350d7437d6dc78b96a23675135d251881001709b109e1288871183",
+        "bytes": 79394826,
+        "sha256": "5005646b95350d7437d6dc78b96a23675135d251881001709b109e1288871183",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 324,
+          "project_archive_files": 0
+        },
+        "seconds": 25.610258626984432
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part02.zip",
+        "asset_id": 762837626,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:ffccd2f48ed2ec0eb02c05bb3bcb062b06346f6b9f682709cc41d23634a4a27b",
+        "bytes": 72620532,
+        "sha256": "ffccd2f48ed2ec0eb02c05bb3bcb062b06346f6b9f682709cc41d23634a4a27b",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 462,
+          "project_archive_files": 0
+        },
+        "seconds": 26.03538984199986
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part03.zip",
+        "asset_id": 762838190,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:b5047b29cfb04359380fe7432bb40b6a7788d2a1188db27dee80810163b77046",
+        "bytes": 80887643,
+        "sha256": "b5047b29cfb04359380fe7432bb40b6a7788d2a1188db27dee80810163b77046",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2784,
+          "project_archive_files": 0
+        },
+        "seconds": 24.148275763029233
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part04.zip",
+        "asset_id": 762838886,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e4862f5581d0c1e6c3c210f46a1a93f9f37487f2ed24004d9af83f0d6ebb2e3c",
+        "bytes": 81487245,
+        "sha256": "e4862f5581d0c1e6c3c210f46a1a93f9f37487f2ed24004d9af83f0d6ebb2e3c",
+        "recursive_verification": {
+          "zip_archives": 2,
+          "evidence_manifest_entries": 4194,
+          "project_archive_files": 2
+        },
+        "seconds": 39.68974041193724
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part05.zip",
+        "asset_id": 762839588,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:8a97b6edf15b09a40464f422a472d131e32354aeccb0a45a6e1f3c2dbafce354",
+        "bytes": 80447336,
+        "sha256": "8a97b6edf15b09a40464f422a472d131e32354aeccb0a45a6e1f3c2dbafce354",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1796,
+          "project_archive_files": 0
+        },
+        "seconds": 21.933352460968308
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part06.zip",
+        "asset_id": 762840306,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:8fa4065878146b35dc0049df22dccf0814372b6804ff0cfd035c2c522200e000",
+        "bytes": 80423893,
+        "sha256": "8fa4065878146b35dc0049df22dccf0814372b6804ff0cfd035c2c522200e000",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1784,
+          "project_archive_files": 0
+        },
+        "seconds": 35.90499022603035
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part07.zip",
+        "asset_id": 762841088,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part07.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:7b47de30290f4966cad2865bd79486ec4bf9a3fa4eaec45c218973bf7e069759",
+        "bytes": 80397883,
+        "sha256": "7b47de30290f4966cad2865bd79486ec4bf9a3fa4eaec45c218973bf7e069759",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1704,
+          "project_archive_files": 0
+        },
+        "seconds": 37.19402957998682
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part08.zip",
+        "asset_id": 762841590,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part08.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e47b476460379df301b5d243696150763e68ab7a56df5cf9d38dbc2e00da8d12",
+        "bytes": 80428695,
+        "sha256": "e47b476460379df301b5d243696150763e68ab7a56df5cf9d38dbc2e00da8d12",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1772,
+          "project_archive_files": 0
+        },
+        "seconds": 21.31088149896823
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part09.zip",
+        "asset_id": 762842241,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part09.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:d5fdd2eacbcdcdb6a92bcafebcd47288ebafef7f3537e168cd3ea1becc68cdd6",
+        "bytes": 80488283,
+        "sha256": "d5fdd2eacbcdcdb6a92bcafebcd47288ebafef7f3537e168cd3ea1becc68cdd6",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1967,
+          "project_archive_files": 0
+        },
+        "seconds": 39.262472914066166
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part10.zip",
+        "asset_id": 762842946,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part10.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:b61bbf2312c97e941b41bb7691b3a4dccd3d47f772d21d5928b0f45b2333c82a",
+        "bytes": 80483136,
+        "sha256": "b61bbf2312c97e941b41bb7691b3a4dccd3d47f772d21d5928b0f45b2333c82a",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1859,
+          "project_archive_files": 0
+        },
+        "seconds": 19.753470376948826
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part11.zip",
+        "asset_id": 762843480,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part11.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e4130bf1a62048e0d2e018d5c5564f1a776f1d6250b2912d20c7e8a109bb064b",
+        "bytes": 80476381,
+        "sha256": "e4130bf1a62048e0d2e018d5c5564f1a776f1d6250b2912d20c7e8a109bb064b",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1903,
+          "project_archive_files": 0
+        },
+        "seconds": 42.85111158492509
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part12.zip",
+        "asset_id": 762844430,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part12.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:1989131639fc91749759f28b12299c96bb34b87ee81e0f2dbe79f3912be14211",
+        "bytes": 80513534,
+        "sha256": "1989131639fc91749759f28b12299c96bb34b87ee81e0f2dbe79f3912be14211",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1922,
+          "project_archive_files": 0
+        },
+        "seconds": 37.35812558000907
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part13.zip",
+        "asset_id": 762845027,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part13.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4ae772bbb4a663cf9dcd52e9a028f39ce5cdd46114fb479f6349a460796d4cdb",
+        "bytes": 80451144,
+        "sha256": "4ae772bbb4a663cf9dcd52e9a028f39ce5cdd46114fb479f6349a460796d4cdb",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1878,
+          "project_archive_files": 0
+        },
+        "seconds": 30.01507368008606
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part14.zip",
+        "asset_id": 762845731,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part14.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:55e770a8be220049b02d013eb4809706371657ad92d86a0c363f66d3c37b2dea",
+        "bytes": 80488762,
+        "sha256": "55e770a8be220049b02d013eb4809706371657ad92d86a0c363f66d3c37b2dea",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1903,
+          "project_archive_files": 0
+        },
+        "seconds": 25.05860303505324
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part15.zip",
+        "asset_id": 762846457,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part15.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:64b69120b34bc33f80d5332e9b254d8a6432015cebf0f3d57b55353762be2469",
+        "bytes": 80422849,
+        "sha256": "64b69120b34bc33f80d5332e9b254d8a6432015cebf0f3d57b55353762be2469",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1828,
+          "project_archive_files": 0
+        },
+        "seconds": 26.89003465999849
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part16.zip",
+        "asset_id": 762847077,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part16.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:ce254b2d67168e5a91d02510d993e7f59eee14f295adfccd14c9305f5c612a5a",
+        "bytes": 80374132,
+        "sha256": "ce254b2d67168e5a91d02510d993e7f59eee14f295adfccd14c9305f5c612a5a",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1657,
+          "project_archive_files": 0
+        },
+        "seconds": 26.199066068977118
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part17.zip",
+        "asset_id": 762847710,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part17.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:e56cdb8b89d7e6a726beb3ea19d28ac4cc1464b27bf2d8a4fb88bb1d6eb98861",
+        "bytes": 80435671,
+        "sha256": "e56cdb8b89d7e6a726beb3ea19d28ac4cc1464b27bf2d8a4fb88bb1d6eb98861",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1823,
+          "project_archive_files": 0
+        },
+        "seconds": 30.060127353062853
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part18.zip",
+        "asset_id": 762848250,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part18.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4e02ebe882f776f8e5120a34c59e11a619558de42c0b56847f43cd1bb56015b5",
+        "bytes": 80414613,
+        "sha256": "4e02ebe882f776f8e5120a34c59e11a619558de42c0b56847f43cd1bb56015b5",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 1692,
+          "project_archive_files": 0
+        },
+        "seconds": 24.709234019042924
+      },
+      {
+        "run": "c4-candidate7",
+        "asset_name": "c3-candidate7-native-failure-part19.zip",
+        "asset_id": 762848910,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part19.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:045390d3238a9d88f80cdf524f4c3bf81a2beb55bc8268c974d612359bfa2f00",
+        "bytes": 49637845,
+        "sha256": "045390d3238a9d88f80cdf524f4c3bf81a2beb55bc8268c974d612359bfa2f00",
+        "recursive_verification": {
+          "zip_archives": 41,
+          "evidence_manifest_entries": 760,
+          "project_archive_files": 6
+        },
+        "seconds": 23.501071566017345
+      },
+      {
+        "run": "c4-candidate8",
+        "asset_name": "c3-candidate8-native-failure-part01.zip",
+        "asset_id": 762849356,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate8-native-failure-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:ab706e38203077298752dcbd3292e79a19865afa7ad2c47da86b7467f1f90c3c",
+        "bytes": 9124132,
+        "sha256": "ab706e38203077298752dcbd3292e79a19865afa7ad2c47da86b7467f1f90c3c",
+        "recursive_verification": {
+          "zip_archives": 4,
+          "evidence_manifest_entries": 120,
+          "project_archive_files": 0
+        },
+        "seconds": 3.649234840995632
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part01.zip",
+        "asset_id": 762849853,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:279c48cd1fca20797e23fe754e5ab64eb0e31e6130567e0dcf3d442aefcae99c",
+        "bytes": 81998911,
+        "sha256": "279c48cd1fca20797e23fe754e5ab64eb0e31e6130567e0dcf3d442aefcae99c",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 5392,
+          "project_archive_files": 0
+        },
+        "seconds": 27.85809157404583
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part02.zip",
+        "asset_id": 762850830,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:f943be54f2dcd2305783be33e04465c76d8f7051f7b08aab1428f78684890860",
+        "bytes": 81298276,
+        "sha256": "f943be54f2dcd2305783be33e04465c76d8f7051f7b08aab1428f78684890860",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 3878,
+          "project_archive_files": 0
+        },
+        "seconds": 27.470432472066022
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part03.zip",
+        "asset_id": 762851539,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part03.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:82ffaad365a06a9d9df1f0c32e6cb00ce144eab02d628828dfc65f5976d417d5",
+        "bytes": 81372953,
+        "sha256": "82ffaad365a06a9d9df1f0c32e6cb00ce144eab02d628828dfc65f5976d417d5",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 3996,
+          "project_archive_files": 0
+        },
+        "seconds": 33.98593315598555
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part04.zip",
+        "asset_id": 762852128,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part04.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:4e4abc3bb7a14c3449202c7e303a6c1e0d870d9fdb8684b08bf4c6ecb8b9f206",
+        "bytes": 81290368,
+        "sha256": "4e4abc3bb7a14c3449202c7e303a6c1e0d870d9fdb8684b08bf4c6ecb8b9f206",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 3767,
+          "project_archive_files": 0
+        },
+        "seconds": 29.31151102599688
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part05.zip",
+        "asset_id": 762852828,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part05.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:30b2f44d26da5dd63405458185f4f64a2972e5a492e8b46ebc895944356052a4",
+        "bytes": 80747156,
+        "sha256": "30b2f44d26da5dd63405458185f4f64a2972e5a492e8b46ebc895944356052a4",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 2531,
+          "project_archive_files": 0
+        },
+        "seconds": 33.003854071954265
+      },
+      {
+        "run": "c4-candidate9",
+        "asset_name": "c3-candidate9-native-failure-part06.zip",
+        "asset_id": 762853472,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part06.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:c9feddb7ec6ba47deb430297e5edb7fcaf7f25bea078a875e6c6395e8e4b7c64",
+        "bytes": 66629029,
+        "sha256": "c9feddb7ec6ba47deb430297e5edb7fcaf7f25bea078a875e6c6395e8e4b7c64",
+        "recursive_verification": {
+          "zip_archives": 68,
+          "evidence_manifest_entries": 2048,
+          "project_archive_files": 18
+        },
+        "seconds": 32.36518305609934
+      },
+      {
+        "run": "c4-candidate10",
+        "asset_name": "c3-candidate10-native-interrupted-part01.zip",
+        "asset_id": 762854111,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate10-native-interrupted-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:df5764eebcb86525cdb52ab9af35197e3eef5fd66f35800ab67f578db6aeba44",
+        "bytes": 80547474,
+        "sha256": "df5764eebcb86525cdb52ab9af35197e3eef5fd66f35800ab67f578db6aeba44",
+        "recursive_verification": {
+          "zip_archives": 51,
+          "evidence_manifest_entries": 2873,
+          "project_archive_files": 26
+        },
+        "seconds": 90.89479255501647
+      },
+      {
+        "run": "c4-candidate10",
+        "asset_name": "c3-candidate10-native-interrupted-part02.zip",
+        "asset_id": 762854856,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate10-native-interrupted-part02.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:6a1f974ca3e830e8664688b626f3244d82d3d378ba0736e37027efafb70499fe",
+        "bytes": 7406662,
+        "sha256": "6a1f974ca3e830e8664688b626f3244d82d3d378ba0736e37027efafb70499fe",
+        "recursive_verification": {
+          "zip_archives": 1,
+          "evidence_manifest_entries": 157,
+          "project_archive_files": 0
+        },
+        "seconds": 3.47094647702761
+      },
+      {
+        "run": "c4-candidate11",
+        "asset_name": "c3-candidate11-native-interrupted-part01.zip",
+        "asset_id": 762855324,
+        "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate11-native-interrupted-part01.zip",
+        "http_status": 200,
+        "anonymous_request": true,
+        "request_auth_header_present": false,
+        "server_digest": "sha256:1ddeaefaa4e92b498977a3517bfefaf5fe9a406ee6d27564874d946683be06be",
+        "bytes": 78281144,
+        "sha256": "1ddeaefaa4e92b498977a3517bfefaf5fe9a406ee6d27564874d946683be06be",
+        "recursive_verification": {
+          "zip_archives": 51,
+          "evidence_manifest_entries": 2969,
+          "project_archive_files": 26
+        },
+        "seconds": 40.41502418706659
+      }
+    ],
+    "runs": [
+      {
+        "label": "c4-candidate4",
+        "exact_manifest_union": true,
+        "files": 8966,
+        "raw_bytes": 780288058,
+        "inventory_uncompressed_sha256": "373c076e5f21a333f469cd47096dde18c26969593fd149e39bb6effbc4bc7cb2",
+        "provenance": {
+          "recipe_sha256": "b674f728a935e2a1a2f10b6ff861cde092b622949a2efa4dc964c416008d21a0",
+          "gate_sha256": "0db2d7a6c94f817b700fc54ef41467aa6536a08c8432d66bb7d74d90870c77aa",
+          "source_count": 1003,
+          "source_digest": "5fcfdf29e02d2855ad726078b554a831d30d0096dd2c26970d244b87b6e2e415",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate4"
+      },
+      {
+        "label": "c4-candidate5",
+        "exact_manifest_union": true,
+        "files": 23781,
+        "raw_bytes": 2078273491,
+        "inventory_uncompressed_sha256": "ef0e6a62949eb875387fbeff3a7541f2cbe57135b29311d5b88dfbe895dc40d8",
+        "provenance": {
+          "recipe_sha256": "9d3ef859ae198e4de33d73a5e613bc1fedb4a4e78b6e484ba3ee4fbd172da895",
+          "gate_sha256": "6732b183896159b977fc81030cc092518ffb07e8aa2f1d7dbe1d0efba45b93a6",
+          "source_count": 1003,
+          "source_digest": "14af75c7334b490f041df1003c35a09a45ebc3791f004d53cd8701a2c7200b43",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate5"
+      },
+      {
+        "label": "c4-candidate6",
+        "exact_manifest_union": true,
+        "files": 10627,
+        "raw_bytes": 895783948,
+        "inventory_uncompressed_sha256": "1721dbeb65da46e9dec5b6ba297dcb185bf8844b9fd68a8cd2d34fbd395fa479",
+        "provenance": {
+          "recipe_sha256": "31198d5fefc710002eacb5d30da5bae6d60adea82a36d7ce89c5f100ef2c92c1",
+          "gate_sha256": "0dc3c9143ae2cacfa1fbda79db7148b6645addc4ebfe6afe007010ddb51ca62f",
+          "source_count": 1005,
+          "source_digest": "7e5a38ae9f3f7ec564cfe4637f1faf9458b2841e45bf17f9ec820def016b6f43",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate6"
+      },
+      {
+        "label": "c4-candidate7",
+        "exact_manifest_union": true,
+        "files": 34012,
+        "raw_bytes": 3389473487,
+        "inventory_uncompressed_sha256": "766af5d370b17b6be3d54ffacc67904a440b2404d4656a36a6f9738e4ecf03ef",
+        "provenance": {
+          "recipe_sha256": "be1bcb4a72bae6dc76d0d872f8feec95c2508fd08f1403fe02737b2e3dbf3397",
+          "gate_sha256": "7586c79a98cefdd77e493f7c0d306f4c9a300e5f611883aa01afeac7574cdd2f",
+          "source_count": 1005,
+          "source_digest": "7e5a38ae9f3f7ec564cfe4637f1faf9458b2841e45bf17f9ec820def016b6f43",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate7"
+      },
+      {
+        "label": "c4-candidate8",
+        "exact_manifest_union": true,
+        "files": 120,
+        "raw_bytes": 11281927,
+        "inventory_uncompressed_sha256": "e7b67db6053c072045da7c3d2cc08370728cda37fb83f16c0afd0bcb9a3e94e4",
+        "provenance": {
+          "recipe_sha256": "55a0e1dc5a4cff2638d28b537c51e8c9cc94a35b77c230a5230c79f81e37573e",
+          "gate_sha256": "aca3b12c98ce9b34d3bb27f477c4f2c41c25599f5e8f4019791b03d937a37f9a",
+          "source_count": 1005,
+          "source_digest": "a320f57aa335f4d08587c7c3ea330d94ca7e6e51ce17c3b169cb77623efe1637",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate8"
+      },
+      {
+        "label": "c4-candidate9",
+        "exact_manifest_union": true,
+        "files": 21607,
+        "raw_bytes": 975663537,
+        "inventory_uncompressed_sha256": "c0288cf4c19da0161275438c360e8d661e28813379ff439b9ee85cb7dfad35a7",
+        "provenance": {
+          "recipe_sha256": "9cb4d5f298ea03c4f113caebc2d8a33e9ebec893afeb38bc975d90699a38287a",
+          "gate_sha256": "bca0d289a392096b88b592e0abe855dc7ed357d59aaafe4f244c003a5d91de8b",
+          "source_count": 1005,
+          "source_digest": "25fd41ef26d6af357c2a463a24ccd2b5087db4d6f9f6b5b1e6152860d35ea20f",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate9"
+      },
+      {
+        "label": "c4-candidate10",
+        "exact_manifest_union": true,
+        "files": 3025,
+        "raw_bytes": 353456865,
+        "inventory_uncompressed_sha256": "70e30ebd51e952cedbf8ec0b6994327da966b23a3739dd68d70259381337a48a",
+        "provenance": {
+          "recipe_sha256": "9f16294a9d9f01b4a21e186e184c3a5022213971cd2d11546fe8362356b620dc",
+          "gate_sha256": "805ab47535ac69bf5bdebf09cbc8ec037f2469746959fac2c81256e97eab6441",
+          "source_count": 1005,
+          "source_digest": "f014f32d0671a3a229dae723a79d6935fec1231cb38d06bf03113dd6b50a630d",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate10"
+      },
+      {
+        "label": "c4-candidate11",
+        "exact_manifest_union": true,
+        "files": 2964,
+        "raw_bytes": 289141361,
+        "inventory_uncompressed_sha256": "88721a528be79aa5f60147e54c4c00fc854a401ebea8f8934360755d435e3842",
+        "provenance": {
+          "recipe_sha256": "14bd544c7b077fbb049f78ea78655fbcf6f9b9072e0417ea75e5e9b37cef6cc9",
+          "gate_sha256": "f1be9c063f1d0310072715a9c4c12b5ef8d1e5b14799cd2bb01d387d78db5268",
+          "source_count": 1006,
+          "source_digest": "d85bdd80f0c706349052b8bdcfcb57dcd5d4c328c0358246176b594e9b7fefa9",
+          "lossless_logs_verified": 16
+        },
+        "extraction_root": "forensics/c4-candidate11"
+      }
+    ],
+    "complete": true,
+    "all_indexed_assets_verified": true,
+    "asset_count": 53,
+    "failed_runs_remain_unqualified": true
+  },
+  "forensic_totals": {
+    "parts": 53,
+    "failed_or_interrupted_runs": 8,
+    "asset_bytes": 3992767149,
+    "raw_files": 105102,
+    "raw_bytes": 8773362674,
+    "all_exact_unions_verified": true,
+    "raw_parts_not_rebundled_in_primary": true,
+    "C12_successful_superseded_not_a_failed_run": true
+  },
+  "all_payload_assets_server": [
+    {
+      "id": 762854111,
+      "name": "c3-candidate10-native-interrupted-part01.zip",
+      "size": 80547474,
+      "digest": "sha256:df5764eebcb86525cdb52ab9af35197e3eef5fd66f35800ab67f578db6aeba44",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate10-native-interrupted-part01.zip"
+    },
+    {
+      "id": 762854856,
+      "name": "c3-candidate10-native-interrupted-part02.zip",
+      "size": 7406662,
+      "digest": "sha256:6a1f974ca3e830e8664688b626f3244d82d3d378ba0736e37027efafb70499fe",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate10-native-interrupted-part02.zip"
+    },
+    {
+      "id": 762855324,
+      "name": "c3-candidate11-native-interrupted-part01.zip",
+      "size": 78281144,
+      "digest": "sha256:1ddeaefaa4e92b498977a3517bfefaf5fe9a406ee6d27564874d946683be06be",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate11-native-interrupted-part01.zip"
+    },
+    {
+      "id": 762823728,
+      "name": "c3-candidate5-native-failure-part01.zip",
+      "size": 79918557,
+      "digest": "sha256:d9c6ff6646bab3fd497ad9457828c34c2929a77428ff4e22f97e57fe1970044f",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part01.zip"
+    },
+    {
+      "id": 762824468,
+      "name": "c3-candidate5-native-failure-part02.zip",
+      "size": 81479942,
+      "digest": "sha256:f4a047dbafde9fbc8ba4804aaea0b07921ba6de16435d0489db1f28d1bc03250",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part02.zip"
+    },
+    {
+      "id": 762825142,
+      "name": "c3-candidate5-native-failure-part03.zip",
+      "size": 80383730,
+      "digest": "sha256:7e10647ffb3b585f6d54580d9312e74466dfacfe014d7471a8453a4dde291227",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part03.zip"
+    },
+    {
+      "id": 762825837,
+      "name": "c3-candidate5-native-failure-part04.zip",
+      "size": 80448595,
+      "digest": "sha256:c55b4368e2eef3e4d50894e9b2312d3edc082180211347a75789270e55f66e7d",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part04.zip"
+    },
+    {
+      "id": 762826508,
+      "name": "c3-candidate5-native-failure-part05.zip",
+      "size": 80435530,
+      "digest": "sha256:f81d16b04215bd763c3c73100b21f65e0d83014f4268e3fcf55a0d3199a1bdfd",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part05.zip"
+    },
+    {
+      "id": 762827125,
+      "name": "c3-candidate5-native-failure-part06.zip",
+      "size": 80517746,
+      "digest": "sha256:e3fb70a8ca35995f8196b48b04b2dc269bbb80ee63ce7c8ce447c0c34203aa36",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part06.zip"
+    },
+    {
+      "id": 762827921,
+      "name": "c3-candidate5-native-failure-part07.zip",
+      "size": 80434278,
+      "digest": "sha256:1778eeb2e6b66fd9646fbb7a7e9b811bb5034d7491438dc86007048476204c35",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part07.zip"
+    },
+    {
+      "id": 762828746,
+      "name": "c3-candidate5-native-failure-part08.zip",
+      "size": 80447435,
+      "digest": "sha256:9801e2f7fb2be6cf3e18b327ec126f88561fdb6c9b20f3c41826de8740b895e3",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part08.zip"
+    },
+    {
+      "id": 762829432,
+      "name": "c3-candidate5-native-failure-part09.zip",
+      "size": 80492673,
+      "digest": "sha256:4beeedf923e7c7b49e7ca516b7403eaa07493fb8dd272ce902fb5d106073f92e",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part09.zip"
+    },
+    {
+      "id": 762829986,
+      "name": "c3-candidate5-native-failure-part10.zip",
+      "size": 80374631,
+      "digest": "sha256:168687e85db7586abd68d67fce4d20e1e133c50f4c138b773b378912645d01be",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part10.zip"
+    },
+    {
+      "id": 762830693,
+      "name": "c3-candidate5-native-failure-part11.zip",
+      "size": 80495811,
+      "digest": "sha256:24e51a942d2eb60be1e5d65b637d4fc854097e160398450607217a0483dc04bd",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part11.zip"
+    },
+    {
+      "id": 762831578,
+      "name": "c3-candidate5-native-failure-part12.zip",
+      "size": 80410903,
+      "digest": "sha256:b3c40b9c1e1ca71104acb9118cdc3a45cf486e50a26865b4ea98686f08e1de44",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part12.zip"
+    },
+    {
+      "id": 762832186,
+      "name": "c3-candidate5-native-failure-part13.zip",
+      "size": 58883000,
+      "digest": "sha256:fc4229a010f93dd572ab1a69492bc68e5fec44384bbd76fdb82a8d112628d328",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate5-native-failure-part13.zip"
+    },
+    {
+      "id": 762832751,
+      "name": "c3-candidate6-native-failure-part01.zip",
+      "size": 80847211,
+      "digest": "sha256:69b4ab90dca6a9116e2991b37657821d083f63d38f8def9be4f880a88d8538a1",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part01.zip"
+    },
+    {
+      "id": 762833364,
+      "name": "c3-candidate6-native-failure-part02.zip",
+      "size": 80378934,
+      "digest": "sha256:66089e1cc468de2f8d1f2ab802ab79310943227953cdadeada72485025c23e06",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part02.zip"
+    },
+    {
+      "id": 762834268,
+      "name": "c3-candidate6-native-failure-part03.zip",
+      "size": 80380824,
+      "digest": "sha256:bf9a1f38a12934b68af0a9bbdc21c0cb64635641094cde897b15767a96878476",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part03.zip"
+    },
+    {
+      "id": 762834800,
+      "name": "c3-candidate6-native-failure-part04.zip",
+      "size": 80458585,
+      "digest": "sha256:6013c8b34728e6b51c88ebd962d373c0868ff33b48bed4e9821eeccbdcac863f",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part04.zip"
+    },
+    {
+      "id": 762835454,
+      "name": "c3-candidate6-native-failure-part05.zip",
+      "size": 80393943,
+      "digest": "sha256:63f8adf9b79f0dc286ecf359652bbcb353f2d173e693d2b27a8d117bcfa272d0",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part05.zip"
+    },
+    {
+      "id": 762836169,
+      "name": "c3-candidate6-native-failure-part06.zip",
+      "size": 45955954,
+      "digest": "sha256:3876961abfee5f045ac19972ca5c8f386cc1f70ea0ad94181ca37ff9784eccdd",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate6-native-failure-part06.zip"
+    },
+    {
+      "id": 762836758,
+      "name": "c3-candidate7-native-failure-part01.zip",
+      "size": 79394826,
+      "digest": "sha256:5005646b95350d7437d6dc78b96a23675135d251881001709b109e1288871183",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part01.zip"
+    },
+    {
+      "id": 762837626,
+      "name": "c3-candidate7-native-failure-part02.zip",
+      "size": 72620532,
+      "digest": "sha256:ffccd2f48ed2ec0eb02c05bb3bcb062b06346f6b9f682709cc41d23634a4a27b",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part02.zip"
+    },
+    {
+      "id": 762838190,
+      "name": "c3-candidate7-native-failure-part03.zip",
+      "size": 80887643,
+      "digest": "sha256:b5047b29cfb04359380fe7432bb40b6a7788d2a1188db27dee80810163b77046",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part03.zip"
+    },
+    {
+      "id": 762838886,
+      "name": "c3-candidate7-native-failure-part04.zip",
+      "size": 81487245,
+      "digest": "sha256:e4862f5581d0c1e6c3c210f46a1a93f9f37487f2ed24004d9af83f0d6ebb2e3c",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part04.zip"
+    },
+    {
+      "id": 762839588,
+      "name": "c3-candidate7-native-failure-part05.zip",
+      "size": 80447336,
+      "digest": "sha256:8a97b6edf15b09a40464f422a472d131e32354aeccb0a45a6e1f3c2dbafce354",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part05.zip"
+    },
+    {
+      "id": 762840306,
+      "name": "c3-candidate7-native-failure-part06.zip",
+      "size": 80423893,
+      "digest": "sha256:8fa4065878146b35dc0049df22dccf0814372b6804ff0cfd035c2c522200e000",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part06.zip"
+    },
+    {
+      "id": 762841088,
+      "name": "c3-candidate7-native-failure-part07.zip",
+      "size": 80397883,
+      "digest": "sha256:7b47de30290f4966cad2865bd79486ec4bf9a3fa4eaec45c218973bf7e069759",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part07.zip"
+    },
+    {
+      "id": 762841590,
+      "name": "c3-candidate7-native-failure-part08.zip",
+      "size": 80428695,
+      "digest": "sha256:e47b476460379df301b5d243696150763e68ab7a56df5cf9d38dbc2e00da8d12",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part08.zip"
+    },
+    {
+      "id": 762842241,
+      "name": "c3-candidate7-native-failure-part09.zip",
+      "size": 80488283,
+      "digest": "sha256:d5fdd2eacbcdcdb6a92bcafebcd47288ebafef7f3537e168cd3ea1becc68cdd6",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part09.zip"
+    },
+    {
+      "id": 762842946,
+      "name": "c3-candidate7-native-failure-part10.zip",
+      "size": 80483136,
+      "digest": "sha256:b61bbf2312c97e941b41bb7691b3a4dccd3d47f772d21d5928b0f45b2333c82a",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part10.zip"
+    },
+    {
+      "id": 762843480,
+      "name": "c3-candidate7-native-failure-part11.zip",
+      "size": 80476381,
+      "digest": "sha256:e4130bf1a62048e0d2e018d5c5564f1a776f1d6250b2912d20c7e8a109bb064b",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part11.zip"
+    },
+    {
+      "id": 762844430,
+      "name": "c3-candidate7-native-failure-part12.zip",
+      "size": 80513534,
+      "digest": "sha256:1989131639fc91749759f28b12299c96bb34b87ee81e0f2dbe79f3912be14211",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part12.zip"
+    },
+    {
+      "id": 762845027,
+      "name": "c3-candidate7-native-failure-part13.zip",
+      "size": 80451144,
+      "digest": "sha256:4ae772bbb4a663cf9dcd52e9a028f39ce5cdd46114fb479f6349a460796d4cdb",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part13.zip"
+    },
+    {
+      "id": 762845731,
+      "name": "c3-candidate7-native-failure-part14.zip",
+      "size": 80488762,
+      "digest": "sha256:55e770a8be220049b02d013eb4809706371657ad92d86a0c363f66d3c37b2dea",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part14.zip"
+    },
+    {
+      "id": 762846457,
+      "name": "c3-candidate7-native-failure-part15.zip",
+      "size": 80422849,
+      "digest": "sha256:64b69120b34bc33f80d5332e9b254d8a6432015cebf0f3d57b55353762be2469",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part15.zip"
+    },
+    {
+      "id": 762847077,
+      "name": "c3-candidate7-native-failure-part16.zip",
+      "size": 80374132,
+      "digest": "sha256:ce254b2d67168e5a91d02510d993e7f59eee14f295adfccd14c9305f5c612a5a",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part16.zip"
+    },
+    {
+      "id": 762847710,
+      "name": "c3-candidate7-native-failure-part17.zip",
+      "size": 80435671,
+      "digest": "sha256:e56cdb8b89d7e6a726beb3ea19d28ac4cc1464b27bf2d8a4fb88bb1d6eb98861",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part17.zip"
+    },
+    {
+      "id": 762848250,
+      "name": "c3-candidate7-native-failure-part18.zip",
+      "size": 80414613,
+      "digest": "sha256:4e02ebe882f776f8e5120a34c59e11a619558de42c0b56847f43cd1bb56015b5",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part18.zip"
+    },
+    {
+      "id": 762848910,
+      "name": "c3-candidate7-native-failure-part19.zip",
+      "size": 49637845,
+      "digest": "sha256:045390d3238a9d88f80cdf524f4c3bf81a2beb55bc8268c974d612359bfa2f00",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate7-native-failure-part19.zip"
+    },
+    {
+      "id": 762849356,
+      "name": "c3-candidate8-native-failure-part01.zip",
+      "size": 9124132,
+      "digest": "sha256:ab706e38203077298752dcbd3292e79a19865afa7ad2c47da86b7467f1f90c3c",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate8-native-failure-part01.zip"
+    },
+    {
+      "id": 762849853,
+      "name": "c3-candidate9-native-failure-part01.zip",
+      "size": 81998911,
+      "digest": "sha256:279c48cd1fca20797e23fe754e5ab64eb0e31e6130567e0dcf3d442aefcae99c",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part01.zip"
+    },
+    {
+      "id": 762850830,
+      "name": "c3-candidate9-native-failure-part02.zip",
+      "size": 81298276,
+      "digest": "sha256:f943be54f2dcd2305783be33e04465c76d8f7051f7b08aab1428f78684890860",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part02.zip"
+    },
+    {
+      "id": 762851539,
+      "name": "c3-candidate9-native-failure-part03.zip",
+      "size": 81372953,
+      "digest": "sha256:82ffaad365a06a9d9df1f0c32e6cb00ce144eab02d628828dfc65f5976d417d5",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part03.zip"
+    },
+    {
+      "id": 762852128,
+      "name": "c3-candidate9-native-failure-part04.zip",
+      "size": 81290368,
+      "digest": "sha256:4e4abc3bb7a14c3449202c7e303a6c1e0d870d9fdb8684b08bf4c6ecb8b9f206",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part04.zip"
+    },
+    {
+      "id": 762852828,
+      "name": "c3-candidate9-native-failure-part05.zip",
+      "size": 80747156,
+      "digest": "sha256:30b2f44d26da5dd63405458185f4f64a2972e5a492e8b46ebc895944356052a4",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part05.zip"
+    },
+    {
+      "id": 762853472,
+      "name": "c3-candidate9-native-failure-part06.zip",
+      "size": 66629029,
+      "digest": "sha256:c9feddb7ec6ba47deb430297e5edb7fcaf7f25bea078a875e6c6395e8e4b7c64",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-candidate9-native-failure-part06.zip"
+    },
+    {
+      "id": 762819849,
+      "name": "c3-legacy-native-baseline-correction-part01.zip",
+      "size": 82819897,
+      "digest": "sha256:564cfda8dbcbc395c10887f59a104fd96106eed27c0ccdd81ede80542a98f709",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part01.zip"
+    },
+    {
+      "id": 762820989,
+      "name": "c3-legacy-native-baseline-correction-part02.zip",
+      "size": 82535944,
+      "digest": "sha256:4171875c0b5b90457542450c04b67575127a452c0a0824a0b4844d1e077b8cd1",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part02.zip"
+    },
+    {
+      "id": 762821649,
+      "name": "c3-legacy-native-baseline-correction-part03.zip",
+      "size": 82588461,
+      "digest": "sha256:9d2e69bb3410e89a9fc7d86b8e37d2331b211a04022606b558820ddd650c3c88",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part03.zip"
+    },
+    {
+      "id": 762822254,
+      "name": "c3-legacy-native-baseline-correction-part04.zip",
+      "size": 82531288,
+      "digest": "sha256:00b22e172deb5e684734f2855436b3bd201891b1112fee1296bcb2b345415565",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part04.zip"
+    },
+    {
+      "id": 762822987,
+      "name": "c3-legacy-native-baseline-correction-part05.zip",
+      "size": 50182769,
+      "digest": "sha256:4bc1edfd739c387d48eb6defbdf67015b598c06c807f60a5e91615f933420cb8",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/c3-legacy-native-baseline-correction-part05.zip"
+    },
+    {
+      "id": 762856125,
+      "name": "neistra-v0.36.0-qualification.zip",
+      "size": 531749736,
+      "digest": "sha256:84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip"
+    },
+    {
+      "id": 762859611,
+      "name": "neistra-v0.36.0-qualification.zip.package.json",
+      "size": 1280,
+      "digest": "sha256:3736183c3d9c8cc2d5430ef26449f0a5690dd0e8d84a5344788b42db5ae76890",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip.package.json"
+    },
+    {
+      "id": 762859292,
+      "name": "neistra-v0.36.0-qualification.zip.sha256",
+      "size": 100,
+      "digest": "sha256:622a2532a0225796479f778cdd74880336d64951accc755ce181de0163339bc6",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip.sha256"
+    }
+  ],
+  "anonymous_execution": {
+    "phases": [
+      {
+        "command": [
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/docs/assets/ligand-designation/release-evidence.py.txt",
+          "download",
+          "--url",
+          "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-qualification.zip",
+          "--receipt",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-actual-M1-assembly1/neistra-v0.36.0-qualification.zip.package.json",
+          "--output",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-public-assets-verification1/anonymous-primary/neistra-v0.36.0-qualification.zip"
+        ],
+        "actual_child_exit": 0,
+        "log_sha256": "f887807400e3f4e27a2d104271a87c61303a7f534f1f0dd590fc1891b0022779"
+      },
+      {
+        "command": [
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.venv/bin/python",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/tools/verify_ligand_forensics.py",
+          "--root",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation",
+          "--mode",
+          "anonymous",
+          "--remote-assets",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-public-assets-verification1/actual-published-release.json",
+          "--downloads",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-public-assets-verification1/anonymous-forensics",
+          "--output",
+          "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-public-assets-verification1/anonymous-forensics.json"
+        ],
+        "actual_child_exit": 0,
+        "log_sha256": "fd1f458c498d01dc1b2b71b330a977e58d07e433d8f515eb43b73924c55e3091"
+      }
+    ],
+    "actual_enclosing": {
+      "scope": "Actual root observed complete public verification tool exit",
+      "session_id": 6748,
+      "chunk_id": "47a5b3",
+      "actual_exit_code": 0,
+      "observed_utc": "2026-11-18T10:40:12.475313+00:00"
+    }
+  },
+  "local_main_independent_readback_sha256": "d8c6a52f4360fc01283b6b9a8aef53084d8de6ef8c0e9d3022d8c60635949c23",
+  "remote_review": "Owner requested @codex review; no completed remote reviewer assessment was available. Required protections/reviews/checks were reconciled before normal merge; none bypassed.",
+  "compatibility": "Migration0016 physicalproject_documents_v3/projectarchive3; matchingclientserver/completebackup; actualv035safe-refusal/old-authoredforwardmigration/currentreopen bothsuffixes verified. Guardeddowngrade protects retainednondefaultintent includingClear.",
+  "scientific_performance_limits": "Explicit unsupported/uncertain chemistry; no hidden assignment/fragment/protonation policy. Portablecorrectness, no strict reference-host timing certification.",
+  "self_receipt_upload_recorded_separately": true,
+  "remaining": "Canonical158reply/explicitclosure,parentcheckbox,normalterminaldocsall7/sourceproof/merge,ownedbranchcleanup and deliveryreceipt; parentGoalactive159–163."
+}

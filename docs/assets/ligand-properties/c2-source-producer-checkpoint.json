@@ -1,0 +1,161 @@
+{
+  "all_original_stores_and_evidence_preserved": true,
+  "archive": "c2-source-producer-evidence.zip",
+  "archive_bytes": 27099010,
+  "archive_sha256": "7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b",
+  "author_verification": {
+    "actual_outer_observations": [
+      {
+        "chunk": "650bbd",
+        "exit": 1,
+        "scope": "Preserved candidate1 lint failure",
+        "session": 55633
+      },
+      {
+        "chunk": "8103de",
+        "exit": 0,
+        "scope": "Candidate2 author checkpoint",
+        "session": 97831
+      },
+      {
+        "chunk": "8672b5",
+        "exit": 0,
+        "scope": "Extended six-case actual-source replay",
+        "session": 46715
+      }
+    ],
+    "actual_scope": "Physical failures and restored candidate GET use disposable real in-process ASGI. READY and warm numeric recovery responses use controlled frontend transports. No new scientific calculation or App/browser execution.",
+    "fresh_candidate2": {
+      "frontend_focused": 357,
+      "frontend_focused_files": 13,
+      "mypy_files": 274,
+      "ruff": "PASS",
+      "scoped_format": "PASS",
+      "web": 1559,
+      "web_build": "PASS",
+      "web_files": 133,
+      "web_lint": "PASS",
+      "web_types": "PASS"
+    },
+    "reused_from_unchanged_python_subject": {
+      "D196_regressions": 156,
+      "backend": 90,
+      "process_supervisors": 6,
+      "reason": "Candidate2 changes only new TypeScript test unused import/mock typing; no runtime or assertion changes",
+      "supervisor_deselected": 3
+    }
+  },
+  "candidate": 2,
+  "changed_or_added_source_count": 20,
+  "compact_source_digest": "28760569338bf572a0edbf1ddb98b829b90fda17196c1d1fe1d92a45bbd7dc1e",
+  "declared_local_base": "f6e847b8e25eb4d1068f8b14741fda6fb8bdd0d0",
+  "existing_changed_source_count": 13,
+  "issue": 159,
+  "naming_scan": {
+    "text_payloads": 6859,
+    "zip_archives": 44
+  },
+  "new_source_count": 7,
+  "observed_utc": "2026-11-18T05:17:54.172672+00:00",
+  "outer_manifest_entries": 1400,
+  "parent": 11,
+  "physical_fact_boundary": "Known physical current/original input snapshot and read failures carry exact four primitive source IDs and role. Existing request/generation/ownership guards validate READ and demand facts before synchronous canonical barrier/event publication and immediate return. No physical authority is inferred from generic status/reason, worker, chemistry, capacity, transport, designation or derived SVG/report failures.",
+  "previous_public_assets": {
+    "c1-checkpoint.json": {
+      "bytes": 14646,
+      "sha256": "e5226cbf2b2ec2353d7b269f1f84dd1761d144bf995f1062eed5bdfcab533c19"
+    },
+    "c1-evidence.zip": {
+      "bytes": 37202926,
+      "sha256": "f25634d34eb5de3c3fc280291074e3a3375cb74faea517722ef0196f8202b0fe"
+    },
+    "c2-startup-ownership-checkpoint.json": {
+      "bytes": 9728,
+      "sha256": "95295a05f07c63e20b0b9f30deab7eedc2abb7ecc17dbbc0bf30d22f0e65b091"
+    },
+    "c2-startup-ownership.zip": {
+      "bytes": 2540205,
+      "sha256": "c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24"
+    },
+    "production-audit.py.txt": {
+      "bytes": 1900,
+      "sha256": "c1fd5d64b6431f0223b79b0d7d0db7e906fff8e5a60619bbc8d340b144c39d1f"
+    },
+    "qualification-summary.py.txt": {
+      "bytes": 22232,
+      "sha256": "d32ec9c91ffa898bea4f3bb8a11b1cbe7a2374f73c514d98a1defa3f3ccfd263"
+    },
+    "qualification.py.txt": {
+      "bytes": 7850,
+      "sha256": "057ae60e4e30a6cb1cec1eb74c18267a5bf108e79cc766c07927ebbd87909548"
+    },
+    "release-evidence.py.txt": {
+      "bytes": 32814,
+      "sha256": "ec7a087683d59c713da23dcd3c2d37682f063bac2fcabfc69ac614879f3ff6fc"
+    },
+    "release-recipe.py.txt": {
+      "bytes": 10938,
+      "sha256": "a157508e07e54b499240288da11071ab2c9a7ddaaa227b96f8c21e68fcf90e6e"
+    },
+    "versions.py.txt": {
+      "bytes": 4713,
+      "sha256": "b6a0599a1d01ebcde7a2649964d6b5307610261e3f386ddc5b47ecd15efb80ca"
+    }
+  },
+  "previous_public_assets_not_duplicated": true,
+  "recovery": "Canonical candidate qualification and numeric authority are independent. Candidate success alone cannot restore numbers; a fresh matching source-verified property READ may recover warm numbers without a new demand and without qualifying candidate facts. Old held reads remain fenced.",
+  "recursive_verification": {
+    "evidence_manifest_entries": 1425,
+    "project_archive_files": 55,
+    "zip_archives": 45
+  },
+  "remaining_limits": [
+    "Actual delivered preceding child integration and final159 native/full qualification remain required.",
+    "Downstream160/161 profile/radar propagation and verification are separate parent-owned work.",
+    "No full Python suite, fresh native/browser/services, new descriptor calculation, performance or release gate was run for this packet.",
+    "Historical D194 selected desktop probe4: five cold starts and20 paired edits; median2057.95ms/p952242.60ms exceeds unchanged2000ms target. Portable correctness evidence is not target or strict-host certification.",
+    "Seven other performance cases and four1000-entry cohorts remain unexecuted; ALL8 preparation5/6 is historical HOLD.",
+    "All-seven same-final-candidate assessments and complete candidate/exact-master gates remain pending.",
+    "Copied native source-write regression is retained as source, unexecuted here. Existing large-chunk build advisory remains."
+  ],
+  "scope": "Completed D198 source-producer local checkpoint only; no feature completion, readiness, prerequisite delivery, merge or release claim",
+  "scoped_specialist_agent_reviews": {
+    "all_seven_final_assessment_complete": false,
+    "distinct_proofs_not_pooled": true,
+    "scientific_implementation": {
+      "actual_ASGI_cases": 6,
+      "assessment": "independent-scientific-implementation/assessment.json",
+      "independent_backend_cases": 58,
+      "independent_frontend_cases": 148,
+      "production_session_replays": 12,
+      "scope": "Accepted D198 source-producer integration only",
+      "sha256": "ad4d7e5771ad5176aff7f8c8b088f40708a49d2efb856892fac2026e204ee12f",
+      "verdict": "PASS"
+    },
+    "software_architecture": {
+      "actual_ASGI_cases": 6,
+      "assessment": "independent-architecture/assessment.json",
+      "independent_backend_cases": 21,
+      "production_session_replays": 6,
+      "scope": "Accepted D198 source-producer integration only",
+      "sha256": "47aeead9d9a3cd15f1a3162596877f998f2b277a3b37b069b1f6853a7fa5a94b",
+      "unavailable_PYTHONPATH_failure_preserved": true,
+      "verdict": "PASS"
+    }
+  },
+  "source_count": 1122,
+  "source_map_sha256": "29c3c5c31aaead721d442b95052848786d2786731864405e1777055e22329fbd",
+  "source_preservation": {
+    "author_handoff_artifacts_exact": 100,
+    "before_prior_evidence_members": 63,
+    "complete_before_sources": 1115,
+    "complete_current_sources": 1122,
+    "failed_candidate1_sources": 1122,
+    "original_reverse_negative_files_exact": 8,
+    "original_reverse_negative_sha256": "72841d050ca371a1778aa461610eec39a683f07b9eab6ae08d0476fabf77ea95",
+    "owned_current_and_candidate1_sources": 20,
+    "protected_D194_sources": 49,
+    "protected_D196_service_methods": 33
+  },
+  "write_boundary": "Candidates/depiction use exact query owners; Use and legacy resolve publish inside the captured actual API operation before feedback gates. Batch facts require an exact requested member and all four immutable source fields. Malformed supplied identity cannot fall back. Clear and semantic input-hash rejection fabricate no physical proof."
+}

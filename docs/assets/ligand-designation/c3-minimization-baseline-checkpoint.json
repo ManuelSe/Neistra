@@ -1,0 +1,87 @@
+{
+  "scope": "Closed helper-consumer diagnostic checkpoint; not complete application qualification or final readiness",
+  "helper_sha256": "57d75c0da967528ddb1af803590987b219e8358151ede842d149f038feb5f081",
+  "consumer_probe": {
+    "native_child_exit": 0,
+    "original_session": 27894,
+    "original_tool_enclosing_exit_observed": false,
+    "source_maps_unchanged": true,
+    "passed": 17,
+    "historical_skipped": 1,
+    "failed": 0,
+    "flaky": 0,
+    "retries": 0,
+    "root_fresh_readback": {
+      "tool_chunk": "3f5e5d",
+      "exit_code": 0,
+      "evidence": "consumer-probe/root-readback.json",
+      "scope": "Fresh closed-evidence validation only; no native rerun and no claim about unavailable original tool completion"
+    }
+  },
+  "strict_helper_types": {
+    "actual_parent_observed_session": 48114,
+    "actual_exit": 0,
+    "scope": "Changed helper only with actual Vite mapping, Node declarations, existing browser globals and TypeScript-extension imports; not whole legacy native TypeScript coverage",
+    "initial_config_exit": 2,
+    "configuration_only_added_options": [
+      "allowImportingTsExtensions",
+      "typeRoots",
+      "types"
+    ],
+    "helper_source_unchanged": true,
+    "initial_config_receipt_and_log_retained": true
+  },
+  "old_native_failure": "First controlled assessment legitimately advances revision before minimization capture. The old helper returned its earlier pre-assessment project baseline; calculation itself preserves captured revision.",
+  "correction": "Observe actual successful assessment batches, prove exact project/history/source/entry invariants and complete all initial entries before returning the asserted baseline; retain all original readonly/preview/Apply/Undo/Redo checks.",
+  "earlier_probes": {
+    "before_actual_session": 95983,
+    "before_failed": 2,
+    "before_actual_exit": 1,
+    "after_actual_session": 15970,
+    "after_passed": 2,
+    "after_actual_exit": 0
+  },
+  "retained": {
+    "consumer-output": 27,
+    "owned-consumer-store": 249,
+    "failed-helper-types": 4,
+    "passing-helper-types": 3
+  },
+  "prior_forensic_references": {
+    "docs/assets/ligand-designation/c3-forensics-verification3.json": {
+      "bytes": 4452,
+      "sha256": "2544fafc3d5878e73a89dcccab36916fa6b15c3239b832502352ee07cf8ea67d"
+    },
+    "docs/assets/ligand-designation/c3-forensics-verification3.zip": {
+      "bytes": 6050719,
+      "sha256": "995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577"
+    },
+    "docs/assets/ligand-designation/c3-forensics-index.json": {
+      "bytes": 40917,
+      "sha256": "b825b161ec887a26ed03ad6b0eece48a1a11572a2ecd41c76a6a1d011d60352e"
+    },
+    "docs/assets/ligand-designation/c4-candidate7-gate.json": {
+      "bytes": 590735,
+      "sha256": "7586c79a98cefdd77e493f7c0d306f4c9a300e5f611883aa01afeac7574cdd2f"
+    }
+  },
+  "no_raw_c7native_or_forensic_part_rebundling": true,
+  "specialist_scope": "Independent architecture assessment is coordinated separately by root; this packet does not claim final specialist approval.",
+  "required_next": "Scoped independent reassessment, fresh complete C8 all42, independent summary/recursive packaging/actual enclosing readback, final all-seven review and normal delivery; no pooled gates",
+  "archive": "c3-minimization-baseline-correction.zip",
+  "archive_bytes": 4817942,
+  "archive_sha256": "5184e34ad04d9f0598c5b2546cf806ed75c4c24e47876d93488c0b62fbcc6dc7",
+  "outer_manifest_entries": 301,
+  "recursive_verification": {
+    "zip_archives": 15,
+    "evidence_manifest_entries": 301,
+    "project_archive_files": 0
+  },
+  "source_count": 1005,
+  "source_digest": "a320f57aa335f4d08587c7c3ea330d94ca7e6e51ce17c3b169cb77623efe1637",
+  "preceding_source_count": 931,
+  "current_and_preceding_sources_unchanged": true,
+  "only_changed_selected_source_from_failed_c7": "tests/e2e/support/minimization.ts",
+  "all_packet_payload_hashes_and_recursive_crcs_verified": true,
+  "observed_utc": "2026-11-17T18:20:11.796707+00:00"
+}

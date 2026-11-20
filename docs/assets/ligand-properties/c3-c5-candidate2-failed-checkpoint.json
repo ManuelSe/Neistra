@@ -1,0 +1,71 @@
+{
+  "status": "FAILED original c5-candidate2; complete preservation verified, publication pending. Not qualification PASS.",
+  "candidate": "2061c55f3afc5100c242882d4a5c63dae1ee3ac7",
+  "actual_runner_exit": 1,
+  "successful_recipe_commands": 40,
+  "recorded_recipe_commands": 41,
+  "remaining_unrun_commands": [
+    "property-readers",
+    "diff"
+  ],
+  "failed_command": "editing-readers",
+  "failure": "The isolated corrective checkout lacked its required exact preceding-reader receipt. The audit failed before actor workspace creation. Original receipt remained intact.",
+  "completed_stage_counts": {
+    "python": 3598,
+    "frontend": 1599,
+    "frontend_files": 137,
+    "supervisor": 14,
+    "native_passed": 565,
+    "native_existing_exclusions": 75,
+    "native_new_exclusions": 0,
+    "native_failures_flakes_retries": 0,
+    "property_performance_cases_passed_once": 8
+  },
+  "native_scope": "Independent complete640case inventory/exclusion readback only; overall43command qualification failed.",
+  "native_readback_sha256": "c6ef6ce469553f6fc594614a7a90c62be80cf4b0cad208c20291c33be7e98370",
+  "raw_files": 6709,
+  "raw_bytes": 753301661,
+  "original_roots": 14,
+  "empty_directories": 115,
+  "raw_DB_WAL_SHM_original_copy_pairs": 17,
+  "original_observer_roots": 8,
+  "original_observer_files": 480,
+  "positive_cleanup_before_raw_copy": true,
+  "SQL_opened": false,
+  "source_capture_seal_sha256": "801c7fda1cd0d17dd96d7f05005e24aa6da8b57e5fc687cf23db7781039f6ca8",
+  "source_current_count": 1133,
+  "source_actual036_count": 1013,
+  "all41_lossless_gzip_logs_exact": true,
+  "all_original_bytes_metadata_and_union_exact": true,
+  "all2146_source_Git_original_capsule_bodies_exact": true,
+  "all8_original_attachments_source_and_trace_mirror_bindings_exact": true,
+  "recursive_counts": {
+    "zip_archives": 309,
+    "evidence_manifest_entries": 6756,
+    "project_archive_files": 703
+  },
+  "preservation_helper_attempts": {
+    "first_exit": 1,
+    "first_failure": "Expected unittest-style summary for actual node TAP producer; no archive created. Whole kit and failed execution retained.",
+    "second_exit": 0,
+    "second_correction": "Strict actual TAP validation; actual full pure validation and35 coherent negative mutations pass. Original source-capture outputs unchanged.",
+    "standalone_originals_verifier_exit": 0,
+    "independent_primary_readback_exit": 0
+  },
+  "separate_asset": {
+    "asset": "neistra-v0.37.0-c5-candidate2-failed.zip",
+    "checksum_asset": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+    "bytes": 185748045,
+    "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+    "published": false,
+    "qualified_main_member": false,
+    "primary_readback_sha256": "8ae18dc7111d60cf05373029f255bc9905506ca403a6a46fd2110297841cf28d"
+  },
+  "payload_retention": "Original native directory and browser JSON remain in place under exact local exclusions after full verification. Smaller original public records remain tracked/visible. Complete raw failure payload is a separate release asset.",
+  "limits": [
+    "Two recipe commands remain unrun in this failed campaign.",
+    "Focused recovery and restored inputs do not qualify the original failed run.",
+    "Fresh complete candidate and exact merged gates, all-seven final review and normal corrective delivery remain required.",
+    "Full anonymous asset/checksum verification remains required after actual release publication."
+  ]
+}

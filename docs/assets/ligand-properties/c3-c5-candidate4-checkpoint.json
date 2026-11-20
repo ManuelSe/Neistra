@@ -1,0 +1,594 @@
+{
+  "scope": "Complete original c5-candidate4 qualification and closed retained/public evidence checkpoint; final implementation review/merge/merged qualification/release remain required.",
+  "recorded_utc": "2026-11-19T18:31:14.726375+00:00",
+  "parent_issue": 11,
+  "child_issue": 159,
+  "required_program_children": [
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163
+  ],
+  "program_goal_remains_active": true,
+  "qualified_candidate": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+  "qualification_complete": true,
+  "qualification_summary": {
+    "commit": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+    "application_version": "0.37.0",
+    "branch": "fix/issue-159-observer-snapshots",
+    "clean_start": true,
+    "complete_steps": 43,
+    "source_count": 1133,
+    "source_inventory_unchanged": true,
+    "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 3598,
+    "python_skips": 0,
+    "frontend": 1599,
+    "supervisor": 14,
+    "browser_passed": 565,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "9684a360bce6e3df2dbe0af6b073bcecdd83c83c485ca4c2e5f5ca82adf85a66",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "actual_reader_audit": "c5-candidate4-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 10029.161,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 10033.0
+  },
+  "actual_original_runner_wait": 0,
+  "full43_single_original_campaign": true,
+  "raw_log_bodies_all_verified": true,
+  "preceding_annotated_reader": {
+    "tag": "v0.36.0",
+    "tag_object": "05ec6685d117d000cd6c23eddfa90144b4d2a5dc",
+    "runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+    "sources": 1013
+  },
+  "source_model": {
+    "current_selected_count": 1133,
+    "current_compact_digest": "776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec",
+    "original_native12_candidate": "7da9913bcf4630f1f4ffbfa2af3eeffc7ff9705c",
+    "original_native12_compact_digest": "be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7",
+    "exact_declared_two_test_deltas": {
+      "tests/e2e/rebranding-zoom.spec.ts": {
+        "after": "75ed41b0e75e67cd92a3056311fc98785e0414ee6576aec0abe0e4bb24a19eb0",
+        "before": "5002451820458969f3da28ba6aceaa0a6cdb9753040e33745b632663f610c0bd"
+      },
+      "tests/unit/test_ligand_properties_release_recipe.py": {
+        "after": "9947c6b75171656d92578edc6a3dd624396d9520950daeef945558e657e2cce9",
+        "before": "fa019dffc96a972c56f18197728874eccfde426ea956f99bf2280757b25f783a"
+      }
+    },
+    "all_other_1131_bodies_unchanged": true,
+    "benchmark_method_subjects_unchanged": 52,
+    "observer_subjects_unchanged": 789,
+    "final_selected_inventory_matches_qualifying_pins": true,
+    "later_documentation_review_commit_must_not_replace_actual_qualifying_identity": true
+  },
+  "terminal_collection": {
+    "actual_tool_chunk": "e25d4f",
+    "actual_exit": 0,
+    "positive_cleanup_before_all_existing_raw_files": true,
+    "raw_existing_database_sidecar_original_copy_pairs": 59,
+    "diagnostic_SQL_opened": false
+  },
+  "official_gate_parts": [
+    {
+      "bytes": 83360400,
+      "file": "c5-candidate4-qualified-01.zip",
+      "outer_manifest_entries": 1371,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c5-candidate4-qualified-01.zip",
+      "sha256": "5da9609a253097fe5faf0c7d06307ffbf0a06ac539a854398f1732caa0c58ecb",
+      "verification_counts": {
+        "evidence_manifest_entries": 1371,
+        "project_archive_files": 1052,
+        "zip_archives": 551
+      }
+    },
+    {
+      "bytes": 22958747,
+      "file": "c5-candidate4-qualified-02.zip",
+      "outer_manifest_entries": 739,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c5-candidate4-qualified-02.zip",
+      "sha256": "772a1e0502d6577ba6c664b1ca6a423913fa31e2f257e675ccb4c6e7318dd217",
+      "verification_counts": {
+        "evidence_manifest_entries": 739,
+        "project_archive_files": 1040,
+        "zip_archives": 341
+      }
+    }
+  ],
+  "complete_independent_readback": {
+    "file": "c3-c5-candidate4-independent-readback.json",
+    "bytes": 4813,
+    "sha256": "fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4",
+    "actual_initial_tool_chunk": "16576a",
+    "actual_session": 40869,
+    "actual_completion_tool_chunk": "fef6d9",
+    "actual_exit": 0,
+    "original_roots": 12,
+    "original_files": 6977,
+    "original_bytes": 622790963,
+    "empty_directories": 44,
+    "Git_disk_capsule_bodies": 2146,
+    "observer_UUID_roots": 8,
+    "observer_regular_files": 480,
+    "raw_pairs": 59,
+    "complete_body_CRC_metadata_alias_emptydir_union_and_trace_windows_sequence_verified": true
+  },
+  "qualified_public_companions": [
+    {
+      "file": "c3-c5-candidate4-retained-state.zip",
+      "bytes": 76385129,
+      "sha256": "4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2",
+      "scope": "complete closed retained workspace/transport/eight-observer state",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-source-evidence.zip",
+      "bytes": 9636580,
+      "sha256": "bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74",
+      "scope": "distinct complete seven-file source companion",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-independent-readback-context.zip",
+      "bytes": 21273,
+      "sha256": "3da49b8200026b23c8ef4a04a6dc45e521bfb632a22497cd68e0d2740e7f529f",
+      "scope": "Entire closed original context root; both private adapter attempts retained where present",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-performance-analysis.zip",
+      "bytes": 163335,
+      "sha256": "79015ea93c6d1e65001fc874baa4762842ef6aa42ec3564ad3da3ea2639eec76",
+      "scope": "Entire closed original context root; both private adapter attempts retained where present",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-analysis.json",
+      "bytes": 98915,
+      "sha256": "fd43081662edbb14af7c5259144fbd06e6c0d1f79399196a696b703cc71b303e",
+      "scope": "closed numerical/work/resource assessment; original scope and limits retained",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-independent-readback.json",
+      "bytes": 4813,
+      "sha256": "fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4",
+      "scope": "actual independent whole-original/Git/disk/capsule/observer readback",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    },
+    {
+      "file": "c3-c5-candidate4-packet-consumers.json",
+      "bytes": 2938,
+      "sha256": "0b0d0794976ad35caf26ff1e41307f8705ca2fc011f1b1599cc4aed0ad09c2eb",
+      "scope": "actual packet-only source and retained consumers; historical recorded state retained",
+      "artifact_role": "qualified-main-supplement",
+      "separate_failed_forensic_asset": false
+    }
+  ],
+  "context_packaging_receipt": {
+    "file": "c3-c5-candidate4-context-packaging.json",
+    "bytes": 39944,
+    "sha256": "7d187d8300cbe0518e9cde7d4d4748e8026e032322dbbd345f951464580213c9"
+  },
+  "primary_integrated_public_readback": {
+    "recorded_utc": "2026-11-19T18:27:03.358948+00:00",
+    "scope": "Primary integrated public artifact copies/context-original metadata and exact member bodies, frozen gate-file discovery and source-equivalence readback.",
+    "candidate": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+    "public_payloads": [
+      {
+        "file": "c3-c5-candidate4-retained-state.zip",
+        "bytes": 76385129,
+        "sha256": "4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-source-evidence.zip",
+        "bytes": 9636580,
+        "sha256": "bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-independent-readback-context.zip",
+        "bytes": 21273,
+        "sha256": "3da49b8200026b23c8ef4a04a6dc45e521bfb632a22497cd68e0d2740e7f529f",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-performance-analysis.zip",
+        "bytes": 163335,
+        "sha256": "79015ea93c6d1e65001fc874baa4762842ef6aa42ec3564ad3da3ea2639eec76",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-analysis.json",
+        "bytes": 98915,
+        "sha256": "fd43081662edbb14af7c5259144fbd06e6c0d1f79399196a696b703cc71b303e",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-independent-readback.json",
+        "bytes": 4813,
+        "sha256": "fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4",
+        "copy_or_complete_original_context_union": true
+      },
+      {
+        "file": "c3-c5-candidate4-packet-consumers.json",
+        "bytes": 2938,
+        "sha256": "0b0d0794976ad35caf26ff1e41307f8705ca2fc011f1b1599cc4aed0ad09c2eb",
+        "copy_or_complete_original_context_union": true
+      }
+    ],
+    "public_receipt": {
+      "bytes": 39944,
+      "sha256": "7d187d8300cbe0518e9cde7d4d4748e8026e032322dbbd345f951464580213c9"
+    },
+    "independent_context_complete_members": 8,
+    "analysis_context_complete_members": 29,
+    "before_after_original_context_metadata_and_bytes_exact": true,
+    "original_official_disjoint_union_members": 2110,
+    "original_gate_file_subset_count": 80,
+    "campaign_prefixed_file_subset_and_every_body_unchanged": true,
+    "all_qualified_context_is_c3_prefixed_for_existing_release_discovery": true,
+    "full_selected_inventory_current_exact": true,
+    "selected_source_count": 1133,
+    "forensic_index12_unchanged": true,
+    "SQL_opened": false,
+    "full_original_retained_recursion_reused_by_exact_copy_SHA": "Independentfef6d9/portable2e483f; no payload change warrants repeating957ZIP checks.",
+    "final_all7_push_merge_release_complete": false
+  },
+  "source_freeze_release": {
+    "recorded_utc": "2026-11-19T18:09:21.952306+00:00",
+    "candidate": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+    "scope": "Release development source/HEAD freeze after complete successful original qualification and independent whole readback; every closed original evidence root remains immutable.",
+    "actual_independent_initial_tool_chunk": "16576a",
+    "actual_independent_session": 40869,
+    "actual_independent_completion_tool_chunk": "fef6d9",
+    "actual_independent_exit": 0,
+    "independent_readback": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-candidate4-independent-readback-preparation1/readback.json",
+      "bytes": 4813,
+      "sha256": "fa338fc9e69578778fff9e7da31a722151d9dcb9d6e913d2f1f3df1429de04c4"
+    },
+    "final_current_selected_inventory_matches_original_pins": true,
+    "selected_source_count": 1133,
+    "selected_compact_sha256": "776cd8d21daf6dfd605b741bbab825423f1568deb1f20d624b45a8de646f5eec",
+    "development_source_freeze_released": true,
+    "all_original_campaign_workspaces_transports_UUIDs_sources_capsules_binding_files_remain_frozen": true,
+    "original_qualification_must_not_be_relabelled_or_rerun_for_doc_only_checkpoint": true,
+    "final_allseven_common_candidate_normal_merge_fresh_actual_merged_gate_and_release_required": true,
+    "goal_remains_active": true
+  },
+  "performance": {
+    "actual_analysis_tool_chunk": "5122cf",
+    "actual_analysis_exit": 0,
+    "independent_arithmetic_tool_chunk": "5abee0",
+    "independent_arithmetic_exit": 0,
+    "input_files_rechecked": 528,
+    "file": "c3-c5-candidate4-analysis.json",
+    "bytes": 98915,
+    "sha256": "fd43081662edbb14af7c5259144fbd06e6c0d1f79399196a696b703cc71b303e",
+    "measurements": {
+      "cold": {
+        "n": 40,
+        "median": 2786.599999964237,
+        "p95_nearest_rank": 3567.5,
+        "min": 1971.1000000238419,
+        "max": 3647.899999976158,
+        "limit": 2000,
+        "misses": 39
+      },
+      "matching_cache": {
+        "n": 40,
+        "median": 98.84999996423721,
+        "p95_nearest_rank": 124,
+        "min": 48.39999997615814,
+        "max": 128.10000002384186,
+        "limit": 100,
+        "misses": 20
+      },
+      "click_feedback84": {
+        "n": 84,
+        "median": 103.39999997615814,
+        "p95_nearest_rank": 132.10000002384186,
+        "min": 17.899999976158142,
+        "max": 1052.1000000238419,
+        "limit": 100,
+        "misses": 46
+      },
+      "bulk": {
+        "n": 4,
+        "median": 6979.850000023842,
+        "p95_nearest_rank": 7997.799999952316,
+        "min": 5344.100000023842,
+        "max": 7997.799999952316,
+        "limit": 5000,
+        "misses": 4
+      },
+      "cancellation": {
+        "n": 2,
+        "median": 8.600000023841858,
+        "p95_nearest_rank": 13,
+        "min": 4.200000047683716,
+        "max": 13,
+        "limit": 100,
+        "misses": 0
+      },
+      "renewals": {
+        "calls": 93,
+        "full_UTF8_response_body_bytes": 28056765,
+        "all_consumer_updates": 133
+      },
+      "warm_new_jobs": 0,
+      "case_observer_samples": 10023
+    },
+    "hard_bounds": {
+      "all4_priority_overlaps_exercised": true,
+      "ordinary_productive_turns_before_claim": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "productive_bulk_fairness_turns_before_admission": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "private_bulk_jobs": [
+        3,
+        3,
+        127,
+        127
+      ],
+      "private_bulk_job_cap": 129,
+      "all_private_bulk_jobs_reaped": true,
+      "per_case_resource_retention_bounds_checked": true
+    },
+    "limitations": [
+      "39/40cold,20/40cache,46/84feedback and4/4bulk latency targets missed; portable correctness does not certify strict-host timing.",
+      "Mobile hidden old-value retirement latency is unavailable for20cold and20warm observations, neverzero.",
+      "C4 wrapper CPU/RSS/load,whole-browser/GPU/short-lived-process and controlled-host conditions are unavailable; native12 wrapper samples are historical only.",
+      "Per-case sampled RSS peaks are not simultaneous totals/every-instant ceilings; counts of observed historical jobs across cases are not new spawn totals.",
+      "Renewal byte totals cover full retained UTF8 renewal response strings; other network wire-byte totals are unavailable.",
+      "Client-observed HTTP/phase awaits include scheduling/transport/overlap and do not isolate server CPU.",
+      "Native12 comparison is descriptive,without controlled A/B; no causal speedup/regression or universal throughput claim.",
+      "Two adapter-preparation/schema mistakes remain preserved; neither changed native inputs or reran the workload."
+    ],
+    "scientific_method_or_tolerances_changed": false,
+    "strict_host_or_causal_claim": false,
+    "both_adapter_attempts_preserved_in_complete_29_file_context": true
+  },
+  "focused_after_context_publication": {
+    "command": "PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src:. .venv/bin/python -B -m pytest -q tests/unit/test_ligand_properties_release_recipe.py",
+    "initial_tool_chunk": "b89f5c",
+    "actual_session": 26841,
+    "completion_tool_chunk": "76315f",
+    "actual_exit": 0,
+    "passed": 89,
+    "complete_output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 3.19s\n"
+  },
+  "local_exact_owned_native_exclusion_after_complete_retention": {
+    "recorded_utc": "2026-11-19T18:28:56.746899+00:00",
+    "path": "/datadisk/dev/neistra/.git/info/exclude",
+    "exact_owned_line": "/docs/assets/ligand-properties/c5-candidate4-native/",
+    "before_bytes": 1031,
+    "before_sha256": "cde4a6951b31aa0b3947dd3d8aa6bd719222df3621acdfdc35504277e77b7695",
+    "after_bytes": 1084,
+    "after_sha256": "99d3d0c38bbd476bbdca66edb751847f4e9527cbc6d2c4782ffab2baf48ae0dd",
+    "all_previous_bytes_preserved": true,
+    "original_native_directory_retained": true,
+    "complete_official_and_retained_verification_precedes_exclusion": true,
+    "full_asset_folder_or_source_exclusions_added": false
+  },
+  "separate_forensic_publication": {
+    "file": "c3-separate-forensic-assets.json",
+    "bytes": 5681,
+    "sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+    "count": 12,
+    "all_original_failed_campaign_identities_preserved": true,
+    "new_analysis_and_publication_preflight_corrections_are_not_native_campaigns": true,
+    "full_anonymous_each_ZIP_checksum_verification_still_required": true
+  },
+  "review_state": {
+    "final_review_candidate": null,
+    "required_roles": [
+      "scientific_theory",
+      "scientific_implementation",
+      "software_architecture",
+      "performance",
+      "ui_design",
+      "ux_design",
+      "modeling_reference"
+    ],
+    "final_same_candidate_assessments": {
+      "scientific_theory": null,
+      "scientific_implementation": null,
+      "software_architecture": null,
+      "performance": null,
+      "ui_design": null,
+      "ux_design": null,
+      "modeling_reference": null
+    },
+    "prior_scoped_assessments_are_not_final_approvals": true,
+    "ready_to_push": false
+  },
+  "scope_exclusions_unchanged": [
+    153,
+    164,
+    165,
+    10,
+    127,
+    52,
+    20,
+    21
+  ],
+  "release_state": {
+    "version_prepared": "0.37.0",
+    "original_PR": 177,
+    "original_merge": "26e7cc1b9fdc5758ed18049b0fa7be67d7559882",
+    "original_exact_master1_gate": "FAILED retained separately",
+    "corrective_PR_merge_and_fresh_actual_M2_all43": "PENDING",
+    "immutable_tag_release_main_and_all12forensics_verified_publication": "PENDING",
+    "explicit_child_closeout_and_cleanup": "PENDING",
+    "parent_closeout_after160_163": "PENDING"
+  },
+  "next_actions": [
+    "Commit the passing source-equivalent evidence/docs checkpoint; focused89 and static/source checks pass.",
+    "Obtain allseven final verdicts covering the same final review candidate and complete intended feature diff.",
+    "Normal corrective PR/review/merge and fresh entire actual merged-master c5-master1.",
+    "Only then immutable037tag/release/full anonymous asset verification/159reply-closeout and ownedcleanup.",
+    "Continue160,161,162,163 and finalparent acceptance/release/closeout under sameGoal."
+  ],
+  "final_allseven_implementation_merge_master_release_or_program_complete": false,
+  "checkpoint_static_validation": {
+    "actual_tool_chunk": "44c910",
+    "actual_exit": 0,
+    "bytes": 8202,
+    "sha256": "c2c9c287ba51967a7ecde345728ea4464485316b75b6133e5b3ad9024bfa3b3e",
+    "result": {
+      "recorded_utc": "2026-11-19T18:34:29.753040+00:00",
+      "qualifying_HEAD": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+      "tracked_document_paths": [
+        "docs/DECISIONS.md",
+        "docs/LIGAND_PROPERTIES.md",
+        "docs/PROGRESS.md",
+        "docs/RELEASE_NOTES.md",
+        "docs/SCIENTIFIC_LIMITATIONS.md",
+        "docs/plans/issue-11-ligand-information.md",
+        "docs/plans/issue-159-live-ligand-properties.md"
+      ],
+      "new_public_paths": [
+        "docs/assets/ligand-properties/c3-c5-candidate4-analysis.json",
+        "docs/assets/ligand-properties/c3-c5-candidate4-checkpoint.json",
+        "docs/assets/ligand-properties/c3-c5-candidate4-context-packaging.json",
+        "docs/assets/ligand-properties/c3-c5-candidate4-independent-readback-context.zip",
+        "docs/assets/ligand-properties/c3-c5-candidate4-independent-readback.json",
+        "docs/assets/ligand-properties/c3-c5-candidate4-packet-consumers.json",
+        "docs/assets/ligand-properties/c3-c5-candidate4-performance-analysis.zip",
+        "docs/assets/ligand-properties/c3-c5-candidate4-retained-state.zip",
+        "docs/assets/ligand-properties/c3-c5-candidate4-source-evidence.zip",
+        "docs/assets/ligand-properties/c5-candidate4-browser-cases.json",
+        "docs/assets/ligand-properties/c5-candidate4-browser-inventory.json",
+        "docs/assets/ligand-properties/c5-candidate4-browser-inventory.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-browser.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-browser.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-build.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-migration.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-read-previous.json",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-read-previous.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-reopen.json",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-current-reopen.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-previous-migration-and-copy.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-previous-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-previous-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-previous-read-current.json",
+        "docs/assets/ligand-properties/c5-candidate4-connectivity-previous-read-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-diff.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-downgrade.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-old-write.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-old-write.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-produce-current.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-produce-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-reopen-current.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-reopen-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers-summary.json",
+        "docs/assets/ligand-properties/c5-candidate4-editing-readers.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-exclusions.json",
+        "docs/assets/ligand-properties/c5-candidate4-gate.json",
+        "docs/assets/ligand-properties/c5-candidate4-legacy-cli.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-lint.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-migration.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-read-previous.json",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-read-previous.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-reopen.json",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-current-reopen.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-previous-migration-and-copy.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-previous-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-previous-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-previous-read-current.json",
+        "docs/assets/ligand-properties/c5-candidate4-measurements-previous-read-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-migration.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-mypy.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-packaging.json",
+        "docs/assets/ligand-properties/c5-candidate4-pnpm.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-production.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-old-write.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-old-write.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-produce-current.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-produce-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-reopen-current.json.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-reopen-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers-summary.json",
+        "docs/assets/ligand-properties/c5-candidate4-property-readers.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-python.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-qualified-01.zip",
+        "docs/assets/ligand-properties/c5-candidate4-qualified-02.zip",
+        "docs/assets/ligand-properties/c5-candidate4-reader-audit.json",
+        "docs/assets/ligand-properties/c5-candidate4-reader-tool-types.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-remigration.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-migration.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-read-previous.json",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-read-previous.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-reopen.json",
+        "docs/assets/ligand-properties/c5-candidate4-rich-current-reopen.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-previous-migration-and-copy.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-previous-produce.json",
+        "docs/assets/ligand-properties/c5-candidate4-rich-previous-produce.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-rich-previous-read-current.json",
+        "docs/assets/ligand-properties/c5-candidate4-rich-previous-read-current.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-ruff.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-summary.json",
+        "docs/assets/ligand-properties/c5-candidate4-supervisor.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-types.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-uv.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-versions.log.gz",
+        "docs/assets/ligand-properties/c5-candidate4-web.log.gz"
+      ],
+      "tracked_documents": 7,
+      "new_public_files": 91,
+      "plain_JSON_validated": 29,
+      "lossless_gzip_streams_validated": 56,
+      "ZIPs_within_existing_part_cap": 6,
+      "new_local_markdown_links_verified": 15,
+      "DECISIONS_existing_prefix_exact": true,
+      "global_PLAN_PRODUCT_SPEC_unchanged": true,
+      "diff_check": "PASS",
+      "full_selected_source_count": 1133,
+      "full_selected_set_and_bodies_equal_qualifying_pins": true,
+      "both_original_official_part_SHA_size_current_exact": true,
+      "catalogue_focused_actual": "76315f exit0/89passed",
+      "final_all7_push_merge_release_complete": false
+    }
+  }
+}

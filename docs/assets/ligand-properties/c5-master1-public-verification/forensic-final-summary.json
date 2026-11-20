@@ -1,0 +1,714 @@
+{
+  "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "archives": [
+    {
+      "bytes": 190937608,
+      "file": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "verification_counts": {
+        "evidence_manifest_entries": 2663,
+        "project_archive_files": 50,
+        "zip_archives": 38
+      }
+    },
+    {
+      "bytes": 51668757,
+      "file": "neistra-v0.37.0-native9-failed-all8.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-native9-failed-all8.zip",
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "verification_counts": {
+        "evidence_manifest_entries": 3240,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "bytes": 55068041,
+      "file": "neistra-v0.37.0-native10-failed-all8.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-native10-failed-all8.zip",
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "verification_counts": {
+        "evidence_manifest_entries": 3425,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "bytes": 124222530,
+      "file": "neistra-v0.37.0-early-performance.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-early-performance.zip",
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "verification_counts": {
+        "evidence_manifest_entries": 836,
+        "project_archive_files": 0,
+        "zip_archives": 4
+      }
+    },
+    {
+      "bytes": 36544045,
+      "file": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "verification_counts": {
+        "evidence_manifest_entries": 735,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "bytes": 1149122794,
+      "file": "neistra-v0.37.0-c4-candidate2-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c4-candidate2-failed.zip",
+      "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+      "verification_counts": {
+        "evidence_manifest_entries": 34650,
+        "project_archive_files": 28,
+        "zip_archives": 40
+      }
+    },
+    {
+      "bytes": 131840156,
+      "file": "neistra-v0.37.0-c4-candidate3-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c4-candidate3-failed.zip",
+      "sha256": "0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc",
+      "verification_counts": {
+        "evidence_manifest_entries": 5533,
+        "project_archive_files": 28,
+        "zip_archives": 59
+      }
+    },
+    {
+      "bytes": 675409215,
+      "file": "neistra-v0.37.0-c4-candidate4-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c4-candidate4-failed.zip",
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+      "verification_counts": {
+        "evidence_manifest_entries": 35116,
+        "project_archive_files": 28,
+        "zip_archives": 76
+      }
+    },
+    {
+      "bytes": 174910299,
+      "file": "neistra-v0.37.0-c4-master1-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c4-master1-failed.zip",
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "verification_counts": {
+        "evidence_manifest_entries": 4881,
+        "project_archive_files": 28,
+        "zip_archives": 57
+      }
+    },
+    {
+      "bytes": 10133222,
+      "file": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c5-candidate1-failed.zip",
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "verification_counts": {
+        "evidence_manifest_entries": 70,
+        "project_archive_files": 20,
+        "zip_archives": 15
+      }
+    },
+    {
+      "bytes": 185748045,
+      "file": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c5-candidate2-failed.zip",
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "verification_counts": {
+        "evidence_manifest_entries": 6756,
+        "project_archive_files": 703,
+        "zip_archives": 309
+      }
+    },
+    {
+      "bytes": 1377294877,
+      "file": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/neistra-v0.37.0-c5-candidate3-failed.zip",
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "verification_counts": {
+        "evidence_manifest_entries": 41123,
+        "project_archive_files": 28,
+        "zip_archives": 49
+      }
+    }
+  ],
+  "complete_all12_pairs": true,
+  "failed_or_diagnostic_evidence_not_qualification": true,
+  "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+  "kind": "separate forensic pair verification",
+  "mode": "verify",
+  "no_cross_campaign_member_disjointness_claim": true,
+  "origin": "download",
+  "pairs": [
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 190937608,
+      "checksum_asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2621,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-01.json",
+          "sha256": "d4d3dd44a38351710d58b8bad67aef866aae383281449e9fcd556033353da11e"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 2663,
+          "project_archive_files": 50,
+          "zip_archives": 38
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent complete lossless raw packet verification, captured8d subjects only; no SQL/app import/workload and no later-candidate approval",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "exact_outer_manifest_union": 2638,
+        "publication_pending": true,
+        "recursive_layers": {
+          "evidence_manifest_entries": 2663,
+          "project_archive_files": 50,
+          "zip_archives": 38
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-native9-failed-all8.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 51668757,
+      "checksum_asset": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2597,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-02.json",
+          "sha256": "974264b81d8a543f4f64b384c85760bce2099651233f6c0ec841948e0f0bca68"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 3240,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent whole native9 FAILED raw packet readback; not workflowPASS",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all_original_and_archived_CRC_hash_bodies_exact_union_verified": true,
+        "native9_outcome": "3PASS/1FAIL/4unrun",
+        "publication_pending": true,
+        "recursive_verification": {
+          "evidence_manifest_entries": 3240,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-native10-failed-all8.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 55068041,
+      "checksum_asset": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2637,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-03.json",
+          "sha256": "7983c88e0f5991c0d2ee31b24023becc781d23718dd9eba4cff331928c7e9050"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 3425,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent entire native10 FAILED raw packet readback; not workflowPASS",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all_original_and_archived_CRC_hash_bodies_exact_union_verified": true,
+        "outcome": "ERROR/identityfalse/actualrunner1/3PASS1FAIL4unrun preserved",
+        "publication_pending": true,
+        "recursive_verification": {
+          "evidence_manifest_entries": 3425,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-early-performance.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 124222530,
+      "checksum_asset": "neistra-v0.37.0-early-performance.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2654,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-04.json",
+          "sha256": "1d6cb3f28ec97d06d26ca01f6cf12795c8b48fa369ef8c9b03b3d615fa13e999"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 836,
+          "project_archive_files": 0,
+          "zip_archives": 4
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent full lossless current retention of earlyperformance1\u20134 and selected closed prep5\u20137 metadata; not qualification",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all_regular_original_and_archived_bodies_CRC_exact_union_verified": true,
+        "historical_pre_SQL_ordering_proven": false,
+        "publication_pending": true,
+        "recursive_verification": {
+          "evidence_manifest_entries": 836,
+          "project_archive_files": 0,
+          "zip_archives": 4
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 36544045,
+      "checksum_asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2852,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-05.json",
+          "sha256": "f4c3a39ab50601b80d577881c2c9ed26bc5f66834977f7301a2ad27d1bb19737"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 735,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent full current original/archived-body readback of intentionallyinterruptedcandidate1, not qualification",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all_regular_original_and_archived_bodies_CRC_exact_union_verified": true,
+        "original_status": {
+          "active_browser_exit": -15,
+          "actual_runner_wait_exit": 241,
+          "intentional_interruption_for_confirmed_helper_P2": true,
+          "remaining_unrun_steps": 27,
+          "successful_steps": 15
+        },
+        "publication_pending": true,
+        "recursive_verification": {
+          "evidence_manifest_entries": 735,
+          "project_archive_files": 20,
+          "zip_archives": 16
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c4-candidate2-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 1149122794,
+      "checksum_asset": "neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2657,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-06.json",
+          "sha256": "e0827c70311dced340c7373d93b686b6dba328af85eab8734da9e5ed0123c1b6"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 34650,
+          "project_archive_files": 28,
+          "zip_archives": 40
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent whole-body/CRC/recursive/exact-union/original readback of closed FAILED candidate2 packet; no release qualification.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all_originals_rehashed_and_exact": true,
+        "exact_outer_manifest_union": true,
+        "publication_pending": true,
+        "qualification_PASS": false,
+        "recursive_counts": {
+          "evidence_manifest_entries": 34650,
+          "project_archive_files": 28,
+          "zip_archives": 40
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c4-candidate3-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 131840156,
+      "checksum_asset": "neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2564,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-07.json",
+          "sha256": "c5ffd07ffa088d651714f0f16960b00095e2e954164e2d560aece2b2ea81ff27"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 5533,
+          "project_archive_files": 28,
+          "zip_archives": 59
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Independent primary complete failed candidate3 archive/hash/CRC/recursive/original-body and exact current root-union readback; not qualification PASS.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "original_union_and_every_body_exact": true,
+        "recursive_counts": {
+          "evidence_manifest_entries": 5533,
+          "project_archive_files": 28,
+          "zip_archives": 59
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c4-candidate4-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 675409215,
+      "checksum_asset": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2684,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-08.json",
+          "sha256": "e77917b46716ba2b9b609ed21fb05bdfcd4f9bb2deaec4a0dbb409c787225ef1"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 35116,
+          "project_archive_files": 28,
+          "zip_archives": 76
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Independent primary complete failed candidate4 archive/hash/CRC/recursive/original-body/exact root-union and sealed-source semantic readback; not qualification PASS.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "original_union_and_every_body_exact": true,
+        "recursive_counts": {
+          "evidence_manifest_entries": 35116,
+          "project_archive_files": 28,
+          "zip_archives": 76
+        },
+        "sealed_source_ZIP_maps_CRC_bodies_exact": {
+          "actual036": 1013,
+          "current": 1130
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c4-master1-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 174910299,
+      "checksum_asset": "neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2769,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-09.json",
+          "sha256": "47b947f13cf6c89f8684297ed38bdfbe50183b02b383780b766b459d9ec792e0"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 4881,
+          "project_archive_files": 28,
+          "zip_archives": 57
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent full failed-master retention readback; no product qualification.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "actual_outcome": {
+          "authored_skipped": 32,
+          "failed": 1,
+          "passed": 391,
+          "report_combined_skipped": 248,
+          "top_level_error": "Maximum-failure fail-fast only",
+          "unrun": 216
+        },
+        "all_original_file_bodies_and_complete_union_metadata_rehashed": true,
+        "qualification_PASS": false,
+        "strict_recursive_counts": {
+          "evidence_manifest_entries": 4881,
+          "project_archive_files": 28,
+          "zip_archives": 57
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 10133222,
+      "checksum_asset": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2692,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-10.json",
+          "sha256": "7586290c865a1c42f1e12acb61891da53e672216ca685a085453dd542a3a2338"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 70,
+          "project_archive_files": 20,
+          "zip_archives": 15
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent whole failed-packet original/member/source-Git/body/metadata readback after actual package and portable verifier zero exits. No qualified candidate or release claim.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "all47_original_body_metadata_and_union": "PASS",
+        "all60_member_SHA_sizes_CRC_unique_exact_union": "PASS",
+        "qualification_PASS": false,
+        "recursive_counts": {
+          "evidence_manifest_entries": 70,
+          "project_archive_files": 20,
+          "zip_archives": 15
+        }
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 185748045,
+      "checksum_asset": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2895,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-11.json",
+          "sha256": "a2d7bbde3528691ac309ab9fd9b10d5a83a4276a12e94d0ffbc1f1903d61ed1d"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 6756,
+          "project_archive_files": 703,
+          "zip_archives": 309
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Primary independent complete failed packet original/source/observer/raw/manifest readback after actual package and portable verification; no full qualification claim.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "SQL_opened": false,
+        "actual_Git_disk_capsule_source_bodies": 2146,
+        "all8_original_observer_attachments_trace_mirrors_and_sources": true,
+        "all_original_bodies_metadata_and_exact_union": true,
+        "all_outer_bodies_SHA_size_CRC": true,
+        "empty_directories": 115,
+        "inert_aliases": 0,
+        "original_bytes": 753301661,
+        "original_files": 6709,
+        "original_roots": 14,
+        "outer_manifest_members": 6736,
+        "qualification_PASS": false,
+        "raw_original_copy_pairs": 17
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    },
+    {
+      "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "artifact_role": "separate failed or diagnostic forensic evidence",
+      "asset": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "authorization": {
+        "bytes": 58282,
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+        "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+      },
+      "bytes": 1377294877,
+      "checksum_asset": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "evidence": {
+        "pair_receipt": {
+          "bytes": 2946,
+          "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-12.json",
+          "sha256": "77fa4a808b5692de8707d4f4dd1c5bf38f6befad2f62022bb9d5acd987df3045"
+        },
+        "reused_receipt_with_fresh_complete_body_verification": true,
+        "verification_counts": {
+          "evidence_manifest_entries": 41123,
+          "project_archive_files": 28,
+          "zip_archives": 49
+        }
+      },
+      "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+      "historical_evidence_scope": "Actual independent complete failed-C3 packet/original/source/4-observer readback after package and portable verification; historical original-source comparison must not rerun against later corrected canonical source.",
+      "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+      "historical_result_summary": {
+        "SQL_opened": false,
+        "actual_Git_disk_capsule_source_bodies": 2146,
+        "all4_original_observer_attachments_trace_mirrors_and_sources": true,
+        "all_original_bodies_metadata_and_exact_union": true,
+        "all_outer_bodies_SHA_size_CRC": true,
+        "empty_directories": 26,
+        "inert_aliases": 0,
+        "original_bytes": 2159659556,
+        "original_files": 41093,
+        "original_roots": 8,
+        "outer_manifest_members": 41113,
+        "qualification_PASS": false,
+        "raw_original_copy_pairs": 4
+      },
+      "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+      "operation": "verify",
+      "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+      "qualification_pass": false,
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "status": "PASS",
+      "tag": "v0.37.0"
+    }
+  ],
+  "publication_performed": false,
+  "recorded_utc": "2026-11-20T00:22:12.948865+00:00",
+  "required_pairs": 12,
+  "tag": "v0.37.0",
+  "verified_pairs": 12
+}
