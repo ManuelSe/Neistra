@@ -1,0 +1,57 @@
+{
+  "actual_runner_wait_exit": 1,
+  "all_regular_original_and_archived_bodies_CRC_exact_union_verified": true,
+  "benchmark_subjects": 50,
+  "captured_candidate": "060c0fa0e06f156df253ffe55473fcaeb007242a",
+  "closed_test_instrumentation": {
+    "CPU_window_wall_seconds": 66.459,
+    "identified_test_worker_CPU_seconds": 42.98,
+    "limits": "Closed test/end-to-end observations; not exclusive function/server/wire CPU or application speedup",
+    "longest_block_matcher_steps": 801,
+    "longest_block_seconds": 7.879,
+    "matcher_steps": 48641,
+    "sum_block_seconds": 193.355,
+    "synchronous_blocks": 88
+  },
+  "did_not_run": 4,
+  "empty_directories": 3,
+  "failed": 1,
+  "failure": "Expired same-sequence heartbeat after serial request head-of-line delay; backend correctly rejects it",
+  "inert_aliases": 0,
+  "original_bytes": 206055602,
+  "original_transport": {
+    "actual_runner_returncode": 1,
+    "identity_complete": false,
+    "original_error": "AssertionError('Process command not the exact launched command')",
+    "same_original_process_recovery_preserved_without_reclassification": true,
+    "state": "ERROR"
+  },
+  "originals_retained": true,
+  "passed": 3,
+  "planned_checksum_companion": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+  "planned_separate_release_asset": "neistra-v0.37.0-native10-failed-all8.zip",
+  "primary_readback_sha256": "61dee004bdcef0a52cdd102c05094c4d841f8daaff87a50252d160d482798147",
+  "private_packet": {
+    "bytes": 55068041,
+    "file": "native10-failed-all8-evidence.zip",
+    "outer_manifest_entries": 3415,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-native10-failure-preservation1/native10-failed-all8-evidence.zip",
+    "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+    "verification_counts": {
+      "evidence_manifest_entries": 3425,
+      "project_archive_files": 20,
+      "zip_archives": 16
+    }
+  },
+  "publication_pending": true,
+  "qualified_main_member": false,
+  "recursive_verification": {
+    "evidence_manifest_entries": 3425,
+    "project_archive_files": 20,
+    "zip_archives": 16
+  },
+  "regular_original_files": 3407,
+  "roots": 7,
+  "scope": "Complete failed native10 forensic preservation; never current ALL8 or release qualification",
+  "source_count": 1128
+}

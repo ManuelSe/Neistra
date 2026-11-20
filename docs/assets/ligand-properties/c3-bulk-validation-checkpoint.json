@@ -1,0 +1,73 @@
+{
+  "actual_final_ALL8_success_receipt_created": false,
+  "actual_native10_outcome": "runner1/3PASS1FAIL4unrun and separate original transportERROR/identityfalse retained",
+  "all_other_spec_bytes_and_heartbeat_body_exact": true,
+  "authored_full_gate_recipes": {
+    "c4-candidate1": {
+      "commands": 43,
+      "executed": false,
+      "path": "docs/assets/ligand-properties/c4-candidate1-recipe.json",
+      "sha256": "073654fb3af35c6b4586fe78b82040f3f39eab5ab18817bf14f43e36b49059d1"
+    },
+    "c4-master1": {
+      "commands": 43,
+      "executed": false,
+      "path": "docs/assets/ligand-properties/c4-master1-recipe.json",
+      "sha256": "fc9b1060a9c77f318ed76efeb24b0ecc2567463fafa189cdf9612dc4eb90f867"
+    }
+  },
+  "base_candidate": "060c0fa0e06f156df253ffe55473fcaeb007242a",
+  "bytes": 147233,
+  "combined_focused_tests": 16,
+  "existing_maintenance_tests": 8,
+  "fresh_complete_ALL8_full43_both_final7_and_delivery_pending": true,
+  "independent_predicate_fault_batches_rejected": 641,
+  "independent_source_fault_batches_rejected": 4,
+  "method_count": 51,
+  "method_digest_spaced_json": "dceb6a3202e1d378e051e8e3efa1f3ce0ed257793732a4c26df46c86d6346d07",
+  "new_data_matcher_calls": 2,
+  "new_oracle_tests": 8,
+  "old_data_matcher_calls": 801,
+  "outer_manifest_entries": 36,
+  "packet": "docs/assets/ligand-properties/c3-bulk-validation-evidence.zip",
+  "production_scientific_API_TTL_schema_dependency_versions_changed": false,
+  "ready_rows_in_matcher_control": 200,
+  "recorded_utc": "2026-11-18T16:56:45.032956+00:00",
+  "scope": "Passing LOCAL complete batch-oracle checkpoint; no fresh ALL8 or final release readiness",
+  "scoped_architecture": "PASS",
+  "scoped_performance": "PASS",
+  "sha256": "085ca4efb9d64938d6bc7d76d3d5ae9e454a2bbba2f58c9fa07df79588644357",
+  "source_count": 1130,
+  "source_delta": {
+    "added": [
+      "apps/web/src/test/ligand-property-bulk-validation.test.ts",
+      "tests/e2e/support/bulk-property-validation.ts"
+    ],
+    "all_existing_production_science_and_heartbeat_bodies_unchanged": true,
+    "base": "060c0fa0e06f156df253ffe55473fcaeb007242a",
+    "changed": [
+      "tests/e2e/ligand-properties-performance.spec.ts"
+    ],
+    "method_change": "Complete batch predicates replace four repeated matcher sites; original source equality and every other spec byte preserved. No workload/target/deadline reduction.",
+    "method_count": 51,
+    "method_spaced_digest": "dceb6a3202e1d378e051e8e3efa1f3ce0ed257793732a4c26df46c86d6346d07",
+    "old49non_spec_method_bodies_unchanged": true,
+    "removed": [],
+    "source_compact_digest": "b2d49ff2c807b6634d7830a1d331c4df5380571d86daf77efb3a95ed869040af",
+    "source_count": 1130,
+    "source_spaced_digest": "341bc40579eef1150c7c1a145c0550702ab6385a5fa47700942bbb408279a48a"
+  },
+  "source_digest_compact_json": "b2d49ff2c807b6634d7830a1d331c4df5380571d86daf77efb3a95ed869040af",
+  "source_digest_spaced_json": "341bc40579eef1150c7c1a145c0550702ab6385a5fa47700942bbb408279a48a",
+  "subjects": {
+    "apps/web/src/test/ligand-property-bulk-validation.test.ts": "686cb0264be7107ca6cb6755c9c1f180097b4943b4d0afa87da9b1ad217d39bf",
+    "tests/e2e/ligand-properties-performance.spec.ts": "ebb83f95fab2d4c4bb246573e3da1bf94af9ae529b3f2cecb731ddabe9de895f",
+    "tests/e2e/support/bulk-property-validation.ts": "6a5e7b6a4603868ecc89bd37a30b8c54dcd5de8635e3d505ad6dd4df914eb854"
+  },
+  "verification_counts": {
+    "evidence_manifest_entries": 36,
+    "project_archive_files": 0,
+    "zip_archives": 1
+  },
+  "web_lint_types_strict_benchmark_TS": "PASS"
+}

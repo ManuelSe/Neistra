@@ -1,0 +1,99 @@
+{
+  "schema": "issue160-qualification-corrections-checkpoint-v1",
+  "recorded_utc": "2026-11-20T02:44:04.356499+00:00",
+  "comparison_candidate": "ceceadb6562a9f4a7f257af95e62a67f4cd6758e",
+  "scope": "Test-only profile provenance/feedback/cleanup and actual-predecessor qualification baseline corrections; no application, dependency or migration change",
+  "files": {
+    "tests/e2e/ligand-profiles-performance.spec.ts": {
+      "bytes": 37615,
+      "sha256": "22f7630a7cedae99b259793cba7eea8aeb3f06d6b6a4abefba56dd3a13a72c7b"
+    },
+    "tests/e2e/support/profile-performance.ts": {
+      "bytes": 32227,
+      "sha256": "0d79790333a293c2cbf88757485e07a073301a35f247d2f7b15fa32a4e56ec01"
+    },
+    "apps/web/src/test/profile-performance.test.ts": {
+      "bytes": 12505,
+      "sha256": "fd788c5e58a734e59135233a9f93b5692adafbd28bd877a9498d7403c2067fa7"
+    },
+    "tests/support/ligand_profiles_performance_preflight.py": {
+      "bytes": 15366,
+      "sha256": "14234f35e9fc9a7d8fdac7810d475425e649e58434c0e7c1b9fb411b439577d0"
+    },
+    "tests/unit/test_ligand_profiles_performance_preflight.py": {
+      "bytes": 10601,
+      "sha256": "2fc72f0ad8b8b46afbf0ce78ec233f9f4abb435a472eaf826b8e738c6a9ec83f"
+    },
+    "docs/assets/ligand-profiles/qualification.py.txt": {
+      "bytes": 20540,
+      "sha256": "2d277c9bafca2f1cf502056aa191cb3838e732333022bc9de6dbb7753dd97354"
+    },
+    "docs/assets/ligand-profiles/qualification-summary.py.txt": {
+      "bytes": 21893,
+      "sha256": "24250dfa7f6c8db6e3b8479752f40893d548040ad2fcbcf4e6c1bb5744250562"
+    },
+    "docs/assets/ligand-profiles/release-evidence.py.txt": {
+      "bytes": 38341,
+      "sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+    },
+    "tests/unit/test_ligand_profiles_release_recipe.py": {
+      "bytes": 31073,
+      "sha256": "1c8a1c533255da8aa0ecd7c8d155eb398cf86d17ec00fdea6a568df6482cb70b"
+    },
+    "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+      "bytes": 19164695,
+      "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+    },
+    "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+      "bytes": 1578,
+      "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+    },
+    "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+      "bytes": 1342,
+      "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+    }
+  },
+  "measurements": {
+    "python_tests": 22,
+    "python_skips_failures_errors": 0,
+    "vitest_tests": 14,
+    "ruff": "PASS",
+    "mypy_two_owned_py": "PASS",
+    "eslint": "PASS",
+    "scoped_typescript": "PASS",
+    "independent_scoped_performance": "PASS",
+    "native_corrected_run": "PENDING",
+    "independent_scoped_scientific_implementation": "PASS"
+  },
+  "published_predecessor_baseline": {
+    "focused_python_tests": 165,
+    "python_skips_failures_errors": 0,
+    "ruff_four_owned_code_paths": "PASS",
+    "mypy_owned_unit_py": "PASS",
+    "full_inventory": 640,
+    "passed": 565,
+    "excluded_exact_identities": 75,
+    "original_bytes_preserved": true,
+    "three_data_inputs_frozen_and_packaged": true,
+    "legacy_24_helpers_byte_exact": true
+  },
+  "primary_repository_ruff": "PASS",
+  "primary_unstaged_diff_check": "PASS",
+  "extra_diagnostics": "Unsupported direct strict docs-script mypy attempts retained separately; applicable unit/support and application type gates remain required and unchanged",
+  "prior_failed_native_preserved": ".issue-11-evidence/issue160-profile-native1",
+  "handoff_evidence": [
+    "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-native-correction1/handoff.json",
+    "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-predecessor-baseline-correction1/handoff.json"
+  ],
+  "remaining": [
+    "Fresh corrected two-browser native measurements",
+    "Full candidate gate",
+    "All seven final feature specialist assessments",
+    "Normal PR/merge",
+    "Fresh exact merged gate",
+    "Verified immutable v0.38.0 release and required public assets",
+    "Closeout and safe cleanup",
+    "161,162,163 and integrated parent closeout"
+  ],
+  "review_attribution_erratum": "c3-review-attribution-erratum.json"
+}

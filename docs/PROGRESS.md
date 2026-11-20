@@ -2,95 +2,72 @@
 
 ## Current milestone
 
-Parent #11 remains active through verified releases and closeout for #156–#163.
-#156–#158 are delivered. #159 is running fresh full candidate qualification on2a582dfe;
-#160 remains local preparation with query-scaling checkpoint0f54385c. The historical
-#161 C2native run passes16selected cases. Its subsequent inspector query-scaling
-preparation passes focused checks; actual released prerequisite integration and
-final release qualification remain separate.
+Parent #11 remains active through verified delivery of required #156–#163.
+#156–#159 are released and closed. #160 is undergoing the fresh complete
+`c4-candidate3` qualification on `6d977c93`; no v0.38.0 publication is claimed.
+This checkout is #161's reversible local prerequisite integration, combining
+prepared `a6f48892` with explicitly unreleased #160 `b14670a0`. Actual released
+#160 integration remains required before final #161 gates or publication.
+#162/#163 remain planned and unimplemented.
 
 ## Completed work
 
-The primary ligand information sidebar composes exact identity, qualified depiction,
-current properties, profile/radar/table and a truthful nullable interaction boundary.
-Existing Inspector tools remain reachable until163. D-199 shares transient browser
-filters and explains inspected entries outside current filters without retargeting.
-D-198 preserves current/original physical-source provenance and retires matching
-inventory, numeric aliases and captured authority before presentation updates.
-Candidate and numerical recovery remain independently qualified; generic or derived
-failures grant no physical-source authority. Original uploads and history remain.
+The prepared #161 sidebar composes deliberate exact-entry/ligand identity,
+qualified depiction, live properties and shared profile/radar/table definitions.
+The legacy Inspector tools remain accessible until #163. Existing browser filters
+and the all-entry chooser preserve inspection context, including an explanation
+when the inspected entry is outside current filters. Source failure retires
+incompatible authority; original uploads, durable designation and history remain.
 
-The shared private-startup correction preserves exact execution ownership and
-truthful terminal/reaped states. Both P2 recovery findings are closed by scoped
-architecture review. No production scientific method or fixture is changed by the
-subsequent C2 synchronization and native-disclosure test corrections.
-The inspector also reuses D-201 entry indexing and explicit query notifications,
-while preserving its tools-only read activation and view memo dependency. Entire
-non-query layout/visit/task/profile behavior remains byte-identical.
+The preparatory merge preserves both decision histories and all earlier evidence.
+Architecture intake confirms the runtime composition boundaries, incoming terminal
+Jobs ordering, tools-only inspector query activation and retained native navigation.
+Incoming scientific producers, qualification helpers and consistent 0.38.0 version
+sources are integration inputs, not evidence of a delivered #160 prerequisite.
 
 ## Verification performed
 
-D-198 destination checks pass139backend/profile cases,156D-196 regressions, six
-real supervisors,689focused frontend and1910web cases/143files, plus Ruff/scoped
-format/mypy280/lint/types/build. Independent scoped architecture/scientific
-implementation checks remain bound to unchanged subjects. Shared startup recovery
-passes33new+171affected cases and scoped static checks; source1214includes its new
-regression file. These scopes do not substitute for final feature qualification.
+Historical #161 evidence remains bound to its original subjects: 1,910 frontend
+cases, the 16-case sidebar workflow checkpoint, inspector query-scaling controls,
+and 28 retained-navigation native passes with six unchanged authored exclusions.
+Their original source maps, failed attempts, lossless packets, raw stores and
+limitations remain preserved under the child plan and `assets/ligand-information`.
+These results do not qualify the current combined source.
 
-Fresh native9passes all16selected cases across desktop/mobile and both themes,
-including real100/200%zoom and320px, exact raw-complex choice/outside-filter feedback,
-real preview Cancel/Apply/Undo/Redo and independent source-failure recovery. Each
-case has one passed result and retry0; zero skips/failures/flakes/new exclusions.
-Primary observes enclosing81096exit0/c11ee6. Complete1214source path/body union stays
-fixed, every guard passes and all owned processes/ports clean up. Raw store ZIP
-351,889bytes SHA2568fae190f0edbb20510db2ac77ded3343b6c1c035bda7f1a6d4625f848215753f
-is captured before diagnostic SQL. The [checkpoint receipt](assets/ligand-information/c2-native-checkpoint.json)
-and [evidence packet](assets/ligand-information/c2-native-evidence.zip) bind the full
-current native run and source-equivalent scoped checks. Original workspaces and
-all failed/prepared attempts remain retained. In-place inventories preserve910prior files and102raw
-store members without recursive rebundling.
+#160's separate frozen candidate has 1,875 passing frontend cases and 18 current
+native workflow cases, including both themes, actual desktop zoom and 26 trusted
+emulated-touch activations (six explicitly hybrid native selectors). Its full
+43-command campaign3 remains in progress under its detached recorder. Earlier
+campaign2 was intentionally interrupted after 4,044 Python passes and an independent
+keyboard-oracle failure; its original lost launcher status and unknown runner OS
+status remain preserved without a complete-gate pass claim.
 
-The [inspector checkpoint](assets/ligand-information/c2-inspector-scaling-checkpoint.json)
-and [lossless packet](assets/ligand-information/c2-inspector-scaling-evidence.zip)
-bind four new regressions,139affected cases/nine files and successful web lint,
-types and build. At100/1000entries, tracking changes from50,500/5,005,000 to0/0;
-ID reads change from10,200/1,002,000 to200/2000. The view control preserves initial
-ligand-view zero reads, tools activation, seed/failure qualification and held
-recovery across visits. Scoped architecture and performance assessments PASS.
-All failed authoring/check attempts remain retained with their actual outcomes.
-These mocked work counts do not establish native latency or a production speedup.
-
-The [retained-navigation checkpoint](assets/ligand-information/c2-native-navigation-checkpoint.json)
-and [lossless packet](assets/ligand-information/c2-native-navigation-evidence.zip)
-cover the complete four affected native files in both configured projects:28passes,
-six unchanged authored exclusions, zero failures/flakes/retries,34single-attempt
-results. Seven explicit Tools→Selection setup pairs and one import align existing
-callers with the approved default ligand view; every original assertion, deadline,
-focus/retirement boundary, source/original-byte and history check remains. All1,216
-source bodies stay fixed during execution. Strict native TypeScript passes using
-the real Vite URL mapping; both initial configuration failures remain retained.
-Positive cleanup checks58known handles gone and three dedicated ports free before
-copying all3raw DB/WAL/SHM files. Scoped architecture and UX reviews PASS. Application
-code is unchanged; prior app lint/types/build evidence retains its original subject.
+Current #161 integration passes lint, types, 326 focused frontend cases, production
+build, all 52 archive cases and five native hardening cases with one unchanged
+authored mobile performance exclusion. Selected 1,198-source maps remain fixed;
+positive owned cleanup and all 55 raw pairs verify before primary diagnostic SQL.
+The [integration checkpoint](assets/ligand-information/c2-prerequisite-integration-checkpoint.json)
+binds the 25,304,524-byte, 414-payload portable packet. All original attempts remain,
+including the initial missing nested pnpm launcher and corrected direct invocation.
+The package verifies 59 ZIP CRCs, 633 manifest entries and 214 project files.
+This is scoped checkpoint evidence, not final feature qualification.
 
 ## Known limitations
 
-These are passing local checkpoints, not feature readiness or delivery. Historical
-native evidence remains bound to its original snapshot; current source guards
-are stale/HOLD until prerequisite integration and fresh qualification. Actual
-released159/160integration must also incorporate158terminal documentation, final
-0.39versions and all inherited source/method corrections. Current performance,
-actual preceding-reader compatibility, final all-seven review and complete
-candidate/exact-master gates remain outstanding. No implementation push, PR,
-release or child closeout is claimed. Interaction diagram153 remains excluded.
+No current #161 readiness, implementation push, PR, release or closeout is claimed.
+Actual released #160 history, v0.39.0 preparation, current measured bounds,
+preceding-reader/archive qualification, all seven final same-candidate assessments
+and complete candidate/exact-merged gates remain outstanding. Remaining sidebar
+acceptance includes coordinate/movement/minimization preview Cancel/Apply, archive
+reconstruction and held project A→B→A results. #153 diagram delivery and all other
+parent exclusions remain outside scope.
 
 ## Blockers
 
-No external blocker. Keep serial release order and preserve all original evidence.
+No external blocker. Respect serial release order and preserve prior evidence.
 
 ## Next action
 
-Reconcile actual released prerequisites after this coherent local C2checkpoint,
-then finish current
-performance/compatibility/full gates and all seven final assessments, then complete
-normal publication. Continue the one parent Goal through163and parent closeout.
+Commit the coherent locally verified prerequisite merge. Finish #160 delivery,
+integrate its actual released commit, then qualify #161 and continue #162/#163 through verified parent closeout under the same
+active Goal.

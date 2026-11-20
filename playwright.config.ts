@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { resolve } from "node:path";
 import { environmentValue } from "./scripts/configuration.mjs";
 import { performanceEnabled } from "./scripts/performance-policy.mjs";
 
@@ -32,6 +33,15 @@ const apiPort = e2ePort("E2E_API_PORT", "8010");
 const workerPort = e2ePort("E2E_WORKER_PORT", "8011");
 const webPort = e2ePort("E2E_WEB_PORT", "5173");
 const dataDir = e2eDataDir();
+const workerTrace = process.env.NEISTRA_PROPERTY_WORKER_TRACE;
+if (workerTrace !== undefined && (
+  !/^[A-Za-z0-9._/-]+$/.test(workerTrace) ||
+  workerTrace !== resolve(dataDir, "qualification", "worker-turns.jsonl")
+)) {
+  throw new Error("NEISTRA_PROPERTY_WORKER_TRACE must be the dedicated qualification path under E2E_DATA_DIR");
+}
+const workerModule = workerTrace === undefined ? "neistra_api.worker"
+  : `tests.support.ligand_property_performance_qualification worker --trace ${workerTrace}`;
 // A legacy explicit fixture override exercises the full old configuration path.
 const configPrefix = process.env.NEISTRA_E2E_DATA_DIR === undefined &&
   process.env.MOLWEAVE_E2E_DATA_DIR !== undefined ? "MOLWEAVE" : "NEISTRA";
@@ -68,7 +78,7 @@ export default defineConfig({
       timeout: 30_000,
     },
     {
-      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src ${configPrefix}_DATA_DIR=${dataDir} ${configPrefix}_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m neistra_api.worker`,
+      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src ${configPrefix}_DATA_DIR=${dataDir} ${configPrefix}_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m ${workerModule}`,
       url: `${workerUrl}/health`,
       reuseExistingServer: true,
       timeout: 30_000,

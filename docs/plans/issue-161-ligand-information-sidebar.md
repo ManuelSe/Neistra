@@ -375,3 +375,48 @@ is `0021c6200c5c52c9869be33a46dec3d1cc92c1a3e5c3dd96b80c70e02769669c`;
 full body/hash/CRC/exact-union verification passes. This does not claim complete644
 native execution, actual released prerequisite integration or final feature readiness.
 Current full gates/readers/performance/all-seven/protected release remain pending.
+
+
+### Current prerequisite reconciliation — preparatory merge, 2026-11-20
+
+Begin a reversible local merge from prepared `a6f48892` to explicitly UNRELEASED
+#160 `b14670a0`, whose actual #159 dependency is released v0.37.0 / terminal master
+`3f873f50`. This is not final #161 qualification or a delivered #160 prerequisite.
+The #160 runner, source bodies, candidate and data remain frozen in its separate
+checkout. The integration receipt and original merge diagnostics are retained at
+`.issue-11-evidence/issue161-current160-integration1/`.
+
+Independent architecture intake confirms 43 shared changed paths: 31 byte-identical
+and 12 requiring semantic reconciliation. Runtime integration retains the single
+source/inventory/property owners, captured failure guards, sidebar/publication/view
+state, indexed queries and tools-only activation. Incoming Jobs ordering bodies
+remain exact. Native integration retains current trusted-touch evidence assertions,
+source/assessment/provenance/history checks, status scoping, readiness waits and
+keyboard property options/methods; only deliberate sidebar/tool navigation is added.
+Both decision histories and all original evidence remain. Fresh combined validation
+and actual released #160 history integration remain outstanding.
+
+
+### Prerequisite integration checkpoint passes scoped verification
+
+The combined source passes web lint/types, 326 focused cases in 14 files, production
+build and all 52 archive round-trip cases. The affected full native hardening file
+passes five desktop/mobile cases with its one unchanged authored mobile performance
+exclusion and no errors/retries/flakes. All 1,198 selected source bodies stay exact;
+these maps cover the current runtime/native inputs and inherited literal helper
+catalogue, not a claim about the entire older qualification-helper union. Positive
+owned-session/service/port closure and all 55 raw original/copy pairs verify before
+primary diagnostic SQL. The initial root-script missing pnpm shim remains a failed
+launcher attempt; direct corepack invocation of the same web scripts passes.
+
+Primary inheritance auditing verifies 52 exact path relationships, including all
+three prepared runtime composition bodies, incoming terminal Jobs bodies and 14
+owned sidebar/presentation bodies. Both decision histories retain every parent line.
+The current trusted-touch helpers, minimization assessment/source/history assertions,
+status scoping, readiness waits and all deadlines/exclusion declarations remain.
+See the [integration checkpoint](../assets/ligand-information/c2-prerequisite-integration-checkpoint.json)
+and 25,304,524-byte portable packet: 414 payloads, 59 ZIP CRCs, 633 manifest entries
+and 214 project files verify. Retain all stores, artifacts, source capsule and prior
+attempts. Commit this passing preparatory merge without claiming final readiness.
+Current #160 has since advanced to corrected `6d977c93` and fresh complete campaign3;
+actual released #160 history/tag/assets remain the required final integration basis.

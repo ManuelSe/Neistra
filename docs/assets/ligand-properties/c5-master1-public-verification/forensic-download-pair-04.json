@@ -1,0 +1,54 @@
+{
+  "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "artifact_role": "separate failed or diagnostic forensic evidence",
+  "asset": "neistra-v0.37.0-early-performance.zip",
+  "authorization": {
+    "bytes": 58282,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+    "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+  },
+  "bytes": 124222530,
+  "checksum_asset": "neistra-v0.37.0-early-performance.zip.sha256",
+  "evidence": {
+    "checksum_transfer": {
+      "anonymous_GET_without_credentials_cookies_or_range": true,
+      "bytes": 104,
+      "http_status": 200,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip.sha256",
+      "sha256": "47cb935c965d301452030f736d559993bee6e9c21d15a256ea5bf6e2d56f27f9"
+    },
+    "full_bodies_downloaded": true,
+    "verification_counts": {
+      "evidence_manifest_entries": 836,
+      "project_archive_files": 0,
+      "zip_archives": 4
+    },
+    "zip_transfer": {
+      "anonymous_GET_without_credentials_cookies_or_range": true,
+      "bytes": 124222530,
+      "http_status": 200,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip",
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f"
+    }
+  },
+  "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+  "historical_evidence_scope": "Primary independent full lossless current retention of earlyperformance1\u20134 and selected closed prep5\u20137 metadata; not qualification",
+  "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+  "historical_result_summary": {
+    "all_regular_original_and_archived_bodies_CRC_exact_union_verified": true,
+    "historical_pre_SQL_ordering_proven": false,
+    "publication_pending": true,
+    "recursive_verification": {
+      "evidence_manifest_entries": 836,
+      "project_archive_files": 0,
+      "zip_archives": 4
+    }
+  },
+  "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+  "operation": "download",
+  "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+  "qualification_pass": false,
+  "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+  "status": "PASS",
+  "tag": "v0.37.0"
+}

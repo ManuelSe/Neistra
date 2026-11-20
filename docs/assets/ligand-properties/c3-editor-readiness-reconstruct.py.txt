@@ -1,0 +1,118 @@
+"""Reconstruct this closed focused packet from published member parts; stdlib only."""
+from pathlib import Path, PurePosixPath
+import argparse
+import hashlib
+import json
+import re
+import runpy
+import shutil
+import subprocess
+import sys
+import zipfile
+
+CANONICAL = {'bytes': 159287047, 'sha256': 'f2df22c3fd1ead384fd7db40892c82953b07d7c40d701bb4a236e9b00329cab5'}
+CODE = {
+    'verify.py': '9ac8cfd693e0936eadcbfbb1d5b213c0548fffb2e5a1a414ca58246f64b268af',
+    'support.py': 'e815bf52aab1c45738d614898e6c64aa0566a8f05d5e2cb80845ab6bb2f2a94e',
+    'validate.py': '2260e64b0b4bd93afab58fa064bbf3e01a2f91412542df182f923602061679f0',
+    'release-evidence-used.py.txt': '34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3',
+}
+
+
+def digest(path):
+    value, size = hashlib.sha256(), 0
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1048576), b''):
+            value.update(block)
+            size += len(block)
+    return {'bytes': size, 'sha256': value.hexdigest()}
+
+
+def safe(name):
+    path = PurePosixPath(name)
+    assert name and not path.is_absolute() and '..' not in path.parts
+    assert '\\' not in name and '\x00' not in name and path.as_posix() == name
+    return name
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--receipt', required=True, type=Path)
+    parser.add_argument('--output-dir', required=True, type=Path)
+    args = parser.parse_args()
+    receipt_path = args.receipt.resolve(strict=True)
+    receipt = json.loads(receipt_path.read_bytes())
+    assert {key: receipt['canonical_archive'][key] for key in CANONICAL} == CANONICAL
+    output = args.output_dir.absolute()
+    assert not output.exists() and not output.is_symlink(), 'Output must be fresh; never overwrite'
+    output.mkdir()
+    staging = output / 'members'
+    staging.mkdir()
+    merged, items, parts = {}, {}, []
+    names = [row['file'] for row in receipt['archives']]
+    assert names and len(names) == len(set(names))
+    for index, row in enumerate(receipt['archives'], 1):
+        name = row['file']
+        assert re.fullmatch(r'c3-editor-readiness-qualified-\d{2,}\.zip', name)
+        assert name == f'c3-editor-readiness-qualified-{index:02}.zip' and safe(name) == name
+        path = receipt_path.parent / name
+        expected = {key: row[key] for key in ('bytes', 'sha256')}
+        assert expected['bytes'] < 95 * 1024 * 1024 and digest(path) == expected
+        with zipfile.ZipFile(path) as archive:
+            manifest = json.loads(archive.read('manifest.json'))
+            members = archive.namelist()
+            assert len(members) == len(set(members)) and set(members) == set(manifest) | {'manifest.json'}
+            assert not merged.keys() & manifest.keys() and len(manifest) == row['outer_manifest_entries']
+            for member, binding in manifest.items():
+                target = staging / safe(member)
+                assert member != 'manifest.json'
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with archive.open(member) as source, target.open('xb') as destination:
+                    shutil.copyfileobj(source, destination, 1048576)
+                assert digest(target) == binding
+                items[member] = target
+            merged.update(manifest)
+        parts.append(path)
+    assert len(merged) == receipt['complete_member_union_count'] == receipt['canonical_archive']['outer_manifest_entries']
+    helper = items['preservation/release-evidence-used.py.txt']
+    assert digest(helper)['sha256'] == CODE['release-evidence-used.py.txt']
+    module = runpy.run_path(str(helper), run_name='audited_closed_archive_helpers')
+    manifest_bytes = module['encoded'](merged)
+    assert {'bytes': len(manifest_bytes), 'sha256': hashlib.sha256(manifest_bytes).hexdigest()} == receipt['canonical_manifest']
+    part_checks = [module['verify_layers'](path, path.name) for path in parts]
+    rebuilt = output / 'editor-readiness-evidence.zip'
+    rebuilt_record = module['archive'](items, rebuilt)
+    assert digest(rebuilt) == CANONICAL
+    assert rebuilt_record['verification_counts'] == receipt['canonical_archive']['verification_counts']
+    portable = output / 'portable'
+    portable.mkdir()
+    with zipfile.ZipFile(rebuilt) as archive:
+        for name, expected_sha in CODE.items():
+            body = archive.read('preservation/' + name)
+            assert hashlib.sha256(body).hexdigest() == expected_sha
+            with (portable / name).open('xb') as stream:
+                stream.write(body)
+    command = [sys.executable, '-B', str(portable / 'verify.py'), '--archive', str(rebuilt)]
+    stdout_path, stderr_path = output / 'portable-readback.json', output / 'portable-stderr.log'
+    with stdout_path.open('xb') as stdout, stderr_path.open('xb') as stderr:
+        process = subprocess.Popen(command, cwd=portable, stdout=stdout, stderr=stderr)
+        actual_exit = process.wait()
+    result = {'scope': 'Closed focused packet public roundtrip only; no full43 or release qualification',
+              'actual_portable_command': command, 'actual_wait_exit': actual_exit,
+              'canonical_archive': digest(rebuilt), 'canonical_manifest': receipt['canonical_manifest'],
+              'part_count': len(parts), 'part_recursive_checks': part_checks,
+              'portable_stdout': digest(stdout_path), 'portable_stderr': digest(stderr_path),
+              'audited_code_SHA_constants': CODE, 'old_absolute_input_or_source_roots_read': False,
+              'SQL_opened': False}
+    with (output / 'public-roundtrip-proof.json').open('x') as stream:
+        stream.write(json.dumps(result, indent=2, sort_keys=True) + '\n')
+    assert actual_exit == 0, 'Keep actual failure evidence; no success claim'
+    verified = json.loads(stdout_path.read_bytes())
+    assert verified['archive'] == CANONICAL and verified['exact_original_and_metadata_union']
+    assert verified['SQL_opened'] is verified['feature_or_release_qualification'] is False
+    assert verified['later_HEAD_or_source_tree_queried'] is False
+    print(json.dumps(result))
+
+
+if __name__ == '__main__':
+    main()

@@ -428,3 +428,447 @@ The checkpoint is a verified LOCAL preparation state only. It is not a pushed
 application implementation, final all-seven readiness, delivered prerequisite,
 complete performance/compatibility qualification or release. Serial actual159
 integration and all final delivery requirements above remain mandatory.
+
+
+### D-198 downstream source authority — passing scoped integration
+
+The reviewed159correction is adopted through21common paths and a narrow App merge.
+Nineteen paths match its frozen1,122-source candidate exactly. API changes retain
+all profile routes; the property hook retains profile dependencies and registry
+invalidation. Existing context, molecular methods, D-196 protected implementation,
+old tests/native files and downstream presentation/filter behavior remain exact.
+All original source/evidence snapshots and raw stores are preserved. RootApp
+captures source facts inside actual Use/Clear/legacy-resolve promises and installs
+one synchronous canonical inventory-to-numerical authority bridge above presentation.
+
+Fresh author actual98294exit0/7aabeb passes139backend/profile cases,156D-196,
+six real supervisors, Ruff/scoped format/mypy280, lint/types/build,603focused
+frontend and1821web/137files. The full1197-path audit remains fixed at
+mapSHA256`83f08d0634ccc2a38c1e8737e5972d7a0d94ef98b64fa05523edf22eaec76e80`. It additionally covers107existing qualification scripts versus
+the older selected-source inventory; no old path is dropped. Root independently
+checks all55handoff artifacts, four source ZIP CRCs and every complete/owned ZIP
+entry against its source map, plus all actual gate log hashes. D-194's49benchmark
+paths remain absent here as before; actual released159integration still supplies
+that separately required final reconciliation.
+
+Independent scoped architecture and scientific implementation each PASS. Architecture
+executes three actual-App controls plus85source-authority regressions. Science
+executes26component,83existing frontend,49Python and seven actual ASGI controls.
+Physical failures synchronously retire current profile/numeric authority and captured
+actions. Candidate and numerical recovery require independent genuine checks;
+generic/derived, malformed, unrelated and held-response controls remain safe.
+The161consumer controls also remove radar points/polygon and show Unavailable table
+cells. READY/recovery payloads are controlled transports; physical failure/restored
+candidate inputs use actual ASGI. These scopes are explicit and are not pooled into
+a full release gate or browser/performance claim.
+
+Actual prerequisite releases, current native/performance/compatibility, consistent
+versions, all seven same-final-candidate assessments and complete candidate/exact-
+master qualification remain required before protected publication and closeout.
+
+
+### C2 combined source/recovery preparation — bounded passing checkpoint
+
+2026-11-18: preserve the complete1197-source D-198 integration above and propagate
+the exact two-file159recovery correction from8a4f5385. Current1198source mapSHA256
+`00c2db4fcd120c40add2eb80f9484fdcf08dd51284290e8bd98bc35430063deb`
+changes only job_worker.py and adds test_ligand_property_preload_ownership.py; all
+1196other prior bodies remain exact. No profile/scientific/schema/version/cap change.
+
+Destination new33and affected171cases pass, zero errors/failures/skips. The171are
+168local existing cases plus three unchanged privately borrowed migration cases
+against the actual160ROOT/alembic/0017. The first absent-file collection exit4 is
+retained, as is a fresh location-proof supplement repeating those same three cases
+without increasing unique coverage. Ruff, ownedformat and mypy280 pass. Original
+1197D-198 author/architecture/scientific scopes remain distinct and source-bound;
+unchanged frontend subjects retain their recorded1821-case check.
+
+The [checkpoint](../assets/ligand-profiles/c2-source-recovery-checkpoint.json) and
+[lossless ZIP](../assets/ligand-profiles/c2-source-recovery-evidence.zip) retain every
+1831regular input payload/120134866raw bytes,231inert aliases and802empty directories
+from all seven completed author/review/propagation inputs. Current1198source bodies
+and complete before snapshots are included; every attempt/store/cache remains. The
+22442923-byte ZIP SHA256 is
+`29530e1efc4e2f1ab1d04fb093d159d6315b2c978bd4533c1dfb525c13a14a15`.
+Older159public packets are hash references; PRODUCT_SPEC/globalPLAN bodies are not
+copied. The one external installed-tool dependency alias is validated metadata and
+is not followed into node_modules. No SQL is opened for capture/readback.
+
+Root independently verifies both destination source/manifests/JUnit and actual
+migration-location bindings. Independent full packet readback PASS verifies1845outer entries,35recursive ZIPs,
+6756regular members,64project artifact bodies and118manifest references. Its receipt
+SHA256 is538a6b270e995d16d24a6a05ff0174ca7062a3c7c4368e0f27be1d8212913c9c;
+primary independently rechecks all1831original inputs/outer hashes/CRC/current1198
+source bodies and ZIP. This passing checkpoint remains local preparation: actual released159integration, D-194 fixture
+reconciliation, final versions/preceding readers/native/performance/full gates and
+all seven same-final-candidate assessments remain mandatory before protected delivery.
+
+
+### Preparatory inspector checkpoint — 2026-11-18
+
+On base dd4c5cc3, reuse the exact159D-201 query block and three-case regression.
+The entire non-query component suffix and160visit/task/scroll behavior remain
+byte-identical. Preserve complete hidden/selected query ownership, artifact keys,
+seed/error/placeholder qualification and profile cancellation/coverage semantics.
+The original resource test fails; the correction passes three new and122affected
+cases across seven files, plus web lint/types/build. Independent scoped architecture
+and performance reviews PASS with no consequential findings.
+
+[Checkpoint](../assets/ligand-profiles/c2-inspector-scaling-checkpoint.json) and
+[lossless evidence](../assets/ligand-profiles/c2-inspector-scaling-evidence.zip) bind
+source hashes, both resource counts, six actual logs/receipts, preserved inventories
+and scoped assessments. Full body/hash/CRC/exact-entry readback passes. This is a
+local checkpoint only. Actual released159integration, actual preceding readers,
+versions, complete candidate/master qualification and all seven final assessments
+remain pending. Historical source-bound guards remain stale/HOLD.
+
+
+### Released prerequisite and accepted same-schema contract — 2026-11-20
+
+#159 is fully delivered: [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0)
+targets qualified runtime `9f77410389c4e8738fdf94d3e69e7c8550fbc70c` through
+immutable annotated tag `5763142ce085111d8d8cdf0eefb248908b5eb4b2`. Terminal
+[PR #179](https://github.com/ManuelSe/Neistra/pull/179) merged as
+`3f873f5062814eac61a716112c92eb99f2e30328`; its all-seven-reviewed complete tree
+and unchanged 1,133-source inventory verify. All 27 release assets pass full
+anonymous verification. The single [canonical closeout](https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950)
+now verifies documentation integration and safe deletion of all three owned #159
+branches while preserving every worktree, original and user checkout.
+
+D-203 and the [accepted compatibility contract](../assets/ligand-profiles/c3-same-schema-acceptance.json)
+record the already independently reviewed same-schema v2 obligations BEFORE new
+compatibility code. The original planning contract has SHA-256
+`132060126d31096f8b3c8cddc272f779a21481406b8d349a92f0b58b8bd690ab`.
+It preserves legacy v1, genuine state families from both sources, both archive
+suffixes, positive schema identity, independent numerical goldens, exact descriptor
+coverage and explicit source-authorized worker provenance. Preceding extraction
+receipts and actual #160 runtime results remain unset until executed.
+
+Next integrate actual prerequisite terminal master into local `0f54385c` using a
+normal history-preserving merge. Preserve all profile routes, evaluator/dependencies,
+source recovery and query ownership while adopting released job refresh/cancellation,
+reader/observer/native corrections and qualified fixtures. Reconcile shared files
+explicitly; do not overwrite complete files to discard either accepted behavior.
+Then implement the accepted compatibility contract, refresh source-bound guards,
+prepare versions and run current focused and full qualification. Prior focused
+preparation remains historical evidence, not a full integrated release gate.
+
+
+### Actual released #159 integration — passing local checkpoint
+
+The normal merge of owned planning checkpoint `4a3d1f6f` with verified prerequisite
+master `3f873f50` is resolved without discarding either accepted behavior. All 17
+migrations and incoming job refresh/cancellation, native/observer/heartbeat/bulk,
+legacy-reader and benchmark guardrail bodies remain exact. The only six existing
+application paths extended relative to incoming master are the profile API and
+five frontend consumers. All 33 changed/new non-documentation bodies other than
+`main.py` retain their premerge bytes. Both complete decision histories survive verbatim, including
+D-203. The lifecycle-test conflict changes formatting only; both ASTs match.
+
+Focused actual integrated checks pass 220 backend tests with zero skips/failures,
+525 frontend tests across 18 files, Ruff, mypy on 280 files, web lint/typecheck and
+the production build. The existing Vite chunk-size warning remains. The complete
+staged diff against delivered master passes whitespace validation, including new
+files. The [checkpoint](../assets/ligand-profiles/c3-released159-integration-checkpoint.json)
+records exact source fingerprints and every original command/log identity. Original
+execution evidence is retained; this is not a complete portable release packet.
+
+No native/performance/actual-preceding-actor or complete release gate is claimed.
+Implement accepted same-schema v2 next, preserve literal/default v1, refresh the
+source-bound guard and actual predecessor receipt, prepare all five version sources,
+and complete the remaining qualification and seven-role delivery gates.
+
+
+### Qualification provenance and selected-profile measurement contract — before code
+
+Independent performance and scientific-theory consultations identify one inherited
+source guard mismatch: all 44 original D-194 SDFs and the frozen manifest remain
+exact, while its generation-time observer-helper pin differs from the already
+released atomic-publication correction. Keep the manifest, SDFs, generation settings,
+library facts and every historical receipt unchanged. Separate generation identity
+from a source-bound current qualification receipt; admit only the independently
+reviewed observer delta and reject any other unexplained source/library/fixture/
+settings change. If the qualification driver itself changes to implement that guard,
+record its new identity explicitly rather than claiming its original self-pin still
+matches. Run all 44 genuine production adapter/editor/kernel/H/history controls,
+including O–O, only after this reconciliation. Fresh native qualification remains
+separate. D-194's appended clarification records exact source pins and acceptance.
+
+The inherited 20-pair and four 1,000-entry property benchmark workloads, deadlines,
+limits and exclusion identities remain byte-for-byte unchanged. A separate required
+profile benchmark measures desktop Chromium and the existing mobile Chromium at
+320 px; existing correctness/accessibility cases retain both-theme coverage.
+Per browser, use the unchanged frozen specimens with 10/26/46/66/86 heavy atoms:
+
+- Five first Ro5 selections in fresh browser contexts with empty display categories,
+  no selected profile and no property demand. Record the actual shared-cache basis;
+  a fresh browser alone never proves cold chemistry. A focused run in a fresh owned
+  store must prove missing required coverage before claiming numerical cold latency.
+- Four warm Ro5/Ro3 switches after each specimen settles (20 per browser). Their
+  identical four-descriptor requirement isolates selection/evaluation/presentation;
+  require zero new descriptor jobs and zero new consumer allocations.
+- One Ro5 + Veber dependency expansion, then an unavailable preset and clear.
+  Request only the MW/HBD/HBA/logP union plus TPSA/strict rotors for the composite;
+  never mutate saved empty display categories or calculate per criterion.
+- One selected-profile real C→N edit, Undo and Redo (three reevaluations), with the
+  existing disposable preflight and independently qualified before/after reports.
+- One metadata 503/explicit Retry control, holding the real recovery response across
+  an edit; exactly two registry attempts and no resurrection of old values.
+
+Use browser performance.timeOrigin and existing request/clock instrumentation.
+Measure selection-to-feedback and warm selection-to-current criteria against the
+existing 100 ms target; genuinely cold selection/edit-to-current values against
+2 s. Measure edit-to-old-criteria retirement separately. Report injected hold time
+separately, missing/hidden retirement as null with a reason, raw samples, n/median/
+nearest-rank p95/max/misses for five cold and 20 warm observations, and individual
+edit/expansion/fault durations. Existing performanceBudget and D-148 keep absolute
+latency enforcement opt-in; exact identity, finite observations and bounded work
+remain hard requirements. No synthetic zero for missing data.
+
+A source-bound `profile-performance-v1` artifact retains candidate/store/run,
+source/method/fixture hashes, browser/viewport/environment, clock proofs, phase
+boundaries, actual cache states, raw durations, exact source/profile/descriptor
+identity, request/consumer/job deltas, retirement observations, target annotations,
+cleanup and explicit measurement gaps. Retain raw request/observer companions and
+hash links. No simultaneous-memory claim follows from discrete observations.
+No additional 1,000-entry profile campaign is required: this child evaluates one
+active ligand; inherited bulk tests cover shared scheduling. Add scaling stress
+only if this workload exposes a concrete concern.
+
+These accepted contracts are implementation inputs, not measured outcomes or final
+feature approval. Full gates, actual predecessor actors and all seven final reviews
+remain required.
+
+
+D-194 concrete implementation: add a separate profile fixture-qualification driver
+and independent refusal controls. Reuse the original load/reparse/trial/history
+functions; preserve the old qualifier's refusal and all 52 inherited subjects.
+Bind the new driver's source identity in the current qualification receipt and
+check all original source/library/settings/fixture identities before and after.
+No mutation of the generation manifest, old helper globals or original driver is
+needed. Include the genuine all-44 controls in current scientific regression/gates.
+
+
+### Source-bound qualification framework — passing local checkpoint
+
+The [current checkpoint](../assets/ligand-profiles/c3-source-bound-qualification-checkpoint.json)
+records explicit v2 with unchanged legacy v1 and all 17 migrations, actual v0.37.0
+source/environment preparation and five 0.38.0 version fields. Integrated checks
+pass 525 Python cases (337 reader/legacy, 136 helper/legacy and 52 fixture controls)
+with no skips/errors/failures and all 1,176 selected source bodies unchanged. Scoped
+Ruff, mypy application280/tools6 and profile TypeScript/ESLint/11 pure tests pass.
+
+Fresh genuine qualification covers all 44 original SDFs, including O–O, real C→N/H
+reconciliation and exact history restoration. All 176 before/after trial/history
+reports retain 14 finite qualified values. The owned output retains all 44 results,
+176 store files and 44 raw original/copy pairs after positive cleanup and before any
+primary diagnostic SQL. Its portable 1,403,108-byte packet has SHA-256
+`4c7ca7dcc8764157c6cf9fa4be694d5b4208090cd0a141513eb3278def517155`;
+all 220 payload bodies, internal manifest hashes and ZIP CRC verify.
+
+Independent scoped scientific and architecture reviews PASS. Two architecture
+findings were corrected: both origins reject impossible/incomplete retained process
+facts, and every fixture must retain its database plus content-addressed originals/
+normalized artifacts with a complete rechecked file inventory. Red reproductions,
+failed static/launcher attempts, earlier evidence and the exact prior 1,176-source
+capsule remain preserved. No original fixture, scientific method, workload, inherited
+deadline or exclusion was changed to obtain a pass.
+
+These scopes do not establish real two-way runtime compatibility or native timing.
+The separate profile suite is implemented with truthful missing/partial/ready cache
+classification; actual fresh-store and combined-suite observations remain unrun.
+Freeze the coherent checkpoint, execute actual 0.38/0.37 actors, then native/full
+candidate and exact-merge gates, all seven final feature assessments and normal
+protected delivery. The parent remains open throughout.
+
+### Actual same-schema compatibility — focused qualification passed
+
+At frozen candidate `ceceadb6562a9f4a7f257af95e62a67f4cd6758e`, both actual
+0.38.0/annotated-v0.37.0 campaigns and all six actor phases exit zero. All 1,176
+current and 1,133 predecessor source bodies remain unchanged. Both genuine
+producer origins, all nine private-state families, both archive suffixes, ten
+descriptors and all 17 unchanged migrations verify. Independent scoped architecture
+and scientific-implementation assessments PASS after retained-only inspection of 69 closed
+raw database/sidecar pairs, 284 archive CRC/manifests and genuine numerical vectors.
+The original receipt timing wording is retained and separately clarified; cleanup
+evidence is unaffected. See the [actual compatibility checkpoint](../assets/ligand-profiles/c3-actual-compatibility-checkpoint.json).
+
+The first fresh-store profile browser attempt exits one on its first specimen:
+`Current input hash differs from independent preflight`. The source snapshot,
+failed trace/logs, observer exit zero, service/port closure and all three raw
+database/sidecar copies are preserved before any primary diagnostic SQL. A bounded
+measurement-harness diagnosis is in progress; source/hash/numerical assertions stay
+required. Desktop/mobile success, complete candidate and exact-merge release gates,
+all seven final feature assessments, merge, release and closeout remain outstanding.
+
+### Qualification corrections — passing focused local checkpoint
+
+The [correction checkpoint](../assets/ligand-profiles/c3-qualification-corrections-checkpoint.json)
+records separate independent numerical and source-context hash/provenance oracles,
+actual published edit/Undo/Redo verification after the measured READY timestamp,
+visible feedback qualification, and live-demand cleanup distinct from released
+consumer retention. The five test-only files pass 22 genuine/negative Python cases
+with zero skips, 14 Vitest cases, Ruff, mypy, ESLint and scoped TypeScript. Independent
+scoped performance and scientific-implementation assessments PASS cover those exact bodies; corrected native
+execution is still pending. Original failed evidence is preserved.
+
+The actual predecessor's original published 0.37.0 summary and compressed browser
+report are retained with pinned provenance. Shared preflight/summary/packaging
+validation checks all 640 cases and exact 75 exclusions, freezes all three data
+inputs, and retains them in release context. The owned helper controls plus
+unchanged legacy controls pass 165 Python cases with zero skips, scoped Ruff and
+strict typing of the owned unit file. Direct strict typing of historical-style
+`.py.txt` scripts was an extra diagnostic, preserved separately; it is not the
+application/reader-tool type gate and no suppression or policy reduction was added.
+
+Repository Ruff and current diff check pass. No production code, dependency,
+migration, original fixture, inherited workload/deadline/exclusion or performance
+target changes in this correction. Freeze the coherent commit for fresh isolated
+desktop/mobile measurements, then complete both full gates and final review/release.
+
+### Native attempt 2 — desktop passes, mobile dismissal corrected
+
+At `4c72b121`, desktop passes all 32 measurements. Mobile completes five genuine
+cold selections and twenty warm switches, then fails dismissal before editing: the
+harness focuses a non-focusable inspector container before Escape. This is not
+complete mobile or two-browser qualification. Both observers close, services/ports
+are absent, all 1,181 selected files stay exact, and three raw database/sidecar pairs
+are copied and reverified before primary diagnostic SQL. All failed artifacts remain.
+
+The bounded correction focuses and verifies the existing Entry control before
+Escape, matching established property/profile workflows. Scoped ESLint, TypeScript
+and all 14 measurement unit controls pass. No production behavior, oracle, workload,
+deadline or target changes. See the [attempt/correction checkpoint](../assets/ligand-profiles/c3-native2-inspector-focus-checkpoint.json); repeat both browsers with a new store/evidence label.
+
+### Native attempt 3 — focused desktop and mobile qualification passes
+
+At clean `3926426eedd4c78829013cb4a66522427db59373`, both browsers pass all
+64 records with no failures, skips, flakes or retries. Each has five genuinely cold
+selections and twenty warm switches; warm changes add no jobs, allocations or
+demands. Actual edit/Undo/Redo contexts, immutable originals, exact criteria and
+held metadata recovery verify. All 1,181 selected files stay unchanged; observers,
+owned workers and services close positively and all three raw database/sidecar
+original-copy pairs match. Independent scoped scientific and performance reviews
+PASS these actual bodies. See the [native checkpoint](../assets/ligand-profiles/c3-profile-native3-checkpoint.json).
+
+Cold median/p95/max is 909.8/941.3/941.3 ms desktop and 888.6/905/905 ms mobile;
+warm is 73.15/83.7/85.8 ms and 56.3/63.1/64.3 ms respectively. Four desktop portable
+target misses remain: edit readiness 2141.4 ms, Redo feedback 109.6 ms, Undo/Redo
+retirement 199.5/199.3 ms. Hidden mobile retirement is unavailable. No strict-host,
+causal speedup or whole-process/browser/GPU memory claim follows.
+
+The passing packet retains 322 payload files; the separate failed-attempt packet
+retains 1,506, including all original stores, traces and source evidence. All nested
+CRC/manifests/hashes verify. A diagnostic SELECT changed the first copied SHM from
+native1; its original was never changed. Preserve that diagnostic copy and receipt,
+and separate untouched copies matching the first recorded original hashes, with an
+explicit clarification. No historical attempt is relabelled or pooled.
+
+The complete 43-command candidate recipe is prepared at `c4-candidate1-recipe.json`
+against actual annotated v0.37.0 and its independently frozen 1,133-source environment.
+Commit this evidence and recipe before running it. Full candidate/actual-merge gates,
+all seven final feature assessments and normal protected delivery remain required.
+
+### Review-attribution erratum
+
+The primary incorrectly labelled three scoped scientific-implementation assessments
+as scientific theory. Correct the current fields and corresponding prose; preserve
+the original record bodies, packet bytes and historical commit. The [explicit erratum](../assets/ligand-profiles/c3-review-attribution-erratum.json)
+records before/after identities and the actual agent assignment. The separate
+whole-feature scientific-theory review does not retroactively relabel prior work.
+All seven final same-candidate verdicts remain required.
+
+### Complete-gate attempt 1 — archive guard corrected, rerun required
+
+Frozen `4cd65fff` passes the first eight commands, then Python exits one with
+3,996 passed and 47 failed. Every failure stops at the inherited explicit 0.37.0
+version guard before its round-trip body. Update that guard to 0.38.0 and add
+0.37.0 to the historical matrix; all 52 archive cases now pass with unchanged
+export/import, original, state and UUID-remapping assertions. No production archive
+change or data-loss finding follows from this guard failure.
+
+All 1,181 source/data bodies stayed exact during the failed gate. Positive cleanup
+and 45 raw original/copy pairs verify before primary diagnostic SQL. The complete
+293-payload failed packet retains logs, source bodies and every owned run/store;
+all eight ZIP CRCs, 298 manifest bodies and ten portable-project files verify.
+See the [correction checkpoint](../assets/ligand-profiles/c3-c4-candidate1-correction-checkpoint.json).
+
+Whole-feature scientific implementation and theory reviews require the now-explicit
+attribution correction; architecture, performance, UI and UX retain outstanding
+current full-gate evidence. None has cleared the final seven-role readiness gate.
+The fresh `c4-candidate2` recipe repeats all 43 commands from a clean coherent commit;
+no partial command or preparatory native result substitutes for that gate.
+
+### Current frontend preflight — full suite passes after measured test correction
+
+The initial current frontend run passes 1,874 cases but the unchanged descriptor
+fault matrix times out at 5,036 ms against its original 5,000-ms limit. Actual
+released-predecessor observations already ranged 4,186–4,848 ms. CPU profiling
+attributes most work to repeated successful matcher bookkeeping in the independent
+reference; the production collector is unchanged. Preserve the literal reference
+and its 801-versus-two accounting case. Use equivalent independent lightweight
+pointwise assertions for all 200 status positions, 21 report faults and 420 descriptor
+faults, retaining native malformed-value throws and source ordering. No deadline,
+case count, loop bound, production collector, configuration or exclusion changes.
+
+Controlled copies measure descriptor-matrix 1,688–1,733 ms before and 229–250 ms
+after, with all eight cases passing; these are test-harness observations only. An
+independent performance assessment PASS covers the authored body. The actual current
+full frontend lint, types, 1,875 tests in 142 files and production build now pass;
+the entire eight-case bulk file takes 1,911 ms under full-suite concurrency. Preserve
+the original failing run and profiling evidence. Current real profile/access native
+preflight and the fresh complete 43-command gate remain required.
+
+### Current profile/access preflight — 18 pass; explicit touch input remains
+
+At clean `a505abd6`, all 18 current correctness/access cases pass with no skips,
+failures, flakes or retries. Both themes, real preview Cancel/Apply, exact Undo/Redo,
+metadata recovery, narrow mobile layout and actual desktop 100%/200% zoom verify.
+Keyboard focus, hit testing, overflow, accessibility and reading-position checks
+pass. All 1,181 selected source bodies remain unchanged; services/workers close and
+three raw database/sidecar pairs verify. The 55-payload portable packet and nested
+CRC/manifests/hashes verify; see the [current workflow checkpoint](../assets/ligand-profiles/c3-current-profile-workflows-checkpoint.json).
+
+Do not equate mobile emulation with actual finger input. These specs used click,
+keyboard and programmatic select actions; their zoom extension deliberately uses
+a desktop context. Independent UX assessment identifies the remaining touch
+acceptance gap. Within existing mobile cases, add real trusted touch activations
+and semantic outcomes for controls, cancellation/retry and disclosures. Preserve
+all cases, deadlines and existing assertions. Label any native-select touch opening
+plus keyboard option commitment honestly; do not claim physical-device or touch-only
+picker qualification. Fresh native verification and the complete43 gate still follow.
+
+### Trusted-touch input — implemented, native verification pending
+
+The single owned profile spec adds actual normal-actionability touch activations
+within existing mobile cases. Capture trusted pointerdown with pointerType touch
+and the intended target; assert the resulting dialog, checkbox, cancellation,
+retry and disclosure state. Native select commitment is explicitly hybrid touch/
+keyboard, with trusted actual change/value evidence, not touch-only native-picker
+or physical-device qualification. Desktop access/zoom source remains byte-exact.
+
+All existing 18 cases, deadlines and original assertions remain. Expanded strict
+E2E diagnostics are honestly NOT_PASS: one unchanged imported interactions-helper
+type error and 12 unchanged legacy unsafe-any findings match the identical baseline
+configuration; the owned spec introduces none. Repository web lint/types/test/build
+have their separate passing receipts. Do not relabel baseline equivalence as a
+passing scoped check. See the [touch preflight](../assets/ligand-profiles/c3-trusted-touch-preflight-checkpoint.json).
+Commit the coherent test candidate, then run a fresh isolated 18-case workflow/access
+campaign and inspect actual touch attachments before the complete43 rerun.
+
+### Trusted-touch native verification passes
+
+At frozen `f9e2cd53`, the complete current 18-case correctness/access campaign
+passes again with no failures, flakes, retries or exclusions. Four attachments
+prove 26 trusted touch activations on intended controls in both themes at 320×700,
+including options/draft Cancel, update cancellation/retry, disclosures and held
+metadata recovery. Six native-select actions are explicitly hybrid touch activation
+and trusted keyboard commitment; no finger-option, picker-opening or physical-device
+claim follows. All 1,181 selected bodies stay exact and all services/workers close;
+three raw original/copy pairs verify before primary diagnostic SQL.
+
+The 56-payload portable packet verifies every body, eight ZIP CRCs, 61 manifest
+entries and ten project files. See the [trusted-touch checkpoint](../assets/ligand-profiles/c3-trusted-touch-workflow-checkpoint.json).
+The current whole-feature theory assessment clears its scientific findings; all
+seven final same-candidate reconfirmations and the fresh complete43 candidate/merged
+gates remain required. Start committed `c4-candidate2` with every original command.

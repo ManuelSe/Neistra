@@ -84,7 +84,10 @@ for (const theme of ["light", "dark"] as const) test(`rechecks capability failur
     await expect(panel(page)).toBeHidden();
     await expect(page.getByRole("button", { name: "Minimize selection", exact: true })).toBeFocused();
     expect((await current(request, project.id)).revision).toBe(project.revision);
-  } finally { held.resolve(); }
+  } finally {
+    held.resolve();
+    await page.unrouteAll({ behavior: "wait" });
+  }
 });
 
 test("explicitly recaptures current revision and selection while retaining choices and freezing the submitted target", async ({ page, request }, info) => {
@@ -144,7 +147,10 @@ test("explicitly recaptures current revision and selection while retaining choic
     expect(job?.parameters.requested_selection).toMatchObject({ atoms: replacement });
     expect(writes).toBe(1);
     await panel(page).getByRole("button", { name: "Close minimization", exact: true }).click();
-  } finally { held.resolve(); }
+  } finally {
+    held.resolve();
+    await page.unrouteAll({ behavior: "wait" });
+  }
 });
 
 test("shows server-resolved attached H before the actual local context and effective methods", async ({ page, request }, info) => {
@@ -210,7 +216,10 @@ test("shows server-resolved attached H before the actual local context and effec
       expect((await new AxeBuilder({ page }).include(".minimization-panel").analyze()).violations).toEqual([]);
       await page.screenshot({ path: info.outputPath(`${theme}-expanded-model-methods.png`) });
     }
-  } finally { held.resolve(); }
+  } finally {
+    held.resolve();
+    await page.unrouteAll({ behavior: "wait" });
+  }
 });
 
 for (const metadata of ["missing", "invalid"] as const) test(`retains report inspection and normal application with ${metadata} effective-field metadata`, async ({ page, request }, info) => {

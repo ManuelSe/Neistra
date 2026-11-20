@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-verification-preparation1/forensic_pairs.py",
+    "verify",
+    "--authorization",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+    "--authorization-sha256",
+    "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1",
+    "--preparation-seal-sha256",
+    "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+    "--output-dir",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-verify1",
+    "--origin",
+    "download",
+    "--input-dir",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots",
+  "exit_code": 0,
+  "started_utc": "2026-11-20T00:21:08.777778+00:00",
+  "finished_utc": "2026-11-20T00:22:12.965529+00:00",
+  "stdout": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/final-forensic-verify.stdout",
+    "bytes": 1147,
+    "sha256": "8670a247ec88b9d36924dcea5dafb73d1edfbe038eefbbc2507dc13bac16a52e"
+  },
+  "stderr": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/final-forensic-verify.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

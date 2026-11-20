@@ -442,6 +442,9 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         await expect(panel).toBeFocused();
         for (const section of ["Atoms", "Bonds", "Fragments", "Residues"]) {
           await panel.getByRole("button", { name: section, exact: true }).click();
+          if (section === "Atoms") {
+            await expect(panel.getByRole("button", { name: "Replace selected atom with N", exact: true })).toBeEnabled();
+          }
           for (const control of await panel.locator("button:visible:enabled, summary:visible").all()) {
             await control.focus();
             await expect(control).toBeFocused();

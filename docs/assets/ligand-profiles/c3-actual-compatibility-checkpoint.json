@@ -1,0 +1,72 @@
+{
+  "schema": "issue160-actual-compatibility-checkpoint-v1",
+  "recorded_utc": "2026-11-20T02:28:22.088691+00:00",
+  "candidate": "ceceadb6562a9f4a7f257af95e62a67f4cd6758e",
+  "protocol": "private-derived-same-schema-v2",
+  "current_version": "0.38.0",
+  "actual_previous_release": "v0.37.0",
+  "actual_previous_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "editing_exit": 0,
+  "properties_exit": 0,
+  "current_previous_source_bodies": [
+    1176,
+    1133
+  ],
+  "unchanged_schema_head": "0017",
+  "unchanged_migrations": 17,
+  "closed_raw_pairs": 69,
+  "archive_crc_and_manifest_verified": 284,
+  "independent_scoped_architecture": "PASS",
+  "evidence_directory": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual-shared-schema1",
+  "evidence": {
+    "execution.json": {
+      "bytes": 3638,
+      "sha256": "fee9e4eed2fe1401b28089f6dc69832f817ceba38fc92d555e83bad1a5095971"
+    },
+    "primary-retained-readback.json": {
+      "bytes": 3112,
+      "sha256": "6756a96dab535c9030a111c5108f928cdc8a220c5af4bf31c59f6258935bf60b"
+    },
+    "receipt-timing-clarification.json": {
+      "bytes": 892,
+      "sha256": "e6212163290cf4a05d1443432b5d595bd83a143bb3561ef41d08087ea38392f4"
+    },
+    "software-architecture-actual-scoped-assessment.json": {
+      "bytes": 1169,
+      "sha256": "1aa510d1c4662431979d804498fcfed5d0e3c366e699980c1db1fda21aa551df"
+    },
+    "scientific-theory-actual-scoped-assessment.json": {
+      "bytes": 1555,
+      "sha256": "d0ea165a909d8004c82a7d88b079f4cce973c0edca823f5f96ca4266abae6dea",
+      "scope": "Historical primary role-label error; original bytes retained, corrected attribution recorded separately."
+    },
+    "scientific-implementation-actual-scoped-assessment-corrected.json": {
+      "bytes": 2200,
+      "sha256": "d47a98d2268dd6af02f7c89a7d3ae61c1a3f261e8df3274864d2e9c71140cca3"
+    }
+  },
+  "native_first_attempt": {
+    "result": "FAIL",
+    "candidate": "ceceadb6562a9f4a7f257af95e62a67f4cd6758e",
+    "failure": "Current input hash differs from independent preflight",
+    "source_bodies_unchanged": true,
+    "observer_exit": 0,
+    "known_services_absent_and_ports_closed": true,
+    "raw_db_sidecar_copies": 3,
+    "evidence_directory": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-native1",
+    "correction": "Bounded diagnosis in profile measurement tests; source/hash/numerical invariants remain required"
+  },
+  "remaining": [
+    "Correct and verify profile measurements",
+    "Complete current candidate release gate",
+    "All seven final same-candidate specialist assessments",
+    "Normal PR and merge",
+    "Fresh exact-merged full release gate",
+    "Annotated immutable v0.38.0 tag and published release",
+    "Full anonymous required asset verification",
+    "Issue closeout and safe owned cleanup"
+  ],
+  "no_implementation_push_pr_tag_release_or_closeout_claimed": true,
+  "independent_scoped_scientific_implementation": "PASS",
+  "review_attribution_erratum": "c3-review-attribution-erratum.json"
+}

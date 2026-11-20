@@ -1,0 +1,117 @@
+{
+  "scope": "Twelve separate publication-pending failure/diagnostic/early/interrupted forensic assets; metadata only in main evidence",
+  "planned_version": "0.37.0",
+  "qualified_main_payloads": false,
+  "assets": [
+    {
+      "asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "checksum_asset": "neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "bytes": 190937608,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "80890ebfbf5e431c8688b644e11490e8bc5e56e605c3763a47f8c5decb61d612"
+    },
+    {
+      "asset": "neistra-v0.37.0-native9-failed-all8.zip",
+      "checksum_asset": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "bytes": 51668757,
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "6263a57f79b32fe7045bb36ff88f09f4ad210cc0e7e1306d6a94c52e4b938929"
+    },
+    {
+      "asset": "neistra-v0.37.0-native10-failed-all8.zip",
+      "checksum_asset": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "bytes": 55068041,
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "61dee004bdcef0a52cdd102c05094c4d841f8daaff87a50252d160d482798147"
+    },
+    {
+      "asset": "neistra-v0.37.0-early-performance.zip",
+      "checksum_asset": "neistra-v0.37.0-early-performance.zip.sha256",
+      "bytes": 124222530,
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "3a740b8d9fb665f259d99bbf992cb8330d56c994bff69d4bb5860b12fd2f027f"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "bytes": 36544045,
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "4298cbd94dd45289382a04a0aa004f8db222e8b8434cce2a16fe336ddd44a8cc"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-candidate2-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "bytes": 1149122794,
+      "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "be88240dede914635c34f374cf405a0be44971988fd5a6f3309387165c48a562"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-candidate3-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "bytes": 131840156,
+      "sha256": "0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "f6aea91c6953ce35a00c6f57095eee2c9e74bd35fb35a66fc32124fbcafb2507"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-candidate4-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "bytes": 675409215,
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "5ac9a4da5b7a7af42c9943522bb5f2a335be45570cab652e967ce8489fa9a9db"
+    },
+    {
+      "asset": "neistra-v0.37.0-c4-master1-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "bytes": 174910299,
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "4a07cc65149a93668837f8e5f633699f5a6172a26b98180fe94438efa373a65e"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "bytes": 10133222,
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "070fe3e01c4f431f759c84e9146ba04060e306535f9cde30b65849d8edb4bfcf"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "bytes": 185748045,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "8ae18dc7111d60cf05373029f255bc9905506ca403a6a46fd2110297841cf28d"
+    },
+    {
+      "asset": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "checksum_asset": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "bytes": 1377294877,
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "published": false,
+      "qualified_main_member": false,
+      "primary_readback_sha256": "517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7"
+    }
+  ],
+  "limits": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+  "verification_requirement": "Full anonymous download body SHA/size/CRC and recursive manifests, plus checksums/readback, after actual release publication; no published asset claimed now."
+}

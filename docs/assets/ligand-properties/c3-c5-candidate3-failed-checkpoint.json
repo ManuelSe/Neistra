@@ -1,0 +1,169 @@
+{
+  "status": "FAILED original c5-candidate3; full preservation verified, publication pending. Not qualification PASS.",
+  "candidate": "dfeb499aef32a8b53715a65f00cfa056951fb231",
+  "actual_runner_exit": 1,
+  "successful_recipe_commands": 15,
+  "recorded_recipe_commands": 16,
+  "remaining_unrun_commands": [
+    "versions",
+    "production",
+    "legacy-cli",
+    "rich-current-migration",
+    "rich-current-produce",
+    "rich-previous-migration-and-copy",
+    "rich-previous-read-current",
+    "rich-previous-produce",
+    "rich-current-read-previous",
+    "rich-current-reopen",
+    "connectivity-current-migration",
+    "connectivity-current-produce",
+    "connectivity-previous-migration-and-copy",
+    "connectivity-previous-read-current",
+    "connectivity-previous-produce",
+    "connectivity-current-read-previous",
+    "connectivity-current-reopen",
+    "measurements-current-migration",
+    "measurements-current-produce",
+    "measurements-previous-migration-and-copy",
+    "measurements-previous-read-current",
+    "measurements-previous-produce",
+    "measurements-current-read-previous",
+    "measurements-current-reopen",
+    "editing-readers",
+    "property-readers",
+    "diff"
+  ],
+  "failed_command": "browser",
+  "failure": "Molecular-editor keyboard focus test enumerates enabled controls before current target projection finishes loading; positional target changes between focus and its assertion.",
+  "browser": {
+    "passed": 200,
+    "runtime_skipped": 4,
+    "unrun": 435,
+    "failed": 1
+  },
+  "reported_browser_stats": {
+    "startTime": "2026-11-19T12:38:14.784Z",
+    "duration": 2856147.301,
+    "expected": 200,
+    "skipped": 439,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "runtime_skips_distinguished_from_unrun": true,
+  "all_mobile_cases_unrun": 320,
+  "desktop_property_cases_passed_once": 4,
+  "mobile_property_cases_unrun": 4,
+  "completed_stage_counts": {
+    "python": 3598,
+    "frontend": 1599,
+    "frontend_files": 137,
+    "supervisor": 14
+  },
+  "actual_trace": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/c5-candidate3-native/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/trace.zip",
+    "sha256": "a1c39edb9cab2a3089ac4fff1ea30707ee935aa4ec1898a97c90f9d75f402a84",
+    "selected_original_events_sha256": "498c84a2592c09cd900a1d6352f873d0c471e61a152398613c77f0b6d61e228a",
+    "enumeration_call": "call@53563",
+    "enumerated_controls_loading": 14,
+    "loaded_controls": 25,
+    "focus_call": "call@53621",
+    "focus_target": "Advanced atom details summary",
+    "assertion_call": "call@53623",
+    "assertion_target": "Replace selected atom with O button",
+    "same_positional_index": 7,
+    "final_actual_activeElement_not_independently_recorded": true
+  },
+  "extra_diagnostics_without_causality_claim": {
+    "console_fixture_diagnostic": "Internal error: step id not found: fixture@97",
+    "top_level_report_errors": [
+      {
+        "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+      }
+    ],
+    "causality_to_primary_focus_failure_not_claimed": true
+  },
+  "original_files": 41093,
+  "original_bytes": 2159659556,
+  "empty_directories": 26,
+  "original_roots": 8,
+  "raw_DB_WAL_SHM_original_copy_pairs": 4,
+  "original_observer_roots": 4,
+  "original_observer_files": 240,
+  "positive_cleanup_before_raw_copy": true,
+  "SQL_opened": false,
+  "all16_lossless_logs_exact": true,
+  "all2146_actual_Git_disk_capsule_source_bodies_exact": true,
+  "source_model": {
+    "current_source_count": 1133,
+    "current_source_digest_compact": "11e2b076f88efffccae91efc51441530a55d0680b1c402718b774657bdc7fef9",
+    "declared_delta": {
+      "tests/unit/test_ligand_properties_release_recipe.py": {
+        "after": "9947c6b75171656d92578edc6a3dd624396d9520950daeef945558e657e2cce9",
+        "before": "fa019dffc96a972c56f18197728874eccfde426ea956f99bf2280757b25f783a"
+      }
+    },
+    "identical_path_keys": true,
+    "method_bodies_unchanged": true,
+    "method_count": 52,
+    "native12_source_count": 1133,
+    "native12_source_digest_compact": "be93fda78fdb9b16b400006b8ae20617087b4e72014b2554cdd29b9fd45111e7",
+    "observer_bodies_unchanged": true,
+    "observer_source_count": 789,
+    "preceding_reader_map_unchanged": true,
+    "preceding_source_count": 1013,
+    "preceding_source_digest_compact": "203238cad1841395df87599d94c45aab79331513ce3f810272618c19efe92617",
+    "scope": "Distinct actual candidate3 full map and original native12 full map; exact one declared unit-contract delta only",
+    "unchanged_source_count": 1132
+  },
+  "source_capture_seal_sha256": "4bc9a232d8efca61ac3ae89ccb157caf4552c45a35ebdceb1002a26a341a12f7",
+  "full_preservation": {
+    "SQL_opened": false,
+    "all_completed_original_observer_source_and_mirror_bindings": true,
+    "all_original_before_after_bytes_metadata_and_union_exact": true,
+    "all_original_body_CRC_recursive_unique_exact_union": true,
+    "archive": {
+      "bytes": 1377294877,
+      "file": "c5-candidate3-failed-evidence.zip",
+      "outer_manifest_entries": 41113,
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-candidate3-failure-preservation1/c5-candidate3-failed-evidence.zip",
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "verification_counts": {
+        "evidence_manifest_entries": 41123,
+        "project_archive_files": 28,
+        "zip_archives": 49
+      }
+    },
+    "candidate": "dfeb499aef32a8b53715a65f00cfa056951fb231",
+    "configured_single_asset_cap_bytes": 2147483648,
+    "empty_directories": 26,
+    "inert_aliases": 0,
+    "inert_nonregular_descriptors": 0,
+    "original_bytes": 2159659556,
+    "original_files": 41093,
+    "original_observer_roots": 4,
+    "qualification_PASS": false,
+    "raw_original_copy_pairs_verified_before_and_after": 4,
+    "scope": "Complete actual FAILED c5-candidate3 forensic retention; no full qualification.",
+    "within_configured_single_asset_cap": true
+  },
+  "independent_primary_readback_sha256": "517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7",
+  "separate_asset": {
+    "asset": "neistra-v0.37.0-c5-candidate3-failed.zip",
+    "checksum_asset": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+    "bytes": 1377294877,
+    "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+    "published": false,
+    "qualified_main_member": false,
+    "primary_readback_sha256": "517146e2f35fc2abf5f2b556166aff0e19b25e5ae3dc1f01305a0aa40fb758a7"
+  },
+  "classification_controls": {
+    "actual_positive_and22_negative_mutations": "PASS",
+    "qualification_claim": false
+  },
+  "limits": [
+    "Only200 native cases pass,4 actual runtime skips,1 failure and435 fail-fast unrun; reported439skipped are not authored exclusions.",
+    "The trace proves positional locator identity drift during loading; final activeElement is not independently recorded and broader app focus correctness is not established.",
+    "The later guard and focused checks cannot qualify this failed campaign.",
+    "Fresh complete43-command candidate, all-seven final review, protected corrective merge, fresh exact-master qualification and release verification remain mandatory."
+  ]
+}

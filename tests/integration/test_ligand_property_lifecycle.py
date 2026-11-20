@@ -805,7 +805,8 @@ def test_warm_alias_turns_yield_to_user_job_without_new_descriptor_children(
     reply = client.post(
         f"/api/v1/projects/{project['id']}/imports",
         data={"expected_revision": 0, "generate_3d": "false"},
-        files=[("files", ("ethanol.mol", FIXTURE.read_bytes(), "chemical/x-mdl-molfile"))] * 41,
+        files=[("files", ("ethanol.mol", FIXTURE.read_bytes(), "chemical/x-mdl-molfile"))]
+        * 41,
     )
     assert reply.status_code == 201, reply.text
     project = reply.json()["project"]
@@ -818,21 +819,14 @@ def test_warm_alias_turns_yield_to_user_job_without_new_descriptor_children(
     reply = client.request(
         "PUT",
         f"/api/v1/projects/{project['id']}/ligand-properties/consumers/{consumer}",
-        json={
-            "sequence": 2,
-            "entries": references,
-            "descriptor_ids": [],
-            "active_entry_id": references[-1]["entry_id"],
-        },
+        json={"sequence": 2, "entries": references, "descriptor_ids": [],
+              "active_entry_id": references[-1]["entry_id"]},
     )
     assert reply.status_code == 200, reply.text
     submitted = client.post(
         f"/api/v1/projects/{project['id']}/jobs",
-        json={
-            "job_type": "molweave.demo.structure_statistics",
-            "parameters": {},
-            "inputs": [{"role": "structure", "entry_id": references[0]["entry_id"]}],
-        },
+        json={"job_type": "molweave.demo.structure_statistics", "parameters": {},
+              "inputs": [{"role": "structure", "entry_id": references[0]["entry_id"]}]},
     )
     assert submitted.status_code == 201, submitted.text
     ordinary_id = submitted.json()["id"]
@@ -842,12 +836,8 @@ def test_warm_alias_turns_yield_to_user_job_without_new_descriptor_children(
         assert runner.property_metrics["warm_bindings"] > 0
         assert runner.property_metrics["child_reports"] == 0
     with client.app.state.session_factory() as session:
-        assert (
-            session.scalar(
-                select(func.count()).select_from(Job).where(Job.purpose == "ligand_properties")
-            )
-            == 1
-        )
+        assert session.scalar(select(func.count()).select_from(Job).where(
+            Job.purpose == "ligand_properties")) == 1
         assert session.scalar(select(func.count()).select_from(LigandPropertyBinding)) < 41
     assert client.get(f"/api/v1/jobs/{ordinary_id}").json()["status"] == "queued"
     assert runner.run_once()
@@ -861,19 +851,13 @@ def test_warm_alias_turns_yield_to_user_job_without_new_descriptor_children(
     assert values.status_code == 200, values.text
     assert all(item["status"] == "ready" for item in values.json()["entries"])
     with client.app.state.session_factory() as session:
-        assert (
-            session.scalar(
-                select(func.count()).select_from(Job).where(Job.purpose == "ligand_properties")
-            )
-            == 1
-        )
+        assert session.scalar(select(func.count()).select_from(Job).where(
+            Job.purpose == "ligand_properties")) == 1
 
 
 @pytest.mark.parametrize("turns", [("warm", "cold", "warm", "failure"), ("failure",) * 4])
 def test_mixed_and_cache_failure_progress_obeys_ordinary_and_bulk_turn_bounds(
-    client: ApiClient,
-    monkeypatch: pytest.MonkeyPatch,
-    turns: tuple[str, ...],
+    client: ApiClient, monkeypatch: pytest.MonkeyPatch, turns: tuple[str, ...],
 ) -> None:
     from neistra_api.ligand_property_cache import PropertyCacheError
     from neistra_api.ligand_property_service import LigandPropertyService
@@ -883,11 +867,8 @@ def test_mixed_and_cache_failure_progress_obeys_ordinary_and_bulk_turn_bounds(
     assert demand(client, project, consumer).status_code == 200
     submitted = client.post(
         f"/api/v1/projects/{project['id']}/jobs",
-        json={
-            "job_type": "molweave.demo.structure_statistics",
-            "parameters": {},
-            "inputs": [{"role": "structure", "entry_id": project["entries"][0]["id"]}],
-        },
+        json={"job_type": "molweave.demo.structure_statistics", "parameters": {},
+              "inputs": [{"role": "structure", "entry_id": project["entries"][0]["id"]}]},
     )
     assert submitted.status_code == 201, submitted.text
     ordinary_id = submitted.json()["id"]
@@ -895,22 +876,14 @@ def test_mixed_and_cache_failure_progress_obeys_ordinary_and_bulk_turn_bounds(
     remaining = iter(turns)
     bulk_choices: list[bool] = []
 
-    def materialize(
-        self: LigandPropertyService,
-        worker_id: str,
-        *,
-        prefer_bulk: bool = False,
-        implementation_enabled: bool = True,
-    ) -> Job | bool | None:
+    def materialize(self: LigandPropertyService, worker_id: str, *,
+                    prefer_bulk: bool = False, implementation_enabled: bool = True,
+                    ) -> Job | bool | None:
         bulk_choices.append(prefer_bulk)
         kind = next(remaining, "idle")
         if kind == "cold":
-            return original(
-                self,
-                worker_id,
-                prefer_bulk=prefer_bulk,
-                implementation_enabled=implementation_enabled,
-            )
+            return original(self, worker_id, prefer_bulk=prefer_bulk,
+                            implementation_enabled=implementation_enabled)
         if kind == "failure":
             raise PropertyCacheError("Controlled unavailable cache")
         return True if kind == "warm" else None

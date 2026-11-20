@@ -1,0 +1,67 @@
+{
+  "recorded_utc": "2026-11-19T17:58:45.171538+00:00",
+  "candidate": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+  "scope": "Actual source-companion packaging and fresh packet-only portable consumers; independent whole original/source readback remains separate.",
+  "source_companion": {
+    "packaging_tool_chunk": "629b1e",
+    "actual_packaging_exit": 0,
+    "archive": {
+      "file": "qualified-c5-candidate4-source-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-candidate4-source-publication1/qualified-c5-candidate4-source-evidence.zip",
+      "bytes": 9636580,
+      "sha256": "bc542b921e68c51cc90cebf58ffa9c3ab4fac06dccbd7f1c79231b7a848c6d74",
+      "outer_manifest_entries": 7,
+      "verification_counts": {
+        "zip_archives": 15,
+        "evidence_manifest_entries": 17,
+        "project_archive_files": 20
+      }
+    },
+    "all_seven_original_bodies_and_outer_union_exact": true,
+    "before_after_originals_exact": true,
+    "fresh_extraction_tool_chunk": "bca70b",
+    "portable_actual_tool_chunk": "3a9dc2",
+    "portable_actual_exit": 0,
+    "command": [
+      "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+      "-B",
+      "verify-sources.py"
+    ],
+    "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-candidate4-source-publication1/public-only-roundtrip1",
+    "audited_verifier_sha256": "273b0e45d7898c73a77fb43983c9fa83a5a160b7eb2ad3c55391209029af1fcf",
+    "current_capsule_bodies": 1133,
+    "actual036_capsule_bodies": 1013,
+    "current_source_tree_or_HEAD_read": false,
+    "runtime_or_SQL_access": false
+  },
+  "retained_packet_consumer": {
+    "fresh_extraction_and_copy_tool_chunk": "98b21a",
+    "initial_execution_tool_chunk": "be46bc",
+    "actual_session": 63396,
+    "completion_tool_chunk": "23ebaf",
+    "actual_exit": 0,
+    "command": [
+      "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+      "-B",
+      "verify-retained.py",
+      "--archive",
+      "qualified-c5-candidate4-retained-state.zip"
+    ],
+    "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-candidate4-source-publication1/retained-public-consumer1",
+    "archive_bytes": 76385129,
+    "archive_sha256": "4307cf92b5b95fd246de658dd8fe61da0b4b6216e595c330bfb48a30198d34e2",
+    "packet_tools_and_archive_only_inputs": true,
+    "originals_flag_used": false,
+    "full_original_inventory_rehashed_by_this_consumer": false,
+    "recursive_ZIPs": 957,
+    "outer_union": 6987,
+    "raw_pairs": 59,
+    "observer_UUID_roots": 8,
+    "observer_files": 480,
+    "SQL_opened": false
+  },
+  "all_artifacts_remain_local_and_unpublished": true,
+  "no_original_or_application_source_changes": true,
+  "source_freeze_released": false,
+  "final_all7_merge_master_release_complete": false
+}

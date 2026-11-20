@@ -1,0 +1,80 @@
+{
+  "scope": "Fourth failed-run forensic retention extension and full local readback; not application qualification or public availability",
+  "archive": "c3-forensics-verification3.zip",
+  "files": 51,
+  "archive_bytes": 6050719,
+  "archive_sha256": "995b611119328d250e02a31264a71e0ab537bd8b3f6616e76f36d9b216dd3577",
+  "recursive_verification": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 51,
+    "project_archive_files": 0
+  },
+  "index_sha256": "b825b161ec887a26ed03ad6b0eece48a1a11572a2ecd41c76a6a1d011d60352e",
+  "previous_index_sha256": "1da56de565c1db85295a32c96e0cec47c5c8e768250f4d6e0195f68509588593",
+  "previous_three_runs_unchanged": true,
+  "previous24parts_and_inventories_unchanged": true,
+  "previous_verification1_and2_json_and_zips_unchanged": true,
+  "local_all_parts_verified": 43,
+  "local_new_parts_verified": 19,
+  "new_run": {
+    "label": "c4-candidate7",
+    "failed_candidate": "5b4dd06b1f0a4eb7582b814553b261369598f752",
+    "qualification_complete": false,
+    "files": 34012,
+    "raw_bytes": 3389473487,
+    "source_count": 1005,
+    "source_digest": "7e5a38ae9f3f7ec564cfe4637f1faf9458b2841e45bf17f9ec820def016b6f43"
+  },
+  "total_asset_bytes": 3344071044,
+  "total_canonical_files": 77386,
+  "total_raw_bytes": 7143818984,
+  "all_parts_below80MiB": true,
+  "exact_disjoint_unions_and_recursive_crcs": true,
+  "source_control_reference": {
+    "scope": "Byte-identical source/control evidence reused; no repeated or invented control run",
+    "historical_verification_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.json",
+      "bytes": 2437,
+      "sha256": "874c955f571546b674d58ba168c9bb104c50c4fc64f57cf465343da53af25557"
+    },
+    "historical_verification_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification.zip",
+      "bytes": 5628004,
+      "sha256": "6c275f5949c7a0e79276bcf7eb1f5c0eeb79f16b467d38b2f81dc2242adaf63a"
+    },
+    "previous_extension_json": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification2.json",
+      "bytes": 3638,
+      "sha256": "0b3facbd7682393fbe7c09a73eb01bc717e656fe5b033ed9a5668b1f9b4debdc"
+    },
+    "previous_extension_zip": {
+      "path": "docs/assets/ligand-designation/c3-forensics-verification2.zip",
+      "bytes": 2057196,
+      "sha256": "3c6324d7b7ead0823dcfc4a6c6a173ca8db107aa895ccb0e84f4e637d7308272"
+    },
+    "offline_controls": 64,
+    "real_network_requests": 0,
+    "source_identities": {
+      "tools/verify_ligand_forensics.py": {
+        "bytes": 14388,
+        "sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0"
+      },
+      "tests/unit/test_ligand_forensic_verifier.py": {
+        "bytes": 21216,
+        "sha256": "a4d2f7aa2d06c51a6e455271a48c5c09e79003440e9f7dab1ce36fb46cf89275"
+      }
+    },
+    "all_sources_unchanged": true
+  },
+  "observed_failure": "The legacy helper returned its pre-assessment revision1 baseline. First controlled designation legitimately advances revision1 to2 before minimization captures2; calculation preserves revision2. The old readonly assertion expected1.",
+  "independent_diagnosis": "Scoped read-only architecture verdict CHANGES_REQUIRED for the legacy helper baseline. Preserve full readonly, preview, Apply and Undo/Redo assertions; complete first-assessment proof before returning the baseline. This snapshot records diagnosis, not final correction approval.",
+  "focused_probes": "Unchanged helper reproduces both profile failures, actual95983exit1. Corrected first-assessment helper passes both profiles, actual15970exit0, with each1005source map frozen. Live all-consumer probe is explicitly excluded and will have separate evidence. Scoped passes are not pooled into complete qualification.",
+  "retention": "All owned stores/raw originals retained; C7 native tree relocated only after exact archive union verification and complete before/after file hashes; no deletion.",
+  "required_next": [
+    "Independent review of extended forensic contract and integrated final candidate",
+    "Fresh complete C8 all42, independent summary, recursive packaging and actual enclosing readback; no pooled passing segments",
+    "Normal final review/PR/merge and complete exact-master gate",
+    "Publish all indexed supplemental assets only with verified release and run full anonymous tracked-verifier readback before child closeout"
+  ],
+  "observed_utc": "2026-11-17T18:06:26.949049+00:00"
+}

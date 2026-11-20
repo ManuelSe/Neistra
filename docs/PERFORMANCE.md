@@ -802,3 +802,29 @@ is inferred from estimator tests. The API's 20,000-record bound alone cannot bou
 marker length or drawing work, particularly for nearest-site classified charge
 groups whose centers are far apart. D-148 timing policy and all existing backend
 limits remain unchanged.
+
+## Selected physicochemical profiles — focused 0.38.0 preparation
+
+A separate source-bound campaign at `3926426e` passes 32 records on each of desktop
+and 320×700 mobile Chromium. It preserves the inherited property and bulk workloads.
+Five genuinely missing-coverage first selections and twenty matching-cache switches
+per browser use current source/provenance and independent numerical oracles. Warm
+switches create no jobs, consumer allocations or demands. Observer/setup waits and
+post-READY scientific checks are outside trigger-to-result intervals; deliberate
+presenter reopening is separately reported.
+
+| Browser | Cold median / p95 / max (ms, n=5) | Warm median / p95 / max (ms, n=20) |
+| --- | --- | --- |
+| Desktop | 909.8 / 941.3 / 941.3 | 73.15 / 83.7 / 85.8 |
+| Mobile | 888.6 / 905 / 905 | 56.3 / 63.1 / 64.3 |
+
+Four desktop portable target misses remain: automatic edit readiness 2141.4 ms
+(target 2000), Redo feedback 109.6 ms, and Undo/Redo retirement 199.5/199.3 ms
+(targets 100). Mobile hidden retirement is null, not a pass. Feedback records its
+visible native-control/status basis separately from numerical readiness. All exact
+identity, bounded work/retention, cleanup and original-source checks pass.
+
+These instrumented observations are not strict-host certification or evidence of
+a speedup. Discrete worker samples do not establish simultaneous totals or browser/
+GPU peak memory. The complete current and actual-merge gates, including inherited
+bulk qualification, remain required. See the [focused checkpoint](assets/ligand-profiles/c3-profile-native3-checkpoint.json).

@@ -1,0 +1,369 @@
+{
+  "scope": "D197bounded owner checkpoint plus allsevencomplete-feature SOURCE/CODE PASS before qualification; not fullgate/finalreadiness/humanapproval/release",
+  "repository": "ManuelSe/Neistra",
+  "issue": 158,
+  "parent": 11,
+  "base_C11": "c56e4c37b6d726a2c3a67d2a069e520065b043ed",
+  "complete_selected_source_count": 1007,
+  "complete_selected_source_digest": "9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274",
+  "current_four_source_identities": {
+    "apps/web/src/ligands/inventoryQualification.ts": "55470d636eec9b137bf03b19a65cb8574dde935ba7cbc95b92dadfc30311bac8",
+    "apps/web/src/components/LigandDesignationControls.tsx": "97d321eb9f0c04d8aa43a627759f890992e97d69fa22b951ff9b59da19f76ab0",
+    "apps/web/src/test/ligand-designation-controls.test.tsx": "8abc62e5a544a4fe75aaf12e4f77dab519bc4da84ab85153400101fefb8e2a24",
+    "apps/web/src/test/ligand-inventory-owner.test.ts": "777370bed500f98aeb0262076fc1c21e008993f5c57678c429a12e7c95b9de3c"
+  },
+  "author": {
+    "actual_session": 16116,
+    "actual_exit": 0,
+    "focused": 99,
+    "presenter": 84,
+    "installed_owner": 15,
+    "full_web_tests": 1334,
+    "full_web_suites": 123,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "web_config_source_scope": 350,
+    "web350_stable_and_matched": true,
+    "original80test_complete_prefix_bytes": 88835
+  },
+  "retention_before_after": {
+    "before": {
+      "scope": "Deterministic read-only installed-query retention/cardinality control; counts/string bytes only, no timing/heap/RSS claim",
+      "sourceSha256": "83871bbc2c3cb13837994e24422e0650f689944c38bd79ac46d406e459745c7a",
+      "results": [
+        {
+          "sources": 1000,
+          "genuineRecovery": false,
+          "queriesAfterRemoval": 0,
+          "presenterLifetimeDeactivateReactivateUnchanged": true,
+          "manualWriteAfterRemovalStillBlocked": true,
+          "barriers": 1000,
+          "blocked": 1000,
+          "keyUtf8Bytes": 56560,
+          "retainedErrorMessageUtf8Bytes": 21000,
+          "errorObjects": 1000
+        },
+        {
+          "sources": 1000,
+          "genuineRecovery": true,
+          "queriesAfterRemoval": 0,
+          "presenterLifetimeDeactivateReactivateUnchanged": true,
+          "manualWriteAfterRemovalStillBlocked": null,
+          "barriers": 1000,
+          "blocked": 0,
+          "keyUtf8Bytes": 56560,
+          "retainedErrorMessageUtf8Bytes": 0,
+          "errorObjects": 0
+        }
+      ]
+    },
+    "after": {
+      "scope": "Deterministic read-only installed-query retention/cardinality control; counts/string bytes only, no timing/heap/RSS claim",
+      "sourceSha256": "55470d636eec9b137bf03b19a65cb8574dde935ba7cbc95b92dadfc30311bac8",
+      "results": [
+        {
+          "sources": 1000,
+          "genuineRecovery": false,
+          "queriesAfterRemoval": 0,
+          "presenterLifetimeDeactivateReactivateUnchanged": true,
+          "manualWriteAfterRemovalStillBlocked": true,
+          "barriers": 128,
+          "blocked": 128,
+          "keyUtf8Bytes": 7296,
+          "retainedErrorMessageUtf8Bytes": 0,
+          "errorObjects": 0
+        },
+        {
+          "sources": 1000,
+          "genuineRecovery": true,
+          "queriesAfterRemoval": 0,
+          "presenterLifetimeDeactivateReactivateUnchanged": true,
+          "manualWriteAfterRemovalStillBlocked": null,
+          "barriers": 128,
+          "blocked": 0,
+          "keyUtf8Bytes": 7296,
+          "retainedErrorMessageUtf8Bytes": 0,
+          "errorObjects": 0
+        }
+      ]
+    },
+    "scope": "Original1000source bothmodes actualinstalled-query controls; counts/stringbytes only. No heap/RSS/capacity/timing claim."
+  },
+  "architecture": {
+    "actual_receipt_sha256": "4bbb2710478dd35a6fc2f50e15de186dd66caf4d7973d5de33196d792f4e2b62",
+    "own99passed_session": 54404,
+    "own99passed_exit": 0,
+    "additional_installed_controls": 4,
+    "complete_feature_CODE_PASS": true
+  },
+  "all_seven_CODE_assessments": {
+    "scope": "All-seven complete-feature SOURCE/CODE assessments before freshC12 qualification; NOT finalreadiness/fullgate/humanapproval/release",
+    "repository": "ManuelSe/Neistra",
+    "issue": 158,
+    "parent": 11,
+    "candidate_head": "c56e4c37b6d726a2c3a67d2a069e520065b043ed",
+    "candidate_working_source_pins": {
+      "apps/web/src/ligands/inventoryQualification.ts": "55470d636eec9b137bf03b19a65cb8574dde935ba7cbc95b92dadfc30311bac8",
+      "apps/web/src/components/LigandDesignationControls.tsx": "97d321eb9f0c04d8aa43a627759f890992e97d69fa22b951ff9b59da19f76ab0",
+      "apps/web/src/test/ligand-designation-controls.test.tsx": "8abc62e5a544a4fe75aaf12e4f77dab519bc4da84ab85153400101fefb8e2a24",
+      "apps/web/src/test/ligand-inventory-owner.test.ts": "777370bed500f98aeb0262076fc1c21e008993f5c57678c429a12e7c95b9de3c"
+    },
+    "comparison_base": "b038e4e6cdb30cf4a296ca4dcd218a7ab5ced881",
+    "complete_selected_source_count": 1007,
+    "complete_selected_source_digest": "9c2afea7bdab1ababceee5a1b04611c8df77004aa27c15a0bbf571f43ff2c274",
+    "all_seven_CODE_verdicts": "PASS",
+    "roles": {
+      "scientific_theory": {
+        "verdict": "PASS",
+        "scope": "Complete-feature scientific validity CODE reconfirmation",
+        "checks": "Four source pins, author log/control/archive/sourceZIP hashes and unchanged scientific/backend sources verified; warnings/uncertainty/source identity and conservative qualification reviewed",
+        "independent_test_execution": "No additional suite; retained evidence assessed"
+      },
+      "scientific_implementation": {
+        "verdict": "PASS",
+        "scope": "Complete-feature scientific implementation CODE reconfirmation",
+        "checks": "All1007selected hashes match;289backend/core/scientific sources identical to previous assessed f024; 80test prefix exact; mobile-oracle six-line correction plus closed5PASS1historical evidence inspected",
+        "independent_test_execution": "99tests84presenter15ownerPASS",
+        "reported_actual_session": 16663,
+        "reported_actual_exit": 0
+      },
+      "software_architecture": {
+        "verdict": "PASS",
+        "scope": "Complete-feature architecture CODE reconfirmation",
+        "checks": "Full1007reconciliation exactly3existing+1newsource changes;128record/64KiB keys/error-free bounded records/conservative forgetting/tokens/isolation;53forensic index and smallpacket/newinventory checked, fullraw verification reused",
+        "independent_test_execution": "99permanent+4additionalinstalled-query controlsPASS",
+        "actual_receipt": "/tmp/neistra158-d197-architecture-6ff3ekwi/independent-complete-code-assessment.json",
+        "actual_receipt_sha256": "4bbb2710478dd35a6fc2f50e15de186dd66caf4d7973d5de33196d792f4e2b62"
+      },
+      "performance": {
+        "verdict": "PASS",
+        "scope": "Complete-feature performance CODE reconciliation; originalretentionP2resolved",
+        "checks": "Four pins/350webconfigs/sourcearchive/logs/prefix checked;8prior measuredbackend/chemistry/occurrence files and drawing/inventory options unchanged",
+        "independent_test_execution": "15actualVitestownerPASS; original1000sourcebothmodes now128records7296UTF8keybytes0originalErrors; additionalcombinedheld/evict/recreate/laterfailure/manual/freshrecoveryanddeactivationcontrolPASS",
+        "reported_tests_actual_session": 97712,
+        "reported_tests_actual_exit": 0,
+        "reported_control_tool_chunks": [
+          "edbcd5",
+          "84fbbe"
+        ],
+        "control_scripts_not_originally_saved_by_reviewer": true,
+        "heap_or_RSS_claim": false
+      },
+      "ui_design": {
+        "verdict": "PASS",
+        "scope": "Complete-feature UI CODE reconfirmation",
+        "checks": "Allfourpins/350webconfigs/prefix/archive/loghashes checked; specificrecoverywording and existingcontrols/styles/focuspolicypreserved; retaineddark320pxcaptureandunchangedzoom evidence reused",
+        "independent_test_execution": "19affectedcontrolsPASS, other80outsidefocusedinvocation",
+        "reported_actual_exit": 0,
+        "reported_execution_identifier": null
+      },
+      "ux_design": {
+        "verdict": "PASS",
+        "scope": "Complete-feature UX CODE reconfirmation",
+        "checks": "Fullpriorworkflow+fournewpaths/newcontrols/docsmetadata reconciled;350webconfigs/log/archivepayloads checked; exactintent/Clear/preview/staleACK/focus/mobilekeyboardretained, no autoretryloop",
+        "independent_test_execution": "No additional suite; retained evidence assessed"
+      },
+      "modeling_reference": {
+        "verdict": "PASS",
+        "scope": "Complete-feature documented-reference CODE reconfirmation",
+        "checks": "All1007hashes and fiveauthorlogs/outcomes/sourceZIP/prefix checked; complete acceptedworkflow reconciled with earlierassessment and bounded public primarysources; application-specifictokens/qualificationclearlyidentifiedasoriginaladaptations",
+        "independent_test_execution": "No additional suite/services; sources and retained evidence assessed",
+        "restricted_identifying_sources": "Retained only in conversation; intentionally absent from repository artifacts"
+      }
+    },
+    "author_actual_session": 16116,
+    "author_actual_exit": 0,
+    "author_checks": "99focused1334web123suiteslinttypesbuild;350web/configsourcesfixed;original80prefix88835Bexact",
+    "primary_complete_source_review": "Boundedowner/entire new15-caseownerfile+fourappendedpresentercontrols+twoUIclassificationconditions reviewed; noadditionalconsequentialfinding",
+    "correction_cycle": "C56sourceownerunboundedretentionP2\u2192D197record+bytebounds,opaqueincarnations,stickyconservativequalification,fixedrecoveryclassifications; originalcounterexampleandC11interruptionretained",
+    "provenance": "Primary transcriptions of actual named specialist MESSAGE/FINAL_ANSWER assessments; actual archived independent receipt referenced where available. No invented raw logs, original execution IDs or human approvals.",
+    "remaining": [
+      "Prepare coherentcheckpoint andclean candidate",
+      "FreshC12complete42,independentsummary,recursivepackaging,observedactualenclosing0",
+      "Finalmetadata/sourcecontinuity andallsevenexplicitfinalsamecandidate reconfirmation",
+      "ProtectedPR/merge,currentrequiredremotechecks/reviews/conversations",
+      "Freshactualmerged-master42qualificationandverifiedannotatedrelease/all53forensicparts/publicproof/closeout/cleanup"
+    ],
+    "observed_utc": "2026-11-18T01:12:22.853297+00:00"
+  },
+  "observation_limits": {
+    "scope": "Named complete-feature CODE assessments are primary transcriptions, not humanapproval/final readiness or invented raw executions",
+    "all_seven_code_roles_PASS": true,
+    "source_record_sha256": "78e05ee06ce09825fc05acb317c1e1b460d77dd8c1c74b37ede6db3700e5551c",
+    "actual_architecture_receipt_and99rawlog_and4additional_controls_retained": true,
+    "science": {
+      "reported_session": 16663,
+      "reported_exit": 0,
+      "reported_cases": 99,
+      "raw_log_path_not_supplied": true,
+      "no_raw_path_invented": true
+    },
+    "performance": {
+      "reported_test_session": 97712,
+      "reported_test_exit": 0,
+      "reported_cases": 15,
+      "reported_control_chunks": [
+        "edbcd5",
+        "84fbbe"
+      ],
+      "original_scripts_or_logs_not_saved_by_reviewer": true,
+      "no_artificial_raw_payload_or_execution_ID_added": true,
+      "counts_and_stringbytes_not_heap_RSS_or_timing": true
+    },
+    "ui": {
+      "reported_cases": 19,
+      "reported_exit": 0,
+      "execution_identifier": null,
+      "raw_log_path_not_supplied": true
+    },
+    "theory_UX_reference": {
+      "no_additional_own_suite": true,
+      "sources_and_retained_evidence_assessed": true,
+      "restricted_identifying_sources_and_URLs_not_copied": true
+    },
+    "original_retention_control": {
+      "scope": "Preserved independent and root installed-query deterministic retention observations, not full qualification or heap/RSS measurements",
+      "root_actual_tool_chunk": "ceece7",
+      "root_actual_exit": 0,
+      "root_command": [
+        "node",
+        ".issue-11-evidence/issue158-owner-retention/independent-original-control.cjs"
+      ],
+      "reviewer_actual_tool_chunk": "127ae9",
+      "reviewer_actual_exit": 0,
+      "reviewer_observation_source": "Specialist report of completed synchronous exec_command; no original on-disk script or raw log was created then",
+      "reviewer_observation_utc": null,
+      "root_observation_persisted_utc": "2026-11-18T00:33:54.386624+00:00",
+      "executed_source_sha256": "83871bbc2c3cb13837994e24422e0650f689944c38bd79ac46d406e459745c7a",
+      "executed_script": {
+        "path": ".issue-11-evidence/issue158-owner-retention/independent-original-control.cjs",
+        "bytes": 2611,
+        "sha256": "c71ba3e094b4c9268fcb7fa274961eca0dc35d192e5ca040a71ffa60c17aeb0b"
+      },
+      "observed_output": {
+        "path": ".issue-11-evidence/issue158-owner-retention/root-observed-output.json",
+        "sha256": "4da57664aeeb5a76b32a3133d03c24446ba8c086f1abf138fbc1e1151968c440"
+      },
+      "warning": "Execution-time library byte identities were not recorded; later library hashes are packaging-time provenance only",
+      "initial_review_loader_setup_failed_before_control": "Missing esbuild; successful control uses installed TypeScript transpileModule",
+      "counts_verified_by_actual_execution": true
+    },
+    "author_loader_setup_failure": {
+      "scope": "Original retained control entry loader failed before executing because the changed production module imports a real local TypeScript API dependency.",
+      "initial_command": [
+        "node",
+        ".issue-11-evidence/issue158-owner-retention/independent-original-control.cjs"
+      ],
+      "initial_exit_code": 1,
+      "error": "MODULE_NOT_FOUND ../api/client",
+      "initial_raw_capture": "Synchronous tool stderr returned to conversation; empty stdout retained as unchanged-control-after.json. No on-disk stderr was created for that first setup attempt.",
+      "correction": "registered-control.cjs registers the same installed TypeScript compiler for real .ts dependencies, then invokes the unchanged retained control. No module or result is stubbed.",
+      "successful_command": [
+        "node",
+        ".issue-11-evidence/issue158-owner-budget-author/registered-control.cjs"
+      ],
+      "successful_actual_chunk": "a04b73",
+      "successful_exit_code": 0,
+      "successful_stdout": "registered-control-after.json",
+      "successful_stderr": "registered-control-after.stderr"
+    },
+    "complete_candidate_and_master_qualification_pending": true,
+    "C12_static_prelaunch_binding_correction": {
+      "scope": "Correct futureC12 wrapper receipt binding before any execution; no qualification claim",
+      "before_wrapper_sha256": "40a5196e6c3a954fb3f69aa1afe16214a3a0b0c78623f23c4e6e28f05b29ff00",
+      "after_wrapper_sha256": "bbf383cdb789f345a643b9349be9d64769171b381f7f6be1656c1e2515376b65",
+      "reason": "Prelaunch inspection found label-only template copy retained the already-existingC11 literal receipt path; bind receipt tolabel instead",
+      "old_draft_preserved": ".issue-11-evidence/issue158-c4-candidate12-run-before-receipt-fix.py.txt",
+      "new_receipt": ".issue-11-evidence/issue158-c4-candidate12-wrapper.json",
+      "new_receipt_absent": true,
+      "recipe_sha256": "968a4acd41b6937fb5203e2be8064dc69c1aff6c3f9c323c2a0f67833ff5346c",
+      "recipe_steps": 42,
+      "launched": false,
+      "source_paths_changed": 0,
+      "observed_utc": "2026-11-18T01:18:22.298016+00:00"
+    },
+    "C12_preparation1_is_historical_draft": true,
+    "C12_preparation2_is_current_binding": true
+  },
+  "mechanism": "At most128records/65536UTF8keybytes with no Error/cause/report retention; sticky conservative forgetting, unique opaque source tokens, weak request-start authority, exact-source cancellation and canonical owner lifetime preserve manual/old success fences and unrelated work. Full errors remain with existing API/query owners; fixed classifications retain specific recovery guidance.",
+  "decision_excerpt_sha256": "21bdb902a327b90a14f8216a62487c5d8c473468c45a771905fbf7a21c36e33b",
+  "raw_retention": {
+    "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-owner-budget-author": {
+      "prefix": "author",
+      "files": 27,
+      "bytes": 253936,
+      "exact_all_regular_files": true
+    },
+    "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-owner-retention": {
+      "prefix": "original-retention-control",
+      "files": 4,
+      "bytes": 11216,
+      "exact_all_regular_files": true
+    },
+    "/tmp/neistra158-d197-architecture-6ff3ekwi": {
+      "prefix": "independent-architecture",
+      "files": 5,
+      "bytes": 127790,
+      "exact_all_regular_files": true
+    },
+    "/tmp/neistra158-d197-own-controls-y0jliy4k": {
+      "prefix": "independent-architecture-additional-controls",
+      "files": 3,
+      "bytes": 4492,
+      "exact_all_regular_files": true
+    }
+  },
+  "forensic_reference_identities": {
+    "docs/assets/ligand-designation/c3-forensics-index.json": {
+      "bytes": 66021,
+      "sha256": "8efff69745bb1a8acedc384a1a67f5e88d283aa6b6adbfa8fb15d11d2c0e31f8"
+    },
+    "docs/assets/ligand-designation/c3-forensics-verification7.json": {
+      "bytes": 97669,
+      "sha256": "b7db53bd5a7d10386a9e25aaa7f30f982ef2722772d7e157d5bfdb54bea1309f"
+    },
+    "docs/assets/ligand-designation/c3-forensics-verification7.zip": {
+      "bytes": 5382043,
+      "sha256": "7f7d842f01d2f92f22b33f3abdde5299299531a83fd0768669c88651fa1357ce"
+    },
+    ".issue-11-evidence/forensics/c11-extension/local-verification.json": {
+      "bytes": 27069,
+      "sha256": "3e06564f4d8a96e01145b33d42fa2b94c8b440aaa0dc049a497df44418179ebe"
+    },
+    "docs/assets/ligand-designation/c3-forensics-inventory-c4-candidate11.json.gz": {
+      "bytes": 149944,
+      "sha256": "3692aef34a12b33b43ed00e1db4902a1853e9d9b34adf8cb179f9f6c50e4c79d"
+    }
+  },
+  "no_raw53parts_native_or_store_forensics_rebundled": true,
+  "C11_status": "ExplicitSIGINT130;231PASS5historical1interrupted365unrun; no summary/package; never pooled with a future gate",
+  "C12": {
+    "recipe_sha256": "968a4acd41b6937fb5203e2be8064dc69c1aff6c3f9c323c2a0f67833ff5346c",
+    "wrapper_sha256": "bbf383cdb789f345a643b9349be9d64769171b381f7f6be1656c1e2515376b65",
+    "historical_draft_wrapper_sha256": "40a5196e6c3a954fb3f69aa1afe16214a3a0b0c78623f23c4e6e28f05b29ff00",
+    "preparation1_historical_draft": true,
+    "preparation2_current_binding": true,
+    "prelaunch_static_fix_not_executed_failure": true,
+    "steps": 42,
+    "status": "PREPARED_NOT_LAUNCHED",
+    "independent_summary_recursive_package_and_outerexit0_pending": true
+  },
+  "required_next": [
+    "Root coherent local checkpoint/clean source plus downstream source reconciliation and web checks",
+    "Fresh complete C12all42/independent summary/recursive package with directly observed enclosing0",
+    "Finalmetadata/sourcecontinuity and allsevenexplicitfinalsamecandidate reconfirmation",
+    "ProtectedPR/merge and fresh actualmergedmaster42qualification",
+    "Verified annotatedrelease/main/sidecars/ALL53forensicparts publicproof/childcloseout/cleanup"
+  ],
+  "archive": "c3-owner-budget-correction.zip",
+  "archive_bytes": 525877,
+  "archive_sha256": "952286ec7399e5f2d9bb71101f47a45984d29d35a4513820a04338bb17d78cec",
+  "outer_manifest_entries": 63,
+  "recursive_verification": {
+    "zip_archives": 4,
+    "evidence_manifest_entries": 63,
+    "project_archive_files": 0
+  },
+  "observed_utc": "2026-11-18T01:19:47.620273+00:00"
+}

@@ -1,0 +1,56 @@
+{
+  "actual_merged_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "artifact_role": "separate failed or diagnostic forensic evidence",
+  "asset": "neistra-v0.37.0-c4-candidate4-failed.zip",
+  "authorization": {
+    "bytes": 58282,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+    "sha256": "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1"
+  },
+  "bytes": 675409215,
+  "checksum_asset": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+  "evidence": {
+    "checksum_transfer": {
+      "anonymous_GET_without_credentials_cookies_or_range": true,
+      "bytes": 107,
+      "http_status": 200,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "sha256": "09a582043963d02475dfc3e75ed96ce1bce65e61fd7d5a0e57143ee56f010a10"
+    },
+    "full_bodies_downloaded": true,
+    "verification_counts": {
+      "evidence_manifest_entries": 35116,
+      "project_archive_files": 28,
+      "zip_archives": 76
+    },
+    "zip_transfer": {
+      "anonymous_GET_without_credentials_cookies_or_range": true,
+      "bytes": 675409215,
+      "http_status": 200,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip",
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a"
+    }
+  },
+  "helper_sha256": "34ef47ebd6fe9f12009600e099c8cd5599a851c4dc95ac5412b7eb12470173e3",
+  "historical_evidence_scope": "Independent primary complete failed candidate4 archive/hash/CRC/recursive/original-body/exact root-union and sealed-source semantic readback; not qualification PASS.",
+  "historical_limitations": "Current probe2/3 SHM bytes differ from old indexed hashes. Both facts retained; older SHM bodies and historical pre-SQL ordering are unproven. Raw DB/WAL match. No qualification inferred.",
+  "historical_result_summary": {
+    "original_union_and_every_body_exact": true,
+    "recursive_counts": {
+      "evidence_manifest_entries": 35116,
+      "project_archive_files": 28,
+      "zip_archives": 76
+    },
+    "sealed_source_ZIP_maps_CRC_bodies_exact": {
+      "actual036": 1013,
+      "current": 1130
+    }
+  },
+  "index_sha256": "6a5d927db8fc7823952b84bbc4013ed1b697dada9cf790529bff37715d91267b",
+  "operation": "download",
+  "preparation_seal_sha256": "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+  "qualification_pass": false,
+  "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+  "status": "PASS",
+  "tag": "v0.37.0"
+}

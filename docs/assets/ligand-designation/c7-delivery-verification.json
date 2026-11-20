@@ -1,0 +1,28 @@
+{
+  "release_id": 449776471,
+  "assets": [
+    {
+      "name": "neistra-v0.36.0-delivery.json",
+      "asset_id": 763221959,
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-delivery.json",
+      "bytes": 33740,
+      "sha256": "cf945c9a9cb37f615a755e6ff8f8a125db4574db5745cad4d4cb8493b18132f2",
+      "server_digest": "sha256:cf945c9a9cb37f615a755e6ff8f8a125db4574db5745cad4d4cb8493b18132f2",
+      "http_status": 200,
+      "anonymous_without_authorization": true,
+      "all_bytes_exact": true
+    },
+    {
+      "name": "neistra-v0.36.0-delivery.sha256",
+      "asset_id": 763222099,
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-delivery.sha256",
+      "bytes": 96,
+      "sha256": "d67f5399a006d3d4e75879f5b59a8634c9c136765ecca23af4d4fa2da7b1044a",
+      "server_digest": "sha256:d67f5399a006d3d4e75879f5b59a8634c9c136765ecca23af4d4fa2da7b1044a",
+      "http_status": 200,
+      "anonymous_without_authorization": true,
+      "all_bytes_exact": true
+    }
+  ],
+  "observed_utc": "2026-11-18T11:56:19.254755+00:00"
+}

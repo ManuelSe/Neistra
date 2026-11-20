@@ -1,0 +1,139 @@
+{
+  "schema": "issue160-native2-inspector-focus-correction-v1",
+  "recorded_utc": "2026-11-20T02:51:55.024147+00:00",
+  "failed_candidate": "4c72b121cf760f980f01f1938bba91f3b91fe8d5",
+  "attempt_exit": 1,
+  "sources_unchanged": true,
+  "positive_cleanup_and_closed_raw_pairs": 3,
+  "reports": {
+    "chromium": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/chromium-f9cf18a9-d893-4bd8-9871-91be56ac3cdc/profile-performance-v1.json",
+      "sha256": "964420efad59ca643b69d790dc7ea138cf46241cf4894800f3d94bf371bc449a",
+      "records": 32,
+      "failures": [],
+      "summary": {
+        "cold": {
+          "n": 5,
+          "median": 917.6000000238419,
+          "p95_nearest_rank": 971.5,
+          "max": 971.5,
+          "target": 2000,
+          "misses": 0
+        },
+        "cold_unavailable_reason": null,
+        "cache_ready_first": null,
+        "partial_first": {
+          "n": 0,
+          "raw_ms": [],
+          "target": null,
+          "reason": "Partial or pending coverage is reported separately from cold and cache-ready samples"
+        },
+        "warm": {
+          "n": 20,
+          "median": 74.75,
+          "p95_nearest_rank": 89.20000004768372,
+          "max": 96.90000009536743,
+          "target": 100,
+          "misses": 0
+        }
+      }
+    },
+    "mobile-chromium": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/mobile-chromium-ddc7f2fa-1d0e-4e1b-accf-5ec2a82884b4/profile-performance-v1.json",
+      "sha256": "fb4c49a4f81a974774372561dc24029c0b3d08a9635cce3f615142534bab1427",
+      "records": 28,
+      "failures": [
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeHidden\u001b[2m()\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Inspector panel', exact: true })\nExpected: hidden\nReceived: visible\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeHidden\" with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Inspector panel', exact: true })\u001b[22m\n\u001b[2m    19 \u00d7 locator resolved to <aside role=\"dialog\" aria-modal=\"true\" aria-label=\"Inspector panel\" class=\"mobile-panel inspector\">\u2026</aside>\u001b[22m\n\u001b[2m       - unexpected value \"visible\"\u001b[22m\n"
+      ],
+      "summary": {
+        "cold": {
+          "n": 5,
+          "median": 890.6999999284744,
+          "p95_nearest_rank": 914.8999999761581,
+          "max": 914.8999999761581,
+          "target": 2000,
+          "misses": 0
+        },
+        "cold_unavailable_reason": null,
+        "cache_ready_first": null,
+        "partial_first": {
+          "n": 0,
+          "raw_ms": [],
+          "target": null,
+          "reason": "Partial or pending coverage is reported separately from cold and cache-ready samples"
+        },
+        "warm": {
+          "n": 20,
+          "median": 55.89999997615814,
+          "p95_nearest_rank": 59.799999952316284,
+          "max": 65.60000002384186,
+          "target": 100,
+          "misses": 0
+        }
+      }
+    }
+  },
+  "failure": "Mobile inspector did not close when Escape followed focus on a non-focusable aside. Desktop case passed; mobile cold5/warm20 passed but edit/history and metadata recovery were incomplete.",
+  "correction": "Use and assert focus on existing Entry combobox before Escape, matching inherited property/profile helpers. Production UI, oracle, workload, deadlines, counts and targets unchanged.",
+  "source_path": "tests/e2e/ligand-profiles-performance.spec.ts",
+  "corrected_sha256": "0a92ee28d29a62d00cb3d48f5e421b7e159bfbc80245e3f522fe17bcde167325",
+  "focused_checks": [
+    {
+      "label": "eslint",
+      "argv": [
+        "apps/web/node_modules/.bin/eslint",
+        "--config",
+        ".issue-11-evidence/issue160-profile-performance-implementation1/resume1/eslint.config.mjs",
+        "tests/e2e/ligand-profiles-performance.spec.ts",
+        "tests/e2e/support/profile-performance.ts",
+        "apps/web/src/test/profile-performance.test.ts",
+        "--max-warnings",
+        "0"
+      ],
+      "started_utc": "2026-11-20T02:50:46.984189+00:00",
+      "finished_utc": "2026-11-20T02:50:49.430118+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "typescript",
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "exec",
+        "tsc",
+        "--project",
+        "../../.issue-11-evidence/issue160-profile-performance-implementation1/resume1/tsconfig.json"
+      ],
+      "started_utc": "2026-11-20T02:50:46.984368+00:00",
+      "finished_utc": "2026-11-20T02:50:48.684254+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vitest",
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "exec",
+        "vitest",
+        "run",
+        "src/test/profile-performance.test.ts"
+      ],
+      "started_utc": "2026-11-20T02:50:46.984559+00:00",
+      "finished_utc": "2026-11-20T02:50:48.274940+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "3aae390fc9fc0aced051c18df0a1b494de8638c4bf8deea306cf814a6de29bfd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "corrected_native": "PENDING",
+  "source_and_full_failed_artifacts_preserved": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-native2",
+  "scope": "Failed two-browser attempt with a separately passing desktop subcase, not complete native qualification"
+}

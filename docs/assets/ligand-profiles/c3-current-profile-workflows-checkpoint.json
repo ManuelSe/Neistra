@@ -1,0 +1,51 @@
+{
+  "schema": "issue160-current-profile-workflow-checkpoint-v1",
+  "recorded_utc": "2026-11-20T03:55:26.174202+00:00",
+  "candidate": "a505abd6cb0e8171ba3a49978c8967d68728f710",
+  "exit_code": 0,
+  "browser_expected_passes": 18,
+  "failures_flakes_skips": 0,
+  "source_bodies": 1181,
+  "source_before_after_unchanged": true,
+  "positive_service_worker_cleanup_and_raw_pairs": 3,
+  "verified_scope": [
+    "Both themes on desktop and narrow mobile320",
+    "Current automatic source updates and hidden presenter ownership",
+    "Real molecular preview Cancel/Apply and exactUndo/Redo",
+    "Metadata failure/retry without blocking independent properties",
+    "Actual desktop100percent/200percent zoom, a11y, keyboard, focus/hit/overflow and readingposition"
+  ],
+  "touch_input_limit": "Mobile capability/layout and existing click/keyboard/programmatic actions are verified here. These cases do not establish actual finger input. An explicit trusted-touch correction is required in existing mobile branches; do not relabel these results as touch qualification.",
+  "evidence": {
+    "recorded_utc": "2026-11-20T03:48:34.915120+00:00",
+    "record": {
+      "file": "c3-current-profile-workflows-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/c3-current-profile-workflows-evidence.zip",
+      "bytes": 31540482,
+      "sha256": "264334ad144a30af9c790ee5540e0a5c374fc932954420792dd0cff8d568ac07",
+      "outer_manifest_entries": 55,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 60,
+        "project_archive_files": 10
+      }
+    },
+    "payload_files": 55,
+    "browser_stats": {
+      "startTime": "2026-11-20T03:43:46.470Z",
+      "duration": 189325.382,
+      "expected": 18,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "scope": "Current focused correctness/accessibility workflows only; full43 remains mandatory"
+  },
+  "remaining": [
+    "Trusted touch action correction and fresh current native input evidence",
+    "Fresh complete43command candidate gate",
+    "All7updatedfinalsamecandidate verdicts",
+    "NormalPRmerge/freshactualmerge43/immutableverifiedrelease/childcloseout",
+    "161162163 and parent integrated closeout"
+  ]
+}

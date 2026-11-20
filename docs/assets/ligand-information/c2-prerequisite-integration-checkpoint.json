@@ -1,0 +1,63 @@
+{
+  "recorded_utc": "2026-11-20T04:36:50.970743+00:00",
+  "stage": "Passing local preparatory prerequisite integration checkpoint;not finalfeature/readiness",
+  "prepared161": "a6f48892aeb8367c344c3cdfc2cee4c823fbaa7b",
+  "incoming160": "b14670a03f47c6a8000bece41a2733b77a23716f",
+  "incoming160_is_released": false,
+  "actual_released160_integration_still_required": true,
+  "result_candidate": "mergecommit introducing this checkpoint",
+  "inheritance": {
+    "shared_changed_paths": 43,
+    "byte_identical_shared": 31,
+    "reconciled_shared": 12,
+    "primary_exact_path_checks": 52,
+    "runtime_composition_files_exact_prepared161": 3,
+    "incomingJobs_and_tests_exact": true,
+    "prepared_owned_UI_paths_exact": 14,
+    "incoming_corrected_bulk_archive_tests_exact": true,
+    "both_decision_histories_no_parent_line_dropped": true
+  },
+  "scoped_validation": {
+    "frontend_lint": 0,
+    "frontend_typecheck": 0,
+    "frontend_tests": 326,
+    "frontend_test_files": 14,
+    "production_build": 0,
+    "archive_tests": 52,
+    "native_hardening_pass": 5,
+    "native_old_exclusion": 1,
+    "native_failed": 0,
+    "native_retries": 0,
+    "source_selected_bodies": 1198,
+    "selected_source_before_after_exact": true,
+    "complete_historical_qualification_helper_union_claim": false,
+    "positive_owned_cleanup": true,
+    "raw_pairs_reverified": 55,
+    "diagnostic_SQL_before_copy": false
+  },
+  "preserved_failure": "focused1 rootlint launcher failed because nested barepnpm unavailable; focused2 directcorepack samewebscriptsPASS;originalfailure retained",
+  "portable_evidence": {
+    "path": "docs/assets/ligand-information/c2-prerequisite-integration-evidence.zip",
+    "bytes": 25304524,
+    "sha256": "d5fc4893d0aaabb5a63480bb463b85141ff728b7d6863f743c7e98fb190ed26c",
+    "payloads": 414,
+    "primary_CRC_manifest_payloadchecks": "PASS",
+    "independent_packaging_agent": "/root/issue161_integration_checkpoint_packet",
+    "recursive_checks": {
+      "ZIP_CRC": 59,
+      "hash_manifests": 58,
+      "manifest_entries": 633,
+      "project_files": 214,
+      "immutable_artifact_hashes": 265,
+      "archive_run_files": 311,
+      "native_run_files": 11
+    }
+  },
+  "remaining": [
+    "Actualreleased160history/tag/publicbaseline integration;all039authoritativeversions",
+    "Fresh full sidebar/profile workflow acceptance including coordinate/movement/minimization previewCancelApply,archive,heldprojectABA",
+    "Owncompleteguard/qualificationnamespace and actual038precedingreader/performance campaign",
+    "Allseven finalsamecandidate specialists;fullcandidate and exactmerged gates;normalprotectedpublication/closeout"
+  ],
+  "no_PR_push_release_or_final_readiness_claim": true
+}

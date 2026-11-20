@@ -89,7 +89,7 @@ test("creates, recovers, reverses, saves, and reopens a project", async ({
 
   await page.reload();
   await expect(page.getByRole("main").getByRole("heading", { name: revisedName })).toBeVisible();
-  await expect(page.getByRole("status")).toContainText("Recovered locally stored changes.");
+  await expect(page.getByRole("status").filter({ hasText: "Recovered locally stored changes." })).toContainText("Recovered locally stored changes.");
 
   await page.getByRole("button", { name: /^Undo:/ }).click();
   await expect(page.getByRole("main").getByRole("heading", { name: originalName })).toBeVisible();
@@ -97,7 +97,7 @@ test("creates, recovers, reverses, saves, and reopens a project", async ({
   await expect(page.getByRole("main").getByRole("heading", { name: revisedName })).toBeVisible();
 
   await page.getByRole("button", { name: "Save checkpoint" }).click();
-  await expect(page.getByRole("status")).toContainText("Checkpoint saved.");
+  await expect(page.getByRole("status").filter({ hasText: "Checkpoint saved." })).toContainText("Checkpoint saved.");
   await expect(page.getByText("Checkpoint saved", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Save checkpoint" })).toBeDisabled();
 

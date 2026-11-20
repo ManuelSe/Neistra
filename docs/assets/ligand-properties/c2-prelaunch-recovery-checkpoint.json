@@ -1,0 +1,185 @@
+{
+  "actual_enclosing_observation": {
+    "bytes": 2592,
+    "path": ".issue-11-evidence/issue159-prelaunch-recovery-runtime/primary-actual-enclosing-observations.json",
+    "sha256": "50bc8e02b3214352657a2d9449c72d23def2155ae41cf6b9a5125838370cbecb"
+  },
+  "actual_enclosing_observation_provenance": "Root directly observed these workload tool records. Packet builder only read the retained root observation and child receipts; no direct observation of root handles is claimed.",
+  "architecture": {
+    "bytes": 14013,
+    "path": ".issue-11-evidence/issue159-prelaunch-recovery-execution-architecture/assessment.json",
+    "scope": "Closes the two identified P2s for this correction only",
+    "sha256": "86029e1030c31f1406f2aca4cd731f0d442a4ae1f49956cf8ec4b65f039c3f04",
+    "verdict": "PASS"
+  },
+  "archive": "c2-prelaunch-recovery-evidence.zip",
+  "archive_bytes": 1665983,
+  "archive_sha256": "99b77afb632cfaa88654d1f3753d7f0b3620c351752998fde837805a7cfc39d5",
+  "candidate_base": "049173da69cebd7264abc26a0028aa4d9d3f9938",
+  "compact_source_digest": "8741811eef3861af1ab3be5f7397de434da38a6baa5239a8ec981e19b11a5ba3",
+  "corrected_source_sha256": {
+    "apps/api/src/neistra_api/job_worker.py": "ecb0426cce55490ae740586c0cf95a302a8588f9c2d505c21cf3ca7990711f05",
+    "tests/integration/test_ligand_property_preload_ownership.py": "22bbcb57f3fe5d45dfeb9f814ffcf5cf7bf43568302bc162118d4302cdd8cf16"
+  },
+  "correction": [
+    "Confine private descriptor-cache OSError/PropertyCacheError handling to housekeeping; process/database recovery authority remains outside that catch.",
+    "Capture exact property attempt before pre-launch refusal; release caller writer then terminalize and reap only the rechecked exact association with all three affirmative never-started fields. Preserve terminal outcomes, replacement/deletion/process metadata and conservative existing restart recovery."
+  ],
+  "created_utc": "2026-11-18T09:41:31.224639+00:00",
+  "earlier_reviews": "Original complete code architecture CHANGES_REQUIRED and early theory/scientific-code scoped PASS retained; none is represented as seven final same-candidate assessments.",
+  "execution": {
+    "affected": {
+      "families": {
+        "job_websocket": 4,
+        "migration": 3,
+        "ordinary_job_lifecycle": 5,
+        "ordinary_job_versions": 2,
+        "preferences": 2,
+        "property_cache": 16,
+        "property_lifecycle": 29,
+        "service_identity": 20,
+        "source_failures": 21,
+        "spawn_bootstrap": 1,
+        "startup_ownership": 37,
+        "warm_authority": 31
+      },
+      "junit_errors": 0,
+      "junit_failures": 0,
+      "junit_seconds": 91.484,
+      "junit_skips": 0,
+      "junit_tests": 171,
+      "reason": "Affected171 tests and global Ruff passed; later optional repository-wide format probe failed on 105 unchanged baseline files. Original receipt remains complete=false and original failure is retained.",
+      "root_chunk": "ba3401",
+      "root_exit": 1,
+      "root_session": 52028,
+      "test_exit": 0
+    },
+    "continuation": {
+      "checks": [
+        "Owned two-file format",
+        "mypy274",
+        "git diff --check"
+      ],
+      "reused": "171 affected regressions and global Ruff only after unchanged source confirmation; no source edit, bulk-formatting or requirement waiver.",
+      "root_chunk": "77bc47",
+      "root_exit": 0
+    },
+    "negative": {
+      "expected_test_child_exit": 1,
+      "failure_locations": [
+        "Original recover_abandoned -> private cache LocalArtifactStore mkdir -> actual NotADirectoryError.",
+        "Original _load_inputs refusal terminalizes the job but execution.reaped remains False.",
+        "Original configured private implementation-version refusal terminalizes the job but execution.reaped remains False."
+      ],
+      "junit_errors": 0,
+      "junit_failures": 3,
+      "junit_skips": 0,
+      "junit_tests": 3,
+      "root_chunk": "4d948c",
+      "root_exit": 0,
+      "root_session": 58356
+    },
+    "positive": {
+      "junit_errors": 0,
+      "junit_failures": 0,
+      "junit_seconds": 12.882,
+      "junit_skips": 0,
+      "junit_tests": 33,
+      "root_chunk": "2a4537",
+      "root_exit": 0,
+      "root_session": 38094,
+      "test_child_exit": 0
+    }
+  },
+  "issue": 159,
+  "outer_manifest_entries": 807,
+  "packet_builder_actual_observation": {
+    "actual_tool_chunk": "2aa57e",
+    "actual_tool_exit": 0,
+    "root_workload_handles_directly_observed_by_packet_builder": false,
+    "scope": "This child directly observed its own archive build/full-union readback command only"
+  },
+  "packet_builder_execution_scope": "Archive/byte hashing, source identity, inert alias metadata and CRC/readback only; no tests, application imports, SQL, services, native or performance execution.",
+  "parent": 11,
+  "preserved": {
+    "D194_fixture_paths": 49,
+    "old_selected_bodies_unchanged": 1121,
+    "old_startup_regression_cases": 37,
+    "other_existing_worker_function_ASTs_unchanged": 23
+  },
+  "raw_retention": {
+    "database_bytes_copied_before_diagnostic_processing": true,
+    "empty_directories_in_metadata": 409,
+    "omitted_regular_files": [],
+    "originals_preserved": true,
+    "owned_input_directories": [
+      ".issue-11-evidence/issue159-prelaunch-recovery-correction",
+      ".issue-11-evidence/issue159-prelaunch-recovery-validation-preparation",
+      ".issue-11-evidence/issue159-prelaunch-recovery-runtime",
+      ".issue-11-evidence/issue159-early-full-code-primary",
+      ".issue-11-evidence/issue159-early-full-code-comparison",
+      ".issue-11-evidence/issue159-early-full-code-architecture",
+      ".issue-11-evidence/issue159-early-full-code-scientific-implementation",
+      ".issue-11-evidence/issue159-prelaunch-recovery-static-architecture",
+      ".issue-11-evidence/issue159-prelaunch-recovery-execution-architecture"
+    ],
+    "regular_bytes": 50397315,
+    "regular_files": 799,
+    "sql_opened": false,
+    "symlink_aliases_inert_metadata": 106
+  },
+  "readback": "Exact full union: every owned input regular file compared original-to-staged-to-ZIP by bytes and SHA256; all ZIP CRCs recursively checked; complete member set equals manifest plus manifest.json; aliases validated within owned inputs and serialized without active links; empty directories explicitly inventoried. No caches or raw failure evidence omitted.",
+  "recursive_verification": {
+    "project_archive_artifact_files": 3,
+    "project_archive_manifest_artifact_references": 12,
+    "zip_archives": 2,
+    "zip_regular_members": 812
+  },
+  "references_not_rebundled": {
+    "docs/PLAN.md": {
+      "bytes": 49125,
+      "sha256": "cb85634723a3541cfa8b6d14696958d992fd2f642540cee729cd249587dd2ff8"
+    },
+    "docs/PRODUCT_SPEC.md": {
+      "bytes": 13496,
+      "sha256": "d204a7fc01805b2ba26950939ef7b7adf3ea2f07c2a0e418683c0f4a930c056a"
+    },
+    "docs/assets/ligand-properties/c2-source-producer-checkpoint.json": {
+      "bytes": 7537,
+      "sha256": "5d1ec22687931a6c18a1a9a5849dfcb80cb0c010996b31683b077ac8cd0a2d23"
+    },
+    "docs/assets/ligand-properties/c2-source-producer-evidence.zip": {
+      "bytes": 27099010,
+      "sha256": "7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b"
+    },
+    "docs/assets/ligand-properties/c2-startup-ownership-checkpoint.json": {
+      "bytes": 9728,
+      "sha256": "95295a05f07c63e20b0b9f30deab7eedc2abb7ecc17dbbc0bf30d22f0e65b091"
+    },
+    "docs/assets/ligand-properties/c2-startup-ownership.zip": {
+      "bytes": 2540205,
+      "sha256": "c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24"
+    }
+  },
+  "remaining": [
+    "Integrate actual released158 and propagate verified shared corrections as appropriate; preparation is0.36, planned159release0.37, migration0017/projectarchive3/viewer2.",
+    "Old1122-source ALL8prep7 and older maps/guards remain historical HOLD and stale after corrected worker bytes; no runner executed or altered here.",
+    "Historical D194 desktop probe4 cold median2057.95ms/p952242.60ms exceeds unchanged2000ms target. Seven other cases/four1000-entry cohorts remain unexecuted; no strict-host or performance pass inferred.",
+    "Full native, required ALL8/capacity/performance workloads, final versions/actual preceding readers, complete candidate/exact-master gates and all-seven same-final-candidate specialist assessments remain required before protected delivery."
+  ],
+  "repository": "ManuelSe/Neistra",
+  "scope": "Verified bounded D196 two-P2 recovery correction checkpoint only; no full-feature completion, readiness, final all-seven approval, push, merge, or release claim.",
+  "source_count": 1123,
+  "source_identity": {
+    "changed_source_hashes": {
+      "apps/api/src/neistra_api/job_worker.py": "ecb0426cce55490ae740586c0cf95a302a8588f9c2d505c21cf3ca7990711f05",
+      "tests/integration/test_ligand_property_preload_ownership.py": "22bbcb57f3fe5d45dfeb9f814ffcf5cf7bf43568302bc162118d4302cdd8cf16"
+    },
+    "compact_source_digest": "8741811eef3861af1ab3be5f7397de434da38a6baa5239a8ec981e19b11a5ba3",
+    "historical_helper_scope": "The1123-policy map selects24 helper scripts. The separately preserved primary readback checks107additional historical helper bodies; it reports1230total bodies and does not expand the1123-policy map.",
+    "selected_source_count": 1123,
+    "source_map_sha256": "6867e004170657a0f8c8a9c49831ccc477dd0989168002c5bbf38c483f773cb5"
+  },
+  "source_map_sha256": "6867e004170657a0f8c8a9c49831ccc477dd0989168002c5bbf38c483f773cb5",
+  "source_scope": "Existing #159 policy: 1123 selected sources includes 24 helper scripts. Separate primary proof covers 107 additional historical helper bodies; these are auxiliary, not part of the 1123 map. Primary readback records total1230 current bodies."
+}

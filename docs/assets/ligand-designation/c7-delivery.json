@@ -1,0 +1,394 @@
+{
+  "schema": 1,
+  "scope": "Final issue #158 delivery after runtime publication, terminal documentation merge and safe owned-branch cleanup. Historical receipts retain their original phase-specific pending fields. This receipt does not alter the runtime tag or finish parent #11.",
+  "observed_utc": "2026-11-18T11:55:35.632760+00:00",
+  "repository": "ManuelSe/Neistra",
+  "issue": 158,
+  "runtime_commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+  "annotated_tag_object": "05ec6685d117d000cd6c23eddfa90144b4d2a5dc",
+  "tag": "v0.36.0",
+  "release_id": 449776471,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.36.0",
+  "release_published_stable_latest": true,
+  "application_pr": 175,
+  "terminal_documentation_pr": 176,
+  "terminal_documentation_merge": "254babcd136dab883eba65e5f7a2653d8cb69473",
+  "terminal_documentation_reviewed_candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+  "terminal_documentation_complete_tree_equals_reviewed_candidate": true,
+  "qualified_source_count": 1013,
+  "qualified_source_map_sha256": "df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07",
+  "complete_qualified_source_path_union_and_bodies_unchanged": true,
+  "qualification": {
+    "candidate_and_exact_merged_commit_independent_fresh_gates": true,
+    "commands_per_gate": 42,
+    "python_tests": 3077,
+    "python_skips": 0,
+    "frontend_tests": 1388,
+    "frontend_suites": 126,
+    "supervisor_tests": 14,
+    "native_passes": 531,
+    "native_historical_exclusions": 75,
+    "native_inventory": 606,
+    "failures_flakes_retries_new_exclusions": 0,
+    "performance_scope": "Portable correctness; strict reference-host performance certification is not claimed",
+    "actual_previous_reader_version": "0.35.0",
+    "failed_or_interrupted_runs_unqualified": 8,
+    "separate_forensic_parts": 53
+  },
+  "publication_receipt": {
+    "scope": "Actual C6 receipt self-upload/server/full anonymous readback; own identity kept outside receipt",
+    "release_id": 449776471,
+    "asset_id": 762983464,
+    "name": "neistra-v0.36.0-publication.json",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.36.0/neistra-v0.36.0-publication.json",
+    "bytes": 79491,
+    "sha256": "8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c",
+    "server_digest": "sha256:8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c",
+    "http_status": 200,
+    "anonymous_without_authorization": true,
+    "all_bytes_exact": true,
+    "observed_utc": "2026-11-18T10:40:15.575449+00:00"
+  },
+  "main_qualification_asset": {
+    "name": "neistra-v0.36.0-qualification.zip",
+    "bytes": 531749736,
+    "sha256": "84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16",
+    "complete_public_body_hash_crc_union_verification_previously_complete": true
+  },
+  "terminal_specialist_agent_review": {
+    "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+    "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+    "all_seven_pass": true,
+    "unresolved_consequential_findings": 0,
+    "aggregate_sha256": "31540d8a26254bf96499fca23df28bbde99e8126f2d8afcb8d6a64aaf6cfc04e",
+    "assessments": {
+      "software_architecture": {
+        "role": "software_architecture",
+        "reviewer": "/root/issue159_source_producers_architecture",
+        "verdict": "PASS",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "branch": "fix/issue-158-release-closeout",
+        "scope": "Independent final terminal-documentation and evidence architecture assessment of the complete86-path diff/newfiles: five narrative/contract documents plus81 actual-master/publication evidence assets. No application implementation change. This is one specialist agent verdict, not human/remote review or permission to bypass delivery gates.",
+        "requirements_read": [
+          "Repository instructions",
+          "docs/PRODUCT_SPEC.md",
+          "docs/PLAN.md",
+          "docs/PROGRESS.md",
+          "docs/DECISIONS.md",
+          "approved parent11 and child158 plans",
+          "all five current document diffs including full new schema3 wording and historical schema2 context"
+        ],
+        "scope_inspected": [
+          "Complete intended diff/path union and candidate preparation manifest; all five changed documents and all81 new evidence assets through content/contract/hash checks.",
+          "Schema3 API/checkpoint/archive declarations, ViewerSettingsV2 and LigandDesignationV1 validators, migration0016 forward/history/default/downgrade/physical-root boundaries and actual old-reader refusal/migration reports.",
+          "Exact-master42-step gate/logs, summary, reader audit, wrapper/actual enclosing, master packet fingerprints and independent readback; final all-seven candidate/source-tree relation.",
+          "Public C6 payload/server/anonymous/forensic receipts and separate self-receipt verification; saved stable/latest notes, canonical child closeout, parent open/checkbox state, annotated tag and explicit remaining terminal stages."
+        ],
+        "prioritized_findings": [],
+        "unresolved_consequential_findings": 0,
+        "architecture_conclusions": [
+          "The documentation accurately advances the current project/checkpoint/API/archive contract to schema3 while preserving historical schema2 descriptions and ViewerSettingsV2/schema2. Designation fields, exact instance/membership/provenance, stale recovery reason and persistent Clear agree with typed validators. Migration0016 and guarded downgrade protect retained live/checkpoint/forward/inverse intent; older-reader safe refusal, forward import, matching deployments and complete backups are stated without claiming transparent backward write compatibility.",
+          "Source ownership and data remain independent of renderer state. All1013 qualified selected source paths and bytes are unchanged, including schema/migration/version/dependency/chemistry/UI/runtime code. No application gate rerun is required by these documentation/evidence-only bytes.",
+          "The reviewed c82004ce application tree is identical to actual qualified runtime247ab651. All seven application specialist verdicts remain distinct from human review, and docs explicitly state the requested remote review was not completed and no mandatory protection/review/check/conversation requirement was bypassed.",
+          "Both42-command qualification scopes remain distinct; actual-master summary/packaging/enclosing identities bind the exact runtime and1013/931 source inventories.53 forensic parts/eightfailed-or-interrupted runs remain separate and unqualified; successful superseded C12 is not miscounted as a ninth failure. All80 mandatory source-correction/C12 members remain bound by the unchanged deep main proof.",
+          "The56 initial payload assets and the separate publication receipt have coherent noncircular identity records. The public C6 receipt is immutable evidence of its publication-time phase; later canonical child closure and receipt self-verification are recorded separately. The saved latest release has57assets including C6, while56-payload totals correctly exclude C6.",
+          "The child is released and explicitly closed; parent11 remains open and the158checkbox is checked. Terminal documentation all-seven assessments/remote merge, owned cleanup and final delivery receipt remain honestly pending. The annotated runtime tag stays fixed; no new runtime release or completion of159\u2013163 is claimed. Current161 failed/unreleased tests do not alter this158candidate."
+        ],
+        "own_checks": {
+          "candidate_and_scope": "Read-only Git confirms exact9373 candidate, clean tree at intake, and exact86-path union matching candidate.json:5docs/81assets. No selected source path differs from runtime/base247.",
+          "source": "Independently ran the source-pinned readonly selection/hash helper only: complete1013 pathset/body map equals actualM source_before/source_after; digestdf28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07. All931 old-reader map identities before/after/expected agree.",
+          "master_gate": "All42 exits0 and actual gzip/uncompressed log hashes checked. All15 reader evidence hashes/version bindings checked; actual old-reader store operations and every archive refusal remain unchanged422/unsupported-schema for both suffixes. Wrapper qualification/summary/package log hashes and actual15284exit0/cbfd9b binding checked.",
+          "new_evidence_assets": "All81 new evidence asset bodies fingerprinted; all JSON and gzip JSON/log streams parse/decompress. Both master qualified packet body hashes match packaging records. Deep nested validation is reused through pinned independentM/main proofs rather than repeated.",
+          "main_proof_reuse": "Independently checked final-readback-v2.json hashd8c6a52f4360fc01283b6b9a8aef53084d8de6ef8c0e9d3022d8c60635949c23 and its PASS/noissues/main identity,212 outer union, all80 mandatory/75C12 members, current/previous source maps, seven actual candidate fields and no forensic rebundling. Main531749736-byte identity84f3954425d1cabbf75346f1ded4c7b5a6b011e63011145addd04ae2e9410c16 binds saved server/public metadata; only path/size and proof chain reused for the large main body.",
+          "publication_chain": "All56 initial payload names/IDs/sizes/digests/uploaded states bind saved final57-asset release; total4524518265B agrees. Separate C6 asset762983464 binds79491B/hash8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c. Final release notes equal saved body/hash; canonical reply6976173710 bodyhash, completed issue state, open parent and checked158 agree with separate verification.",
+          "fresh_anonymous_C6": {
+            "scope": "Independent small public C6 body read only; no payload redownload or mutation",
+            "observed_utc": "2026-11-18T10:59:40.621940+00:00",
+            "http_status": 200,
+            "bytes": 79491,
+            "sha256": "8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c",
+            "authorization_header_present": false,
+            "matches_candidate_public_receipt": true
+          },
+          "tag_and_tree": "Read-only Git verifies annotated05ec6685d117d000cd6c23eddfa90144b4d2a5dc dereferences to247ab651 and reviewedc82004ce complete tree equals runtime tree. Saved remote publication receipts bind the same identity.",
+          "observer_history": "Initial independent observer4cc77c exited1 because it assumed two archive refusals in every family. Connectivity correctly has six specimen pairs/twelve refusals. Preserved observer source/result; corrected9c8eaa exits0, requiring both suffixes and unchanged422 refusal for every specimen. Candidate/acceptance unchanged.",
+          "reproducible_checks": {
+            "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-terminal-9373-architecture/checks.py",
+            "sha256": "8e02e47280fc62ff3fbbd484d1d72146d0ec6ed47c4642b9c1d8a7754d040df7",
+            "actual_completion_chunk": "9c8eaa",
+            "actual_exit": 0
+          },
+          "readback": {
+            "path": "/datadisk/dev/neistra-worktrees/issue-158-durable-ligand-designation/.issue-11-evidence/issue158-terminal-9373-architecture/own-checks.json",
+            "sha256": "6a40a760b9a2eccfb1d56d46b3692f72c3019044885441c86274db6083ae35ed"
+          }
+        },
+        "references": [
+          "docs/PROJECT_SCHEMA.md:9",
+          "docs/RELEASE_NOTES.md:3",
+          "docs/PROGRESS.md:5",
+          "docs/plans/issue-11-ligand-information.md:98",
+          "docs/plans/issue-158-durable-ligand-designation.md:996",
+          "docs/assets/ligand-designation/c5-master1-summary.json:1",
+          "docs/assets/ligand-designation/c6-publication-verification.json:1"
+        ],
+        "limits": [
+          "No application import, tests, SQL, services, numerical/native/performance workload, source/docs/Git/remote mutation or agent delegation. Only assigned private review files were written.",
+          "Fresh remote work was one small anonymous C6 body read. Stable/latest release, child state/comment and parent checkbox are assessed from the pinned saved root readbacks; no new authenticated request or publication operation occurred.",
+          "The531MB main and4GB forensic payloads were not redownloaded/rehashed/deep-reverified. Valid unchanged independent full-body/CRC/exact-union proofs are reused after checking identity/size/binding chains; the two newly committed master packets were only body-hashed, with their existing deep proof reused.",
+          "This PASS covers exact9373 terminal documentation only. Root must still collect all seven terminal same-candidate verdicts, satisfy normal remote review/merge rules and verify owned cleanup/final delivery receipt. No tag move or replacement runtime release is justified."
+        ],
+        "recommendation": "Accept the architecture assessment for exact9373 with no consequential finding. Preserve runtime/tag/evidence identities and complete remaining normal terminal delivery steps after the full specialist gate."
+      },
+      "scientific_theory": {
+        "role": "scientific_theory",
+        "reviewer": "/root/issue158_terminal_theory",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "record_type": "Primary persisted neutral conversation assessment; reviewer wrote no files",
+        "reviewer_statement": "PASS \u2014 scientific theory, terminal documentation only.\nReviewed candidate9373f8a3049c7cc5ee3bb0c501afe70b32a9abee against runtime247ab651b35c2d58e8939985ae50633de70311a3, covering all86changed paths.\nIndependent checks: rehashed1013qualifiedsource bodies and42lossless commandlogs; both qualifiedpackets1706manifestentries/exactbodies/CRC; all78newC5artifacts bind maininputs orpacketmembers; all15reader-direction hashes; designationfields/status/schema AST; freshanonymousHTTP20079491-byte C6receipt exactly8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c.\nNo consequential scientific findings. Identity, qualified-versus-unknown chemistry, separate occurrence bases, preserved originals and schema compatibility remain accurately bounded. Eight failed/interrupted runs remain unqualified; successful supersededC12 distinguished. Timing claims portablecorrectness; dependent featurespending.\nUnchanged prior theory assessmentf4f2c043 supplies analytical/representation oracles; not rerun. Allforensics notredownloaded; currentissue/branch state not requeried. Initial top-level-only packaging observer assumption failed5720e5; nested packet bindings resolved it without artifact changes. Finalchecks0820dc/42aaaf exit0. Fullyreadonly:no files/SQL/app/tests/native/performance/Git mutation/publication. One specialist assessment, not humanapproval or completedeliveryauthorization.\n",
+        "findings": [],
+        "consequential_findings_remaining": 0,
+        "observations_attributed_to_reviewer_not_root_handles": true,
+        "created_utc": "2026-11-18T11:08:15.097288+00:00"
+      },
+      "scientific_implementation": {
+        "role": "scientific_implementation",
+        "reviewer": "/root/issue158_terminal_scientific_implementation",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "record_type": "Primary persisted neutral conversation assessment; reviewer wrote no files",
+        "reviewer_statement": "PASS \u2014 scientific implementation, terminal documentation only.\nReviewed9373f8a3049c7cc5ee3bb0c501afe70b32a9abee against247ab651b35c2d58e8939985ae50633de70311a3, all86changedpaths. Independent checks confirm1013current/931actualv035tag source identities,42rawlog hashes/exits/testcounts,15readerreports/refusal storeequality/bothsuffixes, bothmasterpacket hashes/outerCRC/exact1706-bodyunion, schema/designation AST andfreshanonymousC6HTTP200/exact79491bytes8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c. No consequential findings. Priorunchanged266-testSCI PASS anddeeprecursive main/forensicproofs reused. Unknownchemistry/originals/identity/compatibility accuratelybounded. Finalverifier9294exit0/d38004; supplement47dac0exit0. Twoobserver-only assumptions (TAPsupervisor counttext and nonexistentarchiveaggregate flag) corrected without artifactchanges. Fullyreadonly:nofiles/SQL/app/tests/services/Git/publication. Remainingroles/remotedocsintegration/cleanup/C7 separate.\n",
+        "findings": [],
+        "consequential_findings_remaining": 0,
+        "observations_attributed_to_reviewer_not_root_handles": true,
+        "created_utc": "2026-11-18T11:18:42.932529+00:00"
+      },
+      "performance": {
+        "role": "performance",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base_and_released_runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "scope": "Complete terminal issue158 documentation/evidence change,86paths:5documents and81new evidence files. No application implementation change; this is specialist agent review, not human approval or publication authority.",
+        "acceptance_reviewed": [
+          "Retain full program156..163, serial dependencies/exclusions and future159..163 qualification; do not count local preparation as delivery.",
+          "Keep portable correctness separate from controlled reference-host timing certification.",
+          "Preserve resource/work/request/DOM/cancellation budgets and source-bound measured evidence.",
+          "Retain every failed/interrupted run separately; successful supersededC12 remains distinct.",
+          "Keep runtime tag/source unchanged and honestly retain terminal docs/cleanup/C7 work as pending."
+        ],
+        "scope_inspected": {
+          "complete_intended_diff": "Read complete five-document diff against actual runtime and complete86path name union; checked all new file bodies by SHA and their qualified packet bindings.",
+          "documents": [
+            "docs/PROGRESS.md",
+            "docs/RELEASE_NOTES.md",
+            "docs/PROJECT_SCHEMA.md",
+            "docs/plans/issue-11-ligand-information.md",
+            "docs/plans/issue-158-durable-ligand-designation.md"
+          ],
+          "new_artifacts": "78C5merged-runtime artifacts +3C6publication/closeout artifacts",
+          "candidate_metadata": "Read-only HEAD/status/diff plus safe stdlib qualification current_identities; exact candidate and clean owned tree verified at inspection."
+        },
+        "own_checks": [
+          "Exact1013current qualifying source pathset and every body rehashed and equal candidateC13/masterM1 source-before/source-after maps. Digestdf28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07.",
+          "All78new master artifacts hash-match existing qualified primary or two master-packet manifest entries. No repeated full531MB+4GB deep proof/download was needed.",
+          "All42candidate and42master ordered step records complete, exit0, finite nonnegative duration; every lossless raw log SHA reconstructed from gzip matches its gate record.",
+          "Both summaries confirm3077Python/zero skip,1388frontend,14supervisor,531native/75exclusions/606inventory and zero failure/flake/retry/new exclusion. Native case identities match completely; exact75skipped identities equal retained historical baseline, whose body hash is verified.",
+          "Each actual browser report has170performance annotations. All actual values finite and nonnegative. Four deliberately outside-target slow-battery policy examples per run are traced to performance-policy.spec.ts; they test strict/portable policy behavior, not an application timing failure. All real workload annotations meet their recorded targets on these portable runs; this does not certify reference-host performance.",
+          "Read full prior final performance assessment for reviewedc82004ce, SHA1b1c52d7952d35bada6beb21261db6101de36a2ff10dac97000417927ecdce17. Unchanged source allows reuse of bounded cards/count index/source-failure retention/cancellation evidence and its explicit memory/cooperative-budget limitations.",
+          "C6publication body SHA8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c/79491bytes,56initial payload server rows,53forensic parts/eightfailed-or-interrupted runs and distinct C6self-verification agree. Primary ZIP/sidecars/full anonymous verification and actual root enclosing0 are retained; failed runs stay unqualified."
+        ],
+        "findings": [],
+        "nonblocking_observations": [
+          {
+            "topic": "Timing interpretation",
+            "disposition": "Accepted: new release/progress/child plan explicitly say portable correctness and withhold strict reference-host certification. They introduce no speedup, universal latency, hardware-independent throughput or RSS ceiling."
+          },
+          {
+            "topic": "Evidence preservation",
+            "disposition": "Accepted: successfulC12 is a mandatory superseded supplement, not a ninth failed run. All53raw forensic parts remain separately retained rather than duplicated into primary."
+          },
+          {
+            "topic": "Future program work",
+            "disposition": "Accepted: parent ledger retains159cold timing miss and full performance/ALL8/capacity work. My separate159historical diagnosis is not borrowed for158or future159qualification."
+          }
+        ],
+        "evidence": {
+          "own_readback": {
+            "path": ".issue-11-evidence/issue158-terminal-9373-performance/independent-checks.json",
+            "bytes": 61082,
+            "sha256": "05f8def37448b06ee0a0d5c1117a9923297ff2485517a0101a3818faea619e5b"
+          },
+          "prior_final_application_performance": {
+            "path": ".issue-11-evidence/issue158-final-c82004ce-performance/assessment.json",
+            "bytes": 8399,
+            "sha256": "1b1c52d7952d35bada6beb21261db6101de36a2ff10dac97000417927ecdce17"
+          },
+          "prior_deep_main_readback": {
+            "path": ".issue-11-evidence/issue158-main-asset-independent-readback1/final-readback-v2.json",
+            "bytes": 9698,
+            "sha256": "d8c6a52f4360fc01283b6b9a8aef53084d8de6ef8c0e9d3022d8c60635949c23"
+          },
+          "public_C6": {
+            "path": "docs/assets/ligand-designation/c6-publication.json",
+            "bytes": 79491,
+            "sha256": "8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c"
+          },
+          "C6_selfproof": {
+            "path": "docs/assets/ligand-designation/c6-publication-verification.json",
+            "bytes": 1635,
+            "sha256": "a726aceeaeeaa1bab50d7ecb51ba51ea5f5ed5544c386dac425e4b789faf4f3f"
+          }
+        },
+        "limitations": [
+          "No new benchmark/test/app/service/native/performance workload, SQL, network request, source/doc mutation or Git mutation ran. Read-only Git metadata and log/JSON/gzip/ZIP-manifest/hash operations only.",
+          "I did not inherit or observe historical root process handles; independently inspected their retained receipts and log/body bindings. No fresh remote availability claim from this assessment.",
+          "Deep full primary/forensic proofs are reused after unchanged evidence bindings; no unnecessary multi-gigabyte recursive revalidation.",
+          "Existing limits remain: encoded cache/metadata bounds are not process RSS/heap/VRAM ceilings; cooperative occurrence budget excludes source preparation and is not per-library-call interruption. Historical highwater observations retain uncertain causality.",
+          "PASS applies only to this exact terminal candidate. Other six final specialist assessments, root review, current remote requirements, docs merge, owned cleanup and final delivery receipt remain separate."
+        ],
+        "unresolved_consequential_findings": false,
+        "created_utc": "2026-11-18T11:13:53.040294+00:00"
+      },
+      "ui_design": {
+        "role": "ui_design",
+        "reviewer": "/root/issue158_terminal_ui",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "record_type": "Primary persisted neutral conversation assessment; reviewer wrote no files",
+        "reviewer_statement": "PASS, UI terminal assessment. Complete86paths/5docs/81evidence; exactcandidate andclean tree. Rehashedall1013qualifiedsourcepathset/bodies;20retainedscreenshots sizes/hashes, personally inspected6representative desktop/mobile/light/dark/actual200%/320px/stale/image/source renders. ActualMbrowser all6designation-accesscases pass0retry; independently32geometryrecords. Keyboard/radio/Escape/cancel/focus/accessibility assertions checkedunchanged. LocalC6size/hash/payloadstatusverified. Descriptions accurately boundqualifiedfacts/unavailable/imagevsblockingphysicalfailures/current schema3-vs-viewer2/historicalcontracts. Parentremaining159\u2013163andterminalcleanuptruthful. No consequentialfindings. Reusedunchangedsource-pinnedrender/nativeproof,no freshbrowser/AT orpublicpayloadredownload/currentremotestatecheck. No files/app/service/tests/Git/remotemutation. Specialistassessmentonly, nothumanapproval/publicationauthorization.",
+        "findings": [],
+        "consequential_findings_remaining": 0,
+        "observations_attributed_to_reviewer_not_root_handles": true,
+        "created_utc": "2026-11-18T11:30:33.674676+00:00"
+      },
+      "ux_design": {
+        "role": "ux_design",
+        "reviewer": "/root/issue158_terminal_ux",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "record_type": "Primary persisted neutral conversation assessment; reviewer wrote no files",
+        "reviewer_statement": "PASS, final terminal UX assessment. Complete86paths/5docs/81assets. Readinstructions/contracts/full5docdiff/unchangedcontrols/native sources/results. Independently decodedcommit trees/blobs, exactpathset andall1013source hashes. Corrected initialloose-object observerassumption usingpacked-objectdecode, no artifactchanges. Workflowchoice/selection/navigation separated; qualifiedsingletonautomatic/manualexactmany; Choose/Change/radio/Use, draftCancel/LeaveunassignedClear/UndoRedo/reload/stalerecovery accurate. Schema3/backups/refusal/remainingdeliveries truthful. Parsed531nativePASS75oldskips0unexpected/flake; inspected26relevantpassingcases, decoded94attachments54JSON40PNG, visually2representative320pxcaptures. Checked16actualzoom/8narrow/8image-retry/4countrecovery records. FreshanonymousC6HTTP20079491exact8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c. No consequentialfindings/copycorrection. No newbrowser/app/science/perf/workloads, largepayloadredownload/currentissuequery; controllednativeAPI faults notalonephysicalcorruptionproof. No files/Git/services/remotemutations. Agentreviewnot humanapproval/parentcompletion.",
+        "findings": [],
+        "consequential_findings_remaining": 0,
+        "observations_attributed_to_reviewer_not_root_handles": true,
+        "created_utc": "2026-11-18T11:30:33.674802+00:00"
+      },
+      "modeling_reference": {
+        "role": "modeling_reference",
+        "reviewer": "/root/issue158_terminal_reference",
+        "candidate": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+        "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+        "verdict": "PASS",
+        "record_type": "Primary persisted neutral conversation assessment; reviewer wrote no files",
+        "reviewer_statement": "PASS, neutral reference/workflow assessment. All86paths/5docs/81qualification-publication artifacts. Readcomplete5docpatch/pathinventory/saveddiffbindings; verifiedevery86currentbodyidentity andreadonlyHEAD/ref. All3diffsnapshots exacthash/size; all1013source bodies matchMbefore/after; noapplication/sciencepolicy/workflowchange. All81evidencebodies readable30JSON45gziplogs4gzipJSON2ZIPouterCRC;42uncompressedloghashes/exits0; summary/reader/wrapper/package/publication/closeoutinspected. FreshanonymousC6HTTP20079491exact8217564e20a8840d6efb9b200dade61776850aed0ba2862e423e674e5afc8a1c andcandidatebytes. Unchangedmodels/controls/4passing source-writecases supportdocs. No consequentialfindings. Exactqualifiedsingle/manualmany, explicitClear, identity/provenanceseparateviewer, unsupportedchemistry/recoveryboundaries/schema3backup/refusal/downgrade/remainingterminaland159\u2013163truthful. Retaincompactqualifiedcards/secondaryprovenance; declinearbitraryfirstinstance/hiddenchemistry; no scopeexpansion. Priorfinalreferenceassessment7b15977c3ccaabde681ad68fe628662a7eed1dc077de242182bc4977b2151d7b reusedunchanged; identifyingexternalreferenceURLs/citations deliberatelyretainedinconversationonlyandNOTcopiedhere. CurrentdocumentedreferenceAPIchecks distinguishfactsfromunknownUIdefaults/designadaptations. No app/science/browser/perf/SQL/Git/publicationmutations, no largepayloadredownload/originalancestorprocessobservation; boundreceiptclaimsnotdirectobservation. Agentreviewnot humanapproval.",
+        "findings": [],
+        "consequential_findings_remaining": 0,
+        "observations_attributed_to_reviewer_not_root_handles": true,
+        "created_utc": "2026-11-18T11:30:33.674901+00:00"
+      }
+    },
+    "not_human_approval": true
+  },
+  "terminal_merge_evidence": {
+    "sha256": "9cd77ea8b3980cbba885623ed08855eacad3bbae4b86aefafb187e9432656200",
+    "receipt": {
+      "scope": "Actual normal terminal documentation merge; runtime qualification is unchanged and release tag remains immutable",
+      "pr": 176,
+      "reviewed_head": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+      "comparison_base": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "merge_commit": "254babcd136dab883eba65e5f7a2653d8cb69473",
+      "merged": true,
+      "reachable_on_remote_master": true,
+      "complete_reviewed_and_merged_trees_identical": true,
+      "qualified_source_count": 1013,
+      "complete_source_path_union_and_bodies_unchanged": true,
+      "source_digest": "df28dc009112f7a7608a5dca22f42e4febdd53dc2b294b434b612529036b4f07",
+      "all7_terminal_review_receipt_sha256": "31540d8a26254bf96499fca23df28bbde99e8126f2d8afcb8d6a64aaf6cfc04e",
+      "annotated_tag_object": "05ec6685d117d000cd6c23eddfa90144b4d2a5dc",
+      "runtime_commit": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "normal_merge_no_admin_force_or_settings_override": true,
+      "cleanup_and_C7_pending": true,
+      "observed_utc": "2026-11-18T11:40:51.844226+00:00"
+    }
+  },
+  "owned_cleanup": {
+    "sha256": "8f4a2acb133fa3cba2a756a8a64294aad14d37fd37832c5f8c81d5d18e86e5a6",
+    "receipt": {
+      "scope": "Safe owned158branch cleanup only; both worktrees and all ignored/raw evidence retained; unrelated checkout/data/processes untouched",
+      "branches": {
+        "feat/issue-158-durable-ligand-designation": {
+          "expected_previous_head": "c82004ce973d5cdcb43bb0e198874e4e7b181a00",
+          "remote_existed_before": true,
+          "remote_delete_command_exit": 0,
+          "remote_absence_verified": true,
+          "local_absence_verified": true
+        },
+        "fix/issue-158-source-producer-qualification": {
+          "expected_previous_head": "4965727c894020052eaa25d0c9ade6a0f308dd16",
+          "remote_existed_before": false,
+          "remote_delete_command_exit": null,
+          "remote_absence_verified": true,
+          "local_absence_verified": true
+        },
+        "fix/issue-158-release-closeout": {
+          "expected_previous_head": "9373f8a3049c7cc5ee3bb0c501afe70b32a9abee",
+          "remote_existed_before": true,
+          "remote_delete_command_exit": 0,
+          "remote_absence_verified": true,
+          "local_absence_verified": true
+        }
+      },
+      "terminal_docs_merge": "254babcd136dab883eba65e5f7a2653d8cb69473",
+      "root_detached_at": "254babcd136dab883eba65e5f7a2653d8cb69473",
+      "source_correction_root_detached_at": "4965727c894020052eaa25d0c9ade6a0f308dd16",
+      "both_owned_trees_clean": true,
+      "worktrees_or_evidence_deleted": false,
+      "qualified_source_count": 1013,
+      "complete_source_path_union_and_bodies_unchanged": true,
+      "runtime": "247ab651b35c2d58e8939985ae50633de70311a3",
+      "annotated_tag_object": "05ec6685d117d000cd6c23eddfa90144b4d2a5dc",
+      "tag_unchanged": true,
+      "observed_utc": "2026-11-18T11:49:13.470320+00:00"
+    },
+    "actual_enclosing_session": 74105,
+    "actual_enclosing_exit": 0,
+    "actual_completion_chunk": "23b7dc",
+    "observed_by_primary": true
+  },
+  "canonical_child_closeout": {
+    "comment_id": 6976173710,
+    "url": "https://github.com/ManuelSe/Neistra/issues/158#issuecomment-6976173710",
+    "issue_state": "closed",
+    "state_reason": "completed",
+    "existing_reply_will_be_updated_with_this_receipt": true
+  },
+  "parent": {
+    "issue": 11,
+    "state": "open",
+    "required_children": [
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163
+    ],
+    "remaining_children": [
+      159,
+      160,
+      161,
+      162,
+      163
+    ],
+    "goal_remains_active": true
+  },
+  "receipt_identity_and_public_self_verification": "Recorded separately after upload; no circular self-hash or additional runtime release."
+}

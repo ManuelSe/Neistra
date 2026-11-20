@@ -1,0 +1,68 @@
+{
+  "schema": "issue160-scoped-review-attribution-erratum-v1",
+  "recorded_utc": "2026-11-20T03:26:33.112538+00:00",
+  "original_candidate": "4cd65fffbcdaf0d890393dd8c07fddf4af829df8",
+  "primary_error": "Three scoped scientific implementation assessments were incorrectly labelled scientific theory.",
+  "actual_declared_agent_role": "scientific_implementation",
+  "agent": "/root/issue160_actual_compatibility_science",
+  "original_evidence_bodies_and_immutable_packets_preserved": true,
+  "original_record": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual-shared-schema1/scientific-theory-actual-scoped-assessment.json",
+    "bytes": 1555,
+    "sha256": "d0ea165a909d8004c82a7d88b079f4cce973c0edca823f5f96ca4266abae6dea"
+  },
+  "corrected_primary_record": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual-shared-schema1/scientific-implementation-actual-scoped-assessment-corrected.json",
+    "bytes": 2200,
+    "sha256": "d47a98d2268dd6af02f7c89a7d3ae61c1a3f261e8df3274864d2e9c71140cca3"
+  },
+  "current_metadata_before": {
+    "docs/PROGRESS.md": {
+      "bytes": 5796,
+      "sha256": "71ef42ee8819000c4054512fbdfa23485ae3c97afdf127dc9b55e7876e9f4de3"
+    },
+    "docs/plans/issue-160-physicochemical-profiles.md": {
+      "bytes": 59973,
+      "sha256": "cc8e0f590e5986cbb93269f9b4b291f77ce8b156bb2dba69507031a17f018400"
+    },
+    "docs/assets/ligand-profiles/c3-actual-compatibility-checkpoint.json": {
+      "bytes": 2708,
+      "sha256": "44b21ac37d98da2096e7b1dc84434c9e1e7dc82c3fbe737a75911328faae6345"
+    },
+    "docs/assets/ligand-profiles/c3-qualification-corrections-checkpoint.json": {
+      "bytes": 4266,
+      "sha256": "4da9a04d4051e2dec1e868853a0e87820b9db5543e22f505bbe096aaa7219fab"
+    },
+    "docs/assets/ligand-profiles/c3-profile-native3-checkpoint.json": {
+      "bytes": 8408,
+      "sha256": "79f0d1467f6b3ddf6edaf8808a58070874619819d6cdffadae3d5b4d03d27c9c"
+    }
+  },
+  "current_metadata_after": {
+    "docs/PROGRESS.md": {
+      "bytes": 7174,
+      "sha256": "52370abcd40e35455e79403c0125445455adf88c50cf51dd4e1fdb181f21b472"
+    },
+    "docs/plans/issue-160-physicochemical-profiles.md": {
+      "bytes": 63321,
+      "sha256": "cccb987ab7d6a45ca25554268d3fc58b3e78774038429dd87669fb0314e9d4f1"
+    },
+    "docs/assets/ligand-profiles/c3-actual-compatibility-checkpoint.json": {
+      "bytes": 3095,
+      "sha256": "e43766497957182bd7a8e78c940de057949bb92e5184357f8375610b9f4c33c4"
+    },
+    "docs/assets/ligand-profiles/c3-qualification-corrections-checkpoint.json": {
+      "bytes": 4344,
+      "sha256": "6faaffeb68e65bca88ce810757c7e0e7003c56e933f0c5cd46571bff74cd7da5"
+    },
+    "docs/assets/ligand-profiles/c3-profile-native3-checkpoint.json": {
+      "bytes": 8486,
+      "sha256": "d8f6c501a2a5fa0821c91c70d412ea014967547af828e357fc40ea418e7765a4"
+    }
+  },
+  "scientific_results_methods_and_verdict_scopes_unchanged": true,
+  "separate_theory_assessment": "A separate scientific_theory agent reviewed the whole4cdcandidate and returned CHANGES_REQUIRED for this attribution and archive-version guard; it does not retroactively replace earlier role assignments.",
+  "no_all_seven_final_approval_or_publication_claimed": true,
+  "source_or_test_logic_changed_by_this_erratum": false,
+  "identity_scope": "Before hashes refer to original4cd65fff; after hashes refer to files in the commit first introducing this erratum. Later progress additions are distinct commits, not changes to original evidence."
+}

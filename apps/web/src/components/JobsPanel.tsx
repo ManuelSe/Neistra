@@ -24,6 +24,10 @@ function timestamp(value: string | null) {
   return value ? new Date(value).toLocaleString() : "-";
 }
 
+function isTerminalJob(job: Job | undefined): job is Job {
+  return job?.status === "completed" || job?.status === "failed" || job?.status === "cancelled";
+}
+
 export function JobsPanel({
   project,
   onNewJob,
@@ -69,11 +73,11 @@ export function JobsPanel({
         `${protocol}//${window.location.host}/ws/jobs?project_id=${encodeURIComponent(projectId)}`,
       );
       socket.onmessage = () => {
-        void queryClient.invalidateQueries({ queryKey: ["jobs", projectId] });
+        void queryClient.invalidateQueries({ queryKey: ["jobs", projectId] }, { cancelRefetch: false });
         if (selectedJobId) {
           void queryClient.invalidateQueries({
             queryKey: ["job-events", selectedJobId],
-          });
+          }, { cancelRefetch: false });
         }
       };
     } catch {
@@ -84,9 +88,16 @@ export function JobsPanel({
 
   const cancel = useMutation({
     mutationFn: (job: Job) => jobApi.cancel(job.id),
-    onSuccess: (job) => {
-      queryClient.setQueryData<Job[]>(["jobs", project?.id], (current = []) =>
-        current.map((item) => (item.id === job.id ? job : item)),
+    onSuccess: async (job) => {
+      const queryKey = ["jobs", job.project_id];
+      const observed = queryClient.getQueryData<Job[]>(queryKey)?.find(item => item.id === job.id);
+      await queryClient.cancelQueries({ queryKey, exact: true });
+      queryClient.setQueryData<Job[]>(queryKey, (current = []) =>
+        current.map((item) => {
+          if (item.id !== job.id) return item;
+          const latest = isTerminalJob(item) ? item : isTerminalJob(observed) ? observed : item;
+          return isTerminalJob(latest) && !isTerminalJob(job) ? latest : job;
+        }),
       );
       setCancelJob(null);
       onNotice("success", "Cancellation requested.");

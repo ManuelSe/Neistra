@@ -1,0 +1,187 @@
+{
+  "scope": "Later lossless retention of early performance1-4 plus selected prep5-7 metadata; never ALL8/release qualification",
+  "qualification_PASS": false,
+  "publication_pending": true,
+  "qualified_main_member": false,
+  "planned_separate_release_asset": "neistra-v0.37.0-early-performance.zip",
+  "planned_checksum_companion": "neistra-v0.37.0-early-performance.zip.sha256",
+  "private_packet": {
+    "bytes": 124222530,
+    "file": "early-performance-evidence.zip",
+    "outer_manifest_entries": 836,
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-live-ligand-properties/.issue-11-evidence/issue159-early-performance-preservation1/early-performance-evidence.zip",
+    "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+    "verification_counts": {
+      "evidence_manifest_entries": 836,
+      "project_archive_files": 0,
+      "zip_archives": 4
+    }
+  },
+  "roots": 12,
+  "regular_original_files": 749,
+  "original_bytes": 170419625,
+  "selected_preparation_original_files": 93,
+  "unique_additional_preparation_bodies": 78,
+  "empty_directories": 12,
+  "inert_aliases": 0,
+  "missing_roots": [],
+  "all_regular_current_original_and_archived_bodies_CRC_exact_union_verified": true,
+  "originals_retained": true,
+  "SQL_opened_for_current_capture": false,
+  "historical_pre_SQL_ordering_proven": false,
+  "historical_inventory_reconciliation": [
+    {
+      "changed_since_recorded_inventory": [],
+      "compared_regular_bodies": 5,
+      "historic_index": ".issue-11-evidence/issue159-performance/native-probe1/retained-store-inventory-after-cleanup.json",
+      "missing_recorded_bodies": [],
+      "run": 1
+    },
+    {
+      "changed_since_recorded_inventory": [
+        {
+          "current": {
+            "bytes": 32768,
+            "sha256": "e14d4310020630bf588ff7a94ee7c0c5b18d22a674b2bc1835bec8c068f1381a"
+          },
+          "path": "e2e/neistra.db-shm",
+          "recorded": {
+            "bytes": 32768,
+            "sha256": "43d698e14f803de3cc4e1b83a1a23ac71697963df87d1dcb27de9dc18bc1d651"
+          }
+        }
+      ],
+      "compared_regular_bodies": 25,
+      "historic_index": ".issue-11-evidence/issue159-performance/native-probe2/retained-store-inventory.json",
+      "missing_recorded_bodies": [],
+      "run": 2
+    },
+    {
+      "changed_since_recorded_inventory": [
+        {
+          "current": {
+            "bytes": 32768,
+            "sha256": "02a0d40a090a8488e03ed595de2b9e4291c62237a891d55852fb992096a636b9"
+          },
+          "path": "e2e/neistra.db-shm",
+          "recorded": {
+            "bytes": 32768,
+            "sha256": "411bb46c385d4a855e698c128fa79c85664b80d96bf50d66ca55f81e31834cba"
+          }
+        }
+      ],
+      "compared_regular_bodies": 85,
+      "historic_index": ".issue-11-evidence/issue159-performance/native-probe3/retained-store-inventory.json",
+      "missing_recorded_bodies": [],
+      "run": 3
+    },
+    {
+      "changed_since_recorded_inventory": [],
+      "compared_regular_bodies": 120,
+      "historic_index": ".issue-11-evidence/issue159-performance/native-probe4/retained-store-inventory.json",
+      "missing_recorded_bodies": [],
+      "run": 4
+    }
+  ],
+  "limitation": "Two current32KiB SHM bodies differ from earlier indexed hashes; old revisions are not claimed recovered. Original hash records and currently retained bytes both preserved; DB/WAL match. Historical pre-SQL ordering unproven. No current ALL8 or release qualification inferred.",
+  "run_statuses": {
+    "1": {
+      "actual_corepack_exit_code": -2,
+      "actual_supervising_runner_exit_code": 1,
+      "browser_stats": {
+        "duration": 30.891999999999996,
+        "expected": 0,
+        "flaky": 0,
+        "skipped": 1,
+        "startTime": "2026-11-17T21:24:33.946Z",
+        "unexpected": 0
+      },
+      "historical_cleanup": true,
+      "historical_pre_SQL_byte_capture_proven": false,
+      "limit": "This later packaging preserves retained bytes now; it does not establish historical pre-SQL ordering or a complete ALL8 run.",
+      "original_exit_code": -2,
+      "original_scope": "One exploratory desktop case INTERRUPTED during unreachable harness setup; no measured case, scientific/API failure or timeout result",
+      "qualification_status": "INTERRUPTED_SETUP",
+      "source_count": 1062,
+      "source_digest_as_recorded": "9367e4d04cc2f4a9cd80822b24f088c5f22d4ffc0e33cec937b9db57db234268",
+      "source_unchanged_as_recorded": true
+    },
+    "2": {
+      "actual_corepack_exit_code": null,
+      "actual_supervising_runner_exit_code": null,
+      "browser_stats": {
+        "duration": 58842.424,
+        "expected": 0,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-17T21:46:41.849Z",
+        "unexpected": 1
+      },
+      "historical_cleanup": [],
+      "historical_pre_SQL_byte_capture_proven": false,
+      "limit": "This later packaging preserves retained bytes now; it does not establish historical pre-SQL ordering or a complete ALL8 run.",
+      "original_exit_code": 1,
+      "original_scope": "One existing desktop native performance case, exploratory portable execution only; seven cases and all four1000-entry cohorts unexecuted; not final qualification or release readiness",
+      "qualification_status": "ORDINARY_COMPLETION",
+      "source_count": 1062,
+      "source_digest_as_recorded": "8503dae2940aeafdfa795562e379db80659890a1b779e4a8c01b434c6a363151",
+      "source_unchanged_as_recorded": true
+    },
+    "3": {
+      "actual_corepack_exit_code": null,
+      "actual_supervising_runner_exit_code": null,
+      "browser_stats": {
+        "duration": 187365.704,
+        "expected": 0,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-17T22:23:39.003Z",
+        "unexpected": 1
+      },
+      "historical_cleanup": [],
+      "historical_pre_SQL_byte_capture_proven": false,
+      "limit": "This later packaging preserves retained bytes now; it does not establish historical pre-SQL ordering or a complete ALL8 run.",
+      "original_exit_code": 1,
+      "original_scope": "One existing desktop native performance case, exploratory portable execution only; seven cases and all four1000-entry cohorts unexecuted; not final qualification or release readiness",
+      "qualification_status": "ORDINARY_COMPLETION",
+      "source_count": 1062,
+      "source_digest_as_recorded": "73cf17df957c12894747e4a006e0de214179f6697b4000e7890a945337928233",
+      "source_unchanged_as_recorded": true
+    },
+    "4": {
+      "actual_corepack_exit_code": null,
+      "actual_supervising_runner_exit_code": null,
+      "browser_stats": {
+        "duration": 245111.18,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-17T23:42:41.236Z",
+        "unexpected": 0
+      },
+      "historical_cleanup": [],
+      "historical_pre_SQL_byte_capture_proven": false,
+      "limit": "This later packaging preserves retained bytes now; it does not establish historical pre-SQL ordering or a complete ALL8 run.",
+      "original_exit_code": 0,
+      "original_scope": "One existing desktop native performance case, exploratory portable execution only; seven cases and all four1000-entry cohorts unexecuted; not final qualification or release readiness",
+      "qualification_status": "ORDINARY_COMPLETION",
+      "source_count": 1110,
+      "source_digest_as_recorded": "28d45bc6030e43c58cd8aa47e8d1c65b2e07d089956f9ef43c693600ed263953",
+      "source_unchanged_as_recorded": true
+    }
+  },
+  "preparation_status": "5\u20137 unexecuted/HOLD; only selected uncovered closed source/control/receipt metadata, no recursive history rebundle",
+  "oversize_original_member": {
+    "bytes": 96304431,
+    "handling": "Original kept intact; primary expressly authorized this private separate asset; never Git/main qualified evidence",
+    "path": "root-07/native/ligand-properties-performa-fc817-with-current-input-recovery-chromium/trace.zip"
+  },
+  "recursive_verification": {
+    "evidence_manifest_entries": 836,
+    "project_archive_files": 0,
+    "zip_archives": 4
+  },
+  "primary_readback_sha256": "3a740b8d9fb665f259d99bbf992cb8330d56c994bff69d4bb5860b12fd2f027f",
+  "worker_handoff_sha256": "e18f56df9c8a04e7c30befc38c462fbbc5951f995b6325dcd9bc9b9fd30ad9c0",
+  "all_assets_and_checksums_full_anonymous_readback_required_before_closeout": true
+}

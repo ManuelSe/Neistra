@@ -1,0 +1,44 @@
+{
+  "status": "FAILED original c5-candidate1; complete preservation, publication pending. Not qualification PASS.",
+  "candidate": "955b4c0c68a5feda55653b6b17626fb1cf5651a0",
+  "actual_runner_exit": 1,
+  "successful_recipe_commands": 8,
+  "recorded_recipe_commands": 9,
+  "remaining_unrun_commands": 34,
+  "python": {
+    "passed": 3597,
+    "failed": 1,
+    "browser_started": false
+  },
+  "failure": "The helper-catalogue test counted all published *.py.txt files as exactly six release helpers. The retained native12 analyzer is a seventh evidence-context script.",
+  "raw_files": 47,
+  "raw_bytes": 1739809,
+  "raw_DB_WAL_SHM_original_copy_pairs": 1,
+  "positive_cleanup_before_raw_copy": true,
+  "SQL_opened": false,
+  "source_capture_seal_sha256": "b59bcfe25d83b8ebb67bf892b981542c47fd24c68461223e7e9db576d1d3e420",
+  "source_current_count": 1133,
+  "source_actual036_count": 1013,
+  "all9_lossless_gzip_logs_exact": true,
+  "all_original_bytes_metadata_and_union_exact": true,
+  "all2146_source_Git_original_capsule_bodies_exact": true,
+  "recursive_counts": {
+    "zip_archives": 15,
+    "evidence_manifest_entries": 70,
+    "project_archive_files": 20
+  },
+  "separate_asset": {
+    "asset": "neistra-v0.37.0-c5-candidate1-failed.zip",
+    "checksum_asset": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+    "bytes": 10133222,
+    "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+    "published": false,
+    "qualified_main_member": false,
+    "primary_readback_sha256": "070fe3e01c4f431f759c84e9146ba04060e306535f9cde30b65849d8edb4bfcf"
+  },
+  "limits": [
+    "Browser and 34 later recipe commands did not run.",
+    "Focused catalogue checks do not qualify the failed run.",
+    "Full anonymous verification remains required after actual release publication."
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "Passing local test keyboard-order correction; complete release qualification pending.",
+  "base": "ad505d2723413e2d79879960c45d29c19c6d9f2f",
+  "subjects": {
+    "tests/e2e/release-hardening.spec.ts": "150adf8e3248186b45c7b2a2efa9eee05faf2d9448ca641623f7907e0bf82394"
+  },
+  "change": "Only three added blocks cover readiness and actual Tab traversal Entry -> Property options -> native Methods and limits summary -> original Selection assertion. Every original byte/assertion/deadline/exclusion and desktop performance case remains.",
+  "focused_native": {
+    "actual_exit": 0,
+    "passed": 5,
+    "unchanged_authored_mobile_performance_skip": 1,
+    "failed": 0,
+    "flaky": 0,
+    "retry": 0,
+    "both_projects": true,
+    "selected_sources": 1130,
+    "source_before_after_exact": true
+  },
+  "positive_cleanup": {
+    "known_PID_start_handles": 32,
+    "remaining": 0,
+    "ports_unused": [
+      23920,
+      23921,
+      23922
+    ],
+    "raw_DB_WAL_SHM_files": 3,
+    "copied_before_SQL": true
+  },
+  "scoped_reviews": {
+    "software_architecture": "PASS",
+    "performance": "PASS",
+    "ux_design": "PASS"
+  },
+  "native11_reuse": "All461runtime/51method subjects unchanged; retain original995e/b2d49identity. No new latency claim.",
+  "packet": {
+    "file": "c3-property-tab-order-evidence.zip",
+    "bytes": 274064,
+    "sha256": "09e4b8079ebae0a45edf926c6511d8ee01ace861a1d15dafd44754cd4467801e",
+    "manifest_entries": 29,
+    "recursive_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 29,
+      "project_archive_files": 0
+    },
+    "complete_original_body_CRC_exact_union": "PASS"
+  },
+  "limitations": [
+    "Focused workflow is not full qualification.",
+    "Fixture uses configured default categories shown in original failed capture; no preference mutation was added.",
+    "Freshwhole43candidate5/exactmaster1 and allsevenfinalsamecandidate assessments remain mandatory."
+  ]
+}
