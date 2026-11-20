@@ -1,5 +1,26 @@
 # Neistra Release Notes
 
+## 0.38.0 — Sourced physicochemical profiles (in preparation)
+
+Adds seven versioned profile adaptations and two explicitly unavailable methods
+through one registry, shared exact-boundary evaluator and compact controls in the
+existing property pane. Current-source authority, missing/error states, citations,
+method adaptations and required descriptor demand remain explicit. Profile selection
+is transient; it introduces no migration or new project/archive schema.
+
+All five authoritative application versions are prepared at 0.38.0. Dependencies
+and all 17 migrations remain unchanged from v0.37.0; schema head remains 0017.
+The new explicit same-schema compatibility protocol preserves the older protocol
+and separates genuine current/preceding producers, source/library proofs and exact
+scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns are still pending.
+
+Focused integration, offline/source-bound scientific controls and static checks
+pass. These are local checkpoints, not complete release qualification. Native
+profile measurements, both full candidate/merged gates, all seven final feature
+reviews, normal PR integration and verified release/closeout remain required.
+No new latency result or performance improvement is claimed. The sidebar, radar,
+entry filters and final inspector integration remain required #161–#163 work.
+
 ## 0.37.0 — Automatic current-input ligand properties
 
 Published as [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0),
