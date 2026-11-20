@@ -110,6 +110,19 @@ bodies fixed. These results establish preparation only. The
 [C3 checkpoint](assets/ligand-information/c3-qualification-preparation-checkpoint.json)
 retains sources, original author attempts, static logs and actual scoped reviews.
 
+Whole preparatory architecture, performance and UI source assessments pass C3.
+Scientific implementation review found one overly narrow retained access oracle:
+the requested four profile properties may validly arrive in a larger cached report.
+The bounded correction keeps the request exact, accepts complete superset coverage,
+checks unique rows and validates only requested ready/finite values. Seventeen
+source-extracted controls, original/candidate strict typing and scoped lint pass;
+the original actual eight-descriptor report refusal and first lint-wrapper failure
+remain retained. All seven specialists now PASS the whole preparatory source,
+including the corrected access oracle and its documentation. This resolves the
+source finding; actual native execution and final feature qualification remain
+pending. The [correction checkpoint](assets/ligand-information/c3-cached-report-coverage-checkpoint.json)
+retains the original findings, reassessments and source-bound controls.
+
 ## Known limitations
 
 No current #161 readiness, implementation push, PR, release or closeout is claimed.
@@ -122,6 +135,9 @@ The failed 36-case campaign is not a current complete PASS. Actual primary-view
 measurements, runtime qualification of the reconciled benchmark navigation and
 prior failed-run publication remain outstanding. #153 diagram delivery and all other
 parent exclusions remain outside scope.
+Actual minimum-resized Inspector geometry around 841–1000px desktop widths also
+needs qualification after the UI source review identified an unconfirmed clipping
+risk. No speculative styling change or reproduced defect is claimed.
 
 ## Blockers
 

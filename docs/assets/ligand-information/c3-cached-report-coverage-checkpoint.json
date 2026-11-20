@@ -1,0 +1,113 @@
+{
+  "recorded_utc": "2026-11-20T08:32:24.594683+00:00",
+  "stage": "C3 cached report coverage source correction checkpoint; not completed application feature or release",
+  "candidate_base": "ae1a14fa6abfe2eccae4dfd3ac702acad7bf6a8d",
+  "source": "tests/e2e/ligand-profiles-access.spec.ts",
+  "source_sha256": "99a8493b03d17418c662f1c47fc206b62121137174abc03a63a82143eb6ee6ac",
+  "finding": "SCI P2: exact returnedcoverage4/blanketoptionalready rejects legitimate shared cached supersets",
+  "correction": "Outgoing4 exact; returnedcoverage contains4; unique value rows; requestedrows ready/reasonnull/finite numerical; optional unrequested unavailable/error permitted",
+  "verification": {
+    "source_extracted_controls": 17,
+    "actual_retained_superset_rows": 8,
+    "meaningful_original_refusal": "Retained old8vs4 failure",
+    "strict_types_original_and_candidate": "PASS,0diagnostics",
+    "scoped_typechecked_lint": "PASS,0errors/warnings",
+    "source_outside_assertion_block": "Byte-identical",
+    "all11C3preparation_bodies": "Unchanged; existing2023frontend/108synthetic evidence retained, not rerun",
+    "native_or_scientific_execution": false,
+    "first_lint_wrapper_failure_retained": true
+  },
+  "seven_preparatory_whole_source_assessments": {
+    "scientific_theory": {
+      "agent": "/root/issue161_c3_whole_theory_source",
+      "verdict": "PASS",
+      "receipt": "scientific_theory-correction-assessment.json",
+      "sha256": "2ecc1f013454e82b5d4440cbc583066bc63c7a864e53c08d2d34633d4471008d",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "scientific_implementation": {
+      "agent": "/root/issue160_scientific_implementation_6d_review",
+      "verdict": "PASS",
+      "receipt": "scientific_implementation-correction-assessment.json",
+      "sha256": "2f7877dfd89725936d0dc21fa6ce559b90004cf79b1aac7e7f6dd51c0ec8e442",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "software_architecture": {
+      "agent": "/root/issue161_c3_whole_architecture_source",
+      "verdict": "PASS",
+      "receipt": "software_architecture-correction-assessment.json",
+      "sha256": "76d322e19029282efe76f5dcde41942233b4179339b83e2c8d7115ba50acaee0",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "performance": {
+      "agent": "/root/issue160_performance_6d_whole_review",
+      "verdict": "PASS",
+      "receipt": "performance-correction-assessment.json",
+      "sha256": "f79e7917f0d9078151c8721485c4ea7e49a52d423fca4d9dd2b730d019c44545",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "ui_design": {
+      "agent": "/root/issue161_c3_whole_ui_source",
+      "verdict": "PASS",
+      "receipt": "ui_design-correction-assessment.json",
+      "sha256": "f0a53220affd5151aeccfbd0c79820cc23080d2afc80955bb7a54544f84f9fb1",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "ux_design": {
+      "agent": "/root/issue161_c3_whole_ux_source",
+      "verdict": "PASS",
+      "receipt": "ux_design-correction-assessment.json",
+      "sha256": "cf54f88911437392d323251598af9fe86b68ae488a248f4ffdf38b5b99227e3f",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    },
+    "modeling_reference": {
+      "agent": "/root/issue161_c3_whole_reference_source",
+      "verdict": "PASS",
+      "receipt": "modeling_reference-correction-assessment.json",
+      "sha256": "67cf44694d9a7c8d8d24ca09a301bb61810c2d314ed7fb7c0089aba13b579cb9",
+      "scope": "Preparatory whole-source only; not final feature readiness"
+    }
+  },
+  "reviewed_correction_subject": {
+    "recorded_utc": "2026-11-20T08:21:57.742302+00:00",
+    "candidate_base": "ae1a14fa6abfe2eccae4dfd3ac702acad7bf6a8d",
+    "scope": "One bounded source-oracle correction and its progress/acceptance/retention documentation; no production source edits",
+    "files": {
+      "tests/e2e/ligand-profiles-access.spec.ts": "99a8493b03d17418c662f1c47fc206b62121137174abc03a63a82143eb6ee6ac",
+      "docs/PROGRESS.md": "a7f3b017bf4d2c92ab87b99d469ad5660b5ebad8676513da3f3e71d0834f80d2",
+      "docs/plans/issue-161-ligand-information-sidebar.md": "7a1b9af4d004bb76e1fc2b03f08a22bb9bb9d855d73ce74db0da7cd6a06c7ad9"
+    },
+    "intervening_diff_sha256": "f5b9122e24017dc51751493e8641adc356efb0508c75e25982377d60c1cd73a6",
+    "source_validation": ".issue-11-evidence/issue161-profile-access-coverage-correction1/validation.json",
+    "final_feature_gate": "Incomplete; source reassessment only"
+  },
+  "post_review_documentation_only_delta": {
+    "reason": "Record the returned seven preparatory source verdicts and link this checkpoint; no application/test source change",
+    "current_document_hashes": {
+      "docs/PROGRESS.md": "25812fe2401d598d0b2e5cfd706a921a0ab1d8b603a5e15bc940f7c0dcfd254d",
+      "docs/plans/issue-161-ligand-information-sidebar.md": "badc803e0ce8464450fec80e0335df55e39e39152d3ffff50189a4e832822f17"
+    },
+    "reviewed_document_bodies": "Retained under correction/reviewed-subject; original subject/diff remain immutable",
+    "final_same_candidate_feature_gate": "Still pending actual predecessor integration and full qualification"
+  },
+  "scope_limits": [
+    "No production/cache/persistence/schema/dependency/version/workload/latency changes",
+    "Actual complete36 and minimumresizeddesktopgeometry pending",
+    "Actualreleased160/public038baseline/final039sources absent",
+    "Actualprimary/inheritedmeasurements/compatibility/fullcandidate/mergedgates pending",
+    "All7finalsamecandidatefeature approval, normalmerge/release/publication/closeout pending",
+    "Earlier native histories remain separately retained; this packet does not contain all original runs"
+  ],
+  "retention": "Complete newly owned performance companions must be discovered/retained across3namespaces for both eventual gates, beyond inline hash lists.",
+  "portable_evidence": {
+    "path": "docs/assets/ligand-information/c3-cached-report-coverage-evidence.zip",
+    "bytes": 263494,
+    "sha256": "cfe860a244cde6485d1e852836cf1bacee4818cf270afe18517ae5c177d0377d",
+    "outer_manifest_entries": 42,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 42,
+      "project_archive_files": 0
+    }
+  }
+}

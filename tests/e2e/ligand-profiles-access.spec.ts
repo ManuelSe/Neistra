@@ -163,8 +163,17 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
           instance_id: sourceEntry.ligand_designation.instance_id, atom_ids: sourceEntry.ligand_designation.atom_ids });
         expect(delivered.request.entries).toEqual([ready.source]);
         expect(delivered.request.descriptor_ids).toEqual(["molecular_weight", "hbd", "hba", "calculated_logp"]);
-        expect(ready.report?.coverage).toEqual(["molecular_weight", "hbd", "hba", "calculated_logp"]);
-        expect(ready.report?.values.every(value => value.status === "ready" && value.value !== null)).toBe(true);
+        // Shared cache reports may contain additional descriptors. The requested
+        // profile rows must be current and finite without constraining other rows.
+        expect(ready.report).not.toBeNull();
+        expect(ready.report!.coverage).toEqual(expect.arrayContaining(delivered.request.descriptor_ids));
+        expect(new Set(ready.report!.values.map(value => value.descriptor_id)).size).toBe(ready.report!.values.length);
+        for (const descriptorId of delivered.request.descriptor_ids) {
+          const value = ready.report!.values.find(value => value.descriptor_id === descriptorId);
+          expect(value).toMatchObject({ status: "ready", reason: null });
+          expect(typeof value!.value).toBe("number");
+          expect(Number.isFinite(value!.value)).toBe(true);
+        }
         expect(await focusedInput!.evaluate(node => node.isConnected && document.activeElement === node)).toBe(true);
         // Read after insertion without scrolling; otherwise a clipped input could be hidden by the test itself.
         const inputAfter = await input.evaluate(node => {

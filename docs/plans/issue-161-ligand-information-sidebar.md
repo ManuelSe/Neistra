@@ -690,3 +690,41 @@ and the meaningful closed-interval red control. No native benchmark, new chemist
 qualification, actual release pin or complete feature gate is claimed. Full current
 36-case acceptance, actual released #160 integration, final versions, measurements,
 compatibility, both complete gates and final same-candidate review remain required.
+
+### C3 source-review correction — accept legitimate cached report supersets
+
+Whole scientific implementation review of `ae1a14fa` found one P2 in the retained
+profile access oracle: exact returned coverage of four descriptors rejects a valid
+cached superset. The existing producer intentionally returns its complete associated
+report whenever requested coverage is contained. Keep the outgoing Ro5 request
+exactly four descriptors; require those IDs in returned coverage, unique value rows
+and ready, reason-free, finite numerical values for each requested row. Unrequested
+optional unavailable/error rows do not invalidate these four results. Change no
+production report, cache, workload, source, layout or timing behavior.
+
+Preserve the original source and its meaningful refusal of an actual retained
+eight-descriptor ethanol report. Seventeen source-extracted controls cover exact
+and superset reports, optional failures, missing/duplicate requested data, invalid
+numbers, wrong requests and absent reports. Strict TypeScript checks on original
+and candidate pass; scoped typechecked lint passes. The first lint wrapper lacked
+Node declarations; retain that failure and corrected wrapper configuration. All
+source outside the bounded assertion block remains byte-identical. Actual current
+native execution remains required; these source controls do not replace it.
+
+All seven preliminary whole-source assessments PASS `ae1a14fa` plus the bounded
+correction and its reviewed documentation, with the scientific P2 resolved through
+reassessment. The [correction checkpoint](../assets/ligand-information/c3-cached-report-coverage-checkpoint.json)
+retains their exact subject and evidence. These are not final feature approvals.
+UI review identifies an
+unconfirmed minimum-width risk: qualify the actual Inspector at its minimum resized
+width around 841–1000px desktop viewports, including both header actions and both
+views. Existing 1440px/actual-zoom/320px evidence does not prove that geometry.
+Investigate before any styling correction; preserve full current acceptance.
+
+For each eventual candidate and merged gate, snapshot all three external performance
+namespaces before launch: `issue161-primary-performance`, `issue160-profile-performance`
+and `issue159-performance`. After positive owned cleanup and raw store copies,
+retain complete newly owned case companion trees and explicitly include them through
+the release packager's supplemental-evidence seam. JSON companion inventories alone
+do not retain image, source, preflight or observer bodies. Preserve failed attempts
+and keep large supplemental parts in owned ignored staging under the existing bound.
