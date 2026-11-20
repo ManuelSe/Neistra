@@ -56,12 +56,12 @@ prior domain/source-recovery/query-scaling packets and all failed/red attempts a
 retained; historical counts are not pooled into a complete current release gate.
 See the [current checkpoint](assets/ligand-profiles/c3-source-bound-qualification-checkpoint.json).
 
-Independent scoped architecture and scientific-theory assessments also PASS the
+Independent scoped architecture and scientific-implementation assessments also PASS the
 actual compatibility evidence: 69 closed raw pairs, 284 archives, both producer
 origins and genuine numerical vectors. See the [actual compatibility checkpoint](assets/ligand-profiles/c3-actual-compatibility-checkpoint.json).
 
 The correction passes 22 Python and 14 Vitest cases, scoped lint/types, and an
-independent scoped performance and scientific-theory assessments. Actual published-source
+independent scoped performance and scientific-implementation assessments. Actual published-source
 hashes remain
 separate from independent no-recovery numerical vectors. The predecessor-baseline
 correction passes 165 Python cases and preserves the full original 640-case report
@@ -71,6 +71,25 @@ Native3 focused qualification and independent scoped scientific/performance revi
 PASS at `3926426e`: 5 cold selections and 20 warm switches per browser, zero new
 warm jobs/allocations/demands, 1,181 stable source/data files and 3 closed raw pairs.
 The passing 322-payload and failed 1,506-payload packets verify all CRC/hashes.
+
+The [review-attribution erratum](assets/ligand-profiles/c3-review-attribution-erratum.json) corrects
+three scoped records previously labelled scientific theory. Those assessments were
+scientific implementation; original evidence is preserved. The separate whole-feature
+theory review and all seven final verdicts remain distinct required gates.
+
+The first full gate stopped in Python: 3,996 passed and 47 failed at one inherited
+version guard before archive round-trip work. Correcting the guard to 0.38.0 and
+adding historical 0.37.0 coverage passes all 52 archive cases; the remaining
+preservation assertions are unchanged. Positive cleanup and 45 raw pairs verify.
+The complete failed gate/source/store packet is retained; a fresh `c4-candidate2`
+43-command recipe is prepared. This is not a passing full release gate.
+
+The current complete frontend preflight passes lint, types, all 1,875 tests and
+production build. Its first run exposed an unchanged eight-case bulk-validation
+test near the five-second ceiling. A measured test-only correction preserves the
+literal reference/801-step control and all 200 status, 21 report and 420 descriptor
+fault cases, with identical independent pointwise checks and the same deadline.
+Independent performance assessment PASS covers that correction.
 
 ## Known limitations
 
@@ -91,6 +110,7 @@ parent exclusions. Other sessions and the user's dirty master checkout remain in
 
 ## Next action
 
-Run the prepared complete 43-command candidate gate from a clean committed state,
+Qualify current profile correctness/accessibility workflows, then run the fresh
+`c4-candidate2` complete 43-command gate from a clean committed state,
 then obtain all seven final feature assessments and continue normal delivery. Continue #160–#163 and verified parent closeout under
 the same active Goal and scope.

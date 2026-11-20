@@ -63,7 +63,7 @@
     "scoped_typescript": "PASS",
     "independent_scoped_performance": "PASS",
     "native_corrected_run": "PENDING",
-    "independent_scoped_scientific_theory": "PASS"
+    "independent_scoped_scientific_implementation": "PASS"
   },
   "published_predecessor_baseline": {
     "focused_python_tests": 165,
@@ -94,5 +94,6 @@
     "Verified immutable v0.38.0 release and required public assets",
     "Closeout and safe cleanup",
     "161,162,163 and integrated parent closeout"
-  ]
+  ],
+  "review_attribution_erratum": "c3-review-attribution-erratum.json"
 }

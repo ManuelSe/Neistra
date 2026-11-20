@@ -688,7 +688,7 @@ At frozen candidate `ceceadb6562a9f4a7f257af95e62a67f4cd6758e`, both actual
 current and 1,133 predecessor source bodies remain unchanged. Both genuine
 producer origins, all nine private-state families, both archive suffixes, ten
 descriptors and all 17 unchanged migrations verify. Independent scoped architecture
-and scientific-theory assessments PASS after retained-only inspection of 69 closed
+and scientific-implementation assessments PASS after retained-only inspection of 69 closed
 raw database/sidecar pairs, 284 archive CRC/manifests and genuine numerical vectors.
 The original receipt timing wording is retained and separately clarified; cleanup
 evidence is unaffected. See the [actual compatibility checkpoint](../assets/ligand-profiles/c3-actual-compatibility-checkpoint.json).
@@ -709,7 +709,7 @@ actual published edit/Undo/Redo verification after the measured READY timestamp,
 visible feedback qualification, and live-demand cleanup distinct from released
 consumer retention. The five test-only files pass 22 genuine/negative Python cases
 with zero skips, 14 Vitest cases, Ruff, mypy, ESLint and scoped TypeScript. Independent
-scoped performance and scientific-theory assessments PASS cover those exact bodies; corrected native
+scoped performance and scientific-implementation assessments PASS cover those exact bodies; corrected native
 execution is still pending. Original failed evidence is preserved.
 
 The actual predecessor's original published 0.37.0 summary and compressed browser
@@ -768,3 +768,53 @@ The complete 43-command candidate recipe is prepared at `c4-candidate1-recipe.js
 against actual annotated v0.37.0 and its independently frozen 1,133-source environment.
 Commit this evidence and recipe before running it. Full candidate/actual-merge gates,
 all seven final feature assessments and normal protected delivery remain required.
+
+### Review-attribution erratum
+
+The primary incorrectly labelled three scoped scientific-implementation assessments
+as scientific theory. Correct the current fields and corresponding prose; preserve
+the original record bodies, packet bytes and historical commit. The [explicit erratum](../assets/ligand-profiles/c3-review-attribution-erratum.json)
+records before/after identities and the actual agent assignment. The separate
+whole-feature scientific-theory review does not retroactively relabel prior work.
+All seven final same-candidate verdicts remain required.
+
+### Complete-gate attempt 1 — archive guard corrected, rerun required
+
+Frozen `4cd65fff` passes the first eight commands, then Python exits one with
+3,996 passed and 47 failed. Every failure stops at the inherited explicit 0.37.0
+version guard before its round-trip body. Update that guard to 0.38.0 and add
+0.37.0 to the historical matrix; all 52 archive cases now pass with unchanged
+export/import, original, state and UUID-remapping assertions. No production archive
+change or data-loss finding follows from this guard failure.
+
+All 1,181 source/data bodies stayed exact during the failed gate. Positive cleanup
+and 45 raw original/copy pairs verify before primary diagnostic SQL. The complete
+293-payload failed packet retains logs, source bodies and every owned run/store;
+all eight ZIP CRCs, 298 manifest bodies and ten portable-project files verify.
+See the [correction checkpoint](../assets/ligand-profiles/c3-c4-candidate1-correction-checkpoint.json).
+
+Whole-feature scientific implementation and theory reviews require the now-explicit
+attribution correction; architecture, performance, UI and UX retain outstanding
+current full-gate evidence. None has cleared the final seven-role readiness gate.
+The fresh `c4-candidate2` recipe repeats all 43 commands from a clean coherent commit;
+no partial command or preparatory native result substitutes for that gate.
+
+### Current frontend preflight — full suite passes after measured test correction
+
+The initial current frontend run passes 1,874 cases but the unchanged descriptor
+fault matrix times out at 5,036 ms against its original 5,000-ms limit. Actual
+released-predecessor observations already ranged 4,186–4,848 ms. CPU profiling
+attributes most work to repeated successful matcher bookkeeping in the independent
+reference; the production collector is unchanged. Preserve the literal reference
+and its 801-versus-two accounting case. Use equivalent independent lightweight
+pointwise assertions for all 200 status positions, 21 report faults and 420 descriptor
+faults, retaining native malformed-value throws and source ordering. No deadline,
+case count, loop bound, production collector, configuration or exclusion changes.
+
+Controlled copies measure descriptor-matrix 1,688–1,733 ms before and 229–250 ms
+after, with all eight cases passing; these are test-harness observations only. An
+independent performance assessment PASS covers the authored body. The actual current
+full frontend lint, types, 1,875 tests in 142 files and production build now pass;
+the entire eight-case bulk file takes 1,911 ms under full-suite concurrency. Preserve
+the original failing run and profiling evidence. Current real profile/access native
+preflight and the fresh complete 43-command gate remain required.

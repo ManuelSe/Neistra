@@ -92,7 +92,6 @@
       }
     }
   },
-  "independent_scoped_scientific_theory": "PASS",
   "independent_scoped_performance": "PASS",
   "timing_policy": "Portable D-148; all timings retained, strict-host enforcement not selected; no speedup claim",
   "desktop_portable_target_misses": [
@@ -214,5 +213,7 @@
     "Fresh exact merged43command gate",
     "Immutable annotated038tag/publishedrelease/requiredanonymousassetverification",
     "Issue and parent program closeout after remaining children"
-  ]
+  ],
+  "independent_scoped_scientific_implementation": "PASS",
+  "review_attribution_erratum": "c3-review-attribution-erratum.json"
 }

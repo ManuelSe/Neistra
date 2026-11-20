@@ -17,7 +17,6 @@
   "closed_raw_pairs": 69,
   "archive_crc_and_manifest_verified": 284,
   "independent_scoped_architecture": "PASS",
-  "independent_scoped_scientific_theory": "PASS",
   "evidence_directory": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual-shared-schema1",
   "evidence": {
     "execution.json": {
@@ -38,7 +37,12 @@
     },
     "scientific-theory-actual-scoped-assessment.json": {
       "bytes": 1555,
-      "sha256": "d0ea165a909d8004c82a7d88b079f4cce973c0edca823f5f96ca4266abae6dea"
+      "sha256": "d0ea165a909d8004c82a7d88b079f4cce973c0edca823f5f96ca4266abae6dea",
+      "scope": "Historical primary role-label error; original bytes retained, corrected attribution recorded separately."
+    },
+    "scientific-implementation-actual-scoped-assessment-corrected.json": {
+      "bytes": 2200,
+      "sha256": "d47a98d2268dd6af02f7c89a7d3ae61c1a3f261e8df3274864d2e9c71140cca3"
     }
   },
   "native_first_attempt": {
@@ -62,5 +66,7 @@
     "Full anonymous required asset verification",
     "Issue closeout and safe owned cleanup"
   ],
-  "no_implementation_push_pr_tag_release_or_closeout_claimed": true
+  "no_implementation_push_pr_tag_release_or_closeout_claimed": true,
+  "independent_scoped_scientific_implementation": "PASS",
+  "review_attribution_erratum": "c3-review-attribution-erratum.json"
 }
