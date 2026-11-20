@@ -725,3 +725,17 @@ Repository Ruff and current diff check pass. No production code, dependency,
 migration, original fixture, inherited workload/deadline/exclusion or performance
 target changes in this correction. Freeze the coherent commit for fresh isolated
 desktop/mobile measurements, then complete both full gates and final review/release.
+
+### Native attempt 2 — desktop passes, mobile dismissal corrected
+
+At `4c72b121`, desktop passes all 32 measurements. Mobile completes five genuine
+cold selections and twenty warm switches, then fails dismissal before editing: the
+harness focuses a non-focusable inspector container before Escape. This is not
+complete mobile or two-browser qualification. Both observers close, services/ports
+are absent, all 1,181 selected files stay exact, and three raw database/sidecar pairs
+are copied and reverified before primary diagnostic SQL. All failed artifacts remain.
+
+The bounded correction focuses and verifies the existing Entry control before
+Escape, matching established property/profile workflows. Scoped ESLint, TypeScript
+and all 14 measurement unit controls pass. No production behavior, oracle, workload,
+deadline or target changes. See the [attempt/correction checkpoint](../assets/ligand-profiles/c3-native2-inspector-focus-checkpoint.json); repeat both browsers with a new store/evidence label.

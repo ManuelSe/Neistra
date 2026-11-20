@@ -38,7 +38,11 @@ async function inspect(page: Page, entry: Entry) {
 }
 async function closeInspector(page: Page) {
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
-  if (await drawer.isVisible()) { await drawer.focus(); await page.keyboard.press("Escape"); await expect(drawer).toBeHidden(); }
+  if (await drawer.isVisible()) {
+    const control = drawer.getByRole("combobox", { name: "Entry", exact: true });
+    await control.focus(); await expect(control).toBeFocused();
+    await page.keyboard.press("Escape"); await expect(drawer).toBeHidden();
+  }
 }
 async function open(page: Page, project: Project) {
   await page.goto("/"); await page.getByRole("button", { name: "Projects", exact: true }).click();

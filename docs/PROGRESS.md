@@ -30,7 +30,9 @@ the inherited workload, classify actual cache coverage and record browser clocks
 source identity and bounded work. Their first native attempt fails an input-hash
 assertion; its complete evidence and three closed raw database/sidecar copies are
 retained. The corrected test-only harness passes focused validation; its fresh
-native execution remains pending.
+native attempt passes desktop and all mobile cold/warm samples, then fails mobile
+inspector dismissal before editing. A test-only focus correction passes scoped
+lint/types and 14 unit controls; fresh complete desktop/mobile execution is pending.
 
 ## Verification performed
 
