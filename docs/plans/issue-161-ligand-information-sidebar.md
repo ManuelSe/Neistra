@@ -528,7 +528,7 @@ The inherited profile benchmark already runs in the primary sidebar. Preserve it
 five genuinely classified first selections, twenty warm switches, edit/history,
 metadata recovery, clocks, scientific oracles, deadlines and bounds. Its observer
 terminates on legacy criteria rows; identity/depiction activate before that trigger.
-Add a short complementary spec/helper under `tests/e2e/ligand-information-performance.spec.ts`
+Add a short complementary spec/helper under `tests/e2e/ligand-sidebar-performance.spec.ts`
 and `tests/e2e/support/ligand-information-performance.ts` for desktop and mobile320:
 
 - Use the existing frozen editable 10- and 86-heavy-atom specimens. Measure trusted
@@ -592,3 +592,101 @@ Retain complete case companions/source identities/originals, positive observer
 termination and closed raw pairs. Complete current 36-case acceptance, compatibility,
 candidate and actual-merged gates, all seven final assessments and normal delivery
 remain required. No performance results or implementation are claimed here.
+
+
+### C3 qualification namespace — bounded preparation before predecessor publication
+
+Authorized within the existing C3 scope; not individually reviewed. Architecture
+intake permits preparing six new helpers under `assets/ligand-information`:
+`qualification.py.txt`, `release-recipe.py.txt`, `versions.py.txt`,
+`production-audit.py.txt`, `qualification-summary.py.txt` and `release-evidence.py.txt`.
+Keep the literal earlier helpers and same-schema v2 actors unchanged. Add meaningful
+pure refusal/assembly controls in `tests/unit/test_ligand_information_qualification.py`.
+This framework preparation is not actual qualification or evidence that v0.38.0
+exists. Real recipe creation/execution must refuse absent verified release pins.
+
+The selected source catalogue includes earlier helper generations and these six,
+all existing application/test/tool/config roots, and both generations of baseline
+DATA: the three existing `ligand-profiles/preceding-v0.37.0` files plus three new
+`ligand-information/preceding-v0.38.0` files. Use stable internal aliases
+`qualified-merged-summary.json`, `qualified-merged-browser.json.gz` and
+`provenance.json` for the latter, explicitly mapping them to the actual published
+member paths once those are known. Do not invent a successful merged-run label,
+member name, commit, hash, case count or source count. Summary/browser bodies remain
+original bytes, with their public/nested manifest provenance independently verified.
+
+Keep the new predecessor browser authority specific to its three actual v0.38.0
+files. Freeze a separate complete six-file data inventory before/after every gate.
+Before actors run, require exact predecessor source-map equality with the literal
+v0.38.0 runner's catalogue and the actual extraction receipt; omitting earlier DATA
+or helper paths must fail rather than silently narrowing coverage. The published
+release makes its actual source/case/exclusion counts authoritative.
+
+Retain all 43 gate responsibilities, scientific/state families, both producer
+origins/suffixes, source/interpreter/schema/library proofs, lossless logs, source
+freeze, positive cleanup and actual merged qualification. Sidebar view choices are
+transient consumer state, qualified through native UI/session controls rather than
+new durable fields or scientific actors. Prepare consistent 0.39.0 sources only
+after the actual prerequisite delivery and release/version collision check.
+
+Package both baseline generations under version-qualified members such as
+`qualification-data/v0.37.0/...` and `qualification-data/v0.38.0/...`; flattening
+identical basenames loses authority. Include current preparation records, the child
+plan, complete candidate/merged cases and reader payloads. Refusal controls cover
+missing/wrong/lightweight tags or release pins, altered/missing/aliased data,
+incomplete/retried/unexpected predecessor cases, duplicate identities or changed
+exclusion sets, source-catalogue omissions, omitted gate responsibilities, changed
+actor authority and missing/colliding package members. Synthetic fixtures prove
+these guard functions only, never a release or a completed campaign.
+
+Actual qualification still requires the remotely verified annotated v0.38.0 tag,
+peeled merged commit/ancestry, original extraction receipt and environment, anonymous
+public qualification download with complete nested SHA/CRC/manifests, exact actual
+summary/browser bodies and pinned provenance. No mutable-global patching of frozen
+helpers, fallback to v0.37.0, fabricated placeholders or implicit weak-mode pass.
+
+
+C3 workload-order refinement: the complementary spec was initially named
+ligand-information-performance, which would sort before the retained cold profile
+campaign while calculating two of the same inputs. Its final name is
+`ligand-sidebar-performance.spec.ts`, after the inherited profile/property campaigns.
+The helper/unit names remain. Preserve the serial one-worker configuration, fresh
+owned store and actual dry inventory order proof for each project. Do not alter
+fixtures, clear shared caches, relax genuine-cold classification or count warm
+coverage as cold. This is a test-order correction, not a workload reduction.
+
+The new recipe sets existing `NEISTRA_PROFILE_REQUIRE_COLD=1` so each required
+first selection proves genuinely missing numerical coverage. This strengthens the
+explicit workload guard, not D-148 timing enforcement. Refuse a pre-existing e2e
+store, nonserial execution, reordered inventory or a weakened cold setting;
+never clear caches or alter specimens to manufacture a cold result.
+
+### C3 prepared checkpoint — source checks before actual predecessor delivery
+
+The bounded preparation is implemented locally on the C2 checkpoint. Six new
+qualification helpers and 108 synthetic guard controls preserve the literal prior
+helpers, actors and data. Real recipe construction refuses absent actual v0.38.0
+publication authority; none has been fabricated. The complement's final filename
+preserves cold-workload order. Five retained-driver navigation calls preserve its
+scientific workloads, assertions and measured boundaries.
+
+Independent performance review found that the initial hidden-request sample ended
+before awaited reopen setup and therefore could miss an initiation while the pane
+was still closed. Preserve that original source and failing control. The correction
+uses browser-local initiation order from before close setup through the actual
+trusted reopen event, before application handling; equal timestamps remain ordered.
+It refuses missing, duplicated, untrusted or inconsistent markers. The original
+request sample remains accurately labeled as an earlier observation. Fifty pure
+controls and strict native TypeScript, web types and lint pass. Scoped performance
+and scientific implementation assessments PASS the corrected source; scoped
+architecture assessment PASS the seven framework files. These are not all seven
+final feature verdicts.
+
+Fresh integrated checks pass 2,023 frontend cases in 150 files and 108 synthetic
+framework cases, with all 11 preparation source bodies unchanged. The
+[checkpoint](../assets/ligand-information/c3-qualification-preparation-checkpoint.json)
+binds a portable source/log/assessment packet, including original author failures
+and the meaningful closed-interval red control. No native benchmark, new chemistry
+qualification, actual release pin or complete feature gate is claimed. Full current
+36-case acceptance, actual released #160 integration, final versions, measurements,
+compatibility, both complete gates and final same-candidate review remain required.

@@ -10241,3 +10241,46 @@ observe passively and leave server drawing-cache status unknown without independ
 nonwarming evidence. Hidden drawing suppression and automatic committed numerical
 refresh have separate ownership. Final measurements still require released #160,
 complete source-bound qualification and the existing seven-role/release gates.
+
+
+### D-193 qualification refinement — retain both predecessor data generations
+
+Prepare an issue-specific six-helper namespace while preserving the literal earlier
+helpers and parameterized same-schema v2 actors. The actual preceding v0.38.0 source
+catalogue includes its retained v0.37.0 baseline data. New qualification must freeze
+all six data files, independently validate the actual v0.38.0 browser baseline and
+prove exact predecessor-catalogue/extraction equality. A three-file-only replacement
+would silently discard previously qualified sources. Version-qualified package
+paths prevent collisions between baseline generations with common filenames.
+
+Real release pins and original published summary/browser identities do not exist
+yet for this preparation; refuse real recipe creation/execution until verified
+prerequisite publication supplies them. Pure synthetic guard tests may establish
+refusal and packaging behavior, not actual release qualification. This introduces
+no durable application state or new scientific method. The child plan records
+files, source/data contracts and the unchanged full gate responsibilities.
+
+
+C3 workload-order addendum: place the new primary presentation complement after the
+inherited profile/property campaigns using `ligand-sidebar-performance.spec.ts`.
+Its earlier proposed filename could prewarm shared 10/86 input hashes before the
+five required cold selections. Preserve fresh-store serial execution and verify
+inventory order; retain strict cold classification and every original fixture.
+
+Use the existing require-cold option in the new recipe to enforce the accepted five
+genuine first selections. Keep portable timing enforcement unchanged. Fresh-store,
+serial-order and cold-classification refusal checks protect workload identity.
+
+### D-193 measurement correction — close the hidden request interval at trusted activation
+
+An early Node-side request sample before the reopen helper leaves awaited control
+discovery, observation arming and click setup outside the hidden-pane proof. Retain
+that sample as an earlier observation. Use one browser-local sequence for drawing
+fetch initiations and conservative pre-close, confirmed-absent and actual trusted
+reopen markers. Capture reopening before application event handling; legitimate
+post-trigger drawing remains allowed. Sequence order resolves equal timestamps.
+Require complete, unique, ordered and visibility-consistent markers, without
+changing the production request or forwarding it more than once. A meaningful
+old-mechanism control misses an initiation during awaited setup; the corrected
+proof rejects it. This tightens test evidence, adds no application state and makes
+no runtime suppression claim before actual browser qualification.

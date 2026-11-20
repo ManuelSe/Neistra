@@ -91,6 +91,25 @@ binds its verified 26,131,382-byte packet: 146 payloads, 12 ZIPs, 151 manifest e
 and 18 project files. Earlier complete native histories remain separately retained
 and require final publication; this packet does not claim to contain them all.
 
+C3 preparation adds source-bound primary header/image/chart measurements, settled
+reopening and hidden automatic-edit controls, with five explicit retained-driver
+navigation calls. Its complement runs after the inherited cold campaigns; a
+server-free inventory proves the order of 698 declared cases, not their execution.
+Review exposed a gap between the early hidden-request sample and the actual
+reopen click. Browser initiation markers now cover that complete interval,
+including awaited setup, with a meaningful failing control and 50 passing pure
+controls. Scoped scientific implementation and performance assessments PASS.
+
+Six new qualification helpers preserve all 43 responsibilities, literal earlier
+helpers/actors, both baseline-data generations and version-qualified packaging.
+They refuse real recipe creation until actual public v0.38.0 authority is pinned.
+Scoped architecture assessment PASS; 108 synthetic guard controls, strict unit
+typing and Ruff pass. Fresh integrated verification passes 2,023 frontend cases
+across 150 files plus those 108 synthetic controls, with all 11 new/changed QA
+bodies fixed. These results establish preparation only. The
+[C3 checkpoint](assets/ligand-information/c3-qualification-preparation-checkpoint.json)
+retains sources, original author attempts, static logs and actual scoped reviews.
+
 ## Known limitations
 
 No current #161 readiness, implementation push, PR, release or closeout is claimed.
@@ -99,9 +118,9 @@ preceding-reader/archive qualification, all seven final same-candidate assessmen
 and complete candidate/exact-merged gates remain outstanding. Remaining sidebar
 acceptance requires the complete current coordinate/movement/minimization preview,
 archive reconstruction and held project A→B→A campaign after both corrections.
-The failed 36-case campaign is not a current complete PASS. Primary-view measurements,
-inherited benchmark navigation reconciliation and prior failed-run publication
-remain outstanding. #153 diagram delivery and all other
+The failed 36-case campaign is not a current complete PASS. Actual primary-view
+measurements, runtime qualification of the reconciled benchmark navigation and
+prior failed-run publication remain outstanding. #153 diagram delivery and all other
 parent exclusions remain outside scope.
 
 ## Blockers
@@ -110,8 +129,10 @@ No external blocker. Respect serial release order and preserve prior evidence.
 
 ## Next action
 
-Commit the passing scoped recovery/focus checkpoint. Prepare the bounded primary
-measurement complement and explicit retained-driver navigation without changing
-scientific workloads, clocks or bounds. Finish #160 delivery, integrate its actual released commit,
+Retain the passing C3 preparation checkpoint. Finish #160 delivery, integrate its
+actual released commit and independently verified published baseline, prepare all
+five v0.39.0 version sources, then run the complete current native acceptance and
+actual primary/retained measurements without changing scientific workloads, clocks
+or bounds. Complete the remaining compatibility and full release gates,
 then qualify #161 and continue #162/#163 through verified parent closeout under
 the same active Goal.
