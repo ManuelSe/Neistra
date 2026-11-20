@@ -6,7 +6,9 @@ Parent #11 remains active. #156–#159 are fully released and closed. #159's run
 v0.37.0, terminal PR #179, all 27 anonymous asset checks, canonical reply and three
 owned branch removals are verified. #160 integrates that actual prerequisite at
 `7fa1a7fc`; all five versions are now prepared for 0.38.0. No v0.38.0 publication
-is claimed. #161 awaits released #160; #162/#163 remain planned, not implemented.
+is claimed. #161 has a separate reversible prerequisite merge with passing lint,
+types, build, 326 focused frontend and 52 archive cases; actual released #160 and
+its own final qualification remain required. #162/#163 remain planned, not implemented.
 
 ## Completed work
 
@@ -101,6 +103,24 @@ commits are explicitly hybrid keyboard/touch. Extra strict E2E diagnostics remai
 equivalent, not passing: one unchanged imported-helper type error and 12 unchanged
 legacy unsafe-any lint findings, with zero introduced diagnostics.
 
+The second complete campaign at `b14670a0` passes its first nine commands,
+including all 4,044 Python cases. A separate unchanged mobile hardening probe
+reproduces an inherited keyboard oracle that skips the newly present Profile
+selector. The primary intentionally stops the campaign after Python, interrupting
+its newly started lint child; 33 later commands never start. This is NOT PASS.
+All source/predecessor/data maps remain fixed, owned processes and ports close,
+and 45 raw pairs verify. Original enclosing session status 143 and unavailable
+runner OS status are preserved with the independent observer and exact stop record.
+
+A five-line test-only addition explicitly checks and traverses Profile between
+Options and Methods. Every earlier assertion, deadline and exclusion remains.
+The complete affected hardening file passes five cases with one unchanged authored
+mobile performance exclusion, no failures/flakes/retries or report errors. Its
+three raw pairs verify; failed probe/raws and complete interrupted campaign remain
+preserved. A fresh `c4-candidate3` recipe retains all 43 original commands. The
+[interruption checkpoint](assets/ligand-profiles/c3-c4-candidate2-interruption-checkpoint.json)
+binds the verified 71,032,482-byte, 361-payload portable packet.
+
 ## Known limitations
 
 Complete native coverage and both full release gates remain outstanding. Focused
@@ -120,6 +140,6 @@ parent exclusions. Other sessions and the user's dirty master checkout remain in
 
 ## Next action
 
-Run the fresh `c4-candidate2` complete 43-command gate from a clean committed state,
+Run the fresh `c4-candidate3` complete 43-command gate from a clean committed state,
 then obtain all seven final feature assessments and continue normal delivery. Continue #160–#163 and verified parent closeout under
 the same active Goal and scope.

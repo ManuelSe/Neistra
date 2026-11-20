@@ -872,3 +872,40 @@ entries and ten project files. See the [trusted-touch checkpoint](../assets/liga
 The current whole-feature theory assessment clears its scientific findings; all
 seven final same-candidate reconfirmations and the fresh complete43 candidate/merged
 gates remain required. Start committed `c4-candidate2` with every original command.
+
+
+### Second full campaign interrupted after independently reproduced keyboard oracle defect
+
+Candidate `b14670a0` completes nine recorded commands, including 4,044 Python
+passes with zero skips/failures. Its enclosing launcher session returns 143 while
+the isolated runner continues. Preserve the original status and explicitly unknown
+runner OS wait status; an independent pidfd/starttime observer tracks that same
+runner and terminal cleanup. No duplicate campaign starts.
+
+A bounded unchanged hardening probe reproduces the next consequential problem:
+mobile keyboard traversal expects Methods immediately after Property options,
+while the new enabled Profile selector correctly receives focus. The retained
+error snapshot identifies Profile as active. This is an inherited test-order
+mistake, not a demonstrated product focus defect. The primary waits for Python,
+then verifies exact runner/child/session identity and intentionally interrupts the
+newly started lint child and runner. Nine commands completed, lint is incomplete,
+and 33 later commands never ran. The campaign is **INTENTIONALLY_ABORTED / NOT PASS**.
+All original stdout/logs, source/predecessor/data maps, observer/stop provenance,
+owned stores, 44 fixture outputs and 45 closed original/raw pairs are preserved.
+Positive process/port closure and raw rehashes precede source edits and diagnostic
+SQL. Architecture independently supports the controlled stop and honest evidence;
+it does not approve the incomplete campaign.
+
+Add five test lines identifying enabled Profile, checking its actual keyboard
+focus/value and pressing the extra Tab before the unchanged Methods and Selection
+focus assertions. No production code, original assertion, deadline, workload,
+retry or exclusion changes. The complete affected native file now passes five
+cases on desktop/mobile with one exact unchanged authored mobile performance
+exclusion, zero failures/flakes/retries/report errors, frozen 1,181-source maps,
+positive closure and three verified raw pairs. The original one-case failure and
+its three closed raw pairs remain separately retained. The fresh clean-candidate
+`c4-candidate3` recipe executes all 43 commands; no partial result substitutes for
+that new gate. All seven final same-candidate assessments and exact-merge gate
+remain mandatory before publication and closeout.
+
+The [interruption/correction checkpoint](../assets/ligand-profiles/c3-c4-candidate2-interruption-checkpoint.json) binds the 71,032,482-byte portable packet, 361 payloads, all 51 raw pairs and both exact source capsules. Independent recursive checks cover 16 ZIPs and 479 manifest entries; primary outer hashes/CRC verify. This evidence preserves the incomplete campaign and both native outcomes separately.
