@@ -2518,6 +2518,12 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   padding: 0 10px 14px;
 }
 
+.transform-panel .movement-launcher[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: default;
+  background: var(--action);
+}
+
 .ligand-editor,
 .protein-editor {
   display: grid;

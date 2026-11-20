@@ -420,3 +420,175 @@ and 214 project files verify. Retain all stores, artifacts, source capsule and p
 attempts. Commit this passing preparatory merge without claiming final readiness.
 Current #160 has since advanced to corrected `6d977c93` and fresh complete campaign3;
 actual released #160 history/tag/assets remain the required final integration basis.
+
+
+### Current-project return revalidation correction
+
+The new native acceptance run preserves its first six passes and subsequent
+minimization-oracle failure separately. Job links, result IDs and timestamps are
+operational completion records; the corrected oracle checks those records against
+the actual completed job while preserving molecular state, revision and history
+checks. The targeted rerun passes real minimization and then fails A→B→A before
+releasing the held old READY response.
+
+The trace shows an actual C→N edit advancing A's revision/current artifact while B
+is active. Returning to fresh cached A issues no project GET; the old artifact's
+property READ is correctly rejected with a semantic conflict. Revalidate only the
+existing App project query on project return and preserve cached higher revisions
+at the synchronous cache write, retaining ordinary deep structural sharing for
+accepted results. A separate controlled race reproduces why checking only inside
+the asynchronous query function is insufficient. Keep global query defaults, source barriers, deliberate
+targets and all native numerical/model/source oracles. See the appended D-193
+correction. Six focused App regressions cover fresh-cache server-source adoption,
+newer acknowledgement retention before query resolution and at the final write,
+late A/B ownership, unchanged-source work and project read failure/Retry. The
+final candidate passes all 60 cases across four App/source/navigation/workspace
+files, web lint, type checks and production build. Original fixture failures and
+the controlled query-function-only race failure remain retained separately.
+Actual native requalification remains required.
+
+This is local preparation on the unreleased prerequisite integration. It does not
+replace actual released #160 integration, v0.39.0 preparation, measured bounds,
+complete candidate/merged gates or all seven final same-candidate assessments.
+
+
+### Movement launcher focus correction — accepted bounded design before implementation
+
+Native movement-focus qualification completes the workflow but records body focus
+after both pointer and ordinary keyboard activation, before the helper deliberately
+focuses the Inspector header. The helper's modal Escape correction and the product
+activation defect remain separate. Preserve the failed whole36 campaign and the
+focused native activation observations.
+
+The agreed correction keeps only the TransformPanel Move selection launcher
+focusable, exposes aria-disabled for project busy/non-idle phases and guards the
+handler with that exact condition. A dedicated unavailable CSS rule defeats the
+generic hover background while preserving focus indication. Session admission,
+capture/pose, other controls, modal Escape and global Escape stay unchanged.
+Actual-component regressions must hold coordinate loading, test both activation
+methods and repeat pointer/Enter/Space without restarting. Busy-project refusal,
+modal Escape retaining movement, and existing More tools/canvas ordering remain
+acceptance requirements. Root will rerun native focus checks before helper focus
+and then the complete current sidebar campaign; no current readiness is claimed.
+
+
+Movement correction scoped verification: the three actual-component unavailable
+cases fail before the product correction and are preserved with their original
+source bodies. The corrected controls file passes all six cases; the final related
+suite passes 49 cases across six files, including the original movement queue,
+geometry, numerical-preview, compact-edit and history checks. Final lint and types
+pass after correcting one new test-only unnecessary async callback; that lint
+failure remains distinct. The production build passes with identical production
+and style bodies. Its only intervening source change is the test callback's
+synchronous act form, separately covered by final tests/types/lint. This reuse
+does not qualify browser focus or substitute for root's complete current gates.
+
+### Scoped recovery and focus checkpoint — verified native correction
+
+The atomic project-return correction passes its six new App regressions and four
+actual held-source A→B→A cases across both themes and desktop/mobile. Keep the
+original failure and query-function-only write-race reproduction separately.
+
+The later complete sidebar campaign remains FAILED: 23 passes, one invalid
+modal-focus-helper failure and 12 not run after the global stop, not new exclusions.
+Its functional one-case correction independently exposes actual BODY focus after
+both pointer and ordinary keyboard movement activation. The actual TransformPanel
+correction resolves this product finding rather than hiding it in the helper.
+
+Fresh verification passes all 1,973 frontend cases in 149 files, 49 focused movement
+cases and four complete coordinate/movement/archive cases on desktop/mobile in both
+themes. Native assertions inspect focus before helper intervention, require the
+focusable unavailable launcher, send ordinary Escape, check drawer dismissal and
+Inspector-trigger restoration, then preserve movement and all existing chemistry,
+coordinate, Cancel/Apply/Undo/Redo, reload, archive and original-upload assertions.
+All 285 original native assertions, cases, deadlines and exclusion declarations
+remain; scoped strict diagnostics are zero. All 1,198 source bodies and 11 working
+hashes remain fixed. Owned processes/ports close and three raw pairs verify before
+primary diagnostic SQL. Actual scoped architecture/UI/UX assessments PASS this
+frozen correction; complete feature qualification and all seven final verdicts
+remain pending. Documentation/evidence checkpoint additions do not relabel those
+scoped reviews as final-candidate approval.
+
+The [scoped checkpoint](../assets/ligand-information/c2-project-recovery-checkpoint.json)
+and 26,131,382-byte portable packet verify 146 payloads, 12 ZIP CRCs, 151 evidence
+manifest entries, 18 project files, 44 frozen-original entries, three raw pairs and
+11 immutable artifacts. The original 11 reviewed bodies are captured before this
+documentation/measurement-plan addendum; all 1,198 qualification bodies remain
+current. Earlier complete native histories are indexed as retained elsewhere and
+must be published separately. They are not pooled into the current four-case PASS.
+
+### C3 measurement refinement — primary presentation and retained navigation
+
+Authorized within the existing C3 scope; not individually reviewed. Independent
+performance, scientific-theory and scientific-implementation intake establishes the
+following bounded qualification before new test implementation. No new production
+scientific method, fixture family, dependency or calculation service is introduced.
+
+The inherited profile benchmark already runs in the primary sidebar. Preserve its
+five genuinely classified first selections, twenty warm switches, edit/history,
+metadata recovery, clocks, scientific oracles, deadlines and bounds. Its observer
+terminates on legacy criteria rows; identity/depiction activate before that trigger.
+Add a short complementary spec/helper under `tests/e2e/ligand-information-performance.spec.ts`
+and `tests/e2e/support/ligand-information-performance.ts` for desktop and mobile320:
+
+- Use the existing frozen editable 10- and 86-heavy-atom specimens. Measure trusted
+  Entry activation to exact qualified header and decoded image separately; require
+  the exact source and ready image's URL/content, `complete` and positive natural width.
+- Observe actual SVG/table completion for small Ro5 and large six-axis composite.
+  Derive expected values from independent preflight reports, apply registry operators
+  manually on unrounded values and compute plot positions analytically. Preserve
+  actual values and clipping; large specimens need not satisfy every criterion.
+- Record three settled close/reopen cycles within existing retention, stable target,
+  profile/preferences and source-qualified DOM counts, with no repeated descriptor
+  allocations/demands/jobs or drawing generation.
+- Perform one real automatic-policy atom-1 C→N edit through the existing viewer
+  control and normal App acknowledgement while the primary pane is truly closed.
+  Require fresh numerical READY before reopening and zero hidden drawing requests;
+  measure later header/image/comparison readiness separately. Count permitted
+  project/inventory reads rather than falsely asserting blanket zero network.
+
+Capture outgoing action, atom, hydrogen policy, acknowledgement, reconciliation and
+source membership. Match the independent automatic-policy trial. Terminal READY
+does not itself establish qualified chemistry: the separate preserve-policy C→N
+lifecycle example is unavailable and must not inherit finite-value/image/formula
+expectations. For these four positive qualified fixtures only, a test-only wrapper
+checks explicit ordinary C/H/N/O counts against frozen chemistry facts and literal
+formula pairs: desktop10 C10H22→C9H21N, desktop86 C86H174→C85H173N, mobile10
+C9H20O→C8H19NO and mobile86 C85H172O→C84H171NO. Charge zero requires those
+qualified source facts. Preserve distinct independent-numerical and published-source
+provenance hashes. Compare integers exactly and floating vectors using the existing
+absolute 1e-10, relative-zero tolerance; threshold decisions remain exact.
+
+Use registry axis order, center (120,120), radius 78 and linear normalization with
+position-only clipping. Qualified positive Ro5/composite cases have four/six spokes,
+legend/table rows and points, one polygon and the actual constraint count. Missing
+values never become zero or bridge absent axes. Existing C2 cases retain partial,
+unavailable, two-axis and charged-representation coverage.
+
+Use passive request/response/image observation; global routing can change browser
+caching. A drawing GET can generate content and is not a harmless cold preflight.
+Classify server drawing-cache status as unknown without independent nonwarming
+proof. Keep hidden retirement null when unobservable and automatic READY distinct
+from reopen latency. DOM readiness and frame observations do not prove compositor
+presentation. Keep D-148's numerical targets and portable policy unchanged; these
+new presentation clocks are observations, not invented 100 ms limits or speedup
+claims. Preserve D-201's 100/1,000-entry controls and inherited twenty-pair/four-1,000
+workloads; no additional bulk campaign is justified without measured need.
+
+The inherited profile driver also needs explicit navigation under the new default:
+import the primary/Tools helpers, restore primary in `inspect`, enter Tools before
+both Selection query setups, then return primary after each Apply query before
+the existing close helper. Keep that helper's desktop no-op and mobile Escape.
+Do not add pre-edit `showCriteria`: actual prior native3 Edit visibility was false
+for criteria/status/control and retirement null; desktop Undo/Redo were visible.
+Preserve actual flags/nulls when comparison height or scroll restoration changes.
+Keep all arm/request-start/click/ACK/READY/published-context/retry/hold boundaries;
+navigation inside a hold remains recorded time. The new complement separately
+performs actual desktop collapse. This is driver reconciliation, not a scientific
+workload or measurement-clock change.
+
+Final measurements require actual released #160 integration and consistent versions.
+Retain complete case companions/source identities/originals, positive observer
+termination and closed raw pairs. Complete current 36-case acceptance, compatibility,
+candidate and actual-merged gates, all seven final assessments and normal delivery
+remain required. No performance results or implementation are claimed here.

@@ -214,7 +214,7 @@ for (const theme of ["light", "dark"] as const) test(`keeps the primary publicat
       const sheet = page.getByRole("dialog", { name: "Inspector panel", exact: true });
       if (await sheet.isVisible()) { await sheet.focus(); await page.keyboard.press("Escape"); await expect(sheet).toBeHidden(); }
     }
-    // The runner's own context supplies an actual 320px viewport, including real touch/device DPR in its mobile project.
+    // This 320px geometry check uses the runner context; actual touch input is qualified separately in the primary sidebar workflow.
     await runnerPage.setViewportSize({ width: 320, height: 700 }); await runnerPage.goto("/");
     await runnerPage.getByRole("button", { name: "Projects", exact: true }).click();
     await runnerPage.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();

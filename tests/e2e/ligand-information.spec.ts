@@ -6,6 +6,58 @@ import { prepare } from "./support/interactions";
 import { openInspectorTools, openLigandInformation } from "./support/navigation";
 
 interface Preferences { revision: number; enabled_categories: string[] }
+interface PrimaryTouch {
+  environment: { width: number; height: number; touchPoints: number; coarse: boolean };
+  actions: { target: string; mode: "touch" | "hybrid touch/keyboard"; outcome: string;
+    pointerdowns: { trusted: boolean; pointerType: string; intendedTarget: boolean }[];
+    changes: { trusted: boolean; value: string | null }[] }[];
+}
+async function primaryTouch(page: Page, mobile: boolean): Promise<PrimaryTouch | undefined> {
+  if (!mobile) return undefined;
+  const environment = await page.evaluate(() => ({ width: innerWidth, height: innerHeight,
+    touchPoints: navigator.maxTouchPoints, coarse: matchMedia("(pointer: coarse)").matches }));
+  expect(environment.width).toBe(320); expect(environment.touchPoints).toBeGreaterThan(0); expect(environment.coarse).toBe(true);
+  return { environment, actions: [] };
+}
+async function primaryAction(control: Locator, touch: PrimaryTouch | undefined, target: string, outcome: string,
+  verify: () => Promise<void>, mode: "touch" | "hybrid touch/keyboard" = "touch") {
+  if (!touch) { await control.click(); await verify(); return; }
+  const events = await control.evaluateHandle(node => {
+    const pointerdowns: PrimaryTouch["actions"][number]["pointerdowns"] = [];
+    const changes: PrimaryTouch["actions"][number]["changes"] = [];
+    const pointer = (event: Event) => {
+      if (event instanceof PointerEvent) pointerdowns.push({ trusted: event.isTrusted, pointerType: event.pointerType,
+        intendedTarget: event.target instanceof Node && node.contains(event.target) });
+    };
+    const change = (event: Event) => changes.push({ trusted: event.isTrusted,
+      value: event.target instanceof HTMLSelectElement ? event.target.value : null });
+    node.addEventListener("pointerdown", pointer); node.addEventListener("change", change);
+    return { pointerdowns, changes, dispose: () => {
+      node.removeEventListener("pointerdown", pointer); node.removeEventListener("change", change);
+    } };
+  });
+  try {
+    await control.tap();
+    const pointerdowns = await events.evaluate(value => value.pointerdowns);
+    expect(pointerdowns).toEqual([{ trusted: true, pointerType: "touch", intendedTarget: true }]);
+    await verify();
+    touch.actions.push({ target, outcome, mode, pointerdowns, changes: await events.evaluate(value => value.changes) });
+  } finally { await events.evaluate(value => value.dispose()); await events.dispose(); }
+}
+async function primarySelect(control: Locator, value: string, touch: PrimaryTouch | undefined, target: string) {
+  if (!touch) { await control.selectOption(value); return; }
+  const optionIndex = () => control.evaluate((node, wanted) => Array.from((node as HTMLSelectElement).options)
+    .findIndex(option => option.value === wanted), value);
+  await expect.poll(optionIndex).toBeGreaterThanOrEqual(0);
+  const index = await optionIndex(); expect(index).toBeGreaterThanOrEqual(0);
+  await primaryAction(control, touch, target, `Native selection committed to ${value}`, async () => {
+    // Actual touch activation plus keyboard commitment; no finger-only picker claim.
+    await control.press("Home");
+    for (let offset = 0; offset < index; offset++) await control.press("ArrowDown");
+    await control.press("Enter"); await expect(control).toHaveValue(value);
+  }, "hybrid touch/keyboard");
+  expect(touch.actions.at(-1)!.changes.at(-1)).toEqual({ trusted: true, value });
+}
 const preferencesPath = "/api/v1/workspace/ligand-property-preferences";
 const panel = (page: Page) => page.getByRole("region", { name: "Project inspector", exact: true });
 const properties = (page: Page) => panel(page).getByRole("region", { name: "Properties", exact: true });
@@ -69,10 +121,16 @@ for (const theme of ["light", "dark"] as const) {
       const read = async () => await (await request.get(endpoint)).json() as Project;
       const originals = await Promise.all(project.entries.map(async entry => ({ id: entry.id,
         bytes: await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body() })));
-      await setTheme(page, theme); await openLigandInformation(page);
+      await setTheme(page, theme);
+      const touch = await primaryTouch(page, info.project.name === "mobile-chromium");
+      if (touch && !await panel(page).isVisible()) await primaryAction(page.getByRole("button", { name: "Inspector", exact: true }), touch,
+        "Inspector", "Primary sidebar opened", async () => {
+          await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeVisible();
+        });
+      await openLigandInformation(page);
       await expect(entryChoice(page)).toHaveValue("");
       await expect(panel(page).getByRole("tablist", { name: "Inspector views", exact: true })).toBeHidden();
-      await entryChoice(page).selectOption(first.id);
+      await primarySelect(entryChoice(page), first.id, touch, "Inspected entry: first");
       const identity = panel(page).getByRole("group", { name: "Designated ligand information", exact: true });
       await expect(identity).toContainText("C2H6O");
       await expect(identity.locator(".ligand-designated-composition > div").filter({ hasText: "Formal charge" }).locator("dd")).toHaveText("0");
@@ -81,17 +139,33 @@ for (const theme of ["light", "dark"] as const) {
       await expect(identity.locator("img")).toBeVisible();
       await expect.poll(() => identity.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
       const drawingsBefore = draws.length;
-      await panel(page).getByRole("button", { name: "Change", exact: true }).click();
       const choices = page.getByRole("dialog", { name: "Choose ligand of interest", exact: true });
+      await primaryAction(panel(page).getByRole("button", { name: "Change", exact: true }), touch,
+        "Change ligand", "Qualified chooser opened", async () => { await expect(choices).toBeVisible(); });
       await expect(choices.getByRole("radio")).toHaveCount(1);
       await expect(choices.locator("img")).toBeVisible();
-      await choices.getByRole("button", { name: "Cancel", exact: true }).click();
+      if (touch) await primaryAction(choices.getByRole("radio"), touch, "Qualified candidate",
+        "Exact candidate selected in draft", async () => { await expect(choices.getByRole("radio")).toBeChecked(); });
+      await primaryAction(choices.getByRole("button", { name: "Cancel", exact: true }), touch,
+        "Cancel ligand choice", "Chooser closed without changing designation", async () => { await expect(choices).toBeHidden(); });
       expect(draws).toHaveLength(drawingsBefore);
       const profile = properties(page).getByRole("combobox", { name: "Profile", exact: true });
       await expect(profile).toHaveValue(""); expect(demands).toEqual([]);
       await expect(properties(page).getByText("Choose a profile to compare properties.")).toBeVisible();
+      if (touch) {
+        const options = properties(page).getByRole("button", { name: "Property options", exact: true });
+        const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
+        await primaryAction(options, touch, "Property options", "Category draft opened", async () => { await expect(dialog).toBeVisible(); });
+        const category = dialog.getByRole("checkbox").first(); await expect(category).not.toBeChecked();
+        await primaryAction(category, touch, "Draft category", "Draft checkbox checked", async () => { await expect(category).toBeChecked(); });
+        await primaryAction(dialog.getByRole("button", { name: "Cancel", exact: true }), touch,
+          "Cancel categories", "Draft discarded and focus restored", async () => {
+            await expect(dialog).toBeHidden(); await expect(options).toBeFocused(); expect(await preferences(request)).toEqual(hidden);
+          });
+        expect(demands).toEqual([]);
+      }
       for (const [id, axes] of [["veber", 2], ["ro5", 4], ["ro5-veber", 6]] as const) {
-        await profile.selectOption(id);
+        await primarySelect(profile, id, touch, `Profile: ${id}`);
         await expect(properties(page).getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
         const comparison = properties(page).getByRole("region", { name: "Profile comparison", exact: true });
         await expect(comparison.locator(".comparison-point")).toHaveCount(axes);
@@ -100,6 +174,20 @@ for (const theme of ["light", "dark"] as const) {
         await expect(comparison.getByRole("table")).toBeVisible();
         await expect(comparison.locator("tbody tr")).toHaveCount(axes);
         await comparison.getByText("Values and criteria", { exact: true }).press("Enter");
+        if (touch) {
+          const details = comparison.locator(".comparison-table"), summary = details.locator("summary");
+          await primaryAction(summary, touch, `Values and criteria: ${id}`, "Equivalent table opened", async () => {
+            await expect(details).toHaveAttribute("open", ""); await expect(comparison.getByRole("table")).toBeVisible();
+          });
+          await primaryAction(summary, touch, `Close values and criteria: ${id}`, "Equivalent table collapsed", async () => {
+            await expect(details).not.toHaveAttribute("open", "");
+          });
+        }
+      }
+      if (touch) for (const [selector, label] of [[".ligand-profile-details", "Criteria and sources"], [".ligand-property-methods", "Methods and limits"]] as const) {
+        const details = properties(page).locator(selector), summary = details.locator("summary");
+        await primaryAction(summary, touch, label, "Scientific explanation opened", async () => { await expect(details).toHaveAttribute("open", ""); });
+        await primaryAction(summary, touch, `Close ${label}`, "Scientific explanation collapsed", async () => { await expect(details).not.toHaveAttribute("open", ""); });
       }
       const allocationsBefore = demands.length;
       await openInspectorTools(page);
@@ -107,8 +195,10 @@ for (const theme of ["light", "dark"] as const) {
       await openLigandInformation(page); await expect(entryChoice(page)).toHaveValue(first.id);
       await expect(profile).toHaveValue("ro5-veber"); await settledFrames(page);
       expect(demands).toHaveLength(allocationsBefore); expect(draws).toHaveLength(drawingsBefore);
-      await entryChoice(page).selectOption(second.id); await expect(identity).toContainText("C3H8O");
-      await entryChoice(page).selectOption(first.id); await expect(identity).toContainText("C2H6O");
+      await primarySelect(entryChoice(page), second.id, touch, "Inspected entry: second"); await expect(identity).toContainText("C3H8O");
+      await primarySelect(entryChoice(page), first.id, touch, "Inspected entry: return first"); await expect(identity).toContainText("C2H6O");
+      if (touch) await info.attach(`primary-sidebar-touch-${theme}`, { contentType: "application/json", body: JSON.stringify({ ...touch,
+        limits: "Browser-emulated trusted touch with six hybrid select commitments; not physical-device or finger-only picker certification." }) });
       await expect(page.locator(".viewer-status")).toContainText("/ 0 selected");
       expect(await read()).toEqual(current); expect(await preferences(request)).toEqual(hidden);
       for (const original of originals) expect(await (await request.get(`${endpoint}/entries/${original.id}/original`)).body()).toEqual(original.bytes);

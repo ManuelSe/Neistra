@@ -3,8 +3,9 @@
 ## Current milestone
 
 Parent #11 remains active through verified delivery of required #156–#163.
-#156–#159 are released and closed. #160 is undergoing the fresh complete
-`c4-candidate3` qualification on `6d977c93`; no v0.38.0 publication is claimed.
+#156–#159 are released and closed. #160's fresh complete campaign4 is running
+at `da6dc220`, with 4,138 Python and 1,875 frontend passes; its browser suite has
+passed the earlier stopping point. No complete gate or v0.38.0 publication is claimed.
 This checkout is #161's reversible local prerequisite integration, combining
 prepared `a6f48892` with explicitly unreleased #160 `b14670a0`. Actual released
 #160 integration remains required before final #161 gates or publication.
@@ -37,12 +38,10 @@ These results do not qualify the current combined source.
 #160's separate frozen candidate has 1,875 passing frontend cases and 18 current
 native workflow cases, including both themes, actual desktop zoom and 26 trusted
 emulated-touch activations (six explicitly hybrid native selectors). Its full
-43-command campaign3 remains in progress under its detached recorder. Earlier
-campaign2 was intentionally interrupted after 4,044 Python passes and an independent
-keyboard-oracle failure; its original lost launcher status and unknown runner OS
-status remain preserved without a complete-gate pass claim.
+campaign3 failed on an inherited exact-status assertion; earlier interrupted and
+failed attempts remain preserved without a complete-gate pass claim.
 
-Current #161 integration passes lint, types, 326 focused frontend cases, production
+The preparatory `7fef1a14` integration passes lint, types, 326 focused frontend cases, production
 build, all 52 archive cases and five native hardening cases with one unchanged
 authored mobile performance exclusion. Selected 1,198-source maps remain fixed;
 positive owned cleanup and all 55 raw pairs verify before primary diagnostic SQL.
@@ -52,14 +51,57 @@ including the initial missing nested pnpm launcher and corrected direct invocati
 The package verifies 59 ZIP CRCs, 633 manifest entries and 214 project files.
 This is scoped checkpoint evidence, not final feature qualification.
 
+Current acceptance testing passes the new coordinate/movement/archive flow. Its
+first run stops at an overstrict minimization DTO comparison; the corrected test
+separately validates actual operational job records and passes real minimization.
+The targeted rerun then exposes a cached-project return gap before releasing the
+held old READY response. An actual edit while away advances the artifact, but
+fresh cached A skips its project read. The property producer safely rejects the
+old artifact. A bounded App query correction now revalidates on project return
+and preserves higher cached revisions at the synchronous query-cache write.
+The final correction passes 60 focused App cases, web lint, type checks and
+production build. The controlled final-write race fails the earlier query-function
+check and passes the cache-boundary guard. Four actual held-result A→B→A cases
+then pass both themes on desktop/mobile, with unchanged source/model/numerical
+oracles and three verified closed raw pairs. These remain scoped evidence.
+
+A later complete 36-case sidebar campaign stops after 23 passes when the modal
+helper cannot route Escape from body focus; 12 cases remain unrun. A focused
+functional pass separately records that both pointer and ordinary keyboard
+movement activation lose launcher focus before helper intervention. The bounded
+product correction keeps this unavailable launcher focusable with guarded
+aria-disabled behavior and a scoped visual state. The actual TransformPanel,
+real movement hook and modal regressions pass held loading/active, repeated
+activation, busy refusal and the original Escape priorities. Current focused
+verification passes 49 cases in six files, web lint and types. Production build
+passes on identical production/style bodies; its subsequent test-only synchronous
+act correction is covered by the final focused/type/lint checks.
+
+Fresh complete frontend verification now passes all 1,973 cases across 149 files.
+The four corrected coordinate/movement/archive cases pass desktop/mobile and both
+themes, with zero failures, skips, retries or errors. Actual mobile pointer and
+keyboard activation retain launcher focus inside Inspector before any helper
+focus; ordinary Escape closes the drawer, restores its trigger and retains movement.
+Desktop focuses the movement canvas. All 1,198 selected bodies and 11 working-file
+hashes stay fixed; positive cleanup and three raw original/copy pairs verify before
+diagnostic SQL. Independent scoped architecture, UI and UX assessments PASS this
+bounded recovery/focus correction. These are not the final seven feature verdicts.
+The [scoped checkpoint](assets/ligand-information/c2-project-recovery-checkpoint.json)
+binds its verified 26,131,382-byte packet: 146 payloads, 12 ZIPs, 151 manifest entries
+and 18 project files. Earlier complete native histories remain separately retained
+and require final publication; this packet does not claim to contain them all.
+
 ## Known limitations
 
 No current #161 readiness, implementation push, PR, release or closeout is claimed.
 Actual released #160 history, v0.39.0 preparation, current measured bounds,
 preceding-reader/archive qualification, all seven final same-candidate assessments
 and complete candidate/exact-merged gates remain outstanding. Remaining sidebar
-acceptance includes coordinate/movement/minimization preview Cancel/Apply, archive
-reconstruction and held project A→B→A results. #153 diagram delivery and all other
+acceptance requires the complete current coordinate/movement/minimization preview,
+archive reconstruction and held project A→B→A campaign after both corrections.
+The failed 36-case campaign is not a current complete PASS. Primary-view measurements,
+inherited benchmark navigation reconciliation and prior failed-run publication
+remain outstanding. #153 diagram delivery and all other
 parent exclusions remain outside scope.
 
 ## Blockers
@@ -68,6 +110,8 @@ No external blocker. Respect serial release order and preserve prior evidence.
 
 ## Next action
 
-Commit the coherent locally verified prerequisite merge. Finish #160 delivery,
-integrate its actual released commit, then qualify #161 and continue #162/#163 through verified parent closeout under the same
-active Goal.
+Commit the passing scoped recovery/focus checkpoint. Prepare the bounded primary
+measurement complement and explicit retained-driver navigation without changing
+scientific workloads, clocks or bounds. Finish #160 delivery, integrate its actual released commit,
+then qualify #161 and continue #162/#163 through verified parent closeout under
+the same active Goal.

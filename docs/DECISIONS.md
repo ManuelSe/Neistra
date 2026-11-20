@@ -10158,3 +10158,86 @@ browser outcomes before starting the expensive gate. Freeze these three data inp
 separately from the literal six-helper catalogue and retain them in gate/release
 packages. Compare exact excluded test identities, including rejection of a changed
 list with an unchanged count. Historical helpers and reports remain unchanged.
+
+
+### D-193 qualification correction — revalidate the project when returning
+
+The held-result A→B→A native control exposed a project-query freshness gap. A real
+server edit while B is active advances A's revision and current artifact. Returning
+within the workspace query cache's ten-second freshness period can reuse A's old
+DTO without a project GET. The property producer correctly rejects the old artifact;
+that rejection does not provide the current project basis or justify a physical
+source-failure classification.
+
+Set zero stale time only for App's project query, so a changed project key triggers
+revalidation. Keep the workspace defaults, cached rendering, deliberate target,
+existing query ownership and source barriers. This adds no polling or independent
+project store. At the synchronous query-cache write boundary, preserve an already
+cached higher revision for the same project, matching the monotonic rule for
+mutation acknowledgements. A query-function check alone leaves a gap before the
+library writes the result; a controlled final-write race reproduces that rollback.
+Use the query structural-sharing callback and preserve normal deep structural
+sharing for accepted values, without another cache owner. A late response
+may update its own project cache, never the active project identity.
+
+Keep the existing API failure alert and its actual project-read Retry. Qualify
+fresh-cache return, older GET versus newer acknowledgement, late A while B is
+active, unchanged-source chemistry demand, and failed read/retry. The actual native
+carbon/model/source and held-response assertions remain unchanged; no delay,
+reload or manual UI cache injection substitutes for current-source recovery.
+
+
+### D-193 movement launcher correction — retain focus through modal activation
+
+Actual native pointer and keyboard activation of the Inspector's Move selection
+launcher loses focus to the document body when the launcher becomes natively
+disabled during capture. A test helper's later deliberate header focus makes
+Escape reach the modal but does not correct this product focus loss. Preserve the
+native failures and the separate helper correction; qualify activation before
+helper focus as its own browser observation.
+
+Keep this launcher focusable while unavailable: expose aria-disabled for project
+busy or any non-idle movement phase and guard the click handler with the same
+condition. Remove native disabled only from this launcher. A dedicated unavailable
+style retains the action background, reduced opacity and default cursor without
+removing its visible focus indicator or inheriting the generic hover affordance.
+The existing status explains capture/active movement. Do not change other controls,
+modal/global Escape ownership or the movement transaction. The workflow's live
+phase admission guard and the session's synchronous loading publication remain
+required against stale-render reentry.
+
+Qualify actual TransformPanel activation with the real movement hook through held
+loading and active phases, repeated pointer/Enter/Space without a second admission
+or load, busy-project refusal, modal Escape retaining the capture, and the existing
+More tools/canvas Escape ordering. Browser verification must observe focus before
+any test helper moves it; component focus assertions alone are insufficient.
+
+
+### D-193 qualification refinement — measure primary presentation separately
+
+The inherited profile benchmark already exercises the primary sidebar, but its
+terminal observer reads legacy criteria and begins after header/depiction activation.
+Keep its scientific workloads, clocks and bounds. Add the bounded complementary
+qualification in the [child plan](plans/issue-161-ligand-information-sidebar.md):
+frozen positive 10/86-heavy-atom specimens, direct header/decoded-image/SVG/table
+observations, three settled reopen cycles and one actual automatic-policy edit
+while the primary pane is genuinely closed. Existing bulk and 100/1,000-entry
+controls remain. No new production chemistry or invented depiction latency target.
+
+Use independent fixture vectors, analytical positive-fixture formula counts,
+manual registry operators and analytical plot geometry. Bind the actual action,
+atom, hydrogen policy, acknowledgement and published source. A terminal READY
+row can still contain unavailable chemistry; preserve-policy and automatic-policy
+edits are different experiments. Do not demand formula, charge or image from an
+unqualified representation or conflate provenance-bearing and numerical hashes.
+
+Primary/Tools navigation reconciliation is required for the inherited driver's
+two Selection setups and return to the mounted primary view. Preserve its existing
+desktop no-op/mobile-close helper and every timed boundary. Actual old Edit criteria,
+status and control visibility were false with null retirement; do not manufacture
+a visible pre-edit observation by adding showCriteria. Preserve measured flags/nulls,
+including changes caused by the new layout. Drawing requests can generate content;
+observe passively and leave server drawing-cache status unknown without independent
+nonwarming evidence. Hidden drawing suppression and automatic committed numerical
+refresh have separate ownership. Final measurements still require released #160,
+complete source-bound qualification and the existing seven-role/release gates.

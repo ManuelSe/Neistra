@@ -3,11 +3,13 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import type { observeEditPicks } from "../../apps/web/src/test/molecularEditHarness";
 import type { inspectModelPreview } from "../../apps/web/src/test/modelingHarness";
-import type { Project } from "../../apps/web/src/api/types";
+import type { ArchiveImportResult, Job, NormalizedStructure, Project } from "../../apps/web/src/api/types";
 import type { LigandCandidate, LigandCandidatesRead } from "../../apps/web/src/ligands/types";
 import type { PropertyAggregate, PropertyPreferences, PropertyRequest } from "../../apps/web/src/ligandProperties/types";
 import { prepare } from "./support/interactions";
 import { observe, previewState, selectPair } from "./support/modeling";
+import { configure as configureMinimization, coordinateEntries, coordinateSummary,
+  panel as minimizationPanel, prepared as preparedMinimization } from "./support/minimization";
 import { openInspectorTools, openLigandInformation, showEntries } from "./support/navigation";
 
 const preferencePath = "/api/v1/workspace/ligand-property-preferences";
@@ -49,7 +51,13 @@ async function restore(request: APIRequestContext, previous: PropertyPreferences
 }
 async function closeSheet(page: Page) {
   const sheet = page.getByRole("dialog", { name: /^(Inspector panel|Project browser panel)$/ });
-  if (await sheet.isVisible()) { await sheet.focus(); await page.keyboard.press("Escape"); await expect(sheet).toBeHidden(); }
+  if (await sheet.isVisible()) {
+    const inspectorControl = sheet.getByRole("button", { name: /^(Inspector tools|Ligand information)$/ });
+    const control = await inspectorControl.isVisible() ? inspectorControl
+      : sheet.getByRole("textbox", { name: "Search structures", exact: true });
+    await control.focus(); await expect(control).toBeFocused();
+    await page.keyboard.press("Escape"); await expect(sheet).toBeHidden();
+  }
 }
 async function browser(page: Page) {
   const region = page.getByRole("region", { name: "Project browser", exact: true });
@@ -88,6 +96,45 @@ async function unavailableNumbers(page: Page) {
   await expect(comparison(page).locator(".comparison-point")).toHaveCount(0);
   await expect(properties(page).locator(".ligand-property-methods time")).toHaveCount(0);
   await expect(properties(page).locator(".ligand-profile-criteria dd > span:first-child").filter({ hasText: /^Value: (?!Unavailable)/ })).toHaveCount(0);
+}
+
+async function currentStructure(request: APIRequestContext, projectId: string, entryId: string): Promise<NormalizedStructure> {
+  const response = await request.get(`/api/v1/projects/${projectId}/entries/${entryId}/structure`);
+  expect(response.ok()).toBe(true); return (await response.json() as { structure: NormalizedStructure }).structure;
+}
+async function selectWholeEntry(page: Page, entry: Project["entries"][number]) {
+  await openInspectorTools(page); await inspector(page).getByRole("tab", { name: "selection", exact: true }).click();
+  await inspector(page).getByRole("group", { name: "Operation mode" }).getByRole("button", { name: "replace", exact: true }).click();
+  await inspector(page).getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
+  await inspector(page).getByRole("textbox", { name: "Value", exact: true }).fill(entry.id);
+  await inspector(page).getByRole("button", { name: "Apply query", exact: true }).click();
+  await expect(page.locator(".viewer-status")).toContainText(`/ ${entry.atom_count} selected`);
+}
+async function currentEthanol(page: Page) {
+  await expect(properties(page).getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
+  await expect(header(page)).toContainText("C2H6O"); await expect(header(page).locator("img")).toBeVisible();
+  await expect.poll(() => header(page).locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  await expect(comparison(page).locator(".comparison-point")).toHaveCount(6); await openDetails(page, ".comparison-table");
+  await expect(comparison(page).locator('tr[data-descriptor="molecular_weight"] td > span:first-child')).toHaveText("46.069 g/mol");
+}
+async function withheldPreview(page: Page) {
+  await expect(properties(page).getByRole("status")).toHaveText("Preview — properties unavailable Preview — profile unavailable.");
+  await expect(header(page)).toContainText("Composition unavailable during preview.");
+  await expect(header(page).locator("img")).toHaveCount(0); await expect(header(page)).toContainText("2D unavailable during preview");
+  await unavailableNumbers(page); await openDetails(page, ".comparison-table");
+  await expect(comparison(page).locator("tbody tr td > span:first-child")).toHaveText(Array(6).fill("Unavailable"));
+}
+function chemistryUnchanged(before: NormalizedStructure, after: NormalizedStructure) {
+  expect(after.atoms.map(({ coordinates: _coordinates, ...atom }) => atom))
+    .toEqual(before.atoms.map(({ coordinates: _coordinates, ...atom }) => atom));
+  expect(after.bonds).toEqual(before.bonds); expect(after.chains).toEqual(before.chains); expect(after.residues).toEqual(before.residues);
+}
+async function sidebarSnapshot(page: Page) {
+  return { entry: await entryChoice(page).inputValue(), composition: await header(page).locator(".ligand-designated-composition").allTextContents(),
+    status: await properties(page).getByRole("status").textContent(), table: await comparison(page).locator("tbody tr").allTextContents(),
+    points: await comparison(page).locator(".comparison-point").evaluateAll(nodes => nodes.map(node => ({
+      x: node.getAttribute("cx"), y: node.getAttribute("cy"), clipped: node.getAttribute("data-clipped"),
+    }))) };
 }
 
 for (const value of ["light", "dark"] as const) {
@@ -504,6 +551,317 @@ for (const value of ["light", "dark"] as const) {
         evidence, injection: "Typed source-verification errors on exact current candidate request, never transport or eviction" }) });
       await compositor(page, info, `source-authority-recovered-${value}`);
     } finally { releases.forEach(release => release()); await restore(request, preference.before); }
+  });
+
+  test(`keeps coordinate and movement proposals separate from committed ligand facts and reconstructs them through archive (${value})`, async ({ page, request }, info) => {
+    test.setTimeout(120_000);
+    if (info.project.name === "mobile-chromium") await page.setViewportSize({ width: 320, height: 700 });
+    const preference = await preferences(request, []);
+    try {
+      const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], `Sidebar coordinates ${value}`);
+      const entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`, entryPath = `${endpoint}/entries/${entry.id}`;
+      const read = async () => await (await request.get(endpoint)).json() as Project;
+      const structure = async () => currentStructure(request, project.id, entry.id);
+      const originalBytes = await (await request.get(`${entryPath}/original`)).body(), original = await structure();
+      await theme(page, value); await inspect(page, entry.id); await profile(page).selectOption("ro5-veber"); await currentEthanol(page);
+      const committed = await read();
+      // Keyboard range input creates a real numerical coordinate preview without a pointer-up commit.
+      await openInspectorTools(page); await inspector(page).getByRole("tab", { name: "transform", exact: true }).click();
+      const slider = inspector(page).locator(".gesture-slider input[type=range]"); await slider.focus(); await slider.press("ArrowRight");
+      await expect.poll(() => coordinateEntries(page)).toEqual([entry.id]);
+      const numericalPreview = await coordinateSummary(page, entry.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })));
+      expect(numericalPreview.moving).toBeGreaterThan(0); expect(numericalPreview.fixedExact).toBe(true);
+      expect(await read()).toEqual(committed); expect(await structure()).toEqual(original);
+      await slider.press("ArrowLeft"); await expect.poll(() => coordinateEntries(page)).toEqual([]);
+      await openLigandInformation(page); await currentEthanol(page); expect(await structure()).toEqual(original);
+      await openInspectorTools(page); await inspector(page).getByRole("tab", { name: "transform", exact: true }).click();
+      await inspector(page).getByRole("group", { name: "Translation (angstrom)", exact: true }).getByLabel("X", { exact: true }).fill("1");
+      await inspector(page).getByRole("button", { name: "Apply transform", exact: true }).click();
+      await expect.poll(async () => (await read()).revision).toBe(committed.revision + 1);
+      const translated = await structure(); chemistryUnchanged(original, translated);
+      for (const [index, atom] of translated.atoms.entries()) for (const axis of [0, 1, 2])
+        expect(atom.coordinates[axis]).toBeCloseTo(original.atoms[index].coordinates[axis] + (axis === 0 ? 1 : 0), 8);
+      await inspect(page, entry.id); await currentEthanol(page);
+      await closeSheet(page); await page.getByRole("button", { name: /^Undo:/ }).click(); await expect.poll(structure).toEqual(original);
+      await inspect(page, entry.id); await currentEthanol(page); await closeSheet(page);
+      await page.getByRole("button", { name: /^Redo:/ }).click(); await expect.poll(structure).toEqual(translated);
+      await inspect(page, entry.id); await currentEthanol(page);
+      await selectWholeEntry(page, entry); await inspector(page).getByRole("tab", { name: "transform", exact: true }).click();
+      const beforeMovement = await read(), movementPreviews: unknown[] = [];
+      let movementActivation = 0;
+      const banner = page.getByRole("region", { name: "Move selection controls", exact: true });
+      const propose = async () => {
+        const launcher = inspector(page).getByRole("button", { name: "Move selection", exact: true });
+        const activation = movementActivation++ === 0 ? "pointer" : "keyboard";
+        if (activation === "keyboard") { await launcher.focus(); await expect(launcher).toBeFocused(); await launcher.press("Enter"); }
+        else await launcher.click();
+        await expect(banner).toBeVisible();
+        const activationFocus = await page.evaluate(() => {
+          const active = document.activeElement;
+          return { tag: active?.tagName, id: active?.id, role: active?.getAttribute("role"), label: active?.getAttribute("aria-label"),
+            connected: active?.isConnected, disabled: active?.matches(":disabled"),
+            insideInspector: !!active?.closest('[role="dialog"][aria-label="Inspector panel"]') };
+        });
+        const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
+        if (await drawer.isVisible()) {
+          expect(activationFocus.insideInspector).toBe(true);
+          await expect(launcher).toBeFocused();
+          await expect(launcher).toHaveAttribute("aria-disabled", "true");
+          await page.keyboard.press("Escape"); await expect(drawer).toBeHidden();
+          await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeFocused();
+        } else await closeSheet(page);
+        await expect(banner).toBeVisible(); await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
+        const tools = page.getByRole("dialog", { name: "More movement tools", exact: true });
+        await tools.getByRole("button", { name: "Translate", exact: true }).click();
+        await tools.getByRole("button", { name: "Step right", exact: true }).click();
+        await tools.getByRole("button", { name: "Close movement panel", exact: true }).click();
+        const shown = await coordinateSummary(page, entry.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })));
+        expect(shown.moving).toBe(entry.atom_count); expect(shown.fixedExact).toBe(true);
+        await openLigandInformation(page); await expect(banner).toBeVisible(); await withheldPreview(page);
+        movementPreviews.push({ activation, activationFocus, native: shown, sidebar: await sidebarSnapshot(page) });
+        await compositor(page, info, `movement-primary-withheld-${value}`);
+        expect(await read()).toEqual(beforeMovement); expect(await structure()).toEqual(translated); await closeSheet(page);
+      };
+      await propose(); await banner.getByRole("button", { name: "Cancel movement", exact: true }).click();
+      await expect(banner).toBeHidden(); await expect.poll(() => coordinateEntries(page)).toEqual([]);
+      await inspect(page, entry.id); await currentEthanol(page); expect(await read()).toEqual(beforeMovement); expect(await structure()).toEqual(translated);
+      await openInspectorTools(page); await inspector(page).getByRole("tab", { name: "transform", exact: true }).click();
+      await propose(); await banner.getByRole("button", { name: "Apply movement", exact: true }).click(); await expect(banner).toBeHidden();
+      await expect.poll(async () => (await read()).revision).toBe(beforeMovement.revision + 1);
+      const moved = await structure(); expect(moved).not.toEqual(translated); chemistryUnchanged(translated, moved);
+      expect(moved.atoms.map(atom => atom.coordinates)).not.toEqual(translated.atoms.map(atom => atom.coordinates));
+      const delta = moved.atoms[0].coordinates.map((coordinate, axis) => coordinate - translated.atoms[0].coordinates[axis]);
+      for (const [index, atom] of moved.atoms.entries()) for (const axis of [0, 1, 2])
+        expect(atom.coordinates[axis] - translated.atoms[index].coordinates[axis]).toBeCloseTo(delta[axis], 6);
+      await inspect(page, entry.id); await currentEthanol(page); await closeSheet(page);
+      await page.getByRole("button", { name: /^Undo:/ }).click(); await expect.poll(structure).toEqual(translated);
+      await inspect(page, entry.id); await currentEthanol(page); await closeSheet(page);
+      await page.getByRole("button", { name: /^Redo:/ }).click(); await expect.poll(structure).toEqual(moved);
+      await page.reload(); await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+      await inspect(page, entry.id); await profile(page).selectOption("ro5-veber"); await currentEthanol(page); expect(await structure()).toEqual(moved);
+      const sourceProject = await read(); await closeSheet(page); await page.getByRole("button", { name: "Export", exact: true }).click();
+      const exporter = page.getByRole("dialog", { name: "Export", exact: true });
+      await exporter.getByRole("tab", { name: "Project archive", exact: true }).click();
+      await exporter.getByRole("button", { name: "Generate", exact: true }).click();
+      await expect(exporter.getByRole("link", { name: "Download", exact: true })).toBeVisible({ timeout: 15_000 });
+      const downloadEvent = page.waitForEvent("download"); await exporter.getByRole("link", { name: "Download", exact: true }).click();
+      const download = await downloadEvent, stream = await download.createReadStream(), chunks: Buffer[] = [];
+      for await (const chunk of stream) chunks.push(Buffer.from(chunk as Uint8Array));
+      const archive = Buffer.concat(chunks); expect(download.suggestedFilename()).toMatch(/\.neistra\.zip$/);
+      await exporter.getByRole("button", { name: "Close", exact: true }).click();
+      await page.getByRole("button", { name: "Projects", exact: true }).click();
+      await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: "Import project archive", exact: true }).click();
+      const importer = page.getByRole("dialog", { name: "Import project archive", exact: true });
+      await importer.locator('input[type="file"]').setInputFiles({ name: download.suggestedFilename(), mimeType: "application/zip", buffer: archive });
+      const importedResponse = page.waitForResponse(response => response.request().method() === "POST"
+        && new URL(response.url()).pathname === "/api/v1/projects/import-archive" && response.status() === 201);
+      await importer.getByRole("button", { name: "Import project", exact: true }).click();
+      const imported = await (await importedResponse).json() as ArchiveImportResult;
+      await expect(importer).toBeHidden({ timeout: 20_000 }); await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+      expect(imported.source_project_id).toBe(project.id); expect(imported.source_revision).toBe(sourceProject.revision);
+      const restored = imported.project.entries[0]; expect(imported.project.id).not.toBe(project.id); expect(restored.id).not.toBe(entry.id);
+      expect(restored.ligand_designation.instance_id).not.toBe(sourceProject.entries[0].ligand_designation.instance_id);
+      expect(restored.ligand_designation.atom_ids).toEqual(sourceProject.entries[0].ligand_designation.atom_ids);
+      await inspect(page, restored.id); await profile(page).selectOption("ro5-veber"); await currentEthanol(page);
+      expect(await currentStructure(request, imported.project.id, restored.id)).toEqual(moved);
+      expect(await (await request.get(`/api/v1/projects/${imported.project.id}/entries/${restored.id}/original`)).body()).toEqual(originalBytes);
+      expect(await (await request.get(`${entryPath}/original`)).body()).toEqual(originalBytes);
+      expect(await (await request.get(preferencePath)).json()).toEqual(preference.saved);
+      await info.attach(`coordinate-movement-archive-${value}`, { contentType: "application/json", body: JSON.stringify({
+        committed, beforeMovement, sourceProject, restored: imported, archiveSha256: createHash("sha256").update(archive).digest("hex"),
+        geometry: { original, translated, moved }, numericalPreview, movementPreviews, source: "Real keyboard preview, native movement, actual export/download/import and canonical API reads; no fabricated scientific report." }) });
+    } finally { await restore(request, preference.before); }
+  });
+
+  test(`withholds real minimization preview, discards it and accepts one reversible exact-source result (${value})`, async ({ page, request }, info) => {
+    test.setTimeout(120_000);
+    if (info.project.name === "mobile-chromium") await page.setViewportSize({ width: 320, height: 700 });
+    const preference = await preferences(request, []);
+    try {
+      const project = await preparedMinimization(page, request), entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`;
+      const read = async () => await (await request.get(endpoint)).json() as Project;
+      const structure = async () => currentStructure(request, project.id, entry.id);
+      const before = await structure(), original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
+      await theme(page, value); await inspect(page, entry.id); await profile(page).selectOption("ro5-veber"); await currentEthanol(page);
+      await selectWholeEntry(page, entry); await closeSheet(page);
+      const committed = await read(), setup = minimizationPanel(page), minimizationPreviews: unknown[] = [];
+      const withoutOperationalMetadata = (state: Project) => ({ ...state, entries: state.entries.map(item => item.id === entry.id
+        ? { ...item, job_links: null, generated_results: null, modified_at: null } : item) });
+      const propose = async () => {
+        const beforeJob = await read(), priorEntry = beforeJob.entries.find(item => item.id === entry.id)!;
+        await configureMinimization(page); await setup.getByRole("spinbutton", { name: "Minimization iterations", exact: true }).fill("1");
+        await setup.getByRole("button", { name: "Run minimization", exact: true }).click();
+        await expect(setup.getByRole("button", { name: "Accept unconverged coordinates", exact: true })).toBeEnabled({ timeout: 60_000 });
+        await expect(setup).toContainText("explicitly acknowledges the residual gradient");
+        await setup.getByRole("checkbox", { name: "Show coordinate preview", exact: true }).check();
+        const afterJob = await read(), resultEntry = afterJob.entries.find(item => item.id === entry.id)!;
+        expect(resultEntry.job_links.slice(0, priorEntry.job_links.length)).toEqual(priorEntry.job_links);
+        expect(resultEntry.job_links).toHaveLength(priorEntry.job_links.length + 1);
+        expect(new Set(resultEntry.job_links).size).toBe(resultEntry.job_links.length);
+        const jobResponse = await request.get(`/api/v1/jobs/${resultEntry.job_links.at(-1)!}`);
+        expect(jobResponse.ok()).toBe(true); const job = await jobResponse.json() as Job;
+        expect(job).toMatchObject({ project_id: project.id, status: "completed", job_type: "coordinates.minimize",
+          parameters: { max_iterations: 1, captured_inputs: [{ entry_id: entry.id,
+            artifact_id: priorEntry.current_artifact_id, atom_ids: entry.atom_ids }] } });
+        expect(job.inputs).toHaveLength(1);
+        expect(job.inputs[0]).toMatchObject({ entry_id: entry.id, artifact_id: priorEntry.current_artifact_id });
+        expect(job.results.length).toBeGreaterThan(0);
+        for (const result of job.results) expect(result.imported_entry_ids).toEqual([]);
+        expect(resultEntry.generated_results.slice(0, priorEntry.generated_results.length)).toEqual(priorEntry.generated_results);
+        expect(resultEntry.generated_results.slice(priorEntry.generated_results.length).sort()).toEqual(job.results.map(result => result.id).sort());
+        expect(new Set(resultEntry.generated_results).size).toBe(resultEntry.generated_results.length);
+        await expect.poll(() => coordinateEntries(page)).toEqual([entry.id]);
+        const shown = await coordinateSummary(page, entry.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })));
+        expect(shown.moving).toBeGreaterThan(0); expect(shown.fixedExact).toBe(true);
+        await openLigandInformation(page); await expect(setup).toBeVisible(); await withheldPreview(page);
+        minimizationPreviews.push({ native: shown, sidebar: await sidebarSnapshot(page), beforeJob, afterJob, actualJob: job });
+        await compositor(page, info, `minimization-primary-withheld-${value}`);
+        expect(withoutOperationalMetadata(await read())).toEqual(withoutOperationalMetadata(committed));
+        expect(await structure()).toEqual(before); await closeSheet(page);
+      };
+      await propose(); await setup.getByRole("button", { name: "Discard", exact: true }).click(); await expect(setup).toBeHidden();
+      await expect.poll(() => coordinateEntries(page)).toEqual([]); await inspect(page, entry.id); await currentEthanol(page);
+      expect(await structure()).toEqual(before);
+      expect(withoutOperationalMetadata(await read())).toEqual(withoutOperationalMetadata(committed)); await closeSheet(page);
+      await propose(); await setup.getByRole("button", { name: "Accept unconverged coordinates", exact: true }).click();
+      await expect(setup).toBeHidden(); await expect.poll(async () => (await read()).revision).toBe(committed.revision + 1);
+      const accepted = await structure(); expect(accepted).not.toEqual(before); chemistryUnchanged(before, accepted);
+      expect(accepted.atoms.map(atom => atom.coordinates)).not.toEqual(before.atoms.map(atom => atom.coordinates));
+      await inspect(page, entry.id); await currentEthanol(page); await closeSheet(page);
+      await page.getByRole("button", { name: /^Undo:/ }).click(); await expect.poll(structure).toEqual(before);
+      await inspect(page, entry.id); await currentEthanol(page); await closeSheet(page);
+      await page.getByRole("button", { name: /^Redo:/ }).click(); await expect.poll(structure).toEqual(accepted);
+      await inspect(page, entry.id); await currentEthanol(page);
+      expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
+      expect(await (await request.get(preferencePath)).json()).toEqual(preference.saved);
+      await info.attach(`minimization-sidebar-source-${value}`, { contentType: "application/json", body: JSON.stringify({
+        before: committed, applied: await read(), geometry: { before, accepted }, minimizationPreviews,
+        limit: "Existing one-iteration eligible unconverged specimen; acceptance explicitly acknowledges its residual gradient, not convergence or chemical preparation." }) });
+    } finally { await restore(request, preference.before); }
+  });
+
+  test(`rejects a held old-source READY after project A B A and a real edit while away (${value})`, async ({ page, request }, info) => {
+    test.setTimeout(120_000);
+    if (info.project.name === "mobile-chromium") await page.setViewportSize({ width: 320, height: 700 });
+    const preference = await preferences(request, ["composition"]), held = deferred(), captured = deferred(), settled = deferred();
+    let oldReady: Delivery | null = null, returned = false, endpoint = "", originalArtifact = "";
+    const currentReady: Delivery[] = [];
+    await page.route(url => !!endpoint && url.pathname.startsWith(`${endpoint}/ligand-properties/`), async route => {
+      if (!["POST", "PUT"].includes(route.request().method()) || !route.request().postData()) { await route.continue(); return; }
+      const response = await route.fetch();
+      if (!response.ok()) { await route.fulfill({ response }); return; }
+      const body = await response.json() as PropertyAggregate, payload = route.request().postDataJSON() as PropertyRequest;
+      const result = body.entries?.find(item => item.status === "ready" && item.report);
+      if (!result) { await route.fulfill({ response }); return; }
+      const delivery = { path: new URL(route.request().url()).pathname, request: payload, response: body };
+      if (!oldReady && result.source.source_artifact_id === originalArtifact) {
+        oldReady = delivery; captured.release(); await held.promise;
+        try { await route.fulfill({ response }); returned = true; } finally { settled.release(); }
+        return;
+      }
+      currentReady.push(delivery); await route.fulfill({ response });
+    });
+    try {
+      const otherResponse = await request.post("/api/v1/projects", { data: { name: `Sidebar other visit ${value} ${Date.now()}` } });
+      expect(otherResponse.status()).toBe(201); const other = await otherResponse.json() as Project;
+      const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], `Sidebar held A ${value}`), entry = project.entries[0];
+      endpoint = `/api/v1/projects/${project.id}`; originalArtifact = entry.current_artifact_id!;
+      const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
+      const initialStructure = await currentStructure(request, project.id, entry.id);
+      await theme(page, value); await inspect(page, entry.id); await profile(page).selectOption("ro5"); await captured.promise;
+      const actualOld = oldReady as Delivery | null; expect(actualOld).not.toBeNull();
+      expect(actualOld!.response.entries[0].report!.values.find(item => item.descriptor_id === "molecular_weight"))
+        .toMatchObject({ status: "ready", value: 46.069 });
+      expect(actualOld!.response.entries[0].report!.values.find(item => item.descriptor_id === "carbon_count"))
+        .toMatchObject({ status: "ready", value: 2 });
+      await selectProject(page, other.name); await openLigandInformation(page); await expect(entryChoice(page)).toHaveValue("");
+      const beforeEdit = await (await request.get(endpoint)).json() as Project;
+      const editedResponse = await request.post(`${endpoint}/entries/${entry.id}/model-edits`, { data: {
+        expected_revision: beforeEdit.revision, expected_artifact_id: originalArtifact,
+        selection: { schema_version: 1, granularity: "atom", source: "inspector", atoms: [{ structure_id: entry.id, atom_id: 1 }] },
+        action: { operation: "atom.element", element: "N" }, hydrogen_policy: "preserve",
+      } });
+      expect(editedResponse.ok()).toBe(true); const edited = (await editedResponse.json() as { project: Project }).project;
+      const next = edited.entries.find(item => item.id === entry.id)!; expect(next.current_artifact_id).not.toBe(originalArtifact);
+      expect(edited.revision).toBe(beforeEdit.revision + 1);
+      const editedStructure = await currentStructure(request, project.id, entry.id);
+      expect(editedStructure.atoms.map(atom => atom.id)).toEqual(initialStructure.atoms.map(atom => atom.id));
+      expect(editedStructure.atoms.map(atom => atom.element))
+        .toEqual(initialStructure.atoms.map(atom => atom.id === 1 ? "N" : atom.element));
+      expect(editedStructure.atoms.find(atom => atom.id === 1)!.element).toBe("N");
+      expect(editedStructure.atoms.map(atom => atom.coordinates)).toEqual(initialStructure.atoms.map(atom => atom.coordinates));
+      expect(editedStructure.bonds).toEqual(initialStructure.bonds);
+      const editedCanonical = await (await request.get(endpoint)).json() as Project;
+      expect(editedCanonical.revision).toBe(edited.revision); expect(editedCanonical.history).toEqual(edited.history);
+      expect(editedCanonical.entries.find(item => item.id === entry.id)!.current_artifact_id).toBe(next.current_artifact_id);
+      await selectProject(page, project.name); await inspect(page, entry.id); await profile(page).selectOption("ro5");
+      const carbon = properties(page).locator(".ligand-properties-groups dl > div")
+        .filter({ has: page.locator("dt", { hasText: /^Carbon atoms$/ }) }).locator("dd");
+      const requiredDescriptors = ["molecular_weight", "heavy_atom_count", "heteroatom_count", "carbon_count", "formal_charge", "hbd", "hba", "calculated_logp"];
+      await expect(carbon).toHaveText("1", { timeout: 30_000 });
+      await expect.poll(() => currentReady.some(delivery => delivery.response.entries.some(item => item.status === "ready"
+        && item.source.source_artifact_id === next.current_artifact_id && item.report?.values.some(value => value.descriptor_id === "carbon_count" && value.value === 1)))).toBe(true);
+      await expect(properties(page).getByRole("status")).not.toContainText("Updating");
+      const matchesCurrent = (item: PropertyAggregate["entries"][number]) => item.status === "ready"
+        && item.source.source_artifact_id === next.current_artifact_id && item.report?.values.some(value => value.descriptor_id === "carbon_count" && value.value === 1);
+      const matchesCurrentDelivery = (delivery: Delivery) => delivery.request.descriptor_ids.length === requiredDescriptors.length
+        && requiredDescriptors.every(id => delivery.request.descriptor_ids.includes(id)) && delivery.response.entries.some(matchesCurrent);
+      await expect.poll(() => currentReady.some(matchesCurrentDelivery)).toBe(true);
+      const currentDelivery = currentReady.find(matchesCurrentDelivery);
+      expect(currentDelivery).toBeDefined(); expect(currentDelivery!.response.project_id).toBe(project.id);
+      const currentResult = currentDelivery!.response.entries.find(matchesCurrent);
+      expect(currentResult).toBeDefined();
+      expect(currentResult!.source).toEqual({ entry_id: entry.id, source_artifact_id: next.current_artifact_id,
+        instance_id: next.ligand_designation.instance_id, atom_ids: next.ligand_designation.atom_ids });
+      expect(currentResult!.report).toMatchObject({ model_status: "unavailable", model_reason: "hydrogen_semantics_unavailable",
+        contains_formally_charged_atoms: false });
+      expect(currentResult!.report!.input_hash).not.toBe(actualOld!.response.entries[0].report!.input_hash);
+      expect([...currentDelivery!.request.descriptor_ids].sort()).toEqual([...requiredDescriptors].sort());
+      expect(new Set(currentResult!.report!.values.map(item => item.descriptor_id)).size).toBe(currentResult!.report!.values.length);
+      expect(currentResult!.report!.coverage).toEqual(expect.arrayContaining(requiredDescriptors));
+      for (const [descriptor_id, value] of [["heavy_atom_count", 3], ["heteroatom_count", 2], ["carbon_count", 1], ["formal_charge", 0]] as const)
+        expect(currentResult!.report!.values.find(item => item.descriptor_id === descriptor_id)).toMatchObject({ status: "ready", value, reason: null });
+      const unavailableCriteria = [["hbd", "≤ 5 · Unavailable"], ["hba", "≤ 10 · Unavailable"],
+        ["molecular_weight", "≤ 500 g/mol · Unavailable"], ["calculated_logp", "≤ 5 · Unavailable"]] as const;
+      const currentUnavailable = async () => {
+        await expect(properties(page).getByRole("status"))
+          .toHaveText("Some properties are unavailable Profile unavailable for the current molecular representation.");
+        await expect(comparison(page).locator(".comparison-point")).toHaveCount(0);
+        await expect(comparison(page).locator(".comparison-shape")).toHaveCount(0);
+        await expect(comparison(page).locator("tbody tr")).toHaveCount(4);
+        for (const [descriptor_id, criterion] of unavailableCriteria) {
+          expect(currentResult!.report!.values.find(item => item.descriptor_id === descriptor_id))
+            .toMatchObject({ status: "unavailable", value: null, reason: "hydrogen_semantics_unavailable" });
+          const row = comparison(page).locator(`tr[data-descriptor="${descriptor_id}"]`);
+          await expect(row.locator("td > span").first()).toHaveText("Unavailable");
+          await expect(row).toContainText("hydrogen semantics unavailable");
+          await expect(row.locator("td > span").last()).toHaveText(criterion);
+        }
+      };
+      const inventoryResponse = await request.get(`${endpoint}/entries/${entry.id}/ligand-candidates?expected_artifact_id=${next.current_artifact_id}&offset=0&limit=12`);
+      expect(inventoryResponse.ok()).toBe(true); const currentInventory = await inventoryResponse.json() as LigandCandidatesRead;
+      expect(currentInventory.artifact_id).toBe(next.current_artifact_id);
+      expect(currentInventory.designated_candidate?.atom_ids).toEqual(next.ligand_designation.atom_ids);
+      const formula = currentInventory.designated_candidate!.formula;
+      expect(formula).toBeNull(); expect(currentInventory.designated_candidate!.formal_charge).toBeNull();
+      await expect(header(page).locator(".ligand-designated-composition > div").filter({ hasText: "Formula" }).locator("dd"))
+        .toHaveText(formula ?? "Unavailable");
+      await expect(header(page)).not.toContainText("C2H6O");
+      await openDetails(page, ".comparison-table");
+      await currentUnavailable();
+      const beforeRelease = await sidebarSnapshot(page); held.release(); await settled.promise;
+      await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      expect(returned).toBe(true); await expect(carbon).toHaveText("1");
+      await currentUnavailable();
+      expect(await sidebarSnapshot(page)).toEqual(beforeRelease); expect(await entryChoice(page).inputValue()).toBe(entry.id);
+      expect(await (await request.get(endpoint)).json()).toEqual(editedCanonical);
+      expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
+      expect(await (await request.get(preferencePath)).json()).toEqual(preference.saved);
+      await info.attach(`held-project-source-${value}`, { contentType: "application/json", body: JSON.stringify({
+        oldReady: actualOld, actualEdit: edited, geometry: { initialStructure, editedStructure }, editedCanonical,
+        currentReady, currentInventory, beforeRelease, afterRelease: await sidebarSnapshot(page), returned,
+        scope: "Actual production READY held in transport; real canonical model edit while project B is active. No injected descriptor values or fabricated jobs." }) });
+    } finally { held.release(); await page.unrouteAll({ behavior: "wait" }); await restore(request, preference.before); }
   });
 }
 function urlPath(url: string) { return new URL(url).pathname; }

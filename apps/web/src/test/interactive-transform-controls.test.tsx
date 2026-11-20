@@ -1,14 +1,18 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
 import { afterEach, expect, it, vi } from "vitest";
 import { MovementOverlay, MovementControls } from "../components/MovementOverlay";
-import { useMovementSession } from "../coordinates/useMovementSession";
+import { useMovementSession, type MovementWorkflow } from "../coordinates/useMovementSession";
+import { TransformPanel } from "../components/TransformPanel";
+import { MovementSession } from "../coordinates/MovementSession";
+import type { StructureProjection } from "../api/types";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
 import { canonicalSelection } from "../selection/selection";
 
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 it("shares keyboard steps with one Apply and restores launcher focus after Cancel", async () => {
   const project = molecularProject();
   const projection = proteinProjection();
@@ -51,33 +55,66 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
   expect(commit.mock.calls[0]).toEqual([project, expect.objectContaining({ selection, translation: [0, 0, expect.any(Number)] })]);
 });
 
-it("retains a captured movement while a modal owns focus and Escape", async () => {
+it.each(["pointer", "keyboard"] as const)("retains a captured movement while a modal owns focus and Escape after %s activation", async activation => {
   const project = molecularProject();
   const selection = canonicalSelection([{ structure_id: "protein", atom_id: 1 }]);
+  let resolve!: (value: Map<string, StructureProjection>) => void;
+  const pending = new Promise<Map<string, StructureProjection>>(yes => { resolve = yes; });
+  const load = vi.fn(() => pending), beforeStart = vi.fn();
+  const begin = vi.spyOn(MovementSession.prototype, "begin");
   const commit = vi.fn(() => Promise.resolve(project));
-  const ports = { context: () => ({ project, selection }), rendered: () => selection.atoms,
-    load: () => Promise.resolve(new Map([["protein", proteinProjection()]])), commit,
+  const ports = { context: () => ({ project, selection }), rendered: () => selection.atoms, load, beforeStart, commit,
     refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn() };
+  let latest!: MovementWorkflow;
   function Harness() {
     const { workflow } = useMovementSession(ports);
+    latest = workflow;
     const [dialog, setDialog] = useState(true);
     return <>
-      {dialog ? <div role="dialog" aria-label="Inspector panel"
-        onKeyDown={event => { if (event.key === "Escape") setDialog(false); }}>
-        <button type="button" onClick={() => workflow.start()}>Move selection</button>
-      </div> : null}
+      <Dialog.Root open={dialog} onOpenChange={setDialog}>
+        <Dialog.Trigger asChild><button type="button">Inspector</button></Dialog.Trigger>
+        <Dialog.Portal><Dialog.Content aria-describedby={undefined}>
+          <Dialog.Title>Inspector panel</Dialog.Title>
+          <TransformPanel project={project} selection={selection} busy={workflow.state.phase !== "idle"} movement={workflow}
+            onPreview={vi.fn(() => Promise.resolve())} onClearPreview={vi.fn()} onTransform={vi.fn(() => Promise.resolve())}
+            onSuperpose={vi.fn(() => Promise.resolve(null))} />
+        </Dialog.Content></Dialog.Portal>
+      </Dialog.Root>
       {workflow.state.capture ? <><MovementOverlay movement={workflow} zoom={vi.fn()}
         view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /><MovementControls movement={workflow} zoom={vi.fn()} unavailableReason={null} view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /></> : null}
     </>;
   }
   const user = userEvent.setup(); render(<Harness />);
-  const launcher = screen.getByRole("button", { name: "Move selection" });
-  await user.click(launcher);
-  await screen.findByRole("region", { name: "Move selection controls" });
+  const launcher = screen.getByRole("button", { name: /^Move selection$/ });
+  if (activation === "pointer") await user.click(launcher);
+  else { launcher.focus(); await user.keyboard("{Enter}"); }
+  expect(latest.state.phase).toBe("loading");
+  expect(launcher).toHaveAttribute("aria-disabled", "true");
+  expect(launcher).not.toBeDisabled(); expect(launcher.tabIndex).toBe(0);
   expect(launcher).toHaveFocus();
+  await user.click(launcher); await user.keyboard("{Enter} ");
+  expect(latest.state.phase).toBe("loading");
+  expect(beforeStart).toHaveBeenCalledOnce(); expect(begin).toHaveBeenCalledOnce(); expect(load).toHaveBeenCalledOnce();
+  await act(async () => { resolve(new Map([["protein", proteinProjection()]])); await pending; });
+  expect(latest.state.phase).toBe("active");
+  const capture = latest.state.capture;
+  expect(capture?.selection).toEqual(selection);
+  expect(screen.getByRole("region", { name: "Move selection controls", hidden: true })).toBeInTheDocument();
+  expect(launcher).toHaveAttribute("aria-disabled", "true"); expect(launcher).not.toBeDisabled(); expect(launcher).toHaveFocus();
+  act(() => {
+    latest.setMode("translate"); latest.setSensitivity(2);
+    latest.update({ ...latest.state.pose, translation: [1, 2, 3] });
+  });
+  const pose = latest.state.pose;
+  await user.click(launcher); await user.keyboard("{Enter} ");
+  expect(beforeStart).toHaveBeenCalledOnce(); expect(begin).toHaveBeenCalledOnce(); expect(load).toHaveBeenCalledOnce();
+  expect(latest.state.capture).toBe(capture); expect(latest.state.pose).toEqual(pose);
+  expect(latest.mode).toBe("translate"); expect(latest.sensitivity).toBe(2); expect(commit).not.toHaveBeenCalled();
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /^Inspector$/ })).toHaveFocus();
   expect(screen.getByRole("region", { name: "Move selection controls" })).toBeInTheDocument();
+  expect(latest.state.capture).toBe(capture); expect(latest.state.pose).toEqual(pose);
   await user.click(screen.getByRole("button", { name: "More movement tools" }));
   await user.click(screen.getByRole("button", { name: "Step right" }));
   await user.keyboard("{Escape}");
@@ -86,6 +123,28 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();
   expect(commit).not.toHaveBeenCalled();
+});
+
+it("keeps a busy project's real movement launcher focusable without admitting pointer or keyboard starts", async () => {
+  const project = molecularProject();
+  const selection = canonicalSelection([{ structure_id: "protein", atom_id: 1 }]);
+  const beforeStart = vi.fn(), load = vi.fn(() => Promise.resolve(new Map([["protein", proteinProjection()]])));
+  const commit = vi.fn(() => Promise.resolve(project));
+  let latest!: MovementWorkflow;
+  function Harness() {
+    const { workflow } = useMovementSession({ context: () => ({ project, selection }), rendered: () => selection.atoms,
+      load, beforeStart, commit, refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn() });
+    latest = workflow;
+    return <TransformPanel project={project} selection={selection} busy movement={workflow}
+      onPreview={vi.fn(() => Promise.resolve())} onClearPreview={vi.fn()} onTransform={vi.fn(() => Promise.resolve())}
+      onSuperpose={vi.fn(() => Promise.resolve(null))} />;
+  }
+  const user = userEvent.setup(); render(<Harness />);
+  const launcher = screen.getByRole("button", { name: /^Move selection$/ });
+  expect(launcher).toHaveAttribute("aria-disabled", "true"); expect(launcher).not.toBeDisabled(); expect(launcher.tabIndex).toBe(0);
+  await user.click(launcher); expect(launcher).toHaveFocus(); await user.keyboard("{Enter} ");
+  expect(latest.state.phase).toBe("idle"); expect(latest.state.capture).toBeNull();
+  expect(beforeStart).not.toHaveBeenCalled(); expect(load).not.toHaveBeenCalled(); expect(commit).not.toHaveBeenCalled();
 });
 
 it("retains one capture and pose across scoped Space and explicit view-toggle ownership", async () => {

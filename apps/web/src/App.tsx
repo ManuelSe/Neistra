@@ -43,7 +43,7 @@ import { assertSelectionTargetCurrent, type SelectionTargetCapture } from "./sel
 import { wholeResidueSelection } from "./editing/residues";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { replaceEqualDeep, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { MutateOptions } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
@@ -259,7 +259,13 @@ export default function App() {
     queryKey: ["project", activeProjectId],
     queryFn: () => projectApi.get(activeProjectId ?? ""),
     enabled: !!activeProjectId,
+    staleTime: 0,
     retry: false,
+    structuralSharing: (before: unknown, after: unknown) => {
+      const current = before as Project | undefined, next = after as Project;
+      if (current?.id === next.id && current.revision > next.revision) return current;
+      return replaceEqualDeep(before, after);
+    },
   });
   const project = projectQuery.data;
   const measurementPorts = useRef<MeasurementPorts | null>(null);
