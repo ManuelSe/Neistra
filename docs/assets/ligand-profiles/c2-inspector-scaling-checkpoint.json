@@ -1,0 +1,138 @@
+{
+  "status": "Passing local preparatory checkpoint; not final feature or release qualification.",
+  "base": "dd4c5cc3db221fd2bcfd594c80f9cb5dfb5cb7ff",
+  "source_reference": "16ca91ea902aec8ca231eed35e8aa9ccc598cf3f",
+  "subjects": {
+    "apps/web/src/components/ProjectInspector.tsx": "762befb3652dbfc605da885573095b0b2ff74a174432c7423e1238602745614f",
+    "apps/web/src/test/project-inspector-query-scaling.test.tsx": "96ba311128b6fdc9f6b761b8676c11ecca881e0852839d16514c98532c9e3e92"
+  },
+  "resource_counts": {
+    "before": [
+      {
+        "entries": 100,
+        "trackedProperties": 50500,
+        "entryIdReads": 10200
+      },
+      {
+        "entries": 1000,
+        "trackedProperties": 5005000,
+        "entryIdReads": 1002000
+      }
+    ],
+    "after": [
+      {
+        "entries": 100,
+        "trackedProperties": 0,
+        "entryIdReads": 200
+      },
+      {
+        "entries": 1000,
+        "trackedProperties": 0,
+        "entryIdReads": 2000
+      }
+    ]
+  },
+  "verification": {
+    "red": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx"
+      ],
+      "exit": 1,
+      "elapsed_seconds": 2.5807230472564697,
+      "log_sha256": "9f718b1a2c58315fdecfb1db14824454d6349c6be4637faa23cd07dc265fdab7"
+    },
+    "green": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/project-inspector-query-scaling.test.tsx"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 1.9312279224395752,
+      "log_sha256": "63378ea8933aa70832c769ed72be2e673d5f63a75f81261f8d181640fa723e43"
+    },
+    "focused": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test",
+        "src/test/inspector-content-anchor.test.tsx",
+        "src/test/ligand-properties.test.tsx",
+        "src/test/ligand-profiles-integration.test.tsx",
+        "src/test/ligand-properties-source-verification.test.tsx",
+        "src/test/measurement-current-source.test.tsx",
+        "src/test/structure-projection-lifecycle.test.tsx",
+        "src/test/structure-projection.test.ts"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 4.53083062171936,
+      "log_sha256": "d6593296abb07f2dcd5a7ff4fb327fe8104495830f741a9be319c78c358195d3"
+    },
+    "lint": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 25.45417881011963,
+      "log_sha256": "416f2442a22741a580159cb951f5e96f3b883d26c75377b1575654e6ce9ddca6"
+    },
+    "typecheck": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 11.204477787017822,
+      "log_sha256": "68fe1bd9b692c8410a27fe5279d041dce4352fe28bca1632946b10130da92429"
+    },
+    "build": {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit": 0,
+      "elapsed_seconds": 22.461181163787842,
+      "log_sha256": "601e2737f3086d5e99bdab7776f982e7989186ee42bb2df71db3cc3103f1e69e"
+    }
+  },
+  "checks": {
+    "new_regressions": 3,
+    "existing_affected_tests": 122,
+    "existing_affected_files": 7
+  },
+  "specialist_assessments": {
+    "software_architecture": "PASS (scoped two-path preparation)",
+    "performance": "PASS (scoped two-path preparation)"
+  },
+  "packet": {
+    "file": "c2-inspector-scaling-evidence.zip",
+    "bytes": 975292,
+    "sha256": "0f220903410de6679b21218648e0500ec9dd70eea9a0c0dae8be53447d6aa577",
+    "manifest_entries": 27,
+    "complete_body_crc_and_exact_union_readback": "PASS"
+  },
+  "limitations": [
+    "Actual released #159 integration remains pending.",
+    "No final seven-role acceptance, full qualification, native latency or production speedup claim."
+  ]
+}

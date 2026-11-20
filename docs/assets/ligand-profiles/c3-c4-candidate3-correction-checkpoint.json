@@ -1,0 +1,295 @@
+{
+  "recorded_utc": "2026-11-20T05:57:31.761260+00:00",
+  "stage": "Scoped retained-status oracle correction and D-174 forensic verification checkpoint; not complete feature qualification",
+  "base_candidate": "6d977c93f2eb01c61b3c87f07d63e86abaf67e28",
+  "candidate_after": "Commit introducing this checkpoint plus the recorded working QA/test delta; not a final same-candidate approval",
+  "current_selected_source_bodies": 1183,
+  "current_selected_source_digest": "b6b2f260c07bed8755358827b06d76cdc37be80d450d6b7fc8131b28fb5b2b6f",
+  "failed_full_campaign": {
+    "label": "c4-candidate3",
+    "disposition": "FAILED / NOT PASS",
+    "actual_runner_exit_code": 1,
+    "recorded_commands": 16,
+    "prior_passed_commands": 15,
+    "failed_command": "browser",
+    "never_started_commands": 27,
+    "python_passed": 4044,
+    "frontend_passed": 1875,
+    "supervisor_passed": 14,
+    "browser_inventory": 660,
+    "browser_passed": 103,
+    "browser_failed": 1,
+    "browser_authored_exclusions_observed": 3,
+    "browser_not_run_after_global_max_failure_stop": 553,
+    "browser_flakes": 0,
+    "browser_retries": 0,
+    "browser_global_stop_errors": 1,
+    "cause": "Retained exact property-status oracle expected Properties current; actual accessible profile status includes Properties current No profile selected.",
+    "source_count": 1181,
+    "preceding_source_count": 1133,
+    "source_data_predecessor_unchanged": true,
+    "positive_owned_cleanup": true,
+    "raw_original_copy_pairs_verified": 48,
+    "gate": {
+      "path": "docs/assets/ligand-profiles/c4-candidate3-gate.json",
+      "bytes": 733207,
+      "sha256": "b1c8d875543912e0988b1cfacb7a2bd718669ff5c146da45a464b5b3addc7707"
+    },
+    "primary_terminal_readback": {
+      "path": ".issue-11-evidence/issue160-c4-candidate3-run1/primary-terminal-readback.json",
+      "bytes": 1055,
+      "sha256": "5d7ac48d9f7680499343085b1567e619df04be2d4336a9d728214507eda1088a"
+    }
+  },
+  "correction": {
+    "files": [
+      {
+        "path": "tests/e2e/ligand-properties-access.spec.ts",
+        "bytes": 21964,
+        "sha256": "7ee463b326c213bad69b4fc8e4b1451c6af875759eff820439f6303e514bf785"
+      },
+      {
+        "path": "tests/e2e/ligand-properties.spec.ts",
+        "bytes": 10040,
+        "sha256": "b10754cba4d83496d1d081accb976be76e80e38bdedab918b02ff295f5fcca09"
+      },
+      {
+        "path": "tests/e2e/ligand-properties-performance.spec.ts",
+        "bytes": 71782,
+        "sha256": "50a6dab12c9ef3cba8cf1a18b8aad05fb4840abfed43da43d29bceaaf5fb8e2e"
+      }
+    ],
+    "exact_expected_string_replacements": 7,
+    "behavior": "Preserve exact current/cancelled property assertion and include the existing No profile selected suffix; no role locator, deadline, measurement clock, callback, workload, scientific assertion, retry or exclusion change.",
+    "production_code_change": false,
+    "source_before_after_bodies_for_native": 1181
+  },
+  "focused_native": {
+    "result": "PASS",
+    "base_head_with_uncommitted_seven_string_delta": "6d977c93f2eb01c61b3c87f07d63e86abaf67e28",
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "flakes": 0,
+    "retries": 0,
+    "report_errors": 0,
+    "positive_cleanup": true,
+    "raw_original_copy_pairs_verified": 3,
+    "source_before_after_exact": true,
+    "all_1181_captured_bodies_match_current_selected_sources": true,
+    "scope": "Complete ordinary property/access cases plus accepted late-demand cancellation case in both projects; not twenty-pair/four-1000-entry workload qualification.",
+    "command": {
+      "path": ".issue-11-evidence/issue160-profile-workflows-legacy-status1/command.json",
+      "bytes": 2635,
+      "sha256": "d2081609ab142600ee788a7372da5c1f43e163c74bf41cee3dce1e2b9abbc0d8"
+    },
+    "execution": {
+      "path": ".issue-11-evidence/issue160-profile-workflows-legacy-status1/execution.json",
+      "bytes": 3430,
+      "sha256": "ba2c5e268b305bbd6677fc963d1ba8e98d32d34d641120d3d9a6a5bb25723ae1"
+    },
+    "primary_readback": {
+      "path": ".issue-11-evidence/issue160-profile-workflows-legacy-status1/primary-readback.json",
+      "bytes": 1127,
+      "sha256": "33cd330d6f0c2a5aca872811f1ace5b701eb3ee94801c75c5ff752037eefaf3e"
+    },
+    "captured_source_zip": {
+      "path": ".issue-11-evidence/issue160-profile-workflows-legacy-status1/source-before.zip",
+      "bytes": 24334563,
+      "sha256": "2c5a5378ad397bfce157123f32038225d7fcac3c480a9e14d55c21067bb78dea"
+    },
+    "inherited_cancellation_observers_complete": 2
+  },
+  "forensic_verifier": {
+    "tool": {
+      "path": "tools/verify_profile_forensics.py",
+      "bytes": 19264,
+      "sha256": "f2ccc7bf0ad16b3a39d87e07a285624ab66ffe1a43ab61d4e22ad826ba5ea816"
+    },
+    "test": {
+      "path": "tests/unit/test_profile_forensic_verifier.py",
+      "bytes": 32175,
+      "sha256": "8bcb0d14a02af2d7c6f938563284b46fde7999205da05c22d22b0be56a5d31ee"
+    },
+    "pure_unit_tests_passed": 94,
+    "unit_failures": 0,
+    "unit_skips": 0,
+    "Ruff": "PASS",
+    "strict_mypy": "PASS",
+    "checks": [
+      {
+        "label": "pytest-final",
+        "command": [
+          ".venv/bin/pytest",
+          "-q",
+          "tests/unit/test_profile_forensic_verifier.py",
+          "--tb=short"
+        ],
+        "exit_code": 0,
+        "seconds": 3.770601599942893,
+        "log": ".issue-11-evidence/issue160-profile-forensic-verifier1/pytest-final.log"
+      },
+      {
+        "label": "ruff-final",
+        "command": [
+          ".venv/bin/ruff",
+          "check",
+          "tools/verify_profile_forensics.py",
+          "tests/unit/test_profile_forensic_verifier.py"
+        ],
+        "exit_code": 0,
+        "seconds": 0.009330802946351469,
+        "log": ".issue-11-evidence/issue160-profile-forensic-verifier1/ruff-final.log"
+      },
+      {
+        "label": "mypy-final",
+        "command": [
+          ".venv/bin/mypy",
+          "tools/verify_profile_forensics.py"
+        ],
+        "exit_code": 0,
+        "seconds": 0.09326878702268004,
+        "log": ".issue-11-evidence/issue160-profile-forensic-verifier1/mypy-final.log"
+      }
+    ],
+    "handoff": {
+      "path": ".issue-11-evidence/issue160-profile-forensic-verifier1/handoff.json",
+      "bytes": 3981,
+      "sha256": "c1e0fbd0b0ac5ccfa4f37eec0276c9afce7893014186b372e8b2aaab82214775"
+    },
+    "actual_nine_part_local_verification": {
+      "path": ".issue-11-evidence/issue160-profile-forensic-verifier1/actual-local-verification.json",
+      "bytes": 8141,
+      "sha256": "130f5cdfe8df38e6602f3413248412a49330d477067c3aad1a6fb12486ca888c"
+    },
+    "actual_complete_local_result": true,
+    "historical_git_source_bodies_verified": 1181,
+    "lossless_logs_verified": 16,
+    "frozen_baseline_data_files_verified": 3,
+    "old_verifiers_unchanged": {
+      "tools/verify_ligand_forensics.py": {
+        "sha256": "d3fe296aed0038ee7bea58a4aa616157f9048c6fac3c42ee40ae30c3c9b6b9b0",
+        "matches_HEAD_bytes": true
+      },
+      "tools/verify_measurement_forensics.py": {
+        "sha256": "9c22cdbd6f018d8a2df8ec85d25207b9c3221b7c5576dda2683f474cd369835a",
+        "matches_HEAD_bytes": true
+      }
+    },
+    "initial_failed_authoring_checks_retained": true,
+    "scope": "QA tooling; no application imports, scheduler, rendering, scientific method or measurement clock changes."
+  },
+  "supplemental_forensics": {
+    "index": {
+      "path": "docs/assets/ligand-profiles/forensics/c3-forensics-index.json",
+      "bytes": 11859,
+      "sha256": "a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a"
+    },
+    "inventory": {
+      "path": "docs/assets/ligand-profiles/forensics/c3-forensics-inventory-c4-candidate3.json.gz",
+      "bytes": 792699,
+      "sha256": "6e7e1d18de424b30f33ab4aa477c6c060c6dff803c8272a24c8023a8e2be9701"
+    },
+    "private_asset_plan_reference": {
+      "path": ".issue-11-evidence/issue160-c4-candidate3-packet1/private-asset-plan.json",
+      "bytes": 4242,
+      "sha256": "1dd4dfdc60587ef319fe558bbe8137a995f129ae8802185a0551d2fcd6fdc686"
+    },
+    "asset_count": 9,
+    "asset_names": [
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part01.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part02.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part03.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part04.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part05.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part06.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part07.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part08.zip",
+      "neistra-v0.38.0-issue160-c4-candidate3-forensics-part09.zip"
+    ],
+    "total_asset_bytes": 675225495,
+    "max_part_bytes": 81343689,
+    "part_max_bytes_exclusive": 83886080,
+    "all_parts_remain_owned_ignored_until_release_upload": true,
+    "exact_disjoint_manifest_union": true,
+    "files": 16896,
+    "raw_bytes": 943273831,
+    "raw_native_files": 16253,
+    "external_profile_case_files": 132,
+    "external_profile_case_records": 32,
+    "original_native_relocation_receipt": {
+      "path": ".issue-11-evidence/issue160-c4-candidate3-packet1/verified-original-native-relocation.json",
+      "bytes": 861,
+      "sha256": "6e55e1da8925661fbbee4408914d8338db172b59849f5c18719357237d66d5e6"
+    },
+    "original_native_bytes_unchanged_after_verified_relocation": true,
+    "local_recursive_counts": {
+      "zip_archives_including_wrapped": 23,
+      "evidence_manifest_entries": 16901,
+      "project_archive_files_including_wrapped": 16
+    },
+    "public_anonymous_verification": "REQUIRED AFTER RELEASE; NOT YET RUN"
+  },
+  "primary_bundle_requirement": {
+    "explicit_current_checkout_CLI_argument": "--evidence profile-forensics-index=/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/forensics",
+    "final_release_instruction": "Use the absolute metadata directory in the actual qualified release checkout. Pass the directory explicitly; automatic checkpoint-prefix discovery does not include this nested directory.",
+    "required_main_bundle_members": [
+      "supplemental/profile-forensics-index/c3-forensics-index.json",
+      "supplemental/profile-forensics-index/c3-forensics-inventory-c4-candidate3.json.gz"
+    ],
+    "assert_before_publication": "Both small metadata files present; none of the nine large forensic part payloads embedded in the primary bundle. Publish the nine indexed parts separately, then verify anonymous EOF/SHA/CRC/manifests/exact union before closeout."
+  },
+  "scoped_specialist_assessments": {
+    "scope": "7 exact legacy status strings; new forensic verifier and94unit controls; retained failed full3 evidence; not whole-feature release readiness",
+    "actual_neutral_receipt": {
+      "path": ".issue-11-evidence/issue160-profile-forensic-verifier1/scoped-agent-assessments.json",
+      "bytes": 1592,
+      "sha256": "700ec7c26e57138ba53c6e7ab485ba09dfb6489a9c233bb9d7f5d92147b935fb"
+    },
+    "roles": {
+      "software_architecture": {
+        "agent": "/root/issue161_current160_integration_architecture",
+        "verdict": "PASS",
+        "evidence": "Independent1181historicalGit/16logs/DATA3;9parts SHA/CRC+16896payloadhashes exactdisjointunion;94testsource+logs; oldverifiers unchanged; wrapped ZIP/HTTP EOF guards inspected"
+      },
+      "performance": {
+        "agent": "/root/issue160_performance_6d_whole_review",
+        "verdict": "PASS",
+        "evidence": "Independent exact7strings; actual28PASS/singleattempt/retry0;1181sources exact/3rawpairs; frozen10Python+44SDF/generationmanifest unchanged;94controls/staticlogs;9part actualreceipt/currenthashes; no application workload or clockchange"
+      }
+    },
+    "not_final_seven_role_feature_review": true
+  },
+  "next_full_gate": {
+    "recipe": {
+      "path": "docs/assets/ligand-profiles/c4-candidate4-recipe.json",
+      "bytes": 46062,
+      "sha256": "1af5ecfcd46b4eafc76c2d6d5ce1b256d0eb0d7ce858e3d26e6b7f761ad4d563"
+    },
+    "commands": 43,
+    "status": "PREPARED; NOT STARTED",
+    "derivation": "Precise c4-candidate3 label/path replacement only; reverse replacement reproduces the entire previous recipe byte-for-byte.",
+    "partial_results_reused": false,
+    "prerequisite": "Root-inspected coherent committed checkpoint and clean launch state."
+  },
+  "program_state": {
+    "goal": "ACTIVE through required156-163 releases and verified parent11 closeout",
+    "delivered_children": [
+      156,
+      157,
+      158,
+      159
+    ],
+    "issue161": "Prepared separate sidebar integration; acceptance testing ongoing; actual released160 mandatory before final161 gates/PR.",
+    "issue162_and_163": "Planned, not implemented.",
+    "parent_exclusions_unchanged": true
+  },
+  "limitations": [
+    "Full3 failed; no complete current43-command PASS.",
+    "Twenty-pair/four-1000 workloads remain unqualified for this current candidate.",
+    "All seven final same-candidate specialist assessments and full candidate/exact-merged gates remain required.",
+    "Scoped architecture/performance PASS are not feature readiness or human approvals.",
+    "No160 implementation push,PR,tag,release or closure is claimed.",
+    "All indexed forensic assets need separate release publication and full anonymous verification."
+  ]
+}

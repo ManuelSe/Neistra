@@ -573,7 +573,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           </IconButton>
         ) : null}
       </div>
-      <div className="inspector-scroll" ref={scrollOwner}>
+      <div className="inspector-scroll" ref={scrollOwner} data-inspector-visit={JSON.stringify([project?.id ?? "", tab, taskScrollRequest])}>
         {ligandControls}
         <div
           ref={tabList}

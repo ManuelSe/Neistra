@@ -1,0 +1,483 @@
+{
+  "scope": "Working local160C2profile vertical checkpoint and scoped D190correction evidence; NOTapplicationpush/readiness/fullperformance/releasequalification",
+  "repository": "ManuelSe/Neistra",
+  "issue": 160,
+  "parent": 11,
+  "head_plus_working_changes": "cb4a6c2119eeaceecd8f839bb8a5dccd8a37daea",
+  "current_source_count": 1074,
+  "current_source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+  "changed_or_new_source_count": 80,
+  "all_changed_code_tests_and_config_copied": true,
+  "baseline_fully_hashed": true,
+  "earlier_c1": {
+    "archive": "c1-domain-evidence.zip",
+    "identity": {
+      "bytes": 344899,
+      "sha256": "2e8586613aa68e41fb6d4771a98b13c7b6cf84d6a11c15a41f7c1564cbc17d81"
+    },
+    "metadata": {
+      "bytes": 6325,
+      "sha256": "7461dfd043864be3ae8541b06249f95ecdfc94042c44fe66b8653377fe8ba70a"
+    },
+    "domain_python": 47,
+    "domain_typescript": 220,
+    "original_metadata_api_python": 49,
+    "scope": "Closed earlier domain/API proof retained byte-identical; metadata API source is later replaced by an explicitly unreleased runtime overlay"
+  },
+  "runtime_preparation": {
+    "version": "0.36.0",
+    "planned160version": "0.38.0",
+    "private_head": "0017",
+    "project_archive_version": 3,
+    "viewer_version": 2,
+    "source159_local_checkpoint": "f6e847b8e25eb4d1068f8b14741fda6fb8bdd0d0",
+    "source159_is_released": false,
+    "original_snapshot1_borrowed_paths": 49,
+    "source_snapshot2_changed_borrowed_paths": [
+      "apps/api/src/neistra_api/job_worker.py"
+    ],
+    "root_format_only_correction": {
+      "scope": "Formatting-only correction after addedformatcheck, exactpreformat159copiespreserved; no scientific/scheduling/assertionchange",
+      "files": {
+        "apps/api/src/neistra_api/job_worker.py": {
+          "before_sha256": "40867e1b1a13dd86c29710c47c0b71a8559d5b373abf47ad019e7d84fb7ec3c1",
+          "after_sha256": "136313d5f1b5bf6906821ff64e09af25339672d2122a0dd983414b3b3197cc3e",
+          "complete_python_ast_equal": true
+        },
+        "tests/integration/test_ligand_property_lifecycle.py": {
+          "before_sha256": "0b30420cee431a97f4394ae8a914950d9e990eb9b315fd7221a96655638bffc7",
+          "after_sha256": "8d845127f0952da1db07858f788c02cd22e3b0b741a114b45cefe982ecedb0e0",
+          "complete_python_ast_equal": true
+        }
+      }
+    },
+    "complete_ast_equality_recomputed": true,
+    "domain15_and_pins13_unchanged": true,
+    "metadata_overlay_api49": "Retained post-runtime-overlay49case proof is distinct from initial C1API49; no suite totals are summed.",
+    "fairness_api78": {
+      "actual_enclosing": {
+        "scope": "Actualfocusedlifecycle/profiledomain/API78cases+globalRuff/ownedformat/mypy280 only; notfullreleasegate orreleasedprerequisite",
+        "actual_session": 23929,
+        "actual_exit": 0,
+        "receipt_sha256": "700e6dc81fdcb6f9247082085663c9f8b06f2f1dfc94b4647b522b725a6725dc",
+        "source_count": 553,
+        "pytest_passed": 78,
+        "ruff": "PASS",
+        "format": "PASS",
+        "mypy_files": 280,
+        "observed_utc": "2026-11-17T20:42:05.625634+00:00"
+      },
+      "passed": 78,
+      "source_scope": 553,
+      "ruff": "PASS",
+      "owned_two_file_format": "PASS",
+      "mypy": 280
+    },
+    "prior78_format_failure": "Actual86376exit1:78cases andRuff pass, addedformat check fails on the two copied files; mypy did not run. Both original bodies and full Python AST equality are retained."
+  },
+  "frontend": {
+    "initial_and_correction2": "All earlier frontend source archives, receipts and failed corrections retained. Correction2 passes329focused/1633global, actual26385; it predates D190.",
+    "d190": {
+      "handoff_sha256": "80b3c81e6422e2cfc4a452dbbf310d113c13ebe7d2c494aff74f28521c6c17aa",
+      "four_source_identities": {
+        "apps/web/src/components/InspectorContentAnchor.tsx": "1a649e9432d711776806013e951d756eefebdf03595ada0dcbd58d313f5e0120",
+        "apps/web/src/test/inspector-content-anchor.test.tsx": "5b127a72b1bd8a44d6f88bbdb79e9fe52f1021601088bc6346f5c72e81a8d4dd",
+        "apps/web/src/components/LigandProperties.tsx": "60454f84fd46834f6c5aedb97aecad1df2d4e7518fb2220c5c0d40c2c5364f60",
+        "apps/web/src/components/ProjectInspector.tsx": "d1c2e6fcea82bdd3457281e5234f893424f1928beef70e824a30e4295a4f948c"
+      },
+      "actual_session": 9640,
+      "actual_exit": 0,
+      "focused": 400,
+      "focused_suites": 14,
+      "global_tests": 1649,
+      "global_suites": 130,
+      "lint": "PASS",
+      "types": "PASS",
+      "build": "PASS",
+      "web_source_scope": 359,
+      "source_archives_diff_and_logs_retained": true
+    }
+  },
+  "final_native": {
+    "actual_enclosing": {
+      "scope": "Freshcomplete18ownedprofilecorrectness/access cases, notfullreleasegate/benchmark/actualprerequisitedelivery",
+      "actual_session": 69297,
+      "actual_exit": 0,
+      "receipt_sha256": "5c904bc3f4ebbc641e1481ebd01120d363a1e9c6a9fd54642ae074e732b9a798",
+      "browser_sha256": "95fa74a7dd46c9c29da3a572f97c4eb88b878129d7db01fe4d04f36b7d414b34",
+      "source_count": 1074,
+      "source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "retries": 0,
+      "scope_includes": "Bothdesktop/mobilethemes profiledependentdemand/cancel/retry/criteria/warnings/editUndoRedo/realbondpreviewCancelApplyUndoRedo/heldactualcatalogrecoveryacrossrealedit;2persistentdesktopcontexts\u00d74themezoomscenarios,unchangedasyncsameDOM/focus/hit/<=1px; explicitbaselinequerytabresetandtrustedreapply",
+      "observed_utc": "2026-11-17T20:49:58.535936+00:00"
+    },
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "retries": 0,
+    "browser_errors": 0,
+    "source_count": 1074,
+    "source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+    "all_seven_runs_and_stores_retained": true,
+    "compositor_captures": 24,
+    "compositor_dimensions": [
+      1440,
+      861
+    ],
+    "actual_theme_zoom_scenarios": 8,
+    "actual_context": "Two persistent desktop Chromium contexts, one under each runner profile label; four theme/zoom scenarios per context. No physical-mobile zoom claim.",
+    "input_y_deltas": [
+      -0.4375,
+      0.0546875
+    ]
+  },
+  "native_attempts": [
+    {
+      "run": 1,
+      "physical_path": ".issue-11-evidence/issue159-integration-root/native1",
+      "receipt": {
+        "bytes": 260282,
+        "sha256": "ac131d8cf0c5e7b2b74b8836fc4a4cc9e78c7cca322ae45e60a7faba2a538e22"
+      },
+      "actual_enclosing": {
+        "scope": "Actual160profiledependentdemand/cancel/criteria firstnativevertical, outputprefixinherits159name butphysicalworktree160 and services8340/8341/5425 isolated. No159app run orfull160gate/zoomclaim.",
+        "actual_session": 94342,
+        "actual_exit": 0,
+        "passed": 4,
+        "fail_skip_flake_retry": 0,
+        "source_count": 1070,
+        "receipt_sha256": "ac131d8cf0c5e7b2b74b8836fc4a4cc9e78c7cca322ae45e60a7faba2a538e22"
+      },
+      "source_count": 1070,
+      "source_digest": "185a1beb9a60dd96c95a5dfb1cfa8dea412835e1721ce9947760f3523583e3a0",
+      "stats": {
+        "startTime": "2026-11-17T19:40:13.627Z",
+        "duration": 29341.297,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 2,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native2",
+      "receipt": {
+        "bytes": 260282,
+        "sha256": "8d72df786c782612a025f154b063c0cf66cc263673847818efa0969df698af95"
+      },
+      "actual_enclosing": {
+        "scope": "Actual160eightprofileflowcasesonly; notfullreleasegate orzoomqualification",
+        "actual_session": 78987,
+        "actual_exit": 0,
+        "passed": 8,
+        "fail_skip_flake_retry": 0,
+        "source_count": 1070,
+        "receipt_sha256": "8d72df786c782612a025f154b063c0cf66cc263673847818efa0969df698af95"
+      },
+      "source_count": 1070,
+      "source_digest": "1108a93833cb8ef7ea10c0b544771ca3d15c368ef9edf64d3bb3e8de6756451e",
+      "stats": {
+        "startTime": "2026-11-17T19:52:53.557Z",
+        "duration": 76045.466,
+        "expected": 8,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 3,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native3",
+      "receipt": {
+        "bytes": 260599,
+        "sha256": "570ccc24efab19f5d954357a92347cfd359877fc6e43ef2b09bdb16c940c2269"
+      },
+      "actual_enclosing": {
+        "scope": "Direct root-observed actual enclosing tool completion, failednative3 retained; notpass",
+        "actual_session": 43214,
+        "actual_exit": 1,
+        "receipt_sha256": "570ccc24efab19f5d954357a92347cfd359877fc6e43ef2b09bdb16c940c2269",
+        "browser_sha256": "40160973a433c84792f95288df6e2cc62b53344cca7fca2b93c7152d5d2ea76b",
+        "source_count": 1071,
+        "failure": "Firstrealdesktop100light case focusedinput remainsreachable/hit butYshifts108.4375px vs<=1.17notrun; independentUIUXassessmentpending",
+        "observed_utc": "2026-11-17T20:21:59.606158+00:00"
+      },
+      "source_count": 1071,
+      "source_digest": "b7775d56a8f581cdec0f7ab5afccac86a34daea93b995a08d93383f3807f75cb",
+      "stats": {
+        "startTime": "2026-11-17T20:20:37.139Z",
+        "duration": 16021.783,
+        "expected": 0,
+        "skipped": 17,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 4,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native4",
+      "receipt": {
+        "bytes": 260545,
+        "sha256": "2b4ef6879c68ebf7b60137f435e0e02ffddadfafa371e3530e39f3934f2fe89e"
+      },
+      "actual_enclosing": {
+        "scope": "Directrootobservedenclosingfailednative4, notpass",
+        "actual_session": 31297,
+        "actual_exit": 1,
+        "receipt_sha256": "2b4ef6879c68ebf7b60137f435e0e02ffddadfafa371e3530e39f3934f2fe89e",
+        "browser_sha256": "98b150a5cf0f6962efa7ad7c08a7ac671d50c4fbccde63dca276e4317e6efba8",
+        "source_count": 1071,
+        "failure": "4PASS1FAIL11notrun. Rootincorrectlyclosedactualeditor, whichlegitimatelycancelsproposal; currentproperty/profilecorrect. IndependentarchitecturetraceconfirmsreadresumesBEFOREsameEntryselect.",
+        "observed_utc": "2026-11-17T20:26:19.697890+00:00"
+      },
+      "source_count": 1071,
+      "source_digest": "b7775d56a8f581cdec0f7ab5afccac86a34daea93b995a08d93383f3807f75cb",
+      "stats": {
+        "startTime": "2026-11-17T20:21:50.061Z",
+        "duration": 65860.988,
+        "expected": 4,
+        "skipped": 11,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 5,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native5",
+      "receipt": {
+        "bytes": 260545,
+        "sha256": "941fbd32768e90bf446383ef64ed296ca2d24c11cb64e0cf5e7f4cbf28d7feec"
+      },
+      "actual_enclosing": {
+        "scope": "Actual focused16mainnativecorrectness only, notcombined18access/fullgate/benchmark",
+        "actual_session": 97537,
+        "actual_exit": 0,
+        "receipt_sha256": "941fbd32768e90bf446383ef64ed296ca2d24c11cb64e0cf5e7f4cbf28d7feec",
+        "browser_sha256": "2e3908dcad52cd2773a2304bb89950d3e93d86dae9bdbdebf69ddaff967c3cd2",
+        "source_count": 1071,
+        "passed": 16,
+        "scope_includes": "Bothdesktop/mobilethemes profile-onlydemand/cancel/criteria/editUndoRedo/actualbondpreviewCancelApplyUndoRedo/heldactualmetadataresponseacrossrealedit",
+        "still_pending": "Retainednative3accessreadingpositionfailure requirespresentationcorrection andfreshall18. No poolingthese16withfailedaccess.",
+        "observed_utc": "2026-11-17T20:29:51.664192+00:00"
+      },
+      "source_count": 1071,
+      "source_digest": "2acb5c06bc71174e97ea07bea926a02c52b67b6e5c25e72d8e93e8a8a24243cf",
+      "stats": {
+        "startTime": "2026-11-17T20:26:30.104Z",
+        "duration": 176888.47499999998,
+        "expected": 16,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 6,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native6",
+      "receipt": {
+        "bytes": 261359,
+        "sha256": "221dcf92493c90ec706ac01ed09b542ce81f1e66899e5b6e8e66a3589038f829"
+      },
+      "actual_enclosing": {
+        "scope": "Actualfailedcombined18run,notpass; firstgeometrypathpassedbeforelateroraclefailure",
+        "actual_session": 15366,
+        "actual_exit": 1,
+        "receipt_sha256": "221dcf92493c90ec706ac01ed09b542ce81f1e66899e5b6e8e66a3589038f829",
+        "browser_sha256": "b92a4b89afbdf2c9a5d2c6f5e42125ccc65d122bca50038c0a2dc9dbf37e2da2",
+        "source_count": 1074,
+        "passed_cases": 0,
+        "failed": 1,
+        "unexecuted": 17,
+        "failure": "AfterheldREADY sameDOM/focus/hit/Y<=1 andApplyquerypassed; newpostintentionaltabroundtrip draftpersistenceexpectationfails. IndependentUXverifies158/159/160SelectionPanellocalunmountbaselineempty/default.",
+        "observed_utc": "2026-11-17T20:45:27.491625+00:00"
+      },
+      "source_count": 1074,
+      "source_digest": "426fac1f5a7a47b59166e06496aa5fc9d3edfb9d3d6aebeddeaee164097eb65a",
+      "stats": {
+        "startTime": "2026-11-17T20:43:15.246Z",
+        "duration": 29564.161,
+        "expected": 0,
+        "skipped": 17,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "complete_gate": false
+    },
+    {
+      "run": 7,
+      "physical_path": ".issue-11-evidence/issue160-integration-root/native7",
+      "receipt": {
+        "bytes": 261359,
+        "sha256": "5c904bc3f4ebbc641e1481ebd01120d363a1e9c6a9fd54642ae074e732b9a798"
+      },
+      "actual_enclosing": {
+        "scope": "Freshcomplete18ownedprofilecorrectness/access cases, notfullreleasegate/benchmark/actualprerequisitedelivery",
+        "actual_session": 69297,
+        "actual_exit": 0,
+        "receipt_sha256": "5c904bc3f4ebbc641e1481ebd01120d363a1e9c6a9fd54642ae074e732b9a798",
+        "browser_sha256": "95fa74a7dd46c9c29da3a572f97c4eb88b878129d7db01fe4d04f36b7d414b34",
+        "source_count": 1074,
+        "source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+        "passed": 18,
+        "failed": 0,
+        "skipped": 0,
+        "flaky": 0,
+        "retries": 0,
+        "scope_includes": "Bothdesktop/mobilethemes profiledependentdemand/cancel/retry/criteria/warnings/editUndoRedo/realbondpreviewCancelApplyUndoRedo/heldactualcatalogrecoveryacrossrealedit;2persistentdesktopcontexts\u00d74themezoomscenarios,unchangedasyncsameDOM/focus/hit/<=1px; explicitbaselinequerytabresetandtrustedreapply",
+        "observed_utc": "2026-11-17T20:49:58.535936+00:00"
+      },
+      "source_count": 1074,
+      "source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+      "stats": {
+        "startTime": "2026-11-17T20:45:28.676Z",
+        "duration": 227283.63199999998,
+        "expected": 18,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "complete_gate": false
+    }
+  ],
+  "native_history": "Native1 physical159label is inside this160tree, not159qualification. Native3 reproduces108pxreading-position failure. Native4 closes the real editor and legitimately cancels its draft: wrong new oracle. Native5corrected active-preview16case run passes. Native6post-D190 reaches held geometry but newly assumes unsupported cross-tab query persistence; source-identical legacy SelectionPanel local-reset is independently established. Native7changes only the test to assert default-empty and trusted requery, retaining all held READY/Y/focus/hit/async assertions.",
+  "native_oracle_correction": {
+    "scope": "NativeoraclecorrectionONLYforprovenexistingcross-tabquerylifecycle",
+    "prior_sha256": "427b036b0e6f69072dc38eee0dc9ccbcfd78f43ee925905e5671ee5667bfec17",
+    "current_sha256": "db41bf3f06baeca085aa043ef71c9420d07aceb868838e83ea1dd889124d0673",
+    "independent_ux": "158,159,160SelectionPanelconditionalmount/localstate defaultsatom_name+empty. Existing159nativeassertsquerybeforetabroundtripbutnotafter. Acceptedasyncpreservationdoesnotaddcross-tabdraftpersistence.",
+    "retained": "AllheldREADYsameDOM/focus/input/hit/fullvisibility/Y<=1 controls unchanged, firsttrustedApplyand1selectedunchanged; explicitlyverifybaselinepostnavigationdefault/emptyandthennewtrustedqueryApply."
+  },
+  "independent_scoped_assessments": {
+    "scope": "Independent SCOPED D190correction/all18native assessments only, NOTallsevenwholefeature/readiness",
+    "candidate_source_count": 1074,
+    "candidate_source_digest": "ee7581af128133f15c23856585bb75ceadad97f5669061854c58b97e6e97b52e",
+    "sources": {
+      "apps/web/src/components/InspectorContentAnchor.tsx": "1a649e9432d711776806013e951d756eefebdf03595ada0dcbd58d313f5e0120",
+      "apps/web/src/test/inspector-content-anchor.test.tsx": "5b127a72b1bd8a44d6f88bbdb79e9fe52f1021601088bc6346f5c72e81a8d4dd",
+      "apps/web/src/components/LigandProperties.tsx": "60454f84fd46834f6c5aedb97aecad1df2d4e7518fb2220c5c0d40c2c5364f60",
+      "apps/web/src/components/ProjectInspector.tsx": "d1c2e6fcea82bdd3457281e5234f893424f1928beef70e824a30e4295a4f948c",
+      "tests/e2e/ligand-profiles-access.spec.ts": "db41bf3f06baeca085aa043ef71c9420d07aceb868838e83ea1dd889124d0673"
+    },
+    "roles": {
+      "software_architecture": {
+        "reviewer": "/root/issue156_architecture_review7",
+        "verdict": "PASS",
+        "checks": "Completefour-filecode/new16controls independentlyexecuted1506exit0; source/diff/archive/logs; finalactual18/1074sourcehashes/currentgeometry; sourceboundnativeoraclebaseline; separate78API/staticreceipt",
+        "limitation": "BoundedD190only, notwholefeaturefinal"
+      },
+      "ui_design": {
+        "reviewer": "/root/issue158_ui_env_reconfirmation",
+        "verdict": "PASS",
+        "checks": "Completefour-filecode/new16independentPASS/archive/diff/logs; all8actualgeometryscenarios/24CDPcapturesdecoded+representativecriteria/methods/queryvisualinspection; final18sources/enclosingbinding",
+        "limitation": "Representativevisualinspection, notclaimall24individuallyinspectedimages; boundedcorrectiononly"
+      },
+      "ux_design": {
+        "reviewer": "/root/issue158_ux_env_reconfirmation",
+        "verdict": "PASS",
+        "checks": "Completefour-filecode/all16controls inspected; retainedauthor400focused1649webnotrerun; 24CDPdecoded/representativevisuals/all8geometry/final18hashes; baselineSelectionPanelbyteidentityacross158159160 andnativeoraclepreservestheheldREADYcontract",
+        "limitation": "Noadditionalnativeexecutionbyreviewer; boundedcorrectiononly"
+      }
+    },
+    "native": {
+      "actual_enclosing_session": 69297,
+      "actual_exit": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "retries": 0,
+      "browser_sha256": "95fa74a7dd46c9c29da3a572f97c4eb88b878129d7db01fe4d04f36b7d414b34",
+      "receipt_sha256": "5c904bc3f4ebbc641e1481ebd01120d363a1e9c6a9fd54642ae074e732b9a798",
+      "geometry_scenarios": 8,
+      "full_compositor_pngs": 24,
+      "css_pixel_delta_100": -0.4375,
+      "css_pixel_delta_200": 0.0546875
+    },
+    "remaining": "actualreleased159reconciliation; performance/currentcandidate+exactmasterfullgates/all7samefinal/protectedmerge/tagrelease/publicassets/childcloseout/parentendpoint",
+    "observed_utc": "2026-11-17T20:53:24.849681+00:00"
+  },
+  "scoped_three_roles_are_not_all_seven_final_approval": true,
+  "raw_retention": {
+    "issue160-access-oracle7": 2,
+    "issue160-architecture-owner1": 6,
+    "issue160-fairness-api1": 216,
+    "issue160-fairness-api2": 217,
+    "issue160-fairness-format2": 4,
+    "issue160-frontend": 54,
+    "issue160-integration-root": 89,
+    "issue160-layout-design": 1,
+    "issue160-metadata-api-overlay2": 4,
+    "issue160-metadata-api1": 5,
+    "issue160-preview-native3": 2,
+    "issue160-preview-oracle5": 2,
+    "issue160-profile-access-author": 9,
+    "issue160-unreleased159-fairness-snapshot2": 4,
+    "issue160-unreleased159-runtime-snapshot1": 4,
+    "issue159-integration-root": 10,
+    "neistra160-integrated-native1": 6,
+    "neistra160-integrated-native2": 9,
+    "neistra160-integrated-native3": 9,
+    "neistra160-integrated-native4": 10,
+    "neistra160-integrated-native5": 14,
+    "neistra160-integrated-native6": 9,
+    "neistra160-integrated-native7": 18
+  },
+  "link_metadata_count": 60,
+  "named_cache_omissions": {
+    "issue160-access-oracle7": [],
+    "issue160-architecture-owner1": [],
+    "issue160-fairness-api1": [],
+    "issue160-fairness-api2": [],
+    "issue160-fairness-format2": [],
+    "issue160-frontend": [],
+    "issue160-integration-root": [],
+    "issue160-layout-design": [],
+    "issue160-metadata-api-overlay2": [],
+    "issue160-metadata-api1": [],
+    "issue160-preview-native3": [],
+    "issue160-preview-oracle5": [],
+    "issue160-profile-access-author": [],
+    "issue160-unreleased159-fairness-snapshot2": [],
+    "issue160-unreleased159-runtime-snapshot1": [],
+    "issue159-integration-root": [],
+    "neistra160-integrated-native1": [],
+    "neistra160-integrated-native2": [],
+    "neistra160-integrated-native3": [],
+    "neistra160-integrated-native4": [],
+    "neistra160-integrated-native5": [],
+    "neistra160-integrated-native6": [],
+    "neistra160-integrated-native7": []
+  },
+  "estimated_deflate_before_metadata": 32648001,
+  "no_159_37MB_packet_or_full_private_tree_included": true,
+  "limitations": "Ad hoc native TypeScript attempts hit known helper upload/global/Vite typing issues; no wholeE2ETypeScript pass is claimed. UI/UX verdicts distinguish decoded24captures from representative visual inspection. Actual released159integration/version reconciliation, full performance/capacity, final same-candidate seven roles and full gates remain pending.",
+  "required_remaining": [
+    "Reconcile and integrate actual verified159deliverymaster/tag and all copied sources/versions before final160qualification",
+    "Complete scientific/UI/runtime integration and applicable performance/fullcandidate and exact-master gates",
+    "Obtain all seven final same-candidate assessments and normal protected PR/merge",
+    "Verify annotatedtag/publishedrelease/publicassets/childcloseout/ownedcleanup and parent program endpoint"
+  ],
+  "archive": "c2-evidence.zip",
+  "archive_bytes": 33134745,
+  "archive_sha256": "1adc0c7a79a4fabcdf68cc0b970045540045518c36d190f4efbd49c97abf1929",
+  "outer_manifest_entries": 821,
+  "recursive_verification": {
+    "zip_archives": 15,
+    "evidence_manifest_entries": 947,
+    "project_archive_files": 0
+  },
+  "all_payload_hashes_recursive_crcs_and_owned_source_stability_verified": true,
+  "original_c1_packet_and_metadata_unchanged": true,
+  "observed_utc": "2026-11-17T21:03:24.183319+00:00"
+}

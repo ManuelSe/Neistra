@@ -1,0 +1,217 @@
+{
+  "schema": "issue160-released159-integration-checkpoint-v1",
+  "recorded_utc": "2026-11-20T01:04:01.456433+00:00",
+  "scope": "Passing LOCAL prerequisite integration checkpoint; not final feature, native, performance, compatibility, all-seven readiness or release qualification.",
+  "owned_premerge_head": "4a3d1f6f7fd6c4cf8bc0c11577aef11912250f46",
+  "incoming_verified_master": "3f873f5062814eac61a716112c92eb99f2e30328",
+  "runtime_prerequisite_version": "0.37.0",
+  "runtime_prerequisite_merge": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "accepted_same_schema_contract": "c3-same-schema-acceptance.json",
+  "complete_changed_existing_application_path_allowlist": [
+    "apps/api/src/neistra_api/main.py",
+    "apps/web/src/App.tsx",
+    "apps/web/src/components/LigandProperties.tsx",
+    "apps/web/src/components/ProjectInspector.tsx",
+    "apps/web/src/ligandProperties/context.ts",
+    "apps/web/src/ligandProperties/useProperties.ts"
+  ],
+  "exact_premerge_profile_source_bodies_preserved": 33,
+  "other_incoming_app_package_test_paths_unchanged": 1078,
+  "all_17_migrations_exact": true,
+  "focused_checks": {
+    "backend": {
+      "tests": 220,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "frontend": {
+      "tests": 525,
+      "files": 18,
+      "failures": 0
+    },
+    "ruff": "PASS",
+    "mypy": {
+      "status": "PASS",
+      "source_files": 280
+    },
+    "web_lint": "PASS",
+    "web_typecheck": "PASS",
+    "web_production_build": {
+      "exit_code": 0,
+      "duration_seconds": 16.761,
+      "existing_vite_chunk_size_warning_retained": true
+    }
+  },
+  "source_fingerprints": {
+    "apps/api/src/neistra_api/main.py": "5cb998b2a25d69f534bd238e1969251fee35e3407544e72fe54b2a1532e998e3",
+    "apps/web/src/App.tsx": "55b77e08570300d79ab59877dc101dea2ee4348939a4a95f770e11d81ca476ab",
+    "apps/web/src/components/InspectorContentAnchor.tsx": "1a649e9432d711776806013e951d756eefebdf03595ada0dcbd58d313f5e0120",
+    "apps/web/src/components/LigandProperties.tsx": "60454f84fd46834f6c5aedb97aecad1df2d4e7518fb2220c5c0d40c2c5364f60",
+    "apps/web/src/components/ProjectInspector.tsx": "762befb3652dbfc605da885573095b0b2ff74a174432c7423e1238602745614f",
+    "apps/web/src/ligandProfiles/ProfileReadout.tsx": "3e29369eed26307eed9e8e280637a31f37d74db922d59d90e4e2c35c10874bde",
+    "apps/web/src/ligandProfiles/api.ts": "8854be96d158beb107aae3fce3db7918643ee94307e22c4307f20363ebe04738",
+    "apps/web/src/ligandProfiles/authority.ts": "73df6c2a92470e102e896403c3e4cdcc2e3ab4547f5988ad730f57371f1c9abc",
+    "apps/web/src/ligandProfiles/context.ts": "4c7bed5081c5544c988d156eadd955656fb19405434f59e002ca6fde9940fb10",
+    "apps/web/src/ligandProfiles/evaluate.ts": "073b2d79a4862304c9405e6900614469ab4e80679162a7c73afc34c7f2d77521",
+    "apps/web/src/ligandProfiles/profiles.css": "8ab5cca14726d62f726c26106a1c4bffa2054e989e5ef8606cf2e30164496b87",
+    "apps/web/src/ligandProfiles/types.ts": "cd294df3fee14807a18219a5dc271d2c4066a0f095f926b362c736867ddb6088",
+    "apps/web/src/ligandProfiles/useProfiles.ts": "34c72b8dd705b839201c883e4ef2eab60b4d2514f3d09b6eed265aab05c6a38c",
+    "apps/web/src/ligandProfiles/validate.ts": "4df2abf0ef08b17077bece6129ecaf76a81b4fb91b124f135274e504a721f809",
+    "apps/web/src/ligandProperties/context.ts": "f9bd8bbb301f762d762908a21d2899ec86766e0bd0bb169ef9c64f9664af98b2",
+    "apps/web/src/ligandProperties/useProperties.ts": "649a4b2158024afc36383a8671f5399c0c1833dbefda8b12d67264ae624f4ee3",
+    "apps/web/src/test/inspector-content-anchor.test.tsx": "5b127a72b1bd8a44d6f88bbdb79e9fe52f1021601088bc6346f5c72e81a8d4dd",
+    "apps/web/src/test/ligand-profiles-api.test.ts": "6a268059541afc03c4f917830ab606dcde8a0a2ce4606217f684f1b12031b7f7",
+    "apps/web/src/test/ligand-profiles-domain.test.ts": "371a6ba273dacb38e832a9216fa243097a299dc0b6cea098fcb3e0f2524fce8d",
+    "apps/web/src/test/ligand-profiles-integration.test.tsx": "ce4baabf5bd8ab50f4d8d18d81d7751336d5c14c95e9f13a4fc1277ecfa789b1",
+    "packages/neistra_core/src/molweave_core/ligand_profiles/__init__.py": "89d77ec206d3e2ef88d808a2f58950ffc27f4a3a7a05c95f7c9e2f41b198ac0e",
+    "packages/neistra_core/src/molweave_core/ligand_profiles/models.py": "71f4565404fd9cbbdee2e57a6ae0a7ea1554dc755c728ec4bf75d767fa5305f2",
+    "packages/neistra_core/src/molweave_core/ligand_profiles/registry.py": "8fba9657cdfb270d52cbb79bab713a099bd1935dd598422b53c58bee3c72e0d1",
+    "packages/neistra_core/src/neistra_core/ligand_profiles/__init__.py": "7d9ecf555408e8c38434b0e71cfa1f4d565ffa1791a9501441731cbf26e4bebe",
+    "packages/neistra_core/src/neistra_core/ligand_profiles/models.py": "6c02018c7584771482ecf21e529c2837c6355dc9da121478d3041c2220f06f8f",
+    "packages/neistra_core/src/neistra_core/ligand_profiles/registry.py": "23c857bfdf5951aa22006d60cb6ffa0f31d0d73c2879865fb0805b93b1d90b83",
+    "tests/e2e/ligand-profiles-access.spec.ts": "db41bf3f06baeca085aa043ef71c9420d07aceb868838e83ea1dd889124d0673",
+    "tests/e2e/ligand-profiles.spec.ts": "090fbf5f9f07018317fa35ab906248f8cf1de33f75937dda1e2da3fe0c947d63",
+    "tests/fixtures/profiles/boundaries.json": "3798fae40b3e0f15cc470c8d034131df1595a409ba0a0c5b6d3f0d61b31fa302",
+    "tests/fixtures/profiles/generate_boundaries.py": "053cebc11735c95328ac07e9c9b64d6c3bfca51465c65eef0864ca010a867e94",
+    "tests/fixtures/profiles/molecular-cases.json": "3593e204cef306cdef0e8ea213d60b49ca75f5f61eaf8227dd9add5849ba72be",
+    "tests/fixtures/profiles/registry.json": "2c8d7eb4b3289494aa799dfd08831c8a64f8cdd0226e7839d308028e519fa755",
+    "tests/integration/test_ligand_profile_registry.py": "a48534d2e5a68f3d46c4af5c20c6bad495da31bf996161796abcc46aa6262944",
+    "tests/unit/test_ligand_profile_registry.py": "8d27fa20afc8ca184d1c58acafae5cf5d4d314f510b6a89218bb729328dcd0fd"
+  },
+  "original_evidence_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-released159-integration1",
+  "original_execution_receipts_and_logs": {
+    "source-proof.json": {
+      "bytes": 9804,
+      "sha256": "c8bcabddcfda0f60ed5b3ef8c8aed22be574017ed6ae99007e69b33bcc2f83a6"
+    },
+    "primary-conflict-resolutions.json": {
+      "bytes": 927,
+      "sha256": "fc14262f06500b20391f699ab20c4679730e9ab7d6d3458a98c7e60210b128b1"
+    },
+    "merge-start.json": {
+      "bytes": 2244,
+      "sha256": "c09307190bc5c9e834d2845f78f2ae4eea7b94404c82ab5c49268f2f992855f2"
+    },
+    "ui-resolution/resolution.json": {
+      "bytes": 3569,
+      "sha256": "ffb25de54180e493e37294fd29d8c202b3b4dac00add38bd40c149c831f116b2"
+    },
+    "ui-resolution/focused-tests.stdout": {
+      "bytes": 3234,
+      "sha256": "42bea4cc695467164de6afe74e4a7aed59ad530cf3d21b5712a01e556f24a83b"
+    },
+    "ui-resolution/lint.stdout": {
+      "bytes": 133,
+      "sha256": "28ecf1c26d08f81887b51f284c8a8bbc12494c4d3f3723d11421d1083a970c9b"
+    },
+    "ui-resolution/lint.execution.json": {
+      "bytes": 897,
+      "sha256": "5eaea6023062f99431bcebc33b2299fef9a258b2fccd47721ee5f689b53c79b4"
+    },
+    "ui-resolution/checks.json": {
+      "bytes": 6057,
+      "sha256": "4f05ae8de033a2a8f17da955ca20a608d51186110587d732efbc03446a84e536"
+    },
+    "ui-resolution/tool-version.stdout": {
+      "bytes": 8,
+      "sha256": "ae5895e922e216eeea40fd6e339cee97c94d541902e06289c17cc5bf7983075a"
+    },
+    "ui-resolution/typecheck.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ui-resolution/typecheck.stdout": {
+      "bytes": 134,
+      "sha256": "e49862139bdce3b8705556f69a73cdd3206c3b5d6b68a6d435909cbe86564a67"
+    },
+    "ui-resolution/tool-version.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ui-resolution/production-build.stdout": {
+      "bytes": 956,
+      "sha256": "52c469f69ad9c451e4b4ef690a16c1b620b58ac302a7c2a53c66326ab39fc2a8"
+    },
+    "ui-resolution/lint.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ui-resolution/tool-version.execution.json": {
+      "bytes": 893,
+      "sha256": "3dee05d11411b25bac7c20d1b173eb798215adf42e72fa29dbbfecb8e0f89853"
+    },
+    "ui-resolution/production-build.stderr": {
+      "bytes": 332,
+      "sha256": "ccb6bf354a0674eeb1e49df9a880a000b75240079fdb849282bb899d81eeb58c"
+    },
+    "ui-resolution/production-build.execution.json": {
+      "bytes": 1069,
+      "sha256": "8c14aa5ff54a218ae99dd57eadffd756b0c5900cd0af3d1f4104b0a6c9fbf5f4"
+    },
+    "ui-resolution/focused-tests.execution.json": {
+      "bytes": 1829,
+      "sha256": "d990766a0d2eb41322b1c19ad9ddcfbd4d7f4ad4f50e0a115e4461b46ed1a297"
+    },
+    "ui-resolution/focused-tests.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ui-resolution/typecheck.execution.json": {
+      "bytes": 916,
+      "sha256": "5b9f5e85f73aca7b5f5ed8ce2a992b123c45881c4f55a57a319effc1a366a0cf"
+    },
+    "ui-resolution/implementation-summary.json": {
+      "bytes": 1189,
+      "sha256": "fb6b8867e7b5506ebfe78ab677ddc46447d87f40d1a762f60762d1fd592d41dc"
+    },
+    "backend-static/ruff.stdout.log": {
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "backend-static/mypy.stdout.log": {
+      "bytes": 45,
+      "sha256": "c84111b876dd4ee59da614e766eed3cd06121e6690ddea79856a7d0c651ab8a7"
+    },
+    "backend-static/mypy.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "backend-static/execution.json": {
+      "bytes": 1468,
+      "sha256": "e4c1defb119849c5ef807f85285a2316956ac67d40b34b7210affe48c1592cf0"
+    },
+    "backend-static/ruff.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "backend/junit.xml": {
+      "bytes": 38158,
+      "sha256": "efd44d25fa9e8fb100c73c72a4cb9b674a8a9e26f8c0fe43b2e02be1c7e86ee8"
+    },
+    "backend/stdout.log": {
+      "bytes": 514,
+      "sha256": "21510c289b7bfae8f4bf57f8d1b75cb99f3d853d901c67f7d1384b8e787bbfaf"
+    },
+    "backend/command.json": {
+      "bytes": 2715,
+      "sha256": "78dd6ec897e2a24eb5f77d98556661e025828ff311a4409121188c52e638706a"
+    },
+    "backend/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "backend/execution.json": {
+      "bytes": 3094,
+      "sha256": "15a7b2f5a54089940b9dbc7b981fa5de29286a06ed69383abb26a6d790170592"
+    }
+  },
+  "original_evidence_preserved_not_yet_a_portable_complete_release_packet": true,
+  "remaining": [
+    "Actual tagged v0.37.0 preceding source extraction and authorized actors",
+    "Explicit same-schema-v2 implementation and independent regression controls; legacy v1 preserved",
+    "Source-bound benchmark/fixture guards, all five 0.38.0 versions and actual native/performance qualification",
+    "Both complete candidate and actual merged gates, all seven same-final-candidate reviews, normal PR/release/issue closeout/ownedcleanup",
+    "Required161\u2013163 and parent integrated acceptance/closeout"
+  ]
+}

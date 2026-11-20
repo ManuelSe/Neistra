@@ -8856,6 +8856,84 @@ Before runtime use, independently qualify ALL44serialized artifacts through the 
 
 Generation/import/preflight are disclosed setup before App demand/trusted measured trigger, never changed-input descriptor-cache warming. Retain20pairedsamples per profile, allfourbulkactivecases, exact realedit/Undo/source/READY/work-order/resource assertions, timing clocks/deadlines and portable-only policy. Existing measured trigger includes acknowledgement, automatic work and publication. Code/method review, all44offline controls and fresh runtime execution are separate requirements; this decision establishes no performance pass or release readiness.
 
+## D-186 — Share sourced profiles through one synchronous evaluation engine
+
+Date:2026-11-17. Before #160 implementation, theory confirms the already accepted
+seven source-qualified adaptations and two investigated unavailable variants.
+Reference research supports explicit named criteria, operators and mismatch details;
+a compact selector/status and expandable criteria/details in the existing property
+region is the chosen original workflow. Full sidebar, radar rendering and entry
+filter UI remain #161/#162. No arbitrary expression editor or additional science job.
+
+Independent architecture consultation selects one production TypeScript generic
+evaluator and a versioned Python registry/API. Python validates data references,
+composite DAGs and descriptor mappings, and may provide independent offline boundary
+fixtures; there is no present server consumer requiring a duplicate runtime numeric
+evaluator. Thresholds live once in the shared registry, never in component literals.
+Composites reference shared constraints/profiles. Required descriptor dependencies
+augment #159 consumer demand without mutating saved category preferences. Selection
+is transient; no new project schema, cache, job platform or migration is introduced.
+
+Only a #159 current-binding-qualified owner view may supply current evaluations:
+exact source/binding/scientific-input/method/library/policy and owner epoch must match.
+A generic DescriptorReport or expected_hash copied from that report establishes no
+publication authority. Retired/preview/mismatched inputs withhold incompatible values
+synchronously. Preserve current partial violations separately from missing/pending/
+error and require every required qualified input for a positive overall result.
+Teague's operational charge-presence fact must be strictlyfalse; source-domain
+unavailability precedes numerical compliance, even with net chargezero.
+
+Use unrounded exact operators and limits, no epsilon. Scientific numeric validation
+is distinct from plotting domains: valid out-of-radar-range values remain values,
+with genuine threshold outcomes. Ordered polarity/size/lipophilicity/flexibility axes,
+normalization, clipping and missing-axis policy are shared display metadata rather
+than evaluation changes or a polygon score. Exact/adjacent float boundaries,
+integer±1, malformed/nonfinite/boolean values, stale/version mismatches, partial
+coverage, composites, domain refusal and dependency ownership require tests.
+
+Isolated domain preparation pins exact frozen unreleased #159 kernel and frontend
+type sources with private hashes. These copies are not a delivered prerequisite.
+Integrate actual verified #159 delivery master and reconcile every copied source
+before final #160 qualification, review or publication. Publication remains serial.
+
+
+## D-190 — Preserve the focused inspector task across derived-content layout changes
+
+Actual160native3 retains the same focused, hittable query input but moves it upward
+108.4375CSSpx when expanded profile criteria and property methods replace pending
+reasons with current report content. Its inner scrollTop remains1675. Independent
+UI and UX trace assessments confirm a reading-position regression, independently
+reproduced after settled animation frames; do not relax the existing≤1px oracle.
+
+Keep all scientific warnings, natural-height disclosures, control identity and the
+single existing inspector scroll owner. A small presentation boundary INSIDE the
+functional Properties renderer receives each session-driven content publication.
+React's documented getSnapshotBeforeUpdate captures the actual focused legacy
+control and its owner-relative offset immediately before DOM publication; the
+matching componentDidUpdate compensates only that same inner owner for a residual
+offset change. A wrapper only above the subscribing component cannot observe its
+local rerenders; ordinary layout-effect cleanup is not a reliable pre-mutation
+snapshot. See https://react.dev/reference/react/Component#getSnapshotBeforeUpdate.
+
+Independent architecture consultation accepts this bounded precommit approach.
+Guard current connected control/focus, unchanged section/nearest scroll owner,
+semantic project/entry/task visit and explicit task-navigation token. The token is
+presentation metadata, never scientific state or a React remount key. Deliberate
+scrolling and navigation remain authoritative; capture the latest actual position
+at publication and do not override a changed owner/task in the commit. No focus(),
+scrollIntoView, window scrolling, observer, animation-frame loop, restored controls,
+new scrollbox, height cap, suppressed warning or descriptor scheduling change.
+Qualify positive/negative guard cases, actual source retirement and warning updates,
+explicit scrolling, both themes, narrow layouts and verified100%/200% browser zoom.
+
+The separate native4 preview failure is a test-oracle mistake: closing the editor
+legitimately cancels placement. Trace shows properties resume before the test's
+same-entry select. Keep the actual editor/proposal open while inspecting; mobile
+Inspector opening preserves the editor/workspace. Corrected actual native5 passes
+all16main cases in both themes and desktop/mobile, actual97537exit0 with1,071source
+hashes fixed, including preview Cancel/Apply/exactUndoRedo and metadata recovery.
+This does not pool into the still-failed access qualification or authorize readiness.
+
 
 ## D-195 — A source failure retires earlier inventory checks across presenters
 
@@ -9754,3 +9832,186 @@ inventory unchanged; do not let later analysis/checkpoint files enter that froze
 gate-package union. Only public names change: all packet bodies and source/helper
 identities remain exact. The existing release-context collector then includes
 every companion without a qualification-source change or another native run.
+
+### D-196 downstream recovery continuation — verified profile preparation
+
+2026-11-18: propagate the exact accepted159worker correction into160without changing
+profile definitions, evaluator/dependency behavior, scientific methods, schema or
+resource bounds. Catch private-cache OSError only inside its housekeeping seam;
+pre-launch input/version refusals capture immutable ownership and terminalize/reap
+only a rechecked exact association with affirmative never-started process metadata.
+Replacement, foreign, deleted and positively registered captures keep their existing
+verified recovery authority.
+
+Only job_worker.py changes and one independent33-case regression file is added to
+the1197-source preparation. All1196other source bodies remain exact. Destination
+checks pass33new+171affected cases and Ruff/ownedformat/mypy280. Three unchanged
+private migration cases bind ROOT/alembic/current0017 to this destination, with
+collection-time proof and a same-case160location supplement; the initial missing-
+file collection failure is retained. This is scoped local checkpoint acceptance,
+not a full-feature/all-seven/performance qualification. Preserve old guards as
+stale HOLD and integrate actual released159before final delivery. The lossless
+source/recovery packet retains all1831regular input files without SQL processing;
+installed node_modules remains an explicit inert dependency alias, not a bundled
+source or omitted owned evidence tree.
+
+
+### D-201 downstream inspector preparation — preserve complete query ownership
+
+2026-11-18: before released159integration, reuse its exact inspector query-scaling
+correction in160. One immutable-project entry index replaces repeated linear
+searches. Memoized query options preserve every eligible hidden/selected entry and
+artifact key; explicit data/isError/isPlaceholderData notifications retain complete
+projection qualification and retained-data failure retirement. Do not narrow query
+scope or change the visit/task/scroll suffix, profile dependencies or source guards.
+
+Architecture and performance assessed the method before the bounded two-path edit
+and independently reviewed its resulting diff/evidence. The original100/1000-entry
+resource assertion fails as expected; the corrected regression and two ownership
+controls pass, as do122affected cases and web lint/types/build. Preserve raw red and
+green logs, launcher-only failures and source inventories in the scoped evidence
+packet. This passes local preparation only: actual released159integration, profile
+qualification and all-seven same-final-candidate acceptance remain mandatory. No
+additional standalone native workload is required solely for this identical
+correction; no production latency improvement is inferred from mocked work counts.
+
+
+## D-203 — Qualify consecutive property releases on the same database schema
+
+2026-11-20, #160, before new compatibility implementation. The actually released
+v0.37.0 prerequisite uses schema 0017; planned v0.38.0 profiles add no durable
+schema. A preceding migration refusal cannot prove positive same-schema writer
+compatibility. Keep literal/default `private-derived-shared-schema-v1` and its
+0017/0016 refusal and offline controls unchanged. Add the explicitly selected,
+allowlisted `private-derived-same-schema-v2` for current/previous 0017, through
+recipe, actor authorization, summaries, package and profile helper catalogue.
+Do not infer protocol or worker source from version strings, roots or capabilities.
+
+The [accepted contract](assets/ligand-profiles/c3-same-schema-acceptance.json)
+retains the exact earlier planning input and independent architecture/scientific
+implementation PASS identities. Actual v0.37.0 tag/merge/release/closeout are now
+verified. Actual #160 predecessor extraction, actor/schema proofs and integration
+remain pending; no new runtime result is claimed by this decision.
+
+Before preceding-code API writes, prove actual preceding upgrade exit 0 at 0017,
+unchanged schema, logical rows, artifacts and originals. Keep all 17 migration
+bodies exact. Use its genuine purpose-aware ORM/API for ordinary jobs; separately
+retain the omitted-column server-default regression. Ordinary jobs stay ordinary;
+private derived work stays absent from ordinary API/archive projections. Forged
+markers grant no authority. Preserve history, metadata, preferences, corruption,
+stale/recovery, cancellation, deletion/Undo and archive remapping behavior.
+
+Exercise pending, captured, started, completed, cancelled, corrupt, stale, forged
+and project-deleted families genuinely produced by BOTH current and preceding
+sources, with both archive suffixes and all three directional phases. Keep actual
+nonready states nonready; never prewarm fixtures solely to fabricate value vectors.
+Use exact ten-descriptor coverage, including logP and strict rotors; preserve saved
+composition/polarity preferences and the separate source-qualified charge-presence
+fact. Compare genuine available producer vectors and independently specified
+fixture goldens; floats retain absolute 1e-10/relative 0, integers retain exact types,
+and profile operators retain exact boundaries without epsilon. Unsupported edited
+chemistry keeps qualified known counts and per-value unavailable reasons.
+
+Select an explicit authorized current/previous worker slot and verify exact source,
+interpreter/module hashes, method/library/policy BEFORE early worker return or an
+interruption claim. The existing process-group checkpoint precedes plugin loading;
+it proves an owned spawned descriptor child, not native calculation entry. Report
+only actually observed stages and actually matching producer-vector comparisons.
+
+The six profile-specific qualification helpers require an independent literal
+five-directory/six-name catalogue. Historical helpers and v1 contracts remain.
+Registry reads remain storage-free; profile selection stays transient and resets
+on reload/remapping. No scientific method, descriptor, dependency, migration,
+workload, deadline or performance policy change is introduced. Full candidate and
+actual-merge gates and all seven final specialist reviews still apply.
+
+
+### D-194 #160 clarification — generation provenance and current qualification
+
+2026-11-20, before provenance-guard changes. Independent performance and theory
+assessments confirm original manifest SHA-256
+`7826731f86f04fe9b22a56fa35a5755885da041979cfc9938c315b1777a01421`
+and every original SDF byte remain exact. Nine of ten repository generation pins
+match current source. The qualification observer helper changed from
+`dac492eb8a681f31acca9067bdd7b5711fe0d982002a9b2b52ebbd35c69fcb4a`
+(exact body at `049173da69cebd7264abc26a0028aa4d9d3f9938`) to already released
+`f5d416101faa4a9bd91307f765d8ccb54db770e9223eeee7e7aa3eaf4b80f4fb`.
+The complete diff adds atomic observer publication and changes two observation
+writes; fixture_trial/preflight/source_inventory/fixture_manifest ASTs are equal.
+No chemistry or generation change is established.
+
+The old guard conflates historical generation and current qualification identities.
+Preserve all originals and historical receipts, and bind a separate current
+qualification receipt to the frozen manifest, all 44 bodies, actual scientific
+source/library/settings identities and only that reviewed observer evolution.
+Unlisted drift must refuse. A changed qualification driver records its current
+identity explicitly and must not claim equality to its original self-pin. Require
+fresh all-44 production adapter/editor/kernel/H/history controls with graph/charge/
+H/stereo/original restoration, valid coordinates and fourteen descriptor outcomes,
+including the O–O fixture. Altered fixture bytes, an unapproved scientific source
+and an unlisted observer hash must fail before qualification. This is source-bound
+requalification, not regeneration, blanket repinning or historical relabelling.
+
+
+## D-204 — Measure selected-profile overhead separately from property calculation
+
+2026-11-20, before new profile measurement code. The existing frozen property
+benchmark measures no selected profile, so it cannot certify selection/dependency/
+evaluation overhead. Preserve its 20-pair/four-1,000-entry definitions, deadlines,
+limits, source history and exclusions. Add the bounded desktop/mobile workload
+specified in the #160 plan: five genuinely classified first selections, 20 warm
+same-dependency switches, one composite expansion, three edit/history reevaluations
+and one bounded metadata-failure/recovery control per browser.
+
+Use a separate fresh owned store to establish cold coverage, not browser context
+freshness or shared-cache deletion. Keep raw browser-clock observations, request/
+allocation/job deltas, exact current scientific/profile identity and unavailable
+measurements. Warm same-dependency switching creates no jobs/consumer allocations;
+profile requirements do not mutate saved display categories. Current-source truth
+and bounded work are mandatory; D-148 absolute latency remains opt-in. Preserve
+existing representative 100 ms/2 s targets without treating portable misses as strict
+host certification. No extra bulk profile campaign is justified for one active
+ligand unless measured evidence exposes a scaling concern.
+
+
+D-194 implementation boundary: use a separate profile fixture-qualification entrypoint
+that calls the unchanged production-adapter/editor/kernel/history controls. Keep
+both the original generator/qualifier and all 52 inherited benchmark subjects exact;
+do not override legacy source_identities or monkey-patch its refusal. The new driver
+validates the complete frozen manifest/44 bodies and the exact reviewed observer
+hash transition before any scientific work, records its own current body identity,
+and rechecks every input after the run. This separates current qualification from
+original generation without introducing a new chemical method.
+
+### D-204 qualification correction — separate numerical and source-context oracles
+
+The unchanged independent fixture preflight deliberately disables original-file
+recovery. Production input identity includes qualification provenance and may use
+the preserved uploaded SDF, so equal numerical vectors can correctly have different
+input hashes. Keep both reports and hashes: verify numerical/status agreement against
+the independent no-recovery oracle, and require exact source-context hash, provenance
+and method equality against the captured canonical/original bytes. Never overwrite
+the independent hash or drop identity validation. A dedicated test-only adapter
+reuses the unchanged preflight captures. After edit, Undo and Redo, verify the actual
+published canonical structure; a simplified disposable edit is not publication
+authority. Run that read-only check after the browser-observed READY timestamp so
+it cannot inflate automatic-current latency; presenter reopening remains separate.
+
+A trusted control event alone does not prove visible feedback. Qualify the matching
+visible control or status and preserve unavailable timing when hidden. Released
+consumer records may remain until expiry; require no live owned demand while
+preserving the existing global retention bounds. These are harness corrections,
+not changes to production chemistry, deadlines, workloads or timing targets.
+
+### D-203 qualification addendum — use the published actual-predecessor baseline
+
+The actual v0.37.0 merged gate was published in its release package; its complete
+browser report was not committed as a standalone file. A lookup in the earlier
+designation release's directory cannot establish that predecessor's exclusions.
+Retain the byte-exact original summary and compressed browser report with a pinned
+provenance receipt linking the public asset, nested master-gate archive and manifests
+to the exact member bodies and released commit. Check identity, hashes and complete
+browser outcomes before starting the expensive gate. Freeze these three data inputs
+separately from the literal six-helper catalogue and retain them in gate/release
+packages. Compare exact excluded test identities, including rejection of a changed
+list with an unchanged count. Historical helpers and reports remain unchanged.

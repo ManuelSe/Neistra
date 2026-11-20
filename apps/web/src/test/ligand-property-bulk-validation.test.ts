@@ -1,3 +1,4 @@
+import { strictEqual } from "node:assert/strict";
 import { describe, expect, it } from "vitest";
 import { collectBulkPropertyValidationErrors } from "../../../../tests/e2e/support/bulk-property-validation";
 
@@ -26,6 +27,21 @@ function priorOracle(rows: Row[], sources: ReturnType<typeof sourceOrder>, step 
     }
   }
 }
+// The same independent pointwise predicates for the exhaustive negative matrix.
+// Keep source equality semantics and malformed-value native throws; avoid repeated
+// passing matcher bookkeeping. The literal prior oracle remains above for parity
+// and its original 801-step accounting below.
+function pointwiseOracle(rows: Row[], sources: ReturnType<typeof sourceOrder>) {
+  expect(rows.map(row => row.source)).toEqual(sources);
+  for (const row of rows as (Omit<Row, "report"> & { report: { model_status: string; values: Value[] } | null })[]) {
+    strictEqual(["ready", "pending"].includes(row.status), true);
+    if (row.status === "ready") {
+      strictEqual(row.report?.model_status, "qualified");
+      strictEqual(row.report?.values?.length, 14);
+      strictEqual(row.report?.values.every(value => value.status === "ready" && Number.isFinite(value.value)), true);
+    }
+  }
+}
 function batchOracle(rows: Row[], sources: ReturnType<typeof sourceOrder>, step = () => {}) {
   step(); expect(rows.map(row => row.source)).toEqual(sources);
   step(); expect(collectBulkPropertyValidationErrors(rows)).toEqual([]);
@@ -35,7 +51,7 @@ function passes(oracle: () => void) {
 }
 function sameRejection(rows: Row[], index: number) {
   const sources = sourceOrder(rows);
-  expect(passes(() => priorOracle(rows, sources))).toBe(false);
+  expect(passes(() => pointwiseOracle(rows, sources))).toBe(false);
   expect(passes(() => batchOracle(rows, sources))).toBe(false);
   expect(collectBulkPropertyValidationErrors(rows).map(error => error.index)).toEqual([index]);
 }
@@ -44,6 +60,7 @@ describe("complete bulk property oracle without per-row matcher steps", () => {
   it("accepts every valid ready row, including zero and negative values", () => {
     const rows = batch();
     priorOracle(rows, sourceOrder(rows));
+    pointwiseOracle(rows, sourceOrder(rows));
     batchOracle(rows, sourceOrder(rows));
     expect(collectBulkPropertyValidationErrors(rows)).toEqual([]);
   });
@@ -56,6 +73,7 @@ describe("complete bulk property oracle without per-row matcher steps", () => {
       } };
     }
     priorOracle(rows, sourceOrder(rows));
+    pointwiseOracle(rows, sourceOrder(rows));
     batchOracle(rows, sourceOrder(rows));
   });
 
@@ -104,10 +122,12 @@ describe("complete bulk property oracle without per-row matcher steps", () => {
     for (const index of [0, 100, 199]) {
       const rows = batch(); rows[index].source = { id: 200 };
       expect(passes(() => priorOracle(rows, expected))).toBe(false);
+      expect(passes(() => pointwiseOracle(rows, expected))).toBe(false);
       expect(passes(() => batchOracle(rows, expected))).toBe(false);
     }
     const rows = batch(); [rows[0], rows[199]] = [rows[199], rows[0]];
     expect(passes(() => priorOracle(rows, expected))).toBe(false);
+    expect(passes(() => pointwiseOracle(rows, expected))).toBe(false);
     expect(passes(() => batchOracle(rows, expected))).toBe(false);
   });
 

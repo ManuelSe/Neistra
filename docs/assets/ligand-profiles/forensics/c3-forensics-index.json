@@ -1,0 +1,275 @@
+{
+  "format_version": 1,
+  "scope": "Immutable expected failed-run supplemental forensic asset identities; verification does not qualify the failed gate.",
+  "repository": "ManuelSe/Neistra",
+  "issue": 160,
+  "parent": 11,
+  "release_version": "0.38.0",
+  "publication_contract": "Primary qualification bundle retains passing gates and small immutable forensic index/inventories. Every indexed supplemental forensic asset remains in owned ignored staging until release upload and must pass full local and anonymous verification before child closeout. Actual upload IDs and public receipts remain separate facts.",
+  "extraction_policy": "Each run has its own extraction_root. Part manifests form the exact disjoint union of the canonical per-run inventory, with no additional or duplicate payloads.",
+  "part_max_bytes_exclusive": 83886080,
+  "asset_count": 9,
+  "total_asset_bytes": 675225495,
+  "runs": [
+    {
+      "label": "c4-candidate3",
+      "failed_candidate": "6d977c93f2eb01c61b3c87f07d63e86abaf67e28",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 1181,
+      "source_digest": "a3e9aabad03bf940dd4f8e5622ce1e26dfc2ccbc4ea2f7781f8cea075a36f513",
+      "source_unchanged": true,
+      "preceding_source_count": 1133,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/ligand-profiles/c4-candidate3-recipe.json",
+        "sha256": "898b77298705ee713132b4fab9dbea3c530736a5b91b62424ee45da2109c0977"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-uv.log.gz",
+          "uncompressed_sha256": "2979d70d6fb41dd603fdcb9139bdd94b8d784b952e2164f3ccc61a16a11f1b4b"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-pnpm.log.gz",
+          "uncompressed_sha256": "c594b4593ea3bd8773c797477517b1d10abcea750331e077c2dc65d887aa48d9"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-migration.log.gz",
+          "uncompressed_sha256": "876023d757a06089f9d49df55e116c3f3017f1bd30a8cd6787142e6aac64a128"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-downgrade.log.gz",
+          "uncompressed_sha256": "c9f246e7a4d581b9a0635d08cbcfd9beffbde9c1509c32d5799c09fa70d952c7"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-remigration.log.gz",
+          "uncompressed_sha256": "876023d757a06089f9d49df55e116c3f3017f1bd30a8cd6787142e6aac64a128"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-mypy.log.gz",
+          "uncompressed_sha256": "c84111b876dd4ee59da614e766eed3cd06121e6690ddea79856a7d0c651ab8a7"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-reader-tool-types.log.gz",
+          "uncompressed_sha256": "14fdf673bd175fe32ef42df34666481bb15e465313f7dbef32d0aea2ba76a26e"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-python.log.gz",
+          "uncompressed_sha256": "bc2758fc66232fccf90d4f2ae54fce5b3914375c845718bc517dd9e320c5990a"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-lint.log.gz",
+          "uncompressed_sha256": "491adcf1bbf465afdc7722bce208239b11719f5135e7b3a8c446a47fe3bdd386"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-types.log.gz",
+          "uncompressed_sha256": "2ae1c4eb7bcb6b234bbb0282e2ec191b15ea62ca724ded406d58503d6b7e407c"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-web.log.gz",
+          "uncompressed_sha256": "d0fe7f20ad7023cdd6cd9616c924b4e846278ff1f582116424f81e1648c2e5c6"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-supervisor.log.gz",
+          "uncompressed_sha256": "e8b5f413bb0e37d8aaee7684c00dae3f66db7eb862276211147f0a6a6a621f54"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-build.log.gz",
+          "uncompressed_sha256": "0c2a2796c48bb0ae295b0b973d10b6cd76cd31aa891968409a071d3a4f737ee4"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-browser-inventory.log.gz",
+          "uncompressed_sha256": "e6b08c8046a70ad380ec57bd080173c34b2692b68ba76bc362b3f719a8d0617b"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/ligand-profiles/c4-candidate3-browser.log.gz",
+          "uncompressed_sha256": "7d6e80e037540092574ca3618af68530e9adfb7c5d6248d8ed3d892a77ea6b20"
+        }
+      ],
+      "files": 16896,
+      "raw_bytes": 943273831,
+      "extraction_root": "forensics/c4-candidate3",
+      "inventory": {
+        "path": "docs/assets/ligand-profiles/forensics/c3-forensics-inventory-c4-candidate3.json.gz",
+        "bytes": 792699,
+        "sha256": "6e7e1d18de424b30f33ab4aa477c6c060c6dff803c8272a24c8023a8e2be9701",
+        "uncompressed_sha256": "11d3417ca8870aca8a09b06cabdec2236943510fe208bb68953ae93fb3299f73"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part01.zip",
+          "bytes": 80702696,
+          "sha256": "26f1feb73266091bc4b9990cd6bf5850bea884b4d7cc28e1e7a60d6025851956",
+          "manifest_entries": 3502,
+          "recursive_verification": {
+            "zip_archives": 12,
+            "evidence_manifest_entries": 3507,
+            "project_archive_files": 14
+          }
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part02.zip",
+          "bytes": 81269301,
+          "sha256": "60743a47c0fdcdf07da3236dd0cb60cc6f28f0f09dfe37ddf976ae27e0a2a954",
+          "manifest_entries": 1898,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1898,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part03.zip",
+          "bytes": 81272407,
+          "sha256": "74e6722158e36c4af13e069bcc1437a99412f93a09963a77f792e500d714d9f9",
+          "manifest_entries": 1785,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1785,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part04.zip",
+          "bytes": 81290061,
+          "sha256": "cee7c1951831f9e8856f947bcdd6f4893ab7668c5611f3bc15f3b549097cac33",
+          "manifest_entries": 1818,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1818,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part05.zip",
+          "bytes": 81221669,
+          "sha256": "3acadbfd8a730112be885ad0df97e0747bce2be607fa1c64b94d95b2a232c8dd",
+          "manifest_entries": 2047,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2047,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part06.zip",
+          "bytes": 81263358,
+          "sha256": "d0d24e9dd3c9d8c95706da0df3b42d30c4778e8d702b7376606a6275f9d293c9",
+          "manifest_entries": 1854,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1854,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 7,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part07.zip",
+          "bytes": 81247521,
+          "sha256": "17e332eee5b78f52652dff381975084f8230f7ec1b30527c709e2d1a4271f046",
+          "manifest_entries": 1898,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1898,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 8,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part08.zip",
+          "bytes": 81343689,
+          "sha256": "2241ad2947445cb89e1209b3df630f8558ffa7c9fc99ce9526f77e6c43b4be70",
+          "manifest_entries": 1707,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1707,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 9,
+          "asset_name": "neistra-v0.38.0-issue160-c4-candidate3-forensics-part09.zip",
+          "bytes": 25614793,
+          "sha256": "f238bfda69d891ea567e699f73d1d4b73f823a767255096f1298138cb8f3303e",
+          "manifest_entries": 387,
+          "recursive_verification": {
+            "zip_archives": 2,
+            "evidence_manifest_entries": 387,
+            "project_archive_files": 0
+          }
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "application_version": "0.38.0",
+      "compatibility_protocol": "private-derived-same-schema-v2",
+      "qualification_data_unchanged": true,
+      "qualification_data": {
+        "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+          "bytes": 19164695,
+          "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+        },
+        "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+          "bytes": 1578,
+          "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+        },
+        "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+          "bytes": 1342,
+          "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+        }
+      },
+      "completed_recorded_commands": 16,
+      "prior_passed_commands": 15,
+      "never_started_commands": 27,
+      "raw_copy_pairs_verified": 48,
+      "browser_outcomes": {
+        "passed": 103,
+        "failed": 1,
+        "observed_authored_exclusions": 3,
+        "not_run": 553,
+        "flaky": 0,
+        "retries": 0,
+        "global_errors": 1
+      },
+      "complete_native_tree_files": 16253,
+      "complete_external_case_files": 132,
+      "external_case_records": 32,
+      "source_capsule_proof": {
+        "actual_campaign_candidate": "6d977c93f2eb01c61b3c87f07d63e86abaf67e28",
+        "source_body_count": 1181,
+        "qualification_source_map_sha256": "767726ee9a2b171c7faaa078b579dbd9390fcb9da8397c9a62ae6e6781f1c3bf",
+        "capsule_sha256": "f7305e0346c7574c97595eb84034797f6a59e620dfaedb9331bfbe8f515c1ba8",
+        "captured_originally": ".issue-11-evidence/issue160-profile-workflows-hardening-fixed1/source-before.zip",
+        "claim": "Body-for-body source equivalence to the actual full3 manifest; original capture metadata is not relabelled as a new6d capture. Current working edits are not packet inputs.",
+        "exact_gate_source_equality": true
+      },
+      "full_gate_pass_claim": false
+    }
+  ]
+}

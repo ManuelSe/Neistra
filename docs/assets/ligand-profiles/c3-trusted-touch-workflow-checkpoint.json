@@ -1,0 +1,129 @@
+{
+  "schema": "issue160-trusted-touch-workflow-qualification-v1",
+  "recorded_utc": "2026-11-20T04:07:24.750870+00:00",
+  "candidate": "f9e2cd53b7f459897905788534b15a9858387ea0",
+  "browser_stats": {
+    "startTime": "2026-11-20T04:01:17.679Z",
+    "duration": 191552.62600000002,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "source_bodies_unchanged": 1181,
+  "positive_closed_raw_original_copy_pairs": 3,
+  "touch_attachments": [
+    {
+      "name": "profile-touch-inputs-light",
+      "path": null,
+      "environment": {
+        "width": 320,
+        "height": 700,
+        "maxTouchPoints": 1,
+        "coarsePointer": true
+      },
+      "actions": 11,
+      "hybrid": 3,
+      "targets": [
+        "Inspector",
+        "Property options",
+        "Draft property category",
+        "Cancel property options",
+        "Profile: ro5",
+        "Cancel update",
+        "Profile: ro3",
+        "Retry properties",
+        "Methods and limits",
+        "Criteria and sources",
+        "Profile: cns-mpo"
+      ]
+    },
+    {
+      "name": "profile-touch-inputs-dark",
+      "path": null,
+      "environment": {
+        "width": 320,
+        "height": 700,
+        "maxTouchPoints": 1,
+        "coarsePointer": true
+      },
+      "actions": 11,
+      "hybrid": 3,
+      "targets": [
+        "Inspector",
+        "Property options",
+        "Draft property category",
+        "Cancel property options",
+        "Profile: ro5",
+        "Cancel update",
+        "Profile: ro3",
+        "Retry properties",
+        "Methods and limits",
+        "Criteria and sources",
+        "Profile: cns-mpo"
+      ]
+    },
+    {
+      "name": "profile-metadata-touch-inputs-light",
+      "path": null,
+      "environment": {
+        "width": 320,
+        "height": 700,
+        "maxTouchPoints": 1,
+        "coarsePointer": true
+      },
+      "actions": 2,
+      "hybrid": 0,
+      "targets": [
+        "Inspector",
+        "Retry profiles"
+      ]
+    },
+    {
+      "name": "profile-metadata-touch-inputs-dark",
+      "path": null,
+      "environment": {
+        "width": 320,
+        "height": 700,
+        "maxTouchPoints": 1,
+        "coarsePointer": true
+      },
+      "actions": 2,
+      "hybrid": 0,
+      "targets": [
+        "Inspector",
+        "Retry profiles"
+      ]
+    }
+  ],
+  "trusted_touch_activations": 26,
+  "touch_control_actions": 20,
+  "hybrid_native_select_actions": 6,
+  "verified_outcomes": [
+    "Inspector opened",
+    "Property options and draft checkbox, Cancel and restored trigger focus; saved preferences/revision unchanged",
+    "Property Cancel/Retry and cancellation retained through profile change",
+    "Current Methods/Criteria disclosures",
+    "Metadata Retry with loading and held actual recovery across edit"
+  ],
+  "native_select_limit": "Touch activation plus trusted keyboard commitment; picker opening, finger option selection and physical-device qualification are not inferred.",
+  "scope": "Current18case correctness/access/preview/zoom plus explicit emulated touch; full43 and all7finalsamecandidate acceptance remain required",
+  "evidence": {
+    "recorded_utc": "2026-11-20T04:06:09.661715+00:00",
+    "record": {
+      "file": "c3-trusted-touch-workflows-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/c3-trusted-touch-workflows-evidence.zip",
+      "bytes": 31488587,
+      "sha256": "d059e2fa68bf705acb66b372c189e2741d7531ad95c9c96a09a5ab88cb2dd2f4",
+      "outer_manifest_entries": 56,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 61,
+        "project_archive_files": 10
+      }
+    },
+    "payload_files": 56
+  },
+  "no_new_cases_deadlines_configuration_exclusions_or_original_assertion_reductions": true,
+  "next_full_recipe": "c4-candidate2-recipe.json"
+}

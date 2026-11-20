@@ -1,0 +1,39 @@
+{
+  "browser_exclusions": 75,
+  "browser_inventory_count": 640,
+  "browser_passed": 565,
+  "nested_archive": {
+    "all_crc_verified": true,
+    "manifest_sha256": "ef3dd0e36f1e33f2c2f59857a6e66a5091f4dd793ee7cb725935068258f3f447",
+    "members": {
+      "gate/c5-master1-browser.json.gz": {
+        "bytes": 19164695,
+        "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+      },
+      "gate/c5-master1-summary.json": {
+        "bytes": 1578,
+        "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+      }
+    }
+  },
+  "outer_manifest": {
+    "member": {
+      "bytes": 83287515,
+      "path": "complete-gates/c5-master1/c5-master1-qualified-01.zip",
+      "sha256": "1f9f83fad25811ee2c58082912719001beb61a88f3ee00ccbe9c7d56943dc111"
+    },
+    "sha256": "51da214616372c6ca5220ee55f5bf8190d1d1f118117a1a8c22796d777051607"
+  },
+  "predecessor": {
+    "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "source_count": 1133,
+    "tag": "v0.37.0",
+    "version": "0.37.0"
+  },
+  "public_asset": {
+    "bytes": 719241445,
+    "sha256": "b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip"
+  },
+  "schema": "published-predecessor-browser-baseline-v1"
+}

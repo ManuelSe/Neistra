@@ -2,11 +2,13 @@ import { LigandIntentOwner, type LigandOwnerContext } from "./ligands/ownership"
 import { completeLegacyLigands } from "./ligands/resolve";
 import { LigandDesignationControls } from "./components/LigandDesignationControls";
 import { LigandProperties } from "./components/LigandProperties";
-import { LigandPropertySession } from "./ligandProperties/session";
 import { captureArtifactSource, getLigandInventoryOwner, ligandOperationSourceFailure } from "./ligands/inventoryQualification";
+import { LigandPropertySession } from "./ligandProperties/session";
 import { PropertyInputOwner, type PropertyOwnerContext } from "./ligandProperties/ownership";
 import { PROPERTY_PREFERENCES_KEY, PROPERTY_REGISTRY_KEY, propertyInputKey } from "./ligandProperties/context";
 import { useLigandProperties, usePropertySourceVerification } from "./ligandProperties/useProperties";
+import { ProfileSelection } from "./ligandProfiles/context";
+import { useLigandProfiles } from "./ligandProfiles/useProfiles";
 import type { DescriptorRegistry, PropertyPreferences } from "./ligandProperties/types";
 import { ligandApi } from "./ligands/api";
 import { useLegacyLigandResolution } from "./ligands/useLegacyLigandResolution";
@@ -189,6 +191,7 @@ export default function App() {
   const propertyOwnerPorts = useRef<(() => PropertyOwnerContext) | null>(null);
   const [inventoryOwner] = useState(() => getLigandInventoryOwner(queryClient));
   const [propertyOwner] = useState(() => new PropertyInputOwner(() => propertyOwnerPorts.current!()));
+  const [profileSelection] = useState(() => new ProfileSelection(queryClient));
   const [propertySession] = useState(() => new LigandPropertySession(target => propertyOwner.capture(target)));
   useEffect(() => { propertySession.activate(); return () => propertySession.deactivate(); }, [propertySession]);
   const {
@@ -571,7 +574,8 @@ export default function App() {
       sourceIdentity: active && entry ? { projectId: active, entryId: entry.id,
         currentArtifactId: entry.current_artifact_id, originalArtifactId: entry.original_artifact_id } : null,
       inputKey: propertyInputKey(active, entry, registry?.status === "success" ? registry.data : undefined,
-        preferences?.status === "success" ? preferences.data : undefined),
+        preferences?.status === "success" ? preferences.data : undefined,
+        profileSelection.dependencies(registry?.status === "success" ? registry.data : undefined)),
       paused: Boolean(coordinatePreviewRef.current)
         || Boolean(edit.projectId === active && (edit.placement?.result || edit.rotationDraft))
         || Boolean(minimize.projectId === active && (minimize.preview || minimize.applying))
@@ -593,8 +597,9 @@ export default function App() {
     return () => { for (const stop of release) stop(); propertyOwner.deactivate(); };
   }, [propertyOwner, movementSession, publication, editAttempts, queryClient]);
   usePropertySourceVerification(inventoryOwner, propertySession, propertyOwner);
+  const profileState = useLigandProfiles(!!project, profileSelection, propertyOwner);
   const propertyState = useLigandProperties({ project, entryId: ligandEntryId, pausedReason: ligandPausedReason,
-    session: propertySession, owner: propertyOwner });
+    session: propertySession, owner: propertyOwner, profileSelection });
   useLegacyLigandResolution({
     project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
     blocked: busy || !!ligandPausedReason,
@@ -657,7 +662,7 @@ export default function App() {
         }, undefined, context));
       const current = queryClient.getQueryData<Project>(["project", captured.id]);
       return !context.ownsFeedback() || (current && current.revision > next.revision) ? "superseded" : "current";
-    }} /><LigandProperties state={propertyState} session={propertySession} /></> : null;
+    }} /><LigandProperties state={propertyState} session={propertySession} profiles={profileState} /></> : null;
 
   measurementPorts.current = {
     context: () => {

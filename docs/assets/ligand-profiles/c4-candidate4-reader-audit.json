@@ -1,0 +1,172 @@
+{
+  "preceding_tag": "v0.37.0",
+  "protocol": "private-derived-same-schema-v2",
+  "preceding_runtime": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "preceding_source_identities": 1133,
+  "directions": {
+    "rich-current-produce": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-rich-current-produce.json",
+      "evidence_sha256": "36a872d4130220b43f9132334fdbb92aea920fe247364d04d30d4a6c738fa052"
+    },
+    "rich-previous-read-current": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-rich-previous-read-current.json",
+      "evidence_sha256": "a75d3a77dfc47ad4967056b65be44b4b3db8be2f2d65f95430dc696240618828"
+    },
+    "rich-previous-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-rich-previous-produce.json",
+      "evidence_sha256": "b4931803794bd71ccacd5abbb249b1afc0cbc8624c689657965253478aef6367"
+    },
+    "rich-current-read-previous": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-rich-current-read-previous.json",
+      "evidence_sha256": "01e2ec022bd1999732a47811a778dedc3f44f1caff4ee0fc2368b3d4636c05a5"
+    },
+    "rich-current-reopen": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-rich-current-reopen.json",
+      "evidence_sha256": "a63d2d94c781e15ea52eb7d3e27d9f323aeb2aa8e7721abbc3b2626e7367ff67"
+    },
+    "connectivity-current-produce": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-connectivity-current-produce.json",
+      "evidence_sha256": "9c7aa91f588aba39bcb337e7c44be70895af8a83251e2a1b9c46839e57e5c691"
+    },
+    "connectivity-previous-read-current": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-connectivity-previous-read-current.json",
+      "evidence_sha256": "8bae10fc4cf658a9e1382fd7359a83c6fd8b915d79c9e8f05a18a55c7c5bf0a1"
+    },
+    "connectivity-previous-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-connectivity-previous-produce.json",
+      "evidence_sha256": "8f9ef0c7986a8c4e546fede913a90177e524df38326062672a49ade2f6fe82d0"
+    },
+    "connectivity-current-read-previous": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-connectivity-current-read-previous.json",
+      "evidence_sha256": "e202a42decff35c90b105b9597055072067a5e3bfacccd2da66af5f8e156faa8"
+    },
+    "connectivity-current-reopen": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-connectivity-current-reopen.json",
+      "evidence_sha256": "e202a42decff35c90b105b9597055072067a5e3bfacccd2da66af5f8e156faa8"
+    },
+    "measurements-current-produce": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-measurements-current-produce.json",
+      "evidence_sha256": "1f2a033acd54fdea5532bf63462eebc08ba666bad8b9ff716f882a346b3e703c"
+    },
+    "measurements-previous-read-current": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-measurements-previous-read-current.json",
+      "evidence_sha256": "aba30610449928d009782fb16395331313fc4f3b24fe6697a72304940dba64f6"
+    },
+    "measurements-previous-produce": {
+      "version": "0.37.0",
+      "implementation_root": "/tmp/neistra160-reader037-actual9f774-1",
+      "module_paths_verified": true,
+      "mode": "produce",
+      "both_suffixes_reader_verified": false,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-measurements-previous-produce.json",
+      "evidence_sha256": "df9da18d8f1033050352b12ac4404727b783b78fe1eabc3dea9eda9ed3eb2e00"
+    },
+    "measurements-current-read-previous": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-measurements-current-read-previous.json",
+      "evidence_sha256": "b2c0203cea327266821048e83f57e62d84716993bb2de97590658a70317f4e03"
+    },
+    "measurements-current-reopen": {
+      "version": "0.38.0",
+      "implementation_root": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles",
+      "module_paths_verified": true,
+      "mode": "read",
+      "both_suffixes_reader_verified": true,
+      "shared_schema_positive_compatibility": true,
+      "evidence": "docs/assets/ligand-profiles/c4-candidate4-measurements-current-reopen.json",
+      "evidence_sha256": "e85a33a7ca55e441160567b33c13e66aab7bba9a7af64dc11c0f7d665e0193f1"
+    }
+  },
+  "new_editing_states": {
+    "actual_three_phases_verified": true,
+    "summary_sha256": "09cdf6222d619928c13f1f1e388ccea36855169b1b8de02702621348cf9cb513",
+    "wrapper_sha256": "b08d59629a90a49f58236fdd8446bf905bfbaa10f6e4c771b51f7221970392dd",
+    "both_suffixes_verified": true,
+    "protocol": "private-derived-same-schema-v2"
+  },
+  "private_derived_state": {
+    "actual_three_phases_verified": true,
+    "summary_sha256": "fc7cb21929c24cc08dca4d0a263b13d69180d1af88a1eb18d8782e22a82af198",
+    "wrapper_sha256": "b08d59629a90a49f58236fdd8446bf905bfbaa10f6e4c771b51f7221970392dd",
+    "both_suffixes_verified": true,
+    "protocol": "private-derived-same-schema-v2"
+  }
+}

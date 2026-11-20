@@ -75,7 +75,7 @@ for (const theme of ["light", "dark"] as const) test(`keeps legacy query focus a
     assertVisibleInput(inputBefore);
     release();
     const properties = page.getByRole("region", { name: "Properties", exact: true });
-    await expect(properties.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
+    await expect(properties.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
     await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(14);
     expect(await focusedInput!.evaluate(node => node.isConnected && document.activeElement === node)).toBe(true);
     const inputAfter = await inputGeometry();
@@ -203,7 +203,7 @@ for (const theme of ["light", "dark"] as const) test(`keeps a replacement option
   await page.getByRole("region", { name: "Ligand of interest", exact: true })
     .getByRole("combobox", { name: "Entry", exact: true }).selectOption(initial.entries[0].id);
   const region = page.getByRole("region", { name: "Properties", exact: true });
-  await expect(region.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
+  await expect(region.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
   const background = await region.elementHandle();
   const trigger = region.getByRole("button", { name: "Property options", exact: true });
   const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
@@ -302,7 +302,7 @@ test("qualifies property options at actual desktop 100% and 200% zoom in both th
         await page.getByRole("region", { name: "Ligand of interest", exact: true })
           .getByRole("combobox", { name: "Entry", exact: true }).selectOption(project.entries[0].id);
         const region = page.getByRole("region", { name: "Properties", exact: true });
-        await expect(region.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
+        await expect(region.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
         await region.getByRole("button", { name: "Property options", exact: true }).click();
         const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
         await expect(dialog.getByRole("button", { name: "Close property options", exact: true })).toBeVisible();

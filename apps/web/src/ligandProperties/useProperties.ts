@@ -7,6 +7,8 @@ import { MAX_PROPERTY_SOURCE_ATOMS, PROPERTY_PREFERENCES_KEY, PROPERTY_REGISTRY_
 import type { PropertyInputOwner } from "./ownership";
 import { propertyTargetKey, type LigandPropertySession, type PropertyTarget } from "./session";
 import type { DescriptorDefinition, DescriptorRegistry, PropertyPreferences } from "./types";
+import { PROFILE_REGISTRY_KEY } from "../ligandProfiles/api";
+import type { ProfileSelection } from "../ligandProfiles/context";
 
 export interface PropertyPresentation {
   entry: Entry | undefined; target: PropertyTarget | null; owner: PropertyInputOwner;
@@ -27,9 +29,10 @@ export function usePropertySourceVerification(inventory: LigandInventoryOwner, s
 }
 
 /** One App consumer continues across presenter hiding and responsive remounts. */
-export function useLigandProperties({ project, entryId, pausedReason, session, owner }: {
+export function useLigandProperties({ project, entryId, pausedReason, session, owner, profileSelection }: {
   project: Project | undefined; entryId: string | null; pausedReason: string | null;
   session: LigandPropertySession; owner: PropertyInputOwner;
+  profileSelection?: ProfileSelection;
 }): PropertyPresentation {
   const client = useQueryClient();
   const registry = useQuery({ queryKey: PROPERTY_REGISTRY_KEY, queryFn: ({ signal }) => ligandPropertyApi.registry(signal),
@@ -38,7 +41,8 @@ export function useLigandProperties({ project, entryId, pausedReason, session, o
     enabled: !!project, staleTime: Infinity, retry: false });
   const epoch = useSyncExternalStore(owner.subscribe, owner.connectionSnapshot);
   const entry = project?.entries.find(item => item.id === entryId);
-  const proposed = makePropertyTarget(project?.id ?? null, entry, registry.data, preferences.data);
+  const proposed = makePropertyTarget(project?.id ?? null, entry, registry.data, preferences.data,
+    profileSelection?.dependencies(registry.data));
   const key = proposed ? propertyTargetKey(proposed) : "";
   const stable = useRef<{ key: string; target: PropertyTarget | null }>({ key, target: proposed });
   if (stable.current.key !== key) stable.current = { key, target: proposed };
@@ -49,7 +53,7 @@ export function useLigandProperties({ project, entryId, pausedReason, session, o
   useLayoutEffect(() => client.getQueryCache().subscribe(event => {
     const key = event.query.queryKey as readonly unknown[];
     if (event.type === "updated" && (key[0] === PROPERTY_REGISTRY_KEY[0]
-      || key[0] === PROPERTY_PREFERENCES_KEY[0])) owner.observe();
+      || key[0] === PROPERTY_PREFERENCES_KEY[0] || key[0] === PROFILE_REGISTRY_KEY[0])) owner.observe();
   }), [client, owner]);
   useLayoutEffect(() => {
     if (target && !paused && !configurationError) return session.connect(target);

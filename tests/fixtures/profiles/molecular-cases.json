@@ -1,0 +1,395 @@
+{
+  "basis": "Pinned descriptor-kernel observations with literal independent expected profile outcomes. Synthetic authority in browser unit tests is not API publication evidence.",
+  "cases": [
+    {
+      "contains_formally_charged_atoms": false,
+      "expected_profiles": {
+        "doak-outer-envelope": "pass",
+        "gleeson-4-400": "pass",
+        "ro3": "pass",
+        "ro5": "pass",
+        "ro5-veber": "pass",
+        "teague-lead-range": "fail",
+        "veber": "pass"
+      },
+      "id": "ethanol",
+      "input_hash": "ec7134ee37232063414f0732f929b7c94e2e02481e1fc79a5a0ebec124fe8138",
+      "smiles": "CCO",
+      "values": {
+        "aromatic_ring_count": 0,
+        "calculated_logp": -0.0014000000000000123,
+        "carbon_count": 2,
+        "formal_charge": 0,
+        "fraction_sp3": 1.0,
+        "hba": 1,
+        "hbd": 1,
+        "heavy_atom_count": 3,
+        "heteroatom_count": 1,
+        "molar_refractivity": 12.759800000000002,
+        "molecular_weight": 46.069,
+        "ring_count": 0,
+        "rotatable_bond_count": 0,
+        "tpsa": 20.23
+      }
+    },
+    {
+      "contains_formally_charged_atoms": false,
+      "expected_profiles": {
+        "doak-outer-envelope": "pass",
+        "gleeson-4-400": "pass",
+        "ro3": "pass",
+        "ro5": "pass",
+        "ro5-veber": "pass",
+        "teague-lead-range": "pass",
+        "veber": "pass"
+      },
+      "id": "ethylbenzene",
+      "input_hash": "1f34172205b7e08b3aede4644f46d8ead957fca2b58fe9bca01482c28e5898aa",
+      "smiles": "CCc1ccccc1",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 2.2490000000000006,
+        "carbon_count": 8,
+        "formal_charge": 0,
+        "fraction_sp3": 0.25,
+        "hba": 0,
+        "hbd": 0,
+        "heavy_atom_count": 8,
+        "heteroatom_count": 0,
+        "molar_refractivity": 35.82,
+        "molecular_weight": 106.16799999999996,
+        "ring_count": 1,
+        "rotatable_bond_count": 1,
+        "tpsa": 0.0
+      }
+    },
+    {
+      "contains_formally_charged_atoms": true,
+      "expected_profiles": {
+        "doak-outer-envelope": "fail",
+        "gleeson-4-400": "pass",
+        "ro3": "pass",
+        "ro5": "pass",
+        "ro5-veber": "pass",
+        "teague-lead-range": "unavailable",
+        "veber": "pass"
+      },
+      "id": "glycine-zwitterion",
+      "input_hash": "47dfd57484580f2b54e7c5e8c28ba10c02e4a7f72eeb73c96d45fad801386ff6",
+      "smiles": "[NH3+]CC(=O)[O-]",
+      "values": {
+        "aromatic_ring_count": 0,
+        "calculated_logp": -3.0218,
+        "carbon_count": 2,
+        "formal_charge": 0,
+        "fraction_sp3": 0.5,
+        "hba": 2,
+        "hbd": 1,
+        "heavy_atom_count": 5,
+        "heteroatom_count": 3,
+        "molar_refractivity": 12.7621,
+        "molecular_weight": 75.06700000000001,
+        "ring_count": 0,
+        "rotatable_bond_count": 1,
+        "tpsa": 67.77
+      }
+    },
+    {
+      "contains_formally_charged_atoms": true,
+      "expected_profiles": {
+        "doak-outer-envelope": "pass",
+        "gleeson-4-400": "pass",
+        "ro3": "pass",
+        "ro5": "pass",
+        "ro5-veber": "pass",
+        "teague-lead-range": "unavailable",
+        "veber": "pass"
+      },
+      "id": "nitrobenzene",
+      "input_hash": "043b62a69037822fbaf62e1519185f4ac77b83aa80d42c4357e9e97c0b8027ac",
+      "smiles": "[O-][N+](=O)c1ccccc1",
+      "values": {
+        "aromatic_ring_count": 1,
+        "calculated_logp": 1.5948,
+        "carbon_count": 6,
+        "formal_charge": 0,
+        "fraction_sp3": 0.0,
+        "hba": 2,
+        "hbd": 0,
+        "heavy_atom_count": 9,
+        "heteroatom_count": 3,
+        "molar_refractivity": 33.0964,
+        "molecular_weight": 123.11099999999996,
+        "ring_count": 1,
+        "rotatable_bond_count": 1,
+        "tpsa": 43.14
+      }
+    },
+    {
+      "contains_formally_charged_atoms": false,
+      "expected_profiles": {
+        "doak-outer-envelope": "pass",
+        "gleeson-4-400": "fail",
+        "ro3": "fail",
+        "ro5": "fail",
+        "ro5-veber": "fail",
+        "teague-lead-range": "fail",
+        "veber": "fail"
+      },
+      "id": "hexadecane",
+      "input_hash": "d89fbba0d0daa691d809c8e9cfd3b5bfe2c395f22534f3f0236d364da2eb26a5",
+      "smiles": "CCCCCCCCCCCCCCCC",
+      "values": {
+        "aromatic_ring_count": 0,
+        "calculated_logp": 6.487600000000007,
+        "carbon_count": 16,
+        "formal_charge": 0,
+        "fraction_sp3": 1.0,
+        "hba": 0,
+        "hbd": 0,
+        "heavy_atom_count": 16,
+        "heteroatom_count": 0,
+        "molar_refractivity": 75.98600000000008,
+        "molecular_weight": 226.44799999999992,
+        "ring_count": 0,
+        "rotatable_bond_count": 13,
+        "tpsa": 0.0
+      }
+    }
+  ],
+  "format_version": 1,
+  "partial_cases": [
+    {
+      "contains_formally_charged_atoms": false,
+      "coverage": [
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "hbd",
+        "hba",
+        "tpsa",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "expected_known_values": {
+        "carbon_count": 1,
+        "formal_charge": 0,
+        "heavy_atom_count": 1,
+        "heteroatom_count": 0
+      },
+      "id": "isotopic-methane",
+      "input_hash": "1e7cd863dbae684d047df71b2c0323eb704b0baadf3f023a1b02e075ffaf69b4",
+      "model_reason": "isotope_model_not_qualified",
+      "model_status": "unavailable",
+      "smiles": "[13CH4]",
+      "values": [
+        {
+          "descriptor_id": "molecular_weight",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "heavy_atom_count",
+          "reason": null,
+          "status": "ready",
+          "value": 1
+        },
+        {
+          "descriptor_id": "heteroatom_count",
+          "reason": null,
+          "status": "ready",
+          "value": 0
+        },
+        {
+          "descriptor_id": "carbon_count",
+          "reason": null,
+          "status": "ready",
+          "value": 1
+        },
+        {
+          "descriptor_id": "formal_charge",
+          "reason": null,
+          "status": "ready",
+          "value": 0
+        },
+        {
+          "descriptor_id": "hbd",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "hba",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "tpsa",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "molar_refractivity",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "ring_count",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "aromatic_ring_count",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "fraction_sp3",
+          "reason": "isotope_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        }
+      ]
+    },
+    {
+      "contains_formally_charged_atoms": false,
+      "coverage": [
+        "molecular_weight",
+        "heavy_atom_count",
+        "heteroatom_count",
+        "carbon_count",
+        "formal_charge",
+        "hbd",
+        "hba",
+        "tpsa",
+        "calculated_logp",
+        "molar_refractivity",
+        "rotatable_bond_count",
+        "ring_count",
+        "aromatic_ring_count",
+        "fraction_sp3"
+      ],
+      "expected_known_values": {
+        "carbon_count": 1,
+        "formal_charge": 0,
+        "heavy_atom_count": 1,
+        "heteroatom_count": 0
+      },
+      "id": "methyl-radical",
+      "input_hash": "47bc9e5cc083a90e8823d5ceea8f912a5dbe83226b273ee78e3c46dac368d552",
+      "model_reason": "radical_model_not_qualified",
+      "model_status": "unavailable",
+      "smiles": "[CH3]",
+      "values": [
+        {
+          "descriptor_id": "molecular_weight",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "heavy_atom_count",
+          "reason": null,
+          "status": "ready",
+          "value": 1
+        },
+        {
+          "descriptor_id": "heteroatom_count",
+          "reason": null,
+          "status": "ready",
+          "value": 0
+        },
+        {
+          "descriptor_id": "carbon_count",
+          "reason": null,
+          "status": "ready",
+          "value": 1
+        },
+        {
+          "descriptor_id": "formal_charge",
+          "reason": null,
+          "status": "ready",
+          "value": 0
+        },
+        {
+          "descriptor_id": "hbd",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "hba",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "tpsa",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "calculated_logp",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "molar_refractivity",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "rotatable_bond_count",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "ring_count",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "aromatic_ring_count",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        },
+        {
+          "descriptor_id": "fraction_sp3",
+          "reason": "radical_model_not_qualified",
+          "status": "unavailable",
+          "value": null
+        }
+      ]
+    }
+  ]
+}

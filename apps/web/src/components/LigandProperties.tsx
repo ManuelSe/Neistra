@@ -10,6 +10,9 @@ import type { PropertyPresentation } from "../ligandProperties/useProperties";
 import type { DescriptorCategory, DescriptorDefinition, DescriptorRegistry, DescriptorValue, PropertyPreferences } from "../ligandProperties/types";
 import { IconButton } from "./IconButton";
 import "./ligand-properties.css";
+import { ProfileReadout } from "../ligandProfiles/ProfileReadout";
+import type { ProfilePresentation } from "../ligandProfiles/useProfiles";
+import { InspectorContentAnchor } from "./InspectorContentAnchor";
 
 const preferencesKey = PROPERTY_PREFERENCES_KEY;
 const categories: { id: DescriptorCategory; name: string }[] = [
@@ -25,12 +28,14 @@ function valueText(value: DescriptorValue | undefined, definition: DescriptorDef
   return definition.value_type === "integer" ? String(value.value) : new Intl.NumberFormat(undefined, { maximumFractionDigits: 3 }).format(value.value);
 }
 
-export function LigandProperties({ state, session }: {
-  state: PropertyPresentation; session: LigandPropertySession;
+export function LigandProperties({ state, session, profiles }: {
+  state: PropertyPresentation; session: LigandPropertySession; profiles?: ProfilePresentation;
 }) {
   const { entry, target, registry, preferences, enabledDefinitions, configurationError, pausedReason, tooLarge } = state;
   useSyncExternalStore(session.subscribe, session.snapshot);
-  const descriptorIds = enabledDefinitions.map(definition => definition.id);
+  const descriptorIds = target?.descriptorIds ?? enabledDefinitions.map(definition => definition.id);
+  const methodDefinitions = (registry?.definitions ?? []).filter(definition => descriptorIds.includes(definition.id))
+    .sort((left, right) => left.order - right.order);
   const view = target && state.owner.matches(target) ? session.view(target) : null;
   const current = !pausedReason && !configurationError
     && (view?.status === "ready" || view?.status === "pending") && view.current?.report ? view.current : undefined;
@@ -53,17 +58,20 @@ export function LigandProperties({ state, session }: {
   else status = "Updating properties…";
   const updating = !!configured && !!target && descriptorIds.length > 0 && !pausedReason && view?.status === "pending";
   const retryable = !pausedReason && !!target && (view?.status === "cancelled" || view?.retryable);
-  return <section className="ligand-properties" aria-label="Properties">
+  return <InspectorContentAnchor className="ligand-properties" aria-label="Properties" scope={entry?.id ?? null}>
     <div className="ligand-properties-heading"><strong>Properties</strong>
       {configured ? <PropertyOptions registry={registry} preferences={preferences} /> : null}
     </div>
+    {descriptorIds.some(id => !enabledDefinitions.some(definition => definition.id === id))
+      ? <p className="ligand-properties-status">Profile-required properties also update; display categories are unchanged.</p> : null}
     <div className="ligand-properties-status-row">
       {updating ? <LoaderCircle size={13} className="spin" aria-hidden="true" /> : warning ? <AlertTriangle size={13} aria-hidden="true" /> : null}
-      <p role="status" className={warning ? "ligand-properties-status warning" : "ligand-properties-status"}>{status}</p>
+      <p role={profiles ? undefined : "status"} className={warning ? "ligand-properties-status warning" : "ligand-properties-status"}>{status}</p>
       {updating ? <button type="button" className="ligand-properties-action" onClick={() => session.cancel(target)}>Cancel update</button> : null}
       {retryable ? <button type="button" className="ligand-properties-action" onClick={() => session.retry(target)}><RotateCw size={12} aria-hidden="true" />Retry</button> : null}
       {configurationError && !pausedReason ? <button type="button" className="ligand-properties-action" onClick={state.retryOptions}>Retry options</button> : null}
     </div>
+    {profiles ? <ProfileReadout profiles={profiles} properties={state} session={session} propertyStatus={status} /> : null}
     {current && values ? <div className="ligand-properties-groups">{categories.map(category => {
       const definitions = enabledDefinitions.filter(definition => definition.category === category.id);
       return definitions.length ? <div key={category.id} className="ligand-properties-group">
@@ -78,7 +86,7 @@ export function LigandProperties({ state, session }: {
     {configured && descriptorIds.length > 0 ? <details className="ligand-property-methods"><summary>Methods and limits</summary>
       <p>Values describe the exact designated molecule in its current representation.</p>
       {current?.report?.model_reason ? <p className="warning">{readableReason(current.report.model_reason)}</p> : null}
-      <dl>{enabledDefinitions.map(definition => {
+      <dl>{methodDefinitions.map(definition => {
         const value = values?.find(item => item.descriptor_id === definition.id);
         return <div key={definition.id}><dt>{definition.name}{definition.unit ? ` (${definition.unit})` : ""}</dt>
           <dd>{definition.description} <span className="ligand-property-method">{definition.method}</span>
@@ -89,7 +97,7 @@ export function LigandProperties({ state, session }: {
       {current?.report ? <><p>Latest report <time dateTime={current.report.created_at}>{new Date(current.report.created_at).toLocaleString()}</time></p>
         {current.report.provenance.length ? <ul>{current.report.provenance.map((item, index) => <li key={index}>{readableReason(item)}</li>)}</ul> : null}</> : null}
     </details> : null}
-  </section>;
+  </InspectorContentAnchor>;
 }
 
 function PropertyOptions({ registry, preferences }: { registry: DescriptorRegistry; preferences: PropertyPreferences }) {

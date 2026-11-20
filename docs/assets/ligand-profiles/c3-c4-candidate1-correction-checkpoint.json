@@ -1,0 +1,182 @@
+{
+  "schema": "issue160-c4-candidate1-failure-correction-v1",
+  "recorded_utc": "2026-11-20T03:29:40.208732+00:00",
+  "failed_candidate": "4cd65fffbcdaf0d890393dd8c07fddf4af829df8",
+  "full_gate_complete": false,
+  "terminal_steps": [
+    [
+      "uv",
+      0
+    ],
+    [
+      "pnpm",
+      0
+    ],
+    [
+      "migration",
+      0
+    ],
+    [
+      "downgrade",
+      0
+    ],
+    [
+      "remigration",
+      0
+    ],
+    [
+      "ruff",
+      0
+    ],
+    [
+      "mypy",
+      0
+    ],
+    [
+      "reader-tool-types",
+      0
+    ],
+    [
+      "python",
+      1
+    ]
+  ],
+  "python_result": {
+    "passed": 3996,
+    "failed": 47,
+    "skipped": 0,
+    "seconds": 969.94
+  },
+  "failure": "All47 historical archive cases stop before round-trip at inherited APPLICATION_VERSION ==0.37.0 after planned0.38.0 preparation. No production archive failure/data loss demonstrated.",
+  "correction": "Keep explicit guard at0.38.0 and append0.37.0 to historical matrix; preserve every export/import/original/history/UUID-remap assertion.",
+  "focused_archive_tests": {
+    "passed": 52,
+    "failures_errors_skips": 0,
+    "ruff": "PASS",
+    "junit_sha256": "bcf8cb0fc63e8aee0a747d7b72e8401db83ac1cd20bb40130a8419b2dff58301"
+  },
+  "attribution_correction": "c3-review-attribution-erratum.json",
+  "original_source_and_qualification_data_unchanged": true,
+  "positive_closed_raw_original_copy_pairs": 45,
+  "all45pairs_reverified_before_primary_diagnostic_sql": true,
+  "failed_evidence": {
+    "recorded_utc": "2026-11-20T03:27:47.387954+00:00",
+    "record": {
+      "file": "c3-c4-candidate1-failed-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/c3-c4-candidate1-failed-evidence.zip",
+      "bytes": 26213696,
+      "sha256": "e5199f97bc66eb3e5074ecd0aa7c84787112843a2ccbc06c567471dde7feed52",
+      "outer_manifest_entries": 293,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 298,
+        "project_archive_files": 10
+      }
+    },
+    "payload_files": 293,
+    "scope": "Failed gate retained, not release qualification"
+  },
+  "next_recipe": "c4-candidate2-recipe.json",
+  "full43_fresh_rerun_required": true,
+  "no_feature_readiness_or_publication_claimed": true,
+  "frontend_preflight_failure": {
+    "passed": 1874,
+    "failed": 1,
+    "test": "ligand-property-bulk-validation.test.ts descriptor matrix",
+    "reason": "Unchanged pointwise reference matcher bookkeeping exceeded5000ms; prior released runs were near limit.",
+    "original_deadline_ms": 5000
+  },
+  "test_harness_correction": {
+    "path": "apps/web/src/test/ligand-property-bulk-validation.test.ts",
+    "sha256": "371bebe0421f8906d16ed10573012d4779dd3265b4459aa69ae64723ebbf4343",
+    "scope": "Preserve literal oracle and801/2step control; separate independent lightweight pointwise negative-matrix checks with identical source/status/model/length/finite/native-throw semantics.",
+    "status_positions": 200,
+    "report_faults": 21,
+    "descriptor_faults": 420,
+    "test_count": 8,
+    "production_collector_unchanged": true,
+    "deadlines_workload_configuration_exclusions_unchanged": true,
+    "independent_performance_correction_assessment": "PASS",
+    "measured_original_descriptor_ms_range": [
+      1688,
+      1733
+    ],
+    "measured_lightweight_descriptor_ms_range": [
+      229,
+      250
+    ],
+    "measurement_scope": "Controlled local test-harness copies; no application speedup claim",
+    "evidence": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-bulk-validation-performance-review1"
+  },
+  "current_full_frontend_preflight": {
+    "tests": 1875,
+    "test_files": 142,
+    "failures": 0,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "bulk_test_file_eight_cases_ms": 1911,
+    "execution": [
+      {
+        "label": "lint",
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "lint"
+        ],
+        "started_utc": "2026-11-20T03:40:25.398898+00:00",
+        "finished_utc": "2026-11-20T03:40:44.444062+00:00",
+        "exit_code": 0,
+        "stdout_sha256": "491adcf1bbf465afdc7722bce208239b11719f5135e7b3a8c446a47fe3bdd386",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "types",
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "typecheck"
+        ],
+        "started_utc": "2026-11-20T03:40:44.444243+00:00",
+        "finished_utc": "2026-11-20T03:40:52.883599+00:00",
+        "exit_code": 0,
+        "stdout_sha256": "2ae1c4eb7bcb6b234bbb0282e2ec191b15ea62ca724ded406d58503d6b7e407c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "web",
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "test"
+        ],
+        "started_utc": "2026-11-20T03:40:52.883903+00:00",
+        "finished_utc": "2026-11-20T03:41:17.072218+00:00",
+        "exit_code": 0,
+        "stdout_sha256": "2c17fc06a57f0787a0de9c9f09e3e1a8fca0135e7d57118a4f278d3d7a767e60",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "build",
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "build"
+        ],
+        "started_utc": "2026-11-20T03:41:17.072495+00:00",
+        "finished_utc": "2026-11-20T03:41:33.991966+00:00",
+        "exit_code": 0,
+        "stdout_sha256": "48f4a269339fc60199af82cd455ef9bae3a621c977566e95208176d641b5cde0",
+        "stderr_sha256": "ccb6bf354a0674eeb1e49df9a880a000b75240079fdb849282bb899d81eeb58c"
+      }
+    ]
+  }
+}

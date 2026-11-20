@@ -37,6 +37,8 @@ from neistra_core.export_policy import (
     prepare_export,
 )
 from neistra_core.jobs import PluginRegistry
+from neistra_core.ligand_profiles import PROFILE_REGISTRY
+from neistra_core.ligand_profiles.models import ProfileRegistry
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
@@ -546,7 +548,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Neistra API",
-        version="0.37.0",
+        version="0.38.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -571,6 +573,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             yield session
 
     router = APIRouter(prefix="/api/v1")
+
+    @router.get("/ligand-profiles/registry", response_model=ProfileRegistry)
+    async def ligand_profile_registry() -> ProfileRegistry:
+        return PROFILE_REGISTRY
 
     @router.get("/health")
     async def health(session: Session = Depends(session_dependency)) -> dict[str, str]:

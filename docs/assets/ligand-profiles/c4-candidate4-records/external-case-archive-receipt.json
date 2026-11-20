@@ -1,0 +1,12 @@
+{
+  "file": "c4-candidate4-external-case-companions.zip",
+  "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-package1/case-companions/c4-candidate4-external-case-companions.zip",
+  "bytes": 8034132,
+  "sha256": "7cab2a4687cde832be5bbae32cdd73c5742397c131f4db2d352abb6ecddfccf2",
+  "outer_manifest_entries": 746,
+  "verification_counts": {
+    "zip_archives": 1,
+    "evidence_manifest_entries": 746,
+    "project_archive_files": 0
+  }
+}

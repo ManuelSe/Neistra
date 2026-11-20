@@ -1,0 +1,125 @@
+{
+  "scope": "Coherent scientific metadata/domain preparation checkpoint for issue160; not a finished vertical workflow, release qualification, readiness to push, or delivered prerequisite",
+  "repository": "ManuelSe/Neistra",
+  "issue": 160,
+  "parent": 11,
+  "head_plus_working_changes": "cb4a6c2119eeaceecd8f839bb8a5dccd8a37daea",
+  "implemented": "Versioned typed profile registry and scientific metadata, shared generic frontend evaluation with qualified-input guards, independent boundary/molecular fixtures, and a read-only typed metadata registry API.",
+  "domain_source_count": 15,
+  "domain_source_digest": "799c738eb4dbf639af4c04d983f88bb9c91f7a0342196eb626311b8bf9d9916a",
+  "unreleased159_dependency_count": 13,
+  "unreleased159_dependency_digest": "1762b7c91642338953bd602776d3059fb216f22ec42f12ea3e51a414f7c9c489",
+  "metadata_api_source_count": 2,
+  "metadata_api_source_digest": "2f85c1d44f0bd4a20a7931cef536074e32ebbafbbbb5b12b122a2ca2e4d7426a",
+  "combined_source_count": 30,
+  "combined_source_digest": "335fec99b5d08e06633498f8c62ba9713635c8ebfb7d9dda903ba17a74a85289",
+  "combined_sources_unchanged": true,
+  "pinned_dependency_status": "Exact thirteen copied sources from unreleased159 preparation. These copies do not establish159delivery. Integrate actual verified159deliverymaster, reconcile every copied source against released identities and repeat applicable integrated gates before final160delivery.",
+  "focused_checks": {
+    "domain_python_tests": 47,
+    "domain_frontend_tests": 220,
+    "domain_frontend_suites": 1,
+    "domain_ruff": "PASS",
+    "domain_mypy": "PASS8files",
+    "domain_format": "PASS8files",
+    "full_web_typecheck": "PASS",
+    "scoped_frontend_lint": "PASS",
+    "metadata_api_and_registry_python_tests": 49,
+    "metadata_api_ruff": "PASS",
+    "metadata_test_format": "PASS",
+    "full_api_core_demo_mypy": "PASS265files"
+  },
+  "actual_check_provenance": {
+    "author_final_handoff": "domain-evidence/handoff4.json",
+    "author_final_checks": "domain-evidence/checks4/receipt.json",
+    "author_observed_session": 54095,
+    "author_observed_exit": 0,
+    "author_retained_actual_enclosing": {
+      "scope": "Observedactualtoolenclosingreadback, separatefromchildreceipt",
+      "actual_session": 54095,
+      "actual_exit_code": 0,
+      "recorded_utc": "2026-11-17T17:43:59.632365+00:00"
+    },
+    "metadata_final_checks": "metadata-api-evidence/receipt.json",
+    "root_observed_metadata_session": 96796,
+    "root_observed_metadata_exit": 0,
+    "root_reported_prior49test_session": 57719,
+    "root_reported_prior49test_exit": 0,
+    "prior49test_output_scope": "Earlier root observation is reported as provenance; final49case raw log and complete validation receipt are retained separately. Counts are not pooled."
+  },
+  "preserved_earlier_evidence": {
+    "files": 51,
+    "negative_controls": [
+      {
+        "label": "model-dependency-before3",
+        "receipt": {
+          "bytes": 4434,
+          "sha256": "b81a91c09d250ada939a493e536ea59297155e43a0e608289ca09f3163ca95cb"
+        },
+        "exact_test_source": {
+          "bytes": 21712,
+          "sha256": "e02d780e2a66ae6cec67654690d0cb5c7b3a062aa6656e9ca9065775b61c9b01"
+        },
+        "actual_enclosing": {
+          "actual_session": 9518,
+          "actual_exit_code": 1,
+          "scope": "SevennewindependentnegativecontrolsFAILbeforeproductionfix;193othercasesfilterednotexecuted",
+          "recorded_utc": "2026-11-17T17:16:01.044950+00:00"
+        },
+        "qualification_complete": false
+      },
+      {
+        "label": "canonical-id-before4",
+        "receipt": {
+          "bytes": 4421,
+          "sha256": "5c891894d86a1a5b119e89ca17fdfdda407ad938340be9517a99a12ab112ce56"
+        },
+        "exact_test_source": {
+          "bytes": 25798,
+          "sha256": "371a6ba273dacb38e832a9216fa243097a299dc0b6cea098fcb3e0f2524fce8d"
+        },
+        "actual_enclosing": {
+          "scope": "Observedactualtoolenclosingreadback, separatefromchildreceipt",
+          "actual_session": 3803,
+          "actual_exit_code": 1,
+          "recorded_utc": "2026-11-17T17:43:59.632365+00:00"
+        },
+        "qualification_complete": false
+      }
+    ],
+    "source_archives": [
+      "first-freeze-75582c9-sources.zip",
+      "third-freeze-8360339-sources.zip"
+    ],
+    "policy": "All earlier frozen source archives, handoffs, failed negative controls and checks1through4 remain distinct historical evidence. Their passing segments are not combined into a qualification gate."
+  },
+  "consequential_corrections": [
+    "Reject ready graph-dependent outcomes when the chemistry model is unavailable, while preserving independently qualified element/charge facts.",
+    "Require strictly positive canonical atom identifiers; preserve matching positive identifier controls and every threshold/method/fixture/dependency contract."
+  ],
+  "specialist_scope": "Scoped scientific assessments and the active metadata architecture assessment are coordinated separately by root. This packet does not claim a same-candidate all-seven completion gate.",
+  "explicitly_not_implemented_or_delivered": [
+    "Real159current-owner adapter and live publication authority integration",
+    "Application profile controls and complete user workflow",
+    "Actual159released-predecessor integration and compatibility qualification",
+    "Native/performance/full160candidate and exact-master release gates",
+    "Final all-seven assessment, protected merge, release, issue closeout and parent program completion"
+  ],
+  "retained_metadata_api_evidence_files": 5,
+  "no_unrelated_raw_stores_or_other_issue_forensic_parts": true,
+  "no_network_services_or_source_changes": true,
+  "archive": "c1-domain-evidence.zip",
+  "archive_bytes": 344899,
+  "archive_sha256": "2e8586613aa68e41fb6d4771a98b13c7b6cf84d6a11c15a41f7c1564cbc17d81",
+  "outer_manifest_entries": 90,
+  "recursive_verification": {
+    "zip_archives": 3,
+    "evidence_manifest_entries": 126,
+    "project_archive_files": 0
+  },
+  "exact_manifest_payload_hashes_and_recursive_crcs_verified": true,
+  "selected_inventory_count": 1034,
+  "selected_inventory_digest": "c6dfb3f9d3da48141d21e61e18a392698a39f928c7df5976d7a0c82f9fc837af",
+  "selected_inventory_unchanged": true,
+  "observed_utc": "2026-11-17T18:35:07.124662+00:00"
+}

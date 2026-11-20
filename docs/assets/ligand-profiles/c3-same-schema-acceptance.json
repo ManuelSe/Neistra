@@ -1,0 +1,144 @@
+{
+  "status": "Accepted before compatibility implementation; released prerequisite verified. Actual #160 integration and qualification remain pending.",
+  "authorization": "Existing owner full parent11 delivery scope; authorized within agreed scope, not individually reviewed. Root must record accepted decisions/plan under docs before later code after verified159release/integration.",
+  "reference159_M2": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "local160": "0f54385c80a9294a6db34fa78c08ae8f2194d640",
+  "planned_current_version": "0.38.0",
+  "planned_preceding_version": "0.37.0",
+  "actual_preceding_tag": "v0.37.0",
+  "actual_preceding_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "actual_preceding_source_receipt": null,
+  "implementation_or_runtime_results": null,
+  "protocol": {
+    "legacy": "private-derived-shared-schema-v1 remains literaldefault/0017current0016previous/refusal+prepurposeORM+offline controls unchanged",
+    "new": "private-derived-same-schema-v2 explicitlyallowlisted/current0017previous0017 positiveinteroperability",
+    "selection": "Explicit contract throughrecipe/coordinatorauth/actorreports/summary/packager/cataloguehelper; no globalmutablepolicy,versionguess/capabilityinference."
+  },
+  "schema_acceptance": [
+    "Actual037 upgradehead exit0 againstclosed038producedstore; sameobserved0017beforeafter, same logicalrows/artifacts/originals beforeAPIwrites.",
+    "All17historicalmigrationbodies unchanged; compare actualschemadefinitions; no newprofilemigration.",
+    "Actual037ORMpurpose-aware; APIcreatesordinaryuser-purposejobswithoutprivateassociations; keepseparate omitted-columnserverdefaultregression, accuratelylabelproof.",
+    "OwnedprivateworkhiddenfromordinaryAPI/archive; forgedmarkersordinary/noauthority; allordinaryoutput/history/input/preferences/corruption/recovery/remapping controlsretained."
+  ],
+  "families": {
+    "labels": [
+      "pending",
+      "captured",
+      "started",
+      "completed",
+      "cancelled",
+      "corrupt",
+      "stale",
+      "forged",
+      "project-deleted"
+    ],
+    "origins": [
+      "actualcurrent038",
+      "actualprevious037"
+    ],
+    "suffixes": [
+      "neistra",
+      "molweave"
+    ],
+    "phases": [
+      "produce-current createscurrentorigin",
+      "old-write consumescurrentorigin AND independentlyproducespreviousorigin",
+      "reopen-current verifiescurrentoriginoutcomes ANDconsumes/reconstructspreviousorigin"
+    ],
+    "no_fake_ready_vectors": "Preserve actualnonreadyproducerstates and processfacts. Do not calculate/prewarm them merelytoobtainavector or convertstate semantics."
+  },
+  "scientific_oracle": {
+    "requested_descriptor_ids": [
+      "molecular_weight",
+      "heavy_atom_count",
+      "heteroatom_count",
+      "carbon_count",
+      "formal_charge",
+      "hbd",
+      "hba",
+      "tpsa",
+      "calculated_logp",
+      "rotatable_bond_count"
+    ],
+    "profile_required_union": [
+      "molecular_weight",
+      "hbd",
+      "hba",
+      "tpsa",
+      "calculated_logp",
+      "rotatable_bond_count"
+    ],
+    "coverage": "Exact10coverage in qualifiedregistry order, valuesaligned; bothactualproducers make sameexplicitrequest; savedcomposition/polaritypreferences remain unchanged.",
+    "ethanol_goldens": {
+      "molecular_weight": 46.069,
+      "heavy_atom_count": 3,
+      "heteroatom_count": 1,
+      "carbon_count": 2,
+      "formal_charge": 0,
+      "hbd": 1,
+      "hba": 1,
+      "tpsa": 20.23,
+      "calculated_logp": -0.0014,
+      "rotatable_bond_count": 0
+    },
+    "tolerance": "Existing abs1e-10/rel0 for floatinggoldens; exactintegertypes/counts/charge; neveran epsiloninprofilethreshold evaluation.",
+    "producer_retention": "Capture actualqualifiedvector whereverproducerobtainsone, including completedcontrol and pretampervectors; retainfullsemanticreport and exactsource/implementation/library/policy/coverage/status/reason/chargepresence. Nonready states retain their actualstate and noinventedvector.",
+    "reconstruction": "Forready outcomes compare independentfixtureoracle AND matching actualproducerqualifiedvector. Nonready-origin reconstructions compare analyticoracle and thatactualorigin's completedcontrol onlywhen identical scientificinputhash/coverage/method/policy/libraryfacts independentlymatch; freshproject/entry/artifact/revisionbinding separatelyrequired. Do notcomparetimestamp/regeneratedIDsasnumericalvalues.",
+    "stale_case": "Retainchangedinputhash and hydrogen_semantics_unavailable; known heavy3/hetero2/carbon1/formalcharge0 remainexact; modeldependent values includingaddedlogP/rotors unavailableNone withreason. Nevercompareeditedunknownchemistrytoethanolcurrentnumbers.",
+    "charge_fact": "Preserve independentlysourcequalified contains_formally_charged_atoms; Teague requires strictlyfalse, notnetzero/unknown.",
+    "independent_controls": [
+      "Consistentwrongfinitevectorsacrossproducerandreconstructionreject",
+      "Fractionalintegercountsreject",
+      "MissinglogP/rotorcoverage reject",
+      "Wrongmethod/library/policy/inputhash/producerorigin reject",
+      "Hrepresentation/unknownfact/zwitterion/coordinatereuse/distinctinput responsibilitiesreusedfromexisting scientificsuite withoutduplicatingentirematrixeverycase."
+    ]
+  },
+  "worker_provenance": {
+    "selection": "Literalallowlistedcurrent/previousslot boundtosourceauthorization, exactroots/versions/receipts/wrapperhash; wrongslot/root/version/refreceipt rejectedbeforeactorwork.",
+    "required_proof": "Verifiedroots,exactvenvinterpreter,moduleorigins/hashesfor job_worker/ligand_property_process/plugin/input/calculate anddeclaredmethod/library/policy beforeany predecessorworkerinterruptionclaim; no liveprocessauthoritycopy/replay.",
+    "observed_stage": "Defaultclaim interruptedownedspawneddescriptorchild: actualPID/start/session/groupconfirmedchild,stateandcleanupfacts. Existing process_group precedespluginloading, so no claimofnativecalculationentry.",
+    "optional_stronger_claim": "Onlyif actuallyobservedpost-plugin/entryreceipt withsourcequalification mayreport calculationentry; noaddedproductioninstrumentation/deadlines/workloads."
+  },
+  "tooling": [
+    "Profile-specificsixhelpers and43complete responsibilities; newrunnerliteral5directory6namecatalogue, oldhelpershistorical/contextscriptsunselected.",
+    "Summary/package require selectedv2, actualprevious0017, completebothoriginlabels/bothsuffixes, exactcommands/sourceidentities/logs; droppedcases/reverseproduction/forgedprocessfacts reject.",
+    "Versionauditfive038sources,17unchangedmigrations/dependencies/schema; actualpreceding037tag/body/receiptverifiedonceavailable.",
+    "Legacyv1validandnegativeofflinecontracts retained; v2negativecatalogue/authorization/schema/retention/numericaltests addedbeforefullqualification.",
+    "Profileregistryreadsstorage-free; selectiontransient/resetandreselectafterreload/archive; actual037notexpectedtoprovidenewprofiles."
+  ],
+  "preserved_boundaries": [
+    "No newdescriptor/scientificmethod/observer/workload/deadline/resourcebound/D148policychange",
+    "No newprofilepersistence/migration",
+    "No fabricatedactual037tag/body/schema/actorresults",
+    "Actual159release+integrationrequired beforeimplementation",
+    "Fullcandidate/all7samecandidate/normalPRmerge/freshactualmergedgate/immutableverifiedrelease/closeout stillrequired"
+  ],
+  "source_planning_contract": {
+    "bytes": 7432,
+    "sha256": "132060126d31096f8b3c8cddc272f779a21481406b8d349a92f0b58b8bd690ab"
+  },
+  "actual_preceding_annotated_tag_object": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+  "verified_prerequisite_terminal_merge": "3f873f5062814eac61a716112c92eb99f2e30328",
+  "verified_prerequisite_canonical_reply": "https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950",
+  "accepted_planning_assessments": {
+    "software_architecture": {
+      "agent": "/root/issue159_c5_master1_prelaunch_architecture1",
+      "planning_verdict": "PASS",
+      "assessment_bytes": 1685,
+      "assessment_sha256": "df023c64293fb2f96bb0828c08d013468d9a36331b108a6362939af1ed442461"
+    },
+    "scientific_implementation": {
+      "agent": "/root/issue160_same_schema_scientific_intake1",
+      "planning_verdict": "PASS",
+      "assessment_bytes": 1848,
+      "assessment_sha256": "4fe09a701fda191b5e141fe57ce66f284e23b9beccbdb6d76f4f9404234054f9"
+    }
+  },
+  "pending_work": [
+    "Integrate actual prerequisite terminal merge without losing profile extensions or released corrections.",
+    "Extract and source-qualify actual v0.37.0 predecessor actors; no receipt or actor success is asserted here.",
+    "Implement and test v2 contract while preserving legacy v1.",
+    "Complete current native/performance/compatibility and both full gates, all-seven final assessment, normal PR/merge/release/closeout."
+  ]
+}

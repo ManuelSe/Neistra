@@ -1,5 +1,41 @@
 # Neistra Release Notes
 
+## 0.38.0 — Sourced physicochemical profiles (in preparation)
+
+Adds seven versioned profile adaptations and two explicitly unavailable methods
+through one registry, shared exact-boundary evaluator and compact controls in the
+existing property pane. Current-source authority, missing/error states, citations,
+method adaptations and required descriptor demand remain explicit. Profile selection
+is transient; it introduces no migration or new project/archive schema.
+
+All five authoritative application versions are prepared at 0.38.0. Dependencies
+and all 17 migrations remain unchanged from v0.37.0; schema head remains 0017.
+The new explicit same-schema compatibility protocol preserves the older protocol
+and separates genuine current/preceding producers, source/library proofs and exact
+scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns pass both
+producer origins, private-state families and archive suffixes with exact schema
+identity; independent scoped architecture and scientific reviews PASS.
+
+The fresh complete candidate gate passes all 43 commands: 4,138 Python / zero skips,
+1,875 frontend, 14 supervisor and 585 browser cases, with exactly 75 unchanged released
+exclusions across 660 inventoried cases. There are no failures, flakes, retries or
+new exclusions. All 1,183 current / 1,133 actual preceding source bodies, frozen data,
+lossless logs, 44 offline fixtures and actual reader proofs verify. Positive cleanup
+and all 136 raw original/copy pairs verify before primary diagnostic SQL.
+
+Both browser profile cases preserve current-input science, edit/Undo/Redo and
+metadata recovery. Forty warm switches add zero requests/jobs/allocations/demands.
+Portable measurements retain 31 profile and 120 inherited-property target misses;
+four deliberate policy examples remain separate. Mobile automatic Edit/Undo/Redo
+readiness is 3483.3/2404.1/2481.7ms; later presentation is a different measurement.
+Hidden retirement remains unavailable. No speedup, universal capacity or strict-host
+claim is made. Complete original stores/traces, native recordings and all ten
+external companion trees are retained separately from historical failures.
+
+Final same-commit all-seven approval, normal PR integration, fresh actual-merged
+qualification and verified release/closeout remain required. The sidebar, radar,
+entry filters and final inspector integration remain required #161–#163 work.
+
 ## 0.37.0 — Automatic current-input ligand properties
 
 Published as [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0),

@@ -54,11 +54,11 @@ for (const theme of ["light", "dark"] as const) {
         && new URL(response.url()).pathname.startsWith(`${base}/ligand-properties/consumers/`));
       await region.getByRole("button", { name: "Cancel update", exact: true }).click();
       expect((await cancelled).ok()).toBe(true);
-      await expect(region.getByRole("status")).toHaveText("Update cancelled");
+      await expect(region.getByRole("status")).toHaveText("Update cancelled No profile selected.");
       release(); await completedRoute;
       await closeInspector(page);
       await inspect(page, entry.id);
-      await expect(region.getByRole("status")).toHaveText("Update cancelled");
+      await expect(region.getByRole("status")).toHaveText("Update cancelled No profile selected.");
       expect(submissions).toBe(1);
       expect(await (await request.get(base)).json()).toEqual(before);
       await region.getByRole("button", { name: "Retry", exact: true }).click();

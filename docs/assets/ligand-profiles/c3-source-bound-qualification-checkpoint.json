@@ -1,0 +1,105 @@
+{
+  "schema": "issue160-source-bound-qualification-framework-checkpoint-v1",
+  "recorded_utc": "2026-11-20T02:06:41.454138+00:00",
+  "scope": "Passing local framework/scientific/pure-measurement checkpoint; actual compatibility/native/fullrelease/all7finalfeaturegate pending",
+  "base_integration": "7fa1a7fc3106e80f41715a466e0abe8ff9bf0bc6",
+  "planned_version": "0.38.0",
+  "five_version_preparation_commit": "6bf5b06ccc59a712215c765a4f86c27ed34cec72",
+  "preceding_tag": "v0.37.0",
+  "preceding_runtime": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "preceding_actual_source_bodies": 1133,
+  "preceding_selected_virtual_environment_frozen_install_and_import_only_proofs": "PASS",
+  "protocol": "private-derived-same-schema-v2",
+  "legacy_v1_unchanged": true,
+  "all17_migration_bodies_unchanged": true,
+  "integrated_focused_python": {
+    "tests": 525,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "reader_and_legacy_controls": 337,
+    "helper_and_legacy_controls": 136,
+    "fixture_controls": 52,
+    "genuine_original_fixture_cases": 44,
+    "source_bodies_unchanged": 1176
+  },
+  "pure_profile_measurement_tests": 11,
+  "static_checks": {
+    "ruff_all": "PASS",
+    "ruff_six_helpers": "PASS",
+    "mypy_app_sources": 280,
+    "mypy_owned_tool_sources": 6,
+    "profile_types_lint_pure_checks": "PASS",
+    "five_versions_dependency_migration_audit": "PASS"
+  },
+  "owned_fixture_retention": {
+    "complete_cases": 44,
+    "store_files": 176,
+    "raw_database_original_copy_pairs": 44,
+    "portable_payload_files": 220,
+    "packet_bytes": 1403108,
+    "packet_sha256": "4c7ca7dcc8764157c6cf9fa4be694d5b4208090cd0a141513eb3278def517155",
+    "all_crc_hashes_and_union_verified": true,
+    "no_primary_diagnostic_SQL_opened": true,
+    "portable_packet": "c3-frozen-fixture-qualification.zip"
+  },
+  "scoped_assessments": {
+    "software_architecture": {
+      "verdict": "PASS",
+      "scope": "Newv2reader/sixhelpers/contracts/versionfields and complete44store retention, not finalfeature/runtimeassessment",
+      "limitations": [
+        "Noactualactors/native/SQL/Git/publication",
+        "Fullcompatibility/fullgates/all7finalfeatureassessmentremainpending"
+      ]
+    },
+    "scientific_theory": {
+      "verdict": "PASS",
+      "scope": "Separatecurrentfixturequalification3files plusactualgenuine44caseevidence; sourcehashes7fec/e5dd/8e8705",
+      "limitations": [
+        "Idealizedunoptimizedfixturecoordinates; not energeticquality/fullpreparation",
+        "Nonativeperformance/fullfeaturereadinessclaim"
+      ]
+    }
+  },
+  "retained_attempts": "Initial red process-forgery controls, failed static/launcher attempts and earliercomplete525predecessor522 evidence/sourcecapsule retained; not relabelled as runtime qualification.",
+  "execution_evidence": {
+    ".issue-11-evidence/issue160-v2-integration-validation2/execution.json": {
+      "bytes": 1588,
+      "sha256": "f41eb50ae89f3865581bfd5be3b91a47b7859ae76f70e24ac9b6df7b4fc8e46e"
+    },
+    ".issue-11-evidence/issue160-v2-integration-validation2/fixture-report-validation.json": {
+      "bytes": 72470,
+      "sha256": "c88ea6e834a0d46411af7c979cb0c94ad1d7809241ebd35c013bae3c453a2fb3"
+    },
+    ".issue-11-evidence/issue160-v2-integration-validation2/fixture-packet-receipt.json": {
+      "bytes": 474,
+      "sha256": "ae6654c4272e25edc348375ef87f638bc3d3b05b76ae0a5e07369eed28152b82"
+    },
+    ".issue-11-evidence/issue160-v2-integration-validation2/closed-raw-copy-receipt.json": {
+      "bytes": 24748,
+      "sha256": "121d0a878ef6af280921249ac87487e6d7630155a414bd76405fb4acf79077c1"
+    },
+    ".issue-11-evidence/issue160-profile-performance-implementation1/resume1/handoff.json": {
+      "bytes": 8205,
+      "sha256": "792a5a63e0ad8994b9b6cefb2846e62871ebee48938f5606defe4f1afea9e747"
+    },
+    ".issue-11-evidence/issue160-spawn-evidence-correction1/correction-report.json": {
+      "bytes": 5102,
+      "sha256": "b88a6ba57003cf0531ddbaad632f1a5452805033cb50e872a946d7e86f4d1d32"
+    },
+    ".issue-11-evidence/issue160-same-schema-v2-implementation1/version-audit-execution.json": {
+      "bytes": 943,
+      "sha256": "3e7bc0d3c48a0219e0ef4b130b17ad7b4520c3e3a9fffa805c991a28f6abb9b5"
+    },
+    ".issue-11-evidence/issue160-v2-static-integration2/execution.json": {
+      "bytes": 3261,
+      "sha256": "a0554eabb24716d5167eb8763e6e553bce987abb5597ead4dd5127aa1a6818d4"
+    }
+  },
+  "actual_compatibility_campaign_results": null,
+  "actual_profile_native_measurements": null,
+  "complete_candidate_release_gate": false,
+  "all_seven_same_final_candidate_feature_reviews": false,
+  "pushed_or_PR_or_released": false,
+  "next": "Freeze coherent local source checkpoint, run real both-origin038/037actors and separatefresh-storeprofilemeasurements, then complete all delivery gates."
+}

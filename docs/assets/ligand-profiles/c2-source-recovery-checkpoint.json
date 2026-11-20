@@ -1,0 +1,372 @@
+{
+  "D194": {
+    "absence_record": "inputs/.issue-11-evidence/issue160-verified-source-integration/D194-preserved-absence.json",
+    "all49_fixture_and_harness_paths_absent_before_and_after": true,
+    "current_absence_independently_checked": true,
+    "historical_performance": "159oldD194desktop probe4 cold median2057.95ms/p952242.60ms exceeds unchanged2000ms target. No strict-host/performance pass or160measurement inferred.",
+    "qualification_or_fixture_propagation_claimed": false
+  },
+  "SQL_opened_by_packet_builder": false,
+  "application_or_workload_execution_by_packet_builder_in_this_assignment": false,
+  "archive": "c2-source-recovery-evidence.zip",
+  "archive_bytes": 22442923,
+  "archive_sha256": "29530e1efc4e2f1ab1d04fb093d159d6315b2c978bd4533c1dfb525c13a14a15",
+  "archive_source_map_readbacks": {
+    "before-complete-sources.zip": {
+      "bytes": 5150979,
+      "members": 1188,
+      "recorded_absent_before_paths": [],
+      "sha256": "a48bb0acbebb009de5f4023c8ed9dddeefd5e9093fd13c0a1394179c586a5f6b"
+    },
+    "before-owned-sources.zip": {
+      "bytes": 53547,
+      "members": 12,
+      "recorded_absent_before_paths": [
+        "apps/web/src/test/ligand-properties-source-verification.test.tsx",
+        "apps/web/src/test/ligand-property-source-producer.test.tsx",
+        "apps/web/src/test/ligand-source-error-api.test.ts",
+        "apps/web/src/test/ligand-source-producer-api.test.ts",
+        "apps/web/src/test/ligand-source-producer-app.test.tsx",
+        "apps/web/src/test/ligand-source-producer-owner.test.ts",
+        "tests/integration/test_ligand_depiction_source_verification.py",
+        "tests/integration/test_ligand_property_source_failures.py",
+        "tests/integration/test_ligand_source_producers.py"
+      ],
+      "sha256": "5dc6bb784f2a23446976f3b093c2fc092eb4a7e465ea103750fcaccef579eb52"
+    },
+    "frozen-complete-sources.zip": {
+      "bytes": 5183086,
+      "members": 1197,
+      "recorded_absent_before_paths": [],
+      "sha256": "b2e9066b8d4ea10c11de6cd078bdef02e0aa5305f3bbb548baec5f0bf0f21059"
+    },
+    "frozen-owned-sources.zip": {
+      "bytes": 85302,
+      "members": 21,
+      "recorded_absent_before_paths": [],
+      "sha256": "9899d38de499aa1b7455b2721773f5962421b5533c327a5e19d4d40ba9bff006"
+    },
+    "worker-recovery-complete-selected-source-before.zip": {
+      "bytes": 5183086,
+      "members": 1197,
+      "recorded_absent_before_paths": [],
+      "sha256": "a1008bc03ff809c752a41c55a3d7790e9231de1332531f764a0fdcbf5a8b91bb"
+    },
+    "worker-recovery-exact-propagated-sources.zip": {
+      "bytes": 12975,
+      "members": 2,
+      "recorded_absent_before_paths": [],
+      "sha256": "a39373b3004e08741428da85cb5791489fc6ed304075ac89f4470357c0b78962"
+    }
+  },
+  "compact_source_digest": "ade33b62f7d4a15559d5ca43f15152da6de4b7eedc0c041f08830baf7af0d2be",
+  "created_utc": "2026-11-18T10:09:18.142614+00:00",
+  "current_selected_source_archive": {
+    "bytes": 5189264,
+    "members": 1198,
+    "recorded_absent_before_paths": [],
+    "sha256": "7b63e128e7e1594f794dc663858fc383e2f9964a3c1f751014ee3286bc2f64f8"
+  },
+  "declared_local_base": "98ed100023bc2cbbf9d23a0f00f9f808f9f1f7fa",
+  "earlier_author_checks": {
+    "actual_observation": {
+      "actual_completion_chunk": "7aabeb",
+      "actual_outer_exit": 0,
+      "scope": "Scoped author propagation checks; no final feature/readiness/browser/release claim",
+      "tool_session": 98294
+    },
+    "scope": "Historical D198 author checks on exact frozen1197 sources; retained source transition proves unchanged D198/frontend bodies, but these are not a current complete gate.",
+    "source_count": 1197,
+    "validation": {
+      "D196_regression": "156 PASS",
+      "actual_enclosing": {
+        "completion_chunk": "7aabeb",
+        "exit": 0,
+        "session": 98294
+      },
+      "backend_source_and_profiles": "139 PASS",
+      "focused_frontend": "603 PASS/16files",
+      "gate_receipt": "gate1-receipt.json",
+      "gate_reuse": "None; requested stages freshly run once per tree, sequential160 then161.",
+      "global_web": "1821 PASS/137files",
+      "python_static": "Global Ruff, scoped6-file format and mypy280 PASS",
+      "real_process_supervisor": "6 PASS,3 deselected",
+      "validation_source_unchanged": true,
+      "web_static_build": "lint/types/build PASS; existing large-chunk advisory"
+    }
+  },
+  "evidence_observation_limits": "D198 workload outer observations belong to author/reviewers named in captured receipts. This packet builder directly observed raw capture and archive/hash/CRC/readback tools only during this packaging assignment; prior worker validation was directly observed by this same agent in its separate assignment. No parent tool handle observation is invented.",
+  "exact_full_union_readback": true,
+  "independent_worker_readback": {
+    "bytes": 2198,
+    "path": "primary-independent-worker-propagation-readback.json",
+    "scope": "Root independent two-target source/manifests/JUnit readback; includes160target and retained161context; actual test handles belong to assigned worker, not root.",
+    "sha256": "61223c0f47fead81e347c81a3e6735490ace6b8c941c6264763c0eddcd3d6666"
+  },
+  "issue": 160,
+  "later_worker_checks": {
+    "actual_observations": {
+      "corrected_serial_batch": {
+        "actual_chunk": "c4e46f",
+        "actual_exit": 0,
+        "actual_session": 45523,
+        "meaning": "160focused2all171PASS;161new33andfocused2all171PASS; zero errors/skips/failures"
+      },
+      "harness": "Exact private borrowed migration test; only moduleROOT rebound before execution; assertion bodies untouched; no third selected file.",
+      "initial_batch": {
+        "actual_chunk": "00eda5",
+        "actual_exit": 4,
+        "actual_session": 39721,
+        "meaning": "160new33PASS; first160focused171command stopped before collection because three-case migration file absent. No application regression inferred."
+      },
+      "migration_location_supplement": {
+        "actual_chunk": "cdb505",
+        "actual_exit": 0,
+        "meaning": "Same-source3case actual destination path/source receipt supplement, not3additional unique cases."
+      },
+      "propagation": {
+        "actual_chunk": "32b706",
+        "actual_exit": 0
+      },
+      "scope": "This assigned agent directly observed its own tool enclosing records; no parent handle observation claimed",
+      "source_after_full_union_recheck": {
+        "path_set_and_bytes_exact": true,
+        "selected_source_count": 1198
+      },
+      "static": {
+        "actual_chunk": "d57196",
+        "actual_exit": 0
+      }
+    },
+    "borrowed_migration_body_sha256": "de1ae16293eecd4ce005c9c64fc06c1fd49f92053de877dbcd060071165f3416",
+    "case_split": "168 existing destination cases plus3 unchanged privately borrowed tests bound to actual destination.160initialexit4 is a zero-case collection failure. Separate3-case location-proof supplement repeats existing migration cases, not extra distinct coverage.",
+    "runtime": {
+      "focused1": {
+        "cases": 0,
+        "child_exit": 4,
+        "errors": 0,
+        "failures": 0,
+        "junit_sha256": "9aee5bcfd112d667b94767a57d2e2f31cf610a849bcb6166e507447eaaa9a3cf",
+        "log_sha256": "499b6bd8a40dec4701e0f28412bc6b91832f87c7413a351cbeee9d95649f6db3",
+        "receipt_sha256": "b3b86fc7537eb4d800b762d185839e4a3ff2bf123fef3647246938a980f76049",
+        "skips": 0
+      },
+      "focused2": {
+        "cases": 171,
+        "child_exit": 0,
+        "errors": 0,
+        "failures": 0,
+        "junit_sha256": "22284ae225520adc7e7035d6ad110e8f5185e6f4a47814593d59393506957323",
+        "local_existing_cases": 168,
+        "log_sha256": "373e99ae7182e8cfe3c6904344aa9c6e47e6f4b58b0c79c8e618a69d47f66aab",
+        "receipt_sha256": "ed3732231e6753dfba6ce1c202be94eb551cd4424090197c7681811652b3a93a",
+        "skips": 0,
+        "unchanged_private_borrowed_current_destination_migration_cases": 3
+      },
+      "migration-location-supplement1": {
+        "before_execution_location_receipt_sha256": "a9fa0a947c9143223a3729630c5d5cecf90dc067595b5be237f2c17dcf555771",
+        "cases": 3,
+        "child_exit": 0,
+        "errors": 0,
+        "failures": 0,
+        "junit_sha256": "ba5f9edc9b7a50365014a017275da054d7ce027847ada048ccb2f1dc43db8d06",
+        "log_sha256": "e35c9f68d850a7891f206ce854f11e99c68723c030591a810ed23d19523dae5f",
+        "receipt_sha256": "f1b363bd9f9b6dc18c79be4d15e2fd948d6f7954bbffa949dd0007633a1a6080",
+        "skips": 0
+      },
+      "positive1": {
+        "cases": 33,
+        "child_exit": 0,
+        "errors": 0,
+        "failures": 0,
+        "junit_sha256": "8917a8430082f2c17d7bd6acadc8249e8b4e79ace21e786e05769fe208d8183d",
+        "log_sha256": "51bcf528aeec5c5575423db0dbd30373e1fd04cc2ba8417ce9f5ebe6dee56ad2",
+        "receipt_sha256": "68941df5adcded818aeb6a49d67782aaa7febb587ca58ffb60db1785f61c2fb0",
+        "skips": 0
+      }
+    },
+    "scope": "Bounded exact two-file recovery propagation and destination-focused validation only; no full feature/readiness/release claim",
+    "source_count": 1198,
+    "static": {
+      "Ruff": "PASS",
+      "mypy": "PASS",
+      "mypy_sources": 280,
+      "owned_format": "PASS"
+    },
+    "unique_existing_affected_cases": 171,
+    "unique_new_cases": 33
+  },
+  "naming_scan": {
+    "UTF8_text_payloads": 6292,
+    "zip_archives": 35
+  },
+  "outer_manifest_entries": 1845,
+  "packet_builder_actual_observations": {
+    "assembly_attempt1": {
+      "actual_chunk": "0048e2",
+      "actual_exit": 1,
+      "meaning": "Helper assumed null before-owned entries were present files; original nine absent records retained, corrected to exact12present/9absent validation"
+    },
+    "assembly_attempt2": {
+      "actual_chunk": "133d91",
+      "actual_exit": 1,
+      "meaning": "Helper recognized only flat artifact path layout; legacy fixture sharded paths already matched SHA; added exact legacy/current layout checks"
+    },
+    "capture": {
+      "actual_chunk": "560832",
+      "actual_exit": 0,
+      "actual_session": 82219
+    },
+    "final_assembly": {
+      "actual_chunk": "cfdb9b",
+      "actual_exit": 0
+    },
+    "fresh_full_union_readback": {
+      "actual_chunk": "ba3597",
+      "actual_exit": 0,
+      "actual_session": 16437
+    },
+    "no_SQL_or_application_workloads_in_this_assignment": true,
+    "scope": "Actual direct observation of this packet builder tools only; prior author/reviewer tool handles remain attributed to their recorded observers"
+  },
+  "parent": 11,
+  "raw_retention": {
+    "SQL_opened": false,
+    "aliases": 231,
+    "all_originals_preserved": true,
+    "empty_directories": 802,
+    "input_directories": [
+      "issue160-source-producer-app",
+      "issue160-source-producer-docs",
+      "issue160-verified-source-integration",
+      "issue160-source-producer-architecture",
+      "issue160-source-producer-science",
+      "issue160-source-producer-primary-readback",
+      "issue159-prelaunch-recovery-propagation"
+    ],
+    "omitted_regular_files": [],
+    "regular_bytes": 120134866,
+    "regular_files": 1831,
+    "scope": "All explicit regular files copied and hashed before diagnostic/manifest/receipt processing; no SQL"
+  },
+  "recursive_verification": {
+    "project_archive_artifact_files": 64,
+    "project_archive_manifest_artifact_references": 118,
+    "zip_archives": 35,
+    "zip_regular_members": 6756
+  },
+  "references_not_rebundled": {
+    "159/c2-prelaunch-recovery-checkpoint.json": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 9778,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-prelaunch-recovery-checkpoint.json",
+      "sha256": "f3a72a37f2cbc5a42aa72c20fd5da9080ea62a83e4b6ee2cf201bd410afe0d23"
+    },
+    "159/c2-prelaunch-recovery-evidence.zip": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 1665983,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-prelaunch-recovery-evidence.zip",
+      "sha256": "99b77afb632cfaa88654d1f3753d7f0b3620c351752998fde837805a7cfc39d5"
+    },
+    "159/c2-source-producer-checkpoint.json": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 7537,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-source-producer-checkpoint.json",
+      "sha256": "5d1ec22687931a6c18a1a9a5849dfcb80cb0c010996b31683b077ac8cd0a2d23"
+    },
+    "159/c2-source-producer-evidence.zip": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 27099010,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-source-producer-evidence.zip",
+      "sha256": "7d2bfc643d2bf257c8a37dc5ef45aaf35750bf96c9c7082f30728a07b2dfb60b"
+    },
+    "159/c2-startup-ownership-checkpoint.json": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 9728,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-startup-ownership-checkpoint.json",
+      "sha256": "95295a05f07c63e20b0b9f30deab7eedc2abb7ecc17dbbc0bf30d22f0e65b091"
+    },
+    "159/c2-startup-ownership.zip": {
+      "actual_released159_integration": "Pending",
+      "body_embedded": false,
+      "bytes": 2540205,
+      "checkout": "issue-159-live-ligand-properties",
+      "path": "docs/assets/ligand-properties/c2-startup-ownership.zip",
+      "sha256": "c1ecc16ffbe561504c1a5bf9a1623f5f11dbef1e328c758767f87df9e8237e24"
+    },
+    "docs/PLAN.md": {
+      "body_embedded": false,
+      "bytes": 49125,
+      "checkout": "issue-160-physicochemical-profiles",
+      "path": "docs/PLAN.md",
+      "sha256": "cb85634723a3541cfa8b6d14696958d992fd2f642540cee729cd249587dd2ff8"
+    },
+    "docs/PRODUCT_SPEC.md": {
+      "body_embedded": false,
+      "bytes": 13496,
+      "checkout": "issue-160-physicochemical-profiles",
+      "path": "docs/PRODUCT_SPEC.md",
+      "sha256": "d204a7fc01805b2ba26950939ef7b7adf3ea2f07c2a0e418683c0f4a930c056a"
+    }
+  },
+  "remaining": [
+    "Actual released159 integration, final version/schema/compatibility reconciliation and actual preceding-reader qualification remain pending.",
+    "All old source maps/ALL8 runners remain historical HOLD after changed worker; no source guard, runner, original store or old evidence was overwritten here.161nativeprep4 staleness is context, not160native qualification.",
+    "Full downstream native/profile/radar/source-failure acceptance, required performance/capacity cohorts and complete candidate/exact-master release gates remain required.",
+    "All-seven same-final-candidate specialist assessments and protected review/merge/release/issue closeout remain required; no implementation push/PR/release is claimed by this packet."
+  ],
+  "repository": "ManuelSe/Neistra",
+  "scientific_limits": "Controlled READY/recovery component transports establish source/profile authority; they do not claim newly calculated descriptors. Actual disposable in-process ASGI physical-source failures and restored candidate GETs are separately preserved. No scientific method/schema/units/identity or resource-cap change is introduced.",
+  "scope": "Completed bounded D198 source-producer/profile-consumer integration plus D196 two-P2 worker-recovery checkpoint only; no complete feature, readiness, final all-seven, performance GO, merge, or release claim.",
+  "scoped_specialist_agent_assessments": {
+    "all_seven_final_same_candidate_complete": false,
+    "scientific_implementation": {
+      "bytes": 8559,
+      "candidate_source_count": 1197,
+      "path": "inputs/.issue-11-evidence/issue160-source-producer-science/assessment.json",
+      "scope": "Independent scientific implementation assessment of D198 source-producer propagation into profile consumers; no whole-feature/all-seven/readiness/release approval",
+      "sha256": "2610a63615a845fd578fc0df973d9148c17dd3e72be65b09c36aa4d74fdee4d1",
+      "verdict": "PASS"
+    },
+    "scope_limit": "These actual read-only assessments inspect D198 scientific/ownership integration at1197. They are distinct from author checks and from later1198 worker correction tests; no final1198 seven-role approval is inferred.",
+    "software_architecture": {
+      "bytes": 8086,
+      "candidate_source_count": 1197,
+      "path": "inputs/.issue-11-evidence/issue160-source-producer-architecture/assessment.json",
+      "scope": "Independent read-only architecture assessment of accepted D198 source-producer propagation and actual160consumer integration. Not whole-feature, seven-role, native/performance or release/readiness approval.",
+      "sha256": "6b4051b798186656470c25b6950505de3eecc77dd8b453d3c0b93f2cb3eeaa2b",
+      "verdict": "PASS"
+    }
+  },
+  "source_and_recovery_boundary": "Only explicit exact four-ID current/original physical-source verifier facts retire canonical candidate, numerical and profile captures. Generic worker/capacity/chemistry/transport/semantic/derived-report failures grant no physical authority. Candidate recovery and fresh property-READ numerical/profile recovery remain independent. Worker correction isolates private cache I/O housekeeping and terminalizes/reaps only the refreshed exact still-owned never-started capture.",
+  "source_count": 1198,
+  "source_map_sha256": "00c2db4fcd120c40add2eb80f9484fdcf08dd51284290e8bd98bc35430063deb",
+  "source_policy": {
+    "extra107_historical_helpers_already_in_this_target_policy": true,
+    "reconciliation_path": ".issue-11-evidence/issue160-verified-source-integration/inventory-policy-reconciliation.json",
+    "reconciliation_sha256": "86f3ed3c225f9871413788662684e0dcecc56fb36173cbea11d582f33241b399",
+    "scope": "Existing selected apps/packages/tests/tools/scripts/patches prefixes, authoritative configs, and all historical docs/assets/**/*.py.txt; normal Markdown docs remain outside source map."
+  },
+  "source_transition": {
+    "added": [
+      "tests/integration/test_ligand_property_preload_ownership.py"
+    ],
+    "all_other1196_source_bodies_unchanged": true,
+    "changed_existing": [
+      "apps/api/src/neistra_api/job_worker.py"
+    ],
+    "current_count": 1198,
+    "earlier_D198_count": 1197,
+    "worker_recovery_source_checkpoint159": "8a4f5385af3a60b1d32fc706f219a064b66be26e"
+  }
+}

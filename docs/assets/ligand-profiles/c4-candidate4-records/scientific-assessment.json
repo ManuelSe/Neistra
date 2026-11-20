@@ -1,0 +1,55 @@
+{
+  "recorded_utc": "2026-11-20T09:26:38.485626+00:00",
+  "role": "scientific_implementation",
+  "agent": "/root/issue160_scientific_implementation_6d_review",
+  "verdict": "PASS",
+  "scope": "Completed candidate scientific evidence; finalexactcommit assessment remains required",
+  "candidate": "da6dc220abb1590665d14eb0fc4f2ffa8b3f3d19",
+  "independent_checks": {
+    "current_sources": 1183,
+    "actual_predecessor_sources": 1133,
+    "DATA_files": 3,
+    "lossless_step_logs": 43,
+    "unchanged_migrations": 17,
+    "browser_passed": 585,
+    "released_exclusions_exact": 75,
+    "profile_cases_passed": 20,
+    "offline_reports": 44,
+    "offline_payloads": 220,
+    "offline_before_after_descriptor_comparisons": 1232,
+    "reader_phases": 6,
+    "worker_provenance_objects": 8,
+    "spawned_child_without_proven_calculation_entry": 2,
+    "completed_external_observers": 10
+  },
+  "named_counts_per_browser_not_pooled": {
+    "preflight_before": 70,
+    "preflight_after": 70,
+    "first_browser_to_independent": 20,
+    "first_browser_to_source_context": 20,
+    "history_browser_to_independent": 14,
+    "history_browser_to_source_context": 14,
+    "previous208scope": 208,
+    "metadata_browser_to_independent_separate": 4,
+    "metadata_browser_to_source_context_separate": 4,
+    "manual_native_criterion_checks_separate": 118,
+    "inherited20pair_browser_to_independent_separate": 560
+  },
+  "reader_reconstruction_separate": {
+    "descriptor_outcomes_including_unavailable": 520,
+    "genuine_numeric_current_main": 70,
+    "genuine_numeric_current_archive": 160,
+    "genuine_numeric_previous_main": 70,
+    "genuine_numeric_previous_archive": 160
+  },
+  "truthful_limits": [
+    "Two spawned-child observations do not prove calculation entry",
+    "Unsupported edited chemistry retains knowncounts andhydrogen_semantics_unavailable, never promotedqualified",
+    "Missing visibilitytimings null",
+    "Current-source vectors/sourcecontext/originals/editUndoRedo/metadata inspected",
+    "Count scopes above are distinct from performance1496 scope; do not pool",
+    "Merged gate/release/finalexactcommitreview pending"
+  ],
+  "raw_closure_receipt_inspected_without_SQL": true,
+  "no_tests_services_SQL_edits_or_Git_actions": true
+}

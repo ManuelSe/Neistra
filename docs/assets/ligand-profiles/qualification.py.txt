@@ -1,0 +1,462 @@
+"""Execute an explicit issue-160 recipe with lossless logs and frozen source audits."""
+
+import argparse
+import gzip
+import hashlib
+import json
+import os
+import platform
+import re
+import runpy
+import socket
+import subprocess
+import time
+from pathlib import Path
+from typing import Any
+
+PREFIXES = ("apps/", "packages/", "tests/", "tools/", "scripts/", "patches/")
+CONFIGS = {
+    "pyproject.toml",
+    "uv.lock",
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "playwright.config.ts",
+    "alembic.ini",
+    ".gitattributes",
+    ".gitignore",
+}
+TOOL_DIRECTORY = "docs/assets/ligand-profiles/"
+TOOLS = {
+    directory + name
+    for directory in (
+        "docs/assets/viewer-information/",
+        "docs/assets/viewer-measurements/",
+        "docs/assets/ligand-designation/",
+        "docs/assets/ligand-properties/",
+        TOOL_DIRECTORY,
+    )
+    for name in (
+        "qualification.py.txt",
+        "release-recipe.py.txt",
+        "versions.py.txt",
+        "production-audit.py.txt",
+        "qualification-summary.py.txt",
+        "release-evidence.py.txt",
+    )
+}
+BASELINE_DIRECTORY = TOOL_DIRECTORY + "preceding-v0.37.0/"
+DATA = {
+    BASELINE_DIRECTORY + name
+    for name in ("c5-master1-summary.json", "c5-master1-browser.json.gz", "provenance.json")
+}
+BASELINE_PROVENANCE_SHA256 = "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+
+
+def selected(path: str) -> bool:
+    return path.startswith(PREFIXES) or path in CONFIGS or path in TOOLS or path in DATA
+
+
+def digest(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def browser_report_records(browser: dict[str, Any]) -> list[dict[str, Any]]:
+    """Use the existing complete test identity, including project and parent titles."""
+    records: list[dict[str, Any]] = []
+
+    def walk(suite: dict[str, Any], parents: tuple[str, ...] = ()) -> None:
+        for spec in suite.get("specs", []):
+            for test in spec["tests"]:
+                results = test["results"]
+                assert results, "A preceding browser case has no observed result"
+                title = " \u203a ".join((*parents, spec["title"]))
+                records.append(
+                    {
+                        "identity": (
+                            f"[{test['projectName']}] \u203a "
+                            f"tests/e2e/{spec['file']} \u203a {title}"
+                        ),
+                        "status": results[-1]["status"],
+                        "expected_status": test["expectedStatus"],
+                        "retries": len(results) - 1,
+                    }
+                )
+        for child in suite.get("suites", []):
+            walk(child, parents + ((suite["title"],) if suite.get("specs") else ()))
+
+    for suite in browser["suites"]:
+        walk(suite)
+    return records
+
+
+def validate_preceding_browser_report(
+    browser: dict[str, Any], summary: dict[str, Any]
+) -> dict[str, Any]:
+    """Keep the full observed predecessor inventory and exact exclusion identities."""
+    assert not browser.get("errors"), "The preceding browser report contains errors"
+    assert summary["complete_browser_inventory_executed"] is True
+    assert summary["existing_exclusion_identities_unchanged"] is True
+    assert summary["new_exclusions"] == summary["failures_flakes_retries"] == 0
+    assert summary["clean_start"] is True and summary["sources_unchanged"] is True
+    assert summary["source_inventory_unchanged"] is True
+    assert summary["all_lossless_log_hashes_valid"] is True
+    assert summary["complete_steps"] == 43 and summary["python_skips"] == 0
+    assert summary["source_count"] == 1133
+    stats = browser["stats"]
+    assert stats["unexpected"] == stats["flaky"] == 0
+    records = browser_report_records(browser)
+    identities = [record["identity"] for record in records]
+    assert len(identities) == len(set(identities)), "Duplicate preceding browser identity"
+    assert all(
+        record["retries"] == 0
+        and record["status"] in {"passed", "skipped"}
+        and record["status"] == record["expected_status"]
+        for record in records
+    ), "Preceding cases contain a failure, unexpected result or retry"
+    excluded = sorted(record["identity"] for record in records if record["status"] == "skipped")
+    passed = sum(record["status"] == "passed" for record in records)
+    assert len(records) == summary["browser_inventory_count"] == 640
+    assert len(excluded) == summary["browser_exclusions"] == stats["skipped"] == 75
+    assert passed == summary["browser_passed"] == stats["expected"] == 565
+    return {
+        "browser_inventory_count": len(records),
+        "browser_passed": passed,
+        "browser_exclusions": len(excluded),
+        "excluded_identities": excluded,
+        "inventory_identities_sha256": digest(json.dumps(sorted(identities)).encode()),
+    }
+
+
+def preceding_browser_baseline(root: Path, preceding: dict[str, Any]) -> dict[str, Any]:
+    """Verify immutable published 0.37.0 data before a run and during packaging.
+
+    Provenance pins the previously verified public ZIP, nested archive and manifest
+    membership. The retained reports are original bytes, not a derived skip list.
+    This local check does not claim to repeat anonymous transport or ZIP inspection.
+    """
+    data_files = {}
+    for relative in sorted(DATA):
+        path = root / relative
+        assert path.is_file() and not path.is_symlink(), f"Missing baseline data: {relative}"
+        assert path.resolve() == path and path.parent.resolve() == path.parent
+        body = path.read_bytes()
+        data_files[relative] = {"bytes": len(body), "sha256": digest(body)}
+    provenance_path = BASELINE_DIRECTORY + "provenance.json"
+    assert data_files[provenance_path]["sha256"] == BASELINE_PROVENANCE_SHA256, (
+        "Published predecessor provenance changed"
+    )
+    provenance = json.loads((root / provenance_path).read_bytes())
+    expected = provenance["predecessor"]
+    assert all(preceding[key] == expected[key] for key in ("tag", "version", "commit")), (
+        "Browser baseline is not the actual requested preceding release"
+    )
+    for member, record in provenance["nested_archive"]["members"].items():
+        relative = BASELINE_DIRECTORY + Path(member).name
+        assert data_files[relative] == record, f"Published predecessor body changed: {member}"
+    summary_path = BASELINE_DIRECTORY + "c5-master1-summary.json"
+    browser_path = BASELINE_DIRECTORY + "c5-master1-browser.json.gz"
+    summary = json.loads((root / summary_path).read_bytes())
+    assert summary["commit"] == expected["commit"]
+    assert summary["application_version"] == expected["version"]
+    browser = json.loads(gzip.decompress((root / browser_path).read_bytes()))
+    return {
+        "predecessor": expected,
+        "data_files": data_files,
+        "provenance": provenance_path,
+        "summary": summary_path,
+        "browser": browser_path,
+        **validate_preceding_browser_report(browser, summary),
+    }
+
+
+def current_identities(root):
+    names = subprocess.check_output(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        cwd=root,
+        text=True,
+    ).splitlines()
+    identities = {}
+    for path in sorted(set(names)):
+        if not selected(path):
+            continue
+        source = root / path
+        assert not source.is_symlink(), f"Qualifying source is a symlink: {path}"
+        if source.is_file():
+            identities[path] = digest(source.read_bytes())
+    return identities
+
+
+def tagged_identities(tag):
+    names = [
+        p
+        for p in subprocess.check_output(
+            ["git", "ls-tree", "-r", "--name-only", tag],
+            text=True,
+        ).splitlines()
+        if selected(p)
+    ]
+    objects = subprocess.check_output(
+        ["git", "cat-file", "--batch"],
+        input="".join(f"{tag}:{p}\n" for p in names).encode(),
+    )
+    identities = {}
+    offset = 0
+    for name in names:
+        end = objects.index(b"\n", offset)
+        _, kind, size = objects[offset:end].split()
+        assert kind == b"blob", name
+        start = end + 1
+        offset = start + int(size)
+        identities[name] = digest(objects[start:offset])
+        assert objects[offset : offset + 1] == b"\n"
+        offset += 1
+    assert offset == len(objects)
+    return identities
+
+
+def extracted_identities(root, names):
+    return {p: digest((root / p).read_bytes()) for p in names}
+
+
+def verify_worker_sources(proof, root, identities):
+    """Bind persisted worker proof to actual qualified source bodies."""
+    required = {
+        "apps/api/src/neistra_api/job_worker.py",
+        "apps/api/src/neistra_api/ligand_property_process.py",
+        "apps/api/src/neistra_api/ligand_property_plugin.py",
+        *(
+            f"packages/neistra_core/src/neistra_core/ligand_properties/{name}.py"
+            for name in ("input", "calculate", "registry")
+        ),
+    }
+    seen = set()
+    for module in proof["module_paths"].values():
+        path = Path(module["path"])
+        assert path.is_relative_to(root) and path.resolve() == path and not path.is_symlink()
+        relative = path.relative_to(root).as_posix()
+        assert relative not in seen and relative in required
+        assert module["sha256"] == identities[relative] == digest(path.read_bytes())
+        seen.add(relative)
+    assert seen == required, "Incomplete qualified worker source proof"
+
+
+def verify_worker_library(proof):
+    """Recheck the selected environment's persisted scientific-library bodies."""
+    library = proof["installed_library"]
+    prefix = Path(proof["root"]) / ".venv"
+    assert proof["python_prefix"] == str(prefix)
+    assert library["distribution"] == "rdkit"
+    assert library["native_version"] == proof["method"]["library_version"]
+    assert tuple(map(int, library["distribution_version"].split("."))) == tuple(
+        map(int, library["native_version"].split("."))
+    )
+    for name in ("module", "native_module"):
+        path = Path(library[name + "_path"])
+        assert path.is_relative_to(prefix) and path.resolve() == path and not path.is_symlink()
+        assert digest(path.read_bytes()) == library[name + "_sha256"]
+
+
+def fixture_qualification_reports(recipe, root):
+    """Require and bind every saved scientific case in the owned gate workspace."""
+    step = next(step for step in recipe["steps"] if step["label"] == "python")
+    directory = Path(step["environment"]["NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE"])
+    assert directory.is_dir() and not directory.is_symlink()
+    driver_path = root / "tests/support/ligand_profiles_fixture_qualification.py"
+    driver = runpy.run_path(str(driver_path))
+    provenance = driver["qualification_provenance"](
+        root / "tests/fixtures/ligand-properties-performance/editable"
+    )
+    reports = {}
+    for path in sorted(directory.glob("*/results.json")):
+        assert not path.is_symlink()
+        body = path.read_bytes()
+        result = json.loads(body)
+        assert result["complete"] is True and result["count"] == 1
+        assert result["provenance"] == provenance
+        assert len(result["cases"]) == 1
+        case = result["cases"][0]
+        name = case["id"]
+        assert name == path.parent.name and name not in reports
+        assert case["sha256"] == provenance["fixtures"][name]["sha256"]
+        history = case["history"]
+        assert history["original_preserved"] is True
+        assert history["canonical_bytes_ids_graph_coordinates_restored"] is True
+        assert history["before_artifact_id"] == history["restored_artifact_id"]
+        assert history["edited_artifact_id"] != history["before_artifact_id"]
+        assert history["original_sha256"] == case["sha256"]
+        store = path.parent / name
+        assert store.is_dir() and not store.is_symlink() and store.resolve() == store
+        inventory = {}
+        artifacts = {}
+        for member in sorted(store.rglob("*")):
+            assert not member.is_symlink(), "A retained fixture store contains an alias"
+            if not member.is_file():
+                continue
+            payload = member.read_bytes()
+            relative = member.relative_to(store).as_posix()
+            inventory[relative] = {"bytes": len(payload), "sha256": digest(payload)}
+            if relative.startswith("artifacts/sha256/"):
+                parts = relative.split("/")
+                assert len(parts) == 4 and re.fullmatch(r"[0-9a-f]{64}", parts[3])
+                assert parts[2] == parts[3][:2] and inventory[relative]["sha256"] == parts[3]
+                artifacts[parts[3]] = relative
+        assert "history.db" in inventory, "Missing authentic history database"
+        with (store / "history.db").open("rb") as database:
+            assert database.read(16) == b"SQLite format 3\0", "Invalid retained database bytes"
+        assert len(artifacts) >= 3 and case["sha256"] in artifacts, (
+            "Missing original or before/edited normalized artifacts"
+        )
+        reports[name] = {
+            "path": str(path),
+            "bytes": len(body),
+            "sha256": digest(body),
+            "store": str(store),
+            "store_files": inventory,
+        }
+    assert set(reports) == set(provenance["fixtures"]) and len(reports) == 44
+    return {"directory": str(directory), "count": 44, "provenance": provenance, "reports": reports}
+
+
+def validate_recipe_contract(recipe, root):
+    """Reject a mismatched compatibility campaign before starting any command."""
+    assert recipe["compatibility_protocol"] == "private-derived-same-schema-v2"
+    assert recipe["preceding_reader"]["schema_head"] == "0017"
+    steps = recipe["steps"]
+    assert len(steps) == 43 and len({step["label"] for step in steps}) == 43
+    python = next(step for step in steps if step["label"] == "python")
+    evidence = python.get("environment", {})
+    assert set(evidence) == {"NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE"}
+    assert Path(evidence["NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE"]) == (
+        Path("/tmp") / f"neistra160-{recipe['label']}" / "profile-fixtures"
+    )
+    for label, mode in (("editing-readers", "editing-run"), ("property-readers", "run")):
+        command = next(step["command"] for step in steps if step["label"] == label)
+        assert Path(command[2]) == root / "tests/support/ligand_profiles_reader_qualification.py"
+        assert command[3] == mode
+        assert command[command.index("--compatibility-protocol") + 1] == (
+            "private-derived-same-schema-v2"
+        )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("recipe", type=Path)
+    args = parser.parse_args()
+    root = Path.cwd().resolve()
+    recipe = json.loads(args.recipe.read_text())
+    validate_recipe_contract(recipe, root)
+    baseline = preceding_browser_baseline(root, recipe["preceding_reader"])
+    out = root / TOOL_DIRECTORY
+    manifest = out / f"{recipe['label']}-gate.json"
+    assert not manifest.exists(), "Preserve prior attempts; use a new recipe label."
+    initial_status = subprocess.check_output(["git", "status", "--porcelain=v1"], text=True)
+    assert recipe["require_clean"] and not initial_status, "Clean committed candidate required."
+    preceding = recipe["preceding_reader"]
+    assert (
+        preceding["commit"]
+        == subprocess.check_output(
+            ["git", "rev-parse", f"{preceding['tag']}^{{}}"],
+            text=True,
+        ).strip()
+    )
+    expected_old = tagged_identities(preceding["tag"])
+    old_root = Path(preceding["root"])
+    old_before = extracted_identities(old_root, expected_old)
+    assert old_before == expected_old, "Preceding reader does not match the actual tagged source."
+    state = {
+        "label": recipe["label"],
+        "compatibility_protocol": recipe["compatibility_protocol"],
+        "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+        "branch": subprocess.check_output(["git", "branch", "--show-current"], text=True).strip(),
+        "initial_status": initial_status,
+        "started_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "platform": platform.platform(),
+        "recipe_sha256": digest(args.recipe.read_bytes()),
+        "runner_sha256": digest(Path(__file__).read_bytes()),
+        "unset_environment": recipe["unset_environment"],
+        "source_before": current_identities(root),
+        "preceding_reader": preceding,
+        "preceding_source_expected": expected_old,
+        "preceding_source_before": old_before,
+        "preceding_browser_baseline": baseline,
+        "qualification_data_before": baseline["data_files"],
+        "steps": [],
+        "complete": False,
+        "qualification_profile": "portable correctness; no strict reference-host timing claim",
+    }
+    manifest.write_text(json.dumps(state, indent=2) + "\n")
+    for step in recipe["steps"]:
+        print("START", step["label"], flush=True)
+        started = time.monotonic()
+        inherited = {k: v for k, v in os.environ.items() if k not in recipe["unset_environment"]}
+        environment = {**inherited, **recipe["environment"], **step.get("environment", {})}
+        if step["label"] == "browser":
+            # The browser configuration can reuse a server. Qualification must
+            # start its own exact-candidate services rather than reuse one.
+            for key in ("NEISTRA_E2E_API_PORT", "NEISTRA_E2E_WORKER_PORT", "NEISTRA_E2E_WEB_PORT"):
+                with socket.socket() as probe:
+                    probe.settimeout(1)
+                    assert probe.connect_ex(("127.0.0.1", int(environment[key]))) != 0, (
+                        f"Qualification port is already occupied: {key}={environment[key]}"
+                    )
+        proc = subprocess.Popen(
+            step["command"],
+            cwd=step.get("cwd", str(root)),
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+        chunks = []
+        for line in proc.stdout:
+            chunks.append(line)
+            clean = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", line.decode(errors="replace")).strip()
+            if re.match(r"^\[\d+/\d+\]", clean) or clean.startswith(("✓", "✘", "Running ")):
+                print(clean, flush=True)
+        code = proc.wait()
+        content = b"".join(chunks)
+        log = out / f"{recipe['label']}-{step['label']}.log.gz"
+        log.write_bytes(gzip.compress(content, mtime=0))
+        state["steps"].append(
+            {
+                **step,
+                "exit_code": code,
+                "isolated_child_pid": proc.pid,
+                "isolated_session_requested": True,
+                "seconds": round(time.monotonic() - started, 3),
+                "log": str(log.relative_to(root)),
+                "log_sha256": digest(content),
+            }
+        )
+        state["source_after"] = current_identities(root)
+        state["source_unchanged"] = state["source_before"] == state["source_after"]
+        state["qualification_data_after"] = {
+            path: {
+                "bytes": (root / path).stat().st_size,
+                "sha256": digest((root / path).read_bytes()),
+            }
+            for path in sorted(DATA)
+        }
+        state["qualification_data_unchanged"] = (
+            state["qualification_data_before"] == state["qualification_data_after"]
+        )
+        state["preceding_source_after"] = extracted_identities(old_root, expected_old)
+        state["preceding_source_unchanged"] = state["preceding_source_after"] == expected_old
+        manifest.write_text(json.dumps(state, indent=2) + "\n")
+        print("PASS" if code == 0 else "FAIL", step["label"], flush=True)
+        print(content.decode(errors="replace")[-1200:], flush=True)
+        if code:
+            raise SystemExit(code)
+        assert state["source_unchanged"], "Current source inventory changed during qualification."
+        assert state["qualification_data_unchanged"], "Preceding qualification data changed."
+        assert state["preceding_source_unchanged"], "Preceding source changed during qualification."
+    state["complete"] = True
+    state["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    state["final_status"] = subprocess.check_output(["git", "status", "--porcelain=v1"], text=True)
+    manifest.write_text(json.dumps(state, indent=2) + "\n")
+    print("COMPLETE", manifest, flush=True)
+
+
+if __name__ == "__main__":
+    main()
