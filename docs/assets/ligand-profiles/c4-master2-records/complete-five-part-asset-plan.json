@@ -1,0 +1,40 @@
+{
+  "assets": [
+    {
+      "asset_name": "c4-master2-case-companions-01.zip",
+      "bytes": 8175380,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/case-companions/c4-master2-case-companions-01.zip",
+      "sha256": "0b0c25cd7bdb7913bd64f2e04dd57df72ef56a983714797b70837e36e2fb00f6",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/case-companions/c4-master2-case-companions-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-master2-qualified-01.zip",
+      "bytes": 83377902,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/gate-parts/c4-master2-qualified-01.zip",
+      "sha256": "ed7df324f0e647b6139389ee7cf23b55f24d99dd845aa658c672061387d883ee",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/gate-parts/c4-master2-qualified-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-master2-qualified-02.zip",
+      "bytes": 52437062,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/gate-parts/c4-master2-qualified-02.zip",
+      "sha256": "8a90abb2dfe50bd2fb0b1bb36e68c49de3398852bd77777483dfedfc5d8b5a05",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/gate-parts/c4-master2-qualified-02.zip.sha256"
+    },
+    {
+      "asset_name": "c4-master2-retained-state-01.zip",
+      "bytes": 71117227,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-01.zip",
+      "sha256": "9c088587c1dab62d7ae8256263350333e575b3f71d5b10ec265bceabf030a12f",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-master2-retained-state-02.zip",
+      "bytes": 24994117,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-02.zip",
+      "sha256": "cbee7f4683017ba3159304c5ef583d86c696e67a0fca68e73d35d18c2a5a3afd",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-02.zip.sha256"
+    }
+  ],
+  "publication_performed": false
+}

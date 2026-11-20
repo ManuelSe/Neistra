@@ -1,0 +1,91 @@
+{
+  "actual_current_campaign_labels": [
+    "c4-candidate5",
+    "c4-master2"
+  ],
+  "all12_explicit_supplements_complete": true,
+  "all17_large_forensic_ZIPs_excluded_from_main_members": true,
+  "archive": {
+    "bytes": 970512774,
+    "sha256": "f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284"
+  },
+  "both_small_forensic_indices_retained": true,
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "historical_candidate4_retained_separately": true,
+  "outer_payloads": 250,
+  "package_receipt": {
+    "bytes": 13713,
+    "sha256": "31a2030cd66c7d0e4fbcfbc48bf5cf22d3b2dfa28596053f831e7e6b58037171"
+  },
+  "publication_anonymous_and_closeout_pending": true,
+  "qualified_local_verifier_passed": true,
+  "reviewed_feature_head": "db6532b20a1b8ac61e7242d349c91c9a99303988",
+  "supplements": {
+    "candidate5-external-cases": {
+      "all_original_member_identities_match": true,
+      "bytes": 8233151,
+      "files": 7
+    },
+    "candidate5-records": {
+      "all_original_member_identities_match": true,
+      "bytes": 771773,
+      "files": 32
+    },
+    "candidate5-retained-state": {
+      "all_original_member_identities_match": true,
+      "bytes": 97163590,
+      "files": 9
+    },
+    "historical-candidate4-external-cases": {
+      "all_original_member_identities_match": true,
+      "bytes": 8215876,
+      "files": 4
+    },
+    "historical-candidate4-gate-parts": {
+      "all_original_member_identities_match": true,
+      "bytes": 135706295,
+      "files": 3
+    },
+    "historical-candidate4-records": {
+      "all_original_member_identities_match": true,
+      "bytes": 338076,
+      "files": 21
+    },
+    "historical-candidate4-retained-state": {
+      "all_original_member_identities_match": true,
+      "bytes": 73882012,
+      "files": 5
+    },
+    "master2-external-cases": {
+      "all_original_member_identities_match": true,
+      "bytes": 8354577,
+      "files": 7
+    },
+    "master2-independent-retention-readback": {
+      "all_original_member_identities_match": true,
+      "bytes": 4809,
+      "files": 1
+    },
+    "master2-records": {
+      "all_original_member_identities_match": true,
+      "bytes": 2081642,
+      "files": 58
+    },
+    "master2-retained-state": {
+      "all_original_member_identities_match": true,
+      "bytes": 97672868,
+      "files": 9
+    },
+    "profile-forensics-index": {
+      "all_original_member_identities_match": true,
+      "bytes": 4382446,
+      "files": 39
+    }
+  },
+  "verified_utc": "2026-11-20T18:20:05.779116+00:00",
+  "wrapped_counts": {
+    "evidence_manifest_entries": 0,
+    "project_archive_files": 0,
+    "zip_archives": 0
+  }
+}

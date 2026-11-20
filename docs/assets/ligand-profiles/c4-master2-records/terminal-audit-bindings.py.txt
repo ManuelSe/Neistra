@@ -1,0 +1,122 @@
+"""Rebind three completed-workload assessments to unchanged terminal inputs.
+
+This verifies evidence identity only. It does not expand the original assessments
+into full-browser, attachment-binding, global timing or release approval claims.
+"""
+from pathlib import Path
+import datetime
+import hashlib
+import json
+import os
+import stat
+import subprocess
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2')
+CORRECTION = Path('/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus')
+PREP = CORRECTION / '.issue-11-evidence/issue160-master2-release-preparation1'
+HEAD = 'c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82'
+AUDITS = (
+    ('issue160-master2-offline-scientific-audit1', 'f7ff9274dfae0aea9efefe95725f35c83acf8492c4e53f320c6eb1d0f4142f20', 'input-body-inventory.json', 'b1a0bddcef4aef0d5499021a7a85a8149f6eac4d2f3f8bc238bcc5650a4c885d', 1413),
+    ('issue160-master2-native-scientific-audit1', 'b75f98e0c251760638bc491c0ecd1578809d05dd9e28b9878045d6552b550698', 'input-body-inventory.json', '9f73ca444e0ba9bcc3fd2d50f79b09f1073ca15ab8664f1b42f48702187e265a', 911),
+    ('issue160-master2-workload-performance-audit1', 'd498ef85d1b620082b499e54a235d45b805f4288db609c7b9378369158b205e5', 'input-inventory.json', '2dd0f44ae84a2943ec66f0b64a70f74e948bd44484c78fbbc054ce1fa5bb613f', 1685),
+)
+
+def fingerprint(path):
+    assert path.is_absolute() and path == path.resolve(), path
+    before = path.stat()
+    stable = lambda value: (value.st_dev, value.st_ino, value.st_mode,
+                            value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+    assert stat.S_ISREG(before.st_mode) and not path.is_symlink(), path
+    digest = hashlib.sha256()
+    size = 0
+    with path.open('rb') as handle:
+        assert stable(os.fstat(handle.fileno())) == stable(before), path
+        while block := handle.read(1024 * 1024):
+            digest.update(block)
+            size += len(block)
+        assert stable(os.fstat(handle.fileno())) == stable(before), path
+    assert stable(path.stat()) == stable(before) and size == before.st_size, path
+    return {'bytes': size, 'sha256': digest.hexdigest()}
+
+def load_pinned(path, sha):
+    body = path.read_bytes()
+    assert hashlib.sha256(body).hexdigest() == sha, path
+    return json.loads(body)
+
+def main():
+    # Refuse before any audit input hashing or output creation while the gate is live.
+    execution_dir = ROOT / '.issue-11-evidence/issue160-c4-master2-run1'
+    terminal_path = execution_dir / 'execution.json'
+    assert terminal_path.is_file(), 'Successful terminal execution required'
+    terminal = json.loads(terminal_path.read_bytes())
+    assert terminal['candidate'] == HEAD and terminal['exit_code'] == 0
+    gate_path = ROOT / 'docs/assets/ligand-profiles/c4-master2-gate.json'
+    gate = json.loads(gate_path.read_bytes())
+    assert gate['commit'] == HEAD and gate['complete'] is True
+    assert len(gate['steps']) == 43 and all(row['exit_code'] == 0 for row in gate['steps'])
+    for name in ('cleanup.json', 'closed-raw-copy-receipt.json'):
+        receipt = json.loads((execution_dir / name).read_bytes())
+        assert receipt['positive_closed'] is True and not receipt['live_owned_pids']
+    readback_path = ROOT / '.issue-11-evidence/issue160-c4-master2-package-postgate1/independent-primary-readback.json'
+    readback = json.loads(readback_path.read_bytes())
+    assert readback['candidate'] == HEAD
+    assert readback['completed_Python_offline_audit_terminal_rebinding']['all_original_1413_bodies_rehashed_unchanged_after_terminal'] is True
+    assert subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip() == HEAD
+    # Native logs and qualification artifacts are expected untracked originals.
+    # Preserve them; reject changes to tracked worktree/index contents instead.
+    subprocess.run(['git', '-C', str(ROOT), 'diff', '--quiet', '--'], check=True)
+    subprocess.run(['git', '-C', str(ROOT), 'diff', '--cached', '--quiet', '--'], check=True)
+    union = {}
+    audit_rows = []
+    for index, (name, report_sha, inventory_name, inventory_sha, expected_count) in enumerate(AUDITS):
+        directory = CORRECTION / '.issue-11-evidence' / name
+        report_path = directory / 'report.json'
+        report = load_pinned(report_path, report_sha)
+        assert report['verdict'] == 'PASS'
+        inventory_path = directory / inventory_name
+        inventory = load_pinned(inventory_path, inventory_sha)
+        if index == 2:
+            assert set(inventory) == {'case_bodies', 'source_bodies', 'scope'}
+            assert isinstance(inventory['scope'], str)
+            assert len(inventory['case_bodies']) == 744 and len(inventory['source_bodies']) == 941
+            normalized = {}
+            for group in ('case_bodies', 'source_bodies'):
+                for relative, identity in inventory[group].items():
+                    path = Path(relative)
+                    assert not path.is_absolute() and '..' not in path.parts
+                    absolute = ROOT / path
+                    assert absolute.is_relative_to(ROOT)
+                    assert str(absolute) not in normalized
+                    normalized[str(absolute)] = identity
+            inventory = normalized
+        assert len(inventory) == expected_count
+        for path, identity in inventory.items():
+            assert set(identity) == {'bytes', 'sha256'}
+            assert path not in union or union[path] == identity, path
+            union[path] = identity
+        audit_rows.append({'report': str(report_path), 'report_sha256': report_sha,
+                           'inventory': str(inventory_path), 'inventory_sha256': inventory_sha,
+                           'normalized_input_count': expected_count, 'original_scope': report['scope']})
+    assert len(union) == 2159
+    for path, expected in sorted(union.items()):
+        assert fingerprint(Path(path)) == expected, path
+    # Recheck parsed audit identities after all body reads; no input may drift.
+    for name, report_sha, inventory_name, inventory_sha, _ in AUDITS:
+        directory = CORRECTION / '.issue-11-evidence' / name
+        load_pinned(directory / 'report.json', report_sha)
+        load_pinned(directory / inventory_name, inventory_sha)
+    output = PREP / 'terminal-early-audit-bindings.json'
+    result = {'verified_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'candidate': HEAD, 'verdict': 'PASS', 'scope': 'Evidence identity rebinding only; original assessment scopes retained',
+              'terminal_execution': fingerprint(terminal_path), 'complete_gate': fingerprint(gate_path),
+              'independent_retention_readback': fingerprint(readback_path), 'audits': audit_rows,
+              'normalized_union_inputs': 2159, 'all_original_union_bodies_rehashed_unchanged': True,
+              'SQL_performed': False, 'scientific_calculation_performed': False,
+              'full_browser_attachment_or_global_timing_claim': False}
+    with output.open('x') as handle:
+        json.dump(result, handle, indent=2, sort_keys=True)
+        handle.write('\n')
+    print(json.dumps({'terminal_audit_identity_rebinding': 'PASS', 'inputs': 2159, 'output': str(output)}))
+
+if __name__ == '__main__':
+    main()

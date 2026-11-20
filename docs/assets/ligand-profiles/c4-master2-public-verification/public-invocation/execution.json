@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/verify-public-runtime-assets.py",
+    "--release-json",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/release-publication1/published-release.json",
+    "--upload-manifest",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/runtime-upload-manifest.json",
+    "--output-dir",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1"
+  ],
+  "script_sha256": "722a8b37cfbf6559985eee6d3382b2c462847c0c7e264c6a87370ba057c714ae",
+  "started_utc": "2026-11-20T18:28:29.114260+00:00",
+  "finished_utc": "2026-11-20T18:34:54.771247+00:00",
+  "exit_code": 0
+}

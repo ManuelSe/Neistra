@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/verify-terminal-audit-bindings.py"
+  ],
+  "script_sha256": "b60a664923eb01a46370bd2deceac837a533a99a09a31e083b5fe204bb0b8419",
+  "started_utc": "2026-11-20T18:14:09.072078+00:00",
+  "finished_utc": "2026-11-20T18:14:09.482358+00:00",
+  "exit_code": 0
+}

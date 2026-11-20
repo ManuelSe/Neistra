@@ -1,0 +1,1433 @@
+{
+  "commit": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "application_version": "0.38.0",
+  "branch": "",
+  "clean_start": true,
+  "complete_steps": 43,
+  "source_count": 1183,
+  "source_inventory_unchanged": true,
+  "source_digest": "3eff80e7594c59f7ae8ee8573ed64d4161701a6ad0c0c80fe64bad85fd3ac5a4",
+  "sources_unchanged": true,
+  "all_lossless_log_hashes_valid": true,
+  "python": 4157,
+  "python_skips": 0,
+  "frontend": 1879,
+  "supervisor": 14,
+  "browser_passed": 585,
+  "browser_exclusions": 75,
+  "browser_inventory_count": 660,
+  "browser_inventory_sha256": "f693a6aa1b25037a7a8f89455d292d120f78c7b44e4f8c0155754c838ce213ad",
+  "complete_browser_inventory_executed": true,
+  "exclusion_baseline": "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz",
+  "exclusion_baseline_sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445",
+  "preceding_browser_baseline": {
+    "predecessor": {
+      "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+      "source_count": 1133,
+      "tag": "v0.37.0",
+      "version": "0.37.0"
+    },
+    "data_files": {
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+        "bytes": 19164695,
+        "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+        "bytes": 1578,
+        "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+        "bytes": 1342,
+        "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+      }
+    },
+    "provenance": "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json",
+    "summary": "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json",
+    "browser": "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz",
+    "browser_inventory_count": 640,
+    "browser_passed": 565,
+    "browser_exclusions": 75,
+    "excluded_identities": [
+      "[chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a runs a demonstration job in the mobile workspace without overlap",
+      "[chromium] \u203a tests/e2e/export-archive.spec.ts \u203a keeps complete export and archive controls usable on a mobile viewport",
+      "[chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a keeps ligand editing functional in the mobile inspector",
+      "[chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a keeps protein editing usable in the mobile inspector",
+      "[chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+      "[chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+      "[chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a uses the compact trigger path for selection and empty clearing",
+      "[chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a keeps compact picking and focus controls bounded and keyboard reachable",
+      "[chromium] \u203a tests/e2e/viewer-transform-toolbar.spec.ts \u203a qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "[mobile-chromium] \u203a tests/e2e/coordinate-editing.spec.ts \u203a edits coordinates, reverses gestures, and validates protein superposition",
+      "[mobile-chromium] \u203a tests/e2e/demonstration-job.spec.ts \u203a completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-resources.spec.ts \u203a keeps large-scene capture bounded across repeated opening, navigation and closure",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-workflows.spec.ts \u203a mirrors real native minimization frames and restores committed output on cancel",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation-zoom.spec.ts \u203a keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a captures native molecular annotation raster and coordinate previews",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a keeps two owning workspaces and their presentation sessions isolated",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a mirrors native molecular frames, stays read-only and reuses its window",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports blocked popups and real WebGL source loss without mutating the project",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a reports viewer initialization failure in the presentation shell",
+      "[mobile-chromium] \u203a tests/e2e/detached-presentation.spec.ts \u203a retires stale output across reload, responsive remounts, projects and owner reload",
+      "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a cancels intercepted export and archive import work without a stale result",
+      "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a exports all, selected, and visible structures with deterministic filters and records",
+      "[mobile-chromium] \u203a tests/e2e/export-archive.spec.ts \u203a round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "[mobile-chromium] \u203a tests/e2e/group-membership.spec.ts \u203a uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+      "[mobile-chromium] \u203a tests/e2e/import-display-export.spec.ts \u203a reports malformed input and can cancel an import before commit",
+      "[mobile-chromium] \u203a tests/e2e/interactions-lifecycle.spec.ts \u203a keeps centroid overlays current through scenes, deletion and project changes",
+      "[mobile-chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native authored draft protein/ligand preview work and measures exact cancellation",
+      "[mobile-chromium] \u203a tests/e2e/interactive-transform-performance.spec.ts \u203a bounds native original protein/ligand preview work and measures exact cancellation",
+      "[mobile-chromium] \u203a tests/e2e/ligand-editing.spec.ts \u203a edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+      "[mobile-chromium] \u203a tests/e2e/measurements.spec.ts \u203a creates and manages reference measurements with synchronized inspection",
+      "[mobile-chromium] \u203a tests/e2e/minimization-accessibility.spec.ts \u203a preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+      "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+      "[mobile-chromium] \u203a tests/e2e/minimization-live.spec.ts \u203a renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+      "[mobile-chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real 18k-atom assembly minimization and native preview work",
+      "[mobile-chromium] \u203a tests/e2e/minimization-performance.spec.ts \u203a bounds real prepared1STP pocket minimization and native preview work",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a a hydrogen-free structure remains hydrogen-free in polar-only mode",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a persists polar-only mode across viewer workflows without transient or molecular drift",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+      "[mobile-chromium] \u203a tests/e2e/polar-hydrogen-visibility.spec.ts \u203a selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+      "[mobile-chromium] \u203a tests/e2e/project-lifecycle.spec.ts \u203a entry commands are durable and reversible through the workspace",
+      "[mobile-chromium] \u203a tests/e2e/project-navigation.spec.ts \u203a retains two component rows at the minimum expanded desktop pane height",
+      "[mobile-chromium] \u203a tests/e2e/protein-editing.spec.ts \u203a edits protein hierarchy and chemistry with exact history and validation",
+      "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a 1STP pocket",
+      "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for a supplied small molecule",
+      "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a bounds cold quick publication for an 18k scene",
+      "[mobile-chromium] \u203a tests/e2e/quick-minimization-performance.spec.ts \u203a renders genuine quick steps and clears native preview within500ms on Cancel",
+      "[mobile-chromium] \u203a tests/e2e/quick-minimization.spec.ts \u203a preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+      "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+      "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps shell and inspector controls bounded around both responsive breakpoints",
+      "[mobile-chromium] \u203a tests/e2e/rebranding-zoom.spec.ts \u203a keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "[mobile-chromium] \u203a tests/e2e/release-hardening.spec.ts \u203a keeps representative-project interactions responsive and projection-scoped",
+      "[mobile-chromium] \u203a tests/e2e/release-journey.spec.ts \u203a completes the MolWeave v0.1 definition-of-done journey",
+      "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a expands from styling across hidden entries without durable changes",
+      "[mobile-chromium] \u203a tests/e2e/selection-appearance.spec.ts \u203a remembers coloring mode across panels and projects until reload",
+      "[mobile-chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a keeps ion, water, and covalent-boundary targets exact",
+      "[mobile-chromium] \u203a tests/e2e/selection-styling.spec.ts \u203a styles a 1STP complex without changing scientific or transient state",
+      "[mobile-chromium] \u203a tests/e2e/selection-surfaces.spec.ts \u203a adds and removes saved surfaces from the compact palette with reload and undo",
+      "[mobile-chromium] \u203a tests/e2e/structure-hierarchy.spec.ts \u203a synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+      "[mobile-chromium] \u203a tests/e2e/synchronized-selection.spec.ts \u203a keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+      "[mobile-chromium] \u203a tests/e2e/viewer-click-selection.spec.ts \u203a keeps primary selection and empty clearing independent from the camera",
+      "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a applies complete representations, navigation, isolation, and named scenes",
+      "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a explains unavailable ligand focus for protein-only content",
+      "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a shows a usable WebGL failure instead of a blank viewer",
+      "[mobile-chromium] \u203a tests/e2e/viewer-controls.spec.ts \u203a synchronizes picking and keeps selection, focus actions, and project state independent",
+      "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (dark)",
+      "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a native hover matches all modes and preserves selection (light)",
+      "[mobile-chromium] \u203a tests/e2e/viewer-hover.spec.ts \u203a protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "[mobile-chromium] \u203a tests/e2e/viewer-theme.spec.ts \u203a keeps the persisted theme through the real viewer lifecycle",
+      "[mobile-chromium] \u203a tests/e2e/viewer-warning-details-zoom.spec.ts \u203a keeps warning details reachable at actual 100% and 200% browser zoom"
+    ],
+    "inventory_identities_sha256": "5db2a045786b995ca1826cf274f625adb6c5e807a3960024ffc0d4e1d8c8b9b5"
+  },
+  "existing_exclusion_identities_unchanged": true,
+  "new_exclusions": 0,
+  "failures_flakes_retries": 0,
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "offline_frozen_fixture_qualification": {
+    "directory": "/tmp/neistra160-c4-master2/profile-fixtures",
+    "count": 44,
+    "provenance": {
+      "schema": "profile-fixture-qualification-source-v1",
+      "scope": "Current source-bound offline requalification, separate from original generation",
+      "generation_manifest_sha256": "7826731f86f04fe9b22a56fa35a5755885da041979cfc9938c315b1777a01421",
+      "generation_source_identities": {
+        "repository_sources": {
+          "tests/support/ligand_property_performance_fixtures.py": "ceb8408afae2aa3cf4dc76610784d75b602df6408a1c939afc34fc6a1fc096c6",
+          "packages/neistra_core/src/neistra_core/editing/geometry.py": "9be6326175350bd468bdd9255d3906791af19827e86eca7787f171c66598d3ad",
+          "packages/neistra_core/src/neistra_core/adapters/ligand.py": "c18bc71c941590efdde94204ceb4c42eb701dc5cf1708080de06f7e8265ea699",
+          "packages/neistra_core/src/neistra_core/adapters/rdkit_common.py": "03a3af28555f550c700f4b011d10eeabb2118390857a98c11c7468e39de76229",
+          "packages/neistra_core/src/neistra_core/editing/model.py": "0c926ad8a182df8d61afacdfca0df3b59ba923b8c7acdd041a9b15e0cb2f5f20",
+          "tests/support/ligand_property_performance_qualification.py": "dac492eb8a681f31acca9067bdd7b5711fe0d982002a9b2b52ebbd35c69fcb4a",
+          "apps/api/src/neistra_api/project_service.py": "fdc799f27504f6c1ed497080ecb3cee8725b9fc32b36d34172e504f3e160fefd",
+          "apps/api/src/neistra_api/model_edit_service.py": "a8bb79ec0de7680c81736205e7100c18e87b3faa9c5b7ccf32f37f1fbef5a97c",
+          "packages/neistra_core/src/neistra_core/ligand_properties/calculate.py": "696b4f634db97ab0bbb11ab04c4ccd3cd405a950d0150712d5c11824a636d432",
+          "packages/neistra_core/src/neistra_core/ligand_properties/input.py": "d67db6eb51ff9754cecc7f0338a658ff3c7ead00532b706feda099f5e08cf99c"
+        },
+        "rdkit_version": "2026.03.4",
+        "rdkit_python_sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7",
+        "rdmolops_binary_sha256": "aea853018e7bbd4bf05eca47678beb2d4ecfd187905b92e3b3d1efb148e8d353"
+      },
+      "current_qualification_source_identities": {
+        "repository_sources": {
+          "tests/support/ligand_property_performance_fixtures.py": "ceb8408afae2aa3cf4dc76610784d75b602df6408a1c939afc34fc6a1fc096c6",
+          "packages/neistra_core/src/neistra_core/editing/geometry.py": "9be6326175350bd468bdd9255d3906791af19827e86eca7787f171c66598d3ad",
+          "packages/neistra_core/src/neistra_core/adapters/ligand.py": "c18bc71c941590efdde94204ceb4c42eb701dc5cf1708080de06f7e8265ea699",
+          "packages/neistra_core/src/neistra_core/adapters/rdkit_common.py": "03a3af28555f550c700f4b011d10eeabb2118390857a98c11c7468e39de76229",
+          "packages/neistra_core/src/neistra_core/editing/model.py": "0c926ad8a182df8d61afacdfca0df3b59ba923b8c7acdd041a9b15e0cb2f5f20",
+          "tests/support/ligand_property_performance_qualification.py": "f5d416101faa4a9bd91307f765d8ccb54db770e9223eeee7e7aa3eaf4b80f4fb",
+          "apps/api/src/neistra_api/project_service.py": "fdc799f27504f6c1ed497080ecb3cee8725b9fc32b36d34172e504f3e160fefd",
+          "apps/api/src/neistra_api/model_edit_service.py": "a8bb79ec0de7680c81736205e7100c18e87b3faa9c5b7ccf32f37f1fbef5a97c",
+          "packages/neistra_core/src/neistra_core/ligand_properties/calculate.py": "696b4f634db97ab0bbb11ab04c4ccd3cd405a950d0150712d5c11824a636d432",
+          "packages/neistra_core/src/neistra_core/ligand_properties/input.py": "d67db6eb51ff9754cecc7f0338a658ff3c7ead00532b706feda099f5e08cf99c"
+        },
+        "rdkit_version": "2026.03.4",
+        "rdkit_python_sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7",
+        "rdmolops_binary_sha256": "aea853018e7bbd4bf05eca47678beb2d4ecfd187905b92e3b3d1efb148e8d353"
+      },
+      "reviewed_observer_evolution": {
+        "path": "tests/support/ligand_property_performance_qualification.py",
+        "generation_sha256": "dac492eb8a681f31acca9067bdd7b5711fe0d982002a9b2b52ebbd35c69fcb4a",
+        "current_sha256": "f5d416101faa4a9bd91307f765d8ccb54db770e9223eeee7e7aa3eaf4b80f4fb",
+        "scope": "Atomic observer publication; scientific fixture functions remain unchanged",
+        "decision": "D-194 #160 generation/current qualification clarification"
+      },
+      "qualification_driver": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/tests/support/ligand_profiles_fixture_qualification.py",
+        "sha256": "7fec7279c998d4bfdf13fd238742f6f820f7fa2371281f25fdc3ae931d9bf0e9"
+      },
+      "fixtures": {
+        "paired-chromium-10": {
+          "bytes": 2633,
+          "sha256": "ecac8e90bbf07661a4ebecfd7562a52dc53103468e93166aff32aa62260daa60"
+        },
+        "paired-chromium-14": {
+          "bytes": 3577,
+          "sha256": "2ec2af29afbc0b12029c07cf2db79f9104a238996d8539321e8470b94e53b7d3"
+        },
+        "paired-chromium-18": {
+          "bytes": 4521,
+          "sha256": "3ac04b2381dadf4951191012ccc6a03e9aea8bc2417cf4fea18bc59bb289cd39"
+        },
+        "paired-chromium-22": {
+          "bytes": 5465,
+          "sha256": "7e04bbbfa9ef0c46c86b14f72a833dfb1ae6e092ce6e8d72bfb990d3b672dd95"
+        },
+        "paired-chromium-26": {
+          "bytes": 6409,
+          "sha256": "6b6259600eca8f6aee6286b589abea0ebd76f5e8581f5273ad1d88678a35c494"
+        },
+        "paired-chromium-30": {
+          "bytes": 7353,
+          "sha256": "55fe2f7d0fa3c63affe25bef9e23eb7be4f2fbf1c948ca930a7d6f5a335b0392"
+        },
+        "paired-chromium-34": {
+          "bytes": 8313,
+          "sha256": "644c6904840f0e14f134d1dbf94654d428bd56aed610af2f86499428ef128c5d"
+        },
+        "paired-chromium-38": {
+          "bytes": 9293,
+          "sha256": "968f722a01da4f454248dfe577e8b494631e1793ca1619cf33c214e8ffd6f290"
+        },
+        "paired-chromium-42": {
+          "bytes": 10273,
+          "sha256": "570bf3fe25f90381562f9d0a734196ba0fc702bad758c5d37d158f98d0aee546"
+        },
+        "paired-chromium-46": {
+          "bytes": 11253,
+          "sha256": "6bf23a452f546718e36e22ede836d80e4f0f0ceb3d5c9b5af6c8ba9588abbc89"
+        },
+        "paired-chromium-50": {
+          "bytes": 12233,
+          "sha256": "bd5a9f7f4750146c2c5ab254d7505a57893478574ea4aa252f54f3995d579b60"
+        },
+        "paired-chromium-54": {
+          "bytes": 13213,
+          "sha256": "926b35c0fa3d836016dcf480949fc00335556d6eec0b81fdb764e4b7e26537f0"
+        },
+        "paired-chromium-58": {
+          "bytes": 14193,
+          "sha256": "e30f86ea51215f0f14a6cc2bf3d71d2875cb9825f16327ee54dbfd563bec20ad"
+        },
+        "paired-chromium-62": {
+          "bytes": 15173,
+          "sha256": "a1b3ecae689a42f07b7d857cd71dcc7a3f2cecbf01d4c47dc2934e715cfb1db6"
+        },
+        "paired-chromium-66": {
+          "bytes": 16153,
+          "sha256": "9b46925d31624adcf9962101744fefa95607ff9b910a96a08d2ad97d956da148"
+        },
+        "paired-chromium-70": {
+          "bytes": 17133,
+          "sha256": "1200015bfacda8ebb91ac7f6998aa7b9c0476b369e409819d01ce8ee4b94457d"
+        },
+        "paired-chromium-74": {
+          "bytes": 18113,
+          "sha256": "d77a574c4a47d3cb97389a73e10a20151e63da6c122ddbd061ef8f81212c7ded"
+        },
+        "paired-chromium-78": {
+          "bytes": 19093,
+          "sha256": "9d7503a928ee2ea81423ae438a87be16435a529348e3481f039d02328dcb34c8"
+        },
+        "paired-chromium-82": {
+          "bytes": 20077,
+          "sha256": "60267c3ca4c9e0d5a93310dd9cd1a9b6951f8a930eccf8c0c7791b49f8162680"
+        },
+        "paired-chromium-86": {
+          "bytes": 21069,
+          "sha256": "3ecf3e3c8391821efbf2091d569ca0330ed7ae2f472b2584f211f21dcec152ab"
+        },
+        "bulk-active-chromium-repeated": {
+          "bytes": 10438,
+          "sha256": "978cd00fbbfb31949fc8fbe1fb738731ba9524e1a2af3c12ffba8755a0cb0b86"
+        },
+        "bulk-active-chromium-distinct": {
+          "bytes": 10356,
+          "sha256": "6798d2c5ee28afb2c4d7d760817ab23864b55535a229a20f8557b8e2a98c1b33"
+        },
+        "paired-mobile-chromium-10": {
+          "bytes": 2480,
+          "sha256": "b6e523b556f912c0175ae52a575661c49a874056d350dbd90b623079e6040c7c"
+        },
+        "paired-mobile-chromium-14": {
+          "bytes": 3424,
+          "sha256": "58d7a10dcf914807dfc22f107ae81faaf5ab4ac854ff1d04ed6f334058ce963c"
+        },
+        "paired-mobile-chromium-18": {
+          "bytes": 4364,
+          "sha256": "549d90d231b372b14db8faba4f3c0596f41d96fd7e86db988391128b6176e282"
+        },
+        "paired-mobile-chromium-22": {
+          "bytes": 5308,
+          "sha256": "0a3a13cd168cf3d839e68537b38ec81824d4c970d7bc77f9e84c093d931a167d"
+        },
+        "paired-mobile-chromium-26": {
+          "bytes": 6252,
+          "sha256": "27618da3f0d594f637a4c0bccab86daea23383ee519025441dd93533b44364c4"
+        },
+        "paired-mobile-chromium-30": {
+          "bytes": 7196,
+          "sha256": "b89b2a19cf20cfb3eae473ca5aa3190e10819f073ce9b2216e90e4ab76091de0"
+        },
+        "paired-mobile-chromium-34": {
+          "bytes": 8150,
+          "sha256": "4bcc429732746377f47a95360a9bccdf68ca75fe9f70d3f673e7cf6113c66506"
+        },
+        "paired-mobile-chromium-38": {
+          "bytes": 9130,
+          "sha256": "9a69d0cbf73e2c389616d1bad9ccfb9400bfc249f679f7137b610488b8a0ccae"
+        },
+        "paired-mobile-chromium-42": {
+          "bytes": 10110,
+          "sha256": "72dad31190aacc4c753274c1d1a80058b2217f226b2f444a711f10418c1c4ccc"
+        },
+        "paired-mobile-chromium-46": {
+          "bytes": 11090,
+          "sha256": "b7b0de33f657c2f0650f1620bed5e56c1835f4857055d534d53c633a303cb6b3"
+        },
+        "paired-mobile-chromium-50": {
+          "bytes": 12070,
+          "sha256": "ea2c2b33aa7bd8b47a7eb5bbbf090f7591277cd39363a05b1fc20a5e85cd37bb"
+        },
+        "paired-mobile-chromium-54": {
+          "bytes": 13050,
+          "sha256": "a10d397cdfb3f09df38af92d05646bf143c519e3b4ac682b599c773f67636544"
+        },
+        "paired-mobile-chromium-58": {
+          "bytes": 14030,
+          "sha256": "ba66d264ba53c0430455fb025e00adb2d8f0742b214d077d19dad027a2ec2958"
+        },
+        "paired-mobile-chromium-62": {
+          "bytes": 15010,
+          "sha256": "5d712419632d86a80703666017df761326371eb7da21914218d8ac7af14fde00"
+        },
+        "paired-mobile-chromium-66": {
+          "bytes": 15990,
+          "sha256": "6fbbbfdfbfc417b08464e545c425fba01dfde714e8706be62c3e6e4c0212b6d8"
+        },
+        "paired-mobile-chromium-70": {
+          "bytes": 16970,
+          "sha256": "43eb96180f8dacf9a3560aa2ba9bca8983fd0c5c5ede73ee6d904dd41a70c2cc"
+        },
+        "paired-mobile-chromium-74": {
+          "bytes": 17950,
+          "sha256": "259ba234be0af026bbded4a4eb734b53a10217f38b0dc7590aadb934d999e9ac"
+        },
+        "paired-mobile-chromium-78": {
+          "bytes": 18930,
+          "sha256": "ed16fbbce3769bbe442c8c3aa618d1c03216d624e5c19197e461ce2ccd58a726"
+        },
+        "paired-mobile-chromium-82": {
+          "bytes": 19914,
+          "sha256": "063b77a9f90e57495ce9dd00e9aef1aa1d5a2b80afc1a3c1b37e921f7d7238ad"
+        },
+        "paired-mobile-chromium-86": {
+          "bytes": 20906,
+          "sha256": "02c8da544d7002416b36fd62b9ce50534377e71c886b13be0f123f992d7c7f60"
+        },
+        "bulk-active-mobile-chromium-repeated": {
+          "bytes": 10273,
+          "sha256": "397250720201176e1236d9c5f2df4e64fd55b7bf28f73f298469646a8ddc648b"
+        },
+        "bulk-active-mobile-chromium-distinct": {
+          "bytes": 10191,
+          "sha256": "dff347c6fb4034a53812d1653949905bf65721061aa76a62b0e9f6dc7c5e1f1d"
+        }
+      },
+      "fixture_count": 44,
+      "original_generation_manifest_and_artifacts_unchanged": true,
+      "native_performance_qualification": false
+    },
+    "reports": {
+      "bulk-active-chromium-distinct": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-chromium-distinct/results.json",
+        "bytes": 41861,
+        "sha256": "3be21812d62083a00cbfc66c899130a404a822ff37b55800022d5e0de1531fa9",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct",
+        "store_files": {
+          "artifacts/sha256/67/6798d2c5ee28afb2c4d7d760817ab23864b55535a229a20f8557b8e2a98c1b33": {
+            "bytes": 10356,
+            "sha256": "6798d2c5ee28afb2c4d7d760817ab23864b55535a229a20f8557b8e2a98c1b33"
+          },
+          "artifacts/sha256/75/752af61b98af770848eeb77b4666a3144e3a6f2f35c7789a936188c8c0dac00a": {
+            "bytes": 61203,
+            "sha256": "752af61b98af770848eeb77b4666a3144e3a6f2f35c7789a936188c8c0dac00a"
+          },
+          "artifacts/sha256/81/8137f34b6bd6d34d7705860fa9ecea75820d26e5b6c6241c45f8011cf2b62fea": {
+            "bytes": 61802,
+            "sha256": "8137f34b6bd6d34d7705860fa9ecea75820d26e5b6c6241c45f8011cf2b62fea"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "aeb9f26407a6afa2a3957c1129e5aa5efe715378b79f4f263a6b5d5c55b2529d"
+          }
+        }
+      },
+      "bulk-active-chromium-repeated": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-chromium-repeated/results.json",
+        "bytes": 41939,
+        "sha256": "dd176c2007ee0f5ff85a0dd7b5d64ffa3915b91e2ac00401b28dedbc0d9d2dca",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated",
+        "store_files": {
+          "artifacts/sha256/89/89931dd430c435dbb664be7084ae0f4a3386398a18e42ac86aeb6817fdf467e8": {
+            "bytes": 61694,
+            "sha256": "89931dd430c435dbb664be7084ae0f4a3386398a18e42ac86aeb6817fdf467e8"
+          },
+          "artifacts/sha256/97/978cd00fbbfb31949fc8fbe1fb738731ba9524e1a2af3c12ffba8755a0cb0b86": {
+            "bytes": 10438,
+            "sha256": "978cd00fbbfb31949fc8fbe1fb738731ba9524e1a2af3c12ffba8755a0cb0b86"
+          },
+          "artifacts/sha256/b5/b5f468f0dc7c42fee5eabb027ba9832ba3d65e6c9c6b4bf3f12051e849d133c3": {
+            "bytes": 62288,
+            "sha256": "b5f468f0dc7c42fee5eabb027ba9832ba3d65e6c9c6b4bf3f12051e849d133c3"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "5fbba7603eecc55e8052e8579080227d2867b7debed095fd57da59681bbc7835"
+          }
+        }
+      },
+      "bulk-active-mobile-chromium-distinct": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-mobile-chromium-distinct/results.json",
+        "bytes": 41756,
+        "sha256": "89b1c5f2ca77d0659e52bdf72938fba13368dcfaca78a93d14722df992379c4d",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct",
+        "store_files": {
+          "artifacts/sha256/1e/1ebad0e20023223be27fd8cf24772f6eafe6ea5db65b4013347bf5befa4bf708": {
+            "bytes": 60256,
+            "sha256": "1ebad0e20023223be27fd8cf24772f6eafe6ea5db65b4013347bf5befa4bf708"
+          },
+          "artifacts/sha256/cf/cfbd81b2ca466b5fe61cf140ea2f9b9978fe8196ac656567785d980565f8c83d": {
+            "bytes": 60865,
+            "sha256": "cfbd81b2ca466b5fe61cf140ea2f9b9978fe8196ac656567785d980565f8c83d"
+          },
+          "artifacts/sha256/df/dff347c6fb4034a53812d1653949905bf65721061aa76a62b0e9f6dc7c5e1f1d": {
+            "bytes": 10191,
+            "sha256": "dff347c6fb4034a53812d1653949905bf65721061aa76a62b0e9f6dc7c5e1f1d"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "55ff6824936ca0de958636c374d74ba60538a3b3aeea25b6ea4f08f1b286af71"
+          }
+        }
+      },
+      "bulk-active-mobile-chromium-repeated": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-mobile-chromium-repeated/results.json",
+        "bytes": 41802,
+        "sha256": "c9a8b8f5f04e37c5043b51a585a26beab199cff52a99c6d799dd01daf70369e3",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated",
+        "store_files": {
+          "artifacts/sha256/39/397250720201176e1236d9c5f2df4e64fd55b7bf28f73f298469646a8ddc648b": {
+            "bytes": 10273,
+            "sha256": "397250720201176e1236d9c5f2df4e64fd55b7bf28f73f298469646a8ddc648b"
+          },
+          "artifacts/sha256/6c/6cbdee34b4c98405e7621f5ade9da726c79d4dbd5248ac321d18fd33518c6e0d": {
+            "bytes": 60743,
+            "sha256": "6cbdee34b4c98405e7621f5ade9da726c79d4dbd5248ac321d18fd33518c6e0d"
+          },
+          "artifacts/sha256/e4/e4284ce20a5cfee122aa89fb74ae14fc843824a9c014473c26b3ebd656e03462": {
+            "bytes": 61347,
+            "sha256": "e4284ce20a5cfee122aa89fb74ae14fc843824a9c014473c26b3ebd656e03462"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "3310e0daf1da7bd60698abf4bb5c044a127dadab2473abdb724f6331c1aa795c"
+          }
+        }
+      },
+      "paired-chromium-10": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-10/results.json",
+        "bytes": 35082,
+        "sha256": "9852c5b525f22c76d13bb80bcff271f7d141e46796a83c801652e4f22167597a",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-10/paired-chromium-10",
+        "store_files": {
+          "artifacts/sha256/50/503a70c8a0f6a66ab8aa565dd2206d616e5722a9a421d88a67b08eccc8e5361d": {
+            "bytes": 15527,
+            "sha256": "503a70c8a0f6a66ab8aa565dd2206d616e5722a9a421d88a67b08eccc8e5361d"
+          },
+          "artifacts/sha256/6f/6f1bff505f32e0fc2b673ab68e08babbd66f47509c927a0230cb250a4f166184": {
+            "bytes": 16479,
+            "sha256": "6f1bff505f32e0fc2b673ab68e08babbd66f47509c927a0230cb250a4f166184"
+          },
+          "artifacts/sha256/ec/ecac8e90bbf07661a4ebecfd7562a52dc53103468e93166aff32aa62260daa60": {
+            "bytes": 2633,
+            "sha256": "ecac8e90bbf07661a4ebecfd7562a52dc53103468e93166aff32aa62260daa60"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "2445d2f616f8aa1ebe73b2cb8d5a9b8feb88cb36a2ae28b29e66c7bcbd7d2519"
+          }
+        }
+      },
+      "paired-chromium-14": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-14/results.json",
+        "bytes": 35946,
+        "sha256": "ffc9c17506dc71d85f23162889198f5b286734c18e5e947125d677e3d0038826",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-14/paired-chromium-14",
+        "store_files": {
+          "artifacts/sha256/2e/2ec2af29afbc0b12029c07cf2db79f9104a238996d8539321e8470b94e53b7d3": {
+            "bytes": 3577,
+            "sha256": "2ec2af29afbc0b12029c07cf2db79f9104a238996d8539321e8470b94e53b7d3"
+          },
+          "artifacts/sha256/7e/7e814e58a341bc79994c26e410e1aaf007d2bf5bf0e6b695a020ab04baaf5730": {
+            "bytes": 21155,
+            "sha256": "7e814e58a341bc79994c26e410e1aaf007d2bf5bf0e6b695a020ab04baaf5730"
+          },
+          "artifacts/sha256/f2/f2c15ce02a48baf27564ffe65c1d888ab07d5f8a2ebad1d44176618674839cbd": {
+            "bytes": 22063,
+            "sha256": "f2c15ce02a48baf27564ffe65c1d888ab07d5f8a2ebad1d44176618674839cbd"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "733dd036d69eabab7526cb6159de3f10bc8e4ab3074d20a10e2aee52614d6016"
+          }
+        }
+      },
+      "paired-chromium-18": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-18/results.json",
+        "bytes": 36758,
+        "sha256": "2faaaedd91d48fe594d98ae0969500216f9eb2022b6622ba9bc19121cab496cf",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-18/paired-chromium-18",
+        "store_files": {
+          "artifacts/sha256/3a/3ac04b2381dadf4951191012ccc6a03e9aea8bc2417cf4fea18bc59bb289cd39": {
+            "bytes": 4521,
+            "sha256": "3ac04b2381dadf4951191012ccc6a03e9aea8bc2417cf4fea18bc59bb289cd39"
+          },
+          "artifacts/sha256/64/644eaff63fa75a6b0751dc833610dd68f160d8cb1b3e8ec61b911f16b364fda2": {
+            "bytes": 26783,
+            "sha256": "644eaff63fa75a6b0751dc833610dd68f160d8cb1b3e8ec61b911f16b364fda2"
+          },
+          "artifacts/sha256/9b/9b184e2a0301517db88c8e82436547c11b9f114062da3e89941e49f59ad3b4e3": {
+            "bytes": 27647,
+            "sha256": "9b184e2a0301517db88c8e82436547c11b9f114062da3e89941e49f59ad3b4e3"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "da3d720ef593679543b9be30d84a010c06a512750055d29aa8f2fcf211decf9c"
+          }
+        }
+      },
+      "paired-chromium-22": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-22/results.json",
+        "bytes": 37534,
+        "sha256": "d59c7868a59f01583f93fcef123f13493385f4678c995296f7af909b6f4855e6",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-22/paired-chromium-22",
+        "store_files": {
+          "artifacts/sha256/6c/6cf997bfef17a5f70fdd3a4c49692ebae8e51e4ac23d283524892c82b47d4898": {
+            "bytes": 32411,
+            "sha256": "6cf997bfef17a5f70fdd3a4c49692ebae8e51e4ac23d283524892c82b47d4898"
+          },
+          "artifacts/sha256/7e/7e04bbbfa9ef0c46c86b14f72a833dfb1ae6e092ce6e8d72bfb990d3b672dd95": {
+            "bytes": 5465,
+            "sha256": "7e04bbbfa9ef0c46c86b14f72a833dfb1ae6e092ce6e8d72bfb990d3b672dd95"
+          },
+          "artifacts/sha256/b9/b9752423571db42ed84afa4c502337e0f87ca28ef5a23a7e5a2d05c774ade164": {
+            "bytes": 33231,
+            "sha256": "b9752423571db42ed84afa4c502337e0f87ca28ef5a23a7e5a2d05c774ade164"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "579ab42d65e522a37e156c5115d120f27b93911ea921c4f5276bc46cc2042517"
+          }
+        }
+      },
+      "paired-chromium-26": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-26/results.json",
+        "bytes": 38396,
+        "sha256": "a4cf51fcccca1888abec396c678f9b38787e5498936f3cc6c1fd16497123b58b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-26/paired-chromium-26",
+        "store_files": {
+          "artifacts/sha256/62/62e1abdc4faee7e7a989b50de61767c4a1b9cf861efb34c7658da7ee42540a6d": {
+            "bytes": 38815,
+            "sha256": "62e1abdc4faee7e7a989b50de61767c4a1b9cf861efb34c7658da7ee42540a6d"
+          },
+          "artifacts/sha256/6b/6b6259600eca8f6aee6286b589abea0ebd76f5e8581f5273ad1d88678a35c494": {
+            "bytes": 6409,
+            "sha256": "6b6259600eca8f6aee6286b589abea0ebd76f5e8581f5273ad1d88678a35c494"
+          },
+          "artifacts/sha256/f3/f3f4315f12bab051078502543ce2a1246eae4f0b4e8a6e5a9593c76da47d2913": {
+            "bytes": 38039,
+            "sha256": "f3f4315f12bab051078502543ce2a1246eae4f0b4e8a6e5a9593c76da47d2913"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "1630f50c17ffb55407cd8ba4d6dd4fb402453296c32ea9ffee7ac9b5311c141d"
+          }
+        }
+      },
+      "paired-chromium-30": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-30/results.json",
+        "bytes": 39218,
+        "sha256": "618103c6b6533c7d8625eb022a21d3af7ca5b9fa29b0e924eee549e36d4b2c43",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-30/paired-chromium-30",
+        "store_files": {
+          "artifacts/sha256/55/55fe2f7d0fa3c63affe25bef9e23eb7be4f2fbf1c948ca930a7d6f5a335b0392": {
+            "bytes": 7353,
+            "sha256": "55fe2f7d0fa3c63affe25bef9e23eb7be4f2fbf1c948ca930a7d6f5a335b0392"
+          },
+          "artifacts/sha256/f6/f64ac4031dfa2a2fe58880ca7ef453171718b0992373bd670001b652810f4261": {
+            "bytes": 43665,
+            "sha256": "f64ac4031dfa2a2fe58880ca7ef453171718b0992373bd670001b652810f4261"
+          },
+          "artifacts/sha256/f7/f7ceeb84d6b833ec375cb08cb2277e8f3f3e5835d103f81b80a357ad1e7bd479": {
+            "bytes": 44397,
+            "sha256": "f7ceeb84d6b833ec375cb08cb2277e8f3f3e5835d103f81b80a357ad1e7bd479"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "0c523663a51f7c9987f2706512e54a0b37a8ed909ebd67f5b831c3caf607b587"
+          }
+        }
+      },
+      "paired-chromium-34": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-34/results.json",
+        "bytes": 40056,
+        "sha256": "0074bf5653b65c28ca9676b97f7a4c5bbf1db3cbc190366471e32af921742beb",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-34/paired-chromium-34",
+        "store_files": {
+          "artifacts/sha256/26/26f440e2472475c486f583578605e2865e02ce71f26e95ab5488c11b7d95a9c5": {
+            "bytes": 49325,
+            "sha256": "26f440e2472475c486f583578605e2865e02ce71f26e95ab5488c11b7d95a9c5"
+          },
+          "artifacts/sha256/64/644c6904840f0e14f134d1dbf94654d428bd56aed610af2f86499428ef128c5d": {
+            "bytes": 8313,
+            "sha256": "644c6904840f0e14f134d1dbf94654d428bd56aed610af2f86499428ef128c5d"
+          },
+          "artifacts/sha256/f8/f8c12c03d0b17c3cab67c84d8adfc1dc635127603e87b7e66a94e46945ce35df": {
+            "bytes": 50013,
+            "sha256": "f8c12c03d0b17c3cab67c84d8adfc1dc635127603e87b7e66a94e46945ce35df"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "8bb2e258823303f0ce9b759c42b8b5752d6497dbb68d9b496f1e9c8826c03ccf"
+          }
+        }
+      },
+      "paired-chromium-38": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-38/results.json",
+        "bytes": 40914,
+        "sha256": "4af9e87f4b944a3e93aa270ef34cf68be87a210124efa0046c807faea401ec2f",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-38/paired-chromium-38",
+        "store_files": {
+          "artifacts/sha256/44/44de05de20667d4fbe8e569a02e2d7c3155eada83f42f859397435d16262a0fa": {
+            "bytes": 55037,
+            "sha256": "44de05de20667d4fbe8e569a02e2d7c3155eada83f42f859397435d16262a0fa"
+          },
+          "artifacts/sha256/4a/4ae02bb2c899c6301461cb4873fee51072ccd3108d3940ad16182bfbb62d6fb4": {
+            "bytes": 55681,
+            "sha256": "4ae02bb2c899c6301461cb4873fee51072ccd3108d3940ad16182bfbb62d6fb4"
+          },
+          "artifacts/sha256/96/968f722a01da4f454248dfe577e8b494631e1793ca1619cf33c214e8ffd6f290": {
+            "bytes": 9293,
+            "sha256": "968f722a01da4f454248dfe577e8b494631e1793ca1619cf33c214e8ffd6f290"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "dc8c13b9592f0997b3953d50468e7a12d0ec2ee1783aa9f8faead65d04e4c4af"
+          }
+        }
+      },
+      "paired-chromium-42": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-42/results.json",
+        "bytes": 41780,
+        "sha256": "41415fb840e5b9e8eaf01cb8cee0c523a7f145baf1ee89b9a36c86624fb6d223",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-42/paired-chromium-42",
+        "store_files": {
+          "artifacts/sha256/08/0844fd24059e15d09ab7991d06f23ebec6c16feccca5d172fd067f63dac23eb6": {
+            "bytes": 61349,
+            "sha256": "0844fd24059e15d09ab7991d06f23ebec6c16feccca5d172fd067f63dac23eb6"
+          },
+          "artifacts/sha256/51/5163c6fed7be0fbaf3a414a0895b6cd225c9b7aee9194a6485ccde8b869321eb": {
+            "bytes": 60749,
+            "sha256": "5163c6fed7be0fbaf3a414a0895b6cd225c9b7aee9194a6485ccde8b869321eb"
+          },
+          "artifacts/sha256/57/570bf3fe25f90381562f9d0a734196ba0fc702bad758c5d37d158f98d0aee546": {
+            "bytes": 10273,
+            "sha256": "570bf3fe25f90381562f9d0a734196ba0fc702bad758c5d37d158f98d0aee546"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "2f326e4805a10888f01e43b133d54775f3652a71a14036214c9bd20b5bcab603"
+          }
+        }
+      },
+      "paired-chromium-46": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-46/results.json",
+        "bytes": 42604,
+        "sha256": "e7dea020c46816d8bf7412775ee1919d6fad9d25c633f40c0d8bf6b88168730a",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-46/paired-chromium-46",
+        "store_files": {
+          "artifacts/sha256/44/442752b29d8be42543b5b8c8d5060d40360f895610e6969562f1c230829d8810": {
+            "bytes": 67019,
+            "sha256": "442752b29d8be42543b5b8c8d5060d40360f895610e6969562f1c230829d8810"
+          },
+          "artifacts/sha256/6b/6bf23a452f546718e36e22ede836d80e4f0f0ceb3d5c9b5af6c8ba9588abbc89": {
+            "bytes": 11253,
+            "sha256": "6bf23a452f546718e36e22ede836d80e4f0f0ceb3d5c9b5af6c8ba9588abbc89"
+          },
+          "artifacts/sha256/bf/bf18caedf0cb3b97a2963b5c9205046955d9c3465c6f3f7784218eaea70363cf": {
+            "bytes": 66463,
+            "sha256": "bf18caedf0cb3b97a2963b5c9205046955d9c3465c6f3f7784218eaea70363cf"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "a5b40239e125e8c31320697a774ca9307734c165191954b8e68fbf1eb7c35bc2"
+          }
+        }
+      },
+      "paired-chromium-50": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-50/results.json",
+        "bytes": 43506,
+        "sha256": "56ffc0fd3ef2dbbd05ea31602cfb278b4cd857ce8109e1459729c441cb04526a",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-50/paired-chromium-50",
+        "store_files": {
+          "artifacts/sha256/07/073849216c611aaf46fbcd0d7a0880f5accd8e3e2ea8d9b07e3135ad1aae80d2": {
+            "bytes": 72687,
+            "sha256": "073849216c611aaf46fbcd0d7a0880f5accd8e3e2ea8d9b07e3135ad1aae80d2"
+          },
+          "artifacts/sha256/48/48e2937a7bd1fbec52a7afdcc67d3ffdd323bd3bbf1d4fdcdc55e30817597471": {
+            "bytes": 72175,
+            "sha256": "48e2937a7bd1fbec52a7afdcc67d3ffdd323bd3bbf1d4fdcdc55e30817597471"
+          },
+          "artifacts/sha256/bd/bd5a9f7f4750146c2c5ab254d7505a57893478574ea4aa252f54f3995d579b60": {
+            "bytes": 12233,
+            "sha256": "bd5a9f7f4750146c2c5ab254d7505a57893478574ea4aa252f54f3995d579b60"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "2bcff2365f431f8fd33acd9a315ad4ef64ff2adead9752440dcacbf24812bc33"
+          }
+        }
+      },
+      "paired-chromium-54": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-54/results.json",
+        "bytes": 44350,
+        "sha256": "80ecdbf9767cc00a26b8f0a208577d209cede8958be21893328368962b25b2c9",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-54/paired-chromium-54",
+        "store_files": {
+          "artifacts/sha256/17/178e6bb2e1097c34bc2c652d6bd531aa0cf011386d04161fd20d81bd2673b42f": {
+            "bytes": 78355,
+            "sha256": "178e6bb2e1097c34bc2c652d6bd531aa0cf011386d04161fd20d81bd2673b42f"
+          },
+          "artifacts/sha256/3e/3e9e6ea750ae2fada95d003ac762785fb9b8fb74cac3193377288f145d555089": {
+            "bytes": 77887,
+            "sha256": "3e9e6ea750ae2fada95d003ac762785fb9b8fb74cac3193377288f145d555089"
+          },
+          "artifacts/sha256/92/926b35c0fa3d836016dcf480949fc00335556d6eec0b81fdb764e4b7e26537f0": {
+            "bytes": 13213,
+            "sha256": "926b35c0fa3d836016dcf480949fc00335556d6eec0b81fdb764e4b7e26537f0"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "568385005a45543f532cb90eebcf07a50b4c806ae40c82f8daa9ff90e7050e6d"
+          }
+        }
+      },
+      "paired-chromium-58": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-58/results.json",
+        "bytes": 45232,
+        "sha256": "61afd2a301babcab1c43ac90142d1602b546f8918d0a7913ea2c8328ec35f32b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-58/paired-chromium-58",
+        "store_files": {
+          "artifacts/sha256/52/52540b7edc06baa1144d601b949410c9f0f79377cae771e4b7a5ecf6424494ac": {
+            "bytes": 83599,
+            "sha256": "52540b7edc06baa1144d601b949410c9f0f79377cae771e4b7a5ecf6424494ac"
+          },
+          "artifacts/sha256/a0/a0c9ca6e5510fde350a84675574b44e82746677df3b8f42fb88a095daa15c2b2": {
+            "bytes": 84023,
+            "sha256": "a0c9ca6e5510fde350a84675574b44e82746677df3b8f42fb88a095daa15c2b2"
+          },
+          "artifacts/sha256/e3/e30f86ea51215f0f14a6cc2bf3d71d2875cb9825f16327ee54dbfd563bec20ad": {
+            "bytes": 14193,
+            "sha256": "e30f86ea51215f0f14a6cc2bf3d71d2875cb9825f16327ee54dbfd563bec20ad"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "43b6c6608122cada3d7c227fc1883e441dd321317ee218d0a5dfff6505417c7a"
+          }
+        }
+      },
+      "paired-chromium-62": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-62/results.json",
+        "bytes": 46098,
+        "sha256": "b1922060d33006406a832b24ddc826b60f41e7d4a04333e32f2c0fa5821477a2",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-62/paired-chromium-62",
+        "store_files": {
+          "artifacts/sha256/89/89144a2ecfb16a9f616868f1d9fa39b83b8500eabc23d6b4706fb09d06f854a3": {
+            "bytes": 89309,
+            "sha256": "89144a2ecfb16a9f616868f1d9fa39b83b8500eabc23d6b4706fb09d06f854a3"
+          },
+          "artifacts/sha256/a1/a1b3ecae689a42f07b7d857cd71dcc7a3f2cecbf01d4c47dc2934e715cfb1db6": {
+            "bytes": 15173,
+            "sha256": "a1b3ecae689a42f07b7d857cd71dcc7a3f2cecbf01d4c47dc2934e715cfb1db6"
+          },
+          "artifacts/sha256/f9/f930e75a74ea477b8ced57190c6f0fdd2545f159d4f326bc678b8878328d39e8": {
+            "bytes": 89689,
+            "sha256": "f930e75a74ea477b8ced57190c6f0fdd2545f159d4f326bc678b8878328d39e8"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "8782fb4bcbdbe38c6b3286c69ef58f61d2b6f869971eec652d2c5e370c2903c3"
+          }
+        }
+      },
+      "paired-chromium-66": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-66/results.json",
+        "bytes": 46958,
+        "sha256": "a4fe3936abe5bc4da7d334216873406e1f838e4133a58d8d0e0c52333d6861af",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-66/paired-chromium-66",
+        "store_files": {
+          "artifacts/sha256/18/1890d706ae7cb054184b5600ba2042ded444a8af3388f37e8b0aca5c72129090": {
+            "bytes": 95357,
+            "sha256": "1890d706ae7cb054184b5600ba2042ded444a8af3388f37e8b0aca5c72129090"
+          },
+          "artifacts/sha256/81/816961af983a7f2f42cb63fe85101c9be9612044090f632b877559cfd4cd05ab": {
+            "bytes": 95021,
+            "sha256": "816961af983a7f2f42cb63fe85101c9be9612044090f632b877559cfd4cd05ab"
+          },
+          "artifacts/sha256/9b/9b46925d31624adcf9962101744fefa95607ff9b910a96a08d2ad97d956da148": {
+            "bytes": 16153,
+            "sha256": "9b46925d31624adcf9962101744fefa95607ff9b910a96a08d2ad97d956da148"
+          },
+          "history.db": {
+            "bytes": 253952,
+            "sha256": "875cb5534010ab9f9364f769526760d9e0deb622e6ab1d32d90f9d24d93a1434"
+          }
+        }
+      },
+      "paired-chromium-70": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-70/results.json",
+        "bytes": 47824,
+        "sha256": "3a2ccbbc32812dc904266b9fec7864c0b75ef886b3a6badc4e116b4ada36658f",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-70/paired-chromium-70",
+        "store_files": {
+          "artifacts/sha256/12/1200015bfacda8ebb91ac7f6998aa7b9c0476b369e409819d01ce8ee4b94457d": {
+            "bytes": 17133,
+            "sha256": "1200015bfacda8ebb91ac7f6998aa7b9c0476b369e409819d01ce8ee4b94457d"
+          },
+          "artifacts/sha256/53/532c545a7cc0b42a3183f0c685d981fc04c9e67f6192ff4f9fdb042cc58dba17": {
+            "bytes": 101005,
+            "sha256": "532c545a7cc0b42a3183f0c685d981fc04c9e67f6192ff4f9fdb042cc58dba17"
+          },
+          "artifacts/sha256/d4/d465377fb907e2799bd6d6eec683350f526fad2dbd3714187236f48334937218": {
+            "bytes": 100713,
+            "sha256": "d465377fb907e2799bd6d6eec683350f526fad2dbd3714187236f48334937218"
+          },
+          "history.db": {
+            "bytes": 253952,
+            "sha256": "c4fdbc3d8d8c6d7a7ab50d06e7e1a5638fd52c7a54af091b47c38ce0a9e54ac3"
+          }
+        }
+      },
+      "paired-chromium-74": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-74/results.json",
+        "bytes": 48690,
+        "sha256": "f74c90891dfcbd953a993ee11d834cdf569fb5e024df977d58567c9c1f754df6",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-74/paired-chromium-74",
+        "store_files": {
+          "artifacts/sha256/c9/c996dbbb8d62f610a37d5ad416a95fe7de16e9d4ab9c58a541d94c66969014e5": {
+            "bytes": 106647,
+            "sha256": "c996dbbb8d62f610a37d5ad416a95fe7de16e9d4ab9c58a541d94c66969014e5"
+          },
+          "artifacts/sha256/d7/d77a574c4a47d3cb97389a73e10a20151e63da6c122ddbd061ef8f81212c7ded": {
+            "bytes": 18113,
+            "sha256": "d77a574c4a47d3cb97389a73e10a20151e63da6c122ddbd061ef8f81212c7ded"
+          },
+          "artifacts/sha256/d7/d7ce243326f3ef67704cf33db1558bbcee27db20bce5cc8f0ca4ad436696fd73": {
+            "bytes": 106399,
+            "sha256": "d7ce243326f3ef67704cf33db1558bbcee27db20bce5cc8f0ca4ad436696fd73"
+          },
+          "history.db": {
+            "bytes": 253952,
+            "sha256": "13e0e07c97285580ef590701d8be9a77ccf0226568d26b4cfe82d4330614792d"
+          }
+        }
+      },
+      "paired-chromium-78": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-78/results.json",
+        "bytes": 49550,
+        "sha256": "d55c2556359e18a8aaa5b5b6a332edce8b86370e73ff0e1d318a7a362a32c1d4",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-78/paired-chromium-78",
+        "store_files": {
+          "artifacts/sha256/3d/3df99a3eb5337857816c5c962690cecc88762e9d490470bad1f7185edb7c3ca2": {
+            "bytes": 112315,
+            "sha256": "3df99a3eb5337857816c5c962690cecc88762e9d490470bad1f7185edb7c3ca2"
+          },
+          "artifacts/sha256/52/52d1c1b181b0870bfd57244914c8f251963d78e1a5424742eb3b278b431797f3": {
+            "bytes": 112111,
+            "sha256": "52d1c1b181b0870bfd57244914c8f251963d78e1a5424742eb3b278b431797f3"
+          },
+          "artifacts/sha256/9d/9d7503a928ee2ea81423ae438a87be16435a529348e3481f039d02328dcb34c8": {
+            "bytes": 19093,
+            "sha256": "9d7503a928ee2ea81423ae438a87be16435a529348e3481f039d02328dcb34c8"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "ccb279e7cc56fafe098ace8b03f18069afb7b543b79ff0713206fd8bd1dd20f9"
+          }
+        }
+      },
+      "paired-chromium-82": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-82/results.json",
+        "bytes": 50414,
+        "sha256": "6f860f378d80d4db32fef26a78c3a9a2c18056757f06a3cef9a2be4ced5648b2",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-82/paired-chromium-82",
+        "store_files": {
+          "artifacts/sha256/3c/3cbf42147c9a578bf699c02d98b280f552a5dc05f78ec9dc7e587433adb65cfe": {
+            "bytes": 117831,
+            "sha256": "3cbf42147c9a578bf699c02d98b280f552a5dc05f78ec9dc7e587433adb65cfe"
+          },
+          "artifacts/sha256/60/60267c3ca4c9e0d5a93310dd9cd1a9b6951f8a930eccf8c0c7791b49f8162680": {
+            "bytes": 20077,
+            "sha256": "60267c3ca4c9e0d5a93310dd9cd1a9b6951f8a930eccf8c0c7791b49f8162680"
+          },
+          "artifacts/sha256/97/97f24ee6c3786f0e7f47f1a14222d6fca08f5ace466be67e2f0a95ecda09d409": {
+            "bytes": 117991,
+            "sha256": "97f24ee6c3786f0e7f47f1a14222d6fca08f5ace466be67e2f0a95ecda09d409"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "6e4d2239e6d6e857aef4d3531469887ff5c6654a72f653ad152dc6de8884b834"
+          }
+        }
+      },
+      "paired-chromium-86": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-86/results.json",
+        "bytes": 51284,
+        "sha256": "81e7c3307590ba5a630308b717da33f1df844befc969f6dc9e7a19aeb0d66c8d",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-chromium-86/paired-chromium-86",
+        "store_files": {
+          "artifacts/sha256/3e/3ecf3e3c8391821efbf2091d569ca0330ed7ae2f472b2584f211f21dcec152ab": {
+            "bytes": 21069,
+            "sha256": "3ecf3e3c8391821efbf2091d569ca0330ed7ae2f472b2584f211f21dcec152ab"
+          },
+          "artifacts/sha256/50/500cba0a13b117588086325fce0aa331589cba418972057389e3aa209d2a5aa2": {
+            "bytes": 123567,
+            "sha256": "500cba0a13b117588086325fce0aa331589cba418972057389e3aa209d2a5aa2"
+          },
+          "artifacts/sha256/ec/ecbe33d246f72e2490f6e88afb3db2e2ed624e37463ab647a16060f77d95147f": {
+            "bytes": 123683,
+            "sha256": "ecbe33d246f72e2490f6e88afb3db2e2ed624e37463ab647a16060f77d95147f"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "a5b7a31baf4109eb5c2b39d6b296cac9a4406adfdbdf988983ddd2abacc951e8"
+          }
+        }
+      },
+      "paired-mobile-chromium-10": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-10/results.json",
+        "bytes": 34999,
+        "sha256": "b59e4f00f51a7894e2ed68c01879a38a4042597d7aab2275856440fcf4a884d7",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10",
+        "store_files": {
+          "artifacts/sha256/06/065c1299d93866ef0f866822e703c5a04f4f0e1dcc638f1cf704ba9da28fccbc": {
+            "bytes": 15538,
+            "sha256": "065c1299d93866ef0f866822e703c5a04f4f0e1dcc638f1cf704ba9da28fccbc"
+          },
+          "artifacts/sha256/80/807f53f0fbb826b98dce03c65660be93a65a161b8a75a7c235f9679dcbe98e6e": {
+            "bytes": 14576,
+            "sha256": "807f53f0fbb826b98dce03c65660be93a65a161b8a75a7c235f9679dcbe98e6e"
+          },
+          "artifacts/sha256/b6/b6e523b556f912c0175ae52a575661c49a874056d350dbd90b623079e6040c7c": {
+            "bytes": 2480,
+            "sha256": "b6e523b556f912c0175ae52a575661c49a874056d350dbd90b623079e6040c7c"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "191863287ece01dd46a3f575e80e9a80dee84db93010e5073ba08eab71122027"
+          }
+        }
+      },
+      "paired-mobile-chromium-14": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-14/results.json",
+        "bytes": 35821,
+        "sha256": "f5a4f4b8736b0ca1529f4ab7571a97718639eb753bdfad75bd90372b126476fd",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14",
+        "store_files": {
+          "artifacts/sha256/00/00981acbeabed473ab99f847a4272da7433b7ed0db08c56d0db93dbf0ff7aa44": {
+            "bytes": 21124,
+            "sha256": "00981acbeabed473ab99f847a4272da7433b7ed0db08c56d0db93dbf0ff7aa44"
+          },
+          "artifacts/sha256/58/58d7a10dcf914807dfc22f107ae81faaf5ab4ac854ff1d04ed6f334058ce963c": {
+            "bytes": 3424,
+            "sha256": "58d7a10dcf914807dfc22f107ae81faaf5ab4ac854ff1d04ed6f334058ce963c"
+          },
+          "artifacts/sha256/ae/ae6a4ad440033b10dc39380094a29da52746ffb8f65583f01bded7ebc4692c9a": {
+            "bytes": 20206,
+            "sha256": "ae6a4ad440033b10dc39380094a29da52746ffb8f65583f01bded7ebc4692c9a"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "117f7165f9a7be2b56dbf0d333de70cb844154befe5395c88501ce430fd41ef4"
+          }
+        }
+      },
+      "paired-mobile-chromium-18": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-18/results.json",
+        "bytes": 36631,
+        "sha256": "4e2f7f8cf0e48e163c402fa77d4010a3466276e4a99c22c11da41880fdb6a75b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18",
+        "store_files": {
+          "artifacts/sha256/52/52f9d459c5baa9e59c2913bafe6a933efc07a360ef82bb6e410f97a4485eed55": {
+            "bytes": 25828,
+            "sha256": "52f9d459c5baa9e59c2913bafe6a933efc07a360ef82bb6e410f97a4485eed55"
+          },
+          "artifacts/sha256/54/549d90d231b372b14db8faba4f3c0596f41d96fd7e86db988391128b6176e282": {
+            "bytes": 4364,
+            "sha256": "549d90d231b372b14db8faba4f3c0596f41d96fd7e86db988391128b6176e282"
+          },
+          "artifacts/sha256/a7/a70b7ab257adc363b6cc4bdd99a370a0cc533389ce0906045e4294ae3fe15332": {
+            "bytes": 26702,
+            "sha256": "a70b7ab257adc363b6cc4bdd99a370a0cc533389ce0906045e4294ae3fe15332"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "6b1a994b65c86ba6f5640a5acce3d4155f47242bc6b9dd624438fa9835a56649"
+          }
+        }
+      },
+      "paired-mobile-chromium-22": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-22/results.json",
+        "bytes": 37453,
+        "sha256": "2a1047870eab8d60ede24414295728c796ad1d0ff6d510931f6f1b10d9b9b521",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22",
+        "store_files": {
+          "artifacts/sha256/0a/0a3a13cd168cf3d839e68537b38ec81824d4c970d7bc77f9e84c093d931a167d": {
+            "bytes": 5308,
+            "sha256": "0a3a13cd168cf3d839e68537b38ec81824d4c970d7bc77f9e84c093d931a167d"
+          },
+          "artifacts/sha256/6d/6d9b05f05f02a4af8d1c26c336d4590f03e4a03d7efaaf048023c642f58c5ab5": {
+            "bytes": 32286,
+            "sha256": "6d9b05f05f02a4af8d1c26c336d4590f03e4a03d7efaaf048023c642f58c5ab5"
+          },
+          "artifacts/sha256/73/73b66e2762b94fb6f0c3f6d74ae7290d6fe9eef2676c1f3b3565443bfb076159": {
+            "bytes": 31456,
+            "sha256": "73b66e2762b94fb6f0c3f6d74ae7290d6fe9eef2676c1f3b3565443bfb076159"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "bd4549e0e724339c484eed376140cab09221d1d627f3a7d8146b492110bb5ee6"
+          }
+        }
+      },
+      "paired-mobile-chromium-26": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-26/results.json",
+        "bytes": 38247,
+        "sha256": "5e0f49f96c544f8cad2459aecd4f394d33776216ae5d941a2fad7d824ef9f6ec",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26",
+        "store_files": {
+          "artifacts/sha256/27/27618da3f0d594f637a4c0bccab86daea23383ee519025441dd93533b44364c4": {
+            "bytes": 6252,
+            "sha256": "27618da3f0d594f637a4c0bccab86daea23383ee519025441dd93533b44364c4"
+          },
+          "artifacts/sha256/b3/b38e7c33d5e119fd259d685778ae5e6449ff2447e3da816fd203d6cc7d477690": {
+            "bytes": 37084,
+            "sha256": "b38e7c33d5e119fd259d685778ae5e6449ff2447e3da816fd203d6cc7d477690"
+          },
+          "artifacts/sha256/e6/e62f50a6e8cd10e0168d592c534271b2e2f976adc669d2f247bb3b7e6aa763e1": {
+            "bytes": 37870,
+            "sha256": "e62f50a6e8cd10e0168d592c534271b2e2f976adc669d2f247bb3b7e6aa763e1"
+          },
+          "history.db": {
+            "bytes": 245760,
+            "sha256": "ddf5e08bee1624f080c57cd614997692af4bfd3747bccae34cbab2190f29f93f"
+          }
+        }
+      },
+      "paired-mobile-chromium-30": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-30/results.json",
+        "bytes": 39083,
+        "sha256": "7d84f2e4b565c3c02c2099aa7ff72bc19bc675cb5ec7e772e1365757d870a734",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30",
+        "store_files": {
+          "artifacts/sha256/09/095ca60555d44996bb2197a73692be14a7d2d9f56a177635a03ee76c04919f67": {
+            "bytes": 42712,
+            "sha256": "095ca60555d44996bb2197a73692be14a7d2d9f56a177635a03ee76c04919f67"
+          },
+          "artifacts/sha256/8c/8cf1a22714ce381a0200f847f17063ff0ea30daaf63a8713ac34d86d95ee2a5d": {
+            "bytes": 43454,
+            "sha256": "8cf1a22714ce381a0200f847f17063ff0ea30daaf63a8713ac34d86d95ee2a5d"
+          },
+          "artifacts/sha256/b8/b89b2a19cf20cfb3eae473ca5aa3190e10819f073ce9b2216e90e4ab76091de0": {
+            "bytes": 7196,
+            "sha256": "b89b2a19cf20cfb3eae473ca5aa3190e10819f073ce9b2216e90e4ab76091de0"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "0716f9da89f189669a6c4df8e3af82465f446dc1b24e7ea1669d2da73d83d55f"
+          }
+        }
+      },
+      "paired-mobile-chromium-34": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-34/results.json",
+        "bytes": 39915,
+        "sha256": "533fbdbcd26e7970e230a4927669277df6883ba497d738d185141db60975e4a9",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34",
+        "store_files": {
+          "artifacts/sha256/13/136dfa83a28a052d8dea3bff964c43a49d96c7d63b3f2e0268dd85abd0cfa092": {
+            "bytes": 48354,
+            "sha256": "136dfa83a28a052d8dea3bff964c43a49d96c7d63b3f2e0268dd85abd0cfa092"
+          },
+          "artifacts/sha256/2b/2b9bb23228b6bf94deebd3bf1a1151a8871be2ba8a12e6f9ec6ccfab4ec4d481": {
+            "bytes": 49052,
+            "sha256": "2b9bb23228b6bf94deebd3bf1a1151a8871be2ba8a12e6f9ec6ccfab4ec4d481"
+          },
+          "artifacts/sha256/4b/4bcc429732746377f47a95360a9bccdf68ca75fe9f70d3f673e7cf6113c66506": {
+            "bytes": 8150,
+            "sha256": "4bcc429732746377f47a95360a9bccdf68ca75fe9f70d3f673e7cf6113c66506"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "8f13648279001d90aa67275a38863078208ef96f9d36f651c4675b06a2ef4667"
+          }
+        }
+      },
+      "paired-mobile-chromium-38": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-38/results.json",
+        "bytes": 40781,
+        "sha256": "aaf7eec13a8ad09c90991b99e7217e2bf539e9fee4cef100fbcb328e981bcfe3",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38",
+        "store_files": {
+          "artifacts/sha256/40/402ea5d35b421063a7ce02629fc06929bd902cfc590b7cf9a4a481553114ae67": {
+            "bytes": 54712,
+            "sha256": "402ea5d35b421063a7ce02629fc06929bd902cfc590b7cf9a4a481553114ae67"
+          },
+          "artifacts/sha256/9a/9a69d0cbf73e2c389616d1bad9ccfb9400bfc249f679f7137b610488b8a0ccae": {
+            "bytes": 9130,
+            "sha256": "9a69d0cbf73e2c389616d1bad9ccfb9400bfc249f679f7137b610488b8a0ccae"
+          },
+          "artifacts/sha256/d5/d599a3a74c7af66ce07201c71fd240b80fd1526a805af70610439c074c43a35d": {
+            "bytes": 54058,
+            "sha256": "d599a3a74c7af66ce07201c71fd240b80fd1526a805af70610439c074c43a35d"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "4c51cc76474fcc1928f916b8be3320c804940687fa73eb5b6102647c743abeec"
+          }
+        }
+      },
+      "paired-mobile-chromium-42": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-42/results.json",
+        "bytes": 41643,
+        "sha256": "f72ae514397066885be0ab9d9dc4ee33b2549b646197b1bc7cf3987c3efae27f",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42",
+        "store_files": {
+          "artifacts/sha256/5c/5cdbdf6e581ca592487366fde54da62c5eea552ab49979900535b5ea9a07b2a9": {
+            "bytes": 60352,
+            "sha256": "5cdbdf6e581ca592487366fde54da62c5eea552ab49979900535b5ea9a07b2a9"
+          },
+          "artifacts/sha256/72/72dad31190aacc4c753274c1d1a80058b2217f226b2f444a711f10418c1c4ccc": {
+            "bytes": 10110,
+            "sha256": "72dad31190aacc4c753274c1d1a80058b2217f226b2f444a711f10418c1c4ccc"
+          },
+          "artifacts/sha256/7d/7d57356fcc8be5e0e19b52892207201329c310ab683dda5038b4ffb0e633d2f5": {
+            "bytes": 59742,
+            "sha256": "7d57356fcc8be5e0e19b52892207201329c310ab683dda5038b4ffb0e633d2f5"
+          },
+          "history.db": {
+            "bytes": 241664,
+            "sha256": "f9fdb3255b67b4ad14508650dc546af2209cb611b1399037424c4e17e7b883c5"
+          }
+        }
+      },
+      "paired-mobile-chromium-46": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-46/results.json",
+        "bytes": 42463,
+        "sha256": "ec16bd7324ee82af8aeb51908b376644775f61ab2e0d2d53fc5e17c74dca9702",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46",
+        "store_files": {
+          "artifacts/sha256/0b/0b10c08527bdb59dadc03a29a7a0fa28c64e55a7abe368f32294a2557764c6b6": {
+            "bytes": 65446,
+            "sha256": "0b10c08527bdb59dadc03a29a7a0fa28c64e55a7abe368f32294a2557764c6b6"
+          },
+          "artifacts/sha256/b7/b7b0de33f657c2f0650f1620bed5e56c1835f4857055d534d53c633a303cb6b3": {
+            "bytes": 11090,
+            "sha256": "b7b0de33f657c2f0650f1620bed5e56c1835f4857055d534d53c633a303cb6b3"
+          },
+          "artifacts/sha256/bc/bcf819e8a6cbfc0fcddb90a76739c77a3f0223e43e020812cefc16c13f24d6f0": {
+            "bytes": 66012,
+            "sha256": "bcf819e8a6cbfc0fcddb90a76739c77a3f0223e43e020812cefc16c13f24d6f0"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "3ebf44b0bf1bf07a32760baf9ec004948bd840bb957c1ecd3ddd09787a432a81"
+          }
+        }
+      },
+      "paired-mobile-chromium-50": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-50/results.json",
+        "bytes": 43369,
+        "sha256": "b39c1672945081bccc746e77cef61f4ff67b3f414f8b1fc754c95249bb2715b6",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50",
+        "store_files": {
+          "artifacts/sha256/df/dff0ffc1f091b58239084d08fc26d9f54e28043a2a28d828abf6473e2946237d": {
+            "bytes": 71680,
+            "sha256": "dff0ffc1f091b58239084d08fc26d9f54e28043a2a28d828abf6473e2946237d"
+          },
+          "artifacts/sha256/ea/ea2c2b33aa7bd8b47a7eb5bbbf090f7591277cd39363a05b1fc20a5e85cd37bb": {
+            "bytes": 12070,
+            "sha256": "ea2c2b33aa7bd8b47a7eb5bbbf090f7591277cd39363a05b1fc20a5e85cd37bb"
+          },
+          "artifacts/sha256/fd/fddd4c578a2d5b55aab3860b8e3a6eb6978c5464d796febd5529ca1ab1248570": {
+            "bytes": 71158,
+            "sha256": "fddd4c578a2d5b55aab3860b8e3a6eb6978c5464d796febd5529ca1ab1248570"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "c2906978dd3a3d5883576e211b9d7ae90bb9ac7ba51c016ebceb0fcdccc5642f"
+          }
+        }
+      },
+      "paired-mobile-chromium-54": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-54/results.json",
+        "bytes": 44233,
+        "sha256": "8405d3cbb71e9caeb9f5986d1a4e6f42a40db66414b661212dae33b4e8830bee",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54",
+        "store_files": {
+          "artifacts/sha256/1c/1c4945a1731f87c5e2bc6c11da74d854218184aeebc7ebd4d283c265118eeded": {
+            "bytes": 76870,
+            "sha256": "1c4945a1731f87c5e2bc6c11da74d854218184aeebc7ebd4d283c265118eeded"
+          },
+          "artifacts/sha256/a1/a10d397cdfb3f09df38af92d05646bf143c519e3b4ac682b599c773f67636544": {
+            "bytes": 13050,
+            "sha256": "a10d397cdfb3f09df38af92d05646bf143c519e3b4ac682b599c773f67636544"
+          },
+          "artifacts/sha256/a9/a965acdca7580fb01aded58100ce3e4d7a17eeb3b02875836b770fb3611786db": {
+            "bytes": 77348,
+            "sha256": "a965acdca7580fb01aded58100ce3e4d7a17eeb3b02875836b770fb3611786db"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "f9f9452de941d6b3ddd34a83eb916dc3c2659b857a38d69e4691be47dd33fedb"
+          }
+        }
+      },
+      "paired-mobile-chromium-58": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-58/results.json",
+        "bytes": 45099,
+        "sha256": "87a8d8a351163dbbd088d57030d87a744fd7b3fdd9b2ccd56164f89d1831f0ff",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58",
+        "store_files": {
+          "artifacts/sha256/49/498366b05e4a04e89a53f8a7d09fac87072735304c90da21a2acf773596e946a": {
+            "bytes": 82582,
+            "sha256": "498366b05e4a04e89a53f8a7d09fac87072735304c90da21a2acf773596e946a"
+          },
+          "artifacts/sha256/a7/a7a22a96afc4ef6ff5de43ac2b660fe820a5daf793cb7dd6aac67dc94fde9ef4": {
+            "bytes": 83016,
+            "sha256": "a7a22a96afc4ef6ff5de43ac2b660fe820a5daf793cb7dd6aac67dc94fde9ef4"
+          },
+          "artifacts/sha256/ba/ba66d264ba53c0430455fb025e00adb2d8f0742b214d077d19dad027a2ec2958": {
+            "bytes": 14030,
+            "sha256": "ba66d264ba53c0430455fb025e00adb2d8f0742b214d077d19dad027a2ec2958"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "bd8a547a8c4868c2439fc0c29dac132c20f97cdaa5835120c01730ab0b302fe1"
+          }
+        }
+      },
+      "paired-mobile-chromium-62": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-62/results.json",
+        "bytes": 45959,
+        "sha256": "85ef732354f4c4dd77af828d294637944f510be5eec5ce13f866fd3ace9fdb6b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62",
+        "store_files": {
+          "artifacts/sha256/5d/5d712419632d86a80703666017df761326371eb7da21914218d8ac7af14fde00": {
+            "bytes": 15010,
+            "sha256": "5d712419632d86a80703666017df761326371eb7da21914218d8ac7af14fde00"
+          },
+          "artifacts/sha256/6f/6f98a3ac9b1c914dbd79fbc1883294ca485c366969b17674d62696794b890d4f": {
+            "bytes": 88294,
+            "sha256": "6f98a3ac9b1c914dbd79fbc1883294ca485c366969b17674d62696794b890d4f"
+          },
+          "artifacts/sha256/ff/ff352558f1f6541293795cf9785a2c4432c71d15963a47749b408e14f25a6c55": {
+            "bytes": 88684,
+            "sha256": "ff352558f1f6541293795cf9785a2c4432c71d15963a47749b408e14f25a6c55"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "3cf9804e482a99dda38270f98809dfbcd2ec27c967b11a69a5310188e9ef18e6"
+          }
+        }
+      },
+      "paired-mobile-chromium-66": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-66/results.json",
+        "bytes": 46825,
+        "sha256": "0b053d06f32ef7fd09f8f8a4c61baecf7a6c768cf20aeff3278171b20222654b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66",
+        "store_files": {
+          "artifacts/sha256/17/1727a914bfa846d7c56155cf41ae15b7fb2b909fcd11744a51f1f8b0b466ae6c": {
+            "bytes": 94352,
+            "sha256": "1727a914bfa846d7c56155cf41ae15b7fb2b909fcd11744a51f1f8b0b466ae6c"
+          },
+          "artifacts/sha256/57/57d025c64f562fa2af9869a015f9930febbe01007cbd470705c2c4ff6c269b7f": {
+            "bytes": 94006,
+            "sha256": "57d025c64f562fa2af9869a015f9930febbe01007cbd470705c2c4ff6c269b7f"
+          },
+          "artifacts/sha256/6f/6fbbbfdfbfc417b08464e545c425fba01dfde714e8706be62c3e6e4c0212b6d8": {
+            "bytes": 15990,
+            "sha256": "6fbbbfdfbfc417b08464e545c425fba01dfde714e8706be62c3e6e4c0212b6d8"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "ee10990d306c4333fff4ce357879b550aed20dd2b3aff4f9ef7f80c347453fcf"
+          }
+        }
+      },
+      "paired-mobile-chromium-70": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-70/results.json",
+        "bytes": 47689,
+        "sha256": "7e72a151b620a791cd4e3710c9410e808dff79268900812c55809c07ca8cad1a",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70",
+        "store_files": {
+          "artifacts/sha256/28/284660af35694c10d27ada89fec058fddc0f759d5ea4c307178867ba9178e9e2": {
+            "bytes": 99716,
+            "sha256": "284660af35694c10d27ada89fec058fddc0f759d5ea4c307178867ba9178e9e2"
+          },
+          "artifacts/sha256/43/43eb96180f8dacf9a3560aa2ba9bca8983fd0c5c5ede73ee6d904dd41a70c2cc": {
+            "bytes": 16970,
+            "sha256": "43eb96180f8dacf9a3560aa2ba9bca8983fd0c5c5ede73ee6d904dd41a70c2cc"
+          },
+          "artifacts/sha256/fc/fcbe39a35ef16e1d9c6b71d6e98cd6912af0af3c3a6bc494238f3e88b14bae26": {
+            "bytes": 100018,
+            "sha256": "fcbe39a35ef16e1d9c6b71d6e98cd6912af0af3c3a6bc494238f3e88b14bae26"
+          },
+          "history.db": {
+            "bytes": 253952,
+            "sha256": "a1d3e3c53012462bbfc35dff16ce7487347392f30ae47a4450b141f674e3f086"
+          }
+        }
+      },
+      "paired-mobile-chromium-74": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-74/results.json",
+        "bytes": 48553,
+        "sha256": "3cda617217f035d3f01b313b7bea0df873c802de9ca7b0caf7074e069a13699d",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74",
+        "store_files": {
+          "artifacts/sha256/25/259ba234be0af026bbded4a4eb734b53a10217f38b0dc7590aadb934d999e9ac": {
+            "bytes": 17950,
+            "sha256": "259ba234be0af026bbded4a4eb734b53a10217f38b0dc7590aadb934d999e9ac"
+          },
+          "artifacts/sha256/59/597770099d8a9f7b3f732dd6c62426a060cd70bd2a1f360c2fb9386cfd9570ea": {
+            "bytes": 105440,
+            "sha256": "597770099d8a9f7b3f732dd6c62426a060cd70bd2a1f360c2fb9386cfd9570ea"
+          },
+          "artifacts/sha256/84/84ef8b9efa27f221ae461eed51c0e49b0176c8bf99faac578ebd464841653a72": {
+            "bytes": 105698,
+            "sha256": "84ef8b9efa27f221ae461eed51c0e49b0176c8bf99faac578ebd464841653a72"
+          },
+          "history.db": {
+            "bytes": 253952,
+            "sha256": "cb1100bbb0dd686dd630ecd64f0a802c8749314873fc773740b63839c581c2ff"
+          }
+        }
+      },
+      "paired-mobile-chromium-78": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-78/results.json",
+        "bytes": 49423,
+        "sha256": "261e9890341c44ac44043411107737740837100ecd4ca3f4f261d5a44b3c3333",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78",
+        "store_files": {
+          "artifacts/sha256/42/42979cde4df667d06ee2e194fe80a04af20d512e24a06bb08c08da59a622e1c4": {
+            "bytes": 111384,
+            "sha256": "42979cde4df667d06ee2e194fe80a04af20d512e24a06bb08c08da59a622e1c4"
+          },
+          "artifacts/sha256/c3/c35aa4163c94f8d6d62c0f81f106d4f992e595ade9acd0f44ade9d41aaf16ee1": {
+            "bytes": 111170,
+            "sha256": "c35aa4163c94f8d6d62c0f81f106d4f992e595ade9acd0f44ade9d41aaf16ee1"
+          },
+          "artifacts/sha256/ed/ed16fbbce3769bbe442c8c3aa618d1c03216d624e5c19197e461ce2ccd58a726": {
+            "bytes": 18930,
+            "sha256": "ed16fbbce3769bbe442c8c3aa618d1c03216d624e5c19197e461ce2ccd58a726"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "0d1c1274933b8e10ff469191b3b01a85e261370e3f151c3d74a07106bbf401fc"
+          }
+        }
+      },
+      "paired-mobile-chromium-82": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-82/results.json",
+        "bytes": 50281,
+        "sha256": "b7d70c1fdad0bd2ddb0fd0b8ac11d20a722d061d6329869999c3a6f09c13d96b",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82",
+        "store_files": {
+          "artifacts/sha256/06/063b77a9f90e57495ce9dd00e9aef1aa1d5a2b80afc1a3c1b37e921f7d7238ad": {
+            "bytes": 19914,
+            "sha256": "063b77a9f90e57495ce9dd00e9aef1aa1d5a2b80afc1a3c1b37e921f7d7238ad"
+          },
+          "artifacts/sha256/1f/1fae3c1ac45d4ea599e46d200ad9fefd891d2b399fe527a5b1bb1dbfcb9b4c59": {
+            "bytes": 117074,
+            "sha256": "1fae3c1ac45d4ea599e46d200ad9fefd891d2b399fe527a5b1bb1dbfcb9b4c59"
+          },
+          "artifacts/sha256/95/9595c185ae206290a7610fa23d993c9cf873211f8d68990d355e03fa0a4ab5ba": {
+            "bytes": 116904,
+            "sha256": "9595c185ae206290a7610fa23d993c9cf873211f8d68990d355e03fa0a4ab5ba"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "3d30beab5ab46ac13af7bc5129f9a14f837d9cc9fa4d1508596a149eaff1f916"
+          }
+        }
+      },
+      "paired-mobile-chromium-86": {
+        "path": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-86/results.json",
+        "bytes": 51143,
+        "sha256": "1ecf7f063a107776f7de54877ac6992440d645a8e7ae9e3fe3a440215289f384",
+        "store": "/tmp/neistra160-c4-master2/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86",
+        "store_files": {
+          "artifacts/sha256/02/02c8da544d7002416b36fd62b9ce50534377e71c886b13be0f123f992d7c7f60": {
+            "bytes": 20906,
+            "sha256": "02c8da544d7002416b36fd62b9ce50534377e71c886b13be0f123f992d7c7f60"
+          },
+          "artifacts/sha256/64/64ab7fb0a070a9e6ca4fa868b3ba4c1832b691ebf57035d238f54094e7eb6670": {
+            "bytes": 122772,
+            "sha256": "64ab7fb0a070a9e6ca4fa868b3ba4c1832b691ebf57035d238f54094e7eb6670"
+          },
+          "artifacts/sha256/e6/e6f0430b3233ee19f3f8cb2996b9f4f99e02b0c5ffa15bba76e3fc664a356654": {
+            "bytes": 122646,
+            "sha256": "e6f0430b3233ee19f3f8cb2996b9f4f99e02b0c5ffa15bba76e3fc664a356654"
+          },
+          "history.db": {
+            "bytes": 249856,
+            "sha256": "115b39c708d43c33129a96523a1ecef535cf94a03da5dd2d47b659a05cec008d"
+          }
+        }
+      }
+    }
+  },
+  "preceding_reader": "actual v0.37.0; positive same0017 schema/API/archive interoperability and independently previous-authored private property state; both origins and suffixes",
+  "preceding_source_identities_verified": 1133,
+  "actual_reader_audit": "c4-master2-reader-audit.json",
+  "current_canonical_unapplied_proposal_retained": true,
+  "duration_seconds": 11091.381,
+  "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+  "wall_seconds": 11096.0
+}

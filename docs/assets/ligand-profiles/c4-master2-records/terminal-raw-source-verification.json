@@ -1,0 +1,170 @@
+{
+  "actual_runner_exit_code": 0,
+  "browser": {
+    "errors_failures_flakes_retries": 0,
+    "exact_preceding_exclusions": 75,
+    "observed": 660,
+    "passed": 585
+  },
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "closure": {
+    "explicitly_exempted_environment_inspections": [
+      {
+        "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/init.scope\n",
+        "cmdline_display": "(sd-pam) ",
+        "cmdline_sha256": "971490059d839d27af3ded30a476216b92689d837b0236a700723fb13640e370",
+        "pid": 2381,
+        "ppid": 2366,
+        "session": 2366,
+        "start_ticks": 1869,
+        "uid": 1000
+      },
+      {
+        "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/session.slice/plasma-kwin_wayland.service\n",
+        "cmdline_display": "/usr/bin/kwin_wayland --wayland-fd 7 --socket wayland-0 --xwayland-fd 8 --xwayland-fd 9 --xwayland-display :1 --xwayland-xauthority /run/user/1000/xauth_PQOpja --xwayland ",
+        "cmdline_sha256": "255e22d923caffb513ccc5193c1a158ab8a8b81fba5ce8bcb66d5d2067566c22",
+        "pid": 2469,
+        "ppid": 2459,
+        "session": 2459,
+        "start_ticks": 1927,
+        "uid": 1000
+      },
+      {
+        "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-polkit-agent.service\n",
+        "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 ",
+        "cmdline_sha256": "759c50cd41d67074aacdec9e8b474a41d459ec279cef246d563a707ba5a055cb",
+        "pid": 2725,
+        "ppid": 2366,
+        "session": 2725,
+        "start_ticks": 2006,
+        "uid": 1000
+      },
+      {
+        "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-powerdevil.service\n",
+        "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil ",
+        "cmdline_sha256": "8dec771290691eb78a86ea870357709d1171389a855d114a303a698f0b05876b",
+        "pid": 2726,
+        "ppid": 2366,
+        "session": 2726,
+        "start_ticks": 2006,
+        "uid": 1000
+      }
+    ],
+    "limitation": "Exactly pinned existing desktop service instances excluded from campaign launch lineage; their denied environments are not inspected. Every unknown denied process refuses.",
+    "live_owned_pids": [],
+    "ports_closed": [
+      "5423",
+      "8340",
+      "8341"
+    ],
+    "sessions": [
+      853095,
+      853126,
+      853131,
+      853150,
+      853160,
+      853169,
+      853174,
+      853207,
+      853220,
+      853233,
+      864415,
+      864472,
+      864512,
+      867627,
+      867688,
+      867791,
+      867831,
+      910264,
+      910308,
+      910310,
+      910332,
+      910336,
+      910349,
+      910354,
+      910367,
+      910381,
+      910393,
+      910405,
+      910411,
+      910453,
+      910456,
+      910532,
+      910578,
+      910665,
+      910731,
+      910737,
+      910745,
+      910750,
+      910770,
+      910774,
+      910786,
+      910797,
+      911928,
+      912889
+    ],
+    "unrelated_process_proof": {
+      "bytes": 2063,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-postgate-retention-preparation1/unrelated-desktop-processes.json",
+      "sha256": "deaa43227e2bcf4459f0f544a9910c33bdcc7a3c050cd6d8fb97499f756fe5d1"
+    }
+  },
+  "complete_commands": 43,
+  "external_case_native_identity_crosscheck": "PENDING independent native-body analysis",
+  "external_cases": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-profile-performance/chromium-0c04cc58-5a91-46ec-b597-b9a2542eff7c",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-profile-performance/mobile-chromium-76a14354-89bc-49bc-8967-99890ab63454",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-1735ec40-021f-4787-86af-e92cf801f57f",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-75f6ad52-4c33-40e5-b048-45e9d5cc6b6b",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-cb02cddf-16b8-43e6-9a5c-dc0efc75ef3d",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-ce3005c1-febb-46f8-8485-f02b071bc8d1",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-136b6ea8-3fa7-437e-bbc5-5f36191e5cc8",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-8d8e510e-f023-4ca1-9aa3-6ed292d70687",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-d82489d5-641b-4037-bd89-48fd8a4b8339",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-e7967af1-f0b0-4ee7-aff3-1b0f36c1155c"
+  ],
+  "limits": [
+    "Not a final specialist gate or readiness, merged qualification, release or closeout claim"
+  ],
+  "lossless_log_bodies_rehashed": 43,
+  "original_browser_before_summary": {
+    "bytes": 88251017,
+    "original_path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/c4-master2-browser.json",
+    "original_retained_before_transform": true,
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-run1/original-browser-before-summary.json",
+    "sha256": "9e9a211f7c26cbafd16dfa68d7795c83af641dfb3b1dcafbd7680e148dc65f58"
+  },
+  "primary_diagnostic_SQL_performed": false,
+  "raw": {
+    "all_originals_in_place": true,
+    "bytes_each_side": 105244128,
+    "pairs": 136,
+    "primary_SQL_performed": false
+  },
+  "source": {
+    "DATA": {
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+        "bytes": 19164695,
+        "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+        "bytes": 1578,
+        "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+        "bytes": 1342,
+        "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+      }
+    },
+    "current_commit": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+    "current_count": 1183,
+    "current_map_sha256": "3eff80e7594c59f7ae8ee8573ed64d4161701a6ad0c0c80fe64bad85fd3ac5a4",
+    "current_working_files_and_Git_blobs_verified": true,
+    "extra_source_capsule_created": false,
+    "preceding_extracted_files_and_Git_blobs_verified": true,
+    "previous_commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "previous_count": 1133,
+    "previous_map_sha256": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3"
+  },
+  "verified_utc": "2026-11-20T18:08:52.562368+00:00"
+}

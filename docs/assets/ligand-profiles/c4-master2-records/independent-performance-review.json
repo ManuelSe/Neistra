@@ -1,0 +1,22 @@
+{
+  "recorded_utc": "2026-11-20T18:13:24.189554+00:00",
+  "agent": "/root/issue160_candidate5_native_audit",
+  "verdict": "PASS",
+  "scope": "Scoped operational-driver correction and positive output readback; does not replace final application review or claim release",
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "driver_sha256": "f5084d52eb4ecfe486af4ebcb12c42b38e62d038adc19fe777c1ae25edb89dd5",
+  "report_sha256": "a765c1f0a0edec4b7acfb14fae6c1191c089a87c54df98fafc643287b99bdd72",
+  "checks": [
+    "Actual invocation3 exit0 and driver hash",
+    "Original88251017B browser and exact gzip equality",
+    "585pass75skip/no retries",
+    "Ten uniquely bound inline reports and exact six-field/project target multisets",
+    "All757indexed inputs rehashed;744casebodies match earlier actualM2subset assessment",
+    "Fresh47profile115property1minimization=163workflow misses;4policyseparate167total",
+    "Actual cold/warm medians independently confirmed; D148/unavailable hidden/sampleRSS limits retained"
+  ],
+  "consequential_findings": [],
+  "remaining": "Mainpackage/localverification/actualtagrelease/anonymousreadback/closeout still pending",
+  "application_review_unchanged": true,
+  "no_application_edits_stores_services_SQL_by_reviewer": true
+}

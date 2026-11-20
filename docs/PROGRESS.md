@@ -2,94 +2,85 @@
 
 ## Current milestone
 
-Parent #11 remains active through verified delivery of #156–#163. #156–#159 are
-released and closed. PR #180 merged #160 as `b170d1cc`, but its fresh complete
-merged campaign failed in chooser opening before SVG recovery. Release is withheld.
-The owned `fix/issue-160-mobile-panel-focus` branch corrects the controlled opening
-focus race. Fresh candidate5 passes all 43 commands; final review, corrective merge
-and fresh actual-merged qualification remain required.
-#161 is preparatory, and #162/#163 remain planned and unimplemented.
+Parent #11 remains active through verified delivery of #156–#163. #156–#160 are
+released and closed. Version 0.38.0 and all 37 release assets are verified; this
+checkpoint records its publication. Normal terminal documentation review/merge
+and owned-branch cleanup remain. #161 has substantial local preparation;
+#162/#163 remain planned and unimplemented.
 
 ## Completed work
 
 Seven sourced/versioned profile adaptations and two explicitly unavailable methods
-share a registry/evaluator and read-only metadata API. Current-source authority,
-source recovery, original uploads, Jobs ordering and Inspector ownership remain.
-All five versions are 0.38.0; dependencies and 17 migrations are unchanged, with
-head 0017, project/archive 3, viewer 2 and API v1.
+share a registry/evaluator, read-only metadata API and compact current-input
+controls. The opening-focus correction preserves deliberate and nested-dialog
+focus and retires deferred callbacks. Original uploads and molecular authority
+remain preserved. D-205–D-207 record the bounded correction and forensic policy.
 
-The opening-focus correction preserves deliberate control and nested-dialog focus,
-rejects retired drawer nodes and cancels deferred work across responsive lifecycle
-changes. D-205 records its scope. D-206 retains the failed merged campaign through
-a separate immutable forensic index without altering the earlier nine-part index.
+[PR180](https://github.com/ManuelSe/Neistra/pull/180) introduced the feature;
+[PR181](https://github.com/ManuelSe/Neistra/pull/181) corrected it. The qualified
+runtime is `c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`, with immutable annotated tag
+`7e535c06e19d833d3e4accd63d3963a10dc4a348` and published
+[v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0).
+The [canonical reply](https://github.com/ManuelSe/Neistra/issues/160#issuecomment-7047643999)
+and completed issue closure are verified. Parent #11 remains open with five
+completed required children and #161–#163 remaining.
 
 ## Verification performed
 
-Candidate4 remains a complete 43-command PASS on its original source: 4,138 Python
-cases with zero skips, 1,875 frontend, 14 supervisor and 585 browser passes plus
-exactly 75 unchanged exclusions. All seven final assessments covered `98e70bde`;
-its tree matched the normal merge. These results do not qualify later corrections.
+Corrected candidate5 and the actual merged commit each pass all 43 commands:
+4,157 Python tests / zero skips, 1,879 frontend, 14 supervisor and 585 browser
+cases, with exactly 75 unchanged released exclusions and zero failures, flakes,
+retries or new exclusions. The complete reviewed and merged trees match. All
+seven specialist agent assessments PASS reviewed head `db6532b2`; these are not
+human approvals. Required remote protections/reviews were not bypassed.
 
-The actual merged campaign passed 15 commands, then failed browser execution:
-83 passed, one failed, two observed skips and 574 not run; 27 commands never started.
-The maximum-failure stop notice is separate from authored cases. All 1,183 current /
-1,133 preceding source bodies, DATA3 and 16 lossless logs verify. Positive process/
-port closure and 48 original/raw pairs (19,933,360 bytes per side) verify before
-primary diagnostic SQL. The merged commit remains unqualified.
+All 1,183 current / 1,133 preceding source bodies, DATA3, 43 lossless logs, 44
+offline reports and actual v0.37.0 reader/producer checks verify. The actual merged
+run has positive process/port closure and 136 raw original/copy pairs, 105,244,128
+bytes per side, before primary diagnostic SQL. Primary diagnostic SQL was not used.
+All 2,159 early scientific/workload inputs rehash unchanged after the complete gate.
 
-Controlled real-App regressions expose delayed focus replacement and retired-visit
-redirection on the original application. The correction passes all 31 owner cases,
-then all 1,879 frontend cases, lint, types and build. The unchanged native SVG test
-passes both runner projects, themes and network/decode modes, with no skips/retries;
-its 1,183-source snapshot stays fixed throughout execution, followed by positive
-cleanup and three raw pairs. A later test-only annotation has identical recursive
-runtime bytecode. The forensic verifier passes 113 controls, Ruff and strict mypy.
-Initial typing/invocation failures remain recorded separately.
+Independent readback verifies five parts totaling 240,101,688 bytes, each strictly
+below 80 MiB, with exact gate/state/case unions of 2,555 / 7,030 / 746 payloads.
+All ten original case trees and 734 original native files are retained. The
+88,251,017-byte browser JSON is preserved before verified lossless compression.
 
-Both forensic indexes pass the extended typed local verifier: nine earlier parts
-and eight merged-failure parts. The latter retain 15,518 payloads / 1,216,212,981
-raw bytes, including all 12,739 native files, complete owned stores, execution/raw
-receipts and historical current/preceding source bodies. Originals remain in place.
-Anonymous verification and all final release assets remain pending.
+The 970,512,774-byte main ZIP retains 250 payloads and all 12 explicit supplements.
+Both small forensic indexes and their records remain in it; the 17 large forensic
+ZIPs and 17 checksum sidecars are separate assets. All 37 assets, totaling
+2,223,691,882 bytes, pass anonymous HTTP200/full-body EOF/size/SHA256 and applicable
+recursive CRC, internal manifests and exact unions. All 18 literal checksum
+bodies and package semantics reconcile. Historical failed campaigns remain
+unqualified. [Publication evidence](assets/ligand-profiles/c4-master2-publication.json)
+records the distinct candidate, merged, diagnostic and public-readback evidence.
 
-Fresh candidate5 at `98a0676d` passes 4,157 Python cases with zero skips, 1,879
-frontend, 14 supervisor and 585 browser cases plus the exact 75 released exclusions
-across 660 cases. All 43 logs, 1,183 current / 1,133 preceding source bodies, DATA3,
-44 offline reports and actual readers verify. Positive closure precedes 136 raw
-pairs, 105,083,496 bytes per side. Four pinned preprogram desktop instances have
-explicitly exempted denied environment inspections (D-207); unknown denials refuse.
-
-Independent readback verifies five parts totaling 239,194,221 bytes, each below
-80 MiB: exact gate/state/case unions of 2,555 / 7,015 / 746 payloads, including
-inventories and contexts. All ten native-linked case trees retain 744 original
-bodies. The original browser JSON is retained before its lossless compression;
-734 native originals move into ignored retention only after verified capture.
-The [candidate5 checkpoint](assets/ligand-profiles/c4-candidate5-records/checkpoint.json)
-keeps prior failures distinct and binds the actual evidence. Final seven-role
-assessments and fresh actual-merged qualification remain pending.
+All five versions are 0.38.0. Dependencies and all 17 migrations are unchanged;
+schema head 0017, project/archive 3, viewer 2 and API v1 remain.
 
 ## Known limitations
 
-D-148 portable timing enforcement remains. Candidate5 records 30 profile, 119
-inherited-property and one minimization target miss: 150 workflow observations;
-four policy examples are separate. Candidate4's earlier results remain historical.
-Hidden retirement is null. No strict-host, speedup, physical-device, universal-capacity
-or simultaneous/GPU-memory claim is supported.
+D-148 remains unchanged. The merged run records 47 profile, 115 inherited-property
+and one minimization timing target miss: 163 workflow observations; four deliberate
+policy examples are separate. Hard work/resource/source assertions pass. Hidden
+retirement is unavailable; sampled RSS peaks are separate observations. No
+strict-host, speedup, physical-device, universal-capacity or aggregate/GPU-memory
+qualification is claimed. Four exactly pinned preprogram desktop instances have
+explicitly exempted denied environment inspections; unseen environments were not
+inspected and unknown denied instances refuse capture.
 
-#161 still requires actual released #160, the public baseline, full current native
-acceptance, measurements, compatibility and complete gates. Parent exclusions,
-including #153/#164/#165 and the broader pipeline/chemistry/preparation/docking
-work, remain. No tag, published 0.38.0 release or #160 closeout is claimed.
+The new sidebar, radar, synchronized filters and final inspector integration
+remain #161–#163. Diagram #153, relocations #164/#165, broader acquisition,
+chemistry assignment, preparation, docking and other parent exclusions remain.
 
 ## Blockers
 
-No external blocker. Finish the in-scope correction and preserve all failed states,
-originals, other sessions and the user's dirty master.
+No external blocker. Terminal documentation and owned cleanup remain before
+this delivery unit is fully complete. The user's original checkout is preserved.
 
 ## Next action
 
-Commit the candidate5 evidence checkpoint, retaining all selected source bodies
-exactly. Obtain seven final same-candidate assessments before normal
-corrective PR/merge. Run fresh `c4-master2` on the actual resulting merge in its
-separate owned checkout before immutable tag/release, anonymous asset verification
-and child closeout. Continue #161–#163 and verified parent closeout under one Goal.
+Complete the all-seven terminal documentation assessment and normal PR integration,
+then verify safe owned-branch cleanup and its canonical receipt. Integrate actual
+released #160 plus the public baseline into #161, finish its accepted native and
+complete release gates, then deliver #162 and #163 in dependency order. Parent
+closeout and Goal completion require the complete integrated program endpoint.

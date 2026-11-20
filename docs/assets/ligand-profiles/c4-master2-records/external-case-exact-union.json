@@ -1,0 +1,7 @@
+{
+  "actual_parts_strictly_under_80MiB": true,
+  "exact_disjoint_union": true,
+  "parts": 1,
+  "payloads": 746,
+  "raw_bytes": 87509841
+}

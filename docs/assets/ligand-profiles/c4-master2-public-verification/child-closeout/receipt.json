@@ -1,0 +1,15 @@
+{
+  "verified_utc": "2026-11-20T18:38:15.523848+00:00",
+  "issue": 160,
+  "state": "closed",
+  "state_reason": "completed",
+  "closed_at": "2026-11-20T18:38:14Z",
+  "canonical_reply_id": 7047643999,
+  "canonical_reply_URL": "https://github.com/ManuelSe/Neistra/issues/160#issuecomment-7047643999",
+  "canonical_body_sha256": "8b9e190b132968b406600377426813e5a2b733f0717d0a0d1364e5140a4ef0b4",
+  "runtime": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "release_id": 453038539,
+  "all37_anonymous_assets_verified_before_closure": true,
+  "parent11_must_remain_open": true,
+  "normal_terminal_documentation_and_owned_cleanup": "PENDING; this is released/closed, not complete program delivery"
+}

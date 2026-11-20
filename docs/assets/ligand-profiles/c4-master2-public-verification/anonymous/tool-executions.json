@@ -1,0 +1,66 @@
+[
+  {
+    "label": "main-download",
+    "argv": [
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+      "-B",
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/release-evidence.py.txt",
+      "download",
+      "--url",
+      "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-qualification.zip",
+      "--receipt",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/main-package-input.json",
+      "--output",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/main/neistra-v0.38.0-qualification.zip"
+    ],
+    "started_utc": "2026-11-20T18:28:29.186292+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-11-20T18:30:42.415378+00:00"
+  },
+  {
+    "label": "candidate-failures",
+    "argv": [
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+      "-B",
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/tools/verify_profile_forensics.py",
+      "--root",
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2",
+      "--mode",
+      "anonymous",
+      "--index",
+      "docs/assets/ligand-profiles/forensics/c3-forensics-index.json",
+      "--remote-assets",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/published-release-input.json",
+      "--downloads",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/candidate-failures/downloads",
+      "--output",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/candidate-failures/receipt.json"
+    ],
+    "started_utc": "2026-11-20T18:30:56.032120+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-11-20T18:32:52.830082+00:00"
+  },
+  {
+    "label": "merged-failure",
+    "argv": [
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+      "-B",
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/tools/verify_profile_forensics.py",
+      "--root",
+      "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2",
+      "--mode",
+      "anonymous",
+      "--index",
+      "docs/assets/ligand-profiles/forensics/c4-master1-forensics-index.json",
+      "--remote-assets",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/published-release-input.json",
+      "--downloads",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/merged-failure/downloads",
+      "--output",
+      "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/merged-failure/receipt.json"
+    ],
+    "started_utc": "2026-11-20T18:32:52.830739+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-11-20T18:34:44.158471+00:00"
+  }
+]

@@ -1,0 +1,160 @@
+"""Verify the initial published runtime inventory using qualified verification tools."""
+from pathlib import Path
+import argparse
+import datetime
+import hashlib
+import json
+import os
+import runpy
+import subprocess
+import urllib.parse
+import urllib.request
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2')
+PREP = Path(__file__).parent
+MERGE = 'c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82'
+load = lambda path: json.loads(path.read_bytes())
+
+def normalize_paths(args):
+    for name in ('release_json','upload_manifest','output_dir'):
+        setattr(args,name,getattr(args,name).resolve())
+
+def read_json_input(path):
+    body = path.read_bytes()
+    return {'value':json.loads(body),'body':body,'identity':{'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()}}
+
+def retain_input(directory,name,source):
+    path = directory/name
+    with path.open('xb') as handle:
+        handle.write(source['body'])
+    path.chmod(0o444)
+    assert digest_file(path) == source['identity']
+    return path
+
+def digest_file(path):
+    digest = hashlib.sha256()
+    size = 0
+    with path.open('rb') as handle:
+        while block := handle.read(1024*1024):
+            size += len(block)
+            digest.update(block)
+    return {'bytes':size,'sha256':digest.hexdigest()}
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--release-json',type=Path,required=True)
+    parser.add_argument('--upload-manifest',type=Path,required=True)
+    parser.add_argument('--output-dir',type=Path,required=True)
+    args = parser.parse_args()
+    normalize_paths(args)
+    assert args.output_dir.parent.resolve() == PREP.resolve() and not args.output_dir.exists()
+    gate = load(ROOT/'docs/assets/ligand-profiles/c4-master2-gate.json')
+    assert gate['complete'] is True and gate['commit'] == MERGE and len(gate['steps']) == 43 and all(s['exit_code'] == 0 for s in gate['steps']), 'Actual merged complete43 success required; no network or output performed'
+    execution = load(ROOT/'.issue-11-evidence/issue160-c4-master2-run1/execution.json')
+    assert execution['exit_code'] == 0 and execution['candidate'] == MERGE
+    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip() == MERGE
+    assert not subprocess.check_output(['git','diff','--name-only'],cwd=ROOT)
+    assert not subprocess.check_output(['git','diff','--cached','--name-only'],cwd=ROOT)
+    upload_input = read_json_input(args.upload_manifest)
+    upload = upload_input['value']
+    assert upload['qualified_master'] == MERGE and upload['all_local_bodies_freshly_rehashed']
+    expected = {row['asset_name']:row for row in upload['assets']}
+    assert len(expected) == len(upload['assets']) == upload['asset_count'] == 37
+    release_input = read_json_input(args.release_json)
+    release = release_input['value']
+    assert release['tag_name'] == 'v0.38.0' and not release['draft'] and not release['prerelease'] and release['published_at']
+    remote = {row['name']:row for row in release['assets']}
+    assert len(remote) == len(release['assets']) == 37 and set(remote) == set(expected)
+    for name,row in expected.items():
+        assert Path(name).name == name and '/' not in name and '\\' not in name
+        asset = remote[name]
+        assert asset['size'] == row['bytes'] and asset['digest'] == 'sha256:'+row['sha256'] and asset['state'] == 'uploaded'
+        url = urllib.parse.urlsplit(asset['browser_download_url'])
+        assert url.scheme == 'https' and url.netloc == 'github.com' and not url.query and not url.fragment
+        assert url.path == '/ManuelSe/Neistra/releases/download/v0.38.0/'+name
+    helper_path = ROOT/'docs/assets/ligand-profiles/release-evidence.py.txt'
+    forensic_path = ROOT/'tools/verify_profile_forensics.py'
+    for path in (helper_path,forensic_path):
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == gate['source_before'][str(path.relative_to(ROOT))]
+    main_name = 'neistra-v0.38.0-qualification.zip'
+    package_path = Path(expected[main_name+'.package.json']['local_path']).resolve()
+    package_input = read_json_input(package_path)
+    assert package_input['identity'] == {key:expected[main_name+'.package.json'][key] for key in ('bytes','sha256')}
+    package = package_input['value']
+    assert package['qualified_master'] == MERGE and package['version'] == '0.38.0'
+    out = args.output_dir
+    out.mkdir()
+    release_snapshot = retain_input(out,'published-release-input.json',release_input)
+    upload_snapshot = retain_input(out,'upload-manifest-input.json',upload_input)
+    package_snapshot = retain_input(out,'main-package-input.json',package_input)
+    environment = {k:v for k,v in os.environ.items() if not k.startswith(('NEISTRA_','MOLWEAVE_')) and k not in ('DATABASE_URL','PYTHONPATH','VIRTUAL_ENV','UV_PROJECT_ENVIRONMENT')}
+    environment['PYTHONDONTWRITEBYTECODE'] = '1'
+    environment['PYTHONPATH'] = os.pathsep.join(str(p) for p in (ROOT,ROOT/'apps/api/src',ROOT/'packages/neistra_core/src',ROOT/'packages/neistra_demo_plugin/src'))
+    python = str(ROOT/'.venv/bin/python')
+    executions = []
+    def invoke(label,argv):
+        record = {'label':label,'argv':argv,'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+        with (out/(label+'.stdout.log')).open('xb') as stdout,(out/(label+'.stderr.log')).open('xb') as stderr:
+            result = subprocess.run(argv,cwd=ROOT,env=environment,stdout=stdout,stderr=stderr)
+        record.update(exit_code=result.returncode,finished_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
+        executions.append(record)
+        (out/'tool-executions.json').write_text(json.dumps(executions,indent=2)+'\n')
+        assert result.returncode == 0, (label,result.returncode)
+    main_download = out/'main'/main_name
+    invoke('main-download',[python,'-B',str(helper_path),'download','--url',remote[main_name]['browser_download_url'],'--receipt',str(package_snapshot),'--output',str(main_download)])
+    main_proof = load(main_download.with_name(main_download.name+'.verification.json'))
+    assert main_proof['http_status'] == 200 and main_proof['anonymous_request_without_authorization_header'] and main_proof['qualified_master'] == MERGE
+    assert {key:main_proof[key] for key in ('bytes','sha256')} == {key:expected[main_name][key] for key in ('bytes','sha256')}
+    helper = runpy.run_path(str(helper_path))
+    wrapped = runpy.run_path(str(forensic_path))
+    wrapped_counts = wrapped['verify_wrapped_layers'](main_download,main_name,helper)
+    verified = {main_name:{'asset_name':main_name,'bytes':main_proof['bytes'],'sha256':main_proof['sha256'],'http_status':200,'anonymous_request_without_authorization_header':True,'downloaded_path':str(main_download)}}
+    for label,index in (('candidate-failures','c3-forensics-index.json'),('merged-failure','c4-master1-forensics-index.json')):
+        directory = out/label
+        invoke(label,[python,'-B',str(forensic_path),'--root',str(ROOT),'--mode','anonymous','--index','docs/assets/ligand-profiles/forensics/'+index,'--remote-assets',str(release_snapshot),'--downloads',str(directory/'downloads'),'--output',str(directory/'receipt.json')])
+        receipt = load(directory/'receipt.json')
+        assert receipt['mode'] == 'anonymous' and receipt['complete'] and receipt['all_indexed_assets_verified'] and receipt['failed_runs_remain_unqualified']
+        for row in receipt['assets']:
+            name = row['asset_name']
+            assert name not in verified and row['http_status'] == 200 and row['anonymous_request'] and row['request_auth_header_present'] is False
+            assert {key:row[key] for key in ('bytes','sha256')} == {key:expected[name][key] for key in ('bytes','sha256')}
+            verified[name] = row
+    assert len(verified) == 18
+    small = out/'sidecars'
+    small.mkdir()
+    for name in sorted(set(expected)-set(verified)):
+        row = expected[name]
+        request = urllib.request.Request(remote[name]['browser_download_url'],headers={'User-Agent':'Neistra-release-verification'})
+        assert not request.has_header('Authorization')
+        path = small/name
+        partial = path.with_name(path.name+'.part')
+        digest = hashlib.sha256()
+        size = 0
+        with urllib.request.urlopen(request,timeout=60) as response,partial.open('xb') as target:
+            assert response.status == 200
+            while block := response.read(1024*1024):
+                size += len(block)
+                assert size <= row['bytes']
+                digest.update(block)
+                target.write(block)
+        assert size == row['bytes'] and digest.hexdigest() == row['sha256']
+        partial.rename(path)
+        if name.endswith('.sha256'):
+            target_name = name[:-7]
+            assert target_name in expected and path.read_bytes() == (expected[target_name]['sha256']+'  '+target_name+'\n').encode()
+        else:
+            assert name == main_name+'.package.json' and load(path) == package
+        verified[name] = {'asset_name':name,'bytes':size,'sha256':digest.hexdigest(),'http_status':200,'anonymous_request_without_authorization_header':True,'downloaded_path':str(path)}
+        print('VERIFIED_ANONYMOUS',name,flush=True)
+    assert set(verified) == set(expected) and len(verified) == 37
+    for name,row in verified.items():
+        assert {key:row[key] for key in ('bytes','sha256')} == {key:expected[name][key] for key in ('bytes','sha256')}
+    for snapshot,source in ((release_snapshot,release_input),(upload_snapshot,upload_input),(package_snapshot,package_input)):
+        assert digest_file(snapshot) == source['identity'], 'Retained parsed input changed during verification'
+    receipt = {'scope':'Complete initial runtime release inventory only; later closeout receipts verified separately','limits':['Annotated tag/object/target verification is a separate required owner check','No child closeout, terminal documentation, branch cleanup or parent completion claim'],'release_id':release['id'],'tag':'v0.38.0','qualified_master':MERGE,'asset_count':37,'all_anonymous_full_bodies_HTTP200_EOF_size_SHA256_verified':True,'both_typed_forensic_index_checks_complete':True,'main_recursive_and_supplemental_wrapped_checks_complete':True,'main_wrapped_counts':wrapped_counts,'all_18_literal_checksum_bodies_verified':True,'assets':verified,'source_release_JSON_sha256':release_input['identity']['sha256'],'source_upload_manifest_sha256':upload_input['identity']['sha256'],'input_snapshots':{'release':str(release_snapshot),'upload_manifest':str(upload_snapshot),'main_package':str(package_snapshot)},'verified_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    with (out/'all-initial-runtime-assets-verified.json').open('x') as handle:
+        handle.write(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+    print(json.dumps({'all_initial_runtime_assets_verified':37,'receipt':str(out/'all-initial-runtime-assets-verified.json')}),flush=True)
+
+if __name__ == '__main__':
+    main()

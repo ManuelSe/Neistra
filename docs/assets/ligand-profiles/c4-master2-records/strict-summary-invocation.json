@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/qualification-summary.py.txt",
+    "c4-master2"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2",
+  "environment_explicit_overrides": {
+    "NEISTRA_QUALIFICATION_BASE": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "NEISTRA_QUALIFICATION_VERSION": "0.38.0",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2:/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/packages/neistra_demo_plugin/src"
+  },
+  "inherited_application_environment_removed": true,
+  "started_utc": "2026-11-20T18:08:52.605775+00:00",
+  "finished_utc": "2026-11-20T18:08:56.000827+00:00",
+  "exit_code": 0,
+  "original_browser_retained": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-run1/original-browser-before-summary.json",
+    "original_path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/c4-master2-browser.json",
+    "bytes": 88251017,
+    "sha256": "9e9a211f7c26cbafd16dfa68d7795c83af641dfb3b1dcafbd7680e148dc65f58",
+    "original_retained_before_transform": true
+  },
+  "lossless_browser_transform_verified": true
+}

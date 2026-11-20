@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/master2-native-independent-audit.py", line 183, in <module>
+    assert target_counts['ligand-profiles-performance.spec.ts']['misses'] == 30
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

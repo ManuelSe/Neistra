@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-11-20T18:41:28.257034+00:00",
+  "source": "Actual connected GitHub issue read after child closure",
+  "issue": 11,
+  "state": "open",
+  "updated_at": "2026-11-20T18:38:15Z",
+  "completed_required_children": [
+    156,
+    157,
+    158,
+    159,
+    160
+  ],
+  "remaining_required_children": [
+    161,
+    162,
+    163
+  ],
+  "scope_and_exclusions_unchanged": true
+}

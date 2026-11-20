@@ -1,0 +1,24 @@
+{
+  "node_id": "TA_kwDOTqyhK9oAKDdlNTM1YzA2ZTE5ZDgzM2QzZTRhY2NkNjNkMzk2M2ExMGRjNGEzNDg",
+  "sha": "7e535c06e19d833d3e4accd63d3963a10dc4a348",
+  "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/7e535c06e19d833d3e4accd63d3963a10dc4a348",
+  "tagger": {
+    "name": "Manuel Sellner",
+    "email": "manuel@sellner.ch",
+    "date": "2026-11-20T18:21:23Z"
+  },
+  "object": {
+    "sha": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+    "type": "commit",
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/git/commits/c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82"
+  },
+  "tag": "v0.38.0",
+  "message": "Neistra v0.38.0\n\nSourced, versioned physicochemical profiles with current-input evaluation.\nQualified merged runtime: c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82\nReviewed feature head: db6532b20a1b8ac61e7242d349c91c9a99303988\nComplete actual merged 43-command release gate and independent retained-evidence readback passed.\n",
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}
