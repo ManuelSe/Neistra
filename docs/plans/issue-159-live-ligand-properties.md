@@ -2131,7 +2131,11 @@ and [27-receipt manifest](../assets/ligand-properties/c5-master1-public-verifica
 bind the actual public verification, independent integrity/performance reviews
 and [canonical issue reply](https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950).
 #159 was explicitly closed as completed at `2026-11-20T00:30:32Z` after publication
-verification. Raw receipts preserve their historical capture-time state.
+verification. Raw receipts preserve their historical capture-time state. The main
+stdout receipt is stored with deterministic gzip; its compressed and decoded hashes
+are both recorded so all original trailing whitespace is retained. Complete
+base-to-candidate validation includes new evidence files, correcting the earlier
+working-tree-only whitespace check that omitted them.
 
 This source-equivalent terminal documentation checkpoint still needs all seven
 same-candidate assessments and normal PR integration, followed by safe owned-branch

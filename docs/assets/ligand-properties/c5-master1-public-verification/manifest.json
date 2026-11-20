@@ -75,9 +75,12 @@
     "bytes": 1220,
     "sha256": "4840f09be3bc066d07d77924b7f7f35d38bb86843a79d885b5a5a0db129cecb7"
   },
-  "main-body-verification.json": {
-    "bytes": 767,
-    "sha256": "bfb3245893507aa95a4d36c6d33a1151aaae4c70447f9acad55738cc9f345fd7"
+  "main-body-verification.json.gz": {
+    "bytes": 468,
+    "decoded_bytes": 767,
+    "decoded_sha256": "bfb3245893507aa95a4d36c6d33a1151aaae4c70447f9acad55738cc9f345fd7",
+    "encoding": "gzip",
+    "sha256": "3ebea06dbcacf2c230c3ff94f774597f67eaaea2a6f62c4ebc080c5cf4f23af8"
   },
   "main-execution.json": {
     "bytes": 1819,

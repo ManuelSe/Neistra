@@ -500,10 +500,11 @@
   "public_verification_receipts": {
     "directory": "c5-master1-public-verification",
     "manifest": {
-      "bytes": 3813,
-      "sha256": "f0e44a35557a0f2171f48eacedc75f24a6b5cde292a697ec75f63f92e9d3150d"
+      "bytes": 3956,
+      "sha256": "7117018ba367fb46b42db2d09045068f8ebe04f88c78e36d320f4db6ad27efdf"
     },
-    "files": 27
+    "files": 27,
+    "raw_payload_preservation": "All original decoded receipt bytes are preserved. The main stdout JSON uses deterministic gzip to retain its original trailing whitespace; the manifest binds both compressed and decoded bytes."
   },
   "application_sources_versions_dependencies_migrations_unchanged_by_this_checkpoint": true,
   "parent_required_remaining": [
