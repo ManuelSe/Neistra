@@ -9982,3 +9982,36 @@ validates the complete frozen manifest/44 bodies and the exact reviewed observer
 hash transition before any scientific work, records its own current body identity,
 and rechecks every input after the run. This separates current qualification from
 original generation without introducing a new chemical method.
+
+### D-204 qualification correction — separate numerical and source-context oracles
+
+The unchanged independent fixture preflight deliberately disables original-file
+recovery. Production input identity includes qualification provenance and may use
+the preserved uploaded SDF, so equal numerical vectors can correctly have different
+input hashes. Keep both reports and hashes: verify numerical/status agreement against
+the independent no-recovery oracle, and require exact source-context hash, provenance
+and method equality against the captured canonical/original bytes. Never overwrite
+the independent hash or drop identity validation. A dedicated test-only adapter
+reuses the unchanged preflight captures. After edit, Undo and Redo, verify the actual
+published canonical structure; a simplified disposable edit is not publication
+authority. Run that read-only check after the browser-observed READY timestamp so
+it cannot inflate automatic-current latency; presenter reopening remains separate.
+
+A trusted control event alone does not prove visible feedback. Qualify the matching
+visible control or status and preserve unavailable timing when hidden. Released
+consumer records may remain until expiry; require no live owned demand while
+preserving the existing global retention bounds. These are harness corrections,
+not changes to production chemistry, deadlines, workloads or timing targets.
+
+### D-203 qualification addendum — use the published actual-predecessor baseline
+
+The actual v0.37.0 merged gate was published in its release package; its complete
+browser report was not committed as a standalone file. A lookup in the earlier
+designation release's directory cannot establish that predecessor's exclusions.
+Retain the byte-exact original summary and compressed browser report with a pinned
+provenance receipt linking the public asset, nested master-gate archive and manifests
+to the exact member bodies and released commit. Check identity, hashes and complete
+browser outcomes before starting the expensive gate. Freeze these three data inputs
+separately from the literal six-helper catalogue and retain them in gate/release
+packages. Compare exact excluded test identities, including rejection of a changed
+list with an unchanged count. Historical helpers and reports remain unchanged.

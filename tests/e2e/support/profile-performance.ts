@@ -79,10 +79,16 @@ export function expectedCriteria(registry: ProfileRegistry, profileId: string, r
     return { name: definition.name, value: `Value: ${n}${unit}`, criterion: `Criterion: ${operators[c.operator]} ${c.limit}${unit}`, outcome: met ? "Met" : "Not met" };
   });
 }
-export function assertReport(actual: DescriptorReport, independent: DescriptorReport, ids: readonly string[]) {
-  check(actual.model_status === "qualified" && /^[a-f0-9]{64}$/.test(actual.input_hash), "Current API report must be qualified");
-  check(actual.input_hash === independent.input_hash, "Current input hash differs from independent preflight");
-  for (const key of ["implementation_version", "library_version", "policy_version"] as const) check(actual[key] === independent[key], `Changed ${key}`);
+export function assertReport(actual: DescriptorReport, independent: DescriptorReport, ids: readonly string[], context: DescriptorReport = independent) {
+  check(actual.model_status === "qualified" && independent.model_status === "qualified" && context.model_status === "qualified"
+    && /^[a-f0-9]{64}$/.test(actual.input_hash) && /^[a-f0-9]{64}$/.test(independent.input_hash), "Current and independent reports must be qualified");
+  check(actual.input_hash === context.input_hash, "Current input hash differs from independently qualified source context");
+  check(JSON.stringify(actual.provenance) === JSON.stringify(context.provenance), "Current qualification provenance differs from source context");
+  check(actual.contains_formally_charged_atoms === context.contains_formally_charged_atoms
+    && actual.contains_formally_charged_atoms === independent.contains_formally_charged_atoms, "Current charge-presence fact differs from independent preflight");
+  for (const key of ["implementation_version", "library_version", "policy_version"] as const) {
+    check(actual[key] === independent[key] && actual[key] === context[key], `Changed ${key}`);
+  }
   const integerIds = new Set(["heavy_atom_count", "heteroatom_count", "carbon_count", "formal_charge", "hbd", "hba",
     "rotatable_bond_count", "ring_count", "aromatic_ring_count"]);
   for (const id of ids) {
@@ -94,11 +100,13 @@ export function assertReport(actual: DescriptorReport, independent: DescriptorRe
   }
 }
 export interface Clock { timeOrigin: number; dateBeforeMs: number; performanceNowMs: number; dateAfterMs: number }
-export interface Snapshot { profileId: string | null; status: string | null; rows: CriterionRow[]; visible: boolean }
+export interface Snapshot { profileId: string | null; status: string | null; rows: CriterionRow[]; visible: boolean;
+  statusVisible: boolean; profileControlVisible: boolean }
 export interface FetchRecord { at: number; timeOrigin: number; method: string; path: string; body: unknown;
   snapshot?: Snapshot; responseAt?: number; observedAt?: number; status?: number; response?: PropertyAggregate; error?: string }
 export interface Sample { label: string; event: "change" | "click"; armedAt: number; startedAt?: number; eventTrusted?: boolean;
   feedbackAt?: number; currentAt?: number; visibleCurrentAt?: number; retiredAt?: number; targetProfile: string; expectedRows: CriterionRow[];
+  feedbackBasis?: "native-selected-value" | "visible-status" | "disabled-command";
   completionStatus?: string; oldRows: CriterionRow[]; initial?: Snapshot; retirementUnavailable?: string; currentVisible?: boolean }
 export interface BrowserEvidence { clock: Clock; observedClock?: Clock; requests: FetchRecord[]; samples: Sample[]; sample?: Sample;
   snapshots: { at: number; snapshot: Snapshot }[]; control?: Element; readSnapshot: () => Snapshot; observer: MutationObserver }
@@ -109,13 +117,17 @@ export async function installObservation(page: Page) {
   await page.addInitScript(() => {
     const clock = (): Clock => { const dateBeforeMs = Date.now(), performanceNowMs = performance.now(), dateAfterMs = Date.now();
       return { timeOrigin: performance.timeOrigin, dateBeforeMs, performanceNowMs, dateAfterMs }; };
+    const visibleElement = (node: Element | null | undefined) => {
+      const bounds = node?.getBoundingClientRect();
+      return !!node && !!bounds && bounds.width > 0 && bounds.height > 0 && bounds.top < innerHeight && bounds.bottom > 0
+        && bounds.left < innerWidth && bounds.right > 0 && getComputedStyle(node).visibility !== "hidden"
+        && !node.closest('[aria-hidden="true"], [inert]');
+    };
     const snapshot = (): Snapshot => {
-      const root = document.querySelector(".ligand-profile"), criteria = root?.querySelector(".ligand-profile-criteria"), bounds = criteria?.getBoundingClientRect();
-      const visible = !!criteria && !!bounds && bounds.width > 0 && bounds.height > 0 && bounds.top < innerHeight && bounds.bottom > 0
-        && bounds.left < innerWidth && bounds.right > 0 && getComputedStyle(criteria).visibility !== "hidden"
-        && !criteria.closest('[aria-hidden="true"], [inert]');
+      const root = document.querySelector(".ligand-profile"), criteria = root?.querySelector(".ligand-profile-criteria"), status = root?.querySelector('[role="status"]');
       return { profileId: root?.querySelector("select")?.value ?? null, status: root?.querySelector('[role="status"]')?.textContent ?? null,
-        visible, rows: [...(root?.querySelectorAll(".ligand-profile-criteria > div") ?? [])].map(row => {
+        visible: visibleElement(criteria), statusVisible: visibleElement(status), profileControlVisible: visibleElement(root?.querySelector("select")),
+        rows: [...(root?.querySelectorAll(".ligand-profile-criteria > div") ?? [])].map(row => {
           const spans = row.querySelectorAll("dd > span");
           return { name: row.querySelector("dt")?.textContent ?? "", value: spans[0]?.textContent ?? "", criterion: spans[1]?.textContent ?? "", outcome: spans[2]?.textContent ?? "" };
         }) };
@@ -125,10 +137,16 @@ export async function installObservation(page: Page) {
     const observe = () => {
       const now = performance.now(), current = snapshot();
       if (JSON.stringify(state.snapshots.at(-1)?.snapshot) !== JSON.stringify(current)) state.snapshots.push({ at: now, snapshot: current });
-      const s = state.sample; if (!s || s.startedAt === undefined) return;
-      if (s.feedbackAt === undefined && (/Updating|Loading|unavailable|cancelled/i.test(current.status ?? "")
-        || (s.event === "change" && current.profileId === s.targetProfile)
-        || state.control?.matches(":disabled"))) s.feedbackAt = now;
+      const s = state.sample; if (!s || s.startedAt === undefined || s.eventTrusted !== true) return;
+      if (s.feedbackAt === undefined) {
+        if (current.statusVisible && /Updating|Loading|unavailable|cancelled/i.test(current.status ?? "")) {
+          s.feedbackAt = now; s.feedbackBasis = "visible-status";
+        } else if (s.event === "change" && current.profileId === s.targetProfile && current.profileControlVisible) {
+          s.feedbackAt = now; s.feedbackBasis = "native-selected-value";
+        } else if (state.control?.matches(":disabled") && visibleElement(state.control)) {
+          s.feedbackAt = now; s.feedbackBasis = "disabled-command";
+        }
+      }
       if (s.initial?.visible && s.oldRows.length && s.retiredAt === undefined && !equal(current.rows, s.oldRows)) s.retiredAt = now;
       if (current.profileId === s.targetProfile && equal(current.rows, s.expectedRows)
         && (s.completionStatus ? current.status?.includes(s.completionStatus)
@@ -169,7 +187,13 @@ export async function arm(page: Page, control: Locator, label: string, targetPro
       sample.startedAt = performance.now(); sample.eventTrusted = e.isTrusted; sample.initial = state.readSnapshot();
       if (!sample.initial.visible) sample.retirementUnavailable = "Profile criteria hidden at trigger; no visible retirement latency";
       else if (!sample.oldRows.length) sample.retirementUnavailable = "No old criteria at trigger";
-      if (arg.event === "change") sample.feedbackAt = performance.now();
+      const bounds = node.getBoundingClientRect();
+      if (arg.event === "change" && e.isTrusted && node instanceof HTMLSelectElement && node.value === arg.targetProfile
+        && bounds.width > 0 && bounds.height > 0 && bounds.top < innerHeight && bounds.bottom > 0
+        && bounds.left < innerWidth && bounds.right > 0 && getComputedStyle(node).visibility !== "hidden"
+        && !node.closest('[aria-hidden="true"], [inert]')) {
+        sample.feedbackAt = performance.now(); sample.feedbackBasis = "native-selected-value";
+      }
     }, { capture: true, once: true });
   }, { label, targetProfile, expectedRows, event, completionStatus });
 }
@@ -185,7 +209,7 @@ export function durations(sample: Sample, ackAt?: number) {
     check(Number.isFinite(at) && at >= sample.startedAt!, "Observation precedes browser trigger");
     return at - sample.startedAt!;
   };
-  return { feedback_ms: elapsed(sample.feedbackAt), current_criteria_ms: elapsed(sample.currentAt),
+  return { feedback_ms: elapsed(sample.feedbackAt), feedback_basis: sample.feedbackBasis ?? null, current_criteria_ms: elapsed(sample.currentAt),
     visible_current_criteria_ms: elapsed(sample.visibleCurrentAt), retirement_ms: elapsed(sample.retiredAt),
     retirement_relative_to_ack_ms: sample.retiredAt !== undefined && ackAt !== undefined ? sample.retiredAt - ackAt : null,
     retirement_unavailable_reason: sample.retiredAt === undefined
@@ -202,17 +226,22 @@ export function requestCounts(requests: readonly FetchRecord[]) {
     reads: requests.filter(r => r.method === "POST" && /\/ligand-properties\/read$/.test(r.path)).length,
     releases: requests.filter(r => r.method === "DELETE" && /\/ligand-properties\/consumers\/[^/]+$/.test(r.path)).length };
 }
-export function matchingReady(requests: readonly FetchRecord[], wanted: PropertySource, independent: DescriptorReport, ids: readonly string[]) {
+/** Timing observation only; independent scientific qualification is still mandatory. */
+export function observedReady(requests: readonly FetchRecord[], wanted: PropertySource) {
   for (const request of requests) {
     if (request.status !== 200 || request.observedAt === undefined || request.responseAt === undefined) continue;
     const current = request.response?.entries?.find(row => sameSource(row.source, wanted) && row.status === "ready" && row.report);
     if (!current?.report) continue;
-    assertReport(current.report, independent, ids);
     return { timeOrigin: request.timeOrigin, request_at: request.at, response_at: request.responseAt, observed_at: request.observedAt,
       source: current.source, binding_key: current.binding_key, input_hash: current.report.input_hash, report: current.report,
       consumer_id: request.response?.consumer_id ?? null, sequence: request.response?.sequence ?? null };
   }
   return null;
+}
+export function matchingReady(requests: readonly FetchRecord[], wanted: PropertySource, independent: DescriptorReport, ids: readonly string[], context: DescriptorReport = independent) {
+  const observed = observedReady(requests, wanted);
+  if (observed) assertReport(observed.report, independent, ids, context);
+  return observed;
 }
 export async function fixture(profile: string, size: number) {
   const dir = resolve("tests/fixtures/ligand-properties-performance/editable"), bytes = await readFile(resolve(dir, "manifest.json"));
@@ -227,27 +256,85 @@ export function store() {
   const data = resolve(process.env.NEISTRA_E2E_DATA_DIR ?? process.env.MOLWEAVE_E2E_DATA_DIR ?? ".neistra-e2e");
   return { data, database: resolve(data, legacy ? "molweave.db" : "neistra.db") };
 }
+async function runSetupActor(args: string[], directory: string, label: string) {
+  const started = performance.now(), interpreter = resolve(".venv/bin/python");
+  const child = spawn(interpreter, args, { env: process.env, stdio: ["ignore", "pipe", "pipe"], timeout: 30_000 });
+  let stdout = "", stderr = ""; child.stdout.on("data", x => { stdout += String(x); }); child.stderr.on("data", x => { stderr += String(x); });
+  const completion = await new Promise<{ code: number | null; signal: string | null }>((done, fail) => { child.once("error", fail); child.once("close", (code, signal) => done({ code, signal })); });
+  await writeFile(resolve(directory, "stdout.log"), stdout); await writeFile(resolve(directory, "stderr.log"), stderr);
+  await writeFile(resolve(directory, "execution.json"), JSON.stringify({ argv: [interpreter, ...args], ...completion, setup_ms_excluded: performance.now() - started }, null, 2));
+  check(completion.code === 0 && completion.signal === null, `${label} failed: ${stderr}`);
+}
 export async function preflight(project: Project, row: Awaited<ReturnType<typeof fixture>>, directory: string) {
   const out = resolve(directory, `preflight-${row.id}`); await mkdir(out);
   const entry = project.entries[0], requirements = resolve(out, "requirements.json");
   await writeFile(requirements, JSON.stringify({ project_id: project.id, source: source(entry), original_artifact_id: entry.original_artifact_id,
     smiles: row.intended_smiles, fixture_id: row.id }, null, 2));
-  const owned = store(), args = ["-m", "tests.support.ligand_property_performance_qualification", "fixture-preflight", "--database", owned.database,
+  const owned = store(), args = ["-m", "tests.support.ligand_profiles_performance_preflight", "preflight", "--database", owned.database,
     "--data-dir", owned.data, "--requirements", requirements, "--output-dir", resolve(out, "qualification")];
-  const started = performance.now(), child = spawn(resolve(".venv/bin/python"), args, { env: process.env, stdio: ["ignore", "pipe", "pipe"], timeout: 30_000 });
-  let stdout = "", stderr = ""; child.stdout.on("data", x => { stdout += String(x); }); child.stderr.on("data", x => { stderr += String(x); });
-  const completion = await new Promise<{ code: number | null; signal: string | null }>((done, fail) => { child.once("error", fail); child.once("close", (code, signal) => done({ code, signal })); });
-  await writeFile(resolve(out, "stdout.log"), stdout); await writeFile(resolve(out, "stderr.log"), stderr);
-  await writeFile(resolve(out, "execution.json"), JSON.stringify({ argv: [resolve(".venv/bin/python"), ...args], ...completion, setup_ms_excluded: performance.now() - started }, null, 2));
-  check(completion.code === 0 && completion.signal === null, `Independent disposable preflight failed: ${stderr}`);
+  await runSetupActor(args, out, "Independent paired preflight");
   const resultBytes = await readFile(resolve(out, "qualification/result.json"));
-  const result = JSON.parse(resultBytes.toString()) as { source: PropertySource; original_sha256: string; source_sha256: string;
-    before_report: DescriptorReport; after_report: DescriptorReport; original_recovery_disabled: boolean; no_shared_cache_or_API_descriptor_work: boolean };
+  const paired = JSON.parse(resultBytes.toString()) as { schema: string; independent_no_original: {
+    source: PropertySource; original_sha256: string; source_sha256: string; before_report: DescriptorReport; after_report: DescriptorReport;
+    original_recovery_disabled: boolean; no_shared_cache_or_API_descriptor_work: boolean };
+    source_context: { source: PropertySource; original_sha256: string; source_sha256: string; before_report: DescriptorReport; disposable_after_report: DescriptorReport;
+      independent_no_original_vectors_reproduced: boolean; context_vectors_match_independent_numerical_oracle: boolean; no_shared_cache_or_API_descriptor_work: boolean };
+    independent_result_sha256: string; source_context_sha256: string };
+  const result = paired.independent_no_original, context = paired.source_context;
+  check(paired.schema === "profile-performance-paired-preflight-v1", "Paired independent/source-context preflight required");
   check(sameSource(result.source, source(entry)) && result.original_sha256 === row.sha256 && /^[a-f0-9]{64}$/.test(result.source_sha256)
     && result.original_recovery_disabled && result.no_shared_cache_or_API_descriptor_work, "Preflight source/setup authority mismatch");
   for (const report of [result.before_report, result.after_report]) check(report.model_status === "qualified" && report.values.length === 14
     && report.values.every(v => v.status === "ready" && typeof v.value === "number" && Number.isFinite(v.value)), "Preflight must independently qualify both complete vectors");
-  return { directory: out, result, result_sha256: digest(resultBytes) };
+  check(sameSource(context.source, result.source) && context.original_sha256 === result.original_sha256 && context.source_sha256 === result.source_sha256
+    && context.independent_no_original_vectors_reproduced && context.context_vectors_match_independent_numerical_oracle
+    && context.no_shared_cache_or_API_descriptor_work, "Source-context proof differs from retained independent source");
+  for (const phase of ["before_report", "after_report"] as const) {
+    const contextual = phase === "before_report" ? context.before_report : context.disposable_after_report;
+    assertReport(contextual, result[phase], result[phase].coverage, contextual);
+  }
+  check(digest(await readFile(resolve(out, "qualification/independent-result.json"))) === paired.independent_result_sha256
+    && digest(await readFile(resolve(out, "qualification/source-context.json"))) === paired.source_context_sha256, "Paired preflight artifact hashes changed");
+  return { directory: out, result, context, result_sha256: digest(resultBytes) };
+}
+export async function publishedContext(project: Project, entry: Entry, qualified: Awaited<ReturnType<typeof preflight>>,
+  phase: "before" | "after", directory: string, label: string, expectedCanonicalSha256?: string) {
+  const out = resolve(directory, `published-${label}`); await mkdir(out);
+  const requirements = resolve(out, "requirements.json"), owned = store();
+  await writeFile(requirements, JSON.stringify({ project_id: project.id, source: source(entry), original_artifact_id: entry.original_artifact_id,
+    preflight_directory: qualified.directory, preflight_sha256: qualified.result_sha256, phase,
+    ...(expectedCanonicalSha256 ? { expected_canonical_sha256: expectedCanonicalSha256 } : {}) }, null, 2));
+  const args = ["-m", "tests.support.ligand_profiles_performance_preflight", "current-context", "--database", owned.database,
+    "--data-dir", owned.data, "--requirements", requirements, "--output-dir", resolve(out, "qualification")];
+  await runSetupActor(args, out, "Published source-context proof");
+  const bytes = await readFile(resolve(out, "qualification/result.json"));
+  const result = JSON.parse(bytes.toString()) as { schema: string; source: PropertySource; source_sha256: string; original_sha256: string;
+    preflight_sha256: string; report: DescriptorReport; no_shared_cache_or_API_descriptor_work: boolean;
+    actual_published_graph_ids_coordinates_match_independent_trial: boolean };
+  check(result.schema === "profile-performance-published-context-v1" && sameSource(result.source, source(entry))
+    && result.preflight_sha256 === qualified.result_sha256 && result.original_sha256 === qualified.result.original_sha256
+    && result.no_shared_cache_or_API_descriptor_work && result.actual_published_graph_ids_coordinates_match_independent_trial,
+  "Published context does not qualify the exact accepted source");
+  check(digest(await readFile(resolve(out, "qualification/actual-source.json"))) === result.source_sha256
+    && digest(await readFile(resolve(out, "qualification/actual-original.sdf"))) === result.original_sha256, "Published retained bodies changed");
+  if (expectedCanonicalSha256) check(result.source_sha256 === expectedCanonicalSha256, "Redo did not restore edited canonical bytes");
+  return { directory: out, result, result_sha256: digest(bytes) };
+}
+export async function consumerState(directory: string, projectIds: string[]) {
+  const out = resolve(directory, "consumer-state"); await mkdir(out);
+  const projects = resolve(out, "projects.json"), output = resolve(out, "result.json"), owned = store();
+  await writeFile(projects, JSON.stringify(projectIds));
+  const args = ["-m", "tests.support.ligand_profiles_performance_preflight", "consumer-state", "--database", owned.database,
+    "--data-dir", owned.data, "--projects", projects, "--output", output];
+  await runSetupActor(args, out, "Read-only consumer proof");
+  const body = await readFile(output), result = JSON.parse(body.toString()) as {
+    schema: string; project_ids: string[]; retained_total: number; owned_live_count: number;
+    owned_records: { id: string; project_id: string; released: number; expired: boolean; live: boolean }[] };
+  check(result.schema === "profile-performance-consumer-state-v1" && JSON.stringify(result.project_ids) === JSON.stringify(projectIds), "Consumer proof scope differs");
+  check(Number.isSafeInteger(result.retained_total) && result.retained_total >= 0 && result.retained_total <= 256, "Retained consumer record bound exceeded");
+  check(result.owned_live_count === 0 && result.owned_records.every(row => projectIds.includes(row.project_id) && !row.live
+    && (row.released === 1 || row.expired)), "Owned property consumer demand remains live");
+  return { directory: out, result_sha256: digest(body), ...result };
 }
 export interface JobObservation { id: string; project_id: string; purpose: string; job_type: string; status: string; execution_id: string | null;
   reaped: boolean; provenance: { source_capture?: Record<string, number>; input_materialization?: Record<string, number>; publication_verification?: Record<string, number> } }

@@ -301,6 +301,26 @@ def check_source(root: Path, gate: dict[str, Any]) -> None:
     assert helpers["current_identities"](root) == gate["source_before"], (
         "Current qualifying source inventory differs from the completed gate"
     )
+    baseline = helpers["preceding_browser_baseline"](root, gate["preceding_reader"])
+    assert baseline == gate["preceding_browser_baseline"]
+    assert gate["qualification_data_unchanged"] is True
+    assert (
+        gate["qualification_data_before"]
+        == gate["qualification_data_after"]
+        == baseline["data_files"]
+    )
+    assert all(path in gate["source_before"] for path in helpers["DATA"])
+
+
+def add_preceding_browser_baseline(
+    items: dict[str, Member], root: Path, preceding: dict[str, Any]
+) -> dict[str, Any]:
+    """Retain all original qualification data under the shared pinned policy."""
+    helpers = runpy.run_path(str(root / ASSETS / "qualification.py.txt"))
+    baseline = helpers["preceding_browser_baseline"](root, preceding)
+    for relative in baseline["data_files"]:
+        add(items, f"preceding-browser-baseline/{Path(relative).name}", root / relative)
+    return baseline
 
 
 def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any]]:
@@ -349,6 +369,8 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
     fixture_qualification = fixture_tools["fixture_qualification_reports"](recipe, root)
     assert fixture_qualification == summary["offline_frozen_fixture_qualification"]
     items: dict[str, Member] = {}
+    baseline = add_preceding_browser_baseline(items, root, recipe["preceding_reader"])
+    assert baseline == summary["preceding_browser_baseline"] == gate["preceding_browser_baseline"]
     fixture_count, fixture_excluded = add_reader_workspace(
         items, Path(fixture_qualification["directory"]), "scientific/fixture-qualification"
     )
@@ -519,6 +541,7 @@ def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any
         "application_version": recipe["application_version"],
         "source_digest": summary["source_digest"],
         "summary": summary,
+        "preceding_browser_baseline": baseline,
         "browser_native_files": browser_count,
         "scientific_native_files": native_count,
         "offline_frozen_fixture_cases": 44,
@@ -596,7 +619,7 @@ def verify_package_receipt(path: Path) -> dict[str, Any]:
     return record
 
 
-def add_release_context_members(items: dict[str, Member], root: Path) -> None:
+def add_release_context_members(items: dict[str, Member], root: Path) -> dict[str, Any]:
     """Retain profile preparation evidence without relabelling prerequisite runs."""
     assets = root / ASSETS
     for name in (
@@ -616,6 +639,12 @@ def add_release_context_members(items: dict[str, Member], root: Path) -> None:
     contract = read_json(assets / "c3-same-schema-acceptance.json")
     assert contract["protocol"]["new"].startswith("private-derived-same-schema-v2")
     assert contract["actual_preceding_tag"] == "v0.37.0"
+    tag = contract["actual_preceding_tag"]
+    baseline = add_preceding_browser_baseline(
+        items,
+        root,
+        {"tag": tag, "version": tag[1:], "commit": git(root, "rev-parse", tag + "^{}")},
+    )
     # The original planning/preparation snapshots retain their capture-time
     # pending fields. Current gate/actor reports establish released compatibility.
     for prefix in ("c1-", "c2-", "c3-"):
@@ -636,6 +665,7 @@ def add_release_context_members(items: dict[str, Member], root: Path) -> None:
         add(items, relative, root / relative)
     for name in TOOL_NAMES:
         add(items, f"tools/{name}", assets / name)
+    return baseline
 
 
 def package_release(args: argparse.Namespace) -> None:
@@ -685,7 +715,10 @@ def package_release(args: argparse.Namespace) -> None:
             add(items, f"complete-gates/{label}/{part['file']}", Path(part["path"]))
     for path in (args.reviews, args.premerge_audit, args.merge_receipt):
         add(items, f"operations/{path.name}", path)
-    add_release_context_members(items, root)
+    baseline = add_release_context_members(items, root)
+    assert (
+        baseline == master["preceding_browser_baseline"] == candidate["preceding_browser_baseline"]
+    )
     for argument in args.evidence:
         name, separator, filename = argument.partition("=")
         assert separator, "Use --evidence ARCHIVE-NAME=PATH"
@@ -699,6 +732,7 @@ def package_release(args: argparse.Namespace) -> None:
         "qualified_master": args.runtime,
         "reviewed_feature_head": args.reviewed_head,
         "source_digest": master["source_digest"],
+        "preceding_browser_baseline": baseline,
         "candidate_gate_commit": candidate["qualified_commit"],
         "candidate_label": candidate["label"],
         "master_label": master["label"],

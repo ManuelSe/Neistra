@@ -18,15 +18,19 @@ are preserved. Dependencies and all 17 migrations remain unchanged; head is 0017
 
 A separate explicit same-schema v2 qualification framework preserves the literal
 legacy v1 actor/helpers/tests. Both-source state families, exact numerical oracles,
-worker/interpreter/library proof and positive schema checks are implemented; actual
-campaigns are still pending. The actual v0.37.0 predecessor's 1,133 source bodies,
+worker/interpreter/library proof and positive schema checks pass both actual
+0.38.0/0.37.0 campaigns at frozen `ceceadb6`, with all six phases exiting zero.
+The actual v0.37.0 predecessor's 1,133 source bodies,
 annotated tag, own frozen environment and import-only provenance proofs verify.
 
 A separate current fixture driver preserves all 52 inherited benchmark subjects,
 44 SDFs, their generation manifest and historical provenance. It permits only the
 independently reviewed observer evolution. Separate profile measurements preserve
 the inherited workload, classify actual cache coverage and record browser clocks,
-source identity and bounded work; their native execution remains pending.
+source identity and bounded work. Their first native attempt fails an input-hash
+assertion; its complete evidence and three closed raw database/sidecar copies are
+retained. The corrected test-only harness passes focused validation; its fresh
+native execution remains pending.
 
 ## Verification performed
 
@@ -43,8 +47,8 @@ Repository and six-helper Ruff pass; mypy passes 280 application and six owned t
 sources. The five-version/dependency/17-migration audit passes. Profile measurement
 helpers pass 11 pure tests, scoped TypeScript and ESLint. Independent scoped science
 and architecture assessments PASS after correcting impossible retained process facts
-and missing-store acceptance. These are scoped agent assessments, not final seven-
-role feature approval, human approval or runtime compatibility qualification.
+and missing-store acceptance. These framework assessments are separate from actual
+compatibility acceptance below and final seven-role feature or human approval.
 
 Earlier prerequisite-integration evidence remains separate: 220 backend and 525
 frontend cases, lint/types and production build pass their original snapshot. The
@@ -52,12 +56,22 @@ prior domain/source-recovery/query-scaling packets and all failed/red attempts a
 retained; historical counts are not pooled into a complete current release gate.
 See the [current checkpoint](assets/ligand-profiles/c3-source-bound-qualification-checkpoint.json).
 
+Independent scoped architecture and scientific-theory assessments also PASS the
+actual compatibility evidence: 69 closed raw pairs, 284 archives, both producer
+origins and genuine numerical vectors. See the [actual compatibility checkpoint](assets/ligand-profiles/c3-actual-compatibility-checkpoint.json).
+
+The correction passes 22 Python and 14 Vitest cases, scoped lint/types, and an
+independent scoped performance and scientific-theory assessments. Actual published-source
+hashes remain
+separate from independent no-recovery numerical vectors. The predecessor-baseline
+correction passes 165 Python cases and preserves the full original 640-case report
+and exact 75 exclusions as three frozen data inputs. See the [correction checkpoint](assets/ligand-profiles/c3-qualification-corrections-checkpoint.json).
+
 ## Known limitations
 
-Actual current/preceding compatibility campaigns, selected-profile browser/cache/
-latency measurements, current complete native coverage and both full release gates
-remain outstanding. No new latency or speedup claim is supported. The inherited
-v0.37.0 timing misses remain documented. New profile measurements use a declared
+Selected-profile browser/cache/latency measurements, current complete native
+coverage and both full release gates remain outstanding. No new latency or speedup
+claim is supported. The inherited v0.37.0 timing misses remain documented. New profile measurements use a declared
 600-second overall multi-phase budget, preserving the original benchmarks and
 100 ms/2 s targets; portable timing enforcement remains opt-in under D-148.
 
@@ -72,7 +86,6 @@ parent exclusions. Other sessions and the user's dirty master checkout remain in
 
 ## Next action
 
-Execute the actual v0.38.0/v0.37.0 actors from the coherent local checkpoint
-in stable isolated source, then qualify fresh-store profile measurements and the
-complete current candidate. Continue #160–#163 and verified parent closeout under
+Freeze the passing test-only corrections, qualify fresh-store desktop/mobile profile
+measurements, then complete the current candidate gate and final seven-role review. Continue #160–#163 and verified parent closeout under
 the same active Goal and scope.

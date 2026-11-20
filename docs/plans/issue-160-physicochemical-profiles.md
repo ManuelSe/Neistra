@@ -680,3 +680,48 @@ classification; actual fresh-store and combined-suite observations remain unrun.
 Freeze the coherent checkpoint, execute actual 0.38/0.37 actors, then native/full
 candidate and exact-merge gates, all seven final feature assessments and normal
 protected delivery. The parent remains open throughout.
+
+### Actual same-schema compatibility — focused qualification passed
+
+At frozen candidate `ceceadb6562a9f4a7f257af95e62a67f4cd6758e`, both actual
+0.38.0/annotated-v0.37.0 campaigns and all six actor phases exit zero. All 1,176
+current and 1,133 predecessor source bodies remain unchanged. Both genuine
+producer origins, all nine private-state families, both archive suffixes, ten
+descriptors and all 17 unchanged migrations verify. Independent scoped architecture
+and scientific-theory assessments PASS after retained-only inspection of 69 closed
+raw database/sidecar pairs, 284 archive CRC/manifests and genuine numerical vectors.
+The original receipt timing wording is retained and separately clarified; cleanup
+evidence is unaffected. See the [actual compatibility checkpoint](../assets/ligand-profiles/c3-actual-compatibility-checkpoint.json).
+
+The first fresh-store profile browser attempt exits one on its first specimen:
+`Current input hash differs from independent preflight`. The source snapshot,
+failed trace/logs, observer exit zero, service/port closure and all three raw
+database/sidecar copies are preserved before any primary diagnostic SQL. A bounded
+measurement-harness diagnosis is in progress; source/hash/numerical assertions stay
+required. Desktop/mobile success, complete candidate and exact-merge release gates,
+all seven final feature assessments, merge, release and closeout remain outstanding.
+
+### Qualification corrections — passing focused local checkpoint
+
+The [correction checkpoint](../assets/ligand-profiles/c3-qualification-corrections-checkpoint.json)
+records separate independent numerical and source-context hash/provenance oracles,
+actual published edit/Undo/Redo verification after the measured READY timestamp,
+visible feedback qualification, and live-demand cleanup distinct from released
+consumer retention. The five test-only files pass 22 genuine/negative Python cases
+with zero skips, 14 Vitest cases, Ruff, mypy, ESLint and scoped TypeScript. Independent
+scoped performance and scientific-theory assessments PASS cover those exact bodies; corrected native
+execution is still pending. Original failed evidence is preserved.
+
+The actual predecessor's original published 0.37.0 summary and compressed browser
+report are retained with pinned provenance. Shared preflight/summary/packaging
+validation checks all 640 cases and exact 75 exclusions, freezes all three data
+inputs, and retains them in release context. The owned helper controls plus
+unchanged legacy controls pass 165 Python cases with zero skips, scoped Ruff and
+strict typing of the owned unit file. Direct strict typing of historical-style
+`.py.txt` scripts was an extra diagnostic, preserved separately; it is not the
+application/reader-tool type gate and no suppression or policy reduction was added.
+
+Repository Ruff and current diff check pass. No production code, dependency,
+migration, original fixture, inherited workload/deadline/exclusion or performance
+target changes in this correction. Freeze the coherent commit for fresh isolated
+desktop/mobile measurements, then complete both full gates and final review/release.

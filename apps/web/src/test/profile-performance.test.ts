@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import metadata from "../../../../tests/fixtures/profiles/registry.json";
-import { assertReport, cacheBasis, classifyFirstSelection, coldRequirement, distribution, durations, expectedCriteria, matchingReady, requestCounts,
+import { assertReport, cacheBasis, classifyFirstSelection, coldRequirement, distribution, durations, expectedCriteria, installObservation, matchingReady, requestCounts,
   sameSource, type FetchRecord, type Sample } from "../../../../tests/e2e/support/profile-performance";
 import { parseProfileRegistry } from "../ligandProfiles/validate";
 import type { DescriptorReport, PropertyAggregate } from "../ligandProperties/types";
@@ -78,6 +78,30 @@ describe("profile performance evidence qualification", () => {
     actual.values[1].value = 1; actual.input_hash = "b".repeat(64);
     expect(() => assertReport(actual, expected, ids)).toThrow(/input hash/);
   });
+  it("keeps the immutable-original context hash distinct from the no-recovery numerical oracle", () => {
+    const independent = report(), contextual = report(), actual = report();
+    independent.provenance = ["current_explicit_graph"];
+    contextual.input_hash = actual.input_hash = "b".repeat(64);
+    contextual.provenance = actual.provenance = ["exact_immutable_source_match"];
+    expect(() => assertReport(actual, independent, ids, contextual)).not.toThrow();
+    expect(() => assertReport(actual, independent, ids)).toThrow(/input hash/);
+    actual.input_hash = independent.input_hash;
+    expect(() => assertReport(actual, independent, ids, contextual)).toThrow(/input hash/);
+    actual.input_hash = contextual.input_hash; actual.provenance = independent.provenance;
+    expect(() => assertReport(actual, independent, ids, contextual)).toThrow(/provenance/);
+  });
+  it("refuses changed numerical, method and charge facts even when context hashes match", () => {
+    const independent = report(), contextual = report(), actual = report();
+    contextual.input_hash = actual.input_hash = "b".repeat(64);
+    actual.values[0].value! += 2e-10;
+    expect(() => assertReport(actual, independent, ids, contextual)).toThrow(/molecular_weight/);
+    actual.values[0].value = independent.values[0].value;
+    contextual.policy_version += "changed";
+    expect(() => assertReport(actual, independent, ids, contextual)).toThrow(/policy_version/);
+    contextual.policy_version = actual.policy_version;
+    actual.contains_formally_charged_atoms = true;
+    expect(() => assertReport(actual, independent, ids, contextual)).toThrow(/charge-presence/);
+  });
   it("keeps hidden/missing timing null and a signed retirement relative to ACK", () => {
     const sample: Sample = { label: "edit", event: "click", armedAt: 9, startedAt: 10, eventTrusted: true,
       targetProfile: "ro5", expectedRows: [], oldRows: [], currentAt: 40, retirementUnavailable: "Hidden at trigger" };
@@ -86,6 +110,37 @@ describe("profile performance evidence qualification", () => {
     sample.retiredAt = 20; expect(durations(sample, 25).retirement_relative_to_ack_ms).toBe(-5);
     sample.currentAt = 8; expect(() => durations(sample)).toThrow(/precedes/);
     sample.currentAt = 40; sample.eventTrusted = false; expect(() => durations(sample)).toThrow(/trusted/);
+  });
+  it("requires visible feedback and records its actual status, native-value or command basis", async () => {
+    const originalFetch = window.fetch, originalBody = document.body.innerHTML;
+    const listeners = vi.spyOn(document, "addEventListener");
+    window.fetch = vi.fn().mockResolvedValue(new Response("{}"));
+    const page = { addInitScript: (callback: () => void) => { callback(); return Promise.resolve(); } } as unknown as Parameters<typeof installObservation>[0];
+    document.body.innerHTML = '<div class="ligand-profile" aria-hidden="true"><select><option value="ro5">Ro5</option></select><div role="status">Updating profile</div></div><button disabled>Command</button>';
+    for (const node of document.querySelectorAll("select, [role=status], button")) {
+      vi.spyOn(node, "getBoundingClientRect").mockReturnValue({ x: 10, y: 10, left: 10, right: 110, top: 10, bottom: 30, width: 100, height: 20, toJSON: () => ({}) });
+    }
+    await installObservation(page);
+    const state = window.profilePerformance, root = document.querySelector(".ligand-profile")!;
+    const sample = (event: "change" | "click", trusted = true): Sample => ({ label: "feedback", event, eventTrusted: trusted,
+      armedAt: 0, startedAt: 0, targetProfile: "ro5", expectedRows: [], oldRows: [] });
+    let observation = 0;
+    const tick = async () => { root.setAttribute("data-observation", String(++observation)); await new Promise(done => setTimeout(done, 0)); };
+    try {
+      state.sample = sample("click"); await tick(); expect(state.sample.feedbackAt).toBeUndefined();
+      root.removeAttribute("aria-hidden"); await tick(); expect(state.sample.feedbackBasis).toBe("visible-status");
+      (root.querySelector('[role="status"]') as HTMLElement).style.visibility = "hidden";
+      state.sample = sample("change"); await tick(); expect(state.sample.feedbackBasis).toBe("native-selected-value");
+      root.setAttribute("aria-hidden", "true"); state.control = document.querySelector("button")!;
+      state.sample = sample("click"); await tick(); expect(state.sample.feedbackBasis).toBe("disabled-command");
+      state.sample = sample("click", false); await tick(); expect(state.sample.feedbackAt).toBeUndefined();
+    } finally {
+      state.observer.disconnect();
+      for (const [kind, listener, options] of listeners.mock.calls) {
+        if (kind === "change") document.removeEventListener(kind, listener, options);
+      }
+      listeners.mockRestore(); window.fetch = originalFetch; document.body.innerHTML = originalBody;
+    }
   });
   it("requires a successful observed automatic response with exact source and independent vector", () => {
     const request: FetchRecord = { at: 10, timeOrigin: 1000, method: "POST", path: "/api/v1/projects/project/ligand-properties/read",

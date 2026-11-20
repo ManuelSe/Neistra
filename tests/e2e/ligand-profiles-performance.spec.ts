@@ -7,8 +7,8 @@ import type { Entry, Project } from "../../apps/web/src/api/types";
 import type { PropertyAggregate, PropertyPreferences } from "../../apps/web/src/ligandProperties/types";
 import type { ProfileRegistry } from "../../apps/web/src/ligandProfiles/types";
 import { performanceBudget } from "./support/performance";
-import { arm, assertReport, cacheBasis, check, classifyFirstSelection, coldRequirement, COMPOSITE_DESCRIPTORS, digest, distribution, durations, evidence,
-  expectedCriteria, fixture, fixtureSizes, installObservation, matchingReady, observer, preflight, PROFILE_DESCRIPTORS,
+import { arm, assertReport, cacheBasis, check, classifyFirstSelection, coldRequirement, COMPOSITE_DESCRIPTORS, consumerState, digest, distribution, durations, evidence,
+  expectedCriteria, fixture, fixtureSizes, installObservation, matchingReady, observedReady, observer, preflight, PROFILE_DESCRIPTORS, publishedContext,
   requestCounts, sameSource, source, sourceIdentities, sourceMap, store,
   type WorkerObservation } from "./support/profile-performance";
 
@@ -82,6 +82,7 @@ function bounded(observation: WorkerObservation) {
   expect(observation.retained.ligand_property_content).toBeLessThanOrEqual(2048);
   expect(observation.retained.ligand_property_proofs).toBeLessThanOrEqual(4096);
   expect(observation.retained.ligand_property_executions).toBeLessThanOrEqual(33);
+  expect(observation.retained.ligand_property_consumers).toBeLessThanOrEqual(256);
 }
 
 test("measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery", async ({ browser, request }, info) => {
@@ -98,6 +99,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
   const rawRegistry = JSON.stringify(registry); await writeFile(resolve(directory, "registry.json"), rawRegistry);
   const worker = observer(directory);
   const records: Record<string, unknown>[] = [], browserFiles: { path: string; sha256: string }[] = [];
+  const ownedProjectIds: string[] = [];
   const failures: string[] = [], cleanup: Record<string, unknown> = { contexts: [], preferences_restored: false };
   const requireCold = coldRequirement(process.env.NEISTRA_PROFILE_REQUIRE_COLD);
   const cold: number[] = [], warm: number[] = [], cacheReadyFirst: number[] = [], partialFirst: number[] = [];
@@ -130,6 +132,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
   try {
     for (const size of fixtureSizes) {
       const specimen = await fixture(info.project.name, size), project = await imported(request, specimen), entry = project.entries[0];
+      ownedProjectIds.push(project.id);
       const qualified = await preflight(project, specimen, directory);
       const before = qualified.result.before_report, after = qualified.result.after_report;
       const original = await (await request.get(`${endpoint(project)}/entries/${entry.id}/original`)).body(); expect(digest(original)).toBe(specimen.sha256);
@@ -149,9 +152,9 @@ test("measures first profile selection, warm shared dependencies, source reevalu
         const rows = expectedCriteria(registry, "ro5", before);
         await arm(page, choice(page), `first-${size}`, "ro5", rows); await selectProfile(page, "ro5");
         await readyRows(page, rows);
-        await expect.poll(async () => matchingReady((await evidence(page)).requests.slice(start), source(entry), before, PROFILE_DESCRIPTORS) !== null).toBe(true);
+        await expect.poll(async () => matchingReady((await evidence(page)).requests.slice(start), source(entry), before, PROFILE_DESCRIPTORS, qualified.context.before_report) !== null).toBe(true);
         const firstEvidence = await evidence(page), first = firstEvidence.samples.at(-1)!;
-        const proof = matchingReady(firstEvidence.requests.slice(start), source(entry), before, PROFILE_DESCRIPTORS)!;
+        const proof = matchingReady(firstEvidence.requests.slice(start), source(entry), before, PROFILE_DESCRIPTORS, qualified.context.before_report)!;
         const times = durations(first); check(times.current_criteria_ms !== null && times.feedback_ms !== null, "First-selection measurements unavailable");
         performanceBudget(times.feedback_ms, 100, "profile first selection feedback ms", true);
         if (firstClass === "numerical-cold-missing") {
@@ -210,7 +213,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
             "profile composite expansion to current criteria ms", true);
           const demands = requests.filter(r => r.method === "PUT").map(r => r.body as { descriptor_ids: string[] });
           expect(demands.length).toBeGreaterThan(0); expect(demands.every(d => JSON.stringify(d.descriptor_ids) === JSON.stringify(COMPOSITE_DESCRIPTORS))).toBe(true);
-          const current = (await read(request, project, entry, COMPOSITE_DESCRIPTORS)).entries[0]; assertReport(current.report!, before, COMPOSITE_DESCRIPTORS);
+          const current = (await read(request, project, entry, COMPOSITE_DESCRIPTORS)).entries[0]; assertReport(current.report!, before, COMPOSITE_DESCRIPTORS, qualified.context.before_report);
           const afterJobs = jobs(await sampleBoundary(), project), newJobs = afterJobs.filter(id => !expansionJobs.includes(id));
           expect(newJobs.length).toBeLessThanOrEqual(1); expect(requestCounts(requests).allocations).toBe(0);
           records.push({ phase: "composite-expansion", source: source(entry), descriptor_ids: COMPOSITE_DESCRIPTORS,
@@ -231,6 +234,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
           await expect.poll(() => page.evaluate(() => window.profilePerformance.readSnapshot().rows)).toEqual(rows);
           await showCriteria(page);
           let currentProject = project;
+          let editedCanonicalSha256: string | undefined;
           for (const action of ["edit", "undo", "redo"] as const) {
             let button: Locator;
             if (action === "edit") {
@@ -251,9 +255,16 @@ test("measures first profile selection, warm shared dependencies, source reevalu
             currentProject = decoded.project ?? decoded; expect(currentProject.id).toBe(project.id);
             const currentEntry = currentProject.entries.find(e => e.id === entry.id)!;
             // Wait for the automatic exact-source App result before opening a hidden presenter.
-            await expect.poll(async () => matchingReady((await evidence(page)).requests.slice(requestStart), source(currentEntry), expectedReport, PROFILE_DESCRIPTORS) !== null,
+            await expect.poll(async () => observedReady((await evidence(page)).requests.slice(requestStart), source(currentEntry)) !== null,
               { timeout: 30_000 }).toBe(true);
-            const automatic = await evidence(page), proof = matchingReady(automatic.requests.slice(requestStart), source(currentEntry), expectedReport, PROFILE_DESCRIPTORS)!;
+            const automatic = await evidence(page);
+            // The browser's observed READY timestamp closes the latency sample.
+            // Scientific source-context verification runs afterwards and cannot
+            // certify itself from the API report's hash or numbers.
+            const contextual = await publishedContext(currentProject, currentEntry, qualified, action === "undo" ? "before" : "after",
+              directory, action, action === "redo" ? editedCanonicalSha256 : undefined);
+            if (action === "edit") editedCanonicalSha256 = contextual.result.source_sha256;
+            const proof = matchingReady(automatic.requests.slice(requestStart), source(currentEntry), expectedReport, PROFILE_DESCRIPTORS, contextual.result.report)!;
             const presentationOpenedAt = await page.evaluate(() => performance.now());
             if (action === "edit") await page.getByRole("button", { name: "Close molecular editor", exact: true }).click();
             await inspect(page, currentEntry); await readyRows(page, expectedRows); await showCriteria(page);
@@ -263,12 +274,12 @@ test("measures first profile selection, warm shared dependencies, source reevalu
             if (times.feedback_ms !== null) performanceBudget(times.feedback_ms, 100, `profile ${action} feedback ms`, true);
             performanceBudget(currentMs, 2000, `profile ${action} to automatic current App values ms`, true);
             if (times.retirement_ms !== null) performanceBudget(times.retirement_ms, 100, `profile ${action} old criteria retirement ms`, true);
-            const verified = (await read(request, currentProject, currentEntry, PROFILE_DESCRIPTORS)).entries[0]; assertReport(verified.report!, expectedReport, PROFILE_DESCRIPTORS);
+            const verified = (await read(request, currentProject, currentEntry, PROFILE_DESCRIPTORS)).entries[0]; assertReport(verified.report!, expectedReport, PROFILE_DESCRIPTORS, contextual.result.report);
             const newJobs = jobs(await sampleBoundary(), project).filter(id => !previousJobs.includes(id)); expect(newJobs.length).toBeLessThanOrEqual(1);
             const requests = observed.requests.slice(requestStart), currentRequests = requests.filter(r => (r.body as { entries?: { source_artifact_id: string }[] } | null)?.entries?.some(s => s.source_artifact_id === currentEntry.current_artifact_id));
             expect(currentRequests.length).toBeGreaterThan(0);
             expect(currentRequests.every(r => !r.snapshot?.rows.some(row => row.value !== "Value: Unavailable") || JSON.stringify(r.snapshot.rows) === JSON.stringify(expectedRows))).toBe(true);
-            records.push({ phase: action, source: source(currentEntry), profile_id: "ro5", independent_report: expectedReport, proof,
+            records.push({ phase: action, source: source(currentEntry), profile_id: "ro5", independent_report: expectedReport, published_context: contextual, proof,
               sample, durations: times, automatic_current_ms: currentMs, presentation_opened_at: presentationOpenedAt,
               presentation_delay_after_app_ready_ms: presentationOpenedAt - proof.observed_at,
               request_delta: requestCounts(requests), new_jobs: newJobs, source_qualified_current: verified });
@@ -283,6 +294,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
     // Metadata failure is a separate fresh context; its second response is genuine,
     // fetched before the edit and held only at HTTP delivery.
     const specimen = await fixture(info.project.name, fixtureSizes[0]), project = await imported(request, specimen), entry = project.entries[0];
+    ownedProjectIds.push(project.id);
     await mkdir(resolve(directory, "metadata"));
     const qualified = await preflight(project, specimen, resolve(directory, "metadata"));
     const context = await browser.newContext(contextOptions);
@@ -319,7 +331,8 @@ test("measures first profile selection, warm shared dependencies, source reevalu
       const recoveredAt = await page.evaluate(() => performance.now());
       const rows = expectedCriteria(registry, "ro5", qualified.result.after_report);
       await arm(page, choice(page), "metadata-recovered-selection", "ro5", rows); await selectProfile(page, "ro5"); await readyRows(page, rows); await showCriteria(page);
-      const verified = (await read(request, changed, currentEntry, PROFILE_DESCRIPTORS)).entries[0]; assertReport(verified.report!, qualified.result.after_report, PROFILE_DESCRIPTORS);
+      const contextual = await publishedContext(changed, currentEntry, qualified, "after", directory, "metadata-edit");
+      const verified = (await read(request, changed, currentEntry, PROFILE_DESCRIPTORS)).entries[0]; assertReport(verified.report!, qualified.result.after_report, PROFILE_DESCRIPTORS, contextual.result.report);
       const observed = await evidence(page); expect(attempts).toBe(2); expect(requestCounts(observed.requests).metadata).toBe(2);
       const staleRows = expectedCriteria(registry, "ro5", qualified.result.before_report);
       expect(observed.snapshots.filter(s => s.at >= releasedAt).some(s => JSON.stringify(s.snapshot.rows) === JSON.stringify(staleRows))).toBe(false);
@@ -335,7 +348,7 @@ test("measures first profile selection, warm shared dependencies, source reevalu
         recovery_excluding_injected_hold_ms: recoveredAt - retrySample.startedAt! - (releasedAt - holdStartedAt),
         phase_boundaries: { held_at: holdStartedAt, released_at: releasedAt, recovered_at: recoveredAt },
         recovered_selection_sample: observed.samples.at(-1), recovered_selection_durations: durations(observed.samples.at(-1)!),
-        request_delta: requestCounts(observed.requests.slice(beforeRetry.requests.length)), source_qualified_current: verified,
+        request_delta: requestCounts(observed.requests.slice(beforeRetry.requests.length)), source_qualified_current: verified, published_context: contextual,
         no_old_criteria_resurrection: observed.samples.at(-1)!.expectedRows });
       expect(await preferences(request)).toEqual(hiddenPreferences);
       expect(digest(await (await request.get(`${endpoint(project)}/entries/${entry.id}/original`)).body())).toBe(specimen.sha256);
@@ -352,10 +365,12 @@ test("measures first profile selection, warm shared dependencies, source reevalu
         const current = await worker.read(); return !!current && Object.values(current.jobs).filter(job => job.execution_id).every(job => job.reaped);
       }, { timeout: 15_000 }).toBe(true);
     } catch (error) { failures.push(String(error)); }
+    try { cleanup.consumer_state = await consumerState(directory, ownedProjectIds); }
+    catch (error) { failures.push(String(error)); }
     try {
       observation = await worker.finish(); cleanup.observer_closed = true; bounded(observation);
       expect(Object.values(observation.jobs).filter(job => job.execution_id).every(job => job.reaped)).toBe(true);
-      expect(observation.retained.ligand_property_consumers).toBe(0); cleanup.worker_reaped = true;
+      cleanup.worker_reaped = true;
     } catch (error) { failures.push(String(error)); }
     try {
       const current = await preferences(request);

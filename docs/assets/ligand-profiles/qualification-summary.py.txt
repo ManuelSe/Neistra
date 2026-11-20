@@ -46,6 +46,14 @@ old_tag = recipe["preceding_reader"]["tag"]
 expected_old = helpers["tagged_identities"](old_tag)
 assert state["preceding_source_expected"] == state["preceding_source_before"] == expected_old
 assert state["preceding_source_after"] == expected_old
+baseline_proof = helpers["preceding_browser_baseline"](root, recipe["preceding_reader"])
+assert baseline_proof == state["preceding_browser_baseline"]
+assert state["qualification_data_unchanged"] is True
+assert (
+    state["qualification_data_before"]
+    == state["qualification_data_after"]
+    == baseline_proof["data_files"]
+)
 old_root = Path(state["preceding_reader"]["root"])
 assert helpers["extracted_identities"](old_root, expected_old) == expected_old
 assert state["preceding_reader"] == recipe["preceding_reader"]
@@ -393,48 +401,8 @@ assert not browser.get("errors"), browser.get("errors")
 assert browser["stats"]["unexpected"] == browser["stats"]["flaky"] == 0
 assert all(r["retries"] == 0 and r["status"] in {"passed", "skipped"} for r in records)
 skips = {r["identity"] for r in records if r["status"] == "skipped"}
-baseline_summaries = [
-    path
-    for path in (root / "docs/assets/ligand-designation").glob("c5*-summary.json")
-    if json.loads(path.read_bytes()).get("commit") == old_commit
-    and json.loads(path.read_bytes()).get("application_version") == previous_version
-]
-assert len(baseline_summaries) == 1, "One exact released-predecessor gate baseline is required"
-baseline_summary_path = baseline_summaries[0]
-baseline_path = baseline_summary_path.with_name(
-    baseline_summary_path.name.replace("-summary.json", "-browser.json.gz")
-)
-baseline_commit = subprocess.check_output(
-    ["git", "log", "-1", "--format=%H", "--", str(baseline_summary_path.relative_to(root))],
-    text=True,
-).strip()
-subprocess.run(["git", "merge-base", "--is-ancestor", old_commit, baseline_commit], check=True)
-subprocess.run(["git", "merge-base", "--is-ancestor", baseline_commit, "HEAD"], check=True)
-baseline_bytes = subprocess.check_output(
-    ["git", "show", f"{baseline_commit}:{baseline_path.relative_to(root)}"]
-)
-assert baseline_path.read_bytes() == baseline_bytes, "Preceding exclusion baseline changed"
-baseline_browser = json.loads(gzip.decompress(baseline_bytes))
-baseline_summary = json.loads(
-    subprocess.check_output(
-        [
-            "git",
-            "show",
-            f"{baseline_commit}:{baseline_summary_path.relative_to(root)}",
-        ]
-    )
-)
-assert baseline_summary["commit"] == old_commit
-assert baseline_summary["application_version"] == previous_version
-assert not baseline_browser.get("errors")
-assert baseline_browser["stats"]["unexpected"] == baseline_browser["stats"]["flaky"] == 0
-baseline_records = []
-for suite in baseline_browser["suites"]:
-    walk(suite, baseline_records)
-baseline = {r["identity"] for r in baseline_records if r["status"] == "skipped"}
-assert baseline, "Preceding qualification must declare its exact existing exclusions"
-assert len(baseline) == baseline_summary["browser_exclusions"]
-assert len(baseline_records) == baseline_summary["browser_inventory_count"]
+baseline_path = root / baseline_proof["browser"]
+baseline = set(baseline_proof["excluded_identities"])
 assert skips == baseline, {
     "missing_existing": sorted(baseline - skips),
     "unapproved_new": sorted(skips - baseline),
@@ -462,6 +430,7 @@ summary = {
     "complete_browser_inventory_executed": True,
     "exclusion_baseline": str(baseline_path.relative_to(root)),
     "exclusion_baseline_sha256": digest(baseline_path.read_bytes()),
+    "preceding_browser_baseline": baseline_proof,
     "existing_exclusion_identities_unchanged": True,
     "new_exclusions": 0,
     "failures_flakes_retries": 0,

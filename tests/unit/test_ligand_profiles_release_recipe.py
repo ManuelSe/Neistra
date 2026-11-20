@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import ast
+import gzip
 import hashlib
 import json
 import runpy
+import shutil
 import sys
 from copy import deepcopy
 from pathlib import Path
@@ -572,3 +574,232 @@ def test_owned_fixture_evidence_requires_all_44_complete_source_bound_cases(
     else:
         with pytest.raises(AssertionError):
             collect(recipe, ROOT)
+
+
+def preceding_release() -> dict[str, str]:
+    return {
+        "tag": "v0.37.0",
+        "version": "0.37.0",
+        "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    }
+
+
+def test_published_preceding_browser_data_is_original_complete_and_source_frozen() -> None:
+    tools = runpy.run_path(str(ASSETS / "qualification.py.txt"))
+    proof = tools["preceding_browser_baseline"](ROOT, preceding_release())
+    assert proof["browser_inventory_count"] == 640
+    assert proof["browser_passed"] == 565
+    assert proof["browser_exclusions"] == len(proof["excluded_identities"]) == 75
+    assert len(set(proof["excluded_identities"])) == 75
+    assert set(proof["data_files"]) == tools["DATA"]
+    assert len(tools["DATA"]) == 3 and tools["DATA"].isdisjoint(tools["TOOLS"])
+    assert all(tools["selected"](name) for name in tools["DATA"])
+    assert not tools["selected"](tools["BASELINE_DIRECTORY"] + "unlisted.json")
+    identities = tools["current_identities"](ROOT)
+    for name, record in proof["data_files"].items():
+        assert identities[name] == record["sha256"]
+    assert proof["data_files"][proof["browser"]] == {
+        "bytes": 19164695,
+        "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445",
+    }
+
+
+@pytest.mark.parametrize(
+    "key, value", [("tag", "v0.36.0"), ("version", "0.36.0"), ("commit", "0" * 40)]
+)
+def test_preceding_browser_data_rejects_another_requested_release(key: str, value: str) -> None:
+    tools = runpy.run_path(str(ASSETS / "qualification.py.txt"))
+    preceding = preceding_release()
+    preceding[key] = value
+    with pytest.raises(AssertionError, match="actual requested preceding release"):
+        tools["preceding_browser_baseline"](ROOT, preceding)
+
+
+@pytest.mark.parametrize(
+    "corruption",
+    [
+        "missing-summary",
+        "missing-browser",
+        "missing-provenance",
+        "swapped-bodies",
+        "changed-summary",
+        "truncated-gzip",
+        "changed-exclusions-same-count",
+        "broken-public-asset",
+        "broken-outer-member",
+        "broken-nested-manifest",
+        "broken-payload-membership",
+        "wrong-provenance-commit",
+        "summary-symlink",
+    ],
+)
+def test_preceding_baseline_rejects_missing_swapped_or_rewritten_public_evidence(
+    tmp_path: Path, corruption: str
+) -> None:
+    tools = runpy.run_path(str(ASSETS / "qualification.py.txt"))
+    directory = tmp_path / tools["BASELINE_DIRECTORY"]
+    shutil.copytree(ASSETS / "preceding-v0.37.0", directory)
+    summary = directory / "c5-master1-summary.json"
+    browser = directory / "c5-master1-browser.json.gz"
+    provenance = directory / "provenance.json"
+    if corruption.startswith("missing-"):
+        {"summary": summary, "browser": browser, "provenance": provenance}[
+            corruption.removeprefix("missing-")
+        ].unlink()
+    elif corruption == "swapped-bodies":
+        summary_body, browser_body = summary.read_bytes(), browser.read_bytes()
+        summary.write_bytes(browser_body)
+        browser.write_bytes(summary_body)
+    elif corruption == "changed-summary":
+        record = json.loads(summary.read_bytes())
+        record["commit"] = "0" * 40
+        summary.write_text(json.dumps(record))
+    elif corruption == "truncated-gzip":
+        browser.write_bytes(browser.read_bytes()[:-8])
+    elif corruption == "changed-exclusions-same-count":
+        record = json.loads(gzip.decompress(browser.read_bytes()))
+        tests = []
+
+        def collect(suite: dict[str, Any]) -> None:
+            for spec in suite.get("specs", []):
+                tests.extend(spec["tests"])
+            for child in suite.get("suites", []):
+                collect(child)
+
+        for suite in record["suites"]:
+            collect(suite)
+        passed = next(t for t in tests if t["results"][-1]["status"] == "passed")
+        skipped = next(t for t in tests if t["results"][-1]["status"] == "skipped")
+        passed["expectedStatus"] = passed["results"][-1]["status"] = "skipped"
+        skipped["expectedStatus"] = skipped["results"][-1]["status"] = "passed"
+        browser.write_bytes(gzip.compress(json.dumps(record).encode(), mtime=0))
+    elif corruption == "summary-symlink":
+        summary.unlink()
+        summary.symlink_to(ASSETS / "preceding-v0.37.0/c5-master1-summary.json")
+    else:
+        record = json.loads(provenance.read_bytes())
+        if corruption == "broken-public-asset":
+            record["public_asset"]["sha256"] = "0" * 64
+        elif corruption == "broken-outer-member":
+            record["outer_manifest"]["member"]["path"] = "complete-gates/candidate/other.zip"
+        elif corruption == "broken-nested-manifest":
+            record["nested_archive"]["manifest_sha256"] = "0" * 64
+        elif corruption == "broken-payload-membership":
+            del record["nested_archive"]["members"]["gate/c5-master1-browser.json.gz"]
+        else:
+            record["predecessor"]["commit"] = "0" * 40
+        provenance.write_text(json.dumps(record))
+    with pytest.raises(AssertionError):
+        tools["preceding_browser_baseline"](tmp_path, preceding_release())
+
+
+def synthetic_preceding_browser() -> tuple[dict[str, Any], dict[str, Any]]:
+    """A small synthetic report tests semantic rejection without mutating real evidence."""
+    summary = json.loads((ASSETS / "preceding-v0.37.0/c5-master1-summary.json").read_bytes())
+    specs = []
+    for index in range(640):
+        status = "passed" if index < 565 else "skipped"
+        specs.append(
+            {
+                "file": "synthetic.spec.ts",
+                "title": f"synthetic-{index}",
+                "tests": [
+                    {
+                        "projectName": "synthetic",
+                        "expectedStatus": status,
+                        "results": [{"status": status}],
+                    }
+                ],
+            }
+        )
+    browser = {
+        "errors": [],
+        "stats": {"expected": 565, "skipped": 75, "unexpected": 0, "flaky": 0},
+        "suites": [{"title": "synthetic", "specs": specs}],
+    }
+    return browser, summary
+
+
+@pytest.mark.parametrize(
+    "corruption",
+    [
+        None,
+        "duplicate",
+        "missing",
+        "retry",
+        "no-result",
+        "failed",
+        "unexpected",
+        "flaky",
+        "count",
+        "partial",
+    ],
+)
+def test_preceding_report_requires_complete_unique_observed_no_retry_identities(
+    corruption: str | None,
+) -> None:
+    tools = runpy.run_path(str(ASSETS / "qualification.py.txt"))
+    browser, summary = synthetic_preceding_browser()
+    specs = browser["suites"][0]["specs"]
+    test = specs[0]["tests"][0]
+    if corruption == "duplicate":
+        specs[1]["title"] = specs[0]["title"]
+    elif corruption == "missing":
+        specs.pop()
+    elif corruption == "retry":
+        test["results"].append({"status": "passed"})
+    elif corruption == "no-result":
+        test["results"].clear()
+    elif corruption == "failed":
+        test["results"][0]["status"] = "failed"
+    elif corruption in {"unexpected", "flaky"}:
+        browser["stats"][corruption] = 1
+    elif corruption == "count":
+        summary["browser_inventory_count"] = 639
+    elif corruption == "partial":
+        summary["complete_browser_inventory_executed"] = False
+    if corruption is None:
+        assert (
+            tools["validate_preceding_browser_report"](browser, summary)["browser_exclusions"] == 75
+        )
+    else:
+        with pytest.raises(AssertionError):
+            tools["validate_preceding_browser_report"](browser, summary)
+
+
+def test_missing_preceding_data_stops_runner_before_any_gate_or_command(
+    recipe: dict[str, Any], tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    command = next(s["command"] for s in recipe["steps"] if s["label"] == "property-readers")
+    root = Path(flag(command, "--current-root"))
+    path = tmp_path / "valid-recipe-missing-baseline.json"
+    path.write_text(json.dumps(recipe))
+    monkeypatch.chdir(root)
+    monkeypatch.setattr(sys, "argv", ["qualification", str(path)])
+
+    def forbidden(*args: Any, **kwargs: Any) -> Any:
+        raise AssertionError("No Git or command launch is needed before baseline rejection")
+
+    import subprocess
+
+    monkeypatch.setattr(subprocess, "check_output", forbidden)
+    monkeypatch.setattr(subprocess, "Popen", forbidden)
+    with pytest.raises(AssertionError, match="Missing baseline data"):
+        runpy.run_path(str(ASSETS / "qualification.py.txt"), run_name="__main__")
+    assert not list((root / "docs/assets/ligand-profiles").glob("*-gate.json"))
+
+
+def test_gate_and_release_packaging_retain_all_three_validated_baseline_inputs() -> None:
+    tools = runpy.run_path(str(ASSETS / "release-evidence.py.txt"))
+    items: dict[str, Any] = {}
+    proof = tools["add_preceding_browser_baseline"](items, ROOT, preceding_release())
+    assert set(items) == {
+        "preceding-browser-baseline/c5-master1-summary.json",
+        "preceding-browser-baseline/c5-master1-browser.json.gz",
+        "preceding-browser-baseline/provenance.json",
+    }
+    assert set(proof["data_files"]) == {str(path.relative_to(ROOT)) for path in items.values()}
+    release_items: dict[str, Any] = {}
+    release_proof = tools["add_release_context_members"](release_items, ROOT)
+    assert release_proof == proof
+    assert items.items() <= release_items.items()

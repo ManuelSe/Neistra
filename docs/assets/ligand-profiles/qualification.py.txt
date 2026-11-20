@@ -12,6 +12,7 @@ import socket
 import subprocess
 import time
 from pathlib import Path
+from typing import Any
 
 PREFIXES = ("apps/", "packages/", "tests/", "tools/", "scripts/", "patches/")
 CONFIGS = {
@@ -44,14 +45,129 @@ TOOLS = {
         "release-evidence.py.txt",
     )
 }
+BASELINE_DIRECTORY = TOOL_DIRECTORY + "preceding-v0.37.0/"
+DATA = {
+    BASELINE_DIRECTORY + name
+    for name in ("c5-master1-summary.json", "c5-master1-browser.json.gz", "provenance.json")
+}
+BASELINE_PROVENANCE_SHA256 = "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
 
 
-def selected(path):
-    return path.startswith(PREFIXES) or path in CONFIGS or path in TOOLS
+def selected(path: str) -> bool:
+    return path.startswith(PREFIXES) or path in CONFIGS or path in TOOLS or path in DATA
 
 
-def digest(data):
+def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def browser_report_records(browser: dict[str, Any]) -> list[dict[str, Any]]:
+    """Use the existing complete test identity, including project and parent titles."""
+    records: list[dict[str, Any]] = []
+
+    def walk(suite: dict[str, Any], parents: tuple[str, ...] = ()) -> None:
+        for spec in suite.get("specs", []):
+            for test in spec["tests"]:
+                results = test["results"]
+                assert results, "A preceding browser case has no observed result"
+                title = " \u203a ".join((*parents, spec["title"]))
+                records.append(
+                    {
+                        "identity": (
+                            f"[{test['projectName']}] \u203a "
+                            f"tests/e2e/{spec['file']} \u203a {title}"
+                        ),
+                        "status": results[-1]["status"],
+                        "expected_status": test["expectedStatus"],
+                        "retries": len(results) - 1,
+                    }
+                )
+        for child in suite.get("suites", []):
+            walk(child, parents + ((suite["title"],) if suite.get("specs") else ()))
+
+    for suite in browser["suites"]:
+        walk(suite)
+    return records
+
+
+def validate_preceding_browser_report(
+    browser: dict[str, Any], summary: dict[str, Any]
+) -> dict[str, Any]:
+    """Keep the full observed predecessor inventory and exact exclusion identities."""
+    assert not browser.get("errors"), "The preceding browser report contains errors"
+    assert summary["complete_browser_inventory_executed"] is True
+    assert summary["existing_exclusion_identities_unchanged"] is True
+    assert summary["new_exclusions"] == summary["failures_flakes_retries"] == 0
+    assert summary["clean_start"] is True and summary["sources_unchanged"] is True
+    assert summary["source_inventory_unchanged"] is True
+    assert summary["all_lossless_log_hashes_valid"] is True
+    assert summary["complete_steps"] == 43 and summary["python_skips"] == 0
+    assert summary["source_count"] == 1133
+    stats = browser["stats"]
+    assert stats["unexpected"] == stats["flaky"] == 0
+    records = browser_report_records(browser)
+    identities = [record["identity"] for record in records]
+    assert len(identities) == len(set(identities)), "Duplicate preceding browser identity"
+    assert all(
+        record["retries"] == 0
+        and record["status"] in {"passed", "skipped"}
+        and record["status"] == record["expected_status"]
+        for record in records
+    ), "Preceding cases contain a failure, unexpected result or retry"
+    excluded = sorted(record["identity"] for record in records if record["status"] == "skipped")
+    passed = sum(record["status"] == "passed" for record in records)
+    assert len(records) == summary["browser_inventory_count"] == 640
+    assert len(excluded) == summary["browser_exclusions"] == stats["skipped"] == 75
+    assert passed == summary["browser_passed"] == stats["expected"] == 565
+    return {
+        "browser_inventory_count": len(records),
+        "browser_passed": passed,
+        "browser_exclusions": len(excluded),
+        "excluded_identities": excluded,
+        "inventory_identities_sha256": digest(json.dumps(sorted(identities)).encode()),
+    }
+
+
+def preceding_browser_baseline(root: Path, preceding: dict[str, Any]) -> dict[str, Any]:
+    """Verify immutable published 0.37.0 data before a run and during packaging.
+
+    Provenance pins the previously verified public ZIP, nested archive and manifest
+    membership. The retained reports are original bytes, not a derived skip list.
+    This local check does not claim to repeat anonymous transport or ZIP inspection.
+    """
+    data_files = {}
+    for relative in sorted(DATA):
+        path = root / relative
+        assert path.is_file() and not path.is_symlink(), f"Missing baseline data: {relative}"
+        assert path.resolve() == path and path.parent.resolve() == path.parent
+        body = path.read_bytes()
+        data_files[relative] = {"bytes": len(body), "sha256": digest(body)}
+    provenance_path = BASELINE_DIRECTORY + "provenance.json"
+    assert data_files[provenance_path]["sha256"] == BASELINE_PROVENANCE_SHA256, (
+        "Published predecessor provenance changed"
+    )
+    provenance = json.loads((root / provenance_path).read_bytes())
+    expected = provenance["predecessor"]
+    assert all(preceding[key] == expected[key] for key in ("tag", "version", "commit")), (
+        "Browser baseline is not the actual requested preceding release"
+    )
+    for member, record in provenance["nested_archive"]["members"].items():
+        relative = BASELINE_DIRECTORY + Path(member).name
+        assert data_files[relative] == record, f"Published predecessor body changed: {member}"
+    summary_path = BASELINE_DIRECTORY + "c5-master1-summary.json"
+    browser_path = BASELINE_DIRECTORY + "c5-master1-browser.json.gz"
+    summary = json.loads((root / summary_path).read_bytes())
+    assert summary["commit"] == expected["commit"]
+    assert summary["application_version"] == expected["version"]
+    browser = json.loads(gzip.decompress((root / browser_path).read_bytes()))
+    return {
+        "predecessor": expected,
+        "data_files": data_files,
+        "provenance": provenance_path,
+        "summary": summary_path,
+        "browser": browser_path,
+        **validate_preceding_browser_report(browser, summary),
+    }
 
 
 def current_identities(root):
@@ -230,6 +346,7 @@ def main():
     root = Path.cwd().resolve()
     recipe = json.loads(args.recipe.read_text())
     validate_recipe_contract(recipe, root)
+    baseline = preceding_browser_baseline(root, recipe["preceding_reader"])
     out = root / TOOL_DIRECTORY
     manifest = out / f"{recipe['label']}-gate.json"
     assert not manifest.exists(), "Preserve prior attempts; use a new recipe label."
@@ -262,6 +379,8 @@ def main():
         "preceding_reader": preceding,
         "preceding_source_expected": expected_old,
         "preceding_source_before": old_before,
+        "preceding_browser_baseline": baseline,
+        "qualification_data_before": baseline["data_files"],
         "steps": [],
         "complete": False,
         "qualification_profile": "portable correctness; no strict reference-host timing claim",
@@ -312,6 +431,16 @@ def main():
         )
         state["source_after"] = current_identities(root)
         state["source_unchanged"] = state["source_before"] == state["source_after"]
+        state["qualification_data_after"] = {
+            path: {
+                "bytes": (root / path).stat().st_size,
+                "sha256": digest((root / path).read_bytes()),
+            }
+            for path in sorted(DATA)
+        }
+        state["qualification_data_unchanged"] = (
+            state["qualification_data_before"] == state["qualification_data_after"]
+        )
         state["preceding_source_after"] = extracted_identities(old_root, expected_old)
         state["preceding_source_unchanged"] = state["preceding_source_after"] == expected_old
         manifest.write_text(json.dumps(state, indent=2) + "\n")
@@ -320,6 +449,7 @@ def main():
         if code:
             raise SystemExit(code)
         assert state["source_unchanged"], "Current source inventory changed during qualification."
+        assert state["qualification_data_unchanged"], "Preceding qualification data changed."
         assert state["preceding_source_unchanged"], "Preceding source changed during qualification."
     state["complete"] = True
     state["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
