@@ -909,3 +909,67 @@ that new gate. All seven final same-candidate assessments and exact-merge gate
 remain mandatory before publication and closeout.
 
 The [interruption/correction checkpoint](../assets/ligand-profiles/c3-c4-candidate2-interruption-checkpoint.json) binds the 71,032,482-byte portable packet, 361 payloads, all 51 raw pairs and both exact source capsules. Independent recursive checks cover 16 ZIPs and 479 manifest entries; primary outer hashes/CRC verify. This evidence preserves the incomplete campaign and both native outcomes separately.
+
+
+### Third full campaign — retained status oracle corrected; forensic assets verified locally
+
+Frozen `6d977c93` passes 15 commands, including all 4,044 Python, 1,875 frontend
+and 14 supervisor cases, build and a 660-case browser inventory. Browser execution
+then fails its 107th observed case: the inherited exact property-status assertion
+expects Properties current while the accessible combined status also says
+No profile selected. The report contains 103 passes, one failure, three observed
+authored exclusions and 553 not-run cases after the global max-failure stop; all
+27 later commands remain unexecuted. Preserve its actual runner exit1, global
+stop error, complete logs, frozen current/predecessor/data maps and all48 positively
+closed original/raw-copy pairs. This is **FAILED / NOT PASS**, not a completed gate.
+
+The correction replaces exactly seven expected strings across property/access and
+cancellation specifications. Existing role locators, deadlines, clocks, callbacks,
+workloads, scientific assertions, retries and exclusions are unchanged. Fresh
+focused execution passes all28 ordinary property/access and accepted-late-demand
+cancellation cases on desktop/mobile with zero failures, skips, flakes, retries or
+report errors. All1,181 captured source bodies stay exact and three raw pairs
+verify. Those bodies remain current; two isolated QA sources bring the selected
+current count to1,183. This does not qualify the twenty-pair/four-1,000-entry workload.
+
+Under D-174, retain all16,896 failed-run payloads/943,273,831 raw bytes in nine
+ignored supplemental parts totaling675,225,495 bytes, each below80MiB. The small
+[versioned index](../assets/ligand-profiles/forensics/c3-forensics-index.json) and
+canonical inventory remain tracked. Complete native resources, owned stores,
+source capsule, 44 fixture reports/176 store files, and the actual132-file desktop
+profile case/32 records are preserved. Its browser attachment matches the complete
+case; this desktop scope is not a full performance qualification. The16,253-file
+original native tree moves to owned ignored retention only after verified capture
+and exact before/after bytes/hashes; originals are not discarded.
+
+`tools/verify_profile_forensics.py` and its94 unit controls pass Ruff and strict
+mypy; historical verifiers remain byte-exact. Actual local mode passes all nine
+parts, exact disjoint inventory unions and recursive checks, including two
+archive-bearing multipart request bodies. Historical provenance verifies1,181 Git
+source bodies, all16 logs, three frozen DATA inputs and the unchanged actual1,133-
+source predecessor. Initial failed authoring/check attempts remain retained. This
+is QA tooling; it changes no production science, scheduling, rendering or clocks.
+Actual scoped architecture/performance assessments PASS the seven-string/tooling/
+retention delta. Neither is a final whole-feature verdict or human approval.
+
+The [correction checkpoint](../assets/ligand-profiles/c3-c4-candidate3-correction-checkpoint.json)
+binds exact receipts, sources, index/inventory, private asset-plan identity and
+verified relocation. For primary release packaging, explicitly supply
+`--evidence profile-forensics-index=<absolute qualified-checkout metadata directory>`
+for `docs/assets/ligand-profiles/forensics`. Automatic checkpoint-prefix discovery
+does not include this nested metadata directory. Verify both
+`supplemental/profile-forensics-index/c3-forensics-index.json` and
+`supplemental/profile-forensics-index/c3-forensics-inventory-c4-candidate3.json.gz`
+in the assembled primary bundle, with none of the nine large parts embedded.
+Publish the indexed parts separately with the eventual release, then perform full
+anonymous EOF/SHA/CRC/manifests and union verification before child closeout.
+No public availability is claimed by these local checks.
+
+Fresh `c4-candidate4-recipe.json` repeats all43 commands. Its only change from
+candidate3's recipe is precise label/path replacement; reversing that replacement
+reproduces the entire original recipe bytes. Commit the coherent scoped checkpoint
+before clean launch; reuse no partial command results. All seven final same-candidate
+feature assessments, complete candidate and fresh actual-merged gates, protected
+publication and release/closeout remain required. #161 remains preparatory with
+acceptance testing ongoing and must integrate actual released #160 before its own
+final gates/PR. Parent exclusions and the one program Goal remain unchanged.

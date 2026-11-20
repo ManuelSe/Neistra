@@ -737,12 +737,12 @@ test("measures cancellation feedback and retains cancellation after an actual ac
       }, { once: true, capture: true });
     });
     await cancel.click();
-    await expect(region(page).getByRole("status")).toHaveText("Update cancelled");
+    await expect(region(page).getByRole("status")).toHaveText("Update cancelled No profile selected.");
     const cancellation = await timing(page, false);
     performanceBudget(cancellation.currentMs, 100, "consumer cancellation feedback ms", true);
     release(); await delivered;
     await closeInspector(page); await inspect(page, entry.id);
-    await expect(region(page).getByRole("status")).toHaveText("Update cancelled");
+    await expect(region(page).getByRole("status")).toHaveText("Update cancelled No profile selected.");
     const quietAt = await page.evaluate(() => window.ligandPropertyPerformance.requests.length);
     await page.waitForTimeout(1600);
     const requests = await page.evaluate(() => window.ligandPropertyPerformance.requests);
