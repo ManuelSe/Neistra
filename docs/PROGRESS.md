@@ -91,6 +91,14 @@ literal reference/801-step control and all 200 status, 21 report and 420 descrip
 fault cases, with identical independent pointwise checks and the same deadline.
 Independent performance assessment PASS covers that correction.
 
+Current profile correctness/access preflight passes all 18 cases at `a505abd6`,
+including both themes, real previews and actual desktop zoom. Explicit trusted
+touch input was still missing. A test-only addition now preserves all existing
+cases/deadlines and records touch events plus semantic outcomes in mobile branches;
+fresh native execution is pending. Extra strict E2E diagnostics remain baseline-
+equivalent, not passing: one unchanged imported-helper type error and 12 unchanged
+legacy unsafe-any lint findings, with zero introduced diagnostics.
+
 ## Known limitations
 
 Complete native coverage and both full release gates remain outstanding. Focused

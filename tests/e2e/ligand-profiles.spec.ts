@@ -1,11 +1,77 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import type { Project } from "../../apps/web/src/api/types";
 import type { ProfileRegistry } from "../../apps/web/src/ligandProfiles/types";
 import { prepare } from "./support/interactions";
 
 interface Preferences { revision: number; enabled_categories: string[]; default_categories: string[] }
 const preferencePath = "/api/v1/workspace/ligand-property-preferences";
+
+interface TouchWorkflow {
+  environment: { width: number; height: number; maxTouchPoints: number; coarsePointer: boolean };
+  actions: { target: string; mode: "touch" | "hybrid touch/keyboard"; outcome: string;
+    pointerdowns: { trusted: boolean; pointerType: string; intendedTarget: boolean; targetTag: string }[];
+    changes: { trusted: boolean; value: string | null }[] }[];
+}
+
+async function mobileTouchWorkflow(page: Page, mobile: boolean): Promise<TouchWorkflow | undefined> {
+  if (!mobile) return undefined;
+  const environment = await page.evaluate(() => ({ width: innerWidth, height: innerHeight,
+    maxTouchPoints: navigator.maxTouchPoints, coarsePointer: matchMedia("(pointer: coarse)").matches }));
+  expect(environment.width).toBe(320);
+  expect(environment.maxTouchPoints).toBeGreaterThan(0);
+  expect(environment.coarsePointer).toBe(true);
+  return { environment, actions: [] };
+}
+
+async function touchControl(locator: Locator, workflow: TouchWorkflow, target: string, outcome: string,
+  verify: () => Promise<void>, mode: "touch" | "hybrid touch/keyboard" = "touch") {
+  const observation = await locator.evaluateHandle(node => {
+    const pointerdowns: TouchWorkflow["actions"][number]["pointerdowns"] = [];
+    const changes: TouchWorkflow["actions"][number]["changes"] = [];
+    const pointerdown = (event: Event) => {
+      if (event instanceof PointerEvent) pointerdowns.push({ trusted: event.isTrusted,
+        pointerType: event.pointerType, intendedTarget: event.target instanceof Node && node.contains(event.target),
+        targetTag: event.target instanceof Element ? event.target.tagName : "" });
+    };
+    const change = (event: Event) => changes.push({ trusted: event.isTrusted,
+      value: event.target instanceof HTMLSelectElement ? event.target.value : null });
+    node.addEventListener("pointerdown", pointerdown);
+    node.addEventListener("change", change);
+    return { pointerdowns, changes, dispose: () => {
+      node.removeEventListener("pointerdown", pointerdown); node.removeEventListener("change", change);
+    } };
+  });
+  try {
+    await locator.tap();
+    const pointerdowns = await observation.evaluate(value => value.pointerdowns);
+    expect(pointerdowns).toHaveLength(1);
+    expect(pointerdowns[0]).toMatchObject({ trusted: true, pointerType: "touch", intendedTarget: true });
+    await verify();
+    const changes = await observation.evaluate(value => value.changes);
+    workflow.actions.push({ target, mode, outcome, pointerdowns, changes });
+  } finally {
+    await observation.evaluate(value => value.dispose());
+    await observation.dispose();
+  }
+}
+
+async function chooseProfile(choice: Locator, value: string, workflow: TouchWorkflow | undefined) {
+  if (!workflow) { await choice.selectOption(value); return; }
+  const index = await choice.evaluate((node, selected) => Array.from((node as HTMLSelectElement).options)
+    .findIndex(option => option.value === selected), value);
+  expect(index).toBeGreaterThanOrEqual(0);
+  await touchControl(choice, workflow, `Profile: ${value}`, `Selected ${value} with a trusted native change`, async () => {
+    // Touch activation is proven; keyboard commitment does not qualify a touch-only native picker.
+    await choice.press("Home");
+    for (let position = 0; position < index; position++) await choice.press("ArrowDown");
+    await choice.press("Enter");
+    await expect(choice).toHaveValue(value);
+  }, "hybrid touch/keyboard");
+  const changes = workflow.actions.at(-1)!.changes;
+  expect(changes.length).toBeGreaterThan(0);
+  expect(changes.at(-1)).toEqual({ trusted: true, value });
+}
 
 async function inspect(page: Page, entryId: string) {
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
@@ -57,12 +123,16 @@ for (const theme of ["light", "dark"] as const) {
     try {
       const project = await prepare(page, request, [{ name: "profile-ethanol.smi", mimeType: "chemical/x-daylight-smiles",
         buffer: Buffer.from("CCO ethanol\n") }], `Profile dependent demand ${theme}`);
+      const touch = await mobileTouchWorkflow(page, mobile);
       const entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`;
       const before = await (await request.get(endpoint)).json() as Project;
       const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
       const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
       if (await toggle.count()) await toggle.click();
-      if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      if (touch) await touchControl(page.getByRole("button", { name: "Inspector", exact: true }), touch,
+        "Inspector", "Inspector dialog opened", async () => {
+          await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeVisible();
+        });
       await page.getByRole("region", { name: "Ligand of interest", exact: true })
         .getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
       const properties = page.getByRole("region", { name: "Properties", exact: true });
@@ -71,34 +141,67 @@ for (const theme of ["light", "dark"] as const) {
       await expect(choice).toHaveValue("");
       await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(0);
       expect(demands).toEqual([]);
-      await choice.selectOption("ro5");
+      if (touch) {
+        const options = properties.getByRole("button", { name: "Property options", exact: true });
+        const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
+        await touchControl(options, touch, "Property options", "Property options dialog opened", async () => {
+          await expect(dialog).toBeVisible();
+        });
+        const category = dialog.getByRole("checkbox").first();
+        await expect(category).not.toBeChecked();
+        await touchControl(category, touch, "Draft property category", "Draft category checked without saving", async () => {
+          await expect(category).toBeChecked();
+        });
+        await touchControl(dialog.getByRole("button", { name: "Cancel", exact: true }), touch,
+          "Cancel property options", "Dialog closed; trigger focus and unchanged preferences/revision restored", async () => {
+            await expect(dialog).toBeHidden();
+            await expect(options).toBeFocused();
+            expect(await (await request.get(preferencePath)).json()).toEqual(hiddenPreferences);
+          });
+        expect(demands).toEqual([]);
+      }
+      await chooseProfile(choice, "ro5", touch);
       await captured;
       expect(demands[0].descriptor_ids).toEqual(["molecular_weight", "hbd", "hba", "calculated_logp"]);
       await expect(properties.getByRole("status")).toHaveText("Updating properties… Updating profile…");
       const deleted = page.waitForResponse(response => response.request().method() === "DELETE"
         && new URL(response.url()).pathname.startsWith(`${endpoint}/ligand-properties/consumers/`));
-      await properties.getByRole("button", { name: "Cancel update", exact: true }).click();
+      const cancel = properties.getByRole("button", { name: "Cancel update", exact: true });
+      if (touch) await touchControl(cancel, touch, "Cancel update", "Property and profile updates cancelled", async () => {
+        await expect(properties.getByRole("status")).toHaveText("Update cancelled Profile update cancelled.");
+      });
+      else await cancel.click();
       expect((await deleted).ok()).toBe(true);
       await expect(properties.getByRole("status")).toHaveText("Update cancelled Profile update cancelled.");
       const cancelledAllocations = allocations;
-      await choice.selectOption("ro3");
+      await chooseProfile(choice, "ro3", touch);
       release();
       await expect(properties.getByRole("status")).toHaveText("Update cancelled Profile update cancelled.");
       expect(allocations).toBe(cancelledAllocations);
-      await properties.getByRole("button", { name: "Retry", exact: true }).click();
+      const retry = properties.getByRole("button", { name: "Retry", exact: true });
+      if (touch) await touchControl(retry, touch, "Retry properties", "Current profile recovered", async () => {
+        await expect(properties.getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
+      });
+      else await retry.click();
       await expect(properties.getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
       await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(0);
       await expect(choice).toHaveValue("ro3");
       const methods = properties.locator(".ligand-property-methods");
-      await methods.locator("summary").click();
+      if (touch) await touchControl(methods.locator("summary"), touch, "Methods and limits", "Methods disclosure opened", async () => {
+        await expect(methods).toHaveAttribute("open", "");
+      });
+      else await methods.locator("summary").click();
       await expect(methods.locator("dt")).toHaveCount(4);
       await expect(methods.locator("time")).toHaveCount(1);
       const details = properties.locator(".ligand-profile-details");
-      await details.getByText("Criteria and sources", { exact: true }).click();
+      if (touch) await touchControl(details.locator("summary"), touch, "Criteria and sources", "Criteria disclosure opened", async () => {
+        await expect(details).toHaveAttribute("open", "");
+      });
+      else await details.getByText("Criteria and sources", { exact: true }).click();
       await expect(details.getByText("Value: 46.069 g/mol", { exact: true })).toBeVisible();
       await expect(details.getByText("Criterion: < 300 g/mol", { exact: true })).toBeVisible();
       expect(await details.getByRole("link").count()).toBeGreaterThan(0);
-      await choice.selectOption("cns-mpo");
+      await chooseProfile(choice, "cns-mpo", touch);
       await expect(properties.getByRole("status")).toHaveText(`No property categories selected. ${unavailable.unavailable_reason}`);
       await expect(details).toContainText(unavailable.unavailable_reason!);
       await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(0);
@@ -108,6 +211,7 @@ for (const theme of ["light", "dark"] as const) {
       expect(await (await request.get(`${endpoint}/jobs`)).json()).toEqual([]);
       expect((await new AxeBuilder({ page }).include(".project-inspector")
         .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+      if (touch) await info.attach(`profile-touch-inputs-${theme}`, { contentType: "application/json", body: JSON.stringify(touch) });
       await info.attach("actual-profile-dependent-demands", { contentType: "application/json", body: JSON.stringify({ demands, allocations, registry: registry.registry_version }) });
       await page.screenshot({ path: info.outputPath(`profile-dependent-demand-${theme}.png`) });
       completed = true;
@@ -298,6 +402,8 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
 
 for (const theme of ["light", "dark"] as const) test(`recovers failed profile metadata without blocking independent current properties (${theme})`, async ({ page, request }, info) => {
   test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  if (mobile) await page.setViewportSize({ width: 320, height: 700 });
   let release!: () => void, capture!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
   const captured = new Promise<void>(resolve => { capture = resolve; });
@@ -317,18 +423,27 @@ for (const theme of ["light", "dark"] as const) test(`recovers failed profile me
   try {
     const project = await prepare(page, request, [{ name: "profile-metadata.smi", mimeType: "chemical/x-daylight-smiles",
       buffer: Buffer.from("CCO ethanol\n") }], `Profile metadata recovery ${theme}`);
+    const touch = await mobileTouchWorkflow(page, mobile);
     const entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`;
     const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
     const preferences = await (await request.get(preferencePath)).json() as Preferences;
     const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
     if (await toggle.count()) await toggle.click();
+    if (touch) await touchControl(page.getByRole("button", { name: "Inspector", exact: true }), touch,
+      "Inspector", "Inspector dialog opened", async () => {
+        await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeVisible();
+      });
     await inspect(page, entry.id);
     const properties = page.getByRole("region", { name: "Properties", exact: true });
     const choice = properties.getByRole("combobox", { name: "Profile", exact: true });
     await expect(properties.getByRole("status")).toHaveText("Properties current Profile options could not be loaded. Property updates remain independent.", { timeout: 30_000 });
     await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(14);
     await expect(choice).toHaveValue("");
-    await properties.getByRole("button", { name: "Retry profiles", exact: true }).click();
+    const retryProfiles = properties.getByRole("button", { name: "Retry profiles", exact: true });
+    if (touch) await touchControl(retryProfiles, touch, "Retry profiles", "Profile metadata loading while properties stay current", async () => {
+      await expect(properties.getByRole("status")).toHaveText("Properties current Loading profile options…");
+    });
+    else await retryProfiles.click();
     await captured;
     await page.getByRole("tab", { name: "selection", exact: true }).click();
     await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
@@ -357,6 +472,7 @@ for (const theme of ["light", "dark"] as const) test(`recovers failed profile me
     expect(reads).toBe(2);
     expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
     expect(await (await request.get(preferencePath)).json()).toEqual(preferences);
+    if (touch) await info.attach(`profile-metadata-touch-inputs-${theme}`, { contentType: "application/json", body: JSON.stringify(touch) });
     await info.attach("profile-metadata-recovery", { contentType: "application/json", body: JSON.stringify({ reads, allocations, beforeRelease, fault: "First metadata GET503; second actual GET held across real molecular edit" }) });
     await page.screenshot({ path: info.outputPath(`profile-metadata-recovered-${theme}.png`) });
   } finally { release(); }

@@ -818,3 +818,40 @@ full frontend lint, types, 1,875 tests in 142 files and production build now pas
 the entire eight-case bulk file takes 1,911 ms under full-suite concurrency. Preserve
 the original failing run and profiling evidence. Current real profile/access native
 preflight and the fresh complete 43-command gate remain required.
+
+### Current profile/access preflight — 18 pass; explicit touch input remains
+
+At clean `a505abd6`, all 18 current correctness/access cases pass with no skips,
+failures, flakes or retries. Both themes, real preview Cancel/Apply, exact Undo/Redo,
+metadata recovery, narrow mobile layout and actual desktop 100%/200% zoom verify.
+Keyboard focus, hit testing, overflow, accessibility and reading-position checks
+pass. All 1,181 selected source bodies remain unchanged; services/workers close and
+three raw database/sidecar pairs verify. The 55-payload portable packet and nested
+CRC/manifests/hashes verify; see the [current workflow checkpoint](../assets/ligand-profiles/c3-current-profile-workflows-checkpoint.json).
+
+Do not equate mobile emulation with actual finger input. These specs used click,
+keyboard and programmatic select actions; their zoom extension deliberately uses
+a desktop context. Independent UX assessment identifies the remaining touch
+acceptance gap. Within existing mobile cases, add real trusted touch activations
+and semantic outcomes for controls, cancellation/retry and disclosures. Preserve
+all cases, deadlines and existing assertions. Label any native-select touch opening
+plus keyboard option commitment honestly; do not claim physical-device or touch-only
+picker qualification. Fresh native verification and the complete43 gate still follow.
+
+### Trusted-touch input — implemented, native verification pending
+
+The single owned profile spec adds actual normal-actionability touch activations
+within existing mobile cases. Capture trusted pointerdown with pointerType touch
+and the intended target; assert the resulting dialog, checkbox, cancellation,
+retry and disclosure state. Native select commitment is explicitly hybrid touch/
+keyboard, with trusted actual change/value evidence, not touch-only native-picker
+or physical-device qualification. Desktop access/zoom source remains byte-exact.
+
+All existing 18 cases, deadlines and original assertions remain. Expanded strict
+E2E diagnostics are honestly NOT_PASS: one unchanged imported interactions-helper
+type error and 12 unchanged legacy unsafe-any findings match the identical baseline
+configuration; the owned spec introduces none. Repository web lint/types/test/build
+have their separate passing receipts. Do not relabel baseline equivalence as a
+passing scoped check. See the [touch preflight](../assets/ligand-profiles/c3-trusted-touch-preflight-checkpoint.json).
+Commit the coherent test candidate, then run a fresh isolated 18-case workflow/access
+campaign and inspect actual touch attachments before the complete43 rerun.
