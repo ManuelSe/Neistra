@@ -1,7 +1,9 @@
 # Live ligand properties
 
-Status: implemented in the #159 development branch for planned 0.37.0; final
-release and performance qualification remain pending.
+Released as [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0)
+at `9f77410389c4e8738fdf94d3e69e7c8550fbc70c`. Portable correctness and measured
+work/resource bounds pass; latency target misses remain documented in
+the [scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties).
 
 ## Inspect and configure
 
@@ -136,7 +138,10 @@ client/server versions. Downgrade to `0016` refuses nondefault property preferen
 or any unreaped private execution. Restore and save default categories, stop/reap
 owned property work, and use the supported migration path. A permitted downgrade
 removes regenerable property tables and positively associated private jobs; ordinary
-user jobs are outside that cleanup authority. Complete c5-candidate4 qualification
-passes the actual tagged 0.36 reader/writer suites. Fresh repetition on the actual
-corrective merge remains a release gate; see the
-[candidate checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json).
+user jobs are outside that cleanup authority. Both complete candidate and actual
+merged-commit qualifications pass against actual tagged 0.36.0 source. Positive
+shared-schema API/archive writing is qualified separately from old migration
+entrypoints, which safely refuse unknown migration 0017. Independently old-authored
+data migrates forward and reopens under current code for both archive suffixes.
+Canonical inputs, ordinary jobs and unapplied proposals retain their qualified
+compatibility. See the [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).

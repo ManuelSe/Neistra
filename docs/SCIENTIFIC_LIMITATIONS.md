@@ -919,12 +919,18 @@ candidate/depiction success alone cannot restore invalidated numerical results.
 The kernel admits at most 1,024 designated atoms before H normalization and 4,096
 considered bonds. API source admission, per-operation byte budgets, cache and worker
 controls are separate bounds, not larger chemical-model domains or universal latency/
-whole-process memory guarantees. Complete c5-candidate4 portable qualification and
-actual v0.36.0 reader/writer checks pass; the actual merged repetition remains a
-release gate. Current observations miss the latency targets in 39/40 cold, 20/40 cache,
-46/84 feedback and 4/4 bulk measurements. Hidden mobile retirement latency and complete
-browser/GPU/short-lived-process accounting remain unavailable; discrete case-observer samples do not supply wrapper
-CPU/RSS/load. No strict-host certification or causal comparison follows. See the
-[current checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json).
+whole-process memory guarantees. Both complete candidate and actual merged-commit
+portable qualifications and actual v0.36.0 reader/writer checks pass. The actual
+M2 observations miss latency targets in 38/40 cold, 20/40 cache, 47/84 feedback
+and 4/4 bulk measurements. Cold median/p95/max is 2,832.35/3,619.9/3,654.1 ms;
+matching-cache median/p95/max is 100.65/121.8/123.6 ms, with zero new warm jobs.
+Cancellation feedback peaks at 11.5 ms; it measures consumer feedback and late-reply
+retirement rather than worker termination latency. Hidden mobile retirement latency
+is unavailable for 20 cold and 20 warm observations. The 10,115 discrete case samples
+do not establish simultaneous process totals or complete browser/GPU/short-lived
+accounting; wrapper CPU/RSS/load remains unavailable. All 92 renewals, 27,243,680
+UTF-8 response bytes and 132 consumer updates are retained. No strict-host
+certification, causal speedup or regression claim follows. Historical measurements
+remain separately identified in the [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).
 See [Live ligand properties](LIGAND_PROPERTIES.md) for all 14 definitions, units,
 recovery behavior and current operational limits.

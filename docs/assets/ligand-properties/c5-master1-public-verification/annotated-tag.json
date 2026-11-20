@@ -1,0 +1,63 @@
+{
+  "recorded_utc": "2026-11-19T23:09:11.264489+00:00",
+  "tag": "v0.37.0",
+  "annotated_object": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+  "verified_qualified_target": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "actual_remote_reference": {
+    "endpoint": "repos/ManuelSe/Neistra/git/ref/tags/v0.37.0",
+    "exit_code": 0,
+    "response": {
+      "ref": "refs/tags/v0.37.0",
+      "node_id": "REF_kwDOTqyhK7FyZWZzL3RhZ3MvdjAuMzcuMA",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/refs/tags/v0.37.0",
+      "object": {
+        "sha": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+        "type": "tag",
+        "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/5763142ce085111d8d8cdf0eefb248908b5eb4b2"
+      }
+    },
+    "stderr": ""
+  },
+  "actual_remote_annotated_tag": {
+    "endpoint": "repos/ManuelSe/Neistra/git/tags/5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+    "exit_code": 0,
+    "response": {
+      "node_id": "TA_kwDOTqyhK9oAKDU3NjMxNDJjZTA4NTExMWQ4ZDhjZGYwZWVmYjI0ODkwOGI1ZWI0YjI",
+      "sha": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+      "tagger": {
+        "name": "Manuel Sellner",
+        "email": "manuel@sellner.ch",
+        "date": "2026-11-19T23:09:08Z"
+      },
+      "object": {
+        "sha": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+        "type": "commit",
+        "url": "https://api.github.com/repos/ManuelSe/Neistra/git/commits/9f77410389c4e8738fdf94d3e69e7c8550fbc70c"
+      },
+      "tag": "v0.37.0",
+      "message": "Neistra v0.37.0: automatic current-input ligand properties\n\nQualified merged commit 9f77410389c4e8738fdf94d3e69e7c8550fbc70c.\nBoth complete43-command qualifications and actual source/retained-state\nindependent verification passed. Portable performance limits remain documented.\nMain qualification ZIP SHA256: b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb\n\nRefs #159\nRefs #11\n",
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "stderr": ""
+  },
+  "annotation_file": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/tag-annotation.txt",
+    "bytes": 394,
+    "sha256": "f535bcfc365b3505591b2959939b7f131a97df6f3d120364b419869635befa0c"
+  },
+  "tag_preflight": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/tag-preflight.json",
+    "bytes": 2445,
+    "sha256": "52d249b8cc0d216b14e4f8e68eee78a3ed65ed7c6e7e468bea56b9523ce0928a"
+  },
+  "tag_created_and_pushed_verified": true,
+  "release_created": false,
+  "force_or_admin_bypass": false
+}

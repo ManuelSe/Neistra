@@ -1,0 +1,45 @@
+{
+  "mode": "forensics",
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-verification-preparation1/forensic_pairs.py",
+    "download",
+    "--authorization",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/forensic-public-authorization.json",
+    "--authorization-sha256",
+    "d2f217dd0972f4df186150072533cbc64c57a1634cf6f0b49609f13cda8e90a1",
+    "--preparation-seal-sha256",
+    "f29eb45a0cdae1523633992dc95e5e3cea7339a9f24eaae9aca50791566310c7",
+    "--output-dir",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots",
+  "exit_code": 0,
+  "started_utc": "2026-11-19T23:55:48.612981+00:00",
+  "finished_utc": "2026-11-20T00:20:41.252560+00:00",
+  "child_environment_unset_requested": [
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "GH_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_ENTERPRISE_TOKEN",
+    "GITHUB_ENTERPRISE_TOKEN"
+  ],
+  "child_environment_removed_present_keys": [],
+  "no_credentials_or_proxy_values_recorded": true,
+  "stdout": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-forensics.stdout",
+    "bytes": 1171,
+    "sha256": "ba90a9bcde7363517fa46fadc3a9ae0a4c5507c3e4f86b490286edd96700ba6d"
+  },
+  "stderr": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-forensics.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

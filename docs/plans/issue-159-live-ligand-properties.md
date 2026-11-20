@@ -2087,3 +2087,59 @@ the same final review candidate. Normal corrective PR/review/merge, fresh comple
 c5-master1 on the actual resulting commit, immutable annotated037 release, complete
 anonymous main/twelve-forensic verification and explicit159closeout remain required.
 Parent #11 stays open through160–163 and final integrated acceptance/closeout.
+
+
+### 2026-11-20 — verified v0.37.0 publication and issue closeout
+
+PR [#178](https://github.com/ManuelSe/Neistra/pull/178) merged the seven-specialist
+reviewed feature `8c70ddb02140852850bce370eb34279e76318847` as actual master
+`9f77410389c4e8738fdf94d3e69e7c8550fbc70c`; their complete trees match.
+Both full 43-command gates pass. The actual merged gate passes 3,598 Python tests
+with zero skips, 1,599 frontend tests, 14 supervisor checks and 565 native cases,
+with exactly 75 unchanged released exclusions and no failures, flakes or retries.
+The qualified source inventory retains all 1,133 selected bodies unchanged.
+
+The immutable annotated tag `5763142ce085111d8d8cdf0eefb248908b5eb4b2` targets
+that actual qualified merge. Stable [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0)
+was published at `2026-11-19T23:41:37Z`. All 27 assets (4,882,143,705 bytes)
+pass anonymous HTTP 200 full-body verification, exact sizes and SHA-256 checks,
+with recursive CRC/manifests and checksum/package semantics where applicable.
+The 719,241,445-byte main ZIP has SHA-256
+`b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb`.
+All twelve separate forensic pairs pass transport verification; their historical
+failed/diagnostic status remains unchanged and is not a qualification pass.
+
+The actual merged evidence preserves 6,965 original files (621,264,610 bytes),
+47 empty directories, all eight observer trees/480 files and 59 raw original/copy
+pairs after positive cleanup and before any diagnostic SQL. Independent readback
+checks all 2,146 current/preceding Git/disk/capsule bodies, the original bytes,
+metadata and archive unions. Actual v0.36.0 shared-schema positive API/archive
+writing is separate from safe refusal of unknown migration 0017; independently
+old-authored migration/current reopening and both archive suffixes also pass.
+
+Actual M2 cold median/p95/max is 2,832.35/3,619.9/3,654.1 ms (38/40 above 2 s).
+Matching-cache values are 100.65/121.8/123.6 ms (20/40 above 100 ms), with no new
+warm jobs. Feedback misses 100 ms in 47/84 observations; all four bulk active
+updates exceed 5 s. Cancellation feedback peaks at 11.5 ms and does not measure
+worker termination. All 92 renewals, 27,243,680 UTF-8 response bytes and 132 updates
+remain included. Portable hard bounds pass. Mobile hidden retirement latency,
+wrapper CPU/RSS/load and complete browser/GPU/short-lived-process accounting remain
+unavailable; no strict-host timing or causal speedup/regression claim is made.
+
+The [publication summary](../assets/ligand-properties/c5-master1-publication.json)
+and [27-receipt manifest](../assets/ligand-properties/c5-master1-public-verification/manifest.json)
+bind the actual public verification, independent integrity/performance reviews
+and [canonical issue reply](https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950).
+#159 was explicitly closed as completed at `2026-11-20T00:30:32Z` after publication
+verification. Raw receipts preserve their historical capture-time state. The main
+stdout receipt is stored with deterministic gzip; its compressed and decoded hashes
+are both recorded so all original trailing whitespace is retained. Complete
+base-to-candidate validation includes new evidence files, correcting the earlier
+working-tree-only whitespace check that omitted them.
+
+This source-equivalent terminal documentation checkpoint still needs all seven
+same-candidate assessments and normal PR integration, followed by safe owned-branch
+cleanup and reconciliation of that same canonical reply. It changes no application,
+version, migration or scientific method, and starts no new release or retagging.
+Parent #11 remains open; integrate released #159 into #160 next, then deliver
+#160–#163 and qualify the complete parent outcome under the existing exclusions.

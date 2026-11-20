@@ -1,0 +1,113 @@
+{
+  "annotated-tag.json": {
+    "bytes": 2866,
+    "sha256": "ca126b62206f94bb40fdc5a128de009c1d1f3b6392612ace6a360a6691375a0e"
+  },
+  "architecture-public-integrity.json": {
+    "bytes": 1384,
+    "sha256": "d21e5fb1c90052636cfa5dbb2bb84c1eba7cdc7c15c6f995e474ffec9bc64289"
+  },
+  "canonical-issue-reply.json": {
+    "bytes": 6322,
+    "sha256": "ca9310987ee4c22482ff49e83355e8487ab70028442aba87ea467d76c27fb8bf"
+  },
+  "forensic-download-execution.json": {
+    "bytes": 1925,
+    "sha256": "ba484549b8d79124c4676b5ab1dc1a1f94c13a7de94369c8088af8c6dd17109b"
+  },
+  "forensic-download-pair-01.json": {
+    "bytes": 2621,
+    "sha256": "d4d3dd44a38351710d58b8bad67aef866aae383281449e9fcd556033353da11e"
+  },
+  "forensic-download-pair-02.json": {
+    "bytes": 2597,
+    "sha256": "974264b81d8a543f4f64b384c85760bce2099651233f6c0ec841948e0f0bca68"
+  },
+  "forensic-download-pair-03.json": {
+    "bytes": 2637,
+    "sha256": "7983c88e0f5991c0d2ee31b24023becc781d23718dd9eba4cff331928c7e9050"
+  },
+  "forensic-download-pair-04.json": {
+    "bytes": 2654,
+    "sha256": "1d6cb3f28ec97d06d26ca01f6cf12795c8b48fa369ef8c9b03b3d615fa13e999"
+  },
+  "forensic-download-pair-05.json": {
+    "bytes": 2852,
+    "sha256": "f4c3a39ab50601b80d577881c2c9ed26bc5f66834977f7301a2ad27d1bb19737"
+  },
+  "forensic-download-pair-06.json": {
+    "bytes": 2657,
+    "sha256": "e0827c70311dced340c7373d93b686b6dba328af85eab8734da9e5ed0123c1b6"
+  },
+  "forensic-download-pair-07.json": {
+    "bytes": 2564,
+    "sha256": "c5ffd07ffa088d651714f0f16960b00095e2e954164e2d560aece2b2ea81ff27"
+  },
+  "forensic-download-pair-08.json": {
+    "bytes": 2684,
+    "sha256": "e77917b46716ba2b9b609ed21fb05bdfcd4f9bb2deaec4a0dbb409c787225ef1"
+  },
+  "forensic-download-pair-09.json": {
+    "bytes": 2769,
+    "sha256": "47b947f13cf6c89f8684297ed38bdfbe50183b02b383780b766b459d9ec792e0"
+  },
+  "forensic-download-pair-10.json": {
+    "bytes": 2692,
+    "sha256": "7586290c865a1c42f1e12acb61891da53e672216ca685a085453dd542a3a2338"
+  },
+  "forensic-download-pair-11.json": {
+    "bytes": 2895,
+    "sha256": "a2d7bbde3528691ac309ab9fd9b10d5a83a4276a12e94d0ffbc1f1903d61ed1d"
+  },
+  "forensic-download-pair-12.json": {
+    "bytes": 2946,
+    "sha256": "77fa4a808b5692de8707d4f4dd1c5bf38f6befad2f62022bb9d5acd987df3045"
+  },
+  "forensic-final-execution.json": {
+    "bytes": 1729,
+    "sha256": "6be304bf51de61e80411e1f59c247aa99976be38e19aaeafc68edd782d27739f"
+  },
+  "forensic-final-summary.json": {
+    "bytes": 36611,
+    "sha256": "473fd4389669834a0bf6b119450c23ce4acb63731d85b5910790d46a1ba9e231"
+  },
+  "issue-closeout.json": {
+    "bytes": 1220,
+    "sha256": "4840f09be3bc066d07d77924b7f7f35d38bb86843a79d885b5a5a0db129cecb7"
+  },
+  "main-body-verification.json.gz": {
+    "bytes": 468,
+    "decoded_bytes": 767,
+    "decoded_sha256": "bfb3245893507aa95a4d36c6d33a1151aaae4c70447f9acad55738cc9f345fd7",
+    "encoding": "gzip",
+    "sha256": "3ebea06dbcacf2c230c3ff94f774597f67eaaea2a6f62c4ebc080c5cf4f23af8"
+  },
+  "main-execution.json": {
+    "bytes": 1819,
+    "sha256": "1fb556ae93c90faec0ed90128d81c1ce4e942256614bbc4040e220490f076df6"
+  },
+  "performance-independent-review.json": {
+    "bytes": 3945,
+    "sha256": "10fb2ebdb7adc70b21189097a88a1fd54fff883a28acdbc9f1c72b0c4fd66baa"
+  },
+  "publication-integrity.json": {
+    "bytes": 26569,
+    "sha256": "4ad97fe015b06b0a0cf672e63a254d7e40425fef8cb6084b567edeb114ef341e"
+  },
+  "published-release.json": {
+    "bytes": 107739,
+    "sha256": "f01c79c74c64d4e10d9cd73aaa07580b5fce75480f40df88d63bb63a03ef34c2"
+  },
+  "sidecars-body-verification.json": {
+    "bytes": 1069,
+    "sha256": "92aa12d5e49746ccc83c00b6564e0bd4b8fd10e280876daf77bf5ccefa330213"
+  },
+  "sidecars-execution.json": {
+    "bytes": 1857,
+    "sha256": "108a2b5fe99802f5a346e9a0d2678a67b18879549ff2e017805d31a476e76056"
+  },
+  "verified-release-notes.json": {
+    "bytes": 57827,
+    "sha256": "7ad8ca90b0a226b4362cc6e05e5e71ad0d611a0dabc56189bbec6500cc849987"
+  }
+}
