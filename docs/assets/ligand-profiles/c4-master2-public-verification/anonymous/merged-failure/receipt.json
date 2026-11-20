@@ -1,0 +1,257 @@
+{
+  "scope": "Indexed failed-run forensic asset verification only; no full-gate qualification claim",
+  "mode": "anonymous",
+  "index_sha256": "3c0edf38a5cf6fdad555dd3a8e7e2067f97d4456096b16f385f86b19468a22de",
+  "verifier_sha256": "6f4a58abb2c352d4c6d682e7732b91dd704caaaad6480826352bfc09bd7d9a73",
+  "qualified_helper_sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14",
+  "assets": [
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part01.zip",
+      "asset_id": 772874525,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part01.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:9aba04c483e1a20c4889c955749c1e1c288d0710d8117d6e3e3aa2c15135e1ab",
+      "bytes": 79371606,
+      "sha256": "9aba04c483e1a20c4889c955749c1e1c288d0710d8117d6e3e3aa2c15135e1ab",
+      "recursive_verification": {
+        "zip_archives": 5,
+        "evidence_manifest_entries": 1741,
+        "project_archive_files": 4
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 5,
+        "evidence_manifest_entries": 1741,
+        "project_archive_files": 4
+      },
+      "seconds": 17.306783113977872
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part02.zip",
+      "asset_id": 772874738,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part02.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:3d6b7347961feb9818f89e01342f6906f0018acc4859395ca7f01bdc007ac9a0",
+      "bytes": 78984268,
+      "sha256": "3d6b7347961feb9818f89e01342f6906f0018acc4859395ca7f01bdc007ac9a0",
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 2658,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 2,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 2
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 3,
+        "evidence_manifest_entries": 2658,
+        "project_archive_files": 2
+      },
+      "seconds": 21.440902600996196
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part03.zip",
+      "asset_id": 772874896,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part03.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:d06e1efa612a0502c28ac4e440f4e108c52f67fbcfc5e656f713e645cb75a2e6",
+      "bytes": 79311813,
+      "sha256": "d06e1efa612a0502c28ac4e440f4e108c52f67fbcfc5e656f713e645cb75a2e6",
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1816,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1816,
+        "project_archive_files": 0
+      },
+      "seconds": 13.095670968992636
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part04.zip",
+      "asset_id": 772875038,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part04.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:99693d65f621cf99176d2d598bcbed7fca475196f3b2f855e23c2a70b20d998f",
+      "bytes": 79339411,
+      "sha256": "99693d65f621cf99176d2d598bcbed7fca475196f3b2f855e23c2a70b20d998f",
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1696,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1696,
+        "project_archive_files": 0
+      },
+      "seconds": 12.36728416197002
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part05.zip",
+      "asset_id": 772876316,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part05.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:f604d9aa810fcf6e33556ad62444f6c49d5af34e8ebee2bcb1039677b3ef1470",
+      "bytes": 79258659,
+      "sha256": "f604d9aa810fcf6e33556ad62444f6c49d5af34e8ebee2bcb1039677b3ef1470",
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1827,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1827,
+        "project_archive_files": 0
+      },
+      "seconds": 13.46163726306986
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part06.zip",
+      "asset_id": 772876538,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part06.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:d8878a17a4951a50a8449beb51a42bf927a92d7b7670d0526bad17b692e48d85",
+      "bytes": 79290998,
+      "sha256": "d8878a17a4951a50a8449beb51a42bf927a92d7b7670d0526bad17b692e48d85",
+      "recursive_verification": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1844,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1844,
+        "project_archive_files": 0
+      },
+      "seconds": 14.418084691977128
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part07.zip",
+      "asset_id": 772876619,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part07.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:3e63c68be54b62c2afe3fdf75817cb328185370bcbf7744d61f523f62378c671",
+      "bytes": 73659003,
+      "sha256": "3e63c68be54b62c2afe3fdf75817cb328185370bcbf7744d61f523f62378c671",
+      "recursive_verification": {
+        "zip_archives": 2,
+        "evidence_manifest_entries": 2132,
+        "project_archive_files": 0
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 2,
+        "evidence_manifest_entries": 2132,
+        "project_archive_files": 0
+      },
+      "seconds": 11.716132946079597
+    },
+    {
+      "run": "c4-master1",
+      "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part08.zip",
+      "asset_id": 772876717,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-issue160-c4-master1-forensics-part08.zip",
+      "http_status": 200,
+      "anonymous_request": true,
+      "request_auth_header_present": false,
+      "server_digest": "sha256:3572705f283df4deb181bf444d7f092c29be55405aa54c4b192a7bb78762fc69",
+      "bytes": 28721924,
+      "sha256": "3572705f283df4deb181bf444d7f092c29be55405aa54c4b192a7bb78762fc69",
+      "recursive_verification": {
+        "zip_archives": 13,
+        "evidence_manifest_entries": 1814,
+        "project_archive_files": 20
+      },
+      "supplemental_wrapped_recursive_verification": {
+        "zip_archives": 0,
+        "evidence_manifest_entries": 0,
+        "project_archive_files": 0
+      },
+      "recursive_verification_including_wrapped": {
+        "zip_archives": 13,
+        "evidence_manifest_entries": 1814,
+        "project_archive_files": 20
+      },
+      "seconds": 7.1020244639366865
+    }
+  ],
+  "runs": [
+    {
+      "label": "c4-master1",
+      "exact_manifest_union": true,
+      "files": 15518,
+      "raw_bytes": 1216212981,
+      "inventory_uncompressed_sha256": "4758c0d7ad434b9a761f84ead36288b48d72036cce25f859a164a48a06d50abf",
+      "provenance": {
+        "recipe_sha256": "7752fab40fed6db7564992417558a761601e618a58675ef85611105cc248c2c2",
+        "gate_sha256": "70f67703086476f2a915b48d7f5c5463a517b75257268de50d1a320eb06dfbef",
+        "source_count": 1183,
+        "source_digest": "b6b2f260c07bed8755358827b06d76cdc37be80d450d6b7fc8131b28fb5b2b6f",
+        "lossless_logs_verified": 16,
+        "historical_source_bodies_verified": true,
+        "qualification_data_files_verified": 3,
+        "compatibility_protocol": "private-derived-same-schema-v2"
+      },
+      "extraction_root": "forensics/c4-master1"
+    }
+  ],
+  "complete": true,
+  "all_indexed_assets_verified": true,
+  "asset_count": 8,
+  "failed_runs_remain_unqualified": true
+}

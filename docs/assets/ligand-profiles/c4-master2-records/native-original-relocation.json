@@ -1,0 +1,16 @@
+{
+  "recorded_utc": "2026-11-20T18:15:24.092467+00:00",
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "from": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/c4-master2-native",
+  "retained_originals": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-retained-original-native1",
+  "files": 734,
+  "bytes": 107705698,
+  "body_SHA_size_device_inode_before_after_equal": true,
+  "original_gate_inventory_matches": true,
+  "all_terminal_native_scientific_audits_completed_before_relocation": true,
+  "independent_retention_readback": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/independent-primary-readback.json",
+  "terminal_2159_rebinding": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/terminal-early-audit-bindings.json",
+  "inventory_sha256": "6ef26f1ad4c8d5f21bb79afc39e45e8eb0febca9d00d71f993bb56b16286bcba",
+  "copied_or_deleted": false,
+  "warning": "Do not rerun gate_items at retired original path; reuse independently verified archive parts and relocation map"
+}

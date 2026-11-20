@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/master2-native-independent-audit.py"
+  ],
+  "script_sha256": "f5084d52eb4ecfe486af4ebcb12c42b38e62d038adc19fe777c1ae25edb89dd5",
+  "started_utc": "2026-11-20T18:11:30.554220+00:00",
+  "finished_utc": "2026-11-20T18:11:32.274504+00:00",
+  "exit_code": 0,
+  "invocation_correction": "Fresh audit2 output retains failed invocation1/2. Actual M2 timingcounts derive from complete browser report; exact multiset binding replaces copied C5 constants; no source/test/acceptance change."
+}

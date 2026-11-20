@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/master2-native-independent-audit.py"
+  ],
+  "started_utc": "2026-11-20T18:09:19.857114+00:00",
+  "finished_utc": "2026-11-20T18:09:21.142364+00:00",
+  "exit_code": 1
+}

@@ -1,0 +1,102 @@
+{
+  "explicitly_exempted_environment_inspections": [
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/init.scope\n",
+      "cmdline_display": "(sd-pam) ",
+      "cmdline_sha256": "971490059d839d27af3ded30a476216b92689d837b0236a700723fb13640e370",
+      "pid": 2381,
+      "ppid": 2366,
+      "session": 2366,
+      "start_ticks": 1869,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/session.slice/plasma-kwin_wayland.service\n",
+      "cmdline_display": "/usr/bin/kwin_wayland --wayland-fd 7 --socket wayland-0 --xwayland-fd 8 --xwayland-fd 9 --xwayland-display :1 --xwayland-xauthority /run/user/1000/xauth_PQOpja --xwayland ",
+      "cmdline_sha256": "255e22d923caffb513ccc5193c1a158ab8a8b81fba5ce8bcb66d5d2067566c22",
+      "pid": 2469,
+      "ppid": 2459,
+      "session": 2459,
+      "start_ticks": 1927,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-polkit-agent.service\n",
+      "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 ",
+      "cmdline_sha256": "759c50cd41d67074aacdec9e8b474a41d459ec279cef246d563a707ba5a055cb",
+      "pid": 2725,
+      "ppid": 2366,
+      "session": 2725,
+      "start_ticks": 2006,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-powerdevil.service\n",
+      "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil ",
+      "cmdline_sha256": "8dec771290691eb78a86ea870357709d1171389a855d114a303a698f0b05876b",
+      "pid": 2726,
+      "ppid": 2366,
+      "session": 2726,
+      "start_ticks": 2006,
+      "uid": 1000
+    }
+  ],
+  "limitation": "Exactly pinned existing desktop service instances excluded from campaign launch lineage; their denied environments are not inspected. Every unknown denied process refuses.",
+  "live_owned_pids": [],
+  "ports_closed": [
+    "5423",
+    "8340",
+    "8341"
+  ],
+  "sessions": [
+    853095,
+    853126,
+    853131,
+    853150,
+    853160,
+    853169,
+    853174,
+    853207,
+    853220,
+    853233,
+    864415,
+    864472,
+    864512,
+    867627,
+    867688,
+    867791,
+    867831,
+    910264,
+    910308,
+    910310,
+    910332,
+    910336,
+    910349,
+    910354,
+    910367,
+    910381,
+    910393,
+    910405,
+    910411,
+    910453,
+    910456,
+    910532,
+    910578,
+    910665,
+    910731,
+    910737,
+    910745,
+    910750,
+    910770,
+    910774,
+    910786,
+    910797,
+    911928,
+    912889
+  ],
+  "unrelated_process_proof": {
+    "bytes": 2063,
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-postgate-retention-preparation1/unrelated-desktop-processes.json",
+    "sha256": "deaa43227e2bcf4459f0f544a9910c33bdcc7a3c050cd6d8fb97499f756fe5d1"
+  }
+}

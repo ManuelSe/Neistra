@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/master2-native-independent-audit.py"
+  ],
+  "started_utc": "2026-11-20T18:09:50.406945+00:00",
+  "finished_utc": "2026-11-20T18:09:51.673471+00:00",
+  "exit_code": 1,
+  "invocation_correction": "Created intended fresh assigned report directory; initial invocation1 retained missing-directory failure; audit source unchanged"
+}

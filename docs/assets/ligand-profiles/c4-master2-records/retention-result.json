@@ -1,0 +1,33 @@
+{
+  "all_originals_remain_in_place": true,
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "external_case_count": 10,
+  "external_cases": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 1,
+    "payloads": 746,
+    "raw_bytes": 87509841,
+    "receipt": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/case-companions/archive-receipt.json"
+  },
+  "gate": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 2,
+    "payloads": 2555,
+    "raw_bytes": 254623774
+  },
+  "inputs_mutated_by_collector": false,
+  "label": "c4-master2",
+  "readiness_or_publication_claim": false,
+  "retained_state": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 2,
+    "payloads": 7030,
+    "raw_bytes": 694831158,
+    "receipt": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/archive-receipt.json"
+  },
+  "schema": "postgate-retention-v1",
+  "strict_summary_ran_separately": true
+}

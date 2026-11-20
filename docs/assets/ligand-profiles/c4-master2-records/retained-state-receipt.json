@@ -1,0 +1,31 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "archives": [
+    {
+      "bytes": 71117227,
+      "file": "c4-master2-retained-state-01.zip",
+      "outer_manifest_entries": 5492,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-01.zip",
+      "sha256": "9c088587c1dab62d7ae8256263350333e575b3f71d5b10ec265bceabf030a12f",
+      "verification_counts": {
+        "evidence_manifest_entries": 5492,
+        "project_archive_files": 555,
+        "zip_archives": 263
+      }
+    },
+    {
+      "bytes": 24994117,
+      "file": "c4-master2-retained-state-02.zip",
+      "outer_manifest_entries": 1538,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/retained-state/c4-master2-retained-state-02.zip",
+      "sha256": "cbee7f4683017ba3159304c5ef583d86c696e67a0fca68e73d35d18c2a5a3afd",
+      "verification_counts": {
+        "evidence_manifest_entries": 1538,
+        "project_archive_files": 1930,
+        "zip_archives": 821
+      }
+    }
+  ],
+  "kind": "retained-state",
+  "packager_sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+}

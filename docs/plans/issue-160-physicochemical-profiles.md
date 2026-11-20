@@ -6,7 +6,7 @@
 - Repository: `ManuelSe/Neistra`; [child #160](https://github.com/ManuelSe/Neistra/issues/160), required by [parent #11](https://github.com/ManuelSe/Neistra/issues/11).
 - Parent contract: [finite program, shared contracts and release gates](issue-11-ligand-information.md); it owns exclusions, dependency graph, shared state/API/scientific identity and program ledger. Do not duplicate or weaken those contracts here.
 - Authorization: owner's 2026-11-16 explicit plan-and-deliver invocation for parent11 and all eight required children; includes normal checkpoints/push/PR/review/protectedmerge/verifiedrelease/reply/ownedcleanup without another finished-plan approval. No claim of individually reviewed wording.
-- Native prerequisites: #159. Current child open with no comments. No delivered behavior assumed.
+- Native prerequisite: #159 is delivered. This child is released as v0.38.0 and closed with a verified canonical reply; normal terminal documentation integration and owned cleanup remain tracked below.
 - Base observed during parent intake: `62623a169f4e27da259c40ba1e74b1935b7c7775`; revalidate fresh master before this child implementation.
 - Branch: `feat/issue-160-physicochemical-profiles` in the owned program checkout. First156 branches from parentC0; later units from verified preceding delivery master. Parent Goal remains active throughout.
 
@@ -1112,3 +1112,47 @@ retain current and historical C4 records/case/state companions and both small
 forensic indexes; upload all 17 large forensic parts and checksum sidecars separately.
 Verify the complete public asset inventory anonymously before child closeout.
 No v0.38.0 publication, child completion or parent completion is claimed here.
+
+
+### C4 — Verified actual merged release and child closure, 2026-11-20
+
+Corrective [PR181](https://github.com/ManuelSe/Neistra/pull/181) merged normally as
+`c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`. Its tree exactly matches reviewed head
+`db6532b20a1b8ac61e7242d349c91c9a99303988`; all seven final feature assessments PASS
+that candidate. The actual merged 43-command gate passes 4,157 Python / zero
+skips, 1,879 frontend, 14 supervisor and 585 browser cases, with the exact 75
+preceding exclusions and zero failures/flakes/retries. Source, DATA3, lossless
+logs, actual readers and original/history proofs verify. Positive cleanup and
+136 closed raw pairs retain 105,244,128 bytes per side. No primary diagnostic SQL
+was performed.
+
+Independent complete gate/state/case readback verifies five parts / 240,101,688
+bytes, each strictly below 80 MiB. The 2,555 / 7,030 / 746 exact unions retain all
+ten case trees. All 2,159 early scientific/workload input bodies rehash unchanged.
+The original 88,251,017-byte browser body is retained before its lossless gzip
+transform. Only after all audits and complete capture/readback do the 734 native
+originals move into ignored retention, with every body, inode and device unchanged.
+Do not recapture the retired native path; use the verified parts and relocation
+map. [Merged checkpoint](../assets/ligand-profiles/c4-master2-records/checkpoint.json)
+retains the evidence and capture-time status.
+
+Published [v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0) targets
+that exact qualified merge through immutable annotated object
+`7e535c06e19d833d3e4accd63d3963a10dc4a348`. All 37 required assets / 2,223,691,882
+bytes pass anonymous HTTP200, full-body EOF/size/SHA256 and applicable recursive
+CRC, manifests and exact unions. Both forensic indexes and all 18 literal checksum
+bodies reconcile; the 17 indexed large ZIPs remain separate from the main bundle.
+Earlier failures remain diagnostic and unqualified. The main ZIP is 970,512,774
+bytes, SHA256 `f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284`.
+The fresh run has 163 workflow timing misses (47 profile, 115 property, one
+minimization), plus four deliberate policy examples. D-148 and unavailable
+hidden/aggregate/GPU observations remain explicit; hard work/resource checks pass.
+
+The [canonical reply](https://github.com/ManuelSe/Neistra/issues/160#issuecomment-7047643999)
+and completed child closure are remotely verified. [Publication evidence](../assets/ligand-profiles/c4-master2-publication.json)
+records actual identities and all asset receipts. No dependency or migration was
+added; all five versions are 0.38.0 and storage/API versions remain unchanged.
+The `fix/issue-160-release-closeout` branch records terminal evidence and current
+documentation only. Its normal review/merge and owned cleanup are tracked in the
+canonical reply and program ledger, without moving the runtime tag or creating
+another runtime release. #161–#163 and final parent acceptance remain required.

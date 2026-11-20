@@ -1,7 +1,8 @@
 # Live ligand properties
 
-Released as [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0)
-at `9f77410389c4e8738fdf94d3e69e7c8550fbc70c`. Portable correctness and measured
+Live properties were introduced in [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).
+Sourced profiles are added in [v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0)
+at `c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`. Portable correctness and measured
 work/resource bounds pass; latency target misses remain documented in
 the [scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties).
 
@@ -31,6 +32,28 @@ Options use revision conflict protection. If another visit changed them, close
 and reopen to review the current choices; use **Reload current options** when
 shown. Cancel discards an unsubmitted draft. After submission, Close leaves the
 save in progress and its acknowledgement cannot close a later options visit.
+
+## Sourced profiles
+
+Choose **Profile** in the property pane to assess the current ligand against Ro5,
+core Ro3, Veber, Ro5 + Veber, Doak outer-envelope, Gleeson 4/400 or Teague
+lead-library adaptations. **No profile** clears the assessment. Selection is
+transient and does not add project data or change saved property categories.
+Required descriptors can be calculated without adding their categories to the
+display.
+
+Open **Criteria and sources** for actual values, strict or inclusive limits,
+individual outcomes, definition/catalog versions, citations and adaptations.
+**Within profile criteria** requires every required current input to pass.
+Updating, unavailable, cancelled and failed inputs remain distinct; unavailable
+values are never zero. Changed chemistry previews explicitly show profile
+unavailability, and relevant committed edits automatically reassess current input.
+
+CNS MPO and the scaffold/SOM method remain selectable with explicit unavailable
+reasons. Their missing inputs or reproducible definitions are not replaced by
+guessed values. If the catalog cannot load, **Retry profiles** retries its metadata;
+property updates remain independent. These descriptive rules do not predict
+experimental success, exposure, permeability or affinity.
 
 ## Edits, previews and recovery
 
@@ -120,9 +143,9 @@ current performance qualification.
 See the [scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties),
 [registry](../packages/neistra_core/src/neistra_core/ligand_properties/registry.py)
 and [calculation kernel](../packages/neistra_core/src/neistra_core/ligand_properties/calculate.py)
-for exact conventions. Sourced profiles, the replacement ligand sidebar, property
-entry filters and final inspector integration belong to required #160–#163; this
-document does not describe them as delivered by #159.
+for exact conventions. Sourced profiles are introduced by #160 in the existing
+property pane. The replacement ligand sidebar, radar, property entry filters and
+final inspector integration remain required #161–#163 work.
 
 ## Persistence and version changes
 
@@ -139,9 +162,15 @@ or any unreaped private execution. Restore and save default categories, stop/rea
 owned property work, and use the supported migration path. A permitted downgrade
 removes regenerable property tables and positively associated private jobs; ordinary
 user jobs are outside that cleanup authority. Both complete candidate and actual
-merged-commit qualifications pass against actual tagged 0.36.0 source. Positive
+merged-commit v0.37.0 qualifications pass against actual tagged 0.36.0 source. Positive
 shared-schema API/archive writing is qualified separately from old migration
 entrypoints, which safely refuse unknown migration 0017. Independently old-authored
 data migrates forward and reopens under current code for both archive suffixes.
 Canonical inputs, ordinary jobs and unapplied proposals retain their qualified
 compatibility. See the [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).
+
+Version 0.38.0 adds no migration or dependency and preserves these storage versions.
+Its complete candidate and actual merged qualifications use actual v0.37.0
+producer/readers, both producer origins and both archive suffixes. The explicit
+same-schema protocol tests private derived-state retention and safe refusal
+without weakening the preceding protocol or discarding canonical inputs.

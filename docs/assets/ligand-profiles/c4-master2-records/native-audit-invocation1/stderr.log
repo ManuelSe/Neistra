@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/master2-native-independent-audit.py", line 180, in <module>
+    (OUT/'input-body-inventory.json').write_bytes(inventory_blob)
+  File "/usr/lib/python3.12/pathlib.py", line 1038, in write_bytes
+    with self.open(mode='wb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-master2-native-independent-audit1/input-body-inventory.json'

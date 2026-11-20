@@ -1,0 +1,11 @@
+{
+  "verified_utc": "2026-11-20T18:21:27.449561+00:00",
+  "tag": "v0.38.0",
+  "annotated_tag_object": "7e535c06e19d833d3e4accd63d3963a10dc4a348",
+  "qualified_runtime": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "reviewed_feature_head": "db6532b20a1b8ac61e7242d349c91c9a99303988",
+  "remote_ref_and_annotation_and_peeled_target_verified": true,
+  "annotation_sha256": "bb0d9a5f8e3268fe2fa369c3bf90fd2db22d3859154918c3ba6efa35522d8ad6",
+  "no_force_or_retarget": true,
+  "release_publication": "PENDING"
+}

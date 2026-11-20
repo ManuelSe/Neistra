@@ -1,0 +1,49 @@
+{
+  "SQL_performed": false,
+  "all_original_union_bodies_rehashed_unchanged": true,
+  "audits": [
+    {
+      "inventory": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-offline-scientific-audit1/input-body-inventory.json",
+      "inventory_sha256": "b1a0bddcef4aef0d5499021a7a85a8149f6eac4d2f3f8bc238bcc5650a4c885d",
+      "normalized_input_count": 1413,
+      "original_scope": "Partial completed-Python offline scientific outputs only; live complete campaign not yet qualified",
+      "report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-offline-scientific-audit1/report.json",
+      "report_sha256": "f7ff9274dfae0aea9efefe95725f35c83acf8492c4e53f320c6eb1d0f4142f20"
+    },
+    {
+      "inventory": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-native-scientific-audit1/input-body-inventory.json",
+      "inventory_sha256": "9f73ca444e0ba9bcc3fd2d50f79b09f1073ca15ab8664f1b42f48702187e265a",
+      "normalized_input_count": 911,
+      "original_scope": "Only the two completed profile workload reports and six completed published Edit-Undo-Redo scientific contexts; entire browser/full gate is still outside this assessment",
+      "report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-native-scientific-audit1/report.json",
+      "report_sha256": "b75f98e0c251760638bc491c0ecd1578809d05dd9e28b9878045d6552b550698"
+    },
+    {
+      "inventory": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-workload-performance-audit1/input-inventory.json",
+      "inventory_sha256": "2dd0f44ae84a2943ec66f0b64a70f74e948bd44484c78fbbc054ce1fa5bb613f",
+      "normalized_input_count": 1685,
+      "original_scope": "Bounded read-only audit of ten completed workload reports while enclosing browser campaign remains live; no browser result or inline attachment binding available",
+      "report": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-workload-performance-audit1/report.json",
+      "report_sha256": "d498ef85d1b620082b499e54a235d45b805f4288db609c7b9378369158b205e5"
+    }
+  ],
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "complete_gate": {
+    "bytes": 782247,
+    "sha256": "34a54d75b2ac641d9af1129e63d8776e2662e12e7bdf7b573df140d24042581e"
+  },
+  "full_browser_attachment_or_global_timing_claim": false,
+  "independent_retention_readback": {
+    "bytes": 4809,
+    "sha256": "633f435ccefc293797d439b8133bb47f2a15a2496d5cb07e8c8aaf0960a0a321"
+  },
+  "normalized_union_inputs": 2159,
+  "scientific_calculation_performed": false,
+  "scope": "Evidence identity rebinding only; original assessment scopes retained",
+  "terminal_execution": {
+    "bytes": 1177,
+    "sha256": "99c9f9b00f6792ae9a4f4c0c6521507c17f773a86448439053445e38f593d0c2"
+  },
+  "verdict": "PASS",
+  "verified_utc": "2026-11-20T18:14:09.473988+00:00"
+}

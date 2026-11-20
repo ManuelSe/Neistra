@@ -1,0 +1,16 @@
+{
+  "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+  "anonymous_request_without_authorization_header": true,
+  "bytes": 970512774,
+  "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/main/neistra-v0.38.0-qualification.zip",
+  "http_status": 200,
+  "matches_local_release_asset": true,
+  "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-qualification.zip",
+  "qualified_master": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "sha256": "f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284",
+  "verification_counts": {
+    "evidence_manifest_entries": 37094,
+    "project_archive_files": 15024,
+    "zip_archives": 6437
+  }
+}

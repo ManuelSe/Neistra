@@ -1,0 +1,20 @@
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part01.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part02.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part03.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part04.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part05.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part06.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part07.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part08.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-candidate3-forensics-part09.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part01.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part02.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part03.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part04.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part05.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part06.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part07.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-issue160-c4-master1-forensics-part08.zip.sha256
+VERIFIED_ANONYMOUS neistra-v0.38.0-qualification.zip.package.json
+VERIFIED_ANONYMOUS neistra-v0.38.0-qualification.zip.sha256
+{"all_initial_runtime_assets_verified": 37, "receipt": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/all-initial-runtime-assets-verified.json"}
