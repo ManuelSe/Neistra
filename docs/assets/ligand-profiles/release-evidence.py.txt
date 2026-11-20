@@ -1,0 +1,843 @@
+"""Package and verify source-bound live ligand property qualification; never publish remotely.
+
+Integrate as docs/assets/ligand-profiles/release-evidence.py.txt and add
+that path to the qualification source inventory before either complete gate.
+The gate command keeps every native observation and the entire synthetic reader
+workspace, including its live stores, while excluding only named bytecode caches.
+"""
+
+from __future__ import annotations
+
+import argparse
+import gzip
+import hashlib
+import io
+import json
+import re
+import runpy
+import shutil
+import stat
+import subprocess
+import urllib.parse
+import urllib.request
+import zipfile
+import zlib
+from pathlib import Path, PurePosixPath
+from typing import Any
+
+ASSETS = Path("docs/assets/ligand-profiles")
+PACKAGER = ASSETS / "release-evidence.py.txt"
+TOOL_NAMES = (
+    "qualification.py.txt",
+    "release-recipe.py.txt",
+    "versions.py.txt",
+    "production-audit.py.txt",
+    "qualification-summary.py.txt",
+    "release-evidence.py.txt",
+)
+ROLES = {
+    "scientific_theory",
+    "scientific_implementation",
+    "software_architecture",
+    "performance",
+    "ui_design",
+    "ux_design",
+    "modeling_reference",
+}
+EXCLUDED_PARTS = {
+    ".git",
+    ".venv",
+    "node_modules",
+    ".playwright",
+}
+CACHE_PARTS = {"__pycache__", "bytecode-cache", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+FIXED_TIME = (1980, 1, 1, 0, 0, 0)
+BLOCK = 1024 * 1024
+Member = Path | bytes
+
+
+def encoded(value: Any) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode()
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_bytes())
+
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def member_stream(member: Member) -> Any:
+    return member.open("rb") if isinstance(member, Path) else io.BytesIO(member)
+
+
+def fingerprint(member: Member) -> dict[str, Any]:
+    digest = hashlib.sha256()
+    size = 0
+    with member_stream(member) as handle:
+        while block := handle.read(BLOCK):
+            digest.update(block)
+            size += len(block)
+    return {"bytes": size, "sha256": digest.hexdigest()}
+
+
+def safe_name(name: str) -> str:
+    path = PurePosixPath(name)
+    assert name and not path.is_absolute() and ".." not in path.parts, name
+    assert "\\" not in name and "\x00" not in name and path.as_posix() == name, name
+    return name
+
+
+def files(directory: Path, *, reader_workspace: bool = False) -> tuple[list[Path], list[str]]:
+    assert directory.is_dir() and not directory.is_symlink(), directory
+    result = []
+    excluded = []
+    for path in sorted(directory.rglob("*")):
+        assert not path.is_symlink(), path
+        if not path.is_file():
+            continue
+        relative = path.relative_to(directory)
+        assert not EXCLUDED_PARTS.intersection(relative.parts), path
+        if CACHE_PARTS.intersection(relative.parts) or path.suffix in {".pyc", ".pyo"}:
+            assert reader_workspace, path
+            excluded.append(relative.as_posix())
+            continue
+        assert not any(part.startswith(".playwright-artifacts-") for part in relative.parts), path
+        if not reader_workspace:
+            assert not path.name.endswith((".db", ".sqlite", ".sqlite3", "-wal", "-shm")), path
+        result.append(path)
+    return result, excluded
+
+
+def add(
+    items: dict[str, Member], name: str, member: Member, *, reader_workspace: bool = False
+) -> None:
+    name = safe_name(name)
+    assert name not in items and name != "manifest.json", name
+    if isinstance(member, Path):
+        assert member.is_file() and not member.is_symlink(), member
+        assert not EXCLUDED_PARTS.intersection(member.parts), member
+        assert not CACHE_PARTS.intersection(member.parts), member
+        if not reader_workspace:
+            assert not member.name.endswith((".db", ".sqlite", ".sqlite3", "-wal", "-shm")), member
+    items[name] = member
+
+
+def add_tree(items: dict[str, Member], prefix: str, directory: Path) -> int:
+    paths, excluded = files(directory)
+    assert not excluded
+    for path in paths:
+        add(items, f"{prefix}/{path.relative_to(directory).as_posix()}", path)
+    return len(paths)
+
+
+def add_reader_workspace(
+    items: dict[str, Member],
+    directory: Path,
+    prefix: str = "editing-workspace",
+) -> tuple[int, list[str]]:
+    """Retain complete owned synthetic stores, specimens, reports and process logs."""
+    paths, excluded = files(directory, reader_workspace=True)
+    for path in paths:
+        add(
+            items,
+            f"{prefix}/{path.relative_to(directory).as_posix()}",
+            path,
+            reader_workspace=True,
+        )
+    return len(paths), excluded
+
+
+def git(root: Path, *arguments: str) -> str:
+    return subprocess.check_output(["git", *arguments], cwd=root, text=True).strip()
+
+
+def check_manifest(archive: zipfile.ZipFile, manifest: Any, name: str) -> tuple[int, int]:
+    """Check both evidence manifests and actual portable-project manifests."""
+    assert isinstance(manifest, dict), name
+    rows = manifest.get("files", manifest)
+    project = manifest.get("schema_version") in {2, 3} and isinstance(rows, list)
+    if isinstance(rows, list):
+        assert all(isinstance(row, dict) and "path" in row for row in rows), name
+        members = {row["path"]: row for row in rows}
+        assert len(members) == len(rows), name
+    else:
+        assert isinstance(rows, dict), name
+        members = rows
+    listed = archive.namelist()
+    names = set(listed)
+    assert len(listed) == len(names), name
+    assert all(isinstance(path, str) for path in members), name
+    declared = manifest.get("empty_directories", []) if "files" in manifest else []
+    assert isinstance(declared, list) and all(isinstance(path, str) for path in declared), name
+    assert len(declared) == len(set(declared)), name
+    assert all(path not in {".", "manifest.json"} for path in declared), name
+    directories = {safe_name(path) + "/" for path in declared}
+    assert not set(members).intersection(declared), name
+    assert names == set(members) | directories | {"manifest.json"}, name
+    parents = {str(parent) for path in names for parent in PurePosixPath(path).parents}
+    assert not (set(members) | set(declared) | {"manifest.json"}).intersection(parents), name
+    for path in directories:
+        info = archive.getinfo(path)
+        assert info.is_dir() and stat.S_IFMT(info.external_attr >> 16) in {0, stat.S_IFDIR}, (
+            name,
+            path,
+        )
+        assert info.file_size == 0 and archive.read(path) == b"", (name, path)
+    for path, expected in members.items():
+        safe_name(path)
+        info = archive.getinfo(path)
+        assert not info.is_dir() and stat.S_IFMT(info.external_attr >> 16) in {0, stat.S_IFREG}, (
+            name,
+            path,
+        )
+        digest = expected if isinstance(expected, str) else expected["sha256"]
+        assert re.fullmatch(r"[a-f0-9]{64}", digest), (name, path)
+        data = archive.read(path)
+        assert sha(data) == digest, (name, path)
+        if isinstance(expected, dict):
+            size = expected.get("bytes", expected.get("size"))
+            assert size is not None and len(data) == size, (name, path)
+    return (0, len(members)) if project else (len(members), 0)
+
+
+def verify_layers(source: Path | bytes, name: str, depth: int = 0) -> dict[str, int]:
+    assert depth < 16, name
+    counts = {"zip_archives": 0, "evidence_manifest_entries": 0, "project_archive_files": 0}
+    if isinstance(source, Path):
+        with source.open("rb") as handle:
+            magic = handle.read(4)
+    else:
+        magic = source[:4]
+    if magic in {b"PK\x03\x04", b"PK\x05\x06", b"PK\x07\x08"}:
+        with zipfile.ZipFile(source if isinstance(source, Path) else io.BytesIO(source)) as archive:
+            names = archive.namelist()
+            assert len(names) == len(set(names)), name
+            assert all(not info.flag_bits & 1 for info in archive.infolist()), name
+            assert all(not stat.S_ISLNK(info.external_attr >> 16) for info in archive.infolist()), (
+                name
+            )
+            assert archive.testzip() is None, name
+            counts["zip_archives"] += 1
+            if "manifest.json" in names:
+                evidence, project = check_manifest(
+                    archive, json.loads(archive.read("manifest.json")), name
+                )
+                counts["evidence_manifest_entries"] += evidence
+                counts["project_archive_files"] += project
+            for member in names:
+                if member.endswith("/"):
+                    safe_name(member[:-1])
+                    continue
+                safe_name(member)
+                nested = verify_layers(archive.read(member), f"{name}!{member}", depth + 1)
+                for key, value in nested.items():
+                    counts[key] += value
+    elif magic.startswith(b"\x1f\x8b"):
+        data = source.read_bytes() if isinstance(source, Path) else source
+        return verify_layers(gzip.decompress(data), f"{name}!gunzip", depth + 1)
+    return counts
+
+
+def compressed_size(member: Member) -> int:
+    compressor = zlib.compressobj(level=6, wbits=-15)
+    size = 0
+    with member_stream(member) as handle:
+        while block := handle.read(BLOCK):
+            size += len(compressor.compress(block))
+    return size + len(compressor.flush())
+
+
+def archive(items: dict[str, Member], target: Path) -> dict[str, Any]:
+    assert items and not target.exists(), target
+    partial = target.with_name(target.name + ".part")
+    assert not partial.exists(), partial
+    for name, member in items.items():
+        assert safe_name(name) != "manifest.json", name
+        if isinstance(member, Path):
+            assert member.is_file() and not member.is_symlink(), member
+    target.parent.mkdir(parents=True, exist_ok=True)
+    manifest = {name: fingerprint(member) for name, member in sorted(items.items())}
+    with (
+        partial.open("xb") as output,
+        zipfile.ZipFile(
+            output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6, allowZip64=True
+        ) as zipped,
+    ):
+        for name, member in [*sorted(items.items()), ("manifest.json", encoded(manifest))]:
+            info = zipfile.ZipInfo(safe_name(name), FIXED_TIME)
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            with member_stream(member) as source, zipped.open(info, "w", force_zip64=True) as dest:
+                shutil.copyfileobj(source, dest, BLOCK)
+    verification = verify_layers(partial, target.name)
+    with zipfile.ZipFile(partial) as zipped:
+        assert json.loads(zipped.read("manifest.json")) == manifest
+    partial.rename(target)
+    return {
+        "file": target.name,
+        "path": str(target.resolve()),
+        **fingerprint(target),
+        "outer_manifest_entries": len(manifest),
+        "verification_counts": verification,
+    }
+
+
+def check_source(root: Path, gate: dict[str, Any]) -> None:
+    assert gate["source_before"] == gate["source_after"]
+    for name, digest in gate["source_before"].items():
+        path = root / safe_name(name)
+        assert path.resolve().is_relative_to(root), path
+        assert path.is_file() and not path.is_symlink(), path
+        assert fingerprint(path)["sha256"] == digest, name
+    for name in TOOL_NAMES:
+        relative = (ASSETS / name).as_posix()
+        assert relative in gate["source_before"], f"Tool missing from qualified source: {relative}"
+    assert Path(__file__).read_bytes() == (root / PACKAGER).read_bytes()
+    # The helper's bytes are bound above before executing its centralized policy.
+    helpers = runpy.run_path(str(root / ASSETS / "qualification.py.txt"))
+    assert helpers["current_identities"](root) == gate["source_before"], (
+        "Current qualifying source inventory differs from the completed gate"
+    )
+
+
+def gate_items(root: Path, label: str) -> tuple[dict[str, Member], dict[str, Any]]:
+    assert re.fullmatch(r"[a-z0-9-]+", label), label
+    assets = root / ASSETS
+    gate = read_json(assets / f"{label}-gate.json")
+    summary = read_json(assets / f"{label}-summary.json")
+    recipe_path = assets / f"{label}-recipe.json"
+    recipe = read_json(recipe_path)
+    assert (
+        recipe["compatibility_protocol"]
+        == gate["compatibility_protocol"]
+        == ("private-derived-same-schema-v2")
+    )
+    assert recipe["preceding_reader"]["schema_head"] == "0017"
+    assert gate["complete"] and gate["source_unchanged"] and gate["preceding_source_unchanged"]
+    assert not gate["initial_status"]
+    assert summary["commit"] == gate["commit"]
+    assert summary["complete_steps"] == len(gate["steps"]) == len(recipe["steps"]) == 43
+    assert all(step["exit_code"] == 0 for step in gate["steps"])
+    assert (
+        summary["failures_flakes_retries"]
+        == summary["new_exclusions"]
+        == summary["python_skips"]
+        == 0
+    )
+    assert (
+        summary["existing_exclusion_identities_unchanged"]
+        and summary["all_lossless_log_hashes_valid"]
+    )
+    assert summary["source_count"] == len(gate["source_before"])
+    assert summary["source_digest"] == sha(
+        json.dumps(gate["source_before"], sort_keys=True).encode()
+    )
+    assert gate["recipe_sha256"] == fingerprint(recipe_path)["sha256"]
+    assert gate["runner_sha256"] == fingerprint(assets / "qualification.py.txt")["sha256"]
+    assert (
+        gate["preceding_source_before"]
+        == gate["preceding_source_after"]
+        == gate["preceding_source_expected"]
+    )
+    assert summary["preceding_source_identities_verified"] == len(gate["preceding_source_expected"])
+    assert summary["application_version"] == recipe["application_version"]
+    check_source(root, gate)
+    fixture_tools = runpy.run_path(str(root / ASSETS / "qualification.py.txt"))
+    fixture_qualification = fixture_tools["fixture_qualification_reports"](recipe, root)
+    assert fixture_qualification == summary["offline_frozen_fixture_qualification"]
+    items: dict[str, Member] = {}
+    fixture_count, fixture_excluded = add_reader_workspace(
+        items, Path(fixture_qualification["directory"]), "scientific/fixture-qualification"
+    )
+    assert fixture_count > 0
+    for path in sorted(assets.glob(f"{label}-*")):
+        if (
+            path.is_file()
+            and not path.name.endswith("-packaging.json")
+            and "-qualified-" not in path.name
+        ):
+            add(items, f"gate/{path.name}", path)
+    for step, expected in zip(gate["steps"], recipe["steps"], strict=True):
+        for key in ("label", "command", "environment", "cwd"):
+            assert step.get(key) == expected.get(key), (label, step["label"], key)
+        log = root / step["log"]
+        assert log.parent == assets and log.name.startswith(label + "-"), log
+        assert sha(gzip.decompress(log.read_bytes())) == step["log_sha256"], log
+        assert f"gate/{log.name}" in items
+    for name in TOOL_NAMES:
+        add(items, f"tools/{name}", assets / name)
+    add(
+        items,
+        "tools/structure_editing_reader_qualification.py",
+        root / "tests/support/structure_editing_reader_qualification.py",
+    )
+    for name in (
+        "rebranding_reader_qualification.py",
+        "current_connectivity_reader_qualification.py",
+        "measurement_reader_qualification.py",
+        "navigation_reader_qualification.py",
+        "project_document_compatibility.py",
+        "schema_boundary_refusal.py",
+        "schema_boundary_evidence.py",
+    ):
+        add(items, f"tools/{name}", root / "tests/support" / name)
+    browser = next(step for step in gate["steps"] if step["label"] == "browser")
+    browser_output = Path(browser["command"][browser["command"].index("--output") + 1])
+    browser_count = add_tree(items, "native/browser", browser_output)
+    assert browser_count > 0
+    native_output = Path(recipe["environment"]["NEISTRA_MINIMIZATION_EVIDENCE_DIR"])
+    native_count = add_tree(items, "native/scientific", native_output)
+    assert native_count > 0
+    reader_audit = read_json(assets / summary["actual_reader_audit"])
+    assert reader_audit["protocol"] == "private-derived-same-schema-v2"
+    assert set(reader_audit["directions"]) == {
+        f"{family}-{phase}"
+        for family in ("rich", "connectivity", "measurements")
+        for phase in (
+            "current-produce",
+            "previous-read-current",
+            "previous-produce",
+            "current-read-previous",
+            "current-reopen",
+        )
+    }
+    for record in reader_audit["directions"].values():
+        path = root / record["evidence"]
+        assert fingerprint(path)["sha256"] == record["evidence_sha256"], path
+    editing = next(step for step in gate["steps"] if step["label"] == "editing-readers")
+    reader_work = Path(editing["command"][editing["command"].index("--workspace") + 1])
+    editing_summary = read_json(reader_work / "summary.json")
+    assert editing_summary["release_qualification"] and editing_summary["complete"]
+    assert editing_summary["protocol"] == "private-derived-same-schema-v2"
+    assert len(editing_summary["phases"]) == 3
+    for name in (
+        "current-produced",
+        "current-exchange",
+        "previous-retained",
+        "previous-produced",
+        "previous-exchange",
+        "previous-reexports",
+        "current-read-previous",
+        "current-reexports",
+        "current-read-old-reexports",
+    ):
+        assert (reader_work / name).is_dir()
+    reader_count, reader_excluded = add_reader_workspace(items, reader_work)
+    assert reader_count > 0
+    derived = next(step for step in gate["steps"] if step["label"] == "property-readers")
+    derived_work = Path(derived["command"][derived["command"].index("--workspace") + 1])
+    derived_summary = read_json(derived_work / "summary.json")
+    assert derived_summary["complete"] and derived_summary["all_actor_reports_verified"]
+    assert derived_summary["protocol"] == "private-derived-same-schema-v2"
+    assert len(derived_summary["phases"]) == 3
+    derived_count, derived_excluded = add_reader_workspace(
+        items, derived_work, "property-reader-workspace"
+    )
+    assert derived_count > 0
+    add(
+        items,
+        "tools/ligand_profiles_reader_qualification.py",
+        root / "tests/support/ligand_profiles_reader_qualification.py",
+    )
+    retained_families = {}
+    for family in ("rich", "connectivity", "measurements"):
+        for phase, flag in (
+            ("current-produce", "--data-dir"),
+            ("previous-produce", "--data-dir"),
+            ("previous-read-current", "--data-dir"),
+        ):
+            step = next(s for s in recipe["steps"] if s["label"] == f"{family}-{phase}")
+            directory = Path(step["command"][step["command"].index(flag) + 1])
+            key = f"{family}-{phase}"
+            count, excluded = add_reader_workspace(items, directory, f"retained-readers/{key}")
+            assert count > 0
+            retained_families[key] = {"files": count, "excluded_caches": excluded}
+    for phase in [*editing_summary["phases"], *derived_summary["phases"]]:
+        assert phase["exit_code"] == 0
+        log = Path(phase["log"])
+        assert (
+            log.parent in {reader_work, derived_work}
+            and fingerprint(log)["sha256"] == phase["log_sha256"]
+        )
+    coordinator = runpy.run_path(
+        str(root / "tests/support/ligand_profiles_reader_qualification.py")
+    )
+    coordinator_sha = fingerprint(root / "tests/support/ligand_profiles_reader_qualification.py")[
+        "sha256"
+    ]
+    old_root = Path(gate["preceding_reader"]["root"])
+    for actor_summary, directory, suite in (
+        (editing_summary, reader_work, "editing"),
+        (derived_summary, derived_work, "properties"),
+    ):
+        reports = {}
+        for phase, expected, implementation in zip(
+            actor_summary["phases"], coordinator["PHASES"], (root, old_root, root), strict=True
+        ):
+            assert phase["phase"] == expected and phase["cwd"] == str(implementation)
+            path = Path(phase["report"])
+            assert path.parent == directory and path.name == f"{expected}.json"
+            assert fingerprint(path)["sha256"] == phase["report_sha256"]
+            record = read_json(path)
+            assert record["wrapper_sha256"] == coordinator_sha
+            identity = record["identity"]
+            assert identity["root"] == str(implementation)
+            source = (
+                gate["source_before"]
+                if implementation == root
+                else gate["preceding_source_expected"]
+            )
+            qualified_tools = runpy.run_path(str(root / ASSETS / "qualification.py.txt"))
+            qualified_tools["verify_worker_sources"](
+                record["worker_provenance"], implementation, source
+            )
+            qualified_tools["verify_worker_library"](record["worker_provenance"])
+            if suite == "properties" and expected in {"produce-current", "old-write"}:
+                origin = "current" if expected == "produce-current" else "previous"
+                started = record["results"]["origins"][origin]["cases"]["started"]["process_facts"]
+                qualified_tools["verify_worker_sources"](
+                    started["worker_provenance"], implementation, source
+                )
+                qualified_tools["verify_worker_library"](started["worker_provenance"])
+            for relative, expected_sha in identity["source_files"].items():
+                assert expected_sha == source[relative]
+                assert fingerprint(implementation / relative)["sha256"] == expected_sha
+            for module in identity["module_paths"].values():
+                filename = Path(module["path"])
+                assert filename.is_relative_to(implementation)
+                assert module["sha256"] == source[str(filename.relative_to(implementation))]
+                assert fingerprint(filename)["sha256"] == module["sha256"]
+            reports[expected] = record
+        coordinator["validate_reports"](reports, suite)
+    context = {
+        "kind": "one complete qualification gate",
+        "label": label,
+        "qualified_commit": summary["commit"],
+        "application_version": recipe["application_version"],
+        "source_digest": summary["source_digest"],
+        "summary": summary,
+        "browser_native_files": browser_count,
+        "scientific_native_files": native_count,
+        "offline_frozen_fixture_cases": 44,
+        "retained_offline_fixture_files": fixture_count,
+        "offline_fixture_excluded_caches": fixture_excluded,
+        "retained_reader_workspace_files": reader_count,
+        "retained_property_reader_workspace_files": derived_count,
+        "property_reader_workspace_excluded_caches": derived_excluded,
+        "retained_rich_connectivity_measurement_workspaces": retained_families,
+        "reader_workspace_exclusions": {
+            "files": reader_excluded,
+            "reason": (
+                "Only bytecode and named interpreter/tool caches are excluded. "
+                "All owned synthetic live databases, history, artifact stores, "
+                "specimens, reports and logs are retained."
+            ),
+        },
+        "profile": "portable correctness; no strict reference-host timing claim",
+        "not_published_by_this_script": True,
+    }
+    add(items, "qualification-context.json", encoded(context))
+    return items, context
+
+
+def package_gate(args: argparse.Namespace) -> None:
+    root = args.root.resolve()
+    items, context = gate_items(root, args.label)
+    output = args.output_dir.resolve()
+    receipt = output / f"{args.label}-packaging.json"
+    assert not receipt.exists(), receipt
+    limit = 80 * 1024 * 1024
+    batches: list[dict[str, Member]] = []
+    batch: dict[str, Member] = {}
+    size = 0
+    for name, member in sorted(items.items()):
+        estimate = compressed_size(member) + 512 + len(name.encode()) * 2
+        assert estimate < limit, (name, "Single evidence member exceeds package-part budget")
+        if batch and size + estimate > limit:
+            batches.append(batch)
+            batch, size = {}, 0
+        batch[name] = member
+        size += estimate
+    if batch:
+        batches.append(batch)
+    archives = []
+    for index, batch in enumerate(batches, 1):
+        path = output / f"{args.label}-qualified-{index:02}.zip"
+        record = archive(batch, path)
+        assert record["bytes"] < 95 * 1024 * 1024, path
+        archives.append(record)
+    record = {
+        **context,
+        "kind": "gate packages",
+        "archives": archives,
+        "all_archive_hashes_and_crc_verified": True,
+        "packager_sha256": fingerprint(Path(__file__))["sha256"],
+    }
+    receipt.parent.mkdir(parents=True, exist_ok=True)
+    with receipt.open("xb") as handle:
+        handle.write(encoded(record))
+    print(encoded({"receipt": str(receipt), "archives": archives}).decode())
+
+
+def verify_package_receipt(path: Path) -> dict[str, Any]:
+    record = read_json(path)
+    assert isinstance(record, dict), path
+    assert record["all_archive_hashes_and_crc_verified"]
+    assert record["packager_sha256"] == fingerprint(Path(__file__))["sha256"]
+    assert record["archives"]
+    for expected in record["archives"]:
+        archive_path = Path(expected["path"])
+        actual = fingerprint(archive_path)
+        assert actual["bytes"] == expected["bytes"] and actual["sha256"] == expected["sha256"]
+        assert verify_layers(archive_path, archive_path.name) == expected["verification_counts"]
+    return record
+
+
+def add_release_context_members(items: dict[str, Member], root: Path) -> None:
+    """Retain profile preparation evidence without relabelling prerequisite runs."""
+    assets = root / ASSETS
+    for name in (
+        "c1-domain-checkpoint.json",
+        "c1-domain-evidence.zip",
+        "c2-checkpoint.json",
+        "c2-evidence.zip",
+        "c2-source-recovery-checkpoint.json",
+        "c2-source-recovery-evidence.zip",
+        "c2-inspector-scaling-checkpoint.json",
+        "c2-inspector-scaling-evidence.zip",
+        "c3-same-schema-acceptance.json",
+        "c3-released159-integration-checkpoint.json",
+    ):
+        path = assets / name
+        assert path.is_file() and not path.is_symlink(), name
+    contract = read_json(assets / "c3-same-schema-acceptance.json")
+    assert contract["protocol"]["new"].startswith("private-derived-same-schema-v2")
+    assert contract["actual_preceding_tag"] == "v0.37.0"
+    # The original planning/preparation snapshots retain their capture-time
+    # pending fields. Current gate/actor reports establish released compatibility.
+    for prefix in ("c1-", "c2-", "c3-"):
+        matches = sorted(path for path in assets.iterdir() if path.name.startswith(prefix))
+        assert matches, f"Missing checkpoint evidence: {prefix}"
+        for path in matches:
+            if path.is_file():
+                add(items, f"checkpoints/{path.name}", path)
+            else:
+                add_tree(items, f"checkpoints/{path.name}", path)
+    for relative in (
+        "docs/plans/issue-160-physicochemical-profiles.md",
+        "docs/plans/issue-11-ligand-information.md",
+        "docs/SCIENTIFIC_LIMITATIONS.md",
+        "docs/PERFORMANCE.md",
+        "docs/DEVELOPMENT.md",
+    ):
+        add(items, relative, root / relative)
+    for name in TOOL_NAMES:
+        add(items, f"tools/{name}", assets / name)
+
+
+def package_release(args: argparse.Namespace) -> None:
+    root = args.root.resolve()
+    assert re.fullmatch(r"\d+\.\d+\.\d+", args.version)
+    assert git(root, "rev-parse", "HEAD") == args.runtime
+    assert git(root, "rev-parse", args.runtime + "^{tree}") == git(
+        root, "rev-parse", args.reviewed_head + "^{tree}"
+    )
+    candidate = verify_package_receipt(args.candidate_package)
+    master = verify_package_receipt(args.master_package)
+    assert candidate["source_digest"] == master["source_digest"]
+    assert candidate["application_version"] == master["application_version"] == args.version
+    assert master["qualified_commit"] == args.runtime
+    master_gate = read_json(root / ASSETS / f"{master['label']}-gate.json")
+    assert master_gate["commit"] == args.runtime
+    check_source(root, master_gate)
+    assert master["source_digest"] == sha(
+        json.dumps(master_gate["source_before"], sort_keys=True).encode()
+    )
+    reviews = read_json(args.reviews)
+    assert reviews["candidate"] == args.reviewed_head and set(reviews["assessments"]) == ROLES
+    for assessment in reviews["assessments"].values():
+        assert assessment["candidate"] == args.reviewed_head
+        assert assessment["verdict"] in {"PASS", "NOT_APPLICABLE"}
+        if assessment["verdict"] == "NOT_APPLICABLE":
+            assert (
+                assessment.get("reason")
+                or assessment.get("rationale")
+                or assessment.get("not_applicable_reason")
+            )
+    premerge = read_json(args.premerge_audit)
+    merge = read_json(args.merge_receipt)
+    assert premerge["head"] == merge["reviewed_feature_head"] == args.reviewed_head
+    assert premerge["pr"] == merge["pr"] and premerge["base"] == merge["comparison_base"]
+    assert (
+        premerge["all_seven_same_head"]
+        and premerge["review_receipt_sha256"] == fingerprint(args.reviews)["sha256"]
+    )
+    assert merge["merge_commit"] == args.runtime and merge["reachable_on_remote_master"]
+    assert merge["merged"] and merge["complete_reviewed_and_merged_trees_identical"]
+    items: dict[str, Member] = {}
+    for record, receipt in ((candidate, args.candidate_package), (master, args.master_package)):
+        label = record["label"]
+        add(items, f"complete-gates/{label}/{receipt.name}", receipt)
+        for part in record["archives"]:
+            add(items, f"complete-gates/{label}/{part['file']}", Path(part["path"]))
+    for path in (args.reviews, args.premerge_audit, args.merge_receipt):
+        add(items, f"operations/{path.name}", path)
+    add_release_context_members(items, root)
+    for argument in args.evidence:
+        name, separator, filename = argument.partition("=")
+        assert separator, "Use --evidence ARCHIVE-NAME=PATH"
+        path = Path(filename).resolve()
+        if path.is_file():
+            add(items, f"supplemental/{safe_name(name)}", path)
+        else:
+            add_tree(items, f"supplemental/{safe_name(name)}", path)
+    context = {
+        "version": args.version,
+        "qualified_master": args.runtime,
+        "reviewed_feature_head": args.reviewed_head,
+        "source_digest": master["source_digest"],
+        "candidate_gate_commit": candidate["qualified_commit"],
+        "candidate_label": candidate["label"],
+        "master_label": master["label"],
+        "reviewed_and_merged_trees_identical": True,
+        "profile": "portable correctness; no strict reference-host timing claim",
+        "agent_review_is_not_human_approval": True,
+        "not_published_by_this_script": True,
+    }
+    add(items, "qualification-context.json", encoded(context))
+    receipt = args.output.with_name(args.output.name + ".package.json")
+    assert not receipt.exists(), receipt
+    result = archive(items, args.output.resolve())
+    record = {
+        "kind": "release asset",
+        **context,
+        "archive": result,
+        "all_archive_hashes_and_crc_verified": True,
+        "packager_sha256": fingerprint(Path(__file__))["sha256"],
+    }
+    with receipt.open("xb") as handle:
+        handle.write(encoded(record))
+    print(encoded({"receipt": str(receipt), **record}).decode())
+
+
+def expected_archive(receipt: dict[str, Any], filename: str) -> dict[str, Any]:
+    if receipt["kind"] == "release asset":
+        expected = receipt["archive"]
+        assert isinstance(expected, dict), filename
+        assert expected["file"] == filename
+        return expected
+    return next(record for record in receipt["archives"] if record["file"] == filename)
+
+
+def verify_local(args: argparse.Namespace) -> None:
+    receipt = read_json(args.receipt)
+    expected = expected_archive(receipt, args.archive.name)
+    actual = fingerprint(args.archive)
+    assert actual["bytes"] == expected["bytes"] and actual["sha256"] == expected["sha256"]
+    verification = verify_layers(args.archive, args.archive.name)
+    assert verification == expected["verification_counts"]
+    print(
+        encoded(
+            {
+                "path": str(args.archive.resolve()),
+                **actual,
+                "verified": True,
+                "verification_counts": verification,
+            }
+        ).decode()
+    )
+
+
+def download_public(args: argparse.Namespace) -> None:
+    receipt = read_json(args.receipt)
+    assert receipt["kind"] == "release asset" and receipt["all_archive_hashes_and_crc_verified"]
+    expected = receipt["archive"]
+    url = urllib.parse.urlsplit(args.url)
+    assert (
+        url.scheme == "https" and url.netloc == "github.com" and not url.query and not url.fragment
+    )
+    assert (
+        url.path == f"/ManuelSe/Neistra/releases/download/v{receipt['version']}/{expected['file']}"
+    )
+    output = args.output.resolve()
+    partial = output.with_name(output.name + ".part")
+    proof = output.with_name(output.name + ".verification.json")
+    assert not output.exists() and not partial.exists() and not proof.exists()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    request = urllib.request.Request(
+        args.url, headers={"User-Agent": "Neistra-release-verification"}
+    )
+    assert not request.has_header("Authorization")
+    digest = hashlib.sha256()
+    size = 0
+    with urllib.request.urlopen(request, timeout=60) as response, partial.open("xb") as target:
+        assert response.status == 200
+        while block := response.read(BLOCK):
+            size += len(block)
+            assert size <= expected["bytes"], "Public asset exceeds expected size"
+            digest.update(block)
+            target.write(block)
+    assert size == expected["bytes"] and digest.hexdigest() == expected["sha256"]
+    verification = verify_layers(partial, expected["file"])
+    assert verification == expected["verification_counts"]
+    partial.rename(output)
+    record = {
+        "public_url": args.url,
+        "anonymous_request_without_authorization_header": True,
+        "http_status": 200,
+        "downloaded_path": str(output),
+        "bytes": size,
+        "sha256": digest.hexdigest(),
+        "qualified_master": receipt["qualified_master"],
+        "matches_local_release_asset": True,
+        "all_zip_crcs_and_internal_manifest_hashes_valid": True,
+        "verification_counts": verification,
+    }
+    with proof.open("xb") as handle:
+        handle.write(encoded(record))
+    print(encoded(record).decode())
+
+
+def parser() -> argparse.ArgumentParser:
+    result = argparse.ArgumentParser(description=__doc__)
+    commands = result.add_subparsers(dest="command", required=True)
+    gate = commands.add_parser("gate")
+    gate.add_argument("--root", type=Path, required=True)
+    gate.add_argument("--label", required=True)
+    gate.add_argument("--output-dir", type=Path, required=True)
+    gate.set_defaults(action=package_gate)
+    release = commands.add_parser("release")
+    release.add_argument("--root", type=Path, required=True)
+    release.add_argument("--version", required=True)
+    release.add_argument("--runtime", required=True)
+    release.add_argument("--reviewed-head", required=True)
+    release.add_argument("--reviews", type=Path, required=True)
+    release.add_argument("--premerge-audit", type=Path, required=True)
+    release.add_argument("--merge-receipt", type=Path, required=True)
+    release.add_argument("--candidate-package", type=Path, required=True)
+    release.add_argument("--master-package", type=Path, required=True)
+    release.add_argument("--evidence", action="append", default=[])
+    release.add_argument("--output", type=Path, required=True)
+    release.set_defaults(action=package_release)
+    verify = commands.add_parser("verify")
+    verify.add_argument("--archive", type=Path, required=True)
+    verify.add_argument("--receipt", type=Path, required=True)
+    verify.set_defaults(action=verify_local)
+    download = commands.add_parser("download")
+    download.add_argument("--url", required=True)
+    download.add_argument("--receipt", type=Path, required=True)
+    download.add_argument("--output", type=Path, required=True)
+    download.set_defaults(action=download_public)
+    return result
+
+
+def main() -> None:
+    args = parser().parse_args()
+    args.action(args)
+
+
+if __name__ == "__main__":
+    main()

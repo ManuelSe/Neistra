@@ -1,0 +1,352 @@
+"""Generate the shared-schema/private-derived gate bound to an actual preceding tag."""
+
+import argparse
+import json
+import re
+import subprocess
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("label")
+parser.add_argument(
+    "--compatibility-protocol", required=True, choices=("private-derived-same-schema-v2",)
+)
+parser.add_argument("--current-version", required=True)
+parser.add_argument("--previous-tag", required=True)
+parser.add_argument("--previous-root", type=Path, required=True)
+parser.add_argument("--previous-receipt", type=Path, required=True)
+args = parser.parse_args()
+assert re.fullmatch(r"[a-z0-9-]+", args.label)
+assert re.fullmatch(r"\d+\.\d+\.\d+", args.current_version)
+assert re.fullmatch(r"v\d+\.\d+\.\d+", args.previous_tag)
+root = Path.cwd().resolve()
+old = args.previous_root.resolve()
+receipt = args.previous_receipt.resolve()
+out = root / "docs/assets/ligand-profiles"
+run = Path("/tmp") / f"neistra160-{args.label}"
+path = out / f"{args.label}-recipe.json"
+assert old.is_dir() and receipt.is_file()
+assert not run.exists() and not path.exists(), "Use a fresh label; preserve earlier evidence."
+old_commit = subprocess.check_output(
+    ["git", "rev-parse", f"{args.previous_tag}^{{}}"],
+    text=True,
+).strip()
+old_version = args.previous_tag[1:]
+assert (
+    subprocess.check_output(["git", "cat-file", "-t", args.previous_tag], text=True).strip()
+    == "tag"
+)
+assert tuple(map(int, args.current_version.split("."))) > tuple(map(int, old_version.split(".")))
+run.mkdir()
+python = str(root / ".venv/bin/python")
+uv = str(root / ".venv/bin/uv")
+steps = []
+
+
+def module_paths(implementation):
+    return ":".join(
+        str(implementation / part)
+        for part in (
+            "apps/api/src",
+            "packages/neistra_core/src",
+            "packages/neistra_demo_plugin/src",
+            ".",
+        )
+    )
+
+
+def environment(implementation, data):
+    return {
+        "PYTHONPATH": module_paths(implementation),
+        "NEISTRA_DATA_DIR": str(data),
+        "NEISTRA_DATABASE_URL": f"sqlite:///{data}/molweave.db",
+        "MOLWEAVE_DATA_DIR": str(data),
+        "MOLWEAVE_DATABASE_URL": f"sqlite:///{data}/molweave.db",
+    }
+
+
+def add(label, command, env=None, cwd=None):
+    step = {"label": label, "command": command}
+    if env:
+        step["environment"] = env
+    if cwd:
+        step["cwd"] = str(cwd)
+    steps.append(step)
+
+
+add("uv", [uv, "sync", "--frozen"])
+add("pnpm", ["corepack", "pnpm", "install", "--frozen-lockfile"])
+database = environment(root, run / "database")
+for label, command in (
+    ("migration", ["upgrade", "head"]),
+    ("downgrade", ["downgrade", "base"]),
+    ("remigration", ["upgrade", "head"]),
+):
+    add(label, [uv, "run", "alembic", *command], database)
+add("ruff", [uv, "run", "ruff", "check", "."])
+add(
+    "mypy", [uv, "run", "mypy", "apps/api", "packages/neistra_core", "packages/neistra_demo_plugin"]
+)
+add(
+    "reader-tool-types",
+    [
+        uv,
+        "run",
+        "mypy",
+        *[
+            str(root / "tests/support" / name)
+            for name in (
+                "structure_editing_reader_qualification.py",
+                "rebranding_reader_qualification.py",
+                "current_connectivity_reader_qualification.py",
+                "measurement_reader_qualification.py",
+                "navigation_reader_qualification.py",
+                "project_document_compatibility.py",
+                "schema_boundary_refusal.py",
+                "schema_boundary_evidence.py",
+                "ligand_properties_reader_qualification.py",
+                "ligand_profiles_reader_qualification.py",
+            )
+        ],
+        "--follow-imports=silent",
+    ],
+)
+add(
+    "python",
+    [uv, "run", "pytest"],
+    {"NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE": str(run / "profile-fixtures")},
+)
+for label, command in (("lint", "lint"), ("types", "typecheck"), ("web", "test")):
+    add(label, ["corepack", "pnpm", "--dir", "apps/web", command])
+add("supervisor", ["corepack", "pnpm", "test:dev"])
+add("build", ["corepack", "pnpm", "--dir", "apps/web", "build"])
+add(
+    "browser-inventory",
+    ["corepack", "pnpm", "exec", "playwright", "test", "--list", "--reporter=json"],
+    {
+        "NEISTRA_E2E_DATA_DIR": str(run / "e2e"),
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": str(out / f"{args.label}-browser-inventory.json"),
+    },
+)
+add(
+    "browser",
+    [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        str(out / f"{args.label}-native"),
+    ],
+    {
+        "NEISTRA_E2E_DATA_DIR": str(run / "e2e"),
+        "NEISTRA_PROPERTY_WORKER_TRACE": str(run / "e2e/qualification/worker-turns.jsonl"),
+    },
+)
+add("versions", [python, str(out / "versions.py.txt")], database)
+add("production", [python, str(out / "production-audit.py.txt")])
+add("legacy-cli", [uv, "run", "pytest", "tests/unit/test_namespace_compatibility.py"], database)
+for family, name in (
+    ("rich", "rebranding_reader_qualification.py"),
+    ("connectivity", "current_connectivity_reader_qualification.py"),
+    ("measurements", "measurement_reader_qualification.py"),
+):
+    wrapper = str(root / "tests/support" / name)
+    current_data = run / f"{family}-current"
+    previous_data = run / f"{family}-previous"
+    retained_data = run / f"{family}-previous-read-current"
+    current_env, previous_env = environment(root, current_data), environment(old, previous_data)
+    flag = {
+        "rich": "--expect-new-names",
+        "connectivity": "--expect-current-connectivity",
+        "measurements": "--expect-ordered-measurements",
+    }[family]
+
+    def command(mode, implementation, data, suffix, *, wrapper=wrapper, family=family, flag=flag):
+        return [
+            str(implementation / ".venv/bin/python"),
+            "-B",
+            wrapper,
+            mode,
+            "--data-dir",
+            str(data),
+            "--implementation-root",
+            str(implementation),
+            "--expected-version",
+            args.current_version if implementation == root else old_version,
+            "--evidence",
+            str(out / f"{args.label}-{family}-{suffix}.json"),
+            flag,
+        ]
+
+    add(
+        f"{family}-current-migration",
+        [python, "-m", "alembic", "upgrade", "head"],
+        current_env,
+        root,
+    )
+    add(
+        f"{family}-current-produce",
+        command("produce", root, current_data, "current-produce"),
+        current_env,
+        root,
+    )
+    # One explicit preparation command: copy the closed current specimen, then
+    # migrate an independent empty store using the actual predecessor source.
+    prepare = (
+        "import pathlib, runpy, subprocess, sys; "
+        "source, copied = map(pathlib.Path, sys.argv[1:3]); "
+        "assert source.is_dir() and not copied.exists(); "
+        "runpy.run_path(sys.argv[3])['closed_copy'](source, copied); "
+        "print('Copied current specimen without replacing existing data', flush=True); "
+        "subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)"
+    )
+    add(
+        f"{family}-previous-migration-and-copy",
+        [
+            str(old / ".venv/bin/python"),
+            "-c",
+            prepare,
+            str(current_data),
+            str(retained_data),
+            str(root / "tests/support/ligand_profiles_reader_qualification.py"),
+        ],
+        previous_env,
+        old,
+    )
+    add(
+        f"{family}-previous-read-current",
+        command("read", old, retained_data, "previous-read-current"),
+        environment(old, retained_data),
+        old,
+    )
+    add(
+        f"{family}-previous-produce",
+        command("produce", old, previous_data, "previous-produce"),
+        previous_env,
+        old,
+    )
+    add(
+        f"{family}-current-read-previous",
+        [
+            python,
+            "-c",
+            (
+                "import subprocess,sys; "
+                "subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True); "
+                "subprocess.run([sys.executable, '-B', *sys.argv[1:]], check=True)"
+            ),
+            *command("read", root, previous_data, "current-read-previous")[2:],
+        ],
+        environment(root, previous_data),
+        root,
+    )
+    add(
+        f"{family}-current-reopen",
+        command("read", root, current_data, "current-reopen"),
+        current_env,
+        root,
+    )
+add(
+    "editing-readers",
+    [
+        python,
+        "-B",
+        str(root / "tests/support/ligand_profiles_reader_qualification.py"),
+        "editing-run",
+        "--compatibility-protocol",
+        args.compatibility_protocol,
+        "--current-root",
+        str(root),
+        "--previous-root",
+        str(old),
+        "--previous-receipt",
+        str(receipt),
+        "--python",
+        python,
+        "--workspace",
+        str(run / "editing-readers"),
+        "--current-version",
+        args.current_version,
+        "--previous-version",
+        old_version,
+        "--previous-tag",
+        args.previous_tag,
+        "--previous-commit",
+        old_commit,
+    ],
+)
+add(
+    "property-readers",
+    [
+        python,
+        "-B",
+        str(root / "tests/support/ligand_profiles_reader_qualification.py"),
+        "run",
+        "--compatibility-protocol",
+        args.compatibility_protocol,
+        "--current-root",
+        str(root),
+        "--previous-root",
+        str(old),
+        "--previous-receipt",
+        str(receipt),
+        "--python",
+        python,
+        "--workspace",
+        str(run / "property-readers"),
+        "--current-version",
+        args.current_version,
+        "--previous-version",
+        old_version,
+        "--previous-tag",
+        args.previous_tag,
+        "--previous-commit",
+        old_commit,
+    ],
+)
+add("diff", ["git", "diff", "--check", old_commit, "HEAD"])
+assert len(steps) == 43
+recipe = {
+    "label": args.label,
+    "application_version": args.current_version,
+    "require_clean": True,
+    "compatibility_protocol": args.compatibility_protocol,
+    "unset_environment": [
+        "NEISTRA_DATA_DIR",
+        "NEISTRA_DATABASE_URL",
+        "MOLWEAVE_DATA_DIR",
+        "MOLWEAVE_DATABASE_URL",
+        "DATABASE_URL",
+    ],
+    "preceding_reader": {
+        "tag": args.previous_tag,
+        "version": old_version,
+        "commit": old_commit,
+        "root": str(old),
+        "schema_head": "0017",
+    },
+    "environment": {
+        "PYTHONPATH": module_paths(root),
+        "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+        "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "NEISTRA_PERFORMANCE": "0",
+        "NEISTRA_QUALIFICATION_VERSION": args.current_version,
+        "NEISTRA_QUALIFICATION_BASE": old_commit,
+        "NEISTRA_E2E_API_PORT": "8340",
+        "NEISTRA_E2E_WORKER_PORT": "8341",
+        "NEISTRA_E2E_WEB_PORT": "5423",
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": str(out / f"{args.label}-browser.json"),
+        "NEISTRA_MINIMIZATION_EVIDENCE_DIR": str(run / "native"),
+    },
+    "steps": steps,
+}
+path.write_text(json.dumps(recipe, indent=2) + "\n")
+print(
+    path, len(steps), "steps; commit before qualification; actual predecessor tag/source required"
+)

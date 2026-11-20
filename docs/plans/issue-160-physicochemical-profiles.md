@@ -638,3 +638,45 @@ only if this workload exposes a concrete concern.
 These accepted contracts are implementation inputs, not measured outcomes or final
 feature approval. Full gates, actual predecessor actors and all seven final reviews
 remain required.
+
+
+D-194 concrete implementation: add a separate profile fixture-qualification driver
+and independent refusal controls. Reuse the original load/reparse/trial/history
+functions; preserve the old qualifier's refusal and all 52 inherited subjects.
+Bind the new driver's source identity in the current qualification receipt and
+check all original source/library/settings/fixture identities before and after.
+No mutation of the generation manifest, old helper globals or original driver is
+needed. Include the genuine all-44 controls in current scientific regression/gates.
+
+
+### Source-bound qualification framework — passing local checkpoint
+
+The [current checkpoint](../assets/ligand-profiles/c3-source-bound-qualification-checkpoint.json)
+records explicit v2 with unchanged legacy v1 and all 17 migrations, actual v0.37.0
+source/environment preparation and five 0.38.0 version fields. Integrated checks
+pass 525 Python cases (337 reader/legacy, 136 helper/legacy and 52 fixture controls)
+with no skips/errors/failures and all 1,176 selected source bodies unchanged. Scoped
+Ruff, mypy application280/tools6 and profile TypeScript/ESLint/11 pure tests pass.
+
+Fresh genuine qualification covers all 44 original SDFs, including O–O, real C→N/H
+reconciliation and exact history restoration. All 176 before/after trial/history
+reports retain 14 finite qualified values. The owned output retains all 44 results,
+176 store files and 44 raw original/copy pairs after positive cleanup and before any
+primary diagnostic SQL. Its portable 1,403,108-byte packet has SHA-256
+`4c7ca7dcc8764157c6cf9fa4be694d5b4208090cd0a141513eb3278def517155`;
+all 220 payload bodies, internal manifest hashes and ZIP CRC verify.
+
+Independent scoped scientific and architecture reviews PASS. Two architecture
+findings were corrected: both origins reject impossible/incomplete retained process
+facts, and every fixture must retain its database plus content-addressed originals/
+normalized artifacts with a complete rechecked file inventory. Red reproductions,
+failed static/launcher attempts, earlier evidence and the exact prior 1,176-source
+capsule remain preserved. No original fixture, scientific method, workload, inherited
+deadline or exclusion was changed to obtain a pass.
+
+These scopes do not establish real two-way runtime compatibility or native timing.
+The separate profile suite is implemented with truthful missing/partial/ready cache
+classification; actual fresh-store and combined-suite observations remain unrun.
+Freeze the coherent checkpoint, execute actual 0.38/0.37 actors, then native/full
+candidate and exact-merge gates, all seven final feature assessments and normal
+protected delivery. The parent remains open throughout.

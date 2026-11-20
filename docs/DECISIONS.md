@@ -9972,3 +9972,13 @@ and bounded work are mandatory; D-148 absolute latency remains opt-in. Preserve
 existing representative 100 ms/2 s targets without treating portable misses as strict
 host certification. No extra bulk profile campaign is justified for one active
 ligand unless measured evidence exposes a scaling concern.
+
+
+D-194 implementation boundary: use a separate profile fixture-qualification entrypoint
+that calls the unchanged production-adapter/editor/kernel/history controls. Keep
+both the original generator/qualifier and all 52 inherited benchmark subjects exact;
+do not override legacy source_identities or monkey-patch its refusal. The new driver
+validates the complete frozen manifest/44 bodies and the exact reviewed observer
+hash transition before any scientific work, records its own current body identity,
+and rechecks every input after the run. This separates current qualification from
+original generation without introducing a new chemical method.
