@@ -1,0 +1,10 @@
+{
+  "recorded_utc": "2026-11-20T11:04:39.256852+00:00",
+  "prelaunch_snapshot": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/pre-launch-external-case-directories.json",
+  "new_companion_trees": {
+    "issue161-primary-performance": [],
+    "issue160-profile-performance": [],
+    "issue159-performance": []
+  },
+  "no_case_owned_database_outside_runroot_found": true
+}

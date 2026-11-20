@@ -1,0 +1,38 @@
+{
+  "recorded_utc": "2026-11-20T11:04:40.435380+00:00",
+  "candidate": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+  "disposition": "FAILED / NOT QUALIFIED",
+  "actual_runner_exit_code": 1,
+  "completed_recorded_commands": 16,
+  "prior_passed_commands": 15,
+  "failed_command": "browser",
+  "never_started_commands": 27,
+  "browser_outcomes": {
+    "passed": 83,
+    "failed": 1,
+    "skipped": 2,
+    "not_run": 574
+  },
+  "raw_report_global_errors": 1,
+  "global_error": "Maximum-allowed-failures stop notice; not another authored case",
+  "source_frozen": true,
+  "baseline_DATA3_frozen": true,
+  "current_source_bodies": 1183,
+  "preceding_source_bodies": 1133,
+  "raw_original_copy_pairs": 48,
+  "raw_bytes_per_side": 19933360,
+  "native_files": 12739,
+  "complete_owned_run_files": 375,
+  "execution_and_raw_copy_files": 59,
+  "external_companions": {
+    "issue161-primary-performance": [],
+    "issue160-profile-performance": [],
+    "issue159-performance": []
+  },
+  "fixture_reports": 44,
+  "fixture_store_files": 176,
+  "packaging_SQL_performed": false,
+  "all_originals_remain_in_place": true,
+  "publication": "Not uploaded; full local typed-index and anonymous verification remain required",
+  "qualification_claim": false
+}

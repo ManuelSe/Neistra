@@ -1,0 +1,14 @@
+{
+  "current": {
+    "commit": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+    "bodies": 1183,
+    "source_digest": "b6b2f260c07bed8755358827b06d76cdc37be80d450d6b7fc8131b28fb5b2b6f",
+    "all_bodies_match_explicit_git_commit_and_retained_files": true
+  },
+  "previous": {
+    "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "bodies": 1133,
+    "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+    "all_bodies_match_explicit_git_commit_and_retained_files": true
+  }
+}

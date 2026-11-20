@@ -1021,3 +1021,48 @@ contexts and zero embedded large historical failure parts; upload/verify the nin
 indexed failure assets separately. No publication/closeout or parent completion is
 claimed. #161 remains preparatory, with actual released #160 required for final gates;
 #162/#163 remain required and unimplemented.
+
+
+### C4 — Failed actual merge and bounded focus correction, 2026-11-20
+
+PR #180 normally merged reviewed `98e70bde` as `b170d1cc`; their trees match.
+The fresh `c4-master1` campaign passes 15 commands, then fails the unchanged SVG
+recovery case before any candidate/depiction/image request: Choose never opens.
+Its browser inventory records 83 passed, one failed, two observed skips and 574 not
+run; 27 recipe commands never start. All current/predecessor/DATA identities and
+16 lossless logs remain valid. Positive closure precedes 48 raw original/copy pairs,
+19,933,360 bytes per side. Do not qualify, tag or relabel this failed merge.
+
+Architecture/UX trace review identifies delayed initial drawer focus as the strongest
+hypothesis, without claiming unrecorded callback timing. A real-App delayed-frame
+regression proves Choose-to-Entry focus replacement and obsolete-visit redirection.
+The minimal opening effect now captures drawer/focus ownership, cancels retired
+work, includes responsive lifecycle and preserves deliberate/nested focus and
+normal initialization (D-205). The native image-recovery source and deadlines are
+unchanged. Both runner instances and all eight theme/mode paths pass; complete web
+checks pass 1,879 cases, lint, types and build. New controls pass 31 owner cases.
+A test-fixture-only typing correction follows the native snapshot with identical
+recursive runtime bytecode; actual application/native sources remain unchanged.
+
+Keep all earlier diagnostics. The separate master1 forensic index (D-206) binds
+eight new parts / 577,937,682 bytes, each below 80 MiB, with an exact 15,518-payload
+union. All original native/store/raw/source trees remain, and every historical
+source body is independently checked against explicit Git objects. Preserve the
+old candidate3 index SHA `a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a`
+and its nine parts. Both typed local index checks pass; anonymous checks remain.
+The bounded label extension is covered by 113 corruption/provenance controls,
+Ruff and strict mypy; no chemistry, schema or dependency is changed.
+
+The corrective branch remains based on the actual failed merge and is not ready to
+push. Prepare fresh `c4-candidate5` and `c4-master2`, preserving all 43 responsibilities,
+actual v0.37.0 authority and existing exclusions. The latter recipe targets a new
+owned checkout and does not guess its future merge SHA. Full candidate completion,
+all seven same-final-candidate assessments, normal corrective review/merge, fresh
+actual-merged qualification, immutable v0.38.0 publication/all assets/closeout remain
+mandatory. #161–#163 and parent closeout remain under the same active program Goal.
+
+The [correction checkpoint](../assets/ligand-profiles/c3-c4-master1-correction-checkpoint.json)
+and portable packet bind the exact working source, controlled red cases, original
+typing failures, corrected web/tool checks, unchanged native cases, complete focused
+store/raw copies and both typed local forensic receipts. They are scoped evidence,
+not completion of the next full campaign or permission to bypass final review.

@@ -224,15 +224,22 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!mobilePanel) return;
-    requestAnimationFrame(() => {
-      mobilePanelRef.current
-        ?.querySelector<HTMLElement>(
+    if (!compact || !mobilePanel) return;
+    const panel = mobilePanelRef.current;
+    const openingFocus = document.activeElement;
+    if (!panel || panel.contains(openingFocus)) return;
+    const frame = requestAnimationFrame(() => {
+      if (!panel.isConnected || mobilePanelRef.current !== panel) return;
+      const currentFocus = document.activeElement;
+      if (currentFocus !== openingFocus
+        && !(currentFocus === document.body && !openingFocus?.isConnected)) return;
+      panel.querySelector<HTMLElement>(
           'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
         )
         ?.focus();
     });
-  }, [mobilePanel]);
+    return () => cancelAnimationFrame(frame);
+  }, [compact, mobilePanel]);
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],

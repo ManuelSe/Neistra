@@ -81,7 +81,9 @@ class Fixture:
 
 
 @pytest.fixture
-def evidence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Fixture:
+def evidence(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, request: pytest.FixtureRequest
+) -> Fixture:
     destination = tmp_path / HELPER
     destination.parent.mkdir(parents=True)
     shutil.copyfile(REPOSITORY / HELPER, destination)
@@ -120,13 +122,13 @@ def evidence(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Fixture:
         "prerelease": False,
         "assets": [],
     }
-    for number in (5, 6):
-        label = f"c4-candidate{number}"
+    labels: tuple[str, ...] = getattr(request, "param", ("c4-candidate5", "c4-candidate6"))
+    for label in labels:
         prefix = f"docs/assets/ligand-profiles/{label}"
         log = f"{prefix}-browser.log.gz"
         log_body = f"{label}: native gate failed without qualification\n".encode()
         (tmp_path / log).write_bytes(gzip.compress(log_body, mtime=0))
-        recipe = {
+        recipe: dict[str, Any] = {
             "label": label,
             "application_version": "0.38.0",
             "compatibility_protocol": PROTOCOL,
@@ -295,6 +297,25 @@ def test_exact_indexed_repository_part_is_supported(evidence: Fixture) -> None:
 
 
 @pytest.mark.parametrize(
+    "evidence", [("c4-master1",), ("c4-master1", "c4-candidate6")], indirect=True
+)
+def test_master_run_uses_its_actual_recipe_gate_and_log_provenance(evidence: Fixture) -> None:
+    run = evidence.index["runs"][0]
+    recipe_path = evidence.root / run["recipe"]["path"]
+    assert recipe_path.name == "c4-master1-recipe.json"
+    gate_path = recipe_path.with_name("c4-master1-gate.json")
+    gate = json.loads(gate_path.read_bytes())
+    assert gate["label"] == "c4-master1" and gate["complete"] is False
+    assert run["lossless_logs"][0]["path"].endswith("c4-master1-browser.log.gz")
+    receipt = evidence.verify()
+    assert receipt["complete"] and receipt["failed_runs_remain_unqualified"]
+    assert receipt["runs"][0]["label"] == "c4-master1"
+    assert receipt["runs"][0]["provenance"]["lossless_logs_verified"] == 1
+    assert len({row["extraction_root"] for row in receipt["runs"]}) == len(evidence.index["runs"])
+    assert not evidence.network
+
+
+@pytest.mark.parametrize(
     "control",
     [
         "duplicate_asset",
@@ -305,6 +326,9 @@ def test_exact_indexed_repository_part_is_supported(evidence: Fixture) -> None:
         "duplicate_run",
         "cross_run_extraction",
         "unsafe_run",
+        "wrong_run_kind",
+        "wrong_campaign",
+        "malformed_master_ordinal",
         "wrong_issue",
         "wrong_version",
         "wrong_repository",
@@ -330,6 +354,13 @@ def test_index_refusals(evidence: Fixture, control: str) -> None:
         evidence.index["runs"][1]["extraction_root"] = run["extraction_root"]
     elif control == "unsafe_run":
         run["label"] = "../c4-candidate5"
+    elif control in {"wrong_run_kind", "wrong_campaign", "malformed_master_ordinal"}:
+        run["label"] = {
+            "wrong_run_kind": "c4-browser1",
+            "wrong_campaign": "c3-master1",
+            "malformed_master_ordinal": "c4-master-one",
+        }[control]
+        run["extraction_root"] = "forensics/" + run["label"]
     elif control == "wrong_issue":
         evidence.index["issue"] = 157
     elif control == "wrong_version":
@@ -362,9 +393,13 @@ def test_index_refusals(evidence: Fixture, control: str) -> None:
         "successful_failed_step",
     ],
 )
+@pytest.mark.parametrize(
+    "evidence", [("c4-candidate5", "c4-candidate6"), ("c4-master1",)], indirect=True
+)
 def test_provenance_refusals(evidence: Fixture, control: str) -> None:
     run = evidence.index["runs"][0]
-    gate_path = evidence.root / "docs/assets/ligand-profiles/c4-candidate5-gate.json"
+    recipe_path = evidence.root / run["recipe"]["path"]
+    gate_path = recipe_path.with_name(run["label"] + "-gate.json")
     gate = json.loads(gate_path.read_bytes())
     if control == "missing_recipe":
         (evidence.root / run["recipe"]["path"]).unlink()
@@ -617,7 +652,8 @@ def rewrite_provenance(
         recipe_bytes = encoded(recipe)
         (evidence.root / run["recipe"]["path"]).write_bytes(recipe_bytes)
         run["recipe"]["sha256"] = gate["recipe_sha256"] = sha(recipe_bytes)
-    gate_path = evidence.root / "docs/assets/ligand-profiles/c4-candidate5-gate.json"
+    recipe_path = evidence.root / run["recipe"]["path"]
+    gate_path = recipe_path.with_name(run["label"] + "-gate.json")
     gate_path.write_bytes(encoded(gate))
 
 

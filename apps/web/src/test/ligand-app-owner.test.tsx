@@ -375,6 +375,71 @@ it("completes one legacy baseline after StrictMode setup replay without strandin
 });
 
 
+async function delayedCompactOpening() {
+  const matchMedia = window.matchMedia;
+  vi.spyOn(window, "matchMedia").mockImplementation(query => ({ ...matchMedia(query), matches: query === "(max-width: 840px)" }));
+  await setup();
+  const pending = new Map<number, FrameRequestCallback>();
+  let nextFrame = 0;
+  vi.spyOn(window, "requestAnimationFrame").mockImplementation(callback => {
+    pending.set(++nextFrame, callback); return nextFrame;
+  });
+  const cancel = vi.spyOn(window, "cancelAnimationFrame").mockImplementation(id => { pending.delete(id); });
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: "Inspector" }));
+  const drawer = screen.getByRole("dialog", { name: "Inspector panel" });
+  const choose = await within(drawer).findByRole("button", { name: "Choose" });
+  expect(pending.size).toBeGreaterThan(0);
+  const opening = [...pending.entries()];
+  const flushOpening = () => act(() => {
+    for (const [id, callback] of opening) { pending.delete(id); callback(performance.now()); }
+  });
+  return { user, drawer, choose, cancel, opening, flushOpening };
+}
+
+it("preserves deliberate drawer focus when the initial animation frame arrives later", async () => {
+  const { user, choose, flushOpening } = await delayedCompactOpening();
+  choose.focus(); expect(choose).toHaveFocus();
+  flushOpening();
+  expect(choose).toHaveFocus();
+  await user.keyboard("{Enter}");
+  const dialog = await screen.findByRole("dialog", { name: "Choose ligand of interest" });
+  expect(await within(dialog).findByRole("radio")).toBeVisible();
+});
+
+it("keeps initial drawer focus when no later task has moved it", async () => {
+  const { drawer, flushOpening } = await delayedCompactOpening();
+  expect(screen.getByRole("button", { name: "Inspector" })).toHaveFocus();
+  flushOpening();
+  expect(within(drawer).getByRole("combobox", { name: "Entry" })).toHaveFocus();
+});
+
+it("preserves nested-dialog focus when an earlier drawer frame arrives", async () => {
+  const { user, choose, flushOpening } = await delayedCompactOpening();
+  await user.click(choose);
+  const dialog = await screen.findByRole("dialog", { name: "Choose ligand of interest" });
+  const radio = await within(dialog).findByRole("radio");
+  radio.focus(); expect(radio).toHaveFocus();
+  flushOpening();
+  expect(radio).toHaveFocus();
+  expect(dialog).toBeVisible();
+});
+
+it("retires a drawer opening frame before a replacement visit takes focus", async () => {
+  const { user, choose: initialChoose, cancel, opening, flushOpening } = await delayedCompactOpening();
+  initialChoose.focus();
+  await user.keyboard("{Escape}");
+  expect(screen.queryByRole("dialog", { name: "Inspector panel" })).toBeNull();
+  await user.click(screen.getByRole("button", { name: "Inspector" }));
+  const replacement = screen.getByRole("dialog", { name: "Inspector panel" });
+  const choose = await within(replacement).findByRole("button", { name: "Choose" });
+  choose.focus(); expect(choose).toHaveFocus();
+  // A callback already dispatched by the browser must also reject a retired node.
+  flushOpening();
+  expect(choose).toHaveFocus();
+  expect(cancel.mock.calls.some(([id]) => opening.some(([oldId]) => oldId === id))).toBe(true);
+});
+
 it("consumes ligand-modal and compact-inspector Escape separately while retaining the real measurement draft", async () => {
   const matchMedia = window.matchMedia;
   vi.spyOn(window, "matchMedia").mockImplementation(query => ({ ...matchMedia(query), matches: query === "(max-width: 840px)" }));

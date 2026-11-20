@@ -3,72 +3,79 @@
 ## Current milestone
 
 Parent #11 remains active through verified delivery of #156–#163. #156–#159 are
-released and closed. #160's fresh candidate4 completes all 43 commands at
-`da6dc220`; the strict summary, actual runner exit and positive cleanup verify.
-All five versions are prepared at 0.38.0. Final same-commit specialist approval,
-normal merge, fresh actual-merged qualification and publication remain required.
-#161 is separate preparatory code; actual released #160 is required before its
-final gates. #162/#163 remain planned and unimplemented.
+released and closed. PR #180 merged #160 as `b170d1cc`, but its fresh complete
+merged campaign failed in chooser opening before SVG recovery. Release is withheld.
+The owned `fix/issue-160-mobile-panel-focus` branch corrects the controlled opening
+focus race; full candidate/merged qualification and final review remain required.
+#161 is preparatory, and #162/#163 remain planned and unimplemented.
 
 ## Completed work
 
 Seven sourced/versioned profile adaptations and two explicitly unavailable methods
-share one registry/evaluator and read-only metadata API. Compact controls reuse
-current-source property authority and descriptor demand. Original uploads, source
-recovery, Jobs ordering and Inspector query ownership remain. Dependencies and all
-17 migrations are unchanged; schema head 0017, archive/project 3, viewer 2 and API v1.
+share a registry/evaluator and read-only metadata API. Current-source authority,
+source recovery, original uploads, Jobs ordering and Inspector ownership remain.
+All five versions are 0.38.0; dependencies and 17 migrations are unchanged, with
+head 0017, project/archive 3, viewer 2 and API v1.
 
-The same-schema v2 qualification retains the literal earlier actors/helpers and
-actual v0.37.0 source/library authority. Prior failed/interrupted campaigns remain
-separately retained, with their original failures and limitations. The tracked
-forensic index binds nine ignored parts totaling 675,225,495 bytes; public download
-verification is still required. No failed result is relabelled as qualification.
+The opening-focus correction preserves deliberate control and nested-dialog focus,
+rejects retired drawer nodes and cancels deferred work across responsive lifecycle
+changes. D-205 records its scope. D-206 retains the failed merged campaign through
+a separate immutable forensic index without altering the earlier nine-part index.
 
 ## Verification performed
 
-Fresh candidate4 passes 4,138 Python cases with zero skips, 1,875 frontend cases,
-14 supervisor checks, lint, types, build, migrations, production/version/legacy
-checks and actual preceding readers. Native execution passes 585 cases with exactly
-75 unchanged released exclusion identities across 660 cases; no failure, retry,
-flake, report error or new exclusion. All 1,183 current / 1,133 preceding source bodies,
-DATA3 and 43 lossless log hashes verify. The 44 offline fixture reports and actual
-reader/source/library proofs retain their distinct scientific scopes.
+Candidate4 remains a complete 43-command PASS on its original source: 4,138 Python
+cases with zero skips, 1,875 frontend, 14 supervisor and 585 browser passes plus
+exactly 75 unchanged exclusions. All seven final assessments covered `98e70bde`;
+its tree matched the normal merge. These results do not qualify later corrections.
 
-Actual runner exit0, closed owned ports/processes and all 136 original/raw-copy
-pairs verify: 105,928,528 bytes per side. Both gate parts have an exact 2,555-member
-disjoint union and verified recursive contents. All734 native originals remain
-unchanged in ignored retention after verified relocation. All744 bodies from ten
-complete external performance trees are retained in a separate verified archive;
-the complete owned store, trace and closed raw copies have their own retained-state
-parts. Their precise manifests and receipts are in the candidate checkpoint.
+The actual merged campaign passed 15 commands, then failed browser execution:
+83 passed, one failed, two observed skips and 574 not run; 27 commands never started.
+The maximum-failure stop notice is separate from authored cases. All 1,183 current /
+1,133 preceding source bodies, DATA3 and 16 lossless logs verify. Positive process/
+port closure and 48 original/raw pairs (19,933,360 bytes per side) verify before
+primary diagnostic SQL. The merged commit remains unqualified.
 
-Independent completed-candidate scientific and performance assessments PASS;
-final all-seven review must cover the resulting exact documentation/evidence commit.
-These are specialist agent assessments, not human approval or published delivery.
+Controlled real-App regressions expose delayed focus replacement and retired-visit
+redirection on the original application. The correction passes all 31 owner cases,
+then all 1,879 frontend cases, lint, types and build. The unchanged native SVG test
+passes both runner projects, themes and network/decode modes, with no skips/retries;
+its 1,183-source snapshot stays fixed throughout execution, followed by positive
+cleanup and three raw pairs. A later test-only annotation has identical recursive
+runtime bytecode. The forensic verifier passes 113 controls, Ruff and strict mypy.
+Initial typing/invocation failures remain recorded separately.
+
+Both forensic indexes pass the extended typed local verifier: nine earlier parts
+and eight merged-failure parts. The latter retain 15,518 payloads / 1,216,212,981
+raw bytes, including all 12,739 native files, complete owned stores, execution/raw
+receipts and historical current/preceding source bodies. Originals remain in place.
+Anonymous verification and all final release assets remain pending.
+
+The [correction checkpoint](assets/ligand-profiles/c3-c4-master1-correction-checkpoint.json)
+retains the exact scoped evidence and source identities, including earlier failed
+checks and their corrections. Full candidate and merged qualification remain pending.
 
 ## Known limitations
 
-D-148 portable timing enforcement is unchanged. Current candidate measurements
-record 31 profile and 120 inherited-property target misses; four deliberate policy
-examples are separate. Hidden retirement remains null. No strict-host, speedup,
-physical-device, simultaneous-memory or browser/GPU peak claim is supported.
-Historical native3's four misses are a separate source/run. All scientific domain,
-unsupported-representation and preview limitations remain explicit.
+D-148 portable timing enforcement remains. Candidate4 records 31 profile and 120
+inherited-property target misses; four policy examples are separate. Hidden
+retirement is null. No strict-host, speedup, physical-device, universal-capacity or
+simultaneous/GPU-memory claim is supported. New campaign results must stay separate.
 
-The main release must explicitly include the small forensic index/inventory and
-exclude all nine large failure parts, upload those parts separately and verify
-all required public bodies through EOF/SHA/CRC/manifests and exact unions. Complete
-actual-merged gate and companion retention remain outstanding; no 0.38.0 publication
-or child/parent closeout is claimed.
+#161 still requires actual released #160, the public baseline, full current native
+acceptance, measurements, compatibility and complete gates. Parent exclusions,
+including #153/#164/#165 and the broader pipeline/chemistry/preparation/docking
+work, remain. No tag, published 0.38.0 release or #160 closeout is claimed.
 
 ## Blockers
 
-No external blocker. Preserve original sources/stores, accepted parent exclusions,
-other sessions and the user's dirty master.
+No external blocker. Finish the in-scope correction and preserve all failed states,
+originals, other sessions and the user's dirty master.
 
 ## Next action
 
-Commit the complete candidate evidence and prepared fresh master recipe, obtain all
-seven exact-candidate verdicts, then use normal PR/review/merge. Qualify the actual
-merged commit with all 43 commands before immutable tag/release/public verification
-and #160 closeout. Continue #161–#163 and verified parent closeout under the same Goal.
+Commit the passing correction and complete forensic checkpoint, then run fresh
+`c4-candidate5`. Obtain seven final same-candidate assessments before normal
+corrective PR/merge. Run fresh `c4-master2` on the actual resulting merge in its
+separate owned checkout before immutable tag/release, anonymous asset verification
+and child closeout. Continue #161–#163 and verified parent closeout under one Goal.

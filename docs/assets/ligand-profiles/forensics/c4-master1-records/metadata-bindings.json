@@ -1,0 +1,16 @@
+{
+  "recorded_utc": "2026-11-20T11:11:09.682833+00:00",
+  "result": "PASS",
+  "inventory_compressed_and_uncompressed_index_bindings_verified": true,
+  "original_browser_report": {
+    "bytes": 2571519,
+    "sha256": "d4f3448e83ecd70c3a962377f65d8fa3b22af7159818043e9b9be35b0cc43c08"
+  },
+  "compressed_browser_report": {
+    "bytes": 1486521,
+    "sha256": "fde1180ce3faa88096fb2095091e5103505de0ba5cbc99c7c52acb5172f3cec7"
+  },
+  "browser_compression_lossless_and_both_copies_equal": true,
+  "all_originals_retained": true,
+  "SQL_used": false
+}
