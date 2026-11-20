@@ -1,0 +1,574 @@
+{
+  "schema": "issue159-publication-integrity-v1",
+  "recorded_utc": "2026-11-20T00:25:51.782948+00:00",
+  "scope": "Complete actual runtime release and all27publishedasset transport/integrity proof; terminaldocumentation integration/cleanup and parent program remain separate",
+  "candidate": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "version": "0.37.0",
+  "tag": "v0.37.0",
+  "annotated_tag_object": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+  "release_id": 452053549,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0",
+  "published_at": "2026-11-19T23:41:37Z",
+  "published_release": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/verified-published-release.json",
+    "bytes": 107739,
+    "sha256": "f01c79c74c64d4e10d9cd73aaa07580b5fce75480f40df88d63bb63a03ef34c2"
+  },
+  "asset_count": 27,
+  "total_asset_bytes": 4882143705,
+  "all_asset_names_ids_sizes_serverdigests_and_anonymous_bodies_match": true,
+  "all_required_anonymous_HTTP200_full_bodies_verified": true,
+  "main_recursive_verification_counts": {
+    "evidence_manifest_entries": 43937,
+    "project_archive_files": 12249,
+    "zip_archives": 5486
+  },
+  "forensic_pair_count": 12,
+  "final_all12_verify_summary": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-verify1/summary.json",
+    "bytes": 36611,
+    "sha256": "473fd4389669834a0bf6b119450c23ce4acb63731d85b5910790d46a1ba9e231"
+  },
+  "forensic_history_remains_unqualified": true,
+  "no_cross_campaign_internal_member_disjointness_claim": true,
+  "assets": [
+    {
+      "name": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "asset_id": 769667446,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "bytes": 36544045,
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-05.json",
+        "bytes": 2852,
+        "sha256": "f4c3a39ab50601b80d577881c2c9ed26bc5f66834977f7301a2ad27d1bb19737"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 735,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "asset_id": 769667447,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "bytes": 112,
+      "sha256": "5a79f48b716343c695fdbf7793bf18c7772f8576a2f532bab74ad8a33db89dc7",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-05.json",
+        "bytes": 2852,
+        "sha256": "f4c3a39ab50601b80d577881c2c9ed26bc5f66834977f7301a2ad27d1bb19737"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate2-failed.zip",
+      "asset_id": 769667492,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate2-failed.zip",
+      "bytes": 1149122794,
+      "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-06.json",
+        "bytes": 2657,
+        "sha256": "e0827c70311dced340c7373d93b686b6dba328af85eab8734da9e5ed0123c1b6"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 34650,
+        "project_archive_files": 28,
+        "zip_archives": 40
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "asset_id": 769667500,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "a4f5835ac2ca4c0e53051513d05e7d9fa4103dcc4a0701a50f667dd3202f9db0",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-06.json",
+        "bytes": 2657,
+        "sha256": "e0827c70311dced340c7373d93b686b6dba328af85eab8734da9e5ed0123c1b6"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate3-failed.zip",
+      "asset_id": 769667496,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate3-failed.zip",
+      "bytes": 131840156,
+      "sha256": "0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-07.json",
+        "bytes": 2564,
+        "sha256": "c5ffd07ffa088d651714f0f16960b00095e2e954164e2d560aece2b2ea81ff27"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 5533,
+        "project_archive_files": 28,
+        "zip_archives": 59
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "asset_id": 769667541,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "ac72a1054928803d39e09406e35924110febbe9141f960917b8b4bf9e946953b",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-07.json",
+        "bytes": 2564,
+        "sha256": "c5ffd07ffa088d651714f0f16960b00095e2e954164e2d560aece2b2ea81ff27"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate4-failed.zip",
+      "asset_id": 769667573,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip",
+      "bytes": 675409215,
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-08.json",
+        "bytes": 2684,
+        "sha256": "e77917b46716ba2b9b609ed21fb05bdfcd4f9bb2deaec4a0dbb409c787225ef1"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 35116,
+        "project_archive_files": 28,
+        "zip_archives": 76
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "asset_id": 769668454,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "09a582043963d02475dfc3e75ed96ce1bce65e61fd7d5a0e57143ee56f010a10",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-08.json",
+        "bytes": 2684,
+        "sha256": "e77917b46716ba2b9b609ed21fb05bdfcd4f9bb2deaec4a0dbb409c787225ef1"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c4-master1-failed.zip",
+      "asset_id": 769668504,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-master1-failed.zip",
+      "bytes": 174910299,
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-09.json",
+        "bytes": 2769,
+        "sha256": "47b947f13cf6c89f8684297ed38bdfbe50183b02b383780b766b459d9ec792e0"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 4881,
+        "project_archive_files": 28,
+        "zip_archives": 57
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "asset_id": 769669125,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "bytes": 104,
+      "sha256": "8fe75dbad3b6f31460cc5863ea2f5d9137676f8b4bff1f460e8cadb295cbb732",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-09.json",
+        "bytes": 2769,
+        "sha256": "47b947f13cf6c89f8684297ed38bdfbe50183b02b383780b766b459d9ec792e0"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "asset_id": 769669176,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate1-failed.zip",
+      "bytes": 10133222,
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-10.json",
+        "bytes": 2692,
+        "sha256": "7586290c865a1c42f1e12acb61891da53e672216ca685a085453dd542a3a2338"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 70,
+        "project_archive_files": 20,
+        "zip_archives": 15
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "asset_id": 769669405,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "aff6ef2c52140a63580e938deefd05f3c409c4453fbcc2b60a5713c2d4da44f4",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-10.json",
+        "bytes": 2692,
+        "sha256": "7586290c865a1c42f1e12acb61891da53e672216ca685a085453dd542a3a2338"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "asset_id": 769669466,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate2-failed.zip",
+      "bytes": 185748045,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-11.json",
+        "bytes": 2895,
+        "sha256": "a2d7bbde3528691ac309ab9fd9b10d5a83a4276a12e94d0ffbc1f1903d61ed1d"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 6756,
+        "project_archive_files": 703,
+        "zip_archives": 309
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "asset_id": 769671603,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "dea812ea9633344c80dbe81da9c6f213444be9afcb965081d219c3b6c3ccaaae",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-11.json",
+        "bytes": 2895,
+        "sha256": "a2d7bbde3528691ac309ab9fd9b10d5a83a4276a12e94d0ffbc1f1903d61ed1d"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "asset_id": 769671657,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate3-failed.zip",
+      "bytes": 1377294877,
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-12.json",
+        "bytes": 2946,
+        "sha256": "77fa4a808b5692de8707d4f4dd1c5bf38f6befad2f62022bb9d5acd987df3045"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 41123,
+        "project_archive_files": 28,
+        "zip_archives": 49
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "asset_id": 769672430,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "5723eeebe363e26186ed41d4296ce6265f9ab32cae32e96a865080fd5228f8cd",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-12.json",
+        "bytes": 2946,
+        "sha256": "77fa4a808b5692de8707d4f4dd1c5bf38f6befad2f62022bb9d5acd987df3045"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "asset_id": 769672453,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "bytes": 190937608,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-01.json",
+        "bytes": 2621,
+        "sha256": "d4d3dd44a38351710d58b8bad67aef866aae383281449e9fcd556033353da11e"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 2663,
+        "project_archive_files": 50,
+        "zip_archives": 38
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "asset_id": 769675222,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "bytes": 116,
+      "sha256": "c929824d77895441a0be070dc0d1bfb7ec28e2573fbb69d2314a01a7ae311429",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-01.json",
+        "bytes": 2621,
+        "sha256": "d4d3dd44a38351710d58b8bad67aef866aae383281449e9fcd556033353da11e"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-early-performance.zip",
+      "asset_id": 769675265,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip",
+      "bytes": 124222530,
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-04.json",
+        "bytes": 2654,
+        "sha256": "1d6cb3f28ec97d06d26ca01f6cf12795c8b48fa369ef8c9b03b3d615fa13e999"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 836,
+        "project_archive_files": 0,
+        "zip_archives": 4
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-early-performance.zip.sha256",
+      "asset_id": 769676942,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip.sha256",
+      "bytes": 104,
+      "sha256": "47cb935c965d301452030f736d559993bee6e9c21d15a256ea5bf6e2d56f27f9",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-04.json",
+        "bytes": 2654,
+        "sha256": "1d6cb3f28ec97d06d26ca01f6cf12795c8b48fa369ef8c9b03b3d615fa13e999"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-native10-failed-all8.zip",
+      "asset_id": 769676985,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native10-failed-all8.zip",
+      "bytes": 55068041,
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-03.json",
+        "bytes": 2637,
+        "sha256": "7983c88e0f5991c0d2ee31b24023becc781d23718dd9eba4cff331928c7e9050"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 3425,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "asset_id": 769677070,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "bytes": 107,
+      "sha256": "6aeab93ede0d86f201ac79748030de536748de44baa74db7920b817712c5bcee",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-03.json",
+        "bytes": 2637,
+        "sha256": "7983c88e0f5991c0d2ee31b24023becc781d23718dd9eba4cff331928c7e9050"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-native9-failed-all8.zip",
+      "asset_id": 769677122,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native9-failed-all8.zip",
+      "bytes": 51668757,
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-02.json",
+        "bytes": 2597,
+        "sha256": "974264b81d8a543f4f64b384c85760bce2099651233f6c0ec841948e0f0bca68"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 3240,
+        "project_archive_files": 20,
+        "zip_archives": 16
+      }
+    },
+    {
+      "name": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "asset_id": 769678120,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "bytes": 106,
+      "sha256": "efce44044601247b5d9cd2ffde60cfef98a65e7ea0b3d336f7f5f5e11bfbe68b",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-twelve-forensic-download1/pair-02.json",
+        "bytes": 2597,
+        "sha256": "974264b81d8a543f4f64b384c85760bce2099651233f6c0ec841948e0f0bca68"
+      },
+      "historical_forensic_qualification_pass": false,
+      "recursive_verification_counts": null
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip",
+      "asset_id": 769667449,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip",
+      "bytes": 719241445,
+      "sha256": "b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-main-execution-receipt.json",
+        "bytes": 1819,
+        "sha256": "1fb556ae93c90faec0ed90128d81c1ce4e942256614bbc4040e220490f076df6"
+      },
+      "recursive_verification_counts": {
+        "evidence_manifest_entries": 43937,
+        "project_archive_files": 12249,
+        "zip_archives": 5486
+      },
+      "full_EOF_evidence": "Successful unchanged stream-to-EOF downloader and exact expected size/SHA; all nested CRC/manifests verify."
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip.package.json",
+      "asset_id": 769667450,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip.package.json",
+      "bytes": 1280,
+      "sha256": "6b93834a0ec2db2dc3b6ef97e12885e1fcb5e0698a13d42d87f04cf6ecd83355",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-sidecars-execution-receipt.json",
+        "bytes": 1857,
+        "sha256": "108a2b5fe99802f5a346e9a0d2678a67b18879549ff2e017805d31a476e76056"
+      },
+      "full_eof": true,
+      "semantic_body_check": "canonical checksum or exact qualified package metadata"
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip.sha256",
+      "asset_id": 769667448,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip.sha256",
+      "bytes": 100,
+      "sha256": "12452172f834ab3ec606da70062f2c5bbed0d53a8b2ea5b21ea088c8ca80a700",
+      "http_status": 200,
+      "full_body_verified": true,
+      "anonymous": true,
+      "proof": {
+        "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-sidecars-execution-receipt.json",
+        "bytes": 1857,
+        "sha256": "108a2b5fe99802f5a346e9a0d2678a67b18879549ff2e017805d31a476e76056"
+      },
+      "full_eof": true,
+      "semantic_body_check": "canonical checksum or exact qualified package metadata"
+    }
+  ],
+  "actual_execution_receipts": {
+    "main": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-main-execution-receipt.json",
+      "bytes": 1819,
+      "sha256": "1fb556ae93c90faec0ed90128d81c1ce4e942256614bbc4040e220490f076df6"
+    },
+    "sidecars": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-sidecars-execution-receipt.json",
+      "bytes": 1857,
+      "sha256": "108a2b5fe99802f5a346e9a0d2678a67b18879549ff2e017805d31a476e76056"
+    },
+    "forensics": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-forensics-execution-receipt.json",
+      "bytes": 1925,
+      "sha256": "ba484549b8d79124c4676b5ab1dc1a1f94c13a7de94369c8088af8c6dd17109b"
+    },
+    "final_forensic_verify": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/final-forensic-verification-execution-receipt.json",
+      "bytes": 1729,
+      "sha256": "6be304bf51de61e80411e1f59c247aa99976be38e19aaeafc68edd782d27739f"
+    }
+  },
+  "source_M2_and_closed_originals_unchanged": true,
+  "strict_host_latency_certification": false,
+  "child_issue_closeout_performed": false,
+  "terminal_documentation_and_owned_cleanup_pending": true,
+  "parent11_and_required160_163_delivery_pending": true
+}

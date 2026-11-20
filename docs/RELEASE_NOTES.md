@@ -1,75 +1,30 @@
 # Neistra Release Notes
 
-## 0.37.0 — Automatic current-input ligand properties (in preparation)
+## 0.37.0 — Automatic current-input ligand properties
 
-Child #159 adds fourteen versioned descriptors with automatic current-input refresh,
-compact readouts and installation-level category options. Relevant edits immediately
-retire incompatible values. Matching verified cache entries can return promptly;
-otherwise results stay pending or unavailable with a reason. Changed chemistry
-previews explicitly show Preview — properties unavailable. Cancel restores the
-matching committed basis. Late responses, Undo/Redo and project/entry changes cannot
-publish incompatible values.
+Published as [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0),
+with immutable annotated tag `5763142ce085111d8d8cdf0eefb248908b5eb4b2`.
 
-Strict scientific inputs preserve known versus unknown chemistry and original uploads.
-Independent counts can succeed while chemistry-dependent values remain unavailable;
-missing charge/order never becomes neutral/single or numerical zero. Calculation
-performs no hidden preparation. Advanced controls expose policies and provenance.
-Bounded coalesced jobs prioritize the inspected ligand during bulk work.
+Neistra 0.37.0 adds fourteen versioned properties for the exact designated ligand, with automatic updates after relevant edits and compact installation-wide category options. Incompatible values retire immediately; matching verified cache results can return automatically. Changed molecular previews show explicit Preview unavailability. Cancel, Apply, Undo/Redo and late responses follow their exact current inputs. Original uploads and canonical molecules are preserved, with no hidden preparation or guessed chemistry.
 
-All five authoritative versions are prepared at 0.37.0; dependencies are unchanged.
-Migration 0017 adds installation preferences and private derived cache/execution
-ownership. Project/archive schema 3, viewer 2 and API v1 remain. Use matching client and
-server versions and retain a complete pre-upgrade backup. Downgrade guards nondefault
-preferences and unreaped private work. Qualified actual v0.36 readers/writers preserve
-canonical inputs, ordinary jobs and unapplied proposals; derived values recalculate
-after remapping and installation preferences remain local. Unsupported paths refuse.
+Implemented through [PR #178](https://github.com/ManuelSe/Neistra/pull/178) at `9f77410389c4e8738fdf94d3e69e7c8550fbc70c`. All seven specialist agent reviews passed the reviewed feature tree, which exactly matches the merge. These are agent assessments, not human approval.
 
-**Verification to date.** Fresh corrective c5-candidate4 at b1cdb138 passes all 43
-commands: 3,598 Python tests with zero skips, 1,599 frontend tests, 14 supervisor checks,
-565 native passes and exactly 75 released exclusions across all 640 inventory cases.
-There are zero failures, flakes, retries or new exclusions. Migration phases,
-lint/types/build/production/version/legacy checks and actual preceding-reader suites
-pass. All 1,133 current and 1,013 actual tagged-reader source identities verify.
+Both complete 43-command qualifications passed. The fresh merged run passed 3,598 Python tests with zero skips, 1,599 frontend tests, 14 supervisor checks and 565 browser cases, with exactly 75 unchanged released exclusions across 640 inventoried cases. There were no failures, flakes, retries or new exclusions. Migration, production/version/legacy and actual v0.36.0 reader/writer checks passed. Independent readback verified all 2,146 Git/disk/capsule source bodies, 6,965 original files, 59 raw-file original/copy pairs and all eight original observer trees and exact trace windows.
 
-PR177 previously merged at 26e7cc1b, whose original merged gate failed in observer
-instrumentation. Atomic complete publication, precise read errors, the actual warm
-baseline and current-target editor-test readiness are corrected. Scientific runtime,
-workloads and deadlines retain their definitions. Original native12 keeps its identity;
-exactly two later test-only source deltas are declared. Historical failed campaigns
-and optional expanded-check limitations retain their recorded status in the child plan.
+Portable work, retention, source-currentness and cancellation bounds passed. Measured cold median/p95/max was 2,832.35/3,619.9/3,654.1 ms, with 38/40 above the 2-second target. Cache median/p95/max was 100.65/121.8/123.6 ms, with 20/40 above 100 ms and zero new warm jobs. Feedback exceeded 100 ms in 47/84 observations; all four bulk active updates exceeded 5 seconds. Cancellation feedback peaked at 11.5 ms. All 92 renewals, 27,243,680 UTF-8 response bytes and 132 consumer updates are retained. Ordinary productive turns were 1/1/1/2, within the accepted bound. Mobile old-value retirement latency, wrapper CPU/RSS/load and complete browser/GPU/short-lived-process accounting remain unavailable. Discrete resource samples are not simultaneous totals. No strict-host certification, causal speedup or regression claim is supported.
 
-Complete retention and independent body/CRC/metadata/union verification pass for
-all 6,977 originals, 44 empty directories, 59 raw-file original/copy pairs and all eight
-original observer trees/480 files. The separate source companion preserves both
-capsules; all 2,146 Git/disk/capsule bodies verify. Fresh packet-only consumers pass.
-Complete independent-reader and analysis contexts preserve their actual executions
-and adapter history. Twelve failed/diagnostic forensic assets remain separate.
+Migration 0017 adds installation preferences and private regenerable property state. Project/archive schema3, viewer2 and APIv1 remain unchanged. Use matching client/server versions and retain a complete managed-data backup before upgrading. Archives preserve canonical inputs/designation and requalify derived values after remapping; installation preferences stay local. Downgrade refuses nondefault preferences or unreaped private work; restore default category options and stop/reap owned work before the supported migration path. Unsupported paths refuse rather than discard primary data.
 
-**Measured limits.** Current C4 cold median/p95/max is 2,786.6/3,567.5/3,647.9 ms;
-39/40 exceed 2 seconds. Cache maximum is 128.1 ms, with 20/40 above 100 ms and zero
-new warm jobs.
-Feedback exceeds 100 ms in 46/84 observations. Bulk active updates are 7,070.7/7,997.8 ms
-on desktop and 5,344.1/6,889 ms on mobile; all four exceed 5 seconds. Cancellation
-feedback is at most 13 ms. All 93 renewals, 28,056,765 complete UTF-8 renewal-response bytes and 133
-consumer updates remain included.
+The main qualification ZIP is 719,241,445 bytes with SHA256 `b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb`. Its package/checksum sidecars and twelve separate historical forensic ZIP/checksum pairs are included. The main package contains separately verifiable source and retained-state companions, execution evidence and the independently reviewed performance analysis. Historical failed/diagnostic packets retain that status and are not qualification passes. Local full verification and the exact 328-member main union passed.
 
-Mobile old-value retirement latency is unavailable for 20 cold and 20 warm observations.
-The 10,023 discrete case-observer samples do not establish simultaneous RSS totals or
-complete browser/GPU/short-lived-process accounting. C4 wrapper CPU/RSS/load is
-unavailable; native12 samples remain historical. Portable hard bounds pass. No causal
-speedup/regression, universal latency guarantee or strict-host certification is claimed.
+All 27 required assets pass anonymous HTTP 200, full-body size/SHA-256 and applicable recursive CRC/internal-manifest checks. Main checksum/package semantics and the final twelve-pair reconciliation pass.
 
-**Remaining delivery.** All seven final common-candidate assessments, normal corrective
-PR/review/merge, fresh complete actual merged-master qualification, immutable release
-and complete anonymous main/twelve-forensic asset verification remain required before
-explicit #159 closeout. Profiles, sidebar, property filters and inspector retirement
-remain required #160–#163 work. Diagram #153, relocations #164/#165 and the other parent
-exclusions stay separate.
+Profiles, the new sidebar, property filters and final inspector integration remain required #160–#163 work under #11. Diagram #153, relocations #164/#165, broader acquisition/chemistry assignment/preparation/docking and other parent exclusions remain separate. The general inspector remains available.
 
-See [property documentation](LIGAND_PROPERTIES.md),
-[current checkpoint](assets/ligand-properties/c3-c5-candidate4-checkpoint.json),
-[current measured analysis](assets/ligand-properties/c3-c5-candidate4-analysis.json)
-and [scientific limitations](SCIENTIFIC_LIMITATIONS.md).
+Refs #159. Refs #11.
+
+See [property documentation](LIGAND_PROPERTIES.md) and
+[scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties).
 
 ## 0.36.0 — Exact durable ligand designation
 

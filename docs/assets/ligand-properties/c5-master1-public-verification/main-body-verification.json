@@ -1,0 +1,17 @@
+{
+  "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+  "anonymous_request_without_authorization_header": true,
+  "bytes": 719241445,
+  "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-main-public-download1/neistra-v0.37.0-qualification.zip",
+  "http_status": 200,
+  "matches_local_release_asset": true,
+  "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip",
+  "qualified_master": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "sha256": "b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb",
+  "verification_counts": {
+    "evidence_manifest_entries": 43937,
+    "project_archive_files": 12249,
+    "zip_archives": 5486
+  }
+}
+

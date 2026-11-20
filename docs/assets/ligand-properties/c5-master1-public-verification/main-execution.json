@@ -1,0 +1,43 @@
+{
+  "mode": "main",
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/docs/assets/ligand-properties/release-evidence.py.txt",
+    "download",
+    "--url",
+    "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip",
+    "--receipt",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-release-assets1/neistra-v0.37.0-qualification.zip.package.json",
+    "--output",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-main-public-download1/neistra-v0.37.0-qualification.zip"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots",
+  "exit_code": 0,
+  "started_utc": "2026-11-19T23:55:48.612746+00:00",
+  "finished_utc": "2026-11-20T00:00:47.300997+00:00",
+  "child_environment_unset_requested": [
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "GH_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_ENTERPRISE_TOKEN",
+    "GITHUB_ENTERPRISE_TOKEN"
+  ],
+  "child_environment_removed_present_keys": [],
+  "no_credentials_or_proxy_values_recorded": true,
+  "stdout": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-main.stdout",
+    "bytes": 767,
+    "sha256": "bfb3245893507aa95a4d36c6d33a1151aaae4c70447f9acad55738cc9f345fd7"
+  },
+  "stderr": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-main.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

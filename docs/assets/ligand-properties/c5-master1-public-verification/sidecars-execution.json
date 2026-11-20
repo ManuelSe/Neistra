@@ -1,0 +1,44 @@
+{
+  "mode": "sidecars",
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-release-sidecar-verification-preparation1/sidecars.py",
+    "--authorization",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/sidecar-public-authorization.json",
+    "--authorization-sha256",
+    "46cd759d669ede055e5a39b9bc23a2dd4450ad0f29710b8297b176463a0980bd",
+    "--catalog",
+    "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/sidecar-public-catalog.json",
+    "--download-name",
+    "download1"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots",
+  "exit_code": 0,
+  "started_utc": "2026-11-19T23:55:48.612855+00:00",
+  "finished_utc": "2026-11-19T23:55:50.042917+00:00",
+  "child_environment_unset_requested": [
+    "HTTP_PROXY",
+    "HTTPS_PROXY",
+    "ALL_PROXY",
+    "http_proxy",
+    "https_proxy",
+    "all_proxy",
+    "GH_TOKEN",
+    "GITHUB_TOKEN",
+    "GH_ENTERPRISE_TOKEN",
+    "GITHUB_ENTERPRISE_TOKEN"
+  ],
+  "child_environment_removed_present_keys": [],
+  "no_credentials_or_proxy_values_recorded": true,
+  "stdout": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-sidecars.stdout",
+    "bytes": 1069,
+    "sha256": "92aa12d5e49746ccc83c00b6564e0bd4b8fd10e280876daf77bf5ccefa330213"
+  },
+  "stderr": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/anonymous-sidecars.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

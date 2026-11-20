@@ -1,0 +1,118 @@
+{
+  "role": "performance",
+  "author_agent": "/root/issue159_m2_closed_performance_review1",
+  "persisted_by": "primary from actual completed independent nonauthor assessment",
+  "verdict": "PASS",
+  "scope": "Actual closed M2 performance evidence only; not publication/release/child closeout approval",
+  "candidate": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "authoritative_assessment": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-performance-analysis-execution1/assessment.json",
+    "sha256": "5a24817a06aa1b97f0eedd9b3a375ee5527a3ed739c6334673045888c7752357"
+  },
+  "inspected": [
+    "sealed analysis kit and actual executions",
+    "original8metric/observer reports and traces",
+    "qualification policy,D148,approved159plan"
+  ],
+  "independent_checks": [
+    "All569consumed inputs/253083594B rehashed exactly.",
+    "All1133current sources/52method/789observer subjects matchpins; exactly2declared test-only historicaldifferences.",
+    "Bothsourcecapsules CRC/exactunions/all2146body hashes.",
+    "All8actualbrowser performancecases once/no retries;8metric and8observer attachments matchoriginalbodies.",
+    "Allcombineddistributions and9annotation groups reconcile; actual analyzer andseparatearithmetic exits0/outputhashes exact.",
+    "Globaltrace175463contiguous records/73450158B;all8originalmirrors exact."
+  ],
+  "measurements": {
+    "cold": {
+      "n": 40,
+      "median_ms": 2832.35,
+      "p95_ms": 3619.9,
+      "max_ms": 3654.1,
+      "target_ms": 2000,
+      "misses": 38
+    },
+    "cache": {
+      "n": 40,
+      "median_ms": 100.65,
+      "p95_ms": 121.8,
+      "max_ms": 123.6,
+      "target_ms": 100,
+      "misses": 20
+    },
+    "click_feedback": {
+      "n": 84,
+      "median_ms": 105.4,
+      "p95_ms": 133.7,
+      "max_ms": 1022,
+      "target_ms": 100,
+      "misses": 47
+    },
+    "bulk_active": {
+      "n": 4,
+      "median_ms": 6912.6,
+      "p95_ms": 7058.1,
+      "max_ms": 7058.1,
+      "target_ms": 5000,
+      "misses": 4
+    },
+    "cancellation_feedback": {
+      "n": 2,
+      "median_ms": 10.05,
+      "p95_ms": 11.5,
+      "max_ms": 11.5,
+      "target_ms": 100,
+      "misses": 0
+    }
+  },
+  "correctness_and_work": {
+    "paired_edits_per_profile": 20,
+    "fresh_browser_contexts_per_profile": 5,
+    "warm_observations": 40,
+    "warm_new_jobs": 0,
+    "complete_1000_entry_workloads": 4,
+    "exact_bindings_and_priority_overlap": true,
+    "ordinary_productive_turns": [
+      1,
+      1,
+      1,
+      2
+    ],
+    "active_admission_fairness_turns": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "bulk_private_jobs": [
+      3,
+      3,
+      127,
+      127
+    ],
+    "bulk_private_job_cap": 129,
+    "all_observed_private_jobs_reaped": true,
+    "observed_cancelled_jobs": 7,
+    "renewals": 92,
+    "renewal_UTF8_response_bytes": 27243680,
+    "consumer_updates": 132,
+    "retention_batch_capture_publication_materialization_single_running_bounds_enforced": true
+  },
+  "limitations": [
+    "Latency misses are material observed limitations; D148 portablegate separates controlledhost absolute latency enforcement.",
+    "Request spans/publication intervals do not establish serverCPUattribution or causaloptimization.",
+    "Historical measurements remain separate; no strict-host certification,causal speedup or regressionclaim.",
+    "10115discrete resource samples; child/workerRSS peaks119779328/212561920B are notsimultaneous totals orcompletebrowserGPU accounting.",
+    "WrapperCPU/RSS/load andshortlived-process totals unavailable.",
+    "Mobileoldvalueretirement unavailable for20cold and20warm observations.",
+    "Cancellation measuresconsumerfeedback/late-replyretirement,not workertermination latency."
+  ],
+  "consequential_findings": [],
+  "actions_not_performed": [
+    "file changes",
+    "applications",
+    "services",
+    "nativeworkloads",
+    "SQL",
+    "Git commands"
+  ]
+}

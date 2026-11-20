@@ -1,0 +1,516 @@
+{
+  "schema": "issue159-runtime-publication-v1",
+  "scope": "Verified runtime, release and issue facts. This terminal documentation checkpoint integrates separately; cleanup and remaining parent delivery are recorded in the canonical reply.",
+  "qualified_master": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+  "reviewed_feature_head": "8c70ddb02140852850bce370eb34279e76318847",
+  "version": "0.37.0",
+  "tag": "v0.37.0",
+  "annotated_tag_object": "5763142ce085111d8d8cdf0eefb248908b5eb4b2",
+  "release_id": 452053549,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0",
+  "published_at": "2026-11-19T23:41:37Z",
+  "canonical_issue_reply": "https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950",
+  "issue159_state": "closed",
+  "issue159_closed_at": "2026-11-20T00:30:32Z",
+  "parent11_state": "open",
+  "all_seven_feature_assessments": {
+    "scientific_theory": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "scientific_implementation": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "software_architecture": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "performance": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "ui_design": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "ux_design": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    },
+    "modeling_reference": {
+      "candidate": "8c70ddb02140852850bce370eb34279e76318847",
+      "verdict": "PASS"
+    }
+  },
+  "complete_candidate_gate": {
+    "commit": "b1cdb138c7becb5afa73b8f9bbf1e6d958ae8582",
+    "application_version": "0.37.0",
+    "branch": "fix/issue-159-observer-snapshots",
+    "clean_start": true,
+    "complete_steps": 43,
+    "source_count": 1133,
+    "source_inventory_unchanged": true,
+    "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 3598,
+    "python_skips": 0,
+    "frontend": 1599,
+    "supervisor": 14,
+    "browser_passed": 565,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "9684a360bce6e3df2dbe0af6b073bcecdd83c83c485ca4c2e5f5ca82adf85a66",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "actual_reader_audit": "c5-candidate4-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 10029.161,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 10033.0
+  },
+  "complete_merged_gate": {
+    "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "application_version": "0.37.0",
+    "branch": "",
+    "clean_start": true,
+    "complete_steps": 43,
+    "source_count": 1133,
+    "source_inventory_unchanged": true,
+    "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+    "sources_unchanged": true,
+    "all_lossless_log_hashes_valid": true,
+    "python": 3598,
+    "python_skips": 0,
+    "frontend": 1599,
+    "supervisor": 14,
+    "browser_passed": 565,
+    "browser_exclusions": 75,
+    "browser_inventory_count": 640,
+    "browser_inventory_sha256": "dbdf917e46b9d98423635714beb6ee5a974c5cd9f26e1a5a780ae3ad4275b5eb",
+    "complete_browser_inventory_executed": true,
+    "exclusion_baseline": "docs/assets/ligand-designation/c5-master1-browser.json.gz",
+    "exclusion_baseline_sha256": "707ff220fae2caf0006ef2a39285f93ad043bbcc983dcd0e98c2e6ced249c73a",
+    "existing_exclusion_identities_unchanged": true,
+    "new_exclusions": 0,
+    "failures_flakes_retries": 0,
+    "profile": "portable correctness; no strict reference-host timing claim",
+    "preceding_reader": "actual v0.36.0; shared-schema positive old API/archive writing, separate unknown0017 migration refusal, independently old-authored migration and current reopen; both suffixes",
+    "preceding_source_identities_verified": 1013,
+    "actual_reader_audit": "c5-master1-reader-audit.json",
+    "current_canonical_unapplied_proposal_retained": true,
+    "duration_seconds": 10039.61,
+    "duration_definition": "Sum of all complete sequential command durations; no partial command reuse.",
+    "wall_seconds": 10043.0
+  },
+  "independent_original_source_readback": {
+    "original_files": 6965,
+    "original_bytes": 621264610,
+    "empty_directories": 47,
+    "actual_Git_disk_capsule_bodies": 2146,
+    "raw_original_copy_pairs": 59,
+    "original_observer_roots": 8,
+    "original_observer_files": 480,
+    "all_original_bodies_metadata_and_exact_union": true
+  },
+  "performance": {
+    "combined": {
+      "all40_cold_actual_edits_ms": {
+        "n": 40,
+        "median": 2832.349999964237,
+        "p95_nearest_rank": 3619.899999976158,
+        "min": 1981.8999999761581,
+        "max": 3654.100000023842,
+        "limit": 2000,
+        "misses": 38
+      },
+      "all40_matching_cache_projection_ms": {
+        "n": 40,
+        "median": 100.65000003576279,
+        "p95_nearest_rank": 121.79999995231628,
+        "min": 48.09999990463257,
+        "max": 123.60000002384186,
+        "limit": 100,
+        "misses": 20
+      },
+      "cancellation_feedback_ms": {
+        "n": 2,
+        "median": 10.050000011920929,
+        "p95_nearest_rank": 11.5,
+        "min": 8.600000023841858,
+        "max": 11.5,
+        "limit": 100,
+        "misses": 0
+      },
+      "four_bulk_active_ms": {
+        "n": 4,
+        "median": 6912.600000023842,
+        "p95_nearest_rank": 7058.100000023842,
+        "min": 5412.100000023842,
+        "max": 7058.100000023842,
+        "limit": 5000,
+        "misses": 4
+      },
+      "four_bulk_click_feedback_ms": {
+        "n": 4,
+        "median": 597.8500000238419,
+        "p95_nearest_rank": 1022,
+        "min": 167.5,
+        "max": 1022,
+        "limit": 100,
+        "misses": 4
+      }
+    },
+    "all84_feedback": {
+      "n": 84,
+      "median": 105.39999997615814,
+      "p95_nearest_rank": 133.69999992847443,
+      "min": 17.5,
+      "max": 1022,
+      "limit": 100,
+      "misses": 47
+    },
+    "renewal_totals": {
+      "calls": 92,
+      "full_UTF8_response_body_bytes": 27243680,
+      "all_consumer_updates": 132
+    },
+    "saved_resources": {
+      "wrapper_CPU_RSS_load_samples": null,
+      "wrapper_sampling_status": "Unavailable in this M2 full-gate transport; native12 wrapper sampling is historical and is not borrowed.",
+      "case_observer_samples_total": 10115,
+      "case_observer_samples_by_case": {
+        ".issue-11-evidence/issue159-performance/chromium-638cd7e1-9c14-4308-8f87-3358fe61fd8b": 859,
+        ".issue-11-evidence/issue159-performance/mobile-chromium-99685d06-4483-47e7-b6ef-c27f32be4639": 752,
+        ".issue-11-evidence/issue159-performance/chromium-d3c9768f-8144-46a8-8ff8-36a16b5db3e4": 1475,
+        ".issue-11-evidence/issue159-performance/mobile-chromium-f3f7f461-b6bd-4d17-8029-8d8c6c89f104": 1438,
+        ".issue-11-evidence/issue159-performance/chromium-d9cbbe21-b6aa-40fd-9dc7-4c95f756414d": 45,
+        ".issue-11-evidence/issue159-performance/mobile-chromium-0376554e-5bc6-44e1-8b0f-2c0f90113899": 70,
+        ".issue-11-evidence/issue159-performance/chromium-09d60c47-5b3f-46dc-80d7-0a7396caf332": 2305,
+        ".issue-11-evidence/issue159-performance/mobile-chromium-f1a1f627-8643-4dee-9c83-2e987072a2fd": 3171
+      },
+      "case_observer_peak_child_RSS_bytes_max": 119779328,
+      "case_observer_peak_worker_parent_RSS_bytes_max": 212561920,
+      "scope": "Actual case observers sample the worker and property children. Peaks are discrete samples and are not simultaneous process totals or every-instant ceilings. Whole-browser/GPU/short-lived process accounting, wrapper CPU and host load are unavailable. Missing observations are not zero."
+    },
+    "ordinary_productive_turns": [
+      1,
+      1,
+      1,
+      2
+    ],
+    "active_admission_fairness_turns": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "policy": "D148 retains100ms feedback/cache,2000ms cold and5000ms bulk targets/misses. Portable work/resource/scientific/cancellation/deadline bounds remain mandatory; absolute latency enforcement is additional opt-in controlled reference-host qualification.",
+    "strict_host_certified": false
+  },
+  "public_asset_count": 27,
+  "public_total_bytes": 4882143705,
+  "all_required_anonymous_HTTP200_full_bodies_verified": true,
+  "main_recursive_verification_counts": {
+    "evidence_manifest_entries": 43937,
+    "project_archive_files": 12249,
+    "zip_archives": 5486
+  },
+  "historical_forensics_qualification_remains_false": true,
+  "assets": [
+    {
+      "name": "neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "asset_id": 769667446,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate1-interrupted.zip",
+      "bytes": 36544045,
+      "sha256": "bd483490ab1396fe9b24534a4e75a8107f9c431ad253425f54d7337b7b623995",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "asset_id": 769667447,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate1-interrupted.zip.sha256",
+      "bytes": 112,
+      "sha256": "5a79f48b716343c695fdbf7793bf18c7772f8576a2f532bab74ad8a33db89dc7",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate2-failed.zip",
+      "asset_id": 769667492,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate2-failed.zip",
+      "bytes": 1149122794,
+      "sha256": "2aa0d904816513674d149c69134e548fdffa371ba7832c5caf1af7c09bcb7baa",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "asset_id": 769667500,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate2-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "a4f5835ac2ca4c0e53051513d05e7d9fa4103dcc4a0701a50f667dd3202f9db0",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate3-failed.zip",
+      "asset_id": 769667496,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate3-failed.zip",
+      "bytes": 131840156,
+      "sha256": "0226008a25cbf94037568acbfc7a5088405e83e6100db0f5226c187b449ba5cc",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "asset_id": 769667541,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate3-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "ac72a1054928803d39e09406e35924110febbe9141f960917b8b4bf9e946953b",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate4-failed.zip",
+      "asset_id": 769667573,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip",
+      "bytes": 675409215,
+      "sha256": "b40f65cd3503ae1dd3a1d772906511e28d916843cdd2db0c5a5476785b263d6a",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "asset_id": 769668454,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-candidate4-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "09a582043963d02475dfc3e75ed96ce1bce65e61fd7d5a0e57143ee56f010a10",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-master1-failed.zip",
+      "asset_id": 769668504,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-master1-failed.zip",
+      "bytes": 174910299,
+      "sha256": "ca5bcf1c5d0966fd6905521a0b7491e48a4a4ef1c7486db53c5b858c93cae02a",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "asset_id": 769669125,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c4-master1-failed.zip.sha256",
+      "bytes": 104,
+      "sha256": "8fe75dbad3b6f31460cc5863ea2f5d9137676f8b4bff1f460e8cadb295cbb732",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate1-failed.zip",
+      "asset_id": 769669176,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate1-failed.zip",
+      "bytes": 10133222,
+      "sha256": "5ddd8008c34de65359be5d73e94571d35dc99bbc4da11ab43f16ace602e3eeb5",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "asset_id": 769669405,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate1-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "aff6ef2c52140a63580e938deefd05f3c409c4453fbcc2b60a5713c2d4da44f4",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate2-failed.zip",
+      "asset_id": 769669466,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate2-failed.zip",
+      "bytes": 185748045,
+      "sha256": "d7d3a9c447ed371745eee986c57f2a4587f292b88692fb21c6e55d668bc7661f",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "asset_id": 769671603,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate2-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "dea812ea9633344c80dbe81da9c6f213444be9afcb965081d219c3b6c3ccaaae",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate3-failed.zip",
+      "asset_id": 769671657,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate3-failed.zip",
+      "bytes": 1377294877,
+      "sha256": "1f0cf77e248f358aabb6e172bc201d9442bc4c8e9befdc0b8baa912a0aed4fc4",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "asset_id": 769672430,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-c5-candidate3-failed.zip.sha256",
+      "bytes": 107,
+      "sha256": "5723eeebe363e26186ed41d4296ce6265f9ab32cae32e96a865080fd5228f8cd",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "asset_id": 769672453,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-desktop-profiling-diagnostics.zip",
+      "bytes": 190937608,
+      "sha256": "5c6167a7a23cdddc1b871a9f709a42ce5b0cec89490dd96d2c84bbe9782f5d3d",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "asset_id": 769675222,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-desktop-profiling-diagnostics.zip.sha256",
+      "bytes": 116,
+      "sha256": "c929824d77895441a0be070dc0d1bfb7ec28e2573fbb69d2314a01a7ae311429",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-early-performance.zip",
+      "asset_id": 769675265,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip",
+      "bytes": 124222530,
+      "sha256": "166809fb65b2197d5b4eb2e1b5ffa6568f2757b2bfd6ed82e61f4367eae2608f",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-early-performance.zip.sha256",
+      "asset_id": 769676942,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-early-performance.zip.sha256",
+      "bytes": 104,
+      "sha256": "47cb935c965d301452030f736d559993bee6e9c21d15a256ea5bf6e2d56f27f9",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-native10-failed-all8.zip",
+      "asset_id": 769676985,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native10-failed-all8.zip",
+      "bytes": 55068041,
+      "sha256": "2d406b0e20f04b102efec42d56f5a0049e27ab9dcf4ddd36aa9f2ba633747a0f",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "asset_id": 769677070,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native10-failed-all8.zip.sha256",
+      "bytes": 107,
+      "sha256": "6aeab93ede0d86f201ac79748030de536748de44baa74db7920b817712c5bcee",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-native9-failed-all8.zip",
+      "asset_id": 769677122,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native9-failed-all8.zip",
+      "bytes": 51668757,
+      "sha256": "c70d77dd70bd584ca0abeac40c6570cd3a07277634ae1f8726b5eaa4861ea4ae",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "asset_id": 769678120,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-native9-failed-all8.zip.sha256",
+      "bytes": 106,
+      "sha256": "efce44044601247b5d9cd2ffde60cfef98a65e7ea0b3d336f7f5f5e11bfbe68b",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip",
+      "asset_id": 769667449,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip",
+      "bytes": 719241445,
+      "sha256": "b2411b6eb0108b507c8959599a38d050239a21788260470cb87263778e19d8bb",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip.package.json",
+      "asset_id": 769667450,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip.package.json",
+      "bytes": 1280,
+      "sha256": "6b93834a0ec2db2dc3b6ef97e12885e1fcb5e0698a13d42d87f04cf6ecd83355",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    },
+    {
+      "name": "neistra-v0.37.0-qualification.zip.sha256",
+      "asset_id": 769667448,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.37.0/neistra-v0.37.0-qualification.zip.sha256",
+      "bytes": 100,
+      "sha256": "12452172f834ab3ec606da70062f2c5bbed0d53a8b2ea5b21ea088c8ca80a700",
+      "http_status": 200,
+      "anonymous": true,
+      "full_body_verified": true
+    }
+  ],
+  "public_verification_receipts": {
+    "directory": "c5-master1-public-verification",
+    "manifest": {
+      "bytes": 3813,
+      "sha256": "f0e44a35557a0f2171f48eacedc75f24a6b5cde292a697ec75f63f92e9d3150d"
+    },
+    "files": 27
+  },
+  "application_sources_versions_dependencies_migrations_unchanged_by_this_checkpoint": true,
+  "parent_required_remaining": [
+    160,
+    161,
+    162,
+    163
+  ],
+  "excluded_diagram153_relocations164165_and_other_boundaries_preserved": true
+}

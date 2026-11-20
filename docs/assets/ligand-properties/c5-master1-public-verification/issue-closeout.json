@@ -1,0 +1,32 @@
+{
+  "recorded_utc": "2026-11-20T00:30:34.442055+00:00",
+  "issue": {
+    "number": 159,
+    "html_url": "https://github.com/ManuelSe/Neistra/issues/159",
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-20T00:30:32Z",
+    "updated_at": "2026-11-20T00:30:32Z"
+  },
+  "canonical_reply": {
+    "id": 7026392950,
+    "url": "https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950",
+    "verified_receipt": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/verified-issue159-reply.json",
+      "bytes": 6322,
+      "sha256": "ca9310987ee4c22482ff49e83355e8487ab70028442aba87ea467d76c27fb8bf"
+    }
+  },
+  "close_command": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-159-observer-snapshots/.issue-11-evidence/issue159-c5-master1-publication1/close-issue159-execution-receipt.json",
+    "bytes": 432,
+    "sha256": "4c02fbf369e121d5775df30ffc98e6f9aef42d1d14ea773632836f5fbea76252"
+  },
+  "parent": {
+    "number": 11,
+    "state": "open",
+    "updated_at": "2026-11-20T00:30:33Z"
+  },
+  "terminal_documentation_and_owned_cleanup_pending": true,
+  "parent160_163_delivery_pending": true
+}
