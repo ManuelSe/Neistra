@@ -855,3 +855,20 @@ have their separate passing receipts. Do not relabel baseline equivalence as a
 passing scoped check. See the [touch preflight](../assets/ligand-profiles/c3-trusted-touch-preflight-checkpoint.json).
 Commit the coherent test candidate, then run a fresh isolated 18-case workflow/access
 campaign and inspect actual touch attachments before the complete43 rerun.
+
+### Trusted-touch native verification passes
+
+At frozen `f9e2cd53`, the complete current 18-case correctness/access campaign
+passes again with no failures, flakes, retries or exclusions. Four attachments
+prove 26 trusted touch activations on intended controls in both themes at 320×700,
+including options/draft Cancel, update cancellation/retry, disclosures and held
+metadata recovery. Six native-select actions are explicitly hybrid touch activation
+and trusted keyboard commitment; no finger-option, picker-opening or physical-device
+claim follows. All 1,181 selected bodies stay exact and all services/workers close;
+three raw original/copy pairs verify before primary diagnostic SQL.
+
+The 56-payload portable packet verifies every body, eight ZIP CRCs, 61 manifest
+entries and ten project files. See the [trusted-touch checkpoint](../assets/ligand-profiles/c3-trusted-touch-workflow-checkpoint.json).
+The current whole-feature theory assessment clears its scientific findings; all
+seven final same-candidate reconfirmations and the fresh complete43 candidate/merged
+gates remain required. Start committed `c4-candidate2` with every original command.
