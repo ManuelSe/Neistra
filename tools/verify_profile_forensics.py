@@ -206,7 +206,7 @@ def validate_index(index: dict[str, Any]) -> set[str]:
         assert run["label"] not in runs
         runs.add(run["label"])
         assert (
-            re.fullmatch(r"c4-candidate[0-9]+", run["label"])
+            re.fullmatch(r"c4-(?:candidate|master)[0-9]+", run["label"])
             and run["extraction_root"] == "forensics/" + run["label"]
         )
         assert run["qualification_complete"] is False and re.fullmatch(

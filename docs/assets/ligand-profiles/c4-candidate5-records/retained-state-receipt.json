@@ -1,0 +1,31 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "archives": [
+    {
+      "bytes": 70707675,
+      "file": "c4-candidate5-retained-state-01.zip",
+      "outer_manifest_entries": 5478,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-01.zip",
+      "sha256": "751a972f61c6e0f6d5e0e98a37476bee04162b0909b02badda608f4f58c4cbfb",
+      "verification_counts": {
+        "evidence_manifest_entries": 5478,
+        "project_archive_files": 555,
+        "zip_archives": 263
+      }
+    },
+    {
+      "bytes": 24896761,
+      "file": "c4-candidate5-retained-state-02.zip",
+      "outer_manifest_entries": 1537,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-02.zip",
+      "sha256": "0140a574dbe5ddff13420cc1b10a0b25c786408d839d2c84f28b1e508dad7dd9",
+      "verification_counts": {
+        "evidence_manifest_entries": 1537,
+        "project_archive_files": 1930,
+        "zip_archives": 821
+      }
+    }
+  ],
+  "kind": "retained-state",
+  "packager_sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+}

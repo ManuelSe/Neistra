@@ -1,0 +1,40 @@
+{
+  "assets": [
+    {
+      "asset_name": "c4-candidate5-case-companions-01.zip",
+      "bytes": 8053975,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/c4-candidate5-case-companions-01.zip",
+      "sha256": "8ac3f97d68b8a8b18d8b0aff31838d736934d5a940615ac4c1be47401137cf04",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/c4-candidate5-case-companions-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-01.zip",
+      "bytes": 83377617,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-01.zip",
+      "sha256": "2464ecd1a58e10f537d6db69c14ff42d8d99af6103f30eccb6f3413d4f4d3646",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-02.zip",
+      "bytes": 52158193,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-02.zip",
+      "sha256": "d184069a591afe656c5854b9e16b3ac2b10690a3371feafb0657cddad1b4202c",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-02.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-01.zip",
+      "bytes": 70707675,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-01.zip",
+      "sha256": "751a972f61c6e0f6d5e0e98a37476bee04162b0909b02badda608f4f58c4cbfb",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-02.zip",
+      "bytes": 24896761,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-02.zip",
+      "sha256": "0140a574dbe5ddff13420cc1b10a0b25c786408d839d2c84f28b1e508dad7dd9",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-02.zip.sha256"
+    }
+  ],
+  "publication_performed": false
+}

@@ -16,21 +16,29 @@ scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns pass both
 producer origins, private-state families and archive suffixes with exact schema
 identity; independent scoped architecture and scientific reviews PASS.
 
-The fresh complete candidate gate passes all 43 commands: 4,138 Python / zero skips,
-1,875 frontend, 14 supervisor and 585 browser cases, with exactly 75 unchanged released
+The corrected fresh candidate5 gate passes all 43 commands: 4,157 Python / zero skips,
+1,879 frontend, 14 supervisor and 585 browser cases, with exactly 75 unchanged released
 exclusions across 660 inventoried cases. There are no failures, flakes, retries or
 new exclusions. All 1,183 current / 1,133 actual preceding source bodies, frozen data,
 lossless logs, 44 offline fixtures and actual reader proofs verify. Positive cleanup
-and all 136 raw original/copy pairs verify before primary diagnostic SQL.
+and all 136 raw original/copy pairs verify before primary diagnostic SQL. Four
+explicitly pinned preprogram desktop processes deny environment inspection; the
+bounded ownership exception is recorded, while unknown denials still refuse.
 
 Both browser profile cases preserve current-input science, edit/Undo/Redo and
-metadata recovery. Forty warm switches add zero requests/jobs/allocations/demands.
-Portable measurements retain 31 profile and 120 inherited-property target misses;
-four deliberate policy examples remain separate. Mobile automatic Edit/Undo/Redo
-readiness is 3483.3/2404.1/2481.7ms; later presentation is a different measurement.
+metadata recovery. Forty warm switches add zero jobs/allocations/demands.
+Portable measurements retain 30 profile, 119 inherited-property and one minimization
+target miss; four deliberate policy examples remain separate. Mobile automatic
+Edit/Undo/Redo readiness is 3467.8/2410.4/2484.7ms; later presentation is a different measurement.
 Hidden retirement remains unavailable. No speedup, universal capacity or strict-host
 claim is made. Complete original stores/traces, native recordings and all ten
 external companion trees are retained separately from historical failures.
+
+PR #180 merged the original feature, but its fresh merged campaign failed before
+chooser opening. Publication is withheld. The corrective branch preserves deliberate
+and nested-dialog focus and retires deferred opening callbacks. Its complete passing
+candidate evidence does not qualify that earlier failed merged commit. Both failure
+indexes and all 17 separate forensic parts remain required release evidence.
 
 Final same-commit all-seven approval, normal PR integration, fresh actual-merged
 qualification and verified release/closeout remain required. The sidebar, radar,

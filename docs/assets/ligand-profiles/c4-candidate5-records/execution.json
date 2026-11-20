@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/qualification.py.txt",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-recipe.json"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "started_utc": "2026-11-20T11:26:41.156769+00:00",
+  "recipe_sha256": "7625696eab390e54500ca696b3e0617bb81cc6b42918dba1d4689bbb29d4afe1",
+  "label": "c4-candidate5",
+  "run_root": "/tmp/neistra160-c4-candidate5",
+  "clean_start": true,
+  "outer_unset_all_inherited_neistra_molweave_database_and_pythonpath": true,
+  "runner_pid": 779633,
+  "finished_utc": "2026-11-20T14:26:20.460918+00:00",
+  "exit_code": 0,
+  "logs": {
+    "stdout.log": {
+      "bytes": 160355,
+      "sha256": "c2a2474225b38f6d0dcf70c4f045485a02ff780aeab6531d5c9eb071310359e1"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

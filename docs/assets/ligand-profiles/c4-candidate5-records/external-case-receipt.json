@@ -1,0 +1,19 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "archives": [
+    {
+      "bytes": 8053975,
+      "file": "c4-candidate5-case-companions-01.zip",
+      "outer_manifest_entries": 746,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/c4-candidate5-case-companions-01.zip",
+      "sha256": "8ac3f97d68b8a8b18d8b0aff31838d736934d5a940615ac4c1be47401137cf04",
+      "verification_counts": {
+        "evidence_manifest_entries": 746,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    }
+  ],
+  "kind": "case-companions",
+  "packager_sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+}

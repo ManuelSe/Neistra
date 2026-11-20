@@ -1,0 +1,72 @@
+{
+  "recorded_utc": "2026-11-20T11:21:10.785988+00:00",
+  "stage": "Passing scoped correction/preparation checkpoint; not ready to push or release",
+  "base_actual_failed_merge": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+  "working_code": {
+    "apps/web/src/App.tsx": "f62a845a3a3ae7428844bf62ffb2f901c9c05bb13971fe47b466160a9c6cad23",
+    "apps/web/src/test/ligand-app-owner.test.tsx": "cb5c17d9e33a33a84995c2ad8eae96719f724272ff8c9be440480d8de59a33f6",
+    "tools/verify_profile_forensics.py": "6f4a58abb2c352d4c6d682e7732b91dd704caaaad6480826352bfc09bd7d9a73",
+    "tests/unit/test_profile_forensic_verifier.py": "8d4916f5529b7a78813033137c7d90f8d6f57fea049589f2ced44bef7e4f46de"
+  },
+  "red_evidence": "Original App delayed opening callback replaces Choose focus; retired visit also redirects replacement control. Red2 invalid Escape fixture remains diagnostic; corrected red3 is authoritative.",
+  "scoped_results": {
+    "owner_cases": 31,
+    "frontend_cases": 1879,
+    "frontend_files": 142,
+    "web_lint_types_build": "PASS",
+    "forensic_cases": 113,
+    "forensic_ruff_strict_mypy": "PASS",
+    "unchanged_native_svg_instances": 2,
+    "native_theme_error_paths": 8,
+    "native_raw_pairs": 3
+  },
+  "native_source_delta_after_execution": "Only forensic unit fixture type annotation; identical recursive runtime bytecode. All application/native/verifier bodies remain exact.",
+  "typed_forensics": {
+    "candidate3_parts": 9,
+    "master1_parts": 8,
+    "both_complete_local": true,
+    "anonymous": "PENDING"
+  },
+  "consultations": {
+    "software_architecture": "Actual read-only failure diagnosis and D206 contract consultation; not final feature approval",
+    "ux_design": "Actual read-only trace analysis; causal limits retained; not final feature approval",
+    "modeling_reference": "Actual bounded consultation accepts original focus-ownership correction; no new reference equivalence claim"
+  },
+  "scope_exclusions_unchanged": true,
+  "remaining": [
+    "Fresh candidate5 all43",
+    "All7 exact final candidate",
+    "Normal correctivePR/merge",
+    "Fresh actual merged master2 all43",
+    "Immutable038tag/release/allpublicassets",
+    "Child160closeout/then161162163/parentcloseout"
+  ],
+  "packet": {
+    "file": "c3-c4-master1-correction-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c3-c4-master1-correction-evidence.zip",
+    "bytes": 25102607,
+    "sha256": "f7f36d6e756980bc6e0cf8339da3ba83c561fffe7a74572ed5bb6407be60b369",
+    "outer_manifest_entries": 112,
+    "verification_counts": {
+      "zip_archives": 8,
+      "evidence_manifest_entries": 117,
+      "project_archive_files": 10
+    }
+  },
+  "failed_master_index": "docs/assets/ligand-profiles/forensics/c4-master1-forensics-index.json",
+  "failed_master_index_sha256": "3c0edf38a5cf6fdad555dd3a8e7e2067f97d4456096b16f385f86b19468a22de",
+  "old_candidate3_index_sha256_unchanged": "a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a",
+  "all_originals_retained": true,
+  "primary_diagnostic_SQL_used": false,
+  "recipe_preparation": {
+    "recorded_utc": "2026-11-20T11:19:30.049821+00:00",
+    "candidate_recipe_sha256": "7625696eab390e54500ca696b3e0617bb81cc6b42918dba1d4689bbb29d4afe1",
+    "master_recipe_sha256": "8fd63bce16bf331a4a20e632765aacde3bc8fa64d72d4bbb08bcb83757d86078",
+    "canonical_master_recipe_sha256": "250000ca843dbbaa77b51a767ffaef6a51517f92729f59ae260798c449cd50b1",
+    "master_root_path_transform_only": true,
+    "planned_master_root": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2",
+    "actual_new_merge_commit": null,
+    "old_predecessor_and_receipt_unchanged": true,
+    "fresh_run_roots_empty": true
+  }
+}

@@ -878,3 +878,38 @@ certification or a speedup. Later resource samples include earlier cache content
 Profile case maps cover 940 files; the complete gate covers 1,183. Sampled RSS does
 not establish simultaneous totals or GPU peaks. Actual-merged qualification and
 complete candidate/merged companion publication remain required.
+
+### Corrected complete 0.38.0 candidate5 — portable observations
+
+Fresh `98a0676d` completes all 43 commands: 4,157 Python / zero skips, 1,879 frontend,
+14 supervisor and 585 browser passes plus exactly 75 released exclusions. These
+observations replace no historical record and do not qualify failed merged master1.
+The [independent report](assets/ligand-profiles/c4-candidate5-records/performance-report.md)
+binds all ten native reports to their unique external originals, eight native worker
+attachments, 744 case bodies and 815 observed current source bodies.
+
+| Profile metric (ms) | Desktop | Mobile320 |
+| --- | --- | --- |
+| Numerical-cold median / p95 / max, n=5 | 930.6 / 985 / 985 | 861.7 / 967.7 / 967.7 |
+| Warm median / p95 / max, n=20 | 88.8 / 98.6 / 104.6 | 119.35 / 124.7 / 124.8 |
+| Edit / Undo / Redo automatic READY | 2184.5 / 1098.8 / 1122.4 | 3467.8 / 2410.4 / 2484.7 |
+| Repeated 1,000-entry active READY | 7084.5 | 4777.1 |
+| Distinct 1,000-entry active READY | 7072.7 | 6912.7 |
+| Consumer cancellation feedback | 20.3 | 7.8 |
+
+The campaign did not enable the REQUIRE_COLD option; actual missing coverage before
+each first selection independently establishes all five numerical-cold subjects per
+browser. All forty warm switches add zero jobs, allocations or demands. Automatic
+READY is distinct from later presenter reopening; hidden retirement remains null.
+Each inherited bulk case reaches 1,000 READY, with one or 1,000 distinct qualified
+inputs respectively; the active frozen specimen has 43 heavy atoms. Cancellation
+qualifies consumer feedback and late-response rejection, not worker termination.
+
+There are 30 profile misses (7 desktop / 23 mobile), 119 inherited-property misses
+(64 / 55), and one other workflow miss: 18k-atom minimization discard at 501.4ms
+against <500ms. The 150 workflow misses remain separate from four deliberate policy
+examples; all annotations together contain 154 misses. D-148 portable timing targets
+remain unenforced. No speedup, strict-host, physical-device or universal-capacity
+claim follows. Parent/child RSS samples are separate, not simultaneous totals;
+complete browser/GPU peaks remain unavailable. Actual-merged qualification and
+anonymous verification of complete release evidence remain required.

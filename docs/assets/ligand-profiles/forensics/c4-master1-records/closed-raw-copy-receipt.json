@@ -1,0 +1,321 @@
+{
+  "recorded_utc": "2026-11-20T10:30:20.829458+00:00",
+  "runner_exit_code": 1,
+  "positive_closed": true,
+  "live_owned_pids": [],
+  "observed_step_session_ids": [
+    743478,
+    743507,
+    743512,
+    743531,
+    743540,
+    743545,
+    743550,
+    743583,
+    743596,
+    743609,
+    755878,
+    755980,
+    756066,
+    759246,
+    759312,
+    759412,
+    759467
+  ],
+  "ports_closed": {
+    "8340": true,
+    "8341": true,
+    "5423": true
+  },
+  "primary_diagnostic_sql_before_copy": false,
+  "files": [
+    {
+      "original": "/tmp/neistra160-c4-master1/database/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/database/molweave.db",
+      "bytes": 245760,
+      "sha256": "f84b34c4a01e2410010fd85fd1efc89515692e7907a1c721e70ae0bea860c40c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/e2e/neistra.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/e2e/neistra.db",
+      "bytes": 3481600,
+      "sha256": "0a7fb2b4594dad763b1d71a83c73919185fab7ef5880f21d6ab24a5504af4f6d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/e2e/neistra.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/e2e/neistra.db-shm",
+      "bytes": 32768,
+      "sha256": "ce34c55a2e077d858cc35e1978929887d10e0f9e7f1a9e8ccc39129d56cdb052"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/e2e/neistra.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/e2e/neistra.db-wal",
+      "bytes": 5298352,
+      "sha256": "ef1250cb557b09c9f2c06af1714ae68d3785ece7ab883a7f15e7eddca8ce8084"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "e04693ee25bc38b27a3f608977f631c9d5f108d4bb8c00a2804c68e04ae36503"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "952feb80d3b8f4a0662d813236c362b4046a6ae5e2da6d07b41955f730806483"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "1689ecbfac776cd2e67cd143701b5fe34d002061a9052886d6642cc6f773a018"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "7f70065c25e631e6bbe7bc2389afaee6449b4f18578c79d98575d18f04a07d4a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "928bc2030eb03acc9b6c4139ca0b5159a0e44bbd597af8645d01b3a5a5655e27"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "85ad7c0f613a77fe0a9bd053baf0bf1c2d5abc7e72d2d928b7f6fc0ece9094ce"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "e676382e1e7aefa986614e5218af5fbd7426005b5432f77c7dc3f936f41f2fa0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "680ad79132c1f4ef7b11a5e977361688a3cc1e9ce97dc029f71be0a984004ef0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "03ee37c3251598a965b97822d8e9ba6a67e72ed63171d3148a7ccdedf833b97e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "e3d523f08e3f0b31efe147ee984113acf16a0429245d104eedee0af86e61c4f2"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "84ff16d2a51b69bac670461019206925e900d937cfe97794ec460f2194554858"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "32b843c2ac2b46758526da1dc6de68a1020de9abc3b7bd578b20d468963451c5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "297f0a4042ce1ed52cb1913dfacb4496a70060fb7b717bfeac35daa76b887660"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "474319c77e30586b4412608111f9ea5fc2898922db996cd80c6a55b0b1a9b39c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "304c6a990d39ac2241e9bf5fc705bc1f169b827d08384ed35b3549a06f54ffe3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "57f393f1d8375157fce95c773a6a116ce3b92f6c3cb71a1d48f51e46f8572ad0"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "001f5bd64515d63e0dd6115af499c0d8dc8062287a96c0059a777aa13d41fc0f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "35674ead97b97cde1ed9984bd071b872885ad187ca61992e315d363918427454"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "bytes": 253952,
+      "sha256": "dd3a3514e78a1759e9dcb18345178bb58488295942957fac02e25994916edd88"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "a465f223b069ac4898b92f95097bbe4b491e07bfdcb7055668aaffdf48ca472f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "9b2cd97a8ccfc9c7e6b5ea74674812710cfc18b35bede5791cae729b51dd42fa"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "c888ec864b435a5f892af8f1a1cdbbcfa24dfb3128a0fcf2d1847b6057be9f8b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "b9b7ecf6cd38fbcf36d7c4f1f8c7173241b215d9a1eafd36cc23291aa307d49f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "c7e5713babe7c865389e9bed139a4952e0d515cd83e7f3b7642c755667a0bd43"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "545b979529ee85759b753459383e82417349310b4d3ab9fc500e3dc57bbbae92"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "f60aca1942e554eb658ecfcde2861932b14874588ebd20c3e22bab05068e9f2f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "27ee32271cbe4529b04adaae7af93a1df5c65760590b68b3449546afbf6d62b7"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "7b731653bc979a0099d2895241809ba03314fca2bc5743d6bcb69b472b85b398"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "6c61adb18f27b424ef0ce0b255667419490f7099a0001d8e542a0c4a19109408"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "88b982e31a7a6ce6584cc72318819c30e9c186fdca1cc6b152736856da13ed8e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "f48409e0c5fe74696ea183fc5e177d543c49840e2919e444042c20aa7dc99ba3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "44a6633c3941afe30c18ef560800d8c94ab1a48c3895223931074869d91ecae8"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "cd2f4bdd17eb5f87c9d3860c716d0e2d4840caf7e514691ea13fd3995a286362"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "f4cdd92b8cfbad555f10c912cecc1d4309db8b9c54d5b9b7f1101a78ce63973b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "48ed70c83365c41f8fba552b9716684b29401eb4a538c40c72811a2e9c289ea3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "2f3382063534693c44b698ebabccf375cdbba50bdbf1b20dcfb075d29e4d13be"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "50d333743ed35e396ef801c0716501d7d81b82791515896cedd5767c599db3c9"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "de3c652044248d1edd05d2a436e1609c73d7ef4a262e88b428a3a5901091b230"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "bytes": 249856,
+      "sha256": "d6c7fe87c5ba7424988b8fb170b437e7b7230a4b8871ed102de2215bda83a341"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "abde98c92b1162a615339ff1c5046955bf689f15d722be9cf82a984cfcd82d21"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "b541d664b44e3d6f4319b5014d5e48083fe86e85b2ee73025592e28bb22e2bf3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "2d743269820212ec8c69e689a8093f3eebc0e27ccefec11401d5195b260c8706"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "77fd1804eb2f0cd2883f5d32a1e21fd20465256743344e846700741ac8b38bcb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-master1/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification/.issue-11-evidence/issue160-c4-master1-run1/closed-raw/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "6e85db31156a6a16f81e6dac3f27194e3da0c40322ed3a6865e1dd786979503b"
+    }
+  ]
+}

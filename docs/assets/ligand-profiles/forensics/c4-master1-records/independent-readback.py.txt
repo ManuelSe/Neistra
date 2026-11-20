@@ -1,0 +1,124 @@
+"""Independent post-packaging body audit using explicit historical Git object IDs."""
+from pathlib import Path
+import datetime
+import gzip
+import hashlib
+import json
+import stat
+import subprocess
+import zipfile
+
+root = Path('/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus')
+failed = Path('/datadisk/dev/neistra-worktrees/issue-160-merged-qualification')
+work = root / '.issue-11-evidence/issue160-c4-master1-packet1'
+assets = root / 'docs/assets/ligand-profiles'
+index_path = assets / 'forensics/c4-master1-forensics-index.json'
+index = json.loads(index_path.read_bytes())
+run = index['runs'][0]
+gate = json.loads((failed / 'docs/assets/ligand-profiles/c4-master1-gate.json').read_bytes())
+plan = json.loads((work / 'private-asset-plan.json').read_bytes())
+sha = lambda body: hashlib.sha256(body).hexdigest()
+assert plan['index_sha256'] == sha(index_path.read_bytes())
+assert run['label'] == 'c4-master1' and run['qualification_complete'] is False
+inventory = json.loads(gzip.decompress((root / run['inventory']['path']).read_bytes()))['files']
+
+def object_ids(commit):
+    output = subprocess.check_output(['git', 'ls-tree', '-rz', commit], cwd=failed)
+    rows = {}
+    for row in output.split(b'\0'):
+        if not row: continue
+        metadata, name = row.split(b'\t', 1)
+        mode, kind, oid = metadata.split()
+        if kind == b'blob': rows[name.decode()] = oid.decode()
+    return rows
+
+historical = {
+    'current': object_ids(run['failed_candidate']),
+    'previous': object_ids(gate['preceding_reader']['commit']),
+}
+expected_sources = {'current': gate['source_before'], 'previous': gate['preceding_source_expected']}
+source_counts = {'current': 0, 'previous': 0}
+union = {}
+sidecars = []
+for part, row in zip(run['parts'], plan['assets'], strict=True):
+    path = Path(row['local_path'])
+    assert path.is_file() and not path.is_symlink()
+    assert path.resolve().is_relative_to((root / '.issue-11-evidence').resolve())
+    digest = hashlib.sha256()
+    size = 0
+    with path.open('rb') as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(block); size += len(block)
+    assert 0 < size == part['bytes'] < 80 * 1024 * 1024 and digest.hexdigest() == part['sha256']
+    side = path.with_name(path.name + '.sha256')
+    expected = (part['sha256'] + '  ' + path.name + '\n').encode()
+    assert side.read_bytes() == expected
+    sidecars.append({'file': side.name, 'bytes': len(expected), 'sha256': sha(expected)})
+    with zipfile.ZipFile(path) as archive:
+        assert archive.testzip() is None
+        manifest = json.loads(archive.read('manifest.json'))
+        assert set(archive.namelist()) == set(manifest) | {'manifest.json'}
+        assert len(manifest) == part['manifest_entries']
+        assert not union.keys() & manifest.keys()
+        for name, identity in manifest.items():
+            info = archive.getinfo(name)
+            assert not info.flag_bits & 1 and stat.S_IFMT(info.external_attr >> 16) == stat.S_IFREG
+            body = archive.read(name)
+            assert identity == inventory[name] and len(body) == identity['bytes'] and sha(body) == identity['sha256']
+            for kind in ('current', 'previous'):
+                prefix = 'source-bodies/' + kind + '/'
+                if name.startswith(prefix):
+                    relative = name.removeprefix(prefix)
+                    assert sha(body) == expected_sources[kind][relative]
+                    blob_oid = hashlib.sha1(b'blob ' + str(len(body)).encode() + b'\0' + body).hexdigest()
+                    assert blob_oid == historical[kind][relative], (kind, relative)
+                    source_counts[kind] += 1
+        union.update(manifest)
+    print('INDEPENDENT_PART', part['ordinal'], size, flush=True)
+assert union == inventory and len(union) == run['files']
+assert sum(r['bytes'] for r in union.values()) == run['raw_bytes']
+assert source_counts == {'current': 1183, 'previous': 1133}
+raw = json.loads((failed / '.issue-11-evidence/issue160-c4-master1-run1/closed-raw-copy-receipt.json').read_bytes())
+assert raw['positive_closed'] and not raw['primary_diagnostic_sql_before_copy']
+for row in raw['files']:
+    a = Path(row['original']).read_bytes(); b = Path(row['copy']).read_bytes()
+    assert a == b and len(a) == row['bytes'] and sha(a) == row['sha256']
+old_index_path = assets / 'forensics/c3-forensics-index.json'
+assert sha(old_index_path.read_bytes()) == 'a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a'
+old_index = json.loads(old_index_path.read_bytes())
+old_plan_path = Path('/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate3-packet1/private-asset-plan.json')
+old_plan = json.loads(old_plan_path.read_bytes())
+old_expected = {p['asset_name']: p for r in old_index['runs'] for p in r['parts']}
+old_names = set(old_expected)
+new_names = {p['asset_name'] for p in run['parts']}
+assert len(old_names) == 9 and len(new_names) == 8 and not old_names & new_names
+for row in old_plan['assets']:
+    assert row['sha256'] == old_expected[row['asset_name']]['sha256']
+    path = Path(row['local_path']); side = path.with_name(path.name + '.sha256')
+    expected = (row['sha256'] + '  ' + path.name + '\n').encode()
+    assert side.read_bytes() == expected
+    sidecars.append({'file': side.name, 'bytes': len(expected), 'sha256': sha(expected)})
+all_names = old_names | new_names
+assert len(all_names | {r['file'] for r in sidecars}) == 34
+receipt = {
+    'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    'scope': 'Independent failed-M1 forensic readback only; not application qualification or publication',
+    'result': 'PASS', 'parts': 8, 'zip_bytes': index['total_asset_bytes'],
+    'payload_files': len(union), 'raw_bytes': run['raw_bytes'],
+    'all_part_sha_crc_manifest_and_payload_hashes_verified': True,
+    'exact_disjoint_union': True,
+    'archived_sources_independently_match_git_blob_object_ids': source_counts,
+    'raw_original_copy_pairs_reverified': len(raw['files']),
+    'combined_forensic_zip_asset_count': len(all_names),
+    'combined_zip_and_sidecar_asset_count': 34,
+    'all_17_checksum_sidecar_bodies_verified': True,
+    'checksum_sidecars': sidecars,
+    'old_c3_index_sha256_unchanged': sha(old_index_path.read_bytes()),
+    'old_zip_parts_rehashed_in_this_audit': False,
+    'all_originals_retained': True, 'SQL_used': False,
+    'typed_full_index_verification': 'Reserved to primary after label-extension qualification',
+    'anonymous_verification': 'Pending actual release; not performed',
+}
+(work / 'independent-readback.json').write_text(json.dumps(receipt, indent=2) + '\n')
+(assets / 'forensics/c4-master1-records/independent-readback.json').write_text(json.dumps(receipt, indent=2) + '\n')
+print(json.dumps({k: receipt[k] for k in ('result', 'parts', 'payload_files', 'raw_bytes', 'archived_sources_independently_match_git_blob_object_ids', 'combined_forensic_zip_asset_count')}, indent=2), flush=True)

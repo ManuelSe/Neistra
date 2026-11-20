@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/qualification-summary.py.txt",
+    "c4-candidate5"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+  "environment_explicit_overrides": {
+    "NEISTRA_QUALIFICATION_BASE": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "NEISTRA_QUALIFICATION_VERSION": "0.38.0",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src"
+  },
+  "inherited_application_environment_removed": true,
+  "started_utc": "2026-11-20T14:36:19.264268+00:00",
+  "finished_utc": "2026-11-20T14:36:22.618858+00:00",
+  "exit_code": 0,
+  "original_browser_retained": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-run1/original-browser-before-summary.json",
+    "original_path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-browser.json",
+    "bytes": 86985337,
+    "sha256": "6b3c0dd9f4a2d6f22b42c9daf045419bd3e39024dc991f6881b5eac8d46c6110",
+    "original_retained_before_transform": true
+  },
+  "lossless_browser_transform_verified": true
+}

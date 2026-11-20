@@ -1,0 +1,81 @@
+{
+  "SQL_performed": false,
+  "all_five_parts_strictly_below_80MiB": true,
+  "assets": [
+    {
+      "asset_name": "c4-candidate5-case-companions-01.zip",
+      "bytes": 8053975,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/c4-candidate5-case-companions-01.zip",
+      "sha256": "8ac3f97d68b8a8b18d8b0aff31838d736934d5a940615ac4c1be47401137cf04",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/c4-candidate5-case-companions-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-01.zip",
+      "bytes": 83377617,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-01.zip",
+      "sha256": "2464ecd1a58e10f537d6db69c14ff42d8d99af6103f30eccb6f3413d4f4d3646",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-02.zip",
+      "bytes": 52158193,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-02.zip",
+      "sha256": "d184069a591afe656c5854b9e16b3ac2b10690a3371feafb0657cddad1b4202c",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/gate-parts/c4-candidate5-qualified-02.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-01.zip",
+      "bytes": 70707675,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-01.zip",
+      "sha256": "751a972f61c6e0f6d5e0e98a37476bee04162b0909b02badda608f4f58c4cbfb",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-02.zip",
+      "bytes": 24896761,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-02.zip",
+      "sha256": "0140a574dbe5ddff13420cc1b10a0b25c786408d839d2c84f28b1e508dad7dd9",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/c4-candidate5-retained-state-02.zip.sha256"
+    }
+  ],
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "explicitly_exempted_environment_inspections": 4,
+  "groups": {
+    "case-companions": {
+      "all_original_bodies_rehashed": true,
+      "exact_disjoint_union": true,
+      "outer_and_nested_manifests_CRC_and_wrapped_archives_checked": true,
+      "parts": 1,
+      "payloads": 746,
+      "raw_bytes": 86656950
+    },
+    "gate-parts": {
+      "all_original_bodies_rehashed": true,
+      "exact_disjoint_union": true,
+      "outer_and_nested_manifests_CRC_and_wrapped_archives_checked": true,
+      "parts": 2,
+      "payloads": 2555,
+      "raw_bytes": 254349015
+    },
+    "retained-state": {
+      "all_original_bodies_rehashed": true,
+      "exact_disjoint_union": true,
+      "outer_and_nested_manifests_CRC_and_wrapped_archives_checked": true,
+      "parts": 2,
+      "payloads": 7015,
+      "raw_bytes": 692582578
+    }
+  },
+  "original_browser_retention_and_transform": {
+    "lossless_transform_equal": true,
+    "retained_original": {
+      "bytes": 86985337,
+      "sha256": "6b3c0dd9f4a2d6f22b42c9daf045419bd3e39024dc991f6881b5eac8d46c6110"
+    }
+  },
+  "originals_relocated_or_deleted": false,
+  "post_capture_process_proof_identity_unchanged": true,
+  "scope": "Independent primary retention readback; final specialist gate, merged qualification and publication remain pending",
+  "unseen_environments_inspected": false,
+  "verified_utc": "2026-11-20T14:41:45.785416+00:00"
+}

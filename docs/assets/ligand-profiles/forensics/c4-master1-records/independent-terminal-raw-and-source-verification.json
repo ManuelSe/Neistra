@@ -1,0 +1,28 @@
+{
+  "recorded_utc": "2026-11-20T10:40:26.019369+00:00",
+  "actual_merged_commit": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+  "outcome": "FAILED actual-merged campaign; not release qualification",
+  "complete": false,
+  "recorded_commands": 16,
+  "passed_commands": 15,
+  "failed_command": "browser",
+  "never_started_commands": 27,
+  "browser": {
+    "passed": 83,
+    "failed": 1,
+    "skipped": 2,
+    "not_run": 574
+  },
+  "global_error": "maximum allowed failures stop,1 observed; not an additional authored case",
+  "source_count": 1183,
+  "preceding_source_count": 1133,
+  "current_preceding_DATA3_unchanged": true,
+  "lossless_logs_verified": 16,
+  "actual_runner_and_outer_terminal": true,
+  "positive_process_and_port_closure_verified": true,
+  "raw_original_copy_pairs": 48,
+  "raw_bytes_per_side": 19933360,
+  "primary_diagnostic_SQL_used": false,
+  "failure_boundary": "openChoices radio count0/expected2 before SVG recovery assertions; inspect trace for exact cause",
+  "remaining": "Preserve complete forensic evidence; diagnose/correct through normalPR; fresh candidate and actual-merged gates; no tag/release/closeout"
+}

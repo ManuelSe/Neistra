@@ -1,0 +1,320 @@
+"""Losslessly capture the closed, failed M1 campaign; never qualify the failed run."""
+from pathlib import Path
+import datetime
+import gzip
+import hashlib
+import io
+import json
+import os
+import runpy
+import shutil
+import subprocess
+import zipfile
+import zlib
+
+ROOT = Path('/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus')
+FAILED = Path('/datadisk/dev/neistra-worktrees/issue-160-merged-qualification')
+OLD = Path('/tmp/neistra160-reader037-actual9f774-1')
+RUN = Path('/tmp/neistra160-c4-master1')
+LABEL = 'c4-master1'
+COMMIT = 'b170d1cc4d10a512f9e95b2ec408f8d288a2315c'
+ASSETS = Path('docs/assets/ligand-profiles')
+EV = FAILED / '.issue-11-evidence/issue160-c4-master1-run1'
+WORK = ROOT / '.issue-11-evidence/issue160-c4-master1-packet1'
+STAGING = WORK / 'forensic-staging'
+TRACKED = ROOT / ASSETS / 'forensics'
+RECORDS = TRACKED / 'c4-master1-records'
+INDEX = TRACKED / 'c4-master1-forensics-index.json'
+INVENTORY = TRACKED / 'c4-master1-forensics-inventory.json.gz'
+LIMIT = 80 * 1024 * 1024
+now = lambda: datetime.datetime.now(datetime.timezone.utc).isoformat()
+sha = lambda b: hashlib.sha256(b).hexdigest()
+
+def write(path, value):
+    path.write_text(json.dumps(value, indent=2) + '\n')
+
+def read(path):
+    return json.loads(path.read_bytes())
+
+def copy_exact(source, destination):
+    assert source.is_file() and not source.is_symlink(), source
+    body = source.read_bytes()
+    if destination.exists():
+        assert destination.is_file() and not destination.is_symlink()
+        assert destination.read_bytes() == body, destination
+    else:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(body)
+    return {'bytes': len(body), 'sha256': sha(body)}
+
+def git_bodies(commit, names):
+    output = subprocess.check_output(['git', 'cat-file', '--batch'], cwd=FAILED,
+        input=''.join(f'{commit}:{name}\n' for name in names).encode())
+    result = {}
+    offset = 0
+    for name in names:
+        end = output.index(b'\n', offset)
+        _, kind, size = output[offset:end].split()
+        assert kind == b'blob', name
+        start = end + 1
+        offset = start + int(size)
+        result[name] = output[start:offset]
+        assert output[offset:offset+1] == b'\n'
+        offset += 1
+    assert offset == len(output)
+    return result
+
+assert not INDEX.exists() and not INVENTORY.exists()
+STAGING.mkdir(parents=True, exist_ok=False)
+RECORDS.mkdir(parents=True, exist_ok=False)
+old_index = ROOT / ASSETS / 'forensics/c3-forensics-index.json'
+old_index_bytes = old_index.read_bytes()
+assert sha(old_index_bytes) == 'a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a'
+gatepath = FAILED / ASSETS / f'{LABEL}-gate.json'
+recipepath = FAILED / ASSETS / f'{LABEL}-recipe.json'
+gate = read(gatepath)
+recipe = read(recipepath)
+raw = read(EV / 'closed-raw-copy-receipt.json')
+execution = read(EV / 'execution.json')
+assert execution['exit_code'] == raw['runner_exit_code'] == 1
+assert raw['positive_closed'] and not raw['live_owned_pids']
+assert not raw['primary_diagnostic_sql_before_copy'] and len(raw['files']) == 48
+assert all(raw['ports_closed'].values())
+assert gate['commit'] == COMMIT and not gate['complete']
+assert len(recipe['steps']) == 43 and len(gate['steps']) == 16
+assert all(s['exit_code'] == 0 for s in gate['steps'][:-1])
+assert gate['steps'][-1]['label'] == 'browser' and gate['steps'][-1]['exit_code'] == 1
+assert gate['source_before'] == gate['source_after'] and len(gate['source_before']) == 1183
+assert gate['preceding_source_before'] == gate['preceding_source_after'] == gate['preceding_source_expected']
+assert len(gate['preceding_source_expected']) == 1133
+assert gate['qualification_data_before'] == gate['qualification_data_after']
+assert gate['qualification_data_unchanged'] and gate['preceding_source_unchanged']
+assert sha(recipepath.read_bytes()) == gate['recipe_sha256']
+
+def verify_raw():
+    total = 0
+    for row in raw['files']:
+        original = Path(row['original']).read_bytes()
+        copied = Path(row['copy']).read_bytes()
+        assert original == copied and len(original) == row['bytes'] and sha(original) == row['sha256']
+        total += len(original)
+    assert total == 19933360
+    return total
+
+verify_raw()
+helperpath = FAILED / ASSETS / 'release-evidence.py.txt'
+assert sha(helperpath.read_bytes()) == gate['source_before'][str(ASSETS / 'release-evidence.py.txt')]
+helper = runpy.run_path(str(helperpath))
+wrapped = runpy.run_path(str(FAILED / 'tools/verify_profile_forensics.py'))['verify_wrapped_layers']
+payloads = {}
+trees = []
+empty_directories = {}
+
+def add(name, path):
+    assert helper['safe_name'](name) == name and name != 'manifest.json'
+    assert name not in payloads and path.is_file() and not path.is_symlink(), (name, path)
+    assert 'PRODUCT_SPEC' not in name
+    payloads[name] = path
+
+def tree(prefix, base):
+    assert base.is_dir() and not base.is_symlink()
+    names = set()
+    empty_directories[prefix] = []
+    for path in sorted(base.rglob('*')):
+        assert not path.is_symlink(), path
+        relative = path.relative_to(base).as_posix()
+        if path.is_file():
+            name = prefix + '/' + relative
+            add(name, path)
+            names.add(name)
+        elif path.is_dir() and not any(path.iterdir()):
+            empty_directories[prefix].append(relative)
+    trees.append((prefix, base, names))
+    return len(names)
+
+external = {}
+before = read(EV / 'pre-launch-external-case-directories.json')
+for namespace, existing in before['namespaces'].items():
+    base = FAILED / '.issue-11-evidence' / namespace
+    prior = {r['name'] for r in existing}
+    actual = sorted(base.iterdir()) if base.exists() else []
+    new = [p for p in actual if p.name not in prior]
+    external[namespace] = [{'name': p.name, 'directory': str(p), 'files': sum(q.is_file() for q in p.rglob('*'))} for p in new]
+    for path in new:
+        assert path.is_dir() and not path.is_symlink()
+        assert not any(p.name.endswith(('.db', '.db-wal', '.db-shm', '.sqlite', '.sqlite-wal', '.sqlite-shm', '.sqlite3', '.sqlite3-wal', '.sqlite3-shm')) for p in path.rglob('*') if p.is_file()), 'Unexpected outside-run database requires separate closed raw copies'
+        tree('external-companions/' + namespace + '/' + path.name, path)
+assert all(not values for values in external.values())
+write(WORK / 'external-companion-discovery.json', {'recorded_utc': now(), 'prelaunch_snapshot': str(EV / 'pre-launch-external-case-directories.json'), 'new_companion_trees': external, 'no_case_owned_database_outside_runroot_found': True})
+
+native_files = tree('gate-managed/' + LABEL + '-native', FAILED / ASSETS / (LABEL + '-native'))
+owned_files = tree('complete-owned-run', RUN)
+execution_files = tree('execution-and-raw-copies', EV)
+for path in sorted((FAILED / ASSETS).glob(LABEL + '*')):
+    if path.is_file():
+        add('gate-managed/' + path.name, path)
+add('launchers/run-full-c4-master1.py', FAILED / '.issue-11-evidence/run-full-c4-master1.py')
+add('qualification-driver.py.txt', FAILED / ASSETS / 'qualification.py.txt')
+
+source_proof = {}
+for kind, commit, base, expected in [
+    ('current', COMMIT, FAILED, gate['source_before']),
+    ('previous', gate['preceding_reader']['commit'], OLD, gate['preceding_source_expected']),
+]:
+    bodies = git_bodies(commit, sorted(expected))
+    assert {name: sha(body) for name, body in bodies.items()} == expected
+    for name, body in bodies.items():
+        path = base / name
+        assert path.is_file() and not path.is_symlink() and path.read_bytes() == body, name
+        add('source-bodies/' + kind + '/' + name, path)
+    map_path = WORK / ('source-map-' + kind + '.json')
+    write(map_path, expected)
+    add('source-map-' + kind + '.json', map_path)
+    source_proof[kind] = {'commit': commit, 'bodies': len(expected), 'source_digest': sha(json.dumps(expected, sort_keys=True).encode()), 'all_bodies_match_explicit_git_commit_and_retained_files': True}
+    del bodies
+write(WORK / 'source-provenance.json', source_proof)
+
+fixtures = []
+fixture_files = 0
+for path in sorted((RUN / 'profile-fixtures').glob('*/results.json')):
+    report = read(path)
+    assert report['complete'] and report['count'] == 1 and len(report['cases']) == 1
+    case = report['cases'][0]
+    name = case['id']
+    assert path.parent.name == name
+    history = case['history']
+    assert history['original_preserved'] and history['canonical_bytes_ids_graph_coordinates_restored']
+    assert history['before_artifact_id'] == history['restored_artifact_id']
+    assert history['edited_artifact_id'] != history['before_artifact_id'] and history['original_sha256'] == case['sha256']
+    store = path.parent / name
+    artifacts = set()
+    count = 0
+    for member in store.rglob('*'):
+        assert not member.is_symlink()
+        if not member.is_file(): continue
+        body = member.read_bytes()
+        count += 1
+        if member.name == 'history.db': assert body[:16] == b'SQLite format 3\0'
+        if member.relative_to(store).as_posix().startswith('artifacts/sha256/'):
+            assert sha(body) == member.name and member.parent.name == member.name[:2]
+            artifacts.add(member.name)
+    assert len(artifacts) >= 3 and case['sha256'] in artifacts
+    fixture_files += count
+    fixtures.append({'id': name, 'report_sha256': sha(path.read_bytes()), 'store_files': count})
+assert len(fixtures) == 44 and fixture_files == 176
+write(WORK / 'fixture-readback.json', fixtures)
+
+browser = read(FAILED / ASSETS / (LABEL + '-browser.json'))
+cases = []
+def walk(value):
+    if isinstance(value, dict):
+        if 'projectName' in value and 'results' in value: cases.append(value)
+        for child in value.values(): walk(child)
+    elif isinstance(value, list):
+        for child in value: walk(child)
+walk(browser)
+assert len(cases) == 660 and all(len(c['results']) <= 1 for c in cases)
+outcomes = {status: sum(bool(c['results']) and c['results'][0]['status'] == status for c in cases) for status in ('passed', 'failed', 'skipped')}
+outcomes['not_run'] = sum(not c['results'] for c in cases)
+assert outcomes == {'passed': 83, 'failed': 1, 'skipped': 2, 'not_run': 574}
+assert len(browser.get('errors', [])) == 1
+scope = {'recorded_utc': now(), 'candidate': COMMIT, 'disposition': 'FAILED / NOT QUALIFIED', 'actual_runner_exit_code': 1, 'completed_recorded_commands': 16, 'prior_passed_commands': 15, 'failed_command': 'browser', 'never_started_commands': 27, 'browser_outcomes': outcomes, 'raw_report_global_errors': 1, 'global_error': 'Maximum-allowed-failures stop notice; not another authored case', 'source_frozen': True, 'baseline_DATA3_frozen': True, 'current_source_bodies': 1183, 'preceding_source_bodies': 1133, 'raw_original_copy_pairs': 48, 'raw_bytes_per_side': verify_raw(), 'native_files': native_files, 'complete_owned_run_files': owned_files, 'execution_and_raw_copy_files': execution_files, 'external_companions': external, 'fixture_reports': 44, 'fixture_store_files': 176, 'packaging_SQL_performed': False, 'all_originals_remain_in_place': True, 'publication': 'Not uploaded; full local typed-index and anonymous verification remain required', 'qualification_claim': False}
+write(WORK / 'scope.json', scope)
+write(WORK / 'empty-directories.json', empty_directories)
+for name in ('scope.json', 'source-provenance.json', 'fixture-readback.json', 'external-companion-discovery.json', 'empty-directories.json'):
+    add(name, WORK / name)
+
+# Copy literal provenance records without changing any failed-run body or path.
+for path in [recipepath, gatepath, *(FAILED / s['log'] for s in gate['steps'])]:
+    copy_exact(path, ROOT / path.relative_to(FAILED))
+    copy_exact(path, RECORDS / path.name)
+for name in ('execution.json', 'cleanup.json', 'closed-raw-copy-receipt.json', 'independent-terminal-raw-and-source-verification.json', 'pre-launch-external-case-directories.json'):
+    copy_exact(EV / name, RECORDS / name)
+copy_exact(FAILED / ASSETS / (LABEL + '-browser-inventory.json'), ROOT / ASSETS / (LABEL + '-browser-inventory.json'))
+copy_exact(FAILED / ASSETS / (LABEL + '-browser-inventory.json'), RECORDS / (LABEL + '-browser-inventory.json'))
+compressed_browser = gzip.compress((FAILED / ASSETS / (LABEL + '-browser.json')).read_bytes(), mtime=0)
+for destination in (ROOT / ASSETS / (LABEL + '-browser.json.gz'), RECORDS / (LABEL + '-browser.json.gz')):
+    assert not destination.exists()
+    destination.write_bytes(compressed_browser)
+
+forbidden = [bytes([109,97,101,115,116,114,111]), bytes([115,99,104,114,111,100,105,110,103,101,114]), bytes([115,99,104,114,195,182,100,105,110,103,101,114])]
+scanned = 0
+def scan_body(name, body, depth=0):
+    global scanned
+    assert depth < 16
+    assert not any(token in name.lower().encode() + b'\n' + body.lower() for token in forbidden), ('restricted reference', name)
+    scanned += 1
+    if body.startswith(b'\x1f\x8b'):
+        scan_body(name + '!gunzip', gzip.decompress(body), depth+1)
+    elif zipfile.is_zipfile(io.BytesIO(body)):
+        with zipfile.ZipFile(io.BytesIO(body)) as archive:
+            assert archive.testzip() is None
+            assert len(archive.namelist()) == len(set(archive.namelist()))
+            for member in archive.infolist():
+                if not member.is_dir(): scan_body(name + '!' + member.filename, archive.read(member), depth+1)
+
+metadata = {}
+for number, (name, path) in enumerate(sorted(payloads.items()), 1):
+    body = path.read_bytes()
+    scan_body(name, body)
+    metadata[name] = {'bytes': len(body), 'sha256': sha(body), 'estimated_compressed_bytes': len(zlib.compress(body, 6)) + 512 + 2*len(name.encode())}
+    assert metadata[name]['estimated_compressed_bytes'] < 80_000_000, name
+    if number % 2000 == 0: print('HASHED', number, len(payloads), flush=True)
+canonical = {name: {k: row[k] for k in ('bytes', 'sha256')} for name, row in metadata.items()}
+write(WORK / 'payload-inventory.json', metadata)
+partitions = []
+current = []
+weight = 0
+for name in sorted(metadata):
+    estimate = metadata[name]['estimated_compressed_bytes']
+    if current and weight + estimate > 80_000_000:
+        partitions.append(current); current = []; weight = 0
+    current.append(name); weight += estimate
+if current: partitions.append(current)
+parts = []
+plan_rows = []
+union = {}
+for ordinal, names in enumerate(partitions, 1):
+    filename = f'neistra-v0.38.0-issue160-{LABEL}-forensics-part{ordinal:02d}.zip'
+    target = STAGING / filename
+    result = helper['archive']({name: payloads[name] for name in names}, target)
+    assert 0 < result['bytes'] < LIMIT
+    with zipfile.ZipFile(target) as archive:
+        manifest = json.loads(archive.read('manifest.json'))
+        assert manifest == {name: canonical[name] for name in names}
+        assert not union.keys() & manifest.keys()
+        for name in names: assert archive.read(name) == payloads[name].read_bytes()
+        union.update(manifest)
+    supplemental = wrapped(target, filename, helper)
+    part = {'ordinal': ordinal, 'asset_name': filename, 'bytes': result['bytes'], 'sha256': result['sha256'], 'manifest_entries': len(names), 'recursive_verification': result['verification_counts'], 'supplemental_wrapped_recursive_verification': supplemental}
+    parts.append(part)
+    plan_rows.append({'run': LABEL, 'asset_name': filename, 'bytes': result['bytes'], 'sha256': result['sha256'], 'local_path': str(target)})
+    (STAGING / (filename + '.sha256')).write_text(result['sha256'] + '  ' + filename + '\n')
+    print('PART_VERIFIED', ordinal, result['bytes'], len(names), flush=True)
+assert union == canonical
+
+for prefix, base, expected in trees:
+    actual = {prefix + '/' + p.relative_to(base).as_posix() for p in base.rglob('*') if p.is_file()}
+    assert actual == expected, ('original tree changed', prefix)
+for name, path in payloads.items():
+    body = path.read_bytes()
+    assert len(body) == canonical[name]['bytes'] and sha(body) == canonical[name]['sha256'], name
+verify_raw()
+assert old_index.read_bytes() == old_index_bytes
+old_names = {part['asset_name'] for run in json.loads(old_index_bytes)['runs'] for part in run['parts']}
+assert not old_names & {p['asset_name'] for p in parts}
+
+inventory_doc = {'format_version': 1, 'run': LABEL, 'scope': 'Complete closed failed actual-merged campaign, including native resources, all owned stores/raw copies, current and preceding historical source bodies, fixtures and execution records; not qualification.', 'files': dict(sorted(canonical.items()))}
+inventory_body = (json.dumps(inventory_doc, indent=2) + '\n').encode()
+inventory_compressed = gzip.compress(inventory_body, mtime=0)
+INVENTORY.write_bytes(inventory_compressed)
+run = {'label': LABEL, 'failed_candidate': COMMIT, 'qualification_complete': False, 'failed_step': 'browser', 'source_count': 1183, 'source_digest': sha(json.dumps(gate['source_before'], sort_keys=True).encode()), 'source_unchanged': True, 'preceding_source_count': 1133, 'preceding_source_unchanged': True, 'recipe': {'path': str(ASSETS / (LABEL + '-recipe.json')), 'sha256': sha(recipepath.read_bytes())}, 'lossless_logs': [{'label': s['label'], 'path': s['log'], 'uncompressed_sha256': s['log_sha256']} for s in gate['steps']], 'files': len(canonical), 'raw_bytes': sum(r['bytes'] for r in canonical.values()), 'extraction_root': 'forensics/' + LABEL, 'inventory': {'path': INVENTORY.relative_to(ROOT).as_posix(), 'bytes': len(inventory_compressed), 'sha256': sha(inventory_compressed), 'uncompressed_sha256': sha(inventory_body)}, 'parts': parts, 'local_exact_union_and_recursive_verification': True, 'application_version': '0.38.0', 'compatibility_protocol': gate['compatibility_protocol'], 'qualification_data_unchanged': True, 'qualification_data': gate['qualification_data_before'], 'completed_recorded_commands': 16, 'prior_passed_commands': 15, 'never_started_commands': 27, 'raw_copy_pairs_verified': 48, 'browser_outcomes': outcomes, 'complete_native_tree_files': native_files, 'complete_external_case_files': 0, 'source_capsule_proof': source_proof, 'full_gate_pass_claim': False}
+index = {'format_version': 1, 'scope': 'Immutable failed actual-merged M1 forensic asset identities; no qualification claim.', 'repository': 'ManuelSe/Neistra', 'issue': 160, 'parent': 11, 'release_version': '0.38.0', 'publication_contract': 'Retain this small index/inventory/records in the primary bundle and publish every indexed ZIP separately with checksum sidecars; full local and anonymous verification are mandatory before closeout. Original c3 index and its nine asset identities remain separate and unchanged.', 'extraction_policy': 'Part manifests form the exact disjoint union of this complete per-run inventory; no extra or duplicate payloads.', 'part_max_bytes_exclusive': LIMIT, 'asset_count': len(parts), 'total_asset_bytes': sum(p['bytes'] for p in parts), 'runs': [run]}
+write(INDEX, index)
+write(WORK / 'private-asset-plan.json', {'index': INDEX.relative_to(ROOT).as_posix(), 'index_sha256': sha(INDEX.read_bytes()), 'assets': plan_rows})
+result = {'recorded_utc': now(), 'scope': 'Local forensic retention and per-part recursive verification only; failed M1 remains unqualified', 'candidate': COMMIT, 'index': {'path': str(INDEX), 'bytes': INDEX.stat().st_size, 'sha256': sha(INDEX.read_bytes())}, 'inventory': run['inventory'], 'parts': [p | {'local_path': row['local_path']} for p, row in zip(parts, plan_rows, strict=True)], 'part_count': len(parts), 'total_asset_bytes': index['total_asset_bytes'], 'payload_files': len(canonical), 'raw_bytes': run['raw_bytes'], 'complete_native_files': native_files, 'complete_owned_run_files': owned_files, 'execution_and_raw_copy_files': execution_files, 'current_source_bodies': 1183, 'preceding_source_bodies': 1133, 'all_source_bodies_checked_against_explicit_git_blobs': True, 'raw_original_copy_pairs_verified': 48, 'raw_bytes_per_side': 19933360, 'fixture_reports_verified': 44, 'fixture_store_files_verified': 176, 'external_companions': external, 'exact_disjoint_union': True, 'all_original_tree_inventories_and_payload_hashes_rechecked': True, 'restricted_scan_bodies': scanned, 'all_originals_retained_in_place': True, 'old_c3_index_sha256_unchanged': sha(old_index_bytes), 'combined_asset_names_disjoint': True, 'packaging_SQL_performed': False, 'typed_full_index_verification': 'Pending primary label-extension validation', 'anonymous_verification': 'Pending release publication; not performed'}
+write(WORK / 'result.json', result)
+for name in ('scope.json', 'source-provenance.json', 'fixture-readback.json', 'external-companion-discovery.json', 'empty-directories.json', 'result.json'):
+    copy_exact(WORK / name, RECORDS / name)
+write(WORK / 'written-files.json', {'tracked_new': [p.relative_to(ROOT).as_posix() for p in sorted(RECORDS.rglob('*')) if p.is_file()] + [INDEX.relative_to(ROOT).as_posix(), INVENTORY.relative_to(ROOT).as_posix()] + [str(ASSETS / path.name) for path in [gatepath, *(FAILED / s['log'] for s in gate['steps']), FAILED / ASSETS / (LABEL + '-browser-inventory.json')]] + [str(ASSETS / (LABEL + '-browser.json.gz'))], 'existing_recipe_asserted_unchanged': str(ASSETS / (LABEL + '-recipe.json'))})
+print('COMPLETE', json.dumps({k: result[k] for k in ('part_count', 'total_asset_bytes', 'payload_files', 'raw_bytes', 'exact_disjoint_union')}), flush=True)
