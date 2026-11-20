@@ -4,9 +4,10 @@
 
 Parent #11 remains active through verified releases and closeout for #156–#163.
 #156–#158 are delivered, including verified v0.36.0 assets and #158 closeout.
-#159 is running its full candidate qualification on16ca91ea; delivery remains
-pending. #160 remains local preparation with verified shared source/recovery
-corrections and the scoped inspector query-scaling correction.
+#159 is fully delivered as v0.37.0, including actual merged qualification, all 27
+anonymous asset checks, terminal PR #179, explicit closeout and owned cleanup.
+#160 is integrating that released prerequisite into its local profile preparation;
+D-203 records the accepted same-schema compatibility contract before new code.
 Serial delivery and accepted exclusions remain unchanged.
 
 ## Completed work
@@ -66,8 +67,8 @@ or closeout.
 
 ## Blockers
 
-No external blocker. Preserve original sources/stores, all failed attempts and
-accepted exclusions. #159 remains the delivery prerequisite.
+No external blocker. #159 delivery is verified. Preserve original sources/stores,
+all failed attempts and accepted exclusions while integrating its actual release.
 
 ## Next action
 

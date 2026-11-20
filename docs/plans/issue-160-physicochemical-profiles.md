@@ -521,3 +521,34 @@ and scoped assessments. Full body/hash/CRC/exact-entry readback passes. This is 
 local checkpoint only. Actual released159integration, actual preceding readers,
 versions, complete candidate/master qualification and all seven final assessments
 remain pending. Historical source-bound guards remain stale/HOLD.
+
+
+### Released prerequisite and accepted same-schema contract — 2026-11-20
+
+#159 is fully delivered: [v0.37.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0)
+targets qualified runtime `9f77410389c4e8738fdf94d3e69e7c8550fbc70c` through
+immutable annotated tag `5763142ce085111d8d8cdf0eefb248908b5eb4b2`. Terminal
+[PR #179](https://github.com/ManuelSe/Neistra/pull/179) merged as
+`3f873f5062814eac61a716112c92eb99f2e30328`; its all-seven-reviewed complete tree
+and unchanged 1,133-source inventory verify. All 27 release assets pass full
+anonymous verification. The single [canonical closeout](https://github.com/ManuelSe/Neistra/issues/159#issuecomment-7026392950)
+now verifies documentation integration and safe deletion of all three owned #159
+branches while preserving every worktree, original and user checkout.
+
+D-203 and the [accepted compatibility contract](../assets/ligand-profiles/c3-same-schema-acceptance.json)
+record the already independently reviewed same-schema v2 obligations BEFORE new
+compatibility code. The original planning contract has SHA-256
+`132060126d31096f8b3c8cddc272f779a21481406b8d349a92f0b58b8bd690ab`.
+It preserves legacy v1, genuine state families from both sources, both archive
+suffixes, positive schema identity, independent numerical goldens, exact descriptor
+coverage and explicit source-authorized worker provenance. Preceding extraction
+receipts and actual #160 runtime results remain unset until executed.
+
+Next integrate actual prerequisite terminal master into local `0f54385c` using a
+normal history-preserving merge. Preserve all profile routes, evaluator/dependencies,
+source recovery and query ownership while adopting released job refresh/cancellation,
+reader/observer/native corrections and qualified fixtures. Reconcile shared files
+explicitly; do not overwrite complete files to discard either accepted behavior.
+Then implement the accepted compatibility contract, refresh source-bound guards,
+prepare versions and run current focused and full qualification. Prior focused
+preparation remains historical evidence, not a full integrated release gate.

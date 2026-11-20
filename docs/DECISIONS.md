@@ -8928,3 +8928,53 @@ packet. This passes local preparation only: actual released159integration, profi
 qualification and all-seven same-final-candidate acceptance remain mandatory. No
 additional standalone native workload is required solely for this identical
 correction; no production latency improvement is inferred from mocked work counts.
+
+
+## D-203 — Qualify consecutive property releases on the same database schema
+
+2026-11-20, #160, before new compatibility implementation. The actually released
+v0.37.0 prerequisite uses schema 0017; planned v0.38.0 profiles add no durable
+schema. A preceding migration refusal cannot prove positive same-schema writer
+compatibility. Keep literal/default `private-derived-shared-schema-v1` and its
+0017/0016 refusal and offline controls unchanged. Add the explicitly selected,
+allowlisted `private-derived-same-schema-v2` for current/previous 0017, through
+recipe, actor authorization, summaries, package and profile helper catalogue.
+Do not infer protocol or worker source from version strings, roots or capabilities.
+
+The [accepted contract](assets/ligand-profiles/c3-same-schema-acceptance.json)
+retains the exact earlier planning input and independent architecture/scientific
+implementation PASS identities. Actual v0.37.0 tag/merge/release/closeout are now
+verified. Actual #160 predecessor extraction, actor/schema proofs and integration
+remain pending; no new runtime result is claimed by this decision.
+
+Before preceding-code API writes, prove actual preceding upgrade exit 0 at 0017,
+unchanged schema, logical rows, artifacts and originals. Keep all 17 migration
+bodies exact. Use its genuine purpose-aware ORM/API for ordinary jobs; separately
+retain the omitted-column server-default regression. Ordinary jobs stay ordinary;
+private derived work stays absent from ordinary API/archive projections. Forged
+markers grant no authority. Preserve history, metadata, preferences, corruption,
+stale/recovery, cancellation, deletion/Undo and archive remapping behavior.
+
+Exercise pending, captured, started, completed, cancelled, corrupt, stale, forged
+and project-deleted families genuinely produced by BOTH current and preceding
+sources, with both archive suffixes and all three directional phases. Keep actual
+nonready states nonready; never prewarm fixtures solely to fabricate value vectors.
+Use exact ten-descriptor coverage, including logP and strict rotors; preserve saved
+composition/polarity preferences and the separate source-qualified charge-presence
+fact. Compare genuine available producer vectors and independently specified
+fixture goldens; floats retain absolute 1e-10/relative 0, integers retain exact types,
+and profile operators retain exact boundaries without epsilon. Unsupported edited
+chemistry keeps qualified known counts and per-value unavailable reasons.
+
+Select an explicit authorized current/previous worker slot and verify exact source,
+interpreter/module hashes, method/library/policy BEFORE early worker return or an
+interruption claim. The existing process-group checkpoint precedes plugin loading;
+it proves an owned spawned descriptor child, not native calculation entry. Report
+only actually observed stages and actually matching producer-vector comparisons.
+
+The six profile-specific qualification helpers require an independent literal
+five-directory/six-name catalogue. Historical helpers and v1 contracts remain.
+Registry reads remain storage-free; profile selection stays transient and resets
+on reload/remapping. No scientific method, descriptor, dependency, migration,
+workload, deadline or performance policy change is introduced. Full candidate and
+actual-merge gates and all seven final specialist reviews still apply.
