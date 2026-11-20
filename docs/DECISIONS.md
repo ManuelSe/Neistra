@@ -9924,3 +9924,51 @@ Registry reads remain storage-free; profile selection stays transient and resets
 on reload/remapping. No scientific method, descriptor, dependency, migration,
 workload, deadline or performance policy change is introduced. Full candidate and
 actual-merge gates and all seven final specialist reviews still apply.
+
+
+### D-194 #160 clarification — generation provenance and current qualification
+
+2026-11-20, before provenance-guard changes. Independent performance and theory
+assessments confirm original manifest SHA-256
+`7826731f86f04fe9b22a56fa35a5755885da041979cfc9938c315b1777a01421`
+and every original SDF byte remain exact. Nine of ten repository generation pins
+match current source. The qualification observer helper changed from
+`dac492eb8a681f31acca9067bdd7b5711fe0d982002a9b2b52ebbd35c69fcb4a`
+(exact body at `049173da69cebd7264abc26a0028aa4d9d3f9938`) to already released
+`f5d416101faa4a9bd91307f765d8ccb54db770e9223eeee7e7aa3eaf4b80f4fb`.
+The complete diff adds atomic observer publication and changes two observation
+writes; fixture_trial/preflight/source_inventory/fixture_manifest ASTs are equal.
+No chemistry or generation change is established.
+
+The old guard conflates historical generation and current qualification identities.
+Preserve all originals and historical receipts, and bind a separate current
+qualification receipt to the frozen manifest, all 44 bodies, actual scientific
+source/library/settings identities and only that reviewed observer evolution.
+Unlisted drift must refuse. A changed qualification driver records its current
+identity explicitly and must not claim equality to its original self-pin. Require
+fresh all-44 production adapter/editor/kernel/H/history controls with graph/charge/
+H/stereo/original restoration, valid coordinates and fourteen descriptor outcomes,
+including the O–O fixture. Altered fixture bytes, an unapproved scientific source
+and an unlisted observer hash must fail before qualification. This is source-bound
+requalification, not regeneration, blanket repinning or historical relabelling.
+
+
+## D-204 — Measure selected-profile overhead separately from property calculation
+
+2026-11-20, before new profile measurement code. The existing frozen property
+benchmark measures no selected profile, so it cannot certify selection/dependency/
+evaluation overhead. Preserve its 20-pair/four-1,000-entry definitions, deadlines,
+limits, source history and exclusions. Add the bounded desktop/mobile workload
+specified in the #160 plan: five genuinely classified first selections, 20 warm
+same-dependency switches, one composite expansion, three edit/history reevaluations
+and one bounded metadata-failure/recovery control per browser.
+
+Use a separate fresh owned store to establish cold coverage, not browser context
+freshness or shared-cache deletion. Keep raw browser-clock observations, request/
+allocation/job deltas, exact current scientific/profile identity and unavailable
+measurements. Warm same-dependency switching creates no jobs/consumer allocations;
+profile requirements do not mutate saved display categories. Current-source truth
+and bounded work are mandatory; D-148 absolute latency remains opt-in. Preserve
+existing representative 100 ms/2 s targets without treating portable misses as strict
+host certification. No extra bulk profile campaign is justified for one active
+ligand unless measured evidence exposes a scaling concern.

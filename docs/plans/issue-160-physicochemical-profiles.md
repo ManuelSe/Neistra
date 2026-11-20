@@ -577,3 +577,64 @@ No native/performance/actual-preceding-actor or complete release gate is claimed
 Implement accepted same-schema v2 next, preserve literal/default v1, refresh the
 source-bound guard and actual predecessor receipt, prepare all five version sources,
 and complete the remaining qualification and seven-role delivery gates.
+
+
+### Qualification provenance and selected-profile measurement contract — before code
+
+Independent performance and scientific-theory consultations identify one inherited
+source guard mismatch: all 44 original D-194 SDFs and the frozen manifest remain
+exact, while its generation-time observer-helper pin differs from the already
+released atomic-publication correction. Keep the manifest, SDFs, generation settings,
+library facts and every historical receipt unchanged. Separate generation identity
+from a source-bound current qualification receipt; admit only the independently
+reviewed observer delta and reject any other unexplained source/library/fixture/
+settings change. If the qualification driver itself changes to implement that guard,
+record its new identity explicitly rather than claiming its original self-pin still
+matches. Run all 44 genuine production adapter/editor/kernel/H/history controls,
+including O–O, only after this reconciliation. Fresh native qualification remains
+separate. D-194's appended clarification records exact source pins and acceptance.
+
+The inherited 20-pair and four 1,000-entry property benchmark workloads, deadlines,
+limits and exclusion identities remain byte-for-byte unchanged. A separate required
+profile benchmark measures desktop Chromium and the existing mobile Chromium at
+320 px; existing correctness/accessibility cases retain both-theme coverage.
+Per browser, use the unchanged frozen specimens with 10/26/46/66/86 heavy atoms:
+
+- Five first Ro5 selections in fresh browser contexts with empty display categories,
+  no selected profile and no property demand. Record the actual shared-cache basis;
+  a fresh browser alone never proves cold chemistry. A focused run in a fresh owned
+  store must prove missing required coverage before claiming numerical cold latency.
+- Four warm Ro5/Ro3 switches after each specimen settles (20 per browser). Their
+  identical four-descriptor requirement isolates selection/evaluation/presentation;
+  require zero new descriptor jobs and zero new consumer allocations.
+- One Ro5 + Veber dependency expansion, then an unavailable preset and clear.
+  Request only the MW/HBD/HBA/logP union plus TPSA/strict rotors for the composite;
+  never mutate saved empty display categories or calculate per criterion.
+- One selected-profile real C→N edit, Undo and Redo (three reevaluations), with the
+  existing disposable preflight and independently qualified before/after reports.
+- One metadata 503/explicit Retry control, holding the real recovery response across
+  an edit; exactly two registry attempts and no resurrection of old values.
+
+Use browser performance.timeOrigin and existing request/clock instrumentation.
+Measure selection-to-feedback and warm selection-to-current criteria against the
+existing 100 ms target; genuinely cold selection/edit-to-current values against
+2 s. Measure edit-to-old-criteria retirement separately. Report injected hold time
+separately, missing/hidden retirement as null with a reason, raw samples, n/median/
+nearest-rank p95/max/misses for five cold and 20 warm observations, and individual
+edit/expansion/fault durations. Existing performanceBudget and D-148 keep absolute
+latency enforcement opt-in; exact identity, finite observations and bounded work
+remain hard requirements. No synthetic zero for missing data.
+
+A source-bound `profile-performance-v1` artifact retains candidate/store/run,
+source/method/fixture hashes, browser/viewport/environment, clock proofs, phase
+boundaries, actual cache states, raw durations, exact source/profile/descriptor
+identity, request/consumer/job deltas, retirement observations, target annotations,
+cleanup and explicit measurement gaps. Retain raw request/observer companions and
+hash links. No simultaneous-memory claim follows from discrete observations.
+No additional 1,000-entry profile campaign is required: this child evaluates one
+active ligand; inherited bulk tests cover shared scheduling. Add scaling stress
+only if this workload exposes a concrete concern.
+
+These accepted contracts are implementation inputs, not measured outcomes or final
+feature approval. Full gates, actual predecessor actors and all seven final reviews
+remain required.
