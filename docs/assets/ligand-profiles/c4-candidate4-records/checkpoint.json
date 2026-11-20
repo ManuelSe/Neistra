@@ -1,0 +1,114 @@
+{
+  "recorded_utc": "2026-11-20T09:28:15.291484+00:00",
+  "stage": "Complete candidate4 qualification/evidence checkpoint; prepush final7review andactualmergedqualification/publication remain required",
+  "qualified_candidate": "da6dc220abb1590665d14eb0fc4f2ffa8b3f3d19",
+  "application_version": "0.38.0",
+  "gate": {
+    "commands": 43,
+    "python": 4138,
+    "python_skips": 0,
+    "frontend": 1875,
+    "supervisor": 14,
+    "browser_passed": 585,
+    "browser_exclusions": 75,
+    "inventory": 660,
+    "exact_old_exclusions": true,
+    "failures_retries_new_exclusions": 0,
+    "current_sources": 1183,
+    "actual_preceding_sources": 1133,
+    "DATA3_unchanged": true,
+    "all_lossless_logs_valid": true,
+    "actual_runner_exit_code": 0
+  },
+  "cleanup": {
+    "positive_process_port_closure": true,
+    "raw_pairs": 136,
+    "raw_bytes_each_side": 105928528,
+    "primary_SQL_before_copy": false,
+    "outer_OS_status": "Not separately observed; actualqualifiedsubprocess exit0 observedbyenclosingwait andcomplete rawcopy receipt/processabsenceverified"
+  },
+  "gate_packages": {
+    "parts": [
+      {
+        "file": "c4-candidate4-qualified-01.zip",
+        "bytes": 83321826,
+        "sha256": "65caedc2bdc9d2f6833b168d19958ad286185ed37b4136b5dc71e1adb7e9df39"
+      },
+      {
+        "file": "c4-candidate4-qualified-02.zip",
+        "bytes": 52285203,
+        "sha256": "6c574412f2a7ae605c42af08ce539202e04fa035c49e0f7fe0b5467737afbf13"
+      }
+    ],
+    "total_bytes": 135607029,
+    "exact_payload_union": 2555,
+    "native_originals_retained": 734,
+    "native_raw_bytes": 107740047,
+    "all_actual_parts_under80MiB": true,
+    "metadata": "gate-package-exact-union.json andnative-original-relocation.json"
+  },
+  "external_cases": {
+    "complete_case_trees": 10,
+    "payload_bodies": 744,
+    "raw_bytes": 86160126,
+    "archive_bytes": 8034132,
+    "archive_sha256": "7cab2a4687cde832be5bbae32cdd73c5742397c131f4db2d352abb6ecddfccf2",
+    "archive_payloads_with_context_inventory": 746,
+    "all_originals_retained": true
+  },
+  "owned_state": {
+    "raw_input_files": 6986,
+    "raw_input_bytes": 605545154,
+    "parts": [
+      {
+        "file": "c4-candidate4-retained-state-01.zip",
+        "bytes": 70857057,
+        "sha256": "5b04aa159e52698db7904558f46a30cb0492a2dec5fff28a9cdabc6f2f1d0603"
+      },
+      {
+        "file": "c4-candidate4-retained-state-02.zip",
+        "bytes": 1474542,
+        "sha256": "a33a8cd87466ef1f447ff64978bccf17d02bcb7b05a8eb16648d051913d7f70a"
+      }
+    ],
+    "exact_disjoint_union": true,
+    "all_originals_retained": true
+  },
+  "candidate_peer_analysis": {
+    "scientific_implementation": "PASS completedcandidate, exactfinalcommit reviewpending",
+    "performance": "PASS D148 completedcandidate, exactfinalcommit reviewpending",
+    "all7finalsamecandidate": "Pending resultingcommit; earlier3PASS/4BLOCKED fullcampaign evidence supersededonlyafterupdatedassessment"
+  },
+  "historical_failure_forensics": {
+    "index": "docs/assets/ligand-profiles/forensics/c3-forensics-index.json",
+    "part_count": 9,
+    "total_bytes": 675225495,
+    "public_downloads": "Not yet verified; separateassets required",
+    "do_not_embed_large_parts": true
+  },
+  "master_recipe": {
+    "path": "docs/assets/ligand-profiles/c4-master1-recipe.json",
+    "sha256": "7752fab40fed6db7564992417558a761601e618a58675ef85611105cc248c2c2",
+    "planned_worktree": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification",
+    "fresh_owned_run_reserved_empty": true,
+    "actual_merged_SHA": "Not yet exists; no guessedcommit/tag",
+    "path_transform_only": true
+  },
+  "mandatory_primary_supplemental_arguments": {
+    "profile-forensics-index": "Qualifiedcheckout docs/assets/ligand-profiles/forensics; assertbothsmallmemberspresent/zero9largepayloads",
+    "candidate-records": "Qualifiedcheckout docs/assets/ligand-profiles/c4-candidate4-records",
+    "candidate-external-cases": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-package1/case-companions",
+    "candidate-retained-state": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-package1/retained-state",
+    "master-external-cases": "Actual completedmergedcampaigncasebundle, stillpending",
+    "master-retained-state": "Actual completedmergedcampaignownedstore bundle, stillpending"
+  },
+  "remaining": [
+    "All7exactresultingcandidateprepushverdicts",
+    "NormalPR/review/merge withfreshremotepolicy/checks/conversations",
+    "Freshactualmerged43 andcompletecompanionretention",
+    "Annotated038tag/publishedrelease/allmain+9forensicassetsfullanonymousverification",
+    "Child160reply/closeout/ownedbranchcleanup;parentremainsopen",
+    "Actualreleased160into161;then162/163andverifiedparentcloseout"
+  ],
+  "goal": "Sameactiveparent11all8program; thischeckpoint isnotprogramcompletion"
+}

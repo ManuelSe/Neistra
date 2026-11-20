@@ -1,0 +1,14 @@
+{
+  "recorded_utc": "2026-11-20T09:26:38.485626+00:00",
+  "observed_remote_master": "3f873f5062814eac61a716112c92eb99f2e30328",
+  "read_only_GitHub_CLI_fallback": "Connectoromittedmergepolicyfields",
+  "default_branch": "master",
+  "allow_merge_commit": true,
+  "allow_rebase_merge": true,
+  "allow_squash_merge": true,
+  "delete_branch_on_merge": false,
+  "effective_master_rules": [],
+  "branch_protection_GET": "404 Branch not protected",
+  "policy_changes_performed": false,
+  "final_premerge_refresh_still_required": true
+}

@@ -973,3 +973,51 @@ feature assessments, complete candidate and fresh actual-merged gates, protected
 publication and release/closeout remain required. #161 remains preparatory with
 acceptance testing ongoing and must integrate actual released #160 before its own
 final gates/PR. Parent exclusions and the one program Goal remain unchanged.
+
+### Complete candidate4 qualification and retained evidence
+
+Fresh `c4-candidate4` at `da6dc220` completes all 43 commands with actual runner
+exit 0 and strict summary PASS: 4,138 Python/zero skips, 1,875 frontend, 14 supervisor
+and 585 native passes. All 660 declared cases have observed outcomes with exactly the 75 released
+exclusion identities, zero retries/flakes/failures/new exclusions. Current 1,183,
+actual predecessor 1,133, DATA3 and 43 lossless logs stay exact; all 17 migrations
+remain unchanged. Actual same-schema readers, both producer origins/suffixes,
+44 offline reports and structured scientific/source proofs pass independently.
+
+Positive whole-process/port closure precedes 136 verified original/raw-copy pairs
+(105,928,528 bytes each side). Two ignored gate parts retain an exact 2,555-member
+disjoint union; all 734 original native files move to ignored retention only after
+verified byte-preserving capture. All ten completed external case trees retain 744
+bodies/86,160,126 bytes in an 8,034,132-byte verified archive. Complete owned run,
+worker trace, raw copies and launch receipts retain 6,986 inputs/605,545,154 bytes
+in two verified ignored parts. Every actual part is strictly below 80 MiB.
+
+The [checkpoint and immutable receipts](../assets/ligand-profiles/c4-candidate4-records/checkpoint.json)
+bind these separate scopes. The first summary invocation omitted the repository
+module path; retain that launch failure and the corrected successful invocation.
+No qualified source or gate command changed. All originals remain retained; no
+primary diagnostic SQL was performed. Independent scientific/performance evidence
+assessments PASS this completed candidate. Named numerical comparison scopes remain
+separate, including spawn-only observations that do not prove calculation entry.
+
+Current portable observations retain 31 profile and 120 inherited-property target
+misses, separate from four deliberate policy examples and native3's historical four.
+Automatic numerical READY is distinct from later presentation/scientific checks.
+Hidden retirement, complete GPU/browser peaks and simultaneous memory remain
+unavailable. D-148 is unchanged; no speedup, strict-host or universal-capacity claim.
+
+`c4-master1-recipe.json` preserves all 43 responsibilities and actual preceding
+root/receipt. Only current checkout paths change to the planned isolated merged
+checkout; reversing that change reproduces the canonical generator bytes. The
+fresh empty owned run root is reserved. No merged SHA, tag or result is fabricated.
+Commit this evidence, obtain all seven verdicts for the resulting exact candidate,
+then use normal PR/review/merge and a fresh complete actual-merged gate.
+
+Primary release packaging must explicitly add `candidate-records`,
+`candidate-external-cases` and `candidate-retained-state` from the checkpoint,
+alongside the small `profile-forensics-index`. Add equivalent complete actual-merged
+case/store companions after qualification. Inspect assembled members for all these
+contexts and zero embedded large historical failure parts; upload/verify the nine
+indexed failure assets separately. No publication/closeout or parent completion is
+claimed. #161 remains preparatory, with actual released #160 required for final gates;
+#162/#163 remain required and unimplemented.

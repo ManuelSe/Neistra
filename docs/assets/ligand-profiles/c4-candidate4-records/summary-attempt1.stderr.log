@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/qualification-summary.py.txt", line 73, in <module>
+    fixture_qualification = helpers["fixture_qualification_reports"](recipe, root)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/qualification.py.txt", line 266, in fixture_qualification_reports
+    driver = runpy.run_path(str(driver_path))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 286, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/tests/support/ligand_profiles_fixture_qualification.py", line 16, in <module>
+    from tests.support import ligand_property_performance_fixtures as frozen
+ModuleNotFoundError: No module named 'tests'

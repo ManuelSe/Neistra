@@ -16,14 +16,24 @@ scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns pass both
 producer origins, private-state families and archive suffixes with exact schema
 identity; independent scoped architecture and scientific reviews PASS.
 
-Focused integration, offline/source-bound scientific controls and static checks
-pass. Focused native profile measurements pass desktop and mobile320, including
-independent numerical/source-context checks, actual edit/Undo/Redo and metadata
-recovery. Cold/warm samples meet their targets, with four separate desktop edit/
-feedback/retirement misses retained; hidden mobile retirement remains unavailable.
-These are local checkpoints, not complete release qualification. Both full candidate/
-merged gates, all seven final feature reviews, normal PR integration and verified
-release/closeout remain required. No speedup or strict-host claim is made. The sidebar, radar,
+The fresh complete candidate gate passes all 43 commands: 4,138 Python / zero skips,
+1,875 frontend, 14 supervisor and 585 browser cases, with exactly 75 unchanged released
+exclusions across 660 inventoried cases. There are no failures, flakes, retries or
+new exclusions. All 1,183 current / 1,133 actual preceding source bodies, frozen data,
+lossless logs, 44 offline fixtures and actual reader proofs verify. Positive cleanup
+and all 136 raw original/copy pairs verify before primary diagnostic SQL.
+
+Both browser profile cases preserve current-input science, edit/Undo/Redo and
+metadata recovery. Forty warm switches add zero requests/jobs/allocations/demands.
+Portable measurements retain 31 profile and 120 inherited-property target misses;
+four deliberate policy examples remain separate. Mobile automatic Edit/Undo/Redo
+readiness is 3483.3/2404.1/2481.7ms; later presentation is a different measurement.
+Hidden retirement remains unavailable. No speedup, universal capacity or strict-host
+claim is made. Complete original stores/traces, native recordings and all ten
+external companion trees are retained separately from historical failures.
+
+Final same-commit all-seven approval, normal PR integration, fresh actual-merged
+qualification and verified release/closeout remain required. The sidebar, radar,
 entry filters and final inspector integration remain required #161–#163 work.
 
 ## 0.37.0 — Automatic current-input ligand properties

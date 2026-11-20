@@ -1,0 +1,876 @@
+{
+  "recorded_utc": "2026-11-20T09:01:10.471192+00:00",
+  "runner_exit_code": 0,
+  "positive_closed": true,
+  "live_owned_pids": [],
+  "observed_step_session_ids": [
+    634231,
+    634260,
+    634264,
+    634281,
+    634286,
+    634291,
+    634310,
+    634343,
+    634370,
+    634389,
+    655361,
+    655414,
+    655443,
+    658592,
+    658647,
+    658747,
+    658796,
+    730812,
+    730858,
+    730860,
+    730883,
+    730885,
+    730896,
+    730904,
+    730914,
+    730925,
+    730942,
+    730952,
+    730955,
+    730995,
+    730998,
+    731088,
+    731160,
+    731233,
+    731300,
+    731304,
+    731308,
+    731313,
+    731327,
+    731331,
+    731342,
+    731353,
+    732679,
+    733708
+  ],
+  "ports_closed": {
+    "8340": true,
+    "8341": true,
+    "5423": true
+  },
+  "primary_diagnostic_sql_before_copy": false,
+  "files": [
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-current/molweave.db",
+      "bytes": 741376,
+      "sha256": "cf6c95ef3efd6f385aa1c0e8cdd5b1af2b19a175a5d653c1ec82c9d208daf0f2"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "bf0b042ff7a7cb87f68daa06ebda493a004dcfe867092b0ed2c99750fe999d23"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-current/molweave.db-wal",
+      "bytes": 4120032,
+      "sha256": "0f72c1e148b70a3028d54f31ae3c14eb1a43ccdfb7f4abfadd9f6e99f2860c4f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous/molweave.db",
+      "bytes": 376832,
+      "sha256": "e03417455e8171f1a310a9608a260d3192807c25f1ed5c8f48ca7deae9b5ed58"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "15fa7769ddd520119e5fc051687c90738dc9c2883fe8aa4e202c2f2c4636a156"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous/molweave.db-wal",
+      "bytes": 3378432,
+      "sha256": "96608a62fcd5367183edda9a37940f878fd65cc2cf533d55c79b7557bade580a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous-read-current/molweave.db",
+      "bytes": 741376,
+      "sha256": "cb1b7faaca794ca18a62ad6e2a05e4175995601d7042652bdc2daee92079b357"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "8340a5d68f319d10ae8b772fe67237d86685fcc004b3e21d160f60f678a8d5c1"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/connectivity-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/connectivity-previous-read-current/molweave.db-wal",
+      "bytes": 4120032,
+      "sha256": "ad995478673421a07c5965d5590605119747f15f843879569b13d07e9f6f2723"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/database/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/database/molweave.db",
+      "bytes": 245760,
+      "sha256": "9f3e2362572ef6fd6cc1a3928abd930b22526fd6c63fa0e9a6c6d49c51cb1360"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/e2e/neistra.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/e2e/neistra.db",
+      "bytes": 51134464,
+      "sha256": "196babfbf00e3a43d8ec1f2a434aae98c993e1d9071140ad9883642df3a15702"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/e2e/neistra.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/e2e/neistra.db-shm",
+      "bytes": 32768,
+      "sha256": "10c5543332db2021cd8cab92750014358a883c95bef33df0ba6c6b5bfa0063f6"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/e2e/neistra.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/e2e/neistra.db-wal",
+      "bytes": 6217112,
+      "sha256": "5c710b1a1757756deed534eec9cde8cac0483f486ae74bdba33a1c38e4612a77"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-produced/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-produced/molweave.db",
+      "bytes": 245760,
+      "sha256": "88133d20276401e21ef7ba7d11e95a73cb20edcc450984b77dcca17d034161dc"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-produced/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-produced/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "f52a8d406406dda98a46c6e1f84c2e05f7fb6e69288b3b55179bad0a1809f4cf"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-produced/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-produced/molweave.db-wal",
+      "bytes": 2607992,
+      "sha256": "1d387e072fa0e3c6dd5764136c96d1ca74842ba3e2d1bfab3daa3dd0210cfc70"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-old-reexports/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db",
+      "bytes": 2990080,
+      "sha256": "7cbb1a64da0ee2d3bff6b7e87fd5243e72e6c7ea2259f3a85892f86fa55317c7"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-old-reexports/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-old-reexports/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-old-reexports/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-previous/molweave.db",
+      "bytes": 1417216,
+      "sha256": "5173915bfd970bb367a0edafa5d49333a22929c5929dac59a172e16a35da1ed3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-previous/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-previous/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/current-read-previous/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/current-read-previous/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-produced/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-produced/molweave.db",
+      "bytes": 245760,
+      "sha256": "f9405cc93200708566e1c32db859b4727c47585f91a906c880db93f3d66049e7"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-produced/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-produced/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "2c8b5a25f13c83ffd1d9d84d0a751b13d441d17e9f111ed1af21228d7a8f5d1e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-produced/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-produced/molweave.db-wal",
+      "bytes": 2607992,
+      "sha256": "aca89556fcab9807da6a6b89d9391a6c46ae6353162c8875b5f6549b02feeeb4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-retained/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-retained/molweave.db",
+      "bytes": 1417216,
+      "sha256": "96ff382855111e7e3ba5fc0cc0fa64af872642a7793999b74c0109da50936f2b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-retained/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-retained/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/editing-readers/previous-retained/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/editing-readers/previous-retained/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/measurements-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/measurements-current/molweave.db",
+      "bytes": 319488,
+      "sha256": "d9848bae005ae56bc426274fe69d00d4db3be751a473a11cca7d16bb0e67ce7b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/measurements-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/measurements-previous/molweave.db",
+      "bytes": 319488,
+      "sha256": "1b2adf57631d03a9fc71b0f7a9c9ebd6b1a8d443aca60bc54ff04c2ec51c8878"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/measurements-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/measurements-previous-read-current/molweave.db",
+      "bytes": 262144,
+      "sha256": "8007ee2593effc157370561cf428d4eed42770856ed6c1e9e8fe0d309cb1ffce"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/measurements-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/measurements-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "ecf4efd065d00ec26455abb553fa1e3fe22365fca0cc2266c5073b51c941c5e5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/measurements-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/measurements-previous-read-current/molweave.db-wal",
+      "bytes": 234872,
+      "sha256": "49014eb9ecc71b6fb232ab18fbb5348c0bc8cd34ba877b6a79b6141b708f370a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "eef25069f9128d9aec9d3ce01adebbaa42d9a873423caf00cf1c889e9228c964"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "a8265c8d36a31e62f5c6d351b3dfd27e021cbeac9bb3a9854e62ea075444257d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+      "bytes": 241664,
+      "sha256": "8b0ff17a9e8440013dabc847fea114330605913455e103a5eaee24caad272109"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+      "bytes": 241664,
+      "sha256": "40d6a9aec4801d2e3d2ed7668a30582635d70cff02c5bbb87768dc9d189814ee"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "336163d3a6e387cf8e65c3dc2bf87a10978f5fa1d6f2f0a08dfd3cdd4e53da4c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "fe8b0ebd27702a5beca93f3c98a9f8ee23108b620e4bd6cd2d6b20013ccf1af7"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "805a1a38be7be3c0fa0a1812f8cc59f8f7b39f3f7db69764fae49613264806e4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "5233d3762d03f4029c32f8e09c99812a898f06f55ae0fa5ad240d6a8e5710449"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "6f3794131d6101f552fc0445413fdb7890b19c65ece71b0878774f6053076e2a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "d19247f3580bf134be96f9bd5f2f23b977d5fafb9f5b8012b7f2fef4071a0c2c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "a1a8d732eeffe6ccd7203b824660ea7a29e8d08f890ba076ea9f9b15b9a748a4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "bf731ca3973e119e1b799bd819bf6a4b24ab4bc88bf07bfabd25b5dfe5f0df05"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "583230b608fda1234566fd017f470e2d1824a54be256b58c22ebfa5de9d50f88"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "c4182e3d1dc501cd500cac748941f6c4af1cf3a19ea8a8a2b5105c5aa8d4e8e5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "d0b49acd1369f8087f75a3009f86c08ceda41660bb67cd18d46e7414dcf5026e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "f66d3e7d1a8ff8f82e62f301ddb50dd875bd1a22bc637b7183e6e2c756c3c270"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "f74caf77d6a7803b033ce5adfb4bdc4ba5a4ab6e3028d7e6ec8a60c75fe0ad4f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "3e67b4c6d47332d1112c6a27a1cfa568f1e951f037935969bf0c9f4bddb226c4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+      "bytes": 253952,
+      "sha256": "ce0b43d5ade2f6653dcc60935776f90b6e7d9e6a2208be53051dc863e51edd6e"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "1ac1a15c5fe9a66ce16197e7eae3638f611b86366d10441dc491980780a3d59c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "969fdd4eac2eed7e614d53e901acdd063bc243d3d7ce64faaf81d7dc57adc7a7"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "74f055ebdf336ae2a88d4a491ae3bb32db05b14cd62619f9497ea80f10234fab"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "fcae09ee687d25682ab002e28c9e0c02b0275e5bc0de5f8ddd1fec2d6a402529"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "b83cd69a994afef8a930cc7c67be78578a18d82a51560336354aa4f1d9895640"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+      "bytes": 245760,
+      "sha256": "d49c1c93fccd25ebaa7387db4d88d5c05d0a8b7a348afd126b27be78b7f71904"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+      "bytes": 245760,
+      "sha256": "679a3e7e250cca5a6211ee2007fb7fbf07597319d6487e2304e61366a7fa3254"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+      "bytes": 245760,
+      "sha256": "349461ade29f9c4804eecd322b3a4fd082ff166b81461e415e6d070fd0db498d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+      "bytes": 245760,
+      "sha256": "1873735e03e233060d1f0c16388e35439458c1cca054e9d9c2c08feb95ff8ec5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+      "bytes": 245760,
+      "sha256": "5bccd0a5cca3f5fe797d856dfc8eb735c28c0e27601286e51056fb0326ddae24"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+      "bytes": 241664,
+      "sha256": "ef98cecbf74fd588df0029c3849d66c5390909ec4b5e6fb649039bbf11c7614a"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+      "bytes": 241664,
+      "sha256": "7edccc885b348d4af4d1200ec4f4751cfbfa962783d763db0ea5bac6c3bca2a9"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+      "bytes": 241664,
+      "sha256": "e88f9b1d05b2258c1b3c8c54950856359fca69b16f7fb389840fa738db9f479f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+      "bytes": 241664,
+      "sha256": "6ba5dd657f722212e6c784c57755994c44fb3993b24180a1068d173aeb92f38f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+      "bytes": 249856,
+      "sha256": "c63fd90b77a40fa16840f72d9d9cf1afb34b8c37b181a9f6c87adb63a3bbdf86"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+      "bytes": 249856,
+      "sha256": "4d925ddc957e7e2f593d2c58d14a7da38bffad6c1c88e0200ead5346f209eb40"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+      "bytes": 249856,
+      "sha256": "5d0eb18b1c8b736954a77152792dceec3708869e37c2e608c6ab1a57178657bb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+      "bytes": 249856,
+      "sha256": "e4623d45962c34b23e1ca44060d48d4c8e6e5597b77f4d57a7477da7b0d3b9a9"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+      "bytes": 249856,
+      "sha256": "837a4b891aae264247086ca6272d197016582017dec9dfa6310b3bd322248170"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+      "bytes": 249856,
+      "sha256": "a4c77740a8ff4d52ea2dbcc3842455af0915a27ec8324517c9c61779713e93ac"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+      "bytes": 253952,
+      "sha256": "07f318fe7ffdc2ca33d4f30c9e4c949ab236fb9cce3c268041936c410909818b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+      "bytes": 253952,
+      "sha256": "ab7fd987077037ed1f95d27f1c10d51341046db7bfd7c42dea9c79e998ddb416"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+      "bytes": 249856,
+      "sha256": "33fcb4778a6bc7fef5815dbd7b29383f2e622a6fa01cc89eefcc8e6bac71ee12"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+      "bytes": 249856,
+      "sha256": "ae4cf50920e7f9851a1fd3fdd59b5e7d3275e9c793b621b869f13c9385e1a321"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+      "bytes": 249856,
+      "sha256": "be9cdaf06a8623028b99d5a9208fd5bfa21586998f3e1dfc6b747e541ad4a520"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/cancelled/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db",
+      "bytes": 417792,
+      "sha256": "1e241c9fedfebca30e96d90c81554ea685ad720814eb111c7032ff136292c8ee"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/cancelled/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/cancelled/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/cancelled/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/captured/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db",
+      "bytes": 417792,
+      "sha256": "f488c7c3642c30afeba8d661eb993800f2b1c744ca4cfaa3f4bdae3bd9f7a8a2"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/captured/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/captured/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/captured/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/completed/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db",
+      "bytes": 413696,
+      "sha256": "dae28c0a40cdfd48f3ed215d4d6697cdf71c8c803acc212fdeae349df571c2cf"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/completed/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/completed/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/completed/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/corrupt/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db",
+      "bytes": 417792,
+      "sha256": "8ed4d219f2a1e534a4aab5d60f9c34897226aaafb556d1246c243d18cd0e7ee4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/corrupt/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/corrupt/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/corrupt/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/forged/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db",
+      "bytes": 417792,
+      "sha256": "e981746f3e4883cb04a653182df8acbb1766f39465f0c2db7ebc7af4609a236f"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/forged/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/forged/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/forged/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/pending/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db",
+      "bytes": 413696,
+      "sha256": "6a4ed90f311c67884ac2b752d2f50f5b7d9b5b7ee6695e3abf1c61b1949e5091"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/pending/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/pending/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/pending/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/project-deleted/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db",
+      "bytes": 409600,
+      "sha256": "e0f6a1ab8f0adeeddb884432efaa61c773a1b2c5ceea6782dc71640b31cedcdf"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/project-deleted/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/project-deleted/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/project-deleted/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/stale/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db",
+      "bytes": 430080,
+      "sha256": "e34954addf18673883a19d394b2fe72919fa67d56c5a46aacc8d8ebe9e0e13a5"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/stale/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/stale/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/stale/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/started/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db",
+      "bytes": 417792,
+      "sha256": "d37b6db03b271eb8e962b81a144321707dc79f457d48d0bb0f8e782be77de6b4"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/started/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/current/cases/started/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/current/cases/started/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/cancelled/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db",
+      "bytes": 417792,
+      "sha256": "d258f4819b136805552bce28501966c4effbfd62511bf1375407308f8013e938"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/cancelled/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/cancelled/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/cancelled/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/captured/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db",
+      "bytes": 417792,
+      "sha256": "8108ae3374e6f36998f0051f168f01fe646a17f21290e865175fa24b42fbb33b"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/captured/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/captured/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/captured/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/completed/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db",
+      "bytes": 413696,
+      "sha256": "1db6f37781f1e64aa450b1e5613ffc4f2c36cf0b23af62ed6f7eefacd9b6aece"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/completed/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/completed/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/completed/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/corrupt/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db",
+      "bytes": 417792,
+      "sha256": "f5eb5c84cbe488d1f4ab619b7d64ca5f9004d370bcd20353837328762eb9d8b6"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/corrupt/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/corrupt/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/corrupt/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/forged/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db",
+      "bytes": 417792,
+      "sha256": "2a88c03b81385e0de961617ded8799d7f7e46e143f1504d9c0980936ada57057"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/forged/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/forged/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/forged/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/pending/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db",
+      "bytes": 413696,
+      "sha256": "a79d4ee6217479674279f8fab43e40f9916ecc067c6e50cf68fb92596dd45329"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/pending/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/pending/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/pending/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/project-deleted/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db",
+      "bytes": 409600,
+      "sha256": "8562505b1ef737fcc3e6221c30053ac61f1564580e238144177c2395bd07f35c"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/project-deleted/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/project-deleted/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/project-deleted/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/stale/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db",
+      "bytes": 430080,
+      "sha256": "39790cc2e8c6280ab3b1b9757de46e49ff55b84fc381f6fe355c5e96285ae392"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/stale/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/stale/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/stale/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/started/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db",
+      "bytes": 417792,
+      "sha256": "d85b3a181d2bae15f0ac1f480200a1eb647b13969602bec856de7877978c6dc8"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/started/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/property-readers/origins/previous/cases/started/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/property-readers/origins/previous/cases/started/molweave.db-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/rich-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/rich-current/molweave.db",
+      "bytes": 745472,
+      "sha256": "68f67e0a22e7155cea7881377a693ff3a8cec10a14a310c9ea6ff3da339eab09"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/rich-previous/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/rich-previous/molweave.db",
+      "bytes": 745472,
+      "sha256": "0c2da902343e861e103d5899321e8ec7bf60bdb6e3221b1813dca8d29dbca2c3"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/rich-previous-read-current/molweave.db",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/rich-previous-read-current/molweave.db",
+      "bytes": 458752,
+      "sha256": "9fdf52fc22de98d1ca4cb6bb9d0e745baf681e46f1cdb1a972192d0ba45b043d"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/rich-previous-read-current/molweave.db-shm",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/rich-previous-read-current/molweave.db-shm",
+      "bytes": 32768,
+      "sha256": "1d8af3d4d45db8d3e9fbbe7d5360468bd2bfe543493a4716ec5a1727431f1aec"
+    },
+    {
+      "original": "/tmp/neistra160-c4-candidate4/rich-previous-read-current/molweave.db-wal",
+      "copy": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-c4-candidate4-run1/closed-raw/rich-previous-read-current/molweave.db-wal",
+      "bytes": 898192,
+      "sha256": "2f33f68a5fcda15d25aefdd44bc5df580237524f3e668742e138372747dca76c"
+    }
+  ]
+}
