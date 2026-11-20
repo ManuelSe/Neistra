@@ -739,3 +739,32 @@ The bounded correction focuses and verifies the existing Entry control before
 Escape, matching established property/profile workflows. Scoped ESLint, TypeScript
 and all 14 measurement unit controls pass. No production behavior, oracle, workload,
 deadline or target changes. See the [attempt/correction checkpoint](../assets/ligand-profiles/c3-native2-inspector-focus-checkpoint.json); repeat both browsers with a new store/evidence label.
+
+### Native attempt 3 — focused desktop and mobile qualification passes
+
+At clean `3926426eedd4c78829013cb4a66522427db59373`, both browsers pass all
+64 records with no failures, skips, flakes or retries. Each has five genuinely cold
+selections and twenty warm switches; warm changes add no jobs, allocations or
+demands. Actual edit/Undo/Redo contexts, immutable originals, exact criteria and
+held metadata recovery verify. All 1,181 selected files stay unchanged; observers,
+owned workers and services close positively and all three raw database/sidecar
+original-copy pairs match. Independent scoped scientific and performance reviews
+PASS these actual bodies. See the [native checkpoint](../assets/ligand-profiles/c3-profile-native3-checkpoint.json).
+
+Cold median/p95/max is 909.8/941.3/941.3 ms desktop and 888.6/905/905 ms mobile;
+warm is 73.15/83.7/85.8 ms and 56.3/63.1/64.3 ms respectively. Four desktop portable
+target misses remain: edit readiness 2141.4 ms, Redo feedback 109.6 ms, Undo/Redo
+retirement 199.5/199.3 ms. Hidden mobile retirement is unavailable. No strict-host,
+causal speedup or whole-process/browser/GPU memory claim follows.
+
+The passing packet retains 322 payload files; the separate failed-attempt packet
+retains 1,506, including all original stores, traces and source evidence. All nested
+CRC/manifests/hashes verify. A diagnostic SELECT changed the first copied SHM from
+native1; its original was never changed. Preserve that diagnostic copy and receipt,
+and separate untouched copies matching the first recorded original hashes, with an
+explicit clarification. No historical attempt is relabelled or pooled.
+
+The complete 43-command candidate recipe is prepared at `c4-candidate1-recipe.json`
+against actual annotated v0.37.0 and its independently frozen 1,133-source environment.
+Commit this evidence and recipe before running it. Full candidate/actual-merge gates,
+all seven final feature assessments and normal protected delivery remain required.

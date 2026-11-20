@@ -1,0 +1,218 @@
+{
+  "schema": "issue160-native3-profile-qualification-checkpoint-v1",
+  "recorded_utc": "2026-11-20T03:01:54.196983+00:00",
+  "qualified_scope": "Actual focused profile measurements only, not complete release readiness",
+  "candidate": "3926426eedd4c78829013cb4a66522427db59373",
+  "source_bodies": 1181,
+  "source_before_after_unchanged": true,
+  "two_browser_exit_code": 0,
+  "case_reports": {
+    "chromium": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/chromium-d1294f13-c610-4ccd-937f-991253fcb34e/profile-performance-v1.json",
+      "bytes": 367744,
+      "sha256": "24dd4a29a8516892a1931162dd8ffe9af0fd192a3cfe9bd0eb15aedea2d1381b",
+      "summary": {
+        "cold": {
+          "n": 5,
+          "median": 909.8000000715256,
+          "p95_nearest_rank": 941.2999999523163,
+          "max": 941.2999999523163,
+          "target": 2000,
+          "misses": 0
+        },
+        "cold_unavailable_reason": null,
+        "cache_ready_first": null,
+        "partial_first": {
+          "n": 0,
+          "raw_ms": [],
+          "target": null,
+          "reason": "Partial or pending coverage is reported separately from cold and cache-ready samples"
+        },
+        "warm": {
+          "n": 20,
+          "median": 73.15000009536743,
+          "p95_nearest_rank": 83.70000004768372,
+          "max": 85.80000007152557,
+          "target": 100,
+          "misses": 0
+        }
+      },
+      "records": 32,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cleanup": {
+        "preferences_restored": true,
+        "observer_closed": true,
+        "worker_reaped": true,
+        "owned_live_consumers": 0
+      }
+    },
+    "mobile-chromium": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/mobile-chromium-c70c0128-ecfe-4b40-9c75-570ae558dddd/profile-performance-v1.json",
+      "bytes": 361307,
+      "sha256": "37efd02caa367506ae8e2db45198478ff5dcc9962e84b4b4f587b124e901b054",
+      "summary": {
+        "cold": {
+          "n": 5,
+          "median": 888.6000000238419,
+          "p95_nearest_rank": 905,
+          "max": 905,
+          "target": 2000,
+          "misses": 0
+        },
+        "cold_unavailable_reason": null,
+        "cache_ready_first": null,
+        "partial_first": {
+          "n": 0,
+          "raw_ms": [],
+          "target": null,
+          "reason": "Partial or pending coverage is reported separately from cold and cache-ready samples"
+        },
+        "warm": {
+          "n": 20,
+          "median": 56.30000001192093,
+          "p95_nearest_rank": 63.10000002384186,
+          "max": 64.30000007152557,
+          "target": 100,
+          "misses": 0
+        }
+      },
+      "records": 32,
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "cleanup": {
+        "preferences_restored": true,
+        "observer_closed": true,
+        "worker_reaped": true,
+        "owned_live_consumers": 0
+      }
+    }
+  },
+  "independent_scoped_scientific_theory": "PASS",
+  "independent_scoped_performance": "PASS",
+  "timing_policy": "Portable D-148; all timings retained, strict-host enforcement not selected; no speedup claim",
+  "desktop_portable_target_misses": [
+    {
+      "metric": "edit automatic readiness",
+      "observed_ms": 2141.4,
+      "target_ms": 2000
+    },
+    {
+      "metric": "Redo visible feedback",
+      "observed_ms": 109.6,
+      "target_ms": 100
+    },
+    {
+      "metric": "Undo old-criteria retirement",
+      "observed_ms": 199.5,
+      "target_ms": 100
+    },
+    {
+      "metric": "Redo old-criteria retirement",
+      "observed_ms": 199.3,
+      "target_ms": 100
+    }
+  ],
+  "mobile_hidden_retirement": "Unavailable/null, not a target pass",
+  "memory_limits": "Discrete worker/store samples do not establish simultaneous process or browser/GPU peak memory",
+  "positive_closed_original_copy_pairs": 3,
+  "all_original_copy_hashes_reverified": true,
+  "portable_evidence": {
+    "c3-profile-native-failed": {
+      "scope": "Focused profile-native evidence; complete release qualification remains outstanding",
+      "attempts": [
+        {
+          "label": "issue160-profile-native1",
+          "candidate": "ceceadb6562a9f4a7f257af95e62a67f4cd6758e",
+          "exit_code": 1,
+          "source_count": 1176,
+          "source_unchanged": true,
+          "complete_run_files": 8,
+          "case_directories": [
+            "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/chromium-40b4e142-2951-48bd-85a0-f5f429626918"
+          ],
+          "original_raw_pairs": 3
+        },
+        {
+          "label": "issue160-profile-native2",
+          "candidate": "4c72b121cf760f980f01f1938bba91f3b91fe8d5",
+          "exit_code": 1,
+          "source_count": 1181,
+          "source_unchanged": true,
+          "complete_run_files": 39,
+          "case_directories": [
+            "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/chromium-f9cf18a9-d893-4bd8-9871-91be56ac3cdc",
+            "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/mobile-chromium-ddc7f2fa-1d0e-4e1b-accf-5ec2a82884b4"
+          ],
+          "original_raw_pairs": 3
+        }
+      ],
+      "archives": [
+        {
+          "file": "c3-profile-native-failed-evidence-01.zip",
+          "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/c3-profile-native-failed-evidence-01.zip",
+          "bytes": 48004322,
+          "sha256": "794ff9f4828ce396f442b4b5957ab81b6b70157cc47031c921ae2c0708f80f49",
+          "outer_manifest_entries": 1506,
+          "verification_counts": {
+            "zip_archives": 16,
+            "evidence_manifest_entries": 1516,
+            "project_archive_files": 20
+          }
+        }
+      ],
+      "all_crc_and_manifest_hashes_verified": true,
+      "payload_files": 1506,
+      "failed_attempts_preserved": true
+    },
+    "c3-profile-native3": {
+      "scope": "Focused profile-native evidence; complete release qualification remains outstanding",
+      "attempts": [
+        {
+          "label": "issue160-profile-native3",
+          "candidate": "3926426eedd4c78829013cb4a66522427db59373",
+          "exit_code": 0,
+          "source_count": 1181,
+          "source_unchanged": true,
+          "complete_run_files": 43,
+          "case_directories": [
+            "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/chromium-d1294f13-c610-4ccd-937f-991253fcb34e",
+            "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-profile-performance/mobile-chromium-c70c0128-ecfe-4b40-9c75-570ae558dddd"
+          ],
+          "original_raw_pairs": 3
+        }
+      ],
+      "archives": [
+        {
+          "file": "c3-profile-native3-evidence-01.zip",
+          "path": "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/c3-profile-native3-evidence-01.zip",
+          "bytes": 26275850,
+          "sha256": "126586740955a603c39ec5d8f8273e4d4233bad01d7949ba703c39efe60ce0f2",
+          "outer_manifest_entries": 322,
+          "verification_counts": {
+            "zip_archives": 8,
+            "evidence_manifest_entries": 327,
+            "project_archive_files": 10
+          }
+        }
+      ],
+      "all_crc_and_manifest_hashes_verified": true,
+      "payload_files": 322,
+      "failed_attempts_preserved": false
+    }
+  },
+  "failed_attempts_never_pooled": true,
+  "native1_raw_copy_note": "Diagnostic access altered only first copied SHM. Original raw bodies remain unchanged; preserve altered copy, original receipt and separate untouched copies matching first recorded hashes. Clarification and both states are in failed evidence packet.",
+  "remaining": [
+    "Complete current43command release gate",
+    "All7finalsamecandidate feature assessments",
+    "Normal PR and merge",
+    "Fresh exact merged43command gate",
+    "Immutable annotated038tag/publishedrelease/requiredanonymousassetverification",
+    "Issue and parent program closeout after remaining children"
+  ]
+}

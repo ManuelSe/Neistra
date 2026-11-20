@@ -27,12 +27,10 @@ A separate current fixture driver preserves all 52 inherited benchmark subjects,
 44 SDFs, their generation manifest and historical provenance. It permits only the
 independently reviewed observer evolution. Separate profile measurements preserve
 the inherited workload, classify actual cache coverage and record browser clocks,
-source identity and bounded work. Their first native attempt fails an input-hash
-assertion; its complete evidence and three closed raw database/sidecar copies are
-retained. The corrected test-only harness passes focused validation; its fresh
-native attempt passes desktop and all mobile cold/warm samples, then fails mobile
-inspector dismissal before editing. A test-only focus correction passes scoped
-lint/types and 14 unit controls; fresh complete desktop/mobile execution is pending.
+source identity and bounded work. Native3 passes desktop and mobile320, including
+64 records, exact edit/history contexts and metadata recovery. Earlier hash and
+mobile-dismissal failures remain preserved separately.
+
 
 ## Verification performed
 
@@ -69,11 +67,16 @@ separate from independent no-recovery numerical vectors. The predecessor-baselin
 correction passes 165 Python cases and preserves the full original 640-case report
 and exact 75 exclusions as three frozen data inputs. See the [correction checkpoint](assets/ligand-profiles/c3-qualification-corrections-checkpoint.json).
 
+Native3 focused qualification and independent scoped scientific/performance reviews
+PASS at `3926426e`: 5 cold selections and 20 warm switches per browser, zero new
+warm jobs/allocations/demands, 1,181 stable source/data files and 3 closed raw pairs.
+The passing 322-payload and failed 1,506-payload packets verify all CRC/hashes.
+
 ## Known limitations
 
-Selected-profile browser/cache/latency measurements, current complete native
-coverage and both full release gates remain outstanding. No new latency or speedup
-claim is supported. The inherited v0.37.0 timing misses remain documented. New profile measurements use a declared
+Complete native coverage and both full release gates remain outstanding. Focused
+profile timing has four desktop target misses; hidden mobile retirement is null.
+No speedup or strict-host claim is supported. The inherited v0.37.0 timing misses remain documented. New profile measurements use a declared
 600-second overall multi-phase budget, preserving the original benchmarks and
 100 ms/2 s targets; portable timing enforcement remains opt-in under D-148.
 
@@ -88,6 +91,6 @@ parent exclusions. Other sessions and the user's dirty master checkout remain in
 
 ## Next action
 
-Freeze the passing test-only corrections, qualify fresh-store desktop/mobile profile
-measurements, then complete the current candidate gate and final seven-role review. Continue #160–#163 and verified parent closeout under
+Run the prepared complete 43-command candidate gate from a clean committed state,
+then obtain all seven final feature assessments and continue normal delivery. Continue #160–#163 and verified parent closeout under
 the same active Goal and scope.

@@ -12,13 +12,18 @@ All five authoritative application versions are prepared at 0.38.0. Dependencies
 and all 17 migrations remain unchanged from v0.37.0; schema head remains 0017.
 The new explicit same-schema compatibility protocol preserves the older protocol
 and separates genuine current/preceding producers, source/library proofs and exact
-scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns are still pending.
+scientific oracles. Actual v0.38.0/v0.37.0 compatibility campaigns pass both
+producer origins, private-state families and archive suffixes with exact schema
+identity; independent scoped architecture and scientific reviews PASS.
 
 Focused integration, offline/source-bound scientific controls and static checks
-pass. These are local checkpoints, not complete release qualification. Native
-profile measurements, both full candidate/merged gates, all seven final feature
-reviews, normal PR integration and verified release/closeout remain required.
-No new latency result or performance improvement is claimed. The sidebar, radar,
+pass. Focused native profile measurements pass desktop and mobile320, including
+independent numerical/source-context checks, actual edit/Undo/Redo and metadata
+recovery. Cold/warm samples meet their targets, with four separate desktop edit/
+feedback/retirement misses retained; hidden mobile retirement remains unavailable.
+These are local checkpoints, not complete release qualification. Both full candidate/
+merged gates, all seven final feature reviews, normal PR integration and verified
+release/closeout remain required. No speedup or strict-host claim is made. The sidebar, radar,
 entry filters and final inspector integration remain required #161–#163 work.
 
 ## 0.37.0 — Automatic current-input ligand properties

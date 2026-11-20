@@ -934,3 +934,21 @@ certification, causal speedup or regression claim follows. Historical measuremen
 remain separately identified in the [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.37.0).
 See [Live ligand properties](LIGAND_PROPERTIES.md) for all 14 definitions, units,
 recovery behavior and current operational limits.
+
+## Sourced physicochemical profiles
+
+Seven versioned adaptations share exact strict/inclusive constraints, descriptor
+methods and declared representation limits. Values, units, individual outcomes,
+source publications and adaptations remain inspectable; missing or failed inputs
+never become zero or a pass. The two unsupported named methods remain explicitly
+unavailable because their required inputs cannot be supplied defensibly. Profiles
+do not predict experimental success, exposure, permeability or binding affinity.
+
+The focused measurement fixtures establish bounded neutral C/N/O input, current
+source/provenance and numerical consistency. Equal numbers from no-original and
+original-assisted qualification can have different input hashes; both identities
+are preserved and checked separately. Actual edited graphs must qualify without
+original recovery masking the edit. Exact Undo/Redo and immutable uploaded originals
+verify in this scope. This establishes neither broad chemical applicability nor
+complete feature/release acceptance. The sidebar, radar and filters remain later
+required children. See the [profile contract](plans/issue-160-physicochemical-profiles.md).
