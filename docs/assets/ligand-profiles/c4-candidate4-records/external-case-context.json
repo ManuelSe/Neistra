@@ -1,0 +1,83 @@
+{
+  "recorded_utc": "2026-11-20T09:08:42.479106+00:00",
+  "candidate": "da6dc220abb1590665d14eb0fc4f2ffa8b3f3d19",
+  "scope": "All complete candidate4 newly owned external case companion bodies after verified whole closure/rawcopies; actual merged companions remain required separately",
+  "cases": [
+    {
+      "namespace": "issue160-profile-performance",
+      "directory": ".issue-11-evidence/issue160-profile-performance/chromium-94db1e12-ed58-4402-9232-4f6f9068e664",
+      "file_count": 132,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue160-profile-performance",
+      "directory": ".issue-11-evidence/issue160-profile-performance/mobile-chromium-6e95dc3b-b8e3-45ac-bfe1-74b061a1903e",
+      "file_count": 132,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/chromium-6205e2cd-8aa0-44be-8691-3560d6cef2aa",
+      "file_count": 15,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/chromium-62e87f27-84f5-4961-877d-1b1fe7222691",
+      "file_count": 205,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/chromium-88023fa1-e2bb-4583-b7a7-25f942d3329a",
+      "file_count": 15,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/chromium-8f275786-6adb-4efd-935e-5567db430b1b",
+      "file_count": 5,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/mobile-chromium-6f77c6ed-afc5-40b1-ac2e-5bebe57c7585",
+      "file_count": 15,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/mobile-chromium-851937ed-a987-48a5-bf12-9b82b10e3843",
+      "file_count": 5,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/mobile-chromium-a3bca45e-2ac7-40f2-8334-891f99bd8fca",
+      "file_count": 205,
+      "worker_complete": true,
+      "case_database_files": []
+    },
+    {
+      "namespace": "issue159-performance",
+      "directory": ".issue-11-evidence/issue159-performance/mobile-chromium-bca5770c-99a1-40a4-8260-6ed39ad2cb37",
+      "file_count": 15,
+      "worker_complete": true,
+      "case_database_files": []
+    }
+  ],
+  "payload_files": 744,
+  "payload_raw_bytes": 86160126,
+  "exact_canonical_inventory_sha256": "e833caec1e6ead7c67522d141473263a5a97ab71e6a02f80fab2a72345140a12",
+  "positive_whole_cleanup": true,
+  "verified_raw_pairs": 136,
+  "primary_SQL_performed": false
+}

@@ -1,0 +1,847 @@
+{
+  "label": "c4-candidate5",
+  "application_version": "0.38.0",
+  "require_clean": true,
+  "compatibility_protocol": "private-derived-same-schema-v2",
+  "unset_environment": [
+    "NEISTRA_DATA_DIR",
+    "NEISTRA_DATABASE_URL",
+    "MOLWEAVE_DATA_DIR",
+    "MOLWEAVE_DATABASE_URL",
+    "DATABASE_URL"
+  ],
+  "preceding_reader": {
+    "tag": "v0.37.0",
+    "version": "0.37.0",
+    "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "root": "/tmp/neistra160-reader037-actual9f774-1",
+    "schema_head": "0017"
+  },
+  "environment": {
+    "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "PLAYWRIGHT_BROWSERS_PATH": "/datadisk/dev/neistra/.playwright",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NEISTRA_PERFORMANCE": "0",
+    "NEISTRA_QUALIFICATION_VERSION": "0.38.0",
+    "NEISTRA_QUALIFICATION_BASE": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+    "NEISTRA_E2E_API_PORT": "8340",
+    "NEISTRA_E2E_WORKER_PORT": "8341",
+    "NEISTRA_E2E_WEB_PORT": "5423",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-browser.json",
+    "NEISTRA_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra160-c4-candidate5/native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ]
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "downgrade",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "alembic",
+        "downgrade",
+        "base"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "remigration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ]
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/neistra_core",
+        "packages/neistra_demo_plugin"
+      ]
+    },
+    {
+      "label": "reader-tool-types",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "mypy",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/structure_editing_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/navigation_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/project_document_compatibility.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/schema_boundary_refusal.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/schema_boundary_evidence.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_properties_reader_qualification.py",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py",
+        "--follow-imports=silent"
+      ]
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment": {
+        "NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE": "/tmp/neistra160-c4-candidate5/profile-fixtures"
+      }
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "web",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser-inventory",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--list",
+        "--reporter=json"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra160-c4-candidate5/e2e",
+        "PLAYWRIGHT_JSON_OUTPUT_FILE": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-browser-inventory.json"
+      }
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--max-failures=1",
+        "--output",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-native"
+      ],
+      "environment": {
+        "NEISTRA_E2E_DATA_DIR": "/tmp/neistra160-c4-candidate5/e2e",
+        "NEISTRA_PROPERTY_WORKER_TRACE": "/tmp/neistra160-c4-candidate5/e2e/qualification/worker-turns.jsonl"
+      }
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/versions.py.txt"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "production",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/production-audit.py.txt"
+      ]
+    },
+    {
+      "label": "legacy-cli",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/unit/test_namespace_compatibility.py"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/database",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/database/molweave.db"
+      }
+    },
+    {
+      "label": "rich-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "rich-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/rich-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-rich-current-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "rich-previous-migration-and-copy",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-c",
+        "import pathlib, runpy, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); runpy.run_path(sys.argv[3])['closed_copy'](source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra160-c4-candidate5/rich-current",
+        "/tmp/neistra160-c4-candidate5/rich-previous-read-current",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "rich-previous-read-current",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/rich-previous-read-current",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-rich-previous-read-current.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous-read-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous-read-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous-read-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous-read-current/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "rich-previous-produce",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/rich-previous",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-rich-previous-produce.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "rich-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-c",
+        "import subprocess,sys; subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True); subprocess.run([sys.executable, '-B', *sys.argv[1:]], check=True)",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/rich-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-rich-current-read-previous.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "rich-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/rebranding_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/rich-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-rich-current-reopen.json",
+        "--expect-new-names"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/rich-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/rich-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "connectivity-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "connectivity-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-connectivity-current-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "connectivity-previous-migration-and-copy",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-c",
+        "import pathlib, runpy, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); runpy.run_path(sys.argv[3])['closed_copy'](source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "connectivity-previous-read-current",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-connectivity-previous-read-current.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous-read-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous-read-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous-read-current/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "connectivity-previous-produce",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-connectivity-previous-produce.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "connectivity-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-c",
+        "import subprocess,sys; subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True); subprocess.run([sys.executable, '-B', *sys.argv[1:]], check=True)",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-connectivity-current-read-previous.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "connectivity-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/current_connectivity_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-connectivity-current-reopen.json",
+        "--expect-current-connectivity"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/connectivity-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/connectivity-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "measurements-current-migration",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "measurements-current-produce",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/measurements-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-measurements-current-produce.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "measurements-previous-migration-and-copy",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-c",
+        "import pathlib, runpy, subprocess, sys; source, copied = map(pathlib.Path, sys.argv[1:3]); assert source.is_dir() and not copied.exists(); runpy.run_path(sys.argv[3])['closed_copy'](source, copied); print('Copied current specimen without replacing existing data', flush=True); subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True)",
+        "/tmp/neistra160-c4-candidate5/measurements-current",
+        "/tmp/neistra160-c4-candidate5/measurements-previous-read-current",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "measurements-previous-read-current",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/measurements-previous-read-current",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-measurements-previous-read-current.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous-read-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous-read-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous-read-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous-read-current/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "measurements-previous-produce",
+      "command": [
+        "/tmp/neistra160-reader037-actual9f774-1/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "--implementation-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--expected-version",
+        "0.37.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-measurements-previous-produce.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra160-reader037-actual9f774-1/apps/api/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_core/src:/tmp/neistra160-reader037-actual9f774-1/packages/neistra_demo_plugin/src:/tmp/neistra160-reader037-actual9f774-1",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/tmp/neistra160-reader037-actual9f774-1"
+    },
+    {
+      "label": "measurements-current-read-previous",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-c",
+        "import subprocess,sys; subprocess.run([sys.executable, '-m', 'alembic', 'upgrade', 'head'], check=True); subprocess.run([sys.executable, '-B', *sys.argv[1:]], check=True)",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-measurements-current-read-previous.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-previous",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-previous/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "measurements-current-reopen",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/measurement_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra160-c4-candidate5/measurements-current",
+        "--implementation-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--expected-version",
+        "0.38.0",
+        "--evidence",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/docs/assets/ligand-profiles/c4-candidate5-measurements-current-reopen.json",
+        "--expect-ordered-measurements"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/apps/api/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_core/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/packages/neistra_demo_plugin/src:/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "NEISTRA_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "NEISTRA_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra160-c4-candidate5/measurements-current",
+        "MOLWEAVE_DATABASE_URL": "sqlite:////tmp/neistra160-c4-candidate5/measurements-current/molweave.db"
+      },
+      "cwd": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus"
+    },
+    {
+      "label": "editing-readers",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py",
+        "editing-run",
+        "--compatibility-protocol",
+        "private-derived-same-schema-v2",
+        "--current-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--previous-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--previous-receipt",
+        "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual037-reader-preparation1/previous-receipt.json",
+        "--python",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "--workspace",
+        "/tmp/neistra160-c4-candidate5/editing-readers",
+        "--current-version",
+        "0.38.0",
+        "--previous-version",
+        "0.37.0",
+        "--previous-tag",
+        "v0.37.0",
+        "--previous-commit",
+        "9f77410389c4e8738fdf94d3e69e7c8550fbc70c"
+      ]
+    },
+    {
+      "label": "property-readers",
+      "command": [
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "-B",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/tests/support/ligand_profiles_reader_qualification.py",
+        "run",
+        "--compatibility-protocol",
+        "private-derived-same-schema-v2",
+        "--current-root",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus",
+        "--previous-root",
+        "/tmp/neistra160-reader037-actual9f774-1",
+        "--previous-receipt",
+        "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual037-reader-preparation1/previous-receipt.json",
+        "--python",
+        "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.venv/bin/python",
+        "--workspace",
+        "/tmp/neistra160-c4-candidate5/property-readers",
+        "--current-version",
+        "0.38.0",
+        "--previous-version",
+        "0.37.0",
+        "--previous-tag",
+        "v0.37.0",
+        "--previous-commit",
+        "9f77410389c4e8738fdf94d3e69e7c8550fbc70c"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+        "HEAD"
+      ]
+    }
+  ]
+}

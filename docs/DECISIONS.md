@@ -10284,3 +10284,137 @@ changing the production request or forwarding it more than once. A meaningful
 old-mechanism control misses an initiation during awaited setup; the corrected
 proof rejects it. This tightens test evidence, adds no application state and makes
 no runtime suppression claim before actual browser qualification.
+
+
+### D-205 — Own delayed compact-panel initial focus
+
+A failed actual-merged #160 campaign reached Choose keyboard activation before
+any candidate, depiction or image request. Its trace did not record the focus
+callback itself. A deterministic real-App regression then proved that the existing
+unconditional opening animation frame can replace deliberate Choose focus with
+Entry focus, including after a replacement drawer visit. The trace and controlled
+reproduction remain distinct evidence.
+
+Bind deferred initial focus to the captured connected drawer and opening focus.
+Do not schedule it when focus is already inside. Before focusing, require the same
+current drawer and unchanged opening focus, allowing body fallback only when the
+original focused node disappeared. Cancel the frame on panel, responsive-mode or
+component lifecycle retirement. Keep ordinary first-control initialization and
+nested-dialog ownership. This is a focus correction within the accepted workflow;
+it adds no molecular state, query authority, persistence, dependency or method.
+The existing close-trigger return path is outside this opening-frame correction.
+
+The real-App controls, complete frontend checks and unchanged native image-recovery
+cases verify this scoped correction. They do not replace the fresh complete
+candidate and actual-merged campaigns, final seven-role assessments or publication.
+
+### D-206 — Retain failed merged campaigns through separate immutable indexes
+
+Keep the existing candidate3 forensic index, inventory and nine asset identities
+unchanged. Retain the failed `c4-master1` campaign through a separate version-1
+index/inventory and eight owned ignored ZIP parts, each strictly below 80 MiB.
+Together the two indexes bind 17 distinct ZIPs; check uniqueness across both
+indexes and verify every checksum sidecar, since per-index verification does not
+establish combined-release completeness.
+
+Extend only the accepted C4 run-label classes to candidate and master with numeric
+ordinals. Controls must exercise actual master-labelled recipe/gate/log paths and
+reject altered provenance, wrong run classes/campaigns and malformed ordinals.
+Preserve literal recipe, gate and lossless-log bodies and historical source
+capsules. Use original failed bodies or explicit historical Git blobs, never a
+corrected working tree as historical source authority. Exact part union supplements
+complete original-tree inventories, positive closure and raw-copy evidence.
+
+The main release bundle retains both small index/inventory/record sets; all large
+parts are separate assets. Verify local and anonymous bodies independently for each
+index and the combined release inventory before closeout. Preserve containment:
+old parts may be verified under their original owned root, and new parts under the
+corrective root; do not relax bounds or introduce symlinks. Neither forensic index
+qualifies its failed campaign or permits tagging an unqualified merged commit.
+
+### D-207 — Record narrowly identified noncampaign process exceptions
+
+The candidate5 retention guard encountered four same-user desktop service instances
+whose process environments deny inspection. Do not ignore unknown unreadable
+processes or disturb unrelated services. For these four instances only, pin boot ID,
+PID, UID, start ticks, PPID, SID, command-line identity and cgroup. Convert boot time
+and clock ticks to verify that they predate the parent program. Always check runner
+PID, owned session and readable campaign tokens before considering an exception.
+Allow only an environment permission denial for an exact pinned instance; identity
+drift, unknown denials and unreadable identity fields refuse. Recheck before and
+after capture, hash the exact proof bytes parsed, require unchanged proof identity,
+retain the literal proof/tooling and persist both closure receipts.
+
+This is an explicit operational ownership exception for four preprogram desktop
+instances, not proof of their unseen environment contents. Report the exempted
+inspections and limitation. Focused negative controls reject altered boot, identity,
+age, unknown denied instances, owned runner PID and between-pass proof changes;
+the session check is additionally source-reviewed. Positive capture and independent
+archive readback follow those controls. No primary diagnostic SQL or qualification
+command change is introduced. Application sources and acceptance remain unchanged.
+
+
+### D-193 actual released-prerequisite integration — preserve both lifecycle owners
+
+Integrate terminal master `5da5d465` after verified v0.38.0 delivery. Keep tagged
+runtime `c6f3e283` as preceding producer/reader authority; terminal metadata is not
+a new runtime. Preserve completed #160 qualification and historical failed states.
+
+Combine released opening-focus ownership with the primary/Tools sidebar. Resolve
+Entry or the selected Tools tab from the current visible DOM, yield to deliberate
+and nested-dialog focus, capture the opening node/focus, and retire/cancel old
+callbacks. Depend only on compact/panel lifetime; a view toggle must not restart
+opening autofocus. Preserve zero project-query stale time, monotonic structural
+sharing, the focusable movement launcher and minimum-width header. Real-Inspector
+controls supplement the four inherited mocked-owner regressions.
+
+Translate retained property-access qualification through deliberate views. Publish
+held exact-current READY while Selection Value remains focused, observe delivery
+and settled frames, then require same-node/focus/draft/hit/containment and <=1px
+position before helpers. Keep query application, current Ligand Properties/14 rows/
+Methods, retained Tools task/draft/Arrow navigation and all original/source/model
+oracles. Separate primary Methods content-growth/reading-position tests remain.
+Do not expose hidden compatibility UI or change themes, viewports or deadlines.
+
+Install exact public038 summary/browser aliases with independently reviewed
+provenance SHA256 `154b7e057f67c07a30c653124d95e670fce713cf8c509a25de6038e5f1f163a0`.
+Public-main/nested master2 manifests bind actual tag, completed43command summary
+and exact585pass/75excluded/660 outcomes. Preserve legacy037DATA3 and literal older
+helpers/actors; freeze and separately package all six DATA bodies. Prepare all five
+039version sources in a later coherent release checkpoint; no dependency/schema
+change follows from this provenance installation.
+
+
+D-193 retained-evidence correction: full integration Ruff discovers one incoming
+rejected audit snapshot saved as `.py`. Preserve its18,214bytes/SHA `b4843b9f` as
+`.py.txt`, update only its checkpoint inventory path key, and retain the original
+checkpoint losslessly as gzip. The separate normalization receipt binds original
+Git/public members, old/new paths and both checkpoint identities; all57member
+identities/capture facts and qualified source/DATA bodies remain unchanged. The
+text representation is evidence rather than an executable Python module.
+
+
+D-193 retained property-driver navigation: actual preflight finds three missing
+primary/Tools seams in the inherited property benchmark. Enter primary before
+Entry selection, Tools before its Selection setup, and primary after Apply before
+the existing desktop Carbon scroll/close. Independent scientific implementation
+and performance consultation accept this bounded setup refinement. Removing only
+that import and those three calls reproduces released C6 exactly. Keep cached
+presentation/reopen code and trusted click timestamp byte-exact, with all arm,
+ACK/source, automatic READY, cache/Undo, fixture, workload, bounds and assertions
+unchanged. Qualify real desktop/mobile navigation, actual visibility/nulls, warm
+work and all four bulk generation/fairness/overlap proofs in fresh native runs.
+The functional property workflow uses the same deliberate navigation sequence.
+
+
+D-193 retained native static qualification: strict typing requires two explicit
+unknown bridges for existing long-task Window augmentation; complete emitted
+JavaScript is identical. Type-aware lint identifies inherited property-driver
+non-null/JSON typing, one uncalled UTC helper and throws in bulk finally. Type
+changes erase exactly; remove only the uncalled helper and retain its body.
+Extract the unchanged entire cleanup into a named async function, unconditionally
+awaited in the same finally, preserving failures, first-error propagation, observer
+closure and evidence order. This adds an async completion frame after measured
+work, not a timing/workload change. Earlier three-call/C6 identity proof remains
+a capture of the pre-lint source; the new exact reconstruction/type-erasure proof
+binds final tests. All seven strict native inputs pass unchanged rules.

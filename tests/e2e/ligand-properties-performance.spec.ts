@@ -9,6 +9,7 @@ import { performanceBudget } from "./support/performance";
 import { maintainConsumerHeartbeats } from "./support/consumer-heartbeat";
 import { collectBulkPropertyValidationErrors } from "./support/bulk-property-validation";
 import { createObserverSnapshotReader } from "./support/observer-snapshot";
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 
 interface Source { entry_id: string; source_artifact_id: string; instance_id: string; atom_ids: number[] }
 interface Report { input_hash: string; model_status: string; values: { descriptor_id: string; status: string; value: number | null }[] }
@@ -238,6 +239,7 @@ async function inspect(page: Page, entryId: string) {
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
   }
+  await openLigandInformation(page);
   await page.getByRole("region", { name: "Ligand of interest", exact: true }).getByRole("combobox", { name: "Entry", exact: true }).selectOption(entryId);
 }
 
@@ -313,8 +315,8 @@ async function preflightEditableFixture(project: Project, entry: Entry, smiles: 
   const child = spawn(resolve(".venv/bin/python"), args, { cwd: process.cwd(), env: process.env,
     stdio: ["ignore", "pipe", "pipe"], timeout: 30_000, killSignal: "SIGTERM" });
   let log = "";
-  child.stdout!.on("data", chunk => { log += String(chunk); });
-  child.stderr!.on("data", chunk => { log += String(chunk); });
+  child.stdout.on("data", chunk => { log += String(chunk); });
+  child.stderr.on("data", chunk => { log += String(chunk); });
   const completion = await new Promise<{ code: number | null; signal: string | null }>((done, reject) => {
     child.once("close", (code, signal) => done({ code, signal })); child.once("error", reject);
   });
@@ -362,10 +364,12 @@ async function checkedRead(request: APIRequestContext, project: Project, entry: 
 }
 
 async function editControls(page: Page, entry: Entry) {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
+  await openLigandInformation(page);
   if (await page.evaluate(() => innerWidth > 840)) await carbon(page).scrollIntoViewIfNeeded();
   await closeInspector(page);
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
@@ -418,7 +422,7 @@ async function startObserver(info: TestInfo, projectId?: string, requireWorkOrde
     "--database", database, "--output", output, "--stop-file", stop,
     ...(projectId ? ["--project-id", projectId] : []), ...(turnTrace ? ["--turn-trace", resolve(turnTrace)] : [])], { cwd: process.cwd(), env: process.env, stdio: ["ignore", "pipe", "pipe"] });
   let log = "";
-  child.stdout!.on("data", chunk => { log += String(chunk); }); child.stderr!.on("data", chunk => { log += String(chunk); });
+  child.stdout.on("data", chunk => { log += String(chunk); }); child.stderr.on("data", chunk => { log += String(chunk); });
   const completion = new Promise<number | null>((resolveExit, reject) => { child.once("exit", resolveExit); child.once("error", reject); });
   const readPublished = createObserverSnapshotReader<Observation>(() => readFile(output, "utf8"));
   const read = async (): Promise<Observation> => {
@@ -452,11 +456,6 @@ function summary(values: number[]) {
   const sorted = [...values].sort((a, b) => a - b), middle = Math.floor(sorted.length / 2);
   return { samples: sorted.length, median: sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2,
     p95: sorted[Math.ceil(sorted.length * 0.95) - 1], max: sorted.at(-1) };
-}
-
-function utcOrder(value: string) {
-  const [whole, fraction = ""] = value.replace(" ", "T").replace(/Z$/, "").split(".");
-  return `${whole}.${fraction.padEnd(6, "0")}`;
 }
 
 function validateWorkerEvidence(observation: Observation) {
@@ -693,7 +692,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
         current: "Trusted click/ACK to actual automatic exact-source App network READY; visible DOM and deliberate presentation delay are separate",
         mobileCache: "App-owned matching result proved before Inspector open; full ACK-to-visible includes deliberate opening delay",
         requestCounts: "Actual browser property/command requests; explicit verification/setup API calls are outside these counts" },
-      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!)) };
+      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!) as unknown) };
     await info.attach("descriptor-edit-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" });
     await writeFile(resolve(observer.directory, "native-edit-performance.json"), JSON.stringify(evidence, null, 2));
   }
@@ -737,12 +736,12 @@ test("measures cancellation feedback and retains cancellation after an actual ac
       }, { once: true, capture: true });
     });
     await cancel.click();
-    await expect(region(page).getByRole("status")).toHaveText("Update cancelled");
+    await expect(region(page).getByRole("status")).toHaveText("Update cancelled No profile selected.");
     const cancellation = await timing(page, false);
     performanceBudget(cancellation.currentMs, 100, "consumer cancellation feedback ms", true);
     release(); await delivered;
     await closeInspector(page); await inspect(page, entry.id);
-    await expect(region(page).getByRole("status")).toHaveText("Update cancelled");
+    await expect(region(page).getByRole("status")).toHaveText("Update cancelled No profile selected.");
     const quietAt = await page.evaluate(() => window.ligandPropertyPerformance.requests.length);
     await page.waitForTimeout(1600);
     const requests = await page.evaluate(() => window.ligandPropertyPerformance.requests);
@@ -753,7 +752,7 @@ test("measures cancellation feedback and retains cancellation after an actual ac
     await checkedRead(request, project, entry);
     const evidence = { scope: "Real accepted HTTP demand; only its delivery is held. Measures consumer feedback and late-reply retirement, not sole-worker termination latency.",
       profile: info.project.name, source: source(entry), cancellation, requests, observerDirectory: observer.directory,
-      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!)) };
+      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!) as unknown) };
     await writeFile(resolve(observer.directory, "native-cancellation-performance.json"), JSON.stringify(evidence, null, 2));
     await info.attach("descriptor-cancellation-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" });
   } finally { release(); validateWorkerEvidence(await observer.finish()); }
@@ -886,12 +885,16 @@ for (const kind of ["repeated", "distinct"] as const) test(`prioritizes an actua
       owners: owners.map(owner => ({ id: owner.id, sequence: owner.payload.sequence, entries: owner.payload.entries.length })),
       qualifiedDistinctInputHashes: inputHashes.size, activeRequests: changed.requests,
       aggregateReads, consumerUpdates, finalBindings,
-      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!)),
+      targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!) as unknown),
       pendingInLast200BeforeClickDiagnosticOnly: pendingAtDispatch,
       overlapScope: "Accepted exact-source/generation work-order proof is evaluated separately; pre-click counts do not qualify overlap" };
     completed = true;
   } catch (error) { failures.push(error); }
   finally {
+    await finishBulkQualification();
+  }
+
+  async function finishBulkQualification() {
     // Await the sole in-flight sequence1 renewal before any sequence2 release.
     // Cleanup failures must not bypass observer/evidence preservation or hide the first error.
     try { await heartbeats.stop(); } catch (error) { failures.push(error); }

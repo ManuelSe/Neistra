@@ -1,0 +1,41 @@
+{
+  "recorded_utc": "2026-11-25T10:55:30.238860+00:00",
+  "scope": "Focused local released160 integration, not final feature qualification",
+  "parents": [
+    "1deca3a62fbe230eca013903e6ab39516baa752c",
+    "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c"
+  ],
+  "runtime_predecessor": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "versions": "All five0.38.0;039preparation pending",
+  "checks": {
+    "frontend_passed": 2037,
+    "frontend_files": 151,
+    "lint_types_build": true,
+    "ruff": true,
+    "mypy_files": 280,
+    "framework_forensic_passed": 221,
+    "real_inspector_focus_passed": 10,
+    "negative_controls": {
+      "without_retirement_failed": 1,
+      "released_opening_failed": 6
+    },
+    "seven_native_strict_types_type_aware_lint": true,
+    "403web_bodies_unchanged": true
+  },
+  "packet": {
+    "path": "docs/assets/ligand-information/c3-released160-integration-evidence.zip",
+    "bytes": 256110,
+    "sha256": "885ce5137e1a9f0eed89867bfff9f2b2756addc31db9b0ab192a396a26ff2f0d",
+    "payloads": 107,
+    "all_crc_and_manifest_bodies_verified": true
+  },
+  "remaining": [
+    "Actual038tagged source ancestry/extraction",
+    "Ordinary native collapse/reading recovery",
+    "Separate039version/archive preparation",
+    "Complete native38 and inherited/primary performance",
+    "Candidate and actualmerged43 gates",
+    "Seven final same-candidate assessments",
+    "Normal PR/merge/immutabletag/publishedrelease/anonymousassets/closeout/cleanup"
+  ]
+}

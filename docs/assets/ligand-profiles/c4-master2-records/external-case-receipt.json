@@ -1,0 +1,19 @@
+{
+  "all_archive_hashes_and_crc_verified": true,
+  "archives": [
+    {
+      "bytes": 8175380,
+      "file": "c4-master2-case-companions-01.zip",
+      "outer_manifest_entries": 746,
+      "path": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-package-postgate1/case-companions/c4-master2-case-companions-01.zip",
+      "sha256": "0b0c25cd7bdb7913bd64f2e04dd57df72ef56a983714797b70837e36e2fb00f6",
+      "verification_counts": {
+        "evidence_manifest_entries": 746,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    }
+  ],
+  "kind": "case-companions",
+  "packager_sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+}

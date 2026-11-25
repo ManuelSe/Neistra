@@ -1,0 +1,12 @@
+{
+  "script_SHA256": "722a8b37cfbf6559985eee6d3382b2c462847c0c7e264c6a87370ba057c714ae",
+  "controls": {
+    "relative_paths_normalized_and_stable_across_M2_child_cwd": "PASS",
+    "replaced_source_binds_original_parsed_body_and_hash": "PASS",
+    "retained_snapshot_readonly_and_exclusive": "PASS",
+    "active_gate_refuses_before_network_or_output": "PASS"
+  },
+  "scope": "Offline controls only; no genuine published asset verification",
+  "no_network_SQL_or_live_input_mutation": true,
+  "positive_public_run": "PENDING"
+}

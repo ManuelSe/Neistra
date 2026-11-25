@@ -1,0 +1,15 @@
+{
+  "verified_utc": "2026-11-20T18:27:39.194761+00:00",
+  "release_id": 453038539,
+  "tag_name": "v0.38.0",
+  "annotated_tag_object": "7e535c06e19d833d3e4accd63d3963a10dc4a348",
+  "qualified_runtime": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "draft": false,
+  "prerelease": false,
+  "published_at": "2026-11-20T18:27:38Z",
+  "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0",
+  "assets": 37,
+  "all37_server_digests_sizes_and_public_URLs_verified": true,
+  "release_notes_exact": true,
+  "anonymous_fullbody_readback_and_child_closeout": "PENDING"
+}

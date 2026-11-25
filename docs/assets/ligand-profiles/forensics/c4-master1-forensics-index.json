@@ -1,0 +1,304 @@
+{
+  "format_version": 1,
+  "scope": "Immutable failed actual-merged M1 forensic asset identities; no qualification claim.",
+  "repository": "ManuelSe/Neistra",
+  "issue": 160,
+  "parent": 11,
+  "release_version": "0.38.0",
+  "publication_contract": "Retain this small index/inventory/records in the primary bundle and publish every indexed ZIP separately with checksum sidecars; full local and anonymous verification are mandatory before closeout. Original c3 index and its nine asset identities remain separate and unchanged.",
+  "extraction_policy": "Part manifests form the exact disjoint union of this complete per-run inventory; no extra or duplicate payloads.",
+  "part_max_bytes_exclusive": 83886080,
+  "asset_count": 8,
+  "total_asset_bytes": 577937682,
+  "runs": [
+    {
+      "label": "c4-master1",
+      "failed_candidate": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+      "qualification_complete": false,
+      "failed_step": "browser",
+      "source_count": 1183,
+      "source_digest": "b6b2f260c07bed8755358827b06d76cdc37be80d450d6b7fc8131b28fb5b2b6f",
+      "source_unchanged": true,
+      "preceding_source_count": 1133,
+      "preceding_source_unchanged": true,
+      "recipe": {
+        "path": "docs/assets/ligand-profiles/c4-master1-recipe.json",
+        "sha256": "7752fab40fed6db7564992417558a761601e618a58675ef85611105cc248c2c2"
+      },
+      "lossless_logs": [
+        {
+          "label": "uv",
+          "path": "docs/assets/ligand-profiles/c4-master1-uv.log.gz",
+          "uncompressed_sha256": "c6c3df24538608cd61c715c5de69ab85fb1ed9e0eb475cb0275efc0fb7058819"
+        },
+        {
+          "label": "pnpm",
+          "path": "docs/assets/ligand-profiles/c4-master1-pnpm.log.gz",
+          "uncompressed_sha256": "1352e8b6a499f2e435cc3d53ad5d432b90268ed3e426f552febce5985c16a5c8"
+        },
+        {
+          "label": "migration",
+          "path": "docs/assets/ligand-profiles/c4-master1-migration.log.gz",
+          "uncompressed_sha256": "876023d757a06089f9d49df55e116c3f3017f1bd30a8cd6787142e6aac64a128"
+        },
+        {
+          "label": "downgrade",
+          "path": "docs/assets/ligand-profiles/c4-master1-downgrade.log.gz",
+          "uncompressed_sha256": "c9f246e7a4d581b9a0635d08cbcfd9beffbde9c1509c32d5799c09fa70d952c7"
+        },
+        {
+          "label": "remigration",
+          "path": "docs/assets/ligand-profiles/c4-master1-remigration.log.gz",
+          "uncompressed_sha256": "876023d757a06089f9d49df55e116c3f3017f1bd30a8cd6787142e6aac64a128"
+        },
+        {
+          "label": "ruff",
+          "path": "docs/assets/ligand-profiles/c4-master1-ruff.log.gz",
+          "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "label": "mypy",
+          "path": "docs/assets/ligand-profiles/c4-master1-mypy.log.gz",
+          "uncompressed_sha256": "c84111b876dd4ee59da614e766eed3cd06121e6690ddea79856a7d0c651ab8a7"
+        },
+        {
+          "label": "reader-tool-types",
+          "path": "docs/assets/ligand-profiles/c4-master1-reader-tool-types.log.gz",
+          "uncompressed_sha256": "14fdf673bd175fe32ef42df34666481bb15e465313f7dbef32d0aea2ba76a26e"
+        },
+        {
+          "label": "python",
+          "path": "docs/assets/ligand-profiles/c4-master1-python.log.gz",
+          "uncompressed_sha256": "a076cf434d8645f623094ce98140fd693c64953ea394baa0affc33a9a97eeb2e"
+        },
+        {
+          "label": "lint",
+          "path": "docs/assets/ligand-profiles/c4-master1-lint.log.gz",
+          "uncompressed_sha256": "1b1ad7caa4b82b40140fb3bd2e58287176482c51bdf9e2eb7a0ede372921a573"
+        },
+        {
+          "label": "types",
+          "path": "docs/assets/ligand-profiles/c4-master1-types.log.gz",
+          "uncompressed_sha256": "857da8cb6331481a496c7dc751c8f08e7582ad5207429ff74bdc9c9d8f898401"
+        },
+        {
+          "label": "web",
+          "path": "docs/assets/ligand-profiles/c4-master1-web.log.gz",
+          "uncompressed_sha256": "5a2eccbad9733172cc2ec4c27da9ef88b7937ff1975a186276ea214e4c77f165"
+        },
+        {
+          "label": "supervisor",
+          "path": "docs/assets/ligand-profiles/c4-master1-supervisor.log.gz",
+          "uncompressed_sha256": "1c1f20d0e5347c3ef853724568f180f829a118694c74bac707f7e6fe88e392f4"
+        },
+        {
+          "label": "build",
+          "path": "docs/assets/ligand-profiles/c4-master1-build.log.gz",
+          "uncompressed_sha256": "a36628d2d89eebd9ccba3cb463830150fda1090dcd100c23e2aeb0db805e6552"
+        },
+        {
+          "label": "browser-inventory",
+          "path": "docs/assets/ligand-profiles/c4-master1-browser-inventory.log.gz",
+          "uncompressed_sha256": "e6b08c8046a70ad380ec57bd080173c34b2692b68ba76bc362b3f719a8d0617b"
+        },
+        {
+          "label": "browser",
+          "path": "docs/assets/ligand-profiles/c4-master1-browser.log.gz",
+          "uncompressed_sha256": "b361e1d97821f220fdd4ca52ceeb0a8c531c43a5ad7051f2fc3708188a86db6a"
+        }
+      ],
+      "files": 15518,
+      "raw_bytes": 1216212981,
+      "extraction_root": "forensics/c4-master1",
+      "inventory": {
+        "path": "docs/assets/ligand-profiles/forensics/c4-master1-forensics-inventory.json.gz",
+        "bytes": 740262,
+        "sha256": "c66486338fcef79ea6c00766a6bbebcb68b703a24a578d25a46db3c81672cac8",
+        "uncompressed_sha256": "4758c0d7ad434b9a761f84ead36288b48d72036cce25f859a164a48a06d50abf"
+      },
+      "parts": [
+        {
+          "ordinal": 1,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part01.zip",
+          "bytes": 79371606,
+          "sha256": "9aba04c483e1a20c4889c955749c1e1c288d0710d8117d6e3e3aa2c15135e1ab",
+          "manifest_entries": 1741,
+          "recursive_verification": {
+            "zip_archives": 5,
+            "evidence_manifest_entries": 1741,
+            "project_archive_files": 4
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 2,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part02.zip",
+          "bytes": 78984268,
+          "sha256": "3d6b7347961feb9818f89e01342f6906f0018acc4859395ca7f01bdc007ac9a0",
+          "manifest_entries": 2658,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 2658,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 2,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 2
+          }
+        },
+        {
+          "ordinal": 3,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part03.zip",
+          "bytes": 79311813,
+          "sha256": "d06e1efa612a0502c28ac4e440f4e108c52f67fbcfc5e656f713e645cb75a2e6",
+          "manifest_entries": 1816,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1816,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 4,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part04.zip",
+          "bytes": 79339411,
+          "sha256": "99693d65f621cf99176d2d598bcbed7fca475196f3b2f855e23c2a70b20d998f",
+          "manifest_entries": 1696,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1696,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 5,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part05.zip",
+          "bytes": 79258659,
+          "sha256": "f604d9aa810fcf6e33556ad62444f6c49d5af34e8ebee2bcb1039677b3ef1470",
+          "manifest_entries": 1827,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1827,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 6,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part06.zip",
+          "bytes": 79290998,
+          "sha256": "d8878a17a4951a50a8449beb51a42bf927a92d7b7670d0526bad17b692e48d85",
+          "manifest_entries": 1844,
+          "recursive_verification": {
+            "zip_archives": 1,
+            "evidence_manifest_entries": 1844,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 7,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part07.zip",
+          "bytes": 73659003,
+          "sha256": "3e63c68be54b62c2afe3fdf75817cb328185370bcbf7744d61f523f62378c671",
+          "manifest_entries": 2132,
+          "recursive_verification": {
+            "zip_archives": 2,
+            "evidence_manifest_entries": 2132,
+            "project_archive_files": 0
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        },
+        {
+          "ordinal": 8,
+          "asset_name": "neistra-v0.38.0-issue160-c4-master1-forensics-part08.zip",
+          "bytes": 28721924,
+          "sha256": "3572705f283df4deb181bf444d7f092c29be55405aa54c4b192a7bb78762fc69",
+          "manifest_entries": 1804,
+          "recursive_verification": {
+            "zip_archives": 13,
+            "evidence_manifest_entries": 1814,
+            "project_archive_files": 20
+          },
+          "supplemental_wrapped_recursive_verification": {
+            "zip_archives": 0,
+            "evidence_manifest_entries": 0,
+            "project_archive_files": 0
+          }
+        }
+      ],
+      "local_exact_union_and_recursive_verification": true,
+      "application_version": "0.38.0",
+      "compatibility_protocol": "private-derived-same-schema-v2",
+      "qualification_data_unchanged": true,
+      "qualification_data": {
+        "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+          "bytes": 19164695,
+          "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+        },
+        "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+          "bytes": 1578,
+          "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+        },
+        "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+          "bytes": 1342,
+          "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+        }
+      },
+      "completed_recorded_commands": 16,
+      "prior_passed_commands": 15,
+      "never_started_commands": 27,
+      "raw_copy_pairs_verified": 48,
+      "browser_outcomes": {
+        "passed": 83,
+        "failed": 1,
+        "skipped": 2,
+        "not_run": 574
+      },
+      "complete_native_tree_files": 12739,
+      "complete_external_case_files": 0,
+      "source_capsule_proof": {
+        "current": {
+          "commit": "b170d1cc4d10a512f9e95b2ec408f8d288a2315c",
+          "bodies": 1183,
+          "source_digest": "b6b2f260c07bed8755358827b06d76cdc37be80d450d6b7fc8131b28fb5b2b6f",
+          "all_bodies_match_explicit_git_commit_and_retained_files": true
+        },
+        "previous": {
+          "commit": "9f77410389c4e8738fdf94d3e69e7c8550fbc70c",
+          "bodies": 1133,
+          "source_digest": "806be36e9588ecbf550c6ff7d8a28a8000ce6d89c63e3bedcdb0400195c597f3",
+          "all_bodies_match_explicit_git_commit_and_retained_files": true
+        }
+      },
+      "full_gate_pass_claim": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "boot_id": "76cb1c57-47b2-4afc-a0a9-7cc905513c51",
+  "btime": 1793182188,
+  "clock_ticks": 100,
+  "limitation": "Exactly pinned existing desktop service instances excluded from campaign launch lineage; their denied environments are not inspected. Every unknown denied process refuses.",
+  "processes": [
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/init.scope\n",
+      "cmdline_display": "(sd-pam) ",
+      "cmdline_sha256": "971490059d839d27af3ded30a476216b92689d837b0236a700723fb13640e370",
+      "pid": 2381,
+      "ppid": 2366,
+      "session": 2366,
+      "start_ticks": 1869,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/session.slice/plasma-kwin_wayland.service\n",
+      "cmdline_display": "/usr/bin/kwin_wayland --wayland-fd 7 --socket wayland-0 --xwayland-fd 8 --xwayland-fd 9 --xwayland-display :1 --xwayland-xauthority /run/user/1000/xauth_PQOpja --xwayland ",
+      "cmdline_sha256": "255e22d923caffb513ccc5193c1a158ab8a8b81fba5ce8bcb66d5d2067566c22",
+      "pid": 2469,
+      "ppid": 2459,
+      "session": 2459,
+      "start_ticks": 1927,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-polkit-agent.service\n",
+      "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 ",
+      "cmdline_sha256": "759c50cd41d67074aacdec9e8b474a41d459ec279cef246d563a707ba5a055cb",
+      "pid": 2725,
+      "ppid": 2366,
+      "session": 2725,
+      "start_ticks": 2006,
+      "uid": 1000
+    },
+    {
+      "cgroup": "0::/user.slice/user-1000.slice/user@1000.service/background.slice/plasma-powerdevil.service\n",
+      "cmdline_display": "/usr/lib/x86_64-linux-gnu/libexec/org_kde_powerdevil ",
+      "cmdline_sha256": "8dec771290691eb78a86ea870357709d1171389a855d114a303a698f0b05876b",
+      "pid": 2726,
+      "ppid": 2366,
+      "session": 2726,
+      "start_ticks": 2006,
+      "uid": 1000
+    }
+  ],
+  "program_start_upper_bound_utc": "2026-11-16T00:00:00+00:00"
+}

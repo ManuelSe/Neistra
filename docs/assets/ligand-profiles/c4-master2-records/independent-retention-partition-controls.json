@@ -1,0 +1,33 @@
+{
+  "script_SHA256": "c2b78fb5c99ee1927f801c4eed3ba45495c5984b0bbf1d916f80468e52b3f959",
+  "exact_source_function_executed": true,
+  "scope": "Offline asset-partition controls only; no real archive or live readback execution",
+  "controls": {
+    "valid_variable_part_counts": "PASS",
+    "orphan": {
+      "verdict": "PASS",
+      "actual_refusal": "Orphan asset outside the three complete evidence groups"
+    },
+    "missing-group": {
+      "verdict": "PASS",
+      "actual_refusal": "Every complete evidence group needs at least one part"
+    },
+    "duplicate": {
+      "verdict": "PASS",
+      "actual_refusal": "Duplicate or mismatched asset identity"
+    },
+    "mismatched-name": {
+      "verdict": "PASS",
+      "actual_refusal": "Duplicate or mismatched asset identity"
+    },
+    "relative-path": {
+      "verdict": "PASS",
+      "actual_refusal": "Noncanonical or symlink part path"
+    },
+    "noncanonical-path": {
+      "verdict": "PASS",
+      "actual_refusal": "Noncanonical or symlink part path"
+    }
+  },
+  "no_live_input_SQL_or_network_changes": true
+}

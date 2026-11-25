@@ -1,0 +1,1 @@
+{"verdict": "PASS", "exact_cases": 10, "inventory_files": 757, "profile_misses": 47, "property_misses": 115, "other_workflow_misses": 1, "policy_examples_separate": 4, "report": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-master2-native-independent-audit2/report.json"}

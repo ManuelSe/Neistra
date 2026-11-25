@@ -1,0 +1,33 @@
+{
+  "recorded_utc": "2026-11-20T09:22:17.566619+00:00",
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/docs/assets/ligand-profiles/release-recipe.py.txt",
+    "c4-master1",
+    "--compatibility-protocol",
+    "private-derived-same-schema-v2",
+    "--current-version",
+    "0.38.0",
+    "--previous-tag",
+    "v0.37.0",
+    "--previous-root",
+    "/tmp/neistra160-reader037-actual9f774-1",
+    "--previous-receipt",
+    "/datadisk/dev/neistra-worktrees/issue-160-physicochemical-profiles/.issue-11-evidence/issue160-actual037-reader-preparation1/previous-receipt.json"
+  ],
+  "generator_exit_code": 0,
+  "actual_qualified_generator_sha256": "17c8afad72b8be6bd75e36113d89e1c1170c7abb05f31724c59e56ee0d6aff4d",
+  "prepared_recipe": "docs/assets/ligand-profiles/c4-master1-recipe.json",
+  "prepared_recipe_sha256": "7752fab40fed6db7564992417558a761601e618a58675ef85611105cc248c2c2",
+  "planned_isolated_master_worktree": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification",
+  "canonical_recipe_sha256": "5dae5e685271659fe01fbd6fc1f7de246befcc0228e5f4cc553a3325ffd65197",
+  "only_current_checkout_path_replacement": true,
+  "reverse_path_replacement_reproduces_canonical_bytes": true,
+  "actual_old_root_and_receipt_unchanged": true,
+  "all43responsibilities_and_commands_preserved": true,
+  "owned_fresh_run_root_reserved": "/tmp/neistra160-c4-master1",
+  "run_root_empty": true,
+  "qualification_executed": false,
+  "actual_merged_commit": "Not yet exists; no guessed SHA or release pin"
+}

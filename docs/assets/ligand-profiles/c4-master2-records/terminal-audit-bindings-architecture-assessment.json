@@ -1,0 +1,21 @@
+{
+  "recorded_utc": "2026-11-20T17:47:21.912920+00:00",
+  "agent": "/root/issue160_master1_svg_architecture_diagnosis",
+  "verdict": "PASS",
+  "scope": "Bounded preparation review only; no change to application assessments and no positive terminal rebinding claim",
+  "reviewed_script": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/verify-terminal-audit-bindings.py",
+  "sha256": "b60a664923eb01a46370bd2deceac837a533a99a09a31e083b5fe204bb0b8419",
+  "checks": [
+    "Complete final driver and active-refusal3 receipt inspected",
+    "All six pinned report/inventory identities and explicit flat/grouped schemas independently verified",
+    "2159-input normalized union and all overlapping identities confirmed",
+    "Nearby prepared drivers use separate worktree/index checks"
+  ],
+  "corrected_consequential_findings": [
+    "Full git status incorrectly rejected expected untracked native outputs; preserve originals",
+    "Net HEAD diff did not independently prove clean index; final checks unstaged and cached separately"
+  ],
+  "remaining_consequential_findings": [],
+  "positive_terminal_execution": "PENDING",
+  "no_execution_input_body_hashing_SQL_services_or_edits_by_reviewer": true
+}

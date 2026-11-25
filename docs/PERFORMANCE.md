@@ -828,3 +828,88 @@ These instrumented observations are not strict-host certification or evidence of
 a speedup. Discrete worker samples do not establish simultaneous totals or browser/
 GPU peak memory. The complete current and actual-merge gates, including inherited
 bulk qualification, remain required. See the [focused checkpoint](assets/ligand-profiles/c3-profile-native3-checkpoint.json).
+
+### Complete 0.38.0 candidate4 — portable observations
+
+The fresh 43-command candidate at `da6dc220` passes 4,138 Python / zero skips,
+1,875 frontend, 14 supervisor and 585 native cases, with exactly 75 released exclusions
+across 660 inventoried cases. Sources 1,183 current / 1,133 preceding and DATA3 stay fixed.
+Ten completed external case trees retain 744 original bodies/86,160,126 bytes;
+the complete owned store/trace and 136 closed raw pairs are retained separately.
+
+| Profile metric (ms) | Desktop | Mobile320 |
+| --- | --- | --- |
+| Genuine cold median / p95 / max, n=5 | 920.8 / 973.1 / 973.1 | 939.6 / 971.1 / 971.1 |
+| Warm median / p95 / max, n=20 | 88.2 / 98.6 / 102.3 | 119.15 / 131.8 / 131.9 |
+| Edit / Undo / Redo automatic READY | 2218 / 1120.2 / 1121 | 3483.3 / 2404.1 / 2481.7 |
+| Metadata Retry feedback | 92.1 | 130.7 |
+
+All 40 warm switches create zero requests, allocations, demands or jobs. The 31
+profile target misses comprise 7 desktop and 24 mobile, including mobile Retry.
+Historical native3's four misses remain separate. Mobile later-presenter readiness
+is 4786.7/4108.5/4157.2ms; it is not automatic numerical latency. Hidden retirement
+remains null. Observable desktop Undo/Redo retirement is 211.6/213.5ms; Edit is hidden.
+
+| Inherited workload (ms) | Desktop | Mobile |
+| --- | --- | --- |
+| Twenty edits automatic READY median / p95 / max | 2188.8 / 2238.9 / 2267 | 3577.95 / 3674.7 / 3696.6 |
+| Matching-cache presentation median / p95 / max | 62.2 / 88 / 88.5 | 127.7 / 132.1 / 135.1 |
+| Repeated 1,000 active READY | 7140.3 | 5563 |
+| Distinct 1,000 active READY | 7043 | 7929 |
+| Accepted-demand cancellation feedback | 15.3 | 13.2 |
+
+All 40 paired edits match independent numerical/source expectations; warm Undo adds
+zero jobs. Each bulk case reaches 1,000 READY with 1 / 1,000 distinct qualified hashes.
+The frozen unoptimized active specimen has 43 heavy atoms. Ordinary jobs encounter
+one productive derived turn before claim. Active admission encounters zero productive
+bulk fairness turns on desktop and one permitted turn on mobile. These workloads
+do not establish universal 1,000-entry capacity.
+
+The inherited property cases have 120 target misses (113 paired, 7 bulk). Of 580
+test-level annotations, 155 are outside target: 31 profile,120 inherited property
+and 4 deliberate policy examples. All 151 actual workflow misses are unenforced.
+Cancellation qualifies consumer feedback/late-response rejection, not sole-worker
+termination latency. Maximum simultaneous property jobs is 1; observed retained
+maxima remain within ceilings: 1,105 content records, 2,126 proofs, 32 executions,
+11 consumer records and2,145,595 content bytes. Retained is not live demand.
+
+These are D-148 portable measurements with substantial misses, not strict-host
+certification or a speedup. Later resource samples include earlier cache contents.
+Profile case maps cover 940 files; the complete gate covers 1,183. Sampled RSS does
+not establish simultaneous totals or GPU peaks. Actual-merged qualification and
+complete candidate/merged companion publication remain required.
+
+### Corrected complete 0.38.0 candidate5 — portable observations
+
+Fresh `98a0676d` completes all 43 commands: 4,157 Python / zero skips, 1,879 frontend,
+14 supervisor and 585 browser passes plus exactly 75 released exclusions. These
+observations replace no historical record and do not qualify failed merged master1.
+The [independent report](assets/ligand-profiles/c4-candidate5-records/performance-report.md)
+binds all ten native reports to their unique external originals, eight native worker
+attachments, 744 case bodies and 815 observed current source bodies.
+
+| Profile metric (ms) | Desktop | Mobile320 |
+| --- | --- | --- |
+| Numerical-cold median / p95 / max, n=5 | 930.6 / 985 / 985 | 861.7 / 967.7 / 967.7 |
+| Warm median / p95 / max, n=20 | 88.8 / 98.6 / 104.6 | 119.35 / 124.7 / 124.8 |
+| Edit / Undo / Redo automatic READY | 2184.5 / 1098.8 / 1122.4 | 3467.8 / 2410.4 / 2484.7 |
+| Repeated 1,000-entry active READY | 7084.5 | 4777.1 |
+| Distinct 1,000-entry active READY | 7072.7 | 6912.7 |
+| Consumer cancellation feedback | 20.3 | 7.8 |
+
+The campaign did not enable the REQUIRE_COLD option; actual missing coverage before
+each first selection independently establishes all five numerical-cold subjects per
+browser. All forty warm switches add zero jobs, allocations or demands. Automatic
+READY is distinct from later presenter reopening; hidden retirement remains null.
+Each inherited bulk case reaches 1,000 READY, with one or 1,000 distinct qualified
+inputs respectively; the active frozen specimen has 43 heavy atoms. Cancellation
+qualifies consumer feedback and late-response rejection, not worker termination.
+
+There are 30 profile misses (7 desktop / 23 mobile), 119 inherited-property misses
+(64 / 55), and one other workflow miss: 18k-atom minimization discard at 501.4ms
+against <500ms. The 150 workflow misses remain separate from four deliberate policy
+examples; all annotations together contain 154 misses. D-148 portable timing targets
+remain unenforced. No speedup, strict-host, physical-device or universal-capacity
+claim follows. Parent/child RSS samples are separate, not simultaneous totals;
+complete browser/GPU peaks remain unavailable. Actual-merged qualification and
+anonymous verification of complete release evidence remain required.

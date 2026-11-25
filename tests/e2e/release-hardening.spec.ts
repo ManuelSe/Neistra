@@ -221,7 +221,7 @@ test("keeps representative-project interactions responsive and projection-scoped
   performanceBudget(importAndViewerMs, 30_000, "importAndViewerMs");
 
   await page.evaluate(() => {
-    (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks.length = 0;
+    (window as unknown as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks.length = 0;
   });
   const structureRequests: string[] = [];
   page.on("request", (outgoing) => {
@@ -247,7 +247,7 @@ test("keeps representative-project interactions responsive and projection-scoped
   expect(structureRequests).toEqual([]);
 
   const longTasks = await page.evaluate(
-    () => (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks,
+    () => (window as unknown as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks,
   );
   const maxInteractionLongTaskMs = Math.max(0, ...longTasks);
   performanceBudget(maxInteractionLongTaskMs, 750, "maxInteractionLongTaskMs");

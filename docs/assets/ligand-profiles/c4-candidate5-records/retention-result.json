@@ -1,0 +1,33 @@
+{
+  "all_originals_remain_in_place": true,
+  "candidate": "98a0676df791d914b759aad3c1b3f6d9a1d099b1",
+  "external_case_count": 10,
+  "external_cases": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 1,
+    "payloads": 746,
+    "raw_bytes": 86656950,
+    "receipt": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/case-companions/archive-receipt.json"
+  },
+  "gate": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 2,
+    "payloads": 2555,
+    "raw_bytes": 254349015
+  },
+  "inputs_mutated_by_collector": false,
+  "label": "c4-candidate5",
+  "readiness_or_publication_claim": false,
+  "retained_state": {
+    "actual_parts_strictly_under_80MiB": true,
+    "exact_disjoint_union": true,
+    "parts": 2,
+    "payloads": 7015,
+    "raw_bytes": 692582578,
+    "receipt": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-c4-candidate5-package-postgate1/retained-state/archive-receipt.json"
+  },
+  "schema": "postgate-retention-v1",
+  "strict_summary_ran_separately": true
+}

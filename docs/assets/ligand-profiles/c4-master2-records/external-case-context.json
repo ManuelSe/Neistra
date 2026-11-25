@@ -1,0 +1,86 @@
+{
+  "body_files": 744,
+  "body_raw_bytes": 87331900,
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "canonical_body_inventory_sha256": "1332d06d0a04012126f17d1e032fbaf588b14b53be06694af346453aaa84b60a",
+  "namespaces": [
+    "issue161-primary-performance",
+    "issue160-profile-performance",
+    "issue159-performance"
+  ],
+  "originals_remain_in_place": true,
+  "prelaunch_snapshot": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-c4-master2-run1/pre-launch-external-case-directories.json",
+  "schema": "complete-external-case-state-v1",
+  "trees": [
+    {
+      "body_count": 132,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-profile-performance/chromium-0c04cc58-5a91-46ec-b597-b9a2542eff7c",
+      "prefix": "issue160-profile-performance/chromium-0c04cc58-5a91-46ec-b597-b9a2542eff7c"
+    },
+    {
+      "body_count": 132,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue160-profile-performance/mobile-chromium-76a14354-89bc-49bc-8967-99890ab63454",
+      "prefix": "issue160-profile-performance/mobile-chromium-76a14354-89bc-49bc-8967-99890ab63454"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-1735ec40-021f-4787-86af-e92cf801f57f",
+      "prefix": "issue159-performance/chromium-1735ec40-021f-4787-86af-e92cf801f57f"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-75f6ad52-4c33-40e5-b048-45e9d5cc6b6b",
+      "prefix": "issue159-performance/chromium-75f6ad52-4c33-40e5-b048-45e9d5cc6b6b"
+    },
+    {
+      "body_count": 205,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-cb02cddf-16b8-43e6-9a5c-dc0efc75ef3d",
+      "prefix": "issue159-performance/chromium-cb02cddf-16b8-43e6-9a5c-dc0efc75ef3d"
+    },
+    {
+      "body_count": 5,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/chromium-ce3005c1-febb-46f8-8485-f02b071bc8d1",
+      "prefix": "issue159-performance/chromium-ce3005c1-febb-46f8-8485-f02b071bc8d1"
+    },
+    {
+      "body_count": 5,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-136b6ea8-3fa7-437e-bbc5-5f36191e5cc8",
+      "prefix": "issue159-performance/mobile-chromium-136b6ea8-3fa7-437e-bbc5-5f36191e5cc8"
+    },
+    {
+      "body_count": 205,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-8d8e510e-f023-4ca1-9aa3-6ed292d70687",
+      "prefix": "issue159-performance/mobile-chromium-8d8e510e-f023-4ca1-9aa3-6ed292d70687"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-d82489d5-641b-4037-bd89-48fd8a4b8339",
+      "prefix": "issue159-performance/mobile-chromium-d82489d5-641b-4037-bd89-48fd8a4b8339"
+    },
+    {
+      "body_count": 15,
+      "empty_directories": [],
+      "excluded_named_caches": [],
+      "original": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.issue-11-evidence/issue159-performance/mobile-chromium-e7967af1-f0b0-4ee7-aff3-1b0f36c1155c",
+      "prefix": "issue159-performance/mobile-chromium-e7967af1-f0b0-4ee7-aff3-1b0f36c1155c"
+    }
+  ]
+}

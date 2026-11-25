@@ -1,0 +1,222 @@
+[
+  {
+    "id": "bulk-active-chromium-distinct",
+    "report_sha256": "c319c8a54e3308b7ff477e25e192562e099ae85a437265b8d65291c1321a076c",
+    "store_files": 4
+  },
+  {
+    "id": "bulk-active-chromium-repeated",
+    "report_sha256": "8968ec24ab9232e904c70968012c0c8ab194d2c8275cf2fa157a92019ef95a73",
+    "store_files": 4
+  },
+  {
+    "id": "bulk-active-mobile-chromium-distinct",
+    "report_sha256": "952bb852c88cb524abd76028c1286cba4e260004130562757bd5f0f118a93221",
+    "store_files": 4
+  },
+  {
+    "id": "bulk-active-mobile-chromium-repeated",
+    "report_sha256": "6c270d1231b916709109b2dffacc9517bb414909a80329731be215a3f8b732a0",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-10",
+    "report_sha256": "889670c67708e7384626d8ee378ad6be5c88191ff00dbdbaad5e8e9ea1c6a7f2",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-14",
+    "report_sha256": "1491448e55997586033826b6901851ec0ddd52c13a21234759dffbcb89f8448f",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-18",
+    "report_sha256": "b278ba212344c857f5bdf73f3e0d79bf9a578139b4d01a808201fd2088dadd36",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-22",
+    "report_sha256": "bd45d79816e8ece79ba19edffe70449a5cc34d0325c47a080b185c6f2733a63f",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-26",
+    "report_sha256": "655e5e66b4980d647895f270568312ea57dca8fdc04111eb4a36b11bbcb0523a",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-30",
+    "report_sha256": "b791d22b2d4b6ab20a8720e1ef57c80b25b540d0741ed72c8086a5735aa0c611",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-34",
+    "report_sha256": "22adacd80b726faefcd8df15fc8bde026ca58964a76decfd724d55871f71aebf",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-38",
+    "report_sha256": "5824f0b46beb02fed63bc485dec395e8cc67c2b41f102f743810a1e8070d599f",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-42",
+    "report_sha256": "d9729a2530f89b6a615b40235d0d4819963b730ac2dbf5b29d4f92d16fa0cddf",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-46",
+    "report_sha256": "3ad9b10ec5db4caf0bd0be924600163b4c5a5212a81ae7e90750886366b6904c",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-50",
+    "report_sha256": "314bc1da88a6bca3184d43d5ca1ecb96a72b7012666bd538a96cbb75ee47e15b",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-54",
+    "report_sha256": "565c20a89dc7fff77f879042d6f79e00494b2226afa32313ad87e4ccde28ae1d",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-58",
+    "report_sha256": "d12a57a68c1abfe1b1a5dff8b165225b5d62e82167f484a33a6b97cb55725987",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-62",
+    "report_sha256": "3d4b04099d47f2efd4fd18bcfde8717da662e0abeb3110b1ccdede78673dad48",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-66",
+    "report_sha256": "67ceb60dbee24e36783684f84b95339b0c8b3ade0e6af1ac0a7edc386a1c6c26",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-70",
+    "report_sha256": "525b56630c88aab34c0d03ad74296fe67566c91248da7269ab95aaec44afa38b",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-74",
+    "report_sha256": "66def2a29ba21c65fa6ae31ee1c71addfe6c4093913bd62a4912dce1532a32c3",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-78",
+    "report_sha256": "7c9946a56c3ecce8ea15a31f8079e30529a572da500e707dcc048fb5c91bbd84",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-82",
+    "report_sha256": "f0bbbc9ac898c52323edc2703cd81f6259d90fc657b68009b0700777aedbc870",
+    "store_files": 4
+  },
+  {
+    "id": "paired-chromium-86",
+    "report_sha256": "489eda450db120c89b147f15d3fc3cba0cdec8a3321e7b294071f3fbe74cb747",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-10",
+    "report_sha256": "e028b2cefee26fe20d155d3f0bc0588cc5c3ac5771ee4d92fddfde9fb752a27a",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-14",
+    "report_sha256": "54969d4a2c65be2efacea744760684a4a4b0dbaf26e2a4d3d54d3ba46d6d2e70",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-18",
+    "report_sha256": "ad74b2581b9bf882f602b1f56df873b4c2bda98cccec132235371b98d612f55f",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-22",
+    "report_sha256": "b1ce5a077e76a790b18b71232169ed8948a3463d1615ec62e6b2fb764735e55e",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-26",
+    "report_sha256": "8c851c6c16720e7a193d259ead2439c540e3ae33ec9afae667541295bd7c8543",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-30",
+    "report_sha256": "63cef64061bfa8226ac1074127a20bc2da1fe3ae212eec2aca4ddeabd513221d",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-34",
+    "report_sha256": "0cbac10cce8c58596662b3d5f418af2cfb60f5e5bab3ebd3fb20b094cded47e6",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-38",
+    "report_sha256": "4b6d56da5ff00bf03cf4e27a0d0332ae1e5307c81b7056166f3dba826e256fcd",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-42",
+    "report_sha256": "82ec1dacae6d8d53c3672c93c2c2ce367140f2401b744865383cc2f8b6593828",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-46",
+    "report_sha256": "b5c213a03c6a56a4233e0a33b9f1516aa284b54285a021ea8ba613f262f73ed6",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-50",
+    "report_sha256": "60f7e3d9215a3237438a9ac2e354a9e8513ecea6b4cb2ba165571c42c8e7cf34",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-54",
+    "report_sha256": "cc4b4669c5ff35eff1f4e0a15ccd84cdf6d65f155b69566bb4d0e3d3669feb07",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-58",
+    "report_sha256": "0e67c80678ce03770afd16f16a283d8a69a35b3d4e9842b1461096130de59a54",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-62",
+    "report_sha256": "dd121ce422965e18bf7c9eda864870e567006f63613612836a3d7e95716b316e",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-66",
+    "report_sha256": "b31923cd1fea719db75f14b6103b4ba8584f70e4733b96955573fec7eb920ec9",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-70",
+    "report_sha256": "1215822100ab3cc4971b94e1b82952cced22f4642d02889cdd105d9ae7e6c05b",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-74",
+    "report_sha256": "1ec831b0f894ec5f19ce65f94aca65fcd904b55b128dedbbb7dff8d2ba1194bc",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-78",
+    "report_sha256": "1c079c4ab2817cce64b51791ec67d4e98a6f682f6949a1cbd047e1ca41f1051c",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-82",
+    "report_sha256": "5082a3b66fb1c4dcb366679ef59e78f27c96f27c671202efbef6169a2a8832f8",
+    "store_files": 4
+  },
+  {
+    "id": "paired-mobile-chromium-86",
+    "report_sha256": "deb13ac0542e2afe97479f3b647302f1c9781e18d215a5808d62a57afa0ad0e3",
+    "store_files": 4
+  }
+]

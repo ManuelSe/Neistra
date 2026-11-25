@@ -1,0 +1,11 @@
+{
+  "recorded_utc": "2026-11-20T18:43:44.153987+00:00",
+  "reason": "Preserve exact raw log ending while passing Git whitespace check for newly committed evidence",
+  "original_retained": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/main-download.stdout.log",
+  "raw_bytes": 804,
+  "raw_sha256": "1126dbb96a4dd9fdb012e4375cf72a32afa7a7e7d0e4ad75961925940a939e32",
+  "lossless_copy": "anonymous/main-download.stdout.log.gz",
+  "gzip_sha256": "ff74b98a10f0d16185f7f8dca3665a8d50435e2eee347ae74c2183296db0eec4",
+  "decompressed_body_equals_retained_original": true,
+  "original_deleted_or_modified": false
+}

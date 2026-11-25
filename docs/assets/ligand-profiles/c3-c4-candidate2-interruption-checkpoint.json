@@ -1,0 +1,80 @@
+{
+  "recorded_utc": "2026-11-20T04:32:37.858698+00:00",
+  "stage": "Scoped keyboard-oracle correction and retained intentionally interrupted fullcampaign;NOTfinalqualification",
+  "candidate_before": "b14670a03f47c6a8000bece41a2733b77a23716f",
+  "candidate_after": "commit introducing this checkpoint;production source unchanged",
+  "second_full_campaign": {
+    "label": "c4-candidate2",
+    "disposition": "INTENTIONALLY_ABORTED / NOT PASS",
+    "completed_commands": 9,
+    "python_passed": 4044,
+    "python_failed": 0,
+    "python_skipped": 0,
+    "python_seconds": 975.71,
+    "started_but_uncompleted_command": "lint",
+    "never_started_commands": 33,
+    "original_enclosing_session_status": 143,
+    "runner_os_exit_status": null,
+    "observer_provenance": "original launcher,independentpidfd/starttimeobserver,exactprimarySIGSTOP/ownedchildSIGTERM/runnerSIGTERM+CONT preserved",
+    "source_data_predecessor_unchanged": true,
+    "positive_owned_process_and_port_closure": true,
+    "closed_raw_pairs": 45
+  },
+  "negative_probe": {
+    "campaign": "issue160-profile-workflows-hardening-probe1",
+    "result": "1failed/retry0, unchanged source",
+    "cause": "Inherited mobile keyboard oracle expectsMethods directlyafterOptions;actualProfile native selectoractive",
+    "closed_raw_pairs": 3
+  },
+  "correction": {
+    "file": "tests/e2e/release-hardening.spec.ts",
+    "added_lines": 5,
+    "deleted_lines": 0,
+    "behavior": "Assert enabledProfileand keyboardfocus/value,TaboncebeforeunchangedMethodsandSelectionassertions",
+    "production_code_change": false,
+    "deadlines_retries_workloads_original_assertions_exclusions_changed": false
+  },
+  "focused_verification": {
+    "campaign": "issue160-profile-workflows-hardening-fixed1",
+    "actual_exit": 0,
+    "passed": 5,
+    "unchanged_authored_exclusion": 1,
+    "failed": 0,
+    "flakes": 0,
+    "retries": 0,
+    "report_errors": 0,
+    "selected_source_bodies": 1181,
+    "source_before_after_exact": true,
+    "positive_cleanup": true,
+    "closed_raw_pairs": 3,
+    "exclusion_declarations_exact_actual_v037": true
+  },
+  "portable_evidence": {
+    "path": "docs/assets/ligand-profiles/c3-c4-candidate2-interruption-evidence.zip",
+    "bytes": 71032482,
+    "sha256": "d8020fa93e8a9d12db0044da66719bca1ecba124698b1deb552be36dd356f1dc",
+    "payloads": 361,
+    "primary_outer_CRC_manifest_checks": "PASS",
+    "independent_packaging_agent": "/root/issue160_interruption_packet",
+    "independent_recursive_checks": {
+      "ZIPs": 16,
+      "manifest_entries": 479,
+      "project_archives": 10,
+      "project_files": 20,
+      "frozen_original_entries": 88,
+      "rich_migration_files": 10,
+      "fixture_reports": 44,
+      "fixture_store_files": 176,
+      "raw_pairs": 51,
+      "source_capsules": 2,
+      "selected_bodies_per_capsule": 1181
+    }
+  },
+  "next": "Commit passing focused correction;freshclean c4-candidate3 all43;allseven finalsamecandidate verdicts;normalPR/protectedmerge;freshactualmergedall43;immutable038release/publicassets/closeout",
+  "limitations": [
+    "Nofull43PASS",
+    "UnknownoriginalrunnerOSstatus;neverclaimcleanexit",
+    "Earlierfull18native/1875frontend/theoryUIUXPASSremainboundtotheirownsubject;all-role finaldiffreconfirmationstillrequired",
+    "Allparentexclusions preserved"
+  ]
+}

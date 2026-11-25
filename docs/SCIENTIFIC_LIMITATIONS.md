@@ -949,6 +949,26 @@ source/provenance and numerical consistency. Equal numbers from no-original and
 original-assisted qualification can have different input hashes; both identities
 are preserved and checked separately. Actual edited graphs must qualify without
 original recovery masking the edit. Exact Undo/Redo and immutable uploaded originals
-verify in this scope. This establishes neither broad chemical applicability nor
-complete feature/release acceptance. The sidebar, radar and filters remain later
-required children. See the [profile contract](plans/issue-160-physicochemical-profiles.md).
+verify in this scope. These fixtures do not establish broad chemical applicability.
+The complete current release qualification retains those scientific limits; the
+sidebar, radar and filters remain later required children. See the
+[profile contract](plans/issue-160-physicochemical-profiles.md).
+
+The actual v0.38.0 merged run preserves 44 offline reports, 176 finite vectors and
+1,232 trial-versus-actual comparisons. Six published Edit/Undo/Redo contexts add
+84 independent context comparisons and 28 observed API-value comparisons. All
+2,159 inputs to the earlier scientific/workload assessments rehash unchanged
+after the complete gate. These are toolkit and provenance checks, not independent
+experimental validation or an expanded chemistry domain.
+
+Portable timing targets remain unmet in 47 profile, 115 inherited-property and
+one minimization observation: 163 workflow misses. Four deliberate policy
+examples are separate. Cold/warm profile medians are 938.7/116.25 ms desktop and
+935.8/118.5 ms mobile, with five cold and twenty warm observations per project.
+All forty warm switches add zero jobs, allocations or demands. Hard work-order,
+source-currentness, retention and resource assertions pass; latency misses are
+retained under D-148. Hidden retirement and complete browser/GPU accounting remain
+unavailable. Separate parent/child RSS peaks are not simultaneous totals. There
+is no strict-host, speedup, physical-device or universal-capacity qualification.
+Earlier candidate measurements remain separately identified in the
+[release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0).

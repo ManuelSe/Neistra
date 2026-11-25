@@ -1,0 +1,514 @@
+#!/usr/bin/env python3
+"""Retain a terminal, source-bound qualification without modifying any input.
+
+Preparation only: this collector has not been positively exercised on a campaign.
+It does not run qualification, strict summary, SQL, services, or publication.
+"""
+
+from __future__ import annotations
+
+import argparse
+import contextlib
+import datetime
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import runpy
+import socket
+import stat
+import subprocess
+import sys
+import zipfile
+
+sys.dont_write_bytecode = True
+os.environ["GIT_OPTIONAL_LOCKS"] = "0"
+ASSETS = Path("docs/assets/ligand-profiles")
+NAMESPACES = (
+    "issue161-primary-performance",
+    "issue160-profile-performance",
+    "issue159-performance",
+)
+LIMIT = 80 * 1024 * 1024
+DB_SUFFIXES = (".db", ".sqlite", ".sqlite3", "-wal", "-shm")
+
+
+class Refusal(Exception):
+    pass
+
+
+def require(condition, message):
+    if not condition:
+        raise Refusal(message)
+
+
+def load(path):
+    require(path.is_file() and not path.is_symlink(), f"Missing regular prerequisite: {path}")
+    return json.loads(path.read_bytes())
+
+
+def encoded(value):
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode()
+
+
+def fingerprint(member):
+    digest = hashlib.sha256()
+    size = 0
+    if isinstance(member, bytes):
+        return {"bytes": len(member), "sha256": hashlib.sha256(member).hexdigest()}
+    with member.open("rb") as handle:
+        while block := handle.read(1024 * 1024):
+            size += len(block)
+            digest.update(block)
+    return {"bytes": size, "sha256": digest.hexdigest()}
+
+
+def safe_path(value, *, exists=True):
+    path = Path(value)
+    require(path.is_absolute() and ".." not in path.parts, f"Require canonical absolute path: {path}")
+    for component in (path, *path.parents):
+        require(not component.is_symlink(), f"Symlink input/output path: {component}")
+    require(path == path.resolve(), f"Noncanonical path: {path}")
+    if exists:
+        require(path.exists(), f"Missing path: {path}")
+    return path
+
+
+def git(root, *args):
+    return subprocess.check_output(["git", *args], cwd=root).decode().strip()
+
+
+def ancestors():
+    excluded = {os.getpid()}
+    process = os.getpid()
+    while process > 1:
+        try:
+            process = int(Path(f"/proc/{process}/stat").read_text().rsplit(")", 1)[1].split()[1])
+        except (OSError, ValueError):
+            break
+        excluded.add(process)
+    return excluded
+
+
+def verify_closure(run_root, execution_dir, running, gate, cleanup, raw, recipe, external=()):
+    for name, receipt in (("cleanup", cleanup), ("raw-copy", raw)):
+        require(receipt.get("runner_exit_code") == 0, f"{name}: no successful actual runner exit")
+        require(receipt.get("positive_closed") is True, f"{name}: no positive closure")
+        require(receipt.get("live_owned_pids") == [], f"{name}: live owner recorded")
+        require(receipt.get("primary_diagnostic_sql_before_copy") is False, f"{name}: missing no-SQL proof")
+    expected_ports = {
+        str(int(recipe["environment"][key]))
+        for key in ("NEISTRA_E2E_API_PORT", "NEISTRA_E2E_WORKER_PORT", "NEISTRA_E2E_WEB_PORT")
+    }
+    require(len(expected_ports) == 3, "Recipe does not isolate three distinct ports")
+    sessions = {running["runner_pid"]} | {
+        step["isolated_child_pid"] for step in gate["steps"] if "isolated_child_pid" in step
+    }
+    for name, receipt in (("cleanup", cleanup), ("raw-copy", raw)):
+        require(set(receipt.get("ports_closed", {})) == expected_ports, f"{name}: wrong port set")
+        require(all(value is True for value in receipt["ports_closed"].values()), f"{name}: open port recorded")
+        require(set(receipt.get("observed_step_session_ids", [])) == sessions, f"{name}: incomplete owned sessions")
+    live = []
+    unreadable = []
+    exceptions = []
+    proof_path = Path(__file__).with_name("unrelated-desktop-processes.json")
+    require(proof_path.is_file() and not proof_path.is_symlink(), "Missing regular unrelated-process proof")
+    proof_bytes = proof_path.read_bytes()
+    proof = json.loads(proof_bytes)
+    require(proof["boot_id"] == Path("/proc/sys/kernel/random/boot_id").read_text().strip(), "Unrelated-process boot identity differs")
+    btime = int(next(line.split()[1] for line in Path("/proc/stat").read_text().splitlines() if line.startswith("btime ")))
+    hz = os.sysconf("SC_CLK_TCK")
+    require(proof["btime"] == btime and proof["clock_ticks"] == hz, "Unrelated-process clock identity differs")
+    pins = {row["pid"]: row for row in proof["processes"]}
+    require(len(pins) == len(proof["processes"]) == 4, "Need exactly four explicit unrelated desktop instances")
+    program_start = datetime.datetime.fromisoformat(proof["program_start_upper_bound_utc"]).timestamp()
+    campaign_start = datetime.datetime.fromisoformat(running["started_utc"]).timestamp()
+    require(program_start <= campaign_start, "Unrelated-process date does not precede campaign")
+    own_uid = os.getuid()
+    needles = [str(run_root).encode(), str(execution_dir).encode(), *(str(p).encode() for p in external)]
+    excluded = ancestors()
+    for process in Path("/proc").iterdir():
+        if not process.name.isdigit() or int(process.name) in excluded:
+            continue
+        try:
+            status = (process / "stat").read_text().rsplit(")", 1)[1].split()
+            if status[0] in {"Z", "X", "x"}:
+                continue
+            process_uid = process.stat().st_uid
+            if process_uid != own_uid:
+                continue
+            command = (process / "cmdline").read_bytes()
+            # These checks always precede any exception for a denied environment.
+            owned = int(process.name) == running["runner_pid"] or int(status[3]) in sessions or any(n in command for n in needles)
+            if owned:
+                live.append(int(process.name))
+                continue
+            observed = None
+            if int(process.name) in pins:
+                pin = pins[int(process.name)]
+                observed = {"pid":int(process.name), "uid":process_uid, "ppid":int(status[1]), "session":int(status[3]), "start_ticks":int(status[19]), "cmdline_sha256":fingerprint(command)["sha256"], "cmdline_display":command.decode().replace("\0", " "), "cgroup":(process / "cgroup").read_text()}
+                require(observed == pin, f"Pinned unrelated desktop process identity drifted: {process.name}")
+                require(btime + observed["start_ticks"] / hz < program_start, f"Exception process does not predate program: {process.name}")
+            try:
+                environment = (process / "environ").read_bytes()
+            except PermissionError:
+                require(observed is not None, f"Unknown process denies environment inspection: {process.name}")
+                exceptions.append(observed)
+                continue
+            if any(n in environment for n in needles):
+                live.append(int(process.name))
+        except FileNotFoundError:
+            continue
+        except (OSError, PermissionError) as exc:
+            if process.exists() and process.stat().st_uid == own_uid:
+                unreadable.append({"pid": int(process.name), "error": str(exc)})
+    require(not unreadable, f"Cannot positively inspect owned-user processes: {unreadable}")
+    require(not live, f"Active campaign or external companion owners: {live}")
+    for port in sorted(expected_ports):
+        with socket.socket() as connection:
+            connection.settimeout(0.3)
+            require(connection.connect_ex(("127.0.0.1", int(port))) != 0, f"Campaign port is open: {port}")
+    return {"live_owned_pids": [], "ports_closed": sorted(expected_ports), "sessions": sorted(sessions), "explicitly_exempted_environment_inspections": exceptions, "unrelated_process_proof": {"path":str(proof_path), **fingerprint(proof_bytes)}, "limitation":proof["limitation"]}
+
+
+def check_raw_pairs(package, raw, run_root, execution_dir):
+    rows = raw.get("files")
+    require(isinstance(rows, list) and rows, "Missing original/raw-copy records")
+    originals = set()
+    copies = set()
+    total = 0
+    for row in rows:
+        original, copy = safe_path(row["original"]), safe_path(row["copy"])
+        require(original.is_relative_to(run_root), f"Raw original is outside owned run: {original}")
+        require(copy.is_relative_to(execution_dir / "closed-raw"), f"Raw copy is outside closed-raw: {copy}")
+        require(original not in originals and copy not in copies, "Duplicate original/raw identity")
+        require(copy.relative_to(execution_dir / "closed-raw") == original.relative_to(run_root), "Raw-copy path mismatch")
+        expected = {key: row[key] for key in ("bytes", "sha256")}
+        require(package["fingerprint"](original) == package["fingerprint"](copy) == expected, f"Raw pair differs: {original}")
+        originals.add(original)
+        copies.add(copy)
+        total += row["bytes"]
+    actual = {p for p in run_root.rglob("*") if p.is_file() and p.name.endswith(DB_SUFFIXES)}
+    require(actual == originals, f"Incomplete raw DB/WAL/SHM set: missing={actual - originals}, extra={originals - actual}")
+    actual_copies = {p for p in (execution_dir / "closed-raw").rglob("*") if p.is_file()}
+    require(actual_copies == copies, "Closed-raw contains unrecorded/missing bodies")
+    return {"pairs": len(rows), "bytes_each_side": total, "all_originals_in_place": True, "primary_SQL_performed": False}
+
+
+def source_proof(package, root, gate, recipe):
+    # The unchanged centralized policies own source selection and DATA3 identities.
+    package["check_source"](root, gate)
+    helper = runpy.run_path(str(root / ASSETS / "qualification.py.txt"))
+    current = helper["tagged_identities"](gate["commit"])
+    require(current == gate["source_before"] == gate["source_after"], "Current Git blobs differ from frozen source map")
+    previous = recipe["preceding_reader"]
+    require(git(root, "rev-parse", previous["tag"] + "^{}") == previous["commit"], "Preceding tag/commit mismatch")
+    old = helper["tagged_identities"](previous["tag"])
+    require(old == gate["preceding_source_expected"] == gate["preceding_source_before"] == gate["preceding_source_after"], "Preceding Git blobs differ")
+    old_root = safe_path(previous["root"])
+    for name in old:
+        safe_path(old_root / name)
+    require(helper["extracted_identities"](old_root, old) == old, "Retained preceding source bodies differ from Git")
+    return {
+        "current_commit": gate["commit"], "current_count": len(current),
+        "current_map_sha256": fingerprint(json.dumps(current, sort_keys=True).encode())["sha256"],
+        "previous_commit": previous["commit"], "previous_count": len(old),
+        "previous_map_sha256": fingerprint(json.dumps(old, sort_keys=True).encode())["sha256"],
+        "DATA": gate["qualification_data_before"],
+        "current_working_files_and_Git_blobs_verified": True,
+        "preceding_extracted_files_and_Git_blobs_verified": True,
+        "extra_source_capsule_created": False,
+    }
+
+
+def external_cases(root, snapshot, gate, run_root):
+    require(snapshot.get("candidate") == gate["commit"], "Prelaunch snapshot candidate differs")
+    require(set(snapshot.get("namespaces", {})) == set(NAMESPACES), "Need all three prelaunch namespaces")
+    cases = []
+    for namespace in NAMESPACES:
+        before = snapshot["namespaces"][namespace]
+        require(isinstance(before, list), "Malformed namespace snapshot")
+        before_names = {row["name"] for row in before}
+        require(len(before_names) == len(before), "Duplicate prelaunch directory names")
+        directory = root / ".issue-11-evidence" / namespace
+        if not directory.exists():
+            require(not before, f"Pre-existing namespace vanished: {directory}")
+            continue
+        safe_path(directory)
+        now = {path.name: path for path in directory.iterdir()}
+        for row in before:
+            require(row["name"] in now, f"Pre-existing entry vanished: {namespace}/{row['name']}")
+            path = now[row["name"]]
+            require(not path.is_symlink() and path.is_dir() == row["is_dir"] and path.stat().st_ino == row["inode"], f"Pre-existing entry replaced: {path}")
+        for name in sorted(set(now) - before_names):
+            path = safe_path(now[name])
+            require(path.is_dir(), f"New external namespace body is not a case directory: {path}")
+            observation = load(path / "worker-observation.json")
+            require(observation.get("complete") is True and observation.get("sources_unchanged") is True, f"External worker observation incomplete: {path}")
+            require(observation.get("sources_before") and observation["sources_before"] == observation.get("sources_after"), f"External observer sources changed: {path}")
+            require(all(gate["source_before"].get(name) == digest for name, digest in observation["sources_before"].items()), f"External observer sources differ from frozen gate: {path}")
+            # Profile cases record the terminal subprocess receipt. Earlier property
+            # cases instead retain complete observer/native reports and the whole-gate exit.
+            if (path / "observer-execution.json").exists():
+                execution = load(path / "observer-execution.json")
+                require(execution.get("completion") == {"code": 0, "signal": None}, f"External observer incomplete: {path}")
+                argv = execution["argv"]
+                require(Path(argv[argv.index("--database") + 1]).is_relative_to(run_root), f"External observer uses another campaign store: {path}")
+                require(Path(argv[argv.index("--output") + 1]) == path / "worker-observation.json", f"External observer output mismatch: {path}")
+            else:
+                require(any(path.glob("native-*-performance.json")), f"External case lacks terminal native evidence: {path}")
+            cases.append(path)
+    return cases
+
+
+def collect_tree(package, items, prefix, directory, context):
+    paths, excluded = package["files"](directory, reader_workspace=True)
+    for path in paths:
+        require(stat.S_ISREG(path.stat().st_mode), f"Non-regular body: {path}")
+        package["add"](items, f"{prefix}/{path.relative_to(directory).as_posix()}", path, reader_workspace=True)
+    # The existing helper records only files. Reject special objects instead of skipping them.
+    empty = []
+    for path in [directory, *sorted(directory.rglob("*"))]:
+        require(not path.is_symlink(), f"Symlink tree object: {path}")
+        mode = path.stat().st_mode
+        require(stat.S_ISREG(mode) or stat.S_ISDIR(mode), f"Unsupported tree object: {path}")
+        if path.is_dir() and not any(path.iterdir()):
+            relative = path.relative_to(directory).as_posix()
+            empty.append(prefix if relative == "." else f"{prefix}/{relative}")
+    context["trees"].append({"prefix": prefix, "original": str(directory), "body_count": len(paths), "excluded_named_caches": excluded, "empty_directories": empty})
+
+
+def union_check(package, receipt, expected):
+    observed = {}
+    for archive in receipt["archives"]:
+        path = Path(archive["path"])
+        require(package["fingerprint"](path) == {key: archive[key] for key in ("bytes", "sha256")}, f"Part identity changed: {path}")
+        require(path.stat().st_size < LIMIT, f"Actual part violates strict 80 MiB bound: {path}")
+        package["verify_layers"](path, path.name)
+        package["_verify_wrapped_layers"](path, path.name, package)
+        with zipfile.ZipFile(path) as handle:
+            names = handle.namelist()
+            require(len(names) == len(set(names)), f"Duplicate ZIP members: {path}")
+            manifest = json.loads(handle.read("manifest.json"))
+            # Qualified helper uses a direct payload-name -> identity manifest.
+            require(set(names) == set(manifest) | {"manifest.json"}, f"Unexpected manifest layout: {path}")
+            for name, expected_body in manifest.items():
+                require(name not in observed, f"Non-disjoint archive union: {name}")
+                actual = package["fingerprint"](handle.read(name))
+                require(actual == expected_body, f"Manifest/body mismatch: {name}")
+                observed[name] = actual
+        sidecar = path.with_name(path.name + ".sha256")
+        with sidecar.open("xb") as handle:
+            handle.write(f"{archive['sha256']}  {path.name}\n".encode())
+    require(observed == expected, "Archive union differs from complete canonical inventory")
+    return {"exact_disjoint_union": True, "payloads": len(observed), "raw_bytes": sum(row["bytes"] for row in observed.values()), "parts": len(receipt["archives"]), "actual_parts_strictly_under_80MiB": True}
+
+
+def supplemental(package, output, label, kind, items, context):
+    target = output / kind
+    target.mkdir()
+    inventory = {name: package["fingerprint"](member) for name, member in sorted(items.items())}
+    inventory_blob = package["encoded"](inventory)
+    context.update({"body_files": len(inventory), "body_raw_bytes": sum(row["bytes"] for row in inventory.values()), "canonical_body_inventory_sha256": fingerprint(inventory_blob)["sha256"]})
+    (target / "inventory.json").write_bytes(inventory_blob)
+    (target / "context.json").write_bytes(package["encoded"](context))
+    package["add"](items, "inventory.json", inventory_blob)
+    package["add"](items, "context.json", package["encoded"](context))
+    all_inventory = {name: package["fingerprint"](member) for name, member in sorted(items.items())}
+    # Use the unchanged archive function, with a conservative 76 MiB estimate.
+    # Final bytes are independently required to be strictly below 80 MiB.
+    batches, batch, size = [], {}, 0
+    for name, member in sorted(items.items()):
+        estimate = package["compressed_size"](member) + 1024 + 2 * len(name.encode())
+        require(estimate < 76 * 1024 * 1024, f"Single member exceeds conservative part budget: {name}")
+        if batch and size + estimate >= 76 * 1024 * 1024:
+            batches.append(batch)
+            batch, size = {}, 0
+        batch[name] = member
+        size += estimate
+    if batch:
+        batches.append(batch)
+    archives = [package["archive"](batch, target / f"{label}-{kind}-{index:02}.zip") for index, batch in enumerate(batches, 1)]
+    receipt = {"kind": kind, "archives": archives, "all_archive_hashes_and_crc_verified": True, "packager_sha256": package["fingerprint"](Path(package["__file__"]))["sha256"]}
+    result = union_check(package, receipt, all_inventory)
+    (target / "archive-receipt.json").write_bytes(package["encoded"](receipt))
+    (target / "exact-union.json").write_bytes(package["encoded"](result))
+    package["verify_package_receipt"](target / "archive-receipt.json")
+    # Independent recursive check of every original body, not only outer ZIPs.
+    original_counts, wrapped_counts = {}, {}
+    for name, member in items.items():
+        if isinstance(member, Path):
+            require(package["fingerprint"](member) == all_inventory[name], f"Original changed: {member}")
+            for key, count in package["verify_layers"](member, name).items():
+                original_counts[key] = original_counts.get(key, 0) + count
+            for key, count in package["_verify_wrapped_layers"](member, name, package).items():
+                wrapped_counts[key] = wrapped_counts.get(key, 0) + count
+    (target / "original-recursive-check.json").write_bytes(package["encoded"]({"counts": original_counts, "supplemental_wrapped_counts": wrapped_counts, "all_originals_unchanged_and_in_place": True}))
+    return {"receipt": str(target / "archive-receipt.json"), **result}
+
+
+def preflight(args):
+    root = safe_path(args.root)
+    execution_dir = safe_path(args.execution_dir)
+    run_root = safe_path(args.run_root)
+    output = safe_path(args.output_dir, exists=False)
+    summary_path = safe_path(args.summary, exists=False)
+    require(re.fullmatch(r"c4-(?:candidate|master)[1-9][0-9]*", args.label), "Unexpected campaign label")
+    require(execution_dir.is_relative_to(root / ".issue-11-evidence"), "Execution directory must be owned ignored evidence")
+    require(output.parent == root / ".issue-11-evidence", "Output must be a fresh direct child of owned ignored evidence")
+    require(not output.exists() and output.parent.is_dir(), "Output must not exist, and its parent must exist")
+    require(not output.is_relative_to(execution_dir) and not execution_dir.is_relative_to(output), "Output/execution trees overlap")
+    require(not output.is_relative_to(run_root) and not run_root.is_relative_to(output), "Output/run trees overlap")
+    for descriptor in (1, 2):
+        destination = os.readlink(f"/proc/self/fd/{descriptor}")
+        if destination.startswith("/"):
+            destination_path = Path(destination).resolve()
+            require(not destination_path.is_relative_to(execution_dir) and not destination_path.is_relative_to(run_root), "Collector stdout/stderr must be outside retained input trees")
+    require(run_root.parent == Path("/tmp") and run_root.name == f"neistra160-{args.label}", "Run root does not match campaign label")
+    require(summary_path == root / ASSETS / f"{args.label}-summary.json", "Explicit summary path must be the campaign strict summary")
+    require(subprocess.run(["git", "check-ignore", "--quiet", str(output)], cwd=root).returncode == 0, "Output is not Git-ignored")
+    recipe_path = root / ASSETS / f"{args.label}-recipe.json"
+    recipe = load(recipe_path)
+    running = load(execution_dir / "running.json")
+    # These cheap terminal guards precede helper execution, full hashing and all writes.
+    require((execution_dir / "execution.json").is_file(), "Campaign active or incomplete: no terminal execution.json; no capture output created")
+    execution = load(execution_dir / "execution.json")
+    require(execution.get("exit_code") == 0 and execution.get("finished_utc"), "Campaign failed or lacks successful actual terminal exit")
+    gate = load(root / ASSETS / f"{args.label}-gate.json")
+    require(gate.get("complete") is True and len(gate.get("steps", [])) == len(recipe.get("steps", [])) == 43, "Campaign lacks complete 43-step gate")
+    require(all(step.get("exit_code") == 0 for step in gate["steps"]), "Campaign has incomplete or failed steps")
+    require(summary_path.is_file(), "Strict summary must be completed separately before retention")
+    summary = load(summary_path)
+    require(recipe.get("label") == gate.get("label") == args.label, "Recipe/gate label mismatch")
+    require(Path(recipe["environment"]["NEISTRA_MINIMIZATION_EVIDENCE_DIR"]) == run_root / "native", "Recipe native run-root mismatch")
+    browser = next(step for step in recipe["steps"] if step["label"] == "browser")
+    require(Path(browser["environment"]["NEISTRA_E2E_DATA_DIR"]) == run_root / "e2e", "Recipe E2E run-root mismatch")
+    python = next(step for step in recipe["steps"] if step["label"] == "python")
+    require(Path(python["environment"]["NEISTRA_FIXTURE_QUALIFICATION_EVIDENCE"]) == run_root / "profile-fixtures", "Recipe offline fixture run-root mismatch")
+    recipe_tmp_roots = set(re.findall(r"/tmp/neistra160-[A-Za-z0-9._-]+", json.dumps(recipe)))
+    require(recipe_tmp_roots <= {str(run_root), recipe["preceding_reader"]["root"]}, "Recipe references another owned run root")
+    require(gate["recipe_sha256"] == fingerprint(recipe_path)["sha256"], "Recipe changed since gate")
+    for name, record in (("running", running), ("execution", execution)):
+        require(record.get("label") == args.label and record.get("cwd") == str(root) and record.get("run_root") == str(run_root), f"{name}: campaign paths differ")
+        require(record.get("candidate") == gate["commit"] and record.get("recipe_sha256") == gate["recipe_sha256"], f"{name}: frozen identity differs")
+        require(record.get("clean_start") is True and record.get("outer_unset_all_inherited_neistra_molweave_database_and_pythonpath") is True, f"{name}: missing clean environment/start proof")
+        require(record.get("runner_pid") == running["runner_pid"] and record.get("argv") == running["argv"], f"{name}: runner differs")
+    require(summary.get("commit") == gate["commit"] and summary.get("complete_steps") == 43, "Strict summary candidate/steps mismatch")
+    require(all(summary.get(key) is True for key in ("clean_start", "source_inventory_unchanged", "sources_unchanged", "complete_browser_inventory_executed", "existing_exclusion_identities_unchanged", "all_lossless_log_hashes_valid")), "Strict summary is incomplete")
+    require(all(summary.get(key) == 0 for key in ("python_skips", "failures_flakes_retries", "new_exclusions")), "Strict summary has failures, retries or new exclusions")
+    require(summary.get("browser_passed", 0) + summary.get("browser_exclusions", 0) == summary.get("browser_inventory_count"), "Browser inventory is incomplete")
+    cleanup = load(execution_dir / "cleanup.json")
+    raw = load(execution_dir / "closed-raw-copy-receipt.json")
+    snapshot = load(execution_dir / "pre-launch-external-case-directories.json")
+    cases = external_cases(root, snapshot, gate, run_root)
+    closure = verify_closure(run_root, execution_dir, running, gate, cleanup, raw, recipe, cases)
+    require(git(root, "rev-parse", "HEAD") == gate["commit"], "HEAD differs from frozen qualifying commit")
+    require(not git(root, "diff", "--name-only") and not git(root, "diff", "--cached", "--name-only"), "Tracked source/metadata changed since frozen candidate")
+    helper_path = root / ASSETS / "release-evidence.py.txt"
+    require(fingerprint(helper_path)["sha256"] == gate["source_before"].get((ASSETS / "release-evidence.py.txt").as_posix()), "Packager is not source-bound")
+    for helper_name in ("qualification.py.txt", "qualification-summary.py.txt"):
+        relative = ASSETS / helper_name
+        require(fingerprint(root / relative)["sha256"] == gate["source_before"].get(relative.as_posix()), f"Helper is not source-bound: {relative}")
+    os.chdir(root)
+    # Deliberate explicit path for source-bound imports, independent of inherited PYTHONPATH.
+    for path in reversed((root, root / "apps/api/src", root / "packages/neistra_core/src", root / "packages/neistra_demo_plugin/src")):
+        sys.path.insert(0, str(path))
+    package = runpy.run_path(str(helper_path))
+    wrapped_path = root / "tools/verify_profile_forensics.py"
+    require(fingerprint(wrapped_path)["sha256"] == gate["source_before"].get("tools/verify_profile_forensics.py"), "Wrapped archive checker is not source-bound")
+    package["_verify_wrapped_layers"] = runpy.run_path(str(wrapped_path))["verify_wrapped_layers"]
+    raw_proof = check_raw_pairs(package, raw, run_root, execution_dir)
+    sources = source_proof(package, root, gate, recipe)
+    gate_items, gate_context = package["gate_items"](root, args.label)
+    # Canonical inventory is established before outputs; no helper writes input trees.
+    gate_inventory = {name: package["fingerprint"](member) for name, member in sorted(gate_items.items())}
+    for name, identity in execution.get("logs", {}).items():
+        require(name in {"stdout.log", "stderr.log"} and package["fingerprint"](execution_dir / name) == identity, f"Launcher log changed: {name}")
+    require(set(execution.get("logs", {})) == {"stdout.log", "stderr.log"}, "Missing launcher stdout/stderr identities")
+    return root, execution_dir, run_root, output, recipe, running, gate, cleanup, raw, cases, closure, raw_proof, sources, package, gate_inventory, gate_context
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    for name in ("root", "label", "execution-dir", "output-dir", "run-root", "summary"):
+        parser.add_argument("--" + name, required=True)
+    args = parser.parse_args()
+    output = None
+    try:
+        (root, execution_dir, run_root, output, recipe, running, gate, cleanup, raw, cases, closure, raw_proof, sources, package, gate_inventory, gate_context) = preflight(args)
+        state_items, case_items = {}, {}
+        state_context = {"schema": "complete-owned-run-state-v1", "candidate": gate["commit"], "trees": [], "originals_remain_in_place": True, "source_verification": sources, "raw_pair_verification": raw_proof, "scope": "Complete owned run plus original execution receipts/logs/raw copies. Extra source capsules are not duplicated; all bodies within the retained trees are included except named bytecode/tool caches."}
+        case_context = {"schema": "complete-external-case-state-v1", "candidate": gate["commit"], "trees": [], "namespaces": list(NAMESPACES), "prelaunch_snapshot": str(execution_dir / "pre-launch-external-case-directories.json"), "originals_remain_in_place": True}
+        collect_tree(package, state_items, "owned-run", run_root, state_context)
+        collect_tree(package, state_items, "execution", execution_dir, state_context)
+        launcher = root / ".issue-11-evidence" / f"run-full-{args.label}.py"
+        require(launcher.is_file() and not launcher.is_symlink(), f"Missing original launcher source: {launcher}")
+        package["add"](state_items, "launcher/" + launcher.name, launcher)
+        for case in cases:
+            collect_tree(package, case_items, case.relative_to(root / ".issue-11-evidence").as_posix(), case, case_context)
+        # All prerequisites, full input selection and inventory checks precede mkdir.
+        # Preserve this operational guard and its literal finite process proof.
+        collect_tree(package, state_items, "retention-tooling", Path(__file__).parent, state_context)
+        output.mkdir()
+        (output / "input-verification.json").write_bytes(package["encoded"]({"scope": "Terminal retention only; no release/feature approval", "closure": closure, "raw_pairs": raw_proof, "sources": sources, "gate_context": gate_context, "collector_sha256": fingerprint(Path(__file__))["sha256"]}))
+        gate_dir = output / "gate-parts"
+        gate_dir.mkdir()
+        with (output / "unchanged-package-gate.stdout.log").open("x") as handle, contextlib.redirect_stdout(handle):
+            package["package_gate"](argparse.Namespace(root=root, label=args.label, output_dir=gate_dir))
+        gate_receipt = gate_dir / f"{args.label}-packaging.json"
+        receipt = package["verify_package_receipt"](gate_receipt)
+        gate_union = union_check(package, receipt, gate_inventory)
+        (gate_dir / "inventory.json").write_bytes(package["encoded"](gate_inventory))
+        (gate_dir / "exact-union.json").write_bytes(package["encoded"](gate_union))
+        state_result = supplemental(package, output, args.label, "retained-state", state_items, state_context)
+        case_result = supplemental(package, output, args.label, "case-companions", case_items, case_context)
+        # Fresh traversal detects added/removed files, caches and empty directories as well.
+        for original_context, extra_launcher in ((state_context, launcher), (case_context, None)):
+            fresh_items, fresh_context = {}, {"trees": []}
+            for tree in original_context["trees"]:
+                collect_tree(package, fresh_items, tree["prefix"], Path(tree["original"]), fresh_context)
+            if extra_launcher is not None:
+                package["add"](fresh_items, "launcher/" + extra_launcher.name, extra_launcher)
+            require(fresh_context["trees"] == original_context["trees"], "Original tree membership/context changed during capture")
+            fresh_inventory = {name: package["fingerprint"](body) for name, body in sorted(fresh_items.items())}
+            require(fingerprint(package["encoded"](fresh_inventory))["sha256"] == original_context["canonical_body_inventory_sha256"], "Original body inventory changed during capture")
+        # Recheck sources, terminal closure, original/raw pairs and canonical gate originals.
+        require(source_proof(package, root, gate, recipe) == sources, "Sources changed during capture")
+        closure_after = verify_closure(run_root, execution_dir, running, gate, cleanup, raw, recipe, cases)
+        require(closure_after["unrelated_process_proof"] == closure["unrelated_process_proof"], "Unrelated process proof changed during capture")
+        (output / "post-capture-closure.json").write_bytes(package["encoded"](closure_after))
+        require(check_raw_pairs(package, raw, run_root, execution_dir) == raw_proof, "Raw pairs changed during capture")
+        require(external_cases(root, load(execution_dir / "pre-launch-external-case-directories.json"), gate, run_root) == cases, "External case discovery changed during capture")
+        after_items, _ = package["gate_items"](root, args.label)
+        require({name: package["fingerprint"](body) for name, body in sorted(after_items.items())} == gate_inventory, "Canonical gate originals changed during capture")
+        gate_original_counts, gate_wrapped_counts = {}, {}
+        for name, body in after_items.items():
+            if isinstance(body, Path):
+                for key, count in package["verify_layers"](body, name).items():
+                    gate_original_counts[key] = gate_original_counts.get(key, 0) + count
+                for key, count in package["_verify_wrapped_layers"](body, name, package).items():
+                    gate_wrapped_counts[key] = gate_wrapped_counts.get(key, 0) + count
+        (gate_dir / "original-recursive-check.json").write_bytes(package["encoded"]({"counts": gate_original_counts, "supplemental_wrapped_counts": gate_wrapped_counts, "all_originals_unchanged_and_in_place": True}))
+        assets = []
+        for path in sorted(output.rglob("*.zip")):
+            assets.append({"asset_name": path.name, "path": str(path), **package["fingerprint"](path), "sidecar": str(path.with_name(path.name + ".sha256"))})
+        require(len({row["asset_name"] for row in assets}) == len(assets), "Duplicate asset basenames")
+        (output / "asset-plan.json").write_bytes(package["encoded"]({"publication_performed": False, "assets": assets}))
+        result = {"schema": "postgate-retention-v1", "label": args.label, "candidate": gate["commit"], "gate": gate_union, "retained_state": state_result, "external_cases": case_result, "external_case_count": len(cases), "all_originals_remain_in_place": True, "inputs_mutated_by_collector": False, "strict_summary_ran_separately": True, "readiness_or_publication_claim": False}
+        (output / "result.json").write_bytes(package["encoded"](result))
+        print(package["encoded"](result).decode(), end="")
+    except (Refusal, AssertionError, KeyError, OSError, ValueError, subprocess.CalledProcessError) as exc:
+        failure = {"status": "REFUSED_OR_INCOMPLETE", "error": str(exc), "no_success_claim": True}
+        if output is not None and output.is_dir():
+            # Never delete partial outputs or originals; retain a truthful failure receipt.
+            path = output / "retention-failure.json"
+            if not path.exists():
+                path.write_bytes(encoded(failure))
+        print(encoded(failure).decode(), file=sys.stderr, end="")
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

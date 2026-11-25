@@ -2,185 +2,57 @@
 
 ## Current milestone
 
-Parent #11 remains active through verified delivery of required #156–#163.
-#156–#159 are released and closed. #160's candidate4 passes all 43 commands,
-including 4,138 Python, 1,875 frontend and 585 browser cases with exactly 75
-unchanged exclusions. PR #180 normally merged as `b170d1cc`; its fresh complete
-merged-commit campaign is running. No v0.38.0 publication is claimed.
-This checkout is #161's reversible local prerequisite integration, combining
-prepared `a6f48892` with explicitly unreleased #160 `b14670a0`. Actual released
-#160 integration remains required before final #161 gates or publication.
-#162/#163 remain planned and unimplemented.
+Parent #11 continues through all eight required children. #156–#160 are fully
+delivered. #161 integrates actual released #160 and public v0.38.0 baseline;
+focused integration checks pass. #162/#163 remain planned/unimplemented.
+No #161 final readiness or release is claimed.
 
 ## Completed work
 
-The prepared #161 sidebar composes deliberate exact-entry/ligand identity,
-qualified depiction, live properties and shared profile/radar/table definitions.
-The legacy Inspector tools remain accessible until #163. Existing browser filters
-and the all-entry chooser preserve inspection context, including an explanation
-when the inspected entry is outside current filters. Source failure retires
-incompatible authority; original uploads, durable designation and history remain.
+Prepared #161 retains exact ligand context, cached depiction, current properties,
+profiles and accessible radar/table with explicit primary/Tools access. Released
+opening-focus ownership now resolves the current visible Entry/Tools target and
+retires old callbacks while preserving deliberate/nested focus. Project-query
+recovery, guarded movement and minimum-width header fixes remain.
 
-The preparatory merge preserves both decision histories and all earlier evidence.
-Architecture intake confirms the runtime composition boundaries, incoming terminal
-Jobs ordering, tools-only inspector query activation and retained native navigation.
-Incoming scientific producers, qualification helpers and consistent 0.38.0 version
-sources are integration inputs, not evidence of a delivered #160 prerequisite.
+Verified #160 runtime is `c6f3e283`, annotated `7e535c06`, published v0.38.0;
+terminal master is `5da5d465`. All37assets/2,223,691,882bytes, child closure,
+normal terminal integration and owned cleanup verify. Parent #11 remains open.
+Public038DATA3 is installed byte-exact with provenance `154b7e05`. Legacy037DATA3,
+earlier helpers/actors, scientific bodies and all43responsibilities remain.
+All five versions stay0.38.0 until the separate039preparation checkpoint.
 
 ## Verification performed
 
-Historical #161 evidence remains bound to its original subjects: 1,910 frontend
-cases, the 16-case sidebar workflow checkpoint, inspector query-scaling controls,
-and 28 retained-navigation native passes with six unchanged authored exclusions.
-Their original source maps, failed attempts, lossless packets, raw stores and
-limitations remain preserved under the child plan and `assets/ligand-information`.
-These results do not qualify the current combined source.
+Current integration passes2,037frontend cases/151files, lint/types/build,
+Ruff, mypy280files and221qualification/forensic controls. Ten new real-App/
+real-Inspector focus cases pass; independent negative controls reject removed
+retirement and the released opening effect. All403web bodies remain identical.
+Seven retained native files pass strict typing and unchanged type-aware lint;
+original failures and exact type-only/cleanup proofs are retained in the
+[focused checkpoint](assets/ligand-information/c3-released160-integration-checkpoint.json).
 
-#160's separate frozen candidate has 1,875 passing frontend cases and 18 current
-native workflow cases, including both themes, actual desktop zoom and 26 trusted
-emulated-touch activations (six explicitly hybrid native selectors). Its full
-campaign3 failed on an inherited exact-status assertion; earlier interrupted and
-failed attempts remain preserved without a complete-gate pass claim.
-
-The preparatory `7fef1a14` integration passes lint, types, 326 focused frontend cases, production
-build, all 52 archive cases and five native hardening cases with one unchanged
-authored mobile performance exclusion. Selected 1,198-source maps remain fixed;
-positive owned cleanup and all 55 raw pairs verify before primary diagnostic SQL.
-The [integration checkpoint](assets/ligand-information/c2-prerequisite-integration-checkpoint.json)
-binds the 25,304,524-byte, 414-payload portable packet. All original attempts remain,
-including the initial missing nested pnpm launcher and corrected direct invocation.
-The package verifies 59 ZIP CRCs, 633 manifest entries and 214 project files.
-This is scoped checkpoint evidence, not final feature qualification.
-
-Current acceptance testing passes the new coordinate/movement/archive flow. Its
-first run stops at an overstrict minimization DTO comparison; the corrected test
-separately validates actual operational job records and passes real minimization.
-The targeted rerun then exposes a cached-project return gap before releasing the
-held old READY response. An actual edit while away advances the artifact, but
-fresh cached A skips its project read. The property producer safely rejects the
-old artifact. A bounded App query correction now revalidates on project return
-and preserves higher cached revisions at the synchronous query-cache write.
-The final correction passes 60 focused App cases, web lint, type checks and
-production build. The controlled final-write race fails the earlier query-function
-check and passes the cache-boundary guard. Four actual held-result A→B→A cases
-then pass both themes on desktop/mobile, with unchanged source/model/numerical
-oracles and three verified closed raw pairs. These remain scoped evidence.
-
-A later complete 36-case sidebar campaign stops after 23 passes when the modal
-helper cannot route Escape from body focus; 12 cases remain unrun. A focused
-functional pass separately records that both pointer and ordinary keyboard
-movement activation lose launcher focus before helper intervention. The bounded
-product correction keeps this unavailable launcher focusable with guarded
-aria-disabled behavior and a scoped visual state. The actual TransformPanel,
-real movement hook and modal regressions pass held loading/active, repeated
-activation, busy refusal and the original Escape priorities. Current focused
-verification passes 49 cases in six files, web lint and types. Production build
-passes on identical production/style bodies; its subsequent test-only synchronous
-act correction is covered by the final focused/type/lint checks.
-
-Fresh complete frontend verification now passes all 1,973 cases across 149 files.
-The four corrected coordinate/movement/archive cases pass desktop/mobile and both
-themes, with zero failures, skips, retries or errors. Actual mobile pointer and
-keyboard activation retain launcher focus inside Inspector before any helper
-focus; ordinary Escape closes the drawer, restores its trigger and retains movement.
-Desktop focuses the movement canvas. All 1,198 selected bodies and 11 working-file
-hashes stay fixed; positive cleanup and three raw original/copy pairs verify before
-diagnostic SQL. Independent scoped architecture, UI and UX assessments PASS this
-bounded recovery/focus correction. These are not the final seven feature verdicts.
-The [scoped checkpoint](assets/ligand-information/c2-project-recovery-checkpoint.json)
-binds its verified 26,131,382-byte packet: 146 payloads, 12 ZIPs, 151 manifest entries
-and 18 project files. Earlier complete native histories remain separately retained
-and require final publication; this packet does not claim to contain them all.
-
-C3 preparation adds source-bound primary header/image/chart measurements, settled
-reopening and hidden automatic-edit controls, with five explicit retained-driver
-navigation calls. Its complement runs after the inherited cold campaigns; a
-server-free inventory proves the order of 698 declared cases, not their execution.
-Review exposed a gap between the early hidden-request sample and the actual
-reopen click. Browser initiation markers now cover that complete interval,
-including awaited setup, with a meaningful failing control and 50 passing pure
-controls. Scoped scientific implementation and performance assessments PASS.
-
-Six new qualification helpers preserve all 43 responsibilities, literal earlier
-helpers/actors, both baseline-data generations and version-qualified packaging.
-They refuse real recipe creation until actual public v0.38.0 authority is pinned.
-Scoped architecture assessment PASS; 108 synthetic guard controls, strict unit
-typing and Ruff pass. Fresh integrated verification passes 2,023 frontend cases
-across 150 files plus those 108 synthetic controls, with all 11 new/changed QA
-bodies fixed. These results establish preparation only. The
-[C3 checkpoint](assets/ligand-information/c3-qualification-preparation-checkpoint.json)
-retains sources, original author attempts, static logs and actual scoped reviews.
-
-Whole preparatory architecture, performance and UI source assessments pass C3.
-Scientific implementation review found one overly narrow retained access oracle:
-the requested four profile properties may validly arrive in a larger cached report.
-The bounded correction keeps the request exact, accepts complete superset coverage,
-checks unique rows and validates only requested ready/finite values. Seventeen
-source-extracted controls, original/candidate strict typing and scoped lint pass;
-the original actual eight-descriptor report refusal and first lint-wrapper failure
-remain retained. At `f2465cf6`, all seven specialists PASS the whole preparatory source,
-including the corrected access oracle and its documentation. This resolves the
-source finding; actual native execution and final feature qualification remain
-pending. The [correction checkpoint](assets/ligand-information/c3-cached-report-coverage-checkpoint.json)
-retains the original findings, reassessments and source-bound controls.
+Actual public038baseline verifies585pass/exact75exclusions/660outcomes,
+43commands and1,183source bodies. DATA6 and independent architecture/scientific
+baseline assessments pass. Earlier two real-App header instances/32geometry
+scenarios remain preparatory evidence; complete current native acceptance remains.
 
 ## Known limitations
 
-No current #161 readiness, implementation push, PR, release or closeout is claimed.
-Actual released #160 history, v0.39.0 preparation, current measured bounds,
-preceding-reader/archive qualification, all seven final same-candidate assessments
-and complete candidate/exact-merged gates remain outstanding. Remaining sidebar
-acceptance requires the complete current coordinate/movement/minimization preview,
-archive reconstruction and held project A→B→A campaign after both corrections.
-The failed 36-case campaign is not a current complete PASS. Actual primary-view
-measurements, runtime qualification of the reconciled benchmark navigation and
-prior failed-run publication remain outstanding. #153 diagram delivery and all other
-parent exclusions remain outside scope.
-The isolated real-component probe confirms clipped Collapse controls at minimum
-Inspector widths around 841–1000px desktop viewports, including after Tab focus.
-UI/UX consultation accepts a scoped shrinkable heading/nonshrinking action fix.
-That original probe does not qualify full application resizing. The scoped header correction now
-passes the identical sixteen isolated view/theme/width cases: both 44px actions
-are contained, hittable and keyboard reachable, with full accessible heading names,
-tooltips, visible focus and one callback per activation. All 382 frontend bodies
-stay fixed within that run; exactly two production paths differ from the original.
-Both browsers/process sets are positively closed, with no network requests.
-
-Fresh correction verification passes all 2,023 frontend cases, web lint, types and
-production build. Both native access files pass strict typing and scoped lint.
-Two pre-existing unnecessary type assertions were removed after the scoped lint
-reported them; complete emitted JavaScript remains identical for that cleanup.
-Existing native assertions/deadlines/exclusions remain. A new actual-App regression
-case exercises the real keyboard divider, full header geometry, view switching and
-Collapse/Expand in sixteen scenarios per runner. Both instances now pass on clean
-`0311247d`, with 32 geometry scenarios and 32 PNG attachments. Each runner deliberately
-uses a desktop context; this is not mobile-header or performance qualification.
-All 1,208 captured sources remain unchanged, owned processes/ports close, and three
-original/raw database pairs verify before primary diagnostic SQL. The full current
-38-case acceptance campaign remains required after actual released #160 integration.
-The source inventory remains 700. Serial cold-workload order still verifies in the
-server-free inventory. All seven specialists reconfirm PASS for this correction's
-whole preparatory source. The
-[header checkpoint](assets/ligand-information/c3-minimum-inspector-header-checkpoint.json)
-retains the original defect, corrected probe, validation and exact reviewed subject;
-none of these results establishes full feature readiness.
-
-The focused [real-App header checkpoint](assets/ligand-information/c3-minimum-inspector-native-checkpoint.json)
-retains the native report, source capsule, geometry, images, complete owned store,
-closed raw copies and independent readback. Earlier isolated probes and failures
-remain separate. This preparation does not replace the complete current native,
-measurement, compatibility, candidate or actual-merged qualification campaigns.
+Ordinary keyboard collapse/reading-position recovery, complete current native
+acceptance, primary/inherited performance and source/scientific/resource proofs,
+actual038readers/archives and full candidate/merged43gates remain. Historical
+failed campaigns retain their status and require publication. Diagram153,
+relocations164/165 and all other parent exclusions remain separate.
 
 ## Blockers
 
-No external blocker. Respect serial release order and preserve prior evidence.
+No external blocker. Preserve all original evidence and the user's checkout.
 
 ## Next action
 
-Retain the passing C3 preparation checkpoint. Finish #160 delivery, integrate its
-actual released commit and independently verified published baseline, prepare all
-five v0.39.0 version sources, then run the complete current native acceptance and
-actual primary/retained measurements without changing scientific workloads, clocks
-or bounds. Complete the remaining compatibility and full release gates,
-then qualify #161 and continue #162/#163 through verified parent closeout under
-the same active Goal.
+Commit the coherent released-prerequisite integration, verify actual tagged038
+source extraction with C6 now in ancestry, and observe ordinary keyboard collapse.
+Prepare all five039versions/archive guard, then complete native/performance/
+compatibility/gates/all7review/normalmerge/release for161. Continue162/163 and
+parent closeout under the same active Goal.

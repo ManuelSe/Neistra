@@ -1,0 +1,43 @@
+{
+  "collector_sha256": "d14f9ec25897a0d3a00e133750b111ee5d8f1e238c3cde44671df870d69b51c8",
+  "controls": [
+    {
+      "control": "wrong-boot",
+      "expected": "boot identity differs",
+      "actual": "Unrelated-process boot identity differs",
+      "passed": true
+    },
+    {
+      "control": "unknown-denied-instance",
+      "expected": "Unknown process denies",
+      "actual": "Unknown process denies environment inspection: 2381",
+      "passed": true
+    },
+    {
+      "control": "pinned-command-drift",
+      "expected": "identity drifted",
+      "actual": "Pinned unrelated desktop process identity drifted: 2381",
+      "passed": true
+    },
+    {
+      "control": "does-not-predate-program",
+      "expected": "does not predate program",
+      "actual": "Exception process does not predate program: 2381",
+      "passed": true
+    },
+    {
+      "control": "owned-session-cannot-be-exempted",
+      "expected": "Active campaign",
+      "actual": "Active campaign or external companion owners: [2381]",
+      "passed": true
+    },
+    {
+      "control": "proof-changes-between-passes",
+      "expected": "Unrelated process proof changed during capture",
+      "actual": "Unrelated process proof changed during capture",
+      "passed": true
+    }
+  ],
+  "actual_campaign_inputs_modified": false,
+  "capture_or_SQL_performed": false
+}

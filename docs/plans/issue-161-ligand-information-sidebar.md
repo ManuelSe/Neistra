@@ -6,7 +6,7 @@
 - Repository: `ManuelSe/Neistra`; [child #161](https://github.com/ManuelSe/Neistra/issues/161), required by [parent #11](https://github.com/ManuelSe/Neistra/issues/11).
 - Parent contract: [finite program, shared contracts and release gates](issue-11-ligand-information.md); it owns exclusions, dependency graph, shared state/API/scientific identity and program ledger. Do not duplicate or weaken those contracts here.
 - Authorization: owner's 2026-11-16 explicit plan-and-deliver invocation for parent11 and all eight required children; includes normal checkpoints/push/PR/review/protectedmerge/verifiedrelease/reply/ownedcleanup without another finished-plan approval. No claim of individually reviewed wording.
-- Native prerequisites: #158, #159, #160. Current child open with no comments. No delivered behavior assumed.
+- Native prerequisites: #158, #159 and #160 are delivered. Current child remains open; its runtime qualification and release are not inferred from preparation.
 - Base observed during parent intake: `62623a169f4e27da259c40ba1e74b1935b7c7775`; revalidate fresh master before this child implementation.
 - Branch: `feat/issue-161-ligand-information-sidebar` in the owned program checkout. First156 branches from parentC0; later units from verified preceding delivery master. Parent Goal remains active throughout.
 
@@ -813,3 +813,52 @@ the complete 38-case campaign or final feature readiness. Actual released #160
 integration/public baseline, consistent 0.39.0 preparation, primary and inherited
 measurements, compatibility, complete candidate/merged gates and seven final
 same-candidate assessments remain mandatory.
+
+
+### Actual released #160 integration contract — 2026-11-20
+
+Verified v0.38.0 runtime `c6f3e283` and normal terminal master `5da5d465` now satisfy
+the prerequisite. Integrate terminal history while retaining tagged C6 as reader/
+producer authority. Actual merge base is `b14670a0`; the four conflicts are App,
+DECISIONS, PROGRESS and release-hardening. Preserve all C2 query/movement/header
+fixes and both appended histories. Incoming App matches the previously reviewed
+correction; combined focus-only source `7be24c81` preserves every other161byte.
+Real-Inspector opening/retirement/current-view/fallback controls supplement the
+four inherited mocked-owner tests. Retained access explicitly navigates Tools/
+Ligand, preserving held READY, focus/draft/<=1px geometry, query/viewer-selection,
+14rows/Methods and primary content-growth/reading-position/scientific oracles.
+
+Public main SHA `f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284`
+and master2 qualified-part01 manifests bind original summary/browser aliases.
+Their provenance SHA is `154b7e057f67c07a30c653124d95e670fce713cf8c509a25de6038e5f1f163a0`.
+Independent architecture and scientific assessments verify actual585/75/660,
+1,183source bodies, both catalogues and allDATA6. Preserve literal legacy037DATA3,
+earlier helpers/actors and all43gate responsibilities. All five application
+versions remain038during this integration;039release preparation and archive
+version coverage form a later coherent checkpoint. Focused validation, actual
+native/measurement/compatibility/fullgates and final all7feature verdicts remain.
+
+
+### C3 — Released-prerequisite focused integration checkpoint
+
+The actual terminal160 merge is reconciled with all four conflicts resolved.
+Current focused checks pass2,037frontend/151files, lint/types/build, Ruff,
+mypy280 and221framework/forensic cases. Ten new real-App/real-Inspector focus
+controls pass; independent in-memory negatives fail1/10 when retirement is removed
+and6/10 with the released opening effect. No production source changes during
+these controls. Retained property native callers now deliberately enter Tools
+and return primary; cached presentation/timestamps remain unchanged. Seven native
+files pass strict TypeScript and unchanged type-aware lint after bounded inherited
+test hygiene. Type-only emitted JavaScript is equal; the removed unused helper
+and unchanged cleanup-body extraction are separately proved and retained.
+
+The [checkpoint packet](../assets/ligand-information/c3-released160-integration-checkpoint.json)
+retains initial failures, raw passing logs, source maps, exact deltas, baseline
+receipt and negative-control evidence. All403validated web bodies and seven native
+inputs remain stable. Historical rejected Python evidence is losslessly represented
+as text with original checkpoint/public identities retained; complete Ruff passes.
+All five versions remain038, no schema/dependency change. This local checkpoint
+does not establish complete native acceptance, performance, compatibility, final
+all7review, readiness to push, merge or release. First qualify genuine tagged038
+source ancestry/extraction, observe ordinary collapse, then prepare039 and finish
+all accepted native/measurement/release gates.

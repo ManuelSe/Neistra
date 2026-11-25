@@ -219,7 +219,6 @@ export default function App() {
   const rightRef = useRef<ImperativePanelHandle>(null);
   const lowerRef = useRef<ImperativePanelHandle>(null);
   const mobilePanelRef = useRef<HTMLElement>(null);
-  const mobilePanelFocusVisit = useRef<string | null>(null);
   const mobilePanelTriggerRef = useRef<HTMLElement | null>(null);
   const renderedMovementAtoms = useRef<() => AtomReference[]>(() => []);
 
@@ -236,19 +235,31 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!mobilePanel) { mobilePanelFocusVisit.current = null; return; }
-    if (mobilePanelFocusVisit.current === mobilePanel) return;
-    mobilePanelFocusVisit.current = mobilePanel;
-    requestAnimationFrame(() => {
-      (mobilePanel === "inspector" ? mobilePanelRef.current?.querySelector<HTMLElement>(inspectorView === "ligand"
-        ? ".ligand-entry-choice select" : '.inspector-tabs button[aria-selected="true"]') : null)?.focus();
-      if (mobilePanelRef.current?.contains(document.activeElement)) return;
-      mobilePanelRef.current?.querySelector<HTMLElement>(
-          'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
-        )
-        ?.focus();
+    if (!compact || !mobilePanel) return;
+    const panel = mobilePanelRef.current;
+    const openingFocus = document.activeElement;
+    if (!panel || panel.contains(openingFocus)) return;
+    let retired = false;
+    const frame = requestAnimationFrame(() => {
+      if (retired || !panel.isConnected || mobilePanelRef.current !== panel) return;
+      const currentFocus = document.activeElement;
+      if (currentFocus !== openingFocus
+        && !(currentFocus === document.body && !openingFocus?.isConnected)) return;
+      const firstAvailable = (selector: string) => Array.from(
+        panel.querySelectorAll<HTMLElement>(selector),
+      ).find(element => !element.matches(":disabled") && !element.closest("[hidden], [inert]"));
+      const preferred = mobilePanel === "inspector" ? firstAvailable(
+        '.ligand-entry-choice select, .inspector-tools:not([hidden]) .inspector-tabs button[aria-selected="true"]',
+      ) : undefined;
+      (preferred ?? firstAvailable(
+        'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
+      ))?.focus();
     });
-  }, [mobilePanel, inspectorView]);
+    return () => {
+      retired = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [compact, mobilePanel]);
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],

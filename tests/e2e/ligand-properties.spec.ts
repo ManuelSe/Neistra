@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import type { Project } from "../../apps/web/src/api/types";
+import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import { prepare } from "./support/interactions";
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 
 const properties = (page: Page) => page.getByRole("region", { name: "Properties", exact: true });
 const value = (region: Locator, label: string) => region.locator(".ligand-properties-groups dt").filter({ hasText: new RegExp(`^${label}$`) })
@@ -11,6 +12,7 @@ async function inspect(page: Page, entryId: string) {
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
   }
+  await openLigandInformation(page);
   await page.getByRole("region", { name: "Ligand of interest", exact: true })
     .getByRole("combobox", { name: "Entry", exact: true }).selectOption(entryId);
 }
@@ -54,11 +56,11 @@ for (const theme of ["light", "dark"] as const) {
         && new URL(response.url()).pathname.startsWith(`${base}/ligand-properties/consumers/`));
       await region.getByRole("button", { name: "Cancel update", exact: true }).click();
       expect((await cancelled).ok()).toBe(true);
-      await expect(region.getByRole("status")).toHaveText("Update cancelled");
+      await expect(region.getByRole("status")).toHaveText("Update cancelled No profile selected.");
       release(); await completedRoute;
       await closeInspector(page);
       await inspect(page, entry.id);
-      await expect(region.getByRole("status")).toHaveText("Update cancelled");
+      await expect(region.getByRole("status")).toHaveText("Update cancelled No profile selected.");
       expect(submissions).toBe(1);
       expect(await (await request.get(base)).json()).toEqual(before);
       await region.getByRole("button", { name: "Retry", exact: true }).click();
@@ -123,16 +125,18 @@ for (const theme of ["light", "dark"] as const) {
       holdNext = false; started(); await held; await route.continue();
     });
     try {
+      await openInspectorTools(page);
       await page.getByRole("tab", { name: "selection", exact: true }).click();
       await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
       await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
       await page.getByRole("button", { name: "Apply query", exact: true }).click();
+      await openLigandInformation(page);
       await closeInspector(page);
       await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
       const editor = page.getByRole("dialog", { name: "Edit molecule", exact: true });
       await editor.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
-      await expect.poll(async () => (await (await request.get(`${base}/entries/${entry.id}/structure`)).json())
-        .structure.atoms.find((atom: { id: number }) => atom.id === 1).element).toBe("N");
+      await expect.poll(async () => (await (await request.get(`${base}/entries/${entry.id}/structure`)).json() as StructureProjection)
+        .structure.atoms.find((atom: { id: number }) => atom.id === 1)!.element).toBe("N");
       // The active target updates automatically while the editor is still open;
       // reopening the inspector must not be what starts its property request.
       await captured;

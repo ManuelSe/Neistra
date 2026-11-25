@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/.venv/bin/python",
+    "-B",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/qualification.py.txt",
+    "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2/docs/assets/ligand-profiles/c4-master2-recipe.json"
+  ],
+  "cwd": "/datadisk/dev/neistra-worktrees/issue-160-merged-qualification2",
+  "candidate": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+  "started_utc": "2026-11-20T15:02:54.392407+00:00",
+  "recipe_sha256": "8fd63bce16bf331a4a20e632765aacde3bc8fa64d72d4bbb08bcb83757d86078",
+  "label": "c4-master2",
+  "run_root": "/tmp/neistra160-c4-master2",
+  "clean_start": true,
+  "outer_unset_all_inherited_neistra_molweave_database_and_pythonpath": true,
+  "runner_pid": 853095,
+  "finished_utc": "2026-11-20T18:07:51.675268+00:00",
+  "exit_code": 0,
+  "logs": {
+    "stdout.log": {
+      "bytes": 160153,
+      "sha256": "103580442ab04898847a05d687e2cac1da1ba59ef95332b545646183478d34b7"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

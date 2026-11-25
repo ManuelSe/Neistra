@@ -4,7 +4,9 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import type { Project } from "../../apps/web/src/api/types";
+import type { PropertyAggregate, PropertySource } from "../../apps/web/src/ligandProperties/types";
 import { prepare } from "./support/interactions";
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 
 interface Preferences {
   revision: number;
@@ -20,22 +22,35 @@ for (const theme of ["light", "dark"] as const) test(`keeps legacy query focus a
   const held = new Promise<void>(resolve => { release = resolve; });
   const captured = new Promise<void>(resolve => { capture = resolve; });
   let projectId = "", holdReady = true;
+  let source: PropertySource | null = null;
+  const delivery = { complete: false, response: null as PropertyAggregate | null };
   await page.route(url => url.pathname.endsWith("/ligand-properties/read"), async route => {
     const response = await route.fetch();
+    let retained: PropertyAggregate | null = null;
     if (holdReady && projectId && new URL(route.request().url()).pathname
       === `/api/v1/projects/${projectId}/ligand-properties/read` && response.ok()) {
-      const payload = await response.json() as { entries: { status: string; report: unknown }[] };
-      if (payload.entries.some(entry => entry.status === "ready" && entry.report)) {
+      const payload = await response.json() as PropertyAggregate;
+      const current = payload.entries.find(entry => entry.source.entry_id === source?.entry_id);
+      if (current?.status === "ready" && current.report) {
+        expect(payload.project_id).toBe(projectId);
+        expect(current.source).toEqual(source);
+        retained = payload;
         holdReady = false; capture(); await held;
       }
     }
     await route.fulfill({ response });
+    if (retained) { delivery.response = retained; delivery.complete = true; }
   });
   try {
     const project = await prepare(page, request, [{ name: "property-task-access.smi", mimeType: "chemical/x-daylight-smiles",
       buffer: Buffer.from("CCO ethanol\n") }], `Property task access ${theme}`);
     projectId = project.id;
     const entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`;
+    if (!entry.current_artifact_id || !entry.ligand_designation.instance_id) {
+      throw new Error("Expected the fixture's current designated ligand source");
+    }
+    source = { entry_id: entry.id, source_artifact_id: entry.current_artifact_id,
+      instance_id: entry.ligand_designation.instance_id, atom_ids: [...entry.ligand_designation.atom_ids] };
     const before = await (await request.get(endpoint)).json() as Project;
     const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
     const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
@@ -44,6 +59,7 @@ for (const theme of ["light", "dark"] as const) test(`keeps legacy query focus a
     await page.getByRole("region", { name: "Ligand of interest", exact: true })
       .getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
     const frame = page.getByRole("region", { name: "Project inspector", exact: true });
+    await openInspectorTools(page);
     const selectionTab = frame.getByRole("tab", { name: "selection", exact: true });
     await selectionTab.click();
     const panel = frame.getByRole("tabpanel", { name: "selection", exact: true });
@@ -74,22 +90,33 @@ for (const theme of ["light", "dark"] as const) test(`keeps legacy query focus a
     const inputBefore = await inputGeometry();
     assertVisibleInput(inputBefore);
     release();
-    const properties = page.getByRole("region", { name: "Properties", exact: true });
-    await expect(properties.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
-    await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(14);
+    await expect.poll(() => delivery.complete, { timeout: 30_000 }).toBe(true);
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    // Observe retained Tools before deliberate navigation can move focus or scroll.
     expect(await focusedInput!.evaluate(node => node.isConnected && document.activeElement === node)).toBe(true);
+    await expect(input).toHaveValue(`${entry.id}:1`);
     const inputAfter = await inputGeometry();
     await info.attach("property-task-input-position", { contentType: "application/json",
       body: JSON.stringify({ before: inputBefore, after: inputAfter }) });
     assertVisibleInput(inputAfter);
-    expect(Math.abs(inputAfter.top - inputBefore.top)).toBeLessThanOrEqual(1);
+    for (const edge of ["top", "bottom", "left", "right"] as const) {
+      expect(Math.abs(inputAfter[edge] - inputBefore[edge]), edge).toBeLessThanOrEqual(1);
+    }
     await panel.getByRole("button", { name: "Apply query", exact: true }).click();
     await expect(page.locator(".viewer-status")).toContainText("/ 1 selected");
 
+    await openLigandInformation(page);
+    const properties = page.getByRole("region", { name: "Properties", exact: true });
+    await expect(properties.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
+    await expect(properties.locator(".ligand-properties-groups dt")).toHaveCount(14);
+    await info.attach("property-task-current-delivery", { contentType: "application/json",
+      body: JSON.stringify(delivery.response) });
     const methods = properties.locator(".ligand-property-methods");
     await methods.locator("summary").click();
     await expect(methods).toHaveAttribute("open", "");
+    await openInspectorTools(page);
     await selectionTab.click();
+    await expect(panel.getByRole("combobox", { name: "Select by", exact: true })).toHaveValue("atom_reference");
     await expect(input).toHaveValue(`${entry.id}:1`);
     await panel.getByRole("button", { name: "Apply query", exact: true }).click();
     await selectionTab.focus();
@@ -203,7 +230,7 @@ for (const theme of ["light", "dark"] as const) test(`keeps a replacement option
   await page.getByRole("region", { name: "Ligand of interest", exact: true })
     .getByRole("combobox", { name: "Entry", exact: true }).selectOption(initial.entries[0].id);
   const region = page.getByRole("region", { name: "Properties", exact: true });
-  await expect(region.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
+  await expect(region.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
   const background = await region.elementHandle();
   const trigger = region.getByRole("button", { name: "Property options", exact: true });
   const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
@@ -302,7 +329,7 @@ test("qualifies property options at actual desktop 100% and 200% zoom in both th
         await page.getByRole("region", { name: "Ligand of interest", exact: true })
           .getByRole("combobox", { name: "Entry", exact: true }).selectOption(project.entries[0].id);
         const region = page.getByRole("region", { name: "Properties", exact: true });
-        await expect(region.getByRole("status")).toHaveText("Properties current", { timeout: 30_000 });
+        await expect(region.getByRole("status")).toHaveText("Properties current No profile selected.", { timeout: 30_000 });
         await region.getByRole("button", { name: "Property options", exact: true }).click();
         const dialog = page.getByRole("dialog", { name: "Property options", exact: true });
         await expect(dialog.getByRole("button", { name: "Close property options", exact: true })).toBeVisible();

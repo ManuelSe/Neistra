@@ -1,0 +1,13 @@
+{
+  "scope": "Local read-only audit script assumptions, not campaign failures",
+  "failed_audit_invocations_before_success": [
+    {"exit_code": 1, "cause": "The empty issue161-primary-performance namespace does not exist; treat absent and empty equivalently only after exact empty prelaunch proof."},
+    {"exit_code": 1, "cause": "The full campaign did not require REQUIRE_COLD. Establish cold samples from actual missing-required-coverage classifications instead of asserting the option was enabled."},
+    {"exit_code": 1, "cause": "The inherited edit report workerObservation field is a path, not an embedded observation object."},
+    {"exit_code": 1, "cause": "That workerObservation path names the case directory, not its worker-observation.json file."}
+  ],
+  "corrected_audit_completed": true,
+  "later_source_and_input_rehash_completed": true,
+  "campaign_inputs_modified": false,
+  "sql_or_services_performed": false
+}

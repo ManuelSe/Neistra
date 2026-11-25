@@ -6,7 +6,7 @@
 - Repository: `ManuelSe/Neistra`; [child #160](https://github.com/ManuelSe/Neistra/issues/160), required by [parent #11](https://github.com/ManuelSe/Neistra/issues/11).
 - Parent contract: [finite program, shared contracts and release gates](issue-11-ligand-information.md); it owns exclusions, dependency graph, shared state/API/scientific identity and program ledger. Do not duplicate or weaken those contracts here.
 - Authorization: owner's 2026-11-16 explicit plan-and-deliver invocation for parent11 and all eight required children; includes normal checkpoints/push/PR/review/protectedmerge/verifiedrelease/reply/ownedcleanup without another finished-plan approval. No claim of individually reviewed wording.
-- Native prerequisites: #159. Current child open with no comments. No delivered behavior assumed.
+- Native prerequisite: #159 is delivered. This child is released as v0.38.0 and closed with a verified canonical reply; normal terminal documentation integration and owned cleanup remain tracked below.
 - Base observed during parent intake: `62623a169f4e27da259c40ba1e74b1935b7c7775`; revalidate fresh master before this child implementation.
 - Branch: `feat/issue-160-physicochemical-profiles` in the owned program checkout. First156 branches from parentC0; later units from verified preceding delivery master. Parent Goal remains active throughout.
 
@@ -872,3 +872,287 @@ entries and ten project files. See the [trusted-touch checkpoint](../assets/liga
 The current whole-feature theory assessment clears its scientific findings; all
 seven final same-candidate reconfirmations and the fresh complete43 candidate/merged
 gates remain required. Start committed `c4-candidate2` with every original command.
+
+
+### Second full campaign interrupted after independently reproduced keyboard oracle defect
+
+Candidate `b14670a0` completes nine recorded commands, including 4,044 Python
+passes with zero skips/failures. Its enclosing launcher session returns 143 while
+the isolated runner continues. Preserve the original status and explicitly unknown
+runner OS wait status; an independent pidfd/starttime observer tracks that same
+runner and terminal cleanup. No duplicate campaign starts.
+
+A bounded unchanged hardening probe reproduces the next consequential problem:
+mobile keyboard traversal expects Methods immediately after Property options,
+while the new enabled Profile selector correctly receives focus. The retained
+error snapshot identifies Profile as active. This is an inherited test-order
+mistake, not a demonstrated product focus defect. The primary waits for Python,
+then verifies exact runner/child/session identity and intentionally interrupts the
+newly started lint child and runner. Nine commands completed, lint is incomplete,
+and 33 later commands never ran. The campaign is **INTENTIONALLY_ABORTED / NOT PASS**.
+All original stdout/logs, source/predecessor/data maps, observer/stop provenance,
+owned stores, 44 fixture outputs and 45 closed original/raw pairs are preserved.
+Positive process/port closure and raw rehashes precede source edits and diagnostic
+SQL. Architecture independently supports the controlled stop and honest evidence;
+it does not approve the incomplete campaign.
+
+Add five test lines identifying enabled Profile, checking its actual keyboard
+focus/value and pressing the extra Tab before the unchanged Methods and Selection
+focus assertions. No production code, original assertion, deadline, workload,
+retry or exclusion changes. The complete affected native file now passes five
+cases on desktop/mobile with one exact unchanged authored mobile performance
+exclusion, zero failures/flakes/retries/report errors, frozen 1,181-source maps,
+positive closure and three verified raw pairs. The original one-case failure and
+its three closed raw pairs remain separately retained. The fresh clean-candidate
+`c4-candidate3` recipe executes all 43 commands; no partial result substitutes for
+that new gate. All seven final same-candidate assessments and exact-merge gate
+remain mandatory before publication and closeout.
+
+The [interruption/correction checkpoint](../assets/ligand-profiles/c3-c4-candidate2-interruption-checkpoint.json) binds the 71,032,482-byte portable packet, 361 payloads, all 51 raw pairs and both exact source capsules. Independent recursive checks cover 16 ZIPs and 479 manifest entries; primary outer hashes/CRC verify. This evidence preserves the incomplete campaign and both native outcomes separately.
+
+
+### Third full campaign — retained status oracle corrected; forensic assets verified locally
+
+Frozen `6d977c93` passes 15 commands, including all 4,044 Python, 1,875 frontend
+and 14 supervisor cases, build and a 660-case browser inventory. Browser execution
+then fails its 107th observed case: the inherited exact property-status assertion
+expects Properties current while the accessible combined status also says
+No profile selected. The report contains 103 passes, one failure, three observed
+authored exclusions and 553 not-run cases after the global max-failure stop; all
+27 later commands remain unexecuted. Preserve its actual runner exit1, global
+stop error, complete logs, frozen current/predecessor/data maps and all48 positively
+closed original/raw-copy pairs. This is **FAILED / NOT PASS**, not a completed gate.
+
+The correction replaces exactly seven expected strings across property/access and
+cancellation specifications. Existing role locators, deadlines, clocks, callbacks,
+workloads, scientific assertions, retries and exclusions are unchanged. Fresh
+focused execution passes all28 ordinary property/access and accepted-late-demand
+cancellation cases on desktop/mobile with zero failures, skips, flakes, retries or
+report errors. All1,181 captured source bodies stay exact and three raw pairs
+verify. Those bodies remain current; two isolated QA sources bring the selected
+current count to1,183. This does not qualify the twenty-pair/four-1,000-entry workload.
+
+Under D-174, retain all16,896 failed-run payloads/943,273,831 raw bytes in nine
+ignored supplemental parts totaling675,225,495 bytes, each below80MiB. The small
+[versioned index](../assets/ligand-profiles/forensics/c3-forensics-index.json) and
+canonical inventory remain tracked. Complete native resources, owned stores,
+source capsule, 44 fixture reports/176 store files, and the actual132-file desktop
+profile case/32 records are preserved. Its browser attachment matches the complete
+case; this desktop scope is not a full performance qualification. The16,253-file
+original native tree moves to owned ignored retention only after verified capture
+and exact before/after bytes/hashes; originals are not discarded.
+
+`tools/verify_profile_forensics.py` and its94 unit controls pass Ruff and strict
+mypy; historical verifiers remain byte-exact. Actual local mode passes all nine
+parts, exact disjoint inventory unions and recursive checks, including two
+archive-bearing multipart request bodies. Historical provenance verifies1,181 Git
+source bodies, all16 logs, three frozen DATA inputs and the unchanged actual1,133-
+source predecessor. Initial failed authoring/check attempts remain retained. This
+is QA tooling; it changes no production science, scheduling, rendering or clocks.
+Actual scoped architecture/performance assessments PASS the seven-string/tooling/
+retention delta. Neither is a final whole-feature verdict or human approval.
+
+The [correction checkpoint](../assets/ligand-profiles/c3-c4-candidate3-correction-checkpoint.json)
+binds exact receipts, sources, index/inventory, private asset-plan identity and
+verified relocation. For primary release packaging, explicitly supply
+`--evidence profile-forensics-index=<absolute qualified-checkout metadata directory>`
+for `docs/assets/ligand-profiles/forensics`. Automatic checkpoint-prefix discovery
+does not include this nested metadata directory. Verify both
+`supplemental/profile-forensics-index/c3-forensics-index.json` and
+`supplemental/profile-forensics-index/c3-forensics-inventory-c4-candidate3.json.gz`
+in the assembled primary bundle, with none of the nine large parts embedded.
+Publish the indexed parts separately with the eventual release, then perform full
+anonymous EOF/SHA/CRC/manifests and union verification before child closeout.
+No public availability is claimed by these local checks.
+
+Fresh `c4-candidate4-recipe.json` repeats all43 commands. Its only change from
+candidate3's recipe is precise label/path replacement; reversing that replacement
+reproduces the entire original recipe bytes. Commit the coherent scoped checkpoint
+before clean launch; reuse no partial command results. All seven final same-candidate
+feature assessments, complete candidate and fresh actual-merged gates, protected
+publication and release/closeout remain required. #161 remains preparatory with
+acceptance testing ongoing and must integrate actual released #160 before its own
+final gates/PR. Parent exclusions and the one program Goal remain unchanged.
+
+### Complete candidate4 qualification and retained evidence
+
+Fresh `c4-candidate4` at `da6dc220` completes all 43 commands with actual runner
+exit 0 and strict summary PASS: 4,138 Python/zero skips, 1,875 frontend, 14 supervisor
+and 585 native passes. All 660 declared cases have observed outcomes with exactly the 75 released
+exclusion identities, zero retries/flakes/failures/new exclusions. Current 1,183,
+actual predecessor 1,133, DATA3 and 43 lossless logs stay exact; all 17 migrations
+remain unchanged. Actual same-schema readers, both producer origins/suffixes,
+44 offline reports and structured scientific/source proofs pass independently.
+
+Positive whole-process/port closure precedes 136 verified original/raw-copy pairs
+(105,928,528 bytes each side). Two ignored gate parts retain an exact 2,555-member
+disjoint union; all 734 original native files move to ignored retention only after
+verified byte-preserving capture. All ten completed external case trees retain 744
+bodies/86,160,126 bytes in an 8,034,132-byte verified archive. Complete owned run,
+worker trace, raw copies and launch receipts retain 6,986 inputs/605,545,154 bytes
+in two verified ignored parts. Every actual part is strictly below 80 MiB.
+
+The [checkpoint and immutable receipts](../assets/ligand-profiles/c4-candidate4-records/checkpoint.json)
+bind these separate scopes. The first summary invocation omitted the repository
+module path; retain that launch failure and the corrected successful invocation.
+No qualified source or gate command changed. All originals remain retained; no
+primary diagnostic SQL was performed. Independent scientific/performance evidence
+assessments PASS this completed candidate. Named numerical comparison scopes remain
+separate, including spawn-only observations that do not prove calculation entry.
+
+Current portable observations retain 31 profile and 120 inherited-property target
+misses, separate from four deliberate policy examples and native3's historical four.
+Automatic numerical READY is distinct from later presentation/scientific checks.
+Hidden retirement, complete GPU/browser peaks and simultaneous memory remain
+unavailable. D-148 is unchanged; no speedup, strict-host or universal-capacity claim.
+
+`c4-master1-recipe.json` preserves all 43 responsibilities and actual preceding
+root/receipt. Only current checkout paths change to the planned isolated merged
+checkout; reversing that change reproduces the canonical generator bytes. The
+fresh empty owned run root is reserved. No merged SHA, tag or result is fabricated.
+Commit this evidence, obtain all seven verdicts for the resulting exact candidate,
+then use normal PR/review/merge and a fresh complete actual-merged gate.
+
+Primary release packaging must explicitly add `candidate-records`,
+`candidate-external-cases` and `candidate-retained-state` from the checkpoint,
+alongside the small `profile-forensics-index`. Add equivalent complete actual-merged
+case/store companions after qualification. Inspect assembled members for all these
+contexts and zero embedded large historical failure parts; upload/verify the nine
+indexed failure assets separately. No publication/closeout or parent completion is
+claimed. #161 remains preparatory, with actual released #160 required for final gates;
+#162/#163 remain required and unimplemented.
+
+
+### C4 — Failed actual merge and bounded focus correction, 2026-11-20
+
+PR #180 normally merged reviewed `98e70bde` as `b170d1cc`; their trees match.
+The fresh `c4-master1` campaign passes 15 commands, then fails the unchanged SVG
+recovery case before any candidate/depiction/image request: Choose never opens.
+Its browser inventory records 83 passed, one failed, two observed skips and 574 not
+run; 27 recipe commands never start. All current/predecessor/DATA identities and
+16 lossless logs remain valid. Positive closure precedes 48 raw original/copy pairs,
+19,933,360 bytes per side. Do not qualify, tag or relabel this failed merge.
+
+Architecture/UX trace review identifies delayed initial drawer focus as the strongest
+hypothesis, without claiming unrecorded callback timing. A real-App delayed-frame
+regression proves Choose-to-Entry focus replacement and obsolete-visit redirection.
+The minimal opening effect now captures drawer/focus ownership, cancels retired
+work, includes responsive lifecycle and preserves deliberate/nested focus and
+normal initialization (D-205). The native image-recovery source and deadlines are
+unchanged. Both runner instances and all eight theme/mode paths pass; complete web
+checks pass 1,879 cases, lint, types and build. New controls pass 31 owner cases.
+A test-fixture-only typing correction follows the native snapshot with identical
+recursive runtime bytecode; actual application/native sources remain unchanged.
+
+Keep all earlier diagnostics. The separate master1 forensic index (D-206) binds
+eight new parts / 577,937,682 bytes, each below 80 MiB, with an exact 15,518-payload
+union. All original native/store/raw/source trees remain, and every historical
+source body is independently checked against explicit Git objects. Preserve the
+old candidate3 index SHA `a09c6217ff0ea277441e9208f62d07f3d72bf7b06eb263d5fce085c35599241a`
+and its nine parts. Both typed local index checks pass; anonymous checks remain.
+The bounded label extension is covered by 113 corruption/provenance controls,
+Ruff and strict mypy; no chemistry, schema or dependency is changed.
+
+The corrective branch remains based on the actual failed merge and is not ready to
+push. Prepare fresh `c4-candidate5` and `c4-master2`, preserving all 43 responsibilities,
+actual v0.37.0 authority and existing exclusions. The latter recipe targets a new
+owned checkout and does not guess its future merge SHA. Full candidate completion,
+all seven same-final-candidate assessments, normal corrective review/merge, fresh
+actual-merged qualification, immutable v0.38.0 publication/all assets/closeout remain
+mandatory. #161–#163 and parent closeout remain under the same active program Goal.
+
+The [correction checkpoint](../assets/ligand-profiles/c3-c4-master1-correction-checkpoint.json)
+and portable packet bind the exact working source, controlled red cases, original
+typing failures, corrected web/tool checks, unchanged native cases, complete focused
+store/raw copies and both typed local forensic receipts. They are scoped evidence,
+not completion of the next full campaign or permission to bypass final review.
+
+### C4 — Corrected complete candidate5, 2026-11-20
+
+Frozen `98a0676df791d914b759aad3c1b3f6d9a1d099b1` completes all 43 commands with
+actual runner and enclosing tool exit 0. Strict summary and independent readback
+pass: 4,157 Python / zero skips, 1,879 frontend, 14 supervisor, 585 browser passes
+and the exact 75 preceding-release exclusions across 660 observed cases, with
+zero failures, flakes, retries or new exclusions. All 1,183 current / 1,133 actual
+preceding Git/disk bodies, DATA3, 43 lossless logs, 44 offline reports and actual
+producer/readers remain exact. No scientific method, fixture, deadline, workload,
+schema, dependency or gate command changed after the frozen candidate.
+
+Positive closure precedes all 136 original/raw pairs, 105,083,496 bytes each side.
+The retention guard explicitly excludes four exactly pinned preprogram desktop
+instances from environment inspection; unknown denials refuse. D-207 records the
+ownership model, limitations, six negative controls and pre/post proof binding.
+An actual bounded architecture assessment passes the corrected ignored collector.
+The original browser body is retained before the unchanged strict summary's lossless
+gzip transformation. No primary diagnostic SQL is performed.
+
+Five verified ignored parts total 239,194,221 bytes, all strictly below 80 MiB.
+Independent SHA/CRC, recursive/wrapped checks and exact disjoint unions verify
+2,555 gate, 7,015 retained-state and 746 external-case payloads, including inventory
+and context bodies. All ten unique native-linked case trees retain 744 original
+files / 86,479,039 bytes. Complete run/store/trace/execution/raw/tooling bodies remain;
+734 original native files move into separate ignored retention only after verified
+byte- and inode-preserving capture. Reuse these immutable gate parts rather than
+recapturing from the former native path.
+
+The [checkpoint](../assets/ligand-profiles/c4-candidate5-records/checkpoint.json)
+binds receipts, identities, transformations and the independent performance audit.
+Candidate5 has 30 profile, 119 inherited-property and one minimization portable
+target miss (150 workflow observations); four deliberate policy examples are
+separate. Hidden retirement stays null, automatic readiness differs from later
+presentation, and no strict-host, physical-device, speedup, universal-capacity or
+simultaneous-memory claim is supported. Historical candidate4 and failed master1
+remain distinct.
+
+Commit only evidence/docs with all selected source bodies equal to this qualified
+candidate, then obtain all seven actual same-final-candidate assessments over the
+whole feature and correction before push. Normal corrective PR/merge and fresh
+actual `c4-master2` qualification remain mandatory. The main release must explicitly
+retain current and historical C4 records/case/state companions and both small
+forensic indexes; upload all 17 large forensic parts and checksum sidecars separately.
+Verify the complete public asset inventory anonymously before child closeout.
+No v0.38.0 publication, child completion or parent completion is claimed here.
+
+
+### C4 — Verified actual merged release and child closure, 2026-11-20
+
+Corrective [PR181](https://github.com/ManuelSe/Neistra/pull/181) merged normally as
+`c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`. Its tree exactly matches reviewed head
+`db6532b20a1b8ac61e7242d349c91c9a99303988`; all seven final feature assessments PASS
+that candidate. The actual merged 43-command gate passes 4,157 Python / zero
+skips, 1,879 frontend, 14 supervisor and 585 browser cases, with the exact 75
+preceding exclusions and zero failures/flakes/retries. Source, DATA3, lossless
+logs, actual readers and original/history proofs verify. Positive cleanup and
+136 closed raw pairs retain 105,244,128 bytes per side. No primary diagnostic SQL
+was performed.
+
+Independent complete gate/state/case readback verifies five parts / 240,101,688
+bytes, each strictly below 80 MiB. The 2,555 / 7,030 / 746 exact unions retain all
+ten case trees. All 2,159 early scientific/workload input bodies rehash unchanged.
+The original 88,251,017-byte browser body is retained before its lossless gzip
+transform. Only after all audits and complete capture/readback do the 734 native
+originals move into ignored retention, with every body, inode and device unchanged.
+Do not recapture the retired native path; use the verified parts and relocation
+map. [Merged checkpoint](../assets/ligand-profiles/c4-master2-records/checkpoint.json)
+retains the evidence and capture-time status.
+
+Published [v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0) targets
+that exact qualified merge through immutable annotated object
+`7e535c06e19d833d3e4accd63d3963a10dc4a348`. All 37 required assets / 2,223,691,882
+bytes pass anonymous HTTP200, full-body EOF/size/SHA256 and applicable recursive
+CRC, manifests and exact unions. Both forensic indexes and all 18 literal checksum
+bodies reconcile; the 17 indexed large ZIPs remain separate from the main bundle.
+Earlier failures remain diagnostic and unqualified. The main ZIP is 970,512,774
+bytes, SHA256 `f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284`.
+The fresh run has 163 workflow timing misses (47 profile, 115 property, one
+minimization), plus four deliberate policy examples. D-148 and unavailable
+hidden/aggregate/GPU observations remain explicit; hard work/resource checks pass.
+
+The [canonical reply](https://github.com/ManuelSe/Neistra/issues/160#issuecomment-7047643999)
+and completed child closure are remotely verified. [Publication evidence](../assets/ligand-profiles/c4-master2-publication.json)
+records actual identities and all asset receipts. No dependency or migration was
+added; all five versions are 0.38.0 and storage/API versions remain unchanged.
+The `fix/issue-160-release-closeout` branch records terminal evidence and current
+documentation only. Its normal review/merge and owned cleanup are tracked in the
+canonical reply and program ledger, without moving the runtime tag or creating
+another runtime release. #161–#163 and final parent acceptance remain required.
