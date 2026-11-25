@@ -42,6 +42,7 @@ import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
 import { activateTabFromKeyboard } from "./tabKeyboard";
 import { useInspectorReadingPosition, type InspectorReadingContext } from "./inspectorReadingPosition";
+import { InspectorReadingBoundary } from "./InspectorReadingBoundary";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 export type InspectorView = "ligand" | "tools";
@@ -588,6 +589,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         </div>
       </div>
       <div className="inspector-scroll" ref={scrollOwner} data-inspector-visit={JSON.stringify([project?.id ?? "", view, tab, taskScrollRequest, presentationVisit])}>
+        <InspectorReadingBoundary owner={scrollOwner} context={props.readingPosition}>
         {props.view === undefined ? ligandControls : view === "ligand" ? <div className="inspector-body ligand-information-body"
           onChangeCapture={() => changePresentationVisit(value => value + 1)}
           onClickCapture={event => { if (event.target instanceof Element && event.target.closest("summary")) changePresentationVisit(value => value + 1); }}
@@ -686,6 +688,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           )}
         </div>
         </div>
+        </InspectorReadingBoundary>
       </div>
     </section>
   );

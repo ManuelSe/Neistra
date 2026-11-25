@@ -648,6 +648,20 @@ export default function App() {
     designatedContext.entry?.ligand_designation.status ?? null, inspectorView, inspectorTask]);
   useLayoutEffect(() => { inspectorReadingSession.enter(inspectorReadingScope); },
     [inspectorReadingSession, inspectorReadingScope]);
+  const inspectorReadingContext = { session: inspectorReadingSession, scope: inspectorReadingScope,
+    continuityKey: JSON.stringify([activeProjectId, project?.id ?? null, ligandEntryId,
+      designatedContext.entry?.ligand_designation.instance_id ?? null,
+      designatedContext.entry?.ligand_designation.status ?? null, inspectorView, inspectorTask]),
+    publications: inspectorPublications,
+    isPending: () => {
+      if (inspectorView !== "ligand") return false;
+      if (propertyState.pausedReason || designatedContext.pending) return true;
+      if (propertyState.configurationError || propertyState.tooLarge || !propertyState.entry
+        || propertyState.entry.ligand_designation.status !== "resolved") return false;
+      if (!propertyState.registry || !propertyState.preferences) return true;
+      const target = propertyState.target;
+      return !!target && propertyState.owner.matches(target) && propertySession.view(target).status === "pending";
+    } };
   inspectorPublicationContext.current = { projectId: project?.id ?? null, entryId: designatedContext.entry?.id ?? null };
   useLegacyLigandResolution({
     project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
@@ -1665,7 +1679,7 @@ export default function App() {
                       />
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
-                        readingPosition={{ session: inspectorReadingSession, scope: inspectorReadingScope }}
+                        readingPosition={inspectorReadingContext}
                         ligandControls={ligandControls}
                         view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                         project={project}
@@ -1849,7 +1863,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectInspector
-                        readingPosition={{ session: inspectorReadingSession, scope: inspectorReadingScope }}
+                        readingPosition={inspectorReadingContext}
                         ligandControls={ligandControls}
                     view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                     project={project}

@@ -1,0 +1,137 @@
+{
+  "actual_scoped_assessments": {
+    "UX": "PASS corrected connected reading and current-header ordering",
+    "all_seven_final_gate_complete": false,
+    "architecture": "PASS corrected reading source, launcher pure controls, fresh12 retention and relocation; actual read-only communications recorded in evidence",
+    "performance": "PASS bounded presentation-method adaptation; runtime measurements remain portable",
+    "source_phase_all_seven": "Earlier42b candidate source-phase PASS only; not final candidate approval"
+  },
+  "candidate3_launcher": {
+    "bytes": 8951,
+    "path": ".issue-11-evidence/issue161-c4-candidate3-preparation2/run-full-c4-candidate3.py",
+    "sha256": "c7afb773868b7c47c109b96a443f05c266ea4d4bb3d374cd5b9e0a9cfbe74820"
+  },
+  "candidate3_recipe": {
+    "bytes": 51781,
+    "path": "docs/assets/ligand-information/c4-candidate3-recipe.json",
+    "sha256": "dbe7e4f611abe7e50125a774ba6e505b8d7f19648642b9797c79f392c0585a41"
+  },
+  "comparison_commit": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+  "evidence_packet": {
+    "CRC_exact_union_and_SHA_readback": true,
+    "bytes": 514681,
+    "path": "docs/assets/ligand-information/c4-connected-reading-evidence.zip",
+    "payload_files": 71,
+    "sha256": "5f1154a6afad2c0eb813389eefebe5aedd9df5ea4afc91251bdec8798163f6ed"
+  },
+  "launcher_meaningful_old_flow_controls": 2,
+  "launcher_pure_controls": 23,
+  "not_done": [
+    "Fresh full43 candidate gate",
+    "All seven final same-candidate specialist assessments",
+    "Push, PR and protected merge",
+    "Fresh actual-merged full43 gate",
+    "Immutable annotated039 tag and published release with full anonymous asset verification",
+    "Child closeout and owned cleanup",
+    "162 and163 delivery, final parent acceptance and closeout"
+  ],
+  "portable_performance": {
+    "compact_cache_reopen_median_ms": 162.7,
+    "compact_cache_reopen_p95_ms": 179.1,
+    "compact_cache_reopen_target_ms": 100,
+    "correlate_to_timing": 50,
+    "navigation_records": 90,
+    "original_budgets_and_clocks_unchanged": true,
+    "paired_initial_navigation_without_separate_final_timing": 40,
+    "speedup_claim": false,
+    "strict_host_qualification": false,
+    "timing_comparisons": 410,
+    "unenforced_target_misses": 79
+  },
+  "recorded_utc": "2026-11-25T17:15:19.351386+00:00",
+  "relocation_mapping_packet": {
+    "CRC_exact_union_and_SHA_readback": true,
+    "bytes": 1463633,
+    "path": "docs/assets/ligand-information/c4-candidate2-relocation-evidence.zip",
+    "payload_files": 4,
+    "sha256": "6b9c97c1d2f8fc65f51667308aea56e949471e1a7d852e10ed90dfcb35db1d59"
+  },
+  "retained_forensics": {
+    "all_part_sizes_verified": true,
+    "bytes": 3146594653,
+    "exclusive_per_part_byte_limit": 83886080,
+    "original_failed_interrupted_unrun_statuses_preserved": true,
+    "parts": 49,
+    "separate_publication_and_anonymous_verification": "PENDING"
+  },
+  "scope": "Connected Inspector reading correction and bounded benchmark presentation adaptations; local passing checkpoint, not final feature approval",
+  "source_equivalence": {
+    "application_and_unit_sources_equal_static4": true,
+    "current_equals_successful_twelve_case_source": true,
+    "original_source_map": {
+      "bytes": 147527,
+      "path": ".issue-11-evidence/issue161-mobile-reopen-native1/source-after.json",
+      "sha256": "e1c585f69dd4233bf94b3363a771c673d8ebd99f90da0fe166bb7aac1ff11e68"
+    },
+    "recorded_utc": "2026-11-25T17:15:19.351386+00:00",
+    "selected_source_count": 1222,
+    "sources_sha256": "2ad3390710908a6d0c40b7e1076e652175b525171f28e57a21bf04ab5e6cbef7",
+    "static4_diff_only": [
+      "tests/e2e/ligand-information-reading.spec.ts",
+      "tests/e2e/ligand-properties-performance.spec.ts"
+    ]
+  },
+  "source_files": [
+    {
+      "bytes": 104064,
+      "path": "apps/web/src/App.tsx",
+      "sha256": "cfcef6b5f92bfef799ab43c22fc73614a4e0cca7d73422c65ad95a508577d582"
+    },
+    {
+      "bytes": 25862,
+      "path": "apps/web/src/components/ProjectInspector.tsx",
+      "sha256": "7187a40b04a42e48c7d82406fc71793824288faaceecd1ce27de7ab7f380fb29"
+    },
+    {
+      "bytes": 6386,
+      "path": "apps/web/src/components/InspectorReadingBoundary.tsx",
+      "sha256": "9fda09cf9ddb9aa550e610c70f1bd40c0799acf0c2369d1e6dce6882e5c86473"
+    },
+    {
+      "bytes": 7437,
+      "path": "apps/web/src/components/inspectorReadingPosition.ts",
+      "sha256": "54a24a382f3ecfdeaa9c29be671368bf5e2a914e903782b9bd6de24b505af07c"
+    },
+    {
+      "bytes": 17443,
+      "path": "apps/web/src/test/inspector-reading-position.test.tsx",
+      "sha256": "9718f993b9138a0a6ab2bb69076cc9d73653d4f0b1ad20021c57e07084b8b2b0"
+    },
+    {
+      "bytes": 12362,
+      "path": "tests/e2e/ligand-information-reading.spec.ts",
+      "sha256": "82c6518ab91965ab739a369e9b077ca141f0a10fa6bf109c17e4f5103dba5d6b"
+    },
+    {
+      "bytes": 76346,
+      "path": "tests/e2e/ligand-properties-performance.spec.ts",
+      "sha256": "8707eef81f7af67febe280eb89cf64e85babbeff6d9451f110179843fb68b508"
+    }
+  ],
+  "validation": {
+    "application_types_lint_build": "PASS; unchanged application/unit source from static4",
+    "focused_cases": 79,
+    "native_driver_inputs": 11,
+    "native_driver_types_lint": "PASS; final source-bound receipts included",
+    "native_reading_cases_passed": 6,
+    "primary_diagnostic_SQL": false,
+    "targeted_failures_skips_retries_flakes_errors": 0,
+    "targeted_performance_cases_passed": 12,
+    "targeted_positive_strict_closure": true,
+    "targeted_raw_bytes_each_side": 31208592,
+    "targeted_raw_pairs": 3,
+    "targeted_source_count": 1222,
+    "web_cases": 2090
+  },
+  "versions": "All five prepared0.39.0; unchanged schema0017/archive3/viewer2"
+}

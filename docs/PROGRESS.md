@@ -2,89 +2,70 @@
 
 ## Current milestone
 
-Parent #11 continues through all eight required children. #156–#160 are delivered.
-#161 has a local sidebar implementation and focused corrective verification;
-all50sidebar native cases pass. The first complete candidate campaign stopped
-on a retained native driver race; full release qualification remains open.
-#162 has a tested C1 foundation in its isolated checkout; #163 remains planned.
+Parent #11 continues through exactly eight required children. #156–#160 are
+delivered. #161 has a passing local connected-reading correction and targeted
+performance campaign; the fresh complete candidate gate is next. #162 has tested
+filtering/acquisition foundations in its isolated checkout; #163 remains planned.
 
 ## Completed work
 
-#161 integrates released #160 and the genuine public v0.38.0 baseline. Identity,
+#161 integrates released #160 and the actual public v0.38.0 baseline. Identity,
 cached depiction, current properties, profiles and accessible radar/table share
 one deliberate ligand context. Primary information and retained Tools remain
-explicitly accessible. All five versions are prepared as0.39.0 without dependency
-or schema changes; the database head remains0017.
+accessible. All five versions are prepared as0.39.0; dependencies, schema0017,
+archive3 and viewer2 are unchanged.
 
-Compact drawers now cover modeless minimization controls, retain the proposal,
-and contain boundary Tab navigation while respecting nested dialogs. Reading
-recovery preserves one transient scoped bookmark across remount and reflow.
-Automatic resize scrolling cannot replace its geometry or stationary landmark;
-deliberate input and context changes remain authoritative. Original uploads and
-molecular/persisted state are unchanged by presentation recovery.
+Connected reading now captures its logical landmark before pending content is
+withheld, retains it across an artifact-only change in the same connected visit,
+and waits for current header layout. Explicit input, context changes and surviving
+focused-control ownership remain authoritative. Hidden source/ABA reset behavior
+is preserved. No molecular state, scientific cache or original upload is changed.
+
+The inherited performance driver now reveals an offscreen measured row normally
+after unchanged automatic READY. Compact hidden-source edit/Undo reopening uses
+the same explicit navigation; desktop connected edits have no post-edit reveal.
+Navigation remains inside original clocks and budgets. This is a documented
+presentation-method adaptation without a speedup claim.
 
 ## Verification performed
 
-Latest application checks pass2,069frontend cases/153files, typing, lint and build.
-Forty-two focused controls cover13reading,15keyboard and14opening cases. A new
-roundtrip regression fails100versus300 before the landmark correction and passes
-afterward. Ten retained/native regression inputs pass strict typing and type-aware
-lint. Discovery contains712browser instances, including50sidebar cases across six
-files; existing cases and exclusions are retained.
+Current application/unit sources match the passing2,090frontend/79focused checks,
+typing, lint and production build. Final native driver inputs separately pass
+strict typing/type-aware lint. Six current native reading cases pass, including
+four genuine delayed-header observations with0px landmark-offset change. The
+earlier complete50sidebar campaign, responsive and actual browser-zoom proofs
+remain retained; these do not replace the next full candidate run.
 
-Focused native runs pass four original minimization cases, four complete compact
-input cases, two responsive cases and four actual100/200% browser-zoom cases.
-The full50-case campaign passes with zero skips, retries, flakes or errors and
-1,221source bodies fixed. Both themes/views and runner contexts cover same-landmark recovery, visible focus,
-nested dismissal, keyboard/touch, exact retained preview and hidden A→B→A reset.
-Source maps remain fixed within each run; processes/ports close positively and
-raw database/WAL/SHM pairs are copied byte-exact before diagnostics. Actual bounded
-architecture/UI/UX reviews pass; these are not final all-seven feature approval.
+Fresh targeted performance completes12cases with zero failure, skip, retry,
+flake or report error. All1,222selected sources stay fixed. Strict process/port
+closure precedes three byte/SHA-exact raw database/WAL/SHM pairs,31,208,592bytes per
+side. No primary diagnostic SQL is used. Independent readback passes the full
+80,587,683byte packet,12new companion trees, source capsule and recursive archives.
+There are79unenforced target misses across410portable timing comparisons,
+including20/20compact cache reopens above100ms; no strict-host certification.
 
-The earlier40-case run remains28passed/1failed/11unrun. Ten immutable forensic
-parts/530,454,022bytes retain that and the compact/responsive histories; two further
-parts/108,598,690bytes retain both zoom attempts. Each part is strictly below80MiB.
-The full50capture is retained separately in one72,208,044byte part. Independent
-readback verifies all13newparts,803physical originals,39rawpairs and15825source
-member hashes. Separate eventual publication remains required, as recorded in the
-[corrective checkpoint](assets/ligand-information/c3-modal-reflow-checkpoint.json).
-Earlier five reading-recovery parts/200,523,979bytes also remain immutable.
+All failed and deliberately interrupted histories retain their actual status.
+Forty-nine forensic parts total3,146,594,653bytes; each is strictly below80MiB.
+Separate publication and full anonymous readback remain required. Independent
+relocation audit resolves all23,601candidate2 originals through explicit mappings;
+20owned untracked label entries moved losslessly and original capture/index bytes
+are unchanged. Do not rerun old-path readers. See the
+[connected-reading checkpoint](assets/ligand-information/c4-connected-reading-checkpoint.json).
 
-Earlier integration221framework/forensic cases, Ruff and mypy280 pass. The separate
-version/dependency/schema audit and53archive cases pass. Python runtime source has
-not changed since that preparation. Actual public038baseline verifies585pass,
-exact75exclusions/660outcomes,43commands and1,183source bodies; DATA6 is retained.
-
-The clean42b8139f candidate campaign passes its first15commands, including
-4,266Python cases with zero skips,2,069frontend cases,14supervisor cases and
-712browser discovery instances. Browser execution then preserves118passes,
-3original skips,1timeout and590unrun cases. This is a failed/incomplete43-command
-qualification. All1,221current and1,183preceding sources remain unchanged. Strict
-process/port closure and48raw copies precede diagnostics. Complete failed-run
-forensics are retained separately; independent readback passes. Separate eventual
-publication and anonymous readback remain required.
-
-Trace inspection identifies an actual200→100browser-zoom driver race: the viewport
-changes before React replaces the compact shell. The helper chooses a launcher
-that then detaches. Await matching rendered breakpoint topology before choosing
-the launcher. No production behavior, original assertion or deadline changes.
-Eleven native inputs pass strict typing/lint; all six original profile-access and
-permanent zoom cases pass in both runner contexts, with zero skips/retries/errors.
-Sources stay fixed and strict closure precedes three raw copies. Independent
-readback verifies the51,538,000byte retained part,44originals/12empty directories,
-1,221source bodies and32PNG/sixJSON attachment hashes. The failed originals are
-relocated on the same filesystem with inode/metadata/byte/SHA preservation and
-independent mapping verification; immutable capture/index bytes remain unchanged.
-All seven whole-source assessments pass42b8139f, but final runtime review and
-intervening-diff reconfirmation remain mandatory.
+The two earlier full43campaigns stopped in native execution after15passing
+commands; neither is a full gate pass. The new43-command recipe preserves the
+actual public038baseline, DATA6, original responsibilities and exclusions. Its
+launcher passes23pure failure controls, including two meaningful old-flow failures;
+this does not prove an executed gate. Actual bounded architecture/UX/performance
+assessments pass their recorded scopes. All-seven final feature review remains open.
 
 ## Known limitations
 
-Primary/inherited performance, scientific/source/resource proofs,
-actual038readers/archives, full candidate and
-actual-merged43-command gates, all-seven final review and publication remain.
-Historical failures retain their status. Diagram153, relocations164/165 and all
-other parent exclusions remain separate. Portable timing is not strict-host proof.
+Fresh complete candidate and actual-merged43-command gates, scientific/source/
+resource and compatibility readbacks, all-seven final same-candidate review,
+normal protected delivery and verified039publication remain. Historical failures
+retain their status. Portable timing is not strict-host proof. Parent exclusions,
+including153/164/165, remain unchanged.
 
 ## Blockers
 
@@ -92,7 +73,8 @@ No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Commit the passing bounded correction and readback checkpoint, then run the
-prepared fresh complete43-command candidate gate. Continue mandatory performance/compatibility,
-full gates, final reviews, normal merge and verified039release/closeout for161.
-Then deliver162,163 and parent closeout under the same active Goal.
+Commit this coherent passing correction with the fresh candidate3recipe, then run
+all43commands from that clean candidate. Complete final reviews, normal PR/merge,
+fresh exact-merged qualification and immutable039release/all-asset readback before
+161closeout and owned cleanup. Continue162,163 and final parent acceptance under
+the same active Goal.

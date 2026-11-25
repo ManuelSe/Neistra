@@ -1003,3 +1003,145 @@ The [breakpoint checkpoint](../assets/ligand-information/c4-breakpoint-checkpoin
 binds this local evidence. Fresh canonical c4-candidate2 retains all43responsibilities,
 actual public038baseline, DATA6, cold/portable policy and unchanged exclusions.
 It must be committed and run clean; this focused checkpoint is not final readiness.
+
+
+### Candidate2 retained performance presentation correction — 2026-11-25
+
+Candidate242b7aff's fresh43campaign passes15commands and135browser cases, including
+the formerly failing profile-access case. It then fails the first cold-property
+visibleReady predicate;3authored skips and573unrun cases retain those statuses.
+Current1221/preceding1183sources and DATA6 remain fixed. Strict closure precedes
+48byte/SHA raw copies,20,994,656bytes each side. Twelve forensic parts retain the
+complete failed history and both external performance companions; independent
+readback and eventual separate publication remain required.
+
+Independent performance trace review establishes no target property READ before
+the armed Entry change. Automatic matching READY and Carbon92 raw text pass, while
+the primary depiction/Profile content put the property row below1280×720. D-193
+records the bounded protocol adaptation: normal scrolling after unchanged READY/
+text assertions, before manual verification, with before/after geometry and time
+metadata. All original clocks, source/scientific assertions, deadlines, workload
+bodies and100ms/2s budgets remain. Network timing stays independent; visible timing
+retains the navigation cost and does not become a speedup comparison.
+
+A fresh12-case property/profile/primary performance campaign must verify this
+protocol in both runner contexts. This correction does not complete the candidate
+or actual-merged43gates, final all-seven review,039publication or child closeout.
+
+
+### C4 — Connected edit continuity correction in progress
+
+The bounded twelve-case performance campaign is terminal1: one passed, one failed
+and ten unrun, with all five cold-context samples completed before its first
+paired-edit failure. The automatic result and Carbon9 DOM value arrive correctly.
+Independent trace review establishes389→76 pending-content clamping and then0
+from the acknowledged artifact scope change. The same project, entry, designation
+instance and presentation visit remain; this requires application correction.
+Do not add post-edit test scrolling or reset any performance clock.
+
+Strict positive process/port closure precedes three raw-store copies; independent
+byte/SHA readback verifies3,636,360bytes per side without primary diagnostic SQL.
+All1,221sources remain fixed within that run. Its complete forensic packet retains
+one66,735,668byte part,242originals,6empty directories and both companion trees;
+independent readback is pending. The original failure remains immutable.
+
+Architecture/UX consultation accepts the bounded connected-intent contract in
+D-193. Implementation and regression qualification are in progress, including
+pre-mutation capture, source handoff, cancellation, terminal fallback and unchanged
+hidden-source/ABA resets. These consultations are not final feature approval.
+
+
+The corrected lifecycle passes76focused cases and2,087frontend cases plus types,
+lint and build on1,222fixed sources. Independent architecture reinspection passes.
+A second bounded native campaign completes one profile case before deliberate
+interruption for an independently identified header-inventory ordering gap. Its
+coordinator exits-2 before server cleanup; preserve that failed closure receipt.
+Explicit termination of the exact three owned server groups then obtains the
+unchanged strict closure proof and one704,512byte database pair. WAL/SHM are absent
+after graceful close. No primary SQL is used and original evidence is not rewritten.
+Complete interrupted-run forensics and separate independent audit remain required.
+
+Recovery now includes current designated-inventory pending layout without delaying
+property values. Two meaningful negative controls fail when that readiness term is
+removed. Success, terminal inventory completion and explicit cancellation are
+covered in the new regression cases. Fresh native final-source and full gates,
+all-seven final review, normal PR/merge and release remain open.
+
+
+### C4 — Reading pass and compact benchmark presentation adaptation
+
+Current runtime/unit source passes2,090web/79focused/type/lint/build checks. Six
+real native reading cases pass with zero skips/failures/retries/errors, including
+four delayed genuine current-header edit observations at0px offset difference.
+Bounded architecture and UX reassessments pass. Actual responsive/hidden-entry
+checks pass; the new edit observations use900×600 in both runner projects.
+
+The subsequent retained12-case performance campaign is terminal1:7passes,1mobile
+visibility failure and4unrun cases. All six desktop cases pass, including five cold
+contexts/twenty paired edits and both repeated/distinct1,000-entry priority proofs.
+The mobile profile case also passes. The failing mobile edit has automatic READY
+before the intentionally hidden presenter reopens at0; Carbon8 is offscreen.
+Independent trace/source inspection accepts the compact-only navigation refinement
+in D-193, preserving the hidden-source reset and all original measurement clocks.
+
+Strict closure and three byte-exact raw pairs total19,276,944bytes per side; all
+1,222source bodies remain fixed. The failed setup6, successful reading6 and failed
+performance12 histories are retained together in three177,837,853byte parts, each
+below80MiB. Their index preserves every original outcome and eight exact new
+companion trees; independent audit is pending. New compact edit/Undo navigation
+records presentationOpened and cannot reset any existing stamp. Source reconstruction
+proves all20other driver functions unchanged and the bounded adaptations invert
+exactly to the retained pre-change driver. Fresh native verification remains.
+
+
+### C4 — Coherent connected-reading checkpoint and fresh candidate3 preparation
+
+The final targeted campaign passes all12property/profile/primary performance
+cases, six per runner project, with zero skip/failure/retry/flake/global error.
+It includes five cold contexts and twenty paired edits per runner and both
+repeated/distinct1,000-entry priority cases. All1,222source bodies are fixed;
+strict closure precedes three byte/SHA raw pairs totaling31,208,592bytes per side.
+No primary diagnostic SQL is used. The current application/unit source is exact
+to the2,090web/79focused/static/build pass; only two native test files differ from
+that earlier static map and both have separate final strict validation.
+
+Portable measurements retain79target misses across410unenforced comparisons.
+Compact matching-cache reopen misses100ms in20/20samples (median162.7ms,
+p95179.1ms). Desktop paired cold network misses2s in11/20; compact misses in18/20;
+desktop bulk misses5s in2/2. No budget is relaxed and no strict-host or speedup
+claim follows from the twelve passing correctness cases. Ninety navigation records
+retain original clocks:50correlate to final timing and40paired initial records
+have no separate final timing. Failed reader/packager attempts remain retained.
+
+Actual independent architecture audit passes the final packet, raw/source proofs,
+recursive CRC/manifests and twelve new companion trees. Eight property observers
+have complete finished observations and strict outer closure but no separate exit
+receipt; the record explicitly distinguishes that evidence. The new one-part
+80,587,683byte packet remains below the strict80MiB limit. All retained histories
+now total49parts/3,146,594,653bytes, each separately publishable. Publication and
+anonymous readback remain outstanding.
+
+Independent mapping audit also passes the same-filesystem relocation of20owned
+untracked candidate2label entries:22,902files/971,358,686bytes retain identical
+inodes, mode, mtime, size and SHA. All23,601capture originals/1,129,057,239bytes and
+115empty directories resolve through the explicit mapping. The original capture,
+forensic index and tracked recipe are unchanged. The small
+[relocation packet/readback](../assets/ligand-information/c4-candidate2-relocation-readback.json)
+preserves the mapping and actual communicated assessment. Do not rerun old-path
+readers or scanners.
+
+The [checkpoint](../assets/ligand-information/c4-connected-reading-checkpoint.json)
+and small evidence ZIP bind these actual checks and scoped reviews. Fresh
+[candidate3recipe](../assets/ligand-information/c4-candidate3-recipe.json) retains
+all43responsibilities, actual public038preceding sources, DATA6 and original
+exclusions. Its corrected launcher retains original prelaunch source bodies and
+strict scanner proof, records source-after/manifest failures without bypassing
+closure/raw retention, and requires complete isolated child-session evidence for
+zero exit. Twenty-three pure controls pass, including two old-flow negatives;
+actual process scanning and full execution remain separate prerequisites.
+
+This checkpoint is local and passing within its recorded scope. The fresh clean
+full43candidate gate has not yet run. All-seven final same-candidate assessments,
+push/normal PR/protected merge, fresh actual-merged43gate, immutable039tag/release,
+full anonymous asset verification, child closeout and owned cleanup remain open.
+162/163 and final parent acceptance continue under the same Goal afterward.

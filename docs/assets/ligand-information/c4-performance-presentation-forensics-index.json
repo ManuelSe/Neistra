@@ -1,0 +1,96 @@
+{
+  "all_ZIP_CRC_manifest_and_nested_layers_verified": true,
+  "all_originals_preserved_and_rehashed": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "bounded_twelve_case_pass": false,
+  "browser_actual_result_counts": {
+    "failed": 1,
+    "passed": 1
+  },
+  "browser_error_count": 1,
+  "browser_original_stats": {
+    "duration": 155640.247,
+    "expected": 1,
+    "flaky": 0,
+    "skipped": 10,
+    "startTime": "2026-11-25T15:18:57.462Z",
+    "unexpected": 1
+  },
+  "browser_unrun_cases": 10,
+  "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+  "capture_member": "issue161-performance-presentation-native1/capture.json",
+  "capture_sha256": "faec305cc9b0b4b3cdede4d4e9e4fbd16f775844abe2a675f785e06ddd667940",
+  "complete_paired_edits": 0,
+  "completed_cold_context_prefix": 5,
+  "empty_directories": 6,
+  "exact_source_zip_map_verified": true,
+  "external_observer_receipts": [
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T15:21:32.262305+00:00",
+      "observation_sha256": "858f357d792e52d0d869f4074525d85031c584c7c320ef40951853db7d7446c0",
+      "observer_execution_file_present": false,
+      "outer_strict_closure_verified": true,
+      "source_count": 836,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete source-fixed finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-068ae6cc-55b7-4ef3-97dc-5af0c539b5ef"
+    },
+    {
+      "actual_observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "additional_source_map_count": 968,
+      "complete": true,
+      "finished_utc": "2026-11-25T15:20:52.325077+00:00",
+      "observation_sha256": "293bf29033a73c25a50a553756be1925a9eeb498b7ac1d2b5d104536c8fc5523",
+      "observer_execution_file_present": true,
+      "outer_strict_closure_verified": true,
+      "source_count": 836,
+      "sources_unchanged": true,
+      "tree": "external/issue160-profile-performance/chromium-90f2e45b-aaf6-4ddc-a21f-75461600b4cd"
+    }
+  ],
+  "full_feature_or_release_gate_pass": false,
+  "independent_readback_required": true,
+  "new_external_case_directories": 2,
+  "no_original_tree_exclusions": true,
+  "no_primary_SQL_used": true,
+  "original_mode_and_mtime_preserved": true,
+  "outer_exact_union_verified": true,
+  "packager_sha256": "9ffae597932913a35c3dcae232810789da5706adbeca0a993fba0021e6822740",
+  "part_bytes": 66735668,
+  "part_count": 1,
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "bytes": 66735668,
+      "campaign": "issue161-performance-presentation-native1",
+      "checksum_file": "c4-performance-presentation-forensics-01.zip.sha256",
+      "checksum_sha256": "3db519322e18ab2502fdd126286d2675a405418ee74156e443e0b04cc376dbf6",
+      "file": "c4-performance-presentation-forensics-01.zip",
+      "outer_manifest_entries": 245,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-performance-presentation-retention1/parts/c4-performance-presentation-forensics-01.zip",
+      "runner_exit_code": 1,
+      "sha256": "1fba8e2f21e8edbaf8d940547f6ac6fb334cce4934c7d89632fce5f90363a57d",
+      "verification_counts": {
+        "evidence_manifest_entries": 250,
+        "project_archive_files": 10,
+        "zip_archives": 9
+      }
+    }
+  ],
+  "physical_original_bytes": 81444635,
+  "physical_original_files": 242,
+  "publication_verified": false,
+  "raw_original_copy_bytes_SHA_mode_and_mtime_verified": true,
+  "raw_pair_bytes_each_side": 3636360,
+  "raw_pairs": 3,
+  "recorded_utc": "2026-11-25T15:33:14.836719+00:00",
+  "runner_exit_code": 1,
+  "scope": "Complete failed twelve-case property/profile/primary performance campaign: one case passed, one failed, ten unrun; original prelaunch source ZIP, all stores/raw copies, both new external companions and complete launcher/static11input preparation. Not a qualification pass.",
+  "separate_publication_required": true,
+  "source_body_hashes": 1221,
+  "static_lint_inputs": 11
+}

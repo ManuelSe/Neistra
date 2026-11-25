@@ -10550,3 +10550,86 @@ Retain the entire failed campaign, including intermediate native artifacts and a
 raw stores. Source ZIPs reconstructed afterward are explicitly labelled derived
 from exact candidate/predecessor Git blobs matching the original frozen maps.
 They are not claimed to have been emitted by the original campaign.
+
+
+D-193 cold-property presentation observation: candidate2 reaches135native passes
+and passes the earlier profile-access failure, then the first retained cold-property
+context times out waiting for visible Carbon. Independent trace review proves the
+first target READ starts after the armed Entry change; matching automatic READY
+and Carbon92 text already pass. At1280×720 the new primary header/depiction and
+Profile content place the Carbon row below the viewport. The retained observer
+correctly refuses to stamp visibleReady. This is presentation setup, not evidence
+of a chemistry/backend failure or a pre-armed calculation.
+
+After unchanged automaticREADY and raw-value checks, use normal Inspector scrolling
+to reveal that row before the read-only verification request. Record navigation
+times, Carbon/owner/viewport geometry and hit testing before and after. Keep the
+original trusted Entry clock, DOM/network/visible stamps, deadlines and100ms/2s
+budgets unchanged. Never clear an already observed visibleReady. Visible elapsed
+time explicitly includes navigation; network cold latency stays separate. This is
+a documented benchmark presentation-method adaptation, not an application fix or
+a speedup claim. Qualify all twelve performance cases on fresh source-bound stores: eight inherited
+property cases plus two profile and two primary cases.
+
+
+D-193 connected edit reading continuity: the bounded twelve-case performance run
+passes its profile case and five cold contexts, then preserves one failure and ten
+unrun cases. Before the first paired edit, Carbon is deliberately visible at
+scrollTop389. Temporary scientific withholding removes its rows and clamps the
+owner to76. The acknowledged artifact change then clears the exact-source bookmark
+and resets the connected owner to0; fresh Carbon9 arrives below the viewport.
+This is a production reading-continuity gap, not missing benchmark navigation.
+Preserve the original clocks, visibility observer, deadlines and scientific checks.
+
+Independent architecture and UX consultations accept a pre-mutation boundary in
+the existing scroll owner. Retain one logical reading intent before withholding;
+automatic clamp events and effect cleanup cannot overwrite that held bookmark.
+Only the same connected owner, presentation visit, project, deliberately inspected
+entry, designation instance/status and view/task may carry it across an artifact
+change. Keep the exact artifact-bearing App scope: hidden source changes, hidden
+ABA and retargeting still clear the bookmark. No stale scientific content is shown.
+
+The held path yields to explicit Inspector input and surviving focused-control
+publication ownership. Restore the landmark once fresh content is available, then
+stop. A terminal missing landmark uses one bounded numeric fallback; observers
+exist only while the connected intent is unresolved and release on cancellation
+or unmount. The session holds scalar geometry and an opaque token; the mounted
+boundary owns DOM references. This does not change focus, scientific identity,
+cache, calculation scheduling, molecular history or persisted data. Require real
+pre-mutation clamp/ACK/READY, cancellation, hidden-context and native edit evidence.
+
+
+D-193 connected lifecycle qualification: independent architecture review finds
+that a child mount can precede attachment of its parent scroll-owner ref. Bind
+input cancellation at the first pre-mutation update and detach the exact owner.
+Scope cancellation suppression to that continuity visit: cancelling A must not
+suppress the first edit of an already-ready B. Preserve meaningful failing
+controls for both cases and focused-control publication precedence.
+
+Independent UX review also identifies producer ordering: fresh properties can
+arrive before the current designated inventory adds composition and depiction
+geometry above them. Keep connected recovery pending until that current inventory
+layout transition settles as well as property work. Do not withhold independently
+qualified property values. Inventory failure ends the pending transition and
+permits the same bounded fallback. Explicit input still cancels recovery. The
+drawing image already has reserved geometry; image completion is not a new gate.
+The intermediate native campaign is deliberately interrupted for this known
+correction and remains partial evidence, not successful qualification.
+
+
+D-193 compact hidden-source measurement: the corrected campaign passes all six
+desktop performance cases and the mobile profile case, then fails the first mobile
+paired edit at visibleReady. Independent trace review proves the compact presenter
+closes before editing, the new exact-source automatic READY arrives while hidden,
+and only then the fresh drawer opens at0 with Entry focused and no reading resume.
+Fresh Carbon8 exists below the viewport. This is the accepted hidden changed-source
+reset, unlike the connected reading defect already corrected and qualified.
+
+After the unchanged compact reopen and raw-value assertion, reveal the measured row
+using normal scrolling. Apply the same explicit navigation to matching-cache Undo
+reopening. Keep desktop edit/Undo paths without a post-edit reveal, so connected
+continuity remains independently tested. Record navigation geometry and phase,
+preserve original started/READY/visible stamps and presentationOpened, and include
+navigation in original visible and open-to-visible cache latency. Retain every
+scientific/source/cache/workload assertion, original deadline and100ms/2s/5s budget.
+This is a benchmark presentation adaptation, not a production change or speedup.

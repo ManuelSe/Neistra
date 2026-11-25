@@ -196,6 +196,52 @@ async function openCachedPresentation(page: Page, entryId: string) {
   await expect(page.getByRole("region", { name: "Ligand of interest", exact: true }).getByRole("combobox", { name: "Entry", exact: true })).toHaveValue(entryId);
 }
 
+async function revealColdPresentation(page: Page, expectedCarbon: string,
+  phase: "initial-entry" | "compact-edit-reopen" | "compact-undo-reopen" = "initial-entry") {
+  const geometry = () => carbon(page).evaluate(node => {
+    const label = node.parentElement?.querySelector("dt"), owner = node.closest(".inspector-scroll");
+    if (!(label instanceof HTMLElement) || !(owner instanceof HTMLElement)) throw new Error("Missing measured property row or scroll owner");
+    const bounds = (element: Element) => {
+      const rect = element.getBoundingClientRect(), hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+      return { top: rect.top, bottom: rect.bottom, left: rect.left, right: rect.right,
+        width: rect.width, height: rect.height, hit: hit === element || element.contains(hit) };
+    };
+    const viewport = owner.getBoundingClientRect();
+    return { at: globalThis.performance.now(), timeOrigin: globalThis.performance.timeOrigin, label: bounds(label), value: bounds(node),
+      owner: { top: Math.max(0, viewport.top), bottom: Math.min(innerHeight, viewport.bottom),
+        left: Math.max(0, viewport.left), right: Math.min(innerWidth, viewport.right), scrollTop: owner.scrollTop },
+      viewport: { width: innerWidth, height: innerHeight }, snapshot: window.ligandPropertyPerformance.readCarbon(),
+      sampleStarted: window.ligandPropertyPerformance.sample?.started ?? null,
+      networkReadyAt: window.ligandPropertyPerformance.sample?.networkReadyAt ?? null,
+      presentationOpened: window.ligandPropertyPerformance.sample?.presentationOpened ?? null,
+      visibleReadyAlreadyObserved: window.ligandPropertyPerformance.sample?.visibleReady ?? null };
+  });
+  const before = await geometry();
+  // The primary header can place this row below the fold. Navigation occurs
+  // after automatic READY; the original clocks keep running and retain its cost.
+  await carbon(page).scrollIntoViewIfNeeded();
+  const after = await geometry();
+  expect(after.timeOrigin).toBe(before.timeOrigin); expect(after.at).toBeGreaterThanOrEqual(before.at);
+  expect(before.sampleStarted).not.toBeNull(); expect(after.sampleStarted).toBe(before.sampleStarted);
+  expect(before.networkReadyAt).not.toBeNull(); expect(after.networkReadyAt).toBe(before.networkReadyAt);
+  expect(after.presentationOpened).toBe(before.presentationOpened);
+  if (phase !== "initial-entry") {
+    expect(before.viewport.width).toBeLessThanOrEqual(840);
+    expect(before.presentationOpened).not.toBeNull();
+    expect(before.presentationOpened!).toBeGreaterThanOrEqual(before.networkReadyAt!);
+    expect(before.presentationOpened!).toBeGreaterThanOrEqual(before.sampleStarted!);
+  }
+  if (before.visibleReadyAlreadyObserved !== null) expect(after.visibleReadyAlreadyObserved).toBe(before.visibleReadyAlreadyObserved);
+  expect(after.snapshot.visibleValue).toBe(expectedCarbon);
+  for (const bounds of [after.label, after.value]) {
+    expect(bounds.width).toBeGreaterThan(0); expect(bounds.height).toBeGreaterThan(0); expect(bounds.hit).toBe(true);
+    expect(bounds.top).toBeGreaterThanOrEqual(after.owner.top); expect(bounds.bottom).toBeLessThanOrEqual(after.owner.bottom);
+    expect(bounds.left).toBeGreaterThanOrEqual(after.owner.left); expect(bounds.right).toBeLessThanOrEqual(after.owner.right);
+  }
+  return { phase, action: "Normal Inspector scroll after automatic READY",
+    includedInVisibleElapsedTime: true, networkClockUnchanged: true, before, after };
+}
+
 async function timing(page: Page, command: boolean): Promise<DomSample & {
   clock: BrowserClockEvidence; currentMs: number; domCurrentMs: number | null; networkCurrentMs: number | null; ackToNetworkReadyMs: number | null;
   retirementMs: number | null; retirementRelativeToResponseMs: number | null; retirementQualification: string;
@@ -397,13 +443,15 @@ async function actualEdit(page: Page, request: APIRequestContext, project: Proje
   await page.getByRole("button", { name: "Close molecular editor", exact: true }).click();
   await openCachedPresentation(page, entry.id);
   await expect(carbon(page)).toHaveText(String(oldCarbon - 1), { timeout: 30_000 });
+  const presentationNavigation = await page.evaluate(() => innerWidth <= 840)
+    ? await revealColdPresentation(page, String(oldCarbon - 1), "compact-edit-reopen") : null;
   const times = await timing(page, true);
   const actual = await checkedRead(request, next, changed); expect(actual.report!.input_hash).toBe(proof.inputHash);
   const requests = await page.evaluate(offset => window.ligandPropertyPerformance.requests.slice(offset), requestStart);
   const currentRequests = requests.filter(item => item.sources.some(target => target.source_artifact_id === changed.current_artifact_id));
   expect(currentRequests.length).toBeGreaterThan(0);
   expect(currentRequests.filter(item => item.carbonVisible).every(item => item.carbon !== String(oldCarbon))).toBe(true);
-  return { project: next, entry: changed, current: actual, automaticReady: proof, timing: times, requests,
+  return { project: next, entry: changed, current: actual, automaticReady: proof, timing: times, requests, presentationNavigation,
     sourceRetirementObservation: { visibleRequests: currentRequests.filter(item => item.carbonVisible).length,
       hiddenRequests: currentRequests.filter(item => !item.carbonVisible).length } };
 }
@@ -600,6 +648,7 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
         await select.selectOption(project.entries[0].id);
         const firstAutomaticReady = await automaticReady(page, source(project.entries[0]));
         await expect(carbon(page)).toHaveText(String(initialCarbon), { timeout: 30_000 });
+        const firstPresentation = await revealColdPresentation(page, String(initialCarbon));
         const first = await checkedRead(request, project, project.entries[0]);
         expect(first.report!.input_hash).toBe(firstAutomaticReady.inputHash);
         const firstTiming = await timing(page, false);
@@ -609,7 +658,8 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
         performanceBudget(firstTiming.networkCurrentMs!, 2000, "cold automatic exact-source App READY ms", true);
         if (index < 5) {
           records.push({ kind: "fresh-browser-context-cold-start", index, heavyAtoms: size, setupMsExcluded,
-            source: source(project.entries[0]), inputHash: first.report!.input_hash, timing: firstTiming, automaticReady: firstAutomaticReady });
+            source: source(project.entries[0]), inputHash: first.report!.input_hash, timing: firstTiming,
+            presentationNavigation: firstPresentation, automaticReady: firstAutomaticReady });
         } else {
           const edited = await actualEdit(page, request, project, initialCarbon);
           expect(edited.timing.networkCurrentMs).not.toBeNull();
@@ -641,6 +691,8 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
           expect(restoredBeforeOpening.report!.input_hash).toBe(warmAutomaticReady.inputHash);
           await openCachedPresentation(page, edited.entry.id);
           await expect(carbon(page)).toHaveText(String(initialCarbon));
+          const warmPresentationNavigation = mobile
+            ? await revealColdPresentation(page, String(initialCarbon), "compact-undo-reopen") : null;
           await expect.poll(() => page.evaluate(() => window.ligandPropertyPerformance.sample?.visibleReady)).toBeDefined();
           const warm = await timing(page, true);
           const projectionMs = mobile ? warm.cachedPresentationMs : warm.responseToCurrentMs;
@@ -660,6 +712,8 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
           expect(warmNewJobs).toHaveLength(0);
           records.push({ kind: "paired-edit", index: index - 5, heavyAtoms: size, setupMsExcluded,
             editablePreflight,
+            initialPresentationNavigation: firstPresentation,
+            editPresentationNavigation: edited.presentationNavigation, warmPresentationNavigation,
             cold: edited.timing, warm, oldSource: source(project.entries[0]), changedSource: source(edited.entry),
             firstInputHash: first.report!.input_hash, changedInputHash: edited.current.report!.input_hash,
             matchingQualifiedResultReadyBeforeViewOpen: true, automaticReady: edited.automaticReady,
@@ -690,7 +744,8 @@ test("measures five cold browser contexts and twenty paired actual ligand edits 
       phaseDefinitions: { feedback: "Trusted click to visible command disabled state; entry choice uses native change feedback",
         retirement: "Only an initially visible old value supplies retirement timing. Hidden-at-start is unobserved; signed pre-ACK observations are retained without clamping or a measured zero.",
         current: "Trusted click/ACK to actual automatic exact-source App network READY; visible DOM and deliberate presentation delay are separate",
-        mobileCache: "App-owned matching result proved before Inspector open; full ACK-to-visible includes deliberate opening delay",
+        coldPresentation: "Original trusted Entry-change clock through visible Carbon, including deliberate Inspector scrolling after automatic READY; navigation never resets observer clocks or defines network latency",
+        mobileCache: "App-owned matching result proved before Inspector open; full ACK-to-visible and open-to-visible cache projection include deliberate opening and normal row navigation",
         requestCounts: "Actual browser property/command requests; explicit verification/setup API calls are outside these counts" },
       targets: info.annotations.filter(item => item.type === "performance").map(item => JSON.parse(item.description!) as unknown) };
     await info.attach("descriptor-edit-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" });

@@ -1,0 +1,560 @@
+{
+  "all_literal_checksums_recursive_CRC_manifests_exact_union_verified": true,
+  "all_original_mode_mtime_bytes_SHA_preserved": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "capture_member": "issue161-reading-performance-histories/capture.json",
+  "capture_sha256": "afdd2c7fd444549d48a2f431bcda2e0a98324c6b9a7b08ec8ea3caa3a7077255",
+  "compression_coordination": {
+    "frontend_checks_were_terminal_exit0_before_compression": true,
+    "receipt_path": "/datadisk/dev/neistra-worktrees/issue-162-live-property-entry-filters/.issue-11-evidence/issue162-c2-bridge-seams-validation1/integrated1/receipt.json",
+    "sha256": "e61acfc64e1e2a56d5947759516d00c7be7298e766f416dd36e7c030dcf429dc"
+  },
+  "empty_directories": 19,
+  "external_observers": [
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:02:48.472577+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "f9f0f265662d66a1043379b89588f112566086b342922469758e517497aa6db3",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:02:42.915539+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "issue161-connected-reading-native4/external/issue159-performance/chromium-5090c881-6897-4627-ae9c-74a5a2008a8e"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:02:42.192104+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "2f295c99b366e2ffd767a178a65e2f84c2a5e19e532478320b0b86b224f02a6e",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T15:58:53.914759+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "issue161-connected-reading-native4/external/issue159-performance/chromium-6666b7dc-99f5-4c0a-b268-e7651e22419e"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:04:39.299098+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "3f1989c101da9f7f64b87ad38e0c420701648ed7925f56f3c6c881a1011bf44d",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:03:02.740830+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "issue161-connected-reading-native4/external/issue159-performance/chromium-6aa9eed5-044e-4860-a2b4-b628289436ce"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:07:55.454924+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "f305b1e64209b07a33e8ba10a3405f114bbe6ae297e36c472faaafb4b4af20da",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:05:06.192080+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "issue161-connected-reading-native4/external/issue159-performance/chromium-76f95a62-bf33-4987-b9ad-5c21703bb757"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:11:18.886769+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "668a07443cf5650fc392bc9e0ef0dc9a71e67765010099c5f5ac50e0f74fc455",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:10:37.821729+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "issue161-connected-reading-native4/external/issue159-performance/mobile-chromium-fed87418-8bc1-4738-8eaa-49dc4aff72d8"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T15:58:53.721906+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "b7211fc8b9fb9490a72eae0eda57f42e1703515fe8d660cb5bc7d717405bdd4e",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T15:56:59.792288+00:00",
+      "tree": "issue161-connected-reading-native4/external/issue160-profile-performance/chromium-8771b949-8696-453d-9fcf-59df3d061628"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:10:37.655742+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "ee0e70e6bb3c46e85e7b0780601a7c4afd25747836a003c2c1c2bb037abc4c97",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:08:45.249190+00:00",
+      "tree": "issue161-connected-reading-native4/external/issue160-profile-performance/mobile-chromium-ba02b242-2cd3-44c2-906d-74d07401e629"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:08:44.316451+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "c9289d777743e6375ff84ad2f63bd68d7a482f32cf06a88f5d9d6010c78f349d",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:08:10.152988+00:00",
+      "tree": "issue161-connected-reading-native4/external/issue161-primary-performance/chromium-6e58df7f-e1fe-4068-bb83-e916acb86eec"
+    }
+  ],
+  "full_feature_gate_pass": false,
+  "independent_audit_required": true,
+  "limitations": [
+    "Native2 remains a failed setup-driver attempt:1passed1failed4unrun.",
+    "Native3 passes six focused reading cases only, not the full feature/release gate.",
+    "Native4 remains7passed1mobilepresentationfailure4unrun; desktop case passes do not establish final all-context qualification.",
+    "Property companions lack separate subprocess exit receipts; complete fixed-source observations and strict outer closure are the actual evidence.",
+    "No historical source map is replaced by the currently moving working tree. Every emitted source ZIP remains tied to its own frozen before/after map."
+  ],
+  "new_external_cases_by_run": {
+    "issue161-connected-reading-native2": 0,
+    "issue161-connected-reading-native3": 0,
+    "issue161-connected-reading-native4": 8
+  },
+  "no_relocation": true,
+  "packager_sha256": "015e03fc6639a2eef086b573097a36386e51f4971cfa44b7fa863471929f0a82",
+  "part_bytes": 177837853,
+  "part_count": 3,
+  "parts": [
+    {
+      "bytes": 53674499,
+      "checksum_file": "c4-reading-performance-forensics-01.zip.sha256",
+      "checksum_sha256": "da188aa1622e37cd5b280639987ade8e9efbf666773e9aac80f47131e7eb41cd",
+      "file": "c4-reading-performance-forensics-01.zip",
+      "outer_manifest_entries": 45,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-performance-retention1/parts/c4-reading-performance-forensics-01.zip",
+      "sha256": "67172f90572b807f42e8960a229343b0b521adac40a7d7267f12f07b3e297830",
+      "verification_counts": {
+        "evidence_manifest_entries": 50,
+        "project_archive_files": 10,
+        "zip_archives": 9
+      }
+    },
+    {
+      "bytes": 63070473,
+      "checksum_file": "c4-reading-performance-forensics-02.zip.sha256",
+      "checksum_sha256": "36b1a4591d075e2c07360283f1ffa0de2608d536d78c919260e1f4bfa97ce083",
+      "file": "c4-reading-performance-forensics-02.zip",
+      "outer_manifest_entries": 43,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-performance-retention1/parts/c4-reading-performance-forensics-02.zip",
+      "sha256": "f18116452c0a53b8abe429a97c014707f0deb32668503fe67832934e5b5015cb",
+      "verification_counts": {
+        "evidence_manifest_entries": 48,
+        "project_archive_files": 10,
+        "zip_archives": 9
+      }
+    },
+    {
+      "bytes": 61092881,
+      "checksum_file": "c4-reading-performance-forensics-03.zip.sha256",
+      "checksum_sha256": "1fe07df179df85eab89b96f2a0104afb110d5c3566622857f945fc8362a2f819",
+      "file": "c4-reading-performance-forensics-03.zip",
+      "outer_manifest_entries": 3928,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-performance-retention1/parts/c4-reading-performance-forensics-03.zip",
+      "sha256": "a845e9cfccd03da24e99b9aa71ab63b7172004dfb72a59bfaf3d820f17ae8044",
+      "verification_counts": {
+        "evidence_manifest_entries": 3933,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    }
+  ],
+  "physical_original_bytes": 323648586,
+  "physical_original_files": 4013,
+  "primary_diagnostic_SQL": false,
+  "publication_verified": false,
+  "raw_bytes_each_side": 21436744,
+  "raw_pairs": 9,
+  "recorded_utc": "2026-11-25T16:21:58.376805+00:00",
+  "runs": [
+    {
+      "actual_results": {
+        "failed": 1,
+        "passed": 1
+      },
+      "browser_cases": [
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains the logical reading point through actual responsive reflow and clears hidden entry visits"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [
+                {
+                  "location": {
+                    "column": 25,
+                    "file": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-information-reading.spec.ts",
+                    "line": 124
+                  },
+                  "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.ligand-information .ligand-properties-groups dt').filter({ hasText: /^Carbon$/ }).locator('..').locator('dd')\nExpected string: \u001b[32m\"2\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 30000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for locator('.ligand-information .ligand-properties-groups dt').filter({ hasText: /^Carbon$/ }).locator('..').locator('dd')\u001b[22m\n\n\n  122 |     const carbon = page.locator(\".ligand-information .ligand-properties-groups dt\").filter({ hasText: /^Carbon$/ });\n  123 |     const value = carbon.locator(\"..\").locator(\"dd\");\n> 124 |     await expect(value).toHaveText(\"2\", { timeout: 30_000 });\n      |                         ^\n  125 |     await expect(page.locator(\".ligand-designated-composition\")).toContainText(\"C2H6O\");\n  126 |     await expect(page.locator(\".ligand-candidate-depiction\")).toBeVisible();\n  127 |     await carbon.scrollIntoViewIfNeeded();\n    at /datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-information-reading.spec.ts:124:25"
+                }
+              ],
+              "retry": 0,
+              "status": "failed"
+            }
+          ],
+          "title": "retains connected edit reading when properties precede the current header (light)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [],
+          "title": "retains connected edit reading when properties precede the current header (dark)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "retains the logical reading point through actual responsive reflow and clears hidden entry visits"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "retains connected edit reading when properties precede the current header (light)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "retains connected edit reading when properties precede the current header (dark)"
+        }
+      ],
+      "browser_error_count": 1,
+      "browser_stats": {
+        "duration": 56566.820999999996,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 4,
+        "startTime": "2026-11-25T15:52:33.244Z",
+        "unexpected": 1
+      },
+      "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+      "exit_code": 1,
+      "finished_utc": "2026-11-25T15:53:29.954856+00:00",
+      "full_feature_gate_pass": false,
+      "positive_closed_before_and_after_copy": true,
+      "raw_bytes_each_side": 620520,
+      "raw_pairs": 3,
+      "run": "issue161-connected-reading-native2",
+      "run_root": "/tmp/neistra161-connected-reading-native2",
+      "source_archive_original_prelaunch_emission": true,
+      "source_before_after_fixed": true,
+      "source_count": 1222,
+      "source_zip_sha256": "eef957dab6d81d33b41e1de542b737271a01625190858ad836175758b0ce912f",
+      "started_utc": "2026-11-25T15:52:31.286950+00:00",
+      "unrun": 4
+    },
+    {
+      "actual_results": {
+        "passed": 6
+      },
+      "browser_cases": [
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains the logical reading point through actual responsive reflow and clears hidden entry visits"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains connected edit reading when properties precede the current header (light)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains connected edit reading when properties precede the current header (dark)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains the logical reading point through actual responsive reflow and clears hidden entry visits"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains connected edit reading when properties precede the current header (light)"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-information-reading.spec.ts",
+          "project": "mobile-chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "retains connected edit reading when properties precede the current header (dark)"
+        }
+      ],
+      "browser_error_count": 0,
+      "browser_stats": {
+        "duration": 73981.22499999999,
+        "expected": 6,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-25T15:54:35.507Z",
+        "unexpected": 0
+      },
+      "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+      "exit_code": 0,
+      "finished_utc": "2026-11-25T15:55:49.650707+00:00",
+      "full_feature_gate_pass": false,
+      "positive_closed_before_and_after_copy": true,
+      "raw_bytes_each_side": 1539280,
+      "raw_pairs": 3,
+      "run": "issue161-connected-reading-native3",
+      "run_root": "/tmp/neistra161-connected-reading-native3",
+      "source_archive_original_prelaunch_emission": true,
+      "source_before_after_fixed": true,
+      "source_count": 1222,
+      "source_zip_sha256": "48fd896d7f9a92a47b2245e64313db9ba1327269d709adb6080b65d414d90f22",
+      "started_utc": "2026-11-25T15:54:33.541546+00:00",
+      "unrun": 0
+    },
+    {
+      "actual_results": {
+        "failed": 1,
+        "passed": 7
+      },
+      "browser_cases": [
+        {
+          "expected_status": "passed",
+          "file": "ligand-profiles-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-profiles-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "measures cancellation feedback and retains cancellation after an actual accepted demand replies late"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [
+            {
+              "errors": [
+                {
+                  "location": {
+                    "column": 3,
+                    "file": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-properties-performance.spec.ts",
+                    "line": 240
+                  },
+                  "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeDefined\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mundefined\u001b[39m\n\nCall Log:\n- Timeout 15000ms exceeded while waiting on the predicate\n\n  238 |   retirementMs: number | null; retirementRelativeToResponseMs: number | null; retirementQualification: string;\n  239 |   responseToCurrentMs: number | null; responseToVisibleCurrentMs: number | null; feedbackMs: number | null; cachedPresentationMs: number | null }> {\n> 240 |   await expect.poll(() => page.evaluate(() => window.ligandPropertyPerformance.sample?.visibleReady)).toBeDefined();\n      |   ^\n  241 |   const { sample, requests, clock } = await page.evaluate(() => ({ sample: window.ligandPropertyPerformance.sample!, requests: window.ligandPropertyPerformance.requests,\n  242 |     clock: { installed: window.ligandPropertyPerformance.clock, observed: window.ligandPropertyPerformance.readClock() } }));\n  243 |   expect(sample.started).toBeDefined(); expect(sample.visibleReady).toBeDefined();\n    at timing (/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-properties-performance.spec.ts:240:3)\n    at actualEdit (/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-properties-performance.spec.ts:437:17)\n    at /datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/tests/e2e/ligand-properties-performance.spec.ts:653:26"
+                }
+              ],
+              "retry": 0,
+              "status": "failed"
+            }
+          ],
+          "title": "measures five cold browser contexts and twenty paired actual ligand edits with current-input recovery"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "measures cancellation feedback and retains cancellation after an actual accepted demand replies late"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "prioritizes an actual active edit while repeated 1000-entry descriptor demand and an ordinary job progress"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-properties-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "prioritizes an actual active edit while distinct 1000-entry descriptor demand and an ordinary job progress"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-sidebar-performance.spec.ts",
+          "project": "chromium",
+          "results": [
+            {
+              "errors": [],
+              "retry": 0,
+              "status": "passed"
+            }
+          ],
+          "title": "measures exact primary header/image and comparison readiness, settled reopening and hidden automatic edit"
+        },
+        {
+          "expected_status": "passed",
+          "file": "ligand-sidebar-performance.spec.ts",
+          "project": "mobile-chromium",
+          "results": [],
+          "title": "measures exact primary header/image and comparison readiness, settled reopening and hidden automatic edit"
+        }
+      ],
+      "browser_error_count": 1,
+      "browser_stats": {
+        "duration": 865249.963,
+        "expected": 7,
+        "flaky": 0,
+        "skipped": 4,
+        "startTime": "2026-11-25T15:56:54.443Z",
+        "unexpected": 1
+      },
+      "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+      "exit_code": 1,
+      "finished_utc": "2026-11-25T16:11:20.002001+00:00",
+      "full_feature_gate_pass": false,
+      "positive_closed_before_and_after_copy": true,
+      "raw_bytes_each_side": 19276944,
+      "raw_pairs": 3,
+      "run": "issue161-connected-reading-native4",
+      "run_root": "/tmp/neistra161-connected-reading-native4",
+      "source_archive_original_prelaunch_emission": true,
+      "source_before_after_fixed": true,
+      "source_count": 1222,
+      "source_zip_sha256": "58b9d32d8ebd1e7f5e3e135db89d72ce8b9b03c6efc3bedb74328d51ce273d82",
+      "started_utc": "2026-11-25T15:56:52.466760+00:00",
+      "unrun": 4
+    }
+  ],
+  "scope": "Three complete terminal histories, their entire frozen shared preparation and exact eight new native4 companion trees; source-bound focused/failed evidence, not full feature qualification.",
+  "separate_publication_required": true,
+  "source_archive_count": 3,
+  "source_body_hash_checks": 3666,
+  "strict_part_limit_exclusive": 83886080
+}

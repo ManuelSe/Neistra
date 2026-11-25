@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import type { Project } from "../../apps/web/src/api/types";
+import type { PropertyPreferences } from "../../apps/web/src/ligandProperties/types";
 import { prepare } from "./support/interactions";
 import { openInspectorTools, openLigandInformation } from "./support/navigation";
 
@@ -88,5 +89,85 @@ test("retains the logical reading point through actual responsive reflow and cle
     }
   } finally {
     await info.attach("inspector-responsive-reading-boundaries", { body: JSON.stringify(records), contentType: "application/json" });
+  }
+});
+
+for (const theme of ["light", "dark"] as const) test(`retains connected edit reading when properties precede the current header (${theme})`, async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 900, height: 600 });
+  const preferencePath = "/api/v1/workspace/ligand-property-preferences";
+  const originalPreferences = await (await request.get(preferencePath)).json() as PropertyPreferences;
+  if (!originalPreferences.enabled_categories.includes("composition")) {
+    expect((await request.put(preferencePath, { data: { expected_revision: originalPreferences.revision,
+      enabled_categories: [...originalPreferences.enabled_categories, "composition"] } })).ok()).toBe(true);
+  }
+  let release!: () => void, captured!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const requested = new Promise<void>(resolve => { captured = resolve; });
+  const records: object[] = [];
+  try {
+    const project = await prepare(page, request, [{ name: "connected-reading.smi", mimeType: "chemical/x-daylight-smiles",
+      buffer: Buffer.from("CCO ethanol\n") }], `Connected edit reading ${theme}`);
+    const entry = project.entries[0], endpoint = `/api/v1/projects/${project.id}`;
+    const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
+    const toggle = page.getByRole("button", { name: `Use ${theme} theme`, exact: true });
+    if (await toggle.isVisible()) await toggle.click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+    await openInspectorTools(page);
+    await inspector(page).getByRole("tab", { name: "selection", exact: true }).click();
+    await inspector(page).getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
+    await inspector(page).getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
+    await inspector(page).getByRole("button", { name: "Apply query", exact: true }).click();
+    await openLigandInformation(page);
+    await inspector(page).getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
+    const carbon = page.locator(".ligand-information .ligand-properties-groups dt").filter({ hasText: /^Carbon atoms$/ });
+    const value = carbon.locator("..").locator("dd");
+    await expect(value).toHaveText("2", { timeout: 30_000 });
+    await expect(page.locator(".ligand-designated-composition")).toContainText("C2H6O");
+    await expect(page.locator(".ligand-candidate-depiction")).toBeVisible();
+    await carbon.scrollIntoViewIfNeeded();
+    const owner = inspector(page).locator(".inspector-scroll");
+    await owner.hover(); await page.mouse.wheel(0, Math.round((await reading(carbon)).offset - 8)); await frames(page);
+    const before = await reading(carbon);
+    expect(before.top).toBeGreaterThan(100); expect(before.offset).toBeGreaterThanOrEqual(0);
+    expect(before.bottom).toBeLessThanOrEqual(before.viewport);
+    await page.route(url => url.pathname === `${endpoint}/entries/${entry.id}/ligand-candidates`
+      && url.searchParams.get("expected_artifact_id") !== entry.current_artifact_id, async route => {
+      const response = await route.fetch(); captured(); await held; await route.fulfill({ response });
+    });
+    await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+    const editor = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+    const accepted = page.waitForResponse(response => response.request().method() === "POST"
+      && response.url().endsWith(`/entries/${entry.id}/model-edits`));
+    await editor.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
+    const acknowledgement = await accepted; expect(acknowledgement.ok()).toBe(true);
+    const next = (await acknowledgement.json() as { project: Project }).project;
+    const changed = next.entries.find(item => item.id === entry.id);
+    expect(changed?.current_artifact_id).not.toBe(entry.current_artifact_id);
+    expect(changed?.ligand_designation.instance_id).toBe(entry.ligand_designation.instance_id);
+    await requested;
+    await expect(value).toHaveText("1", { timeout: 30_000 });
+    await expect(page.locator(".ligand-designated-composition")).toHaveCount(0);
+    await editor.getByRole("button", { name: "Close molecular editor", exact: true }).click();
+    expect(await page.evaluate(() => !!document.activeElement?.closest(".inspector-scroll"))).toBe(false);
+    records.push({ phase: "properties-ready-header-held", before, current: await reading(carbon), entry: changed });
+    await info.attach(`connected-edit-${theme}-header-held`, { body: await page.screenshot(), contentType: "image/png" });
+    release();
+    await expect(page.locator(".ligand-designated-composition")).toContainText("CH5NO", { timeout: 30_000 });
+    await expect(page.locator(".ligand-candidate-depiction")).toBeVisible(); await frames(page);
+    const after = await reading(carbon); records.push({ phase: "header-settled", after });
+    expect(Math.abs(after.offset - before.offset)).toBeLessThanOrEqual(1);
+    expect(after.offset).toBeGreaterThanOrEqual(0); expect(after.bottom).toBeLessThanOrEqual(after.viewport);
+    await expect(value).toHaveText("1");
+    expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
+    await info.attach(`connected-edit-${theme}-settled`, { body: await page.screenshot(), contentType: "image/png" });
+  } finally {
+    release(); await page.unrouteAll({ behavior: "wait" });
+    const current = await (await request.get(preferencePath)).json() as PropertyPreferences;
+    if (JSON.stringify(current.enabled_categories) !== JSON.stringify(originalPreferences.enabled_categories)) {
+      expect((await request.put(preferencePath, { data: { expected_revision: current.revision,
+        enabled_categories: originalPreferences.enabled_categories } })).ok()).toBe(true);
+    }
+    await info.attach("connected-edit-reading", { body: JSON.stringify(records), contentType: "application/json" });
   }
 });
