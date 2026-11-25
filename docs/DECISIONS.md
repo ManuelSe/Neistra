@@ -10633,3 +10633,15 @@ preserve original started/READY/visible stamps and presentationOpened, and inclu
 navigation in original visible and open-to-visible cache latency. Retain every
 scientific/source/cache/workload assertion, original deadline and100ms/2s/5s budget.
 This is a benchmark presentation adaptation, not a production change or speedup.
+
+D-193 preceding-reader environment: the third complete candidate attempt reaches
+the reader boundary after 40 passing commands, then correctly refuses scientific
+library paths resolved through the preceding extraction's shared environment
+symlink. Equal locks and equal installed bodies do not satisfy the existing strict
+per-slot path contract. Preserve the failed run and that contract. Each literal
+preceding extraction used for qualification must own a real locked environment;
+verify canonical worker/library paths and hashes before the expensive complete
+gate. A fresh owned extraction passes actual provenance, 14 negative controls and
+both focused reader workflows. Those checks remain separate from the required
+complete candidate and actual-merged gates. No application, dependency-version,
+migration, scientific method or compatibility boundary changes.

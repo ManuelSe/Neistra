@@ -3,8 +3,10 @@
 ## Current milestone
 
 Parent #11 continues through exactly eight required children. #156–#160 are
-delivered. #161 has a passing local connected-reading correction and targeted
-performance campaign; the fresh complete candidate gate is next. #162 has tested
+delivered. #161's third complete candidate attempt passes 40 commands, including the
+full browser command, then fails the preceding-reader environment check. A fresh
+owned predecessor environment and both actual reader workflows now pass; the next
+complete candidate gate remains required. #162 has tested
 filtering/acquisition foundations in its isolated checkout; #163 remains planned.
 
 ## Completed work
@@ -45,7 +47,8 @@ There are79unenforced target misses across410portable timing comparisons,
 including20/20compact cache reopens above100ms; no strict-host certification.
 
 All failed and deliberately interrupted histories retain their actual status.
-Forty-nine forensic parts total3,146,594,653bytes; each is strictly below80MiB.
+Earlier histories retain forty-nine forensic parts totaling3,146,594,653bytes;
+each is strictly below80MiB.
 Separate publication and full anonymous readback remain required. Independent
 relocation audit resolves all23,601candidate2 originals through explicit mappings;
 20owned untracked label entries moved losslessly and original capture/index bytes
@@ -58,6 +61,47 @@ actual public038baseline, DATA6, original responsibilities and exclusions. Its
 launcher passes23pure failure controls, including two meaningful old-flow failures;
 this does not prove an executed gate. Actual bounded architecture/UX/performance
 assessments pass their recorded scopes. All-seven final feature review remains open.
+
+Candidate3 exits 1 after 40 passing commands. Its browser command passes 641 cases
+with 75 reported exclusions, zero retries and no report errors. Editing-reader
+provenance correctly rejects the preceding source's shared dependency symlink;
+the final property-reader and diff responsibilities are unrun. No full-gate pass
+or v0.39.0 publication is claimed.
+
+Independent architecture readback verifies failed-run custody: 42 actual sessions,
+three ports, twelve companion trees and 66 fresh byte/SHA-exact raw pairs totaling
+88,194,616 bytes per side. Strong process closure occurs before and after copying;
+all 1,222 current and 1,183 preceding source bodies remain exact. Historical weaker
+copies and receipts stay preserved and the new authority explicitly retains
+scientific qualification false. No primary diagnostic SQL is used.
+
+A fresh literal v0.38.0 extraction owns its real locked dependency environment. Actual
+worker/persisted-library provenance and 14 negative controls pass, including rejection
+of the old symlink and mutually agreeing out-of-slot proofs. Independent architecture
+assessment passes this setup correction. Both focused editing and property reader
+workflows then pass on fresh isolated stores; strong closure precedes 69 exact raw
+pairs totaling 19,797,744 bytes per side. These focused checks do not replace the next
+complete 43-command gate.
+
+The complete failed candidate3 archive adds five parts totaling 287,698,268 bytes;
+the largest is 82,503,169 bytes, strictly below the existing 83,886,080-byte limit.
+Independent audit verifies 7,777 original files, 220 empty directories, all source,
+raw, companion and authority references, and every recursive archive/manifest/union.
+The first packager's ordering-only audit failure and unchanged four parts remain;
+a fifth small part retains the correction and failed logs. Scientific qualification
+remains false. All 54 retained forensic parts require separate publication/readback.
+
+After audit, 60 owned untracked label entries move by journalled same-filesystem
+rename. Independent readback verifies all 793 relocated files/227,625,257 bytes and
+resolves every captured original and empty directory through the mapping; device,
+inode, mode, mtime and SHA remain exact. The immutable forensic index and capture
+are unchanged. Use the new relocation mapping; do not rerun old-path readers.
+
+The next launcher preserves the exact 43 responsibilities and owned predecessor
+source. Independent source review corrects uncertain constructor outcomes, external
+companion coverage and exact recipe-prefix completeness. All 23 inherited controls
+and 18 additional cases pass. This is source preparation; actual qualification and
+strong success-collector review/readback remain required.
 
 ## Known limitations
 
@@ -73,8 +117,10 @@ No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Commit this coherent passing correction with the fresh candidate3recipe, then run
-all43commands from that clean candidate. Complete final reviews, normal PR/merge,
+Package the complete failed candidate3history under the existing strict part limit,
+retaining original and stronger diagnostic-copy authority. Prepare the fresh
+candidate4recipe/launcher with the owned predecessor environment, then run all43
+commands from its clean candidate. Complete final reviews, normal PR/merge,
 fresh exact-merged qualification and immutable039release/all-asset readback before
 161closeout and owned cleanup. Continue162,163 and final parent acceptance under
 the same active Goal.

@@ -1145,3 +1145,99 @@ full43candidate gate has not yet run. All-seven final same-candidate assessments
 push/normal PR/protected merge, fresh actual-merged43gate, immutable039tag/release,
 full anonymous asset verification, child closeout and owned cleanup remain open.
 162/163 and final parent acceptance continue under the same Goal afterward.
+
+### C4 — Candidate3 preceding-reader environment failure and correction
+
+Candidate `78f0dedd6624923498c7b0f2bcb5a1ee2cd54a19` completes 40 commands,
+including the complete 716-case browser inventory: 641 passes, 75 reported exclusions,
+zero retries and no report errors. Step 41, `editing-readers`, fails during preceding
+`old-write` provenance; `property-readers` and `diff` remain unrun. The preceding
+source's `.venv` deliberately shared current locked dependencies through a symlink,
+while the frozen protocol requires canonical scientific-library bodies beneath
+each slot's own environment. Authority and actual proof agree; the path violates
+the strict contract. No unexpected import or dependency-body difference is inferred.
+Preserve the failure and retain the existing provenance requirement.
+
+The separate failed-run diagnostic adapter passes 7 new and 11 inherited pure controls.
+Actual strong closure/copy capture and independent architecture readback pass:
+42 recorded sessions, ports 8340/8341/5423, exact four inspection exceptions,
+12 snapshot-discovered companion trees, 66 fresh raw pairs/88,194,616 bytes per side,
+56 primary-database sidecar declarations, 1,222 current/1,183 preceding source bodies
+and 41 lossless step logs. No primary diagnostic SQL is used. The receipt and explicit
+authority index keep scientific qualification false; original weaker copies remain
+historical. Companion PID-manifest and pinned-inspection limitations remain recorded.
+
+The diagnostic receipt is
+`.issue-11-evidence/issue161-c4-candidate3-failed-terminal-retention1/receipt.json`
+(SHA256 `889c6b8493c29df3b0014471b26d6aec055eabe59e32a6bb2f664d7f4a810573`).
+Its authority index SHA256 is
+`43adf4120f6d9577f11a331434f1d056bd20c3659b601e1d28ceac4934148c2a`.
+The actual communicated architecture assessment is retained separately under
+`.issue-11-evidence/issue161-c4-candidate3-terminal-review1/`.
+Complete original/native/companion packaging and separate publication remain open.
+
+Fresh extraction `.issue-11-evidence/issue161-actual038-source2/source` retains all
+1,183 literal tagged bodies and owns a real locked `.venv`. Frozen sync and offline
+checks pass with 49 installed distributions. Actual worker and persisted-library
+provenance pass 14 negative controls, including old symlink rejection and agreeing
+authority/proof substitutions outside the selected slot. Scientific-library hashes
+match current locked bodies with distinct inodes. Independent architecture review
+passes this bounded correction. The extraction receipt SHA256 is
+`8efbe622b9fe582a7735d3a99a84408a9d56eb07f0c8f8bcec17efe786fbb03b`.
+The old extraction and current environment remain untouched.
+
+Both actual focused reader workflows subsequently pass using source2 on fresh
+isolated stores. Their unchanged helper runs all three current/previous/current
+phases and verifies every report. Strong closure before and after copying retains
+69 raw pairs/19,797,744 bytes per side without primary diagnostic SQL. Evidence is
+`.issue-11-evidence/issue161-reader-environment-preflight1/receipt.json`.
+These checks address the observed setup failure; they do not substitute for the
+required fresh complete candidate and actual-merged 43-command gates, final all-seven
+same-candidate assessment or verified publication.
+
+### C4 — Failed-history closeout and next complete candidate
+
+Actual independent forensic audit passes the complete candidate3 capture: 7,777
+original files/1,009,923,714 bytes, 220 empty directories, 12 exact companions and
+144 packaged authority references. Five separate parts total 287,698,268 bytes;
+the largest is 82,503,169, strictly below 83,886,080. Full readback covers the exact
+7,789-payload disjoint union, 377 ZIP layers, 7,799 manifest entries and 805 project
+files. The original packager's ordering-only audit failure, source/logs and first
+four archives remain unchanged; the fifth 9,149-byte part retains the correction.
+The immutable [forensic index](../assets/ligand-information/c4-candidate3-forensics-index.json)
+has SHA256 `f3fbb1075b9532b82c3f8df7d74e49d56ac5b3cccb49ae7d5073134993472ed3`.
+Scientific qualification and publication remain false.
+
+The subsequent owned relocation passes independent source and actual readback:
+60 untracked label entries, including 793 files/227,625,257 bytes, retain exact
+device/inode/mode/mtime/size/SHA. All 7,777 captured originals and 220 empty
+directories resolve through the journalled mapping. The forensic index and capture
+remain byte-identical. The small
+[mapping packet](../assets/ligand-information/c4-candidate3-relocation-readback.json)
+preserves the complete plan/journal/readback and audit. Do not rerun old-path readers.
+All 54 retained forensic parts still require separate publication and anonymous
+full readback.
+
+The new [candidate4 recipe](../assets/ligand-information/c4-candidate4-recipe.json)
+preserves all 43 responsibilities, exclusions, scientific inputs and deadlines,
+changing only owned run/output and predecessor-extraction paths. Independent review
+of the complete launcher, scanner and controls corrects three bookkeeping gaps:
+unobserved attempted launch remains uncertain and cannot grant terminal-copy
+authority; new companion bodies must be directories with explicit database coverage;
+and completeness binds the exact ordered recipe prefix, commands and environments.
+Malformed metadata preserves actual readable positive IDs and diagnostic retention
+but refuses qualification. All 23 inherited controls and 18 additional cases pass,
+including meaningful old-flow negatives. Recipe SHA256 is
+`4c7dff39b1642602f1e1c270f2cd53bb684134418cde07a91b02e9c18e11eb65`;
+the deployed launcher SHA256 is
+`6172c7c9ad606959e7a95b5b93d8b7585c2d384e4658759aa485c6baaf69a8f6`.
+
+This is a coherent metadata/preparation checkpoint, with unchanged application
+source. Actual complete candidate4 execution and strong terminal/readback evidence
+remain required. A separate corrected success collector must consume the actual
+zero wrapper result, complete strong raw receipt and absence of late metadata,
+process or copy errors; early execution metadata alone is insufficient. Its source
+preparation remains separate. The unrun live launcher-failure experiment adds no C4
+gate; the independently accepted #162 coordinator-failure campaign remains required
+for that child. Final all-seven feature review, normal protected merge, fresh
+actual-merged qualification and verified release/closeout remain outstanding.
