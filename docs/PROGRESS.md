@@ -4,8 +4,9 @@
 
 Parent #11 continues through all eight required children. #156–#160 are delivered.
 #161 has a local sidebar implementation and focused corrective verification;
-all50sidebar native cases pass; full release qualification remains open.
-#162/#163 are planned/unimplemented.
+all50sidebar native cases pass. The first complete candidate campaign stopped
+on a retained native driver race; full release qualification remains open.
+#162 has a tested C1 foundation in its isolated checkout; #163 remains planned.
 
 ## Completed work
 
@@ -54,6 +55,29 @@ version/dependency/schema audit and53archive cases pass. Python runtime source h
 not changed since that preparation. Actual public038baseline verifies585pass,
 exact75exclusions/660outcomes,43commands and1,183source bodies; DATA6 is retained.
 
+The clean42b8139f candidate campaign passes its first15commands, including
+4,266Python cases with zero skips,2,069frontend cases,14supervisor cases and
+712browser discovery instances. Browser execution then preserves118passes,
+3original skips,1timeout and590unrun cases. This is a failed/incomplete43-command
+qualification. All1,221current and1,183preceding sources remain unchanged. Strict
+process/port closure and48raw copies precede diagnostics. Complete failed-run
+forensics are retained separately; independent readback passes. Separate eventual
+publication and anonymous readback remain required.
+
+Trace inspection identifies an actual200→100browser-zoom driver race: the viewport
+changes before React replaces the compact shell. The helper chooses a launcher
+that then detaches. Await matching rendered breakpoint topology before choosing
+the launcher. No production behavior, original assertion or deadline changes.
+Eleven native inputs pass strict typing/lint; all six original profile-access and
+permanent zoom cases pass in both runner contexts, with zero skips/retries/errors.
+Sources stay fixed and strict closure precedes three raw copies. Independent
+readback verifies the51,538,000byte retained part,44originals/12empty directories,
+1,221source bodies and32PNG/sixJSON attachment hashes. The failed originals are
+relocated on the same filesystem with inode/metadata/byte/SHA preservation and
+independent mapping verification; immutable capture/index bytes remain unchanged.
+All seven whole-source assessments pass42b8139f, but final runtime review and
+intervening-diff reconfirmation remain mandatory.
+
 ## Known limitations
 
 Primary/inherited performance, scientific/source/resource proofs,
@@ -68,7 +92,7 @@ No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Commit the coherent focused correction and run the prepared complete43-command
-candidate gate from its clean checkpoint. Continue mandatory performance/compatibility,
+Commit the passing bounded correction and readback checkpoint, then run the
+prepared fresh complete43-command candidate gate. Continue mandatory performance/compatibility,
 full gates, final reviews, normal merge and verified039release/closeout for161.
 Then deliver162,163 and parent closeout under the same active Goal.

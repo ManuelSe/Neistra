@@ -2,10 +2,14 @@ import { expect, type Page } from "@playwright/test";
 
 async function inspector(page: Page) {
   const panel = page.getByRole("region", { name: "Project inspector", exact: true });
+  const mobile = page.getByRole("button", { name: "Inspector", exact: true });
+  const compact = await page.evaluate(() => matchMedia("(max-width: 840px)").matches);
+  // Browser zoom publishes its viewport before React replaces the shell. Wait
+  // for the matching topology before choosing a launcher that could disappear.
+  await expect(mobile).toHaveCount(compact ? 1 : 0);
   if (!await panel.isVisible()) {
-    const mobile = page.getByRole("button", { name: "Inspector", exact: true });
     const expand = page.getByRole("button", { name: "Expand inspector", exact: true });
-    if (await mobile.isVisible()) await mobile.click();
+    if (compact) await mobile.click();
     else if (await expand.isVisible()) await expand.click();
   }
   await expect(panel).toBeVisible();

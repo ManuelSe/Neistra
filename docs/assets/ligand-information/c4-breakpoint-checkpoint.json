@@ -1,0 +1,94 @@
+{
+  "recorded_utc": "2026-11-25T14:06:51.987364+00:00",
+  "comparison_commit": "42b8139f00492e57c05d3516cf24233be51a4fed",
+  "scope": "Native-driver rendered-breakpoint observation correction only; no production or scientific source change",
+  "helper": {
+    "path": "tests/e2e/support/navigation.ts",
+    "bytes": 2372,
+    "sha256": "a8ddc8844525c210c6bd4a95e483509d423a62db055eb97ea7f868735c3c2d56"
+  },
+  "original_failure": {
+    "candidate": "42b8139f00492e57c05d3516cf24233be51a4fed",
+    "full_gate_pass": false,
+    "passed_prefix_commands": 15,
+    "Python_cases": 4266,
+    "Python_skips": 0,
+    "frontend_cases": 2069,
+    "supervisor_cases": 14,
+    "browser_discovery": 712,
+    "browser_outcomes": {
+      "passed": 118,
+      "authored_skipped": 3,
+      "timedOut": 1,
+      "unrun": 590
+    },
+    "positive_closed": true,
+    "raw_pairs": 48,
+    "current_sources": 1221,
+    "previous_sources": 1183,
+    "source_maps_fixed": true,
+    "independent_forensic_readback": {
+      "path": "docs/assets/ligand-information/c4-candidate1-forensic-readback.json",
+      "bytes": 2639,
+      "sha256": "75d50de08797231e8a73c2390936be9aab5c688a0383a889d0dc52b7810418cd"
+    },
+    "forensic_index": {
+      "path": "docs/assets/ligand-information/c4-candidate1-forensics-index.json",
+      "bytes": 9704,
+      "sha256": "64ed58d86668d0148e002a87a96b6c7010709b8139084ad6aa840c9919461650"
+    }
+  },
+  "diagnosis": "Actual200-to100browserzoom publishes1440pxviewport before React replaces compact shell. Helper selected mobile Inspector launcher, detached during actionability; trace call38440 waited unchanged240s. Await actualmedia/renderedlauncher-count agreement before mode-specific click.",
+  "unchanged": "Production code, scientific/source/focus/reading/accessibility assertions, native clicks, deadlines, case count and exclusions",
+  "focused_checks": {
+    "strict_types_and_type_aware_lint_inputs": 11,
+    "receipt": {
+      "path": ".issue-11-evidence/issue161-profile-access-correction1/static1/receipt.json",
+      "bytes": 101,
+      "sha256": "d35609d6f4dd97da753b472c5042cff2311c1b86767c5bc10f76dc7acdc3c537"
+    },
+    "native_cases": 6,
+    "native_report": {
+      "path": ".issue-11-evidence/issue161-profile-access-native1/browser.json",
+      "bytes": 5341801,
+      "sha256": "1487b3bdb6702bd9467ee0a2db760d14a44eccf588b274496c3fd66ff62bbd55"
+    },
+    "source_count": 1221,
+    "source_unchanged": true,
+    "positive_closed": true,
+    "raw_pairs": 3,
+    "skip_fail_retry_flake_errors": 0,
+    "original_50_sidebar_application_evidence_unchanged": true,
+    "native_index": {
+      "path": "docs/assets/ligand-information/c4-profile-access-forensics-index.json",
+      "bytes": 2589,
+      "sha256": "ab4e9c78d8991a4d42237e4b23245a7e4aa3da64574dda142629d6e8d4720670"
+    },
+    "independent_readback": {
+      "path": "docs/assets/ligand-information/c4-profile-access-forensic-readback.json",
+      "bytes": 1363,
+      "sha256": "9b4ca6bcf98fcbc2dd31157071114952742ebac48e7e1ff2bde7f6fc6adfc574"
+    }
+  },
+  "source_phase_reviews": {
+    "candidate": "42b8139f00492e57c05d3516cf24233be51a4fed",
+    "all7_verdicts": "PASS sourcephase only",
+    "ledger": {
+      "path": ".issue-11-evidence/issue161-whole-candidate-review1/source-assessments.json",
+      "bytes": 8991,
+      "sha256": "d271c2cc140628abdcbb02604011aa0b69554422bdb5cdc1e98fc50fccc69d5b"
+    },
+    "final_all7_runtime_gate_complete": false,
+    "requires_all7_intervening_diff_and_final_runtime_reconfirmation": true
+  },
+  "next_recipe": {
+    "path": "docs/assets/ligand-information/c4-candidate2-recipe.json",
+    "bytes": 51781,
+    "sha256": "e15371944875a780f1be305c36f7400d641a559a35291bd1ec780ac3a220b632"
+  },
+  "next_gate_responsibilities": 43,
+  "release_published": false,
+  "application_version": "0.39.0",
+  "schema_head_unchanged": "0017",
+  "next": "Fresh complete clean-candidate43 gate; final all7 review; normal PR/merge and fresh actualmerged43; immutable039release/allassets/closeout/cleanup;162/163/parentcloseout"
+}

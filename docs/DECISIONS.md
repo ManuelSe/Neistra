@@ -10534,3 +10534,19 @@ CDP full-surface compositor capture, retain PNG dimensions beside actual zoom/DP
 and viewport values, and assert horizontal bounds and hit testing for resumed
 headings. Preserve original cropped captures and numeric results; fresh permanent
 browser cases must provide uncropped images before visual reconfirmation.
+
+
+D-193 rendered breakpoint observation: the first complete161candidate campaign
+retains118native passes but times out at the profile-access driver's compact
+Inspector click after actual200→100browser zoom. The viewport is1440pixels wide
+while the compact React tree remains briefly mounted. The launcher detaches during
+normal click actionability and will not return in the restored desktop shell.
+Independent trace/source inspection establishes a driver observation race rather
+than a production property or focus failure. At shared Inspector helper entry,
+read actual media state and await the corresponding launcher count before choosing
+its mode-specific action. Preserve actual clicks, original accessibility/scientific/
+reading assertions and deadlines; do not force interaction or enlarge timeouts.
+Retain the entire failed campaign, including intermediate native artifacts and all
+raw stores. Source ZIPs reconstructed afterward are explicitly labelled derived
+from exact candidate/predecessor Git blobs matching the original frozen maps.
+They are not claimed to have been emitted by the original campaign.

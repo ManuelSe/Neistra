@@ -1,0 +1,60 @@
+{
+  "all_ZIP_CRC_manifest_and_nested_layers_verified": true,
+  "all_originals_preserved_and_rehashed": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "bounded_six_case_pass": true,
+  "browser_error_count": 0,
+  "browser_original_stats": {
+    "duration": 126056.052,
+    "expected": 6,
+    "flaky": 0,
+    "skipped": 0,
+    "startTime": "2026-11-25T13:58:32.079Z",
+    "unexpected": 0
+  },
+  "candidate": "42b8139f00492e57c05d3516cf24233be51a4fed",
+  "capture_member": "issue161-profile-access-native1/capture.json",
+  "capture_sha256": "943448db522388f1691e9bde364c2e3708e79a9b6c83b78eb5131ce10b214fb1",
+  "empty_directories": 12,
+  "exact_source_zip_map_verified": true,
+  "full_feature_or_release_gate_pass": false,
+  "independent_readback_required": true,
+  "new_external_case_directories": 0,
+  "no_original_tree_exclusions": true,
+  "no_primary_SQL_used": true,
+  "original_mode_and_mtime_preserved": true,
+  "outer_exact_union_verified": true,
+  "packager_sha256": "81bae1bd9302bce10d4bb728bb91574a96e6f5a067b69499952aeafa40fbdb57",
+  "part_bytes": 51538000,
+  "part_count": 1,
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "bytes": 51538000,
+      "campaign": "issue161-profile-access-native1",
+      "checksum_file": "c4-profile-access-forensics-01.zip.sha256",
+      "checksum_sha256": "b0854aaac4a884a77ffcadc1b694169dfcb9c2814529bdce88a939b345fecb52",
+      "file": "c4-profile-access-forensics-01.zip",
+      "outer_manifest_entries": 46,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-profile-access-retention1/parts/c4-profile-access-forensics-01.zip",
+      "runner_exit_code": 0,
+      "sha256": "f6d1570f17e5e26048f2c009de44e73c2cd9923a4c81efac1221e74d4ad0d875",
+      "verification_counts": {
+        "evidence_manifest_entries": 51,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    }
+  ],
+  "physical_original_bytes": 57428670,
+  "physical_original_files": 44,
+  "publication_verified": false,
+  "raw_original_copy_bytes_SHA_mode_and_mtime_verified": true,
+  "raw_pairs": 3,
+  "recorded_utc": "2026-11-25T14:03:26.737869+00:00",
+  "runner_exit_code": 0,
+  "scope": "Complete original terminal six-case profile-access and permanent zoom correction campaign, both runner contexts, original prelaunch source ZIP, stores/raw copies and launcher/static11input evidence. Focused native verification only.",
+  "separate_publication_required": true,
+  "source_body_hashes": 1221,
+  "static_lint_inputs": 11
+}

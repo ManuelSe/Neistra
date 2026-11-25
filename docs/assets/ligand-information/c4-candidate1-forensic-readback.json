@@ -1,0 +1,70 @@
+{
+  "verdict": "PASS",
+  "role": "software_architecture",
+  "agent": "/root/issue161_profile_access_timeout_trace",
+  "subject": "Failed c4-candidate1 full original forensic union; not qualification or publication",
+  "independent_audit": {
+    "parts": 10,
+    "part_bytes": 775411759,
+    "maximum_part_bytes": 82098093,
+    "strict_part_limit_exclusive": 83886080,
+    "outer_payloads": 19968,
+    "original_files": 19963,
+    "original_bytes": 989375081,
+    "empty_directories": 99,
+    "raw_pairs": 48,
+    "raw_bytes_each_side": 20576648,
+    "recursive_ZIP_layers": 37,
+    "evidence_manifest_entries": 19978,
+    "project_files": 28,
+    "source_members": 2404,
+    "current_Git_commit": "42b8139f00492e57c05d3516cf24233be51a4fed",
+    "previous_Git_commit": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+    "current_sources": 1221,
+    "previous_sources": 1183,
+    "derived_source_provenance_verified": true,
+    "fixture_reports": 44,
+    "actual_outcomes": {
+      "passed": 118,
+      "authored_skipped": 3,
+      "timedOut": 1,
+      "unrun": 590
+    },
+    "all_original_mode_mtime_byte_SHA_verified": true,
+    "all_checksums_CRC_manifests_union_verified": true,
+    "no_primary_SQL": true
+  },
+  "index": {
+    "path": "docs/assets/ligand-information/c4-candidate1-forensics-index.json",
+    "sha256": "64ed58d86668d0148e002a87a96b6c7010709b8139084ad6aa840c9919461650"
+  },
+  "post_audit_original_relocation": {
+    "packet": {
+      "file": "c4-candidate1-relocation-evidence.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c4-candidate1-relocation-evidence.zip",
+      "bytes": 1179922,
+      "sha256": "946e3890ad03f8f15a35c5454bf74f9ac9b158d0b893ef04e6a9112a493718bb",
+      "outer_manifest_entries": 1,
+      "verification_counts": {
+        "zip_archives": 1,
+        "evidence_manifest_entries": 1,
+        "project_archive_files": 0
+      }
+    },
+    "top_level_entries": 20,
+    "original_files": 19443,
+    "original_bytes": 841289591,
+    "same_inodes_modes_mtimes_bytes_hashes": true,
+    "full_mapping_member": "relocation.json",
+    "old_path_readers_must_not_be_rerun": true,
+    "independent_reassessment": {
+      "agent": "/root/issue161_profile_access_timeout_trace",
+      "verdict": "PASS",
+      "all19963_originals_resolved_and_verified": true,
+      "renamed_directories": 81,
+      "original_capture_and_index_bytes_unchanged": true,
+      "no_old_path_reader_rerun": true
+    }
+  },
+  "remaining": "Separate parts/checksums publication and anonymous full readback; complete fresh qualification and final feature review"
+}

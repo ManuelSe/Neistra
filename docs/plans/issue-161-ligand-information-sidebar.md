@@ -964,3 +964,42 @@ remaining work. These local checks do not establish full feature readiness, all-
 final approval, a push/PR/merge/release or delivered161. Mandatory primary/inherited
 performance, compatibility, candidate/actual-merged43-command gates and normal
 publication/closeout remain, followed by162/163 and parent acceptance.
+
+
+### First complete candidate campaign — 2026-11-25
+
+Candidate42b8139f completes15passing commands, including4266Python cases/zero
+skips,2069frontend cases,14supervisor cases and712browser discovery instances.
+The next browser command stops with118passes,3original skips,1timeout and590unrun
+cases. All1221current/1183preceding selected source bodies and DATA6 remain fixed.
+Strict process/port closure succeeds before48byte/SHA raw copies. This is not
+a completed or passing full gate. Every failed original and intermediate native
+artifact remains retained under D-174; the small
+[forensic index](../assets/ligand-information/c4-candidate1-forensics-index.json)
+records ten parts/775411759bytes, each strictly below80MiB, for separate eventual
+publication and anonymous readback. Independent audit remains a separate gate.
+
+Independent trace diagnosis finds the existing access driver selecting a transient
+compact launcher during actual200→100zoom return. The shared navigation helper
+now awaits rendered topology matching actual media state before choosing a launcher.
+There is no application/source-science change and no relaxed assertion or deadline.
+Eleven native inputs pass strict typing and type-aware lint. Fresh original access
+and permanent zoom cases must pass in both runner contexts before checkpointing.
+All seven complete-source assessments passed42b8139f; those scoped verdicts do not
+replace final runtime evidence or same-candidate reconfirmation after this change.
+
+
+The bounded correction now passes all6original profile-access and permanent zoom
+cases across both runner contexts, with zero skips, failures, retries, flakes or
+global errors. All1221source bodies stay fixed; strict closure precedes3raw copies.
+Independent forensic readback passes both the complete failed43capture and the
+51,538,000byte six-case part, including32PNG/sixJSON attachment hashes. Failed
+originals are renamed into owned ignored retention with identical inodes, modes,
+mtime, bytes and SHA; the separate relocation packet and independent readback
+resolve every original while preserving immutable capture/index bytes. Do not
+rerun readers that assume the old native paths.
+
+The [breakpoint checkpoint](../assets/ligand-information/c4-breakpoint-checkpoint.json)
+binds this local evidence. Fresh canonical c4-candidate2 retains all43responsibilities,
+actual public038baseline, DATA6, cold/portable policy and unchanged exclusions.
+It must be committed and run clean; this focused checkpoint is not final readiness.
