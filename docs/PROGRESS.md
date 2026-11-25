@@ -20,7 +20,8 @@ terminal master is `5da5d465`. All37assets/2,223,691,882bytes, child closure,
 normal terminal integration and owned cleanup verify. Parent #11 remains open.
 Public038DATA3 is installed byte-exact with provenance `154b7e05`. Legacy037DATA3,
 earlier helpers/actors, scientific bodies and all43responsibilities remain.
-All five versions stay0.38.0 until the separate039preparation checkpoint.
+All five versions are prepared as0.39.0 with no dependency/schema change.
+The separate version/schema audit and53archive cases pass, including038labels.
 
 ## Verification performed
 
@@ -39,7 +40,8 @@ scenarios remain preparatory evidence; complete current native acceptance remain
 
 ## Known limitations
 
-Ordinary keyboard collapse/reading-position recovery, complete current native
+Ordinary keyboard reopening passes four desktop theme/view observations. UX finds
+reading-position loss on all four reopenings; correction is required. Complete current native
 acceptance, primary/inherited performance and source/scientific/resource proofs,
 actual038readers/archives and full candidate/merged43gates remain. Historical
 failed campaigns retain their status and require publication. Diagram153,
@@ -51,8 +53,8 @@ No external blocker. Preserve all original evidence and the user's checkout.
 
 ## Next action
 
-Commit the coherent released-prerequisite integration, verify actual tagged038
-source extraction with C6 now in ancestry, and observe ordinary keyboard collapse.
-Prepare all five039versions/archive guard, then complete native/performance/
+Released160 integration is committed as7a1c600a; annotated038ancestry and all1183
+tagged/extracted catalogue bodies verify. Correct remount reading-position loss
+with bounded session ownership, then complete native/performance/
 compatibility/gates/all7review/normalmerge/release for161. Continue162/163 and
 parent closeout under the same active Goal.

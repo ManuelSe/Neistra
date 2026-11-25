@@ -862,3 +862,26 @@ does not establish complete native acceptance, performance, compatibility, final
 all7review, readiness to push, merge or release. First qualify genuine tagged038
 source ancestry/extraction, observe ordinary collapse, then prepare039 and finish
 all accepted native/measurement/release gates.
+
+
+### C3 — Consistent039release preparation; focused native finding
+
+Local integration7a1c600a contains actual C6 ancestry. Genuine annotated038
+source extraction and both original/expected1,183-source catalogues verify using
+the unchanged qualification authority guard; allDATA6 agree. All five versions
+now039. No dependency, schema or migration change; actual version/dependency/
+17migration audit, Ruff and53archive cases pass, preserving every historical label
+and adding038. The [preparation receipt](../assets/ligand-information/c3-release-preparation-checkpoint.json)
+contains raw output and source bindings; publication is still pending.
+
+Actual ordinary desktop Collapse→Tab→Enter reopening passes four theme/view
+observations at900×600 and17%pane. One ordinary Tab reaches Expand; no new
+autofocus requirement follows. Independent UX identifies consequential reading
+loss: nonzero186/300/300/300 offsets all reset0 after remount, including stable
+content heights. A passing collection is not reading-recovery acceptance. Correct
+with bounded transient presentation ownership after architecture consultation,
+then assert restoration before helpers and cover changed context while collapsed.
+Preserve original failed harness launch, successful collection, closure/raw copies
+and source maps for subsequent evidence retention. Current1214-source coverage
+includes the separate newDATA3 supplement; the old focused launcher itself counted
+1211. Full38/current native, performance and final gates/reviews remain required.

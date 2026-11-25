@@ -1,0 +1,27 @@
+{
+  "recorded_utc": "2026-11-25T11:02:02.193040+00:00",
+  "scope": "Consistent039preparation, not finalready/published",
+  "comparison_integration": "7a1c600a3fbdeb603ab0b4e379b95c0b087ac659",
+  "application_version": "0.39.0",
+  "five_sources_agree": true,
+  "dependencies_and17migrations_unchanged": true,
+  "archive_project_viewer": [
+    3,
+    3,
+    2
+  ],
+  "database_head": "0017",
+  "actual038_tagged_sources": 1183,
+  "checks": {
+    "version_audit": 0,
+    "ruff": 0,
+    "archive_cases_passed": 53
+  },
+  "known_consequential_finding": "Native temporary collapse loses same-context reading position; bounded correction and renewed evidence required",
+  "packet": {
+    "path": "docs/assets/ligand-information/c3-release-preparation-evidence.zip",
+    "bytes": 3574,
+    "sha256": "79ea5d3e1a580c935cba5dc61cbacf710f817ae80771dfefe855e8692bcea83a",
+    "all_crc_manifest_bodies_verified": true
+  }
+}
