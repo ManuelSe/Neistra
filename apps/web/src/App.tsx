@@ -97,6 +97,7 @@ import { useNavigationStore } from "./store/navigation";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector, type InspectorTask, type InspectorView } from "./components/ProjectInspector";
 import { InspectorReadingSession } from "./components/inspectorReadingPosition";
+import { containCompactPanelTab } from "./components/compactPanelKeyboard";
 import { TopBar } from "./components/TopBar";
 import { WorkspaceCanvas } from "./components/WorkspaceCanvas";
 import { JobSubmitDialog } from "./components/JobSubmitDialog";
@@ -258,7 +259,7 @@ export default function App() {
       ) : undefined;
       (preferred ?? firstAvailable(
         'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
-      ))?.focus({ preventScroll: readingResumed });
+      ) ?? panel).focus({ preventScroll: readingResumed });
     });
     return () => {
       retired = true;
@@ -1631,6 +1632,7 @@ export default function App() {
                     ref={mobilePanelRef}
                     className={`mobile-panel ${mobilePanel}`}
                     role="dialog"
+                    tabIndex={-1}
                     aria-modal="true"
                     aria-label={
                       mobilePanel === "projects"
@@ -1640,6 +1642,7 @@ export default function App() {
                           : "History and jobs panel"
                     }
                     onKeyDown={(event) => {
+                      containCompactPanelTab(event);
                       if (event.key === "Escape" && event.target instanceof Element
                         && event.target.closest('[role="dialog"]') === event.currentTarget) {
                         event.preventDefault();

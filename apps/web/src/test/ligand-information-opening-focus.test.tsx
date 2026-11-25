@@ -115,6 +115,12 @@ function inventory(project: Project): LigandCandidatesRead {
 
 async function setup(withProject = true) {
   const setCompact = mediaMode();
+  // jsdom has no layout; expose DOM-visible tab stops without inventing reading geometry.
+  vi.spyOn(HTMLElement.prototype, "getClientRects").mockImplementation(function(this: HTMLElement) {
+    const hidden = this.closest("[hidden], [inert]") || getComputedStyle(this).display === "none"
+      || getComputedStyle(this).visibility === "hidden";
+    return (hidden ? [] : [new DOMRect()]) as unknown as DOMRectList;
+  });
   const entry = molecularEntry("entry", "Source entry", "protein");
   if (!entry.current_artifact_id) throw new Error("Focus fixture requires a current source artifact.");
   const artifactId = entry.current_artifact_id;

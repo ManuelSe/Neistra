@@ -10,9 +10,9 @@ function rect(top: number, height: number): DOMRect {
     x: 0, y: top, toJSON: () => ({}) };
 }
 
-function setup(strict = false) {
+function setup(strict = false, earlierLandmark = false) {
   const session = new InspectorReadingSession();
-  const geometry = { content: 1200, viewport: 400, width: 300, section: 450 };
+  const geometry = { content: 1200, viewport: 400, width: 300, section: 450, earlierSection: 200 };
   function Presenter({ scope, section }: { scope: string; section: boolean }) {
     const owner = useRef<HTMLDivElement>(null);
     const attach = useCallback((node: HTMLDivElement | null) => {
@@ -27,6 +27,11 @@ function setup(strict = false) {
     }, []);
     useInspectorReadingPosition(owner, { session, scope });
     return <div ref={attach} data-testid="owner"><div className="inspector-body">
+      {earlierLandmark ? <h3 ref={node => {
+        if (!node) return;
+        node.getBoundingClientRect = () => rect(20 + geometry.earlierSection - (owner.current?.scrollTop ?? 0), 24);
+        node.getClientRects = () => [node.getBoundingClientRect()] as unknown as DOMRectList;
+      }}>Earlier section</h3> : null}
       {section ? <h3 ref={node => {
         if (!node) return;
         node.getBoundingClientRect = () => rect(20 + geometry.section - (owner.current?.scrollTop ?? 0), 24);
@@ -66,9 +71,21 @@ describe("Inspector presentation reading recovery", () => {
   it("retains measured reading geometry when the host shrinks before removing its presenter", () => {
     const app = setup(); app.owner().scrollTop = 300; fireEvent.scroll(app.owner());
     app.geometry.width = 50; app.geometry.section -= 14;
+    fireEvent.scroll(app.owner());
     app.update(false);
     app.geometry.width = 300; app.geometry.section = 450; app.update();
     expect(app.owner().scrollTop).toBe(300);
+  });
+
+  it("keeps the same reading landmark when responsive reflow reveals an earlier section", () => {
+    const app = setup(false, true); app.owner().scrollTop = 300; fireEvent.scroll(app.owner());
+    app.update(false);
+    app.geometry.width = 500; app.geometry.section = 700; app.geometry.earlierSection = 650;
+    app.update(); expect(app.owner().scrollTop).toBe(550);
+    fireEvent.scroll(app.owner()); // The browser acknowledges the programmatic restore.
+    app.update(false);
+    app.geometry.width = 300; app.geometry.section = 450; app.geometry.earlierSection = 200;
+    app.update(); expect(app.owner().scrollTop).toBe(300);
   });
 
   it("does not restore an old visit after hidden A to B to A navigation", () => {

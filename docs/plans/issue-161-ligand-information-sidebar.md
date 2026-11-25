@@ -931,3 +931,36 @@ CRCs. Native3's10report attachments match retained sidecars; failed/unrun histor
 remain distinct. This proves local retention integrity, not publication or final
 specialist/human approval. See the
 [readback record](../assets/ligand-information/c3-reading-recovery-forensic-readback.json).
+
+
+### C3 compact input and responsive reading correction — 2026-11-25
+
+The clean9c098561 full40campaign retains28passes, one covered compact minimization
+timeout and11unrun cases. Raising the existing modal drawer/scrim above the
+modeless panel restores original pointer/touch access without discarding the
+proposal. Complete native Tab counting then exposes an independent boundary leak;
+the shared handler now contains ordinary boundary navigation and yields to nested
+owners and modified/handled keys.
+
+Actual responsive telemetry separately identifies automatic resize-scroll captures
+and stationary landmark substitution. Preserve previous host geometry through the
+transient resize and retain the matched visible landmark until deliberate input or
+a changed reading position establishes another. The original one-pixel oracle is
+unchanged; the two-landmark regression fails100versus300 before correction.
+
+Focused application validation passes2,069frontend cases/153files plus lint, types
+and build;42reading/keyboard/opening controls and strict typing/type-aware lint
+for ten native inputs pass. Four original minimization, four compact input, two
+responsive and four actual browser-zoom cases pass with fixed source maps, positive
+closure and retained raw pairs. The three qualified regression drivers enter the
+permanent suite with their original assertions/deadlines. Discovery is712total and
+50sidebar instances; the complete50campaign now passes with zero failures, skips,
+flakes, retries or report errors and all1,221selected sources fixed. The compact
+settings screenshot additionally awaits its actual entry animation before capture.
+
+The [corrective checkpoint](../assets/ligand-information/c3-modal-reflow-checkpoint.json)
+records bounded specialist assessments, exact evidence, lossless forensic parts and
+remaining work. These local checks do not establish full feature readiness, all-seven
+final approval, a push/PR/merge/release or delivered161. Mandatory primary/inherited
+performance, compatibility, candidate/actual-merged43-command gates and normal
+publication/closeout remain, followed by162/163 and parent acceptance.

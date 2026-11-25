@@ -10468,3 +10468,69 @@ assessments are retained. These scoped passes do not complete the final all-seve
 feature gate. Preserve all five owned capture/store histories in separate immutable
 forensic parts below80MiB; the small index enters ordinary release metadata while
 large parts and literal checksums require separate publication and anonymous readback.
+
+
+D-193 compact foreground ownership: the first actual40-case campaign preserves
+28passes but times out on mobile minimization preview. Independent trace inspection
+finds a covered Values/criteria click: the valid modeless minimization panel at
+layer70 sits above the active compact drawer51/scrim50. The job and proposal are
+complete, preview withholding already passes, and closing minimization would discard
+the proposal. Do not bypass pointer access or enlarge the120second deadline.
+
+Independent UI/UX consultation accepts raising the shared compact scrim/drawer
+pair to80/81. All three existing drawers already declare modal semantics; retain
+modeless workflow state underneath and true dialogs90/91, menus and tooltips above.
+This is input-layer ownership, not a scientific or application-state change. Keep
+ordinary Inspector Escape/return-to-trigger behavior and deliberate Discard/Accept
+after the drawer closes. Qualify actual pointer/touch, scrim dismissal, nested
+dialogs, keyboard containment and brief shared-drawer checks while the exact
+proposal remains retained. CSS alone does not prove complete modal accessibility.
+The failed campaign and its original trace/store remain separately retained.
+
+
+D-193 compact keyboard boundary: a strengthened native count includes all native
+summary stops and exposes Tab leaving Methods/limits for covered minimization
+controls. Preserve the earlier limited pointer/touch pass as such; it did not
+prove a complete cycle. Independent UI/UX consultation accepts an aside-owned
+boundary in the existing handler. Recompute visible enabled native stops, respect
+handled/modified keys and nested dialog/menu ownership, and wrap only at the ends.
+Reverse Tab from the leading resumed heading wraps; middle programmatic headings
+retain ordinary previous-control navigation. Empty drawers use the labelled
+programmatic dialog fallback. No global focus listener, dependency or scientific
+state change is introduced. Native cycles and independent negative controls are
+required before accepting the correction.
+
+D-193 actual responsive evidence: the900→393 probe retains the intended Profile
+landmark but moves its offset159.90625→126.9375. Pass-through save/enter telemetry
+shows an automatic resize scroll overwriting the last151px-wide/top300 bookmark
+with a transient65px-wide/top1200 bookmark before presenter cleanup. Thus cleanup
+protection alone is insufficient. Ignore automatic scroll captures when host
+dimensions differ from the previous bookmark, let deliberate input establish the
+new geometry, and record the resolved geometry after restoration. Keep the same
+logical-landmark one-pixel oracle and bounded observer lifetime. Diagnostic runtime
+instrumentation is not final qualification; verify the uninstrumented application
+after correction. Original failed probes, telemetry and source/store snapshots stay
+separate and retained.
+
+
+D-193 stationary landmark identity: the first corrected uninstrumented responsive
+run passes the ligand round trip but exposes Tools returning51pixels lower.
+Separate pass-through telemetry proves the successful compact restore replaces
+Chains with Atoms when the summary reflows from two columns to four. Subsequent
+automatic saves and cleanup retain that substituted landmark. Preserve the matched
+logical identity during restoration and unchanged-position automatic capture,
+updating its actual offset and dimensions. Explicit input or changed scroll
+position establishes a fresh reading point. Fall back when the preferred landmark
+is absent, hidden or outside the viewport. Keep observer lifetimes and the native
+one-pixel oracle unchanged. The two-landmark regression fails100vs300 before the
+correction and covers restore acknowledgement plus cleanup on both legs; fresh
+uninstrumented native verification remains required.
+
+
+D-193 zoom capture evidence: native actual100/200numeric reading and focus checks
+pass, but independent UI inspection finds viewport-clipped screenshots atDPR2.
+This is an evidence gap, not established application clipping. Reuse the existing
+CDP full-surface compositor capture, retain PNG dimensions beside actual zoom/DPR
+and viewport values, and assert horizontal bounds and hit testing for resumed
+headings. Preserve original cropped captures and numeric results; fresh permanent
+browser cases must provide uncropped images before visual reconfirmation.

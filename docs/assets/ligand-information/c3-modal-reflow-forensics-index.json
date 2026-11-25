@@ -1,0 +1,309 @@
+{
+  "recorded_utc": "2026-11-25T12:37:05.503822+00:00",
+  "scope": "Complete original ten terminal compact foreground, keyboard and responsive reading campaigns, including full40 failure and diagnostic runs; failures retain their status. Zoom and later official full acceptance retained separately.",
+  "packager_sha256": "0686d74bd202c233ff575ac0e7408431d65f83e1fca2d22db4538dd0c59d8ca4",
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "file": "c3-modal-reflow-forensics-01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-01.zip",
+      "bytes": 75661091,
+      "sha256": "e3fdc4faaaef86e5259be425277dfabf56cc2937cb2feb06fe4c97dbf3d2773f",
+      "outer_manifest_entries": 91,
+      "verification_counts": {
+        "zip_archives": 17,
+        "evidence_manifest_entries": 96,
+        "project_archive_files": 16
+      },
+      "campaign": "issue161-current-sidebar-acceptance40-run1",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-01.zip.sha256",
+      "checksum_sha256": "3a7b32e6bd0a82ab02ca429abbbb83b1bbd9de5e75a592f8848058312b9da949"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-02.zip",
+      "bytes": 48941682,
+      "sha256": "7366be2a9b4aa4242122668650362ad2f5ff71c385708207ccca36c34339aa7b",
+      "outer_manifest_entries": 66,
+      "verification_counts": {
+        "zip_archives": 16,
+        "evidence_manifest_entries": 71,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-compact-foreground-native1",
+      "runner_exit_code": 0,
+      "checksum_file": "c3-modal-reflow-forensics-02.zip.sha256",
+      "checksum_sha256": "25c27ef45f0fbcaf46a791bfeb7f9e1fd5e4a20b7572c87b7748d6f09307a3f7"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-03.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-03.zip",
+      "bytes": 47582073,
+      "sha256": "9f994a2848e73e208f1eb9a5469eb82a0d4a24b49df34f30c85f19171413a3c6",
+      "outer_manifest_entries": 49,
+      "verification_counts": {
+        "zip_archives": 12,
+        "evidence_manifest_entries": 54,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-compact-modal-boundaries-native1",
+      "runner_exit_code": 0,
+      "checksum_file": "c3-modal-reflow-forensics-03.zip.sha256",
+      "checksum_sha256": "2f5bafa786e4767af18bb40dbc38500c7896f1754459884caaaddf17bed7914f"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-04.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-04.zip",
+      "bytes": 50023938,
+      "sha256": "5b380f9866e66db816f9f3e78afe4ec7963ac6df8edc42c8d139493ab46295e5",
+      "outer_manifest_entries": 43,
+      "verification_counts": {
+        "zip_archives": 10,
+        "evidence_manifest_entries": 48,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-compact-modal-boundaries-native2",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-04.zip.sha256",
+      "checksum_sha256": "7425a7857b1686915f94594e9af37c06c18909302927cb49226c4f3dac852506"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-05.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-05.zip",
+      "bytes": 51531278,
+      "sha256": "945cb0ef822586bf6d1c57fbd87dc1d65dfd52004585c826161bb39b92cbb538",
+      "outer_manifest_entries": 78,
+      "verification_counts": {
+        "zip_archives": 12,
+        "evidence_manifest_entries": 83,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-compact-modal-boundaries-native3",
+      "runner_exit_code": 0,
+      "checksum_file": "c3-modal-reflow-forensics-05.zip.sha256",
+      "checksum_sha256": "32b5a31817ca6fac6b784f9da7ad6e596343b19186ddbe301713a2481bbfb893"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-06.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-06.zip",
+      "bytes": 51035275,
+      "sha256": "1c65e0ecf74e1c6979ae183a066a7b3dfcc8c9f5f6ca6d72d4741abad406b577",
+      "outer_manifest_entries": 31,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 36,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-boundaries-native1",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-06.zip.sha256",
+      "checksum_sha256": "eafd561cc555b64922309fece485d70cdafebb900efd403a33a36b357aca4c4e"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-07.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-07.zip",
+      "bytes": 51210973,
+      "sha256": "54f6330f54918fc7ff0e7dff1e5c228f472bd9435736ef45eebdd011d0289454",
+      "outer_manifest_entries": 32,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 37,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-boundaries-native2",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-07.zip.sha256",
+      "checksum_sha256": "2c5d630a4f0349cb0efb3271fed30f50ccdabfd58e51100320d2dc2e802f8fc2"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-08.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-08.zip",
+      "bytes": 53455189,
+      "sha256": "4addf5514bbc523781c48b9dbba4416d7bdfc591a0db7568e31acecd08455650",
+      "outer_manifest_entries": 30,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 35,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-boundaries-native3",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-08.zip.sha256",
+      "checksum_sha256": "3676ab70f2ecd1174467cba58bea8a352df513215ee3b3c6ace30acc2c864379"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-09.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-09.zip",
+      "bytes": 53639508,
+      "sha256": "c023d0b976522bd7fa44a44c18fd5c2eb54b261c4635576865cf9e0a60241ff7",
+      "outer_manifest_entries": 31,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 36,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-boundaries-native4",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-modal-reflow-forensics-09.zip.sha256",
+      "checksum_sha256": "28dd23e518e07c9e8b47cc4ad887dfd0ef2a361772a715e74480016981577386"
+    },
+    {
+      "file": "c3-modal-reflow-forensics-10.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-modal-reflow-retention1/parts/c3-modal-reflow-forensics-10.zip",
+      "bytes": 47373015,
+      "sha256": "23f2abca7eea2c78a6edb8bc2c3d4d3300f6958dbac812d6c39d49a6a48e21b3",
+      "outer_manifest_entries": 30,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 35,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-boundaries-native5",
+      "runner_exit_code": 0,
+      "checksum_file": "c3-modal-reflow-forensics-10.zip.sha256",
+      "checksum_sha256": "ce97ef82f8dccb1415f3f326916385cad93f7506fdfa62d27b2e018fe2c8fc2b"
+    }
+  ],
+  "part_count": 10,
+  "part_bytes": 530454022,
+  "campaigns": [
+    {
+      "campaign": "issue161-current-sidebar-acceptance40-run1",
+      "runner_exit_code": 1,
+      "physical_files": 90,
+      "physical_bytes": 101561554,
+      "empty_directories": 44,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-current-sidebar-acceptance40-run1/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-01.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-compact-foreground-native1",
+      "runner_exit_code": 0,
+      "physical_files": 65,
+      "physical_bytes": 57739984,
+      "empty_directories": 11,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-compact-foreground-native1/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-02.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-compact-modal-boundaries-native1",
+      "runner_exit_code": 0,
+      "physical_files": 48,
+      "physical_bytes": 51834127,
+      "empty_directories": 6,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-compact-modal-boundaries-native1/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-03.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-compact-modal-boundaries-native2",
+      "runner_exit_code": 1,
+      "physical_files": 42,
+      "physical_bytes": 51765559,
+      "empty_directories": 3,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-compact-modal-boundaries-native2/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-04.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-compact-modal-boundaries-native3",
+      "runner_exit_code": 0,
+      "physical_files": 77,
+      "physical_bytes": 56926960,
+      "empty_directories": 6,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-compact-modal-boundaries-native3/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-05.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-boundaries-native1",
+      "runner_exit_code": 1,
+      "physical_files": 30,
+      "physical_bytes": 52559262,
+      "empty_directories": 2,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-reading-boundaries-native1/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-06.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-boundaries-native2",
+      "runner_exit_code": 1,
+      "physical_files": 31,
+      "physical_bytes": 52769136,
+      "empty_directories": 2,
+      "raw_pairs": 3,
+      "source_count": 1216,
+      "capture_member": "issue161-reading-boundaries-native2/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-07.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-boundaries-native3",
+      "runner_exit_code": 1,
+      "physical_files": 29,
+      "physical_bytes": 55193392,
+      "empty_directories": 2,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-reading-boundaries-native3/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-08.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-boundaries-native4",
+      "runner_exit_code": 1,
+      "physical_files": 30,
+      "physical_bytes": 55428599,
+      "empty_directories": 2,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-reading-boundaries-native4/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-09.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-boundaries-native5",
+      "runner_exit_code": 0,
+      "physical_files": 29,
+      "physical_bytes": 49543304,
+      "empty_directories": 4,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-reading-boundaries-native5/capture.json",
+      "parts": [
+        "c3-modal-reflow-forensics-10.zip"
+      ]
+    }
+  ],
+  "all_originals_preserved_and_rehashed": true,
+  "exact_source_zip_maps_verified": true,
+  "all_ZIP_CRC_manifest_and_nested_layers_verified": true,
+  "no_primary_SQL_used": true,
+  "separate_publication_required": true,
+  "publication_verified": false,
+  "not_full_feature_or_performance_qualification": true
+}

@@ -41,12 +41,14 @@ function landmarks(owner: HTMLElement) {
   });
 }
 
-function capture(owner: HTMLElement): ReadingPosition {
+function capture(owner: HTMLElement, preferred?: Landmark | null): ReadingPosition {
   const bounds = owner.getBoundingClientRect();
-  const anchor = landmarks(owner).find(({ node }) => {
+  const visible = landmarks(owner).filter(({ node }) => {
     const rect = node.getBoundingClientRect();
     return rect.bottom > bounds.top && rect.top < bounds.bottom;
   });
+  const anchor = (preferred && visible.find(item => item.tag === preferred.tag
+    && item.text === preferred.text && item.occurrence === preferred.occurrence)) || visible[0];
   return { top: owner.scrollTop, width: owner.clientWidth, height: owner.clientHeight, landmark: anchor ? {
     tag: anchor.tag, text: anchor.text, occurrence: anchor.occurrence,
     offset: anchor.node.getBoundingClientRect().top - bounds.top,
@@ -75,7 +77,9 @@ export function useInspectorReadingPosition(
         : bookmark.top;
       owner.scrollTop = Math.max(0, target);
       owner.dataset.inspectorReadingResumed = owner.scrollTop > 0 ? "true" : "false";
-      if ((!landmark || anchor) && Math.abs(owner.scrollTop - Math.max(0, target)) <= 1) stop();
+      if ((!landmark || anchor) && Math.abs(owner.scrollTop - Math.max(0, target)) <= 1) {
+        stop(); session.save(scope, capture(owner, bookmark.landmark));
+      }
     };
     delete owner.dataset.inspectorReadingResumed;
     // Resume intent also covers short loading content that cannot scroll yet.
@@ -91,8 +95,15 @@ export function useInspectorReadingPosition(
         mutations.observe(owner, { childList: true, characterData: true, subtree: true });
       }
     } else owner.scrollTop = 0;
-    const save = () => { if (!pending) session.save(scope, capture(owner)); };
-    const userIntent = () => { stop(); save(); };
+    const save = () => {
+      if (pending) return;
+      const last = session.read(scope);
+      // Resizing can emit browser scroll anchoring before the presenter retires.
+      // Keep its previous reading point until restoration or deliberate input.
+      if (last && (last.width !== owner.clientWidth || last.height !== owner.clientHeight)) return;
+      session.save(scope, capture(owner, last?.top === owner.scrollTop ? last.landmark : undefined));
+    };
+    const userIntent = () => { stop(); session.save(scope, capture(owner)); };
     owner.addEventListener("scroll", save);
     owner.addEventListener("focusin", userIntent);
     for (const name of ["wheel", "touchstart", "pointerdown", "keydown"] as const) {
@@ -103,7 +114,8 @@ export function useInspectorReadingPosition(
       // A collapsing host can resize this DOM before React removes its child.
       // Retain the last measured reading geometry instead of that transient reflow.
       const hostChanged = last && (last.width !== owner.clientWidth || last.height !== owner.clientHeight);
-      session.save(scope, pending && bookmark ? bookmark : hostChanged ? last : capture(owner));
+      session.save(scope, pending && bookmark ? bookmark : hostChanged ? last
+        : capture(owner, last?.top === owner.scrollTop ? last.landmark : undefined));
       stop(); owner.removeEventListener("scroll", save);
       owner.removeEventListener("focusin", userIntent);
       for (const name of ["wheel", "touchstart", "pointerdown", "keydown"] as const) {
