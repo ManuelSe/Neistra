@@ -96,6 +96,7 @@ import { useSequenceNavigationStore } from "./store/sequenceNavigation";
 import { useNavigationStore } from "./store/navigation";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector, type InspectorTask, type InspectorView } from "./components/ProjectInspector";
+import { InspectorReadingSession } from "./components/inspectorReadingPosition";
 import { TopBar } from "./components/TopBar";
 import { WorkspaceCanvas } from "./components/WorkspaceCanvas";
 import { JobSubmitDialog } from "./components/JobSubmitDialog";
@@ -187,6 +188,7 @@ export default function App() {
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [inspectorView, setInspectorView] = useState<InspectorView>("ligand");
   const [inspectorTask, setInspectorTask] = useState<InspectorTask>("selection");
+  const [inspectorReadingSession] = useState(() => new InspectorReadingSession());
   const [selectionColorMode, setSelectionColorMode] =
     useState<SelectionColorMode>("carbon");
   const [coordinatePreview, setCoordinatePreviewState] =
@@ -248,12 +250,15 @@ export default function App() {
       const firstAvailable = (selector: string) => Array.from(
         panel.querySelectorAll<HTMLElement>(selector),
       ).find(element => !element.matches(":disabled") && !element.closest("[hidden], [inert]"));
-      const preferred = mobilePanel === "inspector" ? firstAvailable(
-        '.ligand-entry-choice select, .inspector-tools:not([hidden]) .inspector-tabs button[aria-selected="true"]',
+      const readingResumed = mobilePanel === "inspector"
+        && !!panel.querySelector('.inspector-scroll[data-inspector-reading-resume="true"]');
+      const preferred = mobilePanel === "inspector" ? firstAvailable(readingResumed
+        ? ".inspector-heading h2"
+        : '.ligand-entry-choice select, .inspector-tools:not([hidden]) .inspector-tabs button[aria-selected="true"]',
       ) : undefined;
       (preferred ?? firstAvailable(
         'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
-      ))?.focus();
+      ))?.focus({ preventScroll: readingResumed });
     });
     return () => {
       retired = true;
@@ -636,6 +641,12 @@ export default function App() {
   const designatedContext = useDesignatedLigandContext({ project, entryId: ligandEntryId,
     pausedReason: ligandPausedReason, owner: ligandInventoryOwner,
     depiction: inspectorView === "ligand" && (compact ? mobilePanel === "inspector" : !rightCollapsed) });
+  const inspectorReadingScope = JSON.stringify([activeProjectId, project?.id ?? null,
+    ligandEntryId, designatedContext.entry?.current_artifact_id ?? null,
+    designatedContext.entry?.ligand_designation.instance_id ?? null,
+    designatedContext.entry?.ligand_designation.status ?? null, inspectorView, inspectorTask]);
+  useLayoutEffect(() => { inspectorReadingSession.enter(inspectorReadingScope); },
+    [inspectorReadingSession, inspectorReadingScope]);
   inspectorPublicationContext.current = { projectId: project?.id ?? null, entryId: designatedContext.entry?.id ?? null };
   useLegacyLigandResolution({
     project, activeProjectId, priorityEntryId: ligandEntryId, openEpoch: ligandOwner.openVisit(),
@@ -1651,6 +1662,7 @@ export default function App() {
                       />
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
+                        readingPosition={{ session: inspectorReadingSession, scope: inspectorReadingScope }}
                         ligandControls={ligandControls}
                         view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                         project={project}
@@ -1834,6 +1846,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectInspector
+                        readingPosition={{ session: inspectorReadingSession, scope: inspectorReadingScope }}
                         ligandControls={ligandControls}
                     view={inspectorView} onViewChange={setInspectorView} task={inspectorTask} onTaskChange={setInspectorTask}
                     project={project}

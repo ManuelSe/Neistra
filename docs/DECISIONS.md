@@ -10418,3 +10418,53 @@ closure and evidence order. This adds an async completion frame after measured
 work, not a timing/workload change. Earlier three-call/C6 identity proof remains
 a capture of the pre-lint source; the new exact reconstruction/type-erasure proof
 binds final tests. All seven strict native inputs pass unchanged rules.
+
+
+D-193 remount reading recovery: actual ordinary native observation exposes a
+nonzero-to-zero scroll reset through desktop collapse, independent of the usable
+one-Tab Expand path. Bounded UX and architecture consultation identifies presenter
+unmount as the cause; D190 remains responsible only for connected publications.
+Use one typed, transient App-owned bookmark, shared by desktop and compact
+presenters. A semantic scope includes active/actual project, deliberately inspected
+entry, current artifact/designation and view/task; scope changes clear it even
+while the presenter is absent. Do not create durable or molecular state, retain
+a hidden heavy presenter, or accumulate per-project bookmarks.
+
+Capture the current numeric offset and first visible logical text landmark before
+unmount. Match its tag/text/occurrence on remount to recover through ordinary
+reflow or late same-context publication, with numeric fallback and normal browser
+clamping. Only an unresolved initial restore observes local size/child changes;
+stop after resolution, user scrolling/navigation, scope change or unmount. User
+intent and D190 connected-update ownership stay authoritative. No science, job,
+cache or source-publication authority is introduced.
+
+Keep compact first/no-resume opening at Entry/selected Tools tab. For a valid
+nonzero same-context resume, focus the always-visible current heading with
+programmatic-only tabindex, preserving the released retirement/ownership/yield
+guards. Do not focus an offscreen Entry with preventScroll. Desktop ordinary
+keyboard recovery is unchanged. Qualify stable nonzero offsets, logical anchors
+through reflow/late content, changed hidden context, user intent, StrictMode,
+compact opening and actual native observations before accepting this correction.
+
+
+D-193 native remount refinement: initial corrected runs preserve content/viewport
+but expose an actual300→314 offset change. Independent trace inspection confirms
+300 immediately before Collapse and314 after reopening, with identical normalized
+content. The panel library publishes layout before its collapse callback, so
+unmount-time dimensions may already describe a transient host. Capture bookmark
+width/height and preserve the last measured geometry if cleanup detects changed
+host dimensions. Keep the one-pixel oracle. Guard-only native verification passes
+all eight desktop/compact theme/view observations at300→300; a virtual disabled
+guard reproduces314 rather than300 in the focused control. Exact cleanup-time
+dimensions were not directly recorded, so source-supported causality is distinguished
+from the observed correction.
+
+A valid compact resume intent includes initially clamped loading content. Focus
+the visible heading before later restoration rather than an offscreen Entry.
+Cancel pending restoration on focus entering the scroll body, including keyboard
+Tab navigation from the header. Independent UI findings identified both edges;
+corrections, meaningful failing virtual controls and fresh focused UI/UX PASS
+assessments are retained. These scoped passes do not complete the final all-seven
+feature gate. Preserve all five owned capture/store histories in separate immutable
+forensic parts below80MiB; the small index enters ordinary release metadata while
+large parts and literal checksums require separate publication and anonymous readback.

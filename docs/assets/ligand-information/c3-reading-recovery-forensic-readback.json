@@ -1,0 +1,47 @@
+{
+  "recorded_utc": "2026-11-25T11:37:02.876398+00:00",
+  "record_type": "Primary transcription of actual independent read-only agent retention assessment",
+  "agent": "/root/issue161_reading_restore_native_trace",
+  "verdict": "PASS",
+  "scope": "Retention integrity only, not final specialist/human approval or publication",
+  "subject": "20e212db plus frozen corrective production/native bodies",
+  "index_sha256": "35c950c0dd4b86a75618b27c9926a75c3865fe1f740b0505af2dd7861a4d2ae3",
+  "checks": {
+    "parts": 5,
+    "part_bytes": 200523979,
+    "strictly_below80MiB": true,
+    "literal_checksums_verified": true,
+    "outer_manifest_payloads": 140,
+    "retained_original_files": 135,
+    "retained_original_bytes": 208413100,
+    "exact_capture_filesystem_unions_and_original_metadata": true,
+    "empty_directories": 15,
+    "raw_original_copy_pairs": 15,
+    "source_zip_members": 6070,
+    "source_map_sizes": [
+      1211,
+      1211,
+      1216,
+      1216,
+      1216
+    ],
+    "all_source_zip_members_match_maps": true,
+    "recursive_zip_CRCs": 42,
+    "recursive_file_members": 6546,
+    "native3_raw_report_attachments_match_sidecars": 10,
+    "native3_actual300to300_observations": 8,
+    "current_production_native_driver_hashes_match": true,
+    "sole_postnative_selected_source_change": "Unit geometry fixture strength",
+    "historical_exit_codes": [
+      1,
+      0,
+      1,
+      1,
+      0
+    ],
+    "failed_unrun_mobile_cases_preserved": true
+  },
+  "no_consequential_findings": true,
+  "publication_verified": false,
+  "no_edits_services_or_SQL": true
+}

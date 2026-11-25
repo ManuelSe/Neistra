@@ -41,11 +41,13 @@ import { MeasurementsPanel } from "./MeasurementsPanel";
 import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
 import { activateTabFromKeyboard } from "./tabKeyboard";
+import { useInspectorReadingPosition, type InspectorReadingContext } from "./inspectorReadingPosition";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 export type InspectorView = "ligand" | "tools";
 export type InspectorTask = "selection" | "inspect" | "measurements" | "transform" | "ligand" | "protein" | "details";
 interface ProjectInspectorProps {
+  readingPosition?: InspectorReadingContext;
   ligandControls?: ReactNode;
   view?: InspectorView;
   onViewChange?: (view: InspectorView) => void;
@@ -491,6 +493,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
   const view = props.view ?? "tools";
   const automaticallyOpenedDetails = useRef(false);
   const scrollOwner = useRef<HTMLDivElement>(null);
+  useInspectorReadingPosition(scrollOwner, props.readingPosition);
   const tabList = useRef<HTMLDivElement>(null);
   const [taskScrollRequest, requestTaskScroll] = useState(0);
   const [presentationVisit, changePresentationVisit] = useState(0);
@@ -556,7 +559,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       <div className="panel-header inspector-header">
         <div className="inspector-heading">
           <span className="panel-eyebrow">Inspector</span>
-          <h2>
+          <h2 tabIndex={-1}>
             {view === "ligand" ? "Ligand information" : tab === "selection"
               ? "Selection"
               : tab === "inspect"

@@ -306,3 +306,92 @@ test("keeps both Inspector header actions reachable at the actual minimum deskto
     await info.attach("actual-minimum-inspector-header", { contentType: "application/json", body: JSON.stringify(records) });
   } finally { await context.close(); }
 });
+
+test("restores the same reading position through ordinary Inspector reopening", async ({ page, request }, info) => {
+  test.setTimeout(180_000);
+  const compact = info.project.name.includes("mobile");
+  await page.setViewportSize({ width: compact ? 393 : 900, height: 600 });
+  const project = await prepare(page, request, [{ name: "reading-recovery.smi", mimeType: "chemical/x-daylight-smiles",
+    buffer: Buffer.from("CCO ethanol\n") }], "Inspector reading recovery");
+  const endpoint = `/api/v1/projects/${project.id}`, entry = project.entries[0];
+  const before = await (await request.get(endpoint)).json() as Project;
+  const original = await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body();
+  if (!compact) {
+    const separator = page.getByRole("separator", { name: "Resize inspector", exact: true });
+    await separator.focus(); await page.keyboard.press("ArrowRight");
+    await expect(page.locator('[data-panel-id="inspector-panel"]')).toHaveAttribute("data-panel-size", "17.0");
+  }
+  await openLigandInformation(page);
+  await inspector(page).getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
+  await expect(properties(page).locator(".ligand-properties-groups dt")).toHaveCount(14, { timeout: 30_000 });
+  const records: object[] = [];
+  const position = () => inspector(page).locator(".inspector-scroll").evaluate(node => {
+    const owner = node.getBoundingClientRect();
+    return { top: node.scrollTop, height: node.scrollHeight, viewport: node.clientHeight,
+      width: node.clientWidth,
+      landmarks: Array.from(node.querySelectorAll<HTMLElement>("h3, h4, dt, legend, label, summary"))
+        .filter(item => item.getClientRects().length && !item.closest("[hidden], [inert]"))
+        .map(item => ({ tag: item.tagName, text: (item.tagName === "LABEL" ? item.firstChild?.textContent : item.textContent)?.trim(),
+          top: item.getBoundingClientRect().top - owner.top, bottom: item.getBoundingClientRect().bottom - owner.top })),
+      header: node.querySelector(".ligand-designated-information")?.textContent,
+    };
+  });
+  try {
+    for (const theme of ["light", "dark"] as const) {
+      await setTheme(page, theme);
+      for (const view of ["ligand", "tools"] as const) {
+        if (view === "ligand") await openLigandInformation(page); else await openInspectorTools(page);
+        const heading = inspector(page).getByRole("heading", { name: view === "ligand" ? "Ligand information" : "Selection", exact: true });
+        await inspector(page).locator(".inspector-scroll").hover();
+        // Real wheel input in both runner contexts; this is not a touch-gesture claim.
+        await page.mouse.wheel(0, 300); await frames(page);
+        await expect.poll(async () => (await position()).top).toBeGreaterThan(100);
+        const initial = await position();
+        let preClose = initial;
+        if (compact) {
+          await heading.focus(); preClose = await position(); await page.keyboard.press("Escape");
+          await expect(inspector(page)).toBeHidden();
+          // Ordinary keyboard opening, without a post-open focus/scroll helper.
+          const trigger = page.getByRole("button", { name: "Inspector", exact: true });
+          await expect(trigger).toBeFocused(); await page.keyboard.press("Enter");
+        } else {
+          await inspector(page).getByRole("button", { name: "Collapse inspector", exact: true }).focus();
+          preClose = await position();
+          await page.keyboard.press("Enter"); await expect(inspector(page)).toBeHidden();
+          await page.keyboard.press("Tab");
+          await expect(page.getByRole("button", { name: "Expand inspector", exact: true })).toBeFocused();
+          await page.keyboard.press("Enter");
+        }
+        await expect(inspector(page)).toBeVisible(); await frames(page);
+        // Observe and require recovery before any navigation/focus helper resumes.
+        const restored = await position();
+        records.push({ theme, view, compact, initial, preClose, restored });
+        expect(initial.height).toBe(restored.height);
+        expect(initial.viewport).toBe(restored.viewport);
+        expect(Math.abs(restored.top - initial.top)).toBeLessThanOrEqual(1);
+        if (compact) {
+          await expect(heading).toBeFocused();
+          await expect(heading).toHaveAttribute("tabindex", "-1");
+          const focus = await heading.evaluate(node => {
+            const rect = node.getBoundingClientRect(), style = getComputedStyle(node);
+            return { top: rect.top, bottom: rect.bottom, height: innerHeight,
+              outline: style.outlineStyle, outlineWidth: parseFloat(style.outlineWidth) };
+          });
+          expect(focus.top).toBeGreaterThanOrEqual(0); expect(focus.bottom).toBeLessThanOrEqual(focus.height);
+          expect(focus.outline).not.toBe("none"); expect(focus.outlineWidth).toBeGreaterThanOrEqual(2);
+        } else {
+          await expect(page.locator('[data-panel-id="inspector-panel"]')).toHaveAttribute("data-panel-size", "17.0");
+          await page.keyboard.press("Tab");
+          await expect(inspector(page).getByRole("button", { name: view === "ligand" ? "Inspector tools" : "Ligand information", exact: true })).toBeFocused();
+        }
+        await compositor(page, info, `reading-recovery-${theme}-${view}`);
+      }
+    }
+    expect(records).toHaveLength(4);
+    const after = await (await request.get(endpoint)).json() as Project;
+    expect(after).toEqual(before);
+    expect(await (await request.get(`${endpoint}/entries/${entry.id}/original`)).body()).toEqual(original);
+  } finally {
+    await info.attach("inspector-reading-recovery", { contentType: "application/json", body: JSON.stringify(records) });
+  }
+});

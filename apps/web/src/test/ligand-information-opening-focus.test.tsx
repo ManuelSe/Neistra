@@ -154,6 +154,75 @@ async function setup(withProject = true) {
 }
 
 describe("real Inspector opening focus", () => {
+  it.each(["heading", "entry"] as const)("keeps compact resume focus visible when short loading content becomes scrollable later (%s)", async destination => {
+    const previous = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "scrollTop");
+    const positions = new WeakMap<HTMLElement, number>();
+    let maximum = 1000;
+    Object.defineProperty(HTMLElement.prototype, "scrollTop", { configurable: true,
+      get(this: HTMLElement) { return positions.get(this) ?? 0; },
+      set(this: HTMLElement, top: number) {
+        positions.set(this, this.classList.contains("inspector-scroll") ? Math.min(maximum, Math.max(0, top)) : top);
+      } });
+    try {
+      const f = await setup(), first = await f.open();
+      f.frames.invoke(first.opening);
+      first.drawer.querySelector<HTMLElement>(".inspector-scroll")!.scrollTop = 300;
+      await f.user.keyboard("{Escape}");
+      maximum = 0;
+      const reopened = await f.open();
+      const owner = reopened.drawer.querySelector<HTMLElement>(".inspector-scroll")!;
+      expect(owner.scrollTop).toBe(0);
+      f.frames.invoke(reopened.opening);
+      const heading = within(reopened.drawer).getByRole("heading", { name: "Ligand information" });
+      expect(heading).toHaveFocus();
+      const entry = within(reopened.drawer).getByRole("combobox", { name: "Entry" });
+      if (destination === "entry") {
+        await f.user.tab();
+        expect(within(reopened.drawer).getByRole("button", { name: "Inspector tools" })).toHaveFocus();
+        await f.user.tab(); expect(entry).toHaveFocus();
+      }
+      // Controlled layout/DOM publication, not a chemistry or native rendering claim.
+      maximum = 1000;
+      const content = document.createElement("p"); content.textContent = "Current content arrived";
+      act(() => { owner.append(content); });
+      if (destination === "entry") {
+        await act(async () => { await Promise.resolve(); });
+        expect(owner.scrollTop).toBe(0); expect(entry).toHaveFocus();
+      } else {
+        await waitFor(() => expect(owner.scrollTop).toBe(300));
+        expect(heading).toHaveFocus();
+      }
+    } finally {
+      if (previous) Object.defineProperty(HTMLElement.prototype, "scrollTop", previous);
+      else Reflect.deleteProperty(HTMLElement.prototype, "scrollTop");
+    }
+  });
+
+  it.each([false, true])("resumes a deep compact reading position without offscreen Entry autofocus (later task: %s)", async laterTask => {
+    const f = await setup(), first = await f.open();
+    f.frames.invoke(first.opening);
+    const owner = first.drawer.querySelector<HTMLElement>(".inspector-scroll")!;
+    owner.scrollTop = 300;
+    await f.user.keyboard("{Escape}");
+    expect(first.drawer).not.toBeInTheDocument();
+    const reopened = await f.open();
+    const replacement = reopened.drawer.querySelector<HTMLElement>(".inspector-scroll")!;
+    expect(replacement.scrollTop).toBe(300);
+    if (laterTask) {
+      await f.user.click(within(reopened.drawer).getByRole("button", { name: "Choose" }));
+      const chooser = await screen.findByRole("dialog", { name: "Choose ligand of interest" });
+      const radio = await within(chooser).findByRole("radio");
+      radio.focus(); f.frames.invoke(reopened.opening);
+      expect(radio).toHaveFocus();
+    } else {
+      f.frames.invoke(reopened.opening);
+      const heading = within(reopened.drawer).getByRole("heading", { name: "Ligand information" });
+      expect(heading).toHaveFocus();
+      expect(heading).toHaveAttribute("tabindex", "-1");
+      expect(replacement.scrollTop).toBe(300);
+    }
+  });
+
   it("starts untouched Ligand view at Entry rather than the header or hidden Tools", async () => {
     const f = await setup(), { trigger, drawer, opening } = await f.open();
     expect(trigger).toHaveFocus();

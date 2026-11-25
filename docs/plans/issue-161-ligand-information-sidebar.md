@@ -885,3 +885,49 @@ Preserve original failed harness launch, successful collection, closure/raw copi
 and source maps for subsequent evidence retention. Current1214-source coverage
 includes the separate newDATA3 supplement; the old focused launcher itself counted
 1211. Full38/current native, performance and final gates/reviews remain required.
+
+
+### C3 — Focused reading-recovery checkpoint; complete qualification remains
+
+One App-owned bounded presentation bookmark now survives temporary remounts,
+resets on explicit context changes and yields to user scrolling/focus/navigation.
+Current-context logical landmarks handle controlled reflow/late content without
+changing D190 connected publication ownership. Compact resume focuses the visible
+heading while first opening retains Entry/selected Tools behavior. The two UI
+loading/focus findings are corrected and independently reassessed PASS.
+
+Initial corrective native1/2 genuinely fail300→314 despite identical final geometry
+and content. A source/trace audit distinguishes this from stale pre-focus sampling:
+position is300 immediately before Collapse. The dimension guard retains last
+measured geometry when the host changes before unmount. Guard-only native3 passes
+both actual runner contexts and all eight theme/view observations, exactly300→300
+before helpers, preserving keyboard flow, compact focus visibility, project state
+and original bytes. It does not qualify physical touch or actual browserzoom.
+
+Fresh final focused checks pass2,053frontend/152files, lint/types/build and strict
+seven-file native typing/lint, with all1,216selected bodies fixed. Twelve reading/
+fourteen opening controls and three isolated failing virtual negatives exercise
+reflow, hidden contexts, loading, keyboard focus and the314geometry regression.
+Discovery declares702native cases, including full current40sidebar cases; this
+inventory is not execution. A post-native change strengthens only the unit fixture;
+all five UI production/native-driver bodies remain byte-exact to native3.
+
+The [checkpoint](../assets/ligand-information/c3-reading-recovery-checkpoint.json)
+retains current validation and source-bound UI/UX assessments. The small
+[forensic index](../assets/ligand-information/c3-reading-recovery-forensics-index.json)
+binds five parts/200,523,979bytes retaining all five capture/store histories, raw
+copies, source capsules, traces/images and failures without relabelling them.
+All parts are below80MiB and require separate eventual publication/checksum/
+anonymous verification; large bodies remain in owned ignored staging. No primary
+diagnostic SQL was used. Scoped architecture assessment remains pending; full
+all-seven same-final-candidate feature review, complete40acceptance, actual
+responsive/zoom recovery, performance, compatibility and candidate/merged43gates
+remain required. This is a coherent local checkpoint, not readiness to push.
+
+Independent read-only retention audit PASS verifies every part/checksum, all140
+outer payloads and exact135-original-file/208,413,100-byte unions,15emptydirectory
+records,15rawpairs,6,070sourceZIP members against their maps and42recursiveZIP
+CRCs. Native3's10report attachments match retained sidecars; failed/unrun histories
+remain distinct. This proves local retention integrity, not publication or final
+specialist/human approval. See the
+[readback record](../assets/ligand-information/c3-reading-recovery-forensic-readback.json).

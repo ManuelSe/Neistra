@@ -15,8 +15,9 @@ actual preceding reader/producer is the annotated v0.38.0 runtime `c6f3e283`.
 Focused version/dependency/schema audit, Ruff and53archive integration cases pass,
 including the preceding038archive label. Full native, scientific, compatibility,
 performance, all-seven review and exact merged-commit release gates remain pending.
-A focused native observation identified reading-position loss on temporary collapse;
-that correction and renewed validation are required before readiness or publication.
+A focused native reading-recovery correction passes eight desktop/compact
+theme/view observations and scoped UI/UX review. Complete sidebar, responsive/zoom,
+performance and release qualification remain required before publication.
 
 ## 0.38.0 — Sourced physicochemical profiles
 
