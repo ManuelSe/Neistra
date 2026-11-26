@@ -10645,3 +10645,26 @@ gate. A fresh owned extraction passes actual provenance, 14 negative controls an
 both focused reader workflows. Those checks remain separate from the required
 complete candidate and actual-merged gates. No application, dependency-version,
 migration, scientific method or compatibility boundary changes.
+
+D-193 long-lived coordinator identity: candidate4 passes all 43 inner commands,
+then its outer wrapper correctly refuses the changed command hash of a captured
+user service-manager ancestor. Actual journal evidence shows reexecution with the
+same kernel process birth, UID, parent, session and executable image; this is not
+permission to ignore identity drift generally. Preserve the original exit2 and
+failed closure. A fresh complete candidate remains required.
+
+Independent architecture accepts one explicit typed manager role captured from the
+original launch ancestry. Its boot, process birth, UID/parent/session, executable
+device/inode and complete ancestry remain exact. Arguments allow only the captured
+user-manager executable and user flag, optionally with a canonical bounded
+deserialization descriptor. Record honest original/current command hashes and
+validate before/after observations. Other coordinators retain strict command
+identity. Known-session checks across users still precede exemptions; marker,
+environment, descriptor, port and denied-process checks remain unchanged.
+
+The authority consumer must independently replay this typed identity against the
+original source-bound launch lineage. A producer's success boolean alone is not
+authority. Keep historical and immediate-parent scanner bodies separately bound.
+Pure controls and local forensic custody do not qualify the new full gate or
+authorize publication. No application, molecular, library, schema or scientific
+method changes follow from this verification correction.

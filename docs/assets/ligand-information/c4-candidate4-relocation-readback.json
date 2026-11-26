@@ -1,0 +1,22 @@
+{
+  "capture_sha256": "80b32897269d1386a3e09438ec074ffb51c6187471431902c3b639de1bc82120",
+  "index_sha256": "12a7ff25ea2cd9e2357635e72c1cf4ce1e4543be99f75a07eba194320d1b2b54",
+  "originals_preserved": true,
+  "packet": {
+    "bytes": 139245,
+    "file": "c4-candidate4-relocation-evidence.zip",
+    "outer_manifest_entries": 5,
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c4-candidate4-relocation-evidence.zip",
+    "sha256": "2e9901205744621c30415df51a8d9646813ae3ff93f6723fac2a978dc2d8ace5",
+    "verification_counts": {
+      "evidence_manifest_entries": 5,
+      "project_archive_files": 0,
+      "zip_archives": 1
+    }
+  },
+  "relocated_bytes": 229472240,
+  "relocated_files": 795,
+  "scope": "Lossless relocation mapping after complete failed C4 package audit; not qualification",
+  "top_level_entries": 62,
+  "warning": "Resolve original paths through this mapping. Do not rerun old-path readers. The forensic index describes its original pre-relocation capture state. Separate forensic-part publication remains required."
+}

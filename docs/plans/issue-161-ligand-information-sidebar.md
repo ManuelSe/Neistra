@@ -1241,3 +1241,84 @@ preparation remains separate. The unrun live launcher-failure experiment adds no
 gate; the independently accepted #162 coordinator-failure campaign remains required
 for that child. Final all-seven feature review, normal protected merge, fresh
 actual-merged qualification and verified release/closeout remain outstanding.
+
+### C4 — Failed candidate4 custody and fresh candidate5
+
+Candidate4 completes all 43 inner commands with qualifier exit0, including 4,266
+Python tests, 2,090 frontend tests, 14 supervisor tests, 641 native passes and the
+existing 75 exclusions, both actual preceding readers and final diff checks. The
+actual outer session97766 returns exit2 after a captured user service-manager
+ancestor reexecutes with changed arguments. Original positive closure is false and
+historical raw copies are zero. This remains a failed complete gate.
+
+Actual independent journal/proc review identifies stable kernel birth, UID, parent,
+session and executable image across that reexecution. D-193 records the bounded
+typed-role correction. Its scanner source passes independent architecture review
+and 28 pure controls. A consumer prototype independently replays typed manager
+identity against original launch lineage and passes six controls. Neither supplies
+an executed normal-zero candidate gate; integrated launcher, consumer and source
+provenance review and fresh actual tool bindings remain required.
+
+The actual failed-run diagnostic capture returns zero in session83717. Independent
+readback passes three strict closures across 45 actual sessions and ports8340/8341/
+5423, 136 fresh raw database/WAL/SHM file pairs totaling106,610,760bytes each side,
+twelve companions,87 input bindings,1,222 current and1,183 preceding source bodies.
+No SQL is used. Original and diagnostic authorities remain distinct.
+
+Complete failed-run preservation adds six parts totaling327,146,074bytes; the
+largest82,417,932bytes is strictly below83,886,080. Independent readback verifies
+9,058 original files/1,048,648,574bytes,27 exact trees/259 empty directories,
+1,123 recursive ZIPs,9,139 manifest entries, the exact9,077-payload union and380
+unique offline-resolving authority locators. The immutable
+[candidate4 index](../assets/ligand-information/c4-candidate4-forensics-index.json)
+has SHA256 `12a7ff25ea2cd9e2357635e72c1cf4ce1e4543be99f75a07eba194320d1b2b54`.
+All original failure statuses and earlier54 parts remain unchanged.
+
+The sealer's own already-closed completion is retained in a finite separate packet
+of ten byte-exact bodies/94,596bytes. This resolves unpublished local completion
+references without a recursive self-receipt or seventh archive part. The following
+**two exact assets are required for the v0.39.0 release**, alongside all60 forensic
+parts and their literal checksum sidecars:
+
+| Required asset | Bytes | SHA256 |
+| --- | ---: | --- |
+| `issue161-c4-candidate4-forensic-completion.json` | 135263 | `153c6997ac47b118ce11639cb543a9af84816a73657a305048175a38cb6652b5` |
+| `issue161-c4-candidate4-forensic-completion.json.sha256` | 114 | `0e1b46d5db9f6b63137f2e9d64db53a3d5ee5b05e362fc48cd3d26c43ad2cead` |
+
+Their local paths and exact identities are registered in the program ledger and
+`.issue-11-evidence/issue161-c4-candidate4-retention-build1/completion-publication1/delivery.json`.
+Publication remains false. Verify every required asset by actual anonymous download
+through EOF, byte count and SHA before child closeout. Local preservation PASS is
+not release, full-gate, scientific or all-seven feature approval.
+
+Prepare a fresh complete43 candidate5 with unchanged application bodies, actual
+owned v0.38.0 reader environment, original responsibilities/exclusions/deadlines
+and source-bound corrected supervision. Require normal actual outer exit0, strict
+strong closure/raw custody and complete readbacks, then all-seven final review,
+normal PR/merge, fresh exact-merged qualification and verified release/closeout.
+
+The complete integrated candidate5 preparation2 receives actual independent
+architecture CHANGES_REQUIRED for one source-inferred P2. Its control consumer
+checks exit/count/source fields and binds raw logs, but ignores explicit incomplete
+flags and does not reconcile the actual unittest outcome. A coherently archived
+last-module result with expected count/exit0 but no standaloneOK can therefore be
+accepted despite producer failure. Preserve preparation2, correct the gate in a
+new preparation, use structurally faithful explicitly synthetic positive logs and
+coherent receipt/log/capsule-bound negatives, then independently reassess and
+execute the bounded controls. No full-run readiness follows from source preparation.
+All21 inherited launcher functions remain byte-exact and all43 responsibilities,
+actual preceding-reader environment and existing resource/raw guards are retained.
+
+To satisfy the unchanged fully clean start,62owned untracked candidate4 label
+entries move by the existing journalled same-filesystem relocation method after
+independent source approval. Actual execution returns zero; all1,222 selected
+application bodies remain exact. The mapping packet is
+[candidate4 relocation](../assets/ligand-information/c4-candidate4-relocation-readback.json).
+Independent complete actual readback passes:62exact moves,795files/229,472,240bytes
+and450directories preserve complete metadata/hash. The auditor safely resolves all
+9,058original files/1,048,648,574bytes and259empty directories across27roots, verifies
+all1,222source bodies and six forensic parts/sidecars unchanged, and checks the
+139,245byte mapping packet and all five payloads. No SQL or signals are used.
+This is local lossless preservation, not full-gate or release approval. Keep original capture,
+index, forensic parts and historical failure statuses unchanged; resolve old paths
+through the recorded map rather than rerunning old-path readers.

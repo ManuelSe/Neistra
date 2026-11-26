@@ -3,11 +3,11 @@
 ## Current milestone
 
 Parent #11 continues through exactly eight required children. #156–#160 are
-delivered. #161's third complete candidate attempt passes 40 commands, including the
-full browser command, then fails the preceding-reader environment check. A fresh
-owned predecessor environment and both actual reader workflows now pass; the next
-complete candidate gate remains required. #162 has tested
-filtering/acquisition foundations in its isolated checkout; #163 remains planned.
+delivered. #161's fourth candidate passes all 43 inner commands but fails its outer
+process-identity check; it remains a failed gate. Diagnostic custody and complete
+forensic preservation now pass independent readback. A corrected fifth candidate
+is in source preparation. #162 has substantial tested filtering/acquisition code
+in its isolated checkout, with App integration pending; #163 remains planned.
 
 ## Completed work
 
@@ -103,6 +103,39 @@ companion coverage and exact recipe-prefix completeness. All 23 inherited contro
 and 18 additional cases pass. This is source preparation; actual qualification and
 strong success-collector review/readback remain required.
 
+Candidate4 completes all 43 inner commands, including 4,266 Python tests, 2,090
+frontend tests, 641 native passes with the existing 75 exclusions, and both actual
+preceding-reader workflows. Its actual outer tool returns 2 after a long-lived
+user service-manager ancestor reexecutes with changed command arguments. Original
+closure remains false and historical raw copies remain zero; inner success does
+not qualify this failed gate. All 1,222 application bodies remain unchanged.
+
+Fresh diagnostic capture returns actual zero. Independent readback verifies three
+strict closures, 45 actual sessions, closed ports, 136 raw file pairs totaling
+106,610,760 bytes per side, twelve companions and all source bindings. No primary
+SQL is used. Six forensic parts total 327,146,074 bytes, each strictly below 80MiB;
+independent audit verifies the full original trees, recursive archives and authority
+locators. The finite completion packet retains the already-closed sealer evidence.
+All 60 historical parts, literal checksums and two completion assets still require
+publication and anonymous full readback. See the
+[candidate4 index](assets/ligand-information/c4-candidate4-forensics-index.json).
+
+The narrow manager-identity correction passes independent source review and 28
+pure controls; the authority-consumer prototype passes six controls. Integrated
+fifth-candidate launcher/consumer provenance and fresh actual tool bindings remain
+unqualified. Existing process, marker, file-descriptor and port checks are retained.
+
+The complete fifth-candidate tooling receives an independent source assessment.
+One consequential preparation-check defect remains: it binds control logs but
+does not reconcile explicit incomplete flags and their actual unittest outcome.
+Correct this in a preserved new preparation before any full-run launch. The
+application's 1,222 selected bodies remain exact. The failed candidate4's62owned
+untracked label entries have moved by journalled same-filesystem rename; the
+actual move returns zero and independent complete readback passes:795files/
+229,472,240bytes and450directories retain exact metadata/hash. All9,058captured
+originals and259empty directories resolve safely, and all six parts remain exact.
+Use its mapping for old evidence paths; original index/capture bytes remain fixed.
+
 ## Known limitations
 
 Fresh complete candidate and actual-merged43-command gates, scientific/source/
@@ -117,10 +150,11 @@ No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Package the complete failed candidate3history under the existing strict part limit,
-retaining original and stronger diagnostic-copy authority. Prepare the fresh
-candidate4recipe/launcher with the owned predecessor environment, then run all43
-commands from its clean candidate. Complete final reviews, normal PR/merge,
+Finish the actual relocation audit and correct the failed-control acceptance defect.
+Complete independent review and bounded controls for the fifth candidate's launcher,
+scanner and authority consumer, then commit the coherent metadata/recipe checkpoint
+with unchanged application sources. Run all 43 commands from its clean candidate
+with fresh actual tool authority. Complete final reviews, normal PR/merge,
 fresh exact-merged qualification and immutable039release/all-asset readback before
 161closeout and owned cleanup. Continue162,163 and final parent acceptance under
 the same active Goal.
