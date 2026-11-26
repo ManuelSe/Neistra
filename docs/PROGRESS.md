@@ -126,9 +126,11 @@ fifth-candidate launcher/consumer provenance and fresh actual tool bindings rema
 unqualified. Existing process, marker, file-descriptor and port checks are retained.
 
 The complete fifth-candidate tooling receives an independent source assessment.
-One consequential preparation-check defect remains: it binds control logs but
-does not reconcile explicit incomplete flags and their actual unittest outcome.
-Correct this in a preserved new preparation before any full-run launch. The
+The identified preparation-check defect is corrected in preserved preparation3:
+exact completion flags and actual unittest stderr outcomes must agree. All67
+synthetic controls pass, including coherent old-accept/current-reject cases.
+Independent complete source and final certificate readbacks pass; the actual
+real-certificate consumer then verifies82bound inputs. The
 application's 1,222 selected bodies remain exact. The failed candidate4's62owned
 untracked label entries have moved by journalled same-filesystem rename; the
 actual move returns zero and independent complete readback passes:795files/
@@ -150,10 +152,8 @@ No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Finish the actual relocation audit and correct the failed-control acceptance defect.
-Complete independent review and bounded controls for the fifth candidate's launcher,
-scanner and authority consumer, then commit the coherent metadata/recipe checkpoint
-with unchanged application sources. Run all 43 commands from its clean candidate
+Commit the reviewed fifth-candidate recipe/preparation checkpoint with unchanged
+application sources. Run all43commands from its clean candidate
 with fresh actual tool authority. Complete final reviews, normal PR/merge,
 fresh exact-merged qualification and immutable039release/all-asset readback before
 161closeout and owned cleanup. Continue162,163 and final parent acceptance under

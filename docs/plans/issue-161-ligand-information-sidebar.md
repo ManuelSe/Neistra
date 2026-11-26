@@ -1322,3 +1322,36 @@ all1,222source bodies and six forensic parts/sidecars unchanged, and checks the
 This is local lossless preservation, not full-gate or release approval. Keep original capture,
 index, forensic parts and historical failure statuses unchanged; resolve old paths
 through the recorded map rather than rerunning old-path readers.
+
+### C4 — Corrected fifth-candidate source certificate
+
+Preparation3 resolves the incomplete-control P2: require exactTrue completion
+flags and independently reconcile one canonical Ran count, standaloneOK and no
+failure/error/skip/contradiction in each actual stderr. Three coherent synthetic
+controls rebind receipt/log/capsule/assessment bytes, demonstrate the exact former
+validator accepts and require corrected rejection. The current67-case certificate
+is explicitly preparation3; unchanged launcher/scanner storage remains preparation2.
+There is one current catalog, not separate launch/consumer authorities.
+
+Independent complete source reassessment passes. Actual control session89039
+returns normal integer0 without a continuing session:28scanner,6consumer,
+15postgate,7correction and11integration cases all pass, with all67source bodies
+fixed before and after each module. Independent final source/control readback
+verifies every log/outcome, source body and complete88-member certificate.
+The747,615byte `source-review.zip` in local preparation3 has SHA256
+`c7ad98a8325ba384b2d89ea685a43ac32e63f62a1afa1b8de1307dec4669ba5a`.
+The original source-only capsule and author-time NOT_RUN records remain unchanged;
+the subsequent actual receipt supplies execution evidence. The separate real
+metadata consumer then validates82bound certificate/assessment/source/log inputs.
+
+The deployed [candidate5 recipe](../assets/ligand-information/c4-candidate5-recipe.json)
+has SHA256 `41d142d85a93b41b2c4f93813d728bae36249ea43bf559c5d588b68694a0ff25`;
+the deployed launcher is
+`514d781bf23a7b34301888351626afd5b225b47803cc5a1107cd745ec74ac896`.
+All43responsibilities, actual owned v0.38.0 readers, scientific inputs, exclusions,
+deadlines and inherited launcher functions remain unchanged. The application bodies
+remain exact. This is preparation qualification only. Actual candidate/session/PID/
+attachment/finalizer bindings remain unbound until a fresh real launch supplies
+them; preserve and independently review bound copies in the recorded order.
+Normal full-gate success, all-seven final readiness, exact merged qualification,
+publication/assets/readback and issue closeout remain outstanding.
