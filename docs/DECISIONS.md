@@ -10668,3 +10668,44 @@ authority. Keep historical and immediate-parent scanner bodies separately bound.
 Pure controls and local forensic custody do not qualify the new full gate or
 authorize publication. No application, molecular, library, schema or scientific
 method changes follow from this verification correction.
+
+
+### D-193 qualification completion — preserve the actual candidate and finite companions
+
+2026-11-27: the fifth candidate actually completes all 43 responsibilities and
+normal outer exit zero at `f83347b3c2d59a2a913a9198f99a5276992015b4`. Separate
+finalization, strict summary and strong retention return zero. Independent complete
+custody/source/archive and scientific/reader/resource readbacks pass before the
+source freeze ends. Preserve that qualifying identity and all original evidence;
+the later evidence checkpoint is a distinct review candidate.
+
+Use the bounded D-201 qualification-continuation precedent: reuse this complete
+gate only with explicit equivalence of all 1,222 selected bodies, qualifying
+helpers, configuration, fixtures and all six DATA bodies. No method, workload,
+responsibility, exclusion, deadline or production resource limit changes. The
+canonical tracked merged recipe matches the unchanged builder exactly and differs
+only in its run label and owned paths. Commit it before merged qualification; no
+recipe-ignore exception is introduced.
+
+Keep the seven successful retained parts separate from all sixty historical
+forensic parts. Preserve failed candidate4's actual outer exit 2 and scientific
+qualification false. A finite completion companion retains later tool results,
+source/control records and independent readbacks without reopening or repacking
+the original campaign to contain its own completion. Every required part and
+literal checksum still needs publication and anonymous full-download verification.
+
+The original candidate source/control certificate remains immutable. The separately
+reviewed deployment bridge first validates it with the original pins, then checks
+explicit new deployment bodies and groups. Its 36 passing synthetic controls and
+critical static checks do not establish real merged bindings or scientific success.
+The actual merge, literal predecessor extraction with a real owned environment,
+process lineage, attachment and terminal result must be observed and qualified.
+No current environment sharing, historical relabelling or inferred process identity
+is permitted.
+
+All seven final specialist assessments must cover one common evidence candidate
+and its complete intended change. A normal merge receives a fresh complete
+43-command gate and independent source, scientific, resource, reader, closure/raw
+and package readbacks before an immutable release. Portable timing misses remain
+explicit under D-148; the new source-equivalent checkpoint is not a speedup or
+strict-host certification.

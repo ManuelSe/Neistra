@@ -1355,3 +1355,56 @@ attachment/finalizer bindings remain unbound until a fresh real launch supplies
 them; preserve and independently review bound copies in the recorded order.
 Normal full-gate success, all-seven final readiness, exact merged qualification,
 publication/assets/readback and issue closeout remain outstanding.
+
+
+### C4 qualification completion — fifth candidate and evidence checkpoint
+
+The actual clean-start qualifying subject is
+`f83347b3c2d59a2a913a9198f99a5276992015b4`, version0.39.0. The original outer
+session72411 completes normally with actual integer exit0 and no continuing handle.
+Reviewed finalization, strict summary and strong collector session75388 each
+complete actual0. All43 commands pass, including4,266Python/zero skips,
+2,090frontend/14supervisor tests and641browser passes with75unchanged exclusions,
+zero failures/flakes/retries. Both actual preceding-reader families pass with the
+real owned v0.38.0 environment, both origins and suffixes, unchanged schema0017,
+originals, history and current source/scientific bindings.
+
+Independent actual readbacks verify current1222/preceding1183 sources, DATA6,
+all44frozen fixtures, recorded scientific/resource bounds, fresh strict closure,
+134raw pairs/105,393,984bytes per side and complete78database/sidecar sets. All
+seven parts/313,418,163bytes, recursive archives/body/manifest/CRC/exact unions,
+original trees/twelve external companions and487authority-locator occurrences
+pass complete audit. Actual visual/access-state review covers15representative C5
+PNGs and recorded keyboard, actualzoom, minimum-header, focus and narrow geometry.
+These bounded assessments precede later all-seven final same-candidate review.
+
+Current full-C5 timing remains portable diagnostic evidence: property/profile
+annotations record143target misses in410comparisons.
+All four bulk active-ready samples exceed5seconds. Do not substitute the earlier
+focused79/410sample or infer missing parent RSS. Existing D-148 policy, every
+production bound, responsibilities and exclusions remain unchanged.
+
+The normal nonruntime checkpoint retains actual C5 evidence and complete source/
+helper/configuration/fixture/DATA equivalence. Its later commit is the final review
+candidate, never a relabelled C5 subject. The canonical tracked master recipe has
+SHA256 `4eed9acc9199334aae7284805f803fc3936af1a372a757c7ce57ffa303d6519e`;
+an actual call to the unchanged builder reproduces its bytes exactly. The planned
+isolated merged root and own predecessor environment remain uncreated/unbound.
+
+The deployment bridge's source correction preserves all original assertions and
+passes36actual synthetic controls plus critical static checks. This does not prove
+actual new deployment. Require its fully bound positive consumer and complete
+fresh exact-merged43qualification/retention/readbacks. Earlier67candidate controls
+and82prelaunch inputs retain their original scope and pins.
+
+All60historical forensic parts remain required, alongside seven separate successful
+retention parts and their literal checksums. The finite completion companion keeps
+post-capture tool returns/control/source/readback records separate from the closed
+campaign and avoids a self-receipt cycle. Preserve historical failures, originals
+and lossless relocation mappings. Every required asset still needs actual remote
+publication and anonymous full EOF verification.
+
+Next: all-seven actual final verdicts on one common evidence candidate, normal
+protected PR/review/merge, fresh exact-merged qualification, immutable039tag/release,
+complete asset readback, one verified child reply/explicit closure and safe owned
+branch cleanup. Parent11remains open;162and163retain their required scope.
