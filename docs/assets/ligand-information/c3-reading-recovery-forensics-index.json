@@ -1,0 +1,116 @@
+{
+  "recorded_utc": "2026-11-25T11:31:49.181825+00:00",
+  "scope": "Lossless owned reading-recovery history: initial harness failure, original native observation, two corrective native failures and successful guard-only rerun. Historical failures remain failures.",
+  "separate_publication_required": true,
+  "publication_verified": false,
+  "part_limit_bytes_exclusive": 83886080,
+  "part_count": 5,
+  "parts": [
+    {
+      "file": "c3-reading-recovery-forensics-01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts/c3-reading-recovery-forensics-01.zip",
+      "bytes": 24417223,
+      "sha256": "fe5ee494b743306a79d0505ae6e8d04b4ab013030cbe92ece8eb7f8a994ab854",
+      "outer_manifest_entries": 21,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 26,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-collapse-focus-run1",
+      "runner_exit_code": 1,
+      "retained_physical_files": 20,
+      "retained_physical_bytes": 25459076,
+      "empty_directory_records": 4,
+      "originals_rehashed_after_packaging": true,
+      "checksum_file": "c3-reading-recovery-forensics-01.zip.sha256",
+      "checksum_sha256": "89fe3c483da98062315340577a831af34279201c381ebf144a54c4faa25a7802"
+    },
+    {
+      "file": "c3-reading-recovery-forensics-02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts/c3-reading-recovery-forensics-02.zip",
+      "bytes": 25100118,
+      "sha256": "1d4d0b673b30344cdc86913e9224bca4f7f6ec38e944da12bce98f1425e2c3ba",
+      "outer_manifest_entries": 26,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 31,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-collapse-focus-run2",
+      "runner_exit_code": 0,
+      "retained_physical_files": 25,
+      "retained_physical_bytes": 26858608,
+      "empty_directory_records": 3,
+      "originals_rehashed_after_packaging": true,
+      "checksum_file": "c3-reading-recovery-forensics-02.zip.sha256",
+      "checksum_sha256": "ed4917af9ad6d94293e3a463467c866f2810a9bb501fe978d198d31550554607"
+    },
+    {
+      "file": "c3-reading-recovery-forensics-03.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts/c3-reading-recovery-forensics-03.zip",
+      "bytes": 51407302,
+      "sha256": "f5588e95af1bffd6fa4fd8013d4a3599f42696b937939c72c81cef8c7e555038",
+      "outer_manifest_entries": 28,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 33,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-recovery-native1",
+      "runner_exit_code": 1,
+      "retained_physical_files": 27,
+      "retained_physical_bytes": 52930523,
+      "empty_directory_records": 2,
+      "originals_rehashed_after_packaging": true,
+      "checksum_file": "c3-reading-recovery-forensics-03.zip.sha256",
+      "checksum_sha256": "8326ba69382f466d488650ac072a68345b44bfe5f1a0300a2bbcfc2922071dea"
+    },
+    {
+      "file": "c3-reading-recovery-forensics-04.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts/c3-reading-recovery-forensics-04.zip",
+      "bytes": 51236914,
+      "sha256": "acafbf3379b794f6cf2c797f435172f872f8f182814e8f175b6290bfea2d5a3a",
+      "outer_manifest_entries": 29,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 34,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-recovery-native2",
+      "runner_exit_code": 1,
+      "retained_physical_files": 28,
+      "retained_physical_bytes": 52783210,
+      "empty_directory_records": 2,
+      "originals_rehashed_after_packaging": true,
+      "checksum_file": "c3-reading-recovery-forensics-04.zip.sha256",
+      "checksum_sha256": "2b6c2f84aeab8545fd6003fd297679e10c4ce5387bb15d73b2865e58370892cd"
+    },
+    {
+      "file": "c3-reading-recovery-forensics-05.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts/c3-reading-recovery-forensics-05.zip",
+      "bytes": 48362422,
+      "sha256": "57df4925927ca52a77aa64a03f8b031c333f7c7ea1c99df021d41e4bd5b95b2f",
+      "outer_manifest_entries": 36,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 41,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-recovery-native3",
+      "runner_exit_code": 0,
+      "retained_physical_files": 35,
+      "retained_physical_bytes": 50381683,
+      "empty_directory_records": 4,
+      "originals_rehashed_after_packaging": true,
+      "checksum_file": "c3-reading-recovery-forensics-05.zip.sha256",
+      "checksum_sha256": "830ad467fa019f34157d946fb171d4b82adce959170b2a630a123cd4e2ce506d"
+    }
+  ],
+  "complete_owned_evidence_and_store_file_union": true,
+  "all_originals_preserved_and_rehashed": true,
+  "all_zip_CRC_manifest_and_nested_layers_verified": true,
+  "staging": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-recovery-retention1/parts",
+  "no_primary_SQL_used": true,
+  "not_full_feature_or_performance_qualification": true
+}

@@ -20,6 +20,8 @@ import { useSelectionStore } from "../store/selection";
 import { useWorkspaceStore } from "../store/workspace";
 import { structureQueryKey } from "../structures/query";
 import { molecularEntry, molecularProject, proteinProjection } from "./molecular-fixtures";
+import { ligandPropertyApi } from "../ligandProperties/api";
+import { propertyEntry, propertyPreferences, propertyRegistry, propertyResult } from "./ligand-properties-fixtures";
 
 type Controls = ComponentProps<typeof LigandDesignationControls>;
 const seen = vi.hoisted(() => ({ renderMeasurements: false, controls: null as Controls | null,
@@ -47,6 +49,7 @@ vi.mock("../components/LowerPanel", () => ({ LowerPanel: () => null }));
 const clients: QueryClient[] = [];
 beforeEach(() => {
   localStorage.clear(); vi.restoreAllMocks(); seen.renderMeasurements = false; seen.controls = null; seen.inspector = null; seen.workspace = null;
+  useWorkspaceStore.getState().setActiveProjectId(null);
   useSelectionStore.getState().setProject(null); useEditingStore.getState().setProject(null);
   useMinimizationStore.getState().setProject(null); useNavigationStore.getState().setProject(null);
   vi.spyOn(workspacePresentationApi, "read").mockResolvedValue({ schema_version: 1, revision: 0, camera: null, updated_at: null });
@@ -68,14 +71,27 @@ function inventory(project: Project): LigandCandidatesRead {
       molecular_weight: 30, chemistry_status: "qualified", chemistry_reason: null, chemical_input_hash: "chemistry",
       occurrence_count: null, occurrence_basis: null, occurrence_reason: "occurrence_count_not_qualified" }] };
 }
-async function setup(legacy = false, strict = false) {
-  const entry = molecularEntry("protein", "Entry", "protein");
-  if (!legacy) entry.ligand_designation = { ...entry.ligand_designation, status: "selection_required" };
+async function setup(legacy = false, strict = false, withProperties = false, staleTime = 0) {
+  const entry = withProperties ? propertyEntry() : molecularEntry("protein", "Entry", "protein");
+  if (!legacy && !withProperties) entry.ligand_designation = { ...entry.ligand_designation, status: "selection_required" };
+  if (withProperties) {
+    entry.original_filename = "uploaded.sdf";
+    vi.spyOn(ligandPropertyApi, "registry").mockResolvedValue(propertyRegistry);
+    vi.spyOn(ligandPropertyApi, "preferences").mockResolvedValue(propertyPreferences);
+    vi.spyOn(ligandPropertyApi, "read").mockResolvedValue(propertyResult());
+    vi.spyOn(ligandPropertyApi, "demand"); vi.spyOn(ligandPropertyApi, "allocate");
+  }
   const project = molecularProject([entry]); project.has_uncheckpointed_changes = false;
+  if (withProperties) {
+    const remaining = molecularEntry("remaining", "Remaining", "ligand");
+    remaining.ligand_designation = { ...remaining.ligand_designation, status: "not_applicable" };
+    project.entries.push(remaining);
+  }
   const other = { ...molecularProject([]), id: "other", name: "Other" };
-  const query = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: Infinity }, mutations: { retry: false } } });
+  const query = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: Infinity, staleTime }, mutations: { retry: false } } });
   clients.push(query); query.setQueryData(["project", project.id], project); query.setQueryData(["project", other.id], other);
-  query.setQueryData(structureQueryKey(project.id, entry.id, entry.current_artifact_id), proteinProjection());
+  query.setQueryData(structureQueryKey(project.id, entry.id, entry.current_artifact_id),
+    { ...proteinProjection(), entry_id: entry.id, artifact_id: entry.current_artifact_id });
   vi.spyOn(globalThis, "fetch").mockImplementation(input => {
     const path = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
     return Promise.resolve(Response.json(path.endsWith(`/projects/${project.id}`) ? project
@@ -87,7 +103,7 @@ async function setup(legacy = false, strict = false) {
     candidate_key: "candidate", status: "unavailable", reason: "not_qualified", input_hash: null,
     cache_key: null, artifact: null, implementation: "ligand-2d-v1", library_version: "pinned",
     formula: null, molecular_weight: null, formal_charge: null, provenance: null });
-  useWorkspaceStore.setState({ activeProjectId: project.id, mobilePanel: null });
+  useWorkspaceStore.getState().setActiveProjectId(project.id); useWorkspaceStore.setState({ mobilePanel: null });
   const content = <QueryClientProvider client={query}><App /></QueryClientProvider>;
   render(strict ? <StrictMode>{content}</StrictMode> : content);
   await waitFor(() => expect(useSelectionStore.getState().projectId).toBe(project.id));
@@ -101,6 +117,121 @@ function leaveAndReturn(other: Project, project: Project) {
   useWorkspaceStore.getState().setActiveProjectId(other.id);
   useWorkspaceStore.getState().setActiveProjectId(project.id);
 }
+
+
+async function visitProject(id: string) {
+  act(() => useWorkspaceStore.getState().setActiveProjectId(id));
+  await waitFor(() => expect(seen.workspace?.project?.id).toBe(id));
+}
+
+it("revalidates a fresh cached project on return and adopts the current server source", async () => {
+  const f = await setup(false, false, false, 10_000);
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  const current: Project = { ...f.project, revision: f.project.revision + 1,
+    entries: [{ ...f.entry, current_artifact_id: "server-current-artifact" }] };
+  const get = vi.spyOn(projectApi, "get").mockImplementation(id => Promise.resolve(id === f.project.id ? current : f.other));
+  await visitProject(f.other.id);
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(f.project);
+  await visitProject(f.project.id);
+  await waitFor(() => expect(seen.workspace?.project).toEqual(current));
+  expect(get.mock.calls.filter(([id]) => id === f.project.id)).toHaveLength(1);
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(current);
+  expect(useWorkspaceStore.getState().activeProjectId).toBe(f.project.id);
+});
+
+it("does not roll a newer mutation acknowledgement back when an older project GET resolves", async () => {
+  const f = await setup(false, false, false, 10_000), held = deferred<Project>();
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  const get = vi.spyOn(projectApi, "get").mockImplementation(id => id === f.project.id ? held.promise : Promise.resolve(f.other));
+  await visitProject(f.other.id); await visitProject(f.project.id);
+  await waitFor(() => expect(get.mock.calls.some(([id]) => id === f.project.id)).toBe(true));
+  act(() => useNavigationStore.getState().inspect(f.project.id, f.entry.id));
+  await waitFor(() => expect(seen.controls?.entryId).toBe(f.entry.id));
+  const acknowledged: Project = { ...f.project, revision: f.project.revision + 1,
+    entries: [{ ...f.entry, ligand_designation: { ...f.entry.ligand_designation, status: "cleared" } }] };
+  const designate = vi.spyOn(ligandApi, "designate").mockResolvedValue(acknowledged);
+  await act(async () => { await seen.controls!.onDesignate(f.entry, "candidate", "inventory"); });
+  expect(designate).toHaveBeenCalledOnce();
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(acknowledged);
+  await act(async () => { held.resolve(f.project); await held.promise; });
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(acknowledged);
+  expect(seen.workspace?.project).toEqual(acknowledged);
+});
+
+it("preserves a newer acknowledgement published at the final cache write of an older project GET", async () => {
+  const f = await setup(false, false, false, 10_000), held = deferred<Project>();
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  const get = vi.spyOn(projectApi, "get").mockImplementation(id => id === f.project.id ? held.promise : Promise.resolve(f.other));
+  await visitProject(f.other.id); await visitProject(f.project.id);
+  await waitFor(() => expect(get.mock.calls.some(([id]) => id === f.project.id)).toBe(true));
+  const query = f.query.getQueryCache().find<Project>({ queryKey: ["project", f.project.id], exact: true })!;
+  const accept = query.setData.bind(query), acknowledged = changedDesignationAck(f.project, "cleared");
+  let injected = 0;
+  vi.spyOn(query, "setData").mockImplementation((incoming, options) => {
+    if (!options?.manual && incoming === f.project && injected === 0) {
+      injected++;
+      // Simulate an acknowledgement arriving after queryFn has returned, at the
+      // actual cache acceptance boundary rather than before its cache check.
+      f.query.setQueryData(["project", f.project.id], acknowledged);
+    }
+    return accept(incoming, options);
+  });
+  await act(async () => { held.resolve(f.project); await held.promise; });
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  expect(injected).toBe(1);
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(acknowledged);
+  expect(seen.workspace?.project).toEqual(acknowledged);
+});
+
+it("keeps a late project A revalidation in its own cache after switching back to B", async () => {
+  const f = await setup(false, false, false, 10_000), held = deferred<Project>();
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  const get = vi.spyOn(projectApi, "get").mockImplementation(id => id === f.project.id ? held.promise : Promise.resolve(f.other));
+  await visitProject(f.other.id); await visitProject(f.project.id);
+  await waitFor(() => expect(get.mock.calls.some(([id]) => id === f.project.id)).toBe(true));
+  await visitProject(f.other.id);
+  const newer = { ...f.project, revision: f.project.revision + 1 };
+  await act(async () => { held.resolve(newer); await held.promise; });
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(newer);
+  expect(f.query.getQueryData(["project", f.other.id])).toEqual(f.other);
+  expect(seen.workspace?.project).toEqual(f.other);
+  expect(useWorkspaceStore.getState().activeProjectId).toBe(f.other.id);
+});
+
+it("keeps unchanged project revalidation from duplicating qualified chemistry work", async () => {
+  const f = await setup(false, false, true, 10_000);
+  await screen.findByText("Properties current", { exact: true, selector: "p.ligand-properties-status" });
+  await waitFor(() => expect(f.query.isFetching()).toBe(0));
+  const work = { reads: vi.mocked(ligandPropertyApi.read).mock.calls.length,
+    demands: vi.mocked(ligandPropertyApi.demand).mock.calls.length, allocations: vi.mocked(ligandPropertyApi.allocate).mock.calls.length };
+  const get = vi.spyOn(projectApi, "get").mockResolvedValue(structuredClone(f.project));
+  await act(async () => { await f.query.invalidateQueries({ queryKey: ["project", f.project.id] }); });
+  expect(get).toHaveBeenCalledExactlyOnceWith(f.project.id);
+  expect(f.query.getQueryData(["project", f.project.id])).toEqual(f.project);
+  expect(screen.getByText("Properties current", { exact: true, selector: "p.ligand-properties-status" })).toBeVisible();
+  expect({ reads: vi.mocked(ligandPropertyApi.read).mock.calls.length,
+    demands: vi.mocked(ligandPropertyApi.demand).mock.calls.length, allocations: vi.mocked(ligandPropertyApi.allocate).mock.calls.length }).toEqual(work);
+});
+
+it("preserves a cached project after return revalidation fails and retries its actual project GET", async () => {
+  const f = await setup(false, false, false, 10_000);
+  await waitFor(() => expect(f.query.isFetching({ queryKey: ["project", f.project.id] })).toBe(0));
+  let failed = false;
+  const get = vi.spyOn(projectApi, "get").mockImplementation(id => {
+    if (id === f.project.id && !failed) { failed = true; return Promise.reject(new ApiError(0, "network_error", "Project return read failed")); }
+    return Promise.resolve(id === f.project.id ? f.project : f.other);
+  });
+  await visitProject(f.other.id); await visitProject(f.project.id);
+  expect(await screen.findByRole("alert")).toHaveTextContent("Project return read failed");
+  expect(seen.workspace?.project).toEqual(f.project);
+  await userEvent.click(within(screen.getByRole("alert")).getByRole("button", { name: /^Retry$/ }));
+  await waitFor(() => expect(screen.queryByRole("alert")).toBeNull());
+  expect(get.mock.calls.filter(([id]) => id === f.project.id)).toHaveLength(2);
+  expect(seen.workspace?.project).toEqual(f.project);
+  expect(useWorkspaceStore.getState().activeProjectId).toBe(f.project.id);
+});
 
 it("refuses a retained callback through same-batched project ABA before mutation preflight", async () => {
   const f = await setup(), callback = seen.controls!.onDesignate;
@@ -553,4 +684,56 @@ it.each(["Use", "Clear"] as const)("keeps the replacement chooser DOM, radio and
   expect(footer).toHaveFocus(); expect(screen.getByRole("dialog")).toBe(replacement);
   expect(f.query.getQueryData(["project", f.project.id])).toEqual(ack);
   expect(screen.queryByText("Change stored locally.")).toBeNull();
+});
+
+it("explains current name/type filter exclusion without retargeting or adding descriptor work", async () => {
+  const f = await setup(false, false, true);
+  await screen.findByText("Properties current", { exact: true, selector: "p.ligand-properties-status" });
+  const baseline = structuredClone(f.project), navigation = useNavigationStore.getState().inspectedEntryId;
+  const selection = structuredClone(useSelectionStore.getState().selection), designation = structuredClone(f.entry.ligand_designation);
+  const work = { reads: vi.mocked(ligandPropertyApi.read).mock.calls.length,
+    demands: vi.mocked(ligandPropertyApi.demand).mock.calls.length, allocations: vi.mocked(ligandPropertyApi.allocate).mock.calls.length };
+  const patch = (values: { search?: string; type?: "protein" | "all" }) => act(() => {
+    const current = useWorkspaceStore.getState();
+    current.patchBrowserFilters({ projectId: f.project.id, visit: current.browserFilterVisit }, values);
+  });
+  patch({ search: "different entry" }); expect(screen.getByText("Outside current filters", { exact: true })).toBeVisible();
+  expect(seen.controls?.outsideCurrentFilters).toBe(true);
+  patch({ search: "" }); expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull();
+  patch({ type: "protein" }); expect(screen.getByText("Outside current filters", { exact: true })).toBeVisible();
+  patch({ type: "all" }); expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull();
+  const options = within(screen.getByRole("combobox", { name: "Entry" })).getAllByRole("option");
+  expect(options.map(option => (option as HTMLOptionElement).value)).toEqual(["", f.entry.id, "remaining"]);
+  expect(useNavigationStore.getState().inspectedEntryId).toBe(navigation);
+  expect(useSelectionStore.getState().selection).toEqual(selection);
+  expect(f.query.getQueryData<Project>(["project", f.project.id])).toEqual(baseline);
+  expect(f.entry.ligand_designation).toEqual(designation);
+  expect({ reads: vi.mocked(ligandPropertyApi.read).mock.calls.length,
+    demands: vi.mocked(ligandPropertyApi.demand).mock.calls.length, allocations: vi.mocked(ligandPropertyApi.allocate).mock.calls.length }).toEqual(work);
+});
+
+it("recomputes filter feedback for rename/Undo and clears deleted inspection without fallback", async () => {
+  const f = await setup(false, false, true); await screen.findByText("Properties current", { exact: true, selector: "p.ligand-properties-status" });
+  const workspace = useWorkspaceStore.getState();
+  act(() => { workspace.patchBrowserFilters({ projectId: f.project.id, visit: workspace.browserFilterVisit }, { search: "ethanol" }); });
+  expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull();
+  const reads = vi.mocked(ligandPropertyApi.read).mock.calls.length;
+  const renamed = { ...f.project, revision: f.project.revision + 1, entries: f.project.entries.map(entry => entry.id === f.entry.id ? { ...entry, name: "Renamed" } : entry) };
+  act(() => { f.query.setQueryData(["project", f.project.id], renamed); });
+  expect(await screen.findByText("Outside current filters", { exact: true })).toBeVisible();
+  expect(useNavigationStore.getState().inspectedEntryId).toBe(f.entry.id);
+  act(() => { f.query.setQueryData(["project", f.project.id], { ...f.project, revision: renamed.revision + 1 }); });
+  await waitFor(() => expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull());
+  expect(vi.mocked(ligandPropertyApi.read).mock.calls.length).toBe(reads);
+  act(() => { f.query.setQueryData(["project", f.project.id], { ...f.project, revision: renamed.revision + 2,
+    entries: f.project.entries.map(entry => entry.id === f.entry.id ? { ...entry, visible: false } : entry) }); });
+  await screen.findByRole("option", { name: "Ethanol · hidden" });
+  expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull();
+  expect(vi.mocked(ligandPropertyApi.read).mock.calls.length).toBe(reads);
+  act(() => { f.query.setQueryData(["project", f.project.id], { ...f.project, revision: renamed.revision + 3,
+    entries: f.project.entries.filter(entry => entry.id !== f.entry.id) }); });
+  await waitFor(() => expect(useNavigationStore.getState().inspectedEntryId).toBeNull());
+  expect(screen.getByRole("combobox", { name: "Entry" })).toHaveValue("");
+  expect(screen.queryByText("Outside current filters", { exact: true })).toBeNull();
+  expect(useWorkspaceStore.getState().browserFilters.search).toBe("ethanol");
 });

@@ -1,4 +1,4 @@
-import { browseComponents } from "./support/navigation";
+import { browseComponents, openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -137,6 +137,7 @@ function componentMembers(payload: StructureRead, category: string): number[] {
 }
 
 async function selectAtom(page: Page, entryId: string, atomId: number): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await page.getByRole("group", { name: "Operation mode" }).getByRole("button", {
     name: "replace",
@@ -261,6 +262,8 @@ test("styles a 1STP complex without changing scientific or transient state", asy
   await ligands.locator(".hierarchy-disclosure").click();
   await page.getByLabel(`Select Ligands / cofactors in ${entry.name}`).click();
   const selectedStatus = await page.locator(".viewer-status").textContent();
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByPlaceholder("Selection name").fill("Biotin styling target");
   await page.getByRole("button", { name: "Save current selection" }).click();
 
@@ -363,6 +366,8 @@ test("styles a 1STP complex without changing scientific or transient state", asy
     { style: "stick", atom_ids: bindingAtoms },
     { style: "thick-stick", atom_ids: ligandIds },
   ]);
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   const saved = page.locator(".saved-selection-row").filter({ hasText: "Biotin styling target" });
   await saved.getByRole("button").first().click();
   await expect(page.locator(".viewer-status")).toContainText(`/ ${ligandIds.length} selected`);

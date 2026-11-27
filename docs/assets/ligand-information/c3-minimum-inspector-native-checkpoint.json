@@ -1,0 +1,83 @@
+{
+  "recorded_utc": "2026-11-20T10:12:06.848768+00:00",
+  "stage": "Focused preparatory real-App minimum-header native correctness checkpoint; not final feature or public release",
+  "qualified_source_subject": "0311247de240c1efb93dd2a21e9098b190998c20",
+  "application_sources_changed": false,
+  "available_selected_sources": 1208,
+  "actual_result": "2 passed; zero failures, skips, retries or report errors; 32 desktop geometry scenarios and 32 PNG attachments",
+  "source_capsule_exact_sha_crc": true,
+  "positive_owned_cleanup": true,
+  "raw_original_copy_pairs": 3,
+  "all_original_evidence_and_stores_retained": true,
+  "primary_diagnostic_sql_used": false,
+  "packet": {
+    "file": "c3-minimum-inspector-native-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c3-minimum-inspector-native-evidence.zip",
+    "bytes": 28323596,
+    "sha256": "495777101487e64c090aaf5fcf0b0924d70639e942e0b8871184cfef382d5c3a",
+    "outer_manifest_entries": 34,
+    "verification_counts": {
+      "zip_archives": 8,
+      "evidence_manifest_entries": 39,
+      "project_archive_files": 10
+    }
+  },
+  "focused_assessments": {
+    "ui_design": {
+      "candidate": "0311247de240c1efb93dd2a21e9098b190998c20",
+      "role": "ui_design",
+      "agent": "/root/issue161_c3_whole_ui_source",
+      "verdict": "PASS",
+      "scope": "Focused real-App minimum-header checkpoint only; not final feature/push readiness",
+      "recorded_utc": "2026-11-20T10:10:50.894536+00:00",
+      "independent_checks": [
+        "Both native cases passed once, no retries or report errors",
+        "All32geometry records:44px targets, containment/hit/focus outlines, restored17percent minimum",
+        "Four extracted PNGs compared against original attachments and visually inspected",
+        "1208source bodies unchanged;both lossless log hashes;3original/rawcopy pairs",
+        "Positivecleanup and source preservation assertions forrevision,designation,originalbytes"
+      ],
+      "consequential_findings": [],
+      "limitations": [
+        "Bothrunner projects use desktop contexts;not mobile/physical-device/performance qualification",
+        "Actual released160integration,full38,measurements,and final candidate/merged/release gates remain pending"
+      ]
+    },
+    "ux_design": {
+      "candidate": "0311247de240c1efb93dd2a21e9098b190998c20",
+      "role": "ux_design",
+      "agent": "/root/issue161_header_native_ux_review",
+      "verdict": "PASS",
+      "scope": "Focused real-App minimum-header checkpoint only; not final feature/push readiness",
+      "recorded_utc": "2026-11-20T10:12:05.558253+00:00",
+      "independent_checks": [
+        "1208source bodies, before/after and archived source bodies match",
+        "Two browser instances first-attemptPASS/no reporterrors",
+        "All32width/theme/view records:44px contained hittable controls and visiblefocus",
+        "TabEnterviewtoggle/Collapse/reopen at retained17percent width",
+        "Lossless logs;positiveclosure;3original/rawcopy pairs",
+        "Fourextracted PNGs matchattachments;two900pxcaptures visually inspected",
+        "Preservation assertions forprojectrevision,entry/artifact/designation identities andoriginalbytes"
+      ],
+      "consequential_findings": [],
+      "limitations": [
+        "Bothrunnerprojects deliberatelyuse desktop contexts;notmobile/performancequalification",
+        "The test explicitly focusesExpand after collapse;automaticfocus handoff atthatboundary is notestablished",
+        "Full38/releasedprerequisiteintegration/finalqualification remain outstanding"
+      ]
+    }
+  },
+  "limitations": [
+    "Both runner projects create desktop contexts;not mobile orperformance qualification",
+    "Explicit Expand focus does not prove automatic focus handoff",
+    "Separate correctness run overlapped160Python suite and closedbefore itsbrowserphase"
+  ],
+  "remaining": [
+    "Integrate actual released #160 and independently verified public v0.38.0 baseline",
+    "Prepare all five v0.39.0 version sources, including the archive version guard",
+    "Run the complete current 38-case native acceptance campaign",
+    "Complete primary and inherited measurements and compatibility qualification",
+    "Complete candidate gate, all seven final assessments, normal PR merge and fresh actual-merged gate",
+    "Verify v0.39.0 release and every required public asset, then close #161 and continue #162/#163 and parent closeout"
+  ]
+}

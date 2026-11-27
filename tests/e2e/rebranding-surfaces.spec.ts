@@ -1,4 +1,4 @@
-import { browseComponents, showEntries } from "./support/navigation";
+import { browseComponents, showEntries, openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
@@ -95,6 +95,7 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
     await closePanel(page);
 
     await panel(page, "Inspector");
+    await openInspectorTools(page);
     const tabs = page.getByRole("tablist", { name: "Inspector views" });
     for (const name of ["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"]) {
       const tab = tabs.getByRole("tab", { name, exact: true });

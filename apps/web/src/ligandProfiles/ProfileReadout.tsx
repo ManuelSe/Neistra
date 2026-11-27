@@ -3,6 +3,8 @@ import type { PropertyPresentation } from "../ligandProperties/useProperties";
 import type { LigandPropertySession } from "../ligandProperties/session";
 import { profileInputAuthority } from "./authority";
 import { evaluateProfile } from "./evaluate";
+import { profileComparison } from "./comparison";
+import { ProfileComparison } from "./ProfileComparison";
 import { profileConstraints } from "./validate";
 import type { ProfileStatus } from "./types";
 import type { ProfilePresentation } from "./useProfiles";
@@ -13,12 +15,14 @@ const outcomeLabels: Record<ProfileStatus | "missing", string> = {
   stale: "Unavailable", preview: "Preview unavailable", cancelled: "Cancelled", missing: "Missing value",
 };
 const operators = { lt: "<", le: "≤", gt: ">", ge: "≥" };
-export function ProfileReadout({ profiles, properties, session, propertyStatus }: {
-  profiles: ProfilePresentation; properties: PropertyPresentation; session: LigandPropertySession; propertyStatus: string;
+export function ProfileReadout({ profiles, properties, session, propertyStatus, showComparison = false }: {
+  profiles: ProfilePresentation; properties: PropertyPresentation; session: LigandPropertySession; propertyStatus: string; showComparison?: boolean;
 }) {
   const id = useId(), { registry, selectedId } = profiles;
   const profile = registry?.profiles.find(profile => profile.id === selectedId);
-  const evaluation = registry && profile && (properties.target || profile.availability === "unavailable")
+  const comparison = showComparison && registry && profile && properties.target
+    ? profileComparison(registry, selectedId, profileInputAuthority(properties, session, profiles.selection, registry, selectedId)) : null;
+  const evaluation = comparison ? comparison.evaluation : registry && profile && (properties.target || profile.availability === "unavailable")
     ? evaluateProfile(registry, selectedId, profileInputAuthority(properties, session, profiles.selection, registry, selectedId)) : null;
   let status = "No profile selected.";
   if (profiles.error) status = "Profile options could not be loaded. Property updates remain independent.";
@@ -48,6 +52,8 @@ export function ProfileReadout({ profiles, properties, session, propertyStatus }
       </select>
     </div>
     <p role="status" className="ligand-profile-status"><span className="sr-only">{propertyStatus} </span>{status}</p>
+    {showComparison && !selectedId ? <p>Choose a profile to compare properties.</p> : null}
+    {comparison ? <ProfileComparison comparison={comparison} /> : null}
     {profiles.error ? <button type="button" className="ligand-properties-action ligand-profile-retry" onClick={profiles.retry}>Retry profiles</button> : null}
     {profile && registry ? <details className="ligand-profile-details"><summary>Criteria and sources</summary>
       <p>{profile.description}</p>

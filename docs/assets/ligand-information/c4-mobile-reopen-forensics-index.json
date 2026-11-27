@@ -1,0 +1,210 @@
+{
+  "actual_results": {
+    "passed": 12
+  },
+  "all_literal_checksums_recursive_CRC_manifests_exact_union_verified": true,
+  "all_original_mode_mtime_bytes_SHA_preserved": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "browser_sha256": "701fc58fcc8a9b407c8bc661cad2b1598d443853e468e2618729d93ef9ed3f49",
+  "browser_stats": {
+    "duration": 1414789.683,
+    "expected": 12,
+    "flaky": 0,
+    "skipped": 0,
+    "startTime": "2026-11-25T16:28:54.160Z",
+    "unexpected": 0
+  },
+  "campaign": "issue161-mobile-reopen-native1",
+  "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+  "capture_member": "issue161-mobile-reopen-native1/capture.json",
+  "capture_sha256": "85ec19d9edcfccd7b6a45539e5d66484f6a2737a9d9df084c172eda19e15da61",
+  "empty_directories": 11,
+  "external_observers": [
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:39:49.578631+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "6d2f5dbf8b63c0cdaff0ec0eb41845ef58d62e54ce4a9fe15e032edffcbd2b75",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:36:58.844420+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-159f6717-abbb-4b83-b20d-f2630e51e1d9"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:34:44.373149+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "a4361a9b399b23464959f09c0ce7c100d8e917d0c51481419224a4465784684b",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:34:38.808613+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-9bbfd48f-50ed-447e-86b1-d64ee7df20e5"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:34:38.094757+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "c68d20cc5d0a684f2658c76c571905043caddc681330551cec9ab66ff5a76c17",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:30:50.995016+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-ad97074e-d060-48d4-82ba-a97ccb249e66"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:36:31.827568+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "a33209d0f963e1b12d43794e7f6400936261de69ed4a82c1a1424145dbc8b39c",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:34:58.795962+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-bd67a793-55c3-45aa-bd56-33b11110cd75"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:51:43.163629+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "fdc28db639fe7376bd5aec3123b70c5475573d83c7a89dd4d9f379fd5bbbc869",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:49:01.064974+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-1e68a67e-201b-4831-8c21-bbd953b620b1"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:47:08.192447+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "2473fb3f9584b38e3913c5910dfcfc57ceb66104155d757393dc30dd5158126c",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:47:02.190953+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-31c49001-160e-478c-8899-db0d953b04a1"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:47:00.924104+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "0e0f5cb4b1f89789edfffb607141e63deabd8d765ffcfa9a17f700d52b8b77ef",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:42:29.493574+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-516ae17f-343d-4fc6-89d1-ebbaae4fbd68"
+    },
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T16:48:37.095016+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "888e6a85e3bfa6f0b30e4bc9de35b250d2f24e5744b643449d3371d19d8f4a25",
+      "separate_execution_receipt_present": false,
+      "started_utc": "2026-11-25T16:47:22.839377+00:00",
+      "termination_evidence": "Complete fixed-source finished observation and strict outer process/port closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-6003e94a-b8d7-47ae-9506-580ad9510068"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:30:50.828520+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "b155acc5629c03a8a418e4a58dd623f2578732fc84e691124b2bcc313278eafb",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:28:59.576123+00:00",
+      "tree": "external/issue160-profile-performance/chromium-ee59ebf1-080a-4eed-9f2c-d042b691f8f6"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:42:29.323077+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "a789bf0a173b1ae8ccf7be8f848c0869920d98571de5d3fd32d04664bcc084a9",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:40:38.025582+00:00",
+      "tree": "external/issue160-profile-performance/mobile-chromium-476d3c4b-c431-431c-a47b-eeded6cc698f"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:40:37.086140+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "0283bd2d4e3c29eec194a9161bbc7156584e88e5e945d3ba5ef6d7ff620f041b",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:40:04.379952+00:00",
+      "tree": "external/issue161-primary-performance/chromium-dc0759e4-05f4-4b99-a7c1-5fdd050b32fd"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T16:52:28.579372+00:00",
+      "fixed_source_count": 837,
+      "observation_sha256": "3dfc319a1c2adfd408c6136aef60862483a7b298ff58498d89b1a1f4434d833a",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "started_utc": "2026-11-25T16:51:56.374483+00:00",
+      "tree": "external/issue161-primary-performance/mobile-chromium-6b71d2f6-1438-4c48-89eb-66bb94578dcf"
+    }
+  ],
+  "full_feature_gate_pass": false,
+  "independent_audit_required": true,
+  "limitations": [
+    "Targeted twelve portable case passes do not establish strict-host timing qualification, speedup or the complete feature/release gate.",
+    "All410 portable latency annotations remain unenforced;79 reported target misses are preserved.",
+    "Eight property companions lack separate subprocess exit receipts; complete fixed-source observations and strict outer closure are the actual evidence.",
+    "No historical source map is replaced by current working source; the original prelaunch1222-body archive is retained.",
+    "The portable reader first attempt failed from exhausted group iterators; its script/log and corrected terminal0 attempt are preserved."
+  ],
+  "navigation_records": 90,
+  "new_external_cases": 12,
+  "no_relocation": true,
+  "packager_sha256": "b97d1df0e2992dee43291ebdbe40b619b5cb9c7202ab1f2d085446b10bd936ea",
+  "part_bytes": 80587683,
+  "part_count": 1,
+  "parts": [
+    {
+      "bytes": 80587683,
+      "checksum_file": "c4-mobile-reopen-forensics-01.zip.sha256",
+      "checksum_sha256": "b4d9f6a7eab04e1622d60bcb822c76bab3ae10412d801b9e755982749c4f2e04",
+      "file": "c4-mobile-reopen-forensics-01.zip",
+      "outer_manifest_entries": 5291,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-mobile-reopen-retention1/parts/c4-mobile-reopen-forensics-01.zip",
+      "sha256": "825fc5e8d18a36b519b22484052e0f5510408c11d7d7145ecfae726ed125a769",
+      "verification_counts": {
+        "evidence_manifest_entries": 5296,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    }
+  ],
+  "physical_original_bytes": 330842460,
+  "physical_original_files": 5288,
+  "portable_annotation_count": 410,
+  "portable_readback_sha256": "7581d940ab66e675ab0d80669befc9b13bb847b99d0bb836d73bfd4baf3da1bd",
+  "portable_target_misses": 79,
+  "primary_diagnostic_SQL": false,
+  "publication_verified": false,
+  "raw_bytes_each_side": 31208592,
+  "raw_pairs": 3,
+  "recorded_utc": "2026-11-25T17:00:50.279450+00:00",
+  "scope": "Successful targeted twelve-case portable campaign, frozen preparation and exact12new companion trees; complete original source-bound evidence, not full feature or strict-host qualification.",
+  "separate_publication_required": true,
+  "source_archive_count": 1,
+  "source_body_hash_checks": 1222,
+  "speedup_claim": false,
+  "strict_host_qualification": false,
+  "strict_part_limit_exclusive": 83886080,
+  "targeted_twelve_case_pass": true,
+  "unrun": 0
+}

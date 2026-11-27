@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
 import type { Job, Project, QuickMinimizationProposal } from "../../apps/web/src/api/types";
 import { prepare } from "./support/interactions";
@@ -6,6 +7,7 @@ import { current, panel, structures } from "./support/minimization";
 async function prepared(page: Page, request: APIRequestContext, mobile: boolean, label: string) {
   const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], label);
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(p.entries[0].id);

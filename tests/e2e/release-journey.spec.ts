@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -56,6 +57,7 @@ async function selectAtomReferences(
   page: Page,
   references: { entryId: string; atomId: number }[],
 ): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   const mode = page.getByRole("group", { name: "Operation mode" });
   await mode.getByRole("button", { name: "replace" }).click();
@@ -84,6 +86,7 @@ async function createMeasurement(
     page,
     atomIds.map((atomId) => ({ entryId, atomId })),
   );
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "measurements" }).click();
   await page.getByRole("button", { name: "Open measurements", exact: true }).click();
   const tool = page.getByRole("dialog", { name: "Measurements", exact: true });
@@ -246,6 +249,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
 
   await expect(page.getByRole("region", { name: "Protein sequence viewer", exact: true })).toBeVisible();
   await page.getByRole("button", { name: `ALA 1 · chain A in ${protein!.name}`, exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");
   await page
@@ -266,6 +270,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   ]);
 
   const ligandBefore = await structure(request, project!.id, ligand!.id);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   const transformPanel = page.locator(".transform-panel");
   const transformStructure = transformPanel.locator(".coordinate-section select").first();
@@ -281,6 +286,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByRole("button", { name: /Redo: Transform structure/ }).click();
 
   await selectAtomReferences(page, [{ entryId: ligand!.id, atomId: 1 }]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   await transformStructure.selectOption(ligand!.id);
   await transformPanel.getByRole("group", { name: "Scope" }).getByRole("button", { name: "selection" }).click();
@@ -289,6 +295,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await transformPanel.getByRole("button", { name: "Apply transform" }).click();
   await expect(page.locator(".notice[role='status']")).toContainText("Change stored locally");
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(ligand!.id);
   await page.getByRole("spinbutton", { name: "X", exact: true }).fill("4");
@@ -312,6 +319,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   expect(addedBonds.every(bond => bond.order === 1)).toBe(true);
   await expect(page.locator(".viewer-error")).toBeHidden({ timeout: 30_000 });
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "protein" }).click();
   await page.getByRole("combobox", { name: "Protein", exact: true }).selectOption(protein!.id);
   const targetAminoAcid = page.getByRole("combobox", { name: "Target amino acid" });

@@ -1,0 +1,270 @@
+{
+  "recorded_utc": "2026-11-20T06:42:35.422433+00:00",
+  "stage": "C2 scoped passing project-return cache/focus correction checkpoint; not completed feature or release qualification",
+  "candidate_base": "7fef1a14b9eaef5735961199d011a843f5fb48c2",
+  "subject": "Frozen1198sourcebodies plus original11workinghashes; passing scoped correction, not finalfeature",
+  "working_files": {
+    "apps/web/src/App.tsx": "57b30abd63d301ccdcf10482740e71de4847c2d4204900cb9b8084b7b40297e9",
+    "apps/web/src/components/TransformPanel.tsx": "f42aca4df99916c392dee94be5df3ffb4a02db03f3acd0705fb085a2a6552783",
+    "apps/web/src/styles.css": "a6b8e4d2e23678aede2763931af77f66ae4aa0783b2c9f4efac2c4ca058f7bad",
+    "apps/web/src/test/interactive-transform-controls.test.tsx": "ab779f225a76aa819047da6bb84cf261a687e73da4f2c1a1cdc73ad1fe47503d",
+    "apps/web/src/test/ligand-app-owner.test.tsx": "a898d8004c7daa75bf5da5e0ba2ce819853349abc789fe4e61247bbaba1bb676",
+    "docs/DECISIONS.md": "b7c91d510597100b90d055f3b148009939536da421a29da6f5629560c3be08ef",
+    "docs/PROGRESS.md": "40d5d8a8e43839e27836524303af5720db0ffb24a9e9568cc7403f2a44b77839",
+    "docs/plans/issue-161-ligand-information-sidebar.md": "277ade7160ee7e4f1face570db2e6d11c362af20a234a43aa67d8340ed13efc7",
+    "tests/e2e/ligand-information-access.spec.ts": "9dc4a66ad5a9a51efbd7bea9b8bf2c512687c38de198e61dd98c27e13590c91f",
+    "tests/e2e/ligand-information-lifecycle.spec.ts": "abcb16f82f8fa216d1e3d5a6df028678710d9d57fc0baf3869a9e45e49d5011d",
+    "tests/e2e/ligand-information.spec.ts": "b840cf14c198d9d27de1189ee6ff2445b7fd36c099afb6906718f1caabac111d"
+  },
+  "source_count": 1198,
+  "source_map_sha256": "24f248067363b64858f1cc1f097d585cea9af37e3bcf232b97ff01a65ad12b6e",
+  "source_capsule_sha256": "1d56f5713b74572e03025773f405c500628e7ee1302d7c455173ef1a47d04016",
+  "portable_evidence": {
+    "path": "docs/assets/ligand-information/c2-project-recovery-evidence.zip",
+    "bytes": 26131382,
+    "sha256": "09451586cafafa7c852d5631d01a24d8e00ba2da84420e71ac9f307ec3f85d6d",
+    "payloads": 146,
+    "size_bound_exclusive": 83886080,
+    "exact_outer_manifest_union": true,
+    "recursive_verification": {
+      "zip_archives": 12,
+      "evidence_manifest_entries": 151,
+      "project_archive_files": 18
+    },
+    "independent_nested_input_checks": {
+      "zip_archives": 11,
+      "manifest_file_entries": 67,
+      "project_file_entries": 18,
+      "fixture_original_entries": 44,
+      "scanned_bodies": 1377
+    },
+    "qualified_generic_helper": {
+      "path": "docs/assets/ligand-profiles/release-evidence.py.txt",
+      "sha256": "99b14bf8218a19bb566d7379e565f5f3e91ece99206f2cf199a6e551341f7a14"
+    },
+    "one_complete_source_capsule_only": true,
+    "complete_native6_and_ownedrun_included": true,
+    "complete_fullweb2_logs_maps_included": true,
+    "bounded_worker_originals_red_logs_and_staticproof_included": true
+  },
+  "current_native": {
+    "result": "PASS",
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "flakes": 0,
+    "retries": 0,
+    "report_errors": 0,
+    "cases": [
+      {
+        "file": "ligand-information-lifecycle.spec.ts",
+        "title": "keeps coordinate and movement proposals separate from committed ligand facts and reconstructs them through archive (light)",
+        "project": "chromium",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "file": "ligand-information-lifecycle.spec.ts",
+        "title": "keeps coordinate and movement proposals separate from committed ligand facts and reconstructs them through archive (dark)",
+        "project": "chromium",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "file": "ligand-information-lifecycle.spec.ts",
+        "title": "keeps coordinate and movement proposals separate from committed ligand facts and reconstructs them through archive (light)",
+        "project": "mobile-chromium",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "file": "ligand-information-lifecycle.spec.ts",
+        "title": "keeps coordinate and movement proposals separate from committed ligand facts and reconstructs them through archive (dark)",
+        "project": "mobile-chromium",
+        "status": "passed",
+        "retry": 0
+      }
+    ],
+    "scope": "Coordinate/movement preview, committed-fact separation and archive reconstruction, both themes and projects; ordinary Escape and focus recorded before helper intervention.",
+    "positive_cleanup": true,
+    "raw_pairs_verified": 3
+  },
+  "current_frontend": {
+    "result": "PASS",
+    "cases": 1973,
+    "files": 149,
+    "source_map_exact_native6": true
+  },
+  "bounded_app_correction": {
+    "focused_cases": 60,
+    "lint": "PASS",
+    "types": "PASS",
+    "build": "PASS",
+    "scope": "Project-query freshness and atomic cache acceptance; red initial/race/lint attempts retained only as bounded proofs, never pooled."
+  },
+  "bounded_focus_correction": {
+    "focused_cases": 49,
+    "lint": "PASS",
+    "types": "PASS",
+    "production_build": "Existing final-build exit0 evidence reused across test-only act callback correction; production/style bodies identical. Not a new build execution.",
+    "scope": "Movement launcher focus/admission under active state; original hook/session behavior retained."
+  },
+  "static_native_retention": {
+    "original_assertions": 285,
+    "all_original_assertions_cases_deadlines_retained": true,
+    "strict_types_current_diagnostics": 0,
+    "strict_types_baseline_diagnostics": 0
+  },
+  "bounded_specialist_roles": {
+    "software_architecture": {
+      "agent": "/root/issue161_current160_integration_architecture",
+      "verdict": "PASS",
+      "independent_evidence": "Actual11hashes/both1198beforeaftercurrentmaps/49focused+1973web+4native/logs/3rawpairs; synchronousprojectcacheguard andmovementstartphaseguards inspected"
+    },
+    "ui_design": {
+      "agent": "/root/issue160_whole_ui_design",
+      "verdict": "PASS",
+      "independent_evidence": "Exactfrozen11; scopedARIAunavailable/style specificity/unchangedfocusstyles; actual4nativebefore-helperfocus+ordinaryEscape/1973web/sourceguards/logs/rawpairs",
+      "limit": "No freshrenderedhover/contrast audit; boundedCSS+unchangedtokens inspected"
+    },
+    "ux_design": {
+      "agent": "/root/issue160_whole_ux_design",
+      "verdict": "PASS",
+      "independent_evidence": "All11/1198hashes; actual4native/1973web+49focused; mobilepointer+keyboardBUTTONfocus beforehelper/ordinaryEsc/triggerrestore/capture; cachedprojectrecovery/races/Retry guards"
+    }
+  },
+  "bounded_neutral_assessment_sha256": "2e9b9e1b105c74dfc2c18b125d5af5c685316db008301052c2ca203bde09fb8d",
+  "not_all_seven_final_feature_assessments": true,
+  "positive_cleanup": true,
+  "raw_original_copy_pairs_reverified_twice": 3,
+  "content_addressed_ownedrun_artifacts_verified": 11,
+  "earlier_native_history_index": [
+    {
+      "label": "issue161-profile-workflows-remaining-acceptance1",
+      "retained_directory": ".issue-11-evidence/issue161-profile-workflows-remaining-acceptance1",
+      "actual_exit": 1,
+      "raw_browser_stats": {
+        "startTime": "2026-11-20T05:25:50.814Z",
+        "duration": 112233.509,
+        "expected": 6,
+        "skipped": 29,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "execution_sha256": "bff4f29be5db7ae29caac9f5236315935742f5f146e242dbaa15fc65cb10511d",
+      "browser_report_sha256": "f2c654d5ab0b1bae495b668ac5df1143b3fe473696d2b2d91df215716664a551",
+      "complete_original_tree_in_this_packet": false,
+      "full_original_tree_retained_elsewhere": true,
+      "future_retention_and_publication_required": true,
+      "counts_do_not_qualify_current_subject": true,
+      "disposition": "FAILED / NOT PASS; fail-fast/not-run cases remain unqualified."
+    },
+    {
+      "label": "issue161-profile-workflows-remaining-targeted2",
+      "retained_directory": ".issue-11-evidence/issue161-profile-workflows-remaining-targeted2",
+      "actual_exit": 1,
+      "raw_browser_stats": {
+        "startTime": "2026-11-20T05:46:42.164Z",
+        "duration": 56520.721,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "execution_sha256": "9f724d629f464f0d5b93d46a01f4fe85b9d83bd9fd444f08d6a48881b4185c65",
+      "browser_report_sha256": "be86355dd14fee733f478ecf876166259ca1de8bbe1ccd07a9a6cd32e5e2c9c4",
+      "complete_original_tree_in_this_packet": false,
+      "full_original_tree_retained_elsewhere": true,
+      "future_retention_and_publication_required": true,
+      "counts_do_not_qualify_current_subject": true,
+      "disposition": "FAILED / NOT PASS; fail-fast/not-run cases remain unqualified."
+    },
+    {
+      "label": "issue161-profile-workflows-project-return3",
+      "retained_directory": ".issue-11-evidence/issue161-profile-workflows-project-return3",
+      "actual_exit": 0,
+      "raw_browser_stats": {
+        "startTime": "2026-11-20T06:05:28.708Z",
+        "duration": 40407.629,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "execution_sha256": "e89b60730577b6c51f99e65afd885f1043841f0a6f3eb0e16323d391bae13e31",
+      "browser_report_sha256": "dff9c5690af57468c0fb5dd52725fea68a040503eff79caacd59ab9d65226265",
+      "complete_original_tree_in_this_packet": false,
+      "full_original_tree_retained_elsewhere": true,
+      "future_retention_and_publication_required": true,
+      "counts_do_not_qualify_current_subject": true,
+      "disposition": "Historical scoped four-case PASS only; not combined with current four-case result or full36 qualification."
+    },
+    {
+      "label": "issue161-profile-workflows-current-acceptance4",
+      "retained_directory": ".issue-11-evidence/issue161-profile-workflows-current-acceptance4",
+      "actual_exit": 1,
+      "raw_browser_stats": {
+        "startTime": "2026-11-20T06:07:01.856Z",
+        "duration": 350885.6,
+        "expected": 23,
+        "skipped": 12,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "execution_sha256": "a544a6716d006f889c71abca586a628a1ac309c27bf4d2489458f84246516196",
+      "browser_report_sha256": "fc58ba00930e7ecfb9c86135b5a88dd76e1b0de69f4f7517fa0bb817d47354ea",
+      "complete_original_tree_in_this_packet": false,
+      "full_original_tree_retained_elsewhere": true,
+      "future_retention_and_publication_required": true,
+      "counts_do_not_qualify_current_subject": true,
+      "disposition": "FAILED / NOT PASS; fail-fast/not-run cases remain unqualified."
+    },
+    {
+      "label": "issue161-profile-workflows-movement-focus5",
+      "retained_directory": ".issue-11-evidence/issue161-profile-workflows-movement-focus5",
+      "actual_exit": 0,
+      "raw_browser_stats": {
+        "startTime": "2026-11-20T06:18:37.873Z",
+        "duration": 31640.251,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "execution_sha256": "f101f090c58be5128e3ab137a711b1f175225adcc61ea1bfded9f18ec5a4e692",
+      "browser_report_sha256": "7ad9f38dfa1d352ed96277642d0d1ffcaa655c821521f97973ef3a01dbe920a1",
+      "complete_original_tree_in_this_packet": false,
+      "full_original_tree_retained_elsewhere": true,
+      "future_retention_and_publication_required": true,
+      "counts_do_not_qualify_current_subject": true,
+      "disposition": "Functional test exit0, but actual BODY focus/P2 finding remained; current native6 is the correction proof."
+    }
+  ],
+  "earlier_native_full_history_not_in_this_packet": true,
+  "future_complete_history_publication_required": true,
+  "benchmark_navigation_qa_plan_only": true,
+  "requirements_still_open": [
+    "Complete current36sidebar acceptance remains required.",
+    "Actual released160 prerequisite integration and own0.39version preparation remain required.",
+    "Measured performance/compatibility/fullcandidate/freshactualmerged gates remain required.",
+    "All seven final same-candidate feature assessments, protected publication, verifiedrelease/assets/closeout remain required.",
+    "No readiness to push, application release, child closure or parent completion is established."
+  ],
+  "no_primary_diagnostic_sql": true,
+  "original_sources_run_trees_and_raw_copies_preserved": true,
+  "root_may_update_progress_and_plan_after_original11_capture": true,
+  "root_documentation_checkpoint_delta": {
+    "recorded_utc": "2026-11-20T06:44:31.051277+00:00",
+    "author_metadata_sha256_before_append": "31603c9bd929b13fdf97fdfd51f6abdb0838b8ef4f4c73c5eb643fdc1cbdce6a",
+    "captured_original_11_reviewed_bodies_remain_historical_frozen_subject": true,
+    "only_following_documentation_changed_after_capture": {
+      "docs/PROGRESS.md": "58232be22736406e5f4ead1e45adb3bc907b900b8797256ce27b0182ed235d5b",
+      "docs/DECISIONS.md": "01343689f2eddc39737aaf9212a811d8da0eb7c24a11d7194b65015cc0b645c9",
+      "docs/plans/issue-161-ligand-information-sidebar.md": "e4ef5dc2fb06f6b68c3e90fb7bf04da5d032387371385983adf9d22961ef758c"
+    },
+    "all1198_qualification_sources_match_current_native6_capsule": true,
+    "purpose": "Recordactual4native/1973frontend/scoped3rolePASS andauthorizedpreimplementationC3measurement/navrefinement",
+    "no_new_qa_performance_implementation_or_results": true,
+    "not_final_candidate_seven_role_approval": true
+  }
+}

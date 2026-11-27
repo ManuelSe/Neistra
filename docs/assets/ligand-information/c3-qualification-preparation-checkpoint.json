@@ -1,0 +1,88 @@
+{
+  "recorded_utc": "2026-11-20T07:46:27.731744+00:00",
+  "stage": "C3 preparation source checks only; not completed feature or actual qualification",
+  "candidate_base": "656b6fa9c8ab53d77d0f3c6f10df61464285dccc",
+  "source_hashes": {
+    "docs/assets/ligand-information/production-audit.py.txt": "4541a4d1d8d2784045caf4bf96c856c4f13b3a2f14e9e2004138b2b8856e6a04",
+    "docs/assets/ligand-information/qualification-summary.py.txt": "3cc319543da8cb9c1aceb62a47d73459be220f3457fd0e19018ffc562a3c23b8",
+    "docs/assets/ligand-information/qualification.py.txt": "22fe6763ad7c6e3bd897aa99671792eafdb555959454c0385b50ba733d88d6e1",
+    "docs/assets/ligand-information/release-evidence.py.txt": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+    "docs/assets/ligand-information/release-recipe.py.txt": "48ef6e2cfbc33943daa199a4dcc5793ea8cdbe1cde7e66f082da28cacccb60a9",
+    "docs/assets/ligand-information/versions.py.txt": "227a0fc03bccbf139a2e4ed5448d769a60fdc5ff085e0dfb25dff2cb7ca01cde",
+    "tests/unit/test_ligand_information_qualification.py": "a2fb991c8e629b3654484ae4deeee5cd2f4ea7cbf2585e07f078ec61f2a02c52",
+    "tests/e2e/ligand-sidebar-performance.spec.ts": "7e6b6a8d6252e68fa24dad006e187405dc26e723e5b38fd3eeb400402f11c777",
+    "tests/e2e/support/ligand-information-performance.ts": "af5c6d107519df50308bb92e187865a135f8c82e2d45b31342225d61c3ace31b",
+    "apps/web/src/test/ligand-information-performance.test.ts": "0af4f469f18690ca96765fafc655ddd0a3895aa1529fb6ca2f42cb7be5560ebc",
+    "tests/e2e/ligand-profiles-performance.spec.ts": "229cb9fbc0a68eb875a243412a4c69d72ccdefcbfd30a03d0a67c7b29a436ba5"
+  },
+  "preparation_source_count": 11,
+  "verification": {
+    "frontend_cases": 2023,
+    "frontend_files": 150,
+    "synthetic_framework_cases": 108,
+    "closed_interval_pure_cases": 50,
+    "strict_native_types": "PASS",
+    "web_types": "PASS",
+    "web_lint": "PASS",
+    "framework_ruff": "PASS",
+    "framework_unit_strict_mypy": "PASS",
+    "all11_bodies_fixed": true,
+    "meaningful_closed_interval_red_control": "Preserved one failure: earlier sample misses an initiation during awaited reopen setup",
+    "dry_inventory": "698 declared cases; inherited cold workloads precede complement; no native execution"
+  },
+  "scoped_agent_assessments": {
+    "performance": {
+      "agent": "/root/issue160_performance_6d_whole_review",
+      "verdict": "PASS",
+      "finding_resolved": "Complete closed interval now uses browser initiation/marker ordering through actual trusted reopen.",
+      "checks": [
+        "Both await gaps covered, equal timestamps ordered, post-trigger drawing allowed.",
+        "Meaningful red assertion0vs1 inspected;50 affected controls/static receipts inspected.",
+        "Source hashes and scientific/image/lineage suffix preservation verified."
+      ]
+    },
+    "scientific_implementation": {
+      "agent": "/root/issue160_scientific_implementation_6d_review",
+      "verdict": "PASS",
+      "checks": [
+        "Intervening three-file diff and unchanged inherited hash verified.",
+        "Scientific formula/comparison oracles and passive image-capture suffix remain byte-identical.",
+        "Common browser sequence, original fetch forwarding once and refusal guards inspected.",
+        "Actual50 pure/strictTS/lint/app-type receipts inspected."
+      ]
+    },
+    "software_architecture": {
+      "agent": "/root/issue161_current160_integration_architecture",
+      "verdict": "PASS",
+      "scope": "Prepared six-helper namespace and synthetic controls only; not actual qualification."
+    }
+  },
+  "production_application_changes": false,
+  "new_framework_contract": "Full DATA6 inventory; preceding browser authority3; canonical43 steps; literal earlier helpers/actors unchanged; version-qualified package members; serial fresh-store and genuine-cold refusal controls",
+  "real_recipe_without_verified_predecessor": "EXPECTED_REFUSAL; actual public v0.38.0 provenance pin absent",
+  "retention": "Portable packet contains source11, original QA author sources/failures/logs, corrected interval control, framework static attempts and source-bound receipts. Disposable synthetic pytest workspaces are retained locally but excluded from this packet. Earlier C2/native packets remain separate.",
+  "actual_measurements_performed": false,
+  "all_seven_final_feature_gate": "INCOMPLETE",
+  "implementation_push_readiness_claimed": false,
+  "remaining": [
+    "Actual released160 integration and public baseline pins",
+    "Prepare all five authoritative0.39.0 sources after collision check",
+    "Complete current36-case native acceptance",
+    "Actual primary and inherited measurements with scientific/source/resource proofs",
+    "Preceding-reader compatibility and complete candidate/exact-merged gates",
+    "All seven same-final-candidate assessments",
+    "Protected merge, verified release assets, closeout and owned cleanup"
+  ],
+  "portable_evidence": {
+    "path": "docs/assets/ligand-information/c3-qualification-preparation-evidence.zip",
+    "bytes": 482399,
+    "sha256": "a7d1816125b21de24c03017f0a4c95d2018b17bc50efb6f99e5597024dd2f4c0",
+    "outer_manifest_entries": 201,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 201,
+      "project_archive_files": 0
+    },
+    "packager_source_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2"
+  }
+}

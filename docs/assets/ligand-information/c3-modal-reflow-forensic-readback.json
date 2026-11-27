@@ -1,0 +1,51 @@
+{
+  "recorded_utc": "2026-11-25T12:47:59.044661+00:00",
+  "record_type": "Primary transcription of actual independent read-only retention audit",
+  "agent": "/root/issue161_modal_reflow_retention_audit",
+  "verdict": "PASS",
+  "scope": "Lossless retention only; no feature, performance, publication or human approval",
+  "sets": [
+    {
+      "index": "docs/assets/ligand-information/c3-modal-reflow-forensics-index.json",
+      "index_sha256": "2ff6dd4a580355983b04207def566de6817c8fab3058e27633f550a4bfed10cb",
+      "parts": 10,
+      "compressed_bytes": 530454022,
+      "original_files": 471,
+      "original_bytes": 585321877,
+      "empty_directories": 82,
+      "raw_pairs": 30,
+      "historical_source_member_hashes": 12168,
+      "recursive_ZIPs": 111,
+      "evidence_manifest_entries": 531,
+      "outer_manifest_entries": 481,
+      "project_archive_files": 106,
+      "maximum_part_bytes": 75661091
+    },
+    {
+      "index": "docs/assets/ligand-information/c3-reading-zoom-forensics-index.json",
+      "index_sha256": "35e14ed3ef125dcd84bd0aa27f171d226503fe55f709502875ac61a44361bf82",
+      "parts": 2,
+      "compressed_bytes": 108598690,
+      "original_files": 217,
+      "original_bytes": 116708442,
+      "empty_directories": 8,
+      "raw_pairs": 6,
+      "historical_source_member_hashes": 2436,
+      "recursive_ZIPs": 17,
+      "evidence_manifest_entries": 229,
+      "outer_manifest_entries": 219,
+      "project_archive_files": 20,
+      "maximum_part_bytes": 61040357
+    }
+  ],
+  "strict_part_limit_bytes_exclusive": 83886080,
+  "all_literal_checksums_and_index_hashes_verified": true,
+  "exact_capture_archive_filesystem_unions": true,
+  "all_original_sha_bytes_mode_mtime_ns_match": true,
+  "raw_originals_and_copies_match": true,
+  "each_historical_source_ZIP_exactly_matches_own_before_after_map": true,
+  "unchanged_archive_helper_source_verified": true,
+  "historical_failures_and_unrun_cases_retained": true,
+  "no_SQL_store_engine_or_services_used": true,
+  "publication_verified": false
+}

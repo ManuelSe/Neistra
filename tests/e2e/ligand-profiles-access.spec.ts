@@ -1,9 +1,11 @@
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import type { Project } from "../../apps/web/src/api/types";
+import type { PropertyAggregate, PropertyRequest } from "../../apps/web/src/ligandProperties/types";
 import { prepare } from "./support/interactions";
 
 interface Preferences { revision: number; enabled_categories: string[] }
@@ -16,12 +18,13 @@ interface ZoomAPI {
 }
 interface HeldReport {
   entryId: string; waiting: boolean; captured: Promise<void>; capture: () => void; release: () => void; held: Promise<void>;
+  delivered: { path: string; method: string; request: PropertyRequest; response: PropertyAggregate } | null;
 }
 function holdReport(entryId: string): HeldReport {
   let release!: () => void, capture!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
   const captured = new Promise<void>(resolve => { capture = resolve; });
-  return { entryId, waiting: true, held, captured, release, capture };
+  return { entryId, waiting: true, held, captured, release, capture, delivered: null };
 }
 async function keyboardProfile(page: Page, choice: Locator) {
   await choice.scrollIntoViewIfNeeded(); await choice.focus();
@@ -87,14 +90,17 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
     await page.route(url => /\/ligand-properties\/(read|consumers\/[^/]+)$/.test(url.pathname), async route => {
       if (!["POST", "PUT"].includes(route.request().method())) { await route.continue(); return; }
       const response = await route.fetch(), current = gate;
+      let ready: PropertyAggregate | null = null;
       if (current?.waiting && response.ok() && projectId
         && new URL(route.request().url()).pathname.startsWith(`/api/v1/projects/${projectId}/ligand-properties/`)) {
-        const payload = await response.json() as { entries: { source: { entry_id: string }; status: string; report: unknown }[] };
+        const payload = await response.json() as PropertyAggregate;
         if (payload.entries.some(entry => entry.source.entry_id === current.entryId && entry.status === "ready" && entry.report)) {
-          current.waiting = false; current.capture(); await current.held;
+          ready = payload; current.waiting = false; current.capture(); await current.held;
         }
       }
       await route.fulfill({ response });
+      if (current && ready) current.delivered = { path: new URL(route.request().url()).pathname,
+        method: route.request().method(), request: route.request().postDataJSON() as PropertyRequest, response: ready };
     });
     const project = await prepare(page, request, Array.from({ length: 4 }, (_, index) => ({ name: `profile-access-${index}.smi`,
       mimeType: "chemical/x-daylight-smiles", buffer: Buffer.from("CCO ethanol\n") })), "Profile desktop access");
@@ -121,6 +127,7 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
         const entry = project.entries[scenario++]; gate = holdReport(entry.id);
         const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
         if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+        await openLigandInformation(page);
         await page.getByRole("region", { name: "Ligand of interest", exact: true }).getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
         const frame = page.getByRole("region", { name: "Project inspector", exact: true });
         const properties = frame.getByRole("region", { name: "Properties", exact: true });
@@ -136,6 +143,7 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
         await expect(methods.locator("dt")).toHaveCount(4);
         await gate.captured;
         await expect(properties.getByRole("status")).toHaveText("Updating properties… Updating profile…");
+        await openInspectorTools(page);
         const tab = frame.getByRole("tab", { name: "selection", exact: true }); await tab.click();
         const panel = frame.getByRole("tabpanel", { name: "selection", exact: true });
         await panel.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
@@ -143,7 +151,29 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
         await input.fill(`${entry.id}:1`); await input.scrollIntoViewIfNeeded(); await input.click();
         const focusedInput = await input.elementHandle(), inputBefore = await geometry(input); expectReachable(inputBefore);
         gate.release();
-        await expect(properties.getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
+        // The producer remains active while its ligand presenter is hidden. Observe
+        // its actual App request/READY response; opening the view must not initiate
+        // the update used to qualify this retained legacy control.
+        await expect.poll(() => !!gate?.delivered, { timeout: 30_000 }).toBe(true);
+        const delivered = gate.delivered!, sourceEntry = before.entries.find(item => item.id === entry.id)!;
+        expect(delivered.response.project_id).toBe(project.id);
+        const ready = delivered.response.entries.find(item => item.source.entry_id === entry.id)!;
+        expect(ready.status).toBe("ready");
+        expect(ready.source).toEqual({ entry_id: entry.id, source_artifact_id: sourceEntry.current_artifact_id,
+          instance_id: sourceEntry.ligand_designation.instance_id, atom_ids: sourceEntry.ligand_designation.atom_ids });
+        expect(delivered.request.entries).toEqual([ready.source]);
+        expect(delivered.request.descriptor_ids).toEqual(["molecular_weight", "hbd", "hba", "calculated_logp"]);
+        // Shared cache reports may contain additional descriptors. The requested
+        // profile rows must be current and finite without constraining other rows.
+        expect(ready.report).not.toBeNull();
+        expect(ready.report!.coverage).toEqual(expect.arrayContaining(delivered.request.descriptor_ids));
+        expect(new Set(ready.report!.values.map(value => value.descriptor_id)).size).toBe(ready.report!.values.length);
+        for (const descriptorId of delivered.request.descriptor_ids) {
+          const value = ready.report!.values.find(value => value.descriptor_id === descriptorId);
+          expect(value).toMatchObject({ status: "ready", reason: null });
+          expect(typeof value!.value).toBe("number");
+          expect(Number.isFinite(value!.value)).toBe(true);
+        }
         expect(await focusedInput!.evaluate(node => node.isConnected && document.activeElement === node)).toBe(true);
         // Read after insertion without scrolling; otherwise a clipped input could be hidden by the test itself.
         const inputAfter = await input.evaluate(node => {
@@ -170,6 +200,9 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
         await expect(page.locator(".viewer-status")).toContainText("/ 1 selected");
         await input.click();
         const queryCapture = await compositor(page, info, `profile-legacy-query-compositor-${theme}-${factor * 100}`);
+        await openLigandInformation(page);
+        await expect(properties.getByRole("status")).toHaveText("Properties current Within profile criteria.", { timeout: 30_000 });
+        await expandWithKeyboard(page, criteria); await expandWithKeyboard(page, methods);
         await expect(criteria.getByText("Value: 46.069 g/mol", { exact: true })).toBeVisible();
         await expect(criteria.getByText("Criterion: ≤ 500 g/mol", { exact: true })).toBeVisible();
         expect(await criteria.getByRole("link").count()).toBeGreaterThan(0); await expect(methods.locator("time")).toHaveCount(1);
@@ -185,7 +218,8 @@ test("keeps profiles, current methods and legacy selection accessible at actual 
         expect(await (await request.get(preferencePath)).json()).toEqual(hiddenPreferences);
         expect(await (await request.get(`${endpoint}/jobs`)).json()).toEqual([]);
         evidence.push({ theme, factor, actual, actualContext: "persistent desktop Chromium", runnerProfile: info.project.name,
-          size, choiceBounds, criteriaBounds, methodsBounds, inputBefore, inputAfter, compositor: { criteriaCapture, queryCapture, methodsCapture } });
+          size, choiceBounds, criteriaBounds, methodsBounds, inputBefore, inputAfter, actualHiddenProducerReady: delivered,
+          compositor: { criteriaCapture, queryCapture, methodsCapture } });
         if (await drawer.isVisible()) { await choice.focus(); await page.keyboard.press("Escape"); await expect(drawer).toBeHidden(); }
       }
     }

@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -126,6 +127,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   const proteinRow = page.locator(`.entry-row[data-entry-id="${protein!.id}"]`);
   const ligandRow = page.locator(`.entry-row[data-entry-id="${ligand!.id}"]`);
 
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   await proteinRow.locator(".entry-select").click();
   await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
   await expectSummary(page, {
@@ -167,6 +170,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await residue.click();
   await expect(residue).toHaveAttribute("aria-pressed", "true");
   await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");
 
@@ -210,6 +214,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", {
     timeout: 20_000,
   });
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   const persisted = page
     .locator(".saved-selection-row")
     .filter({ hasText: "Glycine site" });

@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import type { Project } from "../../apps/web/src/api/types";
@@ -264,11 +265,13 @@ test("focused warning details own Escape without cancelling an active movement p
   const original = await warningMolecularSnapshot(request, project);
   const mobile = info.project.name === "mobile-chromium";
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("structure");
   await page.getByLabel("Value", { exact: true }).fill(ligand.id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
   await expect(page.getByLabel("Current selection summary")).toContainText(`Atoms${ligand.atom_count}`);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.getByRole("button", { name: "Move selection", exact: true }).focus();
   await page.keyboard.press("Enter");

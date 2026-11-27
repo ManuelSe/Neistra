@@ -1,0 +1,72 @@
+{
+  "browser_exclusions": 75,
+  "browser_inventory_count": 660,
+  "browser_passed": 585,
+  "excluded_identities_sha256": "e0be11747678c886bb8be4ab5bcbf8c86b184edfd1a81120c5a3af68f24516c7",
+  "nested_archive": {
+    "all_crc_verified": true,
+    "manifest_sha256": "34c45b45cf738d8300915c9fe837cadc5fbafea874ab714ea9845b65848a548d",
+    "members": {
+      "gate/c4-master2-browser.json.gz": {
+        "bytes": 23052981,
+        "sha256": "262f7fb28c225483aa3e409d5ed24f9f8e5d7b65aa71afcac47040b59289a180"
+      },
+      "gate/c4-master2-summary.json": {
+        "bytes": 81083,
+        "sha256": "1ced7152746254d8213102f54f0cfda0040e6b18bfcb21017b3c3351d86c39bd"
+      }
+    }
+  },
+  "outer_manifest": {
+    "member": {
+      "bytes": 83377902,
+      "path": "complete-gates/c4-master2/c4-master2-qualified-01.zip",
+      "sha256": "ed7df324f0e647b6139389ee7cf23b55f24d99dd845aa658c672061387d883ee"
+    },
+    "sha256": "a3f1e9955ac08d4adb463df68531aade6974c85e83d68bd8f2892dfdec8726c2"
+  },
+  "predecessor": {
+    "commit": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+    "source_count": 1183,
+    "tag": "v0.38.0",
+    "version": "0.38.0"
+  },
+  "public_asset": {
+    "bytes": 970512774,
+    "sha256": "f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-qualification.zip"
+  },
+  "publication_verification": {
+    "annotated_tag_object": "7e535c06e19d833d3e4accd63d3963a10dc4a348",
+    "asset_id": 772876827,
+    "download": {
+      "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+      "anonymous_request_without_authorization_header": true,
+      "bytes": 970512774,
+      "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-160-mobile-panel-focus/.issue-11-evidence/issue160-master2-release-preparation1/public-runtime-readback1/main/neistra-v0.38.0-qualification.zip",
+      "http_status": 200,
+      "matches_local_release_asset": true,
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.38.0/neistra-v0.38.0-qualification.zip",
+      "qualified_master": "c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82",
+      "sha256": "f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284",
+      "verification_counts": {
+        "evidence_manifest_entries": 37094,
+        "project_archive_files": 15024,
+        "zip_archives": 6437
+      }
+    },
+    "draft": false,
+    "prerelease": false,
+    "published": true,
+    "published_at": "2026-11-20T18:27:38Z",
+    "reachable_on_remote_master": true,
+    "release_id": 453038539,
+    "remote_master_observed": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+    "verified_utc": "2026-11-20T19:11:35.844102+00:00"
+  },
+  "retained_members": {
+    "qualified-merged-browser.json.gz": "gate/c4-master2-browser.json.gz",
+    "qualified-merged-summary.json": "gate/c4-master2-summary.json"
+  },
+  "schema": "published-predecessor-browser-baseline-v1"
+}

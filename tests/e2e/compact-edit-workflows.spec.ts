@@ -1,9 +1,11 @@
+import { openInspectorTools } from "./support/navigation";
 import { expect, test, type Page } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import { prepare, frameFixture, cyanPixels } from "./support/interactions";
 import { observe, previewState } from "./support/modeling";
 async function selectAtom(page: Page, entryId: string, mobile: boolean, ids = [1]) {
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   for (const [index, id] of ids.entries()) {

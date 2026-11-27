@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
@@ -114,16 +115,15 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await page.keyboard.press("Enter");
     const drawer = page.getByRole("dialog", { name: "Inspector panel" });
     await expect(drawer).toBeVisible();
-    const selectionTab = drawer.getByRole("tab", { name: "selection" });
-    const entryChoice = drawer.getByRole("region", { name: "Ligand of interest", exact: true })
-      .getByRole("combobox", { name: "Entry", exact: true });
+    const ligandChoice = drawer.getByRole("region", { name: "Ligand of interest", exact: true });
+    const entryChoice = ligandChoice.getByRole("combobox", { name: "Entry", exact: true });
+    await expect(entryChoice).toBeEnabled();
+    await expect(entryChoice).toBeFocused();
+    await expect(entryChoice).toHaveValue("");
     const properties = drawer.getByRole("region", { name: "Properties", exact: true });
     const propertyOptions = properties.getByRole("button", { name: "Property options", exact: true });
     const profileChoice = properties.getByRole("combobox", { name: "Profile", exact: true });
     const methodsSummary = properties.locator("summary").filter({ hasText: /^Methods and limits$/ });
-    await expect(entryChoice).toBeEnabled();
-    await expect(entryChoice).toBeFocused();
-    await expect(entryChoice).toHaveValue("");
     await expect(propertyOptions).toBeEnabled();
     await expect(profileChoice).toBeEnabled();
     await expect(methodsSummary).toBeVisible();
@@ -134,7 +134,12 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await expect(profileChoice).toHaveValue("");
     await page.keyboard.press("Tab");
     await expect(methodsSummary).toBeFocused();
-    await page.keyboard.press("Tab");
+    const toolsButton = drawer.getByRole("button", { name: "Inspector tools", exact: true });
+    await toolsButton.focus();
+    await page.keyboard.press("Enter");
+    const selectionTab = drawer.getByRole("tab", { name: "selection" });
+    await expect(selectionTab).toBeVisible();
+    await selectionTab.focus();
     await expect(selectionTab).toBeFocused();
     await selectionTab.focus();
     await page.keyboard.press("ArrowRight");
@@ -148,6 +153,7 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await expect(inspectorButton).toBeFocused();
     await expect(page.locator(".tooltip")).toBeHidden();
   } else {
+    await openInspectorTools(page);
     const selectionTab = page.getByRole("tab", { name: "selection" });
     await selectionTab.focus();
     await page.keyboard.press("ArrowRight");
@@ -215,7 +221,7 @@ test("keeps representative-project interactions responsive and projection-scoped
   performanceBudget(importAndViewerMs, 30_000, "importAndViewerMs");
 
   await page.evaluate(() => {
-    (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks.length = 0;
+    (window as unknown as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks.length = 0;
   });
   const structureRequests: string[] = [];
   page.on("request", (outgoing) => {
@@ -241,7 +247,7 @@ test("keeps representative-project interactions responsive and projection-scoped
   expect(structureRequests).toEqual([]);
 
   const longTasks = await page.evaluate(
-    () => (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks,
+    () => (window as unknown as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks,
   );
   const maxInteractionLongTaskMs = Math.max(0, ...longTasks);
   performanceBudget(maxInteractionLongTaskMs, 750, "maxInteractionLongTaskMs");

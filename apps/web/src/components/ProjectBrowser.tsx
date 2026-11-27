@@ -44,6 +44,7 @@ import { useNavigationStore } from "../store/navigation";
 import { useWorkspaceStore } from "../store/workspace";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { Panel, PanelGroup, PanelResizeHandle, type ImperativePanelHandle } from "react-resizable-panels";
+import { emptyBrowserFilters, matchesBrowserFilters } from "../browser/filtering";
 
 interface ProjectBrowserProps {
   project: Project | undefined;
@@ -254,7 +255,8 @@ export function ProjectBrowser({
   const [componentContentMinimum, setComponentContentMinimum] = useState(64);
   const [minimums, setMinimums] = useState([30, 25]);
   const navigation = useNavigationStore();
-  const { browserLayout, componentsCollapsed, setBrowserLayout, setComponentsCollapsed } = useWorkspaceStore();
+  const { browserLayout, componentsCollapsed, setBrowserLayout, setComponentsCollapsed,
+    activeProjectId, browserFilters, browserFilterVisit, patchBrowserFilters } = useWorkspaceStore();
   const componentPanel = useRef<ImperativePanelHandle>(null);
   const paneHeading = useRef<HTMLHeadingElement>(null);
   const detailsReturn = useRef<{ projectId: string; entryId: string; launcher: HTMLElement | null } | null>(null);
@@ -284,20 +286,14 @@ export function ProjectBrowser({
     });
   };
   const drag = useGroupDrag(project, actions.busy ?? false, onMoveMembership);
-  const [search, setSearch] = useState("");
-  const [typeFilter, setTypeFilter] = useState<StructureType | "all">("all");
+  const filters = project?.id === activeProjectId ? browserFilters : emptyBrowserFilters;
+  const { search, type: typeFilter } = filters;
+  const filterScope = { projectId: project?.id ?? null, visit: browserFilterVisit };
   const [sortBy, setSortBy] = useState<"name" | "type" | "atoms" | "modified">("name");
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
   const entries = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase();
     return [...(project?.entries ?? [])]
-      .filter(
-        (entry) =>
-          (typeFilter === "all" || entry.structure_type === typeFilter) &&
-          (!query ||
-            entry.name.toLocaleLowerCase().includes(query) ||
-            entry.original_filename?.toLocaleLowerCase().includes(query)),
-      )
+      .filter(entry => matchesBrowserFilters(entry, filters))
       .sort((left, right) => (
         sortBy === "atoms"
           ? right.atom_count - left.atom_count || left.name.localeCompare(right.name)
@@ -309,7 +305,7 @@ export function ProjectBrowser({
               : left.name.localeCompare(right.name)
       ) || left.id.localeCompare(right.id),
       );
-  }, [project?.entries, search, sortBy, typeFilter]);
+  }, [project?.entries, filters, sortBy]);
   const labels = groupLabels(project?.groups ?? []);
   const canonicalIds = new Set(selection.atoms.map((atom) => atom.structure_id));
   const displayedIds = new Set(entries.map((entry) => entry.id));
@@ -385,7 +381,7 @@ export function ProjectBrowser({
           <input
             value={search}
             placeholder="Search structures"
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => patchBrowserFilters(filterScope, { search: event.target.value })}
           />
         </label>
         <details className="browser-filter-details"><summary>Filter and sort{typeFilter !== "all" ? " · filtered" : ""}</summary>
@@ -393,7 +389,7 @@ export function ProjectBrowser({
           <select
             aria-label="Filter structure type"
             value={typeFilter}
-            onChange={(event) => setTypeFilter(event.target.value as StructureType | "all")}
+            onChange={(event) => patchBrowserFilters(filterScope, { type: event.target.value as StructureType | "all" })}
           >
             <option value="all">All types</option>
             <option value="protein">Protein</option>

@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -373,6 +374,7 @@ test("persists polar-only mode across viewer workflows without transient or mole
   ).body();
 
   await page.getByRole("button", { name: "Pick residues" }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   await page
     .getByRole("group", { name: "Operation mode" })
@@ -691,6 +693,7 @@ for (const fixture of ["polar_hydrogens_ligand.mol", "polar_hydrogens_protein.pd
     await openViewerControls(page);
     await page.getByLabel(`Representation style for ${entry.name}`).selectOption("space-filling");
     await page.getByRole("button", { name: "Close viewer controls" }).click();
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "selection" }).click();
     const clear = page.getByRole("button", { name: "Clear", exact: true });
     if (await clear.isEnabled()) await clear.click();

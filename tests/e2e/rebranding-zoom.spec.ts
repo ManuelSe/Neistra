@@ -1,7 +1,7 @@
 import { addOneHydrogen } from "./support/hydrogen";
 import { prepare } from "./support/interactions";
 import { expectCompactInspection } from "./support/modeling";
-import { browseComponents, showEntries } from "./support/navigation";
+import { browseComponents, showEntries, openInspectorTools } from "./support/navigation";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, expect, test, type Locator, type Page, type TestInfo, type Worker } from "@playwright/test";
@@ -162,10 +162,12 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await interactions.getByRole("button", { name: "Close interactions" }).focus(); await page.keyboard.press("Enter");
         await expect(interactionsLauncher).toBeFocused();
         if (factor === 2) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+        await openInspectorTools(page);
         await page.getByRole("tab", { name: "selection", exact: true }).click();
         await page.getByLabel("Select by").selectOption("structure");
         await page.getByLabel("Value", { exact: true }).fill(imported.entries[0].id);
         await page.getByRole("button", { name: "Apply query", exact: true }).click();
+        await openInspectorTools(page);
         await page.getByRole("tab", { name: "transform", exact: true }).click();
         await page.getByRole("button", { name: "Move selection", exact: true }).focus();
         await page.keyboard.press("Enter");
@@ -226,6 +228,7 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await captureZoomPage(page, info, `${theme}-${factor * 100}-application-viewer.png`);
         const inspector = page.getByRole("button", { name: "Inspector", exact: true });
         if (await inspector.isVisible()) await inspector.click();
+        await openInspectorTools(page);
         for (const tab of await page.locator('.inspector-tabs [role="tab"]').all()) {
           await tab.click();
           expect(await tab.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
@@ -382,6 +385,7 @@ test("keeps shell and inspector controls bounded around both responsive breakpoi
       await page.getByRole("dialog", { name: "Projects" }).focus();
       await page.keyboard.press("Escape");
       if (width <= 840) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await openInspectorTools(page);
       for (const name of ["selection", "details"]) {
         await page.locator(".inspector-tabs").getByRole("tab", { name, exact: true }).click();
         expect(await page.locator(".project-facts dt, .selection-summary dt").evaluateAll(nodes =>
@@ -414,6 +418,7 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
     const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Edit zoom");
     const select = async () => {
       if (await page.getByRole("button", { name: "Inspector", exact: true }).isVisible()) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await openInspectorTools(page);
       await page.getByRole("tab", { name: "selection", exact: true }).click();
       await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
       await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${project.entries[0].id}:1`);

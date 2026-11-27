@@ -8935,6 +8935,72 @@ hashes fixed, including preview Cancel/Apply/exactUndoRedo and metadata recovery
 This does not pool into the still-failed access qualification or authorize readiness.
 
 
+## D-193 — Compose ligand information from existing qualified producers
+
+Issue161 preparation starts from committed, explicitly UNRELEASED160C2 98ed1000.
+This is an independent implementation preparation basis, not a delivered dependency.
+Before final161gates/PR, reconcile every inherited source against actual released
+158/159/160master/tag history. Keep versions/schema unchanged during C0; no new
+scientific cache, predictor, evaluator, scheduler or durable schema is justified.
+
+Use the existing deliberate inspected-entry owner and one App property session/
+input owner/profile selection above responsive presenters. Resolve the ID against
+current project entries during render; deletion withholds immediately and clears
+without fallback. Selection, visibility, measurement and filter membership do not
+retarget inspection. Preserve hidden/filtered entries in the all-entry chooser.
+
+Extract/share the existing candidate source qualification, query/depiction options,
+response gates, queue and recovery as necessary. A single source-scoped qualification
+object feeds header and chooser; manual cache writes cannot recover a known source
+failure. Keep source identity separate from designation metadata and retain failure
+knowledge through responsive/chooser remounts. Use designated_candidate directly,
+matching current resolved designation and exact canonical membership; durable instance
+identity need not equal candidate key. Inventory, depiction-chemistry and descriptor
+input hashes are different contracts. Each independent result must match its own
+qualified producer and the same intended entry/source, without requiring all outputs
+to finish together. No new mutation or viewer-owned molecular truth.
+
+For profile comparison, call the shared axis selector, then project unique required
+descriptor IDs in registry axis order. Require exactly one display axis per required
+ID; otherwise report explicit missing-axis definition, never silently omit a criterion.
+The chart and equivalent table share those exact rows, actual values, units, domains,
+clipping and availability reasons; all relevant shared constraints/operators remain
+accessible. This adds no descriptor demand and does not rewrite category preferences.
+No profile remains initial with a comparison prompt. Two axes use spokes/points/open
+line; close a molecular polygon only for at least three fully qualified axes. Missing
+values remain gaps, true zero remains numeric, and clipping retains actual numbers.
+Plot domains are display scales; no threshold polygon, area score or inferred quality.
+
+Use the current right panel, resize/collapse/mobile shell, one persistent header and
+one scroll body. Make Ligand information the primary view and retain Inspector tools
+one explicit action away until163; do not stack a complete dynamic sidebar above
+legacy tasks. Keep deliberate view state above responsive remounts. Explicit native
+drivers may enter retained tools before using their controls; preserve every retained
+domain assertion, deadline and exclusion rather than inventing hidden compatibility UI
+or globally intercepting selectors. Initial focus must identify the current task;
+closing returns to the actual launcher. Keep visible controls44px where required.
+
+One presentation boundary observes all independently updating identity/depiction/
+property/profile/radar publications. Avoid nested competing D-190 compensation.
+Preserve connected focus/control identity and reading position while yielding to
+explicit entry/view/profile/task/disclosure navigation. Include source-failure,
+partial data and local-publication tests; do not rely on a parent-only wrapper that
+misses independently subscribed child updates. Preview is a presentation overlay;
+committed data remain available to future162filters. Cancel restores only matching
+committed data; Apply retires incompatible results synchronously.
+
+The future153diagram contract is nullable and complex-only, with explicit exact
+ligand/protein inputs, source/artifact/revision and optional generator/version/artifact.
+Infer no protein from proximity, current selection or transient interaction target;
+create no endpoint/artifact/generation action. Advanced sources/methods/provenance/
+limits stay secondary while material warnings and recovery remain discoverable.
+
+Reference, scientific-theory, architecture, UI and UX consultations support this
+bounded original composition; they are planning guidance, not implementation approval.
+All seven final same-candidate assessments, measured bounds, full gates, protected
+merge and public release/closeout remain mandatory.
+
+
 ## D-195 — A source failure retires earlier inventory checks across presenters
 
 Independent installed-query/component controls reveal a consequential source-failure
@@ -9057,6 +9123,35 @@ writes after eviction, old success across recreation, failure during Retry,
 reactivation, source isolation and unchanged chooser/StrictMode recovery. Obtain
 independent architecture/performance reassessment before the next full candidate
 qualification, then all seven same-candidate assessments and the complete gates.
+
+
+## D-199 — Explain retained inspection outside existing browser filters
+
+The approved161contract requires feedback when a still-existing inspected entry
+is excluded from the browser. Independent UX assessment finds no such explanation
+for current name/type filters. Preserve the target and all-entry chooser; do not
+retarget inspection, clear filters, select entries or change visibility.
+
+Lift only existing search/type predicate inputs above responsive browser mounts
+into transient workspace UI state. Keep a distinct project-visit token, reset the
+filters atomically on an actual active-project switch, and reject captured updates
+from old project visits, including A→B→A. Merge typed patches into current state.
+Exclude this state/token from persistence. Project revision changes recompute
+membership against the current DTO without resetting the predicate.
+
+Use one typed pure matching function in the browser and inspected-entry feedback.
+Preserve current trim/casefold/name-or-original-filename/type semantics exactly;
+162owns its later name-only and numerical-filter changes. Sort and collapsed groups
+remain existing presentation state. Never report derived visible-ID snapshots
+upward through effects or introduce duplicate matching authority.
+
+Pass a presentation-only outsideCurrentFilters flag to the primary header and show
+“Outside current filters”. Visibility, group collapse and virtualization are not
+filter exclusion. Preserve scientific input keys/demands, selection, designation,
+intent, common inspector scope and D190task-scroll tokens; no new navigation or
+focus request accompanies the explanation. Verify rapid patches/caret, project
+visits, responsive remounts, rename/Undo, unchanged project data and consumer work,
+all-entry chooser and focused inspector publication position.
 
 
 ## D-198 — Retire numerical source authority on verified source failure
@@ -9235,6 +9330,54 @@ assessed the method before code; actual159implementation and reassessment remain
 pending the earliest158shared-source correction.
 
 
+### D-201 sidebar inspector continuation — retain view-specific query demand
+
+2026-11-18: reuse159's indexed/memoized structure-query correction in161while
+preserving the sidebar's tools-only enabled guard. Include view in memoized option
+dependencies so deliberate Tools activation enables the exact-source read and
+Ligand information alone creates no new projection demand. Preserve the complete
+relevant-entry set, artifact keys, data/isError/isPlaceholderData notifications,
+seed/current-source qualification and existing in-flight cancellation semantics.
+No new abort-on-hide policy or workflow is introduced. Keep the entire non-query
+component suffix, visit/task/layout logic and profile ownership byte-identical.
+
+Architecture and performance assess the method before implementation and the
+complete resulting three-path diff independently. Retain the original scaling
+failure and the final four passing scaling/source/view controls,139affected cases
+and lint/types/build evidence. The new view control checks tools activation, seeds,
+retained-data failure, held recovery, task/visit preservation and no duplicate read.
+Keep authoring and initial lint failures explicit; a green-labelled invocation
+that still used old source after a patch-generator failure is another red result.
+This is local preparation only, without a native latency or production speedup
+claim. Actual released159/160integration, fresh native/performance qualification,
+complete candidate/master gates and all seven final assessments remain mandatory.
+
+
+### Retained-workflow qualification — explicit native task entry
+
+2026-11-18: the sidebar intentionally starts in ligand information while retaining
+Tools until163. A read-only caller audit identifies four old native files that
+assume Selection is initially visible. Adapt only those callers through existing
+real Inspector tools and exact Selection tab actions. Keep the shared navigation
+helper's task-preserving contract; selecting Selection globally could cancel
+active movement or measurement acquisition in unrelated callers.
+
+Place hierarchy setup before component browsing so its deliberate focus check
+remains the final action, and synchronized setup before the first row selection.
+Keep summary helpers observational. Expose persisted controls again after reload;
+movement setup retains its original mobile opening and later Transform action.
+Never insert task changes into active-preview, retirement, focus or measured
+intervals. All existing assertions, exclusions, clocks and the20second fragment
+deadline remain byte-identical after removing7setup pairs and1import adjustment.
+
+Architecture and UX assess the approach before implementation and independently
+review the complete resulting four-file diff/raw evidence. The whole four-file
+both-project run passes28cases with six existing authored exclusions and no
+failures/flakes/retries. Strict TypeScript passes after private configuration
+models the existing absolute Vite .ts URL import; both initial failures are retained
+without suppressing source diagnostics. No product/scientific method or runtime
+behavior changes. Actual released159/160integration and full161candidate/master/
+reader/performance/native/all-seven acceptance remain mandatory.
 ### D-196 continuation — isolate private-cache recovery and close pre-launch refusals
 
 Date: 2026-11-18. Early complete #159 code review of049173da identifies two concrete
@@ -10017,6 +10160,132 @@ packages. Compare exact excluded test identities, including rejection of a chang
 list with an unchanged count. Historical helpers and reports remain unchanged.
 
 
+### D-193 qualification correction — revalidate the project when returning
+
+The held-result A→B→A native control exposed a project-query freshness gap. A real
+server edit while B is active advances A's revision and current artifact. Returning
+within the workspace query cache's ten-second freshness period can reuse A's old
+DTO without a project GET. The property producer correctly rejects the old artifact;
+that rejection does not provide the current project basis or justify a physical
+source-failure classification.
+
+Set zero stale time only for App's project query, so a changed project key triggers
+revalidation. Keep the workspace defaults, cached rendering, deliberate target,
+existing query ownership and source barriers. This adds no polling or independent
+project store. At the synchronous query-cache write boundary, preserve an already
+cached higher revision for the same project, matching the monotonic rule for
+mutation acknowledgements. A query-function check alone leaves a gap before the
+library writes the result; a controlled final-write race reproduces that rollback.
+Use the query structural-sharing callback and preserve normal deep structural
+sharing for accepted values, without another cache owner. A late response
+may update its own project cache, never the active project identity.
+
+Keep the existing API failure alert and its actual project-read Retry. Qualify
+fresh-cache return, older GET versus newer acknowledgement, late A while B is
+active, unchanged-source chemistry demand, and failed read/retry. The actual native
+carbon/model/source and held-response assertions remain unchanged; no delay,
+reload or manual UI cache injection substitutes for current-source recovery.
+
+
+### D-193 movement launcher correction — retain focus through modal activation
+
+Actual native pointer and keyboard activation of the Inspector's Move selection
+launcher loses focus to the document body when the launcher becomes natively
+disabled during capture. A test helper's later deliberate header focus makes
+Escape reach the modal but does not correct this product focus loss. Preserve the
+native failures and the separate helper correction; qualify activation before
+helper focus as its own browser observation.
+
+Keep this launcher focusable while unavailable: expose aria-disabled for project
+busy or any non-idle movement phase and guard the click handler with the same
+condition. Remove native disabled only from this launcher. A dedicated unavailable
+style retains the action background, reduced opacity and default cursor without
+removing its visible focus indicator or inheriting the generic hover affordance.
+The existing status explains capture/active movement. Do not change other controls,
+modal/global Escape ownership or the movement transaction. The workflow's live
+phase admission guard and the session's synchronous loading publication remain
+required against stale-render reentry.
+
+Qualify actual TransformPanel activation with the real movement hook through held
+loading and active phases, repeated pointer/Enter/Space without a second admission
+or load, busy-project refusal, modal Escape retaining the capture, and the existing
+More tools/canvas Escape ordering. Browser verification must observe focus before
+any test helper moves it; component focus assertions alone are insufficient.
+
+
+### D-193 qualification refinement — measure primary presentation separately
+
+The inherited profile benchmark already exercises the primary sidebar, but its
+terminal observer reads legacy criteria and begins after header/depiction activation.
+Keep its scientific workloads, clocks and bounds. Add the bounded complementary
+qualification in the [child plan](plans/issue-161-ligand-information-sidebar.md):
+frozen positive 10/86-heavy-atom specimens, direct header/decoded-image/SVG/table
+observations, three settled reopen cycles and one actual automatic-policy edit
+while the primary pane is genuinely closed. Existing bulk and 100/1,000-entry
+controls remain. No new production chemistry or invented depiction latency target.
+
+Use independent fixture vectors, analytical positive-fixture formula counts,
+manual registry operators and analytical plot geometry. Bind the actual action,
+atom, hydrogen policy, acknowledgement and published source. A terminal READY
+row can still contain unavailable chemistry; preserve-policy and automatic-policy
+edits are different experiments. Do not demand formula, charge or image from an
+unqualified representation or conflate provenance-bearing and numerical hashes.
+
+Primary/Tools navigation reconciliation is required for the inherited driver's
+two Selection setups and return to the mounted primary view. Preserve its existing
+desktop no-op/mobile-close helper and every timed boundary. Actual old Edit criteria,
+status and control visibility were false with null retirement; do not manufacture
+a visible pre-edit observation by adding showCriteria. Preserve measured flags/nulls,
+including changes caused by the new layout. Drawing requests can generate content;
+observe passively and leave server drawing-cache status unknown without independent
+nonwarming evidence. Hidden drawing suppression and automatic committed numerical
+refresh have separate ownership. Final measurements still require released #160,
+complete source-bound qualification and the existing seven-role/release gates.
+
+
+### D-193 qualification refinement — retain both predecessor data generations
+
+Prepare an issue-specific six-helper namespace while preserving the literal earlier
+helpers and parameterized same-schema v2 actors. The actual preceding v0.38.0 source
+catalogue includes its retained v0.37.0 baseline data. New qualification must freeze
+all six data files, independently validate the actual v0.38.0 browser baseline and
+prove exact predecessor-catalogue/extraction equality. A three-file-only replacement
+would silently discard previously qualified sources. Version-qualified package
+paths prevent collisions between baseline generations with common filenames.
+
+Real release pins and original published summary/browser identities do not exist
+yet for this preparation; refuse real recipe creation/execution until verified
+prerequisite publication supplies them. Pure synthetic guard tests may establish
+refusal and packaging behavior, not actual release qualification. This introduces
+no durable application state or new scientific method. The child plan records
+files, source/data contracts and the unchanged full gate responsibilities.
+
+
+C3 workload-order addendum: place the new primary presentation complement after the
+inherited profile/property campaigns using `ligand-sidebar-performance.spec.ts`.
+Its earlier proposed filename could prewarm shared 10/86 input hashes before the
+five required cold selections. Preserve fresh-store serial execution and verify
+inventory order; retain strict cold classification and every original fixture.
+
+Use the existing require-cold option in the new recipe to enforce the accepted five
+genuine first selections. Keep portable timing enforcement unchanged. Fresh-store,
+serial-order and cold-classification refusal checks protect workload identity.
+
+### D-193 measurement correction — close the hidden request interval at trusted activation
+
+An early Node-side request sample before the reopen helper leaves awaited control
+discovery, observation arming and click setup outside the hidden-pane proof. Retain
+that sample as an earlier observation. Use one browser-local sequence for drawing
+fetch initiations and conservative pre-close, confirmed-absent and actual trusted
+reopen markers. Capture reopening before application event handling; legitimate
+post-trigger drawing remains allowed. Sequence order resolves equal timestamps.
+Require complete, unique, ordered and visibility-consistent markers, without
+changing the production request or forwarding it more than once. A meaningful
+old-mechanism control misses an initiation during awaited setup; the corrected
+proof rejects it. This tightens test evidence, adds no application state and makes
+no runtime suppression claim before actual browser qualification.
+
+
 ### D-205 — Own delayed compact-panel initial focus
 
 A failed actual-merged #160 campaign reached Choose keyboard activation before
@@ -10083,3 +10352,360 @@ age, unknown denied instances, owned runner PID and between-pass proof changes;
 the session check is additionally source-reviewed. Positive capture and independent
 archive readback follow those controls. No primary diagnostic SQL or qualification
 command change is introduced. Application sources and acceptance remain unchanged.
+
+
+### D-193 actual released-prerequisite integration — preserve both lifecycle owners
+
+Integrate terminal master `5da5d465` after verified v0.38.0 delivery. Keep tagged
+runtime `c6f3e283` as preceding producer/reader authority; terminal metadata is not
+a new runtime. Preserve completed #160 qualification and historical failed states.
+
+Combine released opening-focus ownership with the primary/Tools sidebar. Resolve
+Entry or the selected Tools tab from the current visible DOM, yield to deliberate
+and nested-dialog focus, capture the opening node/focus, and retire/cancel old
+callbacks. Depend only on compact/panel lifetime; a view toggle must not restart
+opening autofocus. Preserve zero project-query stale time, monotonic structural
+sharing, the focusable movement launcher and minimum-width header. Real-Inspector
+controls supplement the four inherited mocked-owner regressions.
+
+Translate retained property-access qualification through deliberate views. Publish
+held exact-current READY while Selection Value remains focused, observe delivery
+and settled frames, then require same-node/focus/draft/hit/containment and <=1px
+position before helpers. Keep query application, current Ligand Properties/14 rows/
+Methods, retained Tools task/draft/Arrow navigation and all original/source/model
+oracles. Separate primary Methods content-growth/reading-position tests remain.
+Do not expose hidden compatibility UI or change themes, viewports or deadlines.
+
+Install exact public038 summary/browser aliases with independently reviewed
+provenance SHA256 `154b7e057f67c07a30c653124d95e670fce713cf8c509a25de6038e5f1f163a0`.
+Public-main/nested master2 manifests bind actual tag, completed43command summary
+and exact585pass/75excluded/660 outcomes. Preserve legacy037DATA3 and literal older
+helpers/actors; freeze and separately package all six DATA bodies. Prepare all five
+039version sources in a later coherent release checkpoint; no dependency/schema
+change follows from this provenance installation.
+
+
+D-193 retained-evidence correction: full integration Ruff discovers one incoming
+rejected audit snapshot saved as `.py`. Preserve its18,214bytes/SHA `b4843b9f` as
+`.py.txt`, update only its checkpoint inventory path key, and retain the original
+checkpoint losslessly as gzip. The separate normalization receipt binds original
+Git/public members, old/new paths and both checkpoint identities; all57member
+identities/capture facts and qualified source/DATA bodies remain unchanged. The
+text representation is evidence rather than an executable Python module.
+
+
+D-193 retained property-driver navigation: actual preflight finds three missing
+primary/Tools seams in the inherited property benchmark. Enter primary before
+Entry selection, Tools before its Selection setup, and primary after Apply before
+the existing desktop Carbon scroll/close. Independent scientific implementation
+and performance consultation accept this bounded setup refinement. Removing only
+that import and those three calls reproduces released C6 exactly. Keep cached
+presentation/reopen code and trusted click timestamp byte-exact, with all arm,
+ACK/source, automatic READY, cache/Undo, fixture, workload, bounds and assertions
+unchanged. Qualify real desktop/mobile navigation, actual visibility/nulls, warm
+work and all four bulk generation/fairness/overlap proofs in fresh native runs.
+The functional property workflow uses the same deliberate navigation sequence.
+
+
+D-193 retained native static qualification: strict typing requires two explicit
+unknown bridges for existing long-task Window augmentation; complete emitted
+JavaScript is identical. Type-aware lint identifies inherited property-driver
+non-null/JSON typing, one uncalled UTC helper and throws in bulk finally. Type
+changes erase exactly; remove only the uncalled helper and retain its body.
+Extract the unchanged entire cleanup into a named async function, unconditionally
+awaited in the same finally, preserving failures, first-error propagation, observer
+closure and evidence order. This adds an async completion frame after measured
+work, not a timing/workload change. Earlier three-call/C6 identity proof remains
+a capture of the pre-lint source; the new exact reconstruction/type-erasure proof
+binds final tests. All seven strict native inputs pass unchanged rules.
+
+
+D-193 remount reading recovery: actual ordinary native observation exposes a
+nonzero-to-zero scroll reset through desktop collapse, independent of the usable
+one-Tab Expand path. Bounded UX and architecture consultation identifies presenter
+unmount as the cause; D190 remains responsible only for connected publications.
+Use one typed, transient App-owned bookmark, shared by desktop and compact
+presenters. A semantic scope includes active/actual project, deliberately inspected
+entry, current artifact/designation and view/task; scope changes clear it even
+while the presenter is absent. Do not create durable or molecular state, retain
+a hidden heavy presenter, or accumulate per-project bookmarks.
+
+Capture the current numeric offset and first visible logical text landmark before
+unmount. Match its tag/text/occurrence on remount to recover through ordinary
+reflow or late same-context publication, with numeric fallback and normal browser
+clamping. Only an unresolved initial restore observes local size/child changes;
+stop after resolution, user scrolling/navigation, scope change or unmount. User
+intent and D190 connected-update ownership stay authoritative. No science, job,
+cache or source-publication authority is introduced.
+
+Keep compact first/no-resume opening at Entry/selected Tools tab. For a valid
+nonzero same-context resume, focus the always-visible current heading with
+programmatic-only tabindex, preserving the released retirement/ownership/yield
+guards. Do not focus an offscreen Entry with preventScroll. Desktop ordinary
+keyboard recovery is unchanged. Qualify stable nonzero offsets, logical anchors
+through reflow/late content, changed hidden context, user intent, StrictMode,
+compact opening and actual native observations before accepting this correction.
+
+
+D-193 native remount refinement: initial corrected runs preserve content/viewport
+but expose an actual300→314 offset change. Independent trace inspection confirms
+300 immediately before Collapse and314 after reopening, with identical normalized
+content. The panel library publishes layout before its collapse callback, so
+unmount-time dimensions may already describe a transient host. Capture bookmark
+width/height and preserve the last measured geometry if cleanup detects changed
+host dimensions. Keep the one-pixel oracle. Guard-only native verification passes
+all eight desktop/compact theme/view observations at300→300; a virtual disabled
+guard reproduces314 rather than300 in the focused control. Exact cleanup-time
+dimensions were not directly recorded, so source-supported causality is distinguished
+from the observed correction.
+
+A valid compact resume intent includes initially clamped loading content. Focus
+the visible heading before later restoration rather than an offscreen Entry.
+Cancel pending restoration on focus entering the scroll body, including keyboard
+Tab navigation from the header. Independent UI findings identified both edges;
+corrections, meaningful failing virtual controls and fresh focused UI/UX PASS
+assessments are retained. These scoped passes do not complete the final all-seven
+feature gate. Preserve all five owned capture/store histories in separate immutable
+forensic parts below80MiB; the small index enters ordinary release metadata while
+large parts and literal checksums require separate publication and anonymous readback.
+
+
+D-193 compact foreground ownership: the first actual40-case campaign preserves
+28passes but times out on mobile minimization preview. Independent trace inspection
+finds a covered Values/criteria click: the valid modeless minimization panel at
+layer70 sits above the active compact drawer51/scrim50. The job and proposal are
+complete, preview withholding already passes, and closing minimization would discard
+the proposal. Do not bypass pointer access or enlarge the120second deadline.
+
+Independent UI/UX consultation accepts raising the shared compact scrim/drawer
+pair to80/81. All three existing drawers already declare modal semantics; retain
+modeless workflow state underneath and true dialogs90/91, menus and tooltips above.
+This is input-layer ownership, not a scientific or application-state change. Keep
+ordinary Inspector Escape/return-to-trigger behavior and deliberate Discard/Accept
+after the drawer closes. Qualify actual pointer/touch, scrim dismissal, nested
+dialogs, keyboard containment and brief shared-drawer checks while the exact
+proposal remains retained. CSS alone does not prove complete modal accessibility.
+The failed campaign and its original trace/store remain separately retained.
+
+
+D-193 compact keyboard boundary: a strengthened native count includes all native
+summary stops and exposes Tab leaving Methods/limits for covered minimization
+controls. Preserve the earlier limited pointer/touch pass as such; it did not
+prove a complete cycle. Independent UI/UX consultation accepts an aside-owned
+boundary in the existing handler. Recompute visible enabled native stops, respect
+handled/modified keys and nested dialog/menu ownership, and wrap only at the ends.
+Reverse Tab from the leading resumed heading wraps; middle programmatic headings
+retain ordinary previous-control navigation. Empty drawers use the labelled
+programmatic dialog fallback. No global focus listener, dependency or scientific
+state change is introduced. Native cycles and independent negative controls are
+required before accepting the correction.
+
+D-193 actual responsive evidence: the900→393 probe retains the intended Profile
+landmark but moves its offset159.90625→126.9375. Pass-through save/enter telemetry
+shows an automatic resize scroll overwriting the last151px-wide/top300 bookmark
+with a transient65px-wide/top1200 bookmark before presenter cleanup. Thus cleanup
+protection alone is insufficient. Ignore automatic scroll captures when host
+dimensions differ from the previous bookmark, let deliberate input establish the
+new geometry, and record the resolved geometry after restoration. Keep the same
+logical-landmark one-pixel oracle and bounded observer lifetime. Diagnostic runtime
+instrumentation is not final qualification; verify the uninstrumented application
+after correction. Original failed probes, telemetry and source/store snapshots stay
+separate and retained.
+
+
+D-193 stationary landmark identity: the first corrected uninstrumented responsive
+run passes the ligand round trip but exposes Tools returning51pixels lower.
+Separate pass-through telemetry proves the successful compact restore replaces
+Chains with Atoms when the summary reflows from two columns to four. Subsequent
+automatic saves and cleanup retain that substituted landmark. Preserve the matched
+logical identity during restoration and unchanged-position automatic capture,
+updating its actual offset and dimensions. Explicit input or changed scroll
+position establishes a fresh reading point. Fall back when the preferred landmark
+is absent, hidden or outside the viewport. Keep observer lifetimes and the native
+one-pixel oracle unchanged. The two-landmark regression fails100vs300 before the
+correction and covers restore acknowledgement plus cleanup on both legs; fresh
+uninstrumented native verification remains required.
+
+
+D-193 zoom capture evidence: native actual100/200numeric reading and focus checks
+pass, but independent UI inspection finds viewport-clipped screenshots atDPR2.
+This is an evidence gap, not established application clipping. Reuse the existing
+CDP full-surface compositor capture, retain PNG dimensions beside actual zoom/DPR
+and viewport values, and assert horizontal bounds and hit testing for resumed
+headings. Preserve original cropped captures and numeric results; fresh permanent
+browser cases must provide uncropped images before visual reconfirmation.
+
+
+D-193 rendered breakpoint observation: the first complete161candidate campaign
+retains118native passes but times out at the profile-access driver's compact
+Inspector click after actual200→100browser zoom. The viewport is1440pixels wide
+while the compact React tree remains briefly mounted. The launcher detaches during
+normal click actionability and will not return in the restored desktop shell.
+Independent trace/source inspection establishes a driver observation race rather
+than a production property or focus failure. At shared Inspector helper entry,
+read actual media state and await the corresponding launcher count before choosing
+its mode-specific action. Preserve actual clicks, original accessibility/scientific/
+reading assertions and deadlines; do not force interaction or enlarge timeouts.
+Retain the entire failed campaign, including intermediate native artifacts and all
+raw stores. Source ZIPs reconstructed afterward are explicitly labelled derived
+from exact candidate/predecessor Git blobs matching the original frozen maps.
+They are not claimed to have been emitted by the original campaign.
+
+
+D-193 cold-property presentation observation: candidate2 reaches135native passes
+and passes the earlier profile-access failure, then the first retained cold-property
+context times out waiting for visible Carbon. Independent trace review proves the
+first target READ starts after the armed Entry change; matching automatic READY
+and Carbon92 text already pass. At1280×720 the new primary header/depiction and
+Profile content place the Carbon row below the viewport. The retained observer
+correctly refuses to stamp visibleReady. This is presentation setup, not evidence
+of a chemistry/backend failure or a pre-armed calculation.
+
+After unchanged automaticREADY and raw-value checks, use normal Inspector scrolling
+to reveal that row before the read-only verification request. Record navigation
+times, Carbon/owner/viewport geometry and hit testing before and after. Keep the
+original trusted Entry clock, DOM/network/visible stamps, deadlines and100ms/2s
+budgets unchanged. Never clear an already observed visibleReady. Visible elapsed
+time explicitly includes navigation; network cold latency stays separate. This is
+a documented benchmark presentation-method adaptation, not an application fix or
+a speedup claim. Qualify all twelve performance cases on fresh source-bound stores: eight inherited
+property cases plus two profile and two primary cases.
+
+
+D-193 connected edit reading continuity: the bounded twelve-case performance run
+passes its profile case and five cold contexts, then preserves one failure and ten
+unrun cases. Before the first paired edit, Carbon is deliberately visible at
+scrollTop389. Temporary scientific withholding removes its rows and clamps the
+owner to76. The acknowledged artifact change then clears the exact-source bookmark
+and resets the connected owner to0; fresh Carbon9 arrives below the viewport.
+This is a production reading-continuity gap, not missing benchmark navigation.
+Preserve the original clocks, visibility observer, deadlines and scientific checks.
+
+Independent architecture and UX consultations accept a pre-mutation boundary in
+the existing scroll owner. Retain one logical reading intent before withholding;
+automatic clamp events and effect cleanup cannot overwrite that held bookmark.
+Only the same connected owner, presentation visit, project, deliberately inspected
+entry, designation instance/status and view/task may carry it across an artifact
+change. Keep the exact artifact-bearing App scope: hidden source changes, hidden
+ABA and retargeting still clear the bookmark. No stale scientific content is shown.
+
+The held path yields to explicit Inspector input and surviving focused-control
+publication ownership. Restore the landmark once fresh content is available, then
+stop. A terminal missing landmark uses one bounded numeric fallback; observers
+exist only while the connected intent is unresolved and release on cancellation
+or unmount. The session holds scalar geometry and an opaque token; the mounted
+boundary owns DOM references. This does not change focus, scientific identity,
+cache, calculation scheduling, molecular history or persisted data. Require real
+pre-mutation clamp/ACK/READY, cancellation, hidden-context and native edit evidence.
+
+
+D-193 connected lifecycle qualification: independent architecture review finds
+that a child mount can precede attachment of its parent scroll-owner ref. Bind
+input cancellation at the first pre-mutation update and detach the exact owner.
+Scope cancellation suppression to that continuity visit: cancelling A must not
+suppress the first edit of an already-ready B. Preserve meaningful failing
+controls for both cases and focused-control publication precedence.
+
+Independent UX review also identifies producer ordering: fresh properties can
+arrive before the current designated inventory adds composition and depiction
+geometry above them. Keep connected recovery pending until that current inventory
+layout transition settles as well as property work. Do not withhold independently
+qualified property values. Inventory failure ends the pending transition and
+permits the same bounded fallback. Explicit input still cancels recovery. The
+drawing image already has reserved geometry; image completion is not a new gate.
+The intermediate native campaign is deliberately interrupted for this known
+correction and remains partial evidence, not successful qualification.
+
+
+D-193 compact hidden-source measurement: the corrected campaign passes all six
+desktop performance cases and the mobile profile case, then fails the first mobile
+paired edit at visibleReady. Independent trace review proves the compact presenter
+closes before editing, the new exact-source automatic READY arrives while hidden,
+and only then the fresh drawer opens at0 with Entry focused and no reading resume.
+Fresh Carbon8 exists below the viewport. This is the accepted hidden changed-source
+reset, unlike the connected reading defect already corrected and qualified.
+
+After the unchanged compact reopen and raw-value assertion, reveal the measured row
+using normal scrolling. Apply the same explicit navigation to matching-cache Undo
+reopening. Keep desktop edit/Undo paths without a post-edit reveal, so connected
+continuity remains independently tested. Record navigation geometry and phase,
+preserve original started/READY/visible stamps and presentationOpened, and include
+navigation in original visible and open-to-visible cache latency. Retain every
+scientific/source/cache/workload assertion, original deadline and100ms/2s/5s budget.
+This is a benchmark presentation adaptation, not a production change or speedup.
+
+D-193 preceding-reader environment: the third complete candidate attempt reaches
+the reader boundary after 40 passing commands, then correctly refuses scientific
+library paths resolved through the preceding extraction's shared environment
+symlink. Equal locks and equal installed bodies do not satisfy the existing strict
+per-slot path contract. Preserve the failed run and that contract. Each literal
+preceding extraction used for qualification must own a real locked environment;
+verify canonical worker/library paths and hashes before the expensive complete
+gate. A fresh owned extraction passes actual provenance, 14 negative controls and
+both focused reader workflows. Those checks remain separate from the required
+complete candidate and actual-merged gates. No application, dependency-version,
+migration, scientific method or compatibility boundary changes.
+
+D-193 long-lived coordinator identity: candidate4 passes all 43 inner commands,
+then its outer wrapper correctly refuses the changed command hash of a captured
+user service-manager ancestor. Actual journal evidence shows reexecution with the
+same kernel process birth, UID, parent, session and executable image; this is not
+permission to ignore identity drift generally. Preserve the original exit2 and
+failed closure. A fresh complete candidate remains required.
+
+Independent architecture accepts one explicit typed manager role captured from the
+original launch ancestry. Its boot, process birth, UID/parent/session, executable
+device/inode and complete ancestry remain exact. Arguments allow only the captured
+user-manager executable and user flag, optionally with a canonical bounded
+deserialization descriptor. Record honest original/current command hashes and
+validate before/after observations. Other coordinators retain strict command
+identity. Known-session checks across users still precede exemptions; marker,
+environment, descriptor, port and denied-process checks remain unchanged.
+
+The authority consumer must independently replay this typed identity against the
+original source-bound launch lineage. A producer's success boolean alone is not
+authority. Keep historical and immediate-parent scanner bodies separately bound.
+Pure controls and local forensic custody do not qualify the new full gate or
+authorize publication. No application, molecular, library, schema or scientific
+method changes follow from this verification correction.
+
+
+### D-193 qualification completion — preserve the actual candidate and finite companions
+
+2026-11-27: the fifth candidate actually completes all 43 responsibilities and
+normal outer exit zero at `f83347b3c2d59a2a913a9198f99a5276992015b4`. Separate
+finalization, strict summary and strong retention return zero. Independent complete
+custody/source/archive and scientific/reader/resource readbacks pass before the
+source freeze ends. Preserve that qualifying identity and all original evidence;
+the later evidence checkpoint is a distinct review candidate.
+
+Use the bounded D-201 qualification-continuation precedent: reuse this complete
+gate only with explicit equivalence of all 1,222 selected bodies, qualifying
+helpers, configuration, fixtures and all six DATA bodies. No method, workload,
+responsibility, exclusion, deadline or production resource limit changes. The
+canonical tracked merged recipe matches the unchanged builder exactly and differs
+only in its run label and owned paths. Commit it before merged qualification; no
+recipe-ignore exception is introduced.
+
+Keep the seven successful retained parts separate from all sixty historical
+forensic parts. Preserve failed candidate4's actual outer exit 2 and scientific
+qualification false. A finite completion companion retains later tool results,
+source/control records and independent readbacks without reopening or repacking
+the original campaign to contain its own completion. Every required part and
+literal checksum still needs publication and anonymous full-download verification.
+
+The original candidate source/control certificate remains immutable. The separately
+reviewed deployment bridge first validates it with the original pins, then checks
+explicit new deployment bodies and groups. Its 36 passing synthetic controls and
+critical static checks do not establish real merged bindings or scientific success.
+The actual merge, literal predecessor extraction with a real owned environment,
+process lineage, attachment and terminal result must be observed and qualified.
+No current environment sharing, historical relabelling or inferred process identity
+is permitted.
+
+All seven final specialist assessments must cover one common evidence candidate
+and its complete intended change. A normal merge receives a fresh complete
+43-command gate and independent source, scientific, resource, reader, closure/raw
+and package readbacks before an immutable release. Portable timing misses remain
+explicit under D-148; the new source-equivalent checkpoint is not a speedup or
+strict-host certification.

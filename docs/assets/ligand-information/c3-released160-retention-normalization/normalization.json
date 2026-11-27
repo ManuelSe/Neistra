@@ -1,0 +1,37 @@
+{
+  "recorded_utc": "2026-11-20T19:34:25.406217+00:00",
+  "scope": "Repository representation of one retained historical rejected source; no application or scientific method change",
+  "original_commit": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "original_path": "docs/assets/ligand-profiles/c4-master2-records/native-audit-invocation2/rejected-driver.before-dynamic-timing.py",
+  "retained_text_path": "docs/assets/ligand-profiles/c4-master2-records/native-audit-invocation2/rejected-driver.before-dynamic-timing.py.txt",
+  "snapshot_identity": {
+    "bytes": 18214,
+    "sha256": "b4843b9f39d54e7c853e849a8a752a671a4ff3bec8f472f021d95d6ecbe79e01"
+  },
+  "original_checkpoint_sha256": "18ae7ceb1edd0de2f429c4f237854ee4b7b1f5dda361754481cf138e14aa6bcf",
+  "normalized_checkpoint": {
+    "bytes": 11991,
+    "sha256": "3a6838e6e9a9522a9c76fa8b5c56ce416f841634fee4146701b41d6af73097c4"
+  },
+  "checkpoint_diff_only_one_inventory_path_key": true,
+  "physical_record_identities_unchanged": 57,
+  "original_checkpoint_lossless_capture": "docs/assets/ligand-information/c3-released160-retention-normalization/original-c4-master2-checkpoint.json.gz",
+  "original_checkpoint_gzip": {
+    "bytes": 4413,
+    "sha256": "8a97dd69e9685c8ea26006d6b68c249dccc330e3a0279c2757e28f4a1a4f182b"
+  },
+  "original_public_main_sha256": "f1014e6ef146a1eedadfdf4a3927e875fed43c7f4b436eea2602baf1b2a01284",
+  "original_public_checkpoint_member": "supplemental/master2-records/checkpoint.json",
+  "original_public_snapshot_member": "supplemental/master2-records/native-audit-invocation2/rejected-driver.before-dynamic-timing.py",
+  "both_original_public_members_reverified_byte_exact": true,
+  "qualified_selected_source_bodies_unchanged_by_normalization": 1214,
+  "architecture_assessment": {
+    "agent": "/root/issue160_master1_svg_architecture_diagnosis",
+    "verdict": "PASS bounded storage normalizationdesign"
+  },
+  "full_Ruff_after_normalization": {
+    "exit_code": 0,
+    "evidence": "issue161-released160-integration1/python-static-checks2/",
+    "verified_utc": "2026-11-25T10:55:30.238860+00:00"
+  }
+}

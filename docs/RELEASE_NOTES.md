@@ -1,5 +1,24 @@
 # Neistra Release Notes
 
+## 0.39.0 — Ligand information sidebar (release preparation)
+
+Publication and final qualification are pending. The candidate adds a compact
+ligand information view with deliberate entry/instance context, cached depiction,
+current property groups, sourced profiles and an accessible radar/value table.
+Missing, clipped and unavailable scientific outputs retain their explicit status.
+The existing Inspector tools remain reachable until the later workflow-retirement
+milestone. Entry-list property filtering and interaction diagrams remain separate.
+
+All five application versions are0.39.0. No dependency or migration is added;
+archive/project schemas remain3, viewer settings2 and database head0017. The
+actual preceding reader/producer is the annotated v0.38.0 runtime `c6f3e283`.
+Focused version/dependency/schema audit, Ruff and53archive integration cases pass,
+including the preceding038archive label. Full native, scientific, compatibility,
+performance, all-seven review and exact merged-commit release gates remain pending.
+A focused native reading-recovery correction passes eight desktop/compact
+theme/view observations and scoped UI/UX review. Complete sidebar, responsive/zoom,
+performance and release qualification remain required before publication.
+
 ## 0.38.0 — Sourced physicochemical profiles
 
 Published as [v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0),

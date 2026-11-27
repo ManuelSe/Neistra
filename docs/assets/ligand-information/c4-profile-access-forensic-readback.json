@@ -1,0 +1,34 @@
+{
+  "verdict": "PASS",
+  "agent": "/root/issue161_profile_access_timeout_trace",
+  "scope": "Independent bounded original native/profile-access retention and full source/closure/raw/ZIP union readback; not full feature readiness",
+  "index": {
+    "path": "docs/assets/ligand-information/c4-profile-access-forensics-index.json",
+    "bytes": 2589,
+    "sha256": "ab4e9c78d8991a4d42237e4b23245a7e4aa3da64574dda142629d6e8d4720670"
+  },
+  "parts": 1,
+  "part_bytes": 51538000,
+  "strict_limit_exclusive": 83886080,
+  "original_files": 44,
+  "original_bytes": 57428670,
+  "empty_directories": 12,
+  "raw_pairs": 3,
+  "outer_payloads": 46,
+  "recursive_ZIP_layers": 8,
+  "evidence_manifest_entries": 51,
+  "project_files": 10,
+  "source_bodies": 1221,
+  "source_binding": "Exact Git42b except reviewed navigation helper a8ddc8844525c210c6bd4a95e483509d423a62db055eb97ea7f868735c3c2d56",
+  "actual_native_passes": 6,
+  "skip_fail_retry_flake_errors": 0,
+  "decoded_attachments": {
+    "PNG": 32,
+    "JSON": 6,
+    "catalogue_sha256": "23a9ed2b2c14abaead709ef6726172d464f53a90afa13c2c9b993dd620bfe44d"
+  },
+  "all_original_mode_mtime_bytes_SHA_verified": true,
+  "all_union_checksums_CRC_manifests_verified": true,
+  "no_SQL": true,
+  "remaining": "Separate part/checksum publication and anonymous full readback; complete fresh43 qualification and final all7 review"
+}

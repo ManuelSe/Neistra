@@ -1,0 +1,1147 @@
+{
+  "all_literal_checksums_recursive_CRC_manifests_exact_union_verified": true,
+  "all_originals_preserved_and_rehashed": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "authority_resolution": {
+    "authoritative_terminal_safety": {
+      "closure_after": {
+        "bytes": 3541,
+        "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closure-after-copy.json",
+        "part": "c4-candidate3-forensics-04.zip",
+        "sha256": "dbeb422c1d90b7ed4d10cbeb1729cca211d92dbf261783fd4feb8a27df4a63c8"
+      },
+      "closure_before": {
+        "bytes": 3541,
+        "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closure-before-copy.json",
+        "part": "c4-candidate3-forensics-04.zip",
+        "sha256": "dbeb422c1d90b7ed4d10cbeb1729cca211d92dbf261783fd4feb8a27df4a63c8"
+      },
+      "fresh_raw_copies": [
+        {
+          "bytes": 741376,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "c10e32c89461d00485c3d2a9a41be695f752bc8c18022bae0f16ccafa885777b"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-current/molweave.db-shm",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b3eaa383cc8e3d9d37f4ffa935df545ae345a59dcc1ce364e1f8a40e6afd4f0c"
+        },
+        {
+          "bytes": 4120032,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-current/molweave.db-wal",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "93be2a90558e26639b563fec58c4ae6397a68ef42148c5c7c9484759f26ad48f"
+        },
+        {
+          "bytes": 376832,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "3834ce237ace0fbdeda180f8ad574b40a0341c2b861e2c3d2dff8eb5ba4602ed"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous/molweave.db-shm",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "86d000341972d091eaeccfaed28082072ea2b96b2ece6bc97e26750177123ffc"
+        },
+        {
+          "bytes": 3378432,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous/molweave.db-wal",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "7b75163318859479d5b3146c522a026473f10730e913573009885d1fa7cb836b"
+        },
+        {
+          "bytes": 741376,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "6945d4a7e91560f2682be20bb648b2fecf13d6b57aa29f45f353e67117809956"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous-read-current/molweave.db-shm",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "34bce212f62b9463547166a02aeb481d573fa3b1ec29693164b01e72803eeab3"
+        },
+        {
+          "bytes": 4120032,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/connectivity-previous-read-current/molweave.db-wal",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "5b7b51f8971ebbe6e6ad60056068b97216159e07a60ab98601b3cad3af3e0280"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/database/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "1ae301277336518673770b5df0f0758c28a21ce5f7fea37097029a3b61ad55d6"
+        },
+        {
+          "bytes": 52027392,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/e2e/neistra.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "50ad8d3a044e92a0664213a02fe36c64d86da863d299336901f0a11b8f9fea8e"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/e2e/neistra.db-shm",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "d255445a15fe375d4e2a671971c71ff36a9e4148a77a1f11a29b5a85cdcfddad"
+        },
+        {
+          "bytes": 5356032,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/e2e/neistra.db-wal",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "a896a4545a994ab934d900a4ed97d0e2fa84189cbbc39d59df99b92d743258e7"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/editing-readers/current-produced/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "a72e4b88521468784db2d877f730e8c004dc81ea3f9fd3a707c834d35caf5c42"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/editing-readers/current-produced/molweave.db-shm",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b4fd12a49fcbf8c91b74e01bd812e8b982e8c31fda35340dac568eebab898a97"
+        },
+        {
+          "bytes": 2607992,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/editing-readers/current-produced/molweave.db-wal",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "c7e1cff7828ac3572cbdcb35176bd63688972244b401bcf50d5ea8294d02e786"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/measurements-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "0fd00237e916f04c9bbb42c1dba4bd723960fbe686189f69783cb7092b112e27"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/measurements-previous/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "6a98d52f7d52c5344b8066fb915fa5696f8b0ea9992f95a0cdb40529c27c520a"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/measurements-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "f95aeae28eb82a8a1644f1c3da5714a8f0d37737e24a05a378de25ac1b814877"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "47ef549f9500552ba894f4612e5b18f39b7b06834e06711ce22191fefc0cafac"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "c80aa1c0d148a28d67e08224ebb55f0ddc7be288c66d280a4ebb2db3c6ea7852"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "d098462c62f7df5beba988fe1f66649a01ee2876765e3d526357805e9194b808"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "570cb7b501a3a5d10a112fc0df84afcd89d638a282a1c292a2624f7460078d39"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "63101a154016b6cb92015ca083eb8c44e8622e57847f60c76503a86b80aa110b"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "f6e41a395b053f3242262535db03d0781562b252ea230ec2259f11b19edce24f"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "71f05ecc86b9e1bf50dfedd7c32536c27ac6a8ed2bcd0fbe86f93b5a4205456b"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "464b7ef296e8d07de9092c8834cd6569a44109bf8f16244e9bf99439506ac2ac"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "635dc384d9e8ce379e755f01c3f78664bb4c67226e77618c3ee615b61e5b6376"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "02cc6f2eb9245031cd446295d8b4dd388ec5174e7b1ae4016146b81a6cf18e70"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "91b957e617652f312d7ddf47b043c94a95c8c6367d62958c7bcaa6ca7638c6b7"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "4bc45647f23757fd159b30d7fc69b4bc3fdee76895d6bd078799c6ea61b82908"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "3d941e5004b0d992256f6b09130bd3e5871ac659ae912d9fab36af34ab08fc83"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b6f1bb0071c8853cb95adadfc7e9e2487fbe1cc1efc6608d0ba7cbbbc2f7160a"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "ec00220222f977ea6fad1b6a3a2f2b2da2a73ad8710c6cad3c77ca2ecba678c4"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "843252481d15b7c27f4d35ae0b54aa7d603d7b83a1fa6a9dd3f32ceaefde4ce4"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "be6abd6e5ad20b19fb2f7a6ac1286fc0578a02741800af5cf5eff01e9519e4be"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "29d1e3eda053389a0e8ee253e0d866b1beea8a7f913a631e7179de7de381e537"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b05d7bde6296e2ba2151d0b73fe6aac383182efb181520a08b46e729eeb2c176"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "325a1b9ba0e996f14bf2374906cf6aaff7cf87e5975274888005b7afa049edc3"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "84791ac71d5c4ad3decb55a4a68d4b3b3c5a4f8549712e0b88a94b2cb014c072"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "781d0e94f9979df655bb01a0adaa0d36b7fe90b0aa54d84695539779122b8dda"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "3e89026a39a41c8b3b07e95e16028e5a2bda646b533f6c94775d398f43915f62"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "aa4786a3789e09f2f17dd58fdebcc31d2843f0996211ca7790a039d98252f8f8"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "9ed1b668a22eed234248423a6f38bac6f892396b74eb4f640e6984ce3e82af42"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "bc438916d590a5749e8c675eb82ae8302502e0fca2a027f167a5eac824dab444"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "0b881828f5fd3ff9615c193c20a85de528bbce76aae14dd18f6a4fc5f8a00ada"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "c1af032778fa18f99255f19b80029aeac2fd2c8ba9909157b50a00ecd422aa50"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "4d9e43e1a84bf137c89911a21cf526431cab8dd4a4122dab4714c0900a4040a9"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "05edded86858e2fc7db613662985aeb8e6548087f191eda32304a429a2283b2f"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "683a4b7fc09dce61251139f0f7968f134cc822bc88b6c6611e3828df5d94cd1a"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "779c9a54dc8c21ec4fe39826190e5496cc267e85be15d0d78b5133a6d8b92139"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "0e42ed8795e0880d8ef1c5d2b242ca397fcf8ee01955f885b5a8b17c3bc97d51"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "d62e4d81cf9b191b6181ea50ffdee65520e6c2838421bd33acc539dca54fb4ab"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "425612531a857ba031db373cce2e72b7812d1bfc33925453df50142efdd12977"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "ac1992f9ea352d0eb59763f53b489de3137f1634dba210bff7b2ff613e55d0c1"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "046ddd997056b05c6ba1b3620cb5265f3ce5b5bc2f1cfc32bad69c5e07518ccf"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "d04357d378f6722e4e6ebd0f5d90ed8a515f10780e553cdc86a69958c0b8d1ae"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "0130a6ee9506bc609343b3552b05eca2f8ad90613221f0153b636971a5bda83f"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b08f57741bdbdb76ea51c04c4da24e3b84286df07b68b7da3dbf9cdb3c26fc97"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "94c330145f527956a8beb20216bab63708890e3fb92869824d357499be3332b1"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "2ac196a9680ad2652afd7effd92c80fdec9adec9d66a9b9fab8bb7bca80b87b8"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "b32fbb02b761ecef6cfc7780e69e32bd998293bd42f711b16972b0f651ed43d9"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "1df8128b23ce495850e0b4bc78a027540540b45035b6d3c0f1075f59fd54303a"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/rich-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "7e7b52e5efc75e2cb8df804c3ab4381dc2deb62ced7f6f44e91986ea9df7e350"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/rich-previous/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "83097b7147fa1a0d266a84b7e106e19c161ee066e2ddf6175555bd5279739928"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/strong-terminal-retention/closed-raw/rich-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-04.zip",
+          "sha256": "614382e4fe9537aa2a14c39343dd92b98b00c0580d6bdd37194cbd68389e077c"
+        }
+      ],
+      "original_authority_index": {
+        "bytes": 1309,
+        "member": "issue161-c4-candidate3-run1/strong-terminal-retention/authority-index.json",
+        "part": "c4-candidate3-forensics-04.zip",
+        "sha256": "43adf4120f6d9577f11a331434f1d056bd20c3659b601e1d28ceac4934148c2a"
+      },
+      "receipt": {
+        "bytes": 63427,
+        "member": "issue161-c4-candidate3-run1/strong-terminal-retention/receipt.json",
+        "part": "c4-candidate3-forensics-04.zip",
+        "sha256": "889c6b8493c29df3b0014471b26d6aec055eabe59e32a6bb2f664d7f4a810573"
+      }
+    },
+    "authority_scope": "Strongly closed fresh diagnostic copies only; failed gate remains failed",
+    "historical_automated_evidence": {
+      "classification": "Original failed run and weaker automated closure/copies, retained unchanged",
+      "cleanup": {
+        "bytes": 4124,
+        "member": "issue161-c4-candidate3-run1/execution/cleanup.json",
+        "part": "c4-candidate3-forensics-01.zip",
+        "sha256": "c22d4c356150ce6b15e4f78d4d6601f7238195b6e83492ceec17a951ef801290"
+      },
+      "execution": {
+        "bytes": 1617,
+        "member": "issue161-c4-candidate3-run1/execution/execution.json",
+        "part": "c4-candidate3-forensics-02.zip",
+        "sha256": "8197a6a8ce50a0f02801e2971ad807076be29fa197b5be5c7b57adb66ff57fbc"
+      },
+      "raw_copies": [
+        {
+          "bytes": 741376,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-current/molweave.db",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "c10e32c89461d00485c3d2a9a41be695f752bc8c18022bae0f16ccafa885777b"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-current/molweave.db-shm",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "b3eaa383cc8e3d9d37f4ffa935df545ae345a59dcc1ce364e1f8a40e6afd4f0c"
+        },
+        {
+          "bytes": 4120032,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-current/molweave.db-wal",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "93be2a90558e26639b563fec58c4ae6397a68ef42148c5c7c9484759f26ad48f"
+        },
+        {
+          "bytes": 376832,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous/molweave.db",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "3834ce237ace0fbdeda180f8ad574b40a0341c2b861e2c3d2dff8eb5ba4602ed"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous/molweave.db-shm",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "86d000341972d091eaeccfaed28082072ea2b96b2ece6bc97e26750177123ffc"
+        },
+        {
+          "bytes": 3378432,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous/molweave.db-wal",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "7b75163318859479d5b3146c522a026473f10730e913573009885d1fa7cb836b"
+        },
+        {
+          "bytes": 741376,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "6945d4a7e91560f2682be20bb648b2fecf13d6b57aa29f45f353e67117809956"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous-read-current/molweave.db-shm",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "34bce212f62b9463547166a02aeb481d573fa3b1ec29693164b01e72803eeab3"
+        },
+        {
+          "bytes": 4120032,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/connectivity-previous-read-current/molweave.db-wal",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "5b7b51f8971ebbe6e6ad60056068b97216159e07a60ab98601b3cad3af3e0280"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/database/molweave.db",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "1ae301277336518673770b5df0f0758c28a21ce5f7fea37097029a3b61ad55d6"
+        },
+        {
+          "bytes": 52027392,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/e2e/neistra.db",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "50ad8d3a044e92a0664213a02fe36c64d86da863d299336901f0a11b8f9fea8e"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/e2e/neistra.db-shm",
+          "part": "c4-candidate3-forensics-01.zip",
+          "sha256": "d255445a15fe375d4e2a671971c71ff36a9e4148a77a1f11a29b5a85cdcfddad"
+        },
+        {
+          "bytes": 5356032,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/e2e/neistra.db-wal",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "a896a4545a994ab934d900a4ed97d0e2fa84189cbbc39d59df99b92d743258e7"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/editing-readers/current-produced/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "a72e4b88521468784db2d877f730e8c004dc81ea3f9fd3a707c834d35caf5c42"
+        },
+        {
+          "bytes": 32768,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/editing-readers/current-produced/molweave.db-shm",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "b4fd12a49fcbf8c91b74e01bd812e8b982e8c31fda35340dac568eebab898a97"
+        },
+        {
+          "bytes": 2607992,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/editing-readers/current-produced/molweave.db-wal",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "c7e1cff7828ac3572cbdcb35176bd63688972244b401bcf50d5ea8294d02e786"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/measurements-current/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "0fd00237e916f04c9bbb42c1dba4bd723960fbe686189f69783cb7092b112e27"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/measurements-previous/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "6a98d52f7d52c5344b8066fb915fa5696f8b0ea9992f95a0cdb40529c27c520a"
+        },
+        {
+          "bytes": 319488,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/measurements-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "f95aeae28eb82a8a1644f1c3da5714a8f0d37737e24a05a378de25ac1b814877"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/bulk-active-chromium-distinct/bulk-active-chromium-distinct/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "47ef549f9500552ba894f4612e5b18f39b7b06834e06711ce22191fefc0cafac"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/bulk-active-chromium-repeated/bulk-active-chromium-repeated/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "c80aa1c0d148a28d67e08224ebb55f0ddc7be288c66d280a4ebb2db3c6ea7852"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/bulk-active-mobile-chromium-distinct/bulk-active-mobile-chromium-distinct/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "d098462c62f7df5beba988fe1f66649a01ee2876765e3d526357805e9194b808"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/bulk-active-mobile-chromium-repeated/bulk-active-mobile-chromium-repeated/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "570cb7b501a3a5d10a112fc0df84afcd89d638a282a1c292a2624f7460078d39"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-10/paired-chromium-10/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "63101a154016b6cb92015ca083eb8c44e8622e57847f60c76503a86b80aa110b"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-14/paired-chromium-14/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "f6e41a395b053f3242262535db03d0781562b252ea230ec2259f11b19edce24f"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-18/paired-chromium-18/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "71f05ecc86b9e1bf50dfedd7c32536c27ac6a8ed2bcd0fbe86f93b5a4205456b"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-22/paired-chromium-22/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "464b7ef296e8d07de9092c8834cd6569a44109bf8f16244e9bf99439506ac2ac"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-26/paired-chromium-26/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "635dc384d9e8ce379e755f01c3f78664bb4c67226e77618c3ee615b61e5b6376"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-30/paired-chromium-30/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "02cc6f2eb9245031cd446295d8b4dd388ec5174e7b1ae4016146b81a6cf18e70"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-34/paired-chromium-34/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "91b957e617652f312d7ddf47b043c94a95c8c6367d62958c7bcaa6ca7638c6b7"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-38/paired-chromium-38/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "4bc45647f23757fd159b30d7fc69b4bc3fdee76895d6bd078799c6ea61b82908"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-42/paired-chromium-42/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "3d941e5004b0d992256f6b09130bd3e5871ac659ae912d9fab36af34ab08fc83"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-46/paired-chromium-46/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "b6f1bb0071c8853cb95adadfc7e9e2487fbe1cc1efc6608d0ba7cbbbc2f7160a"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-50/paired-chromium-50/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "ec00220222f977ea6fad1b6a3a2f2b2da2a73ad8710c6cad3c77ca2ecba678c4"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-54/paired-chromium-54/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "843252481d15b7c27f4d35ae0b54aa7d603d7b83a1fa6a9dd3f32ceaefde4ce4"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-58/paired-chromium-58/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "be6abd6e5ad20b19fb2f7a6ac1286fc0578a02741800af5cf5eff01e9519e4be"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-62/paired-chromium-62/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "29d1e3eda053389a0e8ee253e0d866b1beea8a7f913a631e7179de7de381e537"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-66/paired-chromium-66/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "b05d7bde6296e2ba2151d0b73fe6aac383182efb181520a08b46e729eeb2c176"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-70/paired-chromium-70/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "325a1b9ba0e996f14bf2374906cf6aaff7cf87e5975274888005b7afa049edc3"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-74/paired-chromium-74/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "84791ac71d5c4ad3decb55a4a68d4b3b3c5a4f8549712e0b88a94b2cb014c072"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-78/paired-chromium-78/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "781d0e94f9979df655bb01a0adaa0d36b7fe90b0aa54d84695539779122b8dda"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-82/paired-chromium-82/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "3e89026a39a41c8b3b07e95e16028e5a2bda646b533f6c94775d398f43915f62"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-chromium-86/paired-chromium-86/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "aa4786a3789e09f2f17dd58fdebcc31d2843f0996211ca7790a039d98252f8f8"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-10/paired-mobile-chromium-10/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "9ed1b668a22eed234248423a6f38bac6f892396b74eb4f640e6984ce3e82af42"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-14/paired-mobile-chromium-14/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "bc438916d590a5749e8c675eb82ae8302502e0fca2a027f167a5eac824dab444"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-18/paired-mobile-chromium-18/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "0b881828f5fd3ff9615c193c20a85de528bbce76aae14dd18f6a4fc5f8a00ada"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-22/paired-mobile-chromium-22/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "c1af032778fa18f99255f19b80029aeac2fd2c8ba9909157b50a00ecd422aa50"
+        },
+        {
+          "bytes": 245760,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-26/paired-mobile-chromium-26/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "4d9e43e1a84bf137c89911a21cf526431cab8dd4a4122dab4714c0900a4040a9"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-30/paired-mobile-chromium-30/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "05edded86858e2fc7db613662985aeb8e6548087f191eda32304a429a2283b2f"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-34/paired-mobile-chromium-34/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "683a4b7fc09dce61251139f0f7968f134cc822bc88b6c6611e3828df5d94cd1a"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-38/paired-mobile-chromium-38/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "779c9a54dc8c21ec4fe39826190e5496cc267e85be15d0d78b5133a6d8b92139"
+        },
+        {
+          "bytes": 241664,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-42/paired-mobile-chromium-42/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "0e42ed8795e0880d8ef1c5d2b242ca397fcf8ee01955f885b5a8b17c3bc97d51"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-46/paired-mobile-chromium-46/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "d62e4d81cf9b191b6181ea50ffdee65520e6c2838421bd33acc539dca54fb4ab"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-50/paired-mobile-chromium-50/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "425612531a857ba031db373cce2e72b7812d1bfc33925453df50142efdd12977"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-54/paired-mobile-chromium-54/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "ac1992f9ea352d0eb59763f53b489de3137f1634dba210bff7b2ff613e55d0c1"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-58/paired-mobile-chromium-58/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "046ddd997056b05c6ba1b3620cb5265f3ce5b5bc2f1cfc32bad69c5e07518ccf"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-62/paired-mobile-chromium-62/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "d04357d378f6722e4e6ebd0f5d90ed8a515f10780e553cdc86a69958c0b8d1ae"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-66/paired-mobile-chromium-66/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "0130a6ee9506bc609343b3552b05eca2f8ad90613221f0153b636971a5bda83f"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-70/paired-mobile-chromium-70/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "b08f57741bdbdb76ea51c04c4da24e3b84286df07b68b7da3dbf9cdb3c26fc97"
+        },
+        {
+          "bytes": 253952,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-74/paired-mobile-chromium-74/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "94c330145f527956a8beb20216bab63708890e3fb92869824d357499be3332b1"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-78/paired-mobile-chromium-78/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "2ac196a9680ad2652afd7effd92c80fdec9adec9d66a9b9fab8bb7bca80b87b8"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-82/paired-mobile-chromium-82/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "b32fbb02b761ecef6cfc7780e69e32bd998293bd42f711b16972b0f651ed43d9"
+        },
+        {
+          "bytes": 249856,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/profile-fixtures/paired-mobile-chromium-86/paired-mobile-chromium-86/history.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "1df8128b23ce495850e0b4bc78a027540540b45035b6d3c0f1075f59fd54303a"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/rich-current/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "7e7b52e5efc75e2cb8df804c3ab4381dc2deb62ced7f6f44e91986ea9df7e350"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/rich-previous/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "83097b7147fa1a0d266a84b7e106e19c161ee066e2ddf6175555bd5279739928"
+        },
+        {
+          "bytes": 745472,
+          "member": "issue161-c4-candidate3-run1/execution/closed-raw/rich-previous-read-current/molweave.db",
+          "part": "c4-candidate3-forensics-02.zip",
+          "sha256": "614382e4fe9537aa2a14c39343dd92b98b00c0580d6bdd37194cbd68389e077c"
+        }
+      ],
+      "raw_receipt": {
+        "bytes": 36160,
+        "member": "issue161-c4-candidate3-run1/execution/closed-raw-copy-receipt.json",
+        "part": "c4-candidate3-forensics-01.zip",
+        "sha256": "24ef90dfed7431a2ce4320eb677ff1405c7e38d510558c92d6d4b748985587cb"
+      }
+    },
+    "packaging_correction": {
+      "finisher_source": {
+        "bytes": 13493,
+        "member": "issue161-c4-candidate3-run1/packaging-correction/finish_readback.py",
+        "part": "c4-candidate3-forensics-05.zip",
+        "sha256": "e5ed3edf92dce8f79e15340da63f0e39bcd20aaa97bdcb5b42d5e04b2c7fab6d"
+      },
+      "original_failed_execution": {
+        "bytes": 577,
+        "member": "issue161-c4-candidate3-run1/packaging-correction/execution1/receipt.json",
+        "part": "c4-candidate3-forensics-05.zip",
+        "sha256": "ceb7cfa666129acef936bdfa793c20469f51886d00f82dbd723e3a79da3fd94c"
+      },
+      "record": {
+        "bytes": 5036,
+        "member": "issue161-c4-candidate3-run1/packaging-correction.json",
+        "part": "c4-candidate3-forensics-05.zip",
+        "sha256": "9cdcfe0cb8b4e41b68512f78351fcd61dbd2ae5e5c11f56bc846460b57c61543"
+      }
+    },
+    "scientific_qualification_passed": false,
+    "source_archives": {
+      "derived_preceding": {
+        "bytes": 24349019,
+        "derived_after_run": true,
+        "member": "issue161-c4-candidate3-run1/derived-source/derived-preceding-source.zip",
+        "part": "c4-candidate3-forensics-01.zip",
+        "sha256": "22fc568bea55a5e4c9c4d3f1376890db721100f8871f23b13e4af12114b60d8d"
+      },
+      "original_prelaunch_current": {
+        "bytes": 47378280,
+        "member": "issue161-c4-candidate3-run1/execution/source-before.zip",
+        "part": "c4-candidate3-forensics-02.zip",
+        "sha256": "525004284db43a7d4de032b52358fa193869c95dc0ffe70c74d815bbd276adeb"
+      }
+    }
+  },
+  "browser_actual_result_counts": {
+    "passed": 641,
+    "skipped": 75
+  },
+  "browser_unrun": 0,
+  "campaign": "issue161-c4-candidate3-run1",
+  "candidate": "78f0dedd6624923498c7b0f2bcb5a1ee2cd54a19",
+  "capture_member": "issue161-c4-candidate3-run1/capture.json",
+  "capture_part": "c4-candidate3-forensics-01.zip",
+  "capture_sha256": "7b8dd4fb00c480786807fe22d470abfbdf77b0a526d918ab3aaf75827130ed96",
+  "current_source_body_hashes": 1222,
+  "empty_directories": 220,
+  "executed_gate_commands": 41,
+  "external_observer_receipts": [
+    {
+      "actual_observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "finished_utc": "2026-11-25T18:11:45.026862+00:00",
+      "observation_sha256": "437cf5613fba3d6425c06574df526b9c5a42732c9bf2e91d5257ad53e9c66de1",
+      "separate_exit_receipt_present": true,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "tree": "external/issue161-primary-performance/chromium-9f576754-e0c2-49d2-baf4-0e1fa3e3c718"
+    },
+    {
+      "actual_observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "finished_utc": "2026-11-25T19:45:22.431319+00:00",
+      "observation_sha256": "7b1e4d88382448b3a01ddb85cf62e83a67822df2ef1cef18d45ee48be8d9fcaf",
+      "separate_exit_receipt_present": true,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "tree": "external/issue161-primary-performance/mobile-chromium-0624983f-595a-4155-8fc0-1fbf71e9f527"
+    },
+    {
+      "actual_observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "finished_utc": "2026-11-25T17:58:39.096338+00:00",
+      "observation_sha256": "934dce3428abb9c367518bcb1a3114764a26c25a9c2d93032ac2c84f8fa7e9e6",
+      "separate_exit_receipt_present": true,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "tree": "external/issue160-profile-performance/chromium-703c34e5-e42c-493f-a369-61891f53ab52"
+    },
+    {
+      "actual_observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "finished_utc": "2026-11-25T19:28:51.430407+00:00",
+      "observation_sha256": "bac889620b1d72778575ffe94b5a0074238712a14a81afec503f01cac8b2f4b9",
+      "separate_exit_receipt_present": true,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "tree": "external/issue160-profile-performance/mobile-chromium-d0ae4276-dbdb-4714-b803-3f01cd355bdd"
+    },
+    {
+      "finished_utc": "2026-11-25T18:06:45.381394+00:00",
+      "observation_sha256": "3f1936af1bce797ee2d0583bb78571585d4b5a394882ae0251d2ccb71002855c",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-153ffaa5-0a38-4a26-8126-807205cd9169"
+    },
+    {
+      "finished_utc": "2026-11-25T18:04:54.370655+00:00",
+      "observation_sha256": "cb18835baa7648b12c5122c1ce0c7423c0e93deeb82885bc0d3b876e5cdb5a59",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-7c59d3ae-528c-4ba1-b788-6a8341807af1"
+    },
+    {
+      "finished_utc": "2026-11-25T18:10:04.333362+00:00",
+      "observation_sha256": "a510d180c2011880fcd94c6a16ea9d06b56bcf957cf514cb85354ec10cfd8fc8",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-a828a27d-ea3b-4a2f-ab84-e7a02598f22f"
+    },
+    {
+      "finished_utc": "2026-11-25T18:04:49.019850+00:00",
+      "observation_sha256": "8894d7dc63d982d092b6e73294518bd1654ce151cef1a532c36375e273e7c4fc",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-b6b4108e-2077-4fe4-942c-e59fef03276f"
+    },
+    {
+      "finished_utc": "2026-11-25T19:38:11.858938+00:00",
+      "observation_sha256": "f223c41a7fc16e76d5e139d4f1911cb95ff0f62e6327491744259b4c5c5d6f3a",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-7fe1ece6-966c-4dc7-afb0-25895a2ab08b"
+    },
+    {
+      "finished_utc": "2026-11-25T19:42:57.670443+00:00",
+      "observation_sha256": "11246d92a7cce8e6088f5b7fdf649e9886cf8a3db4ecea1ace19100462708a65",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-a14d7c20-6612-458c-ad95-fcdaef08992b"
+    },
+    {
+      "finished_utc": "2026-11-25T19:38:20.024201+00:00",
+      "observation_sha256": "fa8dc7f569c5934e8314113b3ba0c773ff38f67e769f5286a55c6f1f6d08b7b1",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-a56de355-ae40-4f71-af23-1934b6c1d9a4"
+    },
+    {
+      "finished_utc": "2026-11-25T19:39:52.242928+00:00",
+      "observation_sha256": "6c18a8f84f2cca240dc28ac98ae125fe6920499225a96c75ecf0a4af9381ac35",
+      "separate_exit_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete finished fixed-source observation plus strong outer closure; no separate subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/mobile-chromium-aadf768e-493d-4ed2-8399-ae6e4d25c694"
+    }
+  ],
+  "failed_command": "editing-readers",
+  "finisher_sha256": "e5ed3edf92dce8f79e15340da63f0e39bcd20aaa97bdcb5b42d5e04b2c7fab6d",
+  "full_gate_pass": false,
+  "independent_readback_required": true,
+  "limitations": [
+    "Full gate remains failed: first40commands passed, editing-readers failed, property-readers and diff unrun.",
+    "Browser command passed641cases with75reported exclusions; this alone does not qualify the feature or release.",
+    "Historical automated closure/copies used a weaker classifier and retain historical status. Fresh strong before/after closure and exact copies provide diagnostic-copy authority only.",
+    "Eight property companions have no separate observer exit receipt; complete finished fixed-source observations and strong outer closure are the actual evidence.",
+    "Historical per-process start ticks and companion PID manifests were not captured or invented; explicitly pinned inspection exceptions remain disclosed.",
+    "Current source ZIP was emitted before the original run. Preceding selected-body ZIP is explicitly derived afterward from exact tagged Git blobs.",
+    "No SQL, services, scientific imports, benchmark, or gate is performed by this packaging operation.",
+    "Initial packager exited1 on incompatible path-list ordering after creating four valid parts. The keyed-membership correction, source and failed logs are retained in a separate fifth part; no original archive or capture body is rewritten."
+  ],
+  "new_external_case_directories": 12,
+  "no_original_tree_exclusions": true,
+  "no_primary_SQL_used": true,
+  "no_relocation": true,
+  "offline_fixture_reports_retained": 44,
+  "original_mode_mtime_bytes_SHA_preserved": true,
+  "original_packager_exit_code": 1,
+  "packager_sha256": "de8716062c3eac65083ef4cbf74ceb13e2c33646353e987ed77f3fa4c8bda0a8",
+  "packaging_correction_files": 6,
+  "part_bytes": 287698268,
+  "part_count": 5,
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "bytes": 82503169,
+      "campaign": "issue161-c4-candidate3-run1",
+      "checksum_file": "c4-candidate3-forensics-01.zip.sha256",
+      "checksum_sha256": "8449ebc2e76f2cb516e65dcfe0402fcd5adf07ffccc073337642fb7b690b55ef",
+      "file": "c4-candidate3-forensics-01.zip",
+      "outer_manifest_entries": 77,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate3-retention1/parts/c4-candidate3-forensics-01.zip",
+      "runner_exit_code": 1,
+      "sha256": "8c2b1d1ce7e311126cef69068880abe56ed8fb9164b67d7ac48ed5ac86bf8029",
+      "verification_counts": {
+        "evidence_manifest_entries": 82,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    },
+    {
+      "bytes": 82386685,
+      "campaign": "issue161-c4-candidate3-run1",
+      "checksum_file": "c4-candidate3-forensics-02.zip.sha256",
+      "checksum_sha256": "ac340e28c02be226f28894f0880221439bed85d124200f3235e9ca469251a539",
+      "file": "c4-candidate3-forensics-02.zip",
+      "outer_manifest_entries": 1140,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate3-retention1/parts/c4-candidate3-forensics-02.zip",
+      "runner_exit_code": 1,
+      "sha256": "41c428bdc450670a06dea80f87c6335b68504643772a355c769f8fb0cdf2a056",
+      "verification_counts": {
+        "evidence_manifest_entries": 1145,
+        "project_archive_files": 10,
+        "zip_archives": 9
+      }
+    },
+    {
+      "bytes": 78022080,
+      "campaign": "issue161-c4-candidate3-run1",
+      "checksum_file": "c4-candidate3-forensics-03.zip.sha256",
+      "checksum_sha256": "19967fd606314b33fbbb817ebc9799367f70b8f65baf1090531a16aebed324c6",
+      "file": "c4-candidate3-forensics-03.zip",
+      "outer_manifest_entries": 4541,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate3-retention1/parts/c4-candidate3-forensics-03.zip",
+      "runner_exit_code": 1,
+      "sha256": "c30892a836c11da71ad15aed9c79d7a6b4927692bc59638aa155aedab5c8ccbd",
+      "verification_counts": {
+        "evidence_manifest_entries": 4541,
+        "project_archive_files": 561,
+        "zip_archives": 274
+      }
+    },
+    {
+      "bytes": 44777185,
+      "campaign": "issue161-c4-candidate3-run1",
+      "checksum_file": "c4-candidate3-forensics-04.zip.sha256",
+      "checksum_sha256": "4db16a1543a8dafe5303db3dac73526846e99c5d5488541ff35db83140aca7bc",
+      "file": "c4-candidate3-forensics-04.zip",
+      "outer_manifest_entries": 2024,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate3-retention1/parts/c4-candidate3-forensics-04.zip",
+      "runner_exit_code": 1,
+      "sha256": "a6e961ec368c55a8c8d312e6c65ce0dc11cd98559c52338512daf57a33359156",
+      "verification_counts": {
+        "evidence_manifest_entries": 2024,
+        "project_archive_files": 224,
+        "zip_archives": 85
+      }
+    },
+    {
+      "bytes": 9149,
+      "campaign": "issue161-c4-candidate3-run1",
+      "checksum_file": "c4-candidate3-forensics-05.zip.sha256",
+      "checksum_sha256": "635940e7e9bf36de1c8fc34ec1fc5977229f847fadda138fcdddad767c9ac9d8",
+      "file": "c4-candidate3-forensics-05.zip",
+      "outer_manifest_entries": 7,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate3-retention1/parts/c4-candidate3-forensics-05.zip",
+      "runner_exit_code": 1,
+      "scope": "Packaging correction source and preserved original failed packaging execution",
+      "sha256": "3af9f3fc2398faa77d73e5ba72b243176091eee3efa00b2da4e0f8b625af7614",
+      "verification_counts": {
+        "evidence_manifest_entries": 7,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    }
+  ],
+  "physical_original_bytes": 1009923714,
+  "physical_original_files": 7777,
+  "preceding_source_body_hashes": 1183,
+  "publication_verified": false,
+  "raw_pair_bytes_each_side": 88194616,
+  "raw_pairs": 66,
+  "recorded_utc": "2026-11-25T21:07:26.270080+00:00",
+  "runner_exit_code": 1,
+  "scientific_qualification_passed": false,
+  "scope": "Complete failed C3 original run and explicit stronger diagnostic-copy authority, with preserved packaging audit correction",
+  "separate_publication_required": true,
+  "successful_commands_before_failure": 40,
+  "unrun_commands": [
+    "property-readers",
+    "diff"
+  ]
+}

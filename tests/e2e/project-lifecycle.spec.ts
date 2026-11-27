@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { expect, test, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
 
 interface CreatedProject {
@@ -51,6 +52,7 @@ async function openInspector(page: Page, testInfo: TestInfo): Promise<void> {
   if (testInfo.project.name === "mobile-chromium") {
     await page.getByRole("button", { name: "Inspector" }).click();
   }
+  await openInspectorTools(page);
   await expect(page.getByRole("region", { name: "Project inspector" })).toBeVisible();
 }
 

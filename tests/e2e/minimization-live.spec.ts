@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { readFile, writeFile } from "node:fs/promises";
@@ -74,6 +75,7 @@ for (const wholeProtein of [false, true]) test(`renders accepted native steps fo
       };
     }
   });
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   const query = page.getByRole("combobox", { name: "Select by", exact: true });
   const value = page.getByRole("textbox", { name: "Value", exact: true });

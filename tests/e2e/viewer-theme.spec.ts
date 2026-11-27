@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -151,6 +152,7 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
   const originalAtomCount = ligand!.atom_count;
   const originalArtifactId = ligand!.current_artifact_id;
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(ligand!.id);
   await page

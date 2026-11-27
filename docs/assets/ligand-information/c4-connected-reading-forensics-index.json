@@ -1,0 +1,129 @@
+{
+  "all_literal_checksums_CRC_recursive_manifests_and_exact_union_verified": true,
+  "all_original_bytes_SHA_mode_mtime_preserved": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "candidate": "242b7aff3ca73ca34f53a93ca0611a4b25617dba",
+  "capture_member": "issue161-connected-reading-native1/capture.json",
+  "capture_sha256": "9da3e81ae69fff0633463bb6ac41047808e4e142e54e4c880085f409f58181ff",
+  "case_pass_fail_skip_unrun_totals": null,
+  "deliberately_interrupted": true,
+  "empty_directories": 8,
+  "external_observers": [
+    {
+      "complete": true,
+      "finished_utc": "2026-11-25T15:44:19.115289+00:00",
+      "observation_sha256": "e36544c59fc6a957cabea2374774c9088c01d82ae6cb961c5a0b1993ec47edca",
+      "separate_execution_receipt_present": false,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "termination_evidence": "Complete fixed-source finished observation and separate strict rescue closure; no separate observer subprocess exit receipt exists.",
+      "tree": "external/issue159-performance/chromium-51b3d2ac-7e1c-43b3-91f0-3639a125d969"
+    },
+    {
+      "additional_fixed_source_count": 969,
+      "complete": true,
+      "finished_utc": "2026-11-25T15:42:48.814631+00:00",
+      "observation_sha256": "4aa6925e1748ebc57b136b070e460dee04b273e2e6e8a1a4970c27be9cd8a7ae",
+      "observer_completion": {
+        "code": 0,
+        "signal": null
+      },
+      "separate_execution_receipt_present": true,
+      "source_count": 837,
+      "sources_unchanged": true,
+      "tree": "external/issue160-profile-performance/chromium-5e913ef7-cbf3-446e-bebd-9acea8ab04a4"
+    }
+  ],
+  "full_gate_pass": false,
+  "independent_audit_required": true,
+  "limitations": [
+    "No final browser.json exists; case outcome totals and fail/skip/unrun counts cannot be reconstructed as an authoritative reporter result.",
+    "One completed profile PASS is observed in original stdout. The active property case was deliberately interrupted; its partial5cold+7paired records do not establish its overall pass/fail.",
+    "SIGINT ended original coordinator with-2 before service cleanup; its failed closure and zero raw copies remain unchanged. Separate exact-group graceful termination and strict rescue proof precede the sole closed DB copy.",
+    "SQLite WAL/SHM are absent after graceful server closure; retained DB is the actual post-closure body, not a pre-interruption WAL snapshot.",
+    "Only immutable native-performance1/2 preparation is captured; active sibling preparation is intentionally outside this capture.",
+    "No qualification, final readiness or publication is established."
+  ],
+  "native_report_present": false,
+  "new_external_cases": 2,
+  "no_original_relocation": true,
+  "observed_completed_stdout_cases": [
+    "✓   1 [chromium] › tests/e2e/ligand-profiles-performance.spec.ts:94:5 › measures first profile selection, warm shared dependencies, source reevaluation and metadata recovery (1.8m)"
+  ],
+  "original_coordinator_exit_code": -2,
+  "original_failed_closure_preserved": true,
+  "original_raw_copy_count": 0,
+  "outer_union_payloads": 2871,
+  "packager_sha256": "0976270e7ccea6b7dde0927b0c0e0fdb83a8b95316ec25bbfdecfa62a70d6764",
+  "part_bytes": 194517763,
+  "part_count": 3,
+  "partial_property_record_counts": {
+    "fresh-browser-context-cold-start": 5,
+    "paired-edit": 7
+  },
+  "parts": [
+    {
+      "bytes": 81950129,
+      "campaign": "issue161-connected-reading-native1",
+      "checksum_file": "c4-connected-reading-forensics-01.zip.sha256",
+      "checksum_sha256": "757f7d9325ef266d8dbd5ca82a3ff303b249efb97b4dcee033df0bb1520522b5",
+      "file": "c4-connected-reading-forensics-01.zip",
+      "original_coordinator_exit_code": -2,
+      "outer_manifest_entries": 2321,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-connected-reading-retention1/parts/c4-connected-reading-forensics-01.zip",
+      "sha256": "13ad2a1c055d83f3b11ff3302138e2b68ddefcaa1986d323ac91e22ac5b83153",
+      "verification_counts": {
+        "evidence_manifest_entries": 2321,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 63848993,
+      "campaign": "issue161-connected-reading-native1",
+      "checksum_file": "c4-connected-reading-forensics-02.zip.sha256",
+      "checksum_sha256": "c052000ede38fddc0c25e03c18364069c3eed150abf611ddc71c561dbc8989f2",
+      "file": "c4-connected-reading-forensics-02.zip",
+      "original_coordinator_exit_code": -2,
+      "outer_manifest_entries": 227,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-connected-reading-retention1/parts/c4-connected-reading-forensics-02.zip",
+      "sha256": "91231cc287e84a0133e0b8f8d89236aeabd2766acae280fff549035631e26796",
+      "verification_counts": {
+        "evidence_manifest_entries": 227,
+        "project_archive_files": 0,
+        "zip_archives": 2
+      }
+    },
+    {
+      "bytes": 48718641,
+      "campaign": "issue161-connected-reading-native1",
+      "checksum_file": "c4-connected-reading-forensics-03.zip.sha256",
+      "checksum_sha256": "680c2fa5d9a706ad06ad41a7e46b1793dcc162bdb2bb6db2796f30ad186f87f0",
+      "file": "c4-connected-reading-forensics-03.zip",
+      "original_coordinator_exit_code": -2,
+      "outer_manifest_entries": 323,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-connected-reading-retention1/parts/c4-connected-reading-forensics-03.zip",
+      "sha256": "053ac1db5c7b8d0804a3ab0c6462c7779a6b78965ce9f20fb86894430439bc05",
+      "verification_counts": {
+        "evidence_manifest_entries": 328,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    }
+  ],
+  "physical_original_bytes": 265248372,
+  "physical_original_files": 2868,
+  "primary_diagnostic_SQL": false,
+  "publication_verified": false,
+  "qualification_or_readiness_claim": false,
+  "raw_pair_bytes_each_side": 704512,
+  "raw_pairs": 1,
+  "recorded_utc": "2026-11-25T15:49:32.472144+00:00",
+  "rescue_positive_closed_before_and_after_copy": true,
+  "scope": "Complete selected immutable originals from deliberately interrupted intermediate native campaign, its failed original cleanup and subsequent strict graceful rescue; no final reporter outcome or qualification claim.",
+  "separate_publication_required": true,
+  "source_archive_original_prelaunch_emission": true,
+  "source_bodies": 1222,
+  "source_zip_map_hashes_verified": true,
+  "strict_part_limit_exclusive": 83886080
+}

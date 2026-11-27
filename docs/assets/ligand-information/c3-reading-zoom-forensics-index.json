@@ -1,0 +1,77 @@
+{
+  "recorded_utc": "2026-11-25T12:41:00.788401+00:00",
+  "scope": "Complete original actual-browser zoom histories: initial probe synchronization timeout after passing ligand checks, then four successful full corrected cases. Original failures remain failures. Later official full acceptance retained separately.",
+  "packager_sha256": "5c2ac02c5c07d30d2af58182cd8e8c0c115612cbb6373e5e5097e3dad64d7dca",
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "file": "c3-reading-zoom-forensics-01.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-zoom-retention1/parts/c3-reading-zoom-forensics-01.zip",
+      "bytes": 61040357,
+      "sha256": "9d1a86909376152afb0c079b4270835b034d738635990c8cc7c4484393a13b31",
+      "outer_manifest_entries": 194,
+      "verification_counts": {
+        "zip_archives": 9,
+        "evidence_manifest_entries": 199,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-zoom-native1",
+      "runner_exit_code": 1,
+      "checksum_file": "c3-reading-zoom-forensics-01.zip.sha256",
+      "checksum_sha256": "7f62830955a491ec1699a54ba316af549c8952aeedb3d8b57a7f9bad39664810"
+    },
+    {
+      "file": "c3-reading-zoom-forensics-02.zip",
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-reading-zoom-retention1/parts/c3-reading-zoom-forensics-02.zip",
+      "bytes": 47558333,
+      "sha256": "298fcb59c2ec1f3c15218201b15721c8543e3102bb27d80d9e81b36e10fb8b5c",
+      "outer_manifest_entries": 25,
+      "verification_counts": {
+        "zip_archives": 8,
+        "evidence_manifest_entries": 30,
+        "project_archive_files": 10
+      },
+      "campaign": "issue161-reading-zoom-native2",
+      "runner_exit_code": 0,
+      "checksum_file": "c3-reading-zoom-forensics-02.zip.sha256",
+      "checksum_sha256": "c1bf0423fb2efb343d8e47b70c3c96fd73b6de1f8b864a0f881468f8de60f940"
+    }
+  ],
+  "part_count": 2,
+  "part_bytes": 108598690,
+  "campaigns": [
+    {
+      "campaign": "issue161-reading-zoom-native1",
+      "runner_exit_code": 1,
+      "physical_files": 193,
+      "physical_bytes": 66687846,
+      "empty_directories": 2,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-reading-zoom-native1/capture.json",
+      "parts": [
+        "c3-reading-zoom-forensics-01.zip"
+      ]
+    },
+    {
+      "campaign": "issue161-reading-zoom-native2",
+      "runner_exit_code": 0,
+      "physical_files": 24,
+      "physical_bytes": 50020596,
+      "empty_directories": 6,
+      "raw_pairs": 3,
+      "source_count": 1218,
+      "capture_member": "issue161-reading-zoom-native2/capture.json",
+      "parts": [
+        "c3-reading-zoom-forensics-02.zip"
+      ]
+    }
+  ],
+  "all_originals_preserved_and_rehashed": true,
+  "exact_source_zip_maps_verified": true,
+  "all_ZIP_CRC_manifest_and_nested_layers_verified": true,
+  "no_primary_SQL_used": true,
+  "separate_publication_required": true,
+  "publication_verified": false,
+  "not_full_feature_or_performance_qualification": true
+}

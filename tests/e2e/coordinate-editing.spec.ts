@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { resolve } from "node:path";
 import {
   expect,
@@ -89,6 +90,7 @@ async function selectAtomReferences(
   page: Page,
   references: { entryId: string; atomId: number }[],
 ): Promise<void> {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection" }).click();
   const mode = page.getByRole("group", { name: "Operation mode" });
   await mode.getByRole("button", { name: "replace" }).click();
@@ -156,6 +158,7 @@ test("edits coordinates, reverses gestures, and validates protein superposition"
   });
   expect(await atoms(request, project.id, moving.id)).toEqual(before);
 
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   await page
     .getByRole("group", { name: "Translation (angstrom)" })
@@ -188,6 +191,7 @@ test("edits coordinates, reverses gestures, and validates protein superposition"
     .toEqual(transformed);
 
   await selectAtomReferences(page, [{ entryId: moving.id, atomId: 1 }]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   await page
     .getByRole("group", { name: "Scope" })
@@ -230,6 +234,7 @@ test("edits coordinates, reverses gestures, and validates protein superposition"
     ...[1, 2, 3].map((atomId) => ({ entryId: moving.id, atomId })),
     ...[1, 2, 4].map((atomId) => ({ entryId: reference.id, atomId })),
   ]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   await page.getByRole("button", { name: "selection", exact: true }).last().click();
   await page.getByRole("button", { name: "Superpose structure" }).click();
@@ -248,6 +253,7 @@ test("edits coordinates, reverses gestures, and validates protein superposition"
     "2 visible / 2 loaded",
     { timeout: 30_000 },
   );
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform" }).click();
   await expect(
     page.getByText(/Unlock .* before changing coordinates/),

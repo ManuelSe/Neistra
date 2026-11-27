@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { expect, test, type Page } from "@playwright/test";
 import type { AtomReference, Project, StructureProjection } from "../../apps/web/src/api/types";
 import { frameFixture, prepare } from "./support/interactions";
@@ -258,6 +259,7 @@ test("persists native gesture references as an ordinary named selection and relo
   await expect.poll(() => selection(page)).toEqual(expected);
   const mobile = info.project.name === "mobile-chromium";
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByPlaceholder("Selection name").fill("Native gesture range");
   await page.getByRole("button", { name: "Save current selection", exact: true }).click();
@@ -271,6 +273,7 @@ test("persists native gesture references as an ordinary named selection and relo
   await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", { timeout: 30000 });
   expect(await anchor(page)).toBeNull();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await savedRow.getByRole("button").first().click();
   await expect.poll(() => selection(page)).toEqual(expected);

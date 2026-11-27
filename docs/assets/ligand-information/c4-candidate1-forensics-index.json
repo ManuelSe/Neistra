@@ -1,0 +1,205 @@
+{
+  "all_ZIP_CRC_manifest_and_nested_layers_verified": true,
+  "all_originals_preserved_and_rehashed": true,
+  "archive_helper_sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2",
+  "browser_actual_result_counts": {
+    "passed": 118,
+    "skipped": 3,
+    "timedOut": 1
+  },
+  "browser_original_reported_skipped": 593,
+  "browser_unrun_cases": 590,
+  "candidate": "42b8139f00492e57c05d3516cf24233be51a4fed",
+  "capture_member": "issue161-c4-candidate1-run1/capture.json",
+  "capture_sha256": "4d0926851ace59dac0bda231ddbdb0a8b7a2dc044528fe119bbffbe7302b7a7c",
+  "current_source_body_hashes": 1221,
+  "empty_directories": 99,
+  "exact_source_zip_maps_verified": true,
+  "executed_gate_commands": 16,
+  "full_gate_pass": false,
+  "independent_readback_required": true,
+  "new_external_case_directories": 0,
+  "no_original_tree_exclusions": true,
+  "no_primary_SQL_used": true,
+  "not_full_feature_or_performance_qualification": true,
+  "offline_fixture_report_files_retained": 44,
+  "original_mode_and_mtime_preserved": true,
+  "packager_sha256": "fe642290527a390c5de4387f687c15f60c4d891286ac5fd4c2527a3a54f7c4a2",
+  "part_bytes": 775411759,
+  "part_count": 10,
+  "part_limit_bytes_exclusive": 83886080,
+  "parts": [
+    {
+      "bytes": 62947167,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-01.zip.sha256",
+      "checksum_sha256": "4be32bb28da8e6ec48bbafefea2d6670954d9935c4b161c3c79b75013328dfa6",
+      "file": "c4-candidate1-forensics-01.zip",
+      "outer_manifest_entries": 22,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-01.zip",
+      "runner_exit_code": 1,
+      "sha256": "476f42ac38122f1130e71a44c944f7db3a42f40f0d1a6ff57cf98175e36e161b",
+      "verification_counts": {
+        "evidence_manifest_entries": 27,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    },
+    {
+      "bytes": 81355280,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-02.zip.sha256",
+      "checksum_sha256": "1ed827d70d6770e2b6726e2a1db7d11f48ce3716b95c79b7660796e3c0dba6ca",
+      "file": "c4-candidate1-forensics-02.zip",
+      "outer_manifest_entries": 4093,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-02.zip",
+      "runner_exit_code": 1,
+      "sha256": "05a0d3f0f0a36039934c60d05306692a7dc9d6219a38e3e6667ac8d5a8c562c6",
+      "verification_counts": {
+        "evidence_manifest_entries": 4098,
+        "project_archive_files": 10,
+        "zip_archives": 8
+      }
+    },
+    {
+      "bytes": 82004981,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-03.zip.sha256",
+      "checksum_sha256": "f4f5ffa46d2243beebabcd4e172b5ef53277a1cb8fdf997008c99b8728c0e947",
+      "file": "c4-candidate1-forensics-03.zip",
+      "outer_manifest_entries": 2106,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-03.zip",
+      "runner_exit_code": 1,
+      "sha256": "0b7d5bf50258cfd6e7e0932a3c928b8d294ff7643dcc401b8c1aaca2ec5b4a50",
+      "verification_counts": {
+        "evidence_manifest_entries": 2106,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 82098093,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-04.zip.sha256",
+      "checksum_sha256": "03247017f6b0c9a56af7850628db326801a2a2362439d587dc82318391a13a07",
+      "file": "c4-candidate1-forensics-04.zip",
+      "outer_manifest_entries": 1959,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-04.zip",
+      "runner_exit_code": 1,
+      "sha256": "cd94a2430740a4d3f9d1fd55a5755b2d64593dec406fce3effb9a25829a72b01",
+      "verification_counts": {
+        "evidence_manifest_entries": 1959,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 81983785,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-05.zip.sha256",
+      "checksum_sha256": "89d2862e169b4a6414aca45312ed5ec89e32ea77dd622ba109e010f2a03b6ccb",
+      "file": "c4-candidate1-forensics-05.zip",
+      "outer_manifest_entries": 2192,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-05.zip",
+      "runner_exit_code": 1,
+      "sha256": "00fdde9b8ff0121c542cf6fbdeef2e749b96fcba10130f625a5c4d70149cb533",
+      "verification_counts": {
+        "evidence_manifest_entries": 2192,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 82047842,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-06.zip.sha256",
+      "checksum_sha256": "9b1241f3720c8ac614d12653ffbd6e745057cf4db924b8329a5937e5277aec49",
+      "file": "c4-candidate1-forensics-06.zip",
+      "outer_manifest_entries": 2126,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-06.zip",
+      "runner_exit_code": 1,
+      "sha256": "a4412348868466c6e650461d740d63431be6c12f2e30d80e7c66bc341d8d101a",
+      "verification_counts": {
+        "evidence_manifest_entries": 2126,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 82051562,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-07.zip.sha256",
+      "checksum_sha256": "11d4e943c86d3b4a65e511d6286491114d2ca6fbb3b38dd3696bdeefeaea4b0a",
+      "file": "c4-candidate1-forensics-07.zip",
+      "outer_manifest_entries": 2054,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-07.zip",
+      "runner_exit_code": 1,
+      "sha256": "4d3bb293102c3b3104d8b1c3492eb90ff2f0905ad31b8a7465c1f862a2bd96e6",
+      "verification_counts": {
+        "evidence_manifest_entries": 2054,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 81961140,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-08.zip.sha256",
+      "checksum_sha256": "d79adc43d34046f8ab9bb005a6e5be9e9f82f185b6b749a3923b80663bcd86e3",
+      "file": "c4-candidate1-forensics-08.zip",
+      "outer_manifest_entries": 2234,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-08.zip",
+      "runner_exit_code": 1,
+      "sha256": "d433a1b0133fb6a4bb70392a30b5e7a3cb9d8e25e942d537e3c549483fdf5f89",
+      "verification_counts": {
+        "evidence_manifest_entries": 2234,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 82058788,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-09.zip.sha256",
+      "checksum_sha256": "75ee5228390a82f9c76b4f202b6fcf2cd5e492c4b3e1078ea61a995b495c08b0",
+      "file": "c4-candidate1-forensics-09.zip",
+      "outer_manifest_entries": 2029,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-09.zip",
+      "runner_exit_code": 1,
+      "sha256": "e46b1d94be0ebbe061197ddb6b417fb21bb44906d5a105c159610e3e5297ada4",
+      "verification_counts": {
+        "evidence_manifest_entries": 2029,
+        "project_archive_files": 0,
+        "zip_archives": 1
+      }
+    },
+    {
+      "bytes": 56903121,
+      "campaign": "issue161-c4-candidate1-run1",
+      "checksum_file": "c4-candidate1-forensics-10.zip.sha256",
+      "checksum_sha256": "613dc7b704d3039c10e56d2d31fd43a00afacd0c78fe6c34410513b8f046bfc7",
+      "file": "c4-candidate1-forensics-10.zip",
+      "outer_manifest_entries": 1153,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate1-retention1/parts/c4-candidate1-forensics-10.zip",
+      "runner_exit_code": 1,
+      "sha256": "22f6acb53060d04488a5849641268ce13fc3e52f88d157f2962e9ce6939f819b",
+      "verification_counts": {
+        "evidence_manifest_entries": 1153,
+        "project_archive_files": 8,
+        "zip_archives": 14
+      }
+    }
+  ],
+  "physical_original_bytes": 989375081,
+  "physical_original_files": 19963,
+  "preceding_source_body_hashes": 1183,
+  "publication_verified": false,
+  "raw_original_copy_bytes_SHA_mode_and_mtime_verified": true,
+  "raw_pairs": 48,
+  "recorded_utc": "2026-11-25T13:58:02.993610+00:00",
+  "runner_exit_code": 1,
+  "scope": "Complete original failed c4-candidate1 full43 attempt, including all native intermediate artifacts, run stores, raw copies,44 offline fixture reports, logs and original source maps; failures and unrun cases retain their statuses.",
+  "separate_publication_required": true,
+  "source_archive_provenance": "Clearly labelled derived snapshots reconstructed after the run and checked against unchanged original before/after maps; not original run-emitted ZIPs.",
+  "successful_gate_commands_before_failure": 15
+}

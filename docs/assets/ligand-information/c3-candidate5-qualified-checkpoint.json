@@ -1,0 +1,284 @@
+{
+  "schema": "issue161-candidate5-qualified-checkpoint-v1",
+  "qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "scope": "Actual full candidate gate plus finite completion metadata; commit containing this index is a separate source-equivalent review candidate",
+  "gate": {
+    "commands": 43,
+    "python": 4266,
+    "python_skips": 0,
+    "frontend": 2090,
+    "supervisor": 14,
+    "browser_passed": 641,
+    "same_approved_exclusions": 75,
+    "failures_flakes_retries": 0,
+    "current_sources": 1222,
+    "preceding_sources": 1183,
+    "DATA": 6,
+    "actual_outer_exit": 0,
+    "strict_summary_exit": 0,
+    "strong_retention_exit": 0
+  },
+  "summary": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c4-candidate5-summary.json",
+    "bytes": 84695,
+    "sha256": "1c3d6c5007c9c8191f7664bafc654ff58139683ce77c29e7d1140bf2b695d944"
+  },
+  "retention_authority": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/authority-index.json",
+    "bytes": 239525,
+    "sha256": "7677fd0dd28aae96da458c5a69df885afe579753addde8df77184ed346da2a6a"
+  },
+  "original_parts": [
+    {
+      "asset_name": "c4-candidate5-case-companions-01.zip",
+      "bytes": 9124383,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/case-companions/c4-candidate5-case-companions-01.zip",
+      "sha256": "f242f16c2b2317627de7f19b5f7ea0bdca73bdc86e568f286ddf153f31e2f7d8",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/case-companions/c4-candidate5-case-companions-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-01.zip",
+      "bytes": 83382495,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-01.zip",
+      "sha256": "ec05e02a762ca83e83596027c544f9659e8c0897c6bb7d9077300c16f640dedd",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-02.zip",
+      "bytes": 69767083,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-02.zip",
+      "sha256": "12099a33043560a8f31d378bc75578b5d9c50f9bfc80f43717de27ec15e543ba",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-02.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-qualified-03.zip",
+      "bytes": 27023445,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-03.zip",
+      "sha256": "cf612c9d8e4cee86fc7987c020f41609988ec700c1fdfaafdb7270a87cbb4104",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/gate-parts/c4-candidate5-qualified-03.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-01.zip",
+      "bytes": 77769396,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state/c4-candidate5-retained-state-01.zip",
+      "sha256": "c4e6821ccda475f62f64d54460934983aef489fcb938a237844b5c23f3ca0129",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state/c4-candidate5-retained-state-01.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-02.zip",
+      "bytes": 46296516,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state/c4-candidate5-retained-state-02.zip",
+      "sha256": "3ca9442a754b3e61be95b24958453e71664de381f1922b1536654735c243d148",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state/c4-candidate5-retained-state-02.zip.sha256"
+    },
+    {
+      "asset_name": "c4-candidate5-retained-state-authority-01.zip",
+      "bytes": 54845,
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state-authority/c4-candidate5-retained-state-authority-01.zip",
+      "sha256": "4f776e1455b25a2021bb72cf2a00533686b13cb6fc74c8ffa7f10b5057d1e277",
+      "sidecar": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c4-candidate5-postgate-retention1/retained-state-authority/c4-candidate5-retained-state-authority-01.zip.sha256"
+    }
+  ],
+  "completion_evidence": {
+    "file": "c3-candidate5-qualified-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c3-candidate5-qualified-evidence.zip",
+    "bytes": 796326,
+    "sha256": "3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed",
+    "outer_manifest_entries": 89,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 89,
+      "project_archive_files": 0
+    }
+  },
+  "completion_build_actual_tool_return": {
+    "observed_utc": "2026-11-27T17:18:39.953745+00:00",
+    "tool": "tools.exec_command",
+    "arguments": {
+      "cmd": ".venv/bin/python -B .issue-11-evidence/issue161-c5-evidence-checkpoint1/build-completion.py",
+      "workdir": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar",
+      "max_output_tokens": 1800,
+      "yield_time_ms": 1000
+    },
+    "result": {
+      "chunk_id": "b9acae",
+      "wall_time_seconds": 0.085275443,
+      "exit_code": 0,
+      "original_token_count": 152,
+      "output": "{\"receipt\": \"/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-evidence-checkpoint1/completion-build-receipt.json\", \"archive\": {\"file\": \"c3-candidate5-qualified-evidence.zip\", \"path\": \"/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c3-candidate5-qualified-evidence.zip\", \"bytes\": 796326, \"sha256\": \"3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed\", \"outer_manifest_entries\": 89, \"verification_counts\": {\"zip_archives\": 1, \"evidence_manifest_entries\": 89, \"project_archive_files\": 0}}}\n"
+    }
+  },
+  "completion_build_receipt": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-evidence-checkpoint1/completion-build-receipt.json",
+    "bytes": 15888,
+    "sha256": "1e1e1165c3470aae8b910b17981a0098b3ebbcf86da1b755757b21e0b3f79b9f"
+  },
+  "independent_readbacks": {
+    "architecture-assessment.json": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-final-retention-readback1/architecture-assessment.json",
+      "bytes": 6880,
+      "sha256": "3cd816a9c5a39bca9788943276def56495b7df8e88906c1fa196577f4357b988"
+    },
+    "scientific-implementation-assessment.json": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-final-retention-readback1/scientific-implementation-assessment.json",
+      "bytes": 3498,
+      "sha256": "c1da1536b61906cf8aed355353b0f0a49d3c3a36b47c6cc8c9ea93001bbfa06a"
+    },
+    "ui-assessment.json": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-final-retention-readback1/ui-assessment.json",
+      "bytes": 12265,
+      "sha256": "53bfbc0e384bc695f6b6628b65fba7209ca48bd66b03cee99fb87de92ffcee5c"
+    }
+  },
+  "full_source_equivalence": {
+    "observed_utc": "2026-11-27T17:18:40.475387+00:00",
+    "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+    "checkpoint_parent": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+    "scope": "Later nonruntime evidence/docs/master-recipe checkpoint; actual C5 gate retains original subject",
+    "all_selected_source_bodies": 1222,
+    "actual_current_full_catalogue_equals_qualifying_disk_and_Git_catalogues": true,
+    "qualification_helpers_configurations_fixtures_and_DATA_included": true,
+    "qualification_DATA_bodies": 6,
+    "qualification_DATA": {
+      "docs/assets/ligand-information/preceding-v0.38.0/provenance.json": {
+        "bytes": 2941,
+        "sha256": "154b7e057f67c07a30c653124d95e670fce713cf8c509a25de6038e5f1f163a0"
+      },
+      "docs/assets/ligand-information/preceding-v0.38.0/qualified-merged-browser.json.gz": {
+        "bytes": 23052981,
+        "sha256": "262f7fb28c225483aa3e409d5ed24f9f8e5d7b65aa71afcac47040b59289a180"
+      },
+      "docs/assets/ligand-information/preceding-v0.38.0/qualified-merged-summary.json": {
+        "bytes": 81083,
+        "sha256": "1ced7152746254d8213102f54f0cfda0040e6b18bfcb21017b3c3351d86c39bd"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-browser.json.gz": {
+        "bytes": 19164695,
+        "sha256": "fa35647586745cb95461f8368d3ae6c9f6f72c01543d0c7f7bb5877918980445"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/c5-master1-summary.json": {
+        "bytes": 1578,
+        "sha256": "127e9a548fac36005386d8eec242f1848cc2680d0625dbb1f0e9b72cbb484f57"
+      },
+      "docs/assets/ligand-profiles/preceding-v0.37.0/provenance.json": {
+        "bytes": 1342,
+        "sha256": "232562a821a6036a677be5b012e305ecbdecf494bbdfa3c367d7e3d16c6e90d3"
+      }
+    },
+    "qualified_source_map": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-evidence-checkpoint1/qualifying-selected-source-map.json",
+      "bytes": 147527,
+      "sha256": "e1c585f69dd4233bf94b3363a771c673d8ebd99f90da0fe166bb7aac1ff11e68"
+    },
+    "canonical_master_recipe_builder_byte_equality": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-evidence-checkpoint1/master-recipe-builder-equality.json",
+      "bytes": 719,
+      "sha256": "34f02a8ba6d68ddcb5959767ce457626ce6d6ad3298b03658aa78c2b4029596a"
+    },
+    "no_runtime_method_workload_exclusion_deadline_or_resource_change": true
+  },
+  "portable_timing": {
+    "property_profile_comparisons": 410,
+    "target_misses": 143,
+    "policy": "D-148 portable diagnostic latency; no strict-host certification",
+    "four_bulk_active_ready_samples_exceed_5_seconds": true,
+    "primary_parent_RSS": "Unavailable; not inferred"
+  },
+  "historical_failures": "All sixty original forensic parts and finite completions retain actual failed/interrupted status and required publication obligations",
+  "required_assets_before_later_completion_and_merged_results": {
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-release-asset-preflight2/required-assets.json",
+    "bytes": 73702,
+    "sha256": "796fe9903e76f807567a293bb77359276b34631f7db0f108fd3cdcb9144a8b54"
+  },
+  "final_all_seven_same_candidate_review": "Pending on actual later evidence commit; current bounded approvals do not carry forward automatically",
+  "actual_merged_commit": "Not yet merged or qualified",
+  "publication_verified": false,
+  "performance_assessment": {
+    "record_identity": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-c5-final-retention-readback1/performance-assessment.json",
+      "bytes": 3494,
+      "sha256": "144fcdaae1ecbb71f621b9ad74c4b1af7b5dd497e2e788aa3c13ede7a6fd1202"
+    },
+    "actual_report": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; not reviewer-authored local file or human approval",
+      "reviewer": "/root/issue161_final_performance_review",
+      "candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "scope": "Bounded performance source and actual C5 evidence assessment; later common-candidate final review remains separate",
+      "verdict": "PASS",
+      "material_findings": [],
+      "source_checks": {
+        "prior_complete_source_assessment_reused": true,
+        "actual_hot_path_hashes_checked": 7,
+        "before_after_source_maps_equal": 1222,
+        "actual_wrapper_exit": 0,
+        "complete_gate": true,
+        "positive_before_after_copy_closure": true,
+        "raw_pairs": 134
+      },
+      "actual_browser_report": {
+        "bytes": 46454622,
+        "sha256": "d887eb6c940000235f566d5f2329f8eaf7d40094741c284ae430d3f27265d7fd",
+        "passed": 641,
+        "exclusions": 75,
+        "unexpected_flaky_errors": 0,
+        "both_primary_extracted_bodies_match_serialized_bytes": true
+      },
+      "actual_resource_observations": {
+        "count": 12,
+        "all_complete": true,
+        "max_running_property_jobs": 1,
+        "unreaped_recorded_executions": 0,
+        "eight_native_worker_copies_equal_originals": true,
+        "four_profile_primary_observations_match_companion_pins": true,
+        "retention_maxima": {
+          "content_bytes": 2152345,
+          "content_items": 1108,
+          "proofs": 2149,
+          "executions": 32,
+          "consumers": 11
+        }
+      },
+      "work_and_lifecycle": [
+        "All4 1000entry workloads reach1000bindings, repeated/distinct graphcounts1/1000 and five200entry owners",
+        "All4workorder traces SHAexact; ordinary work progresses after1productive derivedturn",
+        "Activeadmission fairness bulk turns1/1/0/0 with real overlappingbulk",
+        "Sixsettledreopencycles retain6axes/6criteria/1polygon and zero requests/scientific/drawingwork",
+        "Bothhiddenedit intervals havezero depictioninitiations; reopen exactreplacementartifact/updatedcomposition",
+        "Ownedprofile/primaryconsumersreleased andobserversclosed; edit/cache/accepteddemandcancellation casespass; hiddenretirementobservations unavailable"
+      ],
+      "actual_portable_timing": {
+        "property_profile_comparisons": 410,
+        "target_misses": 143,
+        "enforced_latency_misses": 0,
+        "other_four_report_misses": "Synthetic performance-policy controls; excluded from actual workload accounting",
+        "bulk_active_ready_ms": {
+          "desktop_repeated": 7556.7,
+          "desktop_distinct": 7792.3,
+          "compact_repeated": 5776.3,
+          "compact_distinct": 6493.4
+        },
+        "twenty_cold_edits_ms": {
+          "desktop_median": 2106.6,
+          "desktop_p95": 2242.5,
+          "compact_median": 3869.3,
+          "compact_p95": 3946.7
+        }
+      },
+      "memory": {
+        "inherited_child_process_RSS_max_bytes": 117383168,
+        "inherited_worker_parent_RSS_max_bytes": 213286912,
+        "primary_process_RSS": "Unavailable",
+        "browser_GPU_and_simultaneous_total_memory": "Unavailable"
+      },
+      "host": "Recorded Ryzen7 8845HS Linux,Node22.19.0,Chromium140.0.7339.16,nontrivial recordedload",
+      "limitations": [
+        "Portablecorrectness andboundedwork, no stricthost timing/speedup/regressioncause claim",
+        "Primary/reopen clocks retainseparatedefinitions; no newthresholds",
+        "Finalactualsamecandidatecheckpointreassessment/all7/mergedgate/publication remain"
+      ],
+      "mutations": "None; no optimization,tests,runtime/scientificimports,SQL,edits,Gitactions or delegation"
+    },
+    "retention_scope": "This completed report follows the already closed finite89member companion and is embedded in full here; no original packet is reopened"
+  }
+}

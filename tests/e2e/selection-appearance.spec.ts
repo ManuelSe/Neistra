@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -173,6 +174,7 @@ test("expands from styling across hidden entries without durable changes", async
   }
   await page.keyboard.press("Escape");
   await expect(page.getByRole("button", { name: "Style selection", exact: true })).toBeFocused();
+  await openInspectorTools(page);
   await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   const colorPixels = (channel: "magenta" | "red") => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement, channel: "magenta" | "red") => {
     const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
@@ -205,6 +207,7 @@ test("expands from styling across hidden entries without durable changes", async
   expect(carbon.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
     .toEqual(colored.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
   await page.keyboard.press("Escape");
+  await openInspectorTools(page);
   await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect.poll(magentaPixels).toBeGreaterThan(100);
   await expect.poll(() => colorPixels("red")).toBeGreaterThan(100);
@@ -225,6 +228,7 @@ test("expands from styling across hidden entries without durable changes", async
   await dialog.getByRole("button", { name: "Reset color" }).click();
   await expect(dialog.getByRole("status")).toHaveText("Selection color reset.");
   await page.keyboard.press("Escape");
+  await openInspectorTools(page);
   await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect.poll(magentaPixels).toBe(0);
   const reset: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
@@ -301,6 +305,7 @@ test("expands from styling across hidden entries without durable changes", async
     .toEqual([{ color: "#3b82f6", atom_ids: submitted!.atoms.map((atom) => atom.atom_id) }]);
   expect(applied.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
     .toEqual(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
+  await openInspectorTools(page);
   await page.getByRole("tabpanel", { name: "selection", exact: true }).getByRole("button", { name: "Clear", exact: true }).click();
   await expect(dialog.locator(".selection-style-summary")).toHaveText("0 atoms");
   await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeDisabled();

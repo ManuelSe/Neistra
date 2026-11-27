@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./navigation";
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { expect, test, type APIRequestContext, type Page, type Response } from "@playwright/test";
@@ -110,7 +111,7 @@ export async function prepared(page: Page, request: APIRequestContext, specimen 
   return project;
 }
 export async function select(page: Page, atoms: Selection["atoms"], mobile: boolean) {
-  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   const mode = page.getByRole("group", { name: "Operation mode" });
@@ -121,7 +122,8 @@ export async function select(page: Page, atoms: Selection["atoms"], mobile: bool
     await page.getByRole("button", { name: "Apply query", exact: true }).click();
   }
   await expect(page.locator(".viewer-status")).toContainText(`/ ${atoms.length} selected`);
-  if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  if (mobile || await page.getByRole("dialog", { name: "Inspector panel", exact: true }).isVisible())
+    await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
   await page.locator(".molstar-host canvas").first().focus();
 }
 export const current = async (request: APIRequestContext, id: string) => (await (await request.get(`/api/v1/projects/${id}`)).json()) as Project;

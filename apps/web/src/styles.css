@@ -2100,7 +2100,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .mobile-scrim {
   position: fixed;
-  z-index: 50;
+  z-index: 80;
   inset: 52px 0 0;
   background: var(--overlay);
   border: 0;
@@ -2108,12 +2108,14 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .mobile-panel {
   position: fixed;
-  z-index: 51;
+  z-index: 81;
   top: 52px;
   bottom: 0;
   width: min(360px, calc(100vw - 36px));
   box-shadow: var(--shadow);
 }
+
+.mobile-panel:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 
 .mobile-panel.projects {
   left: 0;
@@ -2454,6 +2456,21 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   overflow: visible;
 }
 
+.inspector-heading { flex: 1 1 auto; min-width: 0; }
+.inspector-heading .panel-eyebrow, .inspector-heading h2 { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.inspector-heading h2:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.inspector-header-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 4px; }
+.inspector-header-actions .icon-button { min-width: 44px; min-height: 44px; }
+.inspector-tools[hidden] { display: none; }
+.ligand-information-body { padding: 0; }
+.ligand-information { min-width: 0; }
+.ligand-information .ligand-entry-choice select,
+.ligand-information .ligand-designation-summary .secondary-button,
+.ligand-information .ligand-designation-clear { min-height: 44px; }
+.ligand-interaction-unavailable { padding: 0 10px 10px; font-size: var(--text-xs); line-height: 1.45; overflow-wrap: anywhere; }
+.ligand-interaction-unavailable summary { min-height: 44px; align-content: center; cursor: pointer; }
+.ligand-interaction-unavailable summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
 .project-browser {
   display: flex;
   flex-direction: column;
@@ -2504,6 +2521,12 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .transform-panel {
   padding: 0 10px 14px;
+}
+
+.transform-panel .movement-launcher[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: default;
+  background: var(--action);
 }
 
 .ligand-editor,

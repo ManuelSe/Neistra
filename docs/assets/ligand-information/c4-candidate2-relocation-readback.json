@@ -1,0 +1,26 @@
+{
+  "actual_independent_review": {
+    "all_capture_original_bytes": 1129057239,
+    "all_capture_original_files_resolved": 23601,
+    "disjoint_mapping_entries": 20,
+    "inode_mode_mtime_size_SHA_preserved": true,
+    "moved_bytes": 971358686,
+    "moved_directories": 99,
+    "moved_files": 22902,
+    "provenance": "session1664 initial1ab091 terminal3a00bb exit0; communicated assessment, primary-authored record retained in packet",
+    "reviewer": "/root/issue161_profile_access_timeout_trace",
+    "verdict": "PASS"
+  },
+  "immutable_capture_sha256": "cc89d5f250a3fb835c3fec6babf9175e6daaabe28e2a4adbd18bd4753f11dff6",
+  "immutable_forensic_index_sha256": "2ba7f74d14f8f14ef38b22e370d3467834f48dd788a461777c7398785704c279",
+  "packet": {
+    "CRC_exact_union_and_SHA_readback": true,
+    "bytes": 1463633,
+    "path": "docs/assets/ligand-information/c4-candidate2-relocation-evidence.zip",
+    "payload_files": 4,
+    "sha256": "6b9c97c1d2f8fc65f51667308aea56e949471e1a7d852e10ed90dfcb35db1d59"
+  },
+  "recorded_utc": "2026-11-25T17:15:19.351386+00:00",
+  "scope": "Small mapping packet for lossless same-filesystem relocation of candidate2 originals; not a copy of the original bodies",
+  "warning": "Do not rerun old-path readers. Resolve original paths through these mappings. Tracked recipe and index remain in place. Original forensic parts require separate publication."
+}

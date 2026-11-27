@@ -901,7 +901,7 @@ describe("entry-owned ligand designation controls", () => {
     const project = { ...props.project, entries: [other] };
     if (change === "project") project.id = "project-other";
     else if (change === "entry") other.id = "entry-other";
-    else if (change === "artifact") other.current_artifact_id = "artifact-other";
+    else if (change === "artifact") { other.current_artifact_id = "artifact-other"; other.ligand_designation.source_artifact_id = "artifact-other"; }
     else other.ligand_designation.instance_id = "intent-other";
     update({ ...props, project, entryId: other.id });
     await screen.findByText("ATP");

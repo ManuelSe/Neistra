@@ -2,85 +2,94 @@
 
 ## Current milestone
 
-Parent #11 remains active through verified delivery of #156–#163. #156–#160 are
-released and closed. Version 0.38.0 and all 37 release assets are verified; this
-checkpoint records its publication. Normal terminal documentation review/merge
-and owned-branch cleanup remain. #161 has substantial local preparation;
-#162/#163 remain planned and unimplemented.
+Parent #11 continues through exactly eight required children. #156–#160 are
+delivered. #161's fifth candidate passes its complete 43-command qualification,
+normal outer completion and independent custody, source, scientific and archive
+readbacks. Final same-candidate specialist review, normal merge, exact merged
+qualification and v0.39.0 publication remain. #162 has substantial tested code in
+its isolated checkout; App integration and native qualification remain. #163 is
+planned and unimplemented.
 
 ## Completed work
 
-Seven sourced/versioned profile adaptations and two explicitly unavailable methods
-share a registry/evaluator, read-only metadata API and compact current-input
-controls. The opening-focus correction preserves deliberate and nested-dialog
-focus and retires deferred callbacks. Original uploads and molecular authority
-remain preserved. D-205–D-207 record the bounded correction and forensic policy.
+#161 combines deliberate entry and exact ligand-instance inspection, identity,
+cached depiction, current property groups, sourced profiles and an accessible
+radar/value table. Edits, preview, Undo/Redo and source failures retire incompatible
+presentation through the existing owners. Collapse, resizing, narrow access,
+connected reading and focus recovery preserve retained inspection/editing tools.
 
-[PR180](https://github.com/ManuelSe/Neistra/pull/180) introduced the feature;
-[PR181](https://github.com/ManuelSe/Neistra/pull/181) corrected it. The qualified
-runtime is `c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`, with immutable annotated tag
-`7e535c06e19d833d3e4accd63d3963a10dc4a348` and published
-[v0.38.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0).
-The [canonical reply](https://github.com/ManuelSe/Neistra/issues/160#issuecomment-7047643999)
-and completed issue closure are verified. Parent #11 remains open with five
-completed required children and #161–#163 remaining.
+All five authoritative versions are prepared as 0.39.0. Dependencies, scientific
+methods, database head 0017, archive 3 and viewer 2 are unchanged. Original uploads
+remain preserved. Entry-property filtering belongs to #162; final general
+Inspector retirement belongs to #163. Parent exclusions remain unchanged.
 
 ## Verification performed
 
-Corrected candidate5 and the actual merged commit each pass all 43 commands:
-4,157 Python tests / zero skips, 1,879 frontend, 14 supervisor and 585 browser
-cases, with exactly 75 unchanged released exclusions and zero failures, flakes,
-retries or new exclusions. The complete reviewed and merged trees match. All
-seven specialist agent assessments PASS reviewed head `db6532b2`; these are not
-human approvals. Required remote protections/reviews were not bypassed.
+The actual qualifying candidate is
+`f83347b3c2d59a2a913a9198f99a5276992015b4`. Its clean-start qualification completes
+all 43 responsibilities with normal actual outer exit zero. Separately executed
+finalization, strict summary and strong retention also return actual zero.
 
-All 1,183 current / 1,133 preceding source bodies, DATA3, 43 lossless logs, 44
-offline reports and actual v0.37.0 reader/producer checks verify. The actual merged
-run has positive process/port closure and 136 raw original/copy pairs, 105,244,128
-bytes per side, before primary diagnostic SQL. Primary diagnostic SQL was not used.
-All 2,159 early scientific/workload inputs rehash unchanged after the complete gate.
+The complete gate passes 4,266 Python tests with zero skips, 2,090 frontend tests,
+14 supervisor tests, lint, typing, build, migrations, scientific checks and actual
+preceding v0.38.0 reader interoperability. The full browser report contains 641
+passes and the same 75 approved exclusions, with no failure, flake or retry. All
+1,222 current and 1,183 preceding source bodies and all six qualification DATA
+files remain exact. Both reader origins and archive suffixes retain schema 0017,
+originals, history and current scientific identity.
 
-Independent readback verifies five parts totaling 240,101,688 bytes, each strictly
-below 80 MiB, with exact gate/state/case unions of 2,555 / 7,030 / 746 payloads.
-All ten original case trees and 734 original native files are retained. The
-88,251,017-byte browser JSON is preserved before verified lossless compression.
+Independent readbacks verify all 44 frozen fixtures, source-bound scientific
+results and recorded resource limits. Actual visual review checks 15 representative
+C5 screenshots plus recorded keyboard, zoom, minimum-header, narrow-table and focus
+geometry. This uses serialized existing evidence; no replacement browser run is
+implied.
 
-The 970,512,774-byte main ZIP retains 250 payloads and all 12 explicit supplements.
-Both small forensic indexes and their records remain in it; the 17 large forensic
-ZIPs and 17 checksum sidecars are separate assets. All 37 assets, totaling
-2,223,691,882 bytes, pass anonymous HTTP200/full-body EOF/size/SHA256 and applicable
-recursive CRC, internal manifests and exact unions. All 18 literal checksum
-bodies and package semantics reconcile. Historical failed campaigns remain
-unqualified. [Publication evidence](assets/ligand-profiles/c4-master2-publication.json)
-records the distinct candidate, merged, diagnostic and public-readback evidence.
+Strict closure precedes 134 fresh byte/SHA-exact raw database/WAL/SHM pairs totaling
+105,393,984 bytes per side. Independent readback verifies all 78 database sets,
+complete sidecar presence, closed ports/processes, original/retained identities,
+twelve external companion trees and all authority locators. The seven retained
+parts total 313,418,163 bytes; every part is strictly below 80 MiB. Every outer
+hash, CRC, recursive archive/manifest/body and exact disjoint union passes audit.
+No primary diagnostic SQL is used.
 
-All five versions are 0.38.0. Dependencies and all 17 migrations are unchanged;
-schema head 0017, project/archive 3, viewer 2 and API v1 remain.
+The canonical merged recipe matches the unchanged builder byte-for-byte and
+preserves all 43 responsibilities. The bounded deployment bridge passes 36
+synthetic controls and critical static checks. Those controls do not establish
+actual merged deployment: the real merge, predecessor environment and live tool
+bindings must be acquired separately. The evidence checkpoint preserves the actual
+C5 subject and proves complete selected-source/helper/configuration/fixture/DATA
+equivalence; the later review commit is a separate identity.
+
+Earlier failed and interrupted histories retain their actual status. In particular,
+candidate4's 43 inner passes and outer exit 2 remain a failed gate. All 60 historical
+forensic parts, literal checksums and finite completion records remain required
+publication assets. The successful candidate adds seven separate retained parts;
+publication and complete anonymous readback are still pending.
 
 ## Known limitations
 
-D-148 remains unchanged. The merged run records 47 profile, 115 inherited-property
-and one minimization timing target miss: 163 workflow observations; four deliberate
-policy examples are separate. Hard work/resource/source assertions pass. Hidden
-retirement is unavailable; sampled RSS peaks are separate observations. No
-strict-host, speedup, physical-device, universal-capacity or aggregate/GPU-memory
-qualification is claimed. Four exactly pinned preprogram desktop instances have
-explicitly exempted denied environment inspections; unseen environments were not
-inspected and unknown denied instances refuse capture.
+Portable correctness is qualified; strict reference-host timing is not certified.
+The current full-run property/profile sample records 143 target misses across 410
+comparisons. All four recorded bulk active-readiness times exceed the diagnostic
+five-second target. Earlier focused
+runs have their own distinct timing identities and counts. Primary observers do
+not provide parent RSS; missing measurements are not inferred. No physical-device
+or assistive-technology testing is claimed.
 
-The new sidebar, radar, synchronized filters and final inspector integration
-remain #161–#163. Diagram #153, relocations #164/#165, broader acquisition,
-chemistry assignment, preparation, docking and other parent exclusions remain.
+All-seven final assessment on one common evidence candidate, normal PR/merge,
+fresh exact-merged qualification, immutable release/tag/assets, anonymous full
+readback and child closeout remain required. The parent stays open through #162,
+#163 and final integrated acceptance. Exclusions including #153/#164/#165 persist.
 
 ## Blockers
 
-No external blocker. Terminal documentation and owned cleanup remain before
-this delivery unit is fully complete. The user's original checkout is preserved.
+No external blocker. Preserve original evidence and the user's checkout.
 
 ## Next action
 
-Complete the all-seven terminal documentation assessment and normal PR integration,
-then verify safe owned-branch cleanup and its canonical receipt. Integrate actual
-released #160 plus the public baseline into #161, finish its accepted native and
-complete release gates, then deliver #162 and #163 in dependency order. Parent
-closeout and Goal completion require the complete integrated program endpoint.
+Complete the nonruntime evidence/docs and canonical merged-recipe checkpoint with
+full source equivalence. Obtain all seven final same-candidate verdicts, then use
+normal PR review/merge. Qualify the exact merged commit in an isolated checkout
+with its own real v0.38.0 environment before verified v0.39.0 publication, all-asset
+readback and #161 closeout. Continue #162, #163 and parent closeout under the same
+active Goal.

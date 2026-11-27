@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { performanceBudget } from "./support/performance";
 import { resolve } from "node:path";
 import { writeFileSync } from "node:fs";
@@ -99,6 +100,7 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   expect(analyses).toBe(1); expect(structureGets).toBe(0);
   const mobile = info.project.name === "mobile-chromium";
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByLabel("Select by").selectOption("structure");
   await page.getByLabel("Value", { exact: true }).fill(project.entries[0].id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();

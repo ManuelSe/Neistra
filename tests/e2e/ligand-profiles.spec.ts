@@ -1,3 +1,4 @@
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import type { Project } from "../../apps/web/src/api/types";
@@ -74,6 +75,7 @@ async function chooseProfile(choice: Locator, value: string, workflow: TouchWork
 }
 
 async function inspect(page: Page, entryId: string) {
+  await openLigandInformation(page);
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
@@ -85,7 +87,11 @@ async function inspect(page: Page, entryId: string) {
 async function closeInspector(page: Page) {
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
   if (await drawer.isVisible()) {
-    await drawer.getByRole("combobox", { name: "Entry", exact: true }).focus();
+    const viewControl = drawer.locator(".inspector-header").getByRole("button", {
+      name: /^(Inspector tools|Ligand information)$/,
+    });
+    await viewControl.focus();
+    await expect(viewControl).toBeFocused();
     await page.keyboard.press("Escape");
     await expect(drawer).toBeHidden();
   }
@@ -258,6 +264,7 @@ for (const theme of ["light", "dark"] as const) {
       await route.continue();
     });
     try {
+      await openInspectorTools(page);
       await page.getByRole("tab", { name: "selection", exact: true }).click();
       await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
       await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
@@ -326,6 +333,7 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
   };
   await choice.selectOption("ro5");
   await current("46.069");
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   const mode = page.getByRole("group", { name: "Operation mode" });
@@ -350,6 +358,7 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) {
     await page.getByRole("button", { name: "Inspector", exact: true }).click();
   }
+  await openLigandInformation(page);
   await expect(panel).toBeVisible();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await expect(choice).toHaveValue("ro5");
@@ -362,9 +371,9 @@ for (const theme of ["light", "dark"] as const) test(`withholds profile values t
   expect(await readStructure()).toEqual(beforeStructure);
   await page.screenshot({ path: info.outputPath(`profile-preview-withheld-${theme}.png`) });
   if (await drawer.isVisible()) {
-    // Entry choice is disabled during an active proposal. Target the sheet's own
-    // Escape handler without closing or cancelling the molecular editor beneath it.
-    await drawer.focus(); await page.keyboard.press("Escape"); await expect(drawer).toBeHidden();
+    // Entry choice is disabled during an active proposal. Use the sheet's active
+    // header control without closing or cancelling the molecular editor beneath it.
+    await closeInspector(page);
   }
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Cancel placement", exact: true }).click();
@@ -445,6 +454,7 @@ for (const theme of ["light", "dark"] as const) test(`recovers failed profile me
     });
     else await retryProfiles.click();
     await captured;
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "selection", exact: true }).click();
     await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
     await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);

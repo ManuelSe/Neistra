@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { readFileSync } from "node:fs";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
@@ -22,6 +23,7 @@ const structure = async (request: APIRequestContext, id: string, entry: string):
 };
 
 async function select(page: Page, references: { structure_id: string; atom_id: number }[]) {
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("atom_reference");
   for (const [index, atom] of references.entries()) {
@@ -44,10 +46,13 @@ async function simpleMovement(page: Page, request: APIRequestContext, mobile: bo
   await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByLabel("Select by").selectOption("structure");
   await page.getByLabel("Value", { exact: true }).fill(project.entries[0].id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
   await expect(page.getByLabel("Current selection summary")).toContainText(`Atoms${project.entries[0].atom_count}`);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   return project;
 }
@@ -71,6 +76,7 @@ test("qualifies keyboard/touch controls, focus and scoped accessibility in both 
     if (theme === "dark") {
       await page.getByRole("button", { name: "Use dark theme" }).click();
       if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await openInspectorTools(page);
       await page.getByRole("tab", { name: "transform", exact: true }).click();
     }
     const banner = await launchMovement(page, mobile);
@@ -181,6 +187,7 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   if (compact) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   const targets = [{ structure_id: visible.id, atom_id: 1 }, { structure_id: visible.id, atom_id: 2 }, { structure_id: hidden.id, atom_id: 1 }];
   await select(page, targets);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   await expect(page.getByRole("region", { name: "Move selection controls" })).toContainText("3 atoms · 1 hidden");
@@ -211,6 +218,7 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await expect(surface).toBeHidden();
   for (const [index, entry] of project.entries.entries()) expect(await structure(request, project.id, entry.id)).toEqual(originals[index]);
   if (compact) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   if (compact) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
@@ -363,9 +371,11 @@ test("discards previews with feedback on task, selection and project changes", a
   await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
   await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await expect(banner).toBeHidden();
   await expect(page.getByRole("status").filter({ hasText: "discarded after changing inspector tasks" })).toBeVisible();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
   await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
@@ -378,6 +388,7 @@ test("discards previews with feedback on task, selection and project changes", a
   await expect(page.getByRole("status").filter({ hasText: "discarded because its project or selection changed" })).toBeVisible();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
   await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
@@ -480,6 +491,7 @@ test("explains empty, locked and wholly hidden movement targets without changing
     );
     if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
     await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "transform", exact: true }).click();
     await page.getByRole("button", { name: "Move selection", exact: true }).click();
     await expect(page.getByRole("alert").filter({ hasText: condition === "lock" ? /Unlock Ethanol before (?:editing its coordinates|moving the selection)\./ : "Show selected atoms in the viewer" })).toBeVisible();
@@ -505,6 +517,7 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
     await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
     if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
     await select(page, [{ structure_id: entryId, atom_id: 1 }]);
+    await openInspectorTools(page);
     await page.getByRole("tab", { name: "transform", exact: true }).click();
   };
   await reopen();
@@ -519,6 +532,7 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   await expect(page.getByRole("status").filter({ hasText: "Selection coordinates unchanged" })).toBeVisible();
   await expect(page.locator(".measurement-preview-notice")).toBeHidden();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
   await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
@@ -529,6 +543,7 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   expect((await read(request, project.id)).revision).toBe(before.revision);
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await select(page, [{ structure_id: entryId, atom_id: 1 }]);
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
   await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
@@ -540,6 +555,7 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   const after = await structure(request, project.id, entryId);
   const distance = Math.hypot(...after.structure.atoms[0].coordinates.map((v, i) => v - after.structure.atoms[1].coordinates[i]));
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "measurements", exact: true }).click();
   await page.getByRole("button", { name: "Open measurements", exact: true }).click();
   const tool = page.getByRole("dialog", { name: "Measurements", exact: true });

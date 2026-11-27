@@ -1,0 +1,62 @@
+{
+  "recorded_utc": "2026-11-25T11:35:35.444336+00:00",
+  "scope": "Focused local reading-recovery checkpoint; final feature/all7readytopush incomplete",
+  "base": "20e212dbe38d5c6bd57b623d25b67bdb83c2e3d6",
+  "production_hashes": {
+    "apps/web/src/App.tsx": "0aa171321354fba3dead9e87a395400fc14043f90444185470ded2645e75b16d",
+    "apps/web/src/components/ProjectInspector.tsx": "e3790726679554b887d31d2360af22fd5cee7b29ed8a259e9b710295b9fde109",
+    "apps/web/src/components/inspectorReadingPosition.ts": "1d4347a3623103acfc1244cad908b7f0744a0c663de695bb5bd070756e9ca7af",
+    "apps/web/src/styles.css": "e666dc1f169c8d5604fa0c42abcbbbb1f221578d79f1bcbdf840461c03f4ae50",
+    "tests/e2e/ligand-information-access.spec.ts": "fea0920d68796a38be6e883c5a54a2fd3fb7cab03ebaa740112b9573aaac4c52"
+  },
+  "current_selected_sources": 1216,
+  "current_frontend_passed": 2053,
+  "current_frontend_files": 152,
+  "lint_types_build_seven_native_static": true,
+  "reading_unit_cases": 12,
+  "opening_focus_cases": 14,
+  "meaningful_virtual_negative_controls": 3,
+  "native": {
+    "successful_label": "issue161-reading-recovery-native3",
+    "passed_cases": 2,
+    "theme_view_observations": 8,
+    "all_before_after_offsets": [
+      300,
+      300
+    ],
+    "no_retry_skip_flake_report_error": true,
+    "positive_closed_raw_pairs": 3,
+    "scope": "Actualdesktop andPixel7emulatedcompact contexts; no physicaltouch/performance/zoom claim",
+    "only_unit_fixture_changed_after_native": true
+  },
+  "inventory_declared": 702,
+  "sidebar_acceptance_declared_not_executed": 40,
+  "scoped_UI_UX": "ActualPASS on frozenproduction/native subject; notwholefeatureapproval",
+  "scoped_architecture": "Earlyconsultationreceived; finalfocusedassessmentpending",
+  "packet": {
+    "file": "c3-reading-recovery-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c3-reading-recovery-evidence.zip",
+    "bytes": 404332,
+    "sha256": "4356393f69c54b7549a5dde289eec36efa9b44a8d6bdea975e7a6f50a9d28ff8",
+    "outer_manifest_entries": 103,
+    "verification_counts": {
+      "zip_archives": 1,
+      "evidence_manifest_entries": 103,
+      "project_archive_files": 0
+    }
+  },
+  "separate_forensic_index": "docs/assets/ligand-information/c3-reading-recovery-forensics-index.json",
+  "separate_forensic_parts": 5,
+  "separate_forensic_part_bytes": 200523979,
+  "not_published": true,
+  "next": "Complete40sidebaracceptance andactualresponsive/zoomrecovery; inheritedandprimaryperformance;compatibility/fullcandidate43/all7/normalPR/actualmerged43/039release/allassets/closeout. Then162,163andparentcloseout.",
+  "independent_retention_readback": {
+    "path": "docs/assets/ligand-information/c3-reading-recovery-forensic-readback.json",
+    "verdict": "ActualagentPASS",
+    "source_zip_members": 6070,
+    "original_files": 135,
+    "original_bytes": 208413100,
+    "raw_pairs": 15,
+    "recursive_ZIPs": 42
+  }
+}

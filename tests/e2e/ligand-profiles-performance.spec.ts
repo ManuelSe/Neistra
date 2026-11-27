@@ -7,6 +7,7 @@ import type { Entry, Project } from "../../apps/web/src/api/types";
 import type { PropertyAggregate, PropertyPreferences } from "../../apps/web/src/ligandProperties/types";
 import type { ProfileRegistry } from "../../apps/web/src/ligandProfiles/types";
 import { performanceBudget } from "./support/performance";
+import { openInspectorTools, openLigandInformation } from "./support/navigation";
 import { arm, assertReport, cacheBasis, check, classifyFirstSelection, coldRequirement, COMPOSITE_DESCRIPTORS, consumerState, digest, distribution, durations, evidence,
   expectedCriteria, fixture, fixtureSizes, installObservation, matchingReady, observedReady, observer, preflight, PROFILE_DESCRIPTORS, publishedContext,
   requestCounts, sameSource, source, sourceIdentities, sourceMap, store,
@@ -34,6 +35,7 @@ async function imported(request: APIRequestContext, specimen: Awaited<ReturnType
 async function inspect(page: Page, entry: Entry) {
   const drawer = page.getByRole("dialog", { name: "Inspector panel", exact: true });
   if (await page.evaluate(() => innerWidth <= 840) && !await drawer.isVisible()) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openLigandInformation(page);
   await page.getByRole("region", { name: "Ligand of interest", exact: true }).getByRole("combobox", { name: "Entry", exact: true }).selectOption(entry.id);
 }
 async function closeInspector(page: Page) {
@@ -242,10 +244,10 @@ test("measures first profile selection, warm shared dependencies, source reevalu
           for (const action of ["edit", "undo", "redo"] as const) {
             let button: Locator;
             if (action === "edit") {
-              await page.getByRole("tab", { name: "selection", exact: true }).click();
+              await openInspectorTools(page); await page.getByRole("tab", { name: "selection", exact: true }).click();
               await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
               await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`);
-              await page.getByRole("button", { name: "Apply query", exact: true }).click(); await closeInspector(page);
+              await page.getByRole("button", { name: "Apply query", exact: true }).click(); await openLigandInformation(page); await closeInspector(page);
               await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
               button = page.getByRole("dialog", { name: "Edit molecule", exact: true }).getByRole("button", { name: "Replace selected atom with N", exact: true });
             } else { await closeInspector(page); button = page.getByRole("button", { name: action === "undo" ? /^Undo:/ : /^Redo:/ }); }
@@ -317,10 +319,10 @@ test("measures first profile selection, warm shared dependencies, source reevalu
       expect(requestCounts(beforeRetry.requests).metadata).toBe(1); expect(requestCounts(beforeRetry.requests).demands).toBe(0);
       const retry = region(page).getByRole("button", { name: "Retry profiles", exact: true });
       await arm(page, retry, "metadata-retry", "", [], "click"); await retry.click(); await captured;
-      await page.getByRole("tab", { name: "selection", exact: true }).click();
+      await openInspectorTools(page); await page.getByRole("tab", { name: "selection", exact: true }).click();
       await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
       await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry.id}:1`); await page.getByRole("button", { name: "Apply query", exact: true }).click();
-      await closeInspector(page); await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+      await openLigandInformation(page); await closeInspector(page); await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
       const edit = page.getByRole("dialog", { name: "Edit molecule", exact: true }).getByRole("button", { name: "Replace selected atom with N", exact: true });
       await expect(edit).toBeEnabled({ timeout: 30_000 });
       const accepted = page.waitForResponse(r => r.request().method() === "POST" && r.url().endsWith(`/entries/${entry.id}/model-edits`));

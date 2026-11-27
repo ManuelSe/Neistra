@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./support/navigation";
 import { performanceBudget } from "./support/performance";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
@@ -25,6 +26,7 @@ for (const copies of [0, 1, 8]) test(`bounds cold quick publication for ${copies
   await frameFixture(page);
   const ligand = p.entries.find(e => e.structure_type === "ligand")!;
   expect(ligand).toBeDefined();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(ligand.id);
@@ -79,6 +81,7 @@ test("renders genuine quick steps and clears native preview within500ms on Cance
   const p = await prepare(page, request, ["tests/fixtures/minimization/long-alkane.mol"], "Live quick");
   await frameFixture(page);
   const entry = p.entries[0];
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(entry.id);

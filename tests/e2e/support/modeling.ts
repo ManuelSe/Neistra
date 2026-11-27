@@ -1,3 +1,4 @@
+import { openInspectorTools } from "./navigation";
 import { expect, type APIRequestContext, type Locator, type Page } from "@playwright/test";
 import type { Project } from "../../../apps/web/src/api/types";
 
@@ -17,7 +18,7 @@ export async function expectCompactInspection(panel: Locator) {
 }
 
 export async function selectPair(page: Page, entry: string, ids: number[], mobile: boolean) {
-  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await openInspectorTools(page);
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
   const mode = page.getByRole("group", { name: "Operation mode" });
@@ -28,7 +29,8 @@ export async function selectPair(page: Page, entry: string, ids: number[], mobil
     await page.getByRole("button", { name: "Apply query", exact: true }).click();
     await expect(page.locator(".viewer-status")).toContainText(`/ ${index + 1} selected`);
   }
-  if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  if (mobile || await page.getByRole("dialog", { name: "Inspector panel", exact: true }).isVisible())
+    await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
 }
 
 export async function bonds(page: Page, entry: string) {

@@ -1,0 +1,105 @@
+{
+  "recorded_utc": "2026-11-25T13:00:13.198275+00:00",
+  "state": "Coherent focused correction; no final feature readiness, push, PR or release",
+  "comparison_checkpoint": "9c09856171e9780721361b58f93ccca7d5ff23ad",
+  "source_count": 1221,
+  "source_map_matches_full50": true,
+  "source_paths": [
+    "apps/web/src/App.tsx",
+    "apps/web/src/components/inspectorReadingPosition.ts",
+    "apps/web/src/components/compactPanelKeyboard.ts",
+    "apps/web/src/styles.css",
+    "apps/web/src/test/inspector-reading-position.test.tsx",
+    "apps/web/src/test/compact-panel-keyboard.test.tsx",
+    "apps/web/src/test/ligand-information-opening-focus.test.tsx",
+    "tests/e2e/ligand-information-compact.spec.ts",
+    "tests/e2e/ligand-information-reading.spec.ts",
+    "tests/e2e/ligand-information-zoom.spec.ts",
+    "docs/DECISIONS.md",
+    "docs/PROGRESS.md",
+    "docs/plans/issue-11-ligand-information.md",
+    "docs/plans/issue-161-ligand-information-sidebar.md"
+  ],
+  "changes": [
+    "Compact modal foreground and ordinary Tab boundaries while preserving nested ownership and exact proposal",
+    "Scoped transient reading recovery preserves resize geometry and same stationary visible landmark",
+    "Permanent native keyboard/reflow/actualzoom regressions; settledOptions and fullsurface capture/horizontal focus proof"
+  ],
+  "verification": {
+    "frontend_passed": 2069,
+    "frontend_files": 153,
+    "focused_controls": 42,
+    "types_lint_build": true,
+    "strict_native_inputs": 10,
+    "browser_inventory": 712,
+    "complete_sidebar_cases": 50,
+    "browser_failures_skips_flakes_retries_errors": 0,
+    "original_40_cases_preserved": true,
+    "raw_pairs": 3,
+    "positive_closed": true,
+    "source_bodies_fixed": true,
+    "independent_forensic_audits": "PASS all three indexed sets; separate publication pending"
+  },
+  "bounded_specialist_assessments": {
+    "recorded_utc": "2026-11-25T12:58:45.384607+00:00",
+    "record_type": "Primary transcription of actual independent read-only specialist assessments",
+    "candidate": "9c09856171e9780721361b58f93ccca7d5ff23ad plus recorded working correction; not final whole-feature candidate",
+    "not_final_all_seven_gate": true,
+    "reviews": [
+      {
+        "role": "software_architecture",
+        "agent": "/root/issue161_reading_recovery_architecture_fresh",
+        "verdict": "PASS",
+        "scope": "Current compact boundary plus final preferred-landmark/resize-scroll correction",
+        "evidence": "Independently inspected hook/App/keyboard/tests; current1218map matches native5; two original attachments and report hash;42focused and2069static3; meaningful100vs300 regression",
+        "consequential_corrections": "P3 positive-tab-order heuristic restricted to nonsequential targets; preserve exact stationary visible landmark after Chains-to-Atoms telemetry",
+        "limits": "Actualzoom and full acceptance/performance/compatibility/all7finalremain"
+      },
+      {
+        "role": "ui_design",
+        "agent": "/root/issue161_reading_recovery_ui",
+        "verdict": "PASS",
+        "scope": "Current compact/reading correction and complete official50 native visual reconfirmation; prior visual BLOCKED resolved",
+        "evidence": "Independently verified50singleattemptpasses/1221source maps/current5UIbodies/42originalattachments/3rawpairs; viewedall8uncropped900x561200percentPNGsbothviews/themes/independentdesktopcontexts andall4settledOptionsPNGsbothcontexts/themes; fullheadingLTRB/hit/2pxsolid and1pxreadingoracles",
+        "corrections": "UseexistingCDPfullsurfacecapture and addhorizontalbounds/hit; awaitactualOptionsentryanimationbeforecapture; originalcroppedimagesandnumericpassesretained",
+        "limits": "Notfullfeature/all7/performance43/compatibilityapproval"
+      },
+      {
+        "role": "ux_design",
+        "agent": "/root/issue161_modal_reflow_bounded_ux",
+        "verdict": "PASS",
+        "scope": "Current compactforeground/keyboard and final preferred stationary landmark correction",
+        "evidence": "Independent original28modalattachments; representativePNG; original2responsiveattachments; native5bothcontexts/themes/views andhiddenA-B-A; all1218currenthashes+2069typeslintbuild",
+        "limits": "Actualzoomunverified atassessment; physicaldevice/screenreader/settledOptionscontrast notestablished; notfinalwholefeaturegate"
+      }
+    ],
+    "complete_sidebar50_passed": true,
+    "official50_readback": ".issue-11-evidence/issue161-modal-reflow-correction1/full50-native-readback1/receipt.json"
+  },
+  "packet": {
+    "file": "c3-modal-reflow-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/docs/assets/ligand-information/c3-modal-reflow-evidence.zip",
+    "bytes": 3537756,
+    "sha256": "24a2012cc41e06f9ea8faddc53cff91a7ef2fd96f7c783a10af97fbec977c7a4",
+    "outer_manifest_entries": 311,
+    "verification_counts": {
+      "zip_archives": 2,
+      "evidence_manifest_entries": 311,
+      "project_archive_files": 0
+    }
+  },
+  "forensic_indexes": [
+    "c3-reading-recovery-forensics-index.json",
+    "c3-modal-reflow-forensics-index.json",
+    "c3-reading-zoom-forensics-index.json",
+    "c3-sidebar50-forensics-index.json"
+  ],
+  "remaining": [
+    "Mandatory primary/inherited performance and current scientific/source/resource evidence",
+    "Actual038 reader/archive compatibility and complete clean candidate43",
+    "All7 final same-candidate review, normal PR/merge and fresh actualmerged43",
+    "Immutable039tag/publishedrelease/allanonymousassets/readback/childcloseout/ownedcleanup",
+    "Required162,163andparentfinalacceptance/release/closeout under same active Goal"
+  ],
+  "no_complete_goal_claim": true
+}

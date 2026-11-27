@@ -172,8 +172,12 @@ export function TransformPanel({
       {movement ? <section className="coordinate-section">
         <h3>Move selection</h3>
         <p className="coordinate-context">Move the complete current selection in the viewer. Hidden selected atoms remain targets. Apply once or cancel the entire preview.</p>
-        <button type="button" className="primary-button" disabled={projectBusy || movement.state.phase !== "idle"}
-          onClick={() => movement.start()}>Move selection</button>
+        <button type="button" className="primary-button movement-launcher"
+          aria-disabled={projectBusy || movement.state.phase !== "idle"}
+          onClick={() => {
+            if (projectBusy || movement.state.phase !== "idle") return;
+            movement.start();
+          }}>Move selection</button>
         {movement.state.phase !== "idle" ? <p role="status">{movement.state.phase === "loading" ? "Capturing selected coordinates…" : "Movement controls are on the viewer."}</p> : null}
       </section> : null}
       <fieldset className="numerical-transform-controls" disabled={Boolean(movement && movement.state.phase !== "idle")}>

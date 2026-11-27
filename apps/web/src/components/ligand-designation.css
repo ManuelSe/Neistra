@@ -52,3 +52,10 @@
   .ligand-entry-choice select, .ligand-designation-summary .secondary-button, .ligand-designation-clear, .ligand-candidate-actions button, .ligand-candidate-retry, .ligand-candidate-information summary, .ligand-candidate-header .icon-button, .ligand-candidate-pagination .icon-button { min-height: 44px; }
   .ligand-candidate-header .icon-button, .ligand-candidate-pagination .icon-button { min-width: 44px; }
 }
+.ligand-designated-information { min-width: 0; margin-top: 8px; }
+.ligand-designated-identity, .ligand-designated-composition { margin: 6px 0; font-size: var(--text-xs); }
+.ligand-designated-identity > div, .ligand-designated-composition > div { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; margin: 4px 0; }
+.ligand-designated-identity dt, .ligand-designated-composition dt { color: var(--text-soft); }
+.ligand-designated-identity dd, .ligand-designated-composition dd { margin: 0; overflow-wrap: anywhere; }
+.ligand-designated-information .ligand-candidate-depiction { max-width: 320px; margin: 8px auto; }
+.ligand-designated-information .ligand-candidate-retry { min-height: 44px; }

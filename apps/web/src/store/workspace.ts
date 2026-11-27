@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import { WORKSPACE_STORAGE_KEY, type Theme } from "../theme";
+import { emptyBrowserFilters, type BrowserFilters, type BrowserFilterScope, type BrowserFilterPatch } from "../browser/filtering";
 
 export type { Theme } from "../theme";
 export type MobilePanel = "projects" | "inspector" | "history" | null;
@@ -11,6 +12,8 @@ interface WorkspaceState {
   theme: Theme;
   sequenceDisplay: SequenceDisplay;
   activeProjectId: string | null;
+  browserFilters: BrowserFilters;
+  browserFilterVisit: object;
   horizontalLayout: number[];
   verticalLayout: number[];
   browserLayout: number[];
@@ -22,6 +25,7 @@ interface WorkspaceState {
   setTheme: (theme: Theme) => void;
   setSequenceDisplay: (display: SequenceDisplay) => void;
   setActiveProjectId: (projectId: string | null) => void;
+  patchBrowserFilters: (scope: BrowserFilterScope, patch: BrowserFilterPatch) => boolean;
   setHorizontalLayout: (layout: number[]) => void;
   setVerticalLayout: (layout: number[]) => void;
   setBrowserLayout: (layout: number[]) => void;
@@ -52,6 +56,8 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       theme: "light",
       sequenceDisplay: "expanded",
       activeProjectId: null,
+      browserFilters: emptyBrowserFilters,
+      browserFilterVisit: {},
       horizontalLayout: [22, 56, 22],
       verticalLayout: [74, 26],
       browserLayout: [60, 40],
@@ -62,7 +68,20 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       mobilePanel: null,
       setTheme: (theme) => set({ theme }),
       setSequenceDisplay: (sequenceDisplay) => set({ sequenceDisplay }),
-      setActiveProjectId: (activeProjectId) => set({ activeProjectId }),
+      setActiveProjectId: (activeProjectId) => set(state => state.activeProjectId === activeProjectId ? state : {
+        activeProjectId, browserFilters: emptyBrowserFilters, browserFilterVisit: {},
+      }),
+      patchBrowserFilters: (scope, patch) => {
+        let accepted = false;
+        set(state => {
+          if (state.activeProjectId !== scope.projectId || state.browserFilterVisit !== scope.visit) return state;
+          accepted = true;
+          const search = patch.search ?? state.browserFilters.search, type = patch.type ?? state.browserFilters.type;
+          return search === state.browserFilters.search && type === state.browserFilters.type ? state
+            : { browserFilters: { search, type } };
+        });
+        return accepted;
+      },
       setHorizontalLayout: (horizontalLayout) => set({ horizontalLayout }),
       setVerticalLayout: (verticalLayout) => set({ verticalLayout }),
       setBrowserLayout: (browserLayout) => set({ browserLayout }),
@@ -78,11 +97,15 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       merge: (persisted, current) => {
         const saved = persisted && typeof persisted === "object"
           ? persisted as Partial<WorkspaceState> : {};
+        const activeProjectId = typeof saved.activeProjectId === "string" ? saved.activeProjectId : null;
         return {
           ...current,
           theme: saved.theme === "dark" ? "dark" : "light",
           sequenceDisplay: saved.sequenceDisplay === "hidden" || saved.sequenceDisplay === "collapsed" ? saved.sequenceDisplay : "expanded",
-          activeProjectId: typeof saved.activeProjectId === "string" ? saved.activeProjectId : null,
+          activeProjectId,
+          // Filter intent and its opaque visit never come from serialized preferences.
+          browserFilters: current.activeProjectId === activeProjectId ? current.browserFilters : emptyBrowserFilters,
+          browserFilterVisit: current.activeProjectId === activeProjectId ? current.browserFilterVisit : {},
           horizontalLayout: validLayout(saved.horizontalLayout, 3) ? saved.horizontalLayout : current.horizontalLayout,
           verticalLayout: validLayout(saved.verticalLayout, 2) ? saved.verticalLayout : current.verticalLayout,
           browserLayout: validLayout(saved.browserLayout, 2) ? saved.browserLayout : current.browserLayout,
