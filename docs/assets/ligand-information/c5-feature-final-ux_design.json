@@ -1,0 +1,40 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "verdict": "PASS",
+  "material_findings": [],
+  "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+  "read_only": true,
+  "role": "ux_design",
+  "reviewer": "/root/issue161_final_ux_review",
+  "actual_checks": [
+    "Context/177inventory/fulltextdiff/interveningdiffhashes verified",
+    "All1222qualifyingsourcebodies exactC5",
+    "OriginalcompressedC5browserreport independentlyread:641passed75skipped",
+    "54functional+2primaryperf eachPASSonsingleattempt",
+    "All278extractedattachments212PNG66JSONmatchoriginalserializedbytes",
+    "Sixactualscreenshots:identity/unavailablechem/preview/320pxtable/actual200zoom/compactretainedTools",
+    "Keyboard/publication/reading/zoom:compactfocuscontained,reopenrestored,responsivelandmarkdrift0.03125px,connectededitexactsettledrestoration,publicationdisplacement0.4375px,zoomfocusvisiblehittested",
+    "Heldoldresponsesreturnwithoutalteringcurrentsidebarsnapshotinboththemes",
+    "Completeaccepted inspectentry/confirmorchange/readcurrent/detailsorToolsworkflow coherent; deliberateinspection independentofselection/visibility/filters; hiddenchooserexplained; preview/UndoRedo/errorsretirefactswithclearrecovery",
+    "FinaldocsaccurateactualC5/priorfailedhistory/distinctevidencecandidate;162filter/163Inspectorretirementfutureboundaries preserved"
+  ],
+  "references": [
+    "App.tsx:567",
+    "App.tsx:645",
+    "LigandDesignationControls.tsx:116",
+    "LigandProperties.tsx:47",
+    "ProfileComparison.tsx",
+    "InspectorReadingBoundary.tsx",
+    "compactPanelKeyboard.ts",
+    "store/navigation.ts"
+  ],
+  "limits": [
+    "Portabletimingmisses/all4bulkover5s explicit",
+    "No physicaldevice/assistivetechnologyclaim",
+    "Read-only no runtime/tests/services/science/SQL/edits/Git/delegation",
+    "Fresh exactmergedqualification/protected delivery/publication/anonymousassets downstream"
+  ]
+}

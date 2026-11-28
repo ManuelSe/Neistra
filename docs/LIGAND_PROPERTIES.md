@@ -5,11 +5,24 @@ Sourced profiles are added in [v0.38.0](https://github.com/ManuelSe/Neistra/rele
 at `c6f3e283ef3f6bed4a00c6dfe3fef36bf5bc3f82`. Portable correctness and measured
 work/resource bounds pass; latency target misses remain documented in
 the [scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties).
+The ligand information sidebar and profile radar are added in
+[v0.39.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.39.0).
 
 ## Inspect and configure
 
-Open the project inspector, choose an **Entry** in **Ligand of interest**, and
-choose an exact ligand when required. **Properties** appears below that choice.
+Open **Ligand information** in the right sidebar. Choose an **Entry** in
+**Ligand of interest**, then choose an exact ligand when required. The header
+shows its instance, automatic/manual origin and qualified formula/formal charge.
+Use **Change** to choose another instance or **Clear** to leave the entry
+unassigned. Cached 2D depiction has its own unavailable and recovery states;
+choosing a ligand does not require a successful drawing.
+
+The entry selector includes all project entries. An inspected entry can remain
+shown with **Outside current filters** when browser filters hide it. Molecular
+selection and visibility do not silently replace the deliberately inspected entry.
+An empty context asks you to choose an entry.
+
+**Properties** appears below that choice.
 Values update automatically for the designated ligand; no Calculate or Refresh
 step is needed. Atom selection, camera changes and visibility do not choose a
 different ligand.
@@ -33,6 +46,10 @@ and reopen to review the current choices; use **Reload current options** when
 shown. Cancel discards an unsubmitted draft. After submission, Close leaves the
 save in progress and its acknowledgement cannot close a later options visit.
 
+Collapse and resize controls remain available, including narrow-layout panel
+access. Compatible result updates preserve connected reading position and focus.
+Use **Inspector tools** to reach the existing inspection and editing views.
+
 ## Sourced profiles
 
 Choose **Profile** in the property pane to assess the current ligand against Ro5,
@@ -54,6 +71,14 @@ reasons. Their missing inputs or reproducible definitions are not replaced by
 guessed values. If the catalog cannot load, **Retry profiles** retries its metadata;
 property updates remain independent. These descriptive rules do not predict
 experimental success, exposure, permeability or affinity.
+
+The sidebar's profile radar uses numbered axes with an ordered property legend.
+Open **Values and criteria** for exact values, units, display domains, operators,
+limits and individual outcomes. Values outside a display domain are visibly
+clipped while their actual values remain in the table. Missing values leave gaps.
+The plot's size and area are display geometry, not a scientific score; larger is
+not necessarily better. The table provides the equivalent information without
+requiring interpretation of the plot.
 
 ## Edits, previews and recovery
 
@@ -143,9 +168,10 @@ current performance qualification.
 See the [scientific limitations](SCIENTIFIC_LIMITATIONS.md#live-ligand-properties),
 [registry](../packages/neistra_core/src/neistra_core/ligand_properties/registry.py)
 and [calculation kernel](../packages/neistra_core/src/neistra_core/ligand_properties/calculate.py)
-for exact conventions. Sourced profiles are introduced by #160 in the existing
-property pane. The replacement ligand sidebar, radar, property entry filters and
-final inspector integration remain required #161–#163 work.
+for exact conventions. The sidebar and radar use the existing descriptor and
+profile definitions. Entry-property filtering remains #162 and final general
+Inspector retirement remains #163. Interaction diagrams remain unavailable under
+the separate #153 scope; choosing ligand information does not generate one.
 
 ## Persistence and version changes
 
@@ -174,3 +200,9 @@ Its complete candidate and actual merged qualifications use actual v0.37.0
 producer/readers, both producer origins and both archive suffixes. The explicit
 same-schema protocol tests private derived-state retention and safe refusal
 without weakening the preceding protocol or discarding canonical inputs.
+
+Version 0.39.0 also adds no migration, dependency or scientific method. Its actual
+v0.38.0 producer/readers pass both directions and archive suffixes. Database
+history remains compatible. Archives retain their canonical snapshot semantics,
+including the documented omission of command history; they do not become history
+backups. Original uploaded molecular files remain preserved.

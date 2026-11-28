@@ -1,0 +1,38 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "verdict": "PASS",
+  "material_findings": [],
+  "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+  "read_only": true,
+  "role": "scientific_implementation",
+  "reviewer": "/root/issue161_final_scientific_implementation_review",
+  "actual_checks": [
+    "Context/fulltextdiff/interveningdiff/inventoryhashesverified",
+    "All1222app/science/test/helper/config/fixturebodies andDATA6 exactqualifiedbefore/aftermaps",
+    "Reconfirmedexactinstance/sourceauthority, independentpartialavailability,previewwithholding,unsupportedchemistry,sharedprofiles/rawcriteria/missingaxis semantics throughpriorfullsource+unchangedcriticalbodies",
+    "Allinterveningscientificclaims/limits andrequirementsaccurate; no method/exclusion/boundreduced",
+    "Masterrecipe exact3documentedtransformations/43steps",
+    "Finite796326B ZIP hash/CRC/all89payloadmanifestunion, ownboundedreadback exactoriginalsubject/limits",
+    "PrioractualC5fullgate/browser/readersbothorigins/suffixes/36reconstructedoutcomes/44frozenfixtures/nativepayloads/resources reusedafterownsource/evidenceequivalence"
+  ],
+  "pins": {
+    "context_sha256": "b7847be3bb2dcdb4c68230d527827d993a37ad52a808816a4894ffcd5d12fa99",
+    "complete_text_diff_sha256": "375425174a5bf96515aa670e9b04036ed1be2b88bbd701f285845da7a0666e34",
+    "source_map_sha256": "e1c585f69dd4233bf94b3363a771c673d8ebd99f90da0fe166bb7aac1ff11e68",
+    "checkpoint_sha256": "742f45343c5f56cc3866a707f45d57b1e0a3fcfd49dfa3b9cb53bdc4926fbf15",
+    "completion_zip_sha256": "3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed",
+    "scientific_member_sha256": "c1da1536b61906cf8aed355353b0f0a49d3c3a36b47c6cc8c9ea93001bbfa06a",
+    "C5_summary_sha256": "1c3d6c5007c9c8191f7664bafc654ff58139683ce77c29e7d1140bf2b695d944",
+    "retention_authority_sha256": "7677fd0dd28aae96da458c5a69df885afe579753addde8df77184ed346da2a6a",
+    "master_recipe_sha256": "4eed9acc9199334aae7284805f803fc3936af1a372a757c7ce57ffa303d6519e"
+  },
+  "limits": [
+    "Portable143/410misses/all4bulkover5s retained; no stricthost/speedup",
+    "PrimaryRSS/browserGPU/simultaneoustotalunavailable",
+    "Custody belongsseparatearchitecture; all7normalremotechecksrequired",
+    "Actualmergedbindings/ownedoldenv/positiveconsumer/freshmerged43/publication remainmandatorydownstream"
+  ]
+}

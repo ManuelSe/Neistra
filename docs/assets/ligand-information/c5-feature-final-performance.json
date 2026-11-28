@@ -1,0 +1,27 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "verdict": "PASS",
+  "material_findings": [],
+  "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+  "read_only": true,
+  "role": "performance",
+  "reviewer": "/root/issue161_final_performance_review",
+  "actual_checks": [
+    "Context/fulldiff/inventorypinsverified",
+    "All1222selectedsources zeromismatch andDATA6 exactactualC5",
+    "Masterrecipe exact3transforms;all43responsibilities,coldrequirement,portabletimingpolicy,resource/threadsettings unchanged",
+    "FiniteZIP SHA/CRC/all89payload sizes/SHA+manifestexact",
+    "Embeddedperformanceassessmentmatchespinned3494Brecord;143/410actualmissesexcludes4syntheticpolicyexamples",
+    "Priorcomplete sourceandactualC5boundedrequests/work/retention/observerownership/exactsourceretirement/reopenzeroextrawork/schedulerfairness explicitlyreconfirmed atsameebdc"
+  ],
+  "limits": [
+    "Actualqualification remainsf833, notrelabeled",
+    "All4bulkreadinesssamplesover5s",
+    "PrimaryRSS/browserGPU/simultaneoustotalpeaksunavailable; no stricthost/speedup",
+    "No newbenchmarks/tests/science/services/SQL/edits/Git",
+    "Fresh exactmergedqualification/readbacksmandatorydownstream"
+  ]
+}

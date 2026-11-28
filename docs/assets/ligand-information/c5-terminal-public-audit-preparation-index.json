@@ -1,0 +1,13 @@
+{
+  "scope": "Exact independent completed all164 public-body/archive audit copy; companion publication and terminal closeout remain pending",
+  "files": [
+    {
+      "retained": "c5-master1-initial-assets-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-public-runtime-readback1/architecture-assessment.json",
+      "bytes": 3340,
+      "sha256": "d7fb2b756c6f6ee4e352ea642afd8671882147fdba322a4499374e93cbb70488"
+    }
+  ],
+  "own_index_excluded_from_mapping": true,
+  "recorded_utc": "2026-11-27T23:46:46.957780+00:00"
+}

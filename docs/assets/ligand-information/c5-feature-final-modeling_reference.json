@@ -1,0 +1,32 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "role": "modeling_reference",
+  "reviewer": "/root/issue161_final_reference_review",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "scope": "FINAL same-candidate complete accepted161feature assessment for application readiness to push",
+  "verdict": "PASS",
+  "material_findings": [],
+  "actual_checks": [
+    "Complete177fileinventory/priorwholefeatureassessment/8fileinterveningdelta inspected",
+    "All1222selectedcurrentbodies independentlyverifiedagainstactualC5; workflow/methods/presentationunchanged",
+    "ActualC5execution/wrapper/rawreceipt:normalouter0/43complete/nosourceprocesscopyerrors/positiveclosure;strictsummary4266Python2090frontend14supervisor641browser75sameexclusions0failflakeorretry",
+    "54functionalsidebar+2performancecasespassed",
+    "Actualcurrentidentity/compactpreview/actualzoomradarimages withmatchingextractedfingerprints",
+    "FiniteZIP89payload exactmanifest/CRC/bodyhashes",
+    "Boundindependentcustody/scientificimplementation/UIreadbacks inspectedwithoutrepeatingfullspecializedaudits"
+  ],
+  "workflow_assessment": [
+    "Deliberateinspection independentofselection/visibility/filtermembership",
+    "Coordinatedqualifiedidentity/depiction/properties; honestpreview/missing/clippedstates",
+    "Equivalent radar/table; explicitretainedToolsuntil163; unavailableinteractionboundarypreservesexclusions"
+  ],
+  "documented_reference_vs_inference": "Previously supplied versioned public-reference ledger remainsapplicable to coordinatedviews/scopedcontrols. Combinedsidebar/automaticfreshness remain original applicationcontracts. No newexternalparityclaim. Restrictedidentities/URLs remainconversationonly.",
+  "limits": [
+    "All7samecandidategate explicit; thisisagentassessment,nothumanapprovalordeliverycomplete",
+    "Normalremote review/merge,freshexactmergedqualification/publication/closeout stillmandatory",
+    "Portabletiminglimitsdisclosed; no stricthost/physicaldevice/assistivetechnologyclaim",
+    "Readonly,no files/Git/services/data changed,no tests/browser/scientificimports/SQL"
+  ]
+}

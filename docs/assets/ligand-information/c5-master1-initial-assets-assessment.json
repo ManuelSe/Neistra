@@ -1,0 +1,77 @@
+{
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "verdict": "PASS",
+  "aggregate_sha256": "3b98843f0d819b28d782f8bad690c5bc76d3bd11239c3f045f82368922049019",
+  "all164_downloaded_bodies_sha256_verified": true,
+  "scope": "Independent actual public-verifier execution, aggregate, complete downloaded-body and recursive archive readback",
+  "reviewer": "/root/issue161_final_architecture_review",
+  "origin": "Primary faithful structured summary of actual completed read-only specialist response",
+  "independent_body_checks": {
+    "bodies": 164,
+    "bytes": 5010679535,
+    "types": {
+      "zip": 78,
+      "checksum": 82,
+      "json": 4
+    },
+    "literal_checksum_bodies_verified": 82,
+    "exact_approved_JSON_bodies_verified": 4,
+    "read_only_input_snapshots_verified": 10,
+    "all_final_download_nodes_unchanged": true,
+    "partials_present": false,
+    "details": [
+      "Streamed everybody throughEOF and checked complete size/SHA against manifest/registry/aggregate",
+      "Canonical owned regular single-link paths and node identities before/after hashing throughaudit completion",
+      "Exactdownloadnames/checksumtargets/approvedJSONbytes",
+      "Publishedc129/manifestdfad/registry991/verifier8ae matchsnapshots andexecutioninputs"
+    ]
+  },
+  "independent_archive_checks": {
+    "outer_ZIP_assets": 78,
+    "ZIP_occurrences": 8301,
+    "evidence_manifest_entries": 110346,
+    "project_archive_files": 18882,
+    "gzip_layers": 420,
+    "member_bodies_read": 194202,
+    "hidden_wrapped_ZIP_occurrences": 18,
+    "details": [
+      "Independentlyauthored standard-library readers, nooperationalhelperimports",
+      "RecursiveCRC/hashes/sizes/safeuniquenames/applicablemanifests/exactunions",
+      "Everyperassetresult equals recordedordinary+wrappedproof",
+      "Occurrencesinclude repeatednestedevidence across78assets"
+    ],
+    "main_package_counts": {
+      "ZIP_occurrences": 2179,
+      "evidence_manifest_entries": 11640,
+      "project_archive_files": 5252,
+      "gzip_layers": 122,
+      "member_bodies_read": 26410,
+      "hidden_wrapped_ZIP_occurrences": 0
+    }
+  },
+  "actual_execution_join": {
+    "original_session": 71570,
+    "actual_terminal": "Integerexit0/nocontinuingsession",
+    "terminal_envelope_sha256": "d5611052cf1fa11a422c7ca282344c28dd2ce1b301980bc4c47ff2cf43131d77",
+    "recorded_duration_seconds": 1903.4745046258904,
+    "checks": [
+      "Actualstart/terminal/exactcommand/receipt/completestdout/emptystderr join",
+      "Actualinputsunchangedtrue, independently recheckedinputhashes",
+      "Mainchildexecution/proof/stdout joinaggregate",
+      "Reviewed unchangedsource and actualsuccessfulrun establish anonymousHTTP200/EOF observations"
+    ]
+  },
+  "independent_audit": {
+    "session": 40348,
+    "actual_exit": 0,
+    "completed_utc": "2026-11-27T23:42:48.430663+00:00"
+  },
+  "findings": [],
+  "limitations": [
+    "No new networkrequests; independentretainedpublicevidence andalllocalbodyverification",
+    "No rerun of scientificmethods/typedforensicsemantics/readers; acceptedproofs reused onlyidenticalapprovedwholebodyhashes",
+    "Historicalfailedcampaigns/publicationattempt1 remainfailed",
+    "Companionconstruction/publication, terminaldocs/childcloseout/cleanup separate",
+    "No app/helperimports/SQL/services/mutations/delegation"
+  ]
+}

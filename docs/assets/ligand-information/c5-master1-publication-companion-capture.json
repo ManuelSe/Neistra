@@ -1,0 +1,19 @@
+{
+  "archive": {
+    "file": "neistra-v0.39.0-publication-evidence.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-companion1/neistra-v0.39.0-publication-evidence.zip",
+    "bytes": 1052568,
+    "sha256": "9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72",
+    "outer_manifest_entries": 953,
+    "verification_counts": {
+      "zip_archives": 5,
+      "evidence_manifest_entries": 957,
+      "project_archive_files": 0
+    }
+  },
+  "metadata_payloads": 953,
+  "original_metadata_files": 952,
+  "excluded_download_bodies": 164,
+  "all_original_metadata_and_node_catalogues_unchanged": true,
+  "ownfuturepublicationproof_external": true
+}

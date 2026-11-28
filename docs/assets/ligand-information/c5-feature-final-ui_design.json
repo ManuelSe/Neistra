@@ -1,0 +1,27 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "verdict": "PASS",
+  "material_findings": [],
+  "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+  "read_only": true,
+  "role": "ui_design",
+  "reviewer": "/root/issue161_final_ui_review",
+  "actual_checks": [
+    "Context/fulltextdiff/interveningdiff/177inventory SHAexact",
+    "All1222qualifyingsourcebodies matchactualC5;all40changedwebbodies matchinventory",
+    "All8newmetadata/evidencepaths/plans/progress/decisions/summary/visualreceiptinspected",
+    "RetainedUIreceipt53bfbc0e384bc695f6b6628b65fba7209ca48bd66b03cee99fb87de92ffcee5c exactwithactualf833subject/limits",
+    "ProjectInspector558,LigandInformation15,ProfileComparison11 rechecked; prioractual15PNG/accessgeometry remainsapplicable explicitlytosameebdc"
+  ],
+  "coverage": [
+    "Light/dark hierarchy,currentidentity,320pxtables,minimumwidthcontrols,actualzoom,readingpreservation,visiblefocus"
+  ],
+  "limits": [
+    "Representativevisualcoverage; no physicaldevice/assistivetechnologyaudit",
+    "No freshruntime/tests/services/edits",
+    "Exactmergedqualification/protectedmerge/verifiedrelease downstream"
+  ]
+}

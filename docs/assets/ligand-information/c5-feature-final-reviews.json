@@ -1,0 +1,314 @@
+{
+  "recorded_utc": "2026-11-27T17:50:08.538274+00:00",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "assessments": {
+    "modeling_reference": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "role": "modeling_reference",
+      "reviewer": "/root/issue161_final_reference_review",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "scope": "FINAL same-candidate complete accepted161feature assessment for application readiness to push",
+      "verdict": "PASS",
+      "material_findings": [],
+      "actual_checks": [
+        "Complete177fileinventory/priorwholefeatureassessment/8fileinterveningdelta inspected",
+        "All1222selectedcurrentbodies independentlyverifiedagainstactualC5; workflow/methods/presentationunchanged",
+        "ActualC5execution/wrapper/rawreceipt:normalouter0/43complete/nosourceprocesscopyerrors/positiveclosure;strictsummary4266Python2090frontend14supervisor641browser75sameexclusions0failflakeorretry",
+        "54functionalsidebar+2performancecasespassed",
+        "Actualcurrentidentity/compactpreview/actualzoomradarimages withmatchingextractedfingerprints",
+        "FiniteZIP89payload exactmanifest/CRC/bodyhashes",
+        "Boundindependentcustody/scientificimplementation/UIreadbacks inspectedwithoutrepeatingfullspecializedaudits"
+      ],
+      "workflow_assessment": [
+        "Deliberateinspection independentofselection/visibility/filtermembership",
+        "Coordinatedqualifiedidentity/depiction/properties; honestpreview/missing/clippedstates",
+        "Equivalent radar/table; explicitretainedToolsuntil163; unavailableinteractionboundarypreservesexclusions"
+      ],
+      "documented_reference_vs_inference": "Previously supplied versioned public-reference ledger remainsapplicable to coordinatedviews/scopedcontrols. Combinedsidebar/automaticfreshness remain original applicationcontracts. No newexternalparityclaim. Restrictedidentities/URLs remainconversationonly.",
+      "limits": [
+        "All7samecandidategate explicit; thisisagentassessment,nothumanapprovalordeliverycomplete",
+        "Normalremote review/merge,freshexactmergedqualification/publication/closeout stillmandatory",
+        "Portabletiminglimitsdisclosed; no stricthost/physicaldevice/assistivetechnologyclaim",
+        "Readonly,no files/Git/services/data changed,no tests/browser/scientificimports/SQL"
+      ]
+    },
+    "performance": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "verdict": "PASS",
+      "material_findings": [],
+      "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+      "read_only": true,
+      "role": "performance",
+      "reviewer": "/root/issue161_final_performance_review",
+      "actual_checks": [
+        "Context/fulldiff/inventorypinsverified",
+        "All1222selectedsources zeromismatch andDATA6 exactactualC5",
+        "Masterrecipe exact3transforms;all43responsibilities,coldrequirement,portabletimingpolicy,resource/threadsettings unchanged",
+        "FiniteZIP SHA/CRC/all89payload sizes/SHA+manifestexact",
+        "Embeddedperformanceassessmentmatchespinned3494Brecord;143/410actualmissesexcludes4syntheticpolicyexamples",
+        "Priorcomplete sourceandactualC5boundedrequests/work/retention/observerownership/exactsourceretirement/reopenzeroextrawork/schedulerfairness explicitlyreconfirmed atsameebdc"
+      ],
+      "limits": [
+        "Actualqualification remainsf833, notrelabeled",
+        "All4bulkreadinesssamplesover5s",
+        "PrimaryRSS/browserGPU/simultaneoustotalpeaksunavailable; no stricthost/speedup",
+        "No newbenchmarks/tests/science/services/SQL/edits/Git",
+        "Fresh exactmergedqualification/readbacksmandatorydownstream"
+      ]
+    },
+    "scientific_implementation": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "verdict": "PASS",
+      "material_findings": [],
+      "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+      "read_only": true,
+      "role": "scientific_implementation",
+      "reviewer": "/root/issue161_final_scientific_implementation_review",
+      "actual_checks": [
+        "Context/fulltextdiff/interveningdiff/inventoryhashesverified",
+        "All1222app/science/test/helper/config/fixturebodies andDATA6 exactqualifiedbefore/aftermaps",
+        "Reconfirmedexactinstance/sourceauthority, independentpartialavailability,previewwithholding,unsupportedchemistry,sharedprofiles/rawcriteria/missingaxis semantics throughpriorfullsource+unchangedcriticalbodies",
+        "Allinterveningscientificclaims/limits andrequirementsaccurate; no method/exclusion/boundreduced",
+        "Masterrecipe exact3documentedtransformations/43steps",
+        "Finite796326B ZIP hash/CRC/all89payloadmanifestunion, ownboundedreadback exactoriginalsubject/limits",
+        "PrioractualC5fullgate/browser/readersbothorigins/suffixes/36reconstructedoutcomes/44frozenfixtures/nativepayloads/resources reusedafterownsource/evidenceequivalence"
+      ],
+      "pins": {
+        "context_sha256": "b7847be3bb2dcdb4c68230d527827d993a37ad52a808816a4894ffcd5d12fa99",
+        "complete_text_diff_sha256": "375425174a5bf96515aa670e9b04036ed1be2b88bbd701f285845da7a0666e34",
+        "source_map_sha256": "e1c585f69dd4233bf94b3363a771c673d8ebd99f90da0fe166bb7aac1ff11e68",
+        "checkpoint_sha256": "742f45343c5f56cc3866a707f45d57b1e0a3fcfd49dfa3b9cb53bdc4926fbf15",
+        "completion_zip_sha256": "3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed",
+        "scientific_member_sha256": "c1da1536b61906cf8aed355353b0f0a49d3c3a36b47c6cc8c9ea93001bbfa06a",
+        "C5_summary_sha256": "1c3d6c5007c9c8191f7664bafc654ff58139683ce77c29e7d1140bf2b695d944",
+        "retention_authority_sha256": "7677fd0dd28aae96da458c5a69df885afe579753addde8df77184ed346da2a6a",
+        "master_recipe_sha256": "4eed9acc9199334aae7284805f803fc3936af1a372a757c7ce57ffa303d6519e"
+      },
+      "limits": [
+        "Portable143/410misses/all4bulkover5s retained; no stricthost/speedup",
+        "PrimaryRSS/browserGPU/simultaneoustotalunavailable",
+        "Custody belongsseparatearchitecture; all7normalremotechecksrequired",
+        "Actualmergedbindings/ownedoldenv/positiveconsumer/freshmerged43/publication remainmandatorydownstream"
+      ]
+    },
+    "scientific_theory": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "verdict": "PASS",
+      "material_findings": [],
+      "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+      "read_only": true,
+      "role": "scientific_theory",
+      "reviewer": "/root/issue161_final_theory_review",
+      "actual_checks": [
+        "Priorcomplete sourceassessment plusactual8filedelta/context/fulltextdiff/inventoryidentities",
+        "All1222selectedsourcebodies and6DATA exactactualC5; finiteZIPmanifest/hash/CRC exact",
+        "Current presentation exactmembership/artifact/owner and delayedoldREADYretirement; unknowncharge/H semanticsunavailable; sampledactualrawcomplex/edited/heldREADY records",
+        "Existingmethod/version/unit/domains retained; previewwithholds facts; no preparation/protonation/tautomer/experimentalpredictioninference",
+        "Dimensionlessclippedradar normalization(value-min)/(max-min), exactrawunits/table; missingaxes gaps; polygonarea noqualityscore",
+        "Actualcomplete43/outer0/641browser+75sameexclusions/54sidebar; readcompleted44fixture/4250readerbinding/36scientificoutcome review andsampledpayloads",
+        "Independently reconciled143misses/410actualportablenumeric comparisons"
+      ],
+      "references": [
+        "apps/web/src/ligands/presentation.ts:90",
+        "apps/web/src/ligandProfiles/authority.ts:8",
+        "apps/web/src/ligandProfiles/comparison.ts:18",
+        "apps/web/src/ligandProfiles/ProfileComparison.tsx:15"
+      ],
+      "limits": [
+        "No scientificrerun/tests",
+        "PrimaryparentRSSunavailable; no stricthost/speedup/experimentalpredictionclaim",
+        "Freshactualmergedscientificqualification/readback andverifiedrelease/closeoutmandatorydownstream"
+      ]
+    },
+    "software_architecture": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "role": "software_architecture",
+      "reviewer": "/root/issue161_final_architecture_review",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "comparison_base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_subject": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "scope": "FINAL same-candidate complete-feature architecture assessment for application readiness to push",
+      "verdict": "PASS",
+      "findings": [],
+      "scope_inspected": [
+        "All177intendedfiles, priorcomplete sourceassessment,currentcritical App/query/property/ligand ownership,lifecycle/reading/filter/session/API/archive/history boundaries,andall8interveningmetadata/evidencefiles",
+        "App-ownedcomputation/sessionabove responsivepresenters;exactsource/instance/membership/preview/projectvisit retirement, partialpublication,focusownership,observer/subscriptionteardown",
+        "Canonicalmasterrecipe, finitecompletioncapture/evidenceclaims andremainingactualdeployment obligations"
+      ],
+      "conclusions": [
+        "Backendprojectcommands,molecularstate andquerycache remainindependentofrenderers/transientstate",
+        "App197/575/603retaincomputationandintentacrossremounts",
+        "ligands/presentation90/101 andligandProfiles/comparison19 joinexactsource/designation andshare capturedauthority/radartable selectors",
+        "InspectorReadingBoundary/inspectorPublications/workspace71 preserve transientcancellable scopedreading/filterintent; focused/userinputownsrecovery",
+        "ProjectInspector488 retainsToolsuntil163; backendarchive65/main551 changesversions only, no newmigration/archive/renderer/dockingcontract"
+      ],
+      "independent_checks": {
+        "intended_bodies_rehashed": 177,
+        "intended_bytes": 203864000,
+        "selected_source_bodies_unchanged": 1222,
+        "DATA_bodies_unchanged": 6,
+        "intervening_files": 8,
+        "context_sha256": "b7847be3bb2dcdb4c68230d527827d993a37ad52a808816a4894ffcd5d12fa99",
+        "complete_text_diff_sha256": "375425174a5bf96515aa670e9b04036ed1be2b88bbd701f285845da7a0666e34",
+        "intervening_complete_diff_sha256": "868e7db8e1e3a4ffb2c28261d2452f1d2beb167177768a3e16ae1013e89c86d5",
+        "inventory_sha256": "fa6267bf1ced9bc9adeef4e5d2ff8635ec6908d2241ee83392b755993ef18583",
+        "completion_zip": {
+          "bytes": 796326,
+          "sha256": "3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed",
+          "payloads": 89,
+          "members_with_manifest": 90,
+          "CRC_manifest_membership_original_body_receipt_joins": "PASS",
+          "actual_build_terminal": 0,
+          "selfreceipt_cycle": false,
+          "later_performance_report_embedded_exactly_in_separate_index": true
+        },
+        "master_recipe": {
+          "sha256": "4eed9acc9199334aae7284805f803fc3936af1a372a757c7ce57ffa303d6519e",
+          "ordered_responsibilities": 43,
+          "exact3literal_transformations": true,
+          "unchanged_builder_and_actual_equality_receipt": true
+        }
+      },
+      "valid_actual_evidence": [
+        "C5full43/outer72411exit0/finalizer0/strictsummary0/collector75388exit0",
+        "Completecustody/source/archive487locators/134rawpairs/78DBsets/originaltrees/12companions/7parts313418163B PASS",
+        "Bridgeprep2complete sourceassessment+36actualcontrols+selectedcriticalstaticPASS"
+      ],
+      "reuse_disposition": "D201 scoped continuation valid: fullselectedsource/helper/config/fixture/DATA equality; actualC5subject distinct from independently reviewed later evidencecandidate",
+      "limitations": [
+        "Architecture finalPASS only; all7samecandidate andnormalremote review/merge stillrequired",
+        "Actualmergedbindings,ownedpredecessorenv,positiveconsumer,freshmerged43/readbacks/publication/closeoutmandatorylater",
+        "Portabletimingmisses/unknownprimaryRSS explicit; no stricthost/speedup",
+        "Readonly, no tests/imports/SQL/services/signals/edits/Gitactions"
+      ]
+    },
+    "ui_design": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "verdict": "PASS",
+      "material_findings": [],
+      "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+      "read_only": true,
+      "role": "ui_design",
+      "reviewer": "/root/issue161_final_ui_review",
+      "actual_checks": [
+        "Context/fulltextdiff/interveningdiff/177inventory SHAexact",
+        "All1222qualifyingsourcebodies matchactualC5;all40changedwebbodies matchinventory",
+        "All8newmetadata/evidencepaths/plans/progress/decisions/summary/visualreceiptinspected",
+        "RetainedUIreceipt53bfbc0e384bc695f6b6628b65fba7209ca48bd66b03cee99fb87de92ffcee5c exactwithactualf833subject/limits",
+        "ProjectInspector558,LigandInformation15,ProfileComparison11 rechecked; prioractual15PNG/accessgeometry remainsapplicable explicitlytosameebdc"
+      ],
+      "coverage": [
+        "Light/dark hierarchy,currentidentity,320pxtables,minimumwidthcontrols,actualzoom,readingpreservation,visiblefocus"
+      ],
+      "limits": [
+        "Representativevisualcoverage; no physicaldevice/assistivetechnologyaudit",
+        "No freshruntime/tests/services/edits",
+        "Exactmergedqualification/protectedmerge/verifiedrelease downstream"
+      ]
+    },
+    "ux_design": {
+      "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+      "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+      "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+      "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+      "verdict": "PASS",
+      "material_findings": [],
+      "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+      "read_only": true,
+      "role": "ux_design",
+      "reviewer": "/root/issue161_final_ux_review",
+      "actual_checks": [
+        "Context/177inventory/fulltextdiff/interveningdiffhashes verified",
+        "All1222qualifyingsourcebodies exactC5",
+        "OriginalcompressedC5browserreport independentlyread:641passed75skipped",
+        "54functional+2primaryperf eachPASSonsingleattempt",
+        "All278extractedattachments212PNG66JSONmatchoriginalserializedbytes",
+        "Sixactualscreenshots:identity/unavailablechem/preview/320pxtable/actual200zoom/compactretainedTools",
+        "Keyboard/publication/reading/zoom:compactfocuscontained,reopenrestored,responsivelandmarkdrift0.03125px,connectededitexactsettledrestoration,publicationdisplacement0.4375px,zoomfocusvisiblehittested",
+        "Heldoldresponsesreturnwithoutalteringcurrentsidebarsnapshotinboththemes",
+        "Completeaccepted inspectentry/confirmorchange/readcurrent/detailsorToolsworkflow coherent; deliberateinspection independentofselection/visibility/filters; hiddenchooserexplained; preview/UndoRedo/errorsretirefactswithclearrecovery",
+        "FinaldocsaccurateactualC5/priorfailedhistory/distinctevidencecandidate;162filter/163Inspectorretirementfutureboundaries preserved"
+      ],
+      "references": [
+        "App.tsx:567",
+        "App.tsx:645",
+        "LigandDesignationControls.tsx:116",
+        "LigandProperties.tsx:47",
+        "ProfileComparison.tsx",
+        "InspectorReadingBoundary.tsx",
+        "compactPanelKeyboard.ts",
+        "store/navigation.ts"
+      ],
+      "limits": [
+        "Portabletimingmisses/all4bulkover5s explicit",
+        "No physicaldevice/assistivetechnologyclaim",
+        "Read-only no runtime/tests/services/science/SQL/edits/Git/delegation",
+        "Fresh exactmergedqualification/protected delivery/publication/anonymousassets downstream"
+      ]
+    }
+  },
+  "assessment_records": {
+    "modeling_reference": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/modeling_reference.json",
+      "bytes": 2341,
+      "sha256": "4a038f9c019c9d98ecee7316361e896938b5dacfd6ae78893aa036aab36029a1"
+    },
+    "performance": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/performance.json",
+      "bytes": 1567,
+      "sha256": "e9fa6a2e398b3009d177f864a07a97a3b47b166a8008e18d273f18a9ec3b80d9"
+    },
+    "scientific_implementation": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/scientific_implementation.json",
+      "bytes": 2718,
+      "sha256": "479daada125d899ca488d6db8db0454badca03b64a45eb24f103cd38d8369e6b"
+    },
+    "scientific_theory": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/scientific_theory.json",
+      "bytes": 2003,
+      "sha256": "444ab1942c3c53810b65051a4785b2d4a4aa1f547dcbbe85703c3664742c832e"
+    },
+    "software_architecture": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/software_architecture.json",
+      "bytes": 3921,
+      "sha256": "2653e5f01cd3087a400782bbba1d0908ba94fd0b6c88e87a07dece5f32173c56"
+    },
+    "ui_design": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/ui_design.json",
+      "bytes": 1512,
+      "sha256": "a275083c7e7723d651fa4d161c0f6a94a87af11e264c3d0feb43faa2749f383b"
+    },
+    "ux_design": {
+      "path": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/ux_design.json",
+      "bytes": 2276,
+      "sha256": "6ff204ad3ae271f4f140a763bba3491500061ec72ad9bf4af6ff47b466ab9683"
+    }
+  },
+  "all_seven_same_head": true,
+  "all_seven_final_ready_to_push": true,
+  "unresolved_consequential_findings": [],
+  "full_selected_source_equivalence": {
+    "sources": 1222,
+    "DATA": 6,
+    "disk_Git_and_qualifying_maps_equal": true
+  },
+  "gate_evidence": "ActualC5full43/outer0/strictsummary0/collector0+completeindependentreadbacks; D201 scopednonruntimeevidencecheckpoint reuse",
+  "agent_review_is_not_human_approval": true,
+  "remaining": "NormalremotePR/review/merge,freshactualmerged43+bounddeployment/readbacks,immutable039release/allassets/anonymousverification/childcloseout/cleanup;162/163 andparentendpointremain"
+}

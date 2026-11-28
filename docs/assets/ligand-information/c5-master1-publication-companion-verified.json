@@ -1,0 +1,34 @@
+{
+  "scope": "Two finite publication-companion assets only; final delivery assets verified separately",
+  "release_id": 461129059,
+  "qualified_master": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "initial164_remote_asset_identities_unchanged": true,
+  "current_release_assets": 166,
+  "companion": {
+    "all_zip_crcs_and_internal_manifest_hashes_valid": true,
+    "anonymous_request_without_authorization_header": true,
+    "bytes": 1052568,
+    "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-companion-publication1/anonymous/neistra-v0.39.0-publication-evidence.zip",
+    "http_status": 200,
+    "matches_local_release_asset": true,
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-publication-evidence.zip",
+    "qualified_master": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+    "sha256": "9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72",
+    "verification_counts": {
+      "evidence_manifest_entries": 957,
+      "project_archive_files": 0,
+      "zip_archives": 5
+    }
+  },
+  "literal_checksum": {
+    "asset_name": "neistra-v0.39.0-publication-evidence.zip.sha256",
+    "bytes": 107,
+    "sha256": "7669634df1af5b57cc2e6785ae8e4ee7c2be64daad74b9d1ecb05428f2dc8db1",
+    "http_status": 200,
+    "HTTP_body_read_through_EOF": true,
+    "anonymous_request_without_authorization_header": true,
+    "downloaded_path": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-companion-publication1/anonymous/neistra-v0.39.0-publication-evidence.zip.sha256"
+  },
+  "literal_checksum_exact": true,
+  "own_future_docs_merge_issue_closeout_cleanup_proofs_external": true
+}

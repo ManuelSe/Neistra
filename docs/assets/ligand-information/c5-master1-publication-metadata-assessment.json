@@ -1,0 +1,61 @@
+{
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "scope": "Independent actual correctedpublication2metadata andexecution readback",
+  "verdict": "PASS",
+  "reviewer": "/root/issue161_final_architecture_review",
+  "origin": "Primary faithful structured summary of actual completed read-only specialist response",
+  "publication": {
+    "release_id": 461129059,
+    "tag": "v0.39.0",
+    "annotated_tag_object": "684ff95c228ce429b051afdcd67545b7acc23b95",
+    "qualified_target": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+    "published_at": "2026-11-27T23:07:07Z",
+    "draft": false,
+    "prerelease": false,
+    "latest": true,
+    "published_release_JSON_sha256": "c129fba567577e0ce278c2d0de8a285055171edf7ce20fc749a651774ee6e2e5"
+  },
+  "execution": {
+    "session": 58935,
+    "terminal_exit": 0,
+    "terminal_sha256": "327827fed0de8d6ca1c207e3deed1f29726e87ae083e410073d732a74523b26c",
+    "reviewed_source_sha256": "805ddf121f3291e8d60a7ac33e21064e180871e1ccfc645b7e80cccba2f08331",
+    "checks": [
+      "Actualstart/terminaljoins58935 integer0/nosession",
+      "All12commandreceipts0/stderrempty",
+      "Exactlyonemutation:command07PATCHfixedIDdraftfalse",
+      "Actualterminaloutput exactlyretainedmetadataproof"
+    ]
+  },
+  "inventory": {
+    "assets": 164,
+    "types": {
+      "zip": 78,
+      "checksum": 82,
+      "json": 4
+    },
+    "bytes": 5010679535,
+    "checks": [
+      "Independentlyreconstructed predraft/published100+64pages",
+      "CombinedJSONexactrawpublishedresponsewithcompletepages substituted",
+      "Alluniquenames/sizes/digests/states matchregistry+manifest",
+      "AllactualpublishedURLs canonical039, no draftnormalization",
+      "All164assetIDs/bodyidentities unchangedacrosspublication",
+      "All82checksummetadataidentities bindnamedtargets"
+    ]
+  },
+  "other_checks": [
+    "Exactapprovednotes acrossPATCH/refetch/bytag/latest",
+    "Retainedannotatedtag/annotation exactqualifiedtarget andcomparereachability",
+    "Bytag+latest bothactualpublishedID461129059",
+    "Earlierfailedattempt1 retainedexit1/readonly,noPATCHfinding unchanged"
+  ],
+  "metadata_proof_sha256": "7ceda89f99008441908ae5ed108bc83f6be9e6707a66a0a2216ab0f86797fa48",
+  "findings": [],
+  "limitations": [
+    "Actualpublicationmetadataonly, notanonymousbodyavailability",
+    "Liveanonymousoutputnotaccessed",
+    "No network/sourceexecution/mutations/SQL/delegation byreviewer",
+    "All164anonymousproof/terminaldocs/childcloseout/ownedcleanupremain"
+  ]
+}
