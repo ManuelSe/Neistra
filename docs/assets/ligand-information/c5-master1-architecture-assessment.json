@@ -1,0 +1,146 @@
+{
+  "reviewer": "software_architecture",
+  "verdict": "PASS",
+  "scope": "Complete independent actual merged retention, source, terminal authority, closure, raw custody, archive and deployment readback",
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "reviewed_feature": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "complete_tree": "bef6fb4e2dcaa6f868b019291d2fc0c1c2103486",
+  "root": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1",
+  "packet": ".issue-11-evidence/issue161-c4-master1-postgate-retention1",
+  "findings": [],
+  "identity_pins": {
+    "authority_index": "f35910296dd691eb06e7a1955f805ebb0f8c02572abfb1d32fcf262574449f92",
+    "result": "6ee0f9690e0cc0b9664cbaf9f978464d8a21385b0c8109eae50adf435fe17827",
+    "asset_plan": "bec28dd3799a02638ac680487f464b04739ba45e846329501a3559d32bf9b72d",
+    "original_terminal_envelope": "2b259467c337e9ecbed86467765fdb76e0cc58797ad079b06e71e7538c711375",
+    "strict_summary": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+  },
+  "terminal_and_execution": {
+    "original_actual_tool_session": 77790,
+    "original_actual_integer_terminal_exit": 0,
+    "terminal_arguments_match_intended_call": true,
+    "continuing_terminal_session": false,
+    "finalizer_actual_exit": 0,
+    "strict_summary_actual_session": 47781,
+    "strict_summary_actual_exit": 0,
+    "collector_actual_session": 26218,
+    "collector_actual_exit": 0,
+    "commands_receipts_logs_provider_results_and_outputs_join": "PASS",
+    "ordered_commands_environment_cwd_and_lossless_logs_verified": 43,
+    "python_passed": 4266,
+    "python_skips": 0,
+    "frontend_passed": 2090,
+    "supervisor_passed": 14,
+    "browser_passed": 641,
+    "existing_browser_exclusions": 75,
+    "browser_inventory": 716,
+    "new_exclusions_failures_flakes_retries": 0
+  },
+  "source": {
+    "HEAD_and_index_cache_tree_verified": true,
+    "selected_working_source_map_index_blob_and_capsule_bodies_exact": 1222,
+    "preceding_frozen_source_bodies_exact": 1183,
+    "DATA_before_after_and_current_bodies_exact": 6,
+    "distinct_authority_input_bodies_verified": 167
+  },
+  "raw_custody": {
+    "pairs": 134,
+    "bytes_each_side": 106218488,
+    "database_sets": 78,
+    "before_after_original_inventories_equal": true,
+    "original_bytes_SHA_stat_metadata_and_membership_exact": true,
+    "copied_membership_bytes_and_SHA_exact": true,
+    "copies_have_distinct_inodes": true,
+    "database_WAL_SHM_presence_complete": true,
+    "both_original_strong_copy_scans_positive": true,
+    "originals_preserved": true
+  },
+  "independent_fresh_closure": {
+    "observed_utc": "2026-11-27T21:51:34.370649+00:00",
+    "qualifier_and_child_sessions_absent": 44,
+    "additional_original_wrapper_session_absent": 1,
+    "same_uid_live_nonancestor_processes_checked": 296,
+    "file_descriptors_checked": 5616,
+    "owned_markers_checked": 16,
+    "owned_TCP_and_TCP6_listeners": [],
+    "ports_checked": [
+      8340,
+      8341,
+      5423
+    ],
+    "exact_original_denied_process_pins": [
+      2381,
+      2469,
+      2725,
+      2726
+    ],
+    "unresolved_inspection_denials": 0,
+    "four_recorded_strong_scans_use_only_original_denied_proof": true,
+    "dead_state_handling": "Four Z-state entries skipped under unchanged policy; no new exception."
+  },
+  "original_resolution": {
+    "retained_state_trees": 7,
+    "retained_state_original_bodies": 9106,
+    "retained_empty_directories": 109,
+    "external_case_trees": 12,
+    "external_case_original_bodies": 868,
+    "gate_original_bodies": 2555,
+    "gate_generated_context_bodies": 1,
+    "strong_reinspection_original_bodies": 2,
+    "deployment_original_bodies": 23,
+    "deployment_payloads_including_generated_metadata": 25,
+    "all_file_empty_directory_and_original_member_inventories_exact": true
+  },
+  "archive_audit": {
+    "own_archive_tool_session": 62679,
+    "own_archive_tool_exit": 0,
+    "parts": 8,
+    "total_bytes": 314069386,
+    "largest_part_bytes": 83452387,
+    "exclusive_part_limit_bytes": 83886080,
+    "all_outer_sizes_SHA256_and_literal_checksums_exact": true,
+    "all_member_CRCs_and_recursive_manifests_checked": true,
+    "recursive_ZIP_archives": 2132,
+    "gzip_layers": 60,
+    "wrapped_ZIP_archives": 0,
+    "member_bodies_read": 21620,
+    "evidence_manifest_entries_checked": 12847,
+    "project_archive_files_checked": 4980,
+    "exact_disjoint_group_payloads": {
+      "gate-parts": 2556,
+      "retained-state": 9108,
+      "retained-state-authority": 4,
+      "case-companions": 870,
+      "deployment-preparation": 25
+    },
+    "authority_locator_occurrences_checked": 512,
+    "JSON_pointer_locators_checked": 3
+  },
+  "deployment_and_live_history": {
+    "actual_source_roles": 19,
+    "historical_inputs": 82,
+    "deployment_inputs": 23,
+    "disjoint_combined_inputs": 105,
+    "sealed_preparation_proof_equals_original_genuine_consumer_output": true,
+    "all_deployed_source_identities_current": true,
+    "all23_certified_originals_and_canonical_member_locators_exact": true,
+    "live_birth_history": "Independent observations during this same MASTER1 campaign verified wrapper1655027/UID1000/SID1655027/birth262126303 and qualifier1655089/parent1655027/SID1655089/birth262126480. Their unchanged attachment, lineage and running records join the completed packet.",
+    "source_derivation": "Previously independently reconstructed exact MASTER1 allowlisted bodies; every current deployed body and closing input binding reverified."
+  },
+  "reader_contract_readback": {
+    "same_schema_direction_reports_verified": 15,
+    "source_bound_actor_reports_verified": 6,
+    "actor_worker_module_bindings_verified": 36,
+    "schema_head": "0017",
+    "protocol": "private-derived-same-schema-v2",
+    "actual_current_previous_current_roots_and_owned_python_slots_match": true,
+    "both_archive_suffix_contexts_and_raw_workspace_sides_preserved": true,
+    "unapplied_proposal_retention_records_verified": 3
+  },
+  "limitations": [
+    "Detailed scientific validity and resource acceptance remain separately assessed by the scientific implementation reviewer.",
+    "This is the actual merged evidence audit, not release publication approval.",
+    "All required assets still need publication and complete anonymous download verification.",
+    "No files written, source helpers/science imported, services/tests run, SQL used, SQLite opened through SQLite, signals sent, Git mutated or agents delegated."
+  ]
+}

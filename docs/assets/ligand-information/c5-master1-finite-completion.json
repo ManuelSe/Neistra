@@ -1,0 +1,2864 @@
+{
+  "schema": "issue161-master1-finite-completion-v1",
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "archive": {
+    "file": "neistra-v0.39.0-master-completion.zip",
+    "path": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-finite-completion1/neistra-v0.39.0-master-completion.zip",
+    "bytes": 24926991,
+    "sha256": "18432596f655d350e5a89f5efbd4d4e5455749e9d85d274da23ce2b14bbc5a0f",
+    "outer_manifest_entries": 327,
+    "verification_counts": {
+      "zip_archives": 6,
+      "evidence_manifest_entries": 454,
+      "project_archive_files": 0
+    }
+  },
+  "inputs": {
+    "bootstrap/command.json": {
+      "bytes": 653,
+      "sha256": "b4edaff0961a6a0a52b5b73253732425b6520563ffc03a0a69edb5a9cd628902"
+    },
+    "bootstrap/current-environment-actual-tool.json": {
+      "bytes": 2652,
+      "sha256": "044e772a92a2e9665ca7055ff979414c9e43c23f40c3277b394ce1b57efcb50e"
+    },
+    "bootstrap/predecessor-command.json": {
+      "bytes": 374,
+      "sha256": "860fdd2906cb259cbfde89b748c5f62bf727f3385b42507306c1599f6581d490"
+    },
+    "bootstrap/predecessor-receipt.json": {
+      "bytes": 373,
+      "sha256": "894abe135303c89b010d6d3f9472facb33ebb14650728b47e0132f40a7ebe6eb"
+    },
+    "bootstrap/predecessor-start-actual-tool.json": {
+      "bytes": 3510,
+      "sha256": "dc7fd0331ea70667e68408ffa927f7318be4314e67b49ae8dcbea04e622fedd5"
+    },
+    "bootstrap/predecessor-terminal-actual-tool.json": {
+      "bytes": 990,
+      "sha256": "91d2cd24fdcb81f96906a4ec0dd366609dd4a7a6b88e19ef396eff2faa821fee"
+    },
+    "bootstrap/predecessor.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "bootstrap/predecessor.stdout.log": {
+      "bytes": 272,
+      "sha256": "c7fa1ce5d8e84b15c5921c9fc8847629f84ec949e4497a6e8ae000e556c6d4d7"
+    },
+    "bootstrap/provenance-command.json": {
+      "bytes": 1171,
+      "sha256": "f7602ca325ec261eb4a02be835302b689887df9c48d4458862f2141288f8dd86"
+    },
+    "bootstrap/provenance-receipt.json": {
+      "bytes": 370,
+      "sha256": "d57219dd3b4ff76049d5fc80b8841bfd6d26b5ed826900cdfed4c6f3178bc85b"
+    },
+    "bootstrap/provenance-start-actual-tool.json": {
+      "bytes": 2081,
+      "sha256": "99907b8dd8e2c35ca64c08c985c4d3f1371c035d55b13c6d0f74701ed78e1ca1"
+    },
+    "bootstrap/provenance-terminal-actual-tool.json": {
+      "bytes": 812,
+      "sha256": "a39a4d88b3e384347c575a108d3e4f2509ca47a12519c4694067e6846f06f436"
+    },
+    "bootstrap/provenance.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "bootstrap/provenance.stdout.log": {
+      "bytes": 99,
+      "sha256": "ab8647489b250de9ce510cdeec1006b82c3da17af7aacc714eea2975b5799ca4"
+    },
+    "bootstrap/receipt.json": {
+      "bytes": 469,
+      "sha256": "7d1337cdd14fe7b4b3e22c193133388b5dd4f9ace9d1296f521afe35b6d59852"
+    },
+    "bootstrap/stderr.log": {
+      "bytes": 1172,
+      "sha256": "7a6158490fc807189399d4e33a2ccf26b0e6377eb9dc68ac7d11c111d36a27ff"
+    },
+    "bootstrap/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "deployment-preparation/bind-actual-deployment.py": {
+      "bytes": 7218,
+      "sha256": "6f101374b4f43cfdfbe1dab68d36dcc1d7bd6d08754208141a5fb32f6c50612b"
+    },
+    "deployment-preparation/prelaunch-architecture-assessment.json": {
+      "bytes": 3113,
+      "sha256": "8c7cd5453fe154f785de7211bae1b0aaeda09785ef451e297d7d14228b7bba46"
+    },
+    "deployment-preparation/prelaunch.json": {
+      "bytes": 1660,
+      "sha256": "91a1ddb3367af0f9523f718ae2671d8143399f2ac06b44925adc06cd6c2b19db"
+    },
+    "deployment-validation/actual-binding-tool-return.json": {
+      "bytes": 1372,
+      "sha256": "92fa27935835399ac2ab3004b8e9eaf9e9fbbe75fd38057917f3f38cd26f1d33"
+    },
+    "deployment-validation/architecture-assessment.json": {
+      "bytes": 2981,
+      "sha256": "e66d9ac28cf92cfae96cd64e974a74db775486d287f2c180681cb5272656e8ba"
+    },
+    "deployment-validation/capture-command.json": {
+      "bytes": 384,
+      "sha256": "d23c1ed1b479d5bd4a6305fcb0fa1f47c3d110425d047ca57e24957244989b8b"
+    },
+    "deployment-validation/capture-result.json": {
+      "bytes": 195,
+      "sha256": "01beb3a0308cad0de5fb78241a0f7dbbb3accb3c7b97b56796a51dbb3b4d736d"
+    },
+    "deployment-validation/capture.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "deployment-validation/capture.stdout.log": {
+      "bytes": 307,
+      "sha256": "92d72c45d6fcec57780051dd955439a3237d57c53672b9aa0b33287fc805e79c"
+    },
+    "deployment-validation/consumer-command.json": {
+      "bytes": 929,
+      "sha256": "f4409e06ecd0f66031e1b06ed0300eba7416721757f5b606c741eab79f185a4e"
+    },
+    "deployment-validation/consumer-result.json": {
+      "bytes": 195,
+      "sha256": "f4c693c0553d5e9c733ba49017a58e357dce1a18bd8094ba8c0695539e32a889"
+    },
+    "deployment-validation/consumer.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "deployment-validation/consumer.stdout.log": {
+      "bytes": 65377,
+      "sha256": "3315406059ea06de9eb4f91377b2f96be35efd6c075b4c21192e9aacd475d0b1"
+    },
+    "deployment-validation/summary.json": {
+      "bytes": 536,
+      "sha256": "960ee462cc407f04fc0ed0701c3ac82dccb49e946df74a3f69ba2bb7d9d147ac"
+    },
+    "postterminal-plan/commands.json": {
+      "bytes": 6753,
+      "sha256": "0dbab2b7addc5ca579088a7fd18b8ec6436ece6be01d3d62d0fadc5848e6d710"
+    },
+    "postterminal-execution/01-finalizer/actual-tool-return.json": {
+      "bytes": 3316,
+      "sha256": "33a2a23b8ad0db522d5b7ce13dd7de91465a2230117c01c9b9fb150285410523"
+    },
+    "postterminal-execution/01-finalizer/command.json": {
+      "bytes": 1535,
+      "sha256": "e0aae1d9eca8586ce4e453fb213b0ac589d766a1bf78ce4d2a7e12be81c91199"
+    },
+    "postterminal-execution/01-finalizer/receipt.json": {
+      "bytes": 516,
+      "sha256": "95fd899c130caabb80cbf870c9bac8409163e6a682c3872d2075131abf23efd9"
+    },
+    "postterminal-execution/01-finalizer/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "postterminal-execution/01-finalizer/stdout.log": {
+      "bytes": 337,
+      "sha256": "8dec7a67143636e6e1f099947e3679d365170cb16d79730bf08210a018d308ee"
+    },
+    "postterminal-execution/02-summary/actual-tool-return.json": {
+      "bytes": 972,
+      "sha256": "b66675f263561644ea49d546600bebcccf1b2e7994317e5f9243a6045290e5c1"
+    },
+    "postterminal-execution/02-summary/actual-tool-start.json": {
+      "bytes": 2317,
+      "sha256": "e414a7900cab7aef85846ec4cb7f55ae675f44deba0327e6e1fb1127ba3be4ef"
+    },
+    "postterminal-execution/02-summary/command.json": {
+      "bytes": 1093,
+      "sha256": "4dd34e3aabe2159c2c6320fa670fa1b656930bf39ee43f1dbffce1b1b8eb5533"
+    },
+    "postterminal-execution/02-summary/receipt.json": {
+      "bytes": 516,
+      "sha256": "b4b4deacaa590d7dc8be06dbabe3f1e854a123712ace876dc1165b98b2deb0dd"
+    },
+    "postterminal-execution/02-summary/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "postterminal-execution/02-summary/stdout.log": {
+      "bytes": 84379,
+      "sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+    },
+    "postterminal-execution/03-collector/actual-poll01.json": {
+      "bytes": 364,
+      "sha256": "3d207dab5f63bdb81af39d193ac6c75def86b1483d5f158bc83a02260dab01ce"
+    },
+    "postterminal-execution/03-collector/actual-tool-return.json": {
+      "bytes": 1030,
+      "sha256": "7143484e25b43c190cbca272feb0a406c87b9f59cc0326fa2922d70df14734bf"
+    },
+    "postterminal-execution/03-collector/actual-tool-start.json": {
+      "bytes": 2707,
+      "sha256": "87603ede8553366f5350d7126c8e8b3d58a2ee534589370b19ca0b1211c8a455"
+    },
+    "postterminal-execution/03-collector/command.json": {
+      "bytes": 2603,
+      "sha256": "a0677259517a558da44ad070a934b2b228990806c1ca688b60495edbe6935c08"
+    },
+    "postterminal-execution/03-collector/receipt.json": {
+      "bytes": 515,
+      "sha256": "e08b3a5e3a88b3e954880d442ec1453deba8a98796bcea4ae7bba540bb3b8111"
+    },
+    "postterminal-execution/03-collector/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "postterminal-execution/03-collector/stdout.log": {
+      "bytes": 2198,
+      "sha256": "6ee0f9690e0cc0b9664cbaf9f978464d8a21385b0c8109eae50adf435fe17827"
+    },
+    "actual-launch/actual-tool-start.json": {
+      "bytes": 669,
+      "sha256": "72e4ed74d75ca178c1ae8e9aa94f54963d761b62f3214422a460156ea8c42112"
+    },
+    "actual-launch/intended-terminal-call.json": {
+      "bytes": 156,
+      "sha256": "47daf604710d01db0a00e4dd9c9911ef7f2b7a0b5b383371156c5875b9de7d39"
+    },
+    "actual-launch/preflight.json": {
+      "bytes": 7106,
+      "sha256": "fed1d39c9da40feef8a29b5cbe49c4d12982c36beb00f229e64222674b6c2171"
+    },
+    "release-packager-preflight/architecture-assessment.json": {
+      "bytes": 4962,
+      "sha256": "d0bd2ae18ba0d4335d8e6c650fbf2335c258d2a32dfcd7c5b68a56b2e4f38752"
+    },
+    "release-packager-preflight/provenance.json": {
+      "bytes": 401,
+      "sha256": "f342b35328c86e6308b2d9f97406154f3d0570d2145e872e4963dd5471c9eb77"
+    },
+    "actual-preceding-bootstrap/authority.json": {
+      "bytes": 6552,
+      "sha256": "b41097277d55cce525f3068057c835930e9f806682d57af5371996cc051528f5"
+    },
+    "actual-preceding-bootstrap/controls.json": {
+      "bytes": 2127,
+      "sha256": "03fa601492862fb1dd99c56fd45f6a3844d503149776171eaab3f213625c7de6"
+    },
+    "actual-preceding-bootstrap/environment-verification.json": {
+      "bytes": 3110,
+      "sha256": "5384e2130d4714cdd203c247ef6f882a5894dd5713e1c4187de1bae41cdce4d1"
+    },
+    "actual-preceding-bootstrap/extraction-verification.json": {
+      "bytes": 383,
+      "sha256": "cb85ac379aeec68b74dbec4c2a3314ec53a4d5e0c5cba9e71914615ba825026e"
+    },
+    "actual-preceding-bootstrap/frozen-sync.json": {
+      "bytes": 593,
+      "sha256": "1aabe09cb706063f7e1d74d7ed90f39d11f79f0d2b4a49a4176b3b22354ee5e0"
+    },
+    "actual-preceding-bootstrap/frozen-sync.stderr": {
+      "bytes": 1172,
+      "sha256": "0607c96ca5ad127e65906703c8cb4e5fdc04bda24df6f18c258a67c7040b7872"
+    },
+    "actual-preceding-bootstrap/frozen-sync.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/literal-archive.json": {
+      "bytes": 65065,
+      "sha256": "0c0f9c04736b8e7c16096e2096c95fd68256c9cfbe838dcda74d1598b82e58c3"
+    },
+    "actual-preceding-bootstrap/literal-archive.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/literal-archive.stdout": {
+      "bytes": 43397120,
+      "sha256": "aced05e2d398254bbf1fc2fd2485a27d20a8a33c9e0b11f03a578cc6f15b2ef7"
+    },
+    "actual-preceding-bootstrap/post-install-source-verification.json": {
+      "bytes": 238,
+      "sha256": "cfd445851235cc43ed2455019b3a5649f4774ecb501c77e35c3ae630827edb66"
+    },
+    "actual-preceding-bootstrap/prepare.py": {
+      "bytes": 5373,
+      "sha256": "803e51d0509f037fa9216c0d9b0a266981b1e8b90b9f97c02a3baeeef166b90c"
+    },
+    "actual-preceding-bootstrap/receipt.json": {
+      "bytes": 145464,
+      "sha256": "8936c7268794cd0001c7f92b20cd42ec727041482f40ed5010fcc5d0bcbefb2c"
+    },
+    "actual-preceding-bootstrap/remote-tag.json": {
+      "bytes": 470,
+      "sha256": "6d82c4b07a84e5e3265e4e8c8ea83d42543d8c3a903245c37bdc333309c48e92"
+    },
+    "actual-preceding-bootstrap/remote-tag.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/remote-tag.stdout": {
+      "bytes": 121,
+      "sha256": "bbb785fce39a10d1d49311eb217de9b0a9855a2d34e5299d9a564074dbcf2741"
+    },
+    "actual-preceding-bootstrap/runtime-ancestry.json": {
+      "bytes": 469,
+      "sha256": "8e65bf904c34196925b4696a284eefb418ca1b54ced7032315022b5724c316c6"
+    },
+    "actual-preceding-bootstrap/runtime-ancestry.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/runtime-ancestry.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/source-adaptation.json": {
+      "bytes": 1058,
+      "sha256": "6ca8108d02418693eba5a79c09be4eaf44e3036f1aabfead72a83ae78e50361b"
+    },
+    "actual-preceding-bootstrap/tag-kind.json": {
+      "bytes": 411,
+      "sha256": "a20d741f0c2339ae658137e03f6f663c697ce4867539f88ce0e889b810013ac4"
+    },
+    "actual-preceding-bootstrap/tag-kind.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/tag-kind.stdout": {
+      "bytes": 4,
+      "sha256": "ccda8f9a2cb0295182b9a99e4c8270badcc89525850e1e737a294fb426363ac9"
+    },
+    "actual-preceding-bootstrap/tag-object.json": {
+      "bytes": 403,
+      "sha256": "03b9ed57c93788d18cf1c5afbdc8908428cd763a3bc60ecb9dcca2907a417bd4"
+    },
+    "actual-preceding-bootstrap/tag-object.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/tag-object.stdout": {
+      "bytes": 41,
+      "sha256": "8d7ecd15ff55b7c05437c94808b633a304950a7060c127e98c281cfc2ff04023"
+    },
+    "actual-preceding-bootstrap/tag-runtime.json": {
+      "bytes": 406,
+      "sha256": "c48251f0cdc8a6e6597d635262bfc38920e144fbde240fa3a20c0d13f3be6662"
+    },
+    "actual-preceding-bootstrap/tag-runtime.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "actual-preceding-bootstrap/tag-runtime.stdout": {
+      "bytes": 41,
+      "sha256": "eeff4f6f25f3a12f3dd88e4ed49a337d52384732e3517b87bbbc73aa16d68f7f"
+    },
+    "actual-preceding-bootstrap/verify_environment.py": {
+      "bytes": 5806,
+      "sha256": "f29b9d5edac1bc8e70a06553ffe52c590bf651cf1a77a376130a8af9d9ad5d95"
+    },
+    "actual-preceding-bootstrap/worker-provenance.json": {
+      "bytes": 3659,
+      "sha256": "f72b5655264197486e4cf4b4fcb75c93baa0518047f4b8944f6e382c5949f742"
+    },
+    "immutable-preceding-seed/receipt.json": {
+      "bytes": 145469,
+      "sha256": "8efbe622b9fe582a7735d3a99a84408a9d56eb07f0c8f8bcec17efe786fbb03b"
+    },
+    "immutable-preceding-seed/prepare.py": {
+      "bytes": 5202,
+      "sha256": "dfd2298c3fe81e0264ee5a91238561abe7deb80985329edac3de45c5ce3b5e08"
+    },
+    "immutable-preceding-seed/verify_environment.py": {
+      "bytes": 5738,
+      "sha256": "6e6e6ccde19fb9c9a85137a5168d1d24b7e3f1077b606173ef349473757ab26d"
+    },
+    "retention/result.json": {
+      "bytes": 2198,
+      "sha256": "6ee0f9690e0cc0b9664cbaf9f978464d8a21385b0c8109eae50adf435fe17827"
+    },
+    "retention/authority-index.json": {
+      "bytes": 259665,
+      "sha256": "f35910296dd691eb06e7a1955f805ebb0f8c02572abfb1d32fcf262574449f92"
+    },
+    "retention/asset-plan.json": {
+      "bytes": 4579,
+      "sha256": "bec28dd3799a02638ac680487f464b04739ba45e846329501a3559d32bf9b72d"
+    },
+    "retention/input-verification.json": {
+      "bytes": 352688,
+      "sha256": "60e8d2dce735bf34ac81a859889d253d23981c4d01fd0ad60ba3b9ec82b7e0b4"
+    },
+    "retention/post-capture-closure.json": {
+      "bytes": 52515,
+      "sha256": "263c265cebac28cf3afc4298246ecc02851524b23c37b372a74823646ac88ff9"
+    },
+    "retention/unchanged-package-gate.stdout.log": {
+      "bytes": 1793,
+      "sha256": "d68d146bf2bbada3ab17f225d6b86c66b7ff0f9353a6692e2443fd37ef49560e"
+    },
+    "retention/gate-parts/c4-master1-packaging.json": {
+      "bytes": 105639,
+      "sha256": "60fdfb919a144b3268d557a5b407cff87df79cd6d2b695b06b195061a7927c54"
+    },
+    "retention/gate-parts/c4-master1-qualified-01.zip.sha256": {
+      "bytes": 94,
+      "sha256": "7cd30b1ee8c0b6ea7de6da47efe0f471054ad37e8dbf34467d09811cdc1cadea"
+    },
+    "retention/gate-parts/c4-master1-qualified-02.zip.sha256": {
+      "bytes": 94,
+      "sha256": "42f3f535c6109ca42ae00c19557ada7f3ee5791df81a25993c4edc211ee37482"
+    },
+    "retention/gate-parts/c4-master1-qualified-03.zip.sha256": {
+      "bytes": 94,
+      "sha256": "9280a0dc4428738acb71e57650d4f86e9d9091c8bc1fdd6752449bf18d0ae442"
+    },
+    "retention/gate-parts/exact-union.json": {
+      "bytes": 140,
+      "sha256": "76fe20e059665125d9109d5951765ca33fba53ec2960169260806899babdf842"
+    },
+    "retention/gate-parts/inventory.json": {
+      "bytes": 577723,
+      "sha256": "a1fa279b6939f6bb181b4a80335dc46e21527b7f9b3fe6d2e90acdd6d10f2c0f"
+    },
+    "retention/gate-parts/original-recursive-check.json": {
+      "bytes": 296,
+      "sha256": "5ba8361b566fb2fd782f185c7f6df3db92d333938147b2ae5fc8189d256bc19a"
+    },
+    "retention/retained-state/archive-receipt.json": {
+      "bytes": 1280,
+      "sha256": "5684b92ba0f8459b3cf25339dbfe565c3baf72b87cd9793d8f3da50f30eb3166"
+    },
+    "retention/retained-state/c4-master1-retained-state-01.zip.sha256": {
+      "bytes": 99,
+      "sha256": "3ee85fea2a624d07d692347ead63b3ecaa0fe28af5e1d78ad1f421eefb7bf333"
+    },
+    "retention/retained-state/c4-master1-retained-state-02.zip.sha256": {
+      "bytes": 99,
+      "sha256": "dea297ab807eefa72832b366573edf13d4120037b4c37e0b996d29c51ecc721d"
+    },
+    "retention/retained-state/context.json": {
+      "bytes": 13656,
+      "sha256": "dc6642be890d9e4f5c448a9b32681c3fa7298d109106a8dacc6711990a3bdaa9"
+    },
+    "retention/retained-state/exact-union.json": {
+      "bytes": 140,
+      "sha256": "6df3b6f787cd292b75494e504a57bc61085745133d6ac2668c89c6eb4f4ab769"
+    },
+    "retention/retained-state/inventory.json": {
+      "bytes": 1888219,
+      "sha256": "0cc8f99a6ff166e09221382813cd35d7b1b6b749503a224c433feb968b27badf"
+    },
+    "retention/retained-state/original-recursive-check.json": {
+      "bytes": 298,
+      "sha256": "2c025c9a3154989f557563ca60e43b6f643395c965f84048a60165c41d047c7a"
+    },
+    "retention/retained-state-authority/archive-receipt.json": {
+      "bytes": 760,
+      "sha256": "cbb111f7b404b72f9be1f3c0d57a751853fa8f9fccc6780f8305e33d4608b620"
+    },
+    "retention/retained-state-authority/c4-master1-retained-state-authority-01.zip.sha256": {
+      "bytes": 109,
+      "sha256": "e453acab694ee880d48c8e79abd980d728a4653885ab3ff913fa488469148476"
+    },
+    "retention/retained-state-authority/context.json": {
+      "bytes": 526,
+      "sha256": "1db20e804df4f065e28b27db15282946a90afaeda75237165ae154c09109e3db"
+    },
+    "retention/retained-state-authority/exact-union.json": {
+      "bytes": 134,
+      "sha256": "7f0768e4e54be1976120e89833d4111af292a4360f902d4f9e47e45d1dd6f4d8"
+    },
+    "retention/retained-state-authority/inventory.json": {
+      "bytes": 269,
+      "sha256": "35e758af9ee0ee8a8eefb8d0dfe3fff5e0a72ace86ab16f497c8a690fab3e7ae"
+    },
+    "retention/retained-state-authority/original-recursive-check.json": {
+      "bytes": 290,
+      "sha256": "412050da8ac4d113665887a1ca1183c62e1cef362931ddc06ef1fc78db944114"
+    },
+    "retention/case-companions/archive-receipt.json": {
+      "bytes": 730,
+      "sha256": "dd7f87e73a7f4a40c69f8294c587f41fbbe4aa16940b9ebf47b17a9a5a4739c3"
+    },
+    "retention/case-companions/c4-master1-case-companions-01.zip.sha256": {
+      "bytes": 100,
+      "sha256": "de97cd89e9dd4db6acd7584b3f63c78a3b3874bd5c4922df1d2aabad5e16c02d"
+    },
+    "retention/case-companions/context.json": {
+      "bytes": 5076,
+      "sha256": "93585fe335642072134e820a27a87ff08dce1c54fc3a73c7c14aca80e75d5584"
+    },
+    "retention/case-companions/exact-union.json": {
+      "bytes": 138,
+      "sha256": "8ccd7dcd4b8edb2e3688c8d2f721640db7ca4d5f18fb4ecd1cec496ad361fca6"
+    },
+    "retention/case-companions/inventory.json": {
+      "bytes": 203721,
+      "sha256": "05bf53622913af8fe641d85b374eb9abc0f290dc3c6a97730833c672d116e7d9"
+    },
+    "retention/case-companions/original-recursive-check.json": {
+      "bytes": 290,
+      "sha256": "412050da8ac4d113665887a1ca1183c62e1cef362931ddc06ef1fc78db944114"
+    },
+    "retention/deployment-preparation/archive-receipt.json": {
+      "bytes": 755,
+      "sha256": "f35b76b9c3ff8c05cc8908e44e395eeadcca40496400b97cdc04fa3368f38b45"
+    },
+    "retention/deployment-preparation/c4-master1-deployment-preparation-01.zip.sha256": {
+      "bytes": 107,
+      "sha256": "e3536b51a4cc76c4d9cc18b1841e16f81d993b6c06dcb44717e7c35355bad0f0"
+    },
+    "retention/deployment-preparation/context.json": {
+      "bytes": 9694,
+      "sha256": "e827e74c809cd40c33b7a16311ff9d44a32539ab8594624608769e8cf4e7aae4"
+    },
+    "retention/deployment-preparation/exact-union.json": {
+      "bytes": 135,
+      "sha256": "5c1712eb70ceb801a5ad500a3a13dc64c07a68d45286e6b2885c234745daf532"
+    },
+    "retention/deployment-preparation/inventory.json": {
+      "bytes": 4758,
+      "sha256": "f0521a0694b66229bb8b725958dfc81097f0895a6e989ebc564c8061f416a21d"
+    },
+    "retention/deployment-preparation/original-recursive-check.json": {
+      "bytes": 290,
+      "sha256": "412050da8ac4d113665887a1ca1183c62e1cef362931ddc06ef1fc78db944114"
+    },
+    "readbacks/architecture-assessment.json": {
+      "bytes": 6480,
+      "sha256": "ffa04f9a75c012938f0f0f1f82fbcd1d2f7f517bd8515e25349a1ff4e264cae4"
+    },
+    "readbacks/architecture-provenance.json": {
+      "bytes": 336,
+      "sha256": "8952d7740e8e9cb304651515e42ea9c7768ffeed84b636d68bd31511afc57787"
+    },
+    "readbacks/finite-builder-controls/architecture-control-assessment.json": {
+      "bytes": 2686,
+      "sha256": "4ddbb2008ae48f7f5930070faa5fb87d987169c7123aebfe9cffe6fcf52f4b00"
+    },
+    "readbacks/finite-builder-controls/context.json": {
+      "bytes": 97713,
+      "sha256": "a37a49cde6e30c1270545babb32ccdd8f491417eb8dd8dbed0e7973c49c9c97c"
+    },
+    "readbacks/finite-builder-controls/control-source/actual-tool-return.json": {
+      "bytes": 797,
+      "sha256": "849c00e3c0cdb68a1d478ae07928694a230d75ae9eec9847340214790e96c0dc"
+    },
+    "readbacks/finite-builder-controls/control-source/run-controls.py": {
+      "bytes": 7883,
+      "sha256": "63f3e3c3b4f94eacb21b6c0f369261794a80a5066ea211be63839d89a87f0cec"
+    },
+    "readbacks/finite-builder-controls/source-history/architecture-source-assessment.review1.json": {
+      "bytes": 3215,
+      "sha256": "0f44f29f9a21a00b9cd322dca0d2885e8f82517ab986f636bbfa778761d2a14d"
+    },
+    "readbacks/finite-builder-controls/source-history/build-completion.initial.py.txt": {
+      "bytes": 7829,
+      "sha256": "8d8ca2b08890f04503d3d31a1ffe7a499442f79a16128d6f351b491e94bcf4af"
+    },
+    "readbacks/finite-builder-controls/source-history/build-completion.review1.py.txt": {
+      "bytes": 8167,
+      "sha256": "3aede3249b123a12a17015fa63efdda931990a6c57a06f7b2a810ff7bfa17f4c"
+    },
+    "readbacks/finite-builder-controls/source-history/source-handoff.json": {
+      "bytes": 1051,
+      "sha256": "95d4e459d341442ae40b4c984c45c149aec2fd2eed83cf769f6c05d96e0d4cba"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/assets/release-evidence.py.txt": {
+      "bytes": 39404,
+      "sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/control-result.json": {
+      "bytes": 1055,
+      "sha256": "09e5e6e3c0f3320d4f559623df41b66f77711ad6bec2723a2c2f4c4421ea87b7"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip": {
+      "bytes": 29439,
+      "sha256": "63c68ed3c306e2ccb0636ad3cc63b50a055c3921fa106ac2cd338b7ea34b9294"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip.completion.json": {
+      "bytes": 6410,
+      "sha256": "d427b8096a4d11d84f709d7c298166c34faa395b1435276e3ebdcb8b15850151"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip.sha256": {
+      "bytes": 89,
+      "sha256": "d40f7c274be97e5e292af9547204fb58248163da3d6f33d9f863a72410a29f93"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "6e8f0d830a6d3666464be0a4380c514e698ef326ee34085a87de358c43897ea0"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/input-plan.json": {
+      "bytes": 2200,
+      "sha256": "8b46cd5c6e55836ccc41e34e1fd6910d9cfc784b48c51b8cbac256b4d4c4d8bb"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/architecture-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-baseline/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/assets/release-evidence.py.txt": {
+      "bytes": 39999,
+      "sha256": "3c52658b73a3d0b7f9578c4446ada5e9bee134643f9272262865ca064564588e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/control-result.json": {
+      "bytes": 1095,
+      "sha256": "fb4905cc15d1ed106f3ad9f62a493aa36cf48d05c63b7d9692f390ea8cda6039"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "6e8f0d830a6d3666464be0a4380c514e698ef326ee34085a87de358c43897ea0"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/input-plan.json": {
+      "bytes": 2228,
+      "sha256": "1dcaa354b44288fc272a564e1a8e1cb54e76977ca46503a90da5806e097f9f08"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/architecture-assessment.json": {
+      "bytes": 103,
+      "sha256": "ebf8e8743acac797fe76b9e7b81485d56a19b3c2e97af9d10f616c5eae071ed6"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-changed-gate/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/assets/release-evidence.py.txt": {
+      "bytes": 39786,
+      "sha256": "242eb3d35aab37c38d8ba739b2dd765002701bb777f7520d9ca23693748fa83d"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/control-result.json": {
+      "bytes": 921,
+      "sha256": "816934905d5956ea8b8f8d5163f38c2d301162c930c5054776a66b102566ee74"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/output/synthetic-metadata.zip": {
+      "bytes": 29608,
+      "sha256": "e82a86618ba0e7bcdc8ec9fe90631357ddf627e996c3fda8916d6e2d09cac196"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "6e8f0d830a6d3666464be0a4380c514e698ef326ee34085a87de358c43897ea0"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/input-plan.json": {
+      "bytes": 2263,
+      "sha256": "aa830005ff29fda522fa7df2f1b003c33287ee49983188f3e98789d8c34fad54"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/architecture-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/corrected-different-archive/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/assets/release-evidence.py.txt": {
+      "bytes": 39404,
+      "sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/control-result.json": {
+      "bytes": 1037,
+      "sha256": "1eb347962b2c411f1c1e9d3ccfff3131049acf5328979065d707e3d024f72a9e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip": {
+      "bytes": 18928,
+      "sha256": "404a5ca687a308c0604fe6d50cc5baf6d8c2fdea50afdead7558ede75e2f5b4f"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip.completion.json": {
+      "bytes": 6231,
+      "sha256": "73300789d03eb9903ae07b9081b3b2897c5f64be7ebde1b6351250c0e8bab2cb"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip.sha256": {
+      "bytes": 89,
+      "sha256": "effc33651697d50b065b20c0ea2038da5c3b14e5286cba685c670ef42511fb84"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "49846ab8c3dbd3fa6b62a132f6fed06b4c47090dfe4c79855732ad3099d9be00"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/preparation/input-plan.json": {
+      "bytes": 2158,
+      "sha256": "63152e65995434d06988face28e8fc50fe487dc75629e938cc9acc485919f560"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/architecture-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-baseline/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/assets/release-evidence.py.txt": {
+      "bytes": 39993,
+      "sha256": "b779fdb7d4313309c9381af51f173133723a4662ef02dbe0123a549f3af740de"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/control-result.json": {
+      "bytes": 1053,
+      "sha256": "33200a9d55d3320d681fd5e845f85a635f274feda471ce11910103f106b92f4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip": {
+      "bytes": 18970,
+      "sha256": "346d77af21ee1b20c84174fd01da5cdb8523be8b938b8715bed5af2a6d4fde94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip.completion.json": {
+      "bytes": 6247,
+      "sha256": "b3e1c2172950ec1c1c2a0a52a6e52f71ba62fc51ed0effecd83740626a5717b3"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip.sha256": {
+      "bytes": 89,
+      "sha256": "205616303b66a9fe0af2a8cf9c53920a25c7da8cec6dc509b83e73377a3d2e7e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "49846ab8c3dbd3fa6b62a132f6fed06b4c47090dfe4c79855732ad3099d9be00"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/input-plan.json": {
+      "bytes": 2186,
+      "sha256": "5b2f4635501764d3696b2890cb6b09073bff1ab4625a56329041c4b2460714f1"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/architecture-assessment.json": {
+      "bytes": 103,
+      "sha256": "ebf8e8743acac797fe76b9e7b81485d56a19b3c2e97af9d10f616c5eae071ed6"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-changed-gate/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/assets/c4-master1-summary.json": {
+      "bytes": 173,
+      "sha256": "ef82abe15d375cc27c6737e5625437357cf9d15726b09436008d917091c1319e"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/assets/release-evidence.py.txt": {
+      "bytes": 39786,
+      "sha256": "242eb3d35aab37c38d8ba739b2dd765002701bb777f7520d9ca23693748fa83d"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/bootstrap/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/control-result.json": {
+      "bytes": 1073,
+      "sha256": "15e623aa932f37c72152afad623ad8b6281068cacd088cce446217902e422d0a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip": {
+      "bytes": 18970,
+      "sha256": "6e9f93533c54488bfbcd0c254371000f2768b638a2e1dc654ae396e6c2f37f76"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip.completion.json": {
+      "bytes": 6267,
+      "sha256": "74a2da15be9640642fe6fdc6129babaf161412983dde4de24222107f7e2f66d8"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip.sha256": {
+      "bytes": 89,
+      "sha256": "69c0fcc0b722fc861fb181c5a4ff3210b2b52a3bf8fc16f285e9d2e6d4893ad7"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/asset-plan.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/authority-index.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/case-companions/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/deployment-preparation/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/gate-parts/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/input-verification.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/post-capture-closure.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/result.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state-authority/archive-receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/packet/unchanged-package-gate.stdout.log": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/preceding/literal-archive.stdout": {
+      "bytes": 614400,
+      "sha256": "b44a1b96581d2cee60b129df4f3a9ef903651ade4c3820cb3d3cfd8f9e5b7d4a"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/architecture-source-assessment.json": {
+      "bytes": 200,
+      "sha256": "49846ab8c3dbd3fa6b62a132f6fed06b4c47090dfe4c79855732ad3099d9be00"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/attachment-input-addendum.json": {
+      "bytes": 102,
+      "sha256": "c9aecd52f742eec0b843b91d6c4a9b39cfe27cd5c84fb56a64c146628dc97d94"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/input-plan.json": {
+      "bytes": 2221,
+      "sha256": "68e4e2bd2d29d2eff177a8454735ecdbc41a3505b9bc6173b74722be71674110"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/architecture-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/performance-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/scientific-implementation-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/ui-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/ux-assessment.json": {
+      "bytes": 112,
+      "sha256": "2290cabc1116a6babdf6374760437e24ab7335fd9bf9b6a932b5cf7689a01522"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/registry.json": {
+      "bytes": 48,
+      "sha256": "25ae6b66da52fff38459cbd946a2e079eaa95c105d63e1d49d5ca591c2857447"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/old-different-archive/seed/receipt.json": {
+      "bytes": 32,
+      "sha256": "d9bdf13677457021f27700c7f23f9c93660e9e009e9793e726691a9fc9c4afbe"
+    },
+    "readbacks/finite-builder-controls/synthetic-fixtures/summary.json": {
+      "bytes": 6868,
+      "sha256": "e44559f3f6d7049c22090e7057c47ac01c4cf9f4dc0d2e666b50fe8fb8a1ef68"
+    },
+    "readbacks/performance-assessment.json": {
+      "bytes": 4544,
+      "sha256": "4b799d168b550426f06d2dc935a447f6d7784d1ea1393240c6362c0b17766d9b"
+    },
+    "readbacks/performance-assessment.md": {
+      "bytes": 3949,
+      "sha256": "7c4df1b7840a914f054335d0febd9a4268561bceac7a70c3a2a3c1dc2b3eec3c"
+    },
+    "readbacks/scientific-implementation-assessment.json": {
+      "bytes": 5360,
+      "sha256": "a1dac8e8cf9cc776144e5bad481e94f20ddfa3a5215a22647ac59690dc72fd9d"
+    },
+    "readbacks/scientific-implementation-provenance.json": {
+      "bytes": 349,
+      "sha256": "22ee36b4688fcfe9c187960655d220b8b2464369a627104759c84d65a1dd96a6"
+    },
+    "readbacks/ui-assessment.json": {
+      "bytes": 4388,
+      "sha256": "a9096e00eaffefa3fc4e27dbdab160b8dc70832a0a18f825032814c8ba242c37"
+    },
+    "readbacks/ui-assessment.md": {
+      "bytes": 3785,
+      "sha256": "7ab4fb01593c47044f1e7ed330c801319c25bc9422a7fca2d96f8eb5bafb7997"
+    },
+    "readbacks/ux-assessment.json": {
+      "bytes": 3880,
+      "sha256": "b9f2b67ca771b30cbcd9beaf0a20a1c3ef292a782c51aa252d8a0c2c818dbc70"
+    },
+    "readbacks/ux-assessment.md": {
+      "bytes": 3320,
+      "sha256": "45f1cd6e9d4422166d1624c7cdf3e0ad1a8baf312da38de8d5009784227e2463"
+    },
+    "attachment-preparation/1/extract.py": {
+      "bytes": 4809,
+      "sha256": "26ad17baec122e0d7de1e1309507a4cb7471fc685ba60076ee37ec0a05a4d441"
+    },
+    "attachment-preparation/1/failed-attempt.json": {
+      "bytes": 579,
+      "sha256": "f56565fa74b3fc8e75abd177aaa8c9302ff1cf39a9f4416d2d65e17a4ee29787"
+    },
+    "attachment-preparation/2/actual-tool-return.json": {
+      "bytes": 841,
+      "sha256": "6fc830efc6668e4f278e27c4c4c5f62a1477c45cf7fc89a75717d014028e4ade"
+    },
+    "attachment-preparation/2/extract.py": {
+      "bytes": 5406,
+      "sha256": "d1b1a4fced93bf9d451aab4a7ae50b27dbdea80adc764802ae52effda8053976"
+    },
+    "actual-attachments/index.json": {
+      "bytes": 214114,
+      "sha256": "0b9ae4cde756451e709a2807dc7105c2a4c0cd97c9283ae7b7cfb29771bf4004"
+    },
+    "publication/required-assets-before-completion.json": {
+      "bytes": 85299,
+      "sha256": "a64ae3a5d45532ecf87b5a6ee9f80aa6045ffe6102fc29f0509930b7909f3c5a"
+    },
+    "qualification/strict-master-summary.json": {
+      "bytes": 84379,
+      "sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+    },
+    "preparation/input-plan.json": {
+      "bytes": 6748,
+      "sha256": "fd3b5084515a228a9df8fc9fb9d82d054a1bdc530ddae227aa078a315be50f40"
+    },
+    "preparation/attachment-input-addendum.json": {
+      "bytes": 1537,
+      "sha256": "40580c04b7eb47370ce137dfbac36766d74407199d5ef9b49b667a59e4b59c41"
+    },
+    "preparation/architecture-source-assessment.json": {
+      "bytes": 2266,
+      "sha256": "bb0c4258c4a483956b95197f9ba3e44dab2d2fa2cc9fe5c30d0494a31d809935"
+    },
+    "preparation/build-completion.py": {
+      "bytes": 9220,
+      "sha256": "0563d91d52b05163be88b0e218a81d410dac689d9ae3a158475f6a9d81ed81d1"
+    },
+    "preparation/qualified-release-evidence.py.txt": {
+      "bytes": 39404,
+      "sha256": "b37ed00d0a217eed1de6aa98ab919efb7a2c18ada18a850d26fb18e4d67642f2"
+    }
+  },
+  "directory_memberships": {
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-bootstrap1": {
+      "recursive": true,
+      "entries": [
+        [
+          "command.json",
+          "file"
+        ],
+        [
+          "current-environment-actual-tool.json",
+          "file"
+        ],
+        [
+          "predecessor-command.json",
+          "file"
+        ],
+        [
+          "predecessor-receipt.json",
+          "file"
+        ],
+        [
+          "predecessor-start-actual-tool.json",
+          "file"
+        ],
+        [
+          "predecessor-terminal-actual-tool.json",
+          "file"
+        ],
+        [
+          "predecessor.stderr.log",
+          "file"
+        ],
+        [
+          "predecessor.stdout.log",
+          "file"
+        ],
+        [
+          "provenance-command.json",
+          "file"
+        ],
+        [
+          "provenance-receipt.json",
+          "file"
+        ],
+        [
+          "provenance-start-actual-tool.json",
+          "file"
+        ],
+        [
+          "provenance-terminal-actual-tool.json",
+          "file"
+        ],
+        [
+          "provenance.stderr.log",
+          "file"
+        ],
+        [
+          "provenance.stdout.log",
+          "file"
+        ],
+        [
+          "receipt.json",
+          "file"
+        ],
+        [
+          "stderr.log",
+          "file"
+        ],
+        [
+          "stdout.log",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-deployment-preparation1": {
+      "recursive": true,
+      "entries": [
+        [
+          "bind-actual-deployment.py",
+          "file"
+        ],
+        [
+          "prelaunch-architecture-assessment.json",
+          "file"
+        ],
+        [
+          "prelaunch.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-deployment-validation1": {
+      "recursive": true,
+      "entries": [
+        [
+          "actual-binding-tool-return.json",
+          "file"
+        ],
+        [
+          "architecture-assessment.json",
+          "file"
+        ],
+        [
+          "capture-command.json",
+          "file"
+        ],
+        [
+          "capture-result.json",
+          "file"
+        ],
+        [
+          "capture.stderr.log",
+          "file"
+        ],
+        [
+          "capture.stdout.log",
+          "file"
+        ],
+        [
+          "consumer-command.json",
+          "file"
+        ],
+        [
+          "consumer-result.json",
+          "file"
+        ],
+        [
+          "consumer.stderr.log",
+          "file"
+        ],
+        [
+          "consumer.stdout.log",
+          "file"
+        ],
+        [
+          "summary.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-postterminal-preparation1": {
+      "recursive": true,
+      "entries": [
+        [
+          "commands.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-c4-master1-postterminal-execution1": {
+      "recursive": true,
+      "entries": [
+        [
+          "01-finalizer",
+          "directory"
+        ],
+        [
+          "01-finalizer/actual-tool-return.json",
+          "file"
+        ],
+        [
+          "01-finalizer/command.json",
+          "file"
+        ],
+        [
+          "01-finalizer/receipt.json",
+          "file"
+        ],
+        [
+          "01-finalizer/stderr.log",
+          "file"
+        ],
+        [
+          "01-finalizer/stdout.log",
+          "file"
+        ],
+        [
+          "02-summary",
+          "directory"
+        ],
+        [
+          "02-summary/actual-tool-return.json",
+          "file"
+        ],
+        [
+          "02-summary/actual-tool-start.json",
+          "file"
+        ],
+        [
+          "02-summary/command.json",
+          "file"
+        ],
+        [
+          "02-summary/receipt.json",
+          "file"
+        ],
+        [
+          "02-summary/stderr.log",
+          "file"
+        ],
+        [
+          "02-summary/stdout.log",
+          "file"
+        ],
+        [
+          "03-collector",
+          "directory"
+        ],
+        [
+          "03-collector/actual-poll01.json",
+          "file"
+        ],
+        [
+          "03-collector/actual-tool-return.json",
+          "file"
+        ],
+        [
+          "03-collector/actual-tool-start.json",
+          "file"
+        ],
+        [
+          "03-collector/command.json",
+          "file"
+        ],
+        [
+          "03-collector/receipt.json",
+          "file"
+        ],
+        [
+          "03-collector/stderr.log",
+          "file"
+        ],
+        [
+          "03-collector/stdout.log",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-c4-master1-launch-tool1": {
+      "recursive": true,
+      "entries": [
+        [
+          "actual-tool-start.json",
+          "file"
+        ],
+        [
+          "intended-terminal-call.json",
+          "file"
+        ],
+        [
+          "preflight.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-release-packager-preflight1": {
+      "recursive": true,
+      "entries": [
+        [
+          "architecture-assessment.json",
+          "file"
+        ],
+        [
+          "provenance.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-actual038-source1": {
+      "recursive": false,
+      "entries": [
+        [
+          "authority.json",
+          "file"
+        ],
+        [
+          "controls.json",
+          "file"
+        ],
+        [
+          "environment-verification.json",
+          "file"
+        ],
+        [
+          "extraction-verification.json",
+          "file"
+        ],
+        [
+          "frozen-sync.json",
+          "file"
+        ],
+        [
+          "frozen-sync.stderr",
+          "file"
+        ],
+        [
+          "frozen-sync.stdout",
+          "file"
+        ],
+        [
+          "literal-archive.json",
+          "file"
+        ],
+        [
+          "literal-archive.stderr",
+          "file"
+        ],
+        [
+          "literal-archive.stdout",
+          "file"
+        ],
+        [
+          "post-install-source-verification.json",
+          "file"
+        ],
+        [
+          "prepare.py",
+          "file"
+        ],
+        [
+          "receipt.json",
+          "file"
+        ],
+        [
+          "remote-tag.json",
+          "file"
+        ],
+        [
+          "remote-tag.stderr",
+          "file"
+        ],
+        [
+          "remote-tag.stdout",
+          "file"
+        ],
+        [
+          "runtime-ancestry.json",
+          "file"
+        ],
+        [
+          "runtime-ancestry.stderr",
+          "file"
+        ],
+        [
+          "runtime-ancestry.stdout",
+          "file"
+        ],
+        [
+          "source",
+          "directory"
+        ],
+        [
+          "source-adaptation.json",
+          "file"
+        ],
+        [
+          "tag-kind.json",
+          "file"
+        ],
+        [
+          "tag-kind.stderr",
+          "file"
+        ],
+        [
+          "tag-kind.stdout",
+          "file"
+        ],
+        [
+          "tag-object.json",
+          "file"
+        ],
+        [
+          "tag-object.stderr",
+          "file"
+        ],
+        [
+          "tag-object.stdout",
+          "file"
+        ],
+        [
+          "tag-runtime.json",
+          "file"
+        ],
+        [
+          "tag-runtime.stderr",
+          "file"
+        ],
+        [
+          "tag-runtime.stdout",
+          "file"
+        ],
+        [
+          "verify_environment.py",
+          "file"
+        ],
+        [
+          "worker-provenance.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1": {
+      "recursive": true,
+      "entries": [
+        [
+          "architecture-assessment.json",
+          "file"
+        ],
+        [
+          "architecture-provenance.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/architecture-control-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/context.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/control-source",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/control-source/actual-tool-return.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/control-source/run-controls.py",
+          "file"
+        ],
+        [
+          "finite-builder-controls/source-history",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/source-history/architecture-source-assessment.review1.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/source-history/build-completion.initial.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/source-history/build-completion.review1.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/source-history/source-handoff.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/output",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip.completion.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/output/synthetic-metadata.zip.sha256",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-baseline/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-changed-gate/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/output",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/output/synthetic-metadata.zip",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/corrected-different-archive/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/output",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip.completion.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/output/synthetic-metadata.zip.sha256",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-baseline/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/output",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip.completion.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/output/synthetic-metadata.zip.sha256",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-changed-gate/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/assets",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/assets/c4-master1-summary.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/assets/release-evidence.py.txt",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/bootstrap",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/bootstrap/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/control-result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/output",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip.completion.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/output/synthetic-metadata.zip.sha256",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/asset-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/authority-index.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/case-companions",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/case-companions/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/deployment-preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/deployment-preparation/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/gate-parts",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/gate-parts/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/input-verification.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/post-capture-closure.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/result.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state-authority",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/retained-state-authority/archive-receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/packet/unchanged-package-gate.stdout.log",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preceding",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preceding/literal-archive.stdout",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preparation",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/architecture-source-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/attachment-input-addendum.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/preparation/input-plan.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/architecture-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/performance-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/ui-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/readbacks/ux-assessment.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/registry.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/seed",
+          "directory"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/old-different-archive/seed/receipt.json",
+          "file"
+        ],
+        [
+          "finite-builder-controls/synthetic-fixtures/summary.json",
+          "file"
+        ],
+        [
+          "performance-assessment.json",
+          "file"
+        ],
+        [
+          "performance-assessment.md",
+          "file"
+        ],
+        [
+          "scientific-implementation-assessment.json",
+          "file"
+        ],
+        [
+          "scientific-implementation-provenance.json",
+          "file"
+        ],
+        [
+          "ui-assessment.json",
+          "file"
+        ],
+        [
+          "ui-assessment.md",
+          "file"
+        ],
+        [
+          "ux-assessment.json",
+          "file"
+        ],
+        [
+          "ux-assessment.md",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-attachment-preparation1": {
+      "recursive": true,
+      "entries": [
+        [
+          "extract.py",
+          "file"
+        ],
+        [
+          "failed-attempt.json",
+          "file"
+        ]
+      ]
+    },
+    "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-attachment-preparation2": {
+      "recursive": true,
+      "entries": [
+        [
+          "actual-tool-return.json",
+          "file"
+        ],
+        [
+          "extract.py",
+          "file"
+        ]
+      ]
+    }
+  },
+  "all_inputs_and_memberships_unchanged": true,
+  "scope": "Finite actual bootstrap, binding, terminal-provider and independent readback metadata; eight original campaign parts remain separate and unchanged",
+  "publication_performed": false,
+  "no_own_or_future_receipt_embedded_upstream": true,
+  "decoded_images": "Index and extractor retained; original PNG/JSON/JS bodies remain in separately retained browser report"
+}

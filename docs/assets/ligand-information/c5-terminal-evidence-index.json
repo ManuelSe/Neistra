@@ -1,0 +1,191 @@
+{
+  "all_seven_terminal_reviews": "Pending",
+  "base": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "files": {
+    "docs/LIGAND_PROPERTIES.md": {
+      "bytes": 13320,
+      "sha256": "6a91c870044fdacfa48afadd66d3072b9270f9c2154f35891e227584a7d330fc"
+    },
+    "docs/PROGRESS.md": {
+      "bytes": 4619,
+      "sha256": "745862c3518855eee6be060606420c91d50081ab92ea222083fb8ce05ba88309"
+    },
+    "docs/RELEASE_NOTES.md": {
+      "bytes": 245085,
+      "sha256": "4ab8337bf7fa2d286f73dbc7bed46a8dba2e1e82a27d9db3f19248931609f24d"
+    },
+    "docs/SCIENTIFIC_LIMITATIONS.md": {
+      "bytes": 64980,
+      "sha256": "e1752af1efd682d74c45142bb3367ef0d592164926e28c98048403ce5a9be7b8"
+    },
+    "docs/assets/ligand-information/c4-master1-browser-cases.json": {
+      "bytes": 305621,
+      "sha256": "a13b2eb827c7d6a82d1ecdf8c066f06c7b6160bbcdc73a67f6523b6b823c80ef"
+    },
+    "docs/assets/ligand-information/c4-master1-browser-inventory.json": {
+      "bytes": 480386,
+      "sha256": "0e9d8c3e75c3b6406c36789bbd70481370d4fdf43e5a0f75ab869a3b236d97ff"
+    },
+    "docs/assets/ligand-information/c4-master1-editing-readers-summary.json": {
+      "bytes": 7830,
+      "sha256": "0bdecaa72a991cb2022043f2b5e8ce190e2e4542b1db7bc2304ad5da12f923e6"
+    },
+    "docs/assets/ligand-information/c4-master1-exclusions.json": {
+      "bytes": 11491,
+      "sha256": "219811f9b17a3808c1016d32809bac6d69d554e56225751f5832d6033fd126c4"
+    },
+    "docs/assets/ligand-information/c4-master1-gate.json": {
+      "bytes": 819539,
+      "sha256": "d050094ed7d86c918ab5c635884ea26332a55ed2b7a5c5c009478a11dc8b9359"
+    },
+    "docs/assets/ligand-information/c4-master1-property-readers-summary.json": {
+      "bytes": 8237,
+      "sha256": "846b3b01ff8cf23be209851572d144ceea89ed1f87af38f943f0788641e70f58"
+    },
+    "docs/assets/ligand-information/c4-master1-reader-audit.json": {
+      "bytes": 8917,
+      "sha256": "1eadbc7c71d52cbd211b177e9444832e6630b5f47413e4297f9b70a22216bfed"
+    },
+    "docs/assets/ligand-information/c4-master1-summary.json": {
+      "bytes": 84379,
+      "sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+    },
+    "docs/assets/ligand-information/c5-feature-final-modeling_reference.json": {
+      "bytes": 2341,
+      "sha256": "4a038f9c019c9d98ecee7316361e896938b5dacfd6ae78893aa036aab36029a1"
+    },
+    "docs/assets/ligand-information/c5-feature-final-performance.json": {
+      "bytes": 1567,
+      "sha256": "e9fa6a2e398b3009d177f864a07a97a3b47b166a8008e18d273f18a9ec3b80d9"
+    },
+    "docs/assets/ligand-information/c5-feature-final-reviews.json": {
+      "bytes": 20593,
+      "sha256": "39d93caddadd22b80e502f554a8ec5cc8385f6b266ca5ef74c7e23aa7f5dc099"
+    },
+    "docs/assets/ligand-information/c5-feature-final-scientific_implementation.json": {
+      "bytes": 2718,
+      "sha256": "479daada125d899ca488d6db8db0454badca03b64a45eb24f103cd38d8369e6b"
+    },
+    "docs/assets/ligand-information/c5-feature-final-scientific_theory.json": {
+      "bytes": 2003,
+      "sha256": "444ab1942c3c53810b65051a4785b2d4a4aa1f547dcbbe85703c3664742c832e"
+    },
+    "docs/assets/ligand-information/c5-feature-final-software_architecture.json": {
+      "bytes": 3921,
+      "sha256": "2653e5f01cd3087a400782bbba1d0908ba94fd0b6c88e87a07dece5f32173c56"
+    },
+    "docs/assets/ligand-information/c5-feature-final-ui_design.json": {
+      "bytes": 1512,
+      "sha256": "a275083c7e7723d651fa4d161c0f6a94a87af11e264c3d0feb43faa2749f383b"
+    },
+    "docs/assets/ligand-information/c5-feature-final-ux_design.json": {
+      "bytes": 2276,
+      "sha256": "6ff204ad3ae271f4f140a763bba3491500061ec72ad9bf4af6ff47b466ab9683"
+    },
+    "docs/assets/ligand-information/c5-master1-architecture-assessment.json": {
+      "bytes": 6480,
+      "sha256": "ffa04f9a75c012938f0f0f1f82fbcd1d2f7f517bd8515e25349a1ff4e264cae4"
+    },
+    "docs/assets/ligand-information/c5-master1-finite-completion.json": {
+      "bytes": 112756,
+      "sha256": "6f8c573557ceeb78203f66c64eb363cc81df96b644ecc1c4b35132c507ab9c78"
+    },
+    "docs/assets/ligand-information/c5-master1-initial-assets-assessment.json": {
+      "bytes": 3340,
+      "sha256": "d7fb2b756c6f6ee4e352ea642afd8671882147fdba322a4499374e93cbb70488"
+    },
+    "docs/assets/ligand-information/c5-master1-initial-assets-verified.json": {
+      "bytes": 125754,
+      "sha256": "3b98843f0d819b28d782f8bad690c5bc76d3bd11239c3f045f82368922049019"
+    },
+    "docs/assets/ligand-information/c5-master1-initial-upload-manifest.json": {
+      "bytes": 72820,
+      "sha256": "dfad2bd87ac1e45d59dd52fd1f139fe80ad0294f66af617da4f4ed65660650a1"
+    },
+    "docs/assets/ligand-information/c5-master1-performance-assessment.json": {
+      "bytes": 4544,
+      "sha256": "4b799d168b550426f06d2dc935a447f6d7784d1ea1393240c6362c0b17766d9b"
+    },
+    "docs/assets/ligand-information/c5-master1-primary-package.json": {
+      "bytes": 16401,
+      "sha256": "caf19edad32ce26159b0a6dab2c8c780e3b620e3c1bdcbc9ffc086b1498c1d3e"
+    },
+    "docs/assets/ligand-information/c5-master1-public-runtime-execution.json": {
+      "bytes": 136,
+      "sha256": "0309a5cd38f55bc8a764bfcea3aa5dbf06e45da42b068e8b7fd67533804ffc6a"
+    },
+    "docs/assets/ligand-information/c5-master1-public-runtime-terminal.json": {
+      "bytes": 10139,
+      "sha256": "d5611052cf1fa11a422c7ca282344c28dd2ce1b301980bc4c47ff2cf43131d77"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-companion-assessment.json": {
+      "bytes": 2734,
+      "sha256": "7a072267832f28d3e8a287f7a357055c359c711ee1a4b830b93a84dc3c460ea6"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-companion-capture.json": {
+      "bytes": 728,
+      "sha256": "b51e4c3e0253b63fdd5c8b1db97052a27900f625473b5dd25c1cf0e938c66858"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-companion-output-assessment.json": {
+      "bytes": 2999,
+      "sha256": "d928be18b11ac90eb0f33760061db5ce5c2d1795b1385eb36601dee58790d729"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-companion-verified.json": {
+      "bytes": 1766,
+      "sha256": "d9acdcf16f272a51ce99f2cb37954d20ddc4ef94828613b2c5829737941a2615"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-metadata-assessment.json": {
+      "bytes": 2499,
+      "sha256": "c64449d44e663d7c4f87989040ce25e279c0b84643da5cf2086198e92bab04cc"
+    },
+    "docs/assets/ligand-information/c5-master1-publication-metadata.json": {
+      "bytes": 696,
+      "sha256": "7ceda89f99008441908ae5ed108bc83f6be9e6707a66a0a2216ab0f86797fa48"
+    },
+    "docs/assets/ligand-information/c5-master1-publication.json": {
+      "bytes": 71360,
+      "sha256": "c1ea93b294aa936f084703e84cb39f69185697a243a2534d8159a639cc61babd"
+    },
+    "docs/assets/ligand-information/c5-master1-published-initial-release.json": {
+      "bytes": 304021,
+      "sha256": "c129fba567577e0ce278c2d0de8a285055171edf7ce20fc749a651774ee6e2e5"
+    },
+    "docs/assets/ligand-information/c5-master1-science-assessment.json": {
+      "bytes": 5360,
+      "sha256": "a1dac8e8cf9cc776144e5bad481e94f20ddfa3a5215a22647ac59690dc72fd9d"
+    },
+    "docs/assets/ligand-information/c5-master1-ui-assessment.json": {
+      "bytes": 4388,
+      "sha256": "a9096e00eaffefa3fc4e27dbdab160b8dc70832a0a18f825032814c8ba242c37"
+    },
+    "docs/assets/ligand-information/c5-master1-ux-assessment.json": {
+      "bytes": 3880,
+      "sha256": "b9f2b67ca771b30cbcd9beaf0a20a1c3ef292a782c51aa252d8a0c2c818dbc70"
+    },
+    "docs/assets/ligand-information/c5-terminal-evidence-preparation-index.json": {
+      "bytes": 8965,
+      "sha256": "1ddc998539cfd1510b9c34ead1cb3578220fcf15d97bd1b23880c919f0783937"
+    },
+    "docs/assets/ligand-information/c5-terminal-public-audit-preparation-index.json": {
+      "bytes": 604,
+      "sha256": "3a655992ad9e5509dca3dd69f2bdf77684580e0b9c53cdce31fd63e7e398892a"
+    },
+    "docs/assets/ligand-information/c5-terminal-public-proof-preparation-index.json": {
+      "bytes": 2147,
+      "sha256": "9e8fc2bd91dfc04b8e9a1c9f1353fb3d08da350b741a23a51bb08a30375c3328"
+    },
+    "docs/plans/issue-11-ligand-information.md": {
+      "bytes": 30451,
+      "sha256": "5736401b39210202602956d4031848de885b041c2be23476e973ebd390f4dd87"
+    },
+    "docs/plans/issue-161-ligand-information-sidebar.md": {
+      "bytes": 105848,
+      "sha256": "f4995caba8934e421f454ac404883b6a409218a34a8776a9e83bfbac8c105c25"
+    }
+  },
+  "indexed_files_excluding_self": 45,
+  "own_index_excluded": true,
+  "qualified_source_digest": "2ad3390710908a6d0c40b7e1076e652175b525171f28e57a21bf04ab5e6cbef7",
+  "recorded_utc": "2026-11-28T00:04:00.667958+00:00",
+  "scope": "Complete terminal documentation/evidence candidate input index; its own file and later review/merge/closure/cleanup receipts remain external. Copied artifacts retain their original identities."
+}

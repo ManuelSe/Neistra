@@ -1,0 +1,160 @@
+{
+  "scope": "Exact copies of closed actual runtime qualification, final feature assessments, package and publication metadata. Not a new qualification or terminal readiness. Anonymous aggregate/companion/doc review/issue/cleanup remain pending.",
+  "runtime": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "reviewed_feature": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "files": [
+    {
+      "retained": "c4-master1-gate.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-gate.json",
+      "bytes": 819539,
+      "sha256": "d050094ed7d86c918ab5c635884ea26332a55ed2b7a5c5c009478a11dc8b9359"
+    },
+    {
+      "retained": "c4-master1-summary.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-summary.json",
+      "bytes": 84379,
+      "sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+    },
+    {
+      "retained": "c4-master1-reader-audit.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-reader-audit.json",
+      "bytes": 8917,
+      "sha256": "1eadbc7c71d52cbd211b177e9444832e6630b5f47413e4297f9b70a22216bfed"
+    },
+    {
+      "retained": "c4-master1-browser-cases.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-browser-cases.json",
+      "bytes": 305621,
+      "sha256": "a13b2eb827c7d6a82d1ecdf8c066f06c7b6160bbcdc73a67f6523b6b823c80ef"
+    },
+    {
+      "retained": "c4-master1-browser-inventory.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-browser-inventory.json",
+      "bytes": 480386,
+      "sha256": "0e9d8c3e75c3b6406c36789bbd70481370d4fdf43e5a0f75ab869a3b236d97ff"
+    },
+    {
+      "retained": "c4-master1-exclusions.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-exclusions.json",
+      "bytes": 11491,
+      "sha256": "219811f9b17a3808c1016d32809bac6d69d554e56225751f5832d6033fd126c4"
+    },
+    {
+      "retained": "c4-master1-editing-readers-summary.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-editing-readers-summary.json",
+      "bytes": 7830,
+      "sha256": "0bdecaa72a991cb2022043f2b5e8ce190e2e4542b1db7bc2304ad5da12f923e6"
+    },
+    {
+      "retained": "c4-master1-property-readers-summary.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/docs/assets/ligand-information/c4-master1-property-readers-summary.json",
+      "bytes": 8237,
+      "sha256": "846b3b01ff8cf23be209851572d144ceea89ed1f87af38f943f0788641e70f58"
+    },
+    {
+      "retained": "c5-master1-architecture-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1/architecture-assessment.json",
+      "bytes": 6480,
+      "sha256": "ffa04f9a75c012938f0f0f1f82fbcd1d2f7f517bd8515e25349a1ff4e264cae4"
+    },
+    {
+      "retained": "c5-master1-science-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1/scientific-implementation-assessment.json",
+      "bytes": 5360,
+      "sha256": "a1dac8e8cf9cc776144e5bad481e94f20ddfa3a5215a22647ac59690dc72fd9d"
+    },
+    {
+      "retained": "c5-master1-performance-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1/performance-assessment.json",
+      "bytes": 4544,
+      "sha256": "4b799d168b550426f06d2dc935a447f6d7784d1ea1393240c6362c0b17766d9b"
+    },
+    {
+      "retained": "c5-master1-ui-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1/ui-assessment.json",
+      "bytes": 4388,
+      "sha256": "a9096e00eaffefa3fc4e27dbdab160b8dc70832a0a18f825032814c8ba242c37"
+    },
+    {
+      "retained": "c5-master1-ux-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-final-readback1/ux-assessment.json",
+      "bytes": 3880,
+      "sha256": "b9f2b67ca771b30cbcd9beaf0a20a1c3ef292a782c51aa252d8a0c2c818dbc70"
+    },
+    {
+      "retained": "c5-master1-publication-metadata.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-release-publication2/publication-metadata-verified.json",
+      "bytes": 696,
+      "sha256": "7ceda89f99008441908ae5ed108bc83f6be9e6707a66a0a2216ab0f86797fa48"
+    },
+    {
+      "retained": "c5-master1-publication-metadata-assessment.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-readback2/architecture-assessment.json",
+      "bytes": 2499,
+      "sha256": "c64449d44e663d7c4f87989040ce25e279c0b84643da5cf2086198e92bab04cc"
+    },
+    {
+      "retained": "c5-master1-primary-package.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-release-package1/neistra-v0.39.0-qualification.zip.package.json",
+      "bytes": 16401,
+      "sha256": "caf19edad32ce26159b0a6dab2c8c780e3b620e3c1bdcbc9ffc086b1498c1d3e"
+    },
+    {
+      "retained": "c5-master1-finite-completion.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-master1-finite-completion1/neistra-v0.39.0-master-completion.zip.completion.json",
+      "bytes": 112756,
+      "sha256": "6f8c573557ceeb78203f66c64eb363cc81df96b644ecc1c4b35132c507ab9c78"
+    },
+    {
+      "retained": "c5-feature-final-reviews.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/reviews.json",
+      "bytes": 20593,
+      "sha256": "39d93caddadd22b80e502f554a8ec5cc8385f6b266ca5ef74c7e23aa7f5dc099"
+    },
+    {
+      "retained": "c5-feature-final-scientific_theory.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/scientific_theory.json",
+      "bytes": 2003,
+      "sha256": "444ab1942c3c53810b65051a4785b2d4a4aa1f547dcbbe85703c3664742c832e"
+    },
+    {
+      "retained": "c5-feature-final-scientific_implementation.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/scientific_implementation.json",
+      "bytes": 2718,
+      "sha256": "479daada125d899ca488d6db8db0454badca03b64a45eb24f103cd38d8369e6b"
+    },
+    {
+      "retained": "c5-feature-final-software_architecture.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/software_architecture.json",
+      "bytes": 3921,
+      "sha256": "2653e5f01cd3087a400782bbba1d0908ba94fd0b6c88e87a07dece5f32173c56"
+    },
+    {
+      "retained": "c5-feature-final-performance.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/performance.json",
+      "bytes": 1567,
+      "sha256": "e9fa6a2e398b3009d177f864a07a97a3b47b166a8008e18d273f18a9ec3b80d9"
+    },
+    {
+      "retained": "c5-feature-final-ui_design.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/ui_design.json",
+      "bytes": 1512,
+      "sha256": "a275083c7e7723d651fa4d161c0f6a94a87af11e264c3d0feb43faa2749f383b"
+    },
+    {
+      "retained": "c5-feature-final-ux_design.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/ux_design.json",
+      "bytes": 2276,
+      "sha256": "6ff204ad3ae271f4f140a763bba3491500061ec72ad9bf4af6ff47b466ab9683"
+    },
+    {
+      "retained": "c5-feature-final-modeling_reference.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-ligand-information-sidebar/.issue-11-evidence/issue161-final-review-ebdc43ad/assessments/modeling_reference.json",
+      "bytes": 2341,
+      "sha256": "4a038f9c019c9d98ecee7316361e896938b5dacfd6ae78893aa036aab36029a1"
+    }
+  ],
+  "recorded_utc": "2026-11-27T23:34:20.424060+00:00",
+  "own_index_excluded_from_mapping": true
+}

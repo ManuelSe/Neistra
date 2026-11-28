@@ -1,0 +1,1595 @@
+{
+  "actual_master_summary": {
+    "bytes": 84379,
+    "sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136"
+  },
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "agent_assessments_are_not_human_approvals": true,
+  "all_listed_anonymous_downloads_independently_read_back": true,
+  "all_listed_anonymous_full_bodies_verified": true,
+  "all_seven_feature_agent_verdicts": "PASS",
+  "annotated_tag_object": "684ff95c228ce429b051afdcd67545b7acc23b95",
+  "asset_count": 166,
+  "assets": [
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361336,
+      "bytes": 16314,
+      "name": "c3-candidate5-qualified-checkpoint.json",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-candidate5-qualified-checkpoint.json",
+      "scope": "initial164",
+      "sha256": "742f45343c5f56cc3866a707f45d57b1e0a3fcfd49dfa3b9cb53bdc4926fbf15"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361383,
+      "bytes": 106,
+      "name": "c3-candidate5-qualified-checkpoint.json.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-candidate5-qualified-checkpoint.json.sha256",
+      "scope": "initial164",
+      "sha256": "463cbac6a7e9ed0ef38a874e10f5e035fb347f4a47860ccde1ebd5029f5f6c4c"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361196,
+      "bytes": 796326,
+      "name": "c3-candidate5-qualified-evidence.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-candidate5-qualified-evidence.zip",
+      "scope": "initial164",
+      "sha256": "3633e24e35d03210cfd0b63f204588ed283bf886d410a57b3868135ee22013ed"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361270,
+      "bytes": 103,
+      "name": "c3-candidate5-qualified-evidence.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-candidate5-qualified-evidence.zip.sha256",
+      "scope": "initial164",
+      "sha256": "d8c851fb465603fbd0ac8ac46ee5df00ae26dcbfc55823dc7caa8d32e7c95620"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802331670,
+      "bytes": 75661091,
+      "name": "c3-modal-reflow-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "e3fdc4faaaef86e5259be425277dfabf56cc2937cb2feb06fe4c97dbf3d2773f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802329855,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "3a7b32e6bd0a82ab02ca429abbbb83b1bbd9de5e75a592f8848058312b9da949"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802332225,
+      "bytes": 48941682,
+      "name": "c3-modal-reflow-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "7366be2a9b4aa4242122668650362ad2f5ff71c385708207ccca36c34339aa7b"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802332525,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "25c27ef45f0fbcaf46a791bfeb7f9e1fd5e4a20b7572c87b7748d6f09307a3f7"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802332616,
+      "bytes": 47582073,
+      "name": "c3-modal-reflow-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "9f994a2848e73e208f1eb9a5469eb82a0d4a24b49df34f30c85f19171413a3c6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802332930,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "2f5bafa786e4767af18bb40dbc38500c7896f1754459884caaaddf17bed7914f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802332982,
+      "bytes": 50023938,
+      "name": "c3-modal-reflow-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "5b380f9866e66db816f9f3e78afe4ec7963ac6df8edc42c8d139493ab46295e5"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333240,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "7425a7857b1686915f94594e9af37c06c18909302927cb49226c4f3dac852506"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333275,
+      "bytes": 51531278,
+      "name": "c3-modal-reflow-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "945cb0ef822586bf6d1c57fbd87dc1d65dfd52004585c826161bb39b92cbb538"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333605,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "32b5a31817ca6fac6b784f9da7ad6e596343b19186ddbe301713a2481bbfb893"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333635,
+      "bytes": 51035275,
+      "name": "c3-modal-reflow-forensics-06.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-06.zip",
+      "scope": "initial164",
+      "sha256": "1c65e0ecf74e1c6979ae183a066a7b3dfcc8c9f5f6ca6d72d4741abad406b577"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333907,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-06.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-06.zip.sha256",
+      "scope": "initial164",
+      "sha256": "eafd561cc555b64922309fece485d70cdafebb900efd403a33a36b357aca4c4e"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802333963,
+      "bytes": 51210973,
+      "name": "c3-modal-reflow-forensics-07.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-07.zip",
+      "scope": "initial164",
+      "sha256": "54f6330f54918fc7ff0e7dff1e5c228f472bd9435736ef45eebdd011d0289454"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802334273,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-07.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-07.zip.sha256",
+      "scope": "initial164",
+      "sha256": "2c5d630a4f0349cb0efb3271fed30f50ccdabfd58e51100320d2dc2e802f8fc2"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802334308,
+      "bytes": 53455189,
+      "name": "c3-modal-reflow-forensics-08.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-08.zip",
+      "scope": "initial164",
+      "sha256": "4addf5514bbc523781c48b9dbba4416d7bdfc591a0db7568e31acecd08455650"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802334663,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-08.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-08.zip.sha256",
+      "scope": "initial164",
+      "sha256": "3676ab70f2ecd1174467cba58bea8a352df513215ee3b3c6ace30acc2c864379"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802334747,
+      "bytes": 53639508,
+      "name": "c3-modal-reflow-forensics-09.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-09.zip",
+      "scope": "initial164",
+      "sha256": "c023d0b976522bd7fa44a44c18fd5c2eb54b261c4635576865cf9e0a60241ff7"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335077,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-09.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-09.zip.sha256",
+      "scope": "initial164",
+      "sha256": "28dd23e518e07c9e8b47cc4ad887dfd0ef2a361772a715e74480016981577386"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335131,
+      "bytes": 47373015,
+      "name": "c3-modal-reflow-forensics-10.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-10.zip",
+      "scope": "initial164",
+      "sha256": "23f2abca7eea2c78a6edb8bc2c3d4d3300f6958dbac812d6c39d49a6a48e21b3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335444,
+      "bytes": 99,
+      "name": "c3-modal-reflow-forensics-10.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-modal-reflow-forensics-10.zip.sha256",
+      "scope": "initial164",
+      "sha256": "ce97ef82f8dccb1415f3f326916385cad93f7506fdfa62d27b2e018fe2c8fc2b"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335513,
+      "bytes": 24417223,
+      "name": "c3-reading-recovery-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "fe5ee494b743306a79d0505ae6e8d04b4ab013030cbe92ece8eb7f8a994ab854"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335730,
+      "bytes": 103,
+      "name": "c3-reading-recovery-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "89fe3c483da98062315340577a831af34279201c381ebf144a54c4faa25a7802"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802335824,
+      "bytes": 25100118,
+      "name": "c3-reading-recovery-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "1d4d0b673b30344cdc86913e9224bca4f7f6ec38e944da12bce98f1425e2c3ba"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336089,
+      "bytes": 103,
+      "name": "c3-reading-recovery-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "ed4917af9ad6d94293e3a463467c866f2810a9bb501fe978d198d31550554607"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336153,
+      "bytes": 51407302,
+      "name": "c3-reading-recovery-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "f5588e95af1bffd6fa4fd8013d4a3599f42696b937939c72c81cef8c7e555038"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336534,
+      "bytes": 103,
+      "name": "c3-reading-recovery-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "8326ba69382f466d488650ac072a68345b44bfe5f1a0300a2bbcfc2922071dea"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336602,
+      "bytes": 51236914,
+      "name": "c3-reading-recovery-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "acafbf3379b794f6cf2c797f435172f872f8f182814e8f175b6290bfea2d5a3a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336940,
+      "bytes": 103,
+      "name": "c3-reading-recovery-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "2b6c2f84aeab8545fd6003fd297679e10c4ce5387bb15d73b2865e58370892cd"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802336999,
+      "bytes": 48362422,
+      "name": "c3-reading-recovery-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "57df4925927ca52a77aa64a03f8b031c333f7c7ea1c99df021d41e4bd5b95b2f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802337313,
+      "bytes": 103,
+      "name": "c3-reading-recovery-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-recovery-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "830ad467fa019f34157d946fb171d4b82adce959170b2a630a123cd4e2ce506d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802337382,
+      "bytes": 61040357,
+      "name": "c3-reading-zoom-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-zoom-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "9d1a86909376152afb0c079b4270835b034d738635990c8cc7c4484393a13b31"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802337680,
+      "bytes": 99,
+      "name": "c3-reading-zoom-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-zoom-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "7f62830955a491ec1699a54ba316af549c8952aeedb3d8b57a7f9bad39664810"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802337734,
+      "bytes": 47558333,
+      "name": "c3-reading-zoom-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-zoom-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "298fcb59c2ec1f3c15218201b15721c8543e3102bb27d80d9e81b36e10fb8b5c"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802338030,
+      "bytes": 99,
+      "name": "c3-reading-zoom-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-reading-zoom-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "c1bf0423fb2efb343d8e47b70c3c96fd73b6de1f8b864a0f881468f8de60f940"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802338103,
+      "bytes": 72208044,
+      "name": "c3-sidebar50-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-sidebar50-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "e0dc4e38821ca8f5af166a76ba86d6f5d30acc1685ed7c0d6785dc1bf49bde89"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802338565,
+      "bytes": 96,
+      "name": "c3-sidebar50-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c3-sidebar50-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "42f8b1c2f4e360e5ffbfe3b5defce16d8bd97ae2fb9b3be6791bad5841903c88"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802338638,
+      "bytes": 62947167,
+      "name": "c4-candidate1-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "476f42ac38122f1130e71a44c944f7db3a42f40f0d1a6ff57cf98175e36e161b"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802339008,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "4be32bb28da8e6ec48bbafefea2d6670954d9935c4b161c3c79b75013328dfa6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802339042,
+      "bytes": 81355280,
+      "name": "c4-candidate1-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "05a0d3f0f0a36039934c60d05306692a7dc9d6219a38e3e6667ac8d5a8c562c6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802339428,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "1ed827d70d6770e2b6726e2a1db7d11f48ce3716b95c79b7660796e3c0dba6ca"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802339495,
+      "bytes": 82004981,
+      "name": "c4-candidate1-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "0b7d5bf50258cfd6e7e0932a3c928b8d294ff7643dcc401b8c1aaca2ec5b4a50"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802339953,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "f4f5ffa46d2243beebabcd4e172b5ef53277a1cb8fdf997008c99b8728c0e947"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802340045,
+      "bytes": 82098093,
+      "name": "c4-candidate1-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "cd94a2430740a4d3f9d1fd55a5755b2d64593dec406fce3effb9a25829a72b01"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802340404,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "03247017f6b0c9a56af7850628db326801a2a2362439d587dc82318391a13a07"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802340486,
+      "bytes": 81983785,
+      "name": "c4-candidate1-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "00fdde9b8ff0121c542cf6fbdeef2e749b96fcba10130f625a5c4d70149cb533"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802340823,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "89d2862e169b4a6414aca45312ed5ec89e32ea77dd622ba109e010f2a03b6ccb"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802340929,
+      "bytes": 82047842,
+      "name": "c4-candidate1-forensics-06.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-06.zip",
+      "scope": "initial164",
+      "sha256": "a4412348868466c6e650461d740d63431be6c12f2e30d80e7c66bc341d8d101a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802341453,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-06.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-06.zip.sha256",
+      "scope": "initial164",
+      "sha256": "9b1241f3720c8ac614d12653ffbd6e745057cf4db924b8329a5937e5277aec49"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802341500,
+      "bytes": 82051562,
+      "name": "c4-candidate1-forensics-07.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-07.zip",
+      "scope": "initial164",
+      "sha256": "4d3bb293102c3b3104d8b1c3492eb90ff2f0905ad31b8a7465c1f862a2bd96e6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802341920,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-07.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-07.zip.sha256",
+      "scope": "initial164",
+      "sha256": "11d4e943c86d3b4a65e511d6286491114d2ca6fbb3b38dd3696bdeefeaea4b0a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802341968,
+      "bytes": 81961140,
+      "name": "c4-candidate1-forensics-08.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-08.zip",
+      "scope": "initial164",
+      "sha256": "d433a1b0133fb6a4bb70392a30b5e7a3cb9d8e25e942d537e3c549483fdf5f89"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802342448,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-08.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-08.zip.sha256",
+      "scope": "initial164",
+      "sha256": "d79adc43d34046f8ab9bb005a6e5be9e9f82f185b6b749a3923b80663bcd86e3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802342503,
+      "bytes": 82058788,
+      "name": "c4-candidate1-forensics-09.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-09.zip",
+      "scope": "initial164",
+      "sha256": "e46b1d94be0ebbe061197ddb6b417fb21bb44906d5a105c159610e3e5297ada4"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802342945,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-09.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-09.zip.sha256",
+      "scope": "initial164",
+      "sha256": "75ee5228390a82f9c76b4f202b6fcf2cd5e492c4b3e1078ea61a995b495c08b0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802343017,
+      "bytes": 56903121,
+      "name": "c4-candidate1-forensics-10.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-10.zip",
+      "scope": "initial164",
+      "sha256": "22f6acb53060d04488a5849641268ce13fc3e52f88d157f2962e9ce6939f819b"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802343515,
+      "bytes": 97,
+      "name": "c4-candidate1-forensics-10.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate1-forensics-10.zip.sha256",
+      "scope": "initial164",
+      "sha256": "613dc7b704d3039c10e56d2d31fd43a00afacd0c78fe6c34410513b8f046bfc7"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802343605,
+      "bytes": 64626745,
+      "name": "c4-candidate2-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "f93299a34ad66fa40cc614e43c20481bc1885c75631c3424ba5d143d268962be"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802344077,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "890088cbf1187e64c49f0fb7c263c41956a96971b8deb3428325c65baec57284"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802344160,
+      "bytes": 81099073,
+      "name": "c4-candidate2-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "1b39206376e9adbe4b142c4689a447a0c4da29b8cb291197c64af06356f84a46"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802344759,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "f614a9d12dc1fbd89fc461fda92623fc0c4282abf343213da8159107932b8922"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802344830,
+      "bytes": 81987840,
+      "name": "c4-candidate2-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "384057075caeb6c2a8b9f341f79da21ec6f4e00a4a46bfd4b8858bf04dc1e77e"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802345307,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "8214da0bb9a824f120567150fa0d3e99ddda377a1a01137cb0bb092791f3d589"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802345409,
+      "bytes": 82072549,
+      "name": "c4-candidate2-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "79d7cf2594ccd244a670f18ff3a976554fd07afc0eda2b5810db99e0ccd1e424"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802345869,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "47538b32a2f9e6187c3bedecb5883596a896f046d541eb2203054aff505c5e13"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802345935,
+      "bytes": 82010668,
+      "name": "c4-candidate2-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "5de253a79ddacf53e67f2fa45a4d47ba503a347fbe40d0897c41551dfb9bd129"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802346467,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "1c5eb949f9c5bc098b0e47731b5152f7384d1befb7f689e90471d3452cde5dcb"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802346531,
+      "bytes": 82026669,
+      "name": "c4-candidate2-forensics-06.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-06.zip",
+      "scope": "initial164",
+      "sha256": "68bdcc8587b5987d43bc6d49f900883701efb3037e795e02c20fa501c9443914"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802346952,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-06.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-06.zip.sha256",
+      "scope": "initial164",
+      "sha256": "49878156d2772900aebdcecad537911b067cf995721d7b51884a51d0994d570c"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802347043,
+      "bytes": 82085174,
+      "name": "c4-candidate2-forensics-07.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-07.zip",
+      "scope": "initial164",
+      "sha256": "c7664e46472b644cb4120203c7b3aff55b913e33cce6bb600f0c2c7202a48e5a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802347505,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-07.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-07.zip.sha256",
+      "scope": "initial164",
+      "sha256": "8c42c24f1e008be75a41e6929b58fcb68e0dd41f68709773ba267f791bbab9a0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802347593,
+      "bytes": 82043629,
+      "name": "c4-candidate2-forensics-08.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-08.zip",
+      "scope": "initial164",
+      "sha256": "e0fe4f83adace90e4b81abcaa902ee3ba3827e03dd36114b8f30cd8de68878f5"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802348012,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-08.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-08.zip.sha256",
+      "scope": "initial164",
+      "sha256": "abe6b31503cbcd06fe188099654df8df944e3ad720560b83b51e8c3047746bc3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802348102,
+      "bytes": 82119483,
+      "name": "c4-candidate2-forensics-09.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-09.zip",
+      "scope": "initial164",
+      "sha256": "98d1a5691edb1621282a874e19bb7b3f0f84b2f107556923f7dda666c8cd0535"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802348718,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-09.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-09.zip.sha256",
+      "scope": "initial164",
+      "sha256": "e62b17b31f6258bcc0ec7a27f15081b1b448a416093de18f9db63f7fe4e60124"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802348795,
+      "bytes": 82033155,
+      "name": "c4-candidate2-forensics-10.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-10.zip",
+      "scope": "initial164",
+      "sha256": "b6779d39d69c4aceb94bcb8307e52b52dd6908da067b6167d970d3a06881c41f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349112,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-10.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-10.zip.sha256",
+      "scope": "initial164",
+      "sha256": "b838d9bcf21226a896fed9f5c2a6091c65daaea7f5051b6050b520f702d53bc0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349188,
+      "bytes": 81501642,
+      "name": "c4-candidate2-forensics-11.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-11.zip",
+      "scope": "initial164",
+      "sha256": "d9d0b0a4a246c33bace4b4e1d539ab537f59ac73b4ed680a92ed8beea1091f85"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349490,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-11.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-11.zip.sha256",
+      "scope": "initial164",
+      "sha256": "13d57dcf70a4129fd1913a71eef57c171260bcd0ed3b3357595c4294d367e085"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349549,
+      "bytes": 4574565,
+      "name": "c4-candidate2-forensics-12.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-12.zip",
+      "scope": "initial164",
+      "sha256": "d7f2604e55a6bdfb913d41ea5a5c07ae7fc1f38d2eba43dcbfebcfd2ee31a385"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349640,
+      "bytes": 97,
+      "name": "c4-candidate2-forensics-12.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate2-forensics-12.zip.sha256",
+      "scope": "initial164",
+      "sha256": "f25f66d986b444af9290d3239152a4c79a13a48a7a318f45bc41c8de5ab82f7f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802349700,
+      "bytes": 82503169,
+      "name": "c4-candidate3-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "8c2b1d1ce7e311126cef69068880abe56ed8fb9164b67d7ac48ed5ac86bf8029"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802350095,
+      "bytes": 97,
+      "name": "c4-candidate3-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "8449ebc2e76f2cb516e65dcfe0402fcd5adf07ffccc073337642fb7b690b55ef"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802350143,
+      "bytes": 82386685,
+      "name": "c4-candidate3-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "41c428bdc450670a06dea80f87c6335b68504643772a355c769f8fb0cdf2a056"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802350597,
+      "bytes": 97,
+      "name": "c4-candidate3-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "ac340e28c02be226f28894f0880221439bed85d124200f3235e9ca469251a539"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802350673,
+      "bytes": 78022080,
+      "name": "c4-candidate3-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "c30892a836c11da71ad15aed9c79d7a6b4927692bc59638aa155aedab5c8ccbd"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351157,
+      "bytes": 97,
+      "name": "c4-candidate3-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "19967fd606314b33fbbb817ebc9799367f70b8f65baf1090531a16aebed324c6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351197,
+      "bytes": 44777185,
+      "name": "c4-candidate3-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "a6e961ec368c55a8c8d312e6c65ce0dc11cd98559c52338512daf57a33359156"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351429,
+      "bytes": 97,
+      "name": "c4-candidate3-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "4db16a1543a8dafe5303db3dac73526846e99c5d5488541ff35db83140aca7bc"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351504,
+      "bytes": 9149,
+      "name": "c4-candidate3-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "3af9f3fc2398faa77d73e5ba72b243176091eee3efa00b2da4e0f8b625af7614"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351645,
+      "bytes": 97,
+      "name": "c4-candidate3-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate3-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "635940e7e9bf36de1c8fc34ec1fc5977229f847fadda138fcdddad767c9ac9d8"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802351720,
+      "bytes": 70316280,
+      "name": "c4-candidate4-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "2b551b5b096416811a1472cfddbaf99bc6720c082a1cf4deab0f949c28f6f25d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802352148,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "95df7fa61881280722b52ded7e46d7f6c7c25d2bb85f1b7f9217e04988450743"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802352221,
+      "bytes": 59594079,
+      "name": "c4-candidate4-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "3881389e976df422ea05fd49b98f5383832f5e12ff04d21857a48fec5c7fda4b"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802352725,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "009e0cae01d68d80e20965fb2c6cacd0bc03df6747537312716310be2b24d70e"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802352838,
+      "bytes": 82417932,
+      "name": "c4-candidate4-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "686298ade4594748e4446dda093ef41902639980419383e80d0915f209a2d8ba"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802353388,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "d0364074a6a393913b2af6b25806047e7323089942fd066e76766712bdea50b8"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802353445,
+      "bytes": 79222609,
+      "name": "c4-candidate4-forensics-04.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-04.zip",
+      "scope": "initial164",
+      "sha256": "260e1a1a4ee530983be555cac2439cfa6a33cdb838be14b07919f0c77c63694a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802353929,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-04.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-04.zip.sha256",
+      "scope": "initial164",
+      "sha256": "9730a571b39120fb44e6414db3e1ae8e20c36c5325ac6bdbdf34c74664e81be3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354025,
+      "bytes": 35558538,
+      "name": "c4-candidate4-forensics-05.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-05.zip",
+      "scope": "initial164",
+      "sha256": "95a24c3385a8278ffb482165755b7d52ec8ab3c0cbcb84579896e735c91fef6c"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354286,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-05.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-05.zip.sha256",
+      "scope": "initial164",
+      "sha256": "9f113ff8da99bd65960eb1cf7a34f418e3acf4403865c46338981c0da39bc97e"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354360,
+      "bytes": 36636,
+      "name": "c4-candidate4-forensics-06.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-06.zip",
+      "scope": "initial164",
+      "sha256": "34d854d499a3d09fee6d7ea4fb502c9fe4e947df3e9d0d54d4d779e2528ac8ea"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354419,
+      "bytes": 97,
+      "name": "c4-candidate4-forensics-06.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate4-forensics-06.zip.sha256",
+      "scope": "initial164",
+      "sha256": "56cf4a0a6230a12929c8a58b6b436fd1f0a280d046bd04e0f271dc135be9cc75"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358410,
+      "bytes": 9124383,
+      "name": "c4-candidate5-case-companions-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-case-companions-01.zip",
+      "scope": "initial164",
+      "sha256": "f242f16c2b2317627de7f19b5f7ea0bdca73bdc86e568f286ddf153f31e2f7d8"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358553,
+      "bytes": 103,
+      "name": "c4-candidate5-case-companions-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-case-companions-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "753c6a834111cb77825850541b10e3d83c0e1f250e02233e23d54e227aa249e3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358616,
+      "bytes": 83382495,
+      "name": "c4-candidate5-qualified-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-01.zip",
+      "scope": "initial164",
+      "sha256": "ec05e02a762ca83e83596027c544f9659e8c0897c6bb7d9077300c16f640dedd"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802359026,
+      "bytes": 97,
+      "name": "c4-candidate5-qualified-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "8f863cade7a8f7be06572cb1bc70bbffd4785dd6140aaca32adb82a39926fb33"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802359101,
+      "bytes": 69767083,
+      "name": "c4-candidate5-qualified-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-02.zip",
+      "scope": "initial164",
+      "sha256": "12099a33043560a8f31d378bc75578b5d9c50f9bfc80f43717de27ec15e543ba"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802359674,
+      "bytes": 97,
+      "name": "c4-candidate5-qualified-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "7cd5892a5807119d1ddc55e9479cbc72f87128c6069fabdc0e3c0433f1bd7537"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802359772,
+      "bytes": 27023445,
+      "name": "c4-candidate5-qualified-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-03.zip",
+      "scope": "initial164",
+      "sha256": "cf612c9d8e4cee86fc7987c020f41609988ec700c1fdfaafdb7270a87cbb4104"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802360067,
+      "bytes": 97,
+      "name": "c4-candidate5-qualified-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-qualified-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "cdc8d9207d163a1899a1b1a3493d9d5b3b3952608591562a7cca396ebfe6c220"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802360175,
+      "bytes": 77769396,
+      "name": "c4-candidate5-retained-state-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-01.zip",
+      "scope": "initial164",
+      "sha256": "c4e6821ccda475f62f64d54460934983aef489fcb938a237844b5c23f3ca0129"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802360615,
+      "bytes": 102,
+      "name": "c4-candidate5-retained-state-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "ab66ebfec70d4b0accf263386d07b9d437397a9c2da46223922c239c725ab64a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802360673,
+      "bytes": 46296516,
+      "name": "c4-candidate5-retained-state-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-02.zip",
+      "scope": "initial164",
+      "sha256": "3ca9442a754b3e61be95b24958453e71664de381f1922b1536654735c243d148"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802360951,
+      "bytes": 102,
+      "name": "c4-candidate5-retained-state-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "919af58c44f58aee7eff38003fe6e26786f02211b39839b171734ec9ced29d7d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361037,
+      "bytes": 54845,
+      "name": "c4-candidate5-retained-state-authority-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-authority-01.zip",
+      "scope": "initial164",
+      "sha256": "4f776e1455b25a2021bb72cf2a00533686b13cb6fc74c8ffa7f10b5057d1e277"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361102,
+      "bytes": 112,
+      "name": "c4-candidate5-retained-state-authority-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-candidate5-retained-state-authority-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "28168e8838739552436142254b1ad403c9c30e3d44d649cc7ccff4568a2e7b29"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354488,
+      "bytes": 81950129,
+      "name": "c4-connected-reading-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "13ad2a1c055d83f3b11ff3302138e2b68ddefcaa1986d323ac91e22ac5b83153"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354898,
+      "bytes": 104,
+      "name": "c4-connected-reading-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "757f7d9325ef266d8dbd5ca82a3ff303b249efb97b4dcee033df0bb1520522b5"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802354961,
+      "bytes": 63848993,
+      "name": "c4-connected-reading-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "91231cc287e84a0133e0b8f8d89236aeabd2766acae280fff549035631e26796"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802355330,
+      "bytes": 104,
+      "name": "c4-connected-reading-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "c052000ede38fddc0c25e03c18364069c3eed150abf611ddc71c561dbc8989f2"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802355409,
+      "bytes": 48718641,
+      "name": "c4-connected-reading-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "053ac1db5c7b8d0804a3ab0c6462c7779a6b78965ce9f20fb86894430439bc05"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802355655,
+      "bytes": 104,
+      "name": "c4-connected-reading-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-connected-reading-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "680c2fa5d9a706ad06ad41a7e46b1793dcc162bdb2bb6db2796f30ad186f87f0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361456,
+      "bytes": 9237201,
+      "name": "c4-master1-case-companions-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-case-companions-01.zip",
+      "scope": "initial164",
+      "sha256": "708b9e98577900b5803e2bfd81f59b1bb24672b7f9bfc652e644bd6179153fc0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361573,
+      "bytes": 100,
+      "name": "c4-master1-case-companions-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-case-companions-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "de97cd89e9dd4db6acd7584b3f63c78a3b3874bd5c4922df1d2aabad5e16c02d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361654,
+      "bytes": 165142,
+      "name": "c4-master1-deployment-preparation-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-deployment-preparation-01.zip",
+      "scope": "initial164",
+      "sha256": "ac207f9772b80026ef93b0681c768eaf6fe73b22113aed0200f8f4c361340649"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361718,
+      "bytes": 107,
+      "name": "c4-master1-deployment-preparation-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-deployment-preparation-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "e3536b51a4cc76c4d9cc18b1841e16f81d993b6c06dcb44717e7c35355bad0f0"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802361786,
+      "bytes": 83452387,
+      "name": "c4-master1-qualified-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-01.zip",
+      "scope": "initial164",
+      "sha256": "8d7caa062a113bdd35941dca0b906710afac797133b0b64fef5a4a62d5f0a1bc"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802362193,
+      "bytes": 94,
+      "name": "c4-master1-qualified-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "7cd30b1ee8c0b6ea7de6da47efe0f471054ad37e8dbf34467d09811cdc1cadea"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802362251,
+      "bytes": 69872156,
+      "name": "c4-master1-qualified-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-02.zip",
+      "scope": "initial164",
+      "sha256": "36a3289e0a09fedd313ec64b903e5ff39300623782adf120fc800f74deba654c"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802362590,
+      "bytes": 94,
+      "name": "c4-master1-qualified-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "42f3f535c6109ca42ae00c19557ada7f3ee5791df81a25993c4edc211ee37482"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802362671,
+      "bytes": 27023823,
+      "name": "c4-master1-qualified-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-03.zip",
+      "scope": "initial164",
+      "sha256": "c12b954b19bfbc549e56b7bbdb61651df2e748bf3a60f0576055ef2d2ff62ece"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802362922,
+      "bytes": 94,
+      "name": "c4-master1-qualified-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-qualified-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "9280a0dc4428738acb71e57650d4f86e9d9091c8bc1fdd6752449bf18d0ae442"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802363023,
+      "bytes": 74911344,
+      "name": "c4-master1-retained-state-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-01.zip",
+      "scope": "initial164",
+      "sha256": "9857562f4ecac6f49fc44440dc0dae0f255629844caba9befec85490840d01f7"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802363492,
+      "bytes": 99,
+      "name": "c4-master1-retained-state-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "3ee85fea2a624d07d692347ead63b3ecaa0fe28af5e1d78ad1f421eefb7bf333"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802363549,
+      "bytes": 49345195,
+      "name": "c4-master1-retained-state-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-02.zip",
+      "scope": "initial164",
+      "sha256": "15b47b7ccc4ad64c32ca8185fffe7d4677e5643842f33725dd38cc2d4bbc5aa7"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802363926,
+      "bytes": 99,
+      "name": "c4-master1-retained-state-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "dea297ab807eefa72832b366573edf13d4120037b4c37e0b996d29c51ecc721d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364031,
+      "bytes": 62138,
+      "name": "c4-master1-retained-state-authority-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-authority-01.zip",
+      "scope": "initial164",
+      "sha256": "7db6f3f36e261dfb0b8620b4e92b4fd8ceea289b71187226f89b8cb0a7dceff5"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364150,
+      "bytes": 109,
+      "name": "c4-master1-retained-state-authority-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-master1-retained-state-authority-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "e453acab694ee880d48c8e79abd980d728a4653885ab3ff913fa488469148476"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802355711,
+      "bytes": 80587683,
+      "name": "c4-mobile-reopen-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-mobile-reopen-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "825fc5e8d18a36b519b22484052e0f5510408c11d7d7145ecfae726ed125a769"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356079,
+      "bytes": 100,
+      "name": "c4-mobile-reopen-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-mobile-reopen-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "b4d9f6a7eab04e1622d60bcb822c76bab3ae10412d801b9e755982749c4f2e04"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356120,
+      "bytes": 66735668,
+      "name": "c4-performance-presentation-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-performance-presentation-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "1fba8e2f21e8edbaf8d940547f6ac6fb334cce4934c7d89632fce5f90363a57d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356374,
+      "bytes": 111,
+      "name": "c4-performance-presentation-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-performance-presentation-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "3db519322e18ab2502fdd126286d2675a405418ee74156e443e0b04cc376dbf6"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356467,
+      "bytes": 51538000,
+      "name": "c4-profile-access-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-profile-access-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "f6d1570f17e5e26048f2c009de44e73c2cd9923a4c81efac1221e74d4ad0d875"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356878,
+      "bytes": 101,
+      "name": "c4-profile-access-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-profile-access-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "b0854aaac4a884a77ffcadc1b694169dfcb9c2814529bdce88a939b345fecb52"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802356980,
+      "bytes": 53674499,
+      "name": "c4-reading-performance-forensics-01.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-01.zip",
+      "scope": "initial164",
+      "sha256": "67172f90572b807f42e8960a229343b0b521adac40a7d7267f12f07b3e297830"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802357388,
+      "bytes": 106,
+      "name": "c4-reading-performance-forensics-01.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-01.zip.sha256",
+      "scope": "initial164",
+      "sha256": "da188aa1622e37cd5b280639987ade8e9efbf666773e9aac80f47131e7eb41cd"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802357439,
+      "bytes": 63070473,
+      "name": "c4-reading-performance-forensics-02.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-02.zip",
+      "scope": "initial164",
+      "sha256": "f18116452c0a53b8abe429a97c014707f0deb32668503fe67832934e5b5015cb"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802357811,
+      "bytes": 106,
+      "name": "c4-reading-performance-forensics-02.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-02.zip.sha256",
+      "scope": "initial164",
+      "sha256": "36b1a4591d075e2c07360283f1ffa0de2608d536d78c919260e1f4bfa97ce083"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802357864,
+      "bytes": 61092881,
+      "name": "c4-reading-performance-forensics-03.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-03.zip",
+      "scope": "initial164",
+      "sha256": "a845e9cfccd03da24e99b9aa71ab63b7172004dfb72a59bfaf3d820f17ae8044"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358152,
+      "bytes": 106,
+      "name": "c4-reading-performance-forensics-03.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/c4-reading-performance-forensics-03.zip.sha256",
+      "scope": "initial164",
+      "sha256": "1fe07df179df85eab89b96f2a0104afb110d5c3566622857f945fc8362a2f819"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358222,
+      "bytes": 135263,
+      "name": "issue161-c4-candidate4-forensic-completion.json",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/issue161-c4-candidate4-forensic-completion.json",
+      "scope": "initial164",
+      "sha256": "153c6997ac47b118ce11639cb543a9af84816a73657a305048175a38cb6652b5"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802358300,
+      "bytes": 114,
+      "name": "issue161-c4-candidate4-forensic-completion.json.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/issue161-c4-candidate4-forensic-completion.json.sha256",
+      "scope": "initial164",
+      "sha256": "0e1b46d5db9f6b63137f2e9d64db53a3d5ee5b05e362fc48cd3d26c43ad2cead"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364226,
+      "bytes": 24926991,
+      "name": "neistra-v0.39.0-master-completion.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-master-completion.zip",
+      "scope": "initial164",
+      "sha256": "18432596f655d350e5a89f5efbd4d4e5455749e9d85d274da23ce2b14bbc5a0f"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364519,
+      "bytes": 112756,
+      "name": "neistra-v0.39.0-master-completion.zip.completion.json",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-master-completion.zip.completion.json",
+      "scope": "initial164",
+      "sha256": "6f8c573557ceeb78203f66c64eb363cc81df96b644ecc1c4b35132c507ab9c78"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364617,
+      "bytes": 120,
+      "name": "neistra-v0.39.0-master-completion.zip.completion.json.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-master-completion.zip.completion.json.sha256",
+      "scope": "initial164",
+      "sha256": "f986b379fb2c6275949ed826a5030331622997f4e0445baf7d08f86b7e19f48a"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364429,
+      "bytes": 104,
+      "name": "neistra-v0.39.0-master-completion.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-master-completion.zip.sha256",
+      "scope": "initial164",
+      "sha256": "3358e707bac41545593800845695aa84960afde562eb8412af28eb9fc8c956eb"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802493323,
+      "bytes": 1052568,
+      "name": "neistra-v0.39.0-publication-evidence.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-publication-evidence.zip",
+      "scope": "publication-companion",
+      "sha256": "9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802493434,
+      "bytes": 107,
+      "name": "neistra-v0.39.0-publication-evidence.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-publication-evidence.zip.sha256",
+      "scope": "publication-companion",
+      "sha256": "7669634df1af5b57cc2e6785ae8e4ee7c2be64daad74b9d1ecb05428f2dc8db1"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802364713,
+      "bytes": 595740732,
+      "name": "neistra-v0.39.0-qualification.zip",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-qualification.zip",
+      "scope": "initial164",
+      "sha256": "d9b2cc17dcda82e6e747818650b25b17e0ccfeec16eab8f720fef8f3288e521d"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802367056,
+      "bytes": 16401,
+      "name": "neistra-v0.39.0-qualification.zip.package.json",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-qualification.zip.package.json",
+      "scope": "initial164",
+      "sha256": "caf19edad32ce26159b0a6dab2c8c780e3b620e3c1bdcbc9ffc086b1498c1d3e"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802367131,
+      "bytes": 113,
+      "name": "neistra-v0.39.0-qualification.zip.package.json.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-qualification.zip.package.json.sha256",
+      "scope": "initial164",
+      "sha256": "0e971b51f6624322b76fd10567b81d64023b0c39ae010949ad0aff15342affa3"
+    },
+    {
+      "anonymous_HTTP200_full_body_verified": true,
+      "asset_id": 802366979,
+      "bytes": 100,
+      "name": "neistra-v0.39.0-qualification.zip.sha256",
+      "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-qualification.zip.sha256",
+      "scope": "initial164",
+      "sha256": "e14e7dbe6db0712e2a215992e712abe8d8907133f232cf53a4586e13b79258ed"
+    }
+  ],
+  "both_full43_qualification_gates_pass": true,
+  "companion_independent_publication_readback": {
+    "bytes": 2734,
+    "sha256": "7a072267832f28d3e8a287f7a357055c359c711ee1a4b830b93a84dc3c460ea6"
+  },
+  "complete_tree": "bef6fb4e2dcaa6f868b019291d2fc0c1c2103486",
+  "draft": false,
+  "each_gate": {
+    "DATA_bodies": 6,
+    "browser_pass": 641,
+    "failures_flakes_retries": 0,
+    "frontend_pass": 2090,
+    "python_pass": 4266,
+    "python_skips": 0,
+    "selected_sources": 1222,
+    "supervisor_pass": 14,
+    "unchanged_exclusions": 75
+  },
+  "exclusions_including_153_164_165_unchanged": true,
+  "failed_histories_remain_failed": true,
+  "feature_review_receipt": {
+    "bytes": 20593,
+    "sha256": "39d93caddadd22b80e502f554a8ec5cc8385f6b266ca5ef74c7e23aa7f5dc099"
+  },
+  "initial164_independent_assessment": {
+    "bytes": 3340,
+    "sha256": "d7fb2b756c6f6ee4e352ea642afd8671882147fdba322a4499374e93cbb70488"
+  },
+  "initial164_public_aggregate": {
+    "bytes": 125754,
+    "sha256": "3b98843f0d819b28d782f8bad690c5bc76d3bd11239c3f045f82368922049019"
+  },
+  "initial164_remote_asset_identities_unchanged": true,
+  "master_database_sets": 78,
+  "master_parts_bytes": 314069386,
+  "master_raw_bytes_each_side": 106218488,
+  "master_raw_pairs": 134,
+  "master_retained_parts": 8,
+  "own_final_documentation_merge_issue_cleanup_and_receipt_hash_not_embedded": true,
+  "parent11_remains_open": true,
+  "portable_limits": {
+    "actual_comparisons": 410,
+    "actual_master_diagnostic_misses": 142,
+    "all_four_bulk_readiness_over_5seconds": true,
+    "candidate_misses": 143,
+    "primary_only_RSS_browser_GPU_simultaneous_total_memory": "Unavailable",
+    "strict_host_speedup_regression_cause_physical_device_screen_reader_certification": false,
+    "synthetic_policy_examples_separate": 4
+  },
+  "prerelease": false,
+  "publication_companion_capture": {
+    "bytes": 728,
+    "sha256": "b51e4c3e0253b63fdd5c8b1db97052a27900f625473b5dd25c1cf0e938c66858"
+  },
+  "publication_companion_output_assessment": {
+    "bytes": 2999,
+    "sha256": "d928be18b11ac90eb0f33760061db5ce5c2d1795b1385eb36601dee58790d729"
+  },
+  "publication_companion_publication": {
+    "bytes": 1766,
+    "sha256": "d9acdcf16f272a51ce99f2cb37954d20ddc4ef94828613b2c5829737941a2615"
+  },
+  "published_at": "2026-11-27T23:07:07Z",
+  "qualified_runtime": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "qualified_source_digest": "2ad3390710908a6d0c40b7e1076e652175b525171f28e57a21bf04ab5e6cbef7",
+  "recorded_utc": "2026-11-27T23:55:24.943639+00:00",
+  "release_id": 461129059,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.39.0",
+  "remaining_required_children": [
+    162,
+    163
+  ],
+  "requested_automated_PR_review_returned_no_assessment": true,
+  "reviewed_feature": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "scope": "Verified runtime qualification/publication and166 initial plus finite-companion evidence assets. Terminal documentation review/merge, child issue closeout and owned cleanup are pending; their later receipts remain external.",
+  "storage": {
+    "API_version": 1,
+    "archives_do_not_include_command_history": true,
+    "database_head": "0017",
+    "dependencies_and_scientific_methods_unchanged": true,
+    "original_uploads_preserved": true,
+    "project_archive_version": 3,
+    "viewer_version": 2
+  },
+  "verification_scope": "Initial164bodies plus finitepublication ZIP/checksum, all166 separatelyverified. Laterfinaldeliveryassets external.",
+  "version": "0.39.0"
+}

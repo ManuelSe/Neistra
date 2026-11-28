@@ -950,8 +950,9 @@ original-assisted qualification can have different input hashes; both identities
 are preserved and checked separately. Actual edited graphs must qualify without
 original recovery masking the edit. Exact Undo/Redo and immutable uploaded originals
 verify in this scope. These fixtures do not establish broad chemical applicability.
-The complete current release qualification retains those scientific limits; the
-sidebar, radar and filters remain later required children. See the
+The complete v0.38.0 release qualification retains those scientific limits. The
+v0.39.0 sidebar and radar presentation is described below; entry filtering remains
+#162 under the parent plan. See the
 [profile contract](plans/issue-160-physicochemical-profiles.md).
 
 The actual v0.38.0 merged run preserves 44 offline reports, 176 finite vectors and
@@ -972,3 +973,33 @@ unavailable. Separate parent/child RSS peaks are not simultaneous totals. There
 is no strict-host, speedup, physical-device or universal-capacity qualification.
 Earlier candidate measurements remain separately identified in the
 [release evidence](https://github.com/ManuelSe/Neistra/releases/tag/v0.38.0).
+
+## Ligand information sidebar
+
+Version 0.39.0 presents the existing designation, depiction, property and profile
+methods in one deliberate entry/instance context. It adds no chemical method or
+expanded chemistry domain. Formula, charge, drawing and values retain their own
+qualified current-source bindings and failure states. A successful depiction or
+cache hit cannot restore numerical authority after a physical source failure;
+current matching property reads must qualify it independently.
+
+Radar domains are display scales. Missing values remain gaps, clipped values keep
+their exact table values, and plot area is not a quality score or prediction.
+Interactions remain an unavailable exact-input integration boundary; no diagram
+detection or layout is delivered. Existing general Inspector tools remain available.
+
+The exact merged qualification records 142 missed diagnostic property/profile
+targets across 410 actual comparisons. Candidate 143/410 and earlier focused
+observations remain distinct. Four deliberate policy examples are excluded from
+these workload counts. Bulk active readiness is 7,578.8/8,367.4 ms for desktop
+repeated/distinct inputs and 5,044.4/6,441.0 ms for compact repeated/distinct inputs;
+all exceed the five-second diagnostic target. These portable observations do not
+establish a regression cause, speedup or strict-host timing qualification.
+
+Primary-only RSS, browser/GPU peaks and simultaneous total memory are unavailable.
+Separate sampled parent/child values cannot be added into a simultaneous peak.
+Cancellation observations do not qualify hidden retirement or sole-worker
+termination latency. Recorded keyboard, zoom, narrow-layout, focus and equivalent
+table checks do not constitute physical-device or screen-reader certification.
+The [v0.39.0 release](https://github.com/ManuelSe/Neistra/releases/tag/v0.39.0)
+retains these limits and each campaign's distinct evidence identity.

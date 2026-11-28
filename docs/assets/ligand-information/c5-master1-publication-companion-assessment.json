@@ -1,0 +1,74 @@
+{
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "scope": "Independent actual companion publication, complete asset metadata and two-body anonymous readback",
+  "verdict": "PASS",
+  "reviewer": "/root/issue161_final_architecture_review",
+  "origin": "Primary faithful structured summary of actual completed read-only specialist response",
+  "actual_execution": {
+    "session": 31578,
+    "terminal": "Integerexit0/nocontinuingsession",
+    "terminal_envelope_sha256": "eda86d00085763a7da7aec86e21209a0aff661c88bd11a784637f0dccb08458e",
+    "source_sha256": "ba3a9aba7477f95e7b4e50c62bc9029738ddd30f227ca14ecc8449e04d57b3e6",
+    "command_receipts_exit0": 10,
+    "checks": [
+      "Actualstart/terminal/finalresultjoin",
+      "Allcommand0/stderrempty",
+      "Bothuploads noclobber",
+      "Anonymouschild exactb37bytes/stdoutmatchesZIPproof"
+    ]
+  },
+  "published_inventory": {
+    "release_id": 461129059,
+    "assets": 166,
+    "total_bytes": 5011732210,
+    "initial_asset_identities_preserved": 164,
+    "before_page_sizes": [
+      100,
+      64
+    ],
+    "after_page_sizes": [
+      100,
+      66
+    ],
+    "checks": [
+      "Independentcompleteinventories fromrawpages",
+      "All164originalID/name/size/digest/state/URLsunchanged",
+      "Exactlytwoexpectedassetsadded/combinedinventoryexact",
+      "Publishednotes/tag684/qualifiede3 joins"
+    ]
+  },
+  "independently_checked_downloads": {
+    "ZIP": {
+      "asset_id": 802493323,
+      "bytes": 1052568,
+      "sha256": "9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72"
+    },
+    "literal_checksum": {
+      "asset_id": 802493434,
+      "bytes": 107,
+      "sha256": "7669634df1af5b57cc2e6785ae8e4ee7c2be64daad74b9d1ecb05428f2dc8db1"
+    },
+    "checks": [
+      "Bothdownloadedbodies equaloriginals/approvedhashes/remotemetadata",
+      "Checksumexactname/spacing/newline",
+      "Canonicalregularsinglelink/no partials",
+      "Actualrevieweddownloaders establishanonymousHTTP200/fullEOF; proofs andactual0 agree"
+    ]
+  },
+  "independent_archive_checks": {
+    "ZIP_occurrences": 5,
+    "evidence_manifest_entries": 957,
+    "project_archive_files": 0,
+    "member_bodies_read": 962,
+    "result": "CompleteCRC/manifests/hashes/sizes/safenames/exactunionsPASS"
+  },
+  "result_receipt_sha256": "d9acdcf16f272a51ce99f2cb37954d20ddc4ef94828613b2c5829737941a2615",
+  "findings": [],
+  "limitations": [
+    "No newnetwork/repeat5GBaudit; prior164publicauditPASS",
+    "Retainedpublication/readbackfacts, notfutureavailability",
+    "No science/SQL/sourcehelperimports/mutations/delegation",
+    "Companionand17inputroots unchanged; ownpublicationreceipts external",
+    "Terminaldocs/finaldelivery/childclosure/cleanup remain"
+  ]
+}

@@ -1408,3 +1408,76 @@ Next: all-seven actual final verdicts on one common evidence candidate, normal
 protected PR/review/merge, fresh exact-merged qualification, immutable039tag/release,
 complete asset readback, one verified child reply/explicit closure and safe owned
 branch cleanup. Parent11remains open;162and163retain their required scope.
+
+
+### C4 actual merged qualification and publication
+
+All seven final specialist agents return PASS on reviewed feature
+`ebdc43ad8532adccf62a04ea171ad76fd31f1317`. PR #183 merges normally at
+`e3fd5858763dfa37520b8d812e6df30d9c031a3d`, with the identical complete tree. The
+actual merged checkout has its own real v0.38.0 environment and source-bound
+runtime/deployment authority. Its fresh 43 commands, normal outer 0, strict summary
+0 and strong retention 0 pass, with 4,266 Python/zero skips, 2,090 frontend, 14
+supervisor, 641 browser and exactly 75 unchanged exclusions, zero
+failures/flakes/retries. All 1,222 selected source/helper/config/fixture bodies and
+all six DATA files remain exact.
+
+Independent actual merged custody/source/archive/deployment, scientific/readers/
+resources, performance, UI and UX audits pass. Fresh closed raw retention has 134
+pairs totaling 106,218,488 bytes per side and 78 database sets. Its eight parts
+total 314,069,386 bytes, each strictly below 80 MiB. Keep the candidate's distinct
+seven parts and 105,393,984 raw bytes per side as historical candidate identities.
+The finite completion ZIP and 595,740,732-byte primary qualification ZIP pass
+independent complete output readback. Original failed campaigns remain failed.
+
+Normal annotated v0.39.0 tag object `684ff95c228ce429b051afdcd67545b7acc23b95`
+identifies the exact qualified merged runtime. Release 461129059 is published,
+stable and latest at 2026-11-27T23:07:07Z. All 164 initial required separate assets
+(78 ZIPs, 82 checksums and 4 JSONs; 5,010,679,535 bytes) are uploaded with complete
+paginated remote identities verified, followed by independent publication-metadata
+PASS. An earlier publication precheck fails before any PATCH because actual draft
+URLs use a temporary token; its source and read-only attempt remain preserved. The
+corrected source checks actual draft URLs separately and leaves published URL
+validation unchanged. One actual corrected publication succeeds with outer 0.
+
+Actual merged diagnostic timings miss 142 of 410 targets, compared with candidate
+143; four deliberate synthetic policy examples remain separate. All four bulk
+active-readiness samples exceed five seconds. No inferred primary RSS, strict-host
+timing, speedup, regression cause, simultaneous total memory or
+physical-device/screen-reader qualification is claimed. Recorded cancellation is not
+hidden-retirement latency.
+
+All 164 initial assets pass actual anonymous HTTP 200/EOF/size/SHA and applicable
+recursive integrity verification, with normal outer 0 and unchanged inputs.
+Independent readback checks all 5,010,679,535 bytes, 82 literal checksums and four
+exact JSON bodies. Across 78 outer ZIPs it verifies 8,301 ZIP occurrences, 110,346
+manifest entries, 18,882 project files, 420 gzip layers and 194,202 member bodies,
+including 18 hidden/wrapped ZIP occurrences. These are occurrences across repeated
+nested evidence, without scientific or compatibility-method reruns.
+
+The finite publication companion builds once with actual outer 0, preserving
+953 payloads/952 original metadata files from 17 closed roots and explicit inputs.
+Its 1,052,568-byte ZIP has SHA256
+9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72.
+Every excluded download body receives fresh full-body SHA/node binding. A P2 gap
+in the original proposal is corrected before construction; nine actual controls
+and independent source/output readbacks pass. Preserve all 17 input roots closed.
+
+The companion ZIP and its literal checksum are published and anonymously verified;
+independent publication/body/CRC/manifest readback also passes. Complete paginated
+metadata now contains 166 assets totaling 5,011,732,210 bytes, with all original
+164 IDs and body identities unchanged. The
+[publication record](../assets/ligand-information/c5-master1-publication.json)
+and [finite companion](https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-publication-evidence.zip)
+retain the completed scope. Their own later publication receipts remain external
+to the companion payload. Terminal documentation merge, child reply/closure,
+cleanup and final delivery receipt remain outstanding. No qualified packet is
+reopened or repacked.
+
+The separate owned terminal documentation branch begins at actual e3fd with all
+1,222 selected source bodies and all six DATA files equal. Complete focused
+documentation checks, all seven same-candidate assessments and
+a normal protected PR/merge. Recheck merged source equivalence; retain the immutable
+runtime tag. Only afterward post the canonical child reply, explicitly close #161,
+safely clean up owned branches and finalize external delivery evidence. Parent #11
+stays open through #162/#163 and final integrated acceptance.

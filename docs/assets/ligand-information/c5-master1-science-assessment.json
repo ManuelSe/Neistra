@@ -1,0 +1,43 @@
+{
+  "reviewer": "scientific_implementation",
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "reviewed_feature_candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "scope": "Complete independent actual merged scientific, reader and resource qualification readback. New merged evidence was checked directly; C5 results were not substituted.",
+  "verdict": "PASS",
+  "material_findings": [],
+  "actual_checks": [
+    "All43 ordered commands returned0, match the recipe and have exact decompressed log hashes. Actual outer, finalizer, summary and collector terminal envelopes return normal integer0 without continuing sessions.",
+    "Rehashed1222 current and1183 preceding source bodies and all six DATA files. All match actual before/after captures.",
+    "Verified the preceding implementation's real owned environment and49 installed distribution versions against package metadata and the unchanged lock; verified actual scientific-library Python/native binary pins.",
+    "Derived4266 Python passes with zero skips,2090 frontend passes and14 supervisor passes from actual logs.",
+    "Independently parsed716 unique browser/inventory identities:641 passed,75 exact preceding exclusions, zero failures, flakes, retries or report errors. All54 sidebar functional/accessibility cases and12 relevant performance cases passed.",
+    "Verified44 actual frozen-fixture reports,176 retained-file hashes and572 finite geometry records, including14 descriptor outcomes, hydrogen reconciliation, graph changes and exact undo restoration.",
+    "Verified six actual reader phases and4250 module/source bindings, plus15 rich/connectivity/measurement directions and2176 namespace bindings. Both actual implementation origins retain schema0017.",
+    "Independently checked36 reconstructed scientific outcomes and72 original producer/reexport archives across both origins and suffixes. Full canonical graphs, coordinates, atom IDs and original bytes match; archive history omission remains explicit.",
+    "Checked current and preceding completed unapplied proposals directly: proposed coordinates differ from preserved canonical coordinates, while exported canonical structures remain exact.",
+    "Verified127 selected original/package scientific representations: six phase reports,44 fixture reports,72 archives, four unapplied records and the actual browser report.",
+    "Checked raw-complex, held-READY, minimization and movement/archive variants. Raw counts16/6/10 were independently reconstructed from the exact normalized artifact and designation. Unknown charge remains unavailable, old READY cannot overwrite current output, and previews withhold incompatible facts.",
+    "Verified20 raw profile/radar rows against independent preflight and exact current-source context reports, including manual normalization and exact comparison operators. Ten header/depiction/passive-image bindings match. Qualified occurrence counts remain1; unqualified complex occurrence counts remain unavailable.",
+    "Verified12 resource observations covering ten core cases plus two profile observations:566 recorded job observations,430 unique jobs and426 executions, all reaped. Eleven cancelled executions correctly have no child PID. Checked140 companion hashes and existing admission, retention, source-read and materialization bounds.",
+    "Verified all four productive work-order traces. Ordinary work progresses after one productive derived turn; active admission has at most one bulk fairness turn, with actual subsequent bulk progress.",
+    "Derived410 actual timing comparisons with142 diagnostic target misses and zero enforced misses."
+  ],
+  "pins": {
+    "summary_sha256": "e98a9c96280f1c637d471a856c91096f85507215887f7f797a6ae9b7e6463136",
+    "authority_index_sha256": "f35910296dd691eb06e7a1955f805ebb0f8c02572abfb1d32fcf262574449f92",
+    "source_map_sha256": "e1c585f69dd4233bf94b3363a771c673d8ebd99f90da0fe166bb7aac1ff11e68",
+    "browser_gzip_sha256": "fc7a7c378d971eb24327513b7cf37dcdda01bf93d3fe6f480a2a66c7b24f66c5",
+    "reader_audit_sha256": "1eadbc7c71d52cbd211b177e9444832e6630b5f47413e4297f9b70a22216bfed",
+    "preceding_receipt_sha256": "8936c7268794cd0001c7f92b20cd42ec727041482f40ed5010fcc5d0bcbefb2c",
+    "preceding_environment_sha256": "5384e2130d4714cdd203c247ef6f882a5894dd5713e1c4187de1bae41cdce4d1",
+    "actual_outer_terminal_sha256": "2b259467c337e9ecbed86467765fdb76e0cc58797ad079b06e71e7538c711375"
+  },
+  "limitations": [
+    "Portable correctness qualifies; strict reference-host timing does not. All four bulk active-ready measurements exceed5seconds:7578.8,8367.4,5044.4 and6441.0ms.",
+    "Observed parent/child RSS maxima are212934656/119877632bytes. Primary parent RSS, browser/GPU memory and simultaneous total memory remain unavailable.",
+    "Interrupted-child fixtures distinguish observed spawning from numerical calculation; no stronger interruption claim is inferred.",
+    "Complete byte custody, closure and archive/deployment assessment belongs to the separate architecture review.",
+    "This scientific qualification verdict does not constitute publication approval, release verification or issue closeout."
+  ],
+  "mutations": "None. Standard-library read-only inspection only; no tests, services, scientific or pinned-helper imports, SQLite access, signals, edits, Git mutations or delegation."
+}

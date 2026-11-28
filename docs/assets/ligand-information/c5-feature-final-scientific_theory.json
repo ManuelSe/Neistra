@@ -1,0 +1,32 @@
+{
+  "provenance": "Primary-agent faithful structured summary of actual specialist final response; specialist agent review, not human approval",
+  "candidate": "ebdc43ad8532adccf62a04ea171ad76fd31f1317",
+  "base": "5da5d465a8b19b5c0441721fd9ea0b2b0a92870c",
+  "actual_qualifying_candidate": "f83347b3c2d59a2a913a9198f99a5276992015b4",
+  "verdict": "PASS",
+  "material_findings": [],
+  "scope": "FINAL same-candidate complete accepted161feature assessment including all177files and8intervening metadata/evidence paths",
+  "read_only": true,
+  "role": "scientific_theory",
+  "reviewer": "/root/issue161_final_theory_review",
+  "actual_checks": [
+    "Priorcomplete sourceassessment plusactual8filedelta/context/fulltextdiff/inventoryidentities",
+    "All1222selectedsourcebodies and6DATA exactactualC5; finiteZIPmanifest/hash/CRC exact",
+    "Current presentation exactmembership/artifact/owner and delayedoldREADYretirement; unknowncharge/H semanticsunavailable; sampledactualrawcomplex/edited/heldREADY records",
+    "Existingmethod/version/unit/domains retained; previewwithholds facts; no preparation/protonation/tautomer/experimentalpredictioninference",
+    "Dimensionlessclippedradar normalization(value-min)/(max-min), exactrawunits/table; missingaxes gaps; polygonarea noqualityscore",
+    "Actualcomplete43/outer0/641browser+75sameexclusions/54sidebar; readcompleted44fixture/4250readerbinding/36scientificoutcome review andsampledpayloads",
+    "Independently reconciled143misses/410actualportablenumeric comparisons"
+  ],
+  "references": [
+    "apps/web/src/ligands/presentation.ts:90",
+    "apps/web/src/ligandProfiles/authority.ts:8",
+    "apps/web/src/ligandProfiles/comparison.ts:18",
+    "apps/web/src/ligandProfiles/ProfileComparison.tsx:15"
+  ],
+  "limits": [
+    "No scientificrerun/tests",
+    "PrimaryparentRSSunavailable; no stricthost/speedup/experimentalpredictionclaim",
+    "Freshactualmergedscientificqualification/readback andverifiedrelease/closeoutmandatorydownstream"
+  ]
+}

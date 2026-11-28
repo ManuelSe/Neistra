@@ -1,0 +1,40 @@
+{
+  "scope": "Exact completed initial-public-verifier records; independent whole-audit/companion/terminal documentation review still pending. No new native/scientific execution.",
+  "runtime": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "original_terminal_session": 71570,
+  "actual_exit": 0,
+  "files": [
+    {
+      "retained": "c5-master1-initial-assets-verified.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-preparation1/public-runtime-readback1/all-initial-runtime-assets-verified.json",
+      "bytes": 125754,
+      "sha256": "3b98843f0d819b28d782f8bad690c5bc76d3bd11239c3f045f82368922049019"
+    },
+    {
+      "retained": "c5-master1-initial-upload-manifest.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-preparation1/upload-manifest.json",
+      "bytes": 72820,
+      "sha256": "dfad2bd87ac1e45d59dd52fd1f139fe80ad0294f66af617da4f4ed65660650a1"
+    },
+    {
+      "retained": "c5-master1-published-initial-release.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-publication-preparation1/published-release.json",
+      "bytes": 304021,
+      "sha256": "c129fba567577e0ce278c2d0de8a285055171edf7ce20fc749a651774ee6e2e5"
+    },
+    {
+      "retained": "c5-master1-public-runtime-execution.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-public-runtime-execution1/receipt.json",
+      "bytes": 136,
+      "sha256": "0309a5cd38f55bc8a764bfcea3aa5dbf06e45da42b068e8b7fd67533804ffc6a"
+    },
+    {
+      "retained": "c5-master1-public-runtime-terminal.json",
+      "original": "/datadisk/dev/neistra-worktrees/issue-161-merged-qualification1/.issue-11-evidence/issue161-public-runtime-execution1/actual-tool-return.json",
+      "bytes": 10139,
+      "sha256": "d5611052cf1fa11a422c7ca282344c28dd2ce1b301980bc4c47ff2cf43131d77"
+    }
+  ],
+  "own_index_excluded_from_mapping": true,
+  "recorded_utc": "2026-11-27T23:43:02.065275+00:00"
+}

@@ -1,23 +1,55 @@
 # Neistra Release Notes
 
-## 0.39.0 — Ligand information sidebar (release preparation)
+## 0.39.0 — Ligand information sidebar
 
-Publication and final qualification are pending. The candidate adds a compact
-ligand information view with deliberate entry/instance context, cached depiction,
-current property groups, sourced profiles and an accessible radar/value table.
-Missing, clipped and unavailable scientific outputs retain their explicit status.
-The existing Inspector tools remain reachable until the later workflow-retirement
-milestone. Entry-list property filtering and interaction diagrams remain separate.
+Published as [v0.39.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.39.0)
+from qualified merge `e3fd5858763dfa37520b8d812e6df30d9c031a3d` through
+[PR #183](https://github.com/ManuelSe/Neistra/pull/183). Annotated tag object
+`684ff95c228ce429b051afdcd67545b7acc23b95` identifies that exact runtime.
 
-All five application versions are0.39.0. No dependency or migration is added;
-archive/project schemas remain3, viewer settings2 and database head0017. The
-actual preceding reader/producer is the annotated v0.38.0 runtime `c6f3e283`.
-Focused version/dependency/schema audit, Ruff and53archive integration cases pass,
-including the preceding038archive label. Full native, scientific, compatibility,
-performance, all-seven review and exact merged-commit release gates remain pending.
-A focused native reading-recovery correction passes eight desktop/compact
-theme/view observations and scoped UI/UX review. Complete sidebar, responsive/zoom,
-performance and release qualification remain required before publication.
+The sidebar combines deliberate entry and exact-instance inspection, cached 2D
+depiction, current property groups, sourced profiles and an accessible radar/value
+table. Edits, previews, Undo/Redo and source failures retire incompatible results.
+Missing, clipped and unavailable scientific outputs retain explicit states.
+Collapse, resizing, narrow access and connected reading/focus recovery preserve
+existing tools. See the [user guide](LIGAND_PROPERTIES.md).
+
+All five authoritative versions are 0.39.0. Dependencies, scientific methods,
+database head `0017`, archive/project version 3 and viewer version 2 are unchanged.
+Actual v0.38.0 source-bound producer/readers pass both directions and archive
+suffixes. Original files and database history remain compatible; archives retain
+canonical snapshot semantics and their documented omission of command history.
+
+Both clean candidate `f83347b3` and the exact merged commit complete all 43
+qualification commands with normal outer exit 0, followed by successful strict
+summary and strong retention. Each passes 4,266 Python tests with zero skips,
+2,090 frontend tests, 14 supervisor tests and 641 browser cases with the same
+75 approved exclusions and zero failures/flakes/retries. All 1,222 selected source
+bodies and six DATA bodies remain exact. All seven specialist agents pass reviewed
+feature `ebdc43ad`, whose complete tree equals the merge; these are agent reviews,
+not human approvals. Independent actual merged evidence audits also pass.
+
+All 164 required initial assets pass complete anonymous HTTP 200/EOF/size/SHA
+verification and applicable recursive integrity checks. Independent full-body and
+archive readback passes. The separate finite publication companion and its literal
+checksum also pass publication and anonymous readback, producing 166 verified
+assets totaling 5,011,732,210 bytes. Original asset identities remain unchanged.
+See the [publication record](assets/ligand-information/c5-master1-publication.json)
+and [publication companion](https://github.com/ManuelSe/Neistra/releases/download/v0.39.0/neistra-v0.39.0-publication-evidence.zip).
+Earlier failed campaigns remain failed. Terminal documentation review/merge, child
+closeout and safe owned cleanup remain pending in this checkpoint; their final
+receipts stay external to the immutable runtime and evidence packages.
+
+Portable timing remains diagnostic: the merged run misses 142 of 410 actual
+property/profile targets, compared with candidate 143/410. Four synthetic policy
+examples are separate. All four merged bulk active-readiness samples exceed five
+seconds. Primary-only RSS, browser/GPU peaks and simultaneous total memory are
+unavailable. No strict-host timing, speedup, physical-device or screen-reader
+qualification is claimed. See the [limitations](SCIENTIFIC_LIMITATIONS.md#ligand-information-sidebar).
+
+Entry-property filtering remains #162; final Inspector retirement remains #163.
+Interaction-diagram generation remains #153. #164/#165 and other parent exclusions
+are unchanged. Parent #11 remains open for the complete required program.
 
 ## 0.38.0 — Sourced physicochemical profiles
 

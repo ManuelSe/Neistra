@@ -1,0 +1,69 @@
+{
+  "candidate": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "scope": "Independent complete actual publication-companion execution and output readback",
+  "verdict": "PASS",
+  "reviewer": "/root/issue161_final_architecture_review",
+  "origin": "Primary faithful structured summary of actual completed read-only specialist response",
+  "archive": {
+    "bytes": 1052568,
+    "sha256": "9063d6ddcb2475b396894e90e6785a31c731bbe3b41b363528fbba24b3a0da72",
+    "payloads": 953,
+    "total_outer_entries_including_manifest": 954,
+    "literal_checksum_verified": true,
+    "strictly_below_80MiB": true
+  },
+  "independent_integrity_checks": {
+    "ZIP_occurrences": 5,
+    "evidence_manifest_entries": 957,
+    "project_archive_files": 0,
+    "gzip_layers": 0,
+    "member_bodies_read": 962,
+    "result": "All CRCs, recursive manifests, body sizes/hashes, safe unique names and exact payload unions pass"
+  },
+  "metadata_custody": {
+    "closed_roots": 17,
+    "catalogued_file_nodes": 1113,
+    "original_metadata_files": 952,
+    "empty_directories": 0,
+    "checks": [
+      "All archived metadata bodies match currentoriginals/fingerprints/nodes",
+      "All17completecatalogues/emptyindexes matchoriginals beforeafteraudit",
+      "Exactunion1113files-164downloads+2explicitinputs+helper=952originalmetadata;context adds953rdpayload",
+      "Allactualsources/failures/controlcopies/commands/providers/rawpages/aggregate/independentpublicaudit retained",
+      "Sourceapproval/plan bind27c/955",
+      "Noownoutput/execution/futurereadback embedded"
+    ]
+  },
+  "download_exclusions": {
+    "count": 164,
+    "bytes": 5010679535,
+    "checks": [
+      "Exactapprovedcanonicalpaths/names/sizes/SHA",
+      "Alljoinuploadmanifest/actualaggregate",
+      "Currentnodesmatchfreshhashbuildernodes",
+      "Capturedindependentaudit bindsaggregate3b988 andactualall164SHA",
+      "No broadexclusion/missingmetadata"
+    ]
+  },
+  "actual_execution": {
+    "session": 83492,
+    "terminal": "Integerexit0/nocontinuingsession",
+    "terminal_envelope_sha256": "3223e5607f421cef3b682baa46e1e125d6ab014296b6c7ce79d20c3256eac783",
+    "builder_sha256": "27c6c64d9457b3c0d97dcd5abf49653487dc9f10ee1e955b98833152137db22e",
+    "checks": [
+      "Actualstart/terminal/command/receipt/stdout/stderrempty join",
+      "Actualsourceunchanged/currentandarchivedcodeexact",
+      "Stdoutidentity/counts equalactualartifact/capture",
+      "Reviewedsuccessfulbuilder establishesfreshcompleteexcludedbodyhashing/nodechecks"
+    ]
+  },
+  "capture_receipt_sha256": "b51e4c3e0253b63fdd5c8b1db97052a27900f625473b5dd25c1cf0e938c66858",
+  "findings": [],
+  "limitations": [
+    "Priorindependentall164publicauditPASS retained; thispacketreview reusedactualfreshhashbuilder/currentnodes ratherthanrepeat5GBagain",
+    "NoHTTP/native/science/helperimports rerun",
+    "No SQL/services/mutations/delegation",
+    "Localcompaniononly; publication/anonymous/terminaldocs/child/cleanup separate",
+    "All17inputrootsclosed"
+  ]
+}

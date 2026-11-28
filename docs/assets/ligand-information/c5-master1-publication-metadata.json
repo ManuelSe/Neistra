@@ -1,0 +1,14 @@
+{
+  "scope": "Published release metadata and complete initial164asset identities; no anonymous-body verification yet",
+  "release_id": 461129059,
+  "tag_object": "684ff95c228ce429b051afdcd67545b7acc23b95",
+  "qualified_master": "e3fd5858763dfa37520b8d812e6df30d9c031a3d",
+  "published_at": "2026-11-27T23:07:07Z",
+  "draft": false,
+  "prerelease": false,
+  "latest": true,
+  "asset_count": 164,
+  "published_release_JSON_sha256": "c129fba567577e0ce278c2d0de8a285055171edf7ce20fc749a651774ee6e2e5",
+  "provenance": "Complete combined metadata is derived from retained original release and paginated asset API bodies; no truncation reliance",
+  "recorded_utc": "2026-11-27T23:07:10.043517+00:00"
+}
